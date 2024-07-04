@@ -7,7 +7,7 @@ $md-breakpoint: 600px;
   --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
   --_color: var(--sl-color-dialog-foreground);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline-offset: calc(var(--sl-border-width-focusring-offset) * -2);
   --_header-gap: var(--sl-space-dialog-gap-header);
   --_heading-direction: var(--sl-dialog-header-flex-direction);
   --_heading-gap: var(--sl-space-dialog-gap-header);
@@ -44,7 +44,7 @@ dialog {
 
   &:focus-visible {
     outline: var(--_focus-outline);
-    outline-offset: calc(var(--_focus-outline-offset) * -2);
+    outline-offset: var(--_focus-outline-offset);
   }
 }
 

@@ -26,7 +26,10 @@
   --_inline-gap: var(--sl-space-avatar-inline-sm);
   --_heading-font: var(--sl-text-avatar-header-sm);
   --_picture-size: var(--sl-size-avatar-sm);
+}
 
+:host([size='sm']),
+:host([size='md']) {
   [part='wrapper'] {
     grid-template: 'picture spacer name' auto / auto var(--_inline-gap) 1fr;
   }

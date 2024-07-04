@@ -6,11 +6,11 @@ $states: active, success, warning, error;
   --_helper-font: var(--sl-text-input-field-label-hint-md);
   --_helper-color: var(--sl-color-input-helper-text-default);
   --_helper-color-error: var(--sl-color-progressbar-error-track);
-  --height: var(--sl-size-progressbar);
+  --_height: var(--sl-size-progressbar);
   --_gap: var(--sl-space-progressbar-vertical-gap);
   --_label-gap: var(--sl-space-progressbar-horizontal-gap);
   --_indeterminate-duration: 20s;
-   --_bar-background: var(--sl-color-progressbar-background);
+  --_bar-background: var(--sl-color-progressbar-background);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
@@ -73,7 +73,7 @@ $states: active, success, warning, error;
   background: var(--_bar-background);
   border-radius: var(--_border-radius);
   display: flex;
-  block-size: var(--height);
+  block-size: var(--_height);
   overflow: hidden;
   inline-size: 100%;
 }
@@ -82,7 +82,16 @@ $states: active, success, warning, error;
   background: var(--_progress-background);
   border-radius: var(--_border-radius);
   transform-origin: left;
-  transition: 400ms width, 400ms background-color;
+  transition:
+    400ms width,
+    400ms background-color;
+}
+
+/** Hiding the aria-live element for the UI, but not for the screen readers. */
+#progress-live {
+  overflow: hidden;
+  inline-size: 0;
+  block-size: 0;
 }
 
 @keyframes indeterminate {
@@ -91,7 +100,7 @@ $states: active, success, warning, error;
     width: 80%;
   }
   100% {
-     left: 110%;
-     width: 10%;
-   }
+    left: 110%;
+    width: 10%;
+  }
 }

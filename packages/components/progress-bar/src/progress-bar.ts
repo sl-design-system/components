@@ -1,3 +1,4 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
@@ -15,6 +16,7 @@ export type ProgressState = 'active' | 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component that can be used to communicate process status.
+ * Hidden aria-live element will help making the progress bar more accessible and should cause fewer bugs in products than leaving it up for the developers.
  *
  *
  * ```html
@@ -23,8 +25,9 @@ export type ProgressState = 'active' | 'success' | 'warning' | 'error';
  *  </sl-button-bar>
  * ```
  *
- * @slot default - A place for helper text like eg. `20% of 100%`.
+ * @slot default - A place for helper text like e.g. `20% of 100%`.
  */
+@localized()
 export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -46,7 +49,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   @property() label?: string;
 
   /** The state of the progress bar. */
-  @property({ reflect: true }) state?: ProgressState = 'active';
+  @property({ reflect: true }) state: ProgressState = 'active';
 
   /** @internal The name of the icon, depending on the state. */
   get iconName(): string {
@@ -66,7 +69,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
     return html` ${this.label
         ? html`<span id="label" class="label">
             ${this.label}
-            ${this.state !== 'active' ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+            ${this.state !== 'active' ? html` <sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
           </span>`
         : nothing}
       <div
@@ -83,7 +86,12 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       </div>
       <span id="helper" class="helper">
         <slot></slot>
-        ${this.state !== 'active' && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+        <span id="progress-live" aria-live="polite"
+          >${msg('state')}: ${msg(this.state)} ${msg('value')}: ${this.value}%</span
+        >
+        ${this.state !== 'active' && !this.label
+          ? html` <sl-icon .name=${this.iconName} size="md"></sl-icon>`
+          : nothing}
       </span>`;
   }
 }

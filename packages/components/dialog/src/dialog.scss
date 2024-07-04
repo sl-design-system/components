@@ -1,4 +1,5 @@
 $md-breakpoint: 600px;
+$lg-breakpoint: 900px;
 
 :host {
   --_background: var(--sl-color-dialog-background);
@@ -154,6 +155,12 @@ slot[name='header-actions'] sl-button-bar {
       100% - 2 * var(--_margin-container-inline) - 2 * var(--_padding-inline)
     );
     min-inline-size: var(--_min-inline-size);
+  }
+}
+
+@media (min-width: $lg-breakpoint) {
+  :host {
+    --_max-inline-size: var(--sl-dialog-max-inline-size, var(--sl-size-dialog-max));
   }
 }
 

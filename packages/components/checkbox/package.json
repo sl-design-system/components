@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/checkbox",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Checkbox component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

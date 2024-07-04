@@ -11,6 +11,7 @@ $md-breakpoint: 600px;
   --_link-padding-block: calc(var(--sl-space-breadcrumb-gap-full) / 2);
   --_link-padding-inline: calc(var(--sl-space-breadcrumb-gap-full) / 2);
   --_link-underline-offset: 2px;
+  --_link-underline-thickness: 2px;
   --_tooltip-max-inline-size: min(18rem, 50vw);
 
   display: block;
@@ -67,6 +68,8 @@ a {
 
   &:hover {
     --_link-color: var(--sl-color-href-hover-foreground);
+
+    text-decoration-thickness: var(--_link-underline-thickness);
   }
 
   &:active {

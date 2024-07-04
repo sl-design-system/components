@@ -34,6 +34,11 @@ export default {
     disableCancel: false,
     title: 'Title'
   },
+  parameters: {
+    viewport: {
+      defaultViewport: 'default'
+    }
+  },
   render: args => {
     const { body, closeButton, disableCancel, footerButtons, headerButtons, maxWidth, subtitle, title } = args;
 

@@ -1,5 +1,17 @@
 # @sl-design-system/myvanin
 
+## 0.1.13
+
+### Patch Changes
+
+- [#1374](https://github.com/sl-design-system/components/pull/1374) [`836d6d5`](https://github.com/sl-design-system/components/commit/836d6d54ff835b81378d996deb8bf6cb8a108b43) - Reduce dialog padding from 30px to 24px (and from 24px to 16px on mobile)
+
+## 0.1.12
+
+### Patch Changes
+
+- [#1368](https://github.com/sl-design-system/components/pull/1368) [`ff1e558`](https://github.com/sl-design-system/components/commit/ff1e5585b2f30cf2c3cb8e8ad96e074ae3c49990) - Added `--sl-size-tab-indicator` token to `core.json`
+
 ## 0.1.11
 
 ### Patch Changes

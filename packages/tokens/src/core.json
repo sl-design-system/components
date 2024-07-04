@@ -500,6 +500,12 @@
     "breadcrumb": {
       "value": "{size.2xl}",
       "type": "sizing"
+    },
+    "tab": {
+      "indicator": {
+        "value": "{size.4xs}",
+        "type": "sizing"
+      }
     }
   },
   "space": {
@@ -1052,32 +1058,34 @@
           "paddingTop": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.container.paddingTop"
           },
           "inline": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.container.inline"
           },
           "paddingBottom": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.container.paddingBottom"
           }
         },
         "body": {
           "block": {
-            "value": "{space.2xl}",
+            "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.body.block"
           },
           "inline": {
-            "value": "{space.2xl}",
-            "type": "spacing"
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.dialog.desktop.body.inline"
           },
           "gap": {
-            "value": "{space.2xl}",
-            "type": "spacing"
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.dialog.desktop.body.gap"
           }
         }
       },
@@ -1101,17 +1109,17 @@
         },
         "body": {
           "block": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "inline": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "gap": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           }

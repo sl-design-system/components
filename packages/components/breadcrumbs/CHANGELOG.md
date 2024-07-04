@@ -1,5 +1,17 @@
 # @sl-design-system/breadcrumbs
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1376](https://github.com/sl-design-system/components/pull/1376) [`96fe2f4`](https://github.com/sl-design-system/components/commit/96fe2f45ee28e415d16e9da14374d34439773821) - Improve hover state by changing the `text-decoration-thickness`
+
+## 1.0.1
+
+### Patch Changes
+
+- [#1367](https://github.com/sl-design-system/components/pull/1367) [`95ea0ec`](https://github.com/sl-design-system/components/commit/95ea0ec2cbe7d4e61dca6bc26a470b1ed5e04e47) - Fix missing button and popover dependencies
+
 ## 1.0.0
 
 ### Major Changes

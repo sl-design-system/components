@@ -14,7 +14,10 @@ $md-breakpoint: 600px;
   --_margin-bottom-container: var(--sl-space-dialog-mobile-container-padding-bottom);
   --_margin-container-inline: var(--sl-space-dialog-mobile-container-inline);
   --_margin-top-container: var(--sl-space-dialog-mobile-container-padding-top);
-  --_max-inline-size: var(--sl-dialog-max-inline-size, var(--sl-size-dialog-full));
+  --_max-inline-size: var(
+    --sl-dialog-max-inline-size,
+    calc(100dvw - var(--sl-space-dialog-mobile-container-inline) * 2)
+  );
   --_min-inline-size: var(--sl-size-dialog-min);
   --_padding-block: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
@@ -38,6 +41,7 @@ dialog {
     100vh - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
   );
   max-inline-size: var(--_max-inline-size);
+  min-inline-size: 100dvw;
   opacity: 0;
   overflow: visible;
   padding: 0;
@@ -126,7 +130,10 @@ slot[name='header-actions'] sl-button-bar {
     --_margin-bottom-container: var(--sl-space-dialog-desktop-container-padding-bottom);
     --_margin-container-inline: var(--sl-space-dialog-desktop-container-inline);
     --_margin-top-container: var(--sl-space-dialog-desktop-container-padding-top);
-    --_max-inline-size: var(--sl-dialog-max-inline-size, var(--sl-size-dialog-max));
+    --_max-inline-size: var(
+      --sl-dialog-max-inline-size,
+      calc(100dvw - var(--sl-space-dialog-desktop-container-inline) * 2)
+    );
     --_padding-block: var(--sl-space-dialog-desktop-body-block);
     --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
   }

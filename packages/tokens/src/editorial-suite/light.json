@@ -31,7 +31,7 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.primary.500}",
         "type": "color"
       },
       "foreground": {

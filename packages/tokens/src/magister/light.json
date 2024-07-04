@@ -4266,7 +4266,7 @@
     },
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.primary.600}",
         "type": "color"
       },
       "foreground": {

@@ -14,7 +14,7 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.primary.base}",
         "type": "color"
       },
       "foreground": {

@@ -12,7 +12,6 @@ storybookCategory: overlay
 eleventyNavigation:
   parent: Components
   key: Tooltip
-  order: 28
   status: ready
 ---
 

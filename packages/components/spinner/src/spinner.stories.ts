@@ -50,6 +50,10 @@ export default {
       options: variants
     }
   },
+  parameters: {
+    // Notifies Chromatic to pause the animations at the first frame for this specific story.
+    chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
+  },
   render: ({ size, variant }) => html` <sl-spinner .size=${size} .variant=${variant}></sl-spinner> `
 } satisfies Meta<Props>;
 

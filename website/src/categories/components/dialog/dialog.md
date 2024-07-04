@@ -12,7 +12,6 @@ storybookCategory: overlay
 eleventyNavigation:
   parent: Components
   key: Dialog
-  order: 10
   status: ready
 ---
 

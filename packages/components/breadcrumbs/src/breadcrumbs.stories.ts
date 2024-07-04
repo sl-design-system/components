@@ -10,7 +10,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Breadcrumbs',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     homeUrl: '/',
     noHome: false
@@ -20,6 +20,11 @@ export default {
       table: {
         disable: true
       }
+    }
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'default'
     }
   },
   render: ({ breadcrumbs, homeUrl, noHome }) => html`

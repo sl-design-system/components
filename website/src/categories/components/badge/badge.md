@@ -12,7 +12,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Badge
-  order: 4
   status: ready
 ---
 

@@ -12,7 +12,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Skeleton
-  order: 22
   status: ready
 ---
 

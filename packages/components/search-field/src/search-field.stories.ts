@@ -8,10 +8,14 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Search field',
-  tags: ['draft'],
+  tags: ['preview'],
   args: {
     placeholder: '',
     value: ''
+  },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
   },
   render: ({ disabled, placeholder, value }) => {
     return html`

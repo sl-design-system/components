@@ -99,7 +99,7 @@ Accordion components are designed to manage content visibility efficiently. If m
 |2|Icon	|Indicates if the panel is open or closed.|No|
 |3|Panel	|The section of content associated with an accordion header.|No|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -107,7 +107,7 @@ Accordion components are designed to manage content visibility efficiently. If m
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the accordion in Figma. They are available in the Design Panel so you can compose the accordion to exactly fit the user experience need for the use case you are working on.
 
@@ -121,7 +121,7 @@ With these options, you can tweak the appearance of the accordion in Figma. They
 |State (for every visible panel)|`default` `hover` `active` `disabled`|Determines the state of the item.|
 |Title (for every visible panel)|`value`|Displays the title of the item.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 </div>
 
 </section>

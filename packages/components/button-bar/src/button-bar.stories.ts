@@ -10,7 +10,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Button bar',
-  tags: ['draft'],
+  tags: ['stable'],
   args: {
     align: 'start',
     reverse: false

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/editor",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "Editor components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/sl-design-system/components.git",
     "directory": "packages/components/editor"
   },
-  "homepage": "https://sanomalearning.design/components/button",
+  "homepage": "https://sanomalearning.design/components/editor",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },
@@ -46,10 +46,10 @@
     "prosemirror-history": "^1.4.0",
     "prosemirror-inputrules": "^1.4.0",
     "prosemirror-keymap": "^1.2.2",
-    "prosemirror-model": "^1.20.0",
-    "prosemirror-schema-list": "^1.3.0",
+    "prosemirror-model": "^1.21.1",
+    "prosemirror-schema-list": "^1.4.0",
     "prosemirror-state": "^1.4.3",
-    "prosemirror-view": "^1.33.4"
+    "prosemirror-view": "^1.33.8"
   },
   "peerDependencies": {
     "prosemirror-commands": "^1.5.2",

@@ -86,7 +86,7 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 | 5 | Close button| Icon button for closing the dialog | Yes |
 | 6 | Content | An area to display any content | Yes |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -94,7 +94,7 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 
 <section>
 
-## Options
+## Figma Options
 With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the dialog to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">

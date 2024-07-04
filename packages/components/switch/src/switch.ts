@@ -41,7 +41,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     focusin: this.#onFocusin,

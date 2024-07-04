@@ -8,7 +8,6 @@ export class TooltipDirective extends Directive {
   part?: ElementPart;
   tooltip?: Tooltip;
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   render(_content: unknown): void {}
 
   renderContent(): void {

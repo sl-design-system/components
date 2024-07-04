@@ -40,7 +40,7 @@ A. Icon
 |Warning|   |
 |Danger|For actions that could have destructive effects on the user's data (for example, delete or remove).|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </section>
 
@@ -55,7 +55,7 @@ A. Icon
 |Ghost|   |
 |Link|   |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
   
 </section>
 
@@ -69,7 +69,7 @@ A. Icon
 |Medium|`md`|This is the most common button size.|
 |Large|`lg`|The larger type size within this button provides balance when used with a 16px body copy. It's the most expressive type of button, that's increases the findability for the user.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
   
 </section>
 

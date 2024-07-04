@@ -61,7 +61,7 @@ Some users rely on screen readers or have visual impairments. Ensure that toolti
 |2|Content	|An area to display any text content|no|
 |3|Pointer	|Indicates the direction of context that the tooltip is attributed to|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -69,7 +69,7 @@ Some users rely on screen readers or have visual impairments. Ensure that toolti
 
 <section>
 
-## Options
+## Figma Options
 
 With these options you can tweak the appearance of the tooltip in Figma. They are available in the Design Panel so you can compose the tooltip to exactly fit the user experience need for the uses case you are working on.
 
@@ -80,7 +80,7 @@ With these options you can tweak the appearance of the tooltip in Figma. They ar
 |position|`1-o'clock` `2-o'clock` `3-o'clock` `4-o'clock` `5-o'clock` `6-o'clock` `7-o'clock` `8-o'clock` `9-o'clock` `10-o'clock` `11-o'clock` `12-o'clock`|To indicate the direction of context that the tooltip is attributed to|
 |tooltip|`value`|To insert the text of the tooltip|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

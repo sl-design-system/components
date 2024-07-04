@@ -1,5 +1,5 @@
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
-import { type SlFocusEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './toggle-button.scss.js';
@@ -10,18 +10,21 @@ declare global {
   }
 }
 
-export type ToggleButtonEmphasis = 'subtle' | 'bold';
 export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 export type ToggleButtonFill = 'ghost' | 'outline';
 
 /**
- * Show totals at a glance or labels contents with a tag.
+ * Let the user toggle between two states.
  *
  * ```html
- * <sl-toggle-button>99+</sl-toggle-button>
+ *  <sl-toggle-button>
+ *    <sl-icon name="far-gear"></sl-icon>
+      <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+    </sl-toggle-button>
  * ```
  *
- * @slot default - Contents of the toggle-button
+ * @slot default - The icon shown in the default state of the button
+ * @slot pressed - The icon shown in the pressed state of the button
  */
 export class ToggleButton extends LitElement {
   /** @private */
@@ -36,19 +39,16 @@ export class ToggleButton extends LitElement {
   /** @internal Emits when the button item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  /** @internal Emits when the component receives focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
-
   /** The size of the toggle-button component. */
   @property({ reflect: true }) size: ToggleButtonSize = 'md';
 
   /** The variant of the toggle-button. */
   @property({ reflect: true }) fill: ToggleButtonFill = 'ghost';
 
-  /** The variant of the toggle-button. */
+  /** The state of the toggle-button. */
   @property({ type: Boolean, reflect: true }) pressed = false;
 
-  /** Whether the switch is disabled; when set no interaction is possible. */
+  /** Whether the toggle-button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   @property({ type: Boolean, reflect: true, attribute: 'single-icon' }) singleIcon?: boolean = true;

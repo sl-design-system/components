@@ -1,0 +1,41 @@
+{
+  "space": {
+    "none": {
+      "value": "{size.none}",
+      "type": "spacing"
+    },
+    "xs": {
+      "value": "{size.050}",
+      "type": "spacing"
+    },
+    "sm": {
+      "value": "{size.050}",
+      "type": "spacing",
+      "description": "Use when components are 'besties'"
+    },
+    "md": {
+      "value": "{size.200}",
+      "type": "spacing",
+      "description": "Use when components are 'family'"
+    },
+    "lg": {
+      "value": "{size.200}",
+      "type": "spacing",
+      "description": "Use when components are 'casual friends'"
+    },
+    "xl": {
+      "value": "{size.300}",
+      "type": "spacing",
+      "description": "Use when components are 'acquaintances'"
+    },
+    "2xl": {
+      "value": "{size.400}",
+      "type": "spacing",
+      "description": "Use when components are 'strangers'"
+    },
+    "3xl": {
+      "value": "{size.800}",
+      "type": "spacing"
+    }
+  }
+}

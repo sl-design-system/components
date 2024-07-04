@@ -185,7 +185,7 @@ describe('sl-menu-button', () => {
           button.click();
 
           // Give the browser time to open the popover
-          await new Promise(resolve => setTimeout(resolve, 100));
+          await new Promise(resolve => setTimeout(resolve, 50));
         });
 
         it('should hide the menu when the button is clicked', () => {

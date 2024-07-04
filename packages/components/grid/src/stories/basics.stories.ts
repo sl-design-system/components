@@ -10,7 +10,11 @@ import { type GridColumnDataRenderer } from '../column.js';
 type Story = StoryObj;
 
 export default {
-  title: 'In progress/Grid/Basics'
+  title: 'Layout/Grid/Basics',
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 };
 
 export const Simple: Story = {

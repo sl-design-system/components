@@ -77,10 +77,10 @@ Use popovers for actions or interactions related to an element. For instance, a 
 ## When not to use
 
 ### Brief tips or hints
-Avoid using popovers for brief tips or hints, use a [tooltip](/categories/components/tooltip/) instead. Popovers go beyond hints and can include detailed information. Popovers can be more verbose, with headers and multiple lines of text. They may even contain buttons or other interactive elements.
+Avoid using popovers for brief tips or hints, use a [tooltip](/categories/components/tooltip/usage) instead. Popovers go beyond hints and can include detailed information. Popovers can be more verbose, with headers and multiple lines of text. They may even contain buttons or other interactive elements.
 
 ### Long content or many interactions
-If your popover content becomes too lengthy or contains many interactions, it’s better to switch to a [dialog](/categories/components/dialog/) or a separate page. Popovers are designed for concise information, so when complexity increases, consider alternative UI patterns.
+If your popover content becomes too lengthy or contains many interactions, it’s better to switch to a [dialog](/categories/components/dialog/usage) or a separate page. Popovers are designed for concise information, so when complexity increases, consider alternative UI patterns.
 
 </section>
 
@@ -95,7 +95,7 @@ If your popover content becomes too lengthy or contains many interactions, it’
 |1|Pointer	|Directs user’s attention to the source element that triggered the popover.|no|
 |3|Container	|Area for text, images, links, and other content.|no|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -103,7 +103,7 @@ If your popover content becomes too lengthy or contains many interactions, it’
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the popover in Figma. They are available in the Design Panel so you can compose the popover to exactly fit the user experience need for the use case you are working on.
 
@@ -114,7 +114,7 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 |Position|`1-o'clock` `2-o'clock` `3-o'clock` `4-o'clock` `5-o'clock` `6-o'clock` `7-o'clock` `8-o'clock` `9-o'clock` `10-o'clock` `11-o'clock` `12-o'clock`|To indicate the position of the pointer. The popover is always positioned so that this arrow is always closest to the element that triggered the popover.|
 |Container|`slot component`| To select the content you want to show within the container. |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

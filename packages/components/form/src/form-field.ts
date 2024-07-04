@@ -23,7 +23,7 @@ declare global {
   }
 }
 
-export type SlFormFieldEvent = CustomEvent<void> & { target: FormField };
+export type SlFormFieldEvent = CustomEvent<{ unregister?(): void }> & { target: FormField };
 
 let nextUniqueId = 0;
 
@@ -52,14 +52,17 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The label element. */
   #label?: Label;
 
+  /** Callback returned by the parent form to call when this element is disconnected. */
+  #unregister?: () => void;
+
   /** The form control element. */
   control?: HTMLElement & FormControl;
 
-  /**
-   * The validation message that will be displayed when the field is in an invalid state.
-   * @private
-   */
+  /** @internal The message that will be displayed when the field is in an invalid state. */
   @state() error?: string;
+
+  /** @internal A record of error messages for all controls. */
+  @state() errors: Record<string, string | undefined> = {};
 
   /** @internal Emits when the field is added to a form. */
   @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<SlFormFieldEvent>;
@@ -79,9 +82,28 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.formFieldEvent.emit();
+    const event = new CustomEvent('sl-form-field', { bubbles: true, composed: true, detail: {} }) as SlFormFieldEvent;
+    this.formFieldEvent.emit(event);
+    this.#unregister = event.detail.unregister;
 
     this.#customError = !!this.querySelector('sl-error');
+  }
+
+  override disconnectedCallback(): void {
+    this.#unregister?.();
+    this.#unregister = undefined;
+
+    super.disconnectedCallback();
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (!this.#customError && changes.has('errors')) {
+      const errors = Object.values(this.errors).filter(Boolean) as string[];
+
+      this.error = errors.at(0);
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -203,11 +225,22 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const assignedElements = event.target.assignedElements({ flatten: true }),
-      formControl = assignedElements.find(el => 'extendsFormControlMixin' in el.constructor);
+      formControls = assignedElements.filter(el => 'extendsFormControlMixin' in el.constructor);
 
-    if (formControl) {
-      this.control = formControl as HTMLElement & FormControl;
-      this.control.id ||= `sl-form-field-control-${nextUniqueId++}`;
+    formControls.forEach(control => {
+      control.id ||= `sl-form-field-control-${nextUniqueId++}`;
+    });
+
+    if (formControls.length) {
+      // The first form control is considered the "primary" control
+      this.control = formControls[0] as HTMLElement & FormControl;
+
+      // Set the form control name as attribute for styling purposes
+      if (this.control.name) {
+        this.setAttribute('name', this.control.name);
+      } else {
+        this.removeAttribute('name');
+      }
 
       if (this.control.showValidity) {
         this.error = this.control.getLocalizedValidationMessage();
@@ -230,12 +263,17 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onUpdateValidity({ detail: { showValidity, validationMessage } }: SlUpdateValidityEvent): void {
+  #onUpdateValidity(event: SlUpdateValidityEvent): void {
     if (this.#error && !this.error) {
       // Do nothing if there is a custom error message slotted
       return;
     }
 
-    this.error = showValidity ? validationMessage : undefined;
+    // Since we can have multiple form controls slotted, we need to
+    // separate the validation messages for each.
+    this.errors = {
+      ...this.errors,
+      [event.target.id]: event.detail.showValidity ? event.detail.validationMessage : undefined
+    };
   }
 }

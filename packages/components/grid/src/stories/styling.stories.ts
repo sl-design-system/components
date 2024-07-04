@@ -12,7 +12,11 @@ export interface PersonWithRating extends Person {
 }
 
 export default {
-  title: 'In progress/Grid/Styling'
+  title: 'Layout/Grid/Styling',
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 };
 
 export const NoBorders: Story = {
@@ -70,8 +74,12 @@ export const Parts: Story = {
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
           clip-path: inset(0 0 -10px 0);
         }
+        sl-grid::part(row):hover {
+          --customer-rating-text-decoration: underline;
+        }
         sl-grid::part(data customer-rating) {
           font-weight: bold;
+          text-decoration: var(--customer-rating-text-decoration, none);
         }
         sl-grid::part(high-rating) {
           --_cell-background: #e5ffe8;

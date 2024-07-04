@@ -3,9 +3,10 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 import '../register.js';
-import { type TextField, type TextFieldSize } from './text-field.js';
+import { TextField, type TextFieldSize } from './text-field.js';
 
 type Props = Pick<
   TextField,
@@ -23,6 +24,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
+  control?(): TemplateResult;
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -30,7 +32,8 @@ type Story = StoryObj<Props>;
 const sizes: TextFieldSize[] = ['md', 'lg'];
 
 export default {
-  title: 'Components/Text field',
+  title: 'Form/Text field',
+  tags: ['stable'],
   args: {
     disabled: false,
     label: 'Label',
@@ -52,6 +55,7 @@ export default {
     }
   },
   render: ({
+    control,
     disabled,
     hint,
     label,
@@ -74,7 +78,7 @@ export default {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
-          ${slot?.() ??
+          ${control?.() ??
           html`
             <sl-text-field
               ?disabled=${disabled}
@@ -88,7 +92,8 @@ export default {
               .size=${size ?? 'md'}
               .type=${type ?? 'text'}
               .value=${value}
-            ></sl-text-field>
+              >${slot?.() ?? nothing}</sl-text-field
+            >
           `}
         </sl-form-field>
         <sl-button-bar>
@@ -126,10 +131,8 @@ export const PrefixSuffix: Story = {
   args: {
     hint: 'You can slot content before and after the input by using the prefix and suffix slots.',
     slot: () => html`
-      <sl-text-field>
-        <sl-icon slot="prefix" name="face-smile"></sl-icon>
-        <sl-icon slot="suffix" name="face-smile"></sl-icon>
-      </sl-text-field>
+      <sl-icon slot="prefix" name="face-smile"></sl-icon>
+      <sl-icon slot="suffix" name="face-smile"></sl-icon>
     `
   }
 };
@@ -158,20 +161,16 @@ export const Valid: Story = {
 export const CustomInput: Story = {
   args: {
     hint: 'This field has a custom input element with the spellcheck attribute set.',
-    slot: () => html`
-      <sl-text-field>
-        <input slot="input" spellcheck="false" />
-      </sl-text-field>
-    `
+    slot: () => html`<input slot="input" spellcheck="false" />`
   }
 };
 
 export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to enter "SLDS" to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the input element.',
-    slot: () => {
+    control: () => {
       const onValidate = (event: Event & { target: TextField }): void => {
-        const value = event.target.value;
+        const value = event.target.value?.toString() ?? '';
 
         let message = '';
         if (value.length > 0 && value !== 'SLDS') {
@@ -191,7 +190,7 @@ export const CustomValidity: Story = {
 export const CustomAsyncValidity: Story = {
   args: {
     hint: 'This story has an async validator. You need to enter "SLDS" to make the field valid. It will wait 2 seconds before validating.',
-    slot: () => {
+    control: () => {
       const onValidate = (event: Event & { target: TextField }): void => {
         const promise = new Promise<string>(resolve =>
           setTimeout(() => resolve(event.target.value === 'SLDS' ? '' : 'Enter "SLDS"'), 2000)
@@ -201,6 +200,73 @@ export const CustomAsyncValidity: Story = {
       };
 
       return html`<sl-text-field @sl-validate=${onValidate} required></sl-text-field>`;
+    }
+  }
+};
+
+export const CustomComponent: Story = {
+  args: {
+    hint: 'This story uses a custom component that inherits from the text field component. It parses and formats the value as a date in the format "DD-MM-YYYY". The field is invalid if the year is before 2024.',
+    control: () => {
+      class CustomTextField extends TextField<Date> {
+        #value?: Date;
+
+        override get value(): Date | undefined {
+          return this.#value;
+        }
+
+        @property()
+        override set value(value: Date | undefined) {
+          this.#value = value;
+        }
+
+        /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
+        override parseValue(value: string): Date | undefined {
+          const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+
+          if (!match) {
+            throw new Error('Invalid date format');
+          } else {
+            const [, day, month, year] = match,
+              date = new Date(`${year}-${month}-${day}`);
+
+            if (isNaN(date.getTime())) {
+              throw new Error('Invalid date');
+            }
+
+            return date;
+          }
+        }
+
+        /** Format the date as DD-MM-YYYY. */
+        override formatValue(value?: Date): string {
+          return value?.toLocaleDateString() ?? '';
+        }
+      }
+
+      try {
+        customElements.define('custom-text-field', CustomTextField);
+      } catch {
+        /* empty */
+      }
+
+      const onValidate = (event: Event & { target: CustomTextField }): void => {
+        const year = event.target.value?.getFullYear();
+
+        if (typeof year === 'number') {
+          event.target.setCustomValidity(year < 2024 ? 'Enter a date after 2023' : '');
+        } else {
+          event.target.setCustomValidity('');
+        }
+      };
+
+      return html`
+        <custom-text-field
+          @sl-validate=${onValidate}
+          placeholder="Enter a DD-MM-YYYY value"
+          required
+        ></custom-text-field>
+      `;
     }
   }
 };

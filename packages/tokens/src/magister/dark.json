@@ -3251,19 +3251,19 @@
     "inline-message": {
       "info": {
         "background": {
-          "value": "rgba({color.palette.primary.400}, {opacity.300})",
+          "value": "rgba({color.palette.primary.400}, {opacity.100})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.info.200}",
+          "value": "{color.palette.info.300}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.info.200}",
+          "value": "{color.palette.info.300}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.info.200}",
+          "value": "{color.palette.info.300}",
           "type": "color"
         }
       },
@@ -3323,74 +3323,148 @@
       }
     },
     "badge": {
-      "danger": {
-        "background": {
-          "value": "{color.palette.danger.150}",
-          "type": "color"
+      "bold": {
+        "danger": {
+          "background": {
+            "value": "{color.palette.danger.150}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.black.base}",
+            "type": "color"
+          }
         },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
+        "success": {
+          "background": {
+            "value": "{color.palette.success.300}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.black.base}",
+            "type": "color"
+          }
+        },
+        "warning": {
+          "background": {
+            "value": "{color.palette.warning.base}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.black.base}",
+            "type": "color"
+          }
+        },
+        "accent": {
+          "background": {
+            "value": "{color.palette.accent.base}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.black.base}",
+            "type": "color"
+          }
+        },
+        "neutral": {
+          "background": {
+            "value": "{color.palette.neutral.200}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.black.base}",
+            "type": "color"
+          }
+        },
+        "primary": {
+          "background": {
+            "value": "{color.palette.primary.300}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.black.base}",
+            "type": "color"
+          }
+        },
+        "info": {
+          "background": {
+            "value": "{color.palette.info.300}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.black.base}",
+            "type": "color"
+          }
         }
       },
-      "success": {
-        "background": {
-          "value": "{color.palette.success.300}",
-          "type": "color"
+      "subtle": {
+        "danger": {
+          "background": {
+            "value": "{color.palette.danger.800}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.danger.200}",
+            "type": "color"
+          }
         },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
-        }
-      },
-      "warning": {
-        "background": {
-          "value": "{color.palette.warning.base}",
-          "type": "color"
+        "success": {
+          "background": {
+            "value": "{color.palette.success.800}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.success.200}",
+            "type": "color"
+          }
         },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
-        }
-      },
-      "accent": {
-        "background": {
-          "value": "{color.palette.accent.base}",
-          "type": "color"
+        "warning": {
+          "background": {
+            "value": "{color.palette.warning.800}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.warning.200}",
+            "type": "color"
+          }
         },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
-        }
-      },
-      "neutral": {
-        "background": {
-          "value": "{color.palette.neutral.200}",
-          "type": "color"
+        "accent": {
+          "background": {
+            "value": "{color.palette.accent.800}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.accent.150}",
+            "type": "color"
+          }
         },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
-        }
-      },
-      "primary": {
-        "background": {
-          "value": "{color.palette.primary.300}",
-          "type": "color"
+        "neutral": {
+          "background": {
+            "value": "{color.palette.neutral.800}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.200}",
+            "type": "color"
+          }
         },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
-        }
-      },
-      "info": {
-        "background": {
-          "value": "{color.palette.info.300}",
-          "type": "color"
+        "primary": {
+          "background": {
+            "value": "{color.palette.primary.800}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.primary.300}",
+            "type": "color"
+          }
         },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
+        "info": {
+          "background": {
+            "value": "{color.palette.info.800}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.primary.300}",
+            "type": "color"
+          }
         }
       }
     },

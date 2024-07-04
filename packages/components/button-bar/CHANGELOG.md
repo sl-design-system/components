@@ -1,5 +1,17 @@
 # @sl-design-system/button-bar
 
+## 1.0.0
+
+### Major Changes
+
+- [#1336](https://github.com/sl-design-system/components/pull/1336) [`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744) - First stable release
+
+## 0.0.7
+
+### Patch Changes
+
+- [#1170](https://github.com/sl-design-system/components/pull/1170) [`39c22ca`](https://github.com/sl-design-system/components/commit/39c22cad76661ad4b1f3a8f4bc56c576c36a94be) - Added button bar component
+
 ## 0.0.6
 
 ### Patch Changes

@@ -4,5 +4,4 @@ eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Guidelines
   key: Naming
-  order: 4
 ---

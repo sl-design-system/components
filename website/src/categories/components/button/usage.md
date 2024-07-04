@@ -71,7 +71,7 @@ Buttons are used to trigger specific actions or functions. For example, you can 
 |2|Container	|The container of a button is its home, providing structure and placement within the user interface. It ensures the button is visually pleasing, strategically positioned, and accessible to users.	|no|
 |3|Icon	|The icon of a button is like a visual cue, conveying meaning and enhancing user understanding. It's a compact symbol that complements the button's text, adding an extra layer of context or functionality.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </section>
 <section>
@@ -217,7 +217,7 @@ Here's an example that explains which button to use in different scenarios:
 </section>
 <section>
 
-## Options
+## Figma Options
 
 With these options you can tweak the appearance of the button in Figma. They are available in the Design Panel so you can compose the button to exactly fit the user experience need for the uses case you are working on.
 
@@ -225,12 +225,12 @@ With these options you can tweak the appearance of the button in Figma. They are
 
 |Item|Options|Description|
 |-|-|-|
-|Type|`'solid', 'outline', 'ghost', 'link'`.|There are four button types to choose from so you can differentiate between buttons, depending on how essential they are.  <br> [More info about button types](#types)|
-|Variant|`'default', 'primary', 'success', 'warning', 'danger'`|The button offers four distinct intents: Default, Primary, Success, Warning, and Danger, each conveying a unique tone to the user. <br> [More info about button variants](#button-variants) |
-|Size|`'small', 'medium', 'large'`|The button is available in three sizes. If not specified the default value is `medium` .|
-|Icon |`'start', 'end'`|Elevate your buttons by including icons either before (start) or after (end) the label for enhanced functionality and visual impact.|
-|Label|`text`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
-|Icon only|`'on', 'off'`|Enjoy the same options, behaviors, and properties as regular buttons, but with a single, centrally positioned icon for a sleek and focused user experience.|
+|Type|`solid` `outline` `ghost` `link`|There are four button types to choose from so you can differentiate between buttons, depending on how essential they are.  <br> [More info about button types](#types)|
+|Variant|`default` `primary` `success` `warning` `danger` `info`|Indicates the variant of the button. <br> [More info about button variants](#variants) |
+|Size|`small` `medium` `large`|The button is available in three sizes. If not specified the default value is `medium`.|
+|Icon |`start` `end`|Indictes the position of the icon.|
+|Label|`text`|Value of the button.|
+|Icon only|`boolean`|Indicates if it is an icon only button.|
 
 {.ds-table .ds-table-align-top}
 

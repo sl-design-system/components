@@ -1,15 +1,14 @@
 ---
 title: Breadcrumbs
-description: Breadcrumbs component description
+description: Breadcrumbs are a navigation element used to show a user's location in a digital product.
 componentType: action
-shortDescription: We are still working on the breadcrumbs component
-layout: "components/components.njk"
+shortDescription: Breadcrumbs are a navigation element used to show a user's location in a digital product.
+layout: "categories/components/components.njk"
 tags: component
 packageName: breadcrumbs
+storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Breadcrumbs
-  order: 5
-  status: coming
 ---
 

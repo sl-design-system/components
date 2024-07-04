@@ -1,5 +1,56 @@
 # @sl-design-system/checkbox
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1369](https://github.com/sl-design-system/components/pull/1369) [`25d1de0`](https://github.com/sl-design-system/components/commit/25d1de0d8b6e032aa13463d18db201cf88d5ddd6) - Fix behavior to match native checkbox:
+
+  - If a checkbox has no value, the form value should be `"on"` when checked
+  - The value of the checkbox group should be an array of the form value of _all_ checkboxes
+  - The form value will filter out any `null` values (so this change is not breaking)
+
+  This also fixes the inability to check a checkbox in a group that has no values.
+
+## 1.0.1
+
+### Patch Changes
+
+- [#1330](https://github.com/sl-design-system/components/pull/1330) [`0b955a1`](https://github.com/sl-design-system/components/commit/0b955a1f1fd23d600a39a7918ba51687762d1f85) - Fix accessibility - properly read checkbox state in Safari
+
+- [#1322](https://github.com/sl-design-system/components/pull/1322) [`0f0e93c`](https://github.com/sl-design-system/components/commit/0f0e93c374f1706ce461217849d385649ed45a5a) - Move the `align-self: start` of checkbox and reverse switch to form-field. This
+  fixes the alignment issue of checkbox and switch when not used inside a form-field.
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`0f0e93c`](https://github.com/sl-design-system/components/commit/0f0e93c374f1706ce461217849d385649ed45a5a), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/shared@0.2.12
+  - @sl-design-system/form@1.0.2
+
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+### Minor Changes
+
+- [#1269](https://github.com/sl-design-system/components/pull/1269) [`405689c`](https://github.com/sl-design-system/components/commit/405689ce9230d69cb5e839ef7b4d3444c1ad4a39) - Refactor to use `<input type="checkbox">` instead of `ElementInternals` for better a11y
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - Add pristine/dirty and untouched/touched state to form controls
+
+### Patch Changes
+
+- [#1258](https://github.com/sl-design-system/components/pull/1258) [`ac092e1`](https://github.com/sl-design-system/components/commit/ac092e16d29d3a0e404f2a05dbc35a7774e7fd7e) - Fix bug where setting the value would not be reflected in the checked state
+
+- Updated dependencies [[`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`0208c28`](https://github.com/sl-design-system/components/commit/0208c282f68d9eac64a6609c5213094c8df04202), [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`ac092e1`](https://github.com/sl-design-system/components/commit/ac092e16d29d3a0e404f2a05dbc35a7774e7fd7e)]:
+  - @sl-design-system/form@1.0.0
+
+## 0.0.29
+
+### Patch Changes
+
+- Updated dependencies [[`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d), [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5), [`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b), [`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d)]:
+  - @sl-design-system/form@0.0.15
+  - @sl-design-system/shared@0.2.11
+
 ## 0.0.28
 
 ### Patch Changes

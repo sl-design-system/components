@@ -1,145 +1,201 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/icon/register.js';
-import { type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { InlineMessage, type InlineMessageVariant } from './inline-message';
 
+interface Props extends Pick<InlineMessage, 'indismissible' | 'variant'> {
+  title: string;
+  button: string;
+  body: string | TemplateResult;
+}
+type Story = StoryObj<Props>;
+
 const variants: InlineMessageVariant[] = ['info', 'success', 'warning', 'danger'];
-const dismissible: string[] = ['true', 'false'];
-const noIcon: string[] = ['', 'true'];
-
-const onClick = (event: Event, variant?: InlineMessageVariant): void => {
-  const newInlMessage = new InlineMessage();
-  newInlMessage.variant = variant || 'info';
-  newInlMessage.innerHTML = '<span slot="title">Inline message title</span>' + 'Message body text';
-  (event.target as HTMLElement).nextElementSibling?.after(newInlMessage);
-};
-
-const onClose = (): void => {
-  (document.querySelector('sl-inline-message') as InlineMessage)?.remove();
-};
 
 export default {
-  title: 'Components/Inline message'
-};
-
-export const API: StoryObj = {
+  title: 'Components/Inline message',
+  tags: ['stable'],
   args: {
-    dismissible: true,
-    variant: 'info',
-    noIcon: false,
-    bodyContent: 'The main content of the message',
-    title: 'Inline message title',
-    details: 'A place for details like errors list'
+    button: 'Action',
+    variant: 'info'
   },
   argTypes: {
+    body: {
+      table: {
+        disable: true
+      }
+    },
+    button: {
+      table: {
+        disable: true
+      }
+    },
     variant: {
       control: 'inline-radio',
-      options: ['info', 'success', 'warning', 'danger']
+      options: variants
     }
   },
-  render: ({ title, bodyContent, dismissible, variant, noIcon, details }) => {
+  render: ({ body, button, indismissible, title, variant }) => html`
+    <sl-inline-message ?indismissible=${indismissible} .variant=${variant}>
+      ${title ? html`<span slot="title">${title}</span>` : nothing}
+      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing} ${body}
+    </sl-inline-message>
+  `
+} satisfies Meta<Props>;
+
+export const Basic: Story = {
+  args: {
+    body: 'The main content of the message'
+  }
+};
+
+export const Details: Story = {
+  args: {
+    title: 'Inline message title',
+    body: html`
+      <style>
+        p {
+          margin-block: 0 0.5rem;
+        }
+        ul {
+          list-style-position: inside;
+          margin: 0;
+          padding: 0;
+        }
+      </style>
+      <p>The main content of the message</p>
+      <ul>
+        <li>Error 1</li>
+        <li>Error 2</li>
+        <li>Error 3</li>
+        <li>Error 4</li>
+      </ul>
+    `
+  }
+};
+
+export const Dynamic: Story = {
+  args: {
+    ...Basic.args,
+    title: 'Dynamic inline message title'
+  },
+  render: ({ body, indismissible, title, variant }) => {
+    const onAdd = (event: Event & { target: HTMLElement }): void => {
+      const buttonBar = event.target.closest('sl-button-bar'),
+        count = buttonBar?.parentElement?.querySelectorAll('sl-inline-message').length ?? 0;
+
+      const msg = document.createElement('sl-inline-message');
+      msg.indismissible = indismissible;
+      msg.innerHTML = `<span slot="title">${title} ${count + 1}</span>${body as string}`;
+      msg.variant = variant;
+
+      buttonBar?.after(msg);
+    };
+
+    const onRemove = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-button-bar')?.nextElementSibling?.remove();
+    };
+
     return html`
-      <sl-inline-message ?dismissible=${dismissible} ?no-icon=${noIcon} variant=${variant}>
-        <span slot="title">${title}</span>
-        ${bodyContent}
-        <span slot="details">${details}</span>
-      </sl-inline-message>
+      <style>
+        sl-button-bar {
+          margin-block-end: 1.5rem;
+        }
+        sl-inline-message + sl-inline-message {
+          margin-block-start: 1rem;
+        }
+      </style>
+      <sl-button-bar>
+        <sl-button @click=${onAdd}>Add message</sl-button>
+        <sl-button @click=${onRemove}>Remove message</sl-button>
+      </sl-button-bar>
     `;
+  }
+};
+
+export const NoTitle: Story = {
+  args: {
+    ...Basic.args,
+    title: undefined
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    title:
+      'Excepteur officia qui nisi commodo ullamco labore dolor ipsum eu non Lorem. Aute enim quis sit id laboris consequat nisi esse.',
+    body: 'Duis laborum consectetur mollit deserunt nostrud anim occaecat elit ipsum laborum. Ad sit in anim aliqua laborum tempor. Labore cupidatat aute magna consectetur ullamco occaecat ea nostrud velit exercitation nulla est anim.'
+  }
+};
+
+export const CustomIcon: Story = {
+  args: {
+    ...Basic.args,
+    body: html`
+      <sl-icon slot="icon" name="face-smile"></sl-icon>
+      The main content of the message
+    `
   }
 };
 
 export const All: StoryObj = {
   render: () => html`
     <style>
-      table {
-        border-collapse: collapse;
-        margin-bottom: 24px;
+      #root-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 0 auto;
+        max-inline-size: min(600px, 80vw);
       }
-
-      td {
-        padding: 16px;
-      }
-
-      td:first-of-type {
-        font-size: 16px;
-      }
-
-      strong {
-        text-transform: uppercase;
-      }
-
-      tbody td:last-of-type {
-        border: none;
+      sl-inline-message::part(title):first-letter {
+        text-transform: capitalize;
       }
     </style>
-    <table>
-      <tbody>
-        ${variants.map(
-          variant =>
-            html`<tr>
-              <td>Variant: <strong>${variant}</strong></td>
-              ${noIcon.map(
-                noIconEl => html`
-                  <td>
-                    <sl-inline-message ?no-icon=${noIconEl} ?dismissible=${dismissible} variant=${variant}>
-                      <span slot="title">Variant ${variant} inline message title</span>
-                      The main content of the message
-                      <span slot="details">A place fore more details like errors list</span>
-                    </sl-inline-message>
-                  </td>
-                `
-              )}
-            </tr>`
-        )}
-      </tbody>
-    </table>
-  `
-};
-
-export const ShowInlineMessage: StoryObj = {
-  render: () => html`
-    <style>
-      sl-inline-message {
-        margin: 24px auto;
-      }
-
-      sl-button {
-        margin-right: 8px;
-      }
-    </style>
-    <sl-button fill="outline" @click=${onClick}>Show inline message</sl-button>
-    <sl-button fill="outline" size="md" @click=${onClose}>Close inline message</sl-button>
-  `
-};
-
-export const ErrorsList: StoryObj = {
-  render: () => html`
-    <style>
-      sl-inline-message {
-        margin: 24px auto;
-      }
-    </style>
-    <sl-button
-      fill="outline"
-      @click=${(event: Event) => {
-        onClick(event, 'danger');
-      }}
-      >Show (error) inline message</sl-button
-    >
-    <sl-inline-message variant="danger">
-      <span slot="title">Variant danger inline message</span>
-      Body text of the message
-      <span slot="details">
-        <ul>
-          <li>Error 1</li>
-          <li>Error 2</li>
-          <li>Error 3</li>
-          <li>Error 4</li>
-        </ul>
-      </span>
+    <sl-inline-message indismissible variant="info">The main content of the message</sl-inline-message>
+    <sl-inline-message variant="info">The main content of the message</sl-inline-message>
+    <sl-inline-message variant="info">
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      The main content of the message
     </sl-inline-message>
+    <sl-inline-message indismissible variant="info">
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      The main content of the message
+    </sl-inline-message>
+    <sl-inline-message variant="info">
+      Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
+      Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+    </sl-inline-message>
+    <sl-inline-message variant="info">
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
+      Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+    </sl-inline-message>
+    <sl-inline-message variant="info">
+      <span slot="title">
+        "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+      </span>
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non consequat
+      eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+    </sl-inline-message>
+    ${variants.map(
+      variant => html`
+        <sl-inline-message variant=${variant}>
+          <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
+          The main content of the message
+        </sl-inline-message>
+        <sl-inline-message variant=${variant}>
+          <span slot="title">
+            "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+          </span>
+          <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
+          Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
+          consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+        </sl-inline-message>
+      `
+    )}
   `
 };

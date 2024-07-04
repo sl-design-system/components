@@ -1,6 +1,7 @@
 {
-  "layout": "components/components.njk",
+  "layout": "categories/components/components.njk",
   "tags": "skeleton",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Skeleton",

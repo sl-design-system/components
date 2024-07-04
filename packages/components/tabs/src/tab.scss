@@ -14,7 +14,8 @@
   --_font-subtitle: var(--sl-text-tab-subtitle);
   --_gap: var(--sl-space-tab-gap);
   --_icon-block-size: var(--sl-text-typeset-line-height-md);
-  --_padding: var(--sl-space-tab-block) var(--sl-space-tab-inline);
+  --_padding-block: var(--sl-space-tab-block);
+  --_padding-inline: var(--sl-space-tab-inline);
 
   background: var(--_background);
   color: var(--_color);
@@ -23,6 +24,7 @@
   flex-shrink: 0;
   justify-content: center;
   min-inline-size: fit-content;
+  outline: 0;
   scroll-snap-align: start;
   transition: background 300ms;
 }
@@ -37,13 +39,6 @@
   background: var(--_background-active);
 }
 
-:host(:focus-visible) {
-  border-radius: var(--_focus-radius);
-  outline: var(--_focus-outline);
-  outline-offset: calc(var(--_focus-outline-offset) * -1);
-  z-index: 1;
-}
-
 :host([disabled]) {
   --_color: var(--_color-disabled);
 
@@ -52,6 +47,17 @@
   slot[name='icon']::slotted(sl-icon) {
     fill: var(--_color-disabled);
   }
+}
+
+:host([has-icon]:not([has-title])) {
+  a,
+  .wrapper {
+    --_padding-inline: var(--_padding-block);
+  }
+}
+
+:host([has-title]) .content {
+  display: flex;
 }
 
 :host([has-subtitle]) .title {
@@ -64,7 +70,16 @@ a,
   display: flex;
   gap: var(--_gap);
   justify-content: center;
-  padding: var(--_padding);
+  outline: 0;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+
+  &:focus-visible {
+    border-radius: var(--_focus-radius);
+    outline: var(--_focus-outline);
+    outline-offset: calc(var(--_focus-outline-offset) * -1);
+    z-index: 1;
+  }
 }
 
 a {
@@ -83,7 +98,7 @@ slot[name='icon']::slotted(sl-icon) {
 }
 
 .content {
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 

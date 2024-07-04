@@ -15,7 +15,7 @@ export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
-export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
+export type ButtonVariant = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 /**
  * A single, simple button, with optionally an icon.
@@ -33,7 +33,7 @@ export class Button extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Event controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown

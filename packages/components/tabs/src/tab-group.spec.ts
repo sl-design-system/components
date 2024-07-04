@@ -1,9 +1,12 @@
+import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
+
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-tab-group', () => {
   let el: TabGroup;
@@ -22,11 +25,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
-    });
-
-    it('should not break', () => {
-      expect(el).shadowDom.to.equalSnapshot();
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a horizontal layout', () => {
@@ -83,14 +82,12 @@ describe('sl-tab-group', () => {
       expect(menuButton).not.to.exist;
     });
 
-    it('should select the first tab by default', () => {
+    it('should not have a selected tab', () => {
       const tabs = el.querySelectorAll('sl-tab[selected]'),
         panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
-      expect(tabs).to.have.lengthOf(1);
-      expect(tabs[0]).to.have.text('Tab 1');
-      expect(panels).to.have.lengthOf(1);
-      expect(panels[0]).to.have.text('Panel 1');
+      expect(tabs).to.have.lengthOf(0);
+      expect(panels).to.have.lengthOf(0);
     });
 
     it('should select the second tab when clicked', () => {
@@ -172,26 +169,6 @@ describe('sl-tab-group', () => {
     });
   });
 
-  describe('disabled', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-tab-group>
-          <sl-tab disabled>Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-          <sl-tab>Tab 3</sl-tab>
-          <sl-tab-panel>Panel 1</sl-tab-panel>
-          <sl-tab-panel>Panel 2</sl-tab-panel>
-          <sl-tab-panel>Panel 3</sl-tab-panel>
-        </sl-tab-group>
-      `);
-    });
-
-    it('should select the second tab by default', () => {
-      expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
-      expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
-    });
-  });
-
   describe('selected', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -209,23 +186,6 @@ describe('sl-tab-group', () => {
     it('should select the second tab by default', () => {
       expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
       expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
-    });
-  });
-
-  describe('links', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-tab-group>
-          <sl-tab href="javascript:void(0)">Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-        </sl-tab-group>
-      `);
-    });
-
-    it('should wrap the tabs content in a link tag with href', () => {
-      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')?.href);
-
-      expect(tabs).to.eql(['javascript:void(0)', undefined]);
     });
   });
 
@@ -260,7 +220,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a menu button', () => {
@@ -308,7 +268,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a menu button', async () => {

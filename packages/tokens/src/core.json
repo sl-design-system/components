@@ -409,22 +409,10 @@
         "type": "sizing"
       },
       "md": {
-        "value": "{size.xs}",
-        "type": "sizing"
-      },
-      "lg": {
-        "value": "{size.sm}",
-        "type": "sizing"
-      },
-      "xl": {
         "value": "{size.md}",
         "type": "sizing"
       },
-      "2xl": {
-        "value": "18",
-        "type": "sizing"
-      },
-      "3xl": {
+      "lg": {
         "value": "{size.lg}",
         "type": "sizing"
       }
@@ -453,6 +441,20 @@
       "3xl": {
         "value": "80",
         "type": "sizing"
+      },
+      "badge": {
+        "sm": {
+          "value": "{size.2xs}",
+          "type": "sizing"
+        },
+        "md": {
+          "value": "{size.md}",
+          "type": "sizing"
+        },
+        "lg": {
+          "value": "{size.lg}",
+          "type": "sizing"
+        }
       }
     },
     "skeleton": {
@@ -498,6 +500,12 @@
     "breadcrumb": {
       "value": "{size.2xl}",
       "type": "sizing"
+    },
+    "tab": {
+      "indicator": {
+        "value": "{size.4xs}",
+        "type": "sizing"
+      }
     }
   },
   "space": {
@@ -1050,32 +1058,34 @@
           "paddingTop": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.container.paddingTop"
           },
           "inline": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.container.inline"
           },
           "paddingBottom": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.container.paddingBottom"
           }
         },
         "body": {
           "block": {
-            "value": "{space.2xl}",
+            "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.button.solid.block.md"
+            "description": "space.dialog.desktop.body.block"
           },
           "inline": {
-            "value": "{space.2xl}",
-            "type": "spacing"
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.dialog.desktop.body.inline"
           },
           "gap": {
-            "value": "{space.2xl}",
-            "type": "spacing"
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.dialog.desktop.body.gap"
           }
         }
       },
@@ -1099,17 +1109,17 @@
         },
         "body": {
           "block": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "inline": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "gap": {
-            "value": "{space.xl}",
+            "value": "{space.lg}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           }
@@ -1351,23 +1361,11 @@
           "type": "spacing"
         },
         "md": {
-          "value": "1px",
+          "value": "{space.sm}",
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "2xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "3xl": {
-          "value": "3px",
+          "value": "{space.sm}",
           "type": "spacing"
         }
       },
@@ -1383,18 +1381,6 @@
         "lg": {
           "value": "{space.2xs}",
           "type": "spacing"
-        },
-        "xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "2xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "3xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
         }
       },
       "gap": {
@@ -1403,28 +1389,24 @@
           "type": "spacing"
         },
         "md": {
-          "value": "3",
+          "value": "{space.xs}",
           "type": "spacing"
         },
         "lg": {
           "value": "{space.xs}",
           "type": "spacing"
-        },
-        "xl": {
-          "value": "{space.xs}",
-          "type": "spacing"
-        },
-        "2xl": {
-          "value": "{space.xs} + {space.2xs}",
-          "type": "spacing"
-        },
-        "3xl": {
-          "value": "{space.xs} + {space.2xs}",
-          "type": "spacing"
         }
       },
       "icon": {
         "inline": {
+          "2xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
           "sm": {
             "value": "{space.none}",
             "type": "spacing"
@@ -1434,23 +1416,23 @@
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "xl": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "2xl": {
             "value": "1",
             "type": "spacing"
           },
-          "3xl": {
+          "xl": {
             "value": "{space.2xs}",
             "type": "spacing"
           }
         },
         "block": {
+          "2xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
           "sm": {
             "value": "{space.none}",
             "type": "spacing"
@@ -1460,18 +1442,10 @@
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "xl": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "2xl": {
             "value": "1",
             "type": "spacing"
           },
-          "3xl": {
+          "xl": {
             "value": "{space.2xs}",
             "type": "spacing"
           }
@@ -1479,27 +1453,27 @@
       },
       "label": {
         "inline": {
+          "2xs": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
           "sm": {
             "value": "{space.2xs}",
             "type": "spacing"
           },
           "md": {
-            "value": "{space.2xs}",
+            "value": "3px",
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.2xs}",
+            "value": "3px",
             "type": "spacing"
           },
           "xl": {
-            "value": "3px",
-            "type": "spacing"
-          },
-          "2xl": {
-            "value": "3px",
-            "type": "spacing"
-          },
-          "3xl": {
             "value": "3px",
             "type": "spacing"
           }
@@ -1558,6 +1532,38 @@
           "value": "{space.sm}",
           "type": "spacing"
         }
+      },
+      "badge": {
+        "inset": {
+          "sm": {
+            "value": "{space.2xs} * -1",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.xs} * -1",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{space.2xs} * -1",
+            "type": "spacing"
+          },
+          "2xl": {
+            "value": "{space.2xs} * -1",
+            "type": "spacing"
+          },
+          "3xl": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          }
+        },
+        "margin": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        }
       }
     },
     "popover": {
@@ -1593,20 +1599,20 @@
     },
     "inline-message": {
       "block": {
-        "value": "{space.lg}",
+        "value": "{space.md}",
         "type": "spacing",
-        "description": "space.button.solid.block.md"
+        "description": "space.inline-message.block.md"
       },
       "inline": {
         "start": {
-          "value": "{space.lg} + {border.width.inline-message.start}",
+          "value": "{space.lg} + {size.inline-message.start}",
           "type": "spacing",
-          "description": "space.button.solid.inline.md"
+          "description": "space.inline-message.inline.start"
         },
         "end": {
-          "value": "{space.2xl}",
+          "value": "{space.md}",
           "type": "spacing",
-          "description": "space.button.solid.inline.md"
+          "description": "space.inline-message.inline.end"
         }
       },
       "gap": {
@@ -2057,6 +2063,28 @@
           "description": "text.typeset.letterSpacing.xl"
         }
       }
+    },
+    "badge": {
+      "text": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "icon": {
@@ -2126,6 +2154,11 @@
         "type": "Icons",
         "description": "icon.core.octagon-exclamation-solid"
       },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
+      },
       "circle-check-solid": {
         "value": "circle-check",
         "type": "Icons",
@@ -2149,7 +2182,12 @@
       "breadcrumb-separator": {
         "value": "slash-forward",
         "type": "Icons",
-        "description": "icon.core.slash-forward"
+        "description": "icon.core.breadcrumb-separator"
+      },
+      "search": {
+        "value": "magnifying-glass",
+        "type": "Icons",
+        "description": "icon.core.search"
       }
     },
     "typeset": {

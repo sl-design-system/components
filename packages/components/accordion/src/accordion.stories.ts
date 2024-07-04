@@ -9,6 +9,7 @@ export type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Accordion',
+  tags: ['stable'],
   args: {
     single: false
   },
@@ -21,6 +22,24 @@ export default {
   },
   render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items}</sl-accordion>`
 } satisfies Meta<Props>;
+
+export const All: Story = {
+  render: () => {
+    return html`
+      <sl-accordion>
+        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
+          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+        </sl-accordion-item>
+        <sl-accordion-item summary="Journey Through Ancient Civilizations">
+          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+        </sl-accordion-item>
+        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
+          Buckle up for a cosmic adventure! 🚀🪐👽
+        </sl-accordion-item>
+      </sl-accordion>
+    `;
+  }
+};
 
 export const Basic: Story = {
   args: {

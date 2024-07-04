@@ -4,13 +4,14 @@
   --_fade-size: 6rem;
   --_indicator-animation-duration: var(--sl-animation-duration-slow);
   --_indicator-color: var(--sl-color-button-primary-solid-idle-background);
-  --_indicator-size: var(--sl-size-select-indicator);
+  --_indicator-size: var(--sl-size-tab-indicator);
   --_menu-button-inline-padding: calc(
     var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default)
   );
   --_panel-horizontal-padding: var(--sl-space-tab-content-horizontal-block)
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
+  --_tablist-background: var(--sl-color-tab-tabbar-background);
   --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth, 200px);
   --_tabs-alignment: start;
 
@@ -38,6 +39,10 @@
   [part='tablist'] {
     inline-size: 100%;
   }
+}
+
+:host(:not([no-panels])) [part='panels'] {
+  padding: var(--_panel-horizontal-padding);
 }
 
 :host([scroll-start]) .fade-start,
@@ -120,6 +125,7 @@
 }
 
 [part='container'] {
+  background: var(--_tablist-background);
   border-block-end: var(--_border);
   display: flex;
   inline-size: 100%;
@@ -189,10 +195,13 @@
   block-size: var(--_indicator-size);
   inline-size: 100px;
   inset: auto auto 0 0;
+  opacity: 0;
   position: absolute;
+  scale: 0 1;
   transform-origin: center left;
   transition-property: scale, translate;
   transition-timing-function: ease-in-out;
+  translate: 0;
 
   /** z-index is set to 2 to make sure the indicator is above the tab, when that is selected, focused or hovered */
   z-index: 2;
@@ -214,8 +223,4 @@ sl-menu-button {
   align-self: center;
   padding-inline-start: var(--_menu-button-inline-padding);
   position: relative;
-}
-
-[part='panels'] {
-  padding: var(--_panel-horizontal-padding);
 }

@@ -1,5 +1,19 @@
 # @sl-design-system/locales
 
+## 0.0.9
+
+### Patch Changes
+
+- [#1356](https://github.com/sl-design-system/components/pull/1356) [`b9b9ff0`](https://github.com/sl-design-system/components/commit/b9b9ff091acaaba3e01e08cfaa1474c275485485) - Update dutch translations
+
+- [#1356](https://github.com/sl-design-system/components/pull/1356) [`b9b9ff0`](https://github.com/sl-design-system/components/commit/b9b9ff091acaaba3e01e08cfaa1474c275485485) - Add `<sl-emoji-browser>` translation
+
+## 0.0.8
+
+### Patch Changes
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - Add pristine/dirty and untouched/touched state to form controls
+
 ## 0.0.7
 
 ### Patch Changes

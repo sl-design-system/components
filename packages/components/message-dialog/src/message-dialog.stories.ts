@@ -7,7 +7,12 @@ type Props = MessageDialogConfig & { onClick(args: Props): Promise<unknown> };
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Message dialog',
+  title: 'Overlay/Message dialog',
+  tags: ['preview'],
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: args => {
     const onClick = async (): Promise<void> => {
       const result = await args.onClick(args);
@@ -52,5 +57,16 @@ export const CustomMessage: Story = {
       await MessageDialog.show({ message, title, buttons: [{ text: 'OK', variant: 'primary' }] }),
     title: 'Custom message',
     message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`
+  }
+};
+
+export const All: Story = {
+  parameters: { chromatic: { delay: 300 } },
+  render: () => {
+    setTimeout(() => {
+      void MessageDialog.alert('Alert dialog content');
+    });
+
+    return html`Dialog should have openend by now`;
   }
 };

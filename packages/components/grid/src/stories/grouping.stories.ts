@@ -11,7 +11,11 @@ import { type GridViewModelGroup } from '../view-model.js';
 type Story = StoryObj;
 
 export default {
-  title: 'In progress/Grid/Grouping'
+  title: 'Layout/Grid/Grouping',
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 };
 
 export const Basic: Story = {

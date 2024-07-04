@@ -50,18 +50,16 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
    * The url for the home link, defaults to the root url.
    *
-   * By changing this static property you can change the default value for
-   * all future instances of the component. Changing the static property
-   * won't affect already created instances.
+   * By changing this static property you can change the default value for all future instances of the component.
+   * Changing the static property won't affect already created instances.
    */
   static homeUrl = '/';
 
   /**
    * When true doesn't show a home link as the first breadcrumb.
    *
-   * By changing this static property you can change the default value for
-   * all future instances of the component. Changing the static property
-   * won't affect already created instances.
+   * By changing this static property you can change the default value for all future instances of the component.
+   * Changing the static property won't affect already created instances.
    */
   static noHome = false;
 
@@ -93,18 +91,16 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
    * The url for the home link, defaults to the root url.
    *
-   * If you want to change the default value for all future instances of the component,
-   * you can change the static property. If you want to change the property of an already
-   * created instance, you need to change this property.
+   * If you want to change the default value for all future instances of the component, you can change the static property.
+   * If you want to change the property of an already created instance, you need to change this property.
    */
   @property({ attribute: 'home-url' }) homeUrl = Breadcrumbs.homeUrl;
 
   /**
    * When true doesn't show a home link as the first breadcrumb.
    *
-   * If you want to change the default value for all future instances of the component,
-   * you can change the static property. If you want to change the property of an already
-   * created instance, you need to change this property.
+   * If you want to change the default value for all future instances of the component, you can change the static property.
+   * If you want to change the property of an already created instance, you need to change this property.
    */
   @property({ type: Boolean, attribute: 'no-home' }) noHome = Breadcrumbs.noHome;
 
@@ -136,7 +132,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             `}
         ${this.breadcrumbs.length > this.collapseThreshold
           ? html`
-              <li>
+              <li class="more-menu">
                 <sl-button @click=${this.#onClick} aria-label=${msg('More breadcrumbs')} fill="link" id="button">
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>

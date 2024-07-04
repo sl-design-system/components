@@ -1,6 +1,6 @@
 $fills: solid, outline, link, ghost;
 $sizes: sm, md, lg;
-$variants: default, primary, success, warning, danger;
+$variants: default, primary, success, info, warning, danger;
 
 :host {
   --_animation: var(--sl-animation-button);
@@ -134,11 +134,13 @@ $variants: default, primary, success, warning, danger;
   text-decoration: underline;
 }
 
+::slotted(*) {
+  // Prevent the icon from ever gaining focus inside the button
+  pointer-events: none;
+}
+
 ::slotted(sl-icon) {
   --sl-icon-container-size: var(--_icon-container-size);
 
   fill: var(--_color);
-
-  // Prevent the icon from ever gaining focus inside the button
-  pointer-events: none;
 }

@@ -46,7 +46,7 @@ Spinners are particularly useful in asynchronous operations where users might ne
 If the delay is predictable and very short, less than a second, using a spinner might not be necessary and can even be distracting. When action happens instantaneously, like clicking a button that toggles something immediately visible on the interface, it doesn't require a spinner.
 
 ### Dynamic Content
-Avoid using a spinner when content is dynamically loaded or refreshed, use a [skeleton](/categories/components/tooltip/) instead. You can use a spinner during searching, which gives users immediate feedback that their action is processing. This enhances the perceived responsiveness of the application, but when it is loading, the new content is the skeleton.
+Avoid using a spinner when content is dynamically loaded or refreshed, use a [skeleton](/categories/components/skeleton/usage) instead. You can use a spinner during searching, which gives users immediate feedback that their action is processing. This enhances the perceived responsiveness of the application, but when it is loading, the new content is the skeleton.
 
 </section>
 
@@ -90,14 +90,14 @@ Spinner come in various versions, each suited for specific situations:
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the spinner in Figma. They are available in the Design Panel so you can compose the spinner to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|
 |-|-|-|
-|Size|`'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'`|The spinner is available in six sizes. If not specified the default value is `medium` .|
-|Variant|`'default', 'light', 'accent', 'info', 'success', 'warning', 'danger'`|The spinner offers seven distinct intents, each conveying a unique meaning or solution to the user.|
+|Size|`xs` `sm` `md` `lg` `xl` `2xl` `3xl`|Indicates the size of the spinner. If not specified the default value is `medium`.|
+|Variant|`default` `light` `accent` `info` `success` `warning` `danger`|Indicates the variant of the spinner.|
 
 {.ds-table .ds-table-align-top}
 

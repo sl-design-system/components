@@ -1,5 +1,30 @@
 # @sl-design-system/tooltip
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1328](https://github.com/sl-design-system/components/pull/1328) [`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204) - Various fixes:
+  - Make it possible to close a tooltip with Escape key
+  - Fix issue where the tooltip was broken after first show
+  - Fix showing shared tooltip
+  - Fix tooltip accessibility - removed `aria-expanded` which is not applicable for tooltips
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/shared@0.2.12
+
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+
 ## 0.0.25
 
 ### Patch Changes

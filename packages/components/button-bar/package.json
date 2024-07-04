@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/button-bar",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Button-bar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "devDependencies": {
-    "lit": "^3.1.2"
+    "lit": "^3.1.4"
   },
   "peerDependencies": {
     "lit": "^3.1.2"

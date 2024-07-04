@@ -5,7 +5,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './text-field.scss.js';
 
 declare global {
@@ -27,25 +27,36 @@ let nextUniqueId = 0;
  * @slot suffix - Content shown after the input
  */
 @localized()
-export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
-  /** @private */
+export class TextField<T extends { toString(): string } = string> extends FormControlMixin(
+  ScopedElementsMixin(LitElement)
+) {
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** The value of the text field. */
+  #value: T | undefined = '' as unknown as T;
+
+  /** Specifies which type of data the browser can use to pre-fill the input. */
+  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
+
+  /** Whether the text field is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
@@ -54,15 +65,13 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   input!: HTMLInputElement;
 
   /**
-   * Specifies which type of data the browser can use to pre-fill the input.
-   *
-   * NOTE: Declare the type this way so it is backwards compatible with 4.9.5,
-   * which we still use in `@sl-design-system/angular`.
+   * The size attribute of the input element.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size
    */
-  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
+  @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
 
-  /** Whether the text field is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
+  /** @internal Used for styling the focus ring of the input. */
+  @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -75,6 +84,9 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   /** Placeholder text in the input. */
   @property() placeholder?: string;
+
+  /** The raw (string) value of the input. */
+  @state() rawValue = '';
 
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
@@ -94,8 +106,15 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
-  /** The value for the input, to be used in forms. */
-  @property() override value = '';
+  override get value(): T | undefined {
+    return this.#value;
+  }
+
+  /** The value of the text field. */
+  @property()
+  override set value(value: T | undefined) {
+    this.#value = value;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -119,6 +138,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const props: Array<keyof TextField> = [
       'autocomplete',
       'disabled',
+      'inputSize',
       'maxLength',
       'minLength',
       'pattern',
@@ -132,15 +152,39 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       this.#syncInput(this.input);
     }
 
-    if (changes.has('value') && this.value !== this.input.value) {
-      this.input.value = this.value?.toString() || '';
+    if (changes.has('disabled')) {
+      // We need to wait for the disabled state to propagate to the input before updating the validity
+      setTimeout(() => this.updateValidity());
+    }
+
+    if (changes.has('value')) {
+      const formattedValue = this.formatValue(this.value);
+
+      if (this.input.value !== formattedValue) {
+        this.input.value = this.formatValue(this.value);
+      }
     }
   }
 
   override render(): TemplateResult {
+    return html`${this.renderPrefix()}${this.renderInputSlot()}${this.renderSuffix()}`;
+  }
+
+  /** Renders the prefix slot; can be overridden to customize the prefix. */
+  renderPrefix(): TemplateResult | typeof nothing {
+    return html`<slot name="prefix"></slot>`;
+  }
+
+  /** Render the input slot; separate method so it is composable for child components. */
+  renderInputSlot(): TemplateResult {
     return html`
-      <slot name="prefix"></slot>
       <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+    `;
+  }
+
+  /** Renders the suffix slot; can be overridden to customize the suffix. */
+  renderSuffix(): TemplateResult | typeof nothing {
+    return html`
       <slot name="suffix">
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
@@ -151,7 +195,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   override getLocalizedValidationMessage(): string {
     if (this.validity.tooShort) {
-      const length = this.value.length;
+      const length = this.value?.toString().length || 0;
 
       return msg(
         str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
@@ -163,9 +207,50 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return super.getLocalizedValidationMessage();
   }
 
+  /**
+   * Method that converts the string value in the input to the specified type T. Override this method
+   * if you want to convert the value in a different way. Throw an error if the value is invalid.
+   */
+  parseValue(value: string): T | undefined {
+    return value as unknown as T;
+  }
+
+  /**
+   * Method that formats the value and set's it on the native input element. Override this method
+   * if you want to format the value in a different way.
+   */
+  formatValue(value?: T): string {
+    return value?.toString() || '';
+  }
+
+  /** @internal */
+  override focus(): void {
+    this.input.focus();
+  }
+
+  #onBlur(): void {
+    this.hasFocusRing = false;
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
+  #onFocus(): void {
+    this.hasFocusRing = true;
+    this.focusEvent.emit();
+  }
+
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
-    this.value = target.value;
-    this.changeEvent.emit(this.value);
+    this.rawValue = target.value;
+
+    try {
+      // Try to parse the value, but do nothing if it fails
+      this.value = this.parseValue(this.rawValue);
+      this.changeEvent.emit(this.value);
+    } catch {
+      /* empty */
+    }
+
+    this.updateState({ dirty: true });
     this.updateValidity();
   }
 
@@ -183,8 +268,8 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
       this.input = input;
-      this.input.addEventListener('blur', () => this.blurEvent.emit());
-      this.input.addEventListener('focus', () => this.focusEvent.emit());
+      this.input.addEventListener('blur', () => this.#onBlur());
+      this.input.addEventListener('focus', () => this.#onFocus());
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);
@@ -203,6 +288,12 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
       input.type = this.type;
+    }
+
+    if (typeof this.inputSize === 'number') {
+      input.setAttribute('size', this.inputSize.toString());
+    } else {
+      input.removeAttribute('size');
     }
 
     if (typeof this.maxLength === 'number') {

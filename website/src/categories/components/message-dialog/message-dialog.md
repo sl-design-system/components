@@ -5,11 +5,12 @@ componentType: overlay
 shortDescription: A dialog for displaying messages to the user.
 picture:
 pictureDark:
-layout: "components/components.njk"
+layout: "categories/components/components.njk"
 tags: component
+packageName: message-dialog
+storybookCategory: overlay
 eleventyNavigation:
   parent: Components
   key: Message dialog
-  order: 18
   status: ready
 ---

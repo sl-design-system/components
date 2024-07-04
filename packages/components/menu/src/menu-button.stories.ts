@@ -1,4 +1,5 @@
 import { faGear, faList, faRectanglesMixed, faTableCells } from '@fortawesome/pro-regular-svg-icons';
+import '@sl-design-system/avatar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -18,7 +19,8 @@ type Story = StoryObj<Props>;
 Icon.register(faGear, faList, faRectanglesMixed, faTableCells);
 
 export default {
-  title: 'In progress/Menu button',
+  title: 'Components/Menu button',
+  tags: ['draft'],
   args: {
     alignSelf: 'center',
     body: 'Button',
@@ -54,6 +56,10 @@ export default {
         'left-end'
       ]
     }
+  },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
   },
   render: ({
     alignSelf,
@@ -146,6 +152,19 @@ export const MultiSelect: Story = {
     `,
     pluralize: count => `${count} list${count > 1 ? 's' : ''}`,
     selects: 'multiple'
+  }
+};
+
+export const WithAvatar: Story = {
+  args: {
+    body: html`<sl-avatar display-name="John Doe" size="sm" slot="button"></sl-avatar>`,
+    fill: 'ghost',
+    menuItems: () => html`
+      <sl-menu-item>Profile...</sl-menu-item>
+      <sl-menu-item>Settings...</sl-menu-item>
+      <hr />
+      <sl-menu-item>Log out</sl-menu-item>
+    `
   }
 };
 

@@ -1,23 +1,11 @@
 ---
 title: Developers
+description: This guide will walk you through the process of gaining access to the private GitHub NPM repository, installing the SL Design System packages and using them in your application.
+layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Getting Started
   key: Developers
-  order: 2
 ---
-<header class="ds-tokens__main-heading">
-  <div class="ds-tokens__heading-wrapper">
-    <h1 class="ds-heading-1">{{title}}</h1>
-    <p class="ds-tokens__heading-description">
-    This guide will walk you through the process of gaining access to the private GitHub NPM repository, installing the SL Design System packages and using them in your application.
-    </p>
-  </div>
-</header>
-
-<section class="ds-subpage-section">
-
-<div class="ds-subpage-section__wrapper">
-
 <section>
 
 ## Steps
@@ -118,14 +106,16 @@ The simplest way to include the theme is by including the theme stylesheet in yo
 <div class="ds-code">
 
 ```html
-<link href="./node_modules/@sl-design-system/sanoma-learning/all.css" rel="stylesheet">
+<link href="./node_modules/@sl-design-system/sanoma-learning/light.css" rel="stylesheet">
 ```
 
 </div>
 
-If you are working in an Angular application you can do this by adding the theme stylesheet in your `angular.json`, as explained [in the official Angular documentation](https://angular.io/guide/workspace-config#styles-and-scripts-configuration).
+If your theme supports dark mode you can also use `dark.css`.
 
-When your theme doesn't support dark mode yet (check with your teams designer or with the SLDS team) you should use `base.css` and `light.css` instead of `all.css`
+If you need to have more control over theming, you can use the split files in the `css` and `scss` folders of the theme package. These folders contain split files for the base, light and dark theme. You can include these files in your application as you see fit.
+
+If you are working in an Angular application you can do this by adding the theme stylesheet in your `angular.json`, as explained [in the official Angular documentation](https://angular.io/guide/workspace-config#styles-and-scripts-configuration).
 
 To initialize the theme you need to run theme's `setup` function in a global JS file:
 

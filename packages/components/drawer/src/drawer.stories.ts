@@ -5,7 +5,8 @@ import '../register.js';
 import { type Drawer } from './drawer.js';
 
 export default {
-  title: 'In progress/Drawer',
+  title: 'Overlay/Drawer',
+  tags: ['draft'],
   args: {
     attachment: 'right',
     buttonSize: 'sm'
@@ -19,6 +20,10 @@ export default {
       control: 'radio',
       options: ['sm', 'md', 'lg']
     }
+  },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
   }
 };
 

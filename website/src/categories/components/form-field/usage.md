@@ -48,7 +48,7 @@ Do not use the form field if the field is not part of a larger form. For example
 
 ## Layout
 
-A form field always has a vertical layout. The label is always at the top, followed by the form control itself, and at the bottom an optional hint or error message, depending on the state of the component.
+A form field always has a vertical layout. The label is always at the top, followed by an optional hint and then the form control itself, and at the bottom the error message, depending on the state of the component.
 
 </section>
 
@@ -69,7 +69,7 @@ The hint is optional. It is used to provide additional information about the for
 |4|Form control	|Space to insert the preferred form control.|no|
 |4|Validation message	|Describes what went wrong after validation.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -77,7 +77,7 @@ The hint is optional. It is used to provide additional information about the for
 
 <section>
 
-## Options
+## Figma Options
 With these options you can tweak the appearance of the label and hint in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
 
 ### Label
@@ -88,12 +88,12 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 |-|-|-|
 |Size|`sm` `md` `lg`|The label is available in three sizes. If not specified the default value is `medium`.|
 |Text|`value`|Displays the text of the label.|
-|Disabled|`boolean`|Indicates if the label has a disabled styling.|
+|Disabled|`boolean`|Indicates if the label has disabled styling.|
 |Required|`boolean`|Indicates if the form control is required.|
 |Optional|`boolean`|Indicates if the form control is optional.|
 |Info|`boolean`|Shows an info icon on the end of the label to provide additional information.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -108,7 +108,7 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 |State|`default` `invalid` `disabled`|Indicates the state of the form control.|
 |Icon|`boolean`|Show an icon in front of the hint.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -118,6 +118,6 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 
 ## Related components
 
-- [Form](/categories/components/form/)
+- [Form](/categories/components/form/usage)
 
 </section>

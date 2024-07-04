@@ -23,11 +23,11 @@
     "@fortawesome/sharp-regular-svg-icons": "^6.5.2",
     "@fortawesome/sharp-solid-svg-icons": "^6.5.2",
     "@tokens-studio/sd-transforms": "^0.15.2",
-    "cssnano": "^6.1.2",
-    "esbuild": "^0.20.2",
+    "cssnano": "^7.0.2",
+    "esbuild": "^0.21.5",
     "fast-glob": "^3.3.2",
     "postcss": "^8.4.38",
-    "sass": "^1.75.0",
+    "sass": "^1.77.6",
     "style-dictionary": "^4.0.0-prerelease.22"
   }
 }

@@ -5,7 +5,7 @@ import './checklist.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Checklist',
+  title: 'Getting started/Checklist',
   parameters: {
     layout: 'centered'
   },

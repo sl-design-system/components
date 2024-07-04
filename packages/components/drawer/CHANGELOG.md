@@ -1,5 +1,27 @@
 # @sl-design-system/drawer
 
+## 0.0.30
+
+### Patch Changes
+
+- Updated dependencies [[`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744)]:
+  - @sl-design-system/button-bar@1.0.0
+
+## 0.0.29
+
+### Patch Changes
+
+- Updated dependencies [[`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/button@1.0.0
+
+## 0.0.28
+
+### Patch Changes
+
+- Updated dependencies [[`39c22ca`](https://github.com/sl-design-system/components/commit/39c22cad76661ad4b1f3a8f4bc56c576c36a94be)]:
+  - @sl-design-system/button-bar@0.0.7
+  - @sl-design-system/button@0.0.28
+
 ## 0.0.27
 
 ### Patch Changes

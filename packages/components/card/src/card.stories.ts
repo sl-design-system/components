@@ -24,7 +24,8 @@ type Story = StoryObj<Props>;
 const orientations = ['horizontal', 'vertical'];
 
 export default {
-  title: 'Components/Card',
+  title: 'Layout/Card',
+  tags: ['stable'],
   args: {
     title: 'Lorem Ipsum',
     bodyText:
@@ -406,6 +407,34 @@ export const Vertical: Story = {
           <span slot="header"><sl-badge>new</sl-badge></span>
           <p slot="body"><em>icon:pinata</em> - ${bodyCopy[1]}</p>
           <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+        </sl-card>
+      </div>`
+};
+
+export const All: Story = {
+  render: () =>
+    html` <style>
+        #root-inner > div {
+          gap: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+      </style>
+      <div>
+        <sl-card style="--sl-card-media-aspect-ratio:1/1;" padding>
+          <img slot="media" src=${images[1]} />
+          <h2>${titles[1]}</h2>
+          <span slot="header"><sl-badge>new</sl-badge></span>
+          <p slot="body">${bodyCopy[1]}</p>
+          <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+        </sl-card>
+
+        <sl-card style="--sl-card-media-aspect-ratio:1/1; max-width: 300px;" orientation="vertical">
+          <img slot="media" src=${images[1]} />
+          <h2>${titles[1]}</h2>
+          <p slot="body">${bodyCopy[1]}</p>
         </sl-card>
       </div>`
 };

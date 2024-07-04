@@ -1,3 +1,4 @@
+import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
@@ -20,26 +21,30 @@ declare global {
  *   </sl-tab>
  * ```
  *
- * @slot default - a place for the tab group content.
- * @slot icon - icon shown on the left side of the component.
- * @slot badge - a place for badge component.
- * @slot subtitle - subtitle of the tab, containing additional information
+ * @slot default - A place for the tab group content.
+ * @slot icon - Icon shown on the left side of the component.
+ * @slot badge - A place for badge component.
+ * @slot subtitle - Subtitle of the tab, containing additional information.
  */
 export class Tab extends LitElement {
-  /** @private */
+  /** @internal */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Whether the tab item is disabled */
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
+
+  /** Whether the tab item is disabled. */
   @property({ reflect: true, type: Boolean }) disabled?: boolean;
 
   /**
-   * When set, it will render the tab contents in a link tag. Use this when
-   * you want to render the tab contents using a router and to make the tab
-   * navigatable by URL.
+   * When set, it will render the tab contents in a link tag. Use this when you want to render the tab contents using a router and to make the tab navigatable by URL.
    */
   @property() href?: string;
 
-  /** Whether the tab item is selected */
+  /** Whether the tab item is selected. */
   @property({ reflect: true, type: Boolean }) selected?: boolean;
 
   override connectedCallback(): void {
@@ -52,18 +57,19 @@ export class Tab extends LitElement {
   override render(): TemplateResult {
     return this.href
       ? html`<a href=${this.href}>${this.renderContent()}</a>`
-      : html`<div class="wrapper">${this.renderContent()}</div>`;
+      : html`<div .tabIndex=${this.selected ? 0 : -1} class="wrapper">${this.renderContent()}</div>`;
   }
 
+  /** @ignore */
   renderContent(): TemplateResult {
     return html`
-      <slot name="icon" part="icon"></slot>
+      <slot @slotchange=${this.#onIconSlotChange} name="icon" part="icon"></slot>
       <div class="content">
         <span class="title">
-          <slot></slot>
+          <slot @slotchange=${this.#onSlotChange}></slot>
           <slot name="badge" part="badge"></slot>
         </span>
-        <slot @slotchange=${this.#onSlotchange} name="subtitle" part="subtitle"></slot>
+        <slot @slotchange=${this.#onSubtitleSlotChange} name="subtitle" part="subtitle"></slot>
       </div>
     `;
   }
@@ -76,7 +82,31 @@ export class Tab extends LitElement {
     }
   }
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  #onIconSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const hasIcon = event.target.assignedElements({ flatten: true }).length > 0;
+
+    this.toggleAttribute('has-icon', hasIcon);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (!this.href || this.disabled) {
+      return;
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+
+      // Enter automatically triggers a click event, but space does not
+      this.renderRoot.querySelector<HTMLElement>('a[href]')?.click();
+    }
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const nodes = event.target.assignedNodes({ flatten: true }),
+      hasTitle = nodes.some(node => !!node.textContent?.trim());
+
+    this.toggleAttribute('has-title', hasTitle);
+  }
+
+  #onSubtitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const nodes = event.target.assignedNodes({ flatten: true }),
       hasSubtitle = nodes.some(node => !!node.textContent?.trim());
 

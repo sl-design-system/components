@@ -9,7 +9,8 @@ type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateRe
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'In progress/Breadcrumbs',
+  title: 'Components/Breadcrumbs',
+  tags: ['stable'],
   args: {
     homeUrl: '/',
     noHome: false
@@ -19,6 +20,11 @@ export default {
       table: {
         disable: true
       }
+    }
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'default'
     }
   },
   render: ({ breadcrumbs, homeUrl, noHome }) => html`
@@ -66,16 +72,6 @@ export const Mobile: Story = {
   }
 };
 
-export const NoCurrentPage: Story = {
-  args: {
-    breadcrumbs: html`
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <span>Dolar</span>
-    `
-  }
-};
-
 export const NoHome: Story = {
   args: {
     ...Basic.args,
@@ -95,4 +91,30 @@ export const Overflow: Story = {
       >
     `
   }
+};
+
+export const All: Story = {
+  render: () => html`
+    <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs no-home>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+  `
 };

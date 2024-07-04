@@ -5,7 +5,7 @@ const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
   stories: [
-    './stories/**/*.stories.ts',
+    '*.mdx',
     '../packages/{checklist,components}/**/*.stories.ts'
   ],
   addons: [
@@ -15,8 +15,7 @@ const config: StorybookConfig = {
     {
       name: '@storybook/addon-essentials',
       options: {
-        actions: false,
-        docs: false
+        actions: false
       }
     }
   ],
@@ -34,6 +33,7 @@ const config: StorybookConfig = {
     }
   },
   staticDirs: [
+    { from: '../node_modules/emojibase-data', to: '/emoji' },
     { from: '../packages/themes', to: '/themes' }
   ],
   viteFinal: async config => {

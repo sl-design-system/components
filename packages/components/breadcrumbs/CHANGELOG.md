@@ -1,5 +1,51 @@
 # @sl-design-system/breadcrumbs
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1376](https://github.com/sl-design-system/components/pull/1376) [`96fe2f4`](https://github.com/sl-design-system/components/commit/96fe2f45ee28e415d16e9da14374d34439773821) - Improve hover state by changing the `text-decoration-thickness`
+
+## 1.0.1
+
+### Patch Changes
+
+- [#1367](https://github.com/sl-design-system/components/pull/1367) [`95ea0ec`](https://github.com/sl-design-system/components/commit/95ea0ec2cbe7d4e61dca6bc26a470b1ed5e04e47) - Fix missing button and popover dependencies
+
+## 1.0.0
+
+### Major Changes
+
+- [#1336](https://github.com/sl-design-system/components/pull/1336) [`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744) - First stable release
+
+### Patch Changes
+
+- [#1338](https://github.com/sl-design-system/components/pull/1338) [`323f71e`](https://github.com/sl-design-system/components/commit/323f71ecac7f9f7f0ffe9a0c37e4470a7736143c) - Fixed issue where "more breadcrumbs" button was squished on smaller screens
+
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204)]:
+  - @sl-design-system/tooltip@1.0.1
+
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/icon@1.0.0
+  - @sl-design-system/tooltip@1.0.0
+  - @sl-design-system/menu@0.0.10
+
+## 0.0.8
+
+### Patch Changes
+
+- [#1243](https://github.com/sl-design-system/components/pull/1243) [`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb) - Fix missing `d.ts` files
+
+- [#1214](https://github.com/sl-design-system/components/pull/1214) [`63c9190`](https://github.com/sl-design-system/components/commit/63c919092c0cef165c9c5953fca88a42e4af618e) - Wrap all links in an unordered list to improve a11y
+
+- Updated dependencies [[`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb)]:
+  - @sl-design-system/menu@0.0.9
+  - @sl-design-system/tooltip@0.0.26
+
 ## 0.0.7
 
 ### Patch Changes

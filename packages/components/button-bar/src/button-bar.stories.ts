@@ -9,7 +9,8 @@ type Props = Pick<ButtonBar, 'align' | 'reverse'> & { buttons: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'In progress/Button bar',
+  title: 'Components/Button bar',
+  tags: ['stable'],
   args: {
     align: 'start',
     reverse: false

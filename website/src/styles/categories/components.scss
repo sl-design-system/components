@@ -10,15 +10,20 @@ $transition-timing: 300ms;
 
 .ds-components__content-wrapper {
   .ds-heading-1:first-of-type {
-    margin-top: 4rem;
+    margin-block-start: 4rem;
   }
 
   h2 {
-    margin-bottom: 0.8rem;
+    margin-block-end: 0.8rem;
+  }
+
+  p {
+    max-inline-size: 64rem;
   }
 }
 
 .component-card {
+  block-size: 100%;
   border-radius: 0.2rem;
   cursor: pointer;
   display: flex;
@@ -38,14 +43,16 @@ $transition-timing: 300ms;
       transform: none;
     }
 
-    .ds-heading-2 {
+    .ds-heading-2,
+    .component-card__title {
       color: var(--highlight-color);
     }
   }
 
-  .ds-heading-2 {
+  .ds-heading-2,
+  .component-card__title {
     line-height: 2rem;
-    margin-bottom: 0.8rem;
+    margin-block-end: 0.8rem;
     transition: color $transition-timing linear;
   }
 }
@@ -66,10 +73,11 @@ $transition-timing: 300ms;
 }
 
 .component-card__picture {
+  align-items: center;
   background-color: var(--component-card-background);
   display: inline-flex;
   justify-content: center;
-  margin-bottom: 1.6rem;
+  margin-block-end: 1.6rem;
   overflow: hidden;
   position: relative;
 
@@ -90,15 +98,15 @@ $transition-timing: 300ms;
     background-color: var(--component-card-background);
     display: inline-flex;
     justify-content: center;
-    margin-bottom: 1.6rem;
+    margin-block-end: 1.6rem;
     overflow: hidden;
     position: relative;
 
     /* stylelint-disable-next-line max-nesting-depth */
     .ds-badge {
+      inset-block-start: 0.8rem;
+      inset-inline-end: 0.8rem;
       position: absolute;
-      right: 0.8rem;
-      top: 0.8rem;
     }
 
     /* stylelint-disable-next-line max-nesting-depth */
@@ -122,22 +130,14 @@ $transition-timing: 300ms;
   }
 
   section {
-    margin-bottom: 6.4rem;
-    margin-top: 2.4rem;
-  }
-}
-
-.ds-components__content-wrapper {
-  p {
-    max-width: 64rem;
+    margin-block: 2.4rem 6.4rem;
   }
 }
 
 .ds-components__cards {
-  column-gap: 2.4rem;
   display: grid;
+  gap: 3.2rem 2.4rem;
   grid-template-columns: 1fr;
-  row-gap: 3.2rem;
 
   @media screen and (min-width: $md-breakpoint) {
     grid-template-columns: repeat(2, [col-start] minmax(100px, 1fr) [col-end]);
@@ -173,13 +173,13 @@ $transition-timing: 300ms;
 }
 
 .ds-component__heading-wrapper .ds-badge {
-  float: right;
+  float: inline-end;
 }
 
 .ds-component__heading-description {
   font-size: 1.8rem;
   line-height: 2.4rem;
-  margin-top: 0.8rem;
+  margin-block-start: 0.8rem;
 }
 
 .ds-success {
@@ -189,7 +189,7 @@ $transition-timing: 300ms;
   position: relative;
 
   img {
-    width: 100%;
+    inline-size: 100%;
   }
 }
 
@@ -198,15 +198,15 @@ $transition-timing: 300ms;
 
   &::before {
     background: var(--success-color);
+    block-size: 0.4rem;
     border-radius: 0.4rem;
     content: '';
     display: block;
-    height: 0.4rem;
-    left: 0;
-    margin-bottom: 0.8rem;
+    inline-size: 100%;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    margin-block-end: 0.8rem;
     position: absolute;
-    top: 0;
-    width: 100%;
   }
 
   :first-child {
@@ -225,7 +225,7 @@ $transition-timing: 300ms;
   margin: 2.4rem 0 0;
 
   img {
-    width: 100%;
+    inline-size: 100%;
   }
 }
 
@@ -234,15 +234,15 @@ $transition-timing: 300ms;
 
   &::before {
     background: var(--danger-color);
+    block-size: 0.4rem;
     border-radius: 0.4rem;
     content: '';
     display: block;
-    height: 0.4rem;
-    left: 0;
-    margin-bottom: 0.8rem;
+    inline-size: 100%;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    margin-block-end: 0.8rem;
     position: absolute;
-    top: 0;
-    width: 100%;
   }
 
   :first-child {
@@ -257,10 +257,10 @@ $transition-timing: 300ms;
 
 .ds-do-dont__picture {
   background-color: var(--picture-background);
+  block-size: 20rem;
   border-radius: 0.4rem;
   display: inline-block;
-  height: 20rem;
-  margin-bottom: 0.8rem;
+  margin-block-end: 0.8rem;
   object-fit: contain;
 }
 

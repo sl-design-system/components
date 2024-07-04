@@ -1,5 +1,5 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
-import { FormControlMixin } from '@sl-design-system/form';
+import { FormControlMixin, type SlFormControlEvent } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -22,10 +22,10 @@ const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], a
  */
 @localized()
 export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
@@ -37,8 +37,9 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   /** Observe changes to the checkboxes. */
   #observer = new MutationObserver(() => {
-    this.value = this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];
+    this.value = this.boxes?.map(box => box.formValue) ?? [];
     this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
     this.#updateValidity();
   });
 
@@ -49,17 +50,17 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     isFocusableElement: (el: Checkbox) => !el.disabled
   });
 
-  /** @private */
+  /** @internal */
   readonly internals = this.attachInternals();
 
-  /** @private The slotted checkboxes. */
+  /** @internal The slotted checkboxes. */
   @queryAssignedElements() boxes?: Array<Checkbox<T>>;
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value of the group changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T[]>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Array<T | null>>>;
 
   /** @internal Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
@@ -70,13 +71,15 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** At least one checkbox in the group must be checked if true. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /** The size of the checkboxes in the group.
-   * @type {'md' | 'lg'}
-   */
+  /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
   /** The value of the group. */
-  @property({ type: Array }) override value?: T[];
+  @property({ type: Array }) override value?: Array<T | null>;
+
+  override get formValue(): T[] {
+    return this.value?.filter((v): v is T => v !== null) ?? [];
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -120,6 +123,18 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     if (changes.has('size')) {
       this.boxes?.forEach(box => (box.size = this.size || 'md'));
     }
+
+    if (changes.has('value')) {
+      this.#observer.disconnect();
+      this.boxes?.forEach((box, index) => {
+        if (box.value !== undefined) {
+          box.checked = this.value?.includes(box.value) ?? false;
+        } else {
+          box.formValue = this.value?.at(index) ?? null;
+        }
+      });
+      this.#observer.observe(this, OBSERVER_OPTIONS);
+    }
   }
 
   override render(): TemplateResult {
@@ -129,9 +144,14 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
         @sl-blur=${this.#stopEvent}
         @sl-change=${this.#stopEvent}
         @sl-focus=${this.#stopEvent}
+        @sl-form-control=${this.#onFormControl}
         @sl-validate=${this.#stopEvent}
       ></slot>
     `;
+  }
+
+  override focus(): void {
+    this.#rovingTabindexController.focus();
   }
 
   override reportValidity(): boolean {
@@ -152,6 +172,14 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
+  #onFormControl(event: SlFormControlEvent): void {
+    // Prevent the event from propagating any further because from the perspective of
+    // sl-form, only this control should be considered, not the slotted sl-checkbox.
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   #onSlotchange(): void {
@@ -159,9 +187,13 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     this.#observer.disconnect();
 
-    this.boxes?.forEach(box => {
+    this.boxes?.forEach((box, index) => {
       box.name = this.name;
-      box.checked = box.value !== undefined && this.value?.includes(box.value);
+      if (box.value !== undefined) {
+        box.checked = this.value?.includes(box.value) ?? false;
+      } else {
+        box.formValue = this.value?.at(index) ?? null;
+      }
 
       if (typeof this.disabled === 'boolean') {
         box.disabled = !!this.disabled;
@@ -171,6 +203,8 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
         box.size = this.size;
       }
     });
+
+    this.value = this.boxes?.map(box => box.formValue) ?? [];
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
   }

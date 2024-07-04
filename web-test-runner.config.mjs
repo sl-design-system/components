@@ -2,7 +2,10 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+import { readFile } from 'fs/promises';
 import { env } from 'node:process';
+
+const styles = await readFile('./packages/themes/sanoma-learning/light.css', 'utf-8');
 
 /** @type {import('@web/test-runner').TestRunnerConfig} */
 const config = {
@@ -35,8 +38,8 @@ const config = {
     <html>
       <body>
         <script src="/node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
-        <script src="/node_modules/@oddbird/popover-polyfill/dist/popover.min.js"></script>
         <script type="module" src="${testFramework}"></script>
+        <style>${styles}</style>
       </body>
     </html>
   `

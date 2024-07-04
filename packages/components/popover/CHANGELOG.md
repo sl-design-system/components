@@ -1,5 +1,20 @@
 # @sl-design-system/popover
 
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+## 0.1.12
+
+### Patch Changes
+
+- [#1207](https://github.com/sl-design-system/components/pull/1207) [`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b) - Fixed accessibility support for popover by using correct aria-labels
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+
 ## 0.1.11
 
 ### Patch Changes

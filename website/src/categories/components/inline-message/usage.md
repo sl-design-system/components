@@ -80,7 +80,7 @@ Warning: For potential problems that need attention.
 | 3 | Message | Communicates what’s about to happen or has happened.| yes |
 | 4 | Close button	| Icon button for closing the dialog | yes |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -88,7 +88,7 @@ Warning: For potential problems that need attention.
 
 <section>
 
-## Options
+## Figma Options
 
 With these options you can tweak the appearance of the inline message in Figma. They are available in the Design Panel so you can compose the inline message to exactly fit the user experience need for the uses case you are working on.
 

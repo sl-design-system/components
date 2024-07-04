@@ -23,7 +23,7 @@ export class EventsController implements ReactiveController {
   }
 
   hostDisconnected(): void {
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/promise-function-async
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this.#listeners.forEach(cb => cb());
     this.#listeners = [];
   }

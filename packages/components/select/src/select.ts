@@ -26,23 +26,23 @@ export type SelectSize = 'md' | 'lg';
  */
 @localized()
 export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
   /** The default offset of the listbox to the button. */
   static offset = 6;
 
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-select-button': SelectButton
     };
   }
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The default margin between the tooltip and the viewport. */
@@ -60,7 +60,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
-  /** @private Element internals. */
+  /** @internal */
   readonly internals = this.attachInternals();
 
   /** The button in the light DOM. */
@@ -75,10 +75,10 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
-  /** @private */
+  /** @internal */
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
-  /** @private A flattened array of all options (even grouped ones). */
+  /** @internal A flattened array of all options (even grouped ones). */
   get options(): Array<SelectOption<T>> {
     const elements =
       this.renderRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({ flatten: true }) ?? [];
@@ -89,7 +89,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /**
    * The current option in the listbox. This is the option that will become the
    * selected option if the user presses Enter/Space.
-   * @private
+   * @internal
    */
   @state() currentOption?: SelectOption<T>;
 
@@ -105,7 +105,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** Whether the select is a required field. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /** @private The selected option in the listbox. */
+  /** @internal The selected option in the listbox. */
   @state() selectedOption?: SelectOption<T>;
 
   /** When set will cause the control to show it is valid after reportValidity is called. */
@@ -113,6 +113,10 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** The size of the select. */
   @property({ reflect: true }) size: SelectSize = 'md';
+
+  /** The number of pixels from the top of the viewport the select should be hidden on scroll.
+   * Use this when there is a sticky header you don't want dropdowns to fall on top of. */
+  @property({ attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
 
   /** The value for the select, to be used in forms. */
   @property() override value?: T;
@@ -204,8 +208,11 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     }
 
     if (changes.has('value')) {
-      this.options.forEach(option => (option.selected = option.value === this.value));
-      this.button.selected = this.options.find(option => option.selected);
+      const selectedOption = this.options.find(option => option.value === this.value);
+
+      if (selectedOption !== this.selectedOption) {
+        this.#setSelectedOption(selectedOption, false);
+      }
     }
   }
 
@@ -217,7 +224,8 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
           element: this.button,
           offset: Select.offset,
           position: 'bottom-start',
-          viewportMargin: Select.viewportMargin
+          viewportMargin: Select.viewportMargin,
+          rootMarginTop: this.rootMarginTop
         })}
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
@@ -258,6 +266,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -315,7 +324,10 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   }
 
   #onSlotchange(): void {
-    this.#setSelectedOption(this.options.find(option => option.value === this.value));
+    this.#setSelectedOption(
+      this.options.find(option => option.value === this.value),
+      false
+    );
 
     this.optionGroups?.forEach(group => {
       group.size = this.size;
@@ -361,6 +373,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
     }
 
     this.#updateValueAndValidity();

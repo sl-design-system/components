@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/locales",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "Locales for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

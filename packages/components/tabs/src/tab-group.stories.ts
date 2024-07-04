@@ -4,7 +4,7 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type TabGroup } from './tab-group.js';
+import { type SlTabChangeEvent, type TabGroup } from './tab-group.js';
 import { type TabPanel } from './tab-panel.js';
 
 type Props = Pick<TabGroup, 'vertical' | 'alignTabs'> & {
@@ -14,7 +14,8 @@ type Props = Pick<TabGroup, 'vertical' | 'alignTabs'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'In progress/Tab Group',
+  title: 'Layout/Tab group',
+  tags: ['preview'],
   args: {
     alignTabs: 'start',
     vertical: false
@@ -34,6 +35,10 @@ export default {
         disable: true
       }
     }
+  },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
   },
   render: ({ alignTabs, tabs, tabPanels, vertical }) => {
     return html`<sl-tab-group .alignTabs=${alignTabs} .vertical=${vertical}>${tabs?.()}${tabPanels?.()}</sl-tab-group>`;
@@ -57,6 +62,32 @@ export const Basic: Story = {
   }
 };
 
+export const Empty: Story = {
+  args: {
+    ...Basic.args,
+    tabPanels: undefined
+  }
+};
+
+export const IconOnly: Story = {
+  args: {
+    tabs: () => html`
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+    `
+  }
+};
+
 export const InitialSelected: Story = {
   args: {
     ...Basic.args,
@@ -71,8 +102,8 @@ export const InitialSelected: Story = {
 
 export const Lazy: Story = {
   render: ({ alignTabs, vertical }) => {
-    const onTabChange = (event: Event & { target: TabGroup }) => {
-      document.querySelector('strong')!.textContent = event.target.selectedTab!.textContent;
+    const onTabChange = ({ detail }: SlTabChangeEvent) => {
+      document.querySelector('sl-tab-group strong')!.textContent = detail.toString();
     };
 
     return html`
@@ -94,10 +125,10 @@ export const Lazy: Story = {
 export const Links: Story = {
   args: {
     tabs: () => html`
-      <sl-tab href="javascript:void(0)">First tab</sl-tab>
-      <sl-tab href="javascript:void(0)">Second tab</sl-tab>
-      <sl-tab disabled href="javascript:void(0)">Disabled</sl-tab>
-      <sl-tab href="javascript:void(0)">Last tab that is longer than the rest</sl-tab>
+      <sl-tab href="javascript:alert('clicked')">First tab</sl-tab>
+      <sl-tab href="javascript:alert('clicked')">Second tab</sl-tab>
+      <sl-tab disabled href="javascript:alert('clicked')">Disabled</sl-tab>
+      <sl-tab href="javascript:alert('clicked')">Last tab that is longer than the rest</sl-tab>
       <p>
         The tabs in this example all have links. There are no tab panels present in this example. If you right click a
         tab, you will notice the browser will prompt you to open the link in a new tab. This can be useful if you want
@@ -300,4 +331,35 @@ export const Vertical: Story = {
     ...Basic.args,
     vertical: true
   }
+};
+
+export const All: Story = {
+  render: () => html`
+    <sl-tab-group>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 1
+        <span slot="subtitle">Tab 1 subtitle</span>
+      </sl-tab>
+      <sl-tab> Tab 2 </sl-tab>
+      <sl-tab>
+        Tab 3
+        <span slot="subtitle">Tab 3 subtitle</span>
+        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
+      </sl-tab>
+    </sl-tab-group>
+    <sl-tab-group vertical>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 1
+        <span slot="subtitle">Tab 1 subtitle</span>
+      </sl-tab>
+      <sl-tab> Tab 2 </sl-tab>
+      <sl-tab>
+        Tab 3
+        <span slot="subtitle">Tab 3 subtitle</span>
+        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
+      </sl-tab>
+    </sl-tab-group>
+  `
 };

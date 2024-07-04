@@ -1,0 +1,79 @@
+name: 👩‍🎨 Figma Toolkit
+description: File an issue for the toolkit
+labels: ["figma", "bug", "triage"]
+projects: ["projects/2"]
+body:
+  - type: markdown
+    attributes:
+      value: "### Thanks for filing an issue! Before you submit, search open/closed issues before submitting since someone might have asked the same thing before!"
+  - type: markdown
+    attributes:
+      value: "# 👩‍🎨 Figma Toolkit "
+  - type: textarea
+    id: general-summary
+    attributes:
+      label: Provide a general summary of the issue here
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: 🤔 Expected Behavior?
+      description: Tell us what should happen
+    validations:
+      required: true
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: 😯 Current Behavior
+      description: | 
+        Tell us what happens instead of the expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: 💁 Possible Solution
+      description: Suggest a fix/reason for the bug
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: 📷 Screenshots
+      description: | 
+        You can attach images by clicking this area to highlight it and then dragging files in
+    validations:
+      required: false
+  - type: input
+    id: links
+    attributes:
+      label: 📎 Link to Figma
+      description: Please add a link to the screen or the comment you left within Figma
+    validations:
+      required:
+  - type: markdown
+    attributes:
+      value: "## 🦄 Other"
+  - type: dropdown
+    id: theme
+    attributes:
+      label: 🎨 Your Theme(s)
+      description: Which theme(s) do you use?
+      multiple: true
+      options:
+      - Bingel DC
+      - Bingel INT
+      - Editorial Suite
+      - ItsLearning
+      - Kampus
+      - Magister
+      - Max Online
+      - My Digital Book
+      - My Van in
+      - NEON
+      - Sanoma Learning
+      - Sanoma Utbildning
+      - TEAS
+    validations:
+      required: true

@@ -1,5 +1,43 @@
 # @sl-design-system/tabs
 
+## 0.1.12
+
+### Patch Changes
+
+- [#1354](https://github.com/sl-design-system/components/pull/1354) [`07d4437`](https://github.com/sl-design-system/components/commit/07d443778cf46b80c0f89fb2e7fdc8d11b5c335a) - Various improvements:
+
+  - Fix tab group to not always select a tab by default
+  - Fix tab group component to allow for removing the selected attribute from a tab
+  - Fade in the selected tab indicator on first selected tab
+  - Change styling to account for icon-only tabs
+
+- [#1353](https://github.com/sl-design-system/components/pull/1353) [`ab2a09b`](https://github.com/sl-design-system/components/commit/ab2a09ba9073f52c0c920d7eac4e38a02ee9c83f) - Fix unnecessary padding if there are no panels
+
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/icon@1.0.0
+  - @sl-design-system/menu@0.0.10
+
+## 0.1.10
+
+### Patch Changes
+
+- [#1208](https://github.com/sl-design-system/components/pull/1208) [`b48b108`](https://github.com/sl-design-system/components/commit/b48b108c4873b6bbbea7636988a663f92c0ee242) - Improvements and bug fixes:
+
+  - Add possibility of changing tab with URL by keyboard
+  - Add missing background for `container` part: `--_tablist-background: var(--sl-color-tab-tabbar-background)`
+  - Fix scrolling - only horizontally
+  - Fix updating selected tab - tab only, not all elements with `selected` attribute inside
+
+- [#994](https://github.com/sl-design-system/components/pull/994) [`4ae94ae`](https://github.com/sl-design-system/components/commit/4ae94aea4efb84f631b3d45faf76fbb32aed4a0f) - Fixing selecting tabs, when there are nested tabs.
+
+- Updated dependencies [[`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb), [`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/menu@0.0.9
+  - @sl-design-system/shared@0.2.11
+
 ## 0.1.9
 
 ### Patch Changes

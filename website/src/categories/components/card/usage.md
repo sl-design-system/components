@@ -83,11 +83,11 @@ Use cards for simple content presentation, but avoid them for complex layouts or
 |1|Card Container	|The placeholder of the card|no|
 |2|Card image	|The image of the card|yes|
 |3|Card header	|The title of the card|no|
-|3|More button	|To display secondary actions related to the content|yes|
-|4|Card body	|The content of the card |no|
-|4|Card footer	|Displays actions related to subject|yes|
+|4|More button	|To display secondary actions related to the content|yes|
+|5|Card body	|The content of the card |no|
+|6|Card footer	|Displays actions related to subject|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -95,7 +95,7 @@ Use cards for simple content presentation, but avoid them for complex layouts or
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the card in Figma. They are available in the Design Panel so you can compose the card to exactly fit the user experience need for the use case you are working on.
 
@@ -113,7 +113,7 @@ With these options, you can tweak the appearance of the card in Figma. They are 
 |Body text|`value`|To insert the text of the card|
 
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 </div>
 
 </section>

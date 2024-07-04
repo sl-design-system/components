@@ -1,5 +1,17 @@
 # @sl-design-system/spinner
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1326](https://github.com/sl-design-system/components/pull/1326) [`da36aee`](https://github.com/sl-design-system/components/commit/da36aeeb1fd933d859b1690555c70800b7b0f0e9) - Fixed bug that caused wonky animation in Safari when using page zoom
+
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
 ## 0.0.5
 
 ### Patch Changes

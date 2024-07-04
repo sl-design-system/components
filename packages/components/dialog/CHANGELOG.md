@@ -1,5 +1,42 @@
 # @sl-design-system/dialog
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1374](https://github.com/sl-design-system/components/pull/1374) [`836d6d5`](https://github.com/sl-design-system/components/commit/836d6d54ff835b81378d996deb8bf6cb8a108b43) - Remove any margin on the slotted (sub)title
+
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744), [`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/button-bar@1.0.0
+  - @sl-design-system/shared@0.2.12
+
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+### Patch Changes
+
+- Updated dependencies [[`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/icon@1.0.0
+  - @sl-design-system/button@1.0.0
+
+## 0.0.17
+
+### Patch Changes
+
+- [#1233](https://github.com/sl-design-system/components/pull/1233) [`68b6404`](https://github.com/sl-design-system/components/commit/68b6404bc5574b88daae711a2eb535c2572d23b1) - Fix dialog clipping the focus outline of form fields.
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b), [`39c22ca`](https://github.com/sl-design-system/components/commit/39c22cad76661ad4b1f3a8f4bc56c576c36a94be)]:
+  - @sl-design-system/shared@0.2.11
+  - @sl-design-system/button-bar@0.0.7
+  - @sl-design-system/button@0.0.28
+
 ## 0.0.16
 
 ### Patch Changes

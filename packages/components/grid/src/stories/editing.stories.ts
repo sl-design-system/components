@@ -6,8 +6,12 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'In progress/Grid/Editing',
-  loaders: [async () => ({ people: (await getPeople()).people })]
+  title: 'Layout/Grid/Editing',
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 } satisfies Meta;
 
 export const TextField: Story = {

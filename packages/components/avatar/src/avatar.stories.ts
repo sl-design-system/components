@@ -1,25 +1,20 @@
+import { faSchool } from '@fortawesome/pro-regular-svg-icons';
+import '@sl-design-system/badge/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Avatar } from './avatar.js';
-import { type AvatarSize } from './models.js';
+import { type Avatar, type AvatarSize } from './avatar.js';
 
 type Props = Pick<
   Avatar,
-  | 'badgeText'
-  | 'displayInitials'
-  | 'displayName'
-  | 'fallback'
-  | 'href'
-  | 'imageOnly'
-  | 'label'
-  | 'pictureUrl'
-  | 'size'
-  | 'status'
-  | 'vertical'
+  'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'size' | 'vertical'
 > & {
+  badge?: TemplateResult;
+  fallback?: TemplateResult;
+  maxWidth?: string;
   subheading?: string;
   tabIndex?: number;
 };
@@ -27,23 +22,30 @@ type Story = StoryObj<Props>;
 
 const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 
+Icon.register(faSchool);
+
 export default {
   title: 'Components/Avatar',
+  tags: ['stable'],
   args: {
     displayName: 'Rose Nylund',
     imageOnly: false,
     pictureUrl:
       'https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&w=188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     size: 'md',
-    subheading: ''
+    subheading: '',
+    vertical: false
   },
   argTypes: {
-    badgeText: {
-      control: 'text'
+    badge: {
+      table: {
+        disable: true
+      }
     },
     fallback: {
-      control: 'inline-radio',
-      options: ['image', 'initials']
+      table: {
+        disable: true
+      }
     },
     href: {
       control: 'text'
@@ -51,48 +53,36 @@ export default {
     size: {
       control: 'inline-radio',
       options: sizes
-    },
-    status: {
-      control: 'inline-radio',
-      options: ['danger', 'success', 'warning', 'accent', 'neutral', 'primary']
-    },
-    vertical: {
-      control: 'boolean'
     }
   },
   render: ({
-    badgeText,
+    badge,
     displayInitials,
     displayName,
     fallback,
     href,
     imageOnly,
-    label,
+    maxWidth,
     pictureUrl,
     size,
-    status,
     subheading,
     tabIndex,
     vertical
   }) => {
     return html`
-      <div style="max-width:175px;">
-        <sl-avatar
-          .badgeText=${badgeText}
-          .displayInitials=${displayInitials}
-          .displayName=${displayName}
-          .fallback=${fallback}
-          .href=${href}
-          .label=${label}
-          .pictureUrl=${pictureUrl}
-          .size=${size}
-          .status=${status}
-          ?image-only=${imageOnly}
-          ?vertical=${vertical}
-          tabindex=${ifDefined(tabIndex)}
-          >${subheading}</sl-avatar
-        >
-      </div>
+      <sl-avatar
+        .displayInitials=${displayInitials}
+        .displayName=${displayName}
+        .href=${href}
+        .pictureUrl=${pictureUrl}
+        .size=${size}
+        ?image-only=${imageOnly}
+        ?vertical=${vertical}
+        style=${ifDefined(maxWidth ? `max-width: ${maxWidth}` : undefined)}
+        tabindex=${ifDefined(tabIndex)}
+      >
+        ${subheading} ${badge ?? nothing} ${fallback ?? nothing}
+      </sl-avatar>
     `;
   }
 } satisfies Meta<Props>;
@@ -101,8 +91,18 @@ export const Basic: Story = {};
 
 export const Badge: Story = {
   args: {
-    badgeText: '34',
-    label: '{{badgeText}} unread messages'
+    badge: html`<sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">1</sl-badge>`,
+    size: 'xl'
+  }
+};
+
+export const FallbackContent: Story = {
+  args: {
+    displayName: 'Bluebell Secondary School',
+    fallback: html`<sl-icon name="far-school" slot="fallback"></sl-icon>`,
+    pictureUrl: undefined,
+    size: 'xl',
+    subheading: '1432 students'
   }
 };
 
@@ -110,13 +110,6 @@ export const Href: Story = {
   args: {
     href: 'https://example.com',
     subheading: '30 May'
-  }
-};
-
-export const ImageFallback: Story = {
-  args: {
-    fallback: 'image',
-    pictureUrl: undefined
   }
 };
 
@@ -128,14 +121,14 @@ export const ImageOnlyWithFocus: Story = {
   }
 };
 
-export const InitialsFallback: Story = {
+export const ImplicitInitials: Story = {
   args: {
-    fallback: 'initials',
-    pictureUrl: undefined
+    pictureUrl: undefined,
+    size: 'xl'
   }
 };
 
-export const Initials: Story = {
+export const CustomInitials: Story = {
   args: {
     displayInitials: 'SLDS',
     displayName: 'SL Design System',
@@ -147,14 +140,8 @@ export const Initials: Story = {
 export const Overflow: Story = {
   args: {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
+    maxWidth: '175px',
     subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'
-  }
-};
-
-export const Status: Story = {
-  args: {
-    badgeText: '34',
-    status: 'accent'
   }
 };
 
@@ -167,6 +154,7 @@ export const Subheading: Story = {
 export const Vertical: Story = {
   args: {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
+    maxWidth: '175px',
     size: '2xl',
     vertical: true
   }
@@ -174,27 +162,6 @@ export const Vertical: Story = {
 
 export const All: StoryObj = {
   render: () => {
-    const sizeName = (size: string): string => {
-      switch (size) {
-        case 'sm':
-          return 'Small';
-        case 'md':
-          return 'Medium';
-        case 'lg':
-          return 'Large';
-        case 'xl':
-          return 'Extra Large';
-        case '2xl':
-          return '2 Extra Large';
-        case '3xl':
-          return '3 Extra Large';
-        case '4xl':
-          return '4 Extra Large';
-        default:
-          return 'Extra Small';
-      }
-    };
-
     const users: Array<{ name: string; picture?: string }> = [
       {
         name: 'Yousef van der Schaaf',
@@ -227,9 +194,6 @@ export const All: StoryObj = {
           margin-bottom: 24px;
         }
 
-        th {
-          text-transform: capitalize;
-        }
         th,
         td {
           padding: 4px 8px;
@@ -241,7 +205,7 @@ export const All: StoryObj = {
         <thead>
           <tr>
             <th></th>
-            ${sizes.map(size => html`<th>${sizeName(size)}</th>`)}
+            ${sizes.map(size => html`<th>${size}</th>`)}
           </tr>
         </thead>
         <tbody>
@@ -256,26 +220,27 @@ export const All: StoryObj = {
             )}
           </tr>
           <tr>
-            <td>Subheader</td>
+            <td>Subheading</td>
             ${sizes.map(
               size => html`
                 <td>
                   <sl-avatar .displayName=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
-                    >Subheader</sl-avatar
+                    >Subheading</sl-avatar
                   >
                 </td>
               `
             )}
           </tr>
           <tr>
-            <td>Image fallback</td>
-            ${sizes.map(size => html`<td><sl-avatar .displayName=${users[4].name} .size=${size}></sl-avatar></td>`)}
-          </tr>
-          <tr>
-            <td>Initials fallback</td>
+            <td>Fallback content</td>
             ${sizes.map(
-              size =>
-                html`<td><sl-avatar .displayName=${users[3].name} .size=${size} fallback="initials"></sl-avatar></td>`
+              size => html`
+                <td>
+                  <sl-avatar .displayName=${users[4].name} .size=${size}>
+                    <sl-icon name="check" slot="fallback"></sl-icon>
+                  </sl-avatar>
+                </td>
+              `
             )}
           </tr>
           <tr>
@@ -304,24 +269,55 @@ export const All: StoryObj = {
             )}
           </tr>
           <tr>
-            <td>Status</td>
-            ${sizes.map(
-              size => html`
-                <td>
-                  <sl-avatar .displayName=${users[3].name} .size=${size} image-only status="success"></sl-avatar>
-                </td>
-              `
-            )}
-          </tr>
-          <tr>
             <td>Badge</td>
-            ${sizes.map(
-              size => html`
-                <td>
-                  <sl-avatar .displayName=${users[3].name} .size=${size} image-only badge-text="34"></sl-avatar>
-                </td>
-              `
-            )}
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="sm" image-only>
+                <sl-badge
+                  aria-label="1 unread message"
+                  emphasis="bold"
+                  size="sm"
+                  slot="badge"
+                  variant="warning"
+                ></sl-badge>
+              </sl-avatar>
+            </td>
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="md" image-only>
+                <sl-badge
+                  aria-label="1 unread message"
+                  emphasis="bold"
+                  size="sm"
+                  slot="badge"
+                  variant="warning"
+                ></sl-badge>
+              </sl-avatar>
+            </td>
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="lg" image-only>
+                <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">1</sl-badge>
+              </sl-avatar>
+            </td>
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="xl" image-only>
+                <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">
+                  <sl-icon name="check"></sl-icon>
+                </sl-badge>
+              </sl-avatar>
+            </td>
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="2xl" image-only>
+                <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="warning">
+                  1234
+                </sl-badge>
+              </sl-avatar>
+            </td>
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="3xl" image-only>
+                <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="warning">
+                  <sl-icon name="check"></sl-icon>1
+                </sl-badge>
+              </sl-avatar>
+            </td>
           </tr>
         </tbody>
       </table>

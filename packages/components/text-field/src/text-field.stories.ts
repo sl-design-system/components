@@ -38,8 +38,8 @@ export default {
     disabled: false,
     label: 'Label',
     placeholder: 'Type something here',
-    required: false,
     readonly: false,
+    required: false,
     showValid: false
   },
   argTypes: {

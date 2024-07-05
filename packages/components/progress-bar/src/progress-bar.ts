@@ -88,7 +88,8 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         <slot></slot>
         <span id="live" aria-live="polite">
           ${msg('state')} ${msg(this.state)}
-          <span aria-live="polite" aria-atomic="true">${msg('value')} ${this.value}%</span>
+          <!-- We want '%' to be read every time the value changes. -->
+          <span aria-live="polite" aria-atomic="true">${this.value}%</span>
         </span>
         ${this.state !== 'active' && !this.label
           ? html` <sl-icon .name=${this.iconName} size="md"></sl-icon>`

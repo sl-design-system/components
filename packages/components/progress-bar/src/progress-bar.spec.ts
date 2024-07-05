@@ -51,7 +51,7 @@ describe('sl-progress-bar', () => {
   it('should have aria-live by default', () => {
     const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
     expect(ariaLive).to.have.attribute('aria-live', 'polite');
-    expect(ariaLive).to.have.trimmed.text('state: active, value: 0%');
+    expect(ariaLive).to.have.rendered.text('state active 0%');
   });
 
   it('should be labelled properly when the label is set', async () => {
@@ -124,6 +124,6 @@ describe('sl-progress-bar', () => {
 
     const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
     expect(ariaLive).to.have.attribute('aria-live', 'polite');
-    expect(ariaLive).to.have.trimmed.text('state: warning, value: 60%');
+    expect(ariaLive).to.have.rendered.text('state warning 60%');
   });
 });

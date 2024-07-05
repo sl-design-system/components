@@ -14,8 +14,6 @@ describe('sl-progress-bar', () => {
   });
 
   it('should render correctly', () => {
-    console.log('el', el, el.renderRoot);
-    // expect(el).to.have.attribute('align', align);
     expect(el).shadowDom.to.equalSnapshot();
   });
 
@@ -55,6 +53,12 @@ describe('sl-progress-bar', () => {
     expect(progressBar).to.have.attribute('aria-valuenow', '0');
   });
 
+  it('should have aria-live by default', () => {
+    const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
+    expect(ariaLive).to.have.attribute('aria-live', 'polite');
+    expect(ariaLive).to.have.trimmed.text('state: active, value: 0%');
+  });
+
   it('should be labelled properly when the label is set', async () => {
     el.label = 'Progress label';
     await el.updateComplete;
@@ -65,98 +69,57 @@ describe('sl-progress-bar', () => {
     expect(progressBar).to.have.attribute('aria-labelledby', 'label');
   });
 
-  it('should have the proper icon when success state is set', async () => {
+  it('should have the proper icon when the success state is set', async () => {
     el.state = 'success';
     await el.updateComplete;
 
     const label = el.renderRoot.querySelector('span.label') as HTMLElement;
     const icon = label?.querySelector('sl-icon') as HTMLElement;
-    console.log('icon', icon);
 
     expect(label).to.have.trimmed.text('Progress label');
     expect(icon).to.have.attribute('name', 'circle-check-solid');
   });
 
-  // TODO: check aria-live
+  it('should have the proper icon when the warning state is set', async () => {
+    el.state = 'warning';
+    await el.updateComplete;
 
-  // TODO: check the proper icon and properties when exaqct state is set, no icon when active and indeterminate, icon nead helper when no label and the other way
+    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
+    const icon = label?.querySelector('sl-icon') as HTMLElement;
 
-  //   it('should not have a default alignment', () => {
-  //     expect(el).not.to.have.attribute('align');
-  //   });
-  //
-  //   ['center', 'end', 'space-between', 'start'].forEach(align => {
-  //     it(`should support ${align} alignment`, async () => {
-  //       el.align = align as ButtonBarAlign;
-  //       await el.updateComplete;
-  //
-  //       expect(el).to.have.attribute('align', align);
-  //     });
-  //   });
-  //
-  //   it('should not reverse the order by default', () => {
-  //     expect(el).not.to.have.attribute('reverse');
-  //   });
-  //
-  //   it('should reverse the order when set', async () => {
-  //     el.reverse = true;
-  //     await el.updateComplete;
-  //
-  //     expect(el).to.have.attribute('reverse');
-  //   });
-  //
-  //   it('should not have icon-only when there are not only icon-only buttons', () => {
-  //     expect(el).not.to.have.attribute('icon-only');
-  //   });
-  //
-  //   describe('icon only', () => {
-  //     beforeEach(async () => {
-  //       el = await fixture(
-  //         // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
-  //         html`<sl-button-bar>
-  //           <sl-button fill="ghost" icon-only><sl-icon name="close"></sl-icon></sl-button>
-  //           <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
-  //         </sl-button-bar>`
-  //       );
-  //       await el.updateComplete;
-  //     });
-  //
-  //     it('should render correctly', () => {
-  //       expect(el).to.have.attribute('icon-only');
-  //     });
-  //   });
-  //
-  //   describe('icon only with non-ghost button', () => {
-  //     beforeEach(async () => {
-  //       el = await fixture(
-  //         // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
-  //         html`<sl-button-bar>
-  //           <sl-button icon-only><sl-icon name="close"></sl-icon></sl-button>
-  //           <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
-  //         </sl-button-bar>`
-  //       );
-  //       await el.updateComplete;
-  //     });
-  //
-  //     it('should render correctly', () => {
-  //       expect(el).not.to.have.attribute('icon-only');
-  //     });
-  //   });
-  //
-  //   describe('mix of icon only and buttons with text', () => {
-  //     beforeEach(async () => {
-  //       el = await fixture(
-  //         // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
-  //         html`<sl-button-bar>
-  //           <sl-button fill="ghost">Foo</sl-button>
-  //           <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
-  //         </sl-button-bar>`
-  //       );
-  //       await el.updateComplete;
-  //     });
-  //
-  //     it('should render correctly', () => {
-  //       expect(el).not.to.have.attribute('icon-only');
-  //     });
-  //   });
+    expect(label).to.have.trimmed.text('Progress label');
+    expect(icon).to.have.attribute('name', 'octagon-exclamation-solid');
+  });
+
+  it('should have the proper icon when the error state is set', async () => {
+    el.state = 'error';
+    await el.updateComplete;
+
+    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
+    const icon = label?.querySelector('sl-icon') as HTMLElement;
+
+    expect(label).to.have.trimmed.text('Progress label');
+    expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+  });
+
+  it('should have the icon in the helper text part when there is no label', () => {
+    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
+    const icon = label?.querySelector('sl-icon') as HTMLElement;
+
+    expect(icon).not.to.exist;
+
+    const helper = el.renderRoot.querySelector('span.helper') as HTMLElement;
+    const helperIcon = helper?.querySelector('sl-icon') as HTMLElement;
+    expect(helperIcon).to.exist;
+  });
+
+  it('should change the aria-live when the value and state have changed', async () => {
+    el.value = 60;
+    el.state = 'warning';
+    await el.updateComplete;
+
+    const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
+    expect(ariaLive).to.have.attribute('aria-live', 'polite');
+    expect(ariaLive).to.have.trimmed.text('state: warning, value: 60%');
+  });
 });

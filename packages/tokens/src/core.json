@@ -2124,6 +2124,11 @@
         "type": "Icons",
         "description": "icon.core.pinata"
       },
+      "chevron-up": {
+        "value": "chevron-up",
+        "type": "Icons",
+        "description": "icon.core.chevron-up"
+      },
       "chevron-down": {
         "value": "chevron-down",
         "type": "Icons",

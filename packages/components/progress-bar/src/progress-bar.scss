@@ -16,8 +16,10 @@ $states: active, success, warning, error;
     --_indeterminate-duration: 1.2s;
   }
 
+  color: var(--_helper-color);
   display: flex;
   flex-direction: column;
+  font: var(--_helper-font);
   gap: var(--_gap);
 }
 

@@ -6,11 +6,11 @@ $states: active, success, warning, error;
   --_helper-font: var(--sl-text-input-field-label-hint-md);
   --_helper-color: var(--sl-color-input-helper-text-default);
   --_helper-color-error: var(--sl-color-progressbar-error-track);
-  --height: var(--sl-size-progressbar);
+  --_height: var(--sl-size-progressbar);
   --_gap: var(--sl-space-progressbar-vertical-gap);
   --_label-gap: var(--sl-space-progressbar-horizontal-gap);
   --_indeterminate-duration: 20s;
-   --_bar-background: var(--sl-color-progressbar-background);
+  --_bar-background: var(--sl-color-progressbar-background);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
@@ -30,8 +30,8 @@ $states: active, success, warning, error;
 
 :host([indeterminate][state='active']) {
   .progress {
-    position: relative;
     animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
+    position: relative;
   }
 }
 
@@ -43,9 +43,9 @@ $states: active, success, warning, error;
 
 .label {
   display: flex;
-  justify-content: space-between;
   font: var(--_label-font);
   gap: var(--_label-gap);
+  justify-content: space-between;
 
   sl-icon {
     --sl-icon-fill-default: var(--_icon-fill);
@@ -54,8 +54,8 @@ $states: active, success, warning, error;
 
 .helper {
   display: flex;
-  justify-content: space-between;
   gap: var(--_label-gap);
+  justify-content: space-between;
 
   sl-icon {
     --sl-icon-fill-default: var(--_icon-fill);
@@ -63,35 +63,45 @@ $states: active, success, warning, error;
 }
 
 ::slotted(*) {
-  font: var(--_helper-font);
   color: var(--_helper-color);
+  font: var(--_helper-font);
 }
 
 .container {
-  position: relative;
   align-items: stretch;
   background: var(--_bar-background);
+  block-size: var(--_height);
   border-radius: var(--_border-radius);
   display: flex;
-  block-size: var(--height);
-  overflow: hidden;
   inline-size: 100%;
+  overflow: hidden;
+  position: relative;
 }
 
 .progress {
   background: var(--_progress-background);
   border-radius: var(--_border-radius);
   transform-origin: left;
-  transition: 400ms width, 400ms background-color;
+  transition:
+    400ms width,
+    400ms background-color;
+}
+
+/** Hiding the aria-live element for the UI, but not for the screen readers. */
+#live {
+  block-size: 0;
+  inline-size: 0;
+  overflow: hidden;
 }
 
 @keyframes indeterminate {
   0% {
-    left: -80%;
-    width: 80%;
+    inline-size: 80%;
+    inset-inline-start: -80%;
   }
+
   100% {
-     left: 110%;
-     width: 10%;
-   }
+    inline-size: 10%;
+    inset-inline-start: 110%;
+  }
 }

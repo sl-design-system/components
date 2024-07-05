@@ -111,7 +111,6 @@ describe('sl-format-number', () => {
       el.timeZoneName = 'long';
 
       await el.updateComplete;
-      console.log(el.renderRoot);
       expect(el.renderRoot).to.have.trimmed.text('12/17/2022, Coordinated Universal Time');
     });
 

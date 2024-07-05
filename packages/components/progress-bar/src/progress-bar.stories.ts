@@ -68,14 +68,14 @@ export const Overflow: Story = {
         addButton = subtractButton?.nextElementSibling;
 
       addButton?.addEventListener('click', () => {
-        const value = Math.min(100, progressBar.value + 5);
-        progressBar.value = value;
+        const newValue = Math.min(100, progressBar.value + 5);
+        progressBar.value = newValue;
         progressBar.requestUpdate();
       });
 
       subtractButton?.addEventListener('click', () => {
-        const value = Math.max(0, progressBar.value - 5);
-        progressBar.value = value;
+        const newValue = Math.max(0, progressBar.value - 5);
+        progressBar.value = newValue;
         progressBar.requestUpdate();
       });
     });
@@ -89,8 +89,8 @@ export const Overflow: Story = {
       <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
         <span>Uploaded ${value}% of 100%</span>
       </sl-progress-bar>
-      <sl-button fill="outline" class="minus">- Decrease</sl-button>
-      <sl-button fill="outline" class="plus">+ Increase</sl-button>
+      <sl-button fill="outline" class="minus">Decrease</sl-button>
+      <sl-button fill="outline" class="plus">Increase</sl-button>
     `;
   }
 };
@@ -138,21 +138,21 @@ export const Download: StoryObj = {
       setTimeout(() => {
         const interval = setInterval(() => {
           currentProgress = progressBar.value;
-          const progressBarHelper = progressBar.renderRoot.querySelector('span.helper'),
+          const progressBarHelper = progressBar.querySelector('span.my-helper'),
             step = Math.random() * 8;
-
-          progressBar.state = progressBar.value >= 100 ? 'success' : 'active';
 
           const running = progressBar.value > 0;
           progressBarHelper!.innerHTML = running
             ? `Downloading ${progressBar.value.toFixed(1)}MB of ${size}MB`
             : 'Preparing download';
-          if (progressBar.value >= 100) {
+          if (currentProgress + step >= 100) {
+            progressBar.value = 100;
             progressBarHelper!.innerHTML = 'Done';
           }
+          progressBar.state = progressBar.value >= 100 ? 'success' : 'active';
           if (currentProgress + step < size) {
             progressBar.removeAttribute('indeterminate');
-            progressBar.value = currentProgress + step;
+            progressBar.value = Math.round(currentProgress + step);
             return currentProgress + step;
           } else {
             clearInterval(interval);
@@ -168,8 +168,8 @@ export const Download: StoryObj = {
           inline-size: 400px;
         }
       </style>
-      <sl-progress-bar indeterminate label="File download" aria-live="polite" aria-atomic="false">
-        <span>${helperText}</span>
+      <sl-progress-bar indeterminate label="File download">
+        <span class="my-helper">${helperText}</span>
       </sl-progress-bar>`;
   }
 };

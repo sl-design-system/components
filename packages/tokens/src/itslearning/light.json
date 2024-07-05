@@ -495,7 +495,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.neutral.150}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.default.outline.active.background"
             },
@@ -505,7 +505,7 @@
               "description": "color.button.primary.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.150}",
+              "value": "{color.palette.neutral.200}",
               "type": "color",
               "description": "color.button.default.outline.active.border"
             }

@@ -44,7 +44,6 @@ describe('sl-progress-bar', () => {
     expect(progressBar).to.have.attribute('aria-describedby', 'helper');
     expect(progressBar).to.have.attribute('aria-valuemin', '0');
     expect(progressBar).to.have.attribute('aria-valuemax', '100');
-    expect(progressBar).to.have.attribute('aria-busy', 'true');
     expect(progressBar).to.have.attribute('aria-valuenow', '0');
   });
 

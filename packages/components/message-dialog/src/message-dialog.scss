@@ -1,3 +1,25 @@
+$md-breakpoint: 600px;
+
+sl-dialog::part(dialog) {
+  @media (max-width: $md-breakpoint) {
+    margin: auto;
+    min-inline-size: min(300px, 100dvw - 2rem);
+  }
+}
+
+sl-dialog::part(titles) {
+  @media (max-width: $md-breakpoint) {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+sl-dialog::part(body) {
+  @media (max-width: $md-breakpoint) {
+    text-align: center;
+  }
+}
+
 p {
   margin-block: 0;
 }

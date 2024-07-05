@@ -15,10 +15,7 @@ $lg-breakpoint: 900px;
   --_margin-bottom-container: var(--sl-space-dialog-mobile-container-padding-bottom);
   --_margin-container-inline: var(--sl-space-dialog-mobile-container-inline);
   --_margin-top-container: var(--sl-space-dialog-mobile-container-padding-top);
-  --_max-inline-size: var(
-    --sl-dialog-max-inline-size,
-    calc(100dvw - var(--sl-space-dialog-mobile-container-inline) * 2)
-  );
+  --_max-inline-size: var(--sl-dialog-max-inline-size, calc(100dvw - var(--_margin-container-inline) * 2));
   --_min-inline-size: var(--sl-size-dialog-min);
   --_padding-block: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
@@ -88,6 +85,7 @@ dialog[open]:not([closing]) {
 [part='titles'] {
   align-items: start;
   display: flex;
+  flex: 1;
   flex-direction: var(--_heading-direction);
   gap: var(--_heading-gap);
 }

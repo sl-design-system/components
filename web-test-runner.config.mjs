@@ -11,7 +11,6 @@ const styles = await readFile('./packages/themes/sanoma-learning/light.css', 'ut
 const config = {
   nodeResolve: true,
   rootDir: '.',
-  coverage: true,
 
   files: [
     'packages/components/**/src/**/*.spec.ts',

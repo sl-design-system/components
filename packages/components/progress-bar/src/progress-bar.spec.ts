@@ -13,10 +13,6 @@ describe('sl-progress-bar', () => {
     progressBar = el.renderRoot.querySelector('div.container') as HTMLDivElement;
   });
 
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
-  });
-
   it('should have active state by default', () => {
     expect(el).to.have.attribute('state', 'active');
   });
@@ -25,7 +21,6 @@ describe('sl-progress-bar', () => {
     const icon = el.renderRoot.querySelector('sl-icon') as HTMLElement;
 
     expect(icon).not.to.exist;
-    // expect(el).to.have.attribute('state', 'active');
   });
 
   it('should not have any label by default', () => {

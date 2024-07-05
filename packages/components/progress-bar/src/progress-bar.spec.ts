@@ -32,7 +32,7 @@ describe('sl-progress-bar', () => {
   });
 
   it('should have determinate progress bar by default', () => {
-    expect(progressBar).not.to.have.attribute('aria-valuenow');
+    expect(progressBar).to.have.attribute('aria-valuenow');
     expect(el).not.to.have.attribute('indeterminate');
   });
 
@@ -65,46 +65,55 @@ describe('sl-progress-bar', () => {
   });
 
   it('should have the proper icon when the success state is set', async () => {
+    el.label = 'Progress label';
     el.state = 'success';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
-    const icon = label?.querySelector('sl-icon') as HTMLElement;
+    const label = el.renderRoot.querySelector('span.label') as HTMLElement,
+      icon = label?.querySelector('sl-icon') as HTMLElement;
 
+    expect(label).to.exist;
     expect(label).to.have.trimmed.text('Progress label');
     expect(icon).to.have.attribute('name', 'circle-check-solid');
   });
 
   it('should have the proper icon when the warning state is set', async () => {
+    el.label = 'Progress label';
     el.state = 'warning';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
-    const icon = label?.querySelector('sl-icon') as HTMLElement;
+    const label = el.renderRoot.querySelector('span.label') as HTMLElement,
+      icon = label?.querySelector('sl-icon') as HTMLElement;
 
+    expect(label).to.exist;
     expect(label).to.have.trimmed.text('Progress label');
     expect(icon).to.have.attribute('name', 'octagon-exclamation-solid');
   });
 
   it('should have the proper icon when the error state is set', async () => {
+    el.label = 'Progress label';
     el.state = 'error';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
-    const icon = label?.querySelector('sl-icon') as HTMLElement;
+    const label = el.renderRoot.querySelector('span.label') as HTMLElement,
+      icon = label?.querySelector('sl-icon') as HTMLElement;
 
+    expect(label).to.exist;
     expect(label).to.have.trimmed.text('Progress label');
     expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
   });
 
-  it('should have the icon in the helper text part when there is no label', () => {
+  it('should have the icon in the helper text part when there is no label', async () => {
     const label = el.renderRoot.querySelector('span.label') as HTMLElement;
-    const icon = label?.querySelector('sl-icon') as HTMLElement;
+    expect(label).not.to.exist;
 
-    expect(icon).not.to.exist;
+    el.state = 'success';
+    await el.updateComplete;
 
-    const helper = el.renderRoot.querySelector('span.helper') as HTMLElement;
-    const helperIcon = helper?.querySelector('sl-icon') as HTMLElement;
+    const helper = el.renderRoot.querySelector('span.helper') as HTMLElement,
+      helperIcon = helper?.querySelector('sl-icon') as HTMLElement;
+
+    expect(helper).to.exist;
     expect(helperIcon).to.exist;
   });
 

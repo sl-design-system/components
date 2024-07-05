@@ -1,8 +1,16 @@
 $md-breakpoint: 600px;
 
+sl-dialog {
+  @media (max-width: $md-breakpoint) {
+    --_title-font: 700 var(--sl-text-typeset-font-size-xl) / var(--sl-text-typeset-line-height-lg)
+      var(--sl-text-typeset-font-family-heading);
+  }
+}
+
 sl-dialog::part(dialog) {
   @media (max-width: $md-breakpoint) {
     margin: auto;
+    max-inline-size: calc(100dvw - 3rem);
     min-inline-size: min(300px, 100dvw - 2rem);
   }
 }
@@ -20,6 +28,17 @@ sl-dialog::part(body) {
   }
 }
 
+sl-dialog::part(footer-bar) {
+  @media (max-width: $md-breakpoint) {
+    --sl-button-bar-vertical: var(--sl-OFF);
+  }
+}
+
 p {
   margin-block: 0;
+}
+
+sl-button {
+  flex: 1;
+  text-align: center;
 }

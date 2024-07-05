@@ -5205,6 +5205,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/tag@workspace:packages/components/tag":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tag@workspace:packages/components/tag"
+  dependencies:
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    lit: ^3.1.2
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/teas@workspace:packages/themes/teas":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"

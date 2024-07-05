@@ -43,6 +43,7 @@
     { "path": "./packages/components/spinner" },
     { "path": "./packages/components/switch" },
     { "path": "./packages/components/tabs" },
+    { "path": "./packages/components/tag" },
     { "path": "./packages/components/text-area" },
     { "path": "./packages/components/text-field"},
     { "path": "./packages/components/tooltip" },

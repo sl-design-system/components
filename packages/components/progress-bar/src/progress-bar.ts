@@ -77,7 +77,6 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         aria-describedby="helper"
         class="container"
         role="progressbar"
-        aria-busy=${ifDefined(this.indeterminate || this.state === 'active' ? true : undefined)}
         aria-valuemin="0"
         aria-valuenow=${ifDefined(!this.indeterminate ? `${this.value}` : undefined)}
         aria-valuemax="100"
@@ -86,7 +85,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       </div>
       <span id="helper" class="helper">
         <slot></slot>
-        <span id="live" aria-live="polite">
+        <span id="live" aria-live="polite" aria-busy=${ifDefined(this.indeterminate)}>
           ${msg('state')} ${msg(this.state)}
           <!-- We want '%' to be read every time the value changes. -->
           <span aria-live="polite" aria-atomic="true">${this.value}%</span>

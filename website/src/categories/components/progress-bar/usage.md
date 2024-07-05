@@ -5,17 +5,43 @@ eleventyNavigation:
   parent: Progress bar
   key: ProgressBarUsage
 ---
+<style>
+#progress-example {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  inline-size: 60%;
+}
+</style>
 
 <section class="no-heading">
 
 <div class="ds-example">
-  example
+<div id="progress-example">
+  <sl-progress-bar value="20" label="File download" state="active">
+    20% of 100%
+  </sl-progress-bar>
+  <sl-progress-bar value="50" label="File download" state="success">
+    Done
+  </sl-progress-bar>
+  <sl-progress-bar indeterminate label="File download">
+    Preparing download
+  </sl-progress-bar>
+</div>
 </div>
 
 <div class="ds-code">
 
   ```html
-    example
+    <sl-progress-bar value="20" label="File download" state="active">
+      20% of 100%
+    </sl-progress-bar>
+    <sl-progress-bar value="50" label="File download" state="success">
+      Done
+    </sl-progress-bar>
+    <sl-progress-bar indeterminate label="File download">
+      Preparing download
+    </sl-progress-bar>
   ```
 
 </div>

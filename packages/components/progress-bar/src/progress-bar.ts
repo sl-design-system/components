@@ -86,7 +86,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       </div>
       <span id="helper" class="helper">
         <slot></slot>
-        <span id="live" aria-live="polite">${msg('state')}: ${msg(this.state)}, ${msg('value')}: ${this.value}%</span>
+        <span id="live" aria-live="polite"> ${msg('state')}: ${msg(this.state)}, ${msg('value')}: ${this.value}% </span>
         ${this.state !== 'active' && !this.label
           ? html` <sl-icon .name=${this.iconName} size="md"></sl-icon>`
           : nothing}

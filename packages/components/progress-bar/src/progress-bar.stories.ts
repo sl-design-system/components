@@ -42,7 +42,7 @@ export default {
   },
   render: ({ indeterminate, state, value, label, slot }) => {
     return html`
-      <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
+      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
         ${slot?.() ?? html`<span>Uploaded ${value}% of 100%</span>`}
       </sl-progress-bar>
     `;
@@ -86,7 +86,7 @@ export const Overflow: Story = {
           margin-block-end: 32px;
         }
       </style>
-      <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
+      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
         <span>Uploaded ${value}% of 100%</span>
       </sl-progress-bar>
       <sl-button fill="outline" class="minus">Decrease</sl-button>
@@ -159,7 +159,7 @@ export const Download: StoryObj = {
             return size;
           }
         }, 300);
-      }, 2500);
+      }, 3000);
     });
     return html` <style>
         #root-inner {

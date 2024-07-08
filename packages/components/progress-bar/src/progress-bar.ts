@@ -4,6 +4,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import styles from './progress-bar.scss.js';
 
 declare global {
@@ -16,7 +17,7 @@ export type ProgressState = 'active' | 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component that can be used to communicate process status.
- * Hidden aria-live element will help making the progress bar more accessible and should cause fewer bugs in products than leaving it up for the developers.
+ * Hidden `aria-live` element makes the progress bar more accessible, so developers don’t need to worry about adding it manually.
  *
  *
  * ```html
@@ -36,11 +37,8 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  /** Progress value (from 0...100). */
-  @property({ type: Number }) value = 0;
 
   /** Whether the progress bar has the indeterminate state. */
   @property({ type: Boolean, reflect: true }) indeterminate = false;
@@ -50,6 +48,9 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
 
   /** The state of the progress bar. */
   @property({ reflect: true }) state: ProgressState = 'active';
+
+  /** Progress value (from 0...100). */
+  @property({ type: Number }) value = 0;
 
   /** @internal The name of the icon, depending on the state. */
   get iconName(): string {
@@ -67,10 +68,10 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html` ${this.label
-        ? html`<span id="label" class="label">
+        ? html` <div id="label" class="label">
             ${this.label}
-            ${this.state !== 'active' ? html` <sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
-          </span>`
+            ${this.state !== 'active' ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+          </div>`
         : nothing}
       <div
         aria-labelledby=${ifDefined(this.label ? 'label' : undefined)}
@@ -81,18 +82,19 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         aria-valuenow=${ifDefined(!this.indeterminate ? `${this.value}` : undefined)}
         aria-valuemax="100"
       >
-        <div class="progress" style="inline-size: ${this.value}%"></div>
+        <div
+          class="progress"
+          style=${styleMap({ transform: !this.indeterminate ? `scaleX(${this.value / 100})` : '' })}
+        ></div>
       </div>
-      <span id="helper" class="helper">
+      <div id="helper" class="helper">
         <slot></slot>
         <span id="live" aria-live="polite" aria-busy=${ifDefined(this.indeterminate)}>
           ${msg('state')} ${msg(this.state)}
           <!-- We want '%' to be read every time the value changes. -->
           <span aria-live="polite" aria-atomic="true">${this.value}%</span>
         </span>
-        ${this.state !== 'active' && !this.label
-          ? html` <sl-icon .name=${this.iconName} size="md"></sl-icon>`
-          : nothing}
-      </span>`;
+        ${this.state !== 'active' && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+      </div>`;
   }
 }

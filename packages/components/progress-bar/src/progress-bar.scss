@@ -1,16 +1,17 @@
 $states: active, success, warning, error;
 
 :host {
+  --_bar-background: var(--sl-color-progressbar-background);
+  --_bar-thickness: var(--sl-size-progressbar);
   --_border-radius: var(--sl-border-radius-full);
-  --_label-font: var(--sl-text-input-field-label-label-md);
-  --_helper-font: var(--sl-text-input-field-label-hint-md);
+  --_gap: var(--sl-space-progressbar-vertical-gap);
   --_helper-color: var(--sl-color-input-helper-text-default);
   --_helper-color-error: var(--sl-color-progressbar-error-track);
-  --_height: var(--sl-size-progressbar);
-  --_gap: var(--sl-space-progressbar-vertical-gap);
-  --_label-gap: var(--sl-space-progressbar-horizontal-gap);
+  --_helper-font: var(--sl-text-input-field-label-hint-md);
   --_indeterminate-duration: 20s;
-  --_bar-background: var(--sl-color-progressbar-background);
+  --_label-color: var(--sl-color-input-field-label-text-default);
+  --_label-font: var(--sl-text-input-field-label-label-md);
+  --_label-gap: var(--sl-space-progressbar-horizontal-gap);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
@@ -30,20 +31,21 @@ $states: active, success, warning, error;
   }
 }
 
-:host([indeterminate][state='active']) {
-  .progress {
-    animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
-    position: relative;
-  }
+:host([indeterminate][state='active']) .progress {
+  animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
+  position: relative;
 }
 
-:host([state='error']) {
-  ::slotted(*) {
-    color: var(--_helper-color-error);
-  }
+:host(:not([indeterminate][state='active'])) .progress {
+  inline-size: 100%;
+}
+
+:host([state='error']) ::slotted(*) {
+  color: var(--_helper-color-error);
 }
 
 .label {
+  color: var(--_label-color);
   display: flex;
   font: var(--_label-font);
   gap: var(--_label-gap);
@@ -72,7 +74,7 @@ $states: active, success, warning, error;
 .container {
   align-items: stretch;
   background: var(--_bar-background);
-  block-size: var(--_height);
+  block-size: var(--_bar-thickness);
   border-radius: var(--_border-radius);
   display: flex;
   inline-size: 100%;
@@ -85,6 +87,7 @@ $states: active, success, warning, error;
   border-radius: var(--_border-radius);
   transform-origin: left;
   transition:
+    400ms transform,
     400ms width,
     400ms background-color;
 }

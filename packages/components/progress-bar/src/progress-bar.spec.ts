@@ -57,7 +57,7 @@ describe('sl-progress-bar', () => {
     el.label = 'Progress label';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
+    const label = el.renderRoot.querySelector('div.label') as HTMLElement;
 
     expect(label).to.have.trimmed.text('Progress label');
     expect(progressBar).to.have.attribute('aria-labelledby', 'label');
@@ -68,7 +68,7 @@ describe('sl-progress-bar', () => {
     el.state = 'success';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement,
+    const label = el.renderRoot.querySelector('div.label') as HTMLElement,
       icon = label?.querySelector('sl-icon') as HTMLElement;
 
     expect(label).to.exist;
@@ -81,7 +81,7 @@ describe('sl-progress-bar', () => {
     el.state = 'warning';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement,
+    const label = el.renderRoot.querySelector('div.label') as HTMLElement,
       icon = label?.querySelector('sl-icon') as HTMLElement;
 
     expect(label).to.exist;
@@ -94,7 +94,7 @@ describe('sl-progress-bar', () => {
     el.state = 'error';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement,
+    const label = el.renderRoot.querySelector('div.label') as HTMLElement,
       icon = label?.querySelector('sl-icon') as HTMLElement;
 
     expect(label).to.exist;
@@ -103,13 +103,13 @@ describe('sl-progress-bar', () => {
   });
 
   it('should have the icon in the helper text part when there is no label', async () => {
-    const label = el.renderRoot.querySelector('span.label') as HTMLElement;
+    const label = el.renderRoot.querySelector('div.label') as HTMLElement;
     expect(label).not.to.exist;
 
     el.state = 'success';
     await el.updateComplete;
 
-    const helper = el.renderRoot.querySelector('span.helper') as HTMLElement,
+    const helper = el.renderRoot.querySelector('div.helper') as HTMLElement,
       helperIcon = helper?.querySelector('sl-icon') as HTMLElement;
 
     expect(helper).to.exist;

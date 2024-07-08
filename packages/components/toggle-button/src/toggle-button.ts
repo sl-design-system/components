@@ -1,7 +1,8 @@
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
+import { property, queryAssignedElements } from 'lit/decorators.js';
+import { Icon } from 'packages/components/icon/index.js';
 import styles from './toggle-button.scss.js';
 
 declare global {
@@ -36,6 +37,10 @@ export class ToggleButton extends LitElement {
     keydown: this.#onKeydown
   });
 
+  /** @private The slotted icons. */
+  @queryAssignedElements() defaultIcon?: Icon[];
+  @queryAssignedElements({ slot: 'pressed' }) pressedIcon?: Icon[];
+
   /** @internal Emits when the button item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
@@ -55,9 +60,22 @@ export class ToggleButton extends LitElement {
     super.connectedCallback();
 
     this.setAttribute('role', 'button');
-    this.setAttribute('single-icon', 'true');
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+    this.removeAttribute('error');
+    if (this.pressedIcon?.length === 0) {
+      console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
+      this.setAttribute('error', 'true');
+    }
+
+    if (this.pressedIcon?.[0]?.name === this.defaultIcon?.[0]?.name) {
+      console.error('Do not use the same icon for both states of the toggle button.');
+      this.setAttribute('error', 'true');
     }
   }
 
@@ -70,9 +88,6 @@ export class ToggleButton extends LitElement {
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedNodes = event.target.assignedNodes({ flatten: true });
-    if (event.target.matches('[name="pressed"]')) {
-      this.toggleAttribute('single-icon', !assignedNodes.length);
-    }
     this.#setIconProperties(assignedNodes);
   }
 

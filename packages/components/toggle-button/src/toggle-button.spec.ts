@@ -10,12 +10,12 @@ describe('sl-toggle-button', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-toggle-button>
+      el = await fixture(html`
+        <sl-toggle-button>
           <sl-icon name="far-gear"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>`
-      );
+        </sl-toggle-button>
+      `);
     });
 
     it('should have a button role', () => {
@@ -137,12 +137,12 @@ describe('sl-toggle-button', () => {
 
   describe('pressed', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-toggle-button pressed>
+      el = await fixture(html`
+        <sl-toggle-button pressed>
           <sl-icon name="far-gear"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>`
-      );
+        </sl-toggle-button>
+      `);
     });
 
     it('should not be pressed by default', () => {

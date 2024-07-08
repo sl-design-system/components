@@ -8,15 +8,12 @@ $variants: default, primary, success, info, warning, danger;
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
-
   --_border-width: var(--sl-border-width-button-ghost);
   --_background: var(--sl-color-button-default-ghost-idle-background);
   --_border-color: var(--sl-color-button-default-ghost-idle-border);
   --_color: var(--sl-color-button-default-ghost-idle-foreground);
-
   --_padding-block: var(--sl-space-button-ghost-icon-only-md);
   --_padding-inline: var(--sl-space-button-ghost-icon-only-md);
-
   --_border-radius: var(--sl-border-radius-button-md);
   --_icon-container-size: var(--sl-size-button-icon-md);
 
@@ -167,7 +164,7 @@ $variants: default, primary, success, info, warning, danger;
   pointer-events: none;
 }
 
-:host([pressed]:not([single-icon])) ::slotted(:not([slot='pressed'])),
+:host([pressed]) ::slotted(:not([slot='pressed'])),
 :host(:not([pressed])) ::slotted([slot='pressed']) {
   display: none;
 }
@@ -181,4 +178,11 @@ $variants: default, primary, success, info, warning, danger;
   --sl-icon-container-size: var(--_icon-container-size);
 
   fill: var(--_color);
+}
+
+:host([error]),
+:host([error][pressed]) {
+  --_background: var(--sl-color-button-danger-solid-idle-background);
+  --_border-color: var(--sl-color-button-danger-solid-idle-background);
+  --_color: var(--sl-color-button-danger-solid-idle-foreground);
 }

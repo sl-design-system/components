@@ -66,22 +66,19 @@ export default {
 
 export const Basic: Story = {};
 
-export const OneIcon: Story = {
+export const Errors: Story = {
   render: () => {
     return html`
+      <p></p>
+        When the 'pressed' icon is not set you will get an error in the console and the button will not look correct
+      </p>
       <sl-toggle-button fill="outline">
         <sl-icon name="pinata"></sl-icon>
       </sl-toggle-button>
-      <sl-toggle-button fill="outline" pressed>
-        <sl-icon name="pinata"></sl-icon>
-      </sl-toggle-button>
+      <p>Setting the same icon for both states as "workaround" will not work, you will get the same error</p>
       <sl-toggle-button fill="outline">
         <sl-icon name="far-gear"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button fill="ghost" pressed>
-        <sl-icon name="far-gear"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        <sl-icon name="far-gear" slot="pressed"></sl-icon>
       </sl-toggle-button>
     `;
   }
@@ -89,7 +86,8 @@ export const OneIcon: Story = {
 
 export const All: Story = {
   render: () => {
-    return html` <style>
+    return html`
+      <style>
         sl-button-bar {
           margin-block-end: 8px;
         }
@@ -158,23 +156,25 @@ export const All: Story = {
             ${fills.map(
               fill =>
                 html` ${disabledStates.map(
-                  disabledState =>
-                    html`<td class=${disabledState ? 'sb-disabled' : ''}>
-                        <sl-toggle-button .fill=${fill} size="md" ?disabled=${disabledState} data-mock-state>
-                          <sl-icon name="far-gear"></sl-icon>
-                          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-                        </sl-toggle-button>
-                      </td>
-                      <td class=${disabledState ? 'sb-disabled' : ''}>
-                        <sl-toggle-button .fill=${fill} size="md" ?disabled=${disabledState} pressed data-mock-state>
-                          <sl-icon name="far-gear"></sl-icon>
-                          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-                        </sl-toggle-button>
-                      </td>`
+                  disabledState => html`
+                    <td class=${disabledState ? 'sb-disabled' : ''}>
+                      <sl-toggle-button .fill=${fill} size="md" ?disabled=${disabledState} data-mock-state>
+                        <sl-icon name="far-gear"></sl-icon>
+                        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+                      </sl-toggle-button>
+                    </td>
+                    <td class=${disabledState ? 'sb-disabled' : ''}>
+                      <sl-toggle-button .fill=${fill} size="md" ?disabled=${disabledState} pressed data-mock-state>
+                        <sl-icon name="far-gear"></sl-icon>
+                        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+                      </sl-toggle-button>
+                    </td>
+                  `
                 )}`
             )}
           </tr>
         </tbody>
-      </table>`;
+      </table>
+    `;
   }
 };

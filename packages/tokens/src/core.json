@@ -1138,6 +1138,24 @@
           "type": "spacing",
           "description": "space.button.solid.block.md"
         }
+      },
+      "message": {
+        "mobile": {
+          "container": {
+            "paddingLeft": {
+              "value": "{space.xl}",
+              "type": "spacing"
+            },
+            "paddingRight": {
+              "value": "{space.xl}",
+              "type": "spacing"
+            },
+            "inline": {
+              "value": "100%",
+              "type": "spacing"
+            }
+          }
+        }
       }
     },
     "buttonBar": {
@@ -2083,6 +2101,30 @@
             "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
+        }
+      }
+    },
+    "dialog": {
+      "message": {
+        "mobile": {
+          "heading": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{icon.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          },
+          "subheading": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{icon.typeset.fontSize.sm}"
+            },
+            "type": "typography"
+          }
         }
       }
     }

@@ -401,6 +401,15 @@
         "value": "100%",
         "type": "sizing",
         "description": "size.input.lg"
+      },
+      "message": {
+        "mobile": {
+          "min": {
+            "value": "300px",
+            "type": "sizing",
+            "description": "size.input.md"
+          }
+        }
       }
     },
     "badge": {

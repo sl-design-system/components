@@ -4252,15 +4252,15 @@
         "type": "color"
       },
       "foreground": {
-        "value": "{color.palette.black.base}",
+        "value": "{color.palette.white.base}",
         "type": "color"
       },
       "header": {
-        "value": "{body.foreground}",
+        "value": "{color.input.fieldLabel.text.default}",
         "type": "color"
       },
       "subheader": {
-        "value": "{body.foreground}",
+        "value": "{color.input.helper.text.default}",
         "type": "color"
       }
     },

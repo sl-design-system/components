@@ -33,6 +33,7 @@ const config: StorybookConfig = {
     }
   },
   staticDirs: [
+    { from: '../node_modules/emojibase-data', to: '/emoji' },
     { from: '../packages/themes', to: '/themes' }
   ],
   viteFinal: async config => {

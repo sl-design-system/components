@@ -22,7 +22,7 @@
         "description": "body.surface.100"
       },
       "overlay": {
-        "value": "rgba( {color.palette.primary.700} , {opacity.600})",
+        "value": "rgba({color.palette.primary.700} , {opacity.600})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -3409,7 +3409,7 @@
       },
       "success": {
         "background": {
-          "value": "rgba( {color.palette.success.base} , {opacity.300})",
+          "value": "rgba({color.palette.success.base} , {opacity.300})",
           "type": "color"
         },
         "foreground": {
@@ -3427,7 +3427,7 @@
       },
       "warning": {
         "background": {
-          "value": "rgba( {color.palette.warning.base} , {opacity.300})",
+          "value": "rgba({color.palette.warning.base} , {opacity.300})",
           "type": "color"
         },
         "foreground": {
@@ -3445,7 +3445,7 @@
       },
       "danger": {
         "background": {
-          "value": "rgba( {color.palette.danger.base} , {opacity.300})",
+          "value": "rgba({color.palette.danger.base} , {opacity.300})",
           "type": "color"
         },
         "foreground": {
@@ -3676,7 +3676,7 @@
         },
         "active": {
           "background": {
-            "value": "rgba( {color.palette.primary.400} , {opacity.600})",
+            "value": "rgba({color.palette.primary.400} , {opacity.600})",
             "type": "color"
           },
           "foreground": {
@@ -4436,6 +4436,24 @@
           "type": "color",
           "description": "color.button.info.outline.disabled.foreground"
         }
+      }
+    },
+    "avatar": {
+      "background": {
+        "value": "{color.palette.primary.600}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "header": {
+        "value": "{color.input.fieldLabel.text.default}",
+        "type": "color"
+      },
+      "subheader": {
+        "value": "{color.input.helper.text.default}",
+        "type": "color"
       }
     }
   },

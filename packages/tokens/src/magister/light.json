@@ -22,7 +22,7 @@
         "description": "body.surface.100"
       },
       "overlay": {
-        "value": "rgba( {color.palette.primary.800} , {opacity.900})",
+        "value": "rgba({color.palette.primary.800} , {opacity.900})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -3560,7 +3560,7 @@
       "helper": {
         "text": {
           "default": {
-            "value": "{body.foreground}",
+            "value": "{color.palette.neutral.600}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3577,7 +3577,7 @@
         },
         "icon": {
           "default": {
-            "value": "{body.foreground}",
+            "value": "{color.palette.neutral.600}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -4414,11 +4414,11 @@
         "type": "color"
       },
       "header": {
-        "value": "{body.foreground}",
+        "value": "{color.input.fieldLabel.text.default}",
         "type": "color"
       },
       "subheader": {
-        "value": "{color.palette.neutral.600}",
+        "value": "{color.input.helper.text.default}",
         "type": "color"
       }
     },

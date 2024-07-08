@@ -1,5 +1,11 @@
 # @sl-design-system/breadcrumbs
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1376](https://github.com/sl-design-system/components/pull/1376) [`96fe2f4`](https://github.com/sl-design-system/components/commit/96fe2f45ee28e415d16e9da14374d34439773821) - Improve hover state by changing the `text-decoration-thickness`
+
 ## 1.0.1
 
 ### Patch Changes

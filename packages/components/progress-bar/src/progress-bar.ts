@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type ProgressState = 'active' | 'success' | 'warning' | 'error';
+export type ProgressState = 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component that can be used to communicate process status.
@@ -47,7 +47,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   @property() label?: string;
 
   /** The state of the progress bar. */
-  @property({ reflect: true }) state: ProgressState = 'active';
+  @property({ reflect: true }) state?: ProgressState;
 
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;
@@ -69,8 +69,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html` ${this.label
         ? html` <div id="label" class="label">
-            ${this.label}
-            ${this.state !== 'active' ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+            ${this.label} ${this.state ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
           </div>`
         : nothing}
       <div
@@ -84,17 +83,17 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       >
         <div
           class="progress"
-          style=${styleMap({ transform: !this.indeterminate ? `scaleX(${this.value / 100})` : '' })}
+          style=${styleMap({ transform: !this.indeterminate || this.state ? `scaleX(${this.value / 100})` : '' })}
         ></div>
       </div>
       <div id="helper" class="helper">
         <slot></slot>
         <span id="live" aria-live="polite" aria-busy=${ifDefined(this.indeterminate)}>
-          ${msg('state')} ${msg(this.state)}
+          ${msg('state')} ${msg(this.state ? this.state : msg('active'))}
           <!-- We want '%' to be read every time the value changes. -->
           <span aria-live="polite" aria-atomic="true">${this.value}%</span>
         </span>
-        ${this.state !== 'active' && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+        ${this.state && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
       </div>`;
   }
 }

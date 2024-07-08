@@ -1,4 +1,4 @@
-$states: active, success, warning, error;
+$states: success, warning, error;
 
 :host {
   --_bar-background: var(--sl-color-progressbar-background);
@@ -12,6 +12,8 @@ $states: active, success, warning, error;
   --_label-color: var(--sl-color-input-field-label-text-default);
   --_label-font: var(--sl-text-input-field-label-label-md);
   --_label-gap: var(--sl-space-progressbar-horizontal-gap);
+  --_progress-background: var(--sl-color-progressbar-active-track);
+  --_icon-fill: var(--sl-color-progressbar-active-track);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
@@ -25,18 +27,36 @@ $states: active, success, warning, error;
 }
 
 @each $state in $states {
-  :host([state='#{$state}']) {
+  :host([state='#{$state}']:not([indeterminate])) {
     --_progress-background: var(--sl-color-progressbar-#{$state}-track);
     --_icon-fill: var(--sl-color-progressbar-#{$state}-track);
   }
+
+  :host([state='#{$state}'][indeterminate]) .progress {
+    --_progress-background: var(--sl-color-progressbar-#{$state}-track);
+    --_icon-fill: var(--sl-color-progressbar-#{$state}-track);
+
+    animation: none;
+    inline-size: 100%;
+  }
+
+  :host([state='#{$state}'][indeterminate]) {
+    .label sl-icon {
+      --sl-icon-fill-default: var(--sl-color-progressbar-#{$state}-track);
+    }
+
+    .helper sl-icon {
+      --sl-icon-fill-default: var(--sl-color-progressbar-#{$state}-track);
+    }
+  }
 }
 
-:host([indeterminate][state='active']) .progress {
+:host([indeterminate]) .progress {
   animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
   position: relative;
 }
 
-:host(:not([indeterminate][state='active'])) .progress {
+:host(:not([indeterminate])) .progress {
   inline-size: 100%;
 }
 

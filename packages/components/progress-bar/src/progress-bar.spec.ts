@@ -13,8 +13,8 @@ describe('sl-progress-bar', () => {
     progressBar = el.renderRoot.querySelector('div.container') as HTMLDivElement;
   });
 
-  it('should have active state by default', () => {
-    expect(el).to.have.attribute('state', 'active');
+  it('should have no state by default', () => {
+    expect(el).not.to.have.attribute('state');
   });
 
   it('should have no icon by default', () => {

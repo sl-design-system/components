@@ -15,7 +15,7 @@ export default {
     label: 'This is the label of progress bar',
     value: 60,
     indeterminate: false,
-    state: 'active'
+    state: undefined
   },
   argTypes: {
     value: {
@@ -27,7 +27,7 @@ export default {
     },
     state: {
       control: 'inline-radio',
-      options: ['active', 'success', 'warning', 'error']
+      options: [undefined, 'success', 'warning', 'error']
     },
     slot: {
       table: {
@@ -149,7 +149,7 @@ export const Download: StoryObj = {
             progressBar.value = 100;
             progressBarHelper!.innerHTML = 'Done';
           }
-          progressBar.state = progressBar.value >= 100 ? 'success' : 'active';
+          progressBar.state = progressBar.value >= 100 ? 'success' : undefined;
           if (currentProgress + step < size) {
             progressBar.removeAttribute('indeterminate');
             progressBar.value = Math.round(currentProgress + step);
@@ -206,7 +206,7 @@ export const All: StoryObj = {
       }
     </style>
     <h2>With label</h2>
-    <sl-progress-bar value="20" label="Progress bar label in the active state" state="active">
+    <sl-progress-bar value="20" label="Progress bar label in the default state">
       <span>20% of 100%</span>
     </sl-progress-bar>
     <sl-progress-bar value="100" label="Progress bar label in the success state" state="success">
@@ -222,7 +222,7 @@ export const All: StoryObj = {
       <span">Preparing download</span>
     </sl-progress-bar>
     <h2>No label</h2>
-    <sl-progress-bar value="20" state="active" aria-label="Progress bar label in the active state">
+    <sl-progress-bar value="20" aria-label="Progress bar label in the default state">
       <span>20% of 100%</span>
     </sl-progress-bar>
     <sl-progress-bar value="100" state="success" aria-label="Progress bar label in the success state">

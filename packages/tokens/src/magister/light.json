@@ -249,7 +249,7 @@
               "description": "color.button.default.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.primary.800}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground"
             },
@@ -266,7 +266,7 @@
               "description": "color.button.default.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.primary.800}",
               "type": "color",
               "description": "color.button.default.outline.hover.foreground"
             },
@@ -283,7 +283,7 @@
               "description": "color.button.default.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.primary.800}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },

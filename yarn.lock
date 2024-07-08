@@ -5049,10 +5049,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/progress-bar@workspace:packages/components/progress-bar"
   dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.0.0"
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

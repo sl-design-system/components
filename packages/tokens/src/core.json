@@ -2120,8 +2120,8 @@
             "value": {
               "fontFamily": "{text.typeset.fontFamily.heading}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
-              "lineHeight": "{text.typeset.lineHeight.lg}",
-              "fontSize": "{icon.typeset.fontSize.lg}"
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{icon.typeset.fontSize.md}"
             },
             "type": "typography"
           },

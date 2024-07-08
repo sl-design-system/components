@@ -89,11 +89,24 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       <div id="helper" class="helper">
         <slot></slot>
         <span id="live" aria-live="polite" aria-busy=${ifDefined(this.indeterminate)}>
-          ${msg('state')} ${msg(this.variant ? this.variant : msg('active'))}
+          ${msg('state')} ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`}
           <!-- We want '%' to be read every time the value changes. -->
           <span aria-live="polite" aria-atomic="true">${this.value}%</span>
         </span>
         ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
       </div>`;
+  }
+
+  #getLocalizedVariant(): TemplateResult {
+    switch (this.variant) {
+      case 'success':
+        return html`${msg('success')}`;
+      case 'warning':
+        return html`${msg('warning')}`;
+      case 'error':
+        return html`${msg('error')}`;
+      default:
+        return html`${msg('success')}`;
+    }
   }
 }

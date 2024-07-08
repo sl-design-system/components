@@ -1,0 +1,139 @@
+$fills: outline, ghost;
+$sizes: sm, md, lg;
+$variants: default, primary, success, info, warning, danger;
+
+:host {
+  --_animation: var(--sl-animation-button);
+  --_background: var(--sl-color-button-default-idle-background);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_transition-duration: var(--sl-animation-button-duration);
+  --_transition-easing: var(--sl-animation-button-easing);
+
+  align-items: center;
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  color: var(--_color);
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--_font);
+  gap: var(--_label-gap);
+  justify-content: center;
+  outline-color: transparent;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  transform: var(--_transform);
+  vertical-align: middle;
+}
+
+@mixin color-fill-specific($fill) {
+  :host([fill='#{$fill}']) {
+    --_border-width: var(--sl-border-width-button-#{$fill});
+    --_background: var(--sl-color-button-default-#{$fill}-idle-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-idle-border);
+    --_color: var(--sl-color-button-default-#{$fill}-idle-foreground);
+  }
+
+  :host([fill='#{$fill}']:not([disabled]):hover) {
+    --_background: var(--sl-color-button-default-#{$fill}-hover-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-hover-border);
+    --_color: var(--sl-color-button-default-#{$fill}-hover-foreground);
+  }
+
+  :host([fill='#{$fill}']:not([disabled]):active) {
+    --_background: var(--sl-color-button-default-#{$fill}-active-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-active-border);
+    --_color: var(--sl-color-button-default-#{$fill}-active-foreground);
+  }
+
+  :host([fill='#{$fill}'][disabled]) {
+    --_background: var(--sl-color-button-default-#{$fill}-disabled-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-disabled-border);
+    --_color: var(--sl-color-button-default-#{$fill}-disabled-foreground);
+  }
+
+  :host([fill='#{$fill}'][pressed]) {
+    --_background: var(--sl-color-button-default-#{$fill}-selected-idle-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-selected-idle-border);
+    --_color: var(--sl-color-button-default-#{$fill}-selected-idle-foreground);
+  }
+
+  :host([fill='#{$fill}'][pressed]:not([disabled]):hover) {
+    --_background: var(--sl-color-button-default-#{$fill}-selected-hover-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-selected-hover-border);
+    --_color: var(--sl-color-button-default-#{$fill}-selected-hover-foreground);
+  }
+
+  :host([fill='#{$fill}'][pressed]:not([disabled]):active) {
+    --_background: var(--sl-color-button-default-#{$fill}-selected-active-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-selected-active-border);
+    --_color: var(--sl-color-button-default-#{$fill}-selected-active-foreground);
+  }
+
+  :host([fill='#{$fill}'][pressed][disabled]) {
+    --_background: var(--sl-color-button-default-#{$fill}-selected-disabled-background);
+    --_border-color: var(--sl-color-button-default-#{$fill}-selected-disabled-border);
+    --_color: var(--sl-color-button-default-#{$fill}-selected-disabled-foreground);
+  }
+}
+
+@include color-fill-specific('ghost');
+@include color-fill-specific('outline');
+
+@mixin sizing-fill-specific($size, $fill) {
+  :host([size='#{$size}'][fill='#{$fill}']) {
+    --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
+    --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
+  }
+}
+
+@include sizing-fill-specific('sm', 'ghost');
+@include sizing-fill-specific('md', 'ghost');
+@include sizing-fill-specific('lg', 'ghost');
+@include sizing-fill-specific('sm', 'outline');
+@include sizing-fill-specific('md', 'outline');
+@include sizing-fill-specific('lg', 'outline');
+
+@mixin sizing-all-fills($size) {
+  :host([size='#{$size}']) {
+    --_border-radius: var(--sl-border-radius-button-#{$size});
+    --_icon-container-size: var(--sl-size-button-icon-#{$size});
+  }
+}
+
+@include sizing-all-fills('sm');
+@include sizing-all-fills('md');
+@include sizing-all-fills('lg');
+
+:host(:focus-visible) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+}
+
+:host(:where(:active, :focus-visible, :hover)) {
+  transition-duration: var(--_transition-duration);
+  transition-property: background, border-color, color, outline-color;
+  transition-timing-function: var(--_transition-easing);
+}
+
+:host([disabled]) {
+  cursor: default;
+  pointer-events: none;
+}
+
+:host([pressed]:not([single-icon])) ::slotted(:not([slot='pressed'])),
+:host(:not([pressed])) ::slotted([slot='pressed']) {
+  display: none;
+}
+
+::slotted(*) {
+  // Prevent the icon from ever gaining focus inside the button
+  pointer-events: none;
+}
+
+::slotted(sl-icon) {
+  --sl-icon-container-size: var(--_icon-container-size);
+
+  fill: var(--_color);
+}

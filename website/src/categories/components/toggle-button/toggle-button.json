@@ -5,7 +5,7 @@
   "componentTagName": [
     {
       "name": "Toggle button",
-      "selector": "sl-toggle button"
+      "selector": "sl-toggle-button"
     }
   ]
 }

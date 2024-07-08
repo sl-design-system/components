@@ -5239,6 +5239,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/toggle-button@workspace:packages/components/toggle-button":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
+  dependencies:
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    lit: ^3.1.2
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/tokens@workspace:packages/tokens":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tokens@workspace:packages/tokens"

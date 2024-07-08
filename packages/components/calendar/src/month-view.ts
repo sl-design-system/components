@@ -17,6 +17,9 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
+  /** Will only show the days of the current month, not the next or previous, when true. */
+  @property({ type: Boolean, attribute: 'hide-days-other-months' }) hideDaysOtherMonths?: boolean;
+
   /** The current month to display. */
   @property({ converter: dateConverter }) month: Date = new Date();
 

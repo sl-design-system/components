@@ -37,3 +37,9 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const WeekNumbers: Story = {
+  args: {
+    showWeekNumbers: true
+  }
+};

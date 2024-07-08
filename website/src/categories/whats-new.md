@@ -25,9 +25,10 @@ eleventyNavigation:
 <small>June 2024</small>
 
 ### New components
-- [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit)
-- [search field](/categories/components/search-field/usage/)
-- [button bar](/categories/components/button-bar/usage/)
+- [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit) (draft)
+- [search field](/categories/components/search-field/usage/) (preview)
+- [button bar](/categories/components/button-bar/usage/) (stable)
+- [emoji browser](https://storybook.sanomalearning.design/?path=/story/components-emoji-browser--basic&globals=viewport:default) (draft)
 
 ### Bug fixes in several components
 - [checkbox](/components/blob/main/packages/components/checkbox/CHANGELOG.md)

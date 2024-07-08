@@ -2,4 +2,4 @@
 '@sl-design-system/message-dialog': patch
 ---
 
-Remove `max-inline-size` overwrite since that is now part of dialog itself
+A message dialog should be centered on mobile, unlike the dialog

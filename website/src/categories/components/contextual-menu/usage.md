@@ -86,11 +86,14 @@ Contextual menus should not be used for primary navigation in applications becau
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Button |ELEMENT_DESCRIPTION |no|
-|2|Menu Popover |ELEMENT_DESCRIPTION |no|
-|3|Menu Option |ELEMENT_DESCRIPTION |no|
-|4|Menu Divider |ELEMENT_DESCRIPTION |Yes|
-|5|Group Heading |ELEMENT_DESCRIPTION ||
+|1|Button Menu|This is the trigger button to open the contextual menu. |no|
+|2|Menu Popover |This is the container for all the options of the menu, and appears close to the button menu. |no|
+|3|Option Items | This are the menu options that can be separete on "Option Button" that behave like a regular button, "Selection Option" that can behave like a checkbox or radio button, and "Sub-Menu Button" to open a nested menu. |no|
+|4|Group Heading |Title for the option groups to make eaiser to understand the function of the options. |yes|
+|5|Option Icons |You can display an icon in each option to enhance the readability. |yes|
+|6|Option Shortcuts |Adding shortcuts to the options to improve usability. |yes|
+|7|Group Heading |Title for the option groups to make eaiser to understand the function of the options. |yes|
+|8|Danger Option |Specific danger option of the menu. |yes|
 
 {.ds-table .ds-table-align-top}
 
@@ -114,13 +117,8 @@ Contextual Menu comes in two versions, each suited for specific situations:
 <section>
 
 ## Options
-FIGMA_OPTIONS_INTRODUCTION
 
-|Item|Options|Description|
-|-|-|-|
-|Icon|`'on', 'of'`|Toogle to display the subtitle in the tabs. |
-
-{.ds-table .ds-table-align-top}
+_ _ _ Currently Working on that in Figma _ _ _ 
 
 </section>
 
@@ -144,7 +142,6 @@ Keyboard shortcuts next to menu options, providing alternative access methods fo
 <section>
 
 ## Related
-Related components
 
 - [Card](/categories/components/Card/usage)
 

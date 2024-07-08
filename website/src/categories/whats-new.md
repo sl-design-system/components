@@ -25,10 +25,10 @@ eleventyNavigation:
 <small>June 2024</small>
 
 ### New components
-- [button bar](/categories/components/button-bar/usage/) (stable)
-- [emoji browser](https://storybook.sanomalearning.design/?path=/story/components-emoji-browser--basic&globals=viewport:default) (draft)
-- [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit) (draft)
-- [search field](/categories/components/search-field/usage/) (preview)
+- [button bar](/categories/components/button-bar/usage/) <ds-status status="stable">
+- [emoji browser](https://storybook.sanomalearning.design/?path=/story/components-emoji-browser--basic&globals=viewport:default) <ds-status status="draft">
+- [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit) <ds-status status="draft">
+- [search field](/categories/components/search-field/usage/) <ds-status status="preview">
 
 ### Bug fixes in several components
 - [accordion](components/blob/main/packages/components/accordion/CHANGELOG.md)

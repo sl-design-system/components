@@ -20,6 +20,10 @@
       "import": "./index.js",
       "types": "./index.d.ts"
     },
+    "./converters.js": {
+      "import": "./src/converters.js",
+      "types": "./src/converters.d.ts"
+    },
     "./events.js": {
       "import": "./src/events.js",
       "types": "./src/events.d.ts"

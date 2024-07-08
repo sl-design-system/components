@@ -1,13 +1,24 @@
 import { localized, msg } from '@lit/localize';
+import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './month-view.scss.js';
+import { type Calendar, createCalendar, getWeekdayNames } from './utils.js';
 
 @localized()
 export class MonthView extends LocaleMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** @internal The calendar object. */
+  @state() calendar?: Calendar;
+
+  /** The first day of the week; 0 for Sunday, 1 for Monday. */
+  @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
+
+  /** The current month to display. */
+  @property({ converter: dateConverter }) month: Date = new Date();
 
   /** Will render a column with the week numbers when true. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
@@ -16,8 +27,16 @@ export class MonthView extends LocaleMixin(LitElement) {
   @state() weekDays: Array<{ long: string; short: string }> = [];
 
   override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('locale')) {
-      console.log('locale changed');
+    if (changes.has('locale') || changes.has('firstDayOfWeek')) {
+      const { locale, firstDayOfWeek } = this,
+        longDays = getWeekdayNames({ firstDayOfWeek, locale, style: 'long' }),
+        shortDays = getWeekdayNames({ firstDayOfWeek, locale, style: 'short' });
+
+      this.weekDays = longDays.map((day, i) => ({ long: day, short: shortDays[i] }));
+    }
+
+    if (changes.has('month')) {
+      this.calendar = createCalendar(this.month, { firstDayOfWeek: this.firstDayOfWeek });
     }
   }
 
@@ -25,7 +44,16 @@ export class MonthView extends LocaleMixin(LitElement) {
     return html`
       <table>
         ${this.renderHeader()}
-        <tbody></tbody>
+        <tbody>
+          ${this.calendar?.weeks.map(
+            week => html`
+              <tr>
+                ${this.showWeekNumbers ? html`<td part="week-number">${week.number}</td>` : nothing}
+                ${week.days.map(day => html`<td>${day.date.getDate()}</td>`)}
+              </tr>
+            `
+          )}
+        </tbody>
       </table>
     `;
   }

@@ -18,6 +18,7 @@ declare global {
  * @csspart panel - The body of the accordion-item
  *
  * @slot default - Body content for the accordion
+ * @slot summary - Header content for the accordion; use this if the `summary` property is not enough
  */
 @localized()
 export class AccordionItem extends LitElement {

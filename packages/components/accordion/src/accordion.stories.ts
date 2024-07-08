@@ -244,18 +244,21 @@ export const CustomSummary: Story = {
           Discovering Dinosaurs: A Prehistoric Adventure
           <sl-icon name="circle-check-solid" size="lg"></sl-icon>
         </div>
+        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
       </sl-accordion-item>
       <sl-accordion-item>
         <div slot="summary">
           Journey Through Ancient Civilizations
           <sl-icon name="octagon-exclamation-solid" size="lg"></sl-icon>
         </div>
+        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
       </sl-accordion-item>
       <sl-accordion-item>
         <div slot="summary">
           Space Odyssey: Exploring Planets and Stars
           <sl-icon name="info" size="lg"></sl-icon>
         </div>
+        Buckle up for a cosmic adventure! 🚀🪐👽
       </sl-accordion-item>
     `
   }

@@ -13,8 +13,8 @@ describe('sl-progress-bar', () => {
     progressBar = el.renderRoot.querySelector('div.container') as HTMLDivElement;
   });
 
-  it('should have no state by default', () => {
-    expect(el).not.to.have.attribute('state');
+  it('should have no variant by default', () => {
+    expect(el).not.to.have.attribute('variant');
   });
 
   it('should have no icon by default', () => {
@@ -63,9 +63,9 @@ describe('sl-progress-bar', () => {
     expect(progressBar).to.have.attribute('aria-labelledby', 'label');
   });
 
-  it('should have the proper icon when the success state is set', async () => {
+  it('should have the proper icon when the success variant is set', async () => {
     el.label = 'Progress label';
-    el.state = 'success';
+    el.variant = 'success';
     await el.updateComplete;
 
     const label = el.renderRoot.querySelector('div.label') as HTMLElement,
@@ -76,9 +76,9 @@ describe('sl-progress-bar', () => {
     expect(icon).to.have.attribute('name', 'circle-check-solid');
   });
 
-  it('should have the proper icon when the warning state is set', async () => {
+  it('should have the proper icon when the warning variant is set', async () => {
     el.label = 'Progress label';
-    el.state = 'warning';
+    el.variant = 'warning';
     await el.updateComplete;
 
     const label = el.renderRoot.querySelector('div.label') as HTMLElement,
@@ -89,9 +89,9 @@ describe('sl-progress-bar', () => {
     expect(icon).to.have.attribute('name', 'octagon-exclamation-solid');
   });
 
-  it('should have the proper icon when the error state is set', async () => {
+  it('should have the proper icon when the error variant is set', async () => {
     el.label = 'Progress label';
-    el.state = 'error';
+    el.variant = 'error';
     await el.updateComplete;
 
     const label = el.renderRoot.querySelector('div.label') as HTMLElement,
@@ -106,7 +106,7 @@ describe('sl-progress-bar', () => {
     const label = el.renderRoot.querySelector('div.label') as HTMLElement;
     expect(label).not.to.exist;
 
-    el.state = 'success';
+    el.variant = 'success';
     await el.updateComplete;
 
     const helper = el.renderRoot.querySelector('div.helper') as HTMLElement,
@@ -116,9 +116,9 @@ describe('sl-progress-bar', () => {
     expect(helperIcon).to.exist;
   });
 
-  it('should change the aria-live when the value and state have changed', async () => {
+  it('should change the aria-live when the value and variant have changed', async () => {
     el.value = 60;
-    el.state = 'warning';
+    el.variant = 'warning';
     await el.updateComplete;
 
     const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;

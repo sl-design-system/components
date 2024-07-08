@@ -5,7 +5,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
 
-type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'state' | 'value'> & { slot?(): TemplateResult };
+type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'variant' | 'value'> & { slot?(): TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -15,7 +15,7 @@ export default {
     label: 'This is the label of progress bar',
     value: 60,
     indeterminate: false,
-    state: undefined
+    variant: undefined
   },
   argTypes: {
     value: {
@@ -25,7 +25,7 @@ export default {
         max: 100
       }
     },
-    state: {
+    variant: {
       control: 'inline-radio',
       options: [undefined, 'success', 'warning', 'error']
     },
@@ -40,9 +40,9 @@ export default {
       defaultViewport: 'default'
     }
   },
-  render: ({ indeterminate, state, value, label, slot }) => {
+  render: ({ indeterminate, variant, value, label, slot }) => {
     return html`
-      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
+      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .variant=${variant}>
         ${slot?.() ?? html`<span>Uploaded ${value}% of 100%</span>`}
       </sl-progress-bar>
     `;
@@ -61,7 +61,7 @@ export const Overflow: Story = {
       'Ullamcorper malesuada proin libero nunc consequat interdum varius. Eget egestas purus viverra accumsan in nisl nisi scelerisque. ' +
       'Erat imperdiet sed euismod nisi porta. Pulvinar pellentesque habitant morbi tristique. Lobortis elementum nibh tellus molestie nunc non blandit massa enim.'
   },
-  render: ({ indeterminate, state, value, label }) => {
+  render: ({ indeterminate, variant, value, label }) => {
     setTimeout(() => {
       const progressBar = document.querySelector('sl-progress-bar') as ProgressBar,
         subtractButton = progressBar?.nextElementSibling,
@@ -86,7 +86,7 @@ export const Overflow: Story = {
           margin-block-end: 32px;
         }
       </style>
-      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
+      <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .variant=${variant}>
         <span>Uploaded ${value}% of 100%</span>
       </sl-progress-bar>
       <sl-button fill="outline" class="minus">Decrease</sl-button>
@@ -123,7 +123,7 @@ export const Download: StoryObj = {
         disable: true
       }
     },
-    state: {
+    variant: {
       table: {
         disable: true
       }
@@ -149,7 +149,7 @@ export const Download: StoryObj = {
             progressBar.value = 100;
             progressBarHelper!.innerHTML = 'Done';
           }
-          progressBar.state = progressBar.value >= 100 ? 'success' : undefined;
+          progressBar.variant = progressBar.value >= 100 ? 'success' : undefined;
           if (currentProgress + step < size) {
             progressBar.removeAttribute('indeterminate');
             progressBar.value = Math.round(currentProgress + step);
@@ -191,7 +191,7 @@ export const All: StoryObj = {
         disable: true
       }
     },
-    state: {
+    variant: {
       table: {
         disable: true
       }
@@ -206,32 +206,32 @@ export const All: StoryObj = {
       }
     </style>
     <h2>With label</h2>
-    <sl-progress-bar value="20" label="Progress bar label in the default state">
+    <sl-progress-bar value="20" label="Progress bar label in the default variant">
       <span>20% of 100%</span>
     </sl-progress-bar>
-    <sl-progress-bar value="100" label="Progress bar label in the success state" state="success">
+    <sl-progress-bar value="100" label="Progress bar label in the success variant" variant="success">
       <span>File downloaded</span>
     </sl-progress-bar>
-    <sl-progress-bar value="40" label="Progress bar label in the warning state" state="warning">
+    <sl-progress-bar value="40" label="Progress bar label in the warning variant" variant="warning">
       <span>40% of 100%</span>
     </sl-progress-bar>
-    <sl-progress-bar value="50" label="Progress bar label in the error state" state="error">
+    <sl-progress-bar value="50" label="Progress bar label in the error variant" variant="error">
       <span>50% of 100%</span>
     </sl-progress-bar>
     <sl-progress-bar indeterminate label="Progress bar label in the indeterminate state">
       <span">Preparing download</span>
     </sl-progress-bar>
     <h2>No label</h2>
-    <sl-progress-bar value="20" aria-label="Progress bar label in the default state">
+    <sl-progress-bar value="20" aria-label="Progress bar label in the default variant">
       <span>20% of 100%</span>
     </sl-progress-bar>
-    <sl-progress-bar value="100" state="success" aria-label="Progress bar label in the success state">
+    <sl-progress-bar value="100" variant="success" aria-label="Progress bar label in the success variant">
       <span>File uploaded</span>
     </sl-progress-bar>
-    <sl-progress-bar value="40" state="warning" aria-label="Progress bar label in the warning state">
+    <sl-progress-bar value="40" variant="warning" aria-label="Progress bar label in the warning variant">
       <span>40% of 100%</span>
     </sl-progress-bar>
-    <sl-progress-bar value="50" state="error" aria-label="Progress bar label in the error state">
+    <sl-progress-bar value="50" variant="error" aria-label="Progress bar label in the error variant">
       <span>50% of 100%</span>
     </sl-progress-bar>
     <sl-progress-bar indeterminate aria-label="Progress bar label in the indeterminate state">

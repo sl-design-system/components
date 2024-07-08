@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type ProgressState = 'success' | 'warning' | 'error';
+export type ProgressVariant = 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component that can be used to communicate process status.
@@ -46,15 +46,15 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** Label describing the value of the progress bar. */
   @property() label?: string;
 
-  /** The state of the progress bar. */
-  @property({ reflect: true }) state?: ProgressState;
+  /** The variant of the progress bar. */
+  @property({ reflect: true }) variant?: ProgressVariant;
 
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;
 
-  /** @internal The name of the icon, depending on the state. */
+  /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {
-    switch (this.state) {
+    switch (this.variant) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
@@ -69,7 +69,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html` ${this.label
         ? html` <div id="label" class="label">
-            ${this.label} ${this.state ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+            ${this.label} ${this.variant ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
           </div>`
         : nothing}
       <div
@@ -83,17 +83,17 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       >
         <div
           class="progress"
-          style=${styleMap({ transform: !this.indeterminate || this.state ? `scaleX(${this.value / 100})` : '' })}
+          style=${styleMap({ transform: !this.indeterminate || this.variant ? `scaleX(${this.value / 100})` : '' })}
         ></div>
       </div>
       <div id="helper" class="helper">
         <slot></slot>
         <span id="live" aria-live="polite" aria-busy=${ifDefined(this.indeterminate)}>
-          ${msg('state')} ${msg(this.state ? this.state : msg('active'))}
+          ${msg('state')} ${msg(this.variant ? this.variant : msg('active'))}
           <!-- We want '%' to be read every time the value changes. -->
           <span aria-live="polite" aria-atomic="true">${this.value}%</span>
         </span>
-        ${this.state && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+        ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
       </div>`;
   }
 }

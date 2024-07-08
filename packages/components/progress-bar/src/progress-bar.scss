@@ -1,4 +1,4 @@
-$states: success, warning, error;
+$variants: success, warning, error;
 
 :host {
   --_bar-background: var(--sl-color-progressbar-background);
@@ -26,27 +26,27 @@ $states: success, warning, error;
   gap: var(--_gap);
 }
 
-@each $state in $states {
-  :host([state='#{$state}']:not([indeterminate])) {
-    --_progress-background: var(--sl-color-progressbar-#{$state}-track);
-    --_icon-fill: var(--sl-color-progressbar-#{$state}-track);
+@each $variant in $variants {
+  :host([variant='#{$variant}']:not([indeterminate])) {
+    --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
+    --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
   }
 
-  :host([state='#{$state}'][indeterminate]) .progress {
-    --_progress-background: var(--sl-color-progressbar-#{$state}-track);
-    --_icon-fill: var(--sl-color-progressbar-#{$state}-track);
+  :host([variant='#{$variant}'][indeterminate]) .progress {
+    --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
+    --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
 
     animation: none;
     inline-size: 100%;
   }
 
-  :host([state='#{$state}'][indeterminate]) {
+  :host([variant='#{$variant}'][indeterminate]) {
     .label sl-icon {
-      --sl-icon-fill-default: var(--sl-color-progressbar-#{$state}-track);
+      --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
     }
 
     .helper sl-icon {
-      --sl-icon-fill-default: var(--sl-color-progressbar-#{$state}-track);
+      --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
     }
   }
 }
@@ -60,7 +60,7 @@ $states: success, warning, error;
   inline-size: 100%;
 }
 
-:host([state='error']) ::slotted(*) {
+:host([variant='error']) ::slotted(*) {
   color: var(--_helper-color-error);
 }
 

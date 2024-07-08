@@ -1,16 +1,16 @@
 ---
-'@sl-design-system/editorial-suite': minor
-'@sl-design-system/my-digital-book': minor
-'@sl-design-system/sanoma-learning': minor
-'@sl-design-system/itslearning': minor
-'@sl-design-system/bingel-int': minor
-'@sl-design-system/bingel-dc': minor
-'@sl-design-system/clickedu': minor
-'@sl-design-system/magister': minor
-'@sl-design-system/kampus': minor
-'@sl-design-system/neon': minor
-'@sl-design-system/teas': minor
-'@sl-design-system/max': minor
+'@sl-design-system/editorial-suite': patch
+'@sl-design-system/my-digital-book': patch
+'@sl-design-system/sanoma-learning': patch
+'@sl-design-system/itslearning': patch
+'@sl-design-system/bingel-int': patch
+'@sl-design-system/bingel-dc': patch
+'@sl-design-system/clickedu': patch
+'@sl-design-system/magister': patch
+'@sl-design-system/kampus': patch
+'@sl-design-system/neon': patch
+'@sl-design-system/teas': patch
+'@sl-design-system/max': patch
 ---
 
 Added progress bar tokens

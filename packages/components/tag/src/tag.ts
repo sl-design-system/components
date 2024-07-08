@@ -1,3 +1,6 @@
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
+import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, type nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
@@ -20,8 +23,16 @@ export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning
  *
  * @cssprop --sl-spinner-size - The size of the spinner, defaults to `md` if not set.
  */
-export class Tag extends LitElement { // TODO: scoped with sl-icon
-  /** @private */
+export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with sl-icon
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-button': Button,
+      'sl-icon': Icon
+    };
+  }
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The size of the spinner. Defaults to `md` with css properties if not attribute is not set. */
@@ -32,6 +43,19 @@ export class Tag extends LitElement { // TODO: scoped with sl-icon
 
   /** The label of the tag component. */
   @property() label?: string;
+
+  // removable
+
+  // disabled
+
+  // readonly - content can be copied, but not interacted with or changed?
+
+  // error variant?
+
+  // Users can move through the chips using the arrow keys and select/deselect them with space. Chips also gain focus when clicked, ensuring keyboard navigation starts at the currently focused chip.
+// https://material.angular.io/components/chips/overview#keyboard-interactions
+// when it's focused it can be removed by delecte keydown
+
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -50,6 +74,12 @@ export class Tag extends LitElement { // TODO: scoped with sl-icon
   }
 } // TODO: or maybe slot instead of label?
 // TODO: close button
+
+// TODO: only close button but maybe also a place for other icons? also in front of the label?
+// TODO:  Maybe tag can have an avatar like in Spectrum design system? https://spectrum.adobe.com/page/tag/
+
+// TODO: possible states: https://m2.material.io/components/chips#input-chips
+
 
 // <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-24 -24 48 48">
 // <g class="slow">
@@ -71,3 +101,9 @@ export class Tag extends LitElement { // TODO: scoped with sl-icon
 //   </g>
 //   </g>
 //   </svg>
+
+
+
+// TODO: accessibility: https://material.angular.io/components/chips/overview#accessibility
+
+// !!!!!!!!! TODO: dependencies !!!!!

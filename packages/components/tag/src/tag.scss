@@ -2,16 +2,16 @@ $sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
 $variants: default, 'white', accent, info, danger, success, warning;
 
 :host {
-  --sl-spinner-size: var(--sl-size-spinner-md);
+ // --sl-spinner-size: var(--sl-size-spinner-md);
   --_color: currentcolor;
   --_rotate-duration: calc(var(--_spin-duration) * 4);
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
 
   block-size: var(--sl-spinner-size);
-  display: block; //inline-flex;
+  display: inline-block; //block; //inline-flex;
   flex-shrink: 0;
-  inline-size: var(--sl-spinner-size);
+ // inline-size: var(--sl-spinner-size);
   vertical-align: middle;
   border: 1px solid #8D959D;
   padding: 20px;

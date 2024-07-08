@@ -21,6 +21,34 @@ eleventyNavigation:
 
 <section>
 
+## Enhancements and Insights: New Components, Bug Fixes, Styling, and Workshops
+<small>June 2024</small>
+
+### New components
+- format date component
+- search field
+- button bar
+
+### Bug fixes in several components
+- checkbox
+- avatar
+- tabs
+- tooltip
+- accordion
+- select
+- spinner
+- switch
+  
+### Styling updates in:
+- dialog
+- warning color palettes
+
+### Data Grid Workshop
+We recently conducted a workshop with all UX designers across our products to define the requirements for our data grid. It marked our first large-scale collaboration on a common component, which was a great experience. Together, we identified the core functionalities of our data grid. Currently, the SL Design System team is in the process of planning the design and development of these features.
+
+### Combobox survey
+We sent out a survey to gather input from all UX Designers to define the core functionalities of our combobox. The SL Design System is currently developing the basic design and will incorporate additional features based on any essential requirements identified by the CFAs for our combobox component.
+  
 ## Version 1.0 Milestone, Developer-Focused Enhancements, and Issue Tracking
 <small>May 2024</small>
 

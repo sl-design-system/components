@@ -41,8 +41,8 @@ describe('sl-dialog', () => {
       expect(dialog.querySelector('sl-button[aria-label="Close"]')).to.exist;
     });
 
-    it('should have a role of dialog', () => {
-      expect(dialog).to.have.attribute('role', 'dialog');
+    it('should not have a role of dialog', () => {
+      expect(dialog).not.to.have.attribute('role');
     });
 
     it('should have a dialog part', () => {

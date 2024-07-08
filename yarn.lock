@@ -4648,6 +4648,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/calendar@workspace:packages/components/calendar":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/calendar@workspace:packages/components/calendar"
+  dependencies:
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    lit: ^3.1.4
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/card@workspace:packages/components/card":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/card@workspace:packages/components/card"

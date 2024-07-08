@@ -49,6 +49,10 @@ We recently conducted a workshop with all UX designers across our products to de
 
 ### Combobox survey
 We sent out a survey to gather input from all UX Designers to define the core functionalities of our combobox. The SL Design System is currently developing the basic design and will incorporate additional features based on any essential requirements identified by the CFAs for our combobox component.
+
+</section>
+
+<section>
   
 ## Version 1.0 Milestone, Developer-Focused Enhancements, and Issue Tracking
 <small>May 2024</small>

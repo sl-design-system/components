@@ -11,6 +11,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Toggle button
-  status: new
+  status: New
 ---
 

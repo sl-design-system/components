@@ -110,7 +110,7 @@ export const Basic: Story = {};
 export const All: Story = {
   render: () => {
     const icons = Object.keys(window.SLDS?.icons);
-    console.log(icons, window.SLDS.icons);
+
     if (icons.length === 0) {
       setTimeout(() => {
         addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {

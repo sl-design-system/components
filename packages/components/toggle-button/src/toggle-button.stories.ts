@@ -1,6 +1,5 @@
 import { faGear as farGear } from '@fortawesome/pro-regular-svg-icons';
 import { faEyeSlash, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
-
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -8,14 +7,14 @@ import { html } from 'lit';
 import '../register.js';
 import { type ToggleButton, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-interface Props extends Pick<ToggleButton, 'size' | 'fill' | 'pressed' | 'disabled' | 'tabIndex'> {
+interface Props extends Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'size' | 'tabIndex'> {
   label: string;
 }
 type Story = StoryObj<Props>;
 
-const fills: ToggleButtonFill[] = ['outline', 'ghost'];
-const sizes: ToggleButtonSize[] = ['sm', 'md', 'lg'];
 const disabledStates = [false, true];
+const fills: ToggleButtonFill[] = ['ghost', 'outline'];
+const sizes: ToggleButtonSize[] = ['sm', 'md', 'lg'];
 
 Icon.register(fasGear, farGear, faEyeSlash);
 
@@ -23,11 +22,11 @@ export default {
   title: 'Components/Toggle button',
   tags: ['draft'],
   args: {
-    pressed: false,
     disabled: false,
-    size: 'md',
     fill: 'ghost',
     label: 'Show settings',
+    pressed: false,
+    size: 'md',
     tabIndex: undefined
   },
   argTypes: {
@@ -72,6 +71,17 @@ export const OneIcon: Story = {
     return html`
       <sl-toggle-button fill="outline">
         <sl-icon name="pinata"></sl-icon>
+      </sl-toggle-button>
+      <sl-toggle-button fill="outline" pressed>
+        <sl-icon name="pinata"></sl-icon>
+      </sl-toggle-button>
+      <sl-toggle-button fill="outline">
+        <sl-icon name="far-gear"></sl-icon>
+        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+      </sl-toggle-button>
+      <sl-toggle-button fill="ghost" pressed>
+        <sl-icon name="far-gear"></sl-icon>
+        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
       </sl-toggle-button>
     `;
   }
@@ -149,7 +159,7 @@ export const All: Story = {
               fill =>
                 html` ${disabledStates.map(
                   disabledState =>
-                    html` <td class=${disabledState ? 'sb-disabled' : ''}>
+                    html`<td class=${disabledState ? 'sb-disabled' : ''}>
                         <sl-toggle-button .fill=${fill} size="md" ?disabled=${disabledState} data-mock-state>
                           <sl-icon name="far-gear"></sl-icon>
                           <sl-icon name="fas-gear" slot="pressed"></sl-icon>

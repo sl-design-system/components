@@ -4,11 +4,21 @@ $variants: default, primary, success, info, warning, danger;
 
 :host {
   --_animation: var(--sl-animation-button);
-  --_background: var(--sl-color-button-default-idle-background);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
+
+  --_border-width: var(--sl-border-width-button-ghost);
+  --_background: var(--sl-color-button-default-ghost-idle-background);
+  --_border-color: var(--sl-color-button-default-ghost-idle-border);
+  --_color: var(--sl-color-button-default-ghost-idle-foreground);
+
+  --_padding-block: var(--sl-space-button-ghost-icon-only-md);
+  --_padding-inline: var(--sl-space-button-ghost-icon-only-md);
+
+  --_border-radius: var(--sl-border-radius-button-md);
+  --_icon-container-size: var(--sl-size-button-icon-md);
 
   align-items: center;
   background: var(--_background);
@@ -27,59 +37,96 @@ $variants: default, primary, success, info, warning, danger;
   vertical-align: middle;
 }
 
-@mixin color-fill-specific($fill) {
-  :host([fill='#{$fill}']) {
-    --_border-width: var(--sl-border-width-button-#{$fill});
-    --_background: var(--sl-color-button-default-#{$fill}-idle-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-idle-border);
-    --_color: var(--sl-color-button-default-#{$fill}-idle-foreground);
-  }
-
-  :host([fill='#{$fill}']:not([disabled]):hover) {
-    --_background: var(--sl-color-button-default-#{$fill}-hover-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-hover-border);
-    --_color: var(--sl-color-button-default-#{$fill}-hover-foreground);
-  }
-
-  :host([fill='#{$fill}']:not([disabled]):active) {
-    --_background: var(--sl-color-button-default-#{$fill}-active-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-active-border);
-    --_color: var(--sl-color-button-default-#{$fill}-active-foreground);
-  }
-
-  :host([fill='#{$fill}'][disabled]) {
-    --_background: var(--sl-color-button-default-#{$fill}-disabled-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-disabled-border);
-    --_color: var(--sl-color-button-default-#{$fill}-disabled-foreground);
-  }
-
-  :host([fill='#{$fill}'][pressed]) {
-    --_background: var(--sl-color-button-default-#{$fill}-selected-idle-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-selected-idle-border);
-    --_color: var(--sl-color-button-default-#{$fill}-selected-idle-foreground);
-  }
-
-  :host([fill='#{$fill}'][pressed]:not([disabled]):hover) {
-    --_background: var(--sl-color-button-default-#{$fill}-selected-hover-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-selected-hover-border);
-    --_color: var(--sl-color-button-default-#{$fill}-selected-hover-foreground);
-  }
-
-  :host([fill='#{$fill}'][pressed]:not([disabled]):active) {
-    --_background: var(--sl-color-button-default-#{$fill}-selected-active-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-selected-active-border);
-    --_color: var(--sl-color-button-default-#{$fill}-selected-active-foreground);
-  }
-
-  :host([fill='#{$fill}'][pressed][disabled]) {
-    --_background: var(--sl-color-button-default-#{$fill}-selected-disabled-background);
-    --_border-color: var(--sl-color-button-default-#{$fill}-selected-disabled-border);
-    --_color: var(--sl-color-button-default-#{$fill}-selected-disabled-foreground);
-  }
+:host([fill='ghost']:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-ghost-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-hover-border);
+  --_color: var(--sl-color-button-default-ghost-hover-foreground);
 }
 
-@include color-fill-specific('ghost');
-@include color-fill-specific('outline');
+:host([fill='ghost']:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-ghost-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-active-border);
+  --_color: var(--sl-color-button-default-ghost-active-foreground);
+}
+
+:host([fill='ghost'][disabled]) {
+  --_background: var(--sl-color-button-default-ghost-disabled-background);
+  --_border-color: var(--sl-color-button-default-ghost-disabled-border);
+  --_color: var(--sl-color-button-default-ghost-disabled-foreground);
+}
+
+:host([fill='ghost'][pressed]) {
+  --_background: var(--sl-color-button-default-ghost-selected-idle-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
+  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
+}
+
+:host([fill='ghost'][pressed]:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-ghost-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-hover-border);
+  --_color: var(--sl-color-button-default-ghost-selected-hover-foreground);
+}
+
+:host([fill='ghost'][pressed]:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-ghost-selected-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-active-border);
+  --_color: var(--sl-color-button-default-ghost-selected-active-foreground);
+}
+
+:host([fill='ghost'][pressed][disabled]) {
+  --_background: var(--sl-color-button-default-ghost-selected-disabled-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-disabled-border);
+  --_color: var(--sl-color-button-default-ghost-selected-disabled-foreground);
+}
+
+:host([fill='outline']) {
+  --_border-width: var(--sl-border-width-button-outline);
+  --_background: var(--sl-color-button-default-outline-idle-background);
+  --_border-color: var(--sl-color-button-default-outline-idle-border);
+  --_color: var(--sl-color-button-default-outline-idle-foreground);
+}
+
+:host([fill='outline']:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-outline-hover-background);
+  --_border-color: var(--sl-color-button-default-outline-hover-border);
+  --_color: var(--sl-color-button-default-outline-hover-foreground);
+}
+
+:host([fill='outline']:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-outline-active-background);
+  --_border-color: var(--sl-color-button-default-outline-active-border);
+  --_color: var(--sl-color-button-default-outline-active-foreground);
+}
+
+:host([fill='outline'][disabled]) {
+  --_background: var(--sl-color-button-default-outline-disabled-background);
+  --_border-color: var(--sl-color-button-default-outline-disabled-border);
+  --_color: var(--sl-color-button-default-outline-disabled-foreground);
+}
+
+:host([fill='outline'][pressed]) {
+  --_background: var(--sl-color-button-default-outline-selected-idle-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-idle-border);
+  --_color: var(--sl-color-button-default-outline-selected-idle-foreground);
+}
+
+:host([fill='outline'][pressed]:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-outline-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-hover-border);
+  --_color: var(--sl-color-button-default-outline-selected-hover-foreground);
+}
+
+:host([fill='outline'][pressed]:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-outline-selected-active-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-active-border);
+  --_color: var(--sl-color-button-default-outline-selected-active-foreground);
+}
+
+:host([fill='outline'][pressed][disabled]) {
+  --_background: var(--sl-color-button-default-outline-selected-disabled-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-disabled-border);
+  --_color: var(--sl-color-button-default-outline-selected-disabled-foreground);
+}
 
 @mixin sizing-fill-specific($size, $fill) {
   :host([size='#{$size}'][fill='#{$fill}']) {
@@ -89,7 +136,6 @@ $variants: default, primary, success, info, warning, danger;
 }
 
 @include sizing-fill-specific('sm', 'ghost');
-@include sizing-fill-specific('md', 'ghost');
 @include sizing-fill-specific('lg', 'ghost');
 @include sizing-fill-specific('sm', 'outline');
 @include sizing-fill-specific('md', 'outline');
@@ -103,7 +149,6 @@ $variants: default, primary, success, info, warning, danger;
 }
 
 @include sizing-all-fills('sm');
-@include sizing-all-fills('md');
 @include sizing-all-fills('lg');
 
 :host(:focus-visible) {

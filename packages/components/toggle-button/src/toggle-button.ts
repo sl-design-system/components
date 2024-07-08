@@ -1,6 +1,6 @@
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './toggle-button.scss.js';
 
@@ -27,7 +27,7 @@ export type ToggleButtonFill = 'ghost' | 'outline';
  * @slot pressed - The icon shown in the pressed state of the button
  */
 export class ToggleButton extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -39,8 +39,8 @@ export class ToggleButton extends LitElement {
   /** @internal Emits when the button item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  /** The size of the toggle-button component. */
-  @property({ reflect: true }) size: ToggleButtonSize = 'md';
+  /** Whether the toggle-button is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** The variant of the toggle-button. */
   @property({ reflect: true }) fill: ToggleButtonFill = 'ghost';
@@ -48,18 +48,14 @@ export class ToggleButton extends LitElement {
   /** The state of the toggle-button. */
   @property({ type: Boolean, reflect: true }) pressed = false;
 
-  /** Whether the toggle-button is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
-
-  @property({ type: Boolean, reflect: true, attribute: 'single-icon' }) singleIcon?: boolean = true;
-
-  /** The original tabIndex before disabled. */
-  private originalTabIndex = 0;
+  /** The size of the toggle-button component. */
+  @property({ reflect: true }) size: ToggleButtonSize = 'md';
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.setAttribute('role', 'button');
+    this.setAttribute('single-icon', 'true');
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
@@ -67,26 +63,15 @@ export class ToggleButton extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange} class="default"></slot>
+      <slot @slotchange=${this.#onSlotChange}></slot>
       <slot @slotchange=${this.#onSlotChange} name="pressed"></slot>
     `;
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disabled')) {
-      if (this.disabled) {
-        this.originalTabIndex = this.tabIndex;
-      }
-      this.tabIndex = this.disabled ? -1 : this.originalTabIndex;
-    }
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedNodes = event.target.assignedNodes({ flatten: true });
     if (event.target.matches('[name="pressed"]')) {
-      this.singleIcon = assignedNodes.length > 0 ? false : true;
+      this.toggleAttribute('single-icon', !assignedNodes.length);
     }
     this.#setIconProperties(assignedNodes);
   }
@@ -99,7 +84,7 @@ export class ToggleButton extends LitElement {
     }
 
     this.pressed = !this.pressed;
-    this.setAttribute('aria-pressed', this.pressed ? 'true' : 'false');
+    this.setAttribute('aria-pressed', this.pressed.toString());
     this.toggleEvent.emit(this.pressed);
   }
 

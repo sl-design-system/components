@@ -42,9 +42,6 @@ export class Button extends LitElement {
   /** @private. */
   readonly internals = this.attachInternals();
 
-  /** The original tabIndex before disabled. */
-  private originalTabIndex = 0;
-
   /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -76,15 +73,6 @@ export class Button extends LitElement {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
-  }
-
-  /** @private */
-  formDisabledCallback(disabled: boolean): void {
-    if (disabled) {
-      this.originalTabIndex = this.tabIndex;
-    }
-
-    this.tabIndex = disabled ? -1 : this.originalTabIndex;
   }
 
   override updated(changes: PropertyValues<this>): void {

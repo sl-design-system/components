@@ -46,9 +46,9 @@ In forms or settings panels, it's important to meet user expectations for consis
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Name|Description|yes/no|
-|1|Name|Description|yes/no|
-|1|Name|Description|yes/no|
+|1|Container|THTML button  element 	|no|
+|2|Icon|The outline icon appears in the default state, while the filled icon is displayed when the toggle button is selected|no|
+|3|Tooltip|The tooltip appears on hover to provide additional information about the toggle button's action|no|
 
 {.ds-table .ds-table-align-top}
 
@@ -66,14 +66,12 @@ With these options, you can tweak the appearance of the toggle button in Figma. 
 
 |Item|Options|Description|
 |-|-|-|
-|Sizes|`sm` `md` `lg`|The switch come in three sizes: small, medium (default) and large. |
-|Orientation |`left` `right`|The switch has 2 different lay-out possibilities relating to the positions of the label and switch relative to each other.|
-|Disabled|`boolean`|To indicate if the switch is enabled or disabled|
-|Label|`value`|To insert the text of the label|
-|Status|`boolean`|To indicate if the switch is checked or unchecked|
-|State|`default` `hover` `active` `disabled` |To indicate the state of the switch|
-|Icon|`boolean`|To show an icon in the handle of the switch|
-|Focus ring|`boolean`|To show the focus state of the switch|
+|Type|`outline` `ghost`|To indicate the type of the toggle button |
+|State |`idle` `hover` `active` `Disabled`|To indicate the state of the toggle button|
+|Size|`sm` `md` `lg`|To determine the size of the toggle button|
+|Selected|`boolean`|To indicate whether the toggle is selected or not|
+|FontAwesome|`value`|To specify the name of the Font Awesome icon you wish to use in the toggle button.|
+
 
 {.ds-table .ds-table-align-top}
 

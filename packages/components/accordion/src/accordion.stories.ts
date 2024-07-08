@@ -231,7 +231,7 @@ export const CustomSummary: Story = {
   args: {
     items: html`
       <style>
-        span {
+        div {
           align-items: center;
           display: flex;
           flex: 1;
@@ -240,22 +240,22 @@ export const CustomSummary: Story = {
         }
       </style>
       <sl-accordion-item>
-        <span slot="summary">
+        <div slot="summary">
           Discovering Dinosaurs: A Prehistoric Adventure
           <sl-icon name="circle-check-solid" size="lg"></sl-icon>
-        </span>
+        </div>
       </sl-accordion-item>
       <sl-accordion-item>
-        <span slot="summary">
+        <div slot="summary">
           Journey Through Ancient Civilizations
           <sl-icon name="octagon-exclamation-solid" size="lg"></sl-icon>
-        </span>
+        </div>
       </sl-accordion-item>
       <sl-accordion-item>
-        <span slot="summary">
+        <div slot="summary">
           Space Odyssey: Exploring Planets and Stars
           <sl-icon name="info" size="lg"></sl-icon>
-        </span>
+        </div>
       </sl-accordion-item>
     `
   }

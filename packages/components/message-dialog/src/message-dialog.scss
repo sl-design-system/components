@@ -2,16 +2,21 @@ $md-breakpoint: 600px;
 
 sl-dialog {
   @media (max-width: $md-breakpoint) {
-    --_title-font: 700 var(--sl-text-typeset-font-size-xl) / var(--sl-text-typeset-line-height-lg)
-      var(--sl-text-typeset-font-family-heading);
+    --_subtitle-font: var(--sl-text-dialog-message-mobile-subheading);
+    --_title-font: var(--sl-text-dialog-message-mobile-heading);
   }
 }
 
 sl-dialog::part(dialog) {
   @media (max-width: $md-breakpoint) {
+    --_max-inline-size: calc(
+      100dvw - var(--sl-space-dialog-message-mobile-container-padding-left) - var(
+          --sl-space-dialog-message-mobile-container-padding-right
+        )
+    );
+
     margin: auto;
-    max-inline-size: calc(100dvw - 3rem);
-    min-inline-size: min(300px, 100dvw - 2rem);
+    min-inline-size: min(300px, var(--_max-inline-size));
   }
 }
 

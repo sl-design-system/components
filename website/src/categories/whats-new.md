@@ -26,11 +26,11 @@ eleventyNavigation:
 
 ### New components
 - [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit)
-- [search field] (/categories/components/search-field/usage/)
-- [button bar] (/categories/components/button-bar/usage/)
+- [search field](/categories/components/search-field/usage/)
+- [button bar](/categories/components/button-bar/usage/)
 
 ### Bug fixes in several components
-- [checkbox] (https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)
+- [checkbox](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)
 - avatar
 - tabs
 - tooltip

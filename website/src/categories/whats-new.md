@@ -39,9 +39,9 @@ eleventyNavigation:
 - [spinner](/components/blob/main/packages/components/spinner/CHANGELOG.md)
 - [switch](/components/blob/main/packages/components/switch/CHANGELOG.md)
   
-### Styling updates in:
-- dialog
-- warning color palettes
+### Styling updates in
+- [dialog](/components/blob/main/packages/components/dialog/CHANGELOG.md)
+- warning color palettes for Sanoma Learning and Editorial suite (see Figma)
 
 ### Data Grid Workshop
 We recently conducted a workshop with all UX designers across our products to define the requirements for our data grid. It marked our first large-scale collaboration on a common component, which was a great experience. Together, we identified the core functionalities of our data grid. Currently, the SL Design System team is in the process of planning the design and development of these features.

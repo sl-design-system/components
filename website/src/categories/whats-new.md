@@ -9,7 +9,7 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-  Find out what's happening world of Sanoma Learing Design System.
+  Find out what's happening in the world of Sanoma Learing Design System.
   </p>
 </div>
 </header>
@@ -25,12 +25,12 @@ eleventyNavigation:
 <small>June 2024</small>
 
 ### New components
-- format date component
-- search field
-- button bar
+- [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit)
+- [search field] (/categories/components/search-field/usage/)
+- [button bar] (/categories/components/button-bar/usage/)
 
 ### Bug fixes in several components
-- checkbox
+- [checkbox] (https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)
 - avatar
 - tabs
 - tooltip

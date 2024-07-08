@@ -37,8 +37,8 @@ Ensure users receive immediate, clear visual feedback regarding the status of a 
 
 ## When not to use
 
-### Complex Settings
-If your setting has multiple states or requires more than a simple on/off toggle, switches may not be suitable. Consider alternative components like checkboxes, dropdown menus, or sliders that can accommodate more options and nuances in such cases.
+### Contextual UI Elements
+Avoid using switches when managing contextual UI elements such as expanding/collapsing a drawer, showing/hiding a menu, or toggling interface features on or off. In these cases, icon-only toggle buttons offer a more straightforward and efficient solution, maintaining clarity and usability in interface design.
 
 </section>
 

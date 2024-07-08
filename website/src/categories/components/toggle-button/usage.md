@@ -36,7 +36,7 @@ Icon-only toggle buttons are ideal for actions that are easily recognizable by u
 ## When not to use
 
 ### Toggling Features or Settings
-In forms or settings panels, it's important to meet user expectations for consistency and clarity. Users typically expect to see switches when enabling or disabling features. If you use an icon-only button instead, it can confuse users and disrupt the uniformity of the interface. So, in these situations, always opt for a [switch](/categories/components/switch/) component. It provides a clear, intuitive way for users to understand the state of a feature.
+Users typically expect to see switches when enabling or disabling features. If you use an icon-only button instead, it can confuse users and disrupt the uniformity of the interface. So, in these situations, always opt for a [switch](/categories/components/switch/) component. It provides a clear, intuitive way for users to understand the state of a feature.
 
 </section>
 

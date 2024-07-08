@@ -9,7 +9,7 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-  Find out what's happening in the world of Sanoma Learing Design System.
+  Find out what's happening in the world of Sanoma Learning Design System.
   </p>
 </div>
 </header>
@@ -25,20 +25,20 @@ eleventyNavigation:
 <small>June 2024</small>
 
 ### New components
-- [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit) (draft)
-- [search field](/categories/components/search-field/usage/) (preview)
 - [button bar](/categories/components/button-bar/usage/) (stable)
 - [emoji browser](https://storybook.sanomalearning.design/?path=/story/components-emoji-browser--basic&globals=viewport:default) (draft)
+- [format date component](https://storybook.sanomalearning.design/?path=/story/utilities-format-date--basic&args=dateStyle:medium;locale:en-GB;month:2-digit) (draft)
+- [search field](/categories/components/search-field/usage/) (preview)
 
 ### Bug fixes in several components
-- [checkbox](/components/blob/main/packages/components/checkbox/CHANGELOG.md)
-- [avatar](/components/blob/main/packages/components/avatar/CHANGELOG.md)
-- [tabs](/components/blob/main/packages/components/tabs/CHANGELOG.md)
-- [tooltip](components/blob/main/packages/components/tooltip/CHANGELOG.md)
 - [accordion](components/blob/main/packages/components/accordion/CHANGELOG.md)
+- [avatar](/components/blob/main/packages/components/avatar/CHANGELOG.md)
+- [checkbox](/components/blob/main/packages/components/checkbox/CHANGELOG.md)
 - [select](/components/blob/main/packages/components/select/CHANGELOG.md)
 - [spinner](/components/blob/main/packages/components/spinner/CHANGELOG.md)
 - [switch](/components/blob/main/packages/components/switch/CHANGELOG.md)
+- [tabs](/components/blob/main/packages/components/tabs/CHANGELOG.md)
+- [tooltip](components/blob/main/packages/components/tooltip/CHANGELOG.md)
   
 ### Styling updates in
 - [dialog](/components/blob/main/packages/components/dialog/CHANGELOG.md)

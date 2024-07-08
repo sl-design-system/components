@@ -131,7 +131,9 @@ const buildIcons = async theme => {
 
     return fs
       .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
-      .then(svg => (iconsCustom[iconName] = { svg }));
+      .then(svg => {
+        iconsCustom[iconName] = { svg: svg.replace('<svg ','<svg fill="var(--sl-icon-fill-default)" ') }
+      });
   });
 
   await Promise.all(filesToRead);
@@ -187,7 +189,9 @@ const exportCoreIcons = async () => {
 
     return fs
       .readFile(join(cwd, `../packages/themes/core/icons/${fileName}`), 'utf8')
-      .then(svg => (iconsCustom[iconName] = { svg }));
+      .then(svg => {
+        svg = svg.replace('<svg ','<svg fill="var(--sl-icon-fill-default)" ');
+        iconsCustom[iconName] = { svg }});
   });
 
   await Promise.all(filesToRead);

@@ -10,6 +10,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Toggle button
-  status: planned
+  status: new
 ---
 

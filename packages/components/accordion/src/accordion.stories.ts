@@ -231,7 +231,7 @@ export const CustomSummary: Story = {
   args: {
     items: html`
       <style>
-        div {
+        div[slot] {
           align-items: center;
           display: flex;
           flex: 1;

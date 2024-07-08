@@ -30,14 +30,14 @@ eleventyNavigation:
 - [button bar](/categories/components/button-bar/usage/)
 
 ### Bug fixes in several components
-- [checkbox](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)
-- avatar
-- tabs
-- tooltip
-- accordion
-- select
-- spinner
-- switch
+- [checkbox](/components/blob/main/packages/components/checkbox/CHANGELOG.md)
+- [avatar](/components/blob/main/packages/components/avatar/CHANGELOG.md)
+- [tabs](/components/blob/main/packages/components/tabs/CHANGELOG.md)
+- [tooltip](components/blob/main/packages/components/tooltip/CHANGELOG.md)
+- [accordion](components/blob/main/packages/components/accordion/CHANGELOG.md)
+- [select](/components/blob/main/packages/components/select/CHANGELOG.md)
+- [spinner](/components/blob/main/packages/components/spinner/CHANGELOG.md)
+- [switch](/components/blob/main/packages/components/switch/CHANGELOG.md)
   
 ### Styling updates in:
 - dialog

@@ -16,7 +16,7 @@ sl-dialog::part(dialog) {
     );
 
     margin: auto;
-    min-inline-size: min(300px, var(--_max-inline-size));
+    min-inline-size: min(var(--sl-size-dialog-message-mobile-min), var(--_max-inline-size));
   }
 }
 

@@ -38,7 +38,7 @@ Ensure users receive immediate, clear visual feedback regarding the status of a 
 ## When not to use
 
 ### Contextual UI Elements
-Avoid using switches when managing contextual UI elements such as expanding/collapsing a drawer, showing/hiding a menu, or toggling interface features on or off. In these cases, icon-only toggle buttons offer a more straightforward and efficient solution, maintaining clarity and usability in interface design.
+Avoid using switches when managing contextual UI elements such as expanding/collapsing a drawer, showing/hiding a menu, or toggling interface features on or off. In these cases, [toggle buttons](/categories/components/toggle-button/) offer a more straightforward and efficient solution, maintaining clarity and usability in interface design.
 
 </section>
 

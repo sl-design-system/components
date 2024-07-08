@@ -18,10 +18,10 @@ eleventyNavigation:
 
 <div class="ds-example">
 <div id="progress-example">
-  <sl-progress-bar value="20" label="File download" state="active">
+  <sl-progress-bar value="20" label="File download">
     20% of 100%
   </sl-progress-bar>
-  <sl-progress-bar value="50" label="File download" state="success">
+  <sl-progress-bar value="50" label="File download" variant="success">
     Done
   </sl-progress-bar>
   <sl-progress-bar indeterminate label="File download">
@@ -33,10 +33,10 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-progress-bar value="20" label="File download" state="active">
+    <sl-progress-bar value="20" label="File download">
       20% of 100%
     </sl-progress-bar>
-    <sl-progress-bar value="50" label="File download" state="success">
+    <sl-progress-bar value="50" label="File download" variant="success">
       Done
     </sl-progress-bar>
     <sl-progress-bar indeterminate label="File download">

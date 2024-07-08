@@ -19,16 +19,16 @@ eleventyNavigation:
 
 <div class="ds-example">
 <div id="progress-code-example">
-  <sl-progress-bar value="60" label="File upload" state="active">
+  <sl-progress-bar value="60" label="File upload">
     Uploaded 60% of 100%
   </sl-progress-bar>
-  <sl-progress-bar value="100" label="File upload" state="success">
+  <sl-progress-bar value="100" label="File upload" variant="success">
     File uploaded succesfully
   </sl-progress-bar>
-  <sl-progress-bar value="30" label="File upload" state="warning">
+  <sl-progress-bar value="30" label="File upload" variant="warning">
     File size is too big
   </sl-progress-bar>
-  <sl-progress-bar value="100" label="File upload" state="error">
+  <sl-progress-bar value="100" label="File upload" variant="error">
     Uploaded an invalid file type
   </sl-progress-bar>
   <sl-progress-bar indeterminate label="Generating report">
@@ -40,16 +40,16 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-progress-bar value="60" label="File upload" state="active">
+    <sl-progress-bar value="60" label="File upload">
       Uploaded 60% of 100%
     </sl-progress-bar>
-    <sl-progress-bar value="100" label="File upload" state="success">
+    <sl-progress-bar value="100" label="File upload" variant="success">
       File uploaded succesfully
     </sl-progress-bar>
-    <sl-progress-bar value="30" label="File upload" state="warning">
+    <sl-progress-bar value="30" label="File upload" variant="warning">
       File size is too big
     </sl-progress-bar>
-    <sl-progress-bar value="100" label="File upload" state="error">
+    <sl-progress-bar value="100" label="File upload" variant="error">
       Uploaded an invalid file type
     </sl-progress-bar>
     <sl-progress-bar indeterminate label="Generating report">

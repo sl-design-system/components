@@ -4819,6 +4819,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/expansion-panel@workspace:packages/components/expansion-panel":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/expansion-panel@workspace:packages/components/expansion-panel"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:^1.0.0"
+    "@sl-design-system/shared": "npm:^0.2.12"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/form@npm:^1.0.0, @sl-design-system/form@npm:^1.0.2, @sl-design-system/form@workspace:packages/components/form":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"

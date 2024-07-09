@@ -39,7 +39,7 @@ export default {
   tags: ['draft'],
   args: {
     size: 'md',
-    label: 'label'
+    label: 'Tag label'
   },
   argTypes: {
     size: {
@@ -56,7 +56,7 @@ export default {
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
   render: ({ label }) => html`
-    <sl-tag label="This is my tag element"></sl-tag>${label}`
+    <sl-tag label=${label}></sl-tag>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};

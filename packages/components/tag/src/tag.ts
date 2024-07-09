@@ -4,6 +4,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, type nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
+import {EventsController} from "@sl-design-system/shared";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -35,6 +36,13 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Events controller. */
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    // focusin: this.#onFocusin,
+    // focusout: this.#onFocusout
+  });
+
   /** The size of the spinner. Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: SpinnerSize;
 
@@ -43,6 +51,9 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
   /** The label of the tag component. */
   @property() label?: string;
+
+  /** Whether the tag component is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   // removable
 
@@ -60,18 +71,38 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'presentation');
-      this.setAttribute('aria-hidden', 'true');
-    }
+    this.setAttribute('tabindex', '0');
+    // TODO: role here? this.role = '...';
+
+    // if (!this.hasAttribute('role')) {
+    //   this.setAttribute('role', 'presentation');
+    //   this.setAttribute('aria-hidden', 'true');
+    // }
   }
 
   override render(): TemplateResult | typeof nothing {
     return html`
         ${this.label}
-        <sl-button><sl-icon name="smile"></sl-icon></sl-button>
+        <sl-button fill="ghost"><sl-icon name="smile"></sl-icon></sl-button>
     `;
   }
+
+  #onClick(event: Event): void {
+    if (this.disabled) {
+      return;
+    }
+
+    console.log('onclick');
+
+    event.preventDefault();
+    event.stopPropagation();
+    this.focus();
+    // TOD: maybe selected state?
+
+    // this.checked = !this.checked;
+    // this.changeEvent.emit(this.formValue);
+  }
+
 } // TODO: or maybe slot instead of label?
 // TODO: close button
 

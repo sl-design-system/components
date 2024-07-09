@@ -14,7 +14,8 @@ $variants: default, 'white', accent, info, danger, success, warning;
  // inline-size: var(--sl-spinner-size);
   vertical-align: middle;
   border: 1px solid #8D959D;
-  padding: 20px;
+  border-radius: 8px;
+  padding: 8px;
 
   @media (prefers-reduced-motion: no-preference) {
     --_spin-duration: 1200ms;

@@ -4586,7 +4586,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4636,7 +4636,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4654,7 +4654,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4867,7 +4867,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5150,7 +5150,7 @@ __metadata:
     lit: "npm:^3.1.4"
   peerDependencies:
     "@floating-ui/dom": ^1.6.3
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5160,7 +5160,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5170,7 +5170,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5260,7 +5260,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

@@ -5045,6 +5045,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/progress-bar@workspace:packages/components/progress-bar":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/progress-bar@workspace:packages/components/progress-bar"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:^1.0.0"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/radio-group@npm:^1.0.0, @sl-design-system/radio-group@workspace:packages/components/radio-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"

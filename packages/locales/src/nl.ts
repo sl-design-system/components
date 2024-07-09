@@ -16,6 +16,7 @@ export const templates = {
   s5e8250fb85d64c23: 'Sluiten',
   s629576c6b305d539: 'optioneel',
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
+  s6580790b036f0c6f: 'actief',
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
@@ -31,6 +32,7 @@ export const templates = {
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
   sd711c88b851db6c9: 'De volgende velden zijn incorrect:',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
+  see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links'
 };

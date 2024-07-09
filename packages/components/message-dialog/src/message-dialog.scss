@@ -1,7 +1,39 @@
-sl-dialog {
-  --sl-dialog-max-inline-size: 20rem;
+@media (width <= 600px) {
+  sl-dialog {
+    --_subtitle-font: var(--sl-text-dialog-message-mobile-subheading);
+    --_title-font: var(--sl-text-dialog-message-mobile-heading);
+
+    &::part(dialog) {
+      --_max-inline-size: calc(
+        100dvw - var(--sl-space-dialog-message-mobile-container-padding-left) - var(
+            --sl-space-dialog-message-mobile-container-padding-right
+          )
+      );
+
+      margin: auto;
+      min-inline-size: min(var(--sl-size-dialog-message-mobile-min), var(--_max-inline-size));
+    }
+
+    &::part(titles) {
+      align-items: center;
+      text-align: center;
+    }
+
+    &::part(body) {
+      text-align: center;
+    }
+
+    &::part(footer-bar) {
+      --sl-button-bar-vertical: var(--sl-OFF);
+    }
+  }
 }
 
 p {
   margin-block: 0;
+}
+
+sl-button {
+  flex: 1;
+  text-align: center;
 }

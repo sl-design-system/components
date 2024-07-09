@@ -401,15 +401,6 @@
         "value": "100%",
         "type": "sizing",
         "description": "size.input.lg"
-      },
-      "message": {
-        "mobile": {
-          "min": {
-            "value": "300px",
-            "type": "sizing",
-            "description": "size.input.md"
-          }
-        }
       }
     },
     "badge": {
@@ -1150,24 +1141,6 @@
           "value": "{space.none}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
-        }
-      },
-      "message": {
-        "mobile": {
-          "container": {
-            "paddingLeft": {
-              "value": "{space.xl}",
-              "type": "spacing"
-            },
-            "paddingRight": {
-              "value": "{space.xl}",
-              "type": "spacing"
-            },
-            "inline": {
-              "value": "100%",
-              "type": "spacing"
-            }
-          }
         }
       }
     },
@@ -2128,30 +2101,6 @@
             "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
-        }
-      }
-    },
-    "dialog": {
-      "message": {
-        "mobile": {
-          "heading": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.heading}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
-              "lineHeight": "{text.typeset.lineHeight.md}",
-              "fontSize": "{icon.typeset.fontSize.md}"
-            },
-            "type": "typography"
-          },
-          "subheading": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
-              "lineHeight": "{text.typeset.lineHeight.sm}",
-              "fontSize": "{icon.typeset.fontSize.sm}"
-            },
-            "type": "typography"
-          }
         }
       }
     }

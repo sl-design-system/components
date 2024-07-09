@@ -1,8 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
+import '@sl-design-system/icon/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
-import '../../icon/register.js';
 import '../register.js';
 import { type ToggleButton } from './toggle-button.js';
 

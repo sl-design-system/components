@@ -36,6 +36,7 @@
     { "path": "./packages/components/menu" },
     { "path": "./packages/components/message-dialog" },
     { "path": "./packages/components/popover" },
+    { "path": "./packages/components/progress-bar" },
     { "path": "./packages/components/radio-group" },
     { "path": "./packages/components/select" },
     { "path": "./packages/components/shared" },

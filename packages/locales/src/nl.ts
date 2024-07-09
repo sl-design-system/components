@@ -5,7 +5,9 @@ import { str } from '@lit/localize';
 
 export const templates = {
   s091d3d07b5b3076f: 'Ok',
+  s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',
+  s19fe06e3408e53d0: 'succes',
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
@@ -16,9 +18,11 @@ export const templates = {
   s5e8250fb85d64c23: 'Sluiten',
   s629576c6b305d539: 'optioneel',
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
+  s6580790b036f0c6f: 'actief',
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
+  s9f7452dd75d54d31: 'fout',
   sa447e2f801a7eb2d: 'Kies een optie.',
   sa996297f6a208e98: 'Kruimelpad',
   sb85774dc5d18ff0f: 'Bevestig',
@@ -31,6 +35,7 @@ export const templates = {
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
   sd711c88b851db6c9: 'De volgende velden zijn incorrect:',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
+  see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links'
 };

@@ -401,6 +401,15 @@
         "value": "100%",
         "type": "sizing",
         "description": "size.input.lg"
+      },
+      "message": {
+        "mobile": {
+          "min": {
+            "value": "300px",
+            "type": "sizing",
+            "description": "size.input.md"
+          }
+        }
       }
     },
     "badge": {
@@ -506,6 +515,10 @@
         "value": "{size.4xs}",
         "type": "sizing"
       }
+    },
+    "progressbar": {
+      "value": "{size.3xs}",
+      "type": "sizing"
     }
   },
   "space": {
@@ -1137,6 +1150,24 @@
           "value": "{space.none}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
+        }
+      },
+      "message": {
+        "mobile": {
+          "container": {
+            "paddingLeft": {
+              "value": "{space.xl}",
+              "type": "spacing"
+            },
+            "paddingRight": {
+              "value": "{space.xl}",
+              "type": "spacing"
+            },
+            "inline": {
+              "value": "100%",
+              "type": "spacing"
+            }
+          }
         }
       }
     },
@@ -1793,6 +1824,20 @@
         "value": "{space.xl}",
         "type": "spacing"
       }
+    },
+    "progressbar": {
+      "vertical": {
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "horizontal": {
+        "gap": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "text": {
@@ -2083,6 +2128,30 @@
             "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
+        }
+      }
+    },
+    "dialog": {
+      "message": {
+        "mobile": {
+          "heading": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{icon.typeset.fontSize.md}"
+            },
+            "type": "typography"
+          },
+          "subheading": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{icon.typeset.fontSize.sm}"
+            },
+            "type": "typography"
+          }
         }
       }
     }

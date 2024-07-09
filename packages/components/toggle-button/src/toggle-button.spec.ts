@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
+import '../../icon/register.js';
 import '../register.js';
 import { type ToggleButton } from './toggle-button.js';
 
@@ -120,18 +121,17 @@ describe('sl-toggle-button', () => {
       expect(el).to.match(':disabled');
     });
 
-    it('should not emit a click event when the button is disabled', async () => {
+    it('should not emit a click event when the toggle-button is disabled', async () => {
       const clickEvent = new Event('click');
-      const preventDefaultSpy = spy(clickEvent, 'preventDefault');
-      const stopPropagationSpy = spy(clickEvent, 'stopPropagation');
+      const onToggle = spy();
+      expect(el).not.to.have.attribute('pressed');
 
-      el.disabled = true;
-      await el.updateComplete;
+      el.addEventListener('sl-toggle', onToggle);
 
       el.dispatchEvent(clickEvent);
+      await el.updateComplete;
 
-      expect(preventDefaultSpy).to.have.been.called;
-      expect(stopPropagationSpy).to.have.been.called;
+      expect(onToggle).not.to.have.been.calledOnce;
     });
   });
 

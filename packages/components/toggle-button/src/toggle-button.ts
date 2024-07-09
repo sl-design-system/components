@@ -1,8 +1,8 @@
+import { type Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import { Icon } from 'packages/components/icon/index.js';
 import styles from './toggle-button.scss.js';
 
 declare global {
@@ -60,6 +60,7 @@ export class ToggleButton extends LitElement {
     super.connectedCallback();
 
     this.setAttribute('role', 'button');
+    this.setAttribute('aria-pressed', this.pressed.toString());
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
@@ -73,8 +74,16 @@ export class ToggleButton extends LitElement {
       this.setAttribute('error', 'true');
     }
 
+    if (changes.has('size')) {
+      this.#setIconProperties();
+    }
+
     if (this.pressedIcon?.[0]?.name === this.defaultIcon?.[0]?.name) {
-      console.error('Do not use the same icon for both states of the toggle button.');
+      console.error(
+        this.pressedIcon?.[0].name,
+        this.defaultIcon?.[0].getAttribute('name'),
+        'Do not use the same icon for both states of the toggle button.'
+      );
       this.setAttribute('error', 'true');
     }
   }
@@ -86,9 +95,8 @@ export class ToggleButton extends LitElement {
     `;
   }
 
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const assignedNodes = event.target.assignedNodes({ flatten: true });
-    this.#setIconProperties(assignedNodes);
+  #onSlotChange(): void {
+    this.#setIconProperties();
   }
 
   #onClick(event: Event): void {
@@ -109,16 +117,10 @@ export class ToggleButton extends LitElement {
     }
   }
 
-  #setIconProperties(assignedNodes: Node[]): void {
-    const filteredNodes = assignedNodes.filter(node => {
-      return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
-    });
-
-    filteredNodes.forEach(node => {
-      const el = node as HTMLElement;
-      if (el.nodeName === 'SL-ICON') {
-        el.setAttribute('size', this.size);
-      }
+  #setIconProperties(): void {
+    const nodes = [...(this.defaultIcon || []), ...(this.pressedIcon || [])];
+    nodes.forEach(node => {
+      node.size = this.size;
     });
   }
 }

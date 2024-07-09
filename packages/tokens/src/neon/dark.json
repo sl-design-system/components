@@ -3018,7 +3018,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.500}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3028,7 +3028,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.danger.500}",
+              "value": "{color.palette.danger.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3313,7 +3313,7 @@
       "helper": {
         "text": {
           "default": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3330,7 +3330,7 @@
         },
         "icon": {
           "default": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -4451,42 +4451,6 @@
           "type": "color",
           "description": "color.button.info.outline.disabled.foreground"
         }
-      }
-    },
-    "progressbar": {
-      "active": {
-        "track": {
-          "value": "{color.palette.primary.300}",
-          "type": "color"
-        }
-      },
-      "success": {
-        "track": {
-          "value": "{color.palette.success.400}",
-          "type": "color"
-        }
-      },
-      "error": {
-        "track": {
-          "value": "{color.palette.danger.500}",
-          "type": "color"
-        }
-      },
-      "indeterminate": {
-        "track": {
-          "value": "{color.palette.primary.300}",
-          "type": "color"
-        }
-      },
-      "warning": {
-        "track": {
-          "value": "{color.palette.warning.base}",
-          "type": "color"
-        }
-      },
-      "background": {
-        "value": "{color.palette.neutral.800}",
-        "type": "color"
       }
     }
   },

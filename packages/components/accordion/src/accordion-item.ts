@@ -18,10 +18,11 @@ declare global {
  * @csspart panel - The body of the accordion-item
  *
  * @slot default - Body content for the accordion
+ * @slot summary - Header content for the accordion; use this if the `summary` property is not enough
  */
 @localized()
 export class AccordionItem extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Whether we should actually animate opening/closing the wrapper. */
@@ -69,7 +70,7 @@ export class AccordionItem extends LitElement {
               <rect x="-1" y="-8" width="2" height="16" rx="0.824742" fill="currentColor" />
             </g>
           </svg>
-          ${this.summary}
+          <slot name="summary">${this.summary}</slot>
         </summary>
         <div class="wrapper">
           <div class="body">

@@ -3278,7 +3278,7 @@
       "helper": {
         "text": {
           "default": {
-            "value": "{body.foreground}",
+            "value": "{color.palette.neutral.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3295,7 +3295,7 @@
         },
         "icon": {
           "default": {
-            "value": "{body.foreground}",
+            "value": "{color.palette.neutral.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -4436,6 +4436,42 @@
           "type": "color",
           "description": "color.button.info.outline.disabled.foreground"
         }
+      }
+    },
+    "progressbar": {
+      "active": {
+        "track": {
+          "value": "{color.palette.primary.300}",
+          "type": "color"
+        }
+      },
+      "success": {
+        "track": {
+          "value": "{color.palette.success.300}",
+          "type": "color"
+        }
+      },
+      "error": {
+        "track": {
+          "value": "{color.palette.danger.200}",
+          "type": "color"
+        }
+      },
+      "indeterminate": {
+        "track": {
+          "value": "{color.palette.primary.300}",
+          "type": "color"
+        }
+      },
+      "warning": {
+        "track": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        }
+      },
+      "background": {
+        "value": "{color.palette.neutral.700}",
+        "type": "color"
       }
     },
     "avatar": {

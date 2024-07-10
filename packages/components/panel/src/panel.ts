@@ -46,8 +46,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
         </slot>
       </div>
       <div part="body">
-        <div part="content">
-          <slot></slot>
+        <div part="inner">
+          <div part="content">
+            <slot></slot>
+          </div>
         </div>
       </div>
     `;

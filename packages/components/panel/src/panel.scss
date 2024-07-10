@@ -14,11 +14,10 @@
 :host([collapsible][collapsed]) {
   sl-icon {
     rotate: 0deg;
-    transition: rotate 0.2s ease-in-out;
   }
 
   [part='body'] {
-    display: none;
+    grid-template-rows: 0fr;
   }
 }
 
@@ -38,6 +37,7 @@
 [part='wrapper'] {
   align-items: center;
   display: flex;
+  flex-shrink: 0;
   gap: 0.5rem;
   padding-inline: var(--_wrapper-padding-inline);
 }
@@ -60,6 +60,7 @@ button {
 
 sl-icon {
   rotate: 180deg;
+  transition: rotate 0.2s ease-in-out;
 }
 
 slot[name='heading'],
@@ -73,10 +74,16 @@ slot[name='actions']::slotted(:first-child) {
 }
 
 [part='body'] {
-  display: block;
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.2s ease-in-out;
 }
 
 [part='content'] {
-  padding-block-end: var(--_padding-block);
+  overflow: hidden;
   padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+}
+
+[part='inner'] {
+  padding-block-end: var(--_padding-block);
 }

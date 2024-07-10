@@ -6,6 +6,7 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './panel.scss.js';
 
 /**
@@ -69,7 +70,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
           </sl-button-bar>
         </slot>
       </div>
-      <div id="body" part="body" role="region">
+      <div id="body" part="body" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
         <div part="inner">
           <div part="content">
             <slot></slot>

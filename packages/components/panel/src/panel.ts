@@ -9,6 +9,12 @@ import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './panel.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-panel': Panel;
+  }
+}
+
 /**
  * A container that can be collapsed and expanded.
  *

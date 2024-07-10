@@ -37,8 +37,10 @@ export class ToggleButton extends LitElement {
     keydown: this.#onKeydown
   });
 
-  /** @private The slotted icons. */
+  /** @internal The slotted default icon. */
   @queryAssignedElements() defaultIcon?: Icon[];
+
+  /** @internal The slotted pressed state icon. */
   @queryAssignedElements({ slot: 'pressed' }) pressedIcon?: Icon[];
 
   /** @internal Emits when the button item has been toggled. */

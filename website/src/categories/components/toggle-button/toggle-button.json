@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "toggle-button",
-  "componentStatus": "draft",
+  "componentStatus": "preview",
   "componentTagName": [
     {
       "name": "Toggle button",

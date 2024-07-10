@@ -6,16 +6,22 @@ eleventyNavigation:
   key: ToggleButtonUsage
 ---
 
-<section class="no-heading">
+<section>
 
 <div class="ds-example">
-  TODO: example
+  <sl-toggle-button fill="outline">
+    <sl-icon name="far-gear"></sl-icon>
+    <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+  </sl-toggle-button>
 </div>
 
 <div class="ds-code">
 
   ```html
-    TODO: example
+    <sl-toggle-button fill="outline">
+      <sl-icon name="far-gear"></sl-icon>
+      <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+    </sl-toggle-button>
   ```
 
 </div>
@@ -39,6 +45,8 @@ Icon-only toggle buttons are ideal for actions that are easily recognizable by u
 Users typically expect to see switches when enabling or disabling features. If you use an icon-only button instead, it can confuse users and disrupt the uniformity of the interface. So, in these situations, always opt for a [switch](/categories/components/switch/) component. It provides a clear, intuitive way for users to understand the state of a feature.
 
 </section>
+
+<section>
 
 ## Anatomy
 

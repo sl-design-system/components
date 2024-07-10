@@ -20,23 +20,32 @@ When the toggle button has focus:
 
 <section>
 
+## Labeling
+Assistive technology adds the term `pressed` to label of the button to indicate the status of the button. Therefore the aria-label you choose needs to make sense in combination with this term and certainly not change when the state changes.
+
+If you have a toggle button that toggles a sidepanel you could choose "Show sidepanel" as a label. When a screenreader reads out "*Show sidepanel. Toggle button.*" it is clear this button button can be toggled and is currently `off` and the sidepanel will not be visible. When the button is then pressed it will read out "*Selected. Show sidepanel. Toggle button.*" indicating that "Show sidepanel" is now `on` and the side panel is visible.
+
+Switching the label to what will happen when the button is pressed, ie. "Hide sidepanel" is wrong because it will confuse the user; it wil read "*Selected. Hide sidepanel. Toggle button*", meaning that "Hide sidepanel" is `on`, so not showing the sidepanel, while in fact it **is** shown.
+
+</section>
+
+<section>
+
 ## WAI-ARIA
 
 WAI-ARIA Roles, States, and Properties for a toggle button provide essential information to assistive technologies and screen readers. They convey the toggle button's role, state (enabled or disabled), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
 |-|-|-|-|
-|`role`	|`checkbox`|Makes it clear that our custom component has the same behavior as a checkbox |no|
-|`aria-labelledby`|string|The label outside the toggle button can be set to the `id` of that element|yes|
-|`aria-label`|string|Used when the button is icon-only|yes|
-|`aria-describedby`|string|When the toggle button needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation.| yes|
-|`aria-disabled`| boolean|Announces the toggle button as disabled with a screenreader. See [Note 2] below for more explanation| yes|
-|`aria-pressed`| boolean |When the toggle button is toggled on, the value of this state is true, and when toggled off, the state is false.| yes|
+|`role`	|`button`|Makes it clear that our custom component has the same behavior as a button.|no|
+|`aria-pressed`|boolean|Makes it clear it is a toggle button and not a regular button, and shows the state of the button `true` for `on` and `false` for `off`|no|
+|`aria-label`|string|Used when the describe the function of the button because it is icon-only|yes|
+|`aria-disabled`| boolean|Announces the toggle button as disabled with a screenreader. See [Note 1] below for more explanation| yes|
 
 {.ds-table .ds-table-align-top}
 
 **Notes:** 
-1. There is a subtle difference between `aria-labelledby` and `aria-describedby`; a label should be concise, where a description is intended to provide more verbose information. A description can for example be "Items in the trash will be permanently removed after 30 days." to explain what (delayed) effect a "Move to trash" button has.
+
 1. The `aria-disabled` should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities:
 
     - `disabled` dims the button visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and anounces it as 'dimmed' or 'disabled' in a screenreader. 

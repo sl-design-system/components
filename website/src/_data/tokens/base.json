@@ -312,62 +312,62 @@
       },
       "warning": {
         "50": {
-          "value": "#FFFDF9",
+          "value": "#FFFDFD",
           "type": "color",
           "description": "color.palette.warning.50"
         },
         "100": {
-          "value": "#FFF8E8",
+          "value": "#FFEAE0",
           "type": "color",
           "description": "color.palette.warning.100"
         },
         "150": {
-          "value": "#FFEFCB",
+          "value": "#FFD5C2",
           "type": "color",
           "description": "color.palette.warning.150"
         },
         "200": {
-          "value": "#FFE2A3",
+          "value": "#FFB796",
           "type": "color",
           "description": "color.palette.warning.200"
         },
         "300": {
-          "value": "#FFD170",
+          "value": "#FF9667",
           "type": "color",
           "description": "color.palette.warning.300"
         },
         "400": {
-          "value": "#FFAE00",
+          "value": "#FF6D2C",
           "type": "color",
           "description": "color.palette.warning.400"
         },
         "500": {
-          "value": "#CC7700",
+          "value": "#F04A00",
           "type": "color",
           "description": "color.palette.warning.500"
         },
         "600": {
-          "value": "#A66100",
+          "value": "#CF4000",
           "type": "color",
           "description": "color.palette.warning.600"
         },
         "700": {
-          "value": "#804B00",
+          "value": "#B03600",
           "type": "color",
           "description": "color.palette.warning.700"
         },
         "800": {
-          "value": "#593400",
+          "value": "#942E00",
           "type": "color",
           "description": "color.palette.warning.800"
         },
         "900": {
-          "value": "#331E00",
+          "value": "#6F2200",
           "type": "color",
           "description": "color.palette.warning.900"
         },
         "base": {
-          "value": "#FFAE00",
+          "value": "#FF8650",
           "type": "color",
           "description": "color.palette.warning.base"
         }

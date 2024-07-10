@@ -19,6 +19,9 @@ export default {
     actions: {
       table: { disable: true }
     },
+    collapsed: {
+      control: 'boolean'
+    },
     content: {
       table: { disable: true }
     }

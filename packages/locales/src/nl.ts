@@ -5,7 +5,9 @@ import { str } from '@lit/localize';
 
 export const templates = {
   s091d3d07b5b3076f: 'Ok',
+  s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',
+  s19fe06e3408e53d0: 'succes',
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
@@ -20,6 +22,7 @@ export const templates = {
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
+  s9f7452dd75d54d31: 'fout',
   sa447e2f801a7eb2d: 'Kies een optie.',
   sa996297f6a208e98: 'Kruimelpad',
   sb85774dc5d18ff0f: 'Bevestig',

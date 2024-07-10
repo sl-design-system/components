@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/expansion-panel",
+  "name": "@sl-design-system/panel",
   "version": "0.0.0",
-  "description": "Expansion panel component for the SL Design System",
+  "description": "Panel component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/expansion-panel"
+    "directory": "packages/components/panel"
   },
-  "homepage": "https://sanomalearning.design/components/expansion-panel",
+  "homepage": "https://sanomalearning.design/components/panel",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },

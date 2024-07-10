@@ -18,6 +18,9 @@ export default {
   argTypes: {
     actions: {
       table: { disable: true }
+    },
+    content: {
+      table: { disable: true }
     }
   },
   render: ({ actions, collapsed, collapsible, content, heading }) => {

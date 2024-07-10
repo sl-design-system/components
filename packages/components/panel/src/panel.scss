@@ -30,6 +30,7 @@
   padding-inline: var(--_padding-inline);
 
   > * {
+    // FIXME: This is a quick hack to vertically align the heading with any action buttons
     padding-block-start: 2px;
   }
 }
@@ -37,7 +38,6 @@
 [part='wrapper'] {
   align-items: center;
   display: flex;
-  flex-shrink: 0;
   gap: 0.5rem;
   padding-inline: var(--_wrapper-padding-inline);
 }
@@ -69,7 +69,13 @@ slot[name='heading']::slotted(*) {
   font: var(--sl-text-accordion-title);
 }
 
+slot[name='heading'] {
+  display: block;
+}
+
 slot[name='actions']::slotted(:first-child) {
+  // FIXME: Since the `aside` slot always has content, gap on the header won't work as expected
+  // So we explicitly set a left margin on the first action
   margin-inline-start: 1rem;
 }
 

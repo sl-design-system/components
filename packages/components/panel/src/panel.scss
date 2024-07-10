@@ -79,11 +79,11 @@ slot[name='actions']::slotted(:first-child) {
   transition: grid-template-rows 0.2s ease-in-out;
 }
 
-[part='content'] {
+[part='inner'] {
   overflow: hidden;
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }
 
-[part='inner'] {
+[part='content'] {
   padding-block-end: var(--_padding-block);
+  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }

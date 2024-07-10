@@ -37,7 +37,14 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     return html`
       <div part="header">
         ${this.collapsible
-          ? html`<button @click=${() => this.toggle()} part="wrapper">${this.renderHeading()}</button>`
+          ? html`<button
+              @click=${() => this.toggle()}
+              aria-controls="body"
+              aria-expanded=${this.collapsed ? 'false' : 'true'}
+              part="wrapper"
+            >
+              ${this.renderHeading()}
+            </button>`
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
           <sl-button-bar>
@@ -45,7 +52,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
           </sl-button-bar>
         </slot>
       </div>
-      <div part="body">
+      <div id="body" part="body" role="region">
         <div part="inner">
           <div part="content">
             <slot></slot>

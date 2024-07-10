@@ -22,7 +22,6 @@ import styles from './panel.scss.js';
  * @slot aside - Additional content to show in the header; replaces the button bar.
  * @slot actions - The panel's actions; will slot in a button bar by default.
  * @slot default - The panel's content.
- *
  */
 @localized()
 export class Panel extends ScopedElementsMixin(LitElement) {
@@ -37,13 +36,16 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Whether the panel is collapsed. */
+  /** Indicates whether the panel is collapsed or expanded . */
   @property({ type: Boolean, reflect: true }) collapsed?: boolean;
 
   /** Indicates whether the panel can be collapsed. */
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
 
-  /** The heading shown in the header. */
+  /**
+   * The heading shown in the header. Use this property if your heading is a string. If you need
+   * more flexibility, such as an icon or other elements, use the `heading` slot.
+   */
   @property() heading?: string;
 
   /** @internal Emits when the panel expands/collapses. */

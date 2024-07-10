@@ -3,13 +3,7 @@
     "id": "bbf49d078873187233841390f8c0ea3c266e50e1",
     "name": "bingel/light",
     "selectedTokenSets": {
-      "core": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "core": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -19,13 +13,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-dc/base": "enabled",
-      "bingel-dc/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "bingel-dc/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:d862768937bd0d35b24f98a85118629fc7b35cb2,",
@@ -711,13 +699,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-int/base": "enabled",
-      "bingel-int/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "bingel-int/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -727,13 +709,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "clickedu/base": "enabled",
-      "clickedu/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "clickedu/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:3b0db99b398be113b810c4d06983807c3508ac71,",
@@ -1736,13 +1712,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "itslearning/base": "enabled",
-      "itslearning/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "itslearning/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -1752,13 +1722,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "kampus/base": "enabled",
-      "kampus/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "kampus/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:7cb020135af0657671582951d6d62d40e24b3b79,",
@@ -2756,13 +2720,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "magister/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:82656f62deb7a1ab8ab83d1dea04aa3b9e2958e5,",
@@ -3817,11 +3775,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "max-online/base": "enabled",
-      "max-online/light": "enabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "max-online/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:61d892acbfb0957e4286e168a9878f3f663f438d,",
@@ -4679,13 +4633,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "neon/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e99a01cb7c691ea3724529a5ed35448899c014a7,",
@@ -5447,13 +5395,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "sanoma-learning/light": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:9d741285dde5790b1e99f1f9a902df7e67409616,",
@@ -7085,13 +7027,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/dark": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "sanoma-learning/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",
@@ -8377,13 +8313,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/dark": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "neon/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:5cf7b392afc2f205a80bd6a89cbca492a5117ec1,",
@@ -9454,13 +9384,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "teas/base": "enabled",
-      "teas/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "teas/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:a18cd22854d1f77c00da09d143ce5cb088117cd8,",
@@ -10703,13 +10627,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/dark": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "magister/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e490577a117b657a4f6379ec6fb83921546a29b0,",
@@ -12492,12 +12410,8 @@
     },
     "selectedTokenSets": {
       "core": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
       "myvanin (onhold)/base": "enabled",
-      "myvanin (onhold)/light": "enabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "myvanin (onhold)/light": "enabled"
     }
   },
   {
@@ -13226,13 +13140,7 @@
       "text.button.link.idle.sm": "S:c184acdceb07f840ad071dbeb012b996dc15394e,"
     },
     "selectedTokenSets": {
-      "core": "source",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "core": "source"
     }
   },
   {
@@ -14295,13 +14203,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "editorial-suite/base": "enabled",
-      "editorial-suite/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "editorial-suite/light": "enabled"
     }
   },
   {
@@ -14311,13 +14213,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "my-digital-book/base": "enabled",
-      "my-digital-book/light": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
-      "sanoma-utbildning (onhold)/base": "disabled",
-      "sanoma-utbildning (onhold)/light": "disabled"
+      "my-digital-book/light": "enabled"
     }
   },
   {
@@ -15344,10 +15240,6 @@
     },
     "selectedTokenSets": {
       "core": "enabled",
-      "max-online/base": "disabled",
-      "max-online/light": "disabled",
-      "myvanin (onhold)/base": "disabled",
-      "myvanin (onhold)/light": "disabled",
       "sanoma-utbildning (onhold)/base": "enabled",
       "sanoma-utbildning (onhold)/light": "enabled"
     }

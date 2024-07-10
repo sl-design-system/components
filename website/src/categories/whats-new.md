@@ -31,17 +31,17 @@ eleventyNavigation:
 - [search field](/categories/components/search-field/usage/) <ds-status status="preview"></ds-status>
 
 ### Bug fixes in several components
-- [accordion](components/blob/main/packages/components/accordion/CHANGELOG.md)
-- [avatar](/components/blob/main/packages/components/avatar/CHANGELOG.md)
-- [checkbox](/components/blob/main/packages/components/checkbox/CHANGELOG.md)
-- [select](/components/blob/main/packages/components/select/CHANGELOG.md)
-- [spinner](/components/blob/main/packages/components/spinner/CHANGELOG.md)
-- [switch](/components/blob/main/packages/components/switch/CHANGELOG.md)
-- [tabs](/components/blob/main/packages/components/tabs/CHANGELOG.md)
-- [tooltip](components/blob/main/packages/components/tooltip/CHANGELOG.md)
+- [accordion](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md)
+- [avatar](https://github.com/sl-design-system/components/blob/main/packages/components/avatar/CHANGELOG.md)
+- [checkbox](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)
+- [select](https://github.com/sl-design-system/components/blob/main/packages/components/select/CHANGELOG.md)
+- [spinner](https://github.com/sl-design-system/components/blob/main/packages/components/spinner/CHANGELOG.md)
+- [switch](https://github.com/sl-design-system/components/blob/main/packages/components/switch/CHANGELOG.md)
+- [tabs](https://github.com/sl-design-system/components/blob/main/packages/components/tabs/CHANGELOG.md)
+- [tooltip](https://github.com/sl-design-system/components/blob/main/packages/components/tooltip/CHANGELOG.md)
   
 ### Styling updates in
-- [dialog](/components/blob/main/packages/components/dialog/CHANGELOG.md)
+- [dialog](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md)
 - [warning color palettes of Sanoma Learning and Editorial suite](https://storybook.sanomalearning.design/?path=/story/components-button--all) (this change impacts the styling of multiple components)
 
 ### Data Grid Workshop

@@ -8,6 +8,9 @@ $variants: default, 'white', accent, info, danger, success, warning;
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
 
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+
   block-size: var(--sl-spinner-size);
   display: inline-block; //block; //inline-flex;
   flex-shrink: 0;
@@ -20,6 +23,12 @@ $variants: default, 'white', accent, info, danger, success, warning;
   @media (prefers-reduced-motion: no-preference) {
     --_spin-duration: 1200ms;
   }
+}
+
+:host(:focus) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+  background: #6FBCFB;
 }
 
 //@each $variant in $variants {

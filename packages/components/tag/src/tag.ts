@@ -52,8 +52,11 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** The label of the tag component. */
   @property() label?: string;
 
-  /** Whether the tag component is disabled; when set no interaction is possible. */
+  /** Whether the tag component is disabled, when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** Whether the tag component is removable. */
+  @property({ type: Boolean, reflect: true }) removable?: boolean;
 
   // removable
 
@@ -84,8 +87,11 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     return html`
         ${this.label}
         <sl-button fill="ghost"><sl-icon name="smile"></sl-icon></sl-button>
+        ${this.removable}
     `;
   }
+
+  // TODO: only tag component needs to be focusable, not close icon
 
   #onClick(event: Event): void {
     if (this.disabled) {

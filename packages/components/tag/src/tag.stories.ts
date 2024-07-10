@@ -4,7 +4,7 @@ import { html } from 'lit';
 import '../register.js';
 import { type Tag, type SpinnerSize, type SpinnerVariant } from './tag.js';
 
-type Props = Pick<Tag, 'size' | 'variant' | 'label'>;
+type Props = Pick<Tag, 'size' | 'variant' | 'label' | 'removable'>;
 
 type Story = StoryObj<Props>;
 
@@ -39,7 +39,8 @@ export default {
   tags: ['draft'],
   args: {
     size: 'md',
-    label: 'Tag label'
+    label: 'Tag label',
+    removable: false,
   },
   argTypes: {
     size: {
@@ -55,8 +56,8 @@ export default {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
-  render: ({ label }) => html`
-    <sl-tag label=${label}></sl-tag>`
+  render: ({ label, removable }) => html`
+    <sl-tag label=${label} ?removable=${removable}></sl-tag>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};

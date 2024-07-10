@@ -8,6 +8,21 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } f
 import { property } from 'lit/decorators.js';
 import styles from './panel.scss.js';
 
+/**
+ * A container that can be collapsed and expanded.
+ *
+ * @csspart header - The header of the panel.
+ * @csspart wrapper - The wrapper around the heading.
+ * @csspart body - The body of the panel.
+ * @csspart inner - The inner container of the panel.
+ * @csspart content - The content container of the panel.
+ *
+ * @slot heading - The panel's heading. Use this is the `heading` property does not suffice.
+ * @slot aside - Additional content to show in the header; replaces the button bar.
+ * @slot actions - The panel's actions; will slot in a button bar by default.
+ * @slot default - The panel's content.
+ *
+ */
 @localized()
 export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -37,14 +52,16 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     return html`
       <div part="header">
         ${this.collapsible
-          ? html`<button
-              @click=${() => this.toggle()}
-              aria-controls="body"
-              aria-expanded=${this.collapsed ? 'false' : 'true'}
-              part="wrapper"
-            >
-              ${this.renderHeading()}
-            </button>`
+          ? html`
+              <button
+                @click=${() => this.toggle()}
+                aria-controls="body"
+                aria-expanded=${this.collapsed ? 'false' : 'true'}
+                part="wrapper"
+              >
+                ${this.renderHeading()}
+              </button>
+            `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
           <sl-button-bar>
@@ -69,9 +86,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  /** Toggle's the collapsed state of the panel. */
-  toggle(): void {
-    this.collapsed = !this.collapsed;
+  /**
+   * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.
+   * @param force - Whether to force the panel to be collapsed or expanded.
+   */
+  toggle(force = !this.collapsed): void {
+    this.collapsed = force;
     this.toggleEvent.emit(this.collapsed);
   }
 }

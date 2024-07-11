@@ -18,7 +18,8 @@ $variants: default, 'white', accent, info, danger, success, warning;
   vertical-align: middle;
   border: 1px solid #8D959D;
   border-radius: 8px;
-  padding: 8px;
+  padding: 4px 4px 4px 8px;
+  background-color: #6FBCFB;
 
   @media (prefers-reduced-motion: no-preference) {
     --_spin-duration: 1200ms;
@@ -28,33 +29,13 @@ $variants: default, 'white', accent, info, danger, success, warning;
 :host(:focus) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
-  background: #6FBCFB;
+  background: #0074D9;
 }
 
-//@each $variant in $variants {
-//  :host([variant='#{$variant}']) {
-//    --_color: var(--sl-color-spinner-#{$variant});
-//  }
-//}
-//
-//@each $size in $sizes {
-//  :host([size='#{$size}']) {
-//    --sl-spinner-size: var(--sl-size-spinner-#{$size});
-//  }
-//}
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    // --sl-spinner-size: var(--sl-size-spinner-#{$size});
+  }
+}
 
-//svg {
-//  g.slow {
-//    animation: spin var(--_rotate-duration) linear infinite;
-//  }
-//
-//  g.fast {
-//    animation: spin var(--_spin-duration) cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-//  }
-//}
-//
-//@keyframes spin {
-//  100% {
-//    transform: rotate(360deg);
-//  }
-//}
+// TODO sizes

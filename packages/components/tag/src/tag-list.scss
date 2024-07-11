@@ -1,0 +1,33 @@
+//$sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
+//$variants: default, 'white', accent, info, danger, success, warning;
+
+:host {
+  // --sl-spinner-size: var(--sl-size-spinner-md);
+  //--_color: currentcolor;
+  //--_rotate-duration: calc(var(--_spin-duration) * 4);
+  //--_shadow-opacity: var(--sl-opacity-spinner-shadow);
+  //--_spin-duration: 20s;
+  //
+  //--_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  //--_focus-outline-offset: var(--sl-border-width-focusring-offset);
+
+  block-size: var(--sl-spinner-size);
+  display: flex; //inline-block; //block; //inline-flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  gap: 16px;
+  // inline-size: var(--sl-spinner-size);
+  //vertical-align: middle;
+  //border: 1px solid #8D959D;
+  //border-radius: 8px;
+  //padding: 4px 4px 4px 8px;
+  //background-color: #6FBCFB;
+
+  @media (prefers-reduced-motion: no-preference) {
+    --_spin-duration: 1200ms;
+  }
+}
+
+:host([stacked]) {
+  background: #cccccc;
+}

@@ -2,13 +2,15 @@ import { type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
-import { type Tag, type SpinnerSize, type SpinnerVariant } from './tag.js';
+// import { TagList } from './tag-list.js';
+import { type Tag, type TagSize, type SpinnerVariant } from './tag.js';
+import { type TagList } from './tag-list.js';
 
 type Props = Pick<Tag, 'size' | 'variant' | 'label' | 'removable'>;
 
 type Story = StoryObj<Props>;
 
-const sizes: SpinnerSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+const sizes: TagSize[] = ['md', 'lg'];
 const variants: SpinnerVariant[] = ['accent', 'info', 'danger', 'success', 'warning'];
 const buttonVariants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
 const buttonSizes: ButtonSize[] = ['sm', 'md', 'lg'];
@@ -62,54 +64,50 @@ export default {
 
 export const Basic: Story = {};
 
-export const InButton: Story = {
-  render: () => {
+export const Sizes: Story = {
+  args: {
+    size: 'md',
+    label: 'Tag label',
+    removable: false,
+  },
+  render: ({label}) => {
     return html`
-      <style>
-        table {
-          border-collapse: collapse;
-          margin-bottom: 24px;
-        }
+          <sl-tag label=${label}></sl-tag>
+          <sl-tag label=${label}></sl-tag>
+    `;
+  }
+};
 
-        th {
-          text-transform: capitalize;
-        }
-        th,
-        td {
-          padding: 4px 8px;
-        }
-      </style>
-      <table>
-        <thead>
-          <tr>
-            <th>Size</th>
-            ${variants.map(variant => html`<th>${variant}</th>`)}
-          </tr>
-        </thead>
-        <tbody>
-          ${buttonSizes.map(
-            buttonSize =>
-              html` <tr>
-                <th>${sizeName(buttonSize)}</th>
-                ${buttonVariants.map(
-                  buttonVariant =>
-                    html`<td>
-                      <sl-button .variant=${buttonVariant} size=${buttonSize}>
-                        <sl-spinner></sl-spinner>
-                        Sending
-                      </sl-button>
-                      <sl-button .variant=${buttonVariant} fill="outline" size=${buttonSize}>
-                        <sl-spinner></sl-spinner>
-                        Sending
-                      </sl-button>
-                    </td>`
-                )}
-              </tr>`
-          )}
-        </tbody>
-      </table>
-      * When no variant is set the color will be set to CurrentColor; so the color of the text in the container wrapping
-      the spinner.
+export const List: Story = {
+    args: {
+      size: 'md',
+      label: 'Tag label',
+      removable: false,
+    },
+  render: ({label}) => {
+    return html`
+        <sl-tag-list>
+          <sl-tag label=${label}></sl-tag>
+          <sl-tag label=${label}></sl-tag>
+          <sl-tag label=${label}></sl-tag>
+        </sl-tag-list>
+    `;
+  }
+};
+
+export const Stacked: Story = {
+  args: {
+    size: 'md',
+    label: 'Tag label',
+    removable: false,
+  },
+  render: ({label}) => {
+    return html`
+        <sl-tag-list stacked>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+        </sl-tag-list>
     `;
   }
 };
@@ -162,3 +160,8 @@ export const All: Story = {
     `;
   }
 };
+
+// TODO: with links example
+
+
+// TODO: disabled and readonly in all story

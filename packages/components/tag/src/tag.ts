@@ -1,7 +1,7 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, type nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
 import {EventsController} from "@sl-design-system/shared";
@@ -12,7 +12,7 @@ declare global {
   }
 }
 
-export type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+export type TagSize =  'md' | 'lg' ;
 export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning';
 
 /**
@@ -44,7 +44,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   });
 
   /** The size of the spinner. Defaults to `md` with css properties if not attribute is not set. */
-  @property({ reflect: true }) size?: SpinnerSize;
+  @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
 
   /** The spinner variant. */
   @property({ reflect: true }) variant?: SpinnerVariant;
@@ -83,13 +83,15 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     // }
   }
 
-  override render(): TemplateResult | typeof nothing {
+  override render(): TemplateResult { // TODO: really that nothing is necessary? Check it :)
     return html`
         ${this.label}
-        <sl-button fill="ghost"><sl-icon name="smile"></sl-icon></sl-button>
-        ${this.removable}
+        ${this.removable
+          ? html`<sl-button fill="ghost"><sl-icon name="xmark"></sl-icon></sl-button>`
+          : nothing}
     `;
-  }
+  } // TODO: aria-label for button only or for the whole component?
+  // <sl-button fill="ghost"><sl-icon name="xmark"></sl-icon></sl-button>
 
   // TODO: only tag component needs to be focusable, not close icon
 

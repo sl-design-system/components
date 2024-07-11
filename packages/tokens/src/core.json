@@ -1842,12 +1842,12 @@
     "tag": {
       "block": {
         "md": {
-          "value": "{space.xs}",
+          "value": "{space.xs} - {border.width.input.border}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
         },
         "lg": {
-          "value": "{space.xs} + 2",
+          "value": "6 - {border.width.input.border}",
           "type": "spacing",
           "description": "space.button.solid.block.lg"
         }

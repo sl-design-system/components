@@ -4451,11 +4451,41 @@
       "bold": {
         "idle": {
           "background": {
-            "value": "{color.palette.primary.100}",
+            "value": "{color.palette.accent.400}",
             "type": "color"
           },
           "foreground": {
-            "value": "{body.foreground}",
+            "value": "{color.palette.white.base}",
+            "type": "color"
+          }
+        },
+        "hover": {
+          "background": {
+            "value": "{color.palette.accent.500}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.white.base}",
+            "type": "color"
+          }
+        },
+        "active": {
+          "background": {
+            "value": "{color.palette.accent.600}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.white.base}",
+            "type": "color"
+          }
+        },
+        "disabled": {
+          "background": {
+            "value": "{color.palette.neutral.300}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.100}",
             "type": "color"
           }
         }

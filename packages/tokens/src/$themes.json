@@ -1639,9 +1639,6 @@
       "text.input.fieldLabel.label.sm": "S:88b4f8edec6146b992551a001ef6f6fe04ca1dc8,",
       "text.input.fieldLabel.label.md": "S:3c76b96d70d8137fb24d75a740509c12d2f0006a,",
       "text.input.fieldLabel.label.lg": "S:69d9f827f598620d064b51c7603032ae7081cc6d,",
-      "text.input.fieldLabel.tag.sm": "S:9b68260a7c58dbd9d0cf161adc28471c1f6a5717,",
-      "text.input.fieldLabel.tag.md": "S:5dbf098beb1a175078fe066b14c2dcfceee2143e,",
-      "text.input.fieldLabel.tag.lg": "S:ae73e36775c8776362b841b2b9f6c7a9a840d135,",
       "text.input.fieldLabel.hint.sm": "S:0290e32a57f8ad551f11b97dd4f8b6dac06c6aa3,",
       "text.input.fieldLabel.hint.md": "S:1a663af025c9d929c5b0b46a7a8cc8a244717760,",
       "text.input.fieldLabel.hint.lg": "S:bdd46b254ba602beb54bee6f25587a9aa9081a5b,",
@@ -1705,7 +1702,10 @@
       "text.badge.text.sm": "S:0737621c8b321e8f2040d5ecb46603f899a5caeb,",
       "text.badge.text.md": "S:7a0518b8eef20179a9d96c6f58c90ce096fe5cda,",
       "text.badge.text.lg": "S:e9f73e8329200c30899bdc690b678ef38fb93262,",
-      "text.badge.text.xl": "S:4040542b806e314472fe20bf6d93586578df89f6,"
+      "text.badge.text.xl": "S:4040542b806e314472fe20bf6d93586578df89f6,",
+      "text.tag.sm": "S:9b68260a7c58dbd9d0cf161adc28471c1f6a5717,",
+      "text.tag.md": "S:5dbf098beb1a175078fe066b14c2dcfceee2143e,",
+      "text.tag.lg": "S:ae73e36775c8776362b841b2b9f6c7a9a840d135,"
     }
   },
   {
@@ -2328,9 +2328,6 @@
       "text.input.fieldLabel.label.sm": "S:c7108f2f35bb8aae41897d26aabcbcbacee6b087,",
       "text.input.fieldLabel.label.md": "S:b7702689e681d3ee38715724861f5151ac992cec,",
       "text.input.fieldLabel.label.lg": "S:e26aae39c599529fba883d5576427be0da641076,",
-      "text.input.fieldLabel.tag.sm": "S:de11b97bab9acb214f5f43545b134d21b44e23b0,",
-      "text.input.fieldLabel.tag.md": "S:c1e4c2640c08e741e6c1eead1f9fe2871f4cbd62,",
-      "text.input.fieldLabel.tag.lg": "S:fb25c7197e15bc520b03db8a5ce56f29af9ead44,",
       "text.input.helper.text.sm": "S:af71e6b87803a9b5ec118437e1c2bf20800d88c3,",
       "text.input.helper.text.md": "S:1f1099e95831b617f79b8d8dfefbceff85494cc0,",
       "text.input.helper.text.lg": "S:42d2076e77d57db70c5eb541519f2edb092a04c9,",
@@ -2713,7 +2710,10 @@
       "text.badge.text.sm": "S:2ec18892ca029f79834c14b9e2978d9ec89132e2,",
       "text.badge.text.md": "S:991c82774304dc6a240ece59489aa01046e9693b,",
       "text.badge.text.lg": "S:e01266480ceb7bda06ada7e8ac433a60da4d8c16,",
-      "text.badge.text.xl": "S:a1371d64a7a8a2c5d35ef8a07c8c5b60182d51cc,"
+      "text.badge.text.xl": "S:a1371d64a7a8a2c5d35ef8a07c8c5b60182d51cc,",
+      "text.tag.sm": "S:de11b97bab9acb214f5f43545b134d21b44e23b0,",
+      "text.tag.md": "S:c1e4c2640c08e741e6c1eead1f9fe2871f4cbd62,",
+      "text.tag.lg": "S:fb25c7197e15bc520b03db8a5ce56f29af9ead44,"
     }
   },
   {
@@ -3675,9 +3675,6 @@
       "text.input.fieldLabel.label.sm": "S:b8a8f0ef0276bb7e28700d77707d82beadf310cb,",
       "text.input.fieldLabel.label.md": "S:36f081a4992b8baacfa32edff49e5daaeab3ff14,",
       "text.input.fieldLabel.label.lg": "S:5e0f08ac6e006aabc1d44ea03854622ad71b7e2a,",
-      "text.input.fieldLabel.tag.sm": "S:aa24db822d73c2d315c2c8552370566f372f881a,",
-      "text.input.fieldLabel.tag.md": "S:586d5a50f4117693780a0710974543ba7072ad26,",
-      "text.input.fieldLabel.tag.lg": "S:4d76ecbf03293a459255f5179894f070d76c0b50,",
       "text.input.fieldLabel.hint.sm": "S:b0f336a74e29d7974fc6f9700fc8aaa8745f7798,",
       "text.input.fieldLabel.hint.md": "S:3598adae6dba40fe67c38683ef0b65d205f704db,",
       "text.input.fieldLabel.hint.lg": "S:a26e6bb3bc9307d338cdace79e431d5bfdd94412,",
@@ -3768,7 +3765,10 @@
       "text.badge.text.md": "S:8db1242b5f45baaea9760c6d8758d64e59e20664,",
       "text.badge.text.lg": "S:89aed9d39ac8f6ba5c63e465d1bd1e95038feca3,",
       "text.badge.text.xl": "S:507c0781b91c8103c33596cc2503fa0659cc3956,",
-      "color.palette.primary.25": "S:698c81d955d82fe0f67122cb58ec1efc0a951207,"
+      "color.palette.primary.25": "S:698c81d955d82fe0f67122cb58ec1efc0a951207,",
+      "text.tag.sm": "S:aa24db822d73c2d315c2c8552370566f372f881a,",
+      "text.tag.md": "S:586d5a50f4117693780a0710974543ba7072ad26,",
+      "text.tag.lg": "S:4d76ecbf03293a459255f5179894f070d76c0b50,"
     }
   },
   {
@@ -4599,9 +4599,6 @@
       "text.input.fieldLabel.label.sm": "S:f7adf1bfd0f34028a0b67b9f7d91cc63aded2b95,",
       "text.input.fieldLabel.label.md": "S:e783a480f296f4e151ce8b3754f6629cf9135125,",
       "text.input.fieldLabel.label.lg": "S:8a1a8b0dd019e564700601fdfb7c0120199fd362,",
-      "text.input.fieldLabel.tag.sm": "S:52718f3248ab720322f60b8e5d46f72814efc2af,",
-      "text.input.fieldLabel.tag.md": "S:7a82f0c76b877d63146ad6e22de2481f0b90d87e,",
-      "text.input.fieldLabel.tag.lg": "S:6a5fd54a4c0b78cc061e6fbc44670c2df3268dd8,",
       "text.input.helper.text.sm": "S:cc3f691d8214d5b3c25336e2f1021e652560508d,",
       "text.input.helper.text.md": "S:c8f371f7c6fdc93546e08d5bbed2290183184331,",
       "text.input.helper.text.lg": "S:09ca6fc37cb36b16d6fdbf9179016706fe32cead,",
@@ -4626,7 +4623,10 @@
       "text.badge.text.sm": "S:fd8fec4d9ae93ba51919d3645917378d53e08d43,",
       "text.badge.text.md": "S:e93f9c6f4bea942885778cf963bd16d4729c96bb,",
       "text.badge.text.lg": "S:bce33d31c196a854b6d5483ca504394fdd36c1a7,",
-      "text.badge.text.xl": "S:f0c7863dea981d5d6f04b84c0fe24b05128b97a1,"
+      "text.badge.text.xl": "S:f0c7863dea981d5d6f04b84c0fe24b05128b97a1,",
+      "text.tag.sm": "S:52718f3248ab720322f60b8e5d46f72814efc2af,",
+      "text.tag.md": "S:7a82f0c76b877d63146ad6e22de2481f0b90d87e,",
+      "text.tag.lg": "S:6a5fd54a4c0b78cc061e6fbc44670c2df3268dd8,"
     }
   },
   {
@@ -6175,9 +6175,6 @@
       "text.input.fieldLabel.label.sm": "S:fd6700080d229de3fe8a21d0c0b0f6e21cbc65ec,",
       "text.input.fieldLabel.label.md": "S:1b8eaa90b855e78dbfeb63c013f10af9fa5803ce,",
       "text.input.fieldLabel.label.lg": "S:1644d7f03bd65414980fe7f5cfd5e9ee72cac2ab,",
-      "text.input.fieldLabel.tag.sm": "S:5b3ec2acfc5f2c4d1acaf05a86c3bc6e6b36866c,",
-      "text.input.fieldLabel.tag.md": "S:36636642ab3e0de12160991247dae7200d67b65c,",
-      "text.input.fieldLabel.tag.lg": "S:992bd99dfa9defe1a56d3c99657d3f3672583b5e,",
       "text.input.helper.sm": "S:f6453b9a272367e2f3d2754f47496471fb5c4f3f,",
       "text.input.helper.md": "S:6c823a4ca3a6b2c0c7962325130585acf1f35b17,",
       "text.input.helper.lg": "S:f1bf5b3c0ae40c92981831cb797ee274898a2453,",
@@ -7020,7 +7017,9 @@
       "color.field-button.default.active.background": "S:a0140aaf16d7e4cedada1c39bb7a745f622d2374,",
       "color.field-button.default.active.foreground": "S:a94e2357e3159cf227295c9b3ebd35d0bb11f58a,",
       "color.field-button.default.disabled.background": "S:2eb52bf98daa53b9a79d522544a6430f2669bb6e,",
-      "color.field-button.default.disabled.foreground": "S:92ec8d78b5d558058aabf7c6eefbaf9d6b76bac9,"
+      "color.field-button.default.disabled.foreground": "S:92ec8d78b5d558058aabf7c6eefbaf9d6b76bac9,",
+      "text.tag.md": "S:36636642ab3e0de12160991247dae7200d67b65c,",
+      "text.tag.lg": "S:992bd99dfa9defe1a56d3c99657d3f3672583b5e,"
     }
   },
   {
@@ -8019,9 +8018,6 @@
       "text.input.fieldLabel.label.sm": "S:3650dd57707c95ede055baffa0d0e62a3f12dca1,",
       "text.input.fieldLabel.label.md": "S:c5ea66a886eb552f4f5cc3a8eaa1aef1460d126d,",
       "text.input.fieldLabel.label.lg": "S:98eb027f38054234d78abd90e9a4f1722bb3616b,",
-      "text.input.fieldLabel.tag.sm": "S:6ff697553d258a2c12f69bc4f2b23018b1dfb8ea,",
-      "text.input.fieldLabel.tag.md": "S:46cb0181c6d843293a298c5558c506e83dacd404,",
-      "text.input.fieldLabel.tag.lg": "S:ce5783ef6a1feecf4733e761f5c954ff598c10ba,",
       "text.input.helper.text.sm": "S:dbd6938d4f9aa11e1580789cc43eaeeb091effe2,",
       "text.input.helper.text.md": "S:fe269c854051ced5ef93c2951307a41935f43f9b,",
       "text.input.helper.text.lg": "S:b342bb68b75a1e7c406ac48db18eca2e28197bfa,",
@@ -8306,7 +8302,9 @@
       "color.href.disabled.foreground": "S:88c973247e87ae3f22927285680d3fad27549687,",
       "color.input.fieldLabel.hint.default": "S:6955b05fe3925f3f4b730eeaac3367208161b49b,",
       "color.input.fieldLabel.hint.disabled": "S:5d761b4b2b4a94eab10d44c9bc7337c86c0fb2be,",
-      "color.input.fieldLabel.hint.invalid": "S:87f7e18d7383e96a090c5dba5e42be48b6823570,"
+      "color.input.fieldLabel.hint.invalid": "S:87f7e18d7383e96a090c5dba5e42be48b6823570,",
+      "text.tag.md": "S:46cb0181c6d843293a298c5558c506e83dacd404,",
+      "text.tag.lg": "S:ce5783ef6a1feecf4733e761f5c954ff598c10ba,"
     }
   },
   {
@@ -9309,9 +9307,6 @@
       "text.input.fieldLabel.label.sm": "S:c8ba0b31ba10a294a6d884f4021def6d8b830cc7,",
       "text.input.fieldLabel.label.md": "S:931f136638835dc460a081cd4973569366cb6b9f,",
       "text.input.fieldLabel.label.lg": "S:19e1c71b76d31454159581d059b5c752bc7b694b,",
-      "text.input.fieldLabel.tag.sm": "S:1d383400740e7f4ff656eef9c183e97319ffc1f0,",
-      "text.input.fieldLabel.tag.md": "S:b43b13a837e3667d3aed285d74548fe0259e1f6a,",
-      "text.input.fieldLabel.tag.lg": "S:70115dc240cbbd70b52fefbb478529d394160d03,",
       "text.input.fieldLabel.hint.sm": "S:5eac24f14adfd464645b73264e437f010bef1268,",
       "text.input.fieldLabel.hint.md": "S:0459c8d34ace3eb86ac25a15b3fec86ef3431dfc,",
       "text.input.fieldLabel.hint.lg": "S:b66c00a822339b035205e36dead06cd861780759,",
@@ -9377,7 +9372,10 @@
       "text.badge.text.sm": "S:127569132f03acddc3e439c8d196742940ad9ef4,",
       "text.badge.text.md": "S:46840ce945b5fda2e9687c9cbf60079706931293,",
       "text.badge.text.lg": "S:5f68a61d68ca77065b6edc5352d2314c306ceefa,",
-      "text.badge.text.xl": "S:6578674ae9da5a8e9e776be438b42d875fbcf496,"
+      "text.badge.text.xl": "S:6578674ae9da5a8e9e776be438b42d875fbcf496,",
+      "text.tag.sm": "S:1d383400740e7f4ff656eef9c183e97319ffc1f0,",
+      "text.tag.md": "S:b43b13a837e3667d3aed285d74548fe0259e1f6a,",
+      "text.tag.lg": "S:70115dc240cbbd70b52fefbb478529d394160d03,"
     }
   },
   {
@@ -10562,9 +10560,6 @@
       "text.input.fieldLabel.label.sm": "S:abc7588cd37bbb2b92c35e8475ab39ab1ebc71a2,",
       "text.input.fieldLabel.label.md": "S:d8d0f66ba2e0d0cd165c8406730df694e1ba4af2,",
       "text.input.fieldLabel.label.lg": "S:07493082c765fb01c28debace49871d968661940,",
-      "text.input.fieldLabel.tag.sm": "S:50691ca7c9c44526da89fed134b698a91a6bbef4,",
-      "text.input.fieldLabel.tag.md": "S:5d5f0e2a546f6207d6e286b101b736b658238dda,",
-      "text.input.fieldLabel.tag.lg": "S:0bfa68dd5b36b2a2b4018cc8d41ce499e9d40fae,",
       "text.input.fieldLabel.hint.sm": "S:299348623f4728940ada4b506f29dc022fc626b8,",
       "text.input.fieldLabel.hint.md": "S:04c8d1d92c01fe0209517648659900e1faa35b7b,",
       "text.input.fieldLabel.hint.lg": "S:18a38a78301cd93c8278040596cbfd4905886acd,",
@@ -10620,7 +10615,10 @@
       "text.badge.text.sm": "S:5b4702d778983e701216b48f1040410bd118efd5,",
       "text.badge.text.md": "S:b6a14a17ce64827413a1e86768430b542a2b53a6,",
       "text.badge.text.lg": "S:6926d8d614409bd520103ec8090454fca67f11fc,",
-      "text.badge.text.xl": "S:2de50523fab8cd281cf8a9930c8f3ee18f1c0538,"
+      "text.badge.text.xl": "S:2de50523fab8cd281cf8a9930c8f3ee18f1c0538,",
+      "text.tag.sm": "S:50691ca7c9c44526da89fed134b698a91a6bbef4,",
+      "text.tag.md": "S:5d5f0e2a546f6207d6e286b101b736b658238dda,",
+      "text.tag.lg": "S:0bfa68dd5b36b2a2b4018cc8d41ce499e9d40fae,"
     }
   },
   {
@@ -12316,9 +12314,6 @@
       "text.input.fieldLabel.label.sm": "S:37d75bb0b5cd6398193aaa3f1fb932ad925b0a5a,",
       "text.input.fieldLabel.label.md": "S:593db03e8d2f9fa4b31891b693a14b33a833a400,",
       "text.input.fieldLabel.label.lg": "S:7b680cdd653edb51e2bf595b3e665d4244400859,",
-      "text.input.fieldLabel.tag.sm": "S:fc9ed136cff294c3b1bf453d4adbe01517e22bac,",
-      "text.input.fieldLabel.tag.md": "S:7764794d472821d22937c3b02a6456e142f9e99e,",
-      "text.input.fieldLabel.tag.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,",
       "text.input.fieldLabel.hint.sm": "S:e772a12e2e6fd7a79dd2bde2ac273a65d729ae6c,",
       "text.input.fieldLabel.hint.md": "S:3f7a114d64aab13f20a6a1a699febde99eca4dac,",
       "text.input.fieldLabel.hint.lg": "S:007fb7d1eff2b04b22f65a696ae2523fc28b8644,",
@@ -12408,7 +12403,10 @@
       "text.badge.text.sm": "S:81c06d2a0f667490657922080728860934664efe,",
       "text.badge.text.md": "S:df0acc2fbd1174972c7caacf981a37930ef59df1,",
       "text.badge.text.lg": "S:08dac7c72a8f184f2feed9a0c6de710a97aac894,",
-      "text.badge.text.xl": "S:7da463af80db77f51b35320fe67ce3bb76fb0db8,"
+      "text.badge.text.xl": "S:7da463af80db77f51b35320fe67ce3bb76fb0db8,",
+      "text.tag.sm": "S:fc9ed136cff294c3b1bf453d4adbe01517e22bac,",
+      "text.tag.md": "S:7764794d472821d22937c3b02a6456e142f9e99e,",
+      "text.tag.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,"
     },
     "selectedTokenSets": {
       "core": "enabled",
@@ -13126,9 +13124,6 @@
       "text.input.fieldLabel.label.sm": "S:8eac85983090a82dccfe19fc2e905797272fa1d2,",
       "text.input.fieldLabel.label.md": "S:bbb9be524c12e1f4eaad98faecc26de86cca4df9,",
       "text.input.fieldLabel.label.lg": "S:184346c62efbfd0c1607427499cf42d80b68acb5,",
-      "text.input.fieldLabel.tag.sm": "S:840728b94a1e64e1f96514403e3f9105203e5434,",
-      "text.input.fieldLabel.tag.md": "S:25adfd565fc765b16453c0ee5c3bab6e7e0918dd,",
-      "text.input.fieldLabel.tag.lg": "S:b2eaced0485bf2d5606ae1f8a09dd6fef59fa43a,",
       "text.input.helper.text.sm": "S:309ced1771a87cc3105d8a17e52f124d79a801c0,",
       "text.input.helper.text.md": "S:1f976a2a8277b192d1c88f28410b3766c3af684e,",
       "text.input.helper.text.lg": "S:1115549a938b73169ca1f67082e370b426212071,",
@@ -13139,7 +13134,10 @@
       "text.icon.font.icon.lg": "S:dd2925c559eb4ffd8bc30eed9ef37708774b15f1,",
       "boxShadow.focus": "S:679e6440d47b1dc4968ef9eed474e4b806508179,",
       "boxShadow.none": "S:b0dc60bc317e1c8c7e4c752f97d520ea371cf5c2,",
-      "text.button.link.idle.sm": "S:c184acdceb07f840ad071dbeb012b996dc15394e,"
+      "text.button.link.idle.sm": "S:c184acdceb07f840ad071dbeb012b996dc15394e,",
+      "text.tag.sm": "S:840728b94a1e64e1f96514403e3f9105203e5434,",
+      "text.tag.md": "S:25adfd565fc765b16453c0ee5c3bab6e7e0918dd,",
+      "text.tag.lg": "S:b2eaced0485bf2d5606ae1f8a09dd6fef59fa43a,"
     },
     "selectedTokenSets": {
       "core": "source",
@@ -13997,9 +13995,6 @@
       "text.input.fieldLabel.label.sm": "S:d0a0977ba06b76cfaa6a0d525a2ea75de96f22c0,",
       "text.input.fieldLabel.label.md": "S:ce2d7d8592f6d994e99e09be2f825561b5bfe552,",
       "text.input.fieldLabel.label.lg": "S:42315d32570146f925facd4de34f78ec17db1a2a,",
-      "text.input.fieldLabel.tag.sm": "S:d1a67c3e1739d842b5d3d0afdd51594d235920b5,",
-      "text.input.fieldLabel.tag.md": "S:8cf855e9fad643a8fd9e4bb01c79a9bffe6a9a97,",
-      "text.input.fieldLabel.tag.lg": "S:1a4209246f938f7dad9d18d0cda28e9d6fce1646,",
       "text.input.helper.text.sm": "S:b6380624954ee4ee23e5c7a157ef6955b2b06fba,",
       "text.input.helper.text.md": "S:7ab81c702d6110fe38359efb346a31b01562806d,",
       "text.input.helper.text.lg": "S:1190901a414addd24d61ca1991ce631c24c0e28a,",
@@ -14202,7 +14197,10 @@
       "elevation.shadow.md": "S:edf11833f300be34f898667a933115b3bee59c37,",
       "elevation.shadow.lg": "S:d139b219688864ac5970756b1d65a1da23ca9c2e,",
       "elevation.shadow.none": "S:667da8ed561030cad93de6a25a1c877875e777f8,",
-      "boxShadow.slds.checklist": "S:9a4f5ec537635b3c2889865295ce04af7eebb026,"
+      "boxShadow.slds.checklist": "S:9a4f5ec537635b3c2889865295ce04af7eebb026,",
+      "text.tag.sm": "S:d1a67c3e1739d842b5d3d0afdd51594d235920b5,",
+      "text.tag.md": "S:8cf855e9fad643a8fd9e4bb01c79a9bffe6a9a97,",
+      "text.tag.lg": "S:1a4209246f938f7dad9d18d0cda28e9d6fce1646,"
     },
     "selectedTokenSets": {
       "core": "enabled",
@@ -15148,9 +15146,6 @@
       "text.input.fieldLabel.label.sm": "S:03f31b85cec3916c409c3c981b8f471a90f9856c,",
       "text.input.fieldLabel.label.md": "S:01f87459e4fd87d1e58e332689afbb26a9d021f9,",
       "text.input.fieldLabel.label.lg": "S:ca666182cdf17731f19922c18472658654ca8967,",
-      "text.input.fieldLabel.tag.sm": "S:81609ddd881876fcb574ad4d5bb69e61fea64cac,",
-      "text.input.fieldLabel.tag.md": "S:88f4efc7f6514a3220e0be32882d7d0344e3666e,",
-      "text.input.fieldLabel.tag.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,",
       "text.input.fieldLabel.hint.sm": "S:7e3355abf20a9ca61f0ff30bedade79230ed0a57,",
       "text.input.fieldLabel.hint.md": "S:7fc51463166aa8b5dd049c1723ab6c10349e2342,",
       "text.input.fieldLabel.hint.lg": "S:e411ebb89471a33b678694f607b9d55975cc95e0,",
@@ -15240,7 +15235,10 @@
       "text.badge.text.sm": "S:93b4422376b95ab3c68aee8c9a59ead327a8b1ea,",
       "text.badge.text.md": "S:a8a3a2d87e0f12f44e8873b08c4b63291fd491f8,",
       "text.badge.text.lg": "S:edf9c93bdd85027a129ade4853a5d08a97536026,",
-      "text.badge.text.xl": "S:1c79b3737e3f0ab0e3683f9d173b849363731f5d,"
+      "text.badge.text.xl": "S:1c79b3737e3f0ab0e3683f9d173b849363731f5d,",
+      "text.tag.sm": "S:81609ddd881876fcb574ad4d5bb69e61fea64cac,",
+      "text.tag.md": "S:88f4efc7f6514a3220e0be32882d7d0344e3666e,",
+      "text.tag.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,"
     },
     "selectedTokenSets": {
       "core": "enabled",

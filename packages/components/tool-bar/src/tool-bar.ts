@@ -1,3 +1,4 @@
+import { faEllipsisVertical } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton } from '@sl-design-system/menu';
@@ -10,6 +11,8 @@ declare global {
     'sl-tool-bar': ToolBar;
   }
 }
+
+Icon.register(faEllipsisVertical);
 
 export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -44,7 +47,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
+    return html`
+      <slot @slotchange=${this.#onSlotChange}></slot>
+      <sl-menu-button>
+        <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
+      </sl-menu-button>
+    `;
   }
 
   #onResize(): void {

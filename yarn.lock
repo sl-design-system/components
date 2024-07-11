@@ -5281,6 +5281,7 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.0.0"
+    "@sl-design-system/menu": "npm:^0.0.10"
     "@sl-design-system/shared": "npm:^0.2.12"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5

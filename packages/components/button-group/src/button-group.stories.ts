@@ -7,7 +7,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type ButtonGroup } from './button-group.js';
 
-type Props = Pick<ButtonGroup, 'disabled'> & { slot?(): TemplateResult };
+type Props = Pick<ButtonGroup, 'disabled' | 'size'> & { slot?(): TemplateResult };
 type Story = StoryObj<Props>;
 
 Icon.register(faBold, faItalic, faUnderline);
@@ -19,6 +19,10 @@ export default {
     disabled: false
   },
   argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
+    },
     slot: {
       table: { disable: true }
     }

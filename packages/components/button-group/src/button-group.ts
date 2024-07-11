@@ -1,3 +1,4 @@
+import { type ButtonSize } from '@sl-design-system/button';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button-group.scss.js';
@@ -14,6 +15,9 @@ export class ButtonGroup extends LitElement {
 
   /** If set, will disable all buttons in the group. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** Determines the size of all buttons in the group. */
+  @property() size?: ButtonSize;
 
   override render(): TemplateResult {
     return html`<slot></slot>`;

@@ -45,7 +45,7 @@
           "type": "fontSizes"
         }
       },
-      "header": {
+      "heading": {
         "sm": {
           "value": "{size.font.175}",
           "type": "fontSizes"

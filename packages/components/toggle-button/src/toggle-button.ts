@@ -1,8 +1,8 @@
-import { type Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import { Icon } from 'packages/components/icon/index.js';
 import styles from './toggle-button.scss.js';
 
 declare global {
@@ -37,12 +37,6 @@ export class ToggleButton extends LitElement {
     keydown: this.#onKeydown
   });
 
-  /** @internal The slotted default icon. */
-  @queryAssignedElements() defaultIcon?: Icon[];
-
-  /** @internal The slotted pressed state icon. */
-  @queryAssignedElements({ slot: 'pressed' }) pressedIcon?: Icon[];
-
   /** @internal Emits when the button item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
@@ -50,13 +44,16 @@ export class ToggleButton extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** The variant of the toggle-button. */
-  @property({ reflect: true }) fill: ToggleButtonFill = 'ghost';
+  @property({ reflect: true }) fill?: ToggleButtonFill;
 
   /** The state of the toggle-button. */
   @property({ type: Boolean, reflect: true }) pressed = false;
 
   /** The size of the toggle-button component. */
-  @property({ reflect: true }) size: ToggleButtonSize = 'md';
+  @property({ reflect: true }) size?: ToggleButtonSize;
+
+  #defaultIcon?: Icon;
+  #pressedIcon?: Icon;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -70,34 +67,35 @@ export class ToggleButton extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-    this.removeAttribute('error');
-    if (this.pressedIcon?.length === 0) {
-      console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
-      this.setAttribute('error', 'true');
-    }
 
     if (changes.has('size')) {
       this.#setIconProperties();
-    }
-
-    if (this.pressedIcon?.[0]?.name === this.defaultIcon?.[0]?.name) {
-      console.error(
-        this.pressedIcon?.[0].name,
-        this.defaultIcon?.[0].getAttribute('name'),
-        'Do not use the same icon for both states of the toggle button.'
-      );
-      this.setAttribute('error', 'true');
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange}></slot>
       <slot @slotchange=${this.#onSlotChange} name="pressed"></slot>
+      <slot @slotchange=${this.#onSlotChange}></slot>
     `;
   }
 
-  #onSlotChange(): void {
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    if (location.hostname === 'localhost') {
+      this.removeAttribute('error');
+      if (event.target.matches('[name="pressed"]')) {
+        this.#pressedIcon = event.target.assignedNodes().find((node: Node) => node.nodeName === 'SL-ICON') as Icon;
+      } else {
+        this.#defaultIcon = event.target.assignedNodes().find((node: Node) => node.nodeName === 'SL-ICON') as Icon;
+      }
+      if (!this.#pressedIcon) {
+        console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
+        this.setAttribute('error', 'true');
+      } else if (this.#defaultIcon && this.#pressedIcon.name === this.#defaultIcon.name) {
+        console.error('Do not use the same icon for both states of the toggle button.');
+        this.setAttribute('error', 'true');
+      }
+    }
     this.#setIconProperties();
   }
 
@@ -120,9 +118,11 @@ export class ToggleButton extends LitElement {
   }
 
   #setIconProperties(): void {
-    const nodes = [...(this.defaultIcon || []), ...(this.pressedIcon || [])];
+    const nodes = [this.#defaultIcon, this.#pressedIcon];
     nodes.forEach(node => {
-      node.size = this.size;
+      if (node) {
+        node.size = this.size;
+      }
     });
   }
 }

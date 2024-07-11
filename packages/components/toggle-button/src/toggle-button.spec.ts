@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/icon/register.js';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -23,34 +24,6 @@ describe('sl-toggle-button', () => {
       expect(el.role).to.equal('button');
     });
 
-    it('should have a tabindex', () => {
-      expect(el).to.have.attribute('tabindex', '0');
-    });
-
-    it('should allow for a custom tabindex', async () => {
-      el.tabIndex = 10;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('tabindex', '10');
-    });
-
-    it('should remember the tabindex when being enabled', async () => {
-      el.tabIndex = 10;
-      await el.updateComplete;
-
-      el.setAttribute('disabled', '');
-      await el.updateComplete;
-
-      el.removeAttribute('disabled');
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('tabindex', '10');
-    });
-
-    it('should be size medium', () => {
-      expect(el).to.have.attribute('size', 'md');
-    });
-
     it('should be small size when set', async () => {
       el.size = 'sm';
       await el.updateComplete;
@@ -65,10 +38,6 @@ describe('sl-toggle-button', () => {
       expect(el).to.have.attribute('size', 'lg');
     });
 
-    it('should have a default fill', () => {
-      expect(el).to.have.attribute('fill', 'ghost');
-    });
-
     it('should not be pressed by default', () => {
       expect(el.pressed).not.to.have.true;
     });
@@ -79,28 +48,41 @@ describe('sl-toggle-button', () => {
       expect(el.disabled).not.to.be.true;
     });
 
-    it('should toggle the state on click', () => {
+    it('should toggle the state on click', async () => {
       const clickEvent = new Event('click');
       const onToggle = spy();
       expect(el).not.to.have.attribute('pressed');
 
-      el.addEventListener('sl-toggle', onToggle);
+      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
+        onToggle(event.detail);
+      });
 
       el.dispatchEvent(clickEvent);
+      await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.be.true;
+      expect(el).to.have.attribute('pressed');
+      expect(el.pressed).to.be.true;
     });
 
     it('should toggle the pressed state when pressing the enter key', async () => {
       const onToggle = spy();
       expect(el).not.to.have.attribute('pressed');
+      expect(el.pressed).to.be.false;
 
-      el.addEventListener('sl-toggle', onToggle);
+      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
+        onToggle(event.detail);
+      });
+
       el.focus();
       await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.be.true;
       expect(el).to.have.attribute('pressed');
+      expect(el.pressed).to.be.true;
     });
   });
 
@@ -145,7 +127,7 @@ describe('sl-toggle-button', () => {
       `);
     });
 
-    it('should not be pressed by default', () => {
+    it('should have a true pressed state when the attribute it set ', () => {
       expect(el.pressed).to.be.true;
     });
   });

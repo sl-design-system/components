@@ -14,7 +14,7 @@ eleventyNavigation:
       <sl-icon name="far-gear"></sl-icon>
       <sl-icon name="fas-gear" slot="pressed"></sl-icon>
     </sl-toggle-button>
-      <sl-toggle-button fill="outline" pressed>
+    <sl-toggle-button fill="outline" pressed>
       <sl-icon name="far-gear"></sl-icon>
       <sl-icon name="fas-gear" slot="pressed"></sl-icon>
     </sl-toggle-button>

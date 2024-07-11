@@ -4,10 +4,11 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToggleButton, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-interface Props extends Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'size' | 'tabIndex'> {
+interface Props extends Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'size'> {
   label: string;
 }
 type Story = StoryObj<Props>;
@@ -26,8 +27,7 @@ export default {
     fill: 'ghost',
     label: 'Show settings',
     pressed: false,
-    size: 'md',
-    tabIndex: undefined
+    size: 'md'
   },
   argTypes: {
     size: {
@@ -37,12 +37,9 @@ export default {
     fill: {
       control: 'inline-radio',
       options: fills
-    },
-    tabIndex: {
-      control: 'number'
     }
   },
-  render: ({ fill, size, pressed, label, disabled, tabIndex }) => {
+  render: ({ fill, size, pressed, label, disabled }) => {
     const onToggle = (event: Event & { target: ToggleButton }): void => {
       console.log(event.target.pressed);
     };
@@ -51,11 +48,10 @@ export default {
       <sl-toggle-button
         .fill=${fill}
         .size=${size}
-        .tabIndex=${tabIndex}
         ?disabled=${disabled}
         ?pressed=${pressed}
         @sl-toggle=${onToggle}
-        .ariaLabel=${label}
+        aria-label=${ifDefined(label)}
       >
         <sl-icon name="far-gear"></sl-icon>
         <sl-icon name="fas-gear" slot="pressed"></sl-icon>
@@ -69,12 +65,13 @@ export const Basic: Story = {};
 export const Errors: Story = {
   render: () => {
     return html`
-      <p></p>
+      <p>
         When the 'pressed' icon is not set you will get an error in the console and the button will not look correct
       </p>
       <sl-toggle-button fill="outline">
         <sl-icon name="pinata"></sl-icon>
       </sl-toggle-button>
+
       <p>Setting the same icon for both states as "workaround" will not work, you will get the same error</p>
       <sl-toggle-button fill="outline">
         <sl-icon name="far-gear"></sl-icon>

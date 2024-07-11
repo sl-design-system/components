@@ -81,6 +81,8 @@ export const Basic: Story = {
         </sl-button>
       </sl-tool-bar-group>
 
+      <sl-tool-bar-divider></sl-tool-bar-divider>
+
       <sl-button fill="outline">
         <sl-icon name="far-scissors"></sl-icon>
         Cut

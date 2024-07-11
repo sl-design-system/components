@@ -115,7 +115,7 @@ export const Shared: Story = {
 };
 
 export const All: Story = {
-  render: () => {
+  render: ({ message }) => {
     setTimeout(() => {
       document.querySelectorAll('sl-button').forEach(button => {
         button.dispatchEvent(new Event('pointerover', { bubbles: true }));
@@ -130,7 +130,7 @@ export const All: Story = {
         }
       </style>
       <sl-button aria-describedby="tooltip"> Button </sl-button>
-      <sl-tooltip id="tooltip" position="top" max-width="300">Tooltip message</sl-tooltip>
+      <sl-tooltip id="tooltip" position="top" max-width="300">${message}</sl-tooltip>
     `;
   }
 };

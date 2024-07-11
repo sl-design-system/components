@@ -1,0 +1,94 @@
+{
+  "text": {
+    "typeset": {
+      "fontFamily": {
+        "heading": {
+          "value": "The Message",
+          "type": "fontFamilies"
+        },
+        "body": {
+          "value": "Source Sans Pro",
+          "type": "fontFamilies"
+        },
+        "icon": {
+          "value": "{icon.typeset.fontfamily.classic}",
+          "type": "fontFamilies",
+          "description": "text.typeset.fontFamily.fontIcon"
+        }
+      },
+      "fontweight": {
+        "regular": {
+          "value": "Regular",
+          "type": "fontWeights"
+        },
+        "demibold": {
+          "value": "SemiBold",
+          "type": "fontWeights"
+        }
+      }
+    }
+  },
+  "size": {
+    "text": {
+      "body": {
+        "sm": {
+          "value": "{size.font.150}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{size.font.175}",
+          "type": "fontSizes",
+          "description": "default text size for body"
+        },
+        "lg": {
+          "value": "{size.font.200}",
+          "type": "fontSizes"
+        }
+      },
+      "heading": {
+        "sm": {
+          "value": "{size.font.175}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{size.font.200}",
+          "type": "fontSizes"
+        },
+        "lg": {
+          "value": "{size.font.300}",
+          "type": "fontSizes"
+        },
+        "xl": {
+          "value": "{size.font.400}",
+          "type": "fontSizes"
+        },
+        "2xl": {
+          "value": "{size.font.600}",
+          "type": "fontSizes"
+        }
+      }
+    },
+    "border": {
+      "radius": {
+        "default": {
+          "value": "{size.border.radius.sm}",
+          "type": "borderRadius"
+        }
+      }
+    },
+    "icon": {
+      "sm": {
+        "value": "{size.font.150}",
+        "type": "fontSizes"
+      },
+      "md": {
+        "value": "{size.font.150}",
+        "type": "fontSizes"
+      },
+      "lg": {
+        "value": "{size.font.200}",
+        "type": "fontSizes"
+      }
+    }
+  }
+}

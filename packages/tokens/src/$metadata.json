@@ -1,9 +1,18 @@
 {
   "tokenSetOrder": [
     "core",
+    "primitives",
+    "system",
+    "device/desktop",
+    "device/digiboard",
+    "device/mobile",
+    "device/tablet",
     "sanoma-learning/base",
     "sanoma-learning/light",
     "sanoma-learning/dark",
+    "sanoma-learning/base-new",
+    "sanoma-learning/light-new",
+    "sanoma-learning/dark-new",
     "bingel-dc/base",
     "bingel-dc/dark",
     "bingel-dc/light",

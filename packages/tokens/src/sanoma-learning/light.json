@@ -4446,6 +4446,20 @@
         "value": "{color.palette.neutral.150}",
         "type": "color"
       }
+    },
+    "tag": {
+      "bold": {
+        "idle": {
+          "background": {
+            "value": "{color.palette.primary.100}",
+            "type": "color"
+          },
+          "foreground": {
+            "value": "{body.foreground}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "boxShadow": {

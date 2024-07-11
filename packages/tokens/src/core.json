@@ -1838,6 +1838,44 @@
           "type": "spacing"
         }
       }
+    },
+    "tag": {
+      "block": {
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "lg": {
+          "value": "{space.xs} + 2",
+          "type": "spacing",
+          "description": "space.button.solid.block.lg"
+        }
+      },
+      "inline": {
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.lg"
+        }
+      },
+      "gap": {
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      }
     }
   },
   "text": {
@@ -2152,6 +2190,28 @@
             },
             "type": "typography"
           }
+        }
+      }
+    },
+    "tag": {
+      "text": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "type": "typography"
         }
       }
     }

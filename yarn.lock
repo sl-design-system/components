@@ -4634,6 +4634,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button-bar@workspace:packages/components/button-bar"
   dependencies:
+    "@sl-design-system/button": "npm:^1.0.1"
     lit: "npm:^3.1.4"
   peerDependencies:
     lit: ^3.1.2

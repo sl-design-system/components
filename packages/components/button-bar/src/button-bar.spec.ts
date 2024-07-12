@@ -88,16 +88,16 @@ describe('sl-button-bar', () => {
 
   describe('icon only with non-ghost button', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html` <sl-button-bar>
+      el = await fixture(html`
+        <sl-button-bar>
           <sl-button>
             <sl-icon name="close"></sl-icon>
           </sl-button>
           <sl-button fill="ghost">
             <sl-icon name="full-screen"></sl-icon>
           </sl-button>
-        </sl-button-bar>`
-      );
+        </sl-button-bar>
+      `);
 
       // Give the buttons a chance to update
       await el.updateComplete;

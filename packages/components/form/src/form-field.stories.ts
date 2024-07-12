@@ -132,6 +132,17 @@ export const CustomLabel: Story = {
   args: {
     label: undefined,
     slot: () => html`
+      <style>
+        span[aria-describedby] {
+          display: inline-flex;
+          margin-inline-start: 0.25rem;
+          vertical-align: top;
+
+          sl-icon {
+            pointer-events: none;
+          }
+        }
+      </style>
       <sl-label>
         This is a <em>custom</em> label
         <span aria-describedby="tooltip" tabindex="-1">

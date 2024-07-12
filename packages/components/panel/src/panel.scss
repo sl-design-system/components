@@ -1,0 +1,95 @@
+:host {
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_padding-block: var(--sl-space-sm);
+  --_padding-inline: var(--sl-space-sm);
+  --_wrapper-padding-inline: var(--sl-space-sm);
+
+  border: 1px solid var(--sl-color-palette-neutral-200);
+  border-radius: var(--sl-border-radius-2xs);
+  display: flex;
+  flex-direction: column;
+}
+
+:host([collapsible][collapsed]) {
+  sl-icon {
+    rotate: 0deg;
+  }
+
+  [part='body'] {
+    grid-template-rows: 0fr;
+  }
+}
+
+[part='header'] {
+  align-items: start;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+
+  > * {
+    // FIXME: This is a quick hack to vertically align the heading with any action buttons
+    padding-block-start: 2px;
+  }
+}
+
+[part='wrapper'] {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  padding-inline: var(--_wrapper-padding-inline);
+}
+
+button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--sl-border-radius-button-md);
+  cursor: pointer;
+  flex: 1;
+  outline: 0;
+  padding: 0;
+
+  &:focus-visible {
+    outline: var(--_focus-outline);
+    outline-offset: var(--_focus-outline-offset);
+  }
+}
+
+sl-icon {
+  rotate: 180deg;
+  transition: rotate 0.2s ease-in-out;
+}
+
+slot[name='heading'],
+slot[name='heading']::slotted(*) {
+  color: var(--sl-color-accordion-default-foreground);
+  font: var(--sl-text-accordion-title);
+}
+
+slot[name='heading'] {
+  display: block;
+}
+
+slot[name='actions']::slotted(:first-child) {
+  // FIXME: Since the `aside` slot always has content, gap on the header won't work as expected
+  // So we explicitly set a left margin on the first action
+  margin-inline-start: 1rem;
+}
+
+[part='body'] {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.2s ease-in-out;
+}
+
+[part='inner'] {
+  overflow: hidden;
+}
+
+[part='content'] {
+  padding-block-end: var(--_padding-block);
+  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+}

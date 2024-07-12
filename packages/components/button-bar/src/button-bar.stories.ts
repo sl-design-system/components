@@ -1,11 +1,13 @@
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-group/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ButtonBar } from './button-bar.js';
 
-type Props = Pick<ButtonBar, 'align' | 'reverse'> & { buttons: TemplateResult };
+type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size'> & { buttons: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -19,6 +21,13 @@ export default {
     align: {
       control: 'select',
       options: ['start', 'center', 'end', 'space-between']
+    },
+    buttons: {
+      table: { disable: true }
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
     }
   },
   parameters: {
@@ -26,7 +35,7 @@ export default {
       defaultViewport: 'default'
     }
   },
-  render: ({ align, buttons, reverse }) => html`
+  render: ({ align, buttons, reverse, size }) => html`
     <style>
       @media (max-width: 600px) {
         sl-button-bar {
@@ -34,12 +43,21 @@ export default {
         }
       }
     </style>
-    <sl-button-bar .align=${align} .reverse=${reverse}>
+    <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
       ${buttons ??
       html`
-        <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
-        <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-        <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
+        <sl-button>
+          <sl-icon name="home-blank"></sl-icon>
+          Foo
+        </sl-button>
+        <sl-button>
+          <sl-icon name="pinata"></sl-icon>
+          Bar
+        </sl-button>
+        <sl-button>
+          <sl-icon name="smile"></sl-icon>
+          Baz
+        </sl-button>
       `}
     </sl-button-bar>
   `
@@ -64,6 +82,21 @@ export const Alignment: Story = {
       <p>Space between:</p>
       <sl-button-bar style="--sl-button-bar-align: space-between;"> ${buttons} </sl-button-bar>
     `;
+  }
+};
+
+export const Groups: Story = {
+  args: {
+    buttons: html`
+      <sl-button-group>
+        <sl-button>Foo</sl-button>
+        <sl-button>Bar</sl-button>
+      </sl-button-group>
+      <sl-button-group>
+        <sl-button>Baz</sl-button>
+        <sl-button>Qux</sl-button>
+      </sl-button-group>
+    `
   }
 };
 

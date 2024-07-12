@@ -1,4 +1,5 @@
-import { type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, html } from 'lit';
+import { type ButtonSize } from '@sl-design-system/button';
+import { type CSSResultGroup, LitElement, type PropertyValues, ReactiveElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button-bar.scss.js';
 
@@ -27,27 +28,38 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * @slot default - Buttons to be grouped in the bar.
  */
 export class ButtonBar extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The alignment of the buttons within the bar. */
   @property({ reflect: true }) align?: ButtonBarAlign;
 
-  /** When set to true, the button order is reversed using flex-direction.*/
-  @property({ type: Boolean, reflect: true }) reverse?: boolean;
-
   /**
    * Whether the bar only contains icon-only buttons.
    * Determined based on the actual content, so does not need to be set.
-   * @private
+   * @internal
    */
   @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly?: boolean;
 
-  override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
+  /** When set to true, the button order is reversed. */
+  @property({ type: Boolean, reflect: true }) reverse?: boolean;
+
+  /** Determines the size of all buttons in the bar. */
+  @property() size?: ButtonSize;
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('size')) {
+      this.#updateButtonSize();
+    }
   }
 
-  async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
+  override render(): TemplateResult {
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
+  }
+
+  async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {
     const assignedElements = event.target.assignedElements({ flatten: true });
 
     const icons = await Promise.all(
@@ -61,5 +73,20 @@ export class ButtonBar extends LitElement {
     );
 
     this.iconOnly = icons.every(Boolean);
+
+    this.#updateButtonSize();
+  }
+
+  #updateButtonSize(): void {
+    this.renderRoot
+      .querySelector('slot')
+      ?.assignedElements({ flatten: true })
+      .forEach(element => {
+        const button = element as { size?: ButtonSize };
+
+        if (this.size) {
+          button.size = this.size;
+        }
+      });
   }
 }

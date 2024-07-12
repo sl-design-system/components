@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/button-bar",
-  "version": "1.0.0",
-  "description": "Button-bar component for the SL Design System",
+  "name": "@sl-design-system/button-group",
+  "version": "0.0.0",
+  "description": "Button group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/button-bar"
+    "directory": "packages/components/button-group"
   },
-  "homepage": "https://sanomalearning.design/components/button-bar",
+  "homepage": "https://sanomalearning.design/components/button-group",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },
@@ -44,6 +44,6 @@
     "lit": "^3.1.4"
   },
   "peerDependencies": {
-    "lit": "^3.1.2"
+    "lit": "^3.1.4"
   }
 }

@@ -28,9 +28,9 @@
     "sanoma-learning/dark",
     "teas/base",
     "teas/light",
-    "myvanin (onhold)/base",
-    "myvanin (onhold)/light",
-    "sanoma-utbildning (onhold)/base",
-    "sanoma-utbildning (onhold)/light"
+    "myvanin_onhold/base",
+    "myvanin_onhold/light",
+    "sanoma-utbildning_onhold/base",
+    "sanoma-utbildning_onhold/light"
   ]
 }

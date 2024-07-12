@@ -1,9 +1,9 @@
-$sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
+$sizes: 'md', 'lg';
 $variants: default, 'white', accent, info, danger, success, warning;
 
 :host {
  // --sl-spinner-size: var(--sl-size-spinner-md);
-  --_color: currentcolor;
+  --_color: #FEFEFE; //currentcolor;
   --_rotate-duration: calc(var(--_spin-duration) * 4);
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
@@ -12,24 +12,57 @@ $variants: default, 'white', accent, info, danger, success, warning;
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 
   block-size: var(--sl-spinner-size);
-  display: inline-block; //block; //inline-flex;
+  display: inline-flex; //inline-flex; //block; //inline-block;
+  max-inline-size: 100%;
+  align-items: center;
   flex-shrink: 0;
  // inline-size: var(--sl-spinner-size);
   vertical-align: middle;
-  border: 1px solid #8D959D;
-  border-radius: 8px;
-  padding: 4px 4px 4px 8px;
-  background-color: #6FBCFB;
+  //border: 1px solid #8D959D;
+  border-radius: 4px;
+  padding: 3px 8px;
+  background-color: #3366FF; //#6FBCFB;
+  color: var(--_color);
+  transition: background-color 200ms linear;
+  font-size: 12px;
+
 
   @media (prefers-reduced-motion: no-preference) {
     --_spin-duration: 1200ms;
   }
 }
 
+:host(:hover) {
+  background: #2351DB;
+}
+
+:host(:active) {
+  background: #1138AD;
+}
+
 :host(:focus) {
+  //outline: var(--_focus-outline);
+  //outline-offset: var(--_focus-outline-offset);
+  background: #0B331A;
+}
+
+:host(:focus-visible) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
-  background: #0074D9;
+  background: #0B331A;
+}
+
+:host([disabled]) {
+  background: #A2A1A1;
+ // --_color:
+  color: #EAEAEA;
+}
+
+:host(:not([disabled],[readonly])) {
+  //background: #A2A1A1;
+  //// --_color:
+  //color: #EAEAEA;
+  cursor: grab;
 }
 
 @each $size in $sizes {
@@ -38,4 +71,16 @@ $variants: default, 'white', accent, info, danger, success, warning;
   }
 }
 
+:host([size='lg']) { // TODO: change it later
+  // --sl-spinner-size: var(--sl-size-spinner-#{$size});
+  padding: 5px 8px;
+}
+
 // TODO sizes
+
+.label {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

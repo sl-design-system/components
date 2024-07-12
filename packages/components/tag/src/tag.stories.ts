@@ -59,7 +59,9 @@ export default {
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
   render: ({ label, removable }) => html`
-    <sl-tag label=${label} ?removable=${removable}></sl-tag>`
+    <sl-tag label=${label} ?removable=${removable}></sl-tag>
+    <sl-tag label=${label} ?removable=${removable} disabled></sl-tag>
+    <sl-tag label=${label} ?removable=${removable} readonly></sl-tag>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
@@ -73,7 +75,28 @@ export const Sizes: Story = {
   render: ({label}) => {
     return html`
           <sl-tag label=${label}></sl-tag>
+          <sl-tag label=${label} size="lg"></sl-tag>
+    `;
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    size: 'md',
+    label: 'This is a veeeeeeery long tag\'s label which overlows',
+    removable: false,
+  },
+  render: ({label}) => {
+    return html`
+      <style>
+        div {
+          inline-size: 200px;
+        }
+      </style>
+      <div>
           <sl-tag label=${label}></sl-tag>
+          <sl-tag label=${label}></sl-tag>
+      </div>
     `;
   }
 };

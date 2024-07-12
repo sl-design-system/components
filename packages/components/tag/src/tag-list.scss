@@ -31,3 +31,38 @@
 :host([stacked]) {
   background: #cccccc;
 }
+
+
+.group {
+  display: inline-flex;
+  //position: relative;
+  --_space: 10px;
+  --_border-radius-group: 4px;
+
+  sl-tag {
+    position: relative;
+    padding: 4px 8px;
+  }
+
+  sl-tag:last-child {
+    &::before {
+      left: calc(-1 * var(--_space) / 2);
+    }
+
+    &::after {
+      left: calc(-1 * var(--_space));
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 100%;
+      border-left: calc(var(--_space) / 4) solid;
+      border-radius: var(--_border-radius-group);
+      border-color: #3366FF; // TODO: same as tag background color
+    }
+  }
+}
+

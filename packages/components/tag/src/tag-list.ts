@@ -108,6 +108,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    * - we know when we need to reposition the active tab indicator
    */
   #resizeObserver = new ResizeObserver(() => {
+    this.#updateVisibility();
     this.#shouldAnimate = false;
     // this.#updateSize();
     this.#shouldAnimate = true;
@@ -141,7 +142,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   // /** @internal The slotted tabs. */
   // @state() tabPanels?: TabPanel[];
 
-  /** @internal The slotted tabs. */
+  /** @internal The slotted tags. */
   @state() tags?: Tag[];
 
   /** Renders the tabs vertically instead of the default horizontal  */
@@ -150,6 +151,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Whether there should be a stacked version shown when there is not enough space. */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
 
+  #hiddenLabel: number = 0;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -157,13 +160,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
-      const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
+      // const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
 
       // We want to observe the size of the tablist, not the
       // container or wrapper. The tablist is the element that
       // changes size for example when fonts are loaded. The
       // other elements do not change size while the tablist does.
-      this.#resizeObserver.observe(tablist);
+      // this.#resizeObserver.observe(tablist);
+      this.#resizeObserver.observe(this);
     });
   }
 
@@ -176,6 +180,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    console.log('this.tags in updated', this.tags);
 
     if (changes.has('alignTabs')) {
       this.#shouldAnimate = false;
@@ -197,35 +203,33 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('this.tags', this.tags);
     return html`
     stacked? ${this.stacked}
-    <div class="group">
-      <sl-tag label="1"></sl-tag>
-      <sl-tag label="2"></sl-tag>
+    <div class="group" hidden-elemens="3">
+      <!--<sl-tag label="1" readonly></sl-tag>
+      <sl-tag label="2" readonly></sl-tag>-->
+      <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
     </div>
-      <slot></slot>
-      <div part="container">
-        <div part="wrapper">
-          <div class="fade-container">
-            <div class="fade fade-start"></div>
-            <div class="fade fade-end"></div>
-            <div @scroll=${this.#onScroll} part="scroller">
-              <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
-                <span class="indicator" role="presentation"></span>
-                <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <slot name="tags"></slot>
       <div part="panels">
         <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
       </div>
     `;
   }
 
-  #onClick(event: Event & { target: HTMLElement }): void {
-    console.log('event', event);
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    console.log('this.tags in first updated', this.tags);
+  }
+
+  #updateVisibility(): void {
+    console.log('renderRoot on update', this.renderRoot.querySelectorAll<Tag>('sl-tag'), this.renderRoot, this.renderRoot.querySelectorAll('sl-tag'))
+  }
+
+  // #onClick(event: Event & { target: HTMLElement }): void {
+  //   console.log('event', event);
     // const tab = event.target.closest('sl-tab');
     //
     // if (!tab) {
@@ -234,7 +238,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     //
     // this.#updateSelectedTab(tab);
     // this.#scrollToTabPanelStart();
-  }
+  // }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
@@ -250,27 +254,27 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // this.#updateSelectedTab(tab);
   }
 
-  #onScroll(event: Event & { target: HTMLElement }): void {
-    let scrollStart = false,
-      scrollEnd = false;
-
-    if (this.vertical) {
-      const { clientHeight, scrollTop, scrollHeight } = event.target,
-        scrollable = scrollHeight > clientHeight;
-
-      scrollStart = scrollable && scrollTop > 0;
-      scrollEnd = scrollable && Math.round(scrollTop + clientHeight) < scrollHeight;
-    } else {
-      const { clientWidth, scrollLeft, scrollWidth } = event.target,
-        scrollable = scrollWidth > clientWidth;
-
-      scrollStart = scrollable && scrollLeft > 0;
-      scrollEnd = scrollable && Math.round(scrollLeft + clientWidth) < scrollWidth;
-    }
-
-    this.toggleAttribute('scroll-start', scrollStart);
-    this.toggleAttribute('scroll-end', scrollEnd);
-  }
+  // #onScroll(event: Event & { target: HTMLElement }): void {
+  //   let scrollStart = false,
+  //     scrollEnd = false;
+  //
+  //   if (this.vertical) {
+  //     const { clientHeight, scrollTop, scrollHeight } = event.target,
+  //       scrollable = scrollHeight > clientHeight;
+  //
+  //     scrollStart = scrollable && scrollTop > 0;
+  //     scrollEnd = scrollable && Math.round(scrollTop + clientHeight) < scrollHeight;
+  //   } else {
+  //     const { clientWidth, scrollLeft, scrollWidth } = event.target,
+  //       scrollable = scrollWidth > clientWidth;
+  //
+  //     scrollStart = scrollable && scrollLeft > 0;
+  //     scrollEnd = scrollable && Math.round(scrollLeft + clientWidth) < scrollWidth;
+  //   }
+  //
+  //   this.toggleAttribute('scroll-start', scrollStart);
+  //   this.toggleAttribute('scroll-end', scrollEnd);
+  // }
 
   #onTabSlotChange(event: Event & { target: HTMLSlotElement }): void {
     console.log(event);
@@ -440,3 +444,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 // TODO: name slot tags??
 
 
+// TODO: hidden tags? amount
+
+
+// TODO: resize observer to hide tags?

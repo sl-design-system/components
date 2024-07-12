@@ -58,6 +58,11 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** Whether the tag component is removable. */
   @property({ type: Boolean, reflect: true }) removable?: boolean;
 
+  /** Whether you can interact with the tag or if it is just a static, readonly display. */
+  @property({ type: Boolean, reflect: true }) readonly?: boolean;
+
+  // readonly?
+
   // removable
 
   // disabled
@@ -85,7 +90,9 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
   override render(): TemplateResult { // TODO: really that nothing is necessary? Check it :)
     return html`
+      <div class="label">
         ${this.label}
+      </div>
         ${this.removable
           ? html`<sl-button fill="ghost"><sl-icon name="xmark"></sl-icon></sl-button>`
           : nothing}
@@ -96,7 +103,10 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   // TODO: only tag component needs to be focusable, not close icon
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    console.log('readonly on click?', this.readonly);
+    if (this.disabled || this.readonly) {
+      event.preventDefault();
+      event.stopPropagation();
       return;
     }
 
@@ -104,7 +114,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
     event.preventDefault();
     event.stopPropagation();
-    this.focus();
+    // this.focus();
     // TOD: maybe selected state?
 
     // this.checked = !this.checked;
@@ -146,3 +156,8 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 // TODO: accessibility: https://material.angular.io/components/chips/overview#accessibility
 
 // !!!!!!!!! TODO: dependencies !!!!!
+
+
+// TODO: ellipsis when there is not enough space
+
+// TODO: tooltip when ellipsis applied

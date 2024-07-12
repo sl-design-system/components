@@ -6,7 +6,8 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Editing',
+  title: 'Grid/Editing',
+  tags: ['draft'],
   loaders: [async () => ({ people: (await getPeople()).people })],
   parameters: {
     // Disables Chromatic's snapshotting on a story level

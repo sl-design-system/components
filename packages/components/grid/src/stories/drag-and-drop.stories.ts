@@ -8,7 +8,8 @@ import { type GridDropFilter, type SlDropEvent } from '../grid.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Drag and drop',
+  title: 'Grid/Drag and drop',
+  tags: ['draft'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }

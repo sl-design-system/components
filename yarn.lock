@@ -4395,6 +4395,7 @@ __metadata:
     "@storybook/addon-links": "npm:^8.2.2"
     "@storybook/angular": "npm:^8.2.2"
     "@storybook/blocks": "npm:^8.2.2"
+    "@storybook/theming": "npm:^8.2.2"
     "@types/jasmine": "npm:~5.1.4"
     jasmine-core: "npm:~5.1.2"
     karma: "npm:~6.4.3"

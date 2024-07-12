@@ -81,6 +81,7 @@
     "@storybook/addon-links": "^8.2.2",
     "@storybook/angular": "^8.2.2",
     "@storybook/blocks": "^8.2.2",
+    "@storybook/theming": "^8.2.2",
     "@types/jasmine": "~5.1.4",
     "jasmine-core": "~5.1.2",
     "karma": "~6.4.3",

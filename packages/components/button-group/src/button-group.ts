@@ -15,6 +15,11 @@ type ButtonLike = HTMLElement & {
   size?: ButtonSize;
 };
 
+/**
+ * A component for visually grouping buttons together.
+ *
+ * @slot default - The default slot.
+ */
 export class ButtonGroup extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;

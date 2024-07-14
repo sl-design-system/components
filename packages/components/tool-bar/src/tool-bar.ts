@@ -1,10 +1,12 @@
 import { faEllipsisVertical } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
+import { ButtonGroup } from '@sl-design-system/button-group';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ToolBarDivider } from './tool-bar-divider.js';
 import styles from './tool-bar.scss.js';
 
 declare global {
@@ -16,7 +18,11 @@ declare global {
 export interface ToolBarItem {
   icon?: string | null;
   label?: string | null;
-  click(): void;
+  click?(): void;
+}
+
+export interface ToolBarGroupItem extends ToolBarItem {
+  buttons: ToolBarItem[];
 }
 
 Icon.register(faEllipsisVertical);
@@ -62,15 +68,27 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       <slot @slotchange=${this.#onSlotChange}></slot>
       <sl-menu-button>
         <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
-        ${this.items.map(
-          item => html`
-            <sl-menu-item @click=${() => item.click()}>
-              ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
-            </sl-menu-item>
-          `
-        )}
+        ${this.items.map(item => this.renderMenuItem(item))}
       </sl-menu-button>
     `;
+  }
+
+  renderMenuItem(item: ToolBarItem): TemplateResult {
+    if ('buttons' in item) {
+      return html`
+        <sl-menu-item-group .heading=${item.label}>
+          ${(item as ToolBarGroupItem).buttons.map(button => this.renderMenuItem(button))}
+        </sl-menu-item-group>
+      `;
+    } else if (Object.keys(item).length === 0) {
+      return html`<hr />`;
+    } else {
+      return html`
+        <sl-menu-item @click=${() => item.click?.()}>
+          ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
+        </sl-menu-item>
+      `;
+    }
   }
 
   #onResize(): void {
@@ -84,6 +102,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .map(element => {
         if (element instanceof Button) {
           return this.#mapButtonToItem(element);
+        } else if (element instanceof ButtonGroup) {
+          return this.#mapButtonGroupToItem(element);
+        } else if (element instanceof ToolBarDivider) {
+          return {};
         } else {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar. Only sl-button elements are allowed.`);
 
@@ -93,6 +115,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .filter(item => item !== undefined) as ToolBarItem[];
 
     console.log(this.items);
+  }
+
+  #mapButtonGroupToItem(group: ButtonGroup): ToolBarGroupItem {
+    return {
+      icon: null,
+      label: group.getAttribute('aria-label'),
+      buttons: Array.from(group.querySelectorAll('sl-button')).map(button => this.#mapButtonToItem(button))
+    };
   }
 
   #mapButtonToItem(button: Button): ToolBarItem {

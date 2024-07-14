@@ -11,6 +11,7 @@ import {
   faUnderline
 } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-group/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/select/register.js';
@@ -54,7 +55,7 @@ export default {
 export const Basic: Story = {
   args: {
     items: () => html`
-      <sl-tool-bar-group>
+      <sl-button-group>
         <sl-button aria-label="Bold" fill="ghost">
           <sl-icon name="far-bold"></sl-icon>
         </sl-button>
@@ -64,9 +65,9 @@ export const Basic: Story = {
         <sl-button aria-label="Underline" fill="ghost">
           <sl-icon name="far-underline"></sl-icon>
         </sl-button>
-      </sl-tool-bar-group>
+      </sl-button-group>
 
-      <sl-tool-bar-group>
+      <sl-button-group>
         <sl-button aria-label="Align left" fill="ghost">
           <sl-icon name="far-align-left"></sl-icon>
         </sl-button>
@@ -79,7 +80,7 @@ export const Basic: Story = {
         <sl-button aria-label="Align justify" fill="ghost">
           <sl-icon name="far-align-justify"></sl-icon>
         </sl-button>
-      </sl-tool-bar-group>
+      </sl-button-group>
 
       <sl-tool-bar-divider></sl-tool-bar-divider>
 

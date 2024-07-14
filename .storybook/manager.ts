@@ -36,7 +36,7 @@ export const Stable = styled(Status)(({ theme }) => ({
 
 const SYSTEM_TAGS = ['dev', 'autodocs', 'test'];
 
-const findComponentTags = (stories: LeafEntry[]) => {
+const findComponentTags = (stories: LeafEntry[] = []) => {
   const allTags = stories.flatMap((story) => story?.tags ?? []);
   const tagToCount = allTags.reduce(
     (acc, tag) => {
@@ -45,6 +45,7 @@ const findComponentTags = (stories: LeafEntry[]) => {
     },
     {} as Record<string, number>
   );
+
   return Object.entries(tagToCount)
     .filter(([tag, count]) => count === stories.length && !SYSTEM_TAGS.includes(tag))
     .map(([tag]) => tag);
@@ -55,9 +56,9 @@ addons.setConfig({
   theme: slTheme,
   sidebar: {
     renderLabel: (item: HashEntry, api: API) => {
-      if (item.type !== 'component') return item.name;
+      if (item.depth !== 1 || item.type === 'docs') return item.name;
 
-      const tags = findComponentTags(item.children.map((childId) => api.getData(childId)));
+      const tags = findComponentTags(item.children?.map(id => api.getData(id)).filter(({ type }) => type === 'story'));
       if (tags.length) {
         const tag = tags[0];
 
@@ -76,6 +77,6 @@ addons.setConfig({
       } else {
         return item.name;
       }
-    },
+    }
   }
 });

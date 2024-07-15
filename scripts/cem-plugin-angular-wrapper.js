@@ -30,7 +30,7 @@ import { CePassthrough } from './ce-passthrough';
 export class ${component.name}Component extends CePassthrough<${component.name}> {${events.length ? `\n  static override eventMap = {\n${events.map(event => `    '${event.name}': '${event.angularName}'`).join(',\n')}\n  };\n` : ''}
 ${component.members
   ?.filter(member => member.kind === 'field' && !member.privacy && !member.static && !member.name.endsWith('Event'))
-  .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n')}
+  .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n') ?? ''}
 ${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}}
 `;
 };

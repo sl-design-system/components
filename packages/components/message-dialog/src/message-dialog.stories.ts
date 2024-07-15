@@ -11,7 +11,10 @@ export default {
   tags: ['preview'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
-    chromatic: { disableSnapshot: true }
+    chromatic: { disableSnapshot: true },
+    viewport: {
+      defaultViewport: 'default'
+    }
   },
   render: args => {
     const onClick = async (): Promise<void> => {

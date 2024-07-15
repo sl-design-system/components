@@ -4,8 +4,9 @@ import { Button } from '@sl-design-system/button';
 import { ButtonGroup } from '@sl-design-system/button-group';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 import styles from './tool-bar.scss.js';
 
@@ -16,8 +17,13 @@ declare global {
 }
 
 export interface ToolBarItem {
+  element: HTMLElement;
+  type: 'button' | 'group' | 'divider';
   icon?: string | null;
   label?: string | null;
+  size?: number;
+  visible: boolean;
+
   click?(): void;
 }
 
@@ -49,6 +55,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal The tool bar items. */
   @state() items: ToolBarItem[] = [];
 
+  /** @internal The tool bar items that should be shown in the overflow menu. */
+  @state() menuItems: ToolBarItem[] = [];
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -63,25 +72,36 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('items')) {
+      this.menuItems = this.items.filter(item => !item.visible);
+    }
+  }
+
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange}></slot>
-      <sl-menu-button>
+      <div part="wrapper">
+        <slot @slotchange=${this.#onSlotChange}></slot>
+      </div>
+
+      <sl-menu-button style=${styleMap({ visibility: this.menuItems.length ? '' : 'hidden' })}>
         <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
-        ${this.items.map(item => this.renderMenuItem(item))}
+        ${this.menuItems.map(item => this.renderMenuItem(item))}
       </sl-menu-button>
     `;
   }
 
   renderMenuItem(item: ToolBarItem): TemplateResult {
-    if ('buttons' in item) {
+    if (item.type === 'group') {
       return html`
         <sl-menu-item-group .heading=${item.label}>
           ${(item as ToolBarGroupItem).buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
         <hr />
       `;
-    } else if (Object.keys(item).length === 0) {
+    } else if (item.type === 'divider') {
       return html`<hr />`;
     } else {
       return html`
@@ -93,7 +113,23 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
-    console.log('resize');
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as HTMLElement;
+    const { width: availableWidth } = wrapper.getBoundingClientRect(),
+      gap = parseInt(getComputedStyle(wrapper).gap);
+
+    let totalWidth = 0;
+    this.items.forEach(item => {
+      item.size = item.element.getBoundingClientRect().width;
+
+      totalWidth += item.size;
+
+      item.visible = totalWidth <= availableWidth;
+      item.element.style.visibility = item.visible ? 'visible' : 'hidden';
+
+      totalWidth += gap;
+    });
+
+    this.requestUpdate('items');
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
@@ -106,7 +142,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         } else if (element instanceof ButtonGroup) {
           return this.#mapButtonGroupToItem(element);
         } else if (element instanceof ToolBarDivider) {
-          return {};
+          return { element, type: 'divider' };
         } else {
           console.warn(`Unknown element type: ${element.tagName} in sl-tool-bar. Only sl-button elements are allowed.`);
 
@@ -114,22 +150,26 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         }
       })
       .filter(item => item !== undefined) as ToolBarItem[];
-
-    console.log(this.items);
   }
 
   #mapButtonGroupToItem(group: ButtonGroup): ToolBarGroupItem {
     return {
+      element: group,
+      type: 'group',
       icon: null,
       label: group.getAttribute('aria-label'),
-      buttons: Array.from(group.querySelectorAll('sl-button')).map(button => this.#mapButtonToItem(button))
+      buttons: Array.from(group.querySelectorAll('sl-button')).map(button => this.#mapButtonToItem(button)),
+      visible: true
     };
   }
 
   #mapButtonToItem(button: Button): ToolBarItem {
     return {
+      element: button,
+      type: 'button',
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label: button.getAttribute('aria-label') || button.textContent?.trim(),
+      visible: true,
       click: () => button.click()
     };
   }

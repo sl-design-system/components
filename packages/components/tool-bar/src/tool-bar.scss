@@ -6,8 +6,19 @@
   padding: 0.5rem;
 }
 
+[part='wrapper'] {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  min-inline-size: 0;
+}
+
 sl-menu-button {
   margin-inline-start: auto;
+
+  sl-icon + hr {
+    display: none;
+  }
 }
 
 hr + hr {

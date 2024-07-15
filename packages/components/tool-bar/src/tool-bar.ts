@@ -3,7 +3,8 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonGroup } from '@sl-design-system/button-group';
 import { Icon } from '@sl-design-system/icon';
-import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -23,6 +24,7 @@ export interface ToolBarItemButton {
   type: 'button';
   icon?: string | null;
   label?: string | null;
+  selectable?: boolean;
   visible: boolean;
 
   click?(): void;
@@ -39,6 +41,7 @@ export interface ToolBarItemGroup {
   type: 'group';
   buttons: ToolBarItemButton[];
   label?: string | null;
+  selects?: 'single' | 'multiple';
   visible: boolean;
 }
 
@@ -55,7 +58,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     return {
       'sl-icon': Icon,
       'sl-menu-button': MenuButton,
-      'sl-menu-item': MenuItem
+      'sl-menu-item': MenuItem,
+      'sl-menu-item-group': MenuItemGroup
     };
   }
 
@@ -112,7 +116,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   renderMenuItem(item: ToolBarItem): TemplateResult {
     if (item.type === 'group') {
       return html`
-        <sl-menu-item-group .heading=${item.label}>
+        <sl-menu-item-group .heading=${item.label} .selects=${item.selects}>
           ${item.buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
         <hr />
@@ -121,7 +125,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return html`<hr />`;
     } else {
       return html`
-        <sl-menu-item @click=${() => item.click?.()}>
+        <sl-menu-item @click=${() => item.click?.()} ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
@@ -151,7 +155,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     this.items = elements
       .map(element => {
-        if (element instanceof Button) {
+        if (element instanceof Button || element instanceof ToggleButton) {
           return this.#mapButtonToItem(element);
         } else if (element instanceof ButtonGroup) {
           return this.#mapButtonGroupToItem(element);
@@ -166,22 +170,24 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .filter(item => item !== undefined) as ToolBarItem[];
   }
 
-  #mapButtonGroupToItem(group: ButtonGroup): ToolBarItemGroup {
+  #mapButtonGroupToItem(group: HTMLElement): ToolBarItemGroup {
     return {
       element: group,
       type: 'group',
       label: group.getAttribute('aria-label'),
-      buttons: Array.from(group.querySelectorAll('sl-button')).map(button => this.#mapButtonToItem(button)),
+      buttons: Array.from(group.children).map(button => this.#mapButtonToItem(button as HTMLElement)),
+      selects: 'multiple',
       visible: true
     };
   }
 
-  #mapButtonToItem(button: Button): ToolBarItemButton {
+  #mapButtonToItem(button: HTMLElement): ToolBarItemButton {
     return {
       element: button,
       type: 'button',
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label: button.getAttribute('aria-label') || button.textContent?.trim(),
+      selectable: button.hasAttribute('aria-pressed'),
       visible: true,
       click: () => button.click()
     };

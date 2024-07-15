@@ -79,6 +79,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         <sl-menu-item-group .heading=${item.label}>
           ${(item as ToolBarGroupItem).buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
+        <hr />
       `;
     } else if (Object.keys(item).length === 0) {
       return html`<hr />`;

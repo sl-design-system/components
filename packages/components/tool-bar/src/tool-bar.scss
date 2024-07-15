@@ -9,3 +9,7 @@
 sl-menu-button {
   margin-inline-start: auto;
 }
+
+hr + hr {
+  display: none;
+}

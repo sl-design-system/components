@@ -1,8 +1,8 @@
+import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { Icon } from 'packages/components/icon/index.js';
 import styles from './toggle-button.scss.js';
 
 declare global {

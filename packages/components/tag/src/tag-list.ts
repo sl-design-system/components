@@ -4,7 +4,7 @@ import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { type EventEmitter, RovingTabindexController, event, getScrollParent } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, state, queryAssignedElements } from 'lit/decorators.js';
 import styles from './tag-list.scss.js';
 import { Tag } from './tag.js';
 
@@ -107,7 +107,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    * - we can determine when to display an overflow menu with tab items
    * - we know when we need to reposition the active tab indicator
    */
-  #resizeObserver = new ResizeObserver(() => {
+  #resizeObserver = new ResizeObserver((entries) => {
+    console.log('entries in observer', entries, entries[0], entries[0].contentRect);
+    const { contentRect } = entries[0];
+    const widthChange = contentRect.width - entries[0].target.clientWidth;
+    console.log('entry and width change', contentRect, widthChange, entries[0]);
     this.#updateVisibility();
     this.#shouldAnimate = false;
     // this.#updateSize();
@@ -143,7 +147,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   // @state() tabPanels?: TabPanel[];
 
   /** @internal The slotted tags. */
-  @state() tags?: Tag[];
+  @queryAssignedElements({ flatten: true }) tags?: Tag[];
+  // @state() tags?: Tag[];
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
@@ -205,18 +210,25 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     console.log('this.tags', this.tags);
     return html`
-    stacked? ${this.stacked}
-    <div class="group" hidden-elemens="3">
+    ${this.stacked
+      ? html`
+        <div class="group" hidden-elemens="3">
+        <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
+        </div>`
+      : nothing}
+    <!--<div class="group" hidden-elemens="3">-->
       <!--<sl-tag label="1" readonly></sl-tag>
       <sl-tag label="2" readonly></sl-tag>-->
-      <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
+     <!-- <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
+    </div>-->
+    <div class="list">
+      <slot></slot>
     </div>
-      <slot name="tags"></slot>
-      <div part="panels">
+     <!-- <div part="panels">
         <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
-      </div>
+      </div> -->
     `;
-  }
+  } // name="tags"
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
@@ -225,7 +237,43 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #updateVisibility(): void {
-    console.log('renderRoot on update', this.renderRoot.querySelectorAll<Tag>('sl-tag'), this.renderRoot, this.renderRoot.querySelectorAll('sl-tag'))
+    if (!this.tags) {
+      return;
+    }
+    console.log('renderRoot on update', this.renderRoot.querySelectorAll<Tag>('sl-tag'), this.renderRoot, this.renderRoot.querySelectorAll('sl-tag'), this.tags);
+    console.log('renderRoot on update list', this.renderRoot.querySelector('.list'));
+
+    const list = this.renderRoot.querySelector('.list') as HTMLDivElement;
+    console.log('list.getBoundingClientRect', list.getBoundingClientRect(), Math.round(list.getBoundingClientRect().width), this.tags, this.tags[0].offsetWidth);
+    console.log('list.scrollWidth', list.scrollWidth);
+    console.log('parentElement', this.parentElement);
+    console.log('change in px', list.scrollWidth - Math.round(list.getBoundingClientRect().width));
+    console.log('tag width', this.tags[0].offsetWidth, this.tags[0].clientWidth);
+    let hiddenTags: Tag[] = [];
+    if ( Math.round(list.getBoundingClientRect().width) < list.scrollWidth) {
+      const change = list.scrollWidth - Math.round(list.getBoundingClientRect().width);
+      const tagsWidth = this.tags.reduce((acc, tag) => {
+        console.log('acc + tag.clientWidth', acc + tag.clientWidth, change);
+        if (acc + tag.clientWidth < change) {
+          console.log('taaaag in acc change?', tag);
+          hiddenTags.push(tag);
+        }
+        return acc + tag.clientWidth;
+      }, 0);
+      console.log('tagsWidth', tagsWidth);
+      this.#hiddenLabel = 1;
+      console.log('this.#hiddenLabel in if', this.#hiddenLabel);
+      // this.tags[0].style.display = 'none';
+    } else {
+      this.#hiddenLabel = 0;
+      console.log('this.#hiddenLabel in else', this.#hiddenLabel);
+      // this.tags[0].style.display = 'flex';
+    }
+
+    console.log('hiddenTags', hiddenTags);
+    // TODO for each hidden tag display none or flex when necessary
+
+    this.requestUpdate();
   }
 
   // #onClick(event: Event & { target: HTMLElement }): void {

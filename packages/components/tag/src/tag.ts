@@ -94,7 +94,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
         ${this.label}
       </div>
         ${this.removable
-          ? html`<sl-button fill="ghost"><sl-icon name="xmark"></sl-icon></sl-button>`
+          ? html`<sl-button fill="ghost" size="sm"><sl-icon name="xmark"></sl-icon></sl-button>`
           : nothing}
     `;
   } // TODO: aria-label for button only or for the whole component?

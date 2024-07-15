@@ -62,7 +62,7 @@ $variants: default, 'white', accent, info, danger, success, warning;
   //background: #A2A1A1;
   //// --_color:
   //color: #EAEAEA;
-  cursor: grab;
+  cursor: pointer;
 }
 
 @each $size in $sizes {

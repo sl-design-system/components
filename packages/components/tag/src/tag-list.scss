@@ -30,13 +30,20 @@
 
 :host([stacked]) {
   background: #cccccc;
+
+  .list {
+    display: flex;
+    overflow: hidden;
+    gap: 4px; // TODO: need a token for this one
+    flex-wrap: nowrap;
+  }
 }
 
 
 .group {
   display: inline-flex;
   //position: relative;
-  --_space: 10px;
+  --_space: 0.5rem; //10px; // TODO: need a space token?
   --_border-radius-group: 4px;
 
   sl-tag {
@@ -60,9 +67,16 @@
       width: 100%;
       height: 100%;
       border-left: calc(var(--_space) / 4) solid;
-      border-radius: var(--_border-radius-group);
+      border-radius: var(--_border-radius-group); // TODO: need border radius for the tag element
       border-color: #3366FF; // TODO: same as tag background color
     }
   }
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  //overflow: hidden;
+  gap: 4px; // TODO: need a token for this one
 }
 

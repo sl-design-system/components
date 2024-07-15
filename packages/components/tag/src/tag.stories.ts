@@ -95,7 +95,7 @@ export const Overflow: Story = {
       </style>
       <div>
           <sl-tag label=${label}></sl-tag>
-          <sl-tag label=${label}></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
       </div>
     `;
   }
@@ -108,11 +108,14 @@ export const List: Story = {
       removable: false,
     },
   render: ({label}) => {
+      const amount = Array.from({length: 50});
     return html`
         <sl-tag-list>
-          <sl-tag label=${label}></sl-tag>
-          <sl-tag label=${label}></sl-tag>
-          <sl-tag label=${label}></sl-tag>
+          ${amount.map(
+            () => html`
+          <sl-tag .label=${label}></sl-tag>
+        `
+          )}
         </sl-tag-list>
     `;
   }
@@ -127,6 +130,28 @@ export const Stacked: Story = {
   render: ({label}) => {
     return html`
         <sl-tag-list stacked>
+          <sl-tag label="my label" removable></sl-tag>
+          <sl-tag label="test" removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag label=${label} removable></sl-tag>
           <sl-tag label=${label} removable></sl-tag>
           <sl-tag label=${label} removable></sl-tag>
           <sl-tag label=${label} removable></sl-tag>

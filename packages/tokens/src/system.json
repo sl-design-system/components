@@ -105,6 +105,40 @@
           "type": "borderRadius"
         }
       }
+    },
+    "icon": {
+      "xs": {
+        "value": "{size.150}",
+        "type": "sizing"
+      },
+      "sm": {
+        "value": "{size.175}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.200}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.250}",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "{size.300}",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "{size.400}",
+        "type": "sizing"
+      },
+      "3xl": {
+        "value": "{size.600}",
+        "type": "sizing"
+      },
+      "4xl": {
+        "value": "{size.800}",
+        "type": "sizing"
+      }
     }
   },
   "elevation": {

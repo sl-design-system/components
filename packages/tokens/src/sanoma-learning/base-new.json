@@ -77,17 +77,39 @@
       }
     },
     "icon": {
-      "sm": {
-        "value": "{size.font.150}",
-        "type": "fontSizes"
-      },
-      "md": {
-        "value": "{size.font.150}",
-        "type": "fontSizes"
-      },
-      "lg": {
-        "value": "{size.font.200}",
-        "type": "fontSizes"
+      "font": {
+        "xs": {
+          "value": "{size.icon.xs}",
+          "type": "fontSizes"
+        },
+        "sm": {
+          "value": "{size.icon.sm}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{size.icon.md}",
+          "type": "fontSizes"
+        },
+        "lg": {
+          "value": "{size.icon.lg}",
+          "type": "fontSizes"
+        },
+        "xl": {
+          "value": "{size.icon.xl}",
+          "type": "fontSizes"
+        },
+        "2xl": {
+          "value": "{size.icon.2xl}",
+          "type": "fontSizes"
+        },
+        "3xl": {
+          "value": "{size.icon.3xl}",
+          "type": "fontSizes"
+        },
+        "4xl": {
+          "value": "{size.icon.4xl}",
+          "type": "fontSizes"
+        }
       }
     }
   }

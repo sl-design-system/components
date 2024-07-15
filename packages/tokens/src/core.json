@@ -249,12 +249,12 @@
             "type": "sizing"
           },
           "md": {
-            "value": "{size.icon.md}",
+            "value": "{size.icon.font.md}",
             "type": "sizing",
             "description": "size.input.md"
           },
           "lg": {
-            "value": "{size.icon.lg}",
+            "value": "{size.icon.font.lg}",
             "type": "sizing",
             "description": "size.input.lg"
           }

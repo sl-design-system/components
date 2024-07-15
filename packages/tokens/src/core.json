@@ -519,6 +519,12 @@
     "progressbar": {
       "value": "{size.3xs}",
       "type": "sizing"
+    },
+    "tag": {
+      "counter": {
+        "value": "{borderRadius.default} + {borderRadius.default}",
+        "type": "sizing"
+      }
     }
   },
   "space": {
@@ -1874,6 +1880,18 @@
           "value": "{space.xs}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
+        }
+      },
+      "counter": {
+        "gap": {
+          "value": "- {borderRadius.default} / 2",
+          "type": "spacing"
+        }
+      },
+      "list": {
+        "gap": {
+          "value": "{space.xs}",
+          "type": "spacing"
         }
       }
     }

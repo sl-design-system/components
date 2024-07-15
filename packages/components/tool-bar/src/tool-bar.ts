@@ -16,23 +16,39 @@ declare global {
   }
 }
 
-export interface ToolBarItem {
+export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup;
+
+export interface ToolBarItemButton {
   element: HTMLElement;
-  type: 'button' | 'group' | 'divider';
+  type: 'button';
   icon?: string | null;
   label?: string | null;
-  size?: number;
   visible: boolean;
 
   click?(): void;
 }
 
-export interface ToolBarGroupItem extends ToolBarItem {
-  buttons: ToolBarItem[];
+export interface ToolBarItemDivider {
+  element: HTMLElement;
+  type: 'divider';
+  visible: boolean;
+}
+
+export interface ToolBarItemGroup {
+  element: HTMLElement;
+  type: 'group';
+  buttons: ToolBarItemButton[];
+  label?: string | null;
+  visible: boolean;
 }
 
 Icon.register(faEllipsisVertical);
 
+/**
+ * A responsive container that automatically hides items in an overflow menu when space is limited.
+ *
+ * @slot - The tool bar items.
+ */
 export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -97,7 +113,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     if (item.type === 'group') {
       return html`
         <sl-menu-item-group .heading=${item.label}>
-          ${(item as ToolBarGroupItem).buttons.map(button => this.renderMenuItem(button))}
+          ${item.buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
         <hr />
       `;
@@ -119,9 +135,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
     let totalWidth = 0;
     this.items.forEach(item => {
-      item.size = item.element.getBoundingClientRect().width;
-
-      totalWidth += item.size;
+      totalWidth += item.element.getBoundingClientRect().width;
 
       item.visible = totalWidth <= availableWidth;
       item.element.style.visibility = item.visible ? 'visible' : 'hidden';
@@ -152,18 +166,17 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .filter(item => item !== undefined) as ToolBarItem[];
   }
 
-  #mapButtonGroupToItem(group: ButtonGroup): ToolBarGroupItem {
+  #mapButtonGroupToItem(group: ButtonGroup): ToolBarItemGroup {
     return {
       element: group,
       type: 'group',
-      icon: null,
       label: group.getAttribute('aria-label'),
       buttons: Array.from(group.querySelectorAll('sl-button')).map(button => this.#mapButtonToItem(button)),
       visible: true
     };
   }
 
-  #mapButtonToItem(button: Button): ToolBarItem {
+  #mapButtonToItem(button: Button): ToolBarItemButton {
     return {
       element: button,
       type: 'button',

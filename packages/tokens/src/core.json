@@ -1902,7 +1902,7 @@
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.xs}",
+            "value": "{space.2xs}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
@@ -1914,7 +1914,7 @@
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -2263,7 +2263,7 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "fontSize": "{text.typeset.fontSize.xs}",
+            "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}"
           },
           "type": "typography"
@@ -2273,7 +2273,7 @@
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{text.typeset.fontWeight.icon-solid}",
             "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.sm} + 2"
+            "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
         }

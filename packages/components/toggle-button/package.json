@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/skeleton",
-  "version": "1.0.0",
-  "description": "Skeleton component for the SL Design System",
+  "name": "@sl-design-system/toggle-button",
+  "version": "0.0.0",
+  "description": "Toggle button component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/skeleton"
+    "directory": "packages/components/toggle-button"
   },
-  "homepage": "https://sanomalearning.design/components/skeleton",
+  "homepage": "https://sanomalearning.design/components/toggle-button",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },

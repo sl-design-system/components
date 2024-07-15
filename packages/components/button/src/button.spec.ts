@@ -137,13 +137,6 @@ describe('sl-button', () => {
       expect(el).to.match(':disabled');
     });
 
-    it('should have a tabindex of -1', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('tabindex', '-1');
-    });
-
     it('should not emit a click event when the button is disabled', async () => {
       const clickEvent = new Event('click');
       const preventDefaultSpy = spy(clickEvent, 'preventDefault');

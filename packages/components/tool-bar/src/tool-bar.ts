@@ -50,6 +50,8 @@ Icon.register(faEllipsisVertical);
 /**
  * A responsive container that automatically hides items in an overflow menu when space is limited.
  *
+ * @csspart wrapper - The wrapper element that contains the tool bar items.
+ *
  * @slot - The tool bar items.
  */
 export class ToolBar extends ScopedElementsMixin(LitElement) {
@@ -66,7 +68,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // Observer changes to the size of the element.
+  // Observe changes to the size of the element.
   #observer = new ResizeObserver(() => this.#onResize());
 
   /** If true, the tool-bar is disabled and cannot be interacted with. */

@@ -1,9 +1,9 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { ToolBar } from '@sl-design-system/tool-bar';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -34,8 +34,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button-bar': ButtonBar,
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-tool-bar': ToolBar
     };
   }
 
@@ -73,9 +73,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
-          <sl-button-bar>
+          <sl-tool-bar no-border>
             <slot name="actions"></slot>
-          </sl-button-bar>
+          </sl-tool-bar>
         </slot>
       </div>
       <div id="body" part="body" role=${ifDefined(this.collapsible ? 'region' : undefined)}>

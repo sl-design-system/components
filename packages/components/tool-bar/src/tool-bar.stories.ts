@@ -25,7 +25,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type ToolBar } from './tool-bar.js';
 
-type Props = Pick<ToolBar, 'disabled'> & { items?(): TemplateResult; width?: string };
+type Props = Pick<ToolBar, 'disabled' | 'noBorder'> & { items?(): TemplateResult; width?: string };
 type Story = StoryObj<Props>;
 
 Icon.register(
@@ -48,15 +48,20 @@ export default {
   title: 'Components/Tool bar',
   tags: ['draft'],
   args: {
-    disabled: false
+    disabled: false,
+    noBorder: false
   },
   argTypes: {
     items: {
       table: { disable: true }
     }
   },
-  render: ({ disabled, items, width }) => {
-    return html`<sl-tool-bar ?disabled=${disabled} style="inline-size: ${width ?? 'auto'}">${items?.()}</sl-tool-bar>`;
+  render: ({ disabled, items, noBorder, width }) => {
+    return html`
+      <sl-tool-bar ?disabled=${disabled} ?no-border=${noBorder} style="inline-size: ${width ?? 'auto'}">
+        ${items?.()}
+      </sl-tool-bar>
+    `;
   }
 } satisfies Meta<Props>;
 
@@ -108,6 +113,29 @@ export const Basic: Story = {
         Paste
       </sl-button>
     `
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    ...Basic.args,
+    disabled: true
+  }
+};
+
+export const Empty: Story = {};
+
+export const FitContent: Story = {
+  args: {
+    items: () => html`<sl-button>Simple</sl-button>`,
+    width: 'fit-content'
+  }
+};
+
+export const NoBorder: Story = {
+  args: {
+    ...Basic.args,
+    noBorder: true
   }
 };
 

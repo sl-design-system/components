@@ -7,7 +7,6 @@ import { MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 import styles from './tool-bar.scss.js';
 
@@ -80,6 +79,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal The tool bar items that should be shown in the overflow menu. */
   @state() menuItems: ToolBarItem[] = [];
 
+  /**
+   * If true, will cause the tool bar to not have a border; useful when embedding
+   * the tool-bar inside another component.
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -108,10 +113,14 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
 
-      <sl-menu-button style=${styleMap({ visibility: this.menuItems.length ? '' : 'hidden' })}>
-        <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
-        ${this.menuItems.map(item => this.renderMenuItem(item))}
-      </sl-menu-button>
+      ${this.menuItems.length
+        ? html`
+            <sl-menu-button>
+              <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
+              ${this.menuItems.map(item => this.renderMenuItem(item))}
+            </sl-menu-button>
+          `
+        : nothing}
     `;
   }
 

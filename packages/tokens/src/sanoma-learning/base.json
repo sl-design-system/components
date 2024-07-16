@@ -2184,6 +2184,10 @@
           "value": "{border.width.xs}",
           "type": "borderWidth"
         }
+      },
+      "tag": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
       }
     }
   },

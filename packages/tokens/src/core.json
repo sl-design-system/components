@@ -317,6 +317,10 @@
       }
     },
     "icon": {
+      "3xs": {
+        "value": "5",
+        "type": "sizing"
+      },
       "2xs": {
         "value": "10px",
         "type": "sizing"
@@ -523,6 +527,10 @@
     "tag": {
       "counter": {
         "value": "{borderRadius.default} + {borderRadius.default}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.xl}",
         "type": "sizing"
       }
     }
@@ -1893,32 +1901,6 @@
           "value": "{space.xs}",
           "type": "spacing"
         }
-      },
-      "close": {
-        "block": {
-          "md": {
-            "value": "{space.2xs}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
-            "value": "{space.2xs}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
-          }
-        },
-        "inline": {
-          "md": {
-            "value": "{space.2xs}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
-          }
-        }
       }
     }
   },
@@ -2234,48 +2216,6 @@
             },
             "type": "typography"
           }
-        }
-      }
-    },
-    "tag": {
-      "label": {
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "type": "typography"
-        }
-      },
-      "close": {
-        "md": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "lineHeight": "{text.typeset.lineHeight.sm}"
-          },
-          "type": "typography"
-        },
-        "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
-            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
-            "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.md}"
-          },
-          "type": "typography"
         }
       }
     }

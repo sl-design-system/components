@@ -48,17 +48,19 @@ export default {
   title: 'Components/Tool bar',
   tags: ['draft'],
   args: {
-    disabled: false,
     noBorder: false
   },
   argTypes: {
+    disabled: {
+      control: 'boolean'
+    },
     items: {
       table: { disable: true }
     }
   },
   render: ({ disabled, items, noBorder, width }) => {
     return html`
-      <sl-tool-bar ?disabled=${disabled} ?no-border=${noBorder} style="inline-size: ${width ?? 'auto'}">
+      <sl-tool-bar .disabled=${disabled} ?no-border=${noBorder} style="inline-size: ${width ?? 'auto'}">
         ${items?.()}
       </sl-tool-bar>
     `;
@@ -100,11 +102,11 @@ export const Basic: Story = {
 
       <sl-tool-bar-divider></sl-tool-bar-divider>
 
-      <sl-button fill="outline">
+      <sl-button disabled fill="outline">
         <sl-icon name="far-scissors"></sl-icon>
         Cut
       </sl-button>
-      <sl-button fill="outline">
+      <sl-button disabled fill="outline">
         <sl-icon name="far-copy"></sl-icon>
         Copy
       </sl-button>

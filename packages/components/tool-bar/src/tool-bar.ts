@@ -16,33 +16,33 @@ declare global {
   }
 }
 
-export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup;
-
-export interface ToolBarItemButton {
+export interface ToolBarItemBase {
   element: HTMLElement;
+  visible: boolean;
+}
+
+export interface ToolBarItemButton extends ToolBarItemBase {
   type: 'button';
+  disabled?: boolean;
   icon?: string | null;
   label?: string | null;
   selectable?: boolean;
-  visible: boolean;
 
   click?(): void;
 }
 
-export interface ToolBarItemDivider {
-  element: HTMLElement;
+export interface ToolBarItemDivider extends ToolBarItemBase {
   type: 'divider';
-  visible: boolean;
 }
 
-export interface ToolBarItemGroup {
-  element: HTMLElement;
+export interface ToolBarItemGroup extends ToolBarItemBase {
   type: 'group';
   buttons: ToolBarItemButton[];
   label?: string | null;
   selects?: 'single' | 'multiple';
-  visible: boolean;
 }
+
+export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup;
 
 Icon.register(faEllipsisVertical);
 
@@ -102,6 +102,16 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
+    if (changes.has('disabled')) {
+      const children = this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
+
+      if (this.disabled) {
+        children.forEach(el => el.setAttribute('disabled', ''));
+      } else {
+        children.forEach(el => el.removeAttribute('disabled'));
+      }
+    }
+
     if (changes.has('items')) {
       this.menuItems = this.items.filter(item => !item.visible);
     }
@@ -127,7 +137,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   renderMenuItem(item: ToolBarItem): TemplateResult {
     if (item.type === 'group') {
       return html`
-        <sl-menu-item-group .heading=${item.label} .selects=${item.selects}>
+        <sl-menu-item-group .heading=${item.label ?? ''} .selects=${item.selects}>
           ${item.buttons.map(button => this.renderMenuItem(button))}
         </sl-menu-item-group>
         <hr />
@@ -136,7 +146,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       return html`<hr />`;
     } else {
       return html`
-        <sl-menu-item @click=${() => item.click?.()} ?selectable=${item.selectable}>
+        <sl-menu-item @click=${() => item.click?.()} ?disabled=${item.disabled} ?selectable=${item.selectable}>
           ${item.icon ? html`<sl-icon .name=${item.icon}></sl-icon>` : nothing} ${item.label}
         </sl-menu-item>
       `;
@@ -163,6 +173,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
     const elements = event.target.assignedElements({ flatten: true });
+
+    if (typeof this.disabled === 'boolean') {
+      elements.forEach(el => el.toggleAttribute('disabled', this.disabled));
+    }
 
     this.items = elements
       .map(element => {
@@ -196,6 +210,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     return {
       element: button,
       type: 'button',
+      disabled: button.hasAttribute('disabled'),
       icon: button.querySelector('sl-icon')?.getAttribute('name'),
       label: button.getAttribute('aria-label') || button.textContent?.trim(),
       selectable: button.hasAttribute('aria-pressed'),

@@ -1,6 +1,8 @@
 :host {
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_min-heading-inline-size: 100px;
+  --_min-toolBar-inline-size: 32px;
   --_padding-block: var(--sl-space-sm);
   --_padding-inline: var(--sl-space-sm);
   --_wrapper-padding-inline: var(--sl-space-sm);
@@ -23,8 +25,12 @@
 
 [part='header'] {
   align-items: start;
-  display: flex;
+  display: grid;
   flex: 1;
+  grid-template-columns: minmax(var(--_min-heading-inline-size), max-content) minmax(
+      var(--_min-toolBar-inline-size),
+      auto
+    );
   justify-content: space-between;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
@@ -38,7 +44,6 @@
 [part='wrapper'] {
   align-items: center;
   display: flex;
-  flex: 0 0 fit-content;
   gap: 0.5rem;
   padding-inline: var(--_wrapper-padding-inline);
 }

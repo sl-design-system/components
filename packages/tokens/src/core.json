@@ -532,6 +532,10 @@
       "md": {
         "value": "{size.xl}",
         "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.2xl}",
+        "type": "sizing"
       }
     }
   },
@@ -1885,7 +1889,7 @@
           "description": "{space.button.gap.md}"
         },
         "lg": {
-          "value": "{space.sm}",
+          "value": "{space.md}",
           "type": "spacing",
           "description": "{space.button.gap.lg}"
         }

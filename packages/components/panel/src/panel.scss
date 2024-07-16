@@ -38,6 +38,7 @@
 [part='wrapper'] {
   align-items: center;
   display: flex;
+  flex: 0 0 fit-content;
   gap: 0.5rem;
   padding-inline: var(--_wrapper-padding-inline);
 }
@@ -71,6 +72,10 @@ slot[name='heading']::slotted(*) {
 
 slot[name='heading'] {
   display: block;
+}
+
+sl-tool-bar {
+  min-inline-size: 0;
 }
 
 slot[name='actions']::slotted(:first-child) {

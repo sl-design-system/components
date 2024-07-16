@@ -161,3 +161,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 // TODO: ellipsis when there is not enough space
 
 // TODO: tooltip when ellipsis applied
+
+// TODO: event on remove
+
+// TODO: event on focus or not?

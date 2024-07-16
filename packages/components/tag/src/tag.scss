@@ -76,6 +76,10 @@ $variants: default, 'white', accent, info, danger, success, warning;
   padding: 5px 8px;
 }
 
+:host([hidden]) {
+  display: none;
+}
+
 // TODO sizes
 
 .label {

@@ -108,14 +108,24 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    * - we know when we need to reposition the active tab indicator
    */
   #resizeObserver = new ResizeObserver((entries) => {
-    console.log('entries in observer', entries, entries[0], entries[0].contentRect);
-    const { contentRect } = entries[0];
-    const widthChange = contentRect.width - entries[0].target.clientWidth;
-    console.log('entry and width change', contentRect, widthChange, entries[0]);
-    this.#updateVisibility();
-    this.#shouldAnimate = false;
-    // this.#updateSize();
-    this.#shouldAnimate = true;
+    requestAnimationFrame(() => {
+      console.log('entries in observer', entries, entries[0], entries[0].contentRect);
+      const { contentRect } = entries[0];
+      const widthChange = contentRect.width - entries[0].target.clientWidth;
+      console.log('entry and width change', contentRect, widthChange, entries[0]);
+      this.#updateVisibility();
+      // this.#shouldAnimate = false;
+      // this.#updateSize();
+      // this.#shouldAnimate = true;
+    });
+    // console.log('entries in observer', entries, entries[0], entries[0].contentRect);
+    // const { contentRect } = entries[0];
+    // const widthChange = contentRect.width - entries[0].target.clientWidth;
+    // console.log('entry and width change', contentRect, widthChange, entries[0]);
+    // this.#updateVisibility();
+    // // this.#shouldAnimate = false;
+    // // this.#updateSize();
+    // // this.#shouldAnimate = true;
   });
 
   /** Manage keyboard navigation between tabs. */
@@ -156,6 +166,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Whether there should be a stacked version shown when there is not enough space. */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
 
+  #initialListWidth = 0;
+
   #hiddenLabel: number = 0;
 
   override connectedCallback(): void {
@@ -173,6 +185,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       // other elements do not change size while the tablist does.
       // this.#resizeObserver.observe(tablist);
       this.#resizeObserver.observe(this);
+
+      const list = this.renderRoot.querySelector('.list') as HTMLDivElement;
+      const listInitialWidth = Math.round(list.getBoundingClientRect().width);
+      const listInitialWidth2 = Math.round(list.offsetWidth);
+
+      this.#initialListWidth = list.scrollWidth;
+
+      console.log('list.scrollWidth in connectedCallback', listInitialWidth, listInitialWidth2, this.tags, list.scrollWidth);
     });
   }
 
@@ -244,33 +264,64 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     console.log('renderRoot on update list', this.renderRoot.querySelector('.list'));
 
     const list = this.renderRoot.querySelector('.list') as HTMLDivElement;
+    const listInitialWidth = Math.round(list.getBoundingClientRect().width);
+    const listInitialWidth2 = Math.round(list.offsetWidth);
     console.log('list.getBoundingClientRect', list.getBoundingClientRect(), Math.round(list.getBoundingClientRect().width), this.tags, this.tags[0].offsetWidth);
-    console.log('list.scrollWidth', list.scrollWidth);
+    console.log('list.scrollWidth', list.scrollWidth, Math.round(list.getBoundingClientRect().width), Math.round(list.getBoundingClientRect().width) < list.scrollWidth, listInitialWidth, listInitialWidth2);
     console.log('parentElement', this.parentElement);
     console.log('change in px', list.scrollWidth - Math.round(list.getBoundingClientRect().width));
     console.log('tag width', this.tags[0].offsetWidth, this.tags[0].clientWidth);
     let hiddenTags: Tag[] = [];
-    if ( Math.round(list.getBoundingClientRect().width) < list.scrollWidth) {
+   console.log('is resize smaller', Math.round(list.getBoundingClientRect().width) < this.#initialListWidth, Math.round(list.offsetWidth) < this.#initialListWidth, this.offsetWidth, this.offsetWidth < this.#initialListWidth );
+    if (this.offsetWidth < this.#initialListWidth/*Math.round(list.getBoundingClientRect().width) < this.#initialListWidth*/ /*list.scrollWidth*/) {
       const change = list.scrollWidth - Math.round(list.getBoundingClientRect().width);
+      // const change = this.#initialListWidth - list.scrollWidth; //Math.round(list.getBoundingClientRect().width);
+      console.log('change---', change);
       const tagsWidth = this.tags.reduce((acc, tag) => {
-        console.log('acc + tag.clientWidth', acc + tag.clientWidth, change);
-        if (acc + tag.clientWidth < change) {
+        console.log('change in acc', change, this.#initialListWidth, Math.round(list.getBoundingClientRect().width), list.scrollWidth);
+        console.log('acc + tag.clientWidth', acc + tag.clientWidth, change, acc + (tag.clientWidth/10) < change);
+        console.log('acc change', acc + (tag.clientWidth/10) < (this.#initialListWidth - Math.round(list.getBoundingClientRect().width)));
+        console.log('acc shoudl go to if',acc, tag.clientWidth, change, acc + (tag.clientWidth/10) < change);
+        if (acc + (tag.clientWidth/10) < change) {
           console.log('taaaag in acc change?', tag);
           hiddenTags.push(tag);
+          this.#hiddenLabel = hiddenTags.length;
+          // tag.style.display = 'none';
+        } else if (/*acc >= change &&*/ hiddenTags.length) {
+          const index = hiddenTags.indexOf(tag);
+          console.log('tag in acc else', tag);
+          if (index > -1) { // only splice array when item is found
+            hiddenTags.splice(index, 1); // 2nd parameter means remove one item only
+          }
+          // tag.removeAttribute('hidden');
+          console.log('hiddenTags in else in reduce...', hiddenTags, acc);
+          this.#hiddenLabel = hiddenTags.length;
+          hiddenTags.forEach(hiddenTag => hiddenTag.style.background = "yellow");
+          console.log('hiddenTags and tag in reduce', hiddenTags, tag);
         }
+        console.log('hiddenTags and acc', hiddenTags, acc);
         return acc + tag.clientWidth;
       }, 0);
+      // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+      // TODO filter all hidden tags and compare with hiddenTags and toggleAttribute
       console.log('tagsWidth', tagsWidth);
-      this.#hiddenLabel = 1;
+      console.log('hiddenTags in if', hiddenTags);
+      // this.#hiddenLabel = hiddenTags.length; //1;
       console.log('this.#hiddenLabel in if', this.#hiddenLabel);
       // this.tags[0].style.display = 'none';
     } else {
-      this.#hiddenLabel = 0;
+      this.#hiddenLabel = hiddenTags.length; //0;
+      this.tags.forEach(tag => tag.removeAttribute('hidden'));
+      // hiddenTags?.forEach(tag => tag.toggleAttribute('hidden'));
       console.log('this.#hiddenLabel in else', this.#hiddenLabel);
+      console.log('hiddenTags in else', hiddenTags);
       // this.tags[0].style.display = 'flex';
     }
 
     console.log('hiddenTags', hiddenTags);
+    this.tags.forEach(tag => tag.removeAttribute('hidden'));
+    hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+
     // TODO for each hidden tag display none or flex when necessary
 
     this.requestUpdate();

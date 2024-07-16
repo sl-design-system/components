@@ -43,7 +43,7 @@ export class GridColumn<T = any> extends LitElement {
   #width?: number;
 
   /** The alignment of the content within the column. */
-  @property() align: GridColumnAlignment = 'start';
+  @property() align?: GridColumnAlignment;
 
   /**
    * Automatically sets the width of the column based on the column contents when this is set to `true`.

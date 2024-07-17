@@ -1,7 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Icon } from '@sl-design-system/icon';
-import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type EventEmitter, RovingTabindexController, event, getScrollParent } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state, queryAssignedElements } from 'lit/decorators.js';
@@ -54,10 +53,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      // 'sl-icon': Icon,
-      // 'sl-menu-button': MenuButton,
-      // 'sl-menu-item': MenuItem,
-      'sl-tag': Tag
+      'sl-tag': Tag,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -172,6 +169,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   #previousChange = 0;
 
+  #hiddenTags: Tag[] = [];
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -233,11 +232,16 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     console.log('this.tags', this.tags);
+    const labels = this.#hiddenTags?.map((tag) => tag.label);
+    console.log('lejbels', this.#hiddenTags?.forEach((tag: Tag) => { return tag.label}), this.#hiddenTags, this.#hiddenTags[0]?.label, labels, labels.join(', '));
     return html`
     ${this.stacked && this.#hiddenLabel > 0
       ? html`
         <div class="group">
-        <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
+        <sl-tag aria-describedby="tooltip" label=${this.#hiddenLabel} readonly></sl-tag> <!-- TODO: do we need this one to be focusable due to accessibility reasons?-->
+          <sl-tooltip id="tooltip" position="top" max-width="300">
+            ${this.#hiddenTags?.map((tag) => tag.label).join(', ')}
+          </sl-tooltip>
         </div>`
       : nothing}
     <!--<div class="group" hidden-elemens="3">-->
@@ -415,6 +419,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.requestUpdate(); // TODO: whet this would be in acc the label would change too often?
     // this.#previousChange = this.#initialListWidth - Math.round(list.getBoundingClientRect().width);
+
+    this.#hiddenTags = hiddenTags;
 
     // requestAnimationFrame(() => {
       console.log('hiddenTags at the end---> in request animation frame', hiddenTags, this.tags, hiddenTags.length, this.#hiddenLabel);

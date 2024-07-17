@@ -48,17 +48,31 @@ describe('sl-tool-bar', () => {
       expect(el).to.have.attribute('role', 'toolbar');
     });
 
+    it('should not be disabled', () => {
+      expect(el.disabled).not.to.be.true;
+      expect(el).not.to.have.attribute('disabled');
+    });
+
+    it('should be disabled when set', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const children = el.children;
+      expect(children.item(0)).to.have.attribute('disabled');
+      expect(children.item(1)).to.have.attribute('disabled');
+      expect(children.item(2)).to.have.attribute('disabled');
+    });
+
     it('should have made all slotted elements visible', () => {
       const visible = Array.from(el.children).map(child => (child as HTMLElement).style.visibility);
 
       expect(visible).to.deep.equal(['visible', 'visible', 'visible']);
     });
 
-    it('should have a hidden menu button', () => {
+    it('should not have a menu button', () => {
       const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
 
-      expect(menuButton).to.exist;
-      expect(menuButton).to.have.style('visibility', 'hidden');
+      expect(menuButton).not.to.exist;
     });
 
     it('should map the slotted items', () => {
@@ -115,11 +129,10 @@ describe('sl-tool-bar', () => {
       expect(hidden).to.deep.equal(['hidden', 'hidden', 'hidden']);
     });
 
-    it('should have a visible menu button', () => {
+    it('should have a menu button', () => {
       const menuButton = el.shadowRoot?.querySelector('sl-menu-button');
 
       expect(menuButton).to.exist;
-      expect(menuButton).to.have.style('visibility', 'visible');
     });
 
     it('should have a regular menu item for the button', () => {

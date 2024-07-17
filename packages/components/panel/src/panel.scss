@@ -1,8 +1,6 @@
 :host {
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_min-heading-inline-size: 100px;
-  --_min-toolBar-inline-size: 32px;
   --_padding-block: var(--sl-space-sm);
   --_padding-inline: var(--sl-space-sm);
   --_wrapper-padding-inline: var(--sl-space-sm);
@@ -27,10 +25,7 @@
   align-items: start;
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(var(--_min-heading-inline-size), max-content) minmax(
-      var(--_min-toolBar-inline-size),
-      auto
-    );
+  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
   justify-content: space-between;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);

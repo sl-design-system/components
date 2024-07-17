@@ -1,4 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
+import '@sl-design-system/button/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';

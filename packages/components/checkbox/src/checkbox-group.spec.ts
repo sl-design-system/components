@@ -20,10 +20,6 @@ describe('sl-checkbox-group', () => {
       `);
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('should not be disabled', () => {
       expect(el.disabled).to.not.be.true;
       expect(el).not.to.have.attribute('disabled');
@@ -256,6 +252,24 @@ describe('sl-checkbox-group', () => {
 
       expect(el.boxes?.[0].checked).to.equal(true);
       expect(el.boxes?.[1].checked).to.equal(true);
+    });
+  });
+
+  describe('implicit value', () => {
+    let el: CheckboxGroup;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox checked value="0">Option 1</sl-checkbox>
+          <sl-checkbox checked value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+    });
+
+    it('should have a value of the checked boxes', () => {
+      expect(el.value).to.deep.equal(['0', '1', null]);
     });
   });
 

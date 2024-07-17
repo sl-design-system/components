@@ -51,17 +51,17 @@
     padding: 4px 8px;
   }
 
-  sl-tag:last-child {
-    &::before {
+  sl-tag {
+    &:not([label='1'])::before {
       left: calc(-1 * var(--_space) / 2);
     }
 
-    &::after {
+    &:not([label='1'], [label='2'])::after {
       left: calc(-1 * var(--_space));
     }
 
-    &::before,
-    &::after {
+    &:not([label='1'])::before,
+    &:not([label='1'], [label='2'])::after {
       position: absolute;
       content: '';
       width: 100%;

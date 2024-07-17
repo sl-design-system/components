@@ -112,7 +112,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       console.log('entries in observer', entries, entries[0], entries[0].contentRect);
       const { contentRect } = entries[0];
       const widthChange = contentRect.width - entries[0].target.clientWidth;
-      console.log('entry and width change', contentRect, widthChange, entries[0]);
+      console.log('entry and width change', contentRect, widthChange, entries[0], contentRect.width, entries[0].target.clientWidth );
       this.#updateVisibility();
       // this.#shouldAnimate = false;
       // this.#updateSize();
@@ -168,7 +168,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   #initialListWidth = 0;
 
-  #hiddenLabel: number = 0;
+  #hiddenLabel = 0;
+
+  #previousChange = 0;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -191,6 +193,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       const listInitialWidth2 = Math.round(list.offsetWidth);
 
       this.#initialListWidth = list.scrollWidth;
+
+      console.log('list-width', list.scrollWidth, list.clientWidth, list.offsetWidth)
 
       console.log('list.scrollWidth in connectedCallback', listInitialWidth, listInitialWidth2, this.tags, list.scrollWidth);
     });
@@ -230,9 +234,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     console.log('this.tags', this.tags);
     return html`
-    ${this.stacked
+    ${this.stacked && this.#hiddenLabel > 0
       ? html`
-        <div class="group" hidden-elemens="3">
+        <div class="group">
         <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
         </div>`
       : nothing}
@@ -263,6 +267,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     console.log('renderRoot on update', this.renderRoot.querySelectorAll<Tag>('sl-tag'), this.renderRoot, this.renderRoot.querySelectorAll('sl-tag'), this.tags);
     console.log('renderRoot on update list', this.renderRoot.querySelector('.list'));
 
+    const remainingSpace = this.clientWidth; // TODO: this minut place for group when more than 1 and 3 in group hidden and minus spacing
     const list = this.renderRoot.querySelector('.list') as HTMLDivElement;
     const listInitialWidth = Math.round(list.getBoundingClientRect().width);
     const listInitialWidth2 = Math.round(list.offsetWidth);
@@ -272,22 +277,58 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     console.log('change in px', list.scrollWidth - Math.round(list.getBoundingClientRect().width));
     console.log('tag width', this.tags[0].offsetWidth, this.tags[0].clientWidth);
     let hiddenTags: Tag[] = [];
+
    console.log('is resize smaller', Math.round(list.getBoundingClientRect().width) < this.#initialListWidth, Math.round(list.offsetWidth) < this.#initialListWidth, this.offsetWidth, this.offsetWidth < this.#initialListWidth );
-    if (this.offsetWidth < this.#initialListWidth/*Math.round(list.getBoundingClientRect().width) < this.#initialListWidth*/ /*list.scrollWidth*/) {
-      const change = list.scrollWidth - Math.round(list.getBoundingClientRect().width);
+    if (this.offsetWidth < this.#initialListWidth/*Math.round(list.getBoundingClientRect().width) < this.#initialListWidth*/ /*list.scrollWidth*/) { // TODO: or list.offsetWidth ??
+      const change = /*list.scrollWidth*/this.#initialListWidth - Math.round(list.getBoundingClientRect().width);
       // const change = this.#initialListWidth - list.scrollWidth; //Math.round(list.getBoundingClientRect().width);
       console.log('change---', change);
-      const tagsWidth = this.tags.reduce((acc, tag) => {
+      // let previousChange = 0;
+      const tagsWidth = this.tags.slice().reduce((acc, tag) => {
+        console.log('this.offsetWidth < this.#initialListWidth', this.offsetWidth < this.#initialListWidth, acc, this.offsetWidth, this.#initialListWidth);
         console.log('change in acc', change, this.#initialListWidth, Math.round(list.getBoundingClientRect().width), list.scrollWidth);
-        console.log('acc + tag.clientWidth', acc + tag.clientWidth, change, acc + (tag.clientWidth/10) < change);
+        console.log('acc + tag.clientWidth',acc,  acc + tag.clientWidth, change, acc + (tag.clientWidth/10) < change);
         console.log('acc change', acc + (tag.clientWidth/10) < (this.#initialListWidth - Math.round(list.getBoundingClientRect().width)));
         console.log('acc shoudl go to if',acc, tag.clientWidth, change, acc + (tag.clientWidth/10) < change);
-        if (acc + (tag.clientWidth/10) < change) {
+       // requestAnimationFrame(() => {
+          if (acc + tag.clientWidth /*(tag.clientWidth/10)*/ < change) {
+            console.log('taaaag in acc change?', tag);
+            hiddenTags.push(tag);
+            this.#hiddenLabel = hiddenTags.length;
+            console.log('hiddenTags in acc', hiddenTags, tag, change, acc, (acc + tag.clientWidth),
+              (acc + (tag.clientWidth/10) /*(tag.clientWidth/10)*/ < change),
+              (acc + (tag.clientWidth/10) /*(tag.clientWidth/10)*/ > change), change > this.#previousChange );
+            // tag.style.display = 'none';
+            // tag.style.background = "yellow"
+            console.log('previousChange > change', this.#previousChange, change, change > this.#previousChange /*this.#previousChange > change)*/);
+
+/*            if (change > this.#previousChange) {
+              tag.style.background = "yellow";
+              console.log('tag should be yellow', tag);
+              tag.setAttribute('hidden', '');
+           //   hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+              console.log('hiddenTags color yellow', hiddenTags);
+            } else if ( change < this.#previousChange && hiddenTags.length) {
+              // tag.style.background = "green";
+              this.tags?.forEach(tag => tag.style.background = 'blue');
+              hiddenTags?.forEach(tag => tag.style.background = 'darkgreen');
+              tag.style.background = "green";
+              // this.tags?.forEach(tag => tag.removeAttribute('hidden'));
+              // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+            //  tag.setAttribute('hidden', '');
+              console.log('hiddenTags color green', hiddenTags);
+            }*/
+
+          }
+         this.#previousChange = change;
+       // });
+        /*if (acc + (tag.clientWidth/10) /!*(tag.clientWidth/10)*!/ < change) {
           console.log('taaaag in acc change?', tag);
           hiddenTags.push(tag);
           this.#hiddenLabel = hiddenTags.length;
+          console.log('hiddenTags in acc', hiddenTags);
           // tag.style.display = 'none';
-        } else if (/*acc >= change &&*/ hiddenTags.length) {
+        }*/ /*else if (/!*acc >= change &&*!/ hiddenTags.length) {
           const index = hiddenTags.indexOf(tag);
           console.log('tag in acc else', tag);
           if (index > -1) { // only splice array when item is found
@@ -296,35 +337,116 @@ export class TagList extends ScopedElementsMixin(LitElement) {
           // tag.removeAttribute('hidden');
           console.log('hiddenTags in else in reduce...', hiddenTags, acc);
           this.#hiddenLabel = hiddenTags.length;
-          hiddenTags.forEach(hiddenTag => hiddenTag.style.background = "yellow");
+          // hiddenTags.forEach(hiddenTag => hiddenTag.style.background = "yellow");
           console.log('hiddenTags and tag in reduce', hiddenTags, tag);
-        }
+        }*/
+
         console.log('hiddenTags and acc', hiddenTags, acc);
-        return acc + tag.clientWidth;
-      }, 0);
-      // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
-      // TODO filter all hidden tags and compare with hiddenTags and toggleAttribute
-      console.log('tagsWidth', tagsWidth);
+        // this.#previousChange = change;
+        return acc + tag.clientWidth - 16;
+      }, 80); // TODO: first starts with 0, but better with tag group width element wth values
+
+     //  const hiddenTagsWidth = hiddenTags.slice().reduce((acc, tag) => {return acc + tag.clientWidth},0);
+     // // this.#previousChange = change;
+     //  // this.#previousChange = change;
+     //  console.log('hiddenTags.length after acc', hiddenTags.length);
+     //  // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+     //  // TODO filter all hidden tags and compare with hiddenTags and toggleAttribute
+     //  // list.style.transform = `translateX(-${hiddenTagsWidth}px)`;
+     //  list.style.marginLeft = `-${hiddenTagsWidth + 32}px`; // TODO: + gap
+      this.tags?.forEach(tag => tag.style.visibility = 'visible');
+      hiddenTags.forEach(tag => tag.style.visibility = 'hidden');
+      // console.log('tagsWidth', tagsWidth, hiddenTagsWidth, list);
       console.log('hiddenTags in if', hiddenTags);
       // this.#hiddenLabel = hiddenTags.length; //1;
       console.log('this.#hiddenLabel in if', this.#hiddenLabel);
       // this.tags[0].style.display = 'none';
     } else {
       this.#hiddenLabel = hiddenTags.length; //0;
-      this.tags.forEach(tag => tag.removeAttribute('hidden'));
+      // this.tags.forEach(tag => tag.removeAttribute('hidden'));
+      // list.style.transform = `translateX(0)`;
+      // list.style.marginLeft = '0';
+      // this.tags?.forEach(tag => tag.style.visibility = 'visible');
       // hiddenTags?.forEach(tag => tag.toggleAttribute('hidden'));
       console.log('this.#hiddenLabel in else', this.#hiddenLabel);
       console.log('hiddenTags in else', hiddenTags);
       // this.tags[0].style.display = 'flex';
     }
 
-    console.log('hiddenTags', hiddenTags);
-    this.tags.forEach(tag => tag.removeAttribute('hidden'));
-    hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+    console.log('this.tagsss', this.tags);
+
+    // this.#previousChange = this.#initialListWidth - Math.round(list.getBoundingClientRect().width);
+
+  //  this.#hiddenLabel = hiddenTags.length; // TODO: here ir's not working properly
+
+    console.log('hiddenTags at the end', hiddenTags);
+    // this.tags.forEach(tag => tag.removeAttribute('hidden'));
+    // this.tags.forEach(tag => tag.style.background = 'blue');
+    // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+    // hiddenTags.forEach(hiddenTag => hiddenTag.style.background = "yellow");
+
+    // requestAnimationFrame(() => {
+    //   console.log('hiddenTags at the end---> in request animation frame', hiddenTags, this.tags);
+    //   if (hiddenTags.length) {
+    //     const hiddenTagsWidth = hiddenTags.slice().reduce((acc, tag) => {return acc + tag.clientWidth},0);
+    //     // this.#previousChange = change;
+    //     // this.#previousChange = change;
+    //     console.log('hiddenTags.length after acc', hiddenTags.length);
+    //     // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+    //     // TODO filter all hidden tags and compare with hiddenTags and toggleAttribute
+    //     // list.style.transform = `translateX(-${hiddenTagsWidth}px)`;
+    //     // list.style.marginLeft = `-${hiddenTagsWidth + 16}px`; // TODO: + gap
+    //     // this.tags?.forEach(tag => tag.style.background = 'purple');
+    //     // hiddenTags.forEach(hiddenTag => hiddenTag.style.background = "red");
+    //     // this.tags?.forEach(tag => tag.removeAttribute('hidden'));
+    //     // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+    //     this.tags?.forEach(tag => tag.style.visibility = 'visible');
+    //     hiddenTags.forEach(tag => tag.style.visibility = 'hidden');
+    //     list.style.marginLeft = `-${hiddenTagsWidth + 16}px`; // TODO: + gap
+    //   } else {
+    //     list.style.marginLeft = 'inherit';
+    //     // this.tags?.forEach(tag => tag.style.background = 'purple');
+    //     // this.tags?.forEach(tag => tag.removeAttribute('hidden'));
+    //     this.tags?.forEach(tag => tag.style.visibility = 'visible');
+    //   }
+    // });
 
     // TODO for each hidden tag display none or flex when necessary
 
-    this.requestUpdate();
+    this.requestUpdate(); // TODO: whet this would be in acc the label would change too often?
+    // this.#previousChange = this.#initialListWidth - Math.round(list.getBoundingClientRect().width);
+
+    // requestAnimationFrame(() => {
+      console.log('hiddenTags at the end---> in request animation frame', hiddenTags, this.tags, hiddenTags.length, this.#hiddenLabel);
+      let invisibleTags = [];
+    invisibleTags = this.tags?.slice(0, this.#hiddenLabel);
+    console.log('invisibleTags', invisibleTags);
+      if (/*hiddenTags.length*/invisibleTags.length) {
+        // const hiddenTagsWidth = hiddenTags.slice().reduce((acc, tag) => {return acc + tag.clientWidth},0);
+        const hiddenTagsWidth = /*this.tags?.slice(0, this.#hiddenLabel)*/invisibleTags.reduce((acc, tag) => {return acc + tag.clientWidth - 16},0);
+
+        // this.#previousChange = change;
+        // this.#previousChange = change;
+        console.log('hiddenTags.length after acc', hiddenTags.length);
+        // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+        // TODO filter all hidden tags and compare with hiddenTags and toggleAttribute
+        // list.style.transform = `translateX(-${hiddenTagsWidth}px)`;
+        // list.style.marginLeft = `-${hiddenTagsWidth + 16}px`; // TODO: + gap
+        // this.tags?.forEach(tag => tag.style.background = 'purple');
+        // hiddenTags.forEach(hiddenTag => hiddenTag.style.background = "red");
+        // this.tags?.forEach(tag => tag.removeAttribute('hidden'));
+        // hiddenTags?.forEach(tag => tag.setAttribute('hidden', ''));
+        this.tags?.forEach(tag => tag.style.visibility = 'visible');
+        // hiddenTags.forEach(tag => tag.style.visibility = 'hidden');
+        invisibleTags.forEach(tag => tag.style.visibility = 'hidden');
+        list.style.marginLeft = `-${hiddenTagsWidth + 32}px`; // TODO: + gap
+      } else {
+        list.style.marginLeft = 'inherit';
+        // this.tags?.forEach(tag => tag.style.background = 'purple');
+        // this.tags?.forEach(tag => tag.removeAttribute('hidden'));
+        this.tags?.forEach(tag => tag.style.visibility = 'visible');
+      }
+    // });
   }
 
   // #onClick(event: Event & { target: HTMLElement }): void {

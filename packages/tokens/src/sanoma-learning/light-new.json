@@ -441,7 +441,7 @@
       },
       "border": {
         "raised": {
-          "value": "{color.neutral.faint}",
+          "value": "{color.neutral.subtle}",
           "type": "color"
         }
       }
@@ -487,6 +487,10 @@
         "value": "{color.base.black}",
         "type": "color"
       },
+      "subtle": {
+        "value": "{color.neutral.subtle}",
+        "type": "color"
+      },
       "danger": {
         "idle": {
           "value": "{color.danger.plain}",
@@ -499,6 +503,16 @@
       },
       "inverted": {
         "value": "{color.base.white}",
+        "type": "color"
+      }
+    },
+    "input": {
+      "background": {
+        "value": "{color.base.white}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.neutral.subtle}",
         "type": "color"
       }
     }

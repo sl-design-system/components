@@ -74,6 +74,12 @@
           "value": "{size.border.radius.sm}",
           "type": "borderRadius"
         }
+      },
+      "width": {
+        "default": {
+          "value": "{size.010}",
+          "type": "borderWidth"
+        }
       }
     },
     "icon": {

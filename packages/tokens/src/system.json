@@ -258,6 +258,22 @@
     "3xl": {
       "value": "{size.800}",
       "type": "spacing"
+    },
+    "input": {
+      "vertical": {
+        "md": {
+          "value": "{space.sm}-{size.border.width.default}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.md}-{size.border.width.default}",
+          "type": "spacing"
+        }
+      },
+      "horizontal": {
+        "value": "{space.md}-{size.border.width.default}",
+        "type": "spacing"
+      }
     }
   }
 }

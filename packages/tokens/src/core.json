@@ -1901,8 +1901,12 @@
         }
       },
       "list": {
-        "gap": {
+        "md": {
           "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         }
       }

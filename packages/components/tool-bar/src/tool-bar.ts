@@ -76,6 +76,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** If true, the tool-bar is disabled and cannot be interacted with. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
+  /** @internal True when the tool-bar is empty. */
+  @property({ type: Boolean, reflect: true }) empty?: boolean;
+
   /** @internal The tool bar items. */
   @state() items: ToolBarItem[] = [];
 
@@ -176,6 +179,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }) {
     const elements = event.target.assignedElements({ flatten: true });
+
+    this.empty = elements.length === 0;
 
     if (typeof this.disabled === 'boolean') {
       elements.forEach(el => el.toggleAttribute('disabled', this.disabled));

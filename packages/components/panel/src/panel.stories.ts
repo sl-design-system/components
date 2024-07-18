@@ -83,6 +83,13 @@ export const OverflowActions: Story = {
   }
 };
 
+export const WithoutActions: Story = {
+  args: {
+    ...OverflowHeading.args,
+    actions: undefined
+  }
+};
+
 export const All: Story = {
   render: () => html`
     <style>

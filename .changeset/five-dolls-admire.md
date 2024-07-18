@@ -9,11 +9,9 @@
 '@sl-design-system/magister': patch
 '@sl-design-system/max': patch
 '@sl-design-system/my-digital-book': patch
-'@sl-design-system/myvanin': patch
 '@sl-design-system/neon': patch
 '@sl-design-system/nowa-era': patch
 '@sl-design-system/sanoma-learning': patch
-'@sl-design-system/sanoma-utbildning': patch
 '@sl-design-system/teas': patch
 ---
 

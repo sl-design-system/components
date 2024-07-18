@@ -7053,7 +7053,19 @@
       "text.tag.close.md": "S:dc4c000326447e99a47298ba541e71d0f884b3fd,",
       "text.tag.close.lg": "S:67c54b02a9ef0f83226eed022b6e3cdafc6a76ef,",
       "text.dialog.message.mobile.heading": "S:9c6243c10914de58e9438ca2d7723d00d4ff76a9,",
-      "text.dialog.message.mobile.subheading": "S:12ba4d5bf94cb2600be79e550e63c38fe1cfe192,"
+      "text.dialog.message.mobile.subheading": "S:12ba4d5bf94cb2600be79e550e63c38fe1cfe192,",
+      "color.tag.subtle.close.hover.background": "S:a6ec306834afa4618e07c7b14d4722e6f30a7f4a,",
+      "color.tag.subtle.close.hover.foreground": "S:6b18d6eaf9cedf30c67c214f01d7c63aaaa286ea,",
+      "color.tag.subtle.close.hover.border": "S:b42c1d5b769b2e962785367ed127cebb5bb7e2eb,",
+      "color.tag.subtle.close.active.background": "S:d508000a7c82ccaf1a091ee2df3cd02c0bea05a0,",
+      "color.tag.subtle.close.active.foreground": "S:4d6ff15fb8ac2d1ba66c069aef82306f27d1ef5f,",
+      "color.tag.subtle.close.active.border": "S:0acc0844d1e113b4da3aa956acc07b08c9a2fe1c,",
+      "color.tag.bold.close.hover.background": "S:b208b17c7478ea0d1eb3a93ab76fb2efa889f37f,",
+      "color.tag.bold.close.hover.foreground": "S:ac350b6bbd625419dfc6cd018689f590f3baf5ae,",
+      "color.tag.bold.close.hover.border": "S:897c59279a8fc6edeb6153fc7549b65d8964014f,",
+      "color.tag.bold.close.active.background": "S:7db8d1c754838751963b9f2ce3a6e6acf62918a5,",
+      "color.tag.bold.close.active.foreground": "S:0c722b5cb5c5a70d63f5b83c08b090ec5ffc3fb4,",
+      "color.tag.bold.close.active.border": "S:50d07464a24a4f0f5d437a9e59596083624e05ba,"
     }
   },
   {

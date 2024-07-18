@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/button-group",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Button group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^1.0.1"
+    "@sl-design-system/button": "^1.0.2"
   },
   "devDependencies": {
     "lit": "^3.1.4"

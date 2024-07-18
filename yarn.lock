@@ -4633,7 +4633,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button-group@workspace:packages/components/button-group":
+"@sl-design-system/button-group@npm:^0.0.0, @sl-design-system/button-group@workspace:packages/components/button-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button-group@workspace:packages/components/button-group"
   dependencies:
@@ -5039,9 +5039,9 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button-bar": "npm:^1.0.0"
     "@sl-design-system/icon": "npm:^1.0.0"
     "@sl-design-system/shared": "npm:^0.2.12"
+    "@sl-design-system/tool-bar": "npm:^0.0.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5265,7 +5265,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/toggle-button@workspace:packages/components/toggle-button":
+"@sl-design-system/toggle-button@npm:^0.0.0, @sl-design-system/toggle-button@workspace:packages/components/toggle-button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
   dependencies:
@@ -5278,6 +5278,21 @@ __metadata:
 "@sl-design-system/tokens@workspace:packages/tokens":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tokens@workspace:packages/tokens"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/tool-bar@npm:^0.0.0, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tool-bar@workspace:packages/components/tool-bar"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:^1.0.1"
+    "@sl-design-system/button-group": "npm:^0.0.0"
+    "@sl-design-system/icon": "npm:^1.0.0"
+    "@sl-design-system/menu": "npm:^0.0.10"
+    "@sl-design-system/toggle-button": "npm:^0.0.0"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 

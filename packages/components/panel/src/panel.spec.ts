@@ -1,4 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
+import '@sl-design-system/button/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
@@ -137,6 +138,24 @@ describe('sl-panel', () => {
       expect(onToggle.lastCall.args[0]).to.be.true;
 
       await sendKeys({ press: 'Space' });
+
+      expect(onToggle).to.have.been.calledTwice;
+      expect(onToggle.lastCall.args[0]).to.be.false;
+    });
+
+    it('should emit an sl-toggle event when toggle() is called', () => {
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
+        onToggle(event.detail);
+      });
+
+      el.toggle();
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.be.true;
+
+      el.toggle();
 
       expect(onToggle).to.have.been.calledTwice;
       expect(onToggle.lastCall.args[0]).to.be.false;

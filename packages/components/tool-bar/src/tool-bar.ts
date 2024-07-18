@@ -44,6 +44,7 @@ export interface ToolBarItemGroup extends ToolBarItemBase {
 
 export type ToolBarItem = ToolBarItemButton | ToolBarItemDivider | ToolBarItemGroup;
 
+// FIXME: Once the design is finalized, move this icon to the design system.
 Icon.register(faEllipsisVertical);
 
 /**
@@ -88,6 +89,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /**
    * If true, will cause the tool bar to not have a border; useful when embedding
    * the tool-bar inside another component.
+   * FIXME: The border on this component should be removed and done by the component embedding the toolbar
    */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
@@ -131,6 +133,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       ${this.menuItems.length
         ? html`
+            <!-- FIXME: There should be an aria-label on the menu button -->
             <sl-menu-button>
               <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
@@ -159,6 +162,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  /** FIXME: The current behavior sometimes "lags" behind; look at this again to fix that. */
   #onResize(): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as HTMLElement;
     const { width: availableWidth } = wrapper.getBoundingClientRect(),

@@ -161,6 +161,6 @@ export const NoBorder: Story = {
 export const Overflow: Story = {
   args: {
     ...Basic.args,
-    width: '48px'
+    width: '100px'
   }
 };

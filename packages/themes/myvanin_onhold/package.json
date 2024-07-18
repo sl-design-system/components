@@ -1,0 +1,37 @@
+{
+  "name": "@sl-design-system/myvanin",
+  "description": "My Van In theme for the SL Design System",
+  "private": true,
+  "version": "0.1.13",
+  "license": "Apache 2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/themes/myvanin_onhold"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "**/*.css",
+    "**/*.d.ts",
+    "**/*.d.ts.map",
+    "**/*.js",
+    "**/*.js.map",
+    "**/*.json",
+    "**/*.scss",
+    "fonts/*",
+    "CHANGELOG.md"
+  ],
+  "dependencies": {
+    "@sl-design-system/icon": "1.0.0"
+  }
+}

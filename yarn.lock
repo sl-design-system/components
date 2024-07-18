@@ -4428,7 +4428,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4443,14 +4443,6 @@ __metadata:
 "@sl-design-system/bingel-int@workspace:packages/themes/bingel-int":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-int@workspace:packages/themes/bingel-int"
-  dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/bingel@workspace:packages/themes/bingel":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/bingel@workspace:packages/themes/bingel"
   dependencies:
     "@sl-design-system/icon": "npm:1.0.0"
   languageName: unknown
@@ -4479,7 +4471,7 @@ __metadata:
     "@sl-design-system/button": "npm:^1.0.1"
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4508,7 +4500,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4721,7 +4713,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4871,9 +4863,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/myvanin@workspace:packages/themes/myvanin":
+"@sl-design-system/myvanin@workspace:packages/themes/myvanin_onhold":
   version: 0.0.0-use.local
-  resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin"
+  resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin_onhold"
   dependencies:
     "@sl-design-system/icon": "npm:1.0.0"
   languageName: unknown
@@ -4882,14 +4874,6 @@ __metadata:
 "@sl-design-system/neon@workspace:packages/themes/neon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
-  dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/nowa-era@workspace:packages/themes/nowa-era":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/nowa-era@workspace:packages/themes/nowa-era"
   dependencies:
     "@sl-design-system/icon": "npm:1.0.0"
   languageName: unknown
@@ -4953,9 +4937,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning":
+"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning_onhold":
   version: 0.0.0-use.local
-  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning"
+  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning_onhold"
   dependencies:
     "@sl-design-system/icon": "npm:1.0.0"
   languageName: unknown
@@ -5023,7 +5007,7 @@ __metadata:
     lit: "npm:^3.1.4"
   peerDependencies:
     "@floating-ui/dom": ^1.6.3
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5033,7 +5017,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5043,7 +5027,7 @@ __metadata:
   dependencies:
     lit: "npm:^3.1.4"
   peerDependencies:
-    lit: ^3.1.2
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5124,6 +5108,16 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.2.12"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/toggle-button@workspace:packages/components/toggle-button":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
+  dependencies:
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

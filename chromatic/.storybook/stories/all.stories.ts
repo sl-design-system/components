@@ -16,6 +16,7 @@ import {All as AllSpinner} from '../../../packages/components/spinner/src/spinne
 import {All as AllSwitch} from '../../../packages/components/switch/src/switch.stories';
 import {All as AllTextArea} from '../../../packages/components/text-area/src/text-area.stories';
 import {All as AllTextField} from '../../../packages/components/text-field/src/text-field.stories';
+import {All as AllToggleButton} from '../../../packages/components/toggle-button/src/toggle-button.stories';
 import {All as AllTooltip} from '../../../packages/components/tooltip/src/tooltip.stories';
 import { allModes } from "../modes";
 
@@ -37,10 +38,8 @@ export default {
         'magister': allModes['magister'],
         'max': allModes['max'],
         'my-digital-book': allModes['my-digital-book'],
-        'myvanin': allModes['myvanin'],
         'neon': allModes['neon'],
         'sanoma-learning': allModes['sanoma-learning'],
-        'sanoma-utbildning': allModes['sanoma-utbildning'],
         'teas': allModes['teas'],
       },
     },
@@ -72,4 +71,5 @@ export const Spinner = {render: AllSpinner.render};
 export const Switch = {render: AllSwitch.render};
 export const TextArea = {render: AllTextArea.render};
 export const TextField = {render: AllTextField.render};
+export const ToggleButton = {render: AllToggleButton.render};
 export const Tooltip = {render: AllTooltip.render};

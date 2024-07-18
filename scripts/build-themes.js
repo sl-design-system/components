@@ -173,7 +173,6 @@ const build = async (production = false) => {
           }
         );
       }
-
       return {
         log: {
           warnings: 'disabled'

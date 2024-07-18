@@ -48,7 +48,6 @@
     { "path": "./packages/components/text-field"},
     { "path": "./packages/components/tooltip" },
     { "path": "./packages/locales" },
-    { "path": "./packages/themes/bingel" },
     { "path": "./packages/themes/bingel-dc" },
     { "path": "./packages/themes/bingel-int" },
     { "path": "./packages/themes/clickedu" },
@@ -58,9 +57,7 @@
     { "path": "./packages/themes/magister" },
     { "path": "./packages/themes/max" },
     { "path": "./packages/themes/my-digital-book" },
-    { "path": "./packages/themes/myvanin" },
     { "path": "./packages/themes/neon" },
-    { "path": "./packages/themes/nowa-era" },
     { "path": "./packages/themes/sanoma-learning" },
     { "path": "./packages/themes/teas" }
   ]

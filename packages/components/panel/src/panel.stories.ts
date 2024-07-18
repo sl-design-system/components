@@ -109,5 +109,13 @@ export const All: Story = {
       Panel 4 content
       <sl-button fill="outline" slot="actions">Action</sl-button>
     </sl-panel>
+    <sl-panel collapsible collapsed heading="Panel 5; Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat.">
+      Panel 5 content.
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+    </sl-panel>
   `
 };

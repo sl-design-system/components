@@ -1,5 +1,25 @@
 # @sl-design-system/message-dialog
 
+## 1.0.0
+
+### Major Changes
+
+- [`8e75a53`](https://github.com/sl-design-system/components/commit/8e75a5312f15ee77aa61782049acc0a4a54b8aa6) - First stable release
+
+### Patch Changes
+
+- [#1379](https://github.com/sl-design-system/components/pull/1379) [`4242ea2`](https://github.com/sl-design-system/components/commit/4242ea24a85d758a71bb8c88aa6ae8a0aba442b5) - Various improvements:
+
+  - Add `autofocus` attribute to `MessageDialogButton` config
+  - Per the documentation, cancel buttons must use `fill="outline"` and `variant="primary"`
+  - Improve API documentation
+
+- [#1392](https://github.com/sl-design-system/components/pull/1392) [`fdf3644`](https://github.com/sl-design-system/components/commit/fdf36446ce68afe58d10ace6706258a46c822579) - A message dialog should be centered on mobile, unlike the dialog
+
+- Updated dependencies [[`fdf3644`](https://github.com/sl-design-system/components/commit/fdf36446ce68afe58d10ace6706258a46c822579), [`6c7f900`](https://github.com/sl-design-system/components/commit/6c7f9004959dfbb7a715a6ecec8d82da6b1e5e9c), [`4242ea2`](https://github.com/sl-design-system/components/commit/4242ea24a85d758a71bb8c88aa6ae8a0aba442b5)]:
+  - @sl-design-system/dialog@1.0.3
+  - @sl-design-system/button@1.0.2
+
 ## 0.0.11
 
 ### Patch Changes

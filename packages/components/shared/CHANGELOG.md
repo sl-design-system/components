@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.2.13
+
+### Patch Changes
+
+- [#1407](https://github.com/sl-design-system/components/pull/1407) [`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220) - Fix typing of `SlToggleEvent` to be slightly more flexible
+
 ## 0.2.12
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tool-bar",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Tool bar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,11 +38,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^1.0.1",
-    "@sl-design-system/button-group": "^0.0.0",
-    "@sl-design-system/icon": "^1.0.0",
+    "@sl-design-system/button": "^1.0.2",
+    "@sl-design-system/button-group": "^0.0.1",
+    "@sl-design-system/icon": "^1.0.1",
     "@sl-design-system/menu": "^0.0.10",
-    "@sl-design-system/toggle-button": "^0.0.0"
+    "@sl-design-system/toggle-button": "^0.0.1"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5"

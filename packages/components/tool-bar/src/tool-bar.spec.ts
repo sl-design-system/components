@@ -48,6 +48,18 @@ describe('sl-tool-bar', () => {
       expect(el).to.have.attribute('role', 'toolbar');
     });
 
+    it('should have a default alignment', () => {
+      expect(el).not.to.have.attribute('align');
+      expect(el.align).to.be.undefined;
+    });
+
+    it('should have an alignment when set', async () => {
+      el.align = 'end';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('align', 'end');
+    });
+
     it('should not be disabled', () => {
       expect(el.disabled).not.to.be.true;
       expect(el).not.to.have.attribute('disabled');

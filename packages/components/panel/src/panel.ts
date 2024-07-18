@@ -73,7 +73,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
-          <sl-tool-bar no-border>
+          <sl-tool-bar align="end" no-border>
             <slot name="actions"></slot>
           </sl-tool-bar>
         </slot>

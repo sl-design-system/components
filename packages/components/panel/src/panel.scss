@@ -27,8 +27,6 @@
   flex: 1;
   grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
   justify-content: space-between;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
 
   > * {
     // FIXME: This is a quick hack to vertically align the heading with any action buttons
@@ -40,7 +38,8 @@
   align-items: center;
   display: flex;
   gap: 0.5rem;
-  padding-inline: var(--_wrapper-padding-inline);
+  padding-block: var(--_padding-block);
+  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }
 
 button {
@@ -76,6 +75,7 @@ slot[name='heading'] {
 
 sl-tool-bar {
   min-inline-size: 0;
+  padding-inline-end: var(--_padding-inline);
 }
 
 slot[name='actions']::slotted(:first-child) {

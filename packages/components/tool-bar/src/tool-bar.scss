@@ -2,8 +2,13 @@
   border: 1px solid var(--sl-color-palette-neutral-200);
   border-radius: var(--sl-border-radius-2xs);
   display: flex;
-  gap: 1rem;
-  padding: 0.5rem;
+}
+
+:host([align='end']) [part='wrapper'] {
+  block-size: 2rem;
+  flex-wrap: wrap;
+  justify-content: end;
+  overflow: visible clip;
 }
 
 :host([no-border]) {
@@ -21,9 +26,12 @@
   flex: 1;
   gap: 1rem;
   min-inline-size: 0;
+  padding: 0.5rem;
 }
 
 sl-menu-button {
+  margin: 0.5rem;
+
   sl-icon + hr {
     display: none;
   }

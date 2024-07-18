@@ -22,10 +22,11 @@ import '@sl-design-system/icon/register.js';
 import '@sl-design-system/toggle-button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToolBar } from './tool-bar.js';
 
-type Props = Pick<ToolBar, 'disabled' | 'noBorder'> & { items?(): TemplateResult; width?: string };
+type Props = Pick<ToolBar, 'align' | 'disabled' | 'noBorder'> & { items?(): TemplateResult; width?: string };
 type Story = StoryObj<Props>;
 
 Icon.register(
@@ -51,6 +52,10 @@ export default {
     noBorder: false
   },
   argTypes: {
+    align: {
+      control: 'inline-radio',
+      options: ['start', 'end']
+    },
     disabled: {
       control: 'boolean'
     },
@@ -58,9 +63,14 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ disabled, items, noBorder, width }) => {
+  render: ({ align, disabled, items, noBorder, width }) => {
     return html`
-      <sl-tool-bar .disabled=${disabled} ?no-border=${noBorder} style="inline-size: ${width ?? 'auto'}">
+      <sl-tool-bar
+        align=${ifDefined(align)}
+        .disabled=${disabled}
+        ?no-border=${noBorder}
+        style="inline-size: ${width ?? 'auto'}"
+      >
         ${items?.()}
       </sl-tool-bar>
     `;
@@ -115,6 +125,13 @@ export const Basic: Story = {
         Paste
       </sl-button>
     `
+  }
+};
+
+export const AlignEnd: Story = {
+  args: {
+    ...Basic.args,
+    align: 'end'
   }
 };
 

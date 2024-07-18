@@ -70,6 +70,9 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   // Observe changes to the size of the element.
   #observer = new ResizeObserver(() => this.#onResize());
 
+  /** The horizontal alignment within the tool-bar. */
+  @property({ reflect: true }) align?: 'start' | 'end';
+
   /** If true, the tool-bar is disabled and cannot be interacted with. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 

@@ -8,7 +8,6 @@
 '@sl-design-system/icon': patch
 '@sl-design-system/clickedu': patch
 '@sl-design-system/magister': patch
-'@sl-design-system/bingel': patch
 '@sl-design-system/kampus': patch
 '@sl-design-system/neon': patch
 '@sl-design-system/teas': patch

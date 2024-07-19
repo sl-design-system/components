@@ -9,7 +9,7 @@ import { type Grid } from './grid.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
-describe('sl-grid', () => {
+describe('sl-column', () => {
   let el: Grid;
   let cells: HTMLElement[];
 

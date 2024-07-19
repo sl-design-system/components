@@ -1,6 +1,6 @@
 import { type DataSource, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
-import { type GridColumn } from './column.js';
+import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
 import { type Grid } from './grid.js';
 
@@ -193,12 +193,12 @@ export class GridViewModel<T = any> {
   }
 
   #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
-    const children = columns
-      .filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup)
-      .reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
-        return [...acc, ...this.#getHeaderRows(cur.columns)];
-      }, []);
-
-    return children.length ? [[...columns], children.flat(2)] : [[...columns]];
+    const groups = columns.filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup);
+    const groupsNew = columns.map(col => (col instanceof GridColumnGroup ? col : new GridColumnGroup<T>()));
+    const columnsOutsideGroups = columns.filter((col): col is GridColumn<T> => !(col instanceof GridColumnGroup));
+    const children = groups.reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
+      return [...acc, ...this.#getHeaderRows(cur.columns)];
+    }, []);
+    return children.length ? [[...groupsNew], [...children.flat(2), ...columnsOutsideGroups]] : [[...columns]];
   }
 }

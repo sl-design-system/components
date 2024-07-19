@@ -34,7 +34,7 @@ export class GridColumnGroup<T = unknown> extends GridColumn<T> {
   }
 
   override renderHeader(): TemplateResult {
-    return html`<th colspan=${this.columns.length}>${this.header}</th>`;
+    return html`<th colspan=${Math.max(this.columns.length, 1)}>${this.header}</th>`;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

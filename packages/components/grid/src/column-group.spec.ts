@@ -6,7 +6,7 @@ import { type Grid } from './grid.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
-describe('sl-grid', () => {
+describe('sl-column-group', () => {
   let el: Grid;
 
   describe('defaults', () => {
@@ -36,13 +36,22 @@ describe('sl-grid', () => {
     it('should render column headers', () => {
       const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
 
-      expect(columns).to.deep.equal(['Name', 'Grades', 'First name', 'Last name', 'Biology', 'Maths', 'English']);
+      expect(columns).to.deep.equal([
+        'Name',
+        'Grades',
+        'First name',
+        'Last name',
+        'Biology',
+        'Maths',
+        'English',
+        'Age'
+      ]);
     });
 
     it('should have the correct width', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        312, 469, 156, 156, 156, 156, 156
+        300, 481, 151, 148, 128, 120, 128, 103
       ]);
     });
 
@@ -88,7 +97,7 @@ describe('sl-grid', () => {
     it('should have the correct width when one is set explicitly', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        200, 600, 160, 160, 160, 160, 160
+        209, 600, 177, 175, 155, 147, 155
       ]);
     });
   });

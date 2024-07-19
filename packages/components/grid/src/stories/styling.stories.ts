@@ -12,7 +12,12 @@ export interface PersonWithRating extends Person {
 }
 
 export default {
-  title: 'Layout/Grid/Styling'
+  title: 'Grid/Styling',
+  tags: ['draft'],
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 };
 
 export const NoBorders: Story = {

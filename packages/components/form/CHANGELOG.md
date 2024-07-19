@@ -1,5 +1,15 @@
 # @sl-design-system/form
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1322](https://github.com/sl-design-system/components/pull/1322) [`0f0e93c`](https://github.com/sl-design-system/components/commit/0f0e93c374f1706ce461217849d385649ed45a5a) - Move the `align-self: start` of checkbox and reverse switch to form-field. This
+  fixes the alignment issue of checkbox and switch when not used inside a form-field.
+- Updated dependencies [[`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744), [`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/inline-message@1.0.0
+  - @sl-design-system/shared@0.2.12
+
 ## 1.0.1
 
 ### Patch Changes

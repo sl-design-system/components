@@ -34,6 +34,11 @@ export default {
     disableCancel: false,
     title: 'Title'
   },
+  parameters: {
+    viewport: {
+      defaultViewport: 'default'
+    }
+  },
   render: args => {
     const { body, closeButton, disableCancel, footerButtons, headerButtons, maxWidth, subtitle, title } = args;
 
@@ -88,7 +93,7 @@ export const All: Story = {
         <span slot="subtitle">Subtitle</span>
         Body text
         <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-        <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
+        <sl-button slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
       </sl-dialog>`;
   }
 };
@@ -108,7 +113,7 @@ export const FooterButtons: Story = {
     footerButtons: () => html`
       <sl-button fill="ghost" slot="actions" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
       <sl-button fill="outline" slot="actions" variant="primary" sl-dialog-close>Action 2</sl-button>
-      <sl-button fill="solid" slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
+      <sl-button slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
     `,
     reverse: false,
     title: 'Dialog with extra footer buttons'

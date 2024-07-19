@@ -9,8 +9,13 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Filtering',
-  loaders: [async () => ({ people: (await getPeople()).people })]
+  title: 'Grid/Filtering',
+  tags: ['draft'],
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 } satisfies Meta;
 
 export const Basic: Story = {

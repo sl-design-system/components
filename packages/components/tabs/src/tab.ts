@@ -33,7 +33,7 @@ export class Tab extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Event controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Whether the tab item is disabled. */
@@ -63,13 +63,13 @@ export class Tab extends LitElement {
   /** @ignore */
   renderContent(): TemplateResult {
     return html`
-      <slot name="icon" part="icon"></slot>
+      <slot @slotchange=${this.#onIconSlotChange} name="icon" part="icon"></slot>
       <div class="content">
         <span class="title">
-          <slot></slot>
+          <slot @slotchange=${this.#onSlotChange}></slot>
           <slot name="badge" part="badge"></slot>
         </span>
-        <slot @slotchange=${this.#onSlotchange} name="subtitle" part="subtitle"></slot>
+        <slot @slotchange=${this.#onSubtitleSlotChange} name="subtitle" part="subtitle"></slot>
       </div>
     `;
   }
@@ -80,6 +80,12 @@ export class Tab extends LitElement {
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
     }
+  }
+
+  #onIconSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const hasIcon = event.target.assignedElements({ flatten: true }).length > 0;
+
+    this.toggleAttribute('has-icon', hasIcon);
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -93,7 +99,14 @@ export class Tab extends LitElement {
     }
   }
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const nodes = event.target.assignedNodes({ flatten: true }),
+      hasTitle = nodes.some(node => !!node.textContent?.trim());
+
+    this.toggleAttribute('has-title', hasTitle);
+  }
+
+  #onSubtitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const nodes = event.target.assignedNodes({ flatten: true }),
       hasSubtitle = nodes.some(node => !!node.textContent?.trim());
 

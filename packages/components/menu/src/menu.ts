@@ -43,7 +43,7 @@ export class Menu extends LitElement {
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin });
 
-  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     keydown: this.#onKeydown,
     toggle: this.#onToggle

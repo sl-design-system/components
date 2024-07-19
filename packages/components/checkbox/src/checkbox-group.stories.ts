@@ -91,6 +91,29 @@ export const Value: Story = {
   }
 };
 
+export const ImplicitValue: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group>
+        <sl-checkbox checked value="0">Option 1</sl-checkbox>
+        <sl-checkbox checked value="1">Option 2</sl-checkbox>
+        <sl-checkbox value="2">Option 3</sl-checkbox>
+      </sl-checkbox-group>
+    `
+  }
+};
+
+export const WithoutValues: Story = {
+  args: {
+    boxes: () => html`
+      <sl-checkbox>Option 1</sl-checkbox>
+      <sl-checkbox>Option 2</sl-checkbox>
+      <sl-checkbox>Option 3</sl-checkbox>
+    `,
+    value: ['on', null, null]
+  }
+};
+
 export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',

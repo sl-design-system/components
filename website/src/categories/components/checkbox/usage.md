@@ -11,8 +11,8 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-form-field label="Subjects">
-<sl-checkbox-group value="0">
-  <sl-checkbox value="0" checked>Mathematics</sl-checkbox>
+<sl-checkbox-group value='["0","2"]'>
+  <sl-checkbox value="0">Mathematics</sl-checkbox>
   <sl-checkbox value="1">Geography</sl-checkbox>
   <sl-checkbox value="2">Physics</sl-checkbox>
   <sl-checkbox value="3" disabled>History</sl-checkbox>
@@ -25,8 +25,8 @@ eleventyNavigation:
 
   ```html
   <sl-form-field label="Subjects">
-    <sl-checkbox-group value="0">
-      <sl-checkbox value="0" checked>Mathematics</sl-checkbox>
+    <sl-checkbox-group value='["0","2"]'>
+      <sl-checkbox value="0">Mathematics</sl-checkbox>
       <sl-checkbox value="1">Geography</sl-checkbox>
       <sl-checkbox value="2">Physics</sl-checkbox>
       <sl-checkbox value="3" disabled>History</sl-checkbox>
@@ -132,7 +132,7 @@ The following guidance describes when not to use the Checkbox component.
 |5|Helper Text & Hint|The help text for a checkbox group is a informative component, it provides users with guidance and clarifications related to the available options. It assists users in making informed decisions by offering context, explanations, or additional details about the purpose or implications of the choices within the group. More information about help text you can find in the **Accessibility** tab.|Yes|
 |6|Checkboxes|The checkbox group is designed with a minimum requirement of two options and allows a maximum of five selections. When the list of options exceeds this maximum limit, it's advisable to consider alternative design elements like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from a larger set of choices, ensuring a streamlined and efficient user experience.|No|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

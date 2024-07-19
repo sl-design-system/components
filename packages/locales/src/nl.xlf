@@ -11,7 +11,7 @@
   <target>Type hier om te filteren</target>
 </trans-unit>
 <trans-unit id="s58bfb494feb8eb02">
-  <source><x id="0" equiv-text="${this.getSelectedCount()}"/> selected</source>
+  <source><x id="0" equiv-text="${count}"/> selected</source>
   <target><x id="0" equiv-text="${count}"/> geselecteerd</target>
 </trans-unit>
 <trans-unit id="s629576c6b305d539">
@@ -109,6 +109,34 @@
 <trans-unit id="s13fdff160ffad275">
   <source>Clear text</source>
   <target>Wis tekst</target>
+</trans-unit>
+<trans-unit id="s5d929ff1619ac0c9">
+  <source>Search</source>
+  <target>Zoeken</target>
+</trans-unit>
+<trans-unit id="sbf1de7bf2881bae1">
+  <source>Frequently Used</source>
+  <target>Vaak gebruikt</target>
+</trans-unit>
+<trans-unit id="see63aaad45b1b116">
+  <source>state</source>
+  <target>status</target>
+</trans-unit>
+<trans-unit id="s6580790b036f0c6f">
+  <source>active</source>
+  <target>actief</target>
+</trans-unit>
+<trans-unit id="s19fe06e3408e53d0">
+  <source>success</source>
+  <target>succes</target>
+</trans-unit>
+<trans-unit id="s129fac0ae1df7c8f">
+  <source>warning</source>
+  <target>waarschuwing</target>
+</trans-unit>
+<trans-unit id="s9f7452dd75d54d31">
+  <source>error</source>
+  <target>fout</target>
 </trans-unit>
 </body>
 </file>

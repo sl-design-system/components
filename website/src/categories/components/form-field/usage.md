@@ -69,7 +69,7 @@ The hint is optional. It is used to provide additional information about the for
 |4|Form control	|Space to insert the preferred form control.|no|
 |4|Validation message	|Describes what went wrong after validation.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -93,7 +93,7 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 |Optional|`boolean`|Indicates if the form control is optional.|
 |Info|`boolean`|Shows an info icon on the end of the label to provide additional information.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -108,7 +108,7 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 |State|`default` `invalid` `disabled`|Indicates the state of the form control.|
 |Icon|`boolean`|Show an icon in front of the hint.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

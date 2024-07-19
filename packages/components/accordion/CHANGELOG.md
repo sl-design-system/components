@@ -1,5 +1,29 @@
 # @sl-design-system/accordion
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1399](https://github.com/sl-design-system/components/pull/1399) [`de05a3b`](https://github.com/sl-design-system/components/commit/de05a3b26c6a027393791ed63289feba3967eb58) - Add the ability to slot a custom summary
+
+### Patch Changes
+
+- Updated dependencies [[`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220)]:
+  - @sl-design-system/shared@0.2.13
+
+## 1.0.0
+
+### Major Changes
+
+- [#1336](https://github.com/sl-design-system/components/pull/1336) [`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744) - First stable release
+
+### Patch Changes
+
+- [#1313](https://github.com/sl-design-system/components/pull/1313) [`9732df3`](https://github.com/sl-design-system/components/commit/9732df3478609c1261ea7245a924976d0b98d87b) - Fixed color of icon on disabled items
+
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/shared@0.2.12
+
 ## 0.0.7
 
 ### Patch Changes

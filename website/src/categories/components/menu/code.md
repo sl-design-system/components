@@ -1,5 +1,5 @@
 ---
-title: Contextual menu code
+title: Menu code
 tags: code
 APIdescription: {
   sl-menu: "Component has a range of properties to define the experience in different use cases.",
@@ -8,8 +8,8 @@ APIdescription: {
   sl-menu-item-group: "Component has a range of properties to define the experience in different use cases."
 }
 eleventyNavigation:
-  parent: Contextual menu
-  key: ContextualMenuCode
+  parent: Menu
+  key: MenuCode
 ---
 
 <section>

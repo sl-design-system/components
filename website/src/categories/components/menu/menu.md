@@ -1,14 +1,14 @@
 ---
-title: Contextual menu
-description: Contextual menu description...
+title: Menu
+description: Menu description...
 componentType: overlay
-shortDescription: Contextual menu...
+shortDescription: Menu...
 layout: "categories/components/components.njk"
 tags: component
 packageName: menu
 storybookCategory: overlay
 eleventyNavigation:
   parent: Components
-  key: Contextual menu
+  key: Menu
   status: new
 ---

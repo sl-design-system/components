@@ -1,6 +1,6 @@
 {
   "layout": "categories/components/components.njk",
-  "tags": "contextual menu",
+  "tags": "menu",
   "componentStatus": "draft",
   "componentTagName": [
     {

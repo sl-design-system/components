@@ -1,9 +1,9 @@
 ---
-title: Contextual menu usage
+title: Menu usage
 tags: usage
 eleventyNavigation:
-  parent: Contextual menu
-  key: ContextualMenuUsage
+  parent: Menu
+  key: MenuUsage
 ---
 
 <section class="no-heading">
@@ -58,13 +58,13 @@ eleventyNavigation:
 <section>
 
 ## When to Use
-The following guidance describes when to use the Contextual Menu component.
+The following guidance describes when to use the Menu component.
 
 ### Contextual Actions
-Some interface elements can have additional actions, and providing a contextual menu can enhance efficiency and streamline workflow. For instance, options to view details, open related documents, or access settings, offering extra details and actions specific to the element.
+Some interface elements can have additional actions, and providing a menu can enhance efficiency and streamline workflow. For instance, options to view details, open related documents, or access settings, offering extra details and actions specific to the element.
 
 ### Reducing Visual Clutter
-Keeping a clean interface with repetitive elements (like cards or table rows), but additional actions are still necessary, a contextual menu fixes this scenario while providing access to secondary actions. For example, sorting a list of elements or changing the view of the page.
+Keeping a clean interface with repetitive elements (like cards or table rows), but additional actions are still necessary, a menu fixes this scenario while providing access to secondary actions. For example, sorting a list of elements or changing the view of the page.
 
 </section>
 
@@ -72,10 +72,10 @@ Keeping a clean interface with repetitive elements (like cards or table rows), b
 <section>
 
 ## When not to Use
-The following guidance describes when not to use the Contextual Menu component.
+The following guidance describes when not to use the Menu component.
 
 ### Primary Navigation
-Contextual menus should not be used for primary navigation in applications because they are hidden until triggered by a specific action, making them less discoverable for users. Basic actions should always be visible and accessible to ensure users can efficiently navigate to essential features without additional steps. Relying on contextual menus for primary navigation can also create inconsistency in accessing core functions by requiring users to learn multiple ways to perform basic tasks.
+Menus should not be used for primary navigation in applications because they are hidden until triggered by a specific action, making them less discoverable for users. Basic actions should always be visible and accessible to ensure users can efficiently navigate to essential features without additional steps. Relying on menus for primary navigation can also create inconsistency in accessing core functions by requiring users to learn multiple ways to perform basic tasks.
 
 </section>
 
@@ -86,7 +86,7 @@ Contextual menus should not be used for primary navigation in applications becau
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Button Menu|This is the trigger button to open the contextual menu. |no|
+|1|Button Menu|This is the trigger button to open the menu. |no|
 |2|Menu Popover |This is the container for all the options of the menu, and appears close to the button menu. |no|
 |3|Option Items | This are the menu options that can be separete on "Option Button" that behave like a regular button, "Selection Option" that can behave like a checkbox or radio button, and "Sub-Menu Button" to open a nested menu. |no|
 |4|Group Heading |Title for the option groups to make eaiser to understand the function of the options. |yes|
@@ -103,7 +103,7 @@ Contextual menus should not be used for primary navigation in applications becau
 <section>
 
 ## Variants
-Contextual Menu comes in two versions, each suited for specific situations:
+Menu comes in two versions, each suited for specific situations:
 
   - **Button Option:** It triggers an immediate action or opens a submenu with further options. This variant is typically used for actions that have a direct and immediate effect, such as "Save," "Delete," or "Submit".
 

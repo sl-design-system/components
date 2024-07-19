@@ -1,9 +1,9 @@
 ---
-title: Contextual menu specs
+title: Menu specs
 tags: specs
 eleventyNavigation:
-  parent: Contextual menu
-  key: ContextualMenuSpecs
+  parent: Menu
+  key: MenuSpecs
 ---
 <section>
 

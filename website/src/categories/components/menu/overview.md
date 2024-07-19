@@ -1,9 +1,9 @@
 ---
-title: Contextual menu overview
+title: Menu overview
 tags: overview
 eleventyNavigation:
-  parent: Contextual menu
-  key: ContextualMenuOverview
+  parent: Menu
+  key: MenuOverview
 ---
 
 <section>

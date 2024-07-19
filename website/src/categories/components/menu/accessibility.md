@@ -1,9 +1,9 @@
 ---
-title: Contextual menu accessibility
+title: Menu accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Contextual menu
-  key: ContextualMenuAccessibility
+  parent: Menu
+  key: MenuAccessibility
 ---
 
 <section> 
@@ -14,10 +14,10 @@ eleventyNavigation:
 
 |Command|Description|
 |-|-|
-|Space/Enter | Open the contextual menu and the sub-menus. When you open the menu, the focus move to the first option.|
-|Up & Down | Once you have open the contextual menu. You can move between options with the `up` and `down` keys. The focus indicator loops, so when you are at the last option and press `down` it will focus on the first option. And if you are at the first option and press `up` it'll focus the last option.|
+|Space/Enter | Open the menu and the sub-menus. When you open the menu, the focus move to the first option.|
+|Up & Down | Once you have open the menu. You can move between options with the `up` and `down` keys. The focus indicator loops, so when you are at the last option and press `down` it will focus on the first option. And if you are at the first option and press `up` it'll focus the last option.|
 |Right | When you are in a sub-menu option `right` key open it and the focus move to the first option.|
-|Right & Esc | This keys close the contextual menu. But, when you are in a sub-menu `right` & `esc` keys close it and the focus move parent option. This works from any option, doesn't matter wher you are.|
+|Right & Esc | This keys close the menu. But, when you are in a sub-menu `right` & `esc` keys close it and the focus move parent option. This works from any option, doesn't matter wher you are.|
 
 
 {.ds-table .ds-table-align-top}

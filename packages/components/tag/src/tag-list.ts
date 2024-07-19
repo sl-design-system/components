@@ -474,12 +474,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     const reversedTags = this.tags.slice().reverse();
 
 // Reduce function to check whether a tag should be hidden and add it to the hidden tags array
-    const reduceFn = reversedTags.reduce((acc: { visibleTags: Tag[], remainingWidth: number }, tag: Tag) => {
+    const reduceFn = reversedTags.reduce((acc: { visibleTags: Tag[], remainingWidth: number, hiddenTagsWidth: number }, tag: Tag) => {
 
       // Get the actual rendered width using offsetWidth
       const tagWidth = tag.offsetWidth; //tempSpan.offsetWidth;
 
-        console.log('reduceFn acc.remainingWidth tagwidth', acc.remainingWidth, tagWidth, parentElement.clientWidth);
+        console.log('reduceFn acc.remainingWidth tagwidth', acc.remainingWidth, tagWidth, parentElement.clientWidth, tag);
 
       // Check if there is enough space for the tag
       if (acc.remainingWidth >= tagWidth) {
@@ -487,12 +487,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         acc.remainingWidth -= tagWidth;
       } else {
         // Otherwise, add the tag to the hidden tags array
-        hiddenTags2.push(tag);
+        hiddenTags2.push(tag); // TODO accumulate tag width here to move to the left
+        acc.hiddenTagsWidth += tagWidth;
       }
 
       return acc;
     }
-  , { visibleTags: [], remainingWidth: parentElement.clientWidth });
+  , { visibleTags: [], remainingWidth: (parentElement.clientWidth/* - groupEl?.clientWidth*/), hiddenTagsWidth: 0 });
 
     console.log('reduceFn', hiddenTags2, reduceFn, groupEl, this.renderRoot, groupEl?.offsetWidth, groupEl?.clientWidth, groupEl?.getBoundingClientRect().width);
 
@@ -503,7 +504,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.#hiddenLabel = hiddenTags2.length;
     this.requestUpdate();
-
   }
 
   // #onClick(event: Event & { target: HTMLElement }): void {

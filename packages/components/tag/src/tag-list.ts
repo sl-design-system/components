@@ -474,7 +474,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     const reversedTags = this.tags.slice().reverse();
 
 // Reduce function to check whether a tag should be hidden and add it to the hidden tags array
-    const reduceFn = reversedTags.reduce((acc: { visibleTags: Tag[], remainingWidth: number, hiddenTagsWidth: number }, tag: Tag) => {
+    const reduceFn = reversedTags.reduce((acc: { visibleTags: Tag[], remainingWidth: number, hiddenTagsWidth: number, visibleTagsWidth: number}, tag: Tag) => {
 
       // Get the actual rendered width using offsetWidth
       const tagWidth = tag.offsetWidth; //tempSpan.offsetWidth;
@@ -482,23 +482,51 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         console.log('reduceFn acc.remainingWidth tagwidth', acc.remainingWidth, tagWidth, parentElement.clientWidth, tag);
 
       // Check if there is enough space for the tag
-      if (acc.remainingWidth >= tagWidth) {
+      if (acc.remainingWidth >= (tagWidth /** 2*/)) {
         acc.visibleTags.push(tag);
         acc.remainingWidth -= tagWidth;
+        acc.visibleTagsWidth += tagWidth;
+        // tag.style.display = 'inline-flex'
       } else {
         // Otherwise, add the tag to the hidden tags array
         hiddenTags2.push(tag); // TODO accumulate tag width here to move to the left
         acc.hiddenTagsWidth += tagWidth;
+        // tag.style.display = 'none'
       }
 
       return acc;
     }
-  , { visibleTags: [], remainingWidth: (parentElement.clientWidth/* - groupEl?.clientWidth*/), hiddenTagsWidth: 0 });
+  , { visibleTags: [], remainingWidth: (parentElement.clientWidth - 100/* - groupEl?.clientWidth*/), hiddenTagsWidth: 0, visibleTagsWidth: 0 });
 
-    console.log('reduceFn', hiddenTags2, reduceFn, groupEl, this.renderRoot, groupEl?.offsetWidth, groupEl?.clientWidth, groupEl?.getBoundingClientRect().width);
 
-    // hiddenTags2.forEach(tag => tag.style.visibility = 'hidden');
-    // reduceFn.visibleTags?.forEach(visible => visible.style.visibility = 'visible');
+    console.log('reduceFn', hiddenTags2, reduceFn, groupEl, this.renderRoot, groupEl?.offsetWidth, groupEl?.clientWidth, groupEl?.getBoundingClientRect().width, (reduceFn.hiddenTagsWidth + groupEl?.getBoundingClientRect().width));
+
+    // list.style.marginLeft = `-${reduceFn.hiddenTagsWidth + groupEl?.getBoundingClientRect().width}px`; // TODO: + gap
+
+    if (hiddenTags2.length) {
+      // list.style.width = `${reduceFn.visibleTagsWidth + reduceFn.remainingWidth - 70}px`;
+      // list.style.width = `${reduceFn.visibleTagsWidth + 16}px`; // width + 16px gap between group and list
+      list.style.flexBasis = `${reduceFn.visibleTagsWidth + 70}px`; // TODO: 70 aproximately a sum of group width and gap between group and label
+      // list.style.transform = `translateX(-${reduceFn.remainingWidth}px)`;
+    } else {
+      list.style.width = 'auto';
+      list.style.flexBasis = 'auto';
+
+      // list.style.transform = `translateX(0)`;
+    }
+
+    // reduceFn.hiddenTagsWidth
+
+    hiddenTags2.forEach(tag => tag.style.visibility = 'hidden');
+    reduceFn.visibleTags?.forEach(visible => visible.style.visibility = 'visible');
+/*    setTimeout(() => {
+      hiddenTags2.forEach(tag => tag.style.display = 'none');
+      reduceFn.visibleTags?.forEach(visible => visible.style.display = 'inline-flex');
+      this.#hiddenLabel = hiddenTags2.length;
+      this.requestUpdate();
+    });*/
+    // hiddenTags2.forEach(tag => tag.style.display = 'none');
+    // reduceFn.visibleTags?.forEach(visible => visible.style.display = 'inline-flex');
     // TODO: use remainingwidth for the marginleft of translateX
     // TODO: remaining width not working properly?
 
@@ -726,3 +754,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
 
 // TODO: resize observer to hide tags?
+
+
+// TODO: arrow keys only thorugh visible tags, not all

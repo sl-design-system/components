@@ -35,7 +35,17 @@
     display: flex;
     overflow: hidden;
     gap: 4px; // TODO: need a token for this one
-    flex-wrap: nowrap;
+    //flex-wrap: nowrap;
+
+    //display: flex;
+    height: 30px; // TODO: depending on tag size height
+    //gap: 4px;
+    overflow-x: clip;
+    //width: 1006px;
+    flex-direction: column;
+    flex-basis: auto;
+    align-content: flex-end;
+    width: auto;
   }
 }
 

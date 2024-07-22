@@ -1986,6 +1986,10 @@
         "value": "{borderRadius.default} - 1px",
         "type": "borderRadius"
       },
+      "inside": {
+        "value": "{borderRadius.default} - 1",
+        "type": "borderRadius"
+      },
       "checkbox": {
         "value": "{borderRadius.checkbox} - 1px",
         "type": "borderRadius"
@@ -2112,6 +2116,10 @@
       "focusring": {
         "default": {
           "value": "{border.width.sm}",
+          "type": "borderWidth"
+        },
+        "inside": {
+          "value": "{border.width.xs}",
           "type": "borderWidth"
         },
         "offset": {

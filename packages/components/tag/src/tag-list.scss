@@ -22,6 +22,7 @@
   //border-radius: 8px;
   //padding: 4px 4px 4px 8px;
   //background-color: #6FBCFB;
+  --_gap: 4px;
 
   @media (prefers-reduced-motion: no-preference) {
     --_spin-duration: 1200ms;
@@ -34,7 +35,7 @@
   .list {
     display: flex;
     overflow: hidden;
-    gap: 4px; // TODO: need a token for this one
+    gap: var(--_gap); //4px; // TODO: need a token for this one
     //flex-wrap: nowrap;
 
     //display: flex;

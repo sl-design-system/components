@@ -58,10 +58,10 @@ export default {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
-  render: ({ label, removable }) => html`
-    <sl-tag label=${label} ?removable=${removable}></sl-tag>
-    <sl-tag label=${label} ?removable=${removable} disabled></sl-tag>
-    <sl-tag label=${label} ?removable=${removable} readonly></sl-tag>`
+  render: ({ label, removable, size }) => html`
+    <sl-tag label=${label} ?removable=${removable} .size=${size}></sl-tag>
+    <sl-tag label=${label} ?removable=${removable} .size=${size} disabled></sl-tag>
+    <sl-tag label=${label} ?removable=${removable} .size=${size} readonly></sl-tag>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
@@ -164,47 +164,40 @@ export const All: Story = {
   render: () => {
     return html`
       <style>
-        table {
-          border-collapse: collapse;
-          margin-bottom: 24px;
-        }
-
-        th {
-          text-transform: capitalize;
-        }
-        th,
-        td {
-          padding: 4px 8px;
+        sl-tag {
+          margin: 8px;
         }
       </style>
-      <table>
-        <thead>
-          <tr>
-            <th>Size</th>
-            <th>Default<sup>*</sup></th>
-            ${variants.map(variant => html`<th>${variant}</th>`)}
-          </tr>
-        </thead>
-        <tbody>
-          ${sizes.map(
-            size =>
-              html` <tr>
-                <th>${sizeName(size)}</th>
-                <td>
-                  <sl-spinner .size=${size}></sl-spinner>
-                </td>
-                ${variants.map(
-                  variant =>
-                    html`<td>
-                      <sl-spinner .variant=${variant} .size=${size}></sl-spinner>
-                    </td>`
-                )}
-              </tr>`
-          )}
-        </tbody>
-      </table>
-      * When no variant is set the color will be set to CurrentColor; so the color of the text in the container wrapping
-      the spinner.
+
+        <h2>Subtle</h2>
+        <sl-tag label="label" size="md"></sl-tag>
+        <sl-tag label="label" removable size="md"></sl-tag>
+        <sl-tag label="tag label" size="md" disabled></sl-tag>
+        <sl-tag label="tag label" removable size="md" disabled></sl-tag>
+        <sl-tag label="label" size="md" readonly></sl-tag>
+        <sl-tag label="label" removable size="md" readonly></sl-tag>
+
+        <sl-tag label="label" size="lg"></sl-tag>
+        <sl-tag label="label" removable size="lg"></sl-tag>
+        <sl-tag label="tag label" size="lg" disabled></sl-tag>
+        <sl-tag label="tag label" removable size="lg" disabled></sl-tag>
+        <sl-tag label="label" size="lg" readonly></sl-tag>
+        <sl-tag label="label" removable size="lg" readonly></sl-tag>
+
+        <h2>Bold</h2>
+        <sl-tag emphasis="bold" label="label" size="md"></sl-tag>
+        <sl-tag emphasis="bold" label="label" removable size="md"></sl-tag>
+        <sl-tag emphasis="bold" label="tag label" size="md" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="tag label" removable size="md" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="label" size="md" readonly></sl-tag>
+        <sl-tag emphasis="bold" label="label" removable size="md" readonly></sl-tag>
+
+        <sl-tag emphasis="bold" label="label" size="lg"></sl-tag>
+        <sl-tag emphasis="bold" label="label" removable size="lg"></sl-tag>
+        <sl-tag emphasis="bold" label="tag label" size="lg" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="tag label" removable size="lg" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="label" size="lg" readonly></sl-tag>
+        <sl-tag emphasis="bold" label="label" removable size="lg" readonly></sl-tag>
     `;
   }
 };

@@ -461,7 +461,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
 
 
-
+    const tagGap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0');
 
     // Parent element (you can replace this with the actual parent element)
     const parentElement = this; //document.getElementById("parent"); // Replace "parent" with your actual element ID
@@ -482,10 +482,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         console.log('reduceFn acc.remainingWidth tagwidth', acc.remainingWidth, tagWidth, parentElement.clientWidth, tag);
 
       // Check if there is enough space for the tag
-      if (acc.remainingWidth >= (tagWidth /** 2*/)) {
+      if (acc.remainingWidth >= (tagWidth /** 1.2*/ * 2)) {
         acc.visibleTags.push(tag);
         acc.remainingWidth -= tagWidth;
-        acc.visibleTagsWidth += tagWidth;
+        acc.visibleTagsWidth += tagWidth + tagGap;
         // tag.style.display = 'inline-flex'
       } else {
         // Otherwise, add the tag to the hidden tags array
@@ -494,10 +494,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         // tag.style.display = 'none'
       }
 
+      console.log('acc inside reduce', acc, tag, tag.offsetLeft, tag.getBoundingClientRect(), tagGap);
+
       return acc;
     }
-  , { visibleTags: [], remainingWidth: (parentElement.clientWidth - 100/* - groupEl?.clientWidth*/), hiddenTagsWidth: 0, visibleTagsWidth: 0 });
+  , { visibleTags: [], remainingWidth: (parentElement.clientWidth - 50 /*- 100*//* - groupEl?.clientWidth*/), hiddenTagsWidth: 0, visibleTagsWidth: 0 }); // TODO: hidden remaining width
 
+    console.log('after reduce', reduceFn, tagGap);
 
     console.log('reduceFn', hiddenTags2, reduceFn, groupEl, this.renderRoot, groupEl?.offsetWidth, groupEl?.clientWidth, groupEl?.getBoundingClientRect().width, (reduceFn.hiddenTagsWidth + groupEl?.getBoundingClientRect().width));
 
@@ -506,7 +509,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     if (hiddenTags2.length) {
       // list.style.width = `${reduceFn.visibleTagsWidth + reduceFn.remainingWidth - 70}px`;
       // list.style.width = `${reduceFn.visibleTagsWidth + 16}px`; // width + 16px gap between group and list
-      list.style.flexBasis = `${reduceFn.visibleTagsWidth + 70}px`; // TODO: 70 aproximately a sum of group width and gap between group and label
+      list.style.flexBasis = `${reduceFn.visibleTagsWidth}px`; //`calc(100% - 46px - ${reduceFn.remainingWidth}px)`; // 46px gap and width of group  //`${reduceFn.visibleTagsWidth + 70}px`; // TODO: 70 aproximately a sum of group width and gap between group and label
       // list.style.transform = `translateX(-${reduceFn.remainingWidth}px)`;
     } else {
       list.style.width = 'auto';
@@ -529,7 +532,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // reduceFn.visibleTags?.forEach(visible => visible.style.display = 'inline-flex');
     // TODO: use remainingwidth for the marginleft of translateX
     // TODO: remaining width not working properly?
-
+// TODO: maybe sth with grid template columns 24px minmax(100px, 1924px) ???
     this.#hiddenLabel = hiddenTags2.length;
     this.requestUpdate();
   }

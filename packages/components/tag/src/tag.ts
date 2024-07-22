@@ -5,6 +5,7 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } f
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
 import {EventsController} from "@sl-design-system/shared";
+import {BadgeEmphasis} from "@sl-design-system/badge";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -14,6 +15,7 @@ declare global {
 
 export type TagSize =  'md' | 'lg' ;
 export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning';
+export type TagEmphasis = 'subtle' | 'bold';
 
 /**
  * Let the user know you are processing their data or that the (part of the) page is loading.
@@ -43,7 +45,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     // focusout: this.#onFocusout
   });
 
-  /** The size of the spinner. Defaults to `md` with css properties if not attribute is not set. */
+  /** The size of the tag. Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
 
   /** The spinner variant. */
@@ -60,6 +62,9 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
   /** Whether you can interact with the tag or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
+
+  /** The emphasis of the badge; defaults to 'subtle'. */
+  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
 
   // readonly?
 

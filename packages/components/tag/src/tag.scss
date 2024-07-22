@@ -1,5 +1,6 @@
 $sizes: 'md', 'lg';
 $variants: default, 'white', accent, info, danger, success, warning;
+$emphases: subtle, bold;
 
 :host {
  // --sl-spinner-size: var(--sl-size-spinner-md);
@@ -20,11 +21,23 @@ $variants: default, 'white', accent, info, danger, success, warning;
   vertical-align: middle;
   //border: 1px solid #8D959D;
   border-radius: 4px;
-  padding: 3px 8px;
-  background-color: #3366FF; //#6FBCFB;
+  //padding: 3px 8px;
+  //background-color: #3366FF; //#6FBCFB;
   color: var(--_color);
   transition: background-color 200ms linear;
   font-size: 12px;
+
+ // --_background: var(--sl-color-tag-subtle-idle-background);
+
+
+
+  --_font: var(--sl-text-tag-label-md); // TODO: order alphabetically
+  --_padding-block: var(--sl-space-tag-block-md) var(--sl-space-tag-block-md);
+  --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
+
+  font: var(--_font);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline); // TODO: separated padding block and inline
 
 
   @media (prefers-reduced-motion: no-preference) {
@@ -32,25 +45,70 @@ $variants: default, 'white', accent, info, danger, success, warning;
   }
 }
 
-:host(:hover) {
-  background: #2351DB;
+@each $emphasis in $emphases {
+  :host([emphasis='#{$emphasis}']) {
+    background: var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
+
+    //&[disabled] {
+    //  background: #0B331A;
+    //}
+  }
+
+  :host([emphasis='#{$emphasis}'][disabled]) {
+    background: var(--sl-color-tag-#{$emphasis}-disabled-background);
+    color: var(--sl-color-tag-#{$emphasis}-disabled-foreground);
+  }
+
+  :host([emphasis='#{$emphasis}']:hover:not([disabled])) {
+    background: var(--sl-color-tag-#{$emphasis}-hover-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    color: var(--sl-color-tag-#{$emphasis}-hover-foreground);
+  }
+
+  :host([emphasis='#{$emphasis}']:focus:not([disabled])) {
+    background: var(--sl-color-tag-#{$emphasis}-active-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    color: var(--sl-color-tag-#{$emphasis}-active-foreground);
+    outline: var(--_focus-outline);
+    outline-offset: var(--_focus-outline-offset);
+  }
 }
+
+:host([size='lg']) {
+  --_padding-block: var(--sl-space-tag-block-lg) var(--sl-space-tag-block-lg);
+  --_padding-inline: var(--sl-space-tag-inline-lg) var(--sl-space-tag-inline-lg);
+
+  //--_font: var(--sl-text-tag-label-lg);
+  //
+  //--_badge-inset: var(--sl-space-avatar-badge-inset-lg);
+  //--_block-gap: var(--sl-space-avatar-block-lg);
+  //--_icon-size: var(--sl-size-icon-lg);
+  //--_inline-gap: var(--sl-space-avatar-inline-lg);
+  //--_heading-font: var(--sl-text-avatar-header-lg);
+  //--_initials-font: var(--sl-text-avatar-initials-lg);
+  //--_picture-size: var(--sl-size-avatar-lg);
+  //--_subheading-font: var(--sl-text-avatar-subheader-lg);
+}
+
+
+//:host(:hover) {
+//  background: #2351DB;
+//}
 
 :host(:active) {
   background: #1138AD;
 }
 
-:host(:focus) {
-  //outline: var(--_focus-outline);
-  //outline-offset: var(--_focus-outline-offset);
-  background: #0B331A;
-}
+//:host(:focus) {
+//  //outline: var(--_focus-outline);
+//  //outline-offset: var(--_focus-outline-offset);
+//  background: #0B331A;
+//}
 
-:host(:focus-visible) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-  background: #0B331A;
-}
+//:host(:focus-visible) {
+//  outline: var(--_focus-outline);
+//  outline-offset: var(--_focus-outline-offset);
+//  background: #0B331A;
+//}
 
 :host([disabled]) {
   background: #A2A1A1;
@@ -73,7 +131,7 @@ $variants: default, 'white', accent, info, danger, success, warning;
 
 :host([size='lg']) { // TODO: change it later
   // --sl-spinner-size: var(--sl-size-spinner-#{$size});
-  padding: 5px 8px;
+ // padding: 5px 8px;
 }
 
 :host([hidden]) {

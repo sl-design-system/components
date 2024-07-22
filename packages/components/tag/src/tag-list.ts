@@ -31,7 +31,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
 let nextUniqueId = 0;
 
 /**
- * A tab group component that can contain tabs and tab panels.
+ * A tab group component that can contain tags.
  *
  * ```html
  *   <sl-tag-list>

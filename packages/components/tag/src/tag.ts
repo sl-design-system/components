@@ -1,11 +1,9 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
 import {EventsController} from "@sl-design-system/shared";
-import {BadgeEmphasis} from "@sl-design-system/badge";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,10 +16,10 @@ export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning
 export type TagEmphasis = 'subtle' | 'bold';
 
 /**
- * Let the user know you are processing their data or that the (part of the) page is loading.
+ * A tag component containing label.
  *
  * ```html
- * <sl-spinner></sl-spinner>
+ * <sl-tag></sl-tag>
  * ```
  *
  * @cssprop --sl-spinner-size - The size of the spinner, defaults to `md` if not set.
@@ -30,7 +28,6 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
       'sl-icon': Icon
     };
   }
@@ -99,7 +96,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
         ${this.label}
       </div>
         ${this.removable
-          ? html`<sl-button fill="ghost" size="sm"><sl-icon name="xmark"></sl-icon></sl-button>`
+          ? html`<button @click=${this.#onRemoveClick} class="remove-button" tabindex="-1"><sl-icon name="xmark" .size=${this.size}></sl-icon></button>`
           : nothing}
     `;
   } // TODO: aria-label for button only or for the whole component?
@@ -108,6 +105,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   // TODO: only tag component needs to be focusable, not close icon
 
   #onClick(event: Event): void {
+    console.log('target', event.target);
     console.log('readonly on click?', this.readonly);
     if (this.disabled || this.readonly) {
       event.preventDefault();
@@ -119,11 +117,19 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
     event.preventDefault();
     event.stopPropagation();
+    // TODO: remove?
     // this.focus();
     // TOD: maybe selected state?
 
     // this.checked = !this.checked;
     // this.changeEvent.emit(this.formValue);
+  }
+
+  #onRemoveClick(event: Event) {
+    console.log('target on btn remove', event, event.target);
+    event.preventDefault();
+    event.stopPropagation();
+    this.remove();
   }
 
 } // TODO: or maybe slot instead of label?

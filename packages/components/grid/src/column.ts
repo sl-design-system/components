@@ -160,6 +160,7 @@ export class GridColumn<T = any> extends LitElement {
     if (typeof this.parts === 'string') {
       parts = this.parts.split(' ');
     } else if (typeof this.parts === 'function' && item) {
+      // TODO: what does this do? How can parts ever be a function? According to the typing this should not be possible.
       parts = this.parts(item)?.split(' ') ?? [];
     }
 

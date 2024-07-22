@@ -3938,6 +3938,10 @@
       "default": {
         "value": "{color.palette.accent.base}",
         "type": "color"
+      },
+      "inversed": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
       }
     },
     "popover": {

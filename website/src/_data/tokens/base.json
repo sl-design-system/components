@@ -1379,38 +1379,6 @@
             "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
           }
         },
-        "tag": {
-          "sm": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.md}",
-              "fontSize": "{text.typeset.fontSize.md}"
-            },
-            "type": "typography",
-            "description": "UPDATED - Line height md from 22px to 20px"
-          },
-          "md": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.md}",
-              "fontSize": "{text.typeset.fontSize.md}"
-            },
-            "type": "typography",
-            "description": "UPDATED - Line height md from 22px to 20px"
-          },
-          "lg": {
-            "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.lg}",
-              "fontSize": "{text.typeset.fontSize.lg}"
-            },
-            "type": "typography",
-            "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
-          }
-        },
         "hint": {
           "sm": {
             "value": {
@@ -1913,6 +1881,48 @@
         },
         "type": "typography"
       }
+    },
+    "tag": {
+      "label": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "type": "typography"
+        }
+      },
+      "close": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1974,6 +1984,10 @@
     "focusring": {
       "default": {
         "value": "{borderRadius.default} - 1px",
+        "type": "borderRadius"
+      },
+      "inside": {
+        "value": "{borderRadius.default} - 1",
         "type": "borderRadius"
       },
       "checkbox": {
@@ -2104,6 +2118,10 @@
           "value": "{border.width.sm}",
           "type": "borderWidth"
         },
+        "inside": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
         "offset": {
           "value": "{border.width.sm}",
           "type": "borderWidth"
@@ -2174,6 +2192,10 @@
           "value": "{border.width.xs}",
           "type": "borderWidth"
         }
+      },
+      "tag": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
       }
     }
   },

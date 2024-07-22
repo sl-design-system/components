@@ -317,6 +317,10 @@
       }
     },
     "icon": {
+      "3xs": {
+        "value": "5",
+        "type": "sizing"
+      },
       "2xs": {
         "value": "10px",
         "type": "sizing"
@@ -401,6 +405,15 @@
         "value": "100%",
         "type": "sizing",
         "description": "size.input.lg"
+      },
+      "message": {
+        "mobile": {
+          "min": {
+            "value": "300px",
+            "type": "sizing",
+            "description": "size.input.md"
+          }
+        }
       }
     },
     "badge": {
@@ -510,6 +523,20 @@
     "progressbar": {
       "value": "{size.3xs}",
       "type": "sizing"
+    },
+    "tag": {
+      "counter": {
+        "value": "{borderRadius.default} + {borderRadius.default}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.xl}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.2xl}",
+        "type": "sizing"
+      }
     }
   },
   "space": {
@@ -1141,6 +1168,24 @@
           "value": "{space.none}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
+        }
+      },
+      "message": {
+        "mobile": {
+          "container": {
+            "paddingLeft": {
+              "value": "{space.xl}",
+              "type": "spacing"
+            },
+            "paddingRight": {
+              "value": "{space.xl}",
+              "type": "spacing"
+            },
+            "inline": {
+              "value": "100%",
+              "type": "spacing"
+            }
+          }
         }
       }
     },
@@ -1811,6 +1856,66 @@
           "type": "spacing"
         }
       }
+    },
+    "tag": {
+      "block": {
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.block.lg"
+        }
+      },
+      "inline": {
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "lg": {
+          "value": "{space.md}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.lg"
+        }
+      },
+      "gap": {
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing",
+          "description": "{space.button.gap.md}"
+        },
+        "lg": {
+          "value": "{space.md}",
+          "type": "spacing",
+          "description": "{space.button.gap.lg}"
+        }
+      },
+      "counter": {
+        "gap": {
+          "value": "- {borderRadius.default} / 2",
+          "type": "spacing"
+        }
+      },
+      "list": {
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.xs} + {space.2xs}",
+          "type": "spacing"
+        }
+      }
+    },
+    "focus": {
+      "gap": {
+        "value": "{border.width.focusring.default}+{border.width.focusring.offset}",
+        "type": "spacing"
+      }
     }
   },
   "text": {
@@ -2101,6 +2206,30 @@
             "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
+        }
+      }
+    },
+    "dialog": {
+      "message": {
+        "mobile": {
+          "heading": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{icon.typeset.fontSize.md}"
+            },
+            "type": "typography"
+          },
+          "subheading": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{icon.typeset.fontSize.sm}"
+            },
+            "type": "typography"
+          }
         }
       }
     }

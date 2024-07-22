@@ -1,5 +1,14 @@
 # @sl-design-system/checkbox
 
+## 1.0.3
+
+### Patch Changes
+
+- [#1421](https://github.com/sl-design-system/components/pull/1421) [`5051056`](https://github.com/sl-design-system/components/commit/5051056f67d8b25d96885d01c2fe7dde9e4c5ba4) - Fix group value not reflecting initial checked state
+
+- Updated dependencies [[`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220)]:
+  - @sl-design-system/shared@0.2.13
+
 ## 1.0.2
 
 ### Patch Changes

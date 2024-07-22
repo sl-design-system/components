@@ -1,3 +1,4 @@
+import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -18,6 +19,9 @@ export default {
   argTypes: {
     actions: {
       table: { disable: true }
+    },
+    collapsed: {
+      control: 'boolean'
     },
     content: {
       table: { disable: true }
@@ -79,6 +83,13 @@ export const OverflowActions: Story = {
   }
 };
 
+export const WithoutActions: Story = {
+  args: {
+    ...OverflowHeading.args,
+    actions: undefined
+  }
+};
+
 export const All: Story = {
   render: () => html`
     <style>
@@ -96,6 +107,14 @@ export const All: Story = {
     <sl-panel collapsible heading="Panel 3">Panel 3 content</sl-panel>
     <sl-panel collapsible collapsed heading="Panel 4">
       Panel 4 content
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+    </sl-panel>
+    <sl-panel collapsible collapsed heading="Panel 5; Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat.">
+      Panel 5 content.
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+      <sl-button fill="outline" slot="actions">Action</sl-button>
+      <sl-button fill="outline" slot="actions">Action</sl-button>
       <sl-button fill="outline" slot="actions">Action</sl-button>
     </sl-panel>
   `

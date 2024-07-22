@@ -30,20 +30,11 @@ export const allModes = {
   'my-digital-book': {
     theme: 'my-digital-book'
   },
-  'myvanin': {
-    theme: 'myvanin'
-  },
   'neon': {
     theme: 'neon'
   },
-  // 'nowa-era': {
-  //   theme: 'nowa-era'
-  // },
   'sanoma-learning': {
     theme: 'sanoma-learning'
-  },
-  'sanoma-utbildning': {
-    theme: 'sanoma-utbildning'
   },
   'teas': {
     theme: 'teas'

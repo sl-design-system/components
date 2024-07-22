@@ -1,8 +1,8 @@
 ---
 title: Tag
-description: A tag component...
+description: Tags represent a set of keywords that help label, categorize, and organize objects. Commonly used to signify the attributes of an object.
 componentType: feedback
-shortDescription:  A tag component...
+shortDescription:  Tags represent a set of keywords that help label, categorize, and organize objects.
 layout: "categories/components/components.njk"
 tags: component
 packageName: tag

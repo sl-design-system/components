@@ -4521,7 +4521,7 @@ __metadata:
   resolution: "@sl-design-system/accordion@workspace:packages/components/accordion"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.2.12"
+    "@sl-design-system/shared": "npm:^0.2.13"
   languageName: unknown
   linkType: soft
 
@@ -4575,7 +4575,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/avatar@workspace:packages/components/avatar"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.2.12"
+    "@sl-design-system/shared": "npm:^0.2.13"
     "@sl-design-system/tooltip": "npm:^1.0.1"
   languageName: unknown
   linkType: soft
@@ -4594,7 +4594,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4602,15 +4602,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-int@workspace:packages/themes/bingel-int"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/bingel@workspace:packages/themes/bingel":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/bingel@workspace:packages/themes/bingel"
-  dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4630,33 +4622,33 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button-bar@npm:^1.0.0, @sl-design-system/button-bar@workspace:packages/components/button-bar":
+"@sl-design-system/button-bar@npm:^1.0.0, @sl-design-system/button-bar@npm:^1.1.0, @sl-design-system/button-bar@workspace:packages/components/button-bar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button-bar@workspace:packages/components/button-bar"
   dependencies:
-    "@sl-design-system/button": "npm:^1.0.1"
+    "@sl-design-system/button": "npm:^1.0.2"
     lit: "npm:^3.1.4"
   peerDependencies:
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button-group@workspace:packages/components/button-group":
+"@sl-design-system/button-group@npm:^0.0.1, @sl-design-system/button-group@workspace:packages/components/button-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button-group@workspace:packages/components/button-group"
   dependencies:
-    "@sl-design-system/button": "npm:^1.0.1"
+    "@sl-design-system/button": "npm:^1.0.2"
     lit: "npm:^3.1.4"
   peerDependencies:
     lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button@npm:^1.0.0, @sl-design-system/button@npm:^1.0.1, @sl-design-system/button@workspace:packages/components/button":
+"@sl-design-system/button@npm:^1.0.0, @sl-design-system/button@npm:^1.0.1, @sl-design-system/button@npm:^1.0.2, @sl-design-system/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.2.11"
+    "@sl-design-system/shared": "npm:^0.2.13"
   languageName: unknown
   linkType: soft
 
@@ -4676,7 +4668,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@sl-design-system/form": "npm:^1.0.2"
-    "@sl-design-system/shared": "npm:^0.2.12"
+    "@sl-design-system/shared": "npm:^0.2.13"
   peerDependencies:
     "@lit/localize": ^0.12.1
   languageName: unknown
@@ -4717,20 +4709,20 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/clickedu@workspace:packages/themes/clickedu"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/dialog@npm:^1.0.0, @sl-design-system/dialog@workspace:packages/components/dialog":
+"@sl-design-system/dialog@npm:^1.0.3, @sl-design-system/dialog@workspace:packages/components/dialog":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/dialog@workspace:packages/components/dialog"
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.0.0"
-    "@sl-design-system/button-bar": "npm:^1.0.0"
-    "@sl-design-system/icon": "npm:^1.0.0"
-    "@sl-design-system/shared": "npm:^0.2.12"
+    "@sl-design-system/button": "npm:^1.0.2"
+    "@sl-design-system/button-bar": "npm:^1.1.0"
+    "@sl-design-system/icon": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.2.13"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -4779,7 +4771,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/editorial-suite@workspace:packages/themes/editorial-suite"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4873,7 +4865,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/icon@npm:1.0.0, @sl-design-system/icon@npm:^1.0.0, @sl-design-system/icon@workspace:packages/components/icon":
+"@sl-design-system/icon@npm:1.0.1, @sl-design-system/icon@npm:^1.0.0, @sl-design-system/icon@npm:^1.0.1, @sl-design-system/icon@workspace:packages/components/icon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
@@ -4902,7 +4894,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/itslearning@workspace:packages/themes/itslearning"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4910,7 +4902,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/kampus@workspace:packages/themes/kampus"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4919,7 +4911,7 @@ __metadata:
   resolution: "@sl-design-system/lit-examples@workspace:examples/lit"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.2.12"
+    "@sl-design-system/shared": "npm:^0.2.13"
   languageName: unknown
   linkType: soft
 
@@ -4937,7 +4929,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/magister@workspace:packages/themes/magister"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4945,7 +4937,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/max@workspace:packages/themes/max"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -4970,8 +4962,8 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.0.0"
-    "@sl-design-system/dialog": "npm:^1.0.0"
+    "@sl-design-system/button": "npm:^1.0.2"
+    "@sl-design-system/dialog": "npm:^1.0.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5021,15 +5013,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/my-digital-book@workspace:packages/themes/my-digital-book"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/myvanin@workspace:packages/themes/myvanin":
+"@sl-design-system/myvanin@workspace:packages/themes/myvanin_onhold":
   version: 0.0.0-use.local
-  resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin"
+  resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin_onhold"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -5037,15 +5029,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/nowa-era@workspace:packages/themes/nowa-era":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/nowa-era@workspace:packages/themes/nowa-era"
-  dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -5055,9 +5039,9 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button-bar": "npm:^1.0.0"
-    "@sl-design-system/icon": "npm:^1.0.0"
-    "@sl-design-system/shared": "npm:^0.2.12"
+    "@sl-design-system/icon": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.2.13"
+    "@sl-design-system/tool-bar": "npm:^0.0.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5078,7 +5062,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/icon": "npm:^1.0.0"
+    "@sl-design-system/icon": "npm:^1.0.1"
     lit: "npm:^3.1.4"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -5103,15 +5087,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning":
+"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning_onhold":
   version: 0.0.0-use.local
-  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning"
+  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning_onhold"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -5169,7 +5153,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/shared@npm:^0.2.11, @sl-design-system/shared@npm:^0.2.12, @sl-design-system/shared@workspace:packages/components/shared":
+"@sl-design-system/shared@npm:^0.2.11, @sl-design-system/shared@npm:^0.2.12, @sl-design-system/shared@npm:^0.2.13, @sl-design-system/shared@workspace:packages/components/shared":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
@@ -5251,7 +5235,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"
   dependencies:
-    "@sl-design-system/icon": "npm:1.0.0"
+    "@sl-design-system/icon": "npm:1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -5281,7 +5265,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/toggle-button@workspace:packages/components/toggle-button":
+"@sl-design-system/toggle-button@npm:^0.0.1, @sl-design-system/toggle-button@workspace:packages/components/toggle-button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
   dependencies:
@@ -5294,6 +5278,21 @@ __metadata:
 "@sl-design-system/tokens@workspace:packages/tokens":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tokens@workspace:packages/tokens"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/tool-bar@npm:^0.0.1, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tool-bar@workspace:packages/components/tool-bar"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:^1.0.2"
+    "@sl-design-system/button-group": "npm:^0.0.1"
+    "@sl-design-system/icon": "npm:^1.0.1"
+    "@sl-design-system/menu": "npm:^0.0.10"
+    "@sl-design-system/toggle-button": "npm:^0.0.1"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 

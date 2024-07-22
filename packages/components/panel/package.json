@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/panel",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Panel component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,9 +38,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button-bar": "^1.0.0",
-    "@sl-design-system/icon": "^1.0.0",
-    "@sl-design-system/shared": "^0.2.12"
+    "@sl-design-system/icon": "^1.0.1",
+    "@sl-design-system/shared": "^0.2.13",
+    "@sl-design-system/tool-bar": "^0.0.1"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

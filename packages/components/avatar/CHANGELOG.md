@@ -1,5 +1,19 @@
 # @sl-design-system/avatar
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1389](https://github.com/sl-design-system/components/pull/1389) [`f03971b`](https://github.com/sl-design-system/components/commit/f03971b7b338a4248df292060b91b6b903b6c8ed) - Minor style fixes:
+
+  - Fix the title and subtitle text being cutoff for certain characters due not enough line-height
+  - Use a different color for the subtitle text
+
+- [#1389](https://github.com/sl-design-system/components/pull/1389) [`f03971b`](https://github.com/sl-design-system/components/commit/f03971b7b338a4248df292060b91b6b903b6c8ed) - Due to #1371, the subtitle is no longer shown for the `md` size
+
+- Updated dependencies [[`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220)]:
+  - @sl-design-system/shared@0.2.13
+
 ## 1.0.0
 
 ### Major Changes

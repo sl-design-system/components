@@ -21,7 +21,7 @@ declare global {
   }
 
   interface HTMLElementTagNameMap {
-    'sl-sorter': GridSorter;
+    'sl-grid-sorter': GridSorter;
   }
 }
 
@@ -81,6 +81,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('direction')) {
+      //TODO isn't this a bit dangerous?
       const header = this.closest('th');
 
       if (!this.direction) {

@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1395](https://github.com/sl-design-system/components/pull/1395) [`1647361`](https://github.com/sl-design-system/components/commit/1647361aba7af478745fc30a8067154debff0808) - Fixed issues where icons did not apply the color set on the parent element or in the `--sl-icon-fill-default` property
+
 ## 1.0.0
 
 ### Major Changes

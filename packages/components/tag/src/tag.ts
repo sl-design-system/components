@@ -136,9 +136,9 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     this.remove(); // TODO: event on remove
   } // TODO: on delete r backspace remove as well - on keydown
 
+  /** Since :has is not working with :host - only in Safari, this workaround is needed. */
   #onMouseover(event: MouseEvent) {
     console.log('mouseover event', event);
-
     if (!(event.target instanceof HTMLButtonElement)) {
       return;
     }

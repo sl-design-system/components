@@ -199,7 +199,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       console.log('list-width', list.scrollWidth, list.clientWidth, list.offsetWidth)
 
       console.log('list.scrollWidth in connectedCallback', listInitialWidth, listInitialWidth2, this.tags, list.scrollWidth);
-      this.tags?.forEach(tag => tag.size = this.size);
+      this.tags?.forEach((tag: Tag) => tag.size = this.size);
     });
   }
 
@@ -254,10 +254,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
      <!-- <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
     </div>-->
     <div class="list">
-      <slot></slot>
+      <slot @slotchange=${this.#onTagsSlotChange}></slot>
     </div>
      <!-- <div part="panels">
-        <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
+        <slot></slot>
       </div> -->
     `;
   } // name="tags"
@@ -602,8 +602,17 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // this.#linkTabsWithPanels();
   }
 
-  #onTabPanelSlotChange(event: Event & { target: HTMLSlotElement }): void {
+  #onTagsSlotChange(event: Event & { target: HTMLSlotElement }): void {
     console.log(event);
+    // TODO: set size to tags here based on tag-list size
+    this.tags = event.target
+      .assignedElements({ flatten: true })
+      .filter((el): el is Tag => el instanceof Tag); // TypeError: Cannot set property tags of #<TagList> which has only a getter
+
+    // this.tags?.forEach((tag) => {
+    //   tag => tag.size = this.size;
+    // });
+
     // this.tabPanels = event.target
     //   .assignedElements({ flatten: true })
     //   .filter((el): el is TabPanel => el instanceof TabPanel);

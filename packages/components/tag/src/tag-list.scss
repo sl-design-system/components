@@ -24,6 +24,11 @@
   //background-color: #6FBCFB;
   --_gap: 4px;
 
+
+  //--_group-padding: var(--sl-space-tag-block-lg) var(--sl-space-tag-inline-lg);
+
+  --_group-font: var(--sl-text-tag-label-md);
+
   @media (prefers-reduced-motion: no-preference) {
     --_spin-duration: 1200ms;
   }
@@ -39,7 +44,7 @@
     //flex-wrap: nowrap;
 
     //display: flex;
-    height: 30px; // TODO: depending on tag size height
+    height: var(--_stacked-height); //30px; // TODO: depending on tag size height
     //gap: 4px;
     overflow-x: clip;
     //width: 1006px;
@@ -50,16 +55,27 @@
   }
 }
 
+:host([size='md']) {
+  --_group-padding: var(--sl-space-tag-block-md) var(--sl-space-tag-inline-md);
+  --_stacked-height: var(--sl-size-tag-md);
+}
+
+:host([size='lg']) {
+  --_group-padding: var(--sl-space-tag-block-lg) var(--sl-space-tag-inline-lg);
+  --_stacked-height: var(--sl-size-tag-lg);
+}
+
 
 .group {
-  display: inline-flex;
+  display: block; //inline-flex;
   //position: relative;
   --_space: 0.5rem; //10px; // TODO: need a space token?
   --_border-radius-group: 4px;
 
   sl-tag {
     position: relative;
-    padding: 4px 8px;
+    padding: var(--_group-padding);//4px 8px;
+    font: var(--_group-font);
   }
 
   sl-tag {

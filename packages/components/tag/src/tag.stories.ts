@@ -129,7 +129,40 @@ export const Stacked: Story = {
   },
   render: ({label}) => {
     return html`
+      <style>
+        sl-tag-list {
+          margin-bottom: 24px;
+        }
+      </style>
         <sl-tag-list stacked>
+          <sl-tag label="my label" removable></sl-tag>
+          <sl-tag label="test" removable></sl-tag>
+          <sl-tag label=${label + '1'} removable></sl-tag>
+          <sl-tag label=${label + '2'} removable></sl-tag>
+          <sl-tag label=${label + '3'} removable></sl-tag>
+          <sl-tag label=${label + '4'} removable></sl-tag>
+          <sl-tag label=${label + '5'} removable></sl-tag>
+          <sl-tag label=${label + '6'} removable></sl-tag>
+          <sl-tag label=${label + '7'} removable></sl-tag>
+          <sl-tag label=${label + '8'} removable></sl-tag>
+          <sl-tag label=${label + '9'} removable></sl-tag>
+          <sl-tag label=${label + '10'} removable></sl-tag>
+          <sl-tag label=${label + '11'} removable></sl-tag>
+          <sl-tag label=${label + '12'} removable></sl-tag>
+          <sl-tag label=${label + '13'} removable></sl-tag>
+          <sl-tag label=${label + '14'} removable></sl-tag>
+          <sl-tag label=${label + '15'} removable></sl-tag>
+          <sl-tag label=${label + '16'} removable></sl-tag>
+          <sl-tag label=${label + '17'} removable></sl-tag>
+          <sl-tag label=${label + '18'} removable></sl-tag>
+          <sl-tag label=${label + '19'} removable></sl-tag>
+          <sl-tag label=${label + '20'} removable></sl-tag>
+          <sl-tag label=${label + '21'} removable></sl-tag>
+          <sl-tag label=${label + '21'} removable></sl-tag>
+          <sl-tag label=${label + '23'} removable></sl-tag>
+        </sl-tag-list>
+
+        <sl-tag-list stacked size="lg">
           <sl-tag label="my label" removable></sl-tag>
           <sl-tag label="test" removable></sl-tag>
           <sl-tag label=${label + '1'} removable></sl-tag>

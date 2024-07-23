@@ -96,7 +96,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
         ${this.label}
       </div>
         ${this.removable
-          ? html`<button @click=${this.#onRemoveClick} class="remove-button" tabindex="-1"><sl-icon name="xmark" .size=${this.size}></sl-icon></button>`
+          ? html`<button @mouseover=${this.#onMouseover} @mouseout=${this.#onMouseover} @click=${this.#onRemoveClick} class="remove-button" tabindex="-1"><sl-icon name="xmark" .size=${this.size}></sl-icon></button>`
           : nothing}
     `;
   } // TODO: aria-label for button only or for the whole component?
@@ -126,10 +126,29 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   }
 
   #onRemoveClick(event: Event) {
+    if (this.disabled || this.readonly) {
+      return;
+    }
+
     console.log('target on btn remove', event, event.target);
     event.preventDefault();
     event.stopPropagation();
-    this.remove();
+    this.remove(); // TODO: event on remove
+  } // TODO: on delete r backspace remove as well - on keydown
+
+  #onMouseover(event: MouseEvent) {
+    console.log('mouseover event', event);
+
+    if (!(event.target instanceof HTMLButtonElement)) {
+      return;
+    }
+
+    if (event.type === 'mouseover') {
+      this.setAttribute('close-hover', '');
+    } else {
+      this.removeAttribute('close-hover');
+    }
+
   }
 
 } // TODO: or maybe slot instead of label?

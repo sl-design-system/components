@@ -80,16 +80,16 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('direction')) {
-      //TODO isn't this a bit dangerous?
-      const header = this.closest('th');
+    // if (changes.has('direction')) {
+    //   //TODO isn't this a bit dangerous? setting attributes of elements OUTSIDE of this component.
+    //   const header = this.closest('th');
 
-      if (!this.direction) {
-        header?.removeAttribute('aria-sort');
-      } else {
-        header?.setAttribute('aria-sort', this.direction === 'asc' ? 'ascending' : 'descending');
-      }
-    }
+    //   if (!this.direction) {
+    //     header?.removeAttribute('aria-sort');
+    //   } else {
+    //     header?.setAttribute('aria-sort', this.direction === 'asc' ? 'ascending' : 'descending');
+    //   }
+    // }
   }
 
   override disconnectedCallback(): void {

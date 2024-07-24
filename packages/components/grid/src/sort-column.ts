@@ -20,6 +20,8 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   /** If you want to provide a custom sort function, you can via this property. */
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
 
+  @property({ attribute: false }) ariaSorting?: 'ascending' | 'descending';
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -36,13 +38,19 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     } else {
       this.direction = undefined;
     }
+
+    if (!this.direction) {
+      this.ariaSorting = undefined;
+    } else {
+      this.ariaSorting = this.direction === 'asc' ? 'ascending' : 'descending';
+    }
   }
 
   override renderHeader(): TemplateResult {
     const parts = ['header', 'sort', ...this.getParts()];
 
     return html`
-      <th part=${parts.join(' ')}>
+      <th part=${parts.join(' ')} .ariaSort=${this.ariaSorting as string}>
         <sl-grid-sorter .column=${this} .direction=${this.direction} .path=${this.path} .sorter=${this.sorter}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>

@@ -1,60 +1,27 @@
-$sizes: 'md', 'lg';
-$variants: default, 'white', accent, info, danger, success, warning;
 $emphases: subtle, bold;
 
 :host {
- // --sl-spinner-size: var(--sl-size-spinner-md);
- // --_color: #FEFEFE; //currentcolor;
-  //--_rotate-duration: calc(var(--_spin-duration) * 4);
-  //--_shadow-opacity: var(--sl-opacity-spinner-shadow);
- // --_spin-duration: 20s;
-
-  //--_focus-color: var(--sl-color-focusring-default);
-  --_focus-outline: var(--_focus-color) solid var(--sl-border-width-focusring-inside); //var(--sl-border-width-focusring-default);
+  --_button-border: var(--sl-color-tag-subtle-idle-border);
+  --_border-radius: var(--sl-border-radius-default);
+  --_focus-outline: var(--_focus-color) solid var(--sl-border-width-focusring-inside);
   --_focus-outline-offset: calc(var(--sl-border-width-focusring-offset) * -1);
+  --_font: var(--sl-text-tag-label-md); // TODO: order alphabetically
+  --_gap: var(--sl-space-tag-gap-md);
+  --_padding-block: var(--sl-space-tag-block-md) var(--sl-space-tag-block-md);
+  --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
 
-  //block-size: var(--sl-spinner-size);
-  display: inline-flex; //inline-flex; //block; //inline-block;
+  display: inline-flex;
   max-inline-size: 100%;
   align-items: center;
   flex-shrink: 0;
- // inline-size: var(--sl-spinner-size);
   vertical-align: middle;
-  //border: 1px solid #8D959D;
-  //border-radius: 4px;
-  //padding: 3px 8px;
-  //background-color: #3366FF; //#6FBCFB;
-  //color: var(--_color);
   transition: background-color 200ms linear;
-  //font-size: 12px;
-  //gap: 8px; // TODO: from token
-
- // --_background: var(--sl-color-tag-subtle-idle-background);
-
-
-
-  --_font: var(--sl-text-tag-label-md); // TODO: order alphabetically
-  --_padding-block: var(--sl-space-tag-block-md) var(--sl-space-tag-block-md);
-  --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
-  --_button-border: var(--sl-color-tag-subtle-idle-border);
-  --_border-radius: var(--sl-border-radius-default);
-  --_gap: var(--sl-space-tag-gap-md);
-
   font: var(--_font);
   padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline); // TODO: separated padding block and inline
+  padding-inline: var(--_padding-inline);
   border-radius: var(--_border-radius);
   gap: var(--_gap);
-
-
-  @media (prefers-reduced-motion: no-preference) {
-    --_spin-duration: 1200ms;
-  }
 }
-
-//.remove-button {
-//  pointer-events: auto;
-//}
 
 :host([emphasis='subtle']) {
   --_focus-color: var(--sl-color-focusring-inversed);
@@ -66,12 +33,8 @@ $emphases: subtle, bold;
 
 @each $emphasis in $emphases {
   :host([emphasis='#{$emphasis}']) {
-    background: var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    background: var(--sl-color-tag-#{$emphasis}-idle-background);
     color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-
-    //&[disabled] {
-    //  background: #0B331A;
-    //}
 
     .remove-button {
       background: var(--sl-color-tag-#{$emphasis}-idle-background);
@@ -94,70 +57,29 @@ $emphases: subtle, bold;
     .remove-button {
       background: var(--sl-color-tag-#{$emphasis}-disabled-background);
       color: var(--sl-color-tag-#{$emphasis}-disabled-foreground);
+      --_button-border: var(--sl-color-tag-#{$emphasis}-disabled-border);
     }
   }
 
   :host([emphasis='#{$emphasis}']:hover:not([disabled])) {
-    background: var(--sl-color-tag-#{$emphasis}-hover-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    background: var(--sl-color-tag-#{$emphasis}-hover-background);
     color: var(--sl-color-tag-#{$emphasis}-hover-foreground);
 
     .remove-button {
       background: var(--sl-color-tag-#{$emphasis}-hover-background);
       --_button-border: var(--sl-color-tag-#{$emphasis}-hover-border);
     }
-
-    //.remove-button:hover {
-    //  background: yellow; //var(--sl-color-tag-#{$emphasis}-hover-background);
-    //}
   }
 
   :host([emphasis='#{$emphasis}'][close-hover]:hover:not([disabled])) {
-    background: var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    background: var(--sl-color-tag-#{$emphasis}-idle-background);
     color: var(--sl-color-tag-#{$emphasis}-hover-foreground);
 
     .remove-button {
       background: var(--sl-color-tag-#{$emphasis}-hover-background);
-      --_button-border: transparent; //var(--sl-color-tag-#{$emphasis}-hover-border);
+      --_button-border: transparent;
     }
-
-    //.remove-button:hover {
-    //  background: yellow; //var(--sl-color-tag-#{$emphasis}-hover-background);
-    //}
   }
-
-  //:host([emphasis='#{$emphasis}']) {
-  //  background: var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
-  //  color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-  //
-  //  //&[disabled] {
-  //  //  background: #0B331A;
-  //  //}
-  //
-  //  .remove-button {
-  //    background: var(--sl-color-tag-#{$emphasis}-idle-background);
-  //    color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-  //  }
-  //
-  //  .remove-button:hover {
-  //    background: var(--sl-color-tag-#{$emphasis}-hover-background);
-  //  }
-  //
-  //  .remove-button:active {
-  //    background: var(--sl-color-tag-#{$emphasis}-close-active-foreground);
-  //  }
-  //}
-
-  //:host([emphasis='#{$emphasis}']:hover:not([disabled]):has(.remove-button:hover)) {
-  //  background: var(--sl-color-tag-#{$emphasis}-idle-background);
-  //
-  //  .remove-button:hover {
-  //    background: yellow; //var(--sl-color-tag-#{$emphasis}-hover-background);
-  //  }
-  //
-  //  .remove-button:hover {
-  //    background: var(--sl-color-tag-#{$emphasis}-hover-background);
-  //  }
-  //}
 
   :host([emphasis='#{$emphasis}']:not([disabled])) {
   background: var(--sl-color-tag-#{$emphasis}-idle-background);
@@ -167,12 +89,8 @@ $emphases: subtle, bold;
     }
   }
 
-  //:host([emphasis='#{$emphasis}']:not([disabled]):hover) .remove-button {
-  //  background: yellow; //var(--sl-color-tag-#{$emphasis}-idle-background);
-  //}
-
   :host([emphasis='#{$emphasis}']:focus:not([disabled])) {
-    background: var(--sl-color-tag-#{$emphasis}-active-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    background: var(--sl-color-tag-#{$emphasis}-active-background);
     color: var(--sl-color-tag-#{$emphasis}-active-foreground);
     outline: var(--_focus-outline);
     outline-offset: var(--_focus-outline-offset);
@@ -185,125 +103,17 @@ $emphases: subtle, bold;
   }
 
   :host([emphasis='#{$emphasis}'][close-hover]:focus:not([disabled])) {
-    background: var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
+    background: var(--sl-color-tag-#{$emphasis}-idle-background);
     color: var(--sl-color-tag-#{$emphasis}-hover-foreground);
-    // pointer-events: none;
     outline: none;
 
     .remove-button {
       background: var(--sl-color-tag-#{$emphasis}-close-active-background);
       color: var(--sl-color-tag-#{$emphasis}-close-active-foreground);
-      --_button-border: transparent; //var(--sl-color-tag-#{$emphasis}-hover-border);
-    }
-
-    //.remove-button:hover {
-    //  background: yellow; //var(--sl-color-tag-#{$emphasis}-hover-background);
-    //}
-  }
-
-  //:host([emphasis='#{$emphasis}']:hover:not(:has(*:hover))),
-  //:host([emphasis='#{$emphasis}']) *:hover:not(:has(*:hover)){
-  //  outline: 1px solid blue;
-  //  background: #0B331A;
-  //}
-
-  //:host([emphasis='#{$emphasis}']:has(.remove-button:hover)) {
-  //  background: red; //var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
-  //  color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-  //
-  //  //&[disabled] {
-  //  //  background: #0B331A;
-  //  //}
-  //
-  //  .remove-button {
-  //    background: blue; //var(--sl-color-tag-#{$emphasis}-idle-background);
-  //    color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-  //  }
-  //}
-
-  :host :has(.remove-button:hover) {
-    background: red; //var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
-    color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-
-    //&[disabled] {
-    //  background: #0B331A;
-    //}
-
-    .remove-button {
-      background: blue; //var(--sl-color-tag-#{$emphasis}-idle-background);
-      color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
+      --_button-border: transparent;
     }
   }
-
-  //:host(:where(.remove-button:hover)) {
-  //  background: red; //var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
-  //  color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-  //
-  //  //&[disabled] {
-  //  //  background: #0B331A;
-  //  //}
-  //
-  //  .remove-button {
-  //    background: blue; //var(--sl-color-tag-#{$emphasis}-idle-background);
-  //    color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
-  //  }
-  //}
-
-  //:host([emphasis='#{$emphasis}']:hover:not([disabled])) {
-  //  //background: red; //var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
-  //  background: var(--sl-color-tag-subtle-hover-background);
-  //
-  //  //&[disabled] {
-  //  //  background: #0B331A;
-  //  //}
-  //
-  //  .remove-button {
-  //    background: blue; //var(--sl-color-tag-#{$emphasis}-idle-background);
-  //  }
-  //}
-
-  //:host([emphasis='#{$emphasis}']:hover:not([disabled]):where(:hover)) {
-  //  //background: red; //var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
-  //  background: var(--sl-color-tag-subtle-idle-background);
-  //
-  //  //&[disabled] {
-  //  //  background: #0B331A;
-  //  //}
-  //
-  //  .remove-button:hover {
-  //    background: blue; //var(--sl-color-tag-#{$emphasis}-idle-background);
-  //  }
-  //}
-
 }
-
-//:host(:where(:hover)) {
-//  background: red; //var(--sl-color-tag-#{$emphasis}-idle-background); // var(--sl-color-badge-bold-#{$variant}-background);
-//
-//  //&[disabled] {
-//  //  background: #0B331A;
-//  //}
-//
-//  .remove-button:hover {
-//    background: blue; //var(--sl-color-tag-#{$emphasis}-idle-background);
-//  }
-//}
-
-//.label:has(.remove-button:hover) {
-//  background: red;
-//
-//  .remove-button {
-//    background: blue;
-//  }
-//}
-
-//.label:hover ~ .remove-button:hover {
-//  background: red;
-//}
-//
-//.label ~ .remove-button:hover {
-//  background: blue;
-//}
 
 :host([size='lg']) {
   --_padding-block: var(--sl-space-tag-block-lg) var(--sl-space-tag-block-lg);
@@ -316,45 +126,7 @@ $emphases: subtle, bold;
     margin-block: calc(var(--sl-space-tag-block-lg) * -1);
     margin-inline-end: calc(var(--sl-space-tag-inline-lg) * -1);
   }
-
-  //--_font: var(--sl-text-tag-label-lg);
-  //
-  //--_badge-inset: var(--sl-space-avatar-badge-inset-lg);
-  //--_block-gap: var(--sl-space-avatar-block-lg);
-  //--_icon-size: var(--sl-size-icon-lg);
-  //--_inline-gap: var(--sl-space-avatar-inline-lg);
-  //--_heading-font: var(--sl-text-avatar-header-lg);
-  //--_initials-font: var(--sl-text-avatar-initials-lg);
-  //--_picture-size: var(--sl-size-avatar-lg);
-  //--_subheading-font: var(--sl-text-avatar-subheader-lg);
 }
-
-
-//:host(:hover) {
-//  background: #2351DB;
-//}
-
-//:host(:active) {
-//  background: #1138AD;
-//}
-
-//:host(:focus) {
-//  //outline: var(--_focus-outline);
-//  //outline-offset: var(--_focus-outline-offset);
-//  background: #0B331A;
-//}
-
-//:host(:focus-visible) {
-//  outline: var(--_focus-outline);
-//  outline-offset: var(--_focus-outline-offset);
-//  background: #0B331A;
-//}
-
-//:host([disabled]) {
-//  background: #A2A1A1;
-// // --_color:
-//  color: #EAEAEA;
-//}
 
 :host([disabled]),
 :host([readonly]) {
@@ -363,28 +135,12 @@ $emphases: subtle, bold;
 }
 
 :host(:not([disabled],[readonly])) {
-  //background: #A2A1A1;
-  //// --_color:
-  //color: #EAEAEA;
   cursor: pointer;
-}
-
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    // --sl-spinner-size: var(--sl-size-spinner-#{$size});
-  }
-}
-
-:host([size='lg']) { // TODO: change it later
-  // --sl-spinner-size: var(--sl-size-spinner-#{$size});
- // padding: 5px 8px;
 }
 
 :host([hidden]) {
   display: none;
 }
-
-// TODO sizes
 
 .label {
   display: block;
@@ -407,6 +163,7 @@ $emphases: subtle, bold;
   border-inline-end: none;
   border-top-right-radius: var(--_border-radius);
   border-bottom-right-radius: var(--_border-radius);
+  transition: background-color 200ms linear;
 
   sl-icon {
     pointer-events: none;

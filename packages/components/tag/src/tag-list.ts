@@ -5,7 +5,7 @@ import { type EventEmitter, RovingTabindexController, event, getScrollParent } f
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state, queryAssignedElements } from 'lit/decorators.js';
 import styles from './tag-list.scss.js';
-import {Tag, TagSize} from './tag.js';
+import {Tag, TagSize, TagEmphasis} from './tag.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -166,6 +166,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** The size of the tag-list (determines size of tags inside). Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
 
+  /** The emphasis of the tag-list and tags inside; defaults to 'subtle'. */
+  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
+
   #initialListWidth = 0;
 
   #hiddenLabel = 0;
@@ -200,6 +203,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
       console.log('list.scrollWidth in connectedCallback', listInitialWidth, listInitialWidth2, this.tags, list.scrollWidth);
       this.tags?.forEach((tag: Tag) => tag.size = this.size);
+      this.tags?.forEach((tag: Tag) => tag.emphasis = this.emphasis);
     });
   }
 
@@ -242,7 +246,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     ${this.stacked && this.#hiddenLabel > 0
       ? html`
         <div class="group">
-        <sl-tag aria-describedby="tooltip" label=${this.#hiddenLabel}></sl-tag> <!-- TODO: do we need this one to be focusable due to accessibility reasons?-->
+        <sl-tag emphasis=${this.emphasis} aria-describedby="tooltip" label=${this.#hiddenLabel > 99 ? '+99' : this.#hiddenLabel}></sl-tag> <!-- TODO: do we need this one to be focusable due to accessibility reasons?-->
           <sl-tooltip id="tooltip" position="top" max-width="300">
             ${this.#hiddenTags?.map((tag) => tag.label).join(', ')}
           </sl-tooltip>
@@ -269,7 +273,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #updateVisibility(): void {
-    if (!this.tags) {
+    if (!this.tags || !this.stacked) {
       return;
     }
 
@@ -538,6 +542,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // TODO: remaining width not working properly?
 // TODO: maybe sth with grid template columns 24px minmax(100px, 1924px) ???
     this.#hiddenLabel = hiddenTags2.length;
+    this.#hiddenTags = hiddenTags2;
     this.requestUpdate();
   }
 
@@ -773,3 +778,5 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
 
 // TODO: arrow keys only thorugh visible tags, not all
+
+// TODO: on remove tag use also checking hidden and visible tags

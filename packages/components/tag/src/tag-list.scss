@@ -15,14 +15,15 @@
   display: flex; //inline-block; //block; //inline-flex;
   flex-shrink: 0;
   flex-direction: row;
-  gap: 16px;
+  flex-flow: column;
+  gap: var(--sl-space-tag-list-md); //16px;
   // inline-size: var(--sl-spinner-size);
   //vertical-align: middle;
   //border: 1px solid #8D959D;
   //border-radius: 8px;
   //padding: 4px 4px 4px 8px;
   //background-color: #6FBCFB;
-  --_gap: 4px;
+  --_gap: var(--sl-space-tag-list-md); //4px;
 
 
   //--_group-padding: var(--sl-space-tag-block-lg) var(--sl-space-tag-inline-lg);
@@ -36,6 +37,7 @@
 
 :host([stacked]) {
   background: #cccccc;
+  flex-flow: nowrap;
 
   .list {
     display: flex;
@@ -69,36 +71,99 @@
 .group {
   display: block; //inline-flex;
   //position: relative;
-  --_space: 0.5rem; //10px; // TODO: need a space token?
-  --_border-radius-group: 4px;
+  --_space: var(--sl-space-tag-counter-gap);
+  --_width: var(--sl-size-tag-counter); //0.5rem; //var(--sl-space-tag-counter-gap); //0.5rem; //10px; // TODO: need a space token? // --sl-space-tag-counter-gap // -2px;
+ // --_border-radius-group: 4px;
+  --_divider: calc((var(--_width) - 1px) / 1px);
+  --_margin: calc(var(--_space) * 4);
+  --_margin-more: calc(var(--_space) * 2);
 
   sl-tag {
     position: relative;
     padding: var(--_group-padding);//4px 8px;
     font: var(--_group-font);
+    //margin-left: calc(var(--_margin) * -1);
   }
 
   sl-tag {
+    &:not([label='1']) {
+      margin-left: calc(var(--_margin-more) * -1);
+    }
+
     &:not([label='1'])::before {
-      left: calc(-1 * var(--_space) / 2);
+      left: var(--_margin-more); //calc(var(--_space) * 2);
+      //left: var(--_margin);//calc(var(--_space) * 4) // calc(-1 * var(--_space) / 2);
+    }
+
+    &:not([label='1'], [label='2']) {
+      margin-left: calc(var(--_margin) * -1);
     }
 
     &:not([label='1'], [label='2'])::after {
-      left: calc(-1 * var(--_space));
+      //left: calc(var(--_space) * 2); //calc(-1 * var(--_space));
+      left: var(--_margin);
     }
 
     &:not([label='1'])::before,
     &:not([label='1'], [label='2'])::after {
       position: absolute;
       content: '';
-      width: 100%;
+      width: 100%; // TODO: width --sl-size-tag-counter
       height: 100%;
-      border-left: calc(var(--_space) / 4) solid;
-      border-radius: var(--_border-radius-group); // TODO: need border radius for the tag element
-      border-color: #3366FF; // TODO: same as tag background color
+      border-left: calc(var(--_width) * 0.45) solid var(--_border-color); //var(--sl-size-tag-counter) solid var(--_border-color); //calc(var(--_space) / 4) solid var(--_border-color); // calc((-1 * 2px) / 2) solid var(--_border-color); //calc(var(--_space) / 4) solid;
+      border-radius: var(--sl-border-radius-default); //var(--_border-radius-group); // TODO: need border radius for the tag element // --sl-border-radius-default
+     // border-color: #3366FF; // TODO: same as tag background color depending on emphasis "color.tag.subtle.idle.background"
+    }
+  }
+
+  sl-tag[emphasis='subtle'] {
+    &:not([label='1'])::before,
+    &:not([label='1'], [label='2'])::after {
+      //border-left: calc((-1 * 2px) / 2) solid;
+      --_border-color: var(--sl-color-tag-subtle-idle-border); // TODO: same as tag background color depending on emphasis "color.tag.subtle.idle.background"
+    }
+  }
+
+  sl-tag[emphasis='bold'] {
+    &:not([label='1'])::before,
+    &:not([label='1'], [label='2'])::after {
+      //border-left: calc((-1 * 2px) / 2) solid;
+      --_border-color: var(--sl-color-tag-bold-idle-border); // TODO: same as tag background color depending on emphasis "color.tag.subtle.idle.background"
+    }
+  }
+
+  sl-tag[emphasis='subtle']:focus {
+    &:not([label='1'])::before,
+    &:not([label='1'], [label='2'])::after {
+      //border-left: calc((-1 * 2px) / 2) solid;
+      --_border-color: var(--sl-color-tag-subtle-active-border); // TODO: same as tag background color depending on emphasis "color.tag.subtle.idle.background"
+    }
+  }
+
+  sl-tag[emphasis='bold']:focus {
+    &:not([label='1'])::before,
+    &:not([label='1'], [label='2'])::after {
+      //border-left: calc((-1 * 2px) / 2) solid;
+      --_border-color: var(--sl-color-tag-bold-active-border); // TODO: same as tag background color depending on emphasis "color.tag.subtle.idle.background"
     }
   }
 }
+
+// --_button-border: var(--sl-color-tag-#{$emphasis}-active-border);
+
+//:host[emphasis='subtle'] .group sl-tag {
+//    &:not([label='1'])::before,
+//    &:not([label='1'], [label='2'])::after {
+//      border-color: var(--sl-color-tag-subtle-idle-background); // TODO: same as tag background color depending on emphasis "color.tag.subtle.idle.background"
+//    }
+//}
+//
+//:host[emphasis='bold'] .group sl-tag {
+//    &:not([label='1'])::before,
+//    &:not([label='1'], [label='2'])::after {
+//      border-color: var(--sl-color-tag-bold-idle-background); // TODO: same as tag background color depending on emphasis "color.tag.subtle.idle.background"
+//    }
+//}
 
 .list {
   display: flex;

@@ -3,10 +3,10 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 // import { TagList } from './tag-list.js';
-import { type Tag, type TagSize, type SpinnerVariant } from './tag.js';
+import { type Tag, type TagSize, type TagEmphasis, type SpinnerVariant } from './tag.js';
 import { type TagList } from './tag-list.js';
 
-type Props = Pick<Tag, 'size' | 'variant' | 'label' | 'removable'>;
+type Props = Pick<Tag, 'emphasis' | 'size' | 'variant' | 'label' | 'removable'>;
 
 type Story = StoryObj<Props>;
 
@@ -14,6 +14,7 @@ const sizes: TagSize[] = ['md', 'lg'];
 const variants: SpinnerVariant[] = ['accent', 'info', 'danger', 'success', 'warning'];
 const buttonVariants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
 const buttonSizes: ButtonSize[] = ['sm', 'md', 'lg'];
+const emphases: TagEmphasis[] = ['subtle', 'bold'];
 
 const sizeName = (size: string): string => {
   switch (size) {
@@ -43,6 +44,7 @@ export default {
     size: 'md',
     label: 'Tag label',
     removable: false,
+    emphasis: 'subtle',
   },
   argTypes: {
     size: {
@@ -52,16 +54,20 @@ export default {
     variant: {
       control: 'radio',
       options: variants
+    },
+    emphasis: {
+      control: 'radio',
+      options: emphases
     }
   },
   parameters: {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
-  render: ({ label, removable, size }) => html`
-    <sl-tag label=${label} ?removable=${removable} .size=${size}></sl-tag>
-    <sl-tag label=${label} ?removable=${removable} .size=${size} disabled></sl-tag>
-    <sl-tag label=${label} ?removable=${removable} .size=${size} readonly></sl-tag>`
+  render: ({ emphasis, label, removable, size }) => html`
+    <sl-tag label=${label} .emphasis=${emphasis} ?removable=${removable} .size=${size}></sl-tag>
+    <sl-tag label=${label} .emphasis=${emphasis} ?removable=${removable} .size=${size} disabled></sl-tag>
+    <sl-tag label=${label} .emphasis=${emphasis} ?removable=${removable} .size=${size} readonly></sl-tag>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
@@ -126,68 +132,81 @@ export const Stacked: Story = {
     size: 'md',
     label: 'Tag label',
     removable: false,
+    emphasis: 'subtle'
   },
-  render: ({label}) => {
+  render: ({emphasis, label}) => {
+    const amount = Array.from({ length: 120 });
     return html`
       <style>
         sl-tag-list {
           margin-bottom: 24px;
         }
       </style>
-        <sl-tag-list stacked>
-          <sl-tag label="my label" removable></sl-tag>
-          <sl-tag label="test" removable></sl-tag>
-          <sl-tag label=${label + '1'} removable></sl-tag>
-          <sl-tag label=${label + '2'} removable></sl-tag>
-          <sl-tag label=${label + '3'} removable></sl-tag>
-          <sl-tag label=${label + '4'} removable></sl-tag>
-          <sl-tag label=${label + '5'} removable></sl-tag>
-          <sl-tag label=${label + '6'} removable></sl-tag>
-          <sl-tag label=${label + '7'} removable></sl-tag>
-          <sl-tag label=${label + '8'} removable></sl-tag>
-          <sl-tag label=${label + '9'} removable></sl-tag>
-          <sl-tag label=${label + '10'} removable></sl-tag>
-          <sl-tag label=${label + '11'} removable></sl-tag>
-          <sl-tag label=${label + '12'} removable></sl-tag>
-          <sl-tag label=${label + '13'} removable></sl-tag>
-          <sl-tag label=${label + '14'} removable></sl-tag>
-          <sl-tag label=${label + '15'} removable></sl-tag>
-          <sl-tag label=${label + '16'} removable></sl-tag>
-          <sl-tag label=${label + '17'} removable></sl-tag>
-          <sl-tag label=${label + '18'} removable></sl-tag>
-          <sl-tag label=${label + '19'} removable></sl-tag>
-          <sl-tag label=${label + '20'} removable></sl-tag>
-          <sl-tag label=${label + '21'} removable></sl-tag>
-          <sl-tag label=${label + '21'} removable></sl-tag>
-          <sl-tag label=${label + '23'} removable></sl-tag>
+        <sl-tag-list stacked .emphasis=${emphasis}>
+          <sl-tag .emphasis=${emphasis} label="my label" removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label="test" removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 1'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 2'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 3'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 4'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 5'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 6'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 7'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 8'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 9'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 10'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 11'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 12'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 13'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 14'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 15'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label="This is a very long label of the tag" removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 16'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 17'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 18'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 19'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 20'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 21'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 21'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 23'} removable></sl-tag>
         </sl-tag-list>
 
-        <sl-tag-list stacked size="lg">
-          <sl-tag label="my label" removable></sl-tag>
-          <sl-tag label="test" removable></sl-tag>
-          <sl-tag label=${label + '1'} removable></sl-tag>
-          <sl-tag label=${label + '2'} removable></sl-tag>
-          <sl-tag label=${label + '3'} removable></sl-tag>
-          <sl-tag label=${label + '4'} removable></sl-tag>
-          <sl-tag label=${label + '5'} removable></sl-tag>
-          <sl-tag label=${label + '6'} removable></sl-tag>
-          <sl-tag label=${label + '7'} removable></sl-tag>
-          <sl-tag label=${label + '8'} removable></sl-tag>
-          <sl-tag label=${label + '9'} removable></sl-tag>
-          <sl-tag label=${label + '10'} removable></sl-tag>
-          <sl-tag label=${label + '11'} removable></sl-tag>
-          <sl-tag label=${label + '12'} removable></sl-tag>
-          <sl-tag label=${label + '13'} removable></sl-tag>
-          <sl-tag label=${label + '14'} removable></sl-tag>
-          <sl-tag label=${label + '15'} removable></sl-tag>
-          <sl-tag label=${label + '16'} removable></sl-tag>
-          <sl-tag label=${label + '17'} removable></sl-tag>
-          <sl-tag label=${label + '18'} removable></sl-tag>
-          <sl-tag label=${label + '19'} removable></sl-tag>
-          <sl-tag label=${label + '20'} removable></sl-tag>
-          <sl-tag label=${label + '21'} removable></sl-tag>
-          <sl-tag label=${label + '21'} removable></sl-tag>
-          <sl-tag label=${label + '23'} removable></sl-tag>
+        <sl-tag-list stacked .emphasis=${emphasis} size="lg">
+          <sl-tag .emphasis=${emphasis} label="my label" removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label="test" removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 1'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 2'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label="This is a very long label of the tag of size lg" removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 3'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 4'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 5'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 6'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 7'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 8'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 9'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 10'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 11'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 12'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 13'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 14'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 15'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 16'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 17'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 18'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 19'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 20'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 21'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 21'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 23'} removable></sl-tag>
+        </sl-tag-list>
+
+
+              <sl-tag-list stacked .emphasis=${emphasis}>
+          ${amount.map(
+      () => html`
+          <sl-tag label="label" removable></sl-tag>
+        `
+    )}
         </sl-tag-list>
     `;
   }
@@ -208,14 +227,12 @@ export const All: Story = {
         <sl-tag label="tag label" size="md" disabled></sl-tag>
         <sl-tag label="tag label" removable size="md" disabled></sl-tag>
         <sl-tag label="label" size="md" readonly></sl-tag>
-        <sl-tag label="label" removable size="md" readonly></sl-tag>
 
         <sl-tag label="label" size="lg"></sl-tag>
         <sl-tag label="label" removable size="lg"></sl-tag>
         <sl-tag label="tag label" size="lg" disabled></sl-tag>
         <sl-tag label="tag label" removable size="lg" disabled></sl-tag>
         <sl-tag label="label" size="lg" readonly></sl-tag>
-        <sl-tag label="label" removable size="lg" readonly></sl-tag>
 
         <h2>Bold</h2>
         <sl-tag emphasis="bold" label="label" size="md"></sl-tag>
@@ -223,14 +240,12 @@ export const All: Story = {
         <sl-tag emphasis="bold" label="tag label" size="md" disabled></sl-tag>
         <sl-tag emphasis="bold" label="tag label" removable size="md" disabled></sl-tag>
         <sl-tag emphasis="bold" label="label" size="md" readonly></sl-tag>
-        <sl-tag emphasis="bold" label="label" removable size="md" readonly></sl-tag>
 
         <sl-tag emphasis="bold" label="label" size="lg"></sl-tag>
         <sl-tag emphasis="bold" label="label" removable size="lg"></sl-tag>
         <sl-tag emphasis="bold" label="tag label" size="lg" disabled></sl-tag>
         <sl-tag emphasis="bold" label="tag label" removable size="lg" disabled></sl-tag>
         <sl-tag emphasis="bold" label="label" size="lg" readonly></sl-tag>
-        <sl-tag emphasis="bold" label="label" removable size="lg" readonly></sl-tag>
     `;
   }
 };

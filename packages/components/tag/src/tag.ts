@@ -60,7 +60,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** Whether you can interact with the tag or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
-  /** The emphasis of the badge; defaults to 'subtle'. */
+  /** The emphasis of the tag; defaults to 'subtle'. */
   @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
 
   // readonly?
@@ -95,7 +95,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
       <div class="label">
         ${this.label}
       </div>
-        ${this.removable
+        ${(this.removable && !this.readonly)
           ? html`<button @mouseover=${this.#onMouseover} @mouseout=${this.#onMouseover} @click=${this.#onRemoveClick} class="remove-button" tabindex="-1"><sl-icon name="xmark" .size=${this.size}></sl-icon></button>`
           : nothing}
     `;
@@ -150,6 +150,20 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     }
 
   }
+
+/*  check(el: Element): boolean { // TODO: check if overflows
+    let curOverf = el.style.overflow;
+
+    if ( !curOverf || curOverf === "visible" )
+      el.style.overflow = "hidden";
+
+    let isOverflowing = el.clientWidth < el.scrollWidth
+      || el.clientHeight < el.scrollHeight;
+
+    el.style.overflow = curOverf;
+
+    return isOverflowing;
+  }*/
 
 } // TODO: or maybe slot instead of label?
 // TODO: close button

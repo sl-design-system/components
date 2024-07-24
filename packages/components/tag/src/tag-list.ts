@@ -5,7 +5,7 @@ import { type EventEmitter, RovingTabindexController, event, getScrollParent } f
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state, queryAssignedElements } from 'lit/decorators.js';
 import styles from './tag-list.scss.js';
-import { Tag } from './tag.js';
+import {Tag, TagSize} from './tag.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -31,7 +31,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
 let nextUniqueId = 0;
 
 /**
- * A tab group component that can contain tabs and tab panels.
+ * A tab group component that can contain tags.
  *
  * ```html
  *   <sl-tag-list>
@@ -163,6 +163,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Whether there should be a stacked version shown when there is not enough space. */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
 
+  /** The size of the tag-list (determines size of tags inside). Defaults to `md` with css properties if not attribute is not set. */
+  @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
+
   #initialListWidth = 0;
 
   #hiddenLabel = 0;
@@ -196,6 +199,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       console.log('list-width', list.scrollWidth, list.clientWidth, list.offsetWidth)
 
       console.log('list.scrollWidth in connectedCallback', listInitialWidth, listInitialWidth2, this.tags, list.scrollWidth);
+      this.tags?.forEach((tag: Tag) => tag.size = this.size);
     });
   }
 
@@ -238,7 +242,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     ${this.stacked && this.#hiddenLabel > 0
       ? html`
         <div class="group">
-        <sl-tag aria-describedby="tooltip" label=${this.#hiddenLabel} readonly></sl-tag> <!-- TODO: do we need this one to be focusable due to accessibility reasons?-->
+        <sl-tag aria-describedby="tooltip" label=${this.#hiddenLabel}></sl-tag> <!-- TODO: do we need this one to be focusable due to accessibility reasons?-->
           <sl-tooltip id="tooltip" position="top" max-width="300">
             ${this.#hiddenTags?.map((tag) => tag.label).join(', ')}
           </sl-tooltip>
@@ -250,10 +254,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
      <!-- <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
     </div>-->
     <div class="list">
-      <slot></slot>
+      <slot @slotchange=${this.#onTagsSlotChange}></slot>
     </div>
      <!-- <div part="panels">
-        <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
+        <slot></slot>
       </div> -->
     `;
   } // name="tags"
@@ -598,12 +602,21 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // this.#linkTabsWithPanels();
   }
 
-  #onTabPanelSlotChange(event: Event & { target: HTMLSlotElement }): void {
+  #onTagsSlotChange(event: Event & { target: HTMLSlotElement }): void {
     console.log(event);
+    // TODO: set size to tags here based on tag-list size
+    this.tags = event.target
+      .assignedElements({ flatten: true })
+      .filter((el): el is Tag => el instanceof Tag); // TypeError: Cannot set property tags of #<TagList> which has only a getter
+
+    // this.tags?.forEach((tag) => {
+    //   tag => tag.size = this.size;
+    // });
+
     // this.tabPanels = event.target
     //   .assignedElements({ flatten: true })
     //   .filter((el): el is TabPanel => el instanceof TabPanel);
-
+    //
     // this.tabPanels.forEach((panel, index) => {
     //   panel.id ||= `${this.#idPrefix}-panel-${index + 1}`;
     // });

@@ -38,6 +38,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** Events controller. */
   #events = new EventsController(this, {
     click: this.#onClick,
+    keydown: this.#onKeydown
     // focusin: this.#onFocusin,
     // focusout: this.#onFocusout
   });
@@ -125,7 +126,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     // this.changeEvent.emit(this.formValue);
   }
 
-  #onRemoveClick(event: Event) {
+  #onRemoveClick(event: Event): void {
     if (this.disabled || this.readonly) {
       return;
     }
@@ -137,7 +138,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   } // TODO: on delete r backspace remove as well - on keydown
 
   /** Since :has is not working with :host - only in Safari, this workaround is needed. */
-  #onMouseover(event: MouseEvent) {
+  #onMouseover(event: MouseEvent): void {
     console.log('mouseover event', event);
     if (!(event.target instanceof HTMLButtonElement)) {
       return;
@@ -149,6 +150,12 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
       this.removeAttribute('close-hover');
     }
 
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (['Delete', 'Backspace'].includes(event.key) && this.removable) {
+      this.#onRemoveClick(event);
+    }
   }
 
 /*  check(el: Element): boolean { // TODO: check if overflows

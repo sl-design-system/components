@@ -223,29 +223,29 @@ export const All: Story = {
 
         <h2>Subtle</h2>
         <sl-tag label="label" size="md"></sl-tag>
-        <sl-tag label="label" removable size="md"></sl-tag>
-        <sl-tag label="tag label" size="md" disabled></sl-tag>
-        <sl-tag label="tag label" removable size="md" disabled></sl-tag>
-        <sl-tag label="label" size="md" readonly></sl-tag>
+        <sl-tag label="Removable" removable size="md"></sl-tag>
+        <sl-tag label="Disabled" size="md" disabled></sl-tag>
+        <sl-tag label="Disabled removable" removable size="md" disabled></sl-tag>
+        <sl-tag label="Readonly" size="md" readonly></sl-tag>
 
-        <sl-tag label="label" size="lg"></sl-tag>
-        <sl-tag label="label" removable size="lg"></sl-tag>
-        <sl-tag label="tag label" size="lg" disabled></sl-tag>
-        <sl-tag label="tag label" removable size="lg" disabled></sl-tag>
-        <sl-tag label="label" size="lg" readonly></sl-tag>
+        <sl-tag label="label lg" size="lg"></sl-tag>
+        <sl-tag label="Removable lg" removable size="lg"></sl-tag>
+        <sl-tag label="Disabled lg" size="lg" disabled></sl-tag>
+        <sl-tag label="Disabled removable lg" removable size="lg" disabled></sl-tag>
+        <sl-tag label="Readonly lg" size="lg" readonly></sl-tag>
 
         <h2>Bold</h2>
         <sl-tag emphasis="bold" label="label" size="md"></sl-tag>
-        <sl-tag emphasis="bold" label="label" removable size="md"></sl-tag>
-        <sl-tag emphasis="bold" label="tag label" size="md" disabled></sl-tag>
-        <sl-tag emphasis="bold" label="tag label" removable size="md" disabled></sl-tag>
-        <sl-tag emphasis="bold" label="label" size="md" readonly></sl-tag>
+        <sl-tag emphasis="bold" label="Removable" removable size="md"></sl-tag>
+        <sl-tag emphasis="bold" label="Disabled" size="md" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="Disabled removable" removable size="md" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="Readonly" size="md" readonly></sl-tag>
 
         <sl-tag emphasis="bold" label="label" size="lg"></sl-tag>
-        <sl-tag emphasis="bold" label="label" removable size="lg"></sl-tag>
-        <sl-tag emphasis="bold" label="tag label" size="lg" disabled></sl-tag>
-        <sl-tag emphasis="bold" label="tag label" removable size="lg" disabled></sl-tag>
-        <sl-tag emphasis="bold" label="label" size="lg" readonly></sl-tag>
+        <sl-tag emphasis="bold" label="Removable lg" removable size="lg"></sl-tag>
+        <sl-tag emphasis="bold" label="Disabled lg" size="lg" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="Disabled removable lg" removable size="lg" disabled></sl-tag>
+        <sl-tag emphasis="bold" label="Readonly lg" size="lg" readonly></sl-tag>
     `;
   }
 };

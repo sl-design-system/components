@@ -2,40 +2,15 @@ import { type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
-// import { TagList } from './tag-list.js';
-import { type Tag, type TagSize, type TagEmphasis, type SpinnerVariant } from './tag.js';
+import { type Tag, type TagSize, type TagEmphasis } from './tag.js';
 import { type TagList } from './tag-list.js';
 
-type Props = Pick<Tag, 'emphasis' | 'size' | 'variant' | 'label' | 'removable'>;
+type Props = Pick<Tag, 'emphasis' | 'size' | 'label' | 'removable'>;
 
 type Story = StoryObj<Props>;
 
 const sizes: TagSize[] = ['md', 'lg'];
-const variants: SpinnerVariant[] = ['accent', 'info', 'danger', 'success', 'warning'];
-const buttonVariants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
-const buttonSizes: ButtonSize[] = ['sm', 'md', 'lg'];
 const emphases: TagEmphasis[] = ['subtle', 'bold'];
-
-const sizeName = (size: string): string => {
-  switch (size) {
-    case 'sm':
-      return 'Small';
-    case 'md':
-      return 'Medium';
-    case 'lg':
-      return 'Large';
-    case 'xl':
-      return 'Extra Large';
-    case '2xl':
-      return '2 Extra Large';
-    case '3xl':
-      return '3 Extra Large';
-    case '4xl':
-      return '4 Extra Large';
-    default:
-      return 'Extra Small';
-  }
-};
 
 export default {
   title: 'Components/Tag',
@@ -50,10 +25,6 @@ export default {
     size: {
       control: 'inline-radio',
       options: sizes
-    },
-    variant: {
-      control: 'radio',
-      options: variants
     },
     emphasis: {
       control: 'radio',
@@ -97,6 +68,9 @@ export const Overflow: Story = {
       <style>
         div {
           inline-size: 200px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
         }
       </style>
       <div>
@@ -112,16 +86,20 @@ export const List: Story = {
       size: 'md',
       label: 'Tag label',
       removable: false,
+      emphasis: 'subtle'
     },
-  render: ({label}) => {
+  render: ({emphasis, label, removable, size}) => {
       const amount = Array.from({length: 50});
     return html`
-        <sl-tag-list>
+        <sl-tag-list .emphasis=${emphasis} .size=${size}>
           ${amount.map(
             () => html`
-          <sl-tag .label=${label}></sl-tag>
+          <sl-tag .label=${label} ?removable=${removable}></sl-tag>
         `
           )}
+          <sl-tag label="I am a veeeeeeeeeeeeeeery long tag label" ?removable=${removable}></sl-tag>
+          <sl-tag label="I am a label" ?removable=${removable}></sl-tag>
+          <sl-tag label="I am another label" ?removable=${removable}></sl-tag>
         </sl-tag-list>
     `;
   }

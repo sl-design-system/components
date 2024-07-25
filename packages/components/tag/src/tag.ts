@@ -1,6 +1,7 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { Tooltip } from '@sl-design-system/tooltip';
+import { type CSSResultGroup, LitElement,type PropertyValues,  type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
 import {EventsController} from "@sl-design-system/shared";
@@ -12,7 +13,6 @@ declare global {
 }
 
 export type TagSize =  'md' | 'lg' ;
-export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning';
 export type TagEmphasis = 'subtle' | 'bold';
 
 /**
@@ -28,7 +28,8 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -46,9 +47,6 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** The size of the tag. Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
 
-  /** The spinner variant. */
-  @property({ reflect: true }) variant?: SpinnerVariant;
-
   /** The label of the tag component. */
   @property() label?: string;
 
@@ -63,6 +61,8 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
   /** The emphasis of the tag; defaults to 'subtle'. */
   @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
+
+  #overflow = false;
 
   // readonly?
 
@@ -92,9 +92,16 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   }
 
   override render(): TemplateResult { // TODO: really that nothing is necessary? Check it :)
+   // this.#check(this/*labelEl*/);
+
     return html`
-      <div class="label">
+      <div class="label" aria-describedby="tooltip-label">
         ${this.label}
+          ${this.#overflow
+      ? html`<sl-tooltip id="tooltip-label" position="top">
+            ${this.label}
+          </sl-tooltip>`
+      : nothing}
       </div>
         ${(this.removable && !this.readonly)
           ? html`<button @mouseover=${this.#onMouseover} @mouseout=${this.#onMouseover} @click=${this.#onRemoveClick} class="remove-button" tabindex="-1"><sl-icon name="xmark" .size=${this.size}></sl-icon></button>`
@@ -104,6 +111,19 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   // <sl-button fill="ghost"><sl-icon name="xmark"></sl-icon></sl-button>
 
   // TODO: only tag component needs to be focusable, not close icon
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    // todo removable in changes?
+
+    // const labelEl = this.renderRoot.querySelector('.label');
+
+   this.#check(this/*labelEl*/);
+    this.requestUpdate();
+
+    console.log('changes in first updated', changes, /*this.#check(this),*/ /*labelEl,*/ this.renderRoot);
+  }
 
   #onClick(event: Event): void {
     console.log('target', event.target);
@@ -158,51 +178,44 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     }
   }
 
-/*  check(el: Element): boolean { // TODO: check if overflows
-    let curOverf = el.style.overflow;
+  #check(el: HTMLElement): void /*boolean*/ { // TODO: check if overflows
+    const labelEl = this.renderRoot.querySelector('.label') as HTMLElement;
 
-    if ( !curOverf || curOverf === "visible" )
-      el.style.overflow = "hidden";
+    if (!el || !labelEl) {
+      return;
+    }
 
-    let isOverflowing = el.clientWidth < el.scrollWidth
-      || el.clientHeight < el.scrollHeight;
+   // let curOverf = el.style.overflow;
 
-    el.style.overflow = curOverf;
+  //  console.log('curOverf', curOverf, el.style);
 
-    return isOverflowing;
-  }*/
+    // if ( !curOverf || curOverf === "auto" )
+    //   el.style.overflow = "hidden";
 
-} // TODO: or maybe slot instead of label?
+    let isOverflowing = el.clientWidth < el.scrollWidth;
+
+    console.log('el.clientWidth < el.scrollWidth',el,  el.clientWidth < el.scrollWidth, el.clientWidth, el.scrollWidth, el.getBoundingClientRect(), isOverflowing);
+    console.log('el.clientWidth < el.scrollWidth with thiiis',this,  this.clientWidth < this.scrollWidth, this.clientWidth, this.scrollWidth, this.getBoundingClientRect());
+
+    //if ( !curOverf || curOverf === "auto" )
+    if (isOverflowing) {
+      // el.style.overflow = "hidden";
+      labelEl.style.overflow = "hidden";
+      this.#overflow = isOverflowing;
+    }
+
+   // el.style.overflow = curOverf;
+
+    // return isOverflowing;
+  }
+
+} // TODO: or maybe slot instead of label? for now not, only text for now
 // TODO: close button
 
 // TODO: only close button but maybe also a place for other icons? also in front of the label?
 // TODO:  Maybe tag can have an avatar like in Spectrum design system? https://spectrum.adobe.com/page/tag/
 
 // TODO: possible states: https://m2.material.io/components/chips#input-chips
-
-
-// <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="-24 -24 48 48">
-// <g class="slow">
-// <g class="fast">
-// <g transform="translate(-24, -24)">
-// <path
-//   fill-rule="evenodd"
-// d="M24 6C14.059 6 6 14.059 6 24s8.059 18 18 18 18-8.059 18-18S33.941 6 24 6ZM0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24Z"
-// clip-rule="evenodd"
-// style="fill:var(--_color);opacity:var(--_shadow-opacity);"
-// />
-// <path
-//   fill-rule="evenodd"
-// d="M24 6C14.059 6 6 14.059 6 24a3 3 0 1 1-6 0C0 10.745 10.745 0 24 0s24 10.745 24 24a3 3 0 1 1-6 0c0-9.941-8.059-18-18-18Z"
-// clip-rule="evenodd"
-// style="fill:var(--_color);"
-//   />
-//   </g>
-//   </g>
-//   </g>
-//   </svg>
-
-
 
 // TODO: accessibility: https://material.angular.io/components/chips/overview#accessibility
 

@@ -131,7 +131,7 @@ _ _ _ Currently Working on that in Figma _ _ _
 Splitting the related actions with a divider creates multiple categories, with the possibility of adding a heading to these ones. This helps users to quickly locate the available actions based on the relation of each action in the same group.
 
 ### Overflow Content
-Using a sub-menus or nested options to organise related actions. This approach helps maintain clarity and reduces visual clutter by nesting similar or related actions under sub-menus. For example, within a "File" menu option, nested menus might include "Save As," "Print," and "Export," enhancing usability. However, this solution isn’t the magic one to create an infinite sub-menus to nested everything. Avoid adding more than 2 nested menus, so don’t exceed 3 levels.
+Using sub-menus or nested options to organise related actions. This approach helps maintain clarity and reduces visual clutter by nesting similar or related actions under sub-menus. For example, within a "File" menu option, nested menus might include "Save As," "Print," and "Export," enhancing usability. However, this solution isn’t the magic one to create an infinite sub-menus to nested everything. Avoid adding more than 2 nested menus, so don’t exceed 3 levels.
 
 ### Shortcut Options
 Keyboard shortcuts next to menu options, providing alternative access methods for frequently used actions. These are typically indicated by symbols, numbers, or combinations, allowing proficient users to perform actions quickly without relying solely on mouse interactions. For instance, the "Paste" option in a text editor or the shortcut "Ctrl + V" enables users to execute the action promptly using the keyboard.

@@ -28,17 +28,17 @@ declare global {
  * @slot submenu - The menu items that will be displayed when the menu item is shown.
  */
 export class MenuItem extends ScopedElementsMixin(LitElement) {
-  /** The default offset of the submenu to the menu item. */
+  /** @internal The default offset of the submenu to the menu item. */
   static submenuOffset = 0;
 
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -56,7 +56,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** @internal Emits when the user toggles the selected state. */
+  /** @internal Emits the current selected state as a boolean when the user toggles the menu item. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent>;
 
   /** Whether this menu item has been selected. */
@@ -68,7 +68,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Keyboard shortcut for activating this menu item. */
   @property() shortcut?: string;
 
-  /** The sub menu, if present. */
+  /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
 
   override connectedCallback(): void {

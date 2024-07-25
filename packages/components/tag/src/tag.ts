@@ -4,13 +4,15 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement,type PropertyValues,  type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
-import {EventsController} from "@sl-design-system/shared";
+import {event, EventEmitter, EventsController} from "@sl-design-system/shared";
 
 declare global {
   interface HTMLElementTagNameMap {
     'sl-tag': Tag;
   }
 }
+
+export type SlRemoveEvent = CustomEvent<void>;
 
 export type TagSize =  'md' | 'lg' ;
 export type TagEmphasis = 'subtle' | 'bold';
@@ -43,6 +45,9 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     // focusin: this.#onFocusin,
     // focusout: this.#onFocusout
   });
+
+  /** @internal Emits when the inline message is dismissed. */
+  @event({ name: 'sl-dismiss' }) removeEvent!: EventEmitter<SlRemoveEvent>;
 
   /** The size of the tag. Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
@@ -119,7 +124,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
     // const labelEl = this.renderRoot.querySelector('.label');
 
-   this.#check(this/*labelEl*/);
+   this.#check();
     this.requestUpdate();
 
     console.log('changes in first updated', changes, /*this.#check(this),*/ /*labelEl,*/ this.renderRoot);
@@ -154,6 +159,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     console.log('target on btn remove', event, event.target);
     event.preventDefault();
     event.stopPropagation();
+    this.removeEvent.emit();
     this.remove(); // TODO: event on remove
   } // TODO: on delete r backspace remove as well - on keydown
 
@@ -178,35 +184,19 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     }
   }
 
-  #check(el: HTMLElement): void /*boolean*/ { // TODO: check if overflows
+  #check(): void { // TODO: check if overflows
     const labelEl = this.renderRoot.querySelector('.label') as HTMLElement;
 
-    if (!el || !labelEl) {
+    if (!labelEl) {
       return;
     }
 
-   // let curOverf = el.style.overflow;
+    let isOverflowing = this.clientWidth < this.scrollWidth;
 
-  //  console.log('curOverf', curOverf, el.style);
-
-    // if ( !curOverf || curOverf === "auto" )
-    //   el.style.overflow = "hidden";
-
-    let isOverflowing = el.clientWidth < el.scrollWidth;
-
-    console.log('el.clientWidth < el.scrollWidth',el,  el.clientWidth < el.scrollWidth, el.clientWidth, el.scrollWidth, el.getBoundingClientRect(), isOverflowing);
-    console.log('el.clientWidth < el.scrollWidth with thiiis',this,  this.clientWidth < this.scrollWidth, this.clientWidth, this.scrollWidth, this.getBoundingClientRect());
-
-    //if ( !curOverf || curOverf === "auto" )
     if (isOverflowing) {
-      // el.style.overflow = "hidden";
       labelEl.style.overflow = "hidden";
       this.#overflow = isOverflowing;
     }
-
-   // el.style.overflow = curOverf;
-
-    // return isOverflowing;
   }
 
 } // TODO: or maybe slot instead of label? for now not, only text for now

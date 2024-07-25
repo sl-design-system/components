@@ -1896,7 +1896,7 @@
       },
       "counter": {
         "gap": {
-          "value": "- {borderRadius.default} / 2",
+          "value": "-1 * {borderRadius.default} / 2",
           "type": "spacing"
         }
       },

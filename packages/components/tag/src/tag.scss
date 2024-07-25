@@ -39,6 +39,7 @@ $emphases: subtle, bold;
     .remove-button {
       background: var(--sl-color-tag-#{$emphasis}-idle-background);
       color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
+      --_button-border: var(--sl-color-tag-#{$emphasis}-idle-border);
     }
 
     .remove-button:hover {

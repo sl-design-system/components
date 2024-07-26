@@ -117,8 +117,7 @@ Menu comes in two versions, each suited for specific situations:
 <section>
 
 ## Options
-
-_ _ _ Currently Working on that in Figma _ _ _ 
+The Figma component and the naming of its properties is still a work in progress. This information will be added as soon as possible.
 
 </section>
 

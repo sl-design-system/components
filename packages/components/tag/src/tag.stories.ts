@@ -60,10 +60,17 @@ export const Sizes: Story = {
 export const Overflow: Story = {
   args: {
     size: 'md',
-    label: 'This is a veeeeeeery long tag\'s label which overlows',
-    removable: false,
+    label: 'This is a very long label which overflows',
+    emphasis: 'subtle'
   },
-  render: ({label}) => {
+  argTypes: {
+    removable: {
+      table: {
+        disable: true
+      }
+    },
+  },
+  render: ({emphasis, label, size}) => {
     return html`
       <style>
         div {
@@ -74,8 +81,8 @@ export const Overflow: Story = {
         }
       </style>
       <div>
-          <sl-tag label=${label}></sl-tag>
-          <sl-tag label=${label} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label} .size=${size}></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label} removable .size=${size}></sl-tag>
       </div>
     `;
   }
@@ -145,7 +152,7 @@ export const Stacked: Story = {
           <sl-tag .emphasis=${emphasis} label=${label + ' 19'} removable></sl-tag>
           <sl-tag .emphasis=${emphasis} label=${label + ' 20'} removable></sl-tag>
           <sl-tag .emphasis=${emphasis} label=${label + ' 21'} removable></sl-tag>
-          <sl-tag .emphasis=${emphasis} label=${label + ' 21'} removable></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label + ' 22'} removable></sl-tag>
           <sl-tag .emphasis=${emphasis} label=${label + ' 23'} removable></sl-tag>
         </sl-tag-list>
 

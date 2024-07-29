@@ -1,3 +1,4 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -7,6 +8,10 @@ import styles from './tag.scss.js';
 import {event, EventEmitter, EventsController} from "@sl-design-system/shared";
 
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-remove': SlRemoveEvent;
+  }
+
   interface HTMLElementTagNameMap {
     'sl-tag': Tag;
   }
@@ -21,12 +26,12 @@ export type TagEmphasis = 'subtle' | 'bold';
  * A tag component containing label.
  *
  * ```html
- * <sl-tag></sl-tag>
+ * <sl-tag label="tag label"></sl-tag>
  * ```
  *
- * @cssprop --sl-spinner-size - The size of the spinner, defaults to `md` if not set.
  */
-export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with sl-icon
+@localized()
+export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -40,14 +45,11 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
   /** Events controller. */
   #events = new EventsController(this, {
-    click: this.#onClick,
     keydown: this.#onKeydown
-    // focusin: this.#onFocusin,
-    // focusout: this.#onFocusout
   });
 
   /** @internal Emits when the inline message is dismissed. */
-  @event({ name: 'sl-dismiss' }) removeEvent!: EventEmitter<SlRemoveEvent>;
+  @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
 
   /** The size of the tag. Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
@@ -61,7 +63,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
   /** Whether the tag component is removable. */
   @property({ type: Boolean, reflect: true }) removable?: boolean;
 
-  /** Whether you can interact with the tag or if it is just a static, readonly display. */
+  /** Whether you can interact with the tag or if it is just a static, readonly display. Readonly cannot be removable. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
   /** The emphasis of the tag; defaults to 'subtle'. */
@@ -69,101 +71,69 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
   #overflow = false;
 
-  // readonly?
-
-  // removable
-
-  // disabled
-
-  // readonly - content can be copied, but not interacted with or changed?
-
-  // error variant?
-
   // Users can move through the chips using the arrow keys and select/deselect them with space. Chips also gain focus when clicked, ensuring keyboard navigation starts at the currently focused chip.
 // https://material.angular.io/components/chips/overview#keyboard-interactions
-// when it's focused it can be removed by delecte keydown
+// when it's focused it can be removed by delete keydown
 
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('tabindex', '0');
-    // TODO: role here? this.role = '...';
-
-    // if (!this.hasAttribute('role')) {
-    //   this.setAttribute('role', 'presentation');
-    //   this.setAttribute('aria-hidden', 'true');
-    // }
+    if (!this.disabled) {
+      this.setAttribute('tabindex', '0');
+    }
+    // TODO: role here? this.role = '...'; accessibility...
   }
 
   override render(): TemplateResult { // TODO: really that nothing is necessary? Check it :)
-   // this.#check(this/*labelEl*/);
-
     return html`
       <div class="label" aria-describedby="tooltip-label">
         ${this.label}
           ${this.#overflow
-      ? html`<sl-tooltip id="tooltip-label" position="top">
+      ? html`<sl-tooltip id="tooltip-label" position="bottom">
             ${this.label}
           </sl-tooltip>`
       : nothing}
       </div>
         ${(this.removable && !this.readonly)
-          ? html`<button @mouseover=${this.#onMouseover} @mouseout=${this.#onMouseover} @click=${this.#onRemoveClick} class="remove-button" tabindex="-1"><sl-icon name="xmark" .size=${this.size}></sl-icon></button>`
+          ? html`
+            <button aria-label=${msg('Remove')}
+                    @mouseover=${this.#onMouseover}
+                    @mouseout=${this.#onMouseover}
+                    @click=${this.#onRemoveClick}
+                    class="remove-button"
+                    tabindex="-1">
+              <sl-icon name="xmark" .size=${this.size}></sl-icon>
+            </button>`
           : nothing}
     `;
   } // TODO: aria-label for button only or for the whole component?
-  // <sl-button fill="ghost"><sl-icon name="xmark"></sl-icon></sl-button>
-
-  // TODO: only tag component needs to be focusable, not close icon
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    // todo removable in changes?
-
-    // const labelEl = this.renderRoot.querySelector('.label');
-
-   this.#check();
-    this.requestUpdate();
-
-    console.log('changes in first updated', changes, /*this.#check(this),*/ /*labelEl,*/ this.renderRoot);
+   this.#checkOverflow();
+   this.requestUpdate();
   }
 
-  #onClick(event: Event): void {
-    console.log('target', event.target);
-    console.log('readonly on click?', this.readonly);
-    if (this.disabled || this.readonly) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
 
-    console.log('onclick');
-
-    event.preventDefault();
-    event.stopPropagation();
-    // TODO: remove?
-    // this.focus();
-    // TOD: maybe selected state?
-
-    // this.checked = !this.checked;
-    // this.changeEvent.emit(this.formValue);
+    this.#checkOverflow();
   }
 
-  #onRemoveClick(event: Event): void {
+  #onRemoveClick(): void {
     if (this.disabled || this.readonly) {
       return;
     }
 
-    console.log('target on btn remove', event, event.target);
-    event.preventDefault();
-    event.stopPropagation();
+    // event.preventDefault();
+    // event.stopPropagation();
     this.removeEvent.emit();
-    this.remove(); // TODO: event on remove
-  } // TODO: on delete r backspace remove as well - on keydown
+    this.remove();
+  }
 
-  /** Since :has is not working with :host - only in Safari, this workaround is needed. */
+  /** Since :has is not working with :host (works only in Safari), this workaround is needed. */
   #onMouseover(event: MouseEvent): void {
     console.log('mouseover event', event);
     if (!(event.target instanceof HTMLButtonElement)) {
@@ -180,11 +150,11 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Delete', 'Backspace'].includes(event.key) && this.removable) {
-      this.#onRemoveClick(event);
+      this.#onRemoveClick();
     }
   }
 
-  #check(): void { // TODO: check if overflows
+  #checkOverflow(): void {
     const labelEl = this.renderRoot.querySelector('.label') as HTMLElement;
 
     if (!labelEl) {
@@ -199,11 +169,7 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
     }
   }
 
-} // TODO: or maybe slot instead of label? for now not, only text for now
-// TODO: close button
-
-// TODO: only close button but maybe also a place for other icons? also in front of the label?
-// TODO:  Maybe tag can have an avatar like in Spectrum design system? https://spectrum.adobe.com/page/tag/
+}
 
 // TODO: possible states: https://m2.material.io/components/chips#input-chips
 
@@ -211,11 +177,3 @@ export class Tag extends ScopedElementsMixin(LitElement) { // TODO: scoped with 
 
 // !!!!!!!!! TODO: dependencies !!!!!
 
-
-// TODO: ellipsis when there is not enough space
-
-// TODO: tooltip when ellipsis applied
-
-// TODO: event on remove
-
-// TODO: event on focus or not?

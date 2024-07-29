@@ -61,8 +61,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Unique prefix ID for each component in the light DOM. */
-  #idPrefix = `sl-tab-group-${nextUniqueId++}`;
+  // /** Unique prefix ID for each component in the light DOM. */
+  // #idPrefix = `sl-tab-group-${nextUniqueId++}`;
 
   /**
    * Observe changes to the selected tab and update accordingly. This observer
@@ -128,12 +128,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     // focusInIndex: (elements: Tag[]) => elements.findIndex(el => el.focus),
-    elements: () => this.tags || [],
+    elements: () => /*this.tags*/ (this.#visibleTags.length ? this.#visibleTags.slice().reverse() : this.tags) || [],
     isFocusableElement: (el: Tag) => !el.disabled
   });
 
-  /** Determines whether the active tab indicator should animate. */
-  #shouldAnimate = false;
 
   /** The alignment of tabs within the wrapper. */
   @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
@@ -141,14 +139,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal The menu items to render when the tabs are overflowing. */
   // @state() menuItems?: Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }>;
 
-  /** @internal The currently selected tab. */
-  @state() selectedTab?: Tag;
+  // /** @internal The currently selected tab. */
+  // @state() selectedTab?: Tag;
 
-  /** @internal Whether the menu button needs to be shown. */
-  @state() showMenu = false;
+  // /** @internal Whether the menu button needs to be shown. */
+  // @state() showMenu = false;
 
-  /** @internal Emits when the tab has been selected/changed. */
-  @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<SlTabChangeEvent>;
+  // /** @internal Emits when the tab has been selected/changed. */
+  // @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<SlTabChangeEvent>;
 
   // /** @internal The slotted tabs. */
   // @state() tabPanels?: TabPanel[];
@@ -157,8 +155,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   @queryAssignedElements({ flatten: true }) tags?: Tag[];
   // @state() tags?: Tag[];
 
-  /** Renders the tabs vertically instead of the default horizontal  */
-  @property({ type: Boolean, reflect: true }) vertical?: boolean;
+  // /** Renders the tabs vertically instead of the default horizontal  */
+  // @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
   /** Whether there should be a stacked version shown when there is not enough space. */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
@@ -176,6 +174,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #previousChange = 0;
 
   #hiddenTags: Tag[] = [];
+
+  #visibleTags: Tag[] = [];
+
+  // TODO: role list? https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -219,22 +221,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     console.log('this.tags in updated', this.tags);
 
-    if (changes.has('alignTabs')) {
-      this.#shouldAnimate = false;
-      // this.#updateSelectionIndicator();
-      this.#shouldAnimate = true;
+    if (changes.has('size')) {
+      this.tags?.forEach((tag: Tag) => tag.size = this.size);
     }
 
-    // In vertical mode, we need to observe the scroller for changes in size to
-    // determine when we need to show the menu button.
-    if (changes.has('vertical')) {
-      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
-
-      if (this.vertical) {
-        this.#resizeObserver.observe(scroller);
-      } else {
-        this.#resizeObserver.unobserve(scroller);
-      }
+    if (changes.has('emphasis')) {
+      this.tags?.forEach((tag: Tag) => tag.emphasis = this.emphasis);
     }
   }
 
@@ -247,7 +239,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       ? html`
         <div class="group">
         <sl-tag emphasis=${this.emphasis} aria-describedby="tooltip" label=${this.#hiddenLabel > 99 ? '+99' : this.#hiddenLabel}></sl-tag> <!-- TODO: do we need this one to be focusable due to accessibility reasons?-->
-          <sl-tooltip id="tooltip" position="top" max-width="300">
+          <sl-tooltip id="tooltip" position="bottom" max-width="300">
             ${this.#hiddenTags?.map((tag) => tag.label).join(', ')}
           </sl-tooltip>
         </div>`
@@ -479,7 +471,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 // Initialize hidden tags array
     const hiddenTags2: Tag[] = [];
 
-    const reversedTags = this.tags.slice().reverse();
+/*    const reversedTags = this.tags.slice().reverse();
 
 // Reduce function to check whether a tag should be hidden and add it to the hidden tags array
     const reduceFn = reversedTags.reduce((acc: { visibleTags: Tag[], remainingWidth: number, hiddenTagsWidth: number, visibleTagsWidth: number}, tag: Tag) => {
@@ -490,7 +482,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         console.log('reduceFn acc.remainingWidth tagwidth', acc.remainingWidth, tagWidth, parentElement.clientWidth, tag);
 
       // Check if there is enough space for the tag
-      if (acc.remainingWidth >= (tagWidth /** 1.2*/ * 2)) {
+      if (acc.remainingWidth > (tagWidth * 1.5 /!** 2*!/)) { // >= instead of >
         acc.visibleTags.push(tag);
         acc.remainingWidth -= tagWidth;
         acc.visibleTagsWidth += tagWidth + tagGap;
@@ -506,7 +498,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
       return acc;
     }
-  , { visibleTags: [], remainingWidth: (parentElement.clientWidth - 50 /*- 100*//* - groupEl?.clientWidth*/), hiddenTagsWidth: 0, visibleTagsWidth: 0 }); // TODO: hidden remaining width
+  , { visibleTags: [], remainingWidth: (parentElement.clientWidth - 50 /!*- 100*!//!* - groupEl?.clientWidth*!/), hiddenTagsWidth: 0, visibleTagsWidth: 0 }); // TODO: hidden remaining width
 
     console.log('after reduce', reduceFn, tagGap);
 
@@ -530,12 +522,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     hiddenTags2.forEach(tag => tag.style.visibility = 'hidden');
     reduceFn.visibleTags?.forEach(visible => visible.style.visibility = 'visible');
-/*    setTimeout(() => {
+/!*    setTimeout(() => {
       hiddenTags2.forEach(tag => tag.style.display = 'none');
       reduceFn.visibleTags?.forEach(visible => visible.style.display = 'inline-flex');
       this.#hiddenLabel = hiddenTags2.length;
       this.requestUpdate();
-    });*/
+    });*!/
     // hiddenTags2.forEach(tag => tag.style.display = 'none');
     // reduceFn.visibleTags?.forEach(visible => visible.style.display = 'inline-flex');
     // TODO: use remainingwidth for the marginleft of translateX
@@ -543,6 +535,89 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 // TODO: maybe sth with grid template columns 24px minmax(100px, 1924px) ???
     this.#hiddenLabel = hiddenTags2.length;
     this.#hiddenTags = hiddenTags2;
+    this.#visibleTags = reduceFn.visibleTags; // TODO: we need to reverse for the rovingtabindex??*/
+
+
+
+
+    let containerWidth = this.offsetWidth;
+    let totalTagsWidth = 0; //groupEl?.offsetWidth; //0;
+    let counterWidth = this.#hiddenTags.length > 0 ? groupEl?.offsetWidth : 0;
+
+    // Reset styles to calculate total width correctly
+    this.tags.forEach(tag => {
+      tag.style.display = 'inline-flex'; // or your default display style
+    });
+
+    // Calculate total width of tags
+    this.tags.forEach(tag => {
+      totalTagsWidth += (tag.offsetWidth + tagGap);
+    });
+
+    console.log('counterWidth', counterWidth);
+
+    // Include counter width if at least one tag is hidden
+  //  totalTagsWidth += this.#hiddenTags.length > 0 ? groupEl?.offsetWidth : 0;
+
+    // Determine which tags to show or hide
+    if (totalTagsWidth /*+ counterWidth */> containerWidth) {
+      // Hide tags from left to right
+      for (let i = 0; i < this.tags.length; i++) {
+        totalTagsWidth -= (this.tags[i].offsetWidth + tagGap);
+        this.tags[i].style.display = 'none';
+        this.#hiddenTags.push(this.tags[i]);
+
+        // TODO: when last not use i + 1
+        console.log('i and length', i, this.tags.length);
+
+        // TODO: make sure that at least one tag will be visible when there is a counter visible as well, should be at least ona visible when there are hidden tags
+
+        // if (totalTagsWidth <= containerWidth) {
+        //   break;
+        // }
+        // Check if hiding this tag makes enough space for the counter
+        // if (totalTagsWidth + groupEl?.offsetWidth <= containerWidth) {
+/*        if (totalTagsWidth + (hiddenTags.length > 0 ? counterWidth : 0) <= containerWidth) {
+          break;
+        }*/
+        // Include counter width in the calculation
+        if (totalTagsWidth + counterWidth <= containerWidth) {
+          if (this.#visibleTags.length == 0 && this.#hiddenTags.length > 0) {
+            console.log('this.#visibleTags.length == 0 && this.#hiddenTags.length > 0', 'should show at least one', this.#visibleTags.length, this.#hiddenTags.length);
+          }
+
+          // Hide an additional tag if the counter is displayed
+          if (this.#hiddenTags.length /*===*/ > 1) {
+            totalTagsWidth -= (this.tags[i+1].offsetWidth + tagGap);
+            this.tags[i+1].style.display = 'none';
+            this.#hiddenTags.push(this.tags[i+1]);
+          }
+          break;
+        }
+      }
+
+     // this.#visibleTags = Array.from(this.tags).slice(hiddenTags.length);
+    } else {
+      // All tags are visible
+      // this.#visibleTags = Array.from(this.tags);
+      // this.#hiddenTags = [];
+      // Show tags as there is enough space
+      this.tags.forEach(tag => {
+        tag.style.display = 'inline-flex'; // or your default display style
+      });
+    }
+
+    if (this.#visibleTags.length == 0 && this.#hiddenTags.length > 0) {
+      console.log('this.#visibleTags.length == 0 && this.#hiddenTags.length > 0', 'should show at least one AFTER loop', this.#visibleTags.length, this.#hiddenTags.length);
+    }
+
+    this.#visibleTags = Array.from(this.tags).filter(tag => tag.style.display !== 'none');
+    this.#hiddenTags = Array.from(this.tags).filter(tag => tag.style.display === 'none');
+    this.#hiddenLabel = this.#hiddenTags.length;
+
+    console.log('this.#visibleTags this.#hiddenTags', this.#visibleTags, this.#hiddenTags, this.tags);
+
+    this.#rovingTabindexController.clearElementCache();
     this.requestUpdate();
   }
 
@@ -610,12 +685,32 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #onTagsSlotChange(event: Event & { target: HTMLSlotElement }): void {
     console.log(event);
     // TODO: set size to tags here based on tag-list size
-    this.tags = event.target
+    /*this.tags*/ const tags = event.target
       .assignedElements({ flatten: true })
       .filter((el): el is Tag => el instanceof Tag); // TypeError: Cannot set property tags of #<TagList> which has only a getter
 
-    // this.tags?.forEach((tag) => {
-    //   tag => tag.size = this.size;
+    console.log('tags in slotChange', this.tags, tags,  event.target
+      .assignedElements({ flatten: true }));
+
+    this.#rovingTabindexController.clearElementCache();
+
+    requestAnimationFrame(() => {
+      // console.log('entries in observer', entries, entries[0], entries[0].contentRect);
+      // const { contentRect } = entries[0];
+      // const widthChange = contentRect.width - entries[0].target.clientWidth;
+      // console.log('entry and width change', contentRect, widthChange, entries[0], contentRect.width, entries[0].target.clientWidth );
+      this.#updateVisibility();
+      // this.#shouldAnimate = false;
+      // this.#updateSize();
+      // this.#shouldAnimate = true;
+    });
+
+
+
+    console.log('Slot content changed');
+
+    // this.tags?.forEach((tag: Tag) => {
+    //   tag => (tag as Tag).size = this.size;
     // });
 
     // this.tabPanels = event.target

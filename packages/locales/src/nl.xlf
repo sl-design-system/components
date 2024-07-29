@@ -138,6 +138,10 @@
   <source>error</source>
   <target>fout</target>
 </trans-unit>
+<trans-unit id="sea4f08110bb8f15d">
+  <source>Remove</source>
+  <target>verwijderen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -13,11 +13,11 @@ declare global {
  * A group of menu items, use this if you want to group menu items in a menu with
  * other menu items.
  *
- * @slot default - The menu items.
+ * @slot default - The menu items within a group.
  * @slot header - The header of the group.
  */
 export class MenuItemGroup extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The slotted menu items. */
@@ -26,7 +26,7 @@ export class MenuItemGroup extends LitElement {
   /** The optional heading for the group. */
   @property() heading?: string;
 
-  /** Determines whether if and how many menu items can be selected. */
+  /** Determines whether if and how many menu items can be selected within this group. */
   @property() selects?: 'single' | 'multiple';
 
   override render(): TemplateResult {

@@ -10,5 +10,5 @@ storybookCategory: overlay
 eleventyNavigation:
   parent: Components
   key: Menu
-  status: new
+  status: planned
 ---

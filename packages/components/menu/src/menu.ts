@@ -29,7 +29,7 @@ declare global {
  */
 export class Menu extends LitElement {
   /** The default offset of the menu to its anchor. */
-  static offset = 4;
+  static offset = 6;
 
   /** @private */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };

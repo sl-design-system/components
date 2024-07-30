@@ -103,6 +103,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
         .selects=${this.selects}
+        part="listbox"
       >
         <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-menu>

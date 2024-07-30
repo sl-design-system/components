@@ -1,5 +1,5 @@
 import { arrow, flip, offset, shift, size } from '@floating-ui/core';
-import { autoUpdate, computePosition } from '@floating-ui/dom';
+import { Elements, autoUpdate, computePosition } from '@floating-ui/dom';
 
 type Alignment = 'start' | 'end';
 type Side = 'top' | 'right' | 'bottom' | 'left';
@@ -32,7 +32,7 @@ export const isPopoverOpen = (element?: HTMLElement): boolean => {
   }
 };
 
-const MIN_OVERLAY_HEIGHT = 25;
+const MIN_OVERLAY_HEIGHT = 32;
 
 export const positionPopover = (
   element: HTMLElement,
@@ -51,24 +51,30 @@ export const positionPopover = (
       flip(),
       options.viewportMargin !== undefined ? shift({ padding: options.viewportMargin }) : undefined,
       size({
-        // With popover, we no longer need to worry about any clipping ancestors
-        boundary: document.documentElement,
+        // With popover, we no longer need to
         padding: options.viewportMargin,
-        apply: ({ availableWidth, availableHeight }) => {
+        apply: ({ availableWidth, availableHeight, elements }) => {
           // Make sure that the overlay is contained by the visible page.
-          const maxBlockSize =
-              Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight)) - (options.viewportMargin ?? 0),
-            maxInlineSize = options.maxWidth ?? Math.floor(availableWidth);
-
           const style = getComputedStyle(element),
-            currentMaxBlockSize = parseInt(style.maxBlockSize) ?? 0,
+            max = style.getPropertyValue('--sl-popover-max-block-size'),
+            currentMaxBlockSize = !isNaN(parseInt(max)) ? parseInt(max) : 0,
+            min = style.getPropertyValue('--sl-popover-min-block-size'),
+            currentMinBlockSize = !isNaN(parseInt(min)) ? parseInt(min) : 0,
             currentMaxInlineSize = parseInt(style.maxInlineSize) ?? 0;
 
           // If the element already has a max inline or block size that is smaller
           // than the available space, don't override it.
-          Object.assign(element.style, {
+          const maxBlockSize =
+              currentMaxBlockSize > 0
+                ? Math.min(currentMaxBlockSize, Math.floor(availableHeight))
+                : Math.floor(availableHeight),
+            minBlockSize = Math.max(currentMinBlockSize, MIN_OVERLAY_HEIGHT),
+            maxInlineSize = options.maxWidth ?? Math.floor(availableWidth);
+
+          Object.assign((elements as Elements).floating.style, {
             maxInlineSize: maxInlineSize > currentMaxInlineSize ? '' : `${maxInlineSize}px`,
-            maxBlockSize: maxBlockSize > currentMaxBlockSize ? '' : `${maxBlockSize}px`
+            maxBlockSize: `${maxBlockSize}px`,
+            minBlockSize: `${minBlockSize}px`
           });
         }
       })

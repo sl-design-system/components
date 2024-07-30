@@ -32,7 +32,7 @@ export const isPopoverOpen = (element?: HTMLElement): boolean => {
   }
 };
 
-const MIN_OVERLAY_HEIGHT = 32;
+const MIN_OVERLAY_HEIGHT = 25;
 
 export const positionPopover = (
   element: HTMLElement,

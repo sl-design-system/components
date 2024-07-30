@@ -3,6 +3,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/menu/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -130,6 +131,54 @@ export const EmbeddedComponents: Story = {
       </sl-select>
     `
   }
+};
+
+export const CompareWithMenu: Story = {
+  render: () => html`
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 200px auto;
+      }
+      ::part(listbox),
+      sl-menu {
+        --sl-popover-max-block-size: 150px;
+        --sl-popover-min-block-size: 100px;
+      }
+    </style>
+    <div class="grid">
+      <sl-select value="2">
+        <sl-select-option value="1">
+          <sl-avatar size="sm" display-name="Ashley Howard"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option value="2">
+          <sl-avatar size="sm" display-name="Aria Bailey"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option value="3">
+          <sl-avatar size="sm" display-name="Cooper Philips"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option value="4">
+          <sl-avatar size="sm" display-name="Abigail Lewis"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option disabled value="5">
+          <sl-avatar size="sm" display-name="Ryder Turner"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option value="6">
+          <sl-avatar size="sm" display-name="Zoe Robinson"></sl-avatar>
+        </sl-select-option>
+      </sl-select>
+      <sl-menu-button>
+        <sl-menu-item selectable selected>Side projects</sl-menu-item>
+        <sl-menu-item selectable>Design systems</sl-menu-item>
+        <sl-menu-item selectable>Plugins</sl-menu-item>
+        <sl-menu-item selectable selected>Side projects</sl-menu-item>
+        <sl-menu-item selectable>Design systems</sl-menu-item>
+        <sl-menu-item selectable>Plugins</sl-menu-item>
+      </sl-menu-button>
+    </div>
+  `
 };
 
 export const Empty: Story = {

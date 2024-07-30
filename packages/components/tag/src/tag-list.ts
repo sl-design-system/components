@@ -19,16 +19,7 @@ declare global {
 
 export type SlTabChangeEvent = CustomEvent<number>;
 
-export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
-
-const OBSERVER_OPTIONS: MutationObserverInit = {
-  attributes: true,
-  subtree: true,
-  attributeFilter: ['selected'],
-  attributeOldValue: true
-};
-
-let nextUniqueId = 0;
+// export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
 
 /**
  * A tab group component that can contain tags.
@@ -61,48 +52,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // /** Unique prefix ID for each component in the light DOM. */
-  // #idPrefix = `sl-tab-group-${nextUniqueId++}`;
-
   /**
-   * Observe changes to the selected tab and update accordingly. This observer
-   * is necessary for changes to the selected tab that are made programmatically.
-   * Selected changes made by the user are handled by the click event listener.
-   */
-  #mutationObserver = new MutationObserver(entries => {
-    console.log(entries);
-    // const selected = entries.find(
-    //   entry =>
-    //     entry.attributeName === 'selected' &&
-    //     entry.oldValue === null &&
-    //     entry.target instanceof Tab &&
-    //     entry.target.parentElement === this
-    // );
-    //
-    // const deselected = entries.find(
-    //   entry =>
-    //     entry.attributeName === 'selected' &&
-    //     entry.target instanceof Tab &&
-    //     entry.target.parentElement === this &&
-    //     !entry.target.hasAttribute('selected')
-    // );
-
-    // Update the selected tab with the observer turned off to avoid loops
-    this.#mutationObserver?.disconnect();
-
-    // if (selected) {
-    //   this.#updateSelectedTab(selected.target as Tab);
-    // } else if (deselected) {
-    //   this.#updateSelectedTab();
-    // }
-
-    this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
-  });
-
-  /**
-   * Observe changes to the size of the tablist so:
-   * - we can determine when to display an overflow menu with tab items
-   * - we know when we need to reposition the active tab indicator
+   * Observe changes to the size of the tag-list,
+   * so we can determine when to display a counter with amount of hidden tags
    */
   #resizeObserver = new ResizeObserver((entries) => {
     requestAnimationFrame(() => {
@@ -128,13 +80,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     // focusInIndex: (elements: Tag[]) => elements.findIndex(el => el.focus),
-    elements: () => /*this.tags*/ (this.#visibleTags.length ? this.#visibleTags.slice().reverse() : this.tags) || [],
+    elements: () => /*this.tags*/ (this.#visibleTags.length ? this.#visibleTags/*.slice().reverse()*/ : this.tags) || [],
     isFocusableElement: (el: Tag) => !el.disabled
   });
 
 
-  /** The alignment of tabs within the wrapper. */
-  @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
+  // /** The alignment of tabs within the wrapper. */
+  // @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
 
   /** @internal The menu items to render when the tabs are overflowing. */
   // @state() menuItems?: Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }>;
@@ -182,8 +134,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
-
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
       // const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
@@ -211,7 +161,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
-    this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
   }
@@ -219,7 +168,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('this.tags in updated', this.tags);
+    console.log('this.tags in updated', this.tags, changes);
 
     if (changes.has('size')) {
       this.tags?.forEach((tag: Tag) => tag.size = this.size);
@@ -228,6 +177,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     if (changes.has('emphasis')) {
       this.tags?.forEach((tag: Tag) => tag.emphasis = this.emphasis);
     }
+
+    // TODO when sth has changed in the tag like label length inside the tag or removable or not or sth this.#updateVisibility(); needs to run again
   }
 
   override render(): TemplateResult {
@@ -272,13 +223,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     console.log('renderRoot on update', this.renderRoot.querySelectorAll<Tag>('sl-tag'), this.renderRoot, this.renderRoot.querySelectorAll('sl-tag'), this.tags);
     console.log('renderRoot on update list', this.renderRoot.querySelector('.list'));
 
-    const remainingSpace = this.clientWidth; // TODO: this minut place for group when more than 1 and 3 in group hidden and minus spacing
+  //  const remainingSpace = this.clientWidth; // TODO: this minut place for group when more than 1 and 3 in group hidden and minus spacing
     const list = this.renderRoot.querySelector('.list') as HTMLDivElement;
     const listInitialWidth = Math.round(list.getBoundingClientRect().width);
     const listInitialWidth2 = Math.round(list.offsetWidth);
 
     console.log('dimensions', this.getBoundingClientRect(), this.scrollWidth, this.clientWidth);
-    console.log('list dimensions', list.getBoundingClientRect(), list.scrollWidth, list.clientWidth); // TODO: group width?
+   // console.log('list dimensions', list.getBoundingClientRect(), list.scrollWidth, list.clientWidth); // TODO: group width?
 
     console.log('list.getBoundingClientRect', list.getBoundingClientRect(), Math.round(list.getBoundingClientRect().width), this.tags, this.tags[0].offsetWidth);
     console.log('list.scrollWidth', list.scrollWidth, Math.round(list.getBoundingClientRect().width), Math.round(list.getBoundingClientRect().width) < list.scrollWidth, listInitialWidth, listInitialWidth2);
@@ -560,17 +511,22 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   //  totalTagsWidth += this.#hiddenTags.length > 0 ? groupEl?.offsetWidth : 0;
 
     // Determine which tags to show or hide
-    if (totalTagsWidth /*+ counterWidth */> containerWidth) {
+    if (totalTagsWidth /*+ counterWidth */> (containerWidth - counterWidth)) {
       // Hide tags from left to right
-      for (let i = 0; i < this.tags.length; i++) {
+      for (let i = 0; i < (this.tags.length); i++) {
         totalTagsWidth -= (this.tags[i].offsetWidth + tagGap);
         this.tags[i].style.display = 'none';
         this.#hiddenTags.push(this.tags[i]);
 
         // TODO: when last not use i + 1
-        console.log('i and length', i, this.tags.length);
+        console.log('i and length', i, this.tags.length, i === this.tags.length);
+
+        if ((i + 1) === this.tags.length) {
+          console.log('i and length the same', i, this.tags.length, i === this.tags.length);
+        }
 
         // TODO: make sure that at least one tag will be visible when there is a counter visible as well, should be at least ona visible when there are hidden tags
+        // TODO: it should be at least last tag visible
 
         // if (totalTagsWidth <= containerWidth) {
         //   break;
@@ -581,17 +537,26 @@ export class TagList extends ScopedElementsMixin(LitElement) {
           break;
         }*/
         // Include counter width in the calculation
-        if (totalTagsWidth + counterWidth <= containerWidth) {
+        if (totalTagsWidth /*+ counterWidth*/ <= /*containerWidth*/(containerWidth - counterWidth)) {
           if (this.#visibleTags.length == 0 && this.#hiddenTags.length > 0) {
-            console.log('this.#visibleTags.length == 0 && this.#hiddenTags.length > 0', 'should show at least one', this.#visibleTags.length, this.#hiddenTags.length);
+            console.log('this.#visibleTags.length == 0 && this.#hiddenTags.length > 0', 'should show at least one', this.#visibleTags.length, this.#hiddenTags.length, Array.from(this.tags).filter(tag => tag.style.display === 'none'));
           }
 
-          // Hide an additional tag if the counter is displayed
-          if (this.#hiddenTags.length /*===*/ > 1) {
-            totalTagsWidth -= (this.tags[i+1].offsetWidth + tagGap);
-            this.tags[i+1].style.display = 'none';
-            this.#hiddenTags.push(this.tags[i+1]);
+          console.log('is i equal tags.length?', i, this.tags.length, i == this.tags.length, this.tags[i+1], !!this.tags[i+1]);
+
+          if (i == this.tags.length) {
+            console.log('yes, this is the last one');
           }
+
+          this.tags[this.tags.length-1].style.display = 'inline-flex';
+
+          // Hide an additional tag if the counter is displayed
+          // if (this.#hiddenTags.length /*===*/ > 1 && !!this.tags[i+1]) {
+          //   console.log('is going to Hide an additional tag if the counter is displayed', this.#hiddenTags.length, !!this.tags[i+1]);
+          //   totalTagsWidth -= (this.tags[i+1].offsetWidth + tagGap);
+          //   this.tags[i+1].style.display = 'none';
+          //   this.#hiddenTags.push(this.tags[i+1]);
+          // }
           break;
         }
       }
@@ -603,19 +568,25 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       // this.#hiddenTags = [];
       // Show tags as there is enough space
       this.tags.forEach(tag => {
-        tag.style.display = 'inline-flex'; // or your default display style
+        tag.style.display = 'inline-flex';
       });
     }
 
-    if (this.#visibleTags.length == 0 && this.#hiddenTags.length > 0) {
-      console.log('this.#visibleTags.length == 0 && this.#hiddenTags.length > 0', 'should show at least one AFTER loop', this.#visibleTags.length, this.#hiddenTags.length);
-    }
+    // if (this.#visibleTags.length == 0 && this.#hiddenTags.length > 0) {
+    //   console.log('this.#visibleTags.length == 0 && this.#hiddenTags.length > 0', 'should show at least one AFTER loop', this.#visibleTags.length, this.#hiddenTags.length, this.#visibleTags, this.#hiddenTags);
+    // }
+
+    console.log('tags before filtering', this.tags, this.tags.length);
 
     this.#visibleTags = Array.from(this.tags).filter(tag => tag.style.display !== 'none');
     this.#hiddenTags = Array.from(this.tags).filter(tag => tag.style.display === 'none');
     this.#hiddenLabel = this.#hiddenTags.length;
 
-    console.log('this.#visibleTags this.#hiddenTags', this.#visibleTags, this.#hiddenTags, this.tags);
+    if (this.#visibleTags.length == 0 && this.#hiddenTags.length > 0) {
+      console.log('this.#visibleTags.length == 0 && this.#hiddenTags.length > 0', 'should show at least one AFTER loop', this.#visibleTags.length, this.#hiddenTags.length, this.#visibleTags, this.#hiddenTags);
+    }
+
+    console.log('this.#visibleTags this.#hiddenTags', this.#visibleTags, this.#hiddenTags, this.tags, this.#hiddenTags.length);
 
     this.#rovingTabindexController.clearElementCache();
     this.requestUpdate();
@@ -699,7 +670,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       // const { contentRect } = entries[0];
       // const widthChange = contentRect.width - entries[0].target.clientWidth;
       // console.log('entry and width change', contentRect, widthChange, entries[0], contentRect.width, entries[0].target.clientWidth );
-      this.#updateVisibility();
+      this.#updateVisibility(); // TODO: why it's not running when removable has changed in tags etc.? and also label length?
       // this.#shouldAnimate = false;
       // this.#updateSize();
       // this.#shouldAnimate = true;
@@ -860,6 +831,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   //   this.#updateSelectionIndicator();
   // }
 }
+
+// TODO: accessibility
 
 // TODO: stacked or full by default
 

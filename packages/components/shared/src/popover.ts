@@ -56,11 +56,12 @@ export const positionPopover = (
         apply: ({ availableWidth, availableHeight, elements }) => {
           // Make sure that the overlay is contained by the visible page.
           const style = getComputedStyle(element),
-            max = style.getPropertyValue('--sl-popover-max-block-size'),
-            currentMaxBlockSize = !isNaN(parseInt(max)) ? parseInt(max) : 0,
-            min = style.getPropertyValue('--sl-popover-min-block-size'),
-            currentMinBlockSize = !isNaN(parseInt(min)) ? parseInt(min) : 0,
-            currentMaxInlineSize = parseInt(style.maxInlineSize) ?? 0;
+            maxBlock = style.getPropertyValue('--sl-popover-max-block-size'),
+            currentMaxBlockSize = !isNaN(parseInt(maxBlock)) ? parseInt(maxBlock) : 0,
+            minBlock = style.getPropertyValue('--sl-popover-min-block-size'),
+            currentMinBlockSize = !isNaN(parseInt(minBlock)) ? parseInt(minBlock) : 0,
+            maxInline = style.getPropertyValue('--sl-popover-max-inline-size'),
+            currentMaxInlineSize = !isNaN(parseInt(maxInline)) ? parseInt(maxInline) : 0;
 
           // If the element already has a max inline or block size that is smaller
           // than the available space, don't override it.
@@ -69,7 +70,10 @@ export const positionPopover = (
                 ? Math.min(currentMaxBlockSize, Math.floor(availableHeight))
                 : Math.floor(availableHeight),
             minBlockSize = Math.max(currentMinBlockSize, MIN_OVERLAY_HEIGHT),
-            maxInlineSize = options.maxWidth ?? Math.floor(availableWidth);
+            maxInlineSize =
+              currentMaxInlineSize > 0
+                ? Math.min(currentMaxInlineSize, Math.floor(availableWidth))
+                : Math.floor(availableWidth);
 
           Object.assign((elements as Elements).floating.style, {
             maxInlineSize: maxInlineSize > currentMaxInlineSize ? '' : `${maxInlineSize}px`,

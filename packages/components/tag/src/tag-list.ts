@@ -21,6 +21,13 @@ export type SlTabChangeEvent = CustomEvent<number>;
 
 // export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
 
+const OBSERVER_OPTIONS: MutationObserverInit = {
+  attributes: true,
+  subtree: true,
+  attributeFilter: ['selected'],
+  attributeOldValue: true
+};
+
 /**
  * A tab group component that can contain tags.
  *
@@ -52,11 +59,31 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Observe changes to tags to update visible and hidden tags if necessary. */
+  #mutationObserver = new MutationObserver(() => {
+    this.#mutationObserver?.disconnect();
+
+    console.log('mutationObserver entries');
+    requestAnimationFrame(() => {
+      // this.#mutationObserver?.disconnect();
+
+      this.#updateVisibility();
+      // this.#shouldAnimate = false;
+      // this.#updateSize();
+      // this.#shouldAnimate = true;
+
+      // this.#mutationObserver?.observe(this, { attributes: true, attributeOldValue: true, subtree: true });
+    });
+    this.#mutationObserver?.observe(this, { attributes: true, attributeFilter: ['removable', 'label'], attributeOldValue: true, subtree: true });
+  });
+
   /**
    * Observe changes to the size of the tag-list,
    * so we can determine when to display a counter with amount of hidden tags
    */
   #resizeObserver = new ResizeObserver((entries) => {
+    // this.#mutationObserver?.disconnect();
+
     requestAnimationFrame(() => {
       console.log('entries in observer', entries, entries[0], entries[0].contentRect);
       const { contentRect } = entries[0];
@@ -67,6 +94,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       // this.#updateSize();
       // this.#shouldAnimate = true;
     });
+
+    // this.#mutationObserver?.observe(this, { attributeFilter: ['removable'] });
+
+    // this.tags?.forEach((tagComponent) => {
+    //   this.#mutationObserver?.observe(tagComponent, { attributes: true });
+    // });
     // console.log('entries in observer', entries, entries[0], entries[0].contentRect);
     // const { contentRect } = entries[0];
     // const widthChange = contentRect.width - entries[0].target.clientWidth;
@@ -123,7 +156,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   #hiddenLabel = 0;
 
-  #previousChange = 0;
+ // #previousChange = 0;
 
   #hiddenTags: Tag[] = [];
 
@@ -133,6 +166,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    // this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
 
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
@@ -156,11 +191,19 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       console.log('list.scrollWidth in connectedCallback', listInitialWidth, listInitialWidth2, this.tags, list.scrollWidth);
       this.tags?.forEach((tag: Tag) => tag.size = this.size);
       this.tags?.forEach((tag: Tag) => tag.emphasis = this.emphasis);
+
+      // this.tags?.forEach((tagComponent) => {
+      //   this.#mutationObserver?.observe(tagComponent, { attributes: true });
+      // });
+      this.#mutationObserver?.observe(this, { attributes: true, attributeFilter: ['removable', 'label'], attributeOldValue: true, subtree: true }); // TODO: separated options
+
+      // this.#mutationObserver?.observe(list, { attributes: true, attributeFilter: ['removable', 'label', 'size'] });
     });
   }
 
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
+    this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
   }
@@ -195,25 +238,17 @@ export class TagList extends ScopedElementsMixin(LitElement) {
           </sl-tooltip>
         </div>`
       : nothing}
-    <!--<div class="group" hidden-elemens="3">-->
-      <!--<sl-tag label="1" readonly></sl-tag>
-      <sl-tag label="2" readonly></sl-tag>-->
-     <!-- <sl-tag label=${this.#hiddenLabel} readonly></sl-tag>
-    </div>-->
     <div class="list">
       <slot @slotchange=${this.#onTagsSlotChange}></slot>
     </div>
-     <!-- <div part="panels">
-        <slot></slot>
-      </div> -->
     `;
   } // name="tags"
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    console.log('this.tags in first updated', this.tags);
-  }
+  // override firstUpdated(changes: PropertyValues<this>): void {
+  //   super.firstUpdated(changes);
+  //
+  //   console.log('this.tags in first updated', this.tags);
+  // }
 
   #updateVisibility(): void {
     if (!this.tags || !this.stacked) {
@@ -653,17 +688,23 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // this.#linkTabsWithPanels();
   }
 
-  #onTagsSlotChange(event: Event & { target: HTMLSlotElement }): void {
+  #onTagsSlotChange(event: Event & { target: HTMLSlotElement }): void { // TODO: necessary eg when removing a tag, should it also be mutation observer reconnection there?
     console.log(event);
     // TODO: set size to tags here based on tag-list size
     /*this.tags*/ const tags = event.target
       .assignedElements({ flatten: true })
       .filter((el): el is Tag => el instanceof Tag); // TypeError: Cannot set property tags of #<TagList> which has only a getter
 
+    console.log('tags in slotChange--1', tags);
+
     console.log('tags in slotChange', this.tags, tags,  event.target
       .assignedElements({ flatten: true }));
 
     this.#rovingTabindexController.clearElementCache();
+
+    this.#resizeObserver.disconnect();
+
+    this.#resizeObserver.observe(this);
 
     requestAnimationFrame(() => {
       // console.log('entries in observer', entries, entries[0], entries[0].contentRect);
@@ -679,157 +720,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
 
     console.log('Slot content changed');
-
-    // this.tags?.forEach((tag: Tag) => {
-    //   tag => (tag as Tag).size = this.size;
-    // });
-
-    // this.tabPanels = event.target
-    //   .assignedElements({ flatten: true })
-    //   .filter((el): el is TabPanel => el instanceof TabPanel);
-    //
-    // this.tabPanels.forEach((panel, index) => {
-    //   panel.id ||= `${this.#idPrefix}-panel-${index + 1}`;
-    // });
-
-    // Set the no-panels attribute if there are no panels; used for styling
-    // this.toggleAttribute('no-panels', this.tabPanels.length === 0);
-
-    // this.#linkTabsWithPanels();
   }
-
-  // #linkTabsWithPanels(): void {
-  //   this.tabs?.forEach((tab, index) => {
-  //     tab.toggleAttribute('selected', tab === this.selectedTab);
-  //
-  //     const panel = this.tabPanels?.at(index);
-  //
-  //     if (panel) {
-  //       tab.setAttribute('aria-controls', `${this.#idPrefix}-panel-${index + 1}`);
-  //       panel.setAttribute('aria-hidden', tab === this.selectedTab ? 'false' : 'true');
-  //       panel.setAttribute('aria-labelledby', `${this.#idPrefix}-tab-${index + 1}`);
-  //     } else {
-  //       tab.removeAttribute('aria-controls');
-  //     }
-  //   });
-  // }
-
-  // #scrollIntoViewIfNeeded(tab: Tab): void {
-  //   const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
-  //     scrollerRect = scroller.getBoundingClientRect(),
-  //     tabRect = tab.getBoundingClientRect();
-  //
-  //   if (this.vertical) {
-  //     if (tabRect.top < scrollerRect.top) {
-  //       // The tab is above the top edge of the scroller
-  //       scroller.scrollBy({ top: tabRect.top - scrollerRect.top });
-  //     } else if (tabRect.bottom > scrollerRect.bottom) {
-  //       // The tab is below the bottom edge of the scroller
-  //       scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom });
-  //     }
-  //   } else {
-  //     if (tabRect.left < scrollerRect.left) {
-  //       // The tab is to the left of the left edge of the scroller
-  //       scroller.scrollBy({ left: tabRect.left - scrollerRect.left });
-  //     } else if (tabRect.right > scrollerRect.right) {
-  //       // The tab is to the right of the right edge of the scroller
-  //       scroller.scrollBy({ left: tabRect.right - scrollerRect.right });
-  //     }
-  //   }
-  // }
-
-  // #scrollToTabPanelStart(): void {
-  //   const { bottom: containerBottom = 0 } =
-  //     this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
-  //     { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
-  //     { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
-  //
-  //   // Scroll to make sure the top of the panel is visible, but don't scroll too far
-  //   // so the tab container/wrapper may become unstuck.
-  //   getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
-  // }
-  //
-  // #updateSelectedTab(selectedTab?: Tab): void {
-  //   if (selectedTab !== this.selectedTab) {
-  //     this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
-  //
-  //     this.querySelectorAll('sl-tab-panel').forEach(panel => {
-  //       panel.setAttribute('aria-hidden', selectedTab?.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
-  //     });
-  //
-  //     this.selectedTab = selectedTab;
-  //     this.tabChangeEvent.emit(selectedTab ? this.tabs?.indexOf(selectedTab) ?? 0 : -1);
-  //     this.#updateSelectionIndicator();
-  //   }
-  //
-  //   if (selectedTab) {
-  //     this.#scrollIntoViewIfNeeded(selectedTab);
-  //   }
-  // }
-  //
-  // #updateSelectionIndicator(): void {
-  //   const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement;
-  //
-  //   if (!this.selectedTab) {
-  //     indicator.style.opacity = '';
-  //     indicator.style.scale = '';
-  //     indicator.style.transitionDuration = '0s';
-  //     indicator.style.translate = '';
-  //
-  //     return;
-  //   }
-  //
-  //   const tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
-  //     rect = this.selectedTab.getBoundingClientRect();
-  //
-  //   let start = 0;
-  //   if (this.vertical) {
-  //     start = rect.top - tablist.getBoundingClientRect().top;
-  //   } else {
-  //     start = rect.left - tablist.getBoundingClientRect().left;
-  //   }
-  //
-  //   indicator.style.opacity = '1';
-  //   indicator.style.transitionDuration = this.#shouldAnimate ? '' : '0s';
-  //   indicator.style.transitionProperty = indicator.style.translate === '' ? 'opacity' : '';
-  //
-  //   if (this.vertical) {
-  //     indicator.style.scale = `1 ${rect.height / 100}`;
-  //     indicator.style.translate = `0 ${start}px`;
-  //   } else {
-  //     indicator.style.scale = `${rect.width / 100} 1`;
-  //     indicator.style.translate = `${start}px`;
-  //   }
-  // }
-  //
-  // #updateSize(): void {
-  //   const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
-  //     tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
-  //
-  //   this.showMenu = this.vertical
-  //     ? tablist.scrollHeight > scroller.offsetHeight
-  //     : tablist.scrollWidth > scroller.offsetWidth;
-  //
-  //   if (this.showMenu) {
-  //     this.menuItems = this.tabs?.map(tab => {
-  //       const title = Array.from(tab.childNodes)
-  //         .filter(node => node instanceof Text || (node instanceof Element && !node.slot))
-  //         .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
-  //
-  //       const subtitle = Array.from(tab.childNodes)
-  //         .filter(node => node instanceof Element && node.slot === 'subtitle')
-  //         .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
-  //
-  //       return { tab, disabled: tab.disabled, title, subtitle };
-  //     });
-  //   } else {
-  //     this.menuItems = undefined;
-  //   }
-  //
-  //   this.selectedTab?.scrollIntoView(false);
-  //
-  //   this.#updateSelectionIndicator();
-  // }
 }
 
 // TODO: accessibility

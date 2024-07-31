@@ -1,9 +1,7 @@
-import { type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 import { type Tag, type TagSize, type TagEmphasis } from './tag.js';
-import { type TagList } from './tag-list.js';
 
 type Props = Pick<Tag, 'emphasis' | 'size' | 'label' | 'removable'>;
 
@@ -43,16 +41,24 @@ export default {
 
 export const Basic: Story = {};
 
+// TODO: in basic, disabled, readonly
+
 export const Sizes: Story = {
   args: {
-    size: 'md',
     label: 'Tag label',
     removable: false,
   },
-  render: ({label}) => {
+  argTypes: {
+    size: {
+      table: {
+        disable: true
+      }
+    },
+  },
+  render: ({emphasis,label, removable}) => {
     return html`
-          <sl-tag label=${label}></sl-tag>
-          <sl-tag label=${label} size="lg"></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label} ?removable=${removable}></sl-tag>
+          <sl-tag .emphasis=${emphasis} label=${label} ?removable=${removable} size="lg"></sl-tag>
     `;
   }
 };
@@ -148,7 +154,7 @@ export const StackedOver100: Story = {
     removable: false,
     emphasis: 'subtle'
   },
-  render: ({emphasis}) => {
+  render: ({emphasis, label, removable, size}) => {
     const amount = Array.from({ length: 120 });
     return html`
       <style>
@@ -156,10 +162,10 @@ export const StackedOver100: Story = {
           margin-bottom: 24px;
         }
       </style>
-      <sl-tag-list stacked .emphasis=${emphasis}>
+      <sl-tag-list stacked .emphasis=${emphasis} .size=${size}>
           ${amount.map(
       (_, index) => html`
-          <sl-tag .label=${'label ' + (index + 1) } removable></sl-tag>
+          <sl-tag .label=${label + ' ' + (index + 1) } ?removable=${removable}></sl-tag>
         `
     )}
         </sl-tag-list>
@@ -168,6 +174,28 @@ export const StackedOver100: Story = {
 };
 
 export const All: Story = {
+  argTypes: {
+    emphasis: {
+      table: {
+        disable: true
+      }
+    },
+    label: {
+      table: {
+        disable: true
+      }
+    },
+    removable: {
+      table: {
+        disable: true
+      }
+    },
+    size: {
+      table: {
+        disable: true
+      }
+    },
+  },
   render: () => {
     return html`
       <style>
@@ -204,8 +232,3 @@ export const All: Story = {
     `;
   }
 };
-
-// TODO: with links example
-
-
-// TODO: disabled and readonly in all story

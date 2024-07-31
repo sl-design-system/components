@@ -55,7 +55,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
 
   /** The label of the tag component. */
-  @property() label?: string;
+  @property({reflect: true }) label?: string;
 
   /** Whether the tag component is disabled, when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;

@@ -69,14 +69,14 @@ export const positionPopover = (
               currentMaxBlockSize > 0
                 ? Math.min(currentMaxBlockSize, Math.floor(availableHeight))
                 : Math.floor(availableHeight),
-            minBlockSize = Math.max(currentMinBlockSize, MIN_OVERLAY_HEIGHT),
-            maxInlineSize =
-              currentMaxInlineSize > 0
-                ? Math.min(currentMaxInlineSize, Math.floor(availableWidth))
-                : Math.floor(availableWidth);
-
+            minBlockSize = Math.max(currentMinBlockSize, MIN_OVERLAY_HEIGHT);
+          let maxInlineSize =
+            currentMaxInlineSize > 0
+              ? Math.min(currentMaxInlineSize, Math.floor(availableWidth))
+              : Math.floor(availableWidth);
+          maxInlineSize = options.maxWidth ? Math.min(options.maxWidth, maxInlineSize) : maxInlineSize;
           Object.assign((elements as Elements).floating.style, {
-            maxInlineSize: maxInlineSize > currentMaxInlineSize ? '' : `${maxInlineSize}px`,
+            maxInlineSize: `${maxInlineSize}px`,
             maxBlockSize: `${maxBlockSize}px`,
             minBlockSize: `${minBlockSize}px`
           });

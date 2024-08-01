@@ -1,11 +1,11 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
+import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement,type PropertyValues,  type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tag.scss.js';
-import {event, EventEmitter, EventsController} from "@sl-design-system/shared";
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -19,7 +19,7 @@ declare global {
 
 export type SlRemoveEvent = CustomEvent<void>;
 
-export type TagSize =  'md' | 'lg' ;
+export type TagSize = 'md' | 'lg';
 export type TagEmphasis = 'subtle' | 'bold';
 
 /**
@@ -44,6 +44,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     keydown: this.#onKeydown
   });
@@ -51,11 +52,11 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
 
-  /** The size of the tag. Defaults to `md` with css properties if not attribute is not set. */
-  @property({ reflect: true }) size?: TagSize = 'md'; // TODO: change description
+  /** The size of the tag. Defaults to `md`.. */
+  @property({ reflect: true }) size?: TagSize = 'md';
 
   /** The label of the tag component. */
-  @property({reflect: true }) label?: string;
+  @property({ reflect: true }) label?: string;
 
   /** Whether the tag component is disabled, when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -72,9 +73,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   #overflow = false;
 
   // Users can move through the chips using the arrow keys and select/deselect them with space. Chips also gain focus when clicked, ensuring keyboard navigation starts at the currently focused chip.
-// https://material.angular.io/components/chips/overview#keyboard-interactions
-// when it's focused it can be removed by delete keydown
-
+  // https://material.angular.io/components/chips/overview#keyboard-interactions
+  // when it's focused it can be removed by delete keydown
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -85,35 +85,35 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     // TODO: role here? this.role = '...'; accessibility...
   }
 
-  override render(): TemplateResult { // TODO: really that nothing is necessary? Check it :)
+  override render(): TemplateResult {
+    // TODO: really that nothing is necessary? Check it :)
     return html`
       <div class="label" aria-describedby="tooltip-label">
         ${this.label}
-          ${this.#overflow
-      ? html`<sl-tooltip id="tooltip-label" position="bottom">
-            ${this.label}
-          </sl-tooltip>`
-      : nothing}
-      </div>
-        ${(this.removable && !this.readonly)
-          ? html`
-            <button aria-label=${msg('Remove')}
-                    @mouseover=${this.#onMouseover}
-                    @mouseout=${this.#onMouseover}
-                    @click=${this.#onRemoveClick}
-                    class="remove-button"
-                    tabindex="-1">
-              <sl-icon name="xmark" .size=${this.size}></sl-icon>
-            </button>`
+        ${this.#overflow
+          ? html`<sl-tooltip id="tooltip-label" position="bottom"> ${this.label} </sl-tooltip>`
           : nothing}
+      </div>
+      ${this.removable && !this.readonly
+        ? html` <button
+            aria-label=${msg('Remove')}
+            @mouseover=${this.#onMouseover}
+            @mouseout=${this.#onMouseover}
+            @click=${this.#onRemoveClick}
+            class="remove-button"
+            tabindex="-1"
+          >
+            <sl-icon name="xmark" .size=${this.size}></sl-icon>
+          </button>`
+        : nothing}
     `;
   } // TODO: aria-label for button only or for the whole component?
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-   this.#checkOverflow();
-   this.requestUpdate();
+    this.#checkOverflow();
+    this.requestUpdate();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -127,15 +127,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // event.preventDefault();
-    // event.stopPropagation();
     this.removeEvent.emit();
     this.remove();
   }
 
   /** Since :has is not working with :host (works only in Safari), this workaround is needed. */
   #onMouseover(event: MouseEvent): void {
-    console.log('mouseover event', event);
     if (!(event.target instanceof HTMLButtonElement)) {
       return;
     }
@@ -145,7 +142,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     } else {
       this.removeAttribute('close-hover');
     }
-
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -161,14 +157,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    let isOverflowing = this.clientWidth < this.scrollWidth;
+    const isOverflowing = this.clientWidth < this.scrollWidth;
 
     if (isOverflowing) {
-      labelEl.style.overflow = "hidden";
+      labelEl.style.overflow = 'hidden';
       this.#overflow = isOverflowing;
     }
   }
-
 }
 
 // TODO: possible states: https://m2.material.io/components/chips#input-chips
@@ -176,4 +171,3 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 // TODO: accessibility: https://material.angular.io/components/chips/overview#accessibility
 
 // !!!!!!!!! TODO: dependencies !!!!!
-

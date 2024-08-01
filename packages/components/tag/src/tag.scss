@@ -5,7 +5,7 @@ $emphases: subtle, bold;
   --_border-radius: var(--sl-border-radius-default);
   --_focus-outline: var(--_focus-color) solid var(--sl-border-width-focusring-inside);
   --_focus-outline-offset: calc(var(--sl-border-width-focusring-offset) * -1);
-  --_font: var(--sl-text-tag-label-md); // TODO: order alphabetically
+  --_font: var(--sl-text-tag-label-md);
   --_gap: var(--sl-space-tag-gap-md);
   --_padding-block: var(--sl-space-tag-block-md) var(--sl-space-tag-block-md);
   --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
@@ -83,7 +83,7 @@ $emphases: subtle, bold;
   }
 
   :host([emphasis='#{$emphasis}']:not([disabled])) {
-  background: var(--sl-color-tag-#{$emphasis}-idle-background);
+    background: var(--sl-color-tag-#{$emphasis}-idle-background);
 
     .remove-button:hover {
       background: var(--sl-color-tag-#{$emphasis}-hover-background);
@@ -135,7 +135,7 @@ $emphases: subtle, bold;
   pointer-events: none;
 }
 
-:host(:not([disabled],[readonly])) {
+:host(:not([disabled], [readonly])) {
   cursor: pointer;
 }
 

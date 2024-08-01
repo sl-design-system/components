@@ -85,6 +85,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     // TODO: role here? this.role = '...'; accessibility...
   }
 
+  // TODO: maybe use aria-describedby to connect removable icon/button with the tag
+
   override render(): TemplateResult {
     // TODO: really that nothing is necessary? Check it :)
     return html`

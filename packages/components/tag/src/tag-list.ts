@@ -1,4 +1,4 @@
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -102,10 +102,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Array containing visible tags. Applicable only in the `stacked` version. */
   #visibleTags: Tag[] = [];
 
-  // TODO: role list? https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role
-
   override connectedCallback(): void {
     super.connectedCallback();
+
+    this.setAttribute('role', 'list');
 
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
@@ -113,6 +113,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
       this.tags?.forEach((tag: Tag) => (tag.size = this.size));
       this.tags?.forEach((tag: Tag) => (tag.emphasis = this.emphasis));
+      this.tags?.forEach((tag: Tag) => tag.setAttribute('role', 'listitem'));
 
       this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
     });
@@ -140,15 +141,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       ${this.stacked && this.#hiddenLabel > 0
-        ? html` <div class="group">
+        ? html` <div class="group" tabindex="-1">
             <sl-tag
               emphasis=${this.emphasis}
               aria-describedby="tooltip"
               label=${this.#hiddenLabel > 99 ? '+99' : this.#hiddenLabel}
             ></sl-tag>
-            <!-- TODO: do we need this one to be focusable due to accessibility reasons?-->
             <sl-tooltip id="tooltip" position="bottom" max-width="300">
-              ${this.#hiddenTags?.map(tag => tag.label).join(', ')}
+              ${msg('List of hidden elements')}: ${this.#hiddenTags?.map(tag => tag.label).join(', ')}
             </sl-tooltip>
           </div>`
         : nothing}
@@ -200,6 +200,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.#hiddenTags = Array.from(this.tags).filter(tag => tag.style.display === 'none');
     this.#hiddenLabel = this.#hiddenTags.length;
 
+    this.setAttribute(
+      'aria-label',
+      `${msg('Showing')} ${this.#visibleTags.length} ${msg('out of')} ${this.tags.length} ${msg('elements')}`
+    );
+
     this.requestUpdate();
   }
 
@@ -215,5 +220,3 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     });
   }
 }
-
-// TODO: accessibility

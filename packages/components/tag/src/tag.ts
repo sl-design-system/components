@@ -70,22 +70,19 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** The emphasis of the tag; defaults to 'subtle'. */
   @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
 
+  /** Whether the tag label is overflowing. */
   #overflow = false;
-
-  // Users can move through the chips using the arrow keys and select/deselect them with space. Chips also gain focus when clicked, ensuring keyboard navigation starts at the currently focused chip.
-  // https://material.angular.io/components/chips/overview#keyboard-interactions
-  // when it's focused it can be removed by delete keydown
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.disabled) {
-      this.setAttribute('tabindex', '0');
-    }
-    // TODO: role here? this.role = '...'; accessibility...
-  }
+    this.setAttribute('id', 'tag-element');
+    this.setAttribute('tabindex', this.disabled ? '-1' : '0');
 
-  // TODO: maybe use aria-describedby to connect removable icon/button with the tag
+    if (this.readonly) {
+      this.setAttribute('aria-readonly', 'true');
+    }
+  }
 
   override render(): TemplateResult {
     // TODO: really that nothing is necessary? Check it :)
@@ -98,6 +95,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       </div>
       ${this.removable && !this.readonly
         ? html` <button
+            id="close-button"
+            aria-labelledby="tag-element"
             aria-label=${msg('Remove')}
             @mouseover=${this.#onMouseover}
             @mouseout=${this.#onMouseover}
@@ -109,7 +108,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
           </button>`
         : nothing}
     `;
-  } // TODO: aria-label for button only or for the whole component?
+  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
@@ -120,6 +119,18 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (changes.has('readonly')) {
+      if (this.readonly) {
+        this.setAttribute('aria-readonly', 'true');
+      } else {
+        this.removeAttribute('aria-readonly');
+      }
+    }
+
+    if (changes.has('disabled')) {
+      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+    }
 
     this.#checkOverflow();
   }

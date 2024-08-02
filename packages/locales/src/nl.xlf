@@ -142,6 +142,22 @@
   <source>Remove</source>
   <target>verwijderen</target>
 </trans-unit>
+<trans-unit id="s9cd91b99a108a45f">
+  <source>List of hidden elements</source>
+  <target>Lijst met verborgen elementen</target>
+</trans-unit>
+<trans-unit id="s40664bffa760c01c">
+  <source>Showing</source>
+  <target>Met</target>
+</trans-unit>
+<trans-unit id="sca2705f9edb67c80">
+  <source>out of</source>
+  <target>uit</target>
+</trans-unit>
+<trans-unit id="s57fb856cf6da3a6c">
+  <source>elements</source>
+  <target>elementen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

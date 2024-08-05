@@ -1,5 +1,5 @@
 import { arrow, flip, offset, shift, size } from '@floating-ui/core';
-import { Elements, autoUpdate, computePosition } from '@floating-ui/dom';
+import { type Elements, autoUpdate, computePosition } from '@floating-ui/dom';
 
 type Alignment = 'start' | 'end';
 type Side = 'top' | 'right' | 'bottom' | 'left';

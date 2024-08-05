@@ -5046,7 +5046,7 @@ __metadata:
     "@floating-ui/dom": "npm:^1.6.7"
     lit: "npm:^3.1.4"
   peerDependencies:
-    "@floating-ui/dom": ^1.6.3
+    "@floating-ui/dom": ^1.6.5
     lit: ^3.1.4
   languageName: unknown
   linkType: soft

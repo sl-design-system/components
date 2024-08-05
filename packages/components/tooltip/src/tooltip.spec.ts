@@ -23,7 +23,7 @@ describe('sl-tooltip', () => {
       el = await fixture(html`
         <div style="display: block; width: 400px; height: 400px;">
           <sl-button aria-describedby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
-          <sl-tooltip id="tooltip">Message</sl-tooltip>
+          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
         </div>
       `);
       button = el.querySelector('sl-button') as Button;
@@ -87,7 +87,7 @@ describe('sl-tooltip', () => {
 
       await showTooltip();
 
-      expect(window.getComputedStyle(tooltip).maxWidth).to.equal('150px');
+      expect(getComputedStyle(tooltip).maxInlineSize).to.equal('150px');
     });
   });
 });

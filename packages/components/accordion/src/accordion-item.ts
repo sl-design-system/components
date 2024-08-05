@@ -50,6 +50,14 @@ export class AccordionItem extends LitElement {
       this.#shouldAnimate = true;
     }
   }
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    console.log('changes in open', this.open);
+    if (changes.has('open')) {
+      this.#animateState(this.open ? 'opening' : 'closing');
+    }
+  }
 
   override render(): TemplateResult {
     return html`

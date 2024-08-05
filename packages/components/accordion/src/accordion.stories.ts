@@ -5,14 +5,15 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
-export type Props = Pick<Accordion, 'single'> & { items: TemplateResult };
+export type Props = Pick<Accordion, 'single'> & { items: TemplateResult; open: boolean };
 export type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Accordion',
   tags: ['stable'],
   args: {
-    single: false
+    single: false,
+    open: false
   },
   argTypes: {
     items: {
@@ -224,6 +225,40 @@ export const Sticky: Story = {
         scelerisque arcu suscipit eu.
       </sl-accordion-item>
     `
+  }
+};
+
+export const ToggleExternally: Story = {
+  render: ({ single, open }) => {
+    let dinoState = true;
+    let alienState = false;
+    const toggleDino = (): void => {
+      dinoState = !dinoState;
+      console.log('toggle dino', dinoState);
+    };
+    const toggleAlien = (): void => {
+      alienState = !alienState;
+      console.log('toggle alien', alienState);
+    };
+    const getStatus = (): boolean => {
+      return dinoState;
+    };
+    return html`
+      <sl-button @click=${toggleDino}>Toggle 🦖</sl-button>
+      <sl-button @click=${toggleAlien}>Toggle 👽</sl-button>
+      <p>${dinoState} ${alienState} ${single}</p>
+      <sl-accordion>
+        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" ?open=${getStatus()}>
+          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+        </sl-accordion-item>
+        <sl-accordion-item summary="Journey Through Ancient Civilizations">
+          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+        </sl-accordion-item>
+        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" ?open=${open}>
+          Buckle up for a cosmic adventure! 🚀🪐👽
+        </sl-accordion-item>
+      </sl-accordion>
+    `;
   }
 };
 

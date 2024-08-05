@@ -317,10 +317,6 @@
       }
     },
     "icon": {
-      "3xs": {
-        "value": "5",
-        "type": "sizing"
-      },
       "2xs": {
         "value": "10px",
         "type": "sizing"

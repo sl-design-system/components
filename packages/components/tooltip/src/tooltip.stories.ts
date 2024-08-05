@@ -22,7 +22,7 @@ export default {
   args: {
     alignSelf: 'center',
     justifySelf: 'center',
-    maxWidth: 150,
+    maxWidth: 160,
     message: 'This is the tooltip message',
     position: 'top'
   },

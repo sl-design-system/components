@@ -15,6 +15,7 @@
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
+  box-sizing: border-box;
   color: var(--_color);
   display: none;
   flex-direction: column;

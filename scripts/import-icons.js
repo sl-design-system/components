@@ -77,7 +77,7 @@ const buildIcons = async theme => {
   // 1. Get icon tokens from `base.json`
   const {
     default: { icon: { style, themeIcons }, text }
-  } = await import(`../packages/tokens/src/${theme}/base.json`, { assert: { type: 'json' } });
+  } = await import(`../packages/tokens/src/${theme === 'max' ? 'max-online' : theme}/base.json`, { assert: { type: 'json' } });
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),

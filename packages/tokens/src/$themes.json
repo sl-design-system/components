@@ -3766,8 +3766,8 @@
     "name": "max/light",
     "selectedTokenSets": {
       "core": "enabled",
-      "max-online/base": "enabled",
-      "max-online/light": "enabled"
+      "max/base": "enabled",
+      "max/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:61d892acbfb0957e4286e168a9878f3f663f438d,",

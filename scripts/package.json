@@ -9,9 +9,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@figma-export/cli": "^5.0.1",
-    "@figma-export/output-components-as-svg": "^5.0.1",
-    "@figma-export/transform-svg-with-svgo": "^5.0.1",
+    "@figma-export/cli": "^6.0.1",
+    "@figma-export/output-components-as-svg": "^6.0.1",
+    "@figma-export/transform-svg-with-svgo": "^6.0.1",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "@fortawesome/free-brands-svg-icons": "^6.6.0",
     "@fortawesome/pro-duotone-svg-icons": "^6.6.0",
@@ -28,6 +28,6 @@
     "fast-glob": "^3.3.2",
     "postcss": "^8.4.40",
     "sass": "^1.77.8",
-    "style-dictionary": "^4.0.0-prerelease.22"
+    "style-dictionary": "^4.0.1"
   }
 }

@@ -1,4 +1,4 @@
-import { permutateThemes, registerTransforms, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { permutateThemes, register, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
 import cssnano from 'cssnano';
 import { readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
@@ -9,7 +9,7 @@ import StyleDictionary from 'style-dictionary';
 // Match math expressions that are not wrapped in a `calc`, `rgb` or `hsl` function.
 const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
-registerTransforms(StyleDictionary);
+register(StyleDictionary);
 
 StyleDictionary.registerFileHeader({
   name: 'sl/legal',
@@ -26,8 +26,8 @@ StyleDictionary.registerTransform({
   name: 'sl/color/transparentColorMix',
   type: 'value',
   transitive: true,
-  matcher: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
-  transformer: token => {
+  filter: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
+  transform: token => {
     const [_, color, opacity] = token.original?.value?.match(/rgba\((\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
@@ -42,16 +42,16 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
-  matcher: token => (token.$type ?? token.type) === 'fontFamilies',
-  transformer: token => (token.$value ?? token.value).replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
+  filter: token => (token.$type ?? token.type) === 'fontFamilies',
+  transform: token => (token.$value ?? token.value).replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
 });
 
 // Transform line heights to px if they are not percentages
 StyleDictionary.registerTransform({
   name: 'sl/size/css/lineHeight',
   type: 'value',
-  matcher: token => (token.$type ?? token.type) === 'lineHeights',
-  transformer: token => {
+  filter: token => (token.$type ?? token.type) === 'lineHeights',
+  transform: token => {
     const value = token.$value ?? token.value;
 
     return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
@@ -62,8 +62,8 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/size/css/paragraphSpacing',
   type: 'value',
-  matcher: token => (token.$type ?? token.type) === 'paragraphSpacing',
-  transformer: token => {
+  filter: token => (token.$type ?? token.type) === 'paragraphSpacing',
+  transform: token => {
     const value = token.$value ?? token.value;
 
     return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
@@ -74,7 +74,7 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/size/css/px',
   type: 'value',
-  matcher: token => {
+  filter: token => {
     const type = token.$type ?? token.type;
     return (
       typeof type === 'string' &&
@@ -83,7 +83,7 @@ StyleDictionary.registerTransform({
       )
     );
   },
-  transformer: token => {
+  transform: token => {
     const value = token.$value ?? token.value;
 
     return parseFloat(value) === 0 ? `${value}px` : transformDimension(value);
@@ -95,8 +95,8 @@ StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
   transitive: true,
-  matcher: token => typeof token.original?.value === 'string' && mathPresent.test(token.original.value),
-  transformer: token => {
+  filter: token => typeof token.original?.value === 'string' && mathPresent.test(token.original.value),
+  transform: token => {
     token.original.value = `calc(${token.original.value})`;
 
     return token.$value ?? token.value;

@@ -146,6 +146,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
               emphasis=${this.emphasis}
               aria-describedby="tooltip"
               label=${this.#hiddenLabel > 99 ? '+99' : this.#hiddenLabel}
+              size=${this.size}
             ></sl-tag>
             <sl-tooltip id="tooltip" position="bottom" max-width="300">
               ${msg('List of hidden elements')}: ${this.#hiddenTags?.map(tag => tag.label).join(', ')}

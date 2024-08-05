@@ -46,7 +46,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** Events controller. */
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
-    keydown: this.#onKeydown
+    keydown: this.#onKeydown,
+    focusin: this.#onFocusin,
+    click: this.#onFocusin
   });
 
   /** @internal Emits when the inline message is dismissed. */
@@ -77,7 +79,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('id', 'tag-element');
-    this.setAttribute('tabindex', this.disabled ? '-1' : '0');
 
     if (this.readonly) {
       this.setAttribute('aria-readonly', 'true');
@@ -85,28 +86,25 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    // TODO: really that nothing is necessary? Check it :)
     return html`
-      <div class="label" aria-describedby="tooltip-label">
-        ${this.label}
-        ${this.#overflow
-          ? html`<sl-tooltip id="tooltip-label" position="bottom"> ${this.label} </sl-tooltip>`
+      <div class="wrapper" aria-describedby="tooltip-label" tabindex="0">
+        <div class="label">${this.label}</div>
+        ${this.removable && !this.readonly
+          ? html` <button
+              id="close-button"
+              aria-labelledby="tag-element"
+              aria-label=${msg('Remove')}
+              @mouseover=${this.#onMouseover}
+              @mouseout=${this.#onMouseover}
+              @click=${this.#onRemoveClick}
+              class="remove-button"
+              tabindex="-1"
+            >
+              <sl-icon name="xmark" .size=${this.size}></sl-icon>
+            </button>`
           : nothing}
       </div>
-      ${this.removable && !this.readonly
-        ? html` <button
-            id="close-button"
-            aria-labelledby="tag-element"
-            aria-label=${msg('Remove')}
-            @mouseover=${this.#onMouseover}
-            @mouseout=${this.#onMouseover}
-            @click=${this.#onRemoveClick}
-            class="remove-button"
-            tabindex="-1"
-          >
-            <sl-icon name="xmark" .size=${this.size}></sl-icon>
-          </button>`
-        : nothing}
+      ${this.#overflow ? html`<sl-tooltip id="tooltip-label" position="bottom"> ${this.label} </sl-tooltip>` : nothing}
     `;
   }
 
@@ -163,14 +161,20 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #onFocusin(): void {
+    const wrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement;
+    wrapper?.focus();
+  }
+
   #checkOverflow(): void {
-    const labelEl = this.renderRoot.querySelector('.label') as HTMLElement;
+    const labelEl = this.renderRoot.querySelector('.label') as HTMLElement,
+      wrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement;
 
     if (!labelEl) {
       return;
     }
 
-    const isOverflowing = this.clientWidth < this.scrollWidth;
+    const isOverflowing = wrapper.clientWidth < wrapper.scrollWidth;
 
     if (isOverflowing) {
       labelEl.style.overflow = 'hidden';
@@ -182,5 +186,3 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 // TODO: possible states: https://m2.material.io/components/chips#input-chips
 
 // TODO: accessibility: https://material.angular.io/components/chips/overview#accessibility
-
-// !!!!!!!!! TODO: dependencies !!!!!

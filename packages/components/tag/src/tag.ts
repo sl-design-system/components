@@ -127,7 +127,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('disabled')) {
-      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+      const wrapper = this.renderRoot.querySelector('.wrapper') as HTMLDivElement;
+      wrapper.setAttribute('tabindex', this.disabled ? '-1' : '0');
     }
 
     this.#checkOverflow();

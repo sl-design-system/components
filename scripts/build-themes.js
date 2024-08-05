@@ -34,7 +34,7 @@ StyleDictionary.registerTransform({
       token.original.value = `color-mix(in srgb, ${color}  calc(${opacity} * 100%), transparent)`;
     }
 
-    return token.$value ?? token.value;
+    return token.value;
   }
 });
 
@@ -42,17 +42,18 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
-  filter: token => (token.$type ?? token.type) === 'fontFamilies',
-  transform: token => (token.$value ?? token.value).replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
+  filter: token => token.type === 'fontFamily',
+  transform: token => token.value.replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
 });
 
 // Transform line heights to px if they are not percentages
 StyleDictionary.registerTransform({
   name: 'sl/size/css/lineHeight',
   type: 'value',
-  filter: token => (token.$type ?? token.type) === 'lineHeights',
+  transitive: true,
+  filter: token => token.type === 'lineHeight',
   transform: token => {
-    const value = token.$value ?? token.value;
+    const value = token.value;
 
     return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
   }
@@ -62,31 +63,11 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/size/css/paragraphSpacing',
   type: 'value',
-  filter: token => (token.$type ?? token.type) === 'paragraphSpacing',
+  filter: token => token.type === 'paragraphSpacing',
   transform: token => {
-    const value = token.$value ?? token.value;
+    const value = token.value;
 
     return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
-  }
-});
-
-// Overwrite the 'ts/size/px` transform to append 'px' to '0' values
-StyleDictionary.registerTransform({
-  name: 'sl/size/css/px',
-  type: 'value',
-  filter: token => {
-    const type = token.$type ?? token.type;
-    return (
-      typeof type === 'string' &&
-      ['sizing', 'spacing', 'borderRadius', 'borderWidth', 'fontSizes', 'dimension'].includes(
-        type,
-      )
-    );
-  },
-  transform: token => {
-    const value = token.$value ?? token.value;
-
-    return parseFloat(value) === 0 ? `${value}px` : transformDimension(value);
   }
 });
 
@@ -99,7 +80,7 @@ StyleDictionary.registerTransform({
   transform: token => {
     token.original.value = `calc(${token.original.value})`;
 
-    return token.$value ?? token.value;
+    return token.value;
   }
 });
 
@@ -173,11 +154,13 @@ const build = async (production = false) => {
           }
         );
       }
+
       return {
         log: {
           warnings: 'disabled'
         },
         source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),
+        preprocessors: ['tokens-studio'],
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
@@ -186,7 +169,6 @@ const build = async (production = false) => {
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',
-              'sl/size/css/px',
               'sl/color/transparentColorMix',
               'sl/wrapMathInCalc'
             ].filter(Boolean),

@@ -3,7 +3,7 @@ import { html } from 'lit';
 import '../register.js';
 import { type Tag, type TagSize, type TagEmphasis } from './tag.js';
 
-type Props = Pick<Tag, 'emphasis' | 'size' | 'label' | 'removable'>;
+type Props = Pick<Tag, 'disabled' | 'emphasis' | 'size' | 'label' | 'readonly' | 'removable'>;
 
 type Story = StoryObj<Props>;
 
@@ -14,29 +14,31 @@ export default {
   title: 'Components/Tag',
   tags: ['draft'],
   args: {
-    size: 'md',
-    label: 'Tag label',
-    removable: false,
+    disabled: false,
     emphasis: 'subtle',
+    label: 'Tag label',
+    readonly: false,
+    removable: false,
+    size: 'md',
   },
   argTypes: {
-    size: {
-      control: 'inline-radio',
-      options: sizes
-    },
     emphasis: {
       control: 'radio',
       options: emphases
+    },
+    size: {
+      control: 'inline-radio',
+      options: sizes
     }
   },
   parameters: {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
-  render: ({ emphasis, label, removable, size }) => html`
-    <sl-tag label=${label} .emphasis=${emphasis} ?removable=${removable} .size=${size}></sl-tag>
-    <sl-tag label=${label} .emphasis=${emphasis} ?removable=${removable} .size=${size} disabled></sl-tag>
-    <sl-tag label=${label} .emphasis=${emphasis} ?removable=${removable} .size=${size} readonly></sl-tag>`
+  render: ({ disabled, emphasis, label, readonly, removable, size }) => html`
+    <sl-tag label=${label} .emphasis=${emphasis} ?disabled=${disabled} ?readonly=${readonly} ?removable=${removable} .size=${size}></sl-tag>
+    <sl-tag label=${label} .emphasis=${emphasis} ?disabled=${disabled} ?readonly=${readonly} ?removable=${removable} .size=${size}></sl-tag>
+    <sl-tag label=${label} .emphasis=${emphasis} ?disabled=${disabled} ?readonly=${readonly} ?removable=${removable} .size=${size}></sl-tag>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};

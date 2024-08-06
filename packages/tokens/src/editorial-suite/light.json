@@ -3673,6 +3673,10 @@
       "default": {
         "value": "{color.palette.info.500}",
         "type": "color"
+      },
+      "inversed-copy": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
       }
     },
     "select": {

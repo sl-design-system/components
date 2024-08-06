@@ -3726,6 +3726,10 @@
       "default": {
         "value": "{color.palette.primary.base}",
         "type": "color"
+      },
+      "inversed-copy": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
       }
     },
     "popover": {

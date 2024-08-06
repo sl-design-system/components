@@ -4044,6 +4044,10 @@
       "default": {
         "value": "{color.palette.accent.500}",
         "type": "color"
+      },
+      "inversed-copy": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
       }
     },
     "popover": {

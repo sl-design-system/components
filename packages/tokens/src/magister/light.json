@@ -3651,6 +3651,10 @@
       "default": {
         "value": "{color.palette.primary.600}",
         "type": "color"
+      },
+      "inversed-copy": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
       }
     },
     "select": {

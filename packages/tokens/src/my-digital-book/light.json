@@ -4007,6 +4007,10 @@
       "default": {
         "value": "{color.palette.info.base}",
         "type": "color"
+      },
+      "inversed-copy": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
       }
     },
     "dialog": {

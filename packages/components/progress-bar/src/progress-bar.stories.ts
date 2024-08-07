@@ -9,7 +9,7 @@ type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'variant' | 'value'> 
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Progress bar',
+  title: 'Feedback/Progress bar',
   tags: ['preview'],
   args: {
     label: 'This is the label of progress bar',

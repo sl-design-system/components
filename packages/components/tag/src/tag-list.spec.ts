@@ -1,10 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type Tooltip } from '@sl-design-system/tooltip';
-import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { spy } from 'sinon';
 import '../register.js';
 import { type TagList } from './tag-list.js';
+import { type Tag } from './tag.js';
 
 describe('sl-tag', () => {
   let el: TagList;
@@ -13,9 +12,9 @@ describe('sl-tag', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-tag-list>
-            <sl-tag label="my label 1"></sl-tag>
-            <sl-tag label="my label 2"></sl-tag>
-            <sl-tag label="my label 3"></sl-tag>
+          <sl-tag label="my label 1"></sl-tag>
+          <sl-tag label="my label 2"></sl-tag>
+          <sl-tag label="my label 3"></sl-tag>
         </sl-tag-list>
       `);
     });
@@ -59,22 +58,22 @@ describe('sl-tag', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
     });
 
-    it('should have a group',  () => {
+    it('should have a group', () => {
       const groupEl = tagList.renderRoot.querySelector('.group');
 
       expect(groupEl).to.exist;
     });
 
-      it('should have a tooltip connected to a group', () => {
-        const groupEl = tagList.renderRoot.querySelector('.group');
+    it('should have a tooltip connected to a group', () => {
+      const groupEl = tagList.renderRoot.querySelector('.group');
 
-        expect(groupEl).to.exist;
+      expect(groupEl).to.exist;
 
-        const tooltipEl = tagList.renderRoot.querySelector('sl-tooltip') as Tooltip;
+      const tooltipEl = tagList.renderRoot.querySelector('sl-tooltip') as Tooltip;
 
-        expect(tooltipEl).to.exist;
-        // expect(tooltipEl).to.have.trimmed.text('my label is very long');
-      });
+      expect(tooltipEl).to.exist;
+      // expect(tooltipEl).to.have.trimmed.text('my label is very long');
+    });
 
     it('should have a group with a tag, which contains a proper label', () => {
       const groupEl = tagList?.renderRoot.querySelector('.group');
@@ -84,7 +83,7 @@ describe('sl-tag', () => {
       const tag = tagList.renderRoot.querySelector('sl-tag') as Tag;
 
       expect(tag).to.exist;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
       expect(tag.label).to.equal(6);
     });
 
@@ -188,7 +187,6 @@ describe('sl-tag', () => {
   //     expect(el).to.have.attribute('close-hover');
   //   });
   // });
-
 
   // describe('overflow', () => {
   //   let tag: Tag;

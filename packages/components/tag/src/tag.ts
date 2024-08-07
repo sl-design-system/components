@@ -54,7 +54,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
 
-  /** The size of the tag. Defaults to `md`.. */
+  /** The size of the tag. Defaults to `md`. */
   @property({ reflect: true }) size?: TagSize = 'md';
 
   /** The label of the tag component. */
@@ -183,7 +183,3 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     }
   }
 }
-
-// TODO: possible states: https://m2.material.io/components/chips#input-chips
-
-// TODO: accessibility: https://material.angular.io/components/chips/overview#accessibility

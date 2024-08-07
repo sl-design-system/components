@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
-import { type Tag, type TagSize, type TagEmphasis } from './tag.js';
+import { type Tag, type TagEmphasis, type TagSize } from './tag.js';
 
 type Props = Pick<Tag, 'disabled' | 'emphasis' | 'size' | 'label' | 'readonly' | 'removable'>;
 
@@ -19,7 +19,7 @@ export default {
     label: 'Tag label',
     readonly: false,
     removable: false,
-    size: 'md',
+    size: 'md'
   },
   argTypes: {
     emphasis: {
@@ -35,32 +35,48 @@ export default {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
-  render: ({ disabled, emphasis, label, readonly, removable, size }) => html`
-    <sl-tag label=${label} .emphasis=${emphasis} ?disabled=${disabled} ?readonly=${readonly} ?removable=${removable} .size=${size}></sl-tag>
-    <sl-tag label=${label} .emphasis=${emphasis} ?disabled=${disabled} ?readonly=${readonly} ?removable=${removable} .size=${size}></sl-tag>
-    <sl-tag label=${label} .emphasis=${emphasis} ?disabled=${disabled} ?readonly=${readonly} ?removable=${removable} .size=${size}></sl-tag>`
+  render: ({ disabled, emphasis, label, readonly, removable, size }) =>
+    html` <sl-tag
+      label=${label}
+      .emphasis=${emphasis}
+      ?disabled=${disabled}
+      ?readonly=${readonly}
+      ?removable=${removable}
+      .size=${size}
+    ></sl-tag>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
-// TODO: in basic, disabled, readonly
-
 export const Sizes: Story = {
   args: {
     label: 'Tag label',
-    removable: false,
+    removable: false
   },
   argTypes: {
     size: {
       table: {
         disable: true
       }
-    },
+    }
   },
-  render: ({emphasis,label, removable}) => {
+  render: ({ disabled, emphasis, label, readonly, removable }) => {
     return html`
-          <sl-tag .emphasis=${emphasis} label=${label} ?removable=${removable}></sl-tag>
-          <sl-tag .emphasis=${emphasis} label=${label} ?removable=${removable} size="lg"></sl-tag>
+      <sl-tag
+        .emphasis=${emphasis}
+        ?disabled=${disabled}
+        ?readonly=${readonly}
+        label=${label}
+        ?removable=${removable}
+      ></sl-tag>
+      <sl-tag
+        .emphasis=${emphasis}
+        ?disabled=${disabled}
+        ?readonly=${readonly}
+        label=${label}
+        ?removable=${removable}
+        size="lg"
+      ></sl-tag>
     `;
   }
 };
@@ -76,9 +92,9 @@ export const Overflow: Story = {
       table: {
         disable: true
       }
-    },
+    }
   },
-  render: ({emphasis, label, size}) => {
+  render: ({ disabled, emphasis, label, readonly, size }) => {
     return html`
       <style>
         div {
@@ -89,33 +105,45 @@ export const Overflow: Story = {
         }
       </style>
       <div>
-          <sl-tag .emphasis=${emphasis} label=${label} .size=${size}></sl-tag>
-          <sl-tag .emphasis=${emphasis} label=${label} removable .size=${size}></sl-tag>
+        <sl-tag .emphasis=${emphasis} ?disabled=${disabled} ?readonly=${readonly} label=${label} .size=${size}></sl-tag>
+        <sl-tag
+          .emphasis=${emphasis}
+          ?disabled=${disabled}
+          ?readonly=${readonly}
+          label=${label}
+          removable
+          .size=${size}
+        ></sl-tag>
       </div>
     `;
   }
 };
 
 export const List: Story = {
-    args: {
-      size: 'md',
-      label: 'Tag label',
-      removable: false,
-      emphasis: 'subtle'
-    },
-  render: ({emphasis, label, removable, size}) => {
-      const amount = Array.from({length: 50});
+  args: {
+    size: 'md',
+    label: 'Tag label',
+    removable: false,
+    emphasis: 'subtle'
+  },
+  render: ({ disabled, emphasis, label, readonly, removable, size }) => {
+    const amount = Array.from({ length: 50 });
     return html`
-        <sl-tag-list .emphasis=${emphasis} .size=${size}>
-          ${amount.map(
-            () => html`
-          <sl-tag .label=${label} ?removable=${removable}></sl-tag>
-        `
-          )}
-          <sl-tag label="I am a veeeeeeeeeeeeeeery long tag label" ?removable=${removable}></sl-tag>
-          <sl-tag label="I am a label" ?removable=${removable}></sl-tag>
-          <sl-tag label="I am another label" ?removable=${removable}></sl-tag>
-        </sl-tag-list>
+      <sl-tag-list .emphasis=${emphasis} .size=${size}>
+        ${amount.map(
+          () => html`
+            <sl-tag .label=${label} ?disabled=${disabled} ?removable=${removable} ?readonly=${readonly}></sl-tag>
+          `
+        )}
+        <sl-tag
+          label="I am a veeeeeeeeeeeeeeery long tag label"
+          ?disabled=${disabled}
+          ?removable=${removable}
+          ?readonly=${readonly}
+        ></sl-tag>
+        <sl-tag label="I am a label" ?disabled=${disabled} ?removable=${removable} ?readonly=${readonly}></sl-tag>
+        <sl-tag label="I am another label" ?disabled=${disabled} ?removable=${removable} ?readonly=${readonly}></sl-tag>
+      </sl-tag-list>
     `;
   }
 };
@@ -127,7 +155,14 @@ export const Stacked: Story = {
     removable: true,
     emphasis: 'subtle'
   },
-  render: ({emphasis, label, removable, size}) => {
+  argTypes: {
+    disabled: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: ({ emphasis, label, readonly, removable, size }) => {
     const amount = Array.from({ length: 20 });
     return html`
       <style>
@@ -135,16 +170,21 @@ export const Stacked: Story = {
           margin-bottom: 24px;
         }
       </style>
-        <sl-tag-list stacked .emphasis=${emphasis} .size=${size}>
-          <sl-tag .emphasis=${emphasis} label="my label" ?removable=${removable}></sl-tag>
-          <sl-tag .emphasis=${emphasis} label="test" ?removable=${removable}></sl-tag>
-          <sl-tag .emphasis=${emphasis} label="This is a very long label of the tag" ?removable=${removable}></sl-tag>
-          ${amount.map(
-            (_, index) => html`
-          <sl-tag .label=${label + ' ' + (index + 1) } ?removable=${removable}></sl-tag>
-        `
-          )}
-        </sl-tag-list>
+      <sl-tag-list stacked .emphasis=${emphasis} .size=${size}>
+        <sl-tag .emphasis=${emphasis} label="my label" ?removable=${removable} ?readonly=${readonly}></sl-tag>
+        <sl-tag .emphasis=${emphasis} label="test" ?removable=${removable} ?readonly=${readonly}></sl-tag>
+        <sl-tag
+          .emphasis=${emphasis}
+          label="This is a very long label of the tag"
+          ?removable=${removable}
+          ?readonly=${readonly}
+        ></sl-tag>
+        ${amount.map(
+          (_, index) => html`
+            <sl-tag .label=${label + ' ' + (index + 1)} ?removable=${removable} ?readonly=${readonly}></sl-tag>
+          `
+        )}
+      </sl-tag-list>
     `;
   }
 };
@@ -156,7 +196,14 @@ export const StackedOver100: Story = {
     removable: false,
     emphasis: 'subtle'
   },
-  render: ({emphasis, label, removable, size}) => {
+  argTypes: {
+    disabled: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: ({ emphasis, label, readonly, removable, size }) => {
     const amount = Array.from({ length: 120 });
     return html`
       <style>
@@ -165,12 +212,12 @@ export const StackedOver100: Story = {
         }
       </style>
       <sl-tag-list stacked .emphasis=${emphasis} .size=${size}>
-          ${amount.map(
-      (_, index) => html`
-          <sl-tag .label=${label + ' ' + (index + 1) } ?removable=${removable}></sl-tag>
-        `
-    )}
-        </sl-tag-list>
+        ${amount.map(
+          (_, index) => html`
+            <sl-tag .label=${label + ' ' + (index + 1)} ?removable=${removable} ?readonly=${readonly}></sl-tag>
+          `
+        )}
+      </sl-tag-list>
     `;
   }
 };
@@ -196,17 +243,20 @@ export const All: Story = {
       table: {
         disable: true
       }
-    },
+    }
   },
   render: () => {
     return html`
       <style>
-        sl-tag {
-          margin: 8px;
+        .tag-examples {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
         }
       </style>
 
-        <h2>Subtle</h2>
+      <h2>Subtle</h2>
+      <div class="tag-examples">
         <sl-tag label="label" size="md"></sl-tag>
         <sl-tag label="Removable" removable size="md"></sl-tag>
         <sl-tag label="Disabled" size="md" disabled></sl-tag>
@@ -218,8 +268,10 @@ export const All: Story = {
         <sl-tag label="Disabled lg" size="lg" disabled></sl-tag>
         <sl-tag label="Disabled removable lg" removable size="lg" disabled></sl-tag>
         <sl-tag label="Readonly lg" size="lg" readonly></sl-tag>
+      </div>
 
-        <h2>Bold</h2>
+      <h2>Bold</h2>
+      <div class="tag-examples">
         <sl-tag emphasis="bold" label="label" size="md"></sl-tag>
         <sl-tag emphasis="bold" label="Removable" removable size="md"></sl-tag>
         <sl-tag emphasis="bold" label="Disabled" size="md" disabled></sl-tag>
@@ -231,6 +283,7 @@ export const All: Story = {
         <sl-tag emphasis="bold" label="Disabled lg" size="lg" disabled></sl-tag>
         <sl-tag emphasis="bold" label="Disabled removable lg" removable size="lg" disabled></sl-tag>
         <sl-tag emphasis="bold" label="Readonly lg" size="lg" readonly></sl-tag>
+      </div>
     `;
   }
 };

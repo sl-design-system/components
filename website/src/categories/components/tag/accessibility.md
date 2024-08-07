@@ -9,18 +9,14 @@ eleventyNavigation:
 
 ## Keyboard interactions
 
-Users can move through the tags within a tag-list using the arrow keys.
-Tags also gain focus when clicked (not disabled or readonly tags), ensuring keyboard navigation starts at the currently focused chip.
-When the tag is focused and is removable it can be removed by `Delete` or `Backspace` keydown.
+Users can move through the tags within a tag-list using the `arrow keys`. You can navigate back to the previous tag with left or up. The focus indicator loops, so when you are at the last option and press "down" it will focus on the first tag.
+In the stacked version of tag-list, when there are hidden tags, you can nagivate only throught visible tags with arrow keys and you can focus tag with amount of hidden tags by `Tab` key.
 
-arrow keys
-focusable
 
-// Users can move through the chips using the arrow keys and select/deselect them with space. Chips also gain focus when clicked, ensuring keyboard navigation starts at the currently focused chip.
-// https://material.angular.io/components/chips/overview#keyboard-interactions
-// when it's focused it can be removed by delete keydown
+When you click on a tag inside a tag-list (as long as it is not disabled or readonly), the tag become the active spot for using the keyboard. This means you can start using keyboard navigation right from the tag you just clicked on.
 
-...
+
+When the tag is focused and is removable, it can be removed by `Delete` or `Backspace` keydown.
 
 </section>
 

@@ -8,15 +8,17 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-
-...
-
+<sl-tag label="Mathematics"></sl-tag>
+<sl-tag label="History" removable></sl-tag>
+<sl-tag label="Science" removable disabled></sl-tag>
 </div>
 
 <div class="ds-code">
 
   ```html
-...
+<sl-tag label="Mathematics"></sl-tag>
+<sl-tag label="History" removable></sl-tag>
+<sl-tag label="Science" removable disabled></sl-tag>
   ```
 
 </div>
@@ -50,13 +52,21 @@ For tracking the status of tasks or items, such as "In Progress," "Completed," o
 
 ## Anatomy tag
 
+<div class="ds-table-wrapper">
+
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Container |The container contains the label and close button |no|
 |2|Label |The label is a brief text that decribed the tag |no|
 |3|Close button |To remove the tag |yes|
 
+{.ds-table .ds-table-align-top}
+
+</div>
+
 ## Anatomy tag list
+
+<div class="ds-table-wrapper">
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
@@ -64,6 +74,9 @@ For tracking the status of tasks or items, such as "In Progress," "Completed," o
 |2|List of tags | Consists of a collection of tags |no|
 
 {.ds-table .ds-table-align-top}
+
+</div>
+
 </section>
 
 <section>
@@ -73,6 +86,8 @@ For tracking the status of tasks or items, such as "In Progress," "Completed," o
 With these options, you can tweak the appearance of the tag in Figma. They are available in the Design Panel so you can compose the tag to exactly fit the user experience need for the use case you are working on.
 
 ### Tag 
+
+<div class="ds-table-wrapper">
 
 |Item|Options|Description|
 |-|-|-|
@@ -86,7 +101,11 @@ With these options, you can tweak the appearance of the tag in Figma. They are a
 
 {.ds-table .ds-table-align-top}
 
+</div>
+
 ### Tag list
+
+<div class="ds-table-wrapper">
 
 |Item|Options|Description|
 |-|-|-|
@@ -96,5 +115,7 @@ With these options, you can tweak the appearance of the tag in Figma. They are a
 |Stacked|`boolean`|Indicates if the tags are stacked, this will show a counter in front of the tag list|
 
 {.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

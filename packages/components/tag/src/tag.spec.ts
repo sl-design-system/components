@@ -10,9 +10,9 @@ describe('sl-tag', () => {
   let el: Tag;
 
   describe('defaults', () => {
-  beforeEach(async () => {
-    el = await fixture(html`<sl-tag label="my label"></sl-tag>`);
-  });
+    beforeEach(async () => {
+      el = await fixture(html`<sl-tag label="my label"></sl-tag>`);
+    });
 
     it('should have medium size by default', () => {
       expect(el.size).to.equal('md');
@@ -51,7 +51,6 @@ describe('sl-tag', () => {
       el.setAttribute('readonly', '');
       await el.updateComplete;
 
-      expect(el).to.have.attribute('readonly');
       expect(el).to.have.attribute('aria-readonly', 'true');
     });
 
@@ -75,7 +74,7 @@ describe('sl-tag', () => {
       el = await fixture(html`<sl-tag label="my label" removable></sl-tag>`);
     });
 
-    it('should have remove button',  () => {
+    it('should have remove button', () => {
       const removeBtn = el.renderRoot.querySelector('.remove-button');
       expect(removeBtn).to.exist;
     });
@@ -94,15 +93,15 @@ describe('sl-tag', () => {
     });
 
     it('should be removed on pressing Delete key', async () => {
-        const removeSpy = spy(el, 'remove');
-        const wrapper = el.renderRoot.querySelector('.wrapper') as HTMLDivElement;
+      const removeSpy = spy(el, 'remove');
+      const wrapper = el.renderRoot.querySelector('.wrapper') as HTMLDivElement;
 
-        expect(wrapper).to.exist;
+      expect(wrapper).to.exist;
 
-        wrapper.focus();
-        await sendKeys({ press: 'Delete' });
+      wrapper.focus();
+      await sendKeys({ press: 'Delete' });
 
-        expect(removeSpy).to.have.been.calledOnce;
+      expect(removeSpy).to.have.been.calledOnce;
     });
 
     it('should be removed on pressing Backspace key', async () => {
@@ -136,16 +135,23 @@ describe('sl-tag', () => {
       expect(removeBtn).to.exist;
 
       const { x, y } = {
-        x: Math.floor(removeBtn.getBoundingClientRect().x + window.scrollX + removeBtn.getBoundingClientRect().width / 2),
-        y: Math.floor(removeBtn.getBoundingClientRect().y + window.scrollY + removeBtn.getBoundingClientRect().height / 2)
+        x: Math.floor(
+          removeBtn.getBoundingClientRect().x + window.scrollX + removeBtn.getBoundingClientRect().width / 2
+        ),
+        y: Math.floor(
+          removeBtn.getBoundingClientRect().y + window.scrollY + removeBtn.getBoundingClientRect().height / 2
+        )
       };
 
       await sendMouse({ type: 'move', position: [x, y] });
 
       expect(el).to.have.attribute('close-hover');
+
+      await sendMouse({ type: 'move', position: [1, 1] });
+
+      expect(el).not.to.have.attribute('close-hover');
     });
   });
-
 
   describe('overflow', () => {
     let tag: Tag;
@@ -153,7 +159,7 @@ describe('sl-tag', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <div style="inline-size: 50px;">
-            <sl-tag label="my label is very long"></sl-tag>
+          <sl-tag label="my label is very long"></sl-tag>
         </div>
       `);
       tag = el.querySelector('sl-tag') as Tag;
@@ -162,7 +168,7 @@ describe('sl-tag', () => {
       await new Promise(resolve => setTimeout(resolve, 50));
     });
 
-    it('should set proper styling when the label is too long',  () => {
+    it('should set proper styling when the label is too long', () => {
       const labelEl = tag.renderRoot.querySelector('.label') as HTMLDivElement;
 
       expect(labelEl).to.exist;

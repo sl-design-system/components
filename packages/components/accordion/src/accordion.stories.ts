@@ -1,5 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -229,7 +230,7 @@ export const Sticky: Story = {
 };
 
 export const ToggleExternally: Story = {
-  render: () => {
+  render: ({ single }) => {
     try {
       customElements.define(
         'accordion-toggle-example',
@@ -241,9 +242,16 @@ export const ToggleExternally: Story = {
             return html`
               <sl-button @click=${this.toggleDino}>Toggle 🦖</sl-button>
               <sl-button @click=${this.toggleAlien}>Toggle 👽</sl-button>
-              <p>🦖:${this.dino} 👽:${this.alien}</p>
-              <sl-accordion>
-                <sl-accordion-item summary="🦖" .open=${this.dino}>
+              <p>
+                🦖 state: ${this.dino ? 'open' : 'closed'}<br />
+                👽 state: ${this.alien ? 'open' : 'closed'}
+              </p>
+              <sl-accordion ?single=${single}>
+                <sl-accordion-item
+                  summary="🦖"
+                  .open=${this.dino}
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'dino')}
+                >
                   Discovering Dinosaurs: A Prehistoric Adventure Embark on a thrilling journey back in time to the age
                   of dinosaurs! 🌎🦕🌿🦖
                 </sl-accordion-item>
@@ -251,7 +259,11 @@ export const ToggleExternally: Story = {
                   Journey Through Ancient Civilizations Pack your virtual bags and travel through time to ancient Egypt,
                   Greece, Rome, and beyond 🌍🏛️🔍🏺
                 </sl-accordion-item>
-                <sl-accordion-item summary="👽" .open=${this.alien}>
+                <sl-accordion-item
+                  summary="👽"
+                  .open=${this.alien}
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'alien')}
+                >
                   Space Odyssey: Exploring Planets and Stars Buckle up for a cosmic adventure! 🚀🪐👽
                 </sl-accordion-item>
               </sl-accordion>
@@ -265,6 +277,18 @@ export const ToggleExternally: Story = {
 
           toggleDino() {
             this.dino = !this.dino;
+            this.requestUpdate();
+          }
+
+          //make sure that the state of the accordion is updated in the current component when it's changed in the SLDS accordion component
+          onToggle(event: SlToggleEvent, item: string) {
+            if (item === 'dino') {
+              this.dino = event.detail as boolean;
+            }
+            if (item === 'alien') {
+              this.alien = event.detail as boolean;
+            }
+
             this.requestUpdate();
           }
         }

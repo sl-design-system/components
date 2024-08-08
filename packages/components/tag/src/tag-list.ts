@@ -135,7 +135,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       ${this.stacked && this.#hiddenLabel > 0
-        ? html` <div class="group" tabindex="-1">
+        ? html`
+          <div class="group" tabindex="-1">
             <sl-tag
               emphasis=${this.emphasis}
               aria-describedby="tooltip"

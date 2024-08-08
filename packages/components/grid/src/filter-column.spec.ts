@@ -45,7 +45,7 @@ describe('sl-column', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
       await el.updateComplete;
 
-      cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+      // cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
     });
 
     it('should render column and filter column headers', () => {
@@ -54,7 +54,7 @@ describe('sl-column', () => {
         .slice(0, 2);
       // const filterColumns = el.renderRoot?.querySelectorAll('sl-grid-filter');
       const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
-        col.textContent.trim()
+        col.textContent?.trim()
       );
 
       // console.log('coolumns', columns, el.renderRoot.querySelectorAll('th'));

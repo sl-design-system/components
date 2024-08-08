@@ -251,6 +251,7 @@ export const All: Story = {
         .tag-examples {
           display: flex;
           flex-wrap: wrap;
+          align-items: center;
           gap: 16px;
         }
       </style>

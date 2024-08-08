@@ -76,6 +76,7 @@ describe('sl-tag', () => {
 
     it('should have remove button', () => {
       const removeBtn = el.renderRoot.querySelector('.remove-button');
+
       expect(removeBtn).to.exist;
     });
 
@@ -84,6 +85,7 @@ describe('sl-tag', () => {
       await el.updateComplete;
 
       const removeBtn = el.renderRoot.querySelector('.remove-button') as HTMLButtonElement;
+
       expect(removeBtn).to.exist;
 
       removeBtn?.click();

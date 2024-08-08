@@ -10,6 +10,7 @@ $emphases: subtle, bold;
   --_padding-block: var(--sl-space-tag-block-md) var(--sl-space-tag-block-md);
   --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
 
+  display: block;
   pointer-events: none;
 }
 

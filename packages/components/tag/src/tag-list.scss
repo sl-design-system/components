@@ -7,14 +7,12 @@
   --_group-width: var(--sl-size-tag-counter);
 
   display: flex;
-  flex-flow: column;
-  flex-direction: row;
   flex-shrink: 0;
   gap: var(--sl-space-tag-list-md);
 }
 
 :host([stacked]) {
-  flex-flow: nowrap;
+  flex-wrap: nowrap;
 
   .list {
     align-content: flex-end;
@@ -34,10 +32,7 @@
 }
 
 .group {
-  display: block;
-
   sl-tag {
-    display: block;
     font: var(--_group-font);
     position: relative;
 

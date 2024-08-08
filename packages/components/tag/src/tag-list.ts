@@ -5,19 +5,13 @@ import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './tag-list.scss.js';
-import { Tag, TagEmphasis, TagSize } from './tag.js';
+import { Tag, type TagEmphasis, type TagSize } from './tag.js';
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-tab-change': SlTabChangeEvent;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-tag-list': TagList;
   }
 }
-
-export type SlTabChangeEvent = CustomEvent<number>;
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
   attributes: true,
@@ -111,9 +105,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       this.#resizeObserver.observe(this);
 
-      this.tags?.forEach((tag: Tag) => (tag.size = this.size));
-      this.tags?.forEach((tag: Tag) => (tag.emphasis = this.emphasis));
-      this.tags?.forEach((tag: Tag) => tag.setAttribute('role', 'listitem'));
+      this.tags?.forEach(tag => (tag.size = this.size));
+      this.tags?.forEach(tag => (tag.emphasis = this.emphasis));
+      this.tags?.forEach(tag => tag.setAttribute('role', 'listitem'));
 
       this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
     });
@@ -130,11 +124,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('size')) {
-      this.tags?.forEach((tag: Tag) => (tag.size = this.size));
+      this.tags?.forEach(tag => (tag.size = this.size));
     }
 
     if (changes.has('emphasis')) {
-      this.tags?.forEach((tag: Tag) => (tag.emphasis = this.emphasis));
+      this.tags?.forEach(tag => (tag.emphasis = this.emphasis));
     }
   }
 

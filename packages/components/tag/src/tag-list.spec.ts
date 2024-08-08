@@ -72,7 +72,9 @@ describe('sl-tag', () => {
       const tooltipEl = tagList.renderRoot.querySelector('sl-tooltip') as Tooltip;
 
       expect(tooltipEl).to.exist;
-      // expect(tooltipEl).to.have.trimmed.text('my label is very long');
+      expect(tooltipEl).to.have.trimmed.text(
+        'List of hidden elements: my label 1, my label 2, my label 3, my label 4, my label 5, my label 6, my label 7'
+      );
     });
 
     it('should have a group with a tag, which contains a proper label', () => {
@@ -83,7 +85,6 @@ describe('sl-tag', () => {
       const tag = tagList.renderRoot.querySelector('sl-tag') as Tag;
 
       expect(tag).to.exist;
-
       expect(tag.label).to.equal(7);
     });
 
@@ -104,7 +105,6 @@ describe('sl-tag', () => {
       const tag = tagList.renderRoot.querySelector('sl-tag') as Tag;
 
       expect(tag).to.exist;
-
       expect(tag.label).to.equal(7);
 
       const tags = el.querySelectorAll('sl-tag');
@@ -118,6 +118,7 @@ describe('sl-tag', () => {
       tagButtonToRemove?.click();
       document.querySelectorAll('sl-tag')[6]?.remove();
 
+      // wait for the removal to be completed
       await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(tag.label).to.equal(5);

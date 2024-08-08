@@ -2,8 +2,8 @@
 title: Tag code
 tags: code
 APIdescription: {
-  sl-tag: "...",
-  sl-tag-list: "...",
+  sl-tag: "Tag has a range of properties to define the experience in different use cases.",
+  sl-tag-list: "Tag list component provides properties to define the experience in different use cases, and it is a kind of wrapper for multiple tags."
 }
 eleventyNavigation:
   parent: Tag

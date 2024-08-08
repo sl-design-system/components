@@ -51,26 +51,26 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     click: this.#onFocusin
   });
 
-  /** @internal Emits when the inline message is dismissed. */
-  @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
+  /** Whether the tag component is disabled, when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** The size of the tag. Defaults to `md`. */
-  @property({ reflect: true }) size?: TagSize = 'md';
+  /** The emphasis of the tag; defaults to 'subtle'. */
+  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
 
   /** The label of the tag component. */
   @property({ reflect: true }) label?: string;
 
-  /** Whether the tag component is disabled, when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
-
-  /** Whether the tag component is removable. */
-  @property({ type: Boolean, reflect: true }) removable?: boolean;
+  /** The size of the tag. Defaults to `md`. */
+  @property({ reflect: true }) size?: TagSize = 'md';
 
   /** Whether you can interact with the tag or if it is just a static, readonly display. Readonly cannot be removable. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
-  /** The emphasis of the tag; defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
+  /** Whether the tag component is removable. */
+  @property({ type: Boolean, reflect: true }) removable?: boolean;
+
+  /** @internal Emits when the inline message is dismissed. */
+  @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
 
   /** Whether the tag label is overflowing. */
   #overflow = false;

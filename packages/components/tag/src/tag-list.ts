@@ -81,17 +81,17 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     isFocusableElement: (el: Tag) => !el.disabled
   });
 
-  /** @internal The slotted tags. */
-  @queryAssignedElements({ flatten: true }) tags?: Tag[];
-
-  /** Whether there should be a stacked version shown when there is not enough space. The list doesn't wrap when `stacked` version is applied. */
-  @property({ type: Boolean, reflect: true }) stacked?: boolean;
+  /** The emphasis of the tag-list and tags inside. Defaults to 'subtle'. */
+  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
 
   /** The size of the tag-list (determines size of tags inside the tag-list). Defaults to `md`. */
   @property({ reflect: true }) size?: TagSize = 'md';
 
-  /** The emphasis of the tag-list and tags inside. Defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
+  /** Whether there should be a stacked version shown when there is not enough space. The list doesn't wrap when `stacked` version is applied. */
+  @property({ type: Boolean, reflect: true }) stacked?: boolean;
+
+  /** @internal The slotted tags. */
+  @queryAssignedElements({ flatten: true }) tags?: Tag[];
 
   /** The label for the counter with amount of hidden tags. Applicable only in the `stacked` version. */
   #hiddenLabel = 0;

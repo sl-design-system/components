@@ -25,9 +25,6 @@ export class AccordionItem extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Whether we should actually animate opening/closing the wrapper. */
-  #shouldAnimate = true;
-
   /** Whether the element is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -40,22 +37,12 @@ export class AccordionItem extends LitElement {
   /** @internal Emits when the accordion item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    if (changes.has('open')) {
-      // Do not animate the opening on the first render
-      this.#shouldAnimate = false;
-      this.#animateState(this.open ? 'opening' : 'closing');
-      this.#shouldAnimate = true;
-    }
-  }
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('changes in open', this.open);
+    const initial = !(changes.get('open') !== undefined);
     if (changes.has('open')) {
-      this.#animateState(this.open ? 'opening' : 'closing');
+      this.#animateState(this.open ? 'opening' : 'closing', initial);
     }
   }
 
@@ -112,7 +99,6 @@ export class AccordionItem extends LitElement {
     }
 
     this.open = force ?? !this.open;
-    this.#animateState(this.open ? 'opening' : 'closing');
   }
 
   #onClick(event: Event): void {
@@ -125,7 +111,7 @@ export class AccordionItem extends LitElement {
       return;
     }
 
-    this.#animateState(this.open ? 'closing' : 'opening');
+    this.open = !this.open;
   }
 
   #onToggle(event: ToggleEvent): void {
@@ -151,31 +137,38 @@ export class AccordionItem extends LitElement {
    *
    * @param state - The state which we should animate to
    */
-  #animateState(state: 'opening' | 'closing'): void {
+  #animateState(state: 'opening' | 'closing', initial?: boolean): void {
     const details = this.renderRoot.querySelector('details') as HTMLElement,
       wrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement;
 
     Object.assign(wrapper.style, {
-      animationDuration: this.#shouldAnimate ? '' : '0s',
-      transitionDuration: this.#shouldAnimate ? '' : '0s'
+      animationDuration: initial ? '' : 'var(--_transition-duration)',
+      transitionDuration: initial ? '' : 'var(--_transition-duration)'
     });
 
     if (state === 'opening') {
       details?.setAttribute('open', '');
     }
 
-    details.addEventListener(
-      'animationend',
-      () => {
-        details.classList.remove(state);
+    if (!initial) {
+      details.addEventListener(
+        'animationend',
+        () => {
+          details.classList.remove(state);
 
-        if (state === 'closing') {
-          details.removeAttribute('open');
-        }
-      },
-      { once: true }
-    );
+          if (state === 'closing') {
+            details.removeAttribute('open');
+          }
+        },
+        { once: true }
+      );
 
-    requestAnimationFrame(() => details.classList.add(state));
+      requestAnimationFrame(() => details.classList.add(state));
+    } else {
+      details.classList.remove(state);
+      if (state === 'closing') {
+        details.removeAttribute('open');
+      }
+    }
   }
 }

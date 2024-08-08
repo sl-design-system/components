@@ -1,7 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
@@ -229,36 +229,51 @@ export const Sticky: Story = {
 };
 
 export const ToggleExternally: Story = {
-  render: ({ single, open }) => {
-    let dinoState = true;
-    let alienState = false;
-    const toggleDino = (): void => {
-      dinoState = !dinoState;
-      console.log('toggle dino', dinoState);
-    };
-    const toggleAlien = (): void => {
-      alienState = !alienState;
-      console.log('toggle alien', alienState);
-    };
-    const getStatus = (): boolean => {
-      return dinoState;
-    };
-    return html`
-      <sl-button @click=${toggleDino}>Toggle 🦖</sl-button>
-      <sl-button @click=${toggleAlien}>Toggle 👽</sl-button>
-      <p>${dinoState} ${alienState} ${single}</p>
-      <sl-accordion>
-        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" ?open=${getStatus()}>
-          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
-        </sl-accordion-item>
-        <sl-accordion-item summary="Journey Through Ancient Civilizations">
-          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
-        </sl-accordion-item>
-        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" ?open=${open}>
-          Buckle up for a cosmic adventure! 🚀🪐👽
-        </sl-accordion-item>
-      </sl-accordion>
-    `;
+  render: () => {
+    try {
+      customElements.define(
+        'accordion-toggle-example',
+        class extends LitElement {
+          alien = false;
+          dino = true;
+
+          override render(): TemplateResult {
+            return html`
+              <sl-button @click=${this.toggleDino}>Toggle 🦖</sl-button>
+              <sl-button @click=${this.toggleAlien}>Toggle 👽</sl-button>
+              <p>🦖:${this.dino} 👽:${this.alien}</p>
+              <sl-accordion>
+                <sl-accordion-item summary="🦖" .open=${this.dino}>
+                  Discovering Dinosaurs: A Prehistoric Adventure Embark on a thrilling journey back in time to the age
+                  of dinosaurs! 🌎🦕🌿🦖
+                </sl-accordion-item>
+                <sl-accordion-item summary="🏛️">
+                  Journey Through Ancient Civilizations Pack your virtual bags and travel through time to ancient Egypt,
+                  Greece, Rome, and beyond 🌍🏛️🔍🏺
+                </sl-accordion-item>
+                <sl-accordion-item summary="👽" .open=${this.alien}>
+                  Space Odyssey: Exploring Planets and Stars Buckle up for a cosmic adventure! 🚀🪐👽
+                </sl-accordion-item>
+              </sl-accordion>
+            `;
+          }
+
+          toggleAlien() {
+            this.alien = !this.alien;
+            this.requestUpdate();
+          }
+
+          toggleDino() {
+            this.dino = !this.dino;
+            this.requestUpdate();
+          }
+        }
+      );
+    } catch {
+      /* empty */
+    }
+
+    return html`<accordion-toggle-example></accordion-toggle-example>`;
   }
 };
 

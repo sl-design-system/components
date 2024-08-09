@@ -137,17 +137,19 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       ${this.stacked && this.#hiddenLabel > 0
-        ? html` <div class="group" tabindex="-1">
-            <sl-tag
-              emphasis=${this.emphasis}
-              aria-describedby="tooltip"
-              label=${this.#hiddenLabel > 99 ? '+99' : this.#hiddenLabel}
-              size=${this.size}
-            ></sl-tag>
-            <sl-tooltip id="tooltip" position="bottom" max-width="300">
-              ${msg('List of hidden elements')}: ${this.#hiddenTags?.map(tag => tag.label).join(', ')}
-            </sl-tooltip>
-          </div>`
+        ? html`
+            <div class="group" tabindex="-1">
+              <sl-tag
+                emphasis=${this.emphasis}
+                aria-describedby="tooltip"
+                label=${this.#hiddenLabel > 99 ? '+99' : this.#hiddenLabel}
+                size=${this.size}
+              ></sl-tag>
+              <sl-tooltip id="tooltip" position="bottom" max-width="300">
+                ${msg('List of hidden elements')}: ${this.#hiddenTags?.map(tag => tag.label).join(', ')}
+              </sl-tooltip>
+            </div>
+          `
         : nothing}
       <div class="list">
         <slot @slotchange=${this.#onTagsSlotChange}></slot>

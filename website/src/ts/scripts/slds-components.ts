@@ -8,6 +8,7 @@ import {
   faCopy,
   faFileEdit,
   faFloppyDisk,
+  faGear,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
@@ -41,6 +42,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/inline-message/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
+import '@sl-design-system/menu/register.js';
 import '@sl-design-system/message-dialog/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/progress-bar/register.js';
@@ -51,6 +53,7 @@ import '@sl-design-system/select/register.js';
 import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/spinner/register.js';
 import '@sl-design-system/switch/register.js';
+import '@sl-design-system/tag/register.js';
 import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
@@ -67,6 +70,7 @@ Icon.register(
   faEnvelope,
   faFileEdit,
   faFloppyDisk,
+  faGear,
   faGithub,
   faHandBackPointUp,
   faMessagesQuestion,

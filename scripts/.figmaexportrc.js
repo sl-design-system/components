@@ -1,8 +1,12 @@
-const path = require('path'),
-  fileId = process.argv.at(4);
-  theme = process.argv.at(5);
+import asSvg from '@figma-export/output-components-as-svg'
+import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo';
+import { argv } from 'node:process';
+import { sep } from 'path';
 
-module.exports = {
+const fileId = argv.at(4),
+  theme = argv.at(5);
+
+export default {
   commands: [
     [
       'components',
@@ -10,7 +14,7 @@ module.exports = {
         fileId,
         onlyFromPages: ['Custom Icons'], //this is case sensitive, make sure your Figma page name matches exactly
         transformers: [
-          require('@figma-export/transform-svg-with-svgo')({
+          transformSvgWithSvgo({
             plugins: [
               {
                 name: 'preset-default',
@@ -34,9 +38,9 @@ module.exports = {
           })
         ],
         outputters: [
-          require('@figma-export/output-components-as-svg')({
+          asSvg({
             output: `../packages/themes/${theme}/icons`,
-            getDirname: (options) => `.${path.sep}${options.dirname}`
+            getDirname: (options) => `.${sep}${options.dirname}`
           })
         ]
       }

@@ -37,6 +37,8 @@ div {
   padding-inline: var(--_padding-inline);
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 
+  --sl-popover-min-block-size: 80px;
+
   @supports not selector(:popover-open) {
     position: fixed;
   }

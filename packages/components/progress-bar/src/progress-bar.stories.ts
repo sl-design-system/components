@@ -35,11 +35,6 @@ export default {
       }
     }
   },
-  parameters: {
-    viewport: {
-      defaultViewport: 'default'
-    }
-  },
   render: ({ indeterminate, variant, value, label, slot }) => {
     return html`
       <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .variant=${variant}>
@@ -219,7 +214,7 @@ export const All: StoryObj = {
       <span>50% of 100%</span>
     </sl-progress-bar>
     <sl-progress-bar indeterminate label="Progress bar label in the indeterminate state">
-      <span">Preparing download</span>
+      <span>Preparing download</span>
     </sl-progress-bar>
     <h2>No label</h2>
     <sl-progress-bar value="20" aria-label="Progress bar label in the default variant">
@@ -235,7 +230,7 @@ export const All: StoryObj = {
       <span>50% of 100%</span>
     </sl-progress-bar>
     <sl-progress-bar indeterminate aria-label="Progress bar label in the indeterminate state">
-      <span">Preparing download</span>
+      <span>Preparing download</span>
     </sl-progress-bar>
   `
 };

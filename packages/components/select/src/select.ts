@@ -23,6 +23,7 @@ export type SelectSize = 'md' | 'lg';
  * A form control that allows users to select one option from a list of options.
  *
  * @slot default - Place for `sl-select-option` elements
+ * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
  */
 @localized()
 export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
@@ -96,7 +97,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
-  /** The listbox element. */
+  /** @internal The listbox element. */
   @query('[popover]') listbox!: HTMLElement;
 
   /** The placeholder text to show when no option is chosen. */

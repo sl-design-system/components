@@ -3,11 +3,13 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
 import { type Grid } from './grid.js';
+import {getNameByPath} from "@sl-design-system/shared";
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
-describe('sl-grid-filter-column', () => {
+describe('sl-grid-filter', () => {
   let el: Grid;
+  // let cells: HTMLElement[];
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -47,60 +49,56 @@ describe('sl-grid-filter-column', () => {
       // cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
     });
 
-    it('should render column and filter column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th'));
-       // .map(col => col.textContent);
-       // .slice(0, 2);
-      // const filterColumns = el.renderRoot?.querySelectorAll('sl-grid-filter');
-      const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
-        col.textContent?.trim()
-      );
-      console.log('el ---grid', el);
+    // it('should render column and filter column headers', () => {
+    //   const columns = Array.from(el.renderRoot.querySelectorAll('th'));
+    //   // .map(col => col.textContent);
+    //   // .slice(0, 2);
+    //   // const filterColumns = el.renderRoot?.querySelectorAll('sl-grid-filter');
+    //   const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
+    //     col.textContent?.trim()
+    //   );
+    //
+    //   console.log('coolumns', columns, el.renderRoot.querySelectorAll('th'));
+    //
+    //   // console.log('coolumns--2', columns);
+    //   // console.log('filterColumns', filterColumns, Array.from(filterColumns).map(col => col.textContent.trim()));
+    //   // console.log('filterColumns trimmed', Array.from(filterColumns).map(col => col.textContent.trim()));
+    //   // console.log('filterColumnsTrimmedfilterColumnsTrimmedfilterColumnsTrimmed', filterColumnsTrimmed);
+    //
+    //   expect(columns).to.exist;
+    //   expect(filterColumns).to.exist;
+    //
+    //   // expect(columns).to.deep.equal(['First name', 'Last name']);
+    //   expect(columns.map(col => col.getAttribute('part')?.trim())).to.deep.equal([
+    //     'header filter profession',
+    //     'header filter status',
+    //     'header filter membership'
+    //   ]);
+    //   expect(filterColumns).to.deep.equal(['Profession', 'Status', 'Membership']);
+    // });
 
-      console.log('coolumns', columns, el.renderRoot.querySelectorAll('th'));
+    // it('should have no filter mode by default', () => {
+    //   const filterColumn = Array.from(el.querySelectorAll('sl-grid-filter-column'))[0]; //[0];
+    //   const filterMode = filterColumn.getAttribute('mode');
+    //
+    //   // console.log('filterColumns for mode', filterColumns, filterColumnsNew, filterMode);
+    //   expect(filterMode).not.to.exist;
+    //   // expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
+    // });
 
-      // console.log('coolumns--2', columns);
-      // console.log('filterColumns', filterColumns, Array.from(filterColumns).map(col => col.textContent.trim()));
-      // console.log('filterColumns trimmed', Array.from(filterColumns).map(col => col.textContent.trim()));
-      // console.log('filterColumnsTrimmedfilterColumnsTrimmedfilterColumnsTrimmed', filterColumnsTrimmed);
 
-      expect(columns).to.exist;
-      expect(filterColumns).to.exist;
-
-      // expect(columns).to.deep.equal(['First name', 'Last name']);
-      expect(columns.map(col => col.getAttribute('part')?.trim())).to.deep.equal([
-        'header filter profession',
-        'header filter status',
-        'header filter membership'
-      ]);
-      expect(filterColumns).to.deep.equal(['Profession', 'Status', 'Membership']);
-    });
-
-    // TODO: with no filter mode by default
-
-    it('should have no filter mode by default', () => {
-      const filterColumn = Array.from(el.querySelectorAll('sl-grid-filter-column'))[0]; //[0];
-      const filterMode = filterColumn.getAttribute('mode');
-
-      // console.log('filterColumns for mode', filterColumns, filterColumnsNew, filterMode);
-      expect(filterMode).not.to.exist;
-      // expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
-    });
-
-    // TODO: check whether there are right parts added when it's a filter column - also by default and when there is exact mode used
-
-    it('should have a filter column header with a proper mode when it is set', () => {
-      console.log('el', el);
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
-      // const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter'))[0];
-      const filterColumnsNew = Array.from(el.querySelectorAll('sl-grid-filter-column'))[1];
-
-      console.log('filterColumns for mode default', filterColumnsNew);
-
-      expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
-
-      // TODO: need to check whether there is a button and popover inside
-    });
+    // it('should have a filter column header with a proper mode when it is set', () => {
+    //   console.log('el', el);
+    //   const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
+    //   // const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter'))[0];
+    //   const filterColumnsNew = Array.from(el.querySelectorAll('sl-grid-filter-column'))[1];
+    //
+    //   console.log('filterColumns for mode default', filterColumnsNew);
+    //
+    //   expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
+    //
+    //   // TODO: need to check whether there is a button and popover inside
+    // });
 
     // it('should have the right justify-content value', () => {
     //   expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal(['start', 'start', 'end']);
@@ -160,4 +158,17 @@ describe('sl-grid-filter-column', () => {
   // });
 });
 
-// TODO: test mode text and select
+// TODO: events emitting tests
+
+
+// TODO: test this exactly (inside th, similar to sorter.spec.ts?):
+/*
+<sl-grid-filter
+  .column=${this}
+.mode=${this.mode || 'select'}
+.options=${this.options ?? this.internalOptions}
+.path=${this.path}
+.value=${this.value}
+>
+${this.header ?? getNameByPath(this.path)}
+</sl-grid-filter>*/

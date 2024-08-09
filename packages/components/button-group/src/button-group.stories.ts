@@ -15,7 +15,7 @@ type Story = StoryObj<Props>;
 Icon.register(faBold, faItalic, faUnderline);
 
 export default {
-  title: 'Components/Button group',
+  title: 'Actions/Button group',
   tags: ['draft'],
   args: {
     disabled: false

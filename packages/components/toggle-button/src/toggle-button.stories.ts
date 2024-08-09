@@ -20,7 +20,7 @@ const sizes: ToggleButtonSize[] = ['sm', 'md', 'lg'];
 Icon.register(fasGear, farGear, faEyeSlash);
 
 export default {
-  title: 'Components/Toggle button',
+  title: 'Actions/Toggle button',
   tags: ['draft'],
   args: {
     disabled: false,

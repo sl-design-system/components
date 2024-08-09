@@ -8,7 +8,7 @@ type Props = Pick<EmojiBrowser, 'frequentlyUsed' | 'locale' | 'query'>;
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Emoji browser',
+  title: 'Utilities/Emoji browser',
   tags: ['draft'],
   parameters: {
     layout: 'fullscreen'

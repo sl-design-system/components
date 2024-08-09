@@ -1,4 +1,4 @@
-import { permutateThemes, registerTransforms, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { permutateThemes, register, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
 import cssnano from 'cssnano';
 import { readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
@@ -9,7 +9,7 @@ import StyleDictionary from 'style-dictionary';
 // Match math expressions that are not wrapped in a `calc`, `rgb` or `hsl` function.
 const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
-registerTransforms(StyleDictionary);
+register(StyleDictionary);
 
 StyleDictionary.registerFileHeader({
   name: 'sl/legal',
@@ -26,15 +26,15 @@ StyleDictionary.registerTransform({
   name: 'sl/color/transparentColorMix',
   type: 'value',
   transitive: true,
-  matcher: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
-  transformer: token => {
+  filter: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
+  transform: token => {
     const [_, color, opacity] = token.original?.value?.match(/rgba\((\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
       token.original.value = `color-mix(in srgb, ${color}  calc(${opacity} * 100%), transparent)`;
     }
 
-    return token.$value ?? token.value;
+    return token.value;
   }
 });
 
@@ -42,17 +42,18 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
-  matcher: token => (token.$type ?? token.type) === 'fontFamilies',
-  transformer: token => (token.$value ?? token.value).replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
+  filter: token => token.type === 'fontFamily',
+  transform: token => token.value.replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
 });
 
 // Transform line heights to px if they are not percentages
 StyleDictionary.registerTransform({
   name: 'sl/size/css/lineHeight',
   type: 'value',
-  matcher: token => (token.$type ?? token.type) === 'lineHeights',
-  transformer: token => {
-    const value = token.$value ?? token.value;
+  transitive: true,
+  filter: token => token.type === 'lineHeight',
+  transform: token => {
+    const value = token.value;
 
     return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
   }
@@ -62,31 +63,11 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/size/css/paragraphSpacing',
   type: 'value',
-  matcher: token => (token.$type ?? token.type) === 'paragraphSpacing',
-  transformer: token => {
-    const value = token.$value ?? token.value;
+  filter: token => token.type === 'paragraphSpacing',
+  transform: token => {
+    const value = token.value;
 
     return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
-  }
-});
-
-// Overwrite the 'ts/size/px` transform to append 'px' to '0' values
-StyleDictionary.registerTransform({
-  name: 'sl/size/css/px',
-  type: 'value',
-  matcher: token => {
-    const type = token.$type ?? token.type;
-    return (
-      typeof type === 'string' &&
-      ['sizing', 'spacing', 'borderRadius', 'borderWidth', 'fontSizes', 'dimension'].includes(
-        type,
-      )
-    );
-  },
-  transformer: token => {
-    const value = token.$value ?? token.value;
-
-    return parseFloat(value) === 0 ? `${value}px` : transformDimension(value);
   }
 });
 
@@ -95,11 +76,11 @@ StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
   transitive: true,
-  matcher: token => typeof token.original?.value === 'string' && mathPresent.test(token.original.value),
-  transformer: token => {
+  filter: token => typeof token.original?.value === 'string' && mathPresent.test(token.original.value),
+  transform: token => {
     token.original.value = `calc(${token.original.value})`;
 
-    return token.$value ?? token.value;
+    return token.value;
   }
 });
 
@@ -173,11 +154,13 @@ const build = async (production = false) => {
           }
         );
       }
+
       return {
         log: {
           warnings: 'disabled'
         },
         source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),
+        preprocessors: ['tokens-studio'],
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
@@ -186,7 +169,6 @@ const build = async (production = false) => {
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',
-              'sl/size/css/px',
               'sl/color/transparentColorMix',
               'sl/wrapMathInCalc'
             ].filter(Boolean),

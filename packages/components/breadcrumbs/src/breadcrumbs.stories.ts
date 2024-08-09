@@ -24,7 +24,7 @@ export default {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'default'
+      defaultViewport: 'reset'
     }
   },
   render: ({ breadcrumbs, homeUrl, noHome }) => html`
@@ -67,7 +67,7 @@ export const Mobile: Story = {
   ...Basic,
   parameters: {
     viewport: {
-      defaultViewport: 'iphone5'
+      defaultViewport: 'iphone13'
     }
   }
 };

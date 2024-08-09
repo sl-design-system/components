@@ -5117,6 +5117,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/tag@workspace:packages/components/tag":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/tag@workspace:packages/components/tag"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.2.13"
+    "@sl-design-system/tooltip": "npm:^1.0.1"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/teas@workspace:packages/themes/teas":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/teas@workspace:packages/themes/teas"

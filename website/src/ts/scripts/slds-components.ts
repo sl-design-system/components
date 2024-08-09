@@ -53,6 +53,7 @@ import '@sl-design-system/select/register.js';
 import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/spinner/register.js';
 import '@sl-design-system/switch/register.js';
+import '@sl-design-system/tag/register.js';
 import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';

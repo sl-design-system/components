@@ -1629,9 +1629,6 @@
       "text.input.fieldLabel.label.sm": "S:88b4f8edec6146b992551a001ef6f6fe04ca1dc8,",
       "text.input.fieldLabel.label.md": "S:3c76b96d70d8137fb24d75a740509c12d2f0006a,",
       "text.input.fieldLabel.label.lg": "S:69d9f827f598620d064b51c7603032ae7081cc6d,",
-      "text.input.fieldLabel.tag.sm": "S:9b68260a7c58dbd9d0cf161adc28471c1f6a5717,",
-      "text.input.fieldLabel.tag.md": "S:5dbf098beb1a175078fe066b14c2dcfceee2143e,",
-      "text.input.fieldLabel.tag.lg": "S:ae73e36775c8776362b841b2b9f6c7a9a840d135,",
       "text.input.fieldLabel.hint.sm": "S:0290e32a57f8ad551f11b97dd4f8b6dac06c6aa3,",
       "text.input.fieldLabel.hint.md": "S:1a663af025c9d929c5b0b46a7a8cc8a244717760,",
       "text.input.fieldLabel.hint.lg": "S:bdd46b254ba602beb54bee6f25587a9aa9081a5b,",
@@ -1695,7 +1692,10 @@
       "text.badge.text.sm": "S:0737621c8b321e8f2040d5ecb46603f899a5caeb,",
       "text.badge.text.md": "S:7a0518b8eef20179a9d96c6f58c90ce096fe5cda,",
       "text.badge.text.lg": "S:e9f73e8329200c30899bdc690b678ef38fb93262,",
-      "text.badge.text.xl": "S:4040542b806e314472fe20bf6d93586578df89f6,"
+      "text.badge.text.xl": "S:4040542b806e314472fe20bf6d93586578df89f6,",
+      "text.tag.sm": "S:9b68260a7c58dbd9d0cf161adc28471c1f6a5717,",
+      "text.tag.label.md": "S:5dbf098beb1a175078fe066b14c2dcfceee2143e,",
+      "text.tag.label.lg": "S:ae73e36775c8776362b841b2b9f6c7a9a840d135,"
     }
   },
   {
@@ -2318,9 +2318,6 @@
       "text.input.fieldLabel.label.sm": "S:c7108f2f35bb8aae41897d26aabcbcbacee6b087,",
       "text.input.fieldLabel.label.md": "S:b7702689e681d3ee38715724861f5151ac992cec,",
       "text.input.fieldLabel.label.lg": "S:e26aae39c599529fba883d5576427be0da641076,",
-      "text.input.fieldLabel.tag.sm": "S:de11b97bab9acb214f5f43545b134d21b44e23b0,",
-      "text.input.fieldLabel.tag.md": "S:c1e4c2640c08e741e6c1eead1f9fe2871f4cbd62,",
-      "text.input.fieldLabel.tag.lg": "S:fb25c7197e15bc520b03db8a5ce56f29af9ead44,",
       "text.input.helper.text.sm": "S:af71e6b87803a9b5ec118437e1c2bf20800d88c3,",
       "text.input.helper.text.md": "S:1f1099e95831b617f79b8d8dfefbceff85494cc0,",
       "text.input.helper.text.lg": "S:42d2076e77d57db70c5eb541519f2edb092a04c9,",
@@ -2703,7 +2700,10 @@
       "text.badge.text.sm": "S:2ec18892ca029f79834c14b9e2978d9ec89132e2,",
       "text.badge.text.md": "S:991c82774304dc6a240ece59489aa01046e9693b,",
       "text.badge.text.lg": "S:e01266480ceb7bda06ada7e8ac433a60da4d8c16,",
-      "text.badge.text.xl": "S:a1371d64a7a8a2c5d35ef8a07c8c5b60182d51cc,"
+      "text.badge.text.xl": "S:a1371d64a7a8a2c5d35ef8a07c8c5b60182d51cc,",
+      "text.tag.sm": "S:de11b97bab9acb214f5f43545b134d21b44e23b0,",
+      "text.tag.label.md": "S:c1e4c2640c08e741e6c1eead1f9fe2871f4cbd62,",
+      "text.tag.label.lg": "S:fb25c7197e15bc520b03db8a5ce56f29af9ead44,"
     }
   },
   {
@@ -3665,9 +3665,6 @@
       "text.input.fieldLabel.label.sm": "S:b8a8f0ef0276bb7e28700d77707d82beadf310cb,",
       "text.input.fieldLabel.label.md": "S:36f081a4992b8baacfa32edff49e5daaeab3ff14,",
       "text.input.fieldLabel.label.lg": "S:5e0f08ac6e006aabc1d44ea03854622ad71b7e2a,",
-      "text.input.fieldLabel.tag.sm": "S:aa24db822d73c2d315c2c8552370566f372f881a,",
-      "text.input.fieldLabel.tag.md": "S:586d5a50f4117693780a0710974543ba7072ad26,",
-      "text.input.fieldLabel.tag.lg": "S:4d76ecbf03293a459255f5179894f070d76c0b50,",
       "text.input.fieldLabel.hint.sm": "S:b0f336a74e29d7974fc6f9700fc8aaa8745f7798,",
       "text.input.fieldLabel.hint.md": "S:3598adae6dba40fe67c38683ef0b65d205f704db,",
       "text.input.fieldLabel.hint.lg": "S:a26e6bb3bc9307d338cdace79e431d5bfdd94412,",
@@ -3758,7 +3755,10 @@
       "text.badge.text.md": "S:8db1242b5f45baaea9760c6d8758d64e59e20664,",
       "text.badge.text.lg": "S:89aed9d39ac8f6ba5c63e465d1bd1e95038feca3,",
       "text.badge.text.xl": "S:507c0781b91c8103c33596cc2503fa0659cc3956,",
-      "color.palette.primary.25": "S:698c81d955d82fe0f67122cb58ec1efc0a951207,"
+      "color.palette.primary.25": "S:698c81d955d82fe0f67122cb58ec1efc0a951207,",
+      "text.tag.sm": "S:aa24db822d73c2d315c2c8552370566f372f881a,",
+      "text.tag.label.md": "S:586d5a50f4117693780a0710974543ba7072ad26,",
+      "text.tag.label.lg": "S:4d76ecbf03293a459255f5179894f070d76c0b50,"
     }
   },
   {
@@ -4589,9 +4589,6 @@
       "text.input.fieldLabel.label.sm": "S:f7adf1bfd0f34028a0b67b9f7d91cc63aded2b95,",
       "text.input.fieldLabel.label.md": "S:e783a480f296f4e151ce8b3754f6629cf9135125,",
       "text.input.fieldLabel.label.lg": "S:8a1a8b0dd019e564700601fdfb7c0120199fd362,",
-      "text.input.fieldLabel.tag.sm": "S:52718f3248ab720322f60b8e5d46f72814efc2af,",
-      "text.input.fieldLabel.tag.md": "S:7a82f0c76b877d63146ad6e22de2481f0b90d87e,",
-      "text.input.fieldLabel.tag.lg": "S:6a5fd54a4c0b78cc061e6fbc44670c2df3268dd8,",
       "text.input.helper.text.sm": "S:cc3f691d8214d5b3c25336e2f1021e652560508d,",
       "text.input.helper.text.md": "S:c8f371f7c6fdc93546e08d5bbed2290183184331,",
       "text.input.helper.text.lg": "S:09ca6fc37cb36b16d6fdbf9179016706fe32cead,",
@@ -4616,7 +4613,10 @@
       "text.badge.text.sm": "S:fd8fec4d9ae93ba51919d3645917378d53e08d43,",
       "text.badge.text.md": "S:e93f9c6f4bea942885778cf963bd16d4729c96bb,",
       "text.badge.text.lg": "S:bce33d31c196a854b6d5483ca504394fdd36c1a7,",
-      "text.badge.text.xl": "S:f0c7863dea981d5d6f04b84c0fe24b05128b97a1,"
+      "text.badge.text.xl": "S:f0c7863dea981d5d6f04b84c0fe24b05128b97a1,",
+      "text.tag.sm": "S:52718f3248ab720322f60b8e5d46f72814efc2af,",
+      "text.tag.label.md": "S:7a82f0c76b877d63146ad6e22de2481f0b90d87e,",
+      "text.tag.label.lg": "S:6a5fd54a4c0b78cc061e6fbc44670c2df3268dd8,"
     }
   },
   {
@@ -7010,7 +7010,55 @@
       "color.field-button.default.active.background": "S:a0140aaf16d7e4cedada1c39bb7a745f622d2374,",
       "color.field-button.default.active.foreground": "S:a94e2357e3159cf227295c9b3ebd35d0bb11f58a,",
       "color.field-button.default.disabled.background": "S:2eb52bf98daa53b9a79d522544a6430f2669bb6e,",
-      "color.field-button.default.disabled.foreground": "S:92ec8d78b5d558058aabf7c6eefbaf9d6b76bac9,"
+      "color.field-button.default.disabled.foreground": "S:92ec8d78b5d558058aabf7c6eefbaf9d6b76bac9,",
+      "text.tag.label.md": "S:95c02989733d90bde29edccb0329076329ca478b,",
+      "text.tag.label.lg": "S:bb38b8d01f3ef2bd3979945e9dc105f3a7f5af2f,",
+      "color.progressbar.active.track": "S:578f20a8ece391dcec1bbd45c74eb940ebe5f1b2,",
+      "color.progressbar.success.track": "S:170750e0f4469dce36b199240ad45d3b0471e09f,",
+      "color.progressbar.error.track": "S:0002eb2b00e9ba4bd4c7014fe12f3f6d470721de,",
+      "color.progressbar.indeterminate.track": "S:64c63f82f8c0372ca0c524e80aac30b54928c10f,",
+      "color.progressbar.warning.track": "S:55e74f73a6fb8acf6ddfd8268426aef15ebec4bf,",
+      "color.progressbar.background": "S:9b6bbcbd429ec8f0972545818fb21b8f15f0aa54,",
+      "color.tag.subtle.idle.background": "S:fc5f33d9db3797a7b6e6217a09f3b991aa916f3e,",
+      "color.tag.subtle.idle.foreground": "S:2ba8babf348ca0dfa1530ef9d39dda200360ce70,",
+      "color.tag.subtle.idle.border": "S:56232561076c43152fb21148d63b80e936bf3e90,",
+      "color.tag.subtle.hover.background": "S:2c36646567755343b210d9425ae7813134b33935,",
+      "color.tag.subtle.hover.foreground": "S:17e9370a624ac5f0cb8c9c2344aa62b15d8bc2e7,",
+      "color.tag.subtle.hover.border": "S:4e2c43de1ded23b401702bd039449c55102040ff,",
+      "color.tag.subtle.active.background": "S:62cfa56e26b424743020e82c14be37e8ec6aed88,",
+      "color.tag.subtle.active.foreground": "S:c5673d4da41dbc93b4ffe41f0f4b6c1257a8a474,",
+      "color.tag.subtle.active.border": "S:860a0688f0ddf64c6271c5deeb6f8aa46266d87e,",
+      "color.tag.subtle.disabled.background": "S:2b1c55a37b7ff0f994e57a348aafb4388e590528,",
+      "color.tag.subtle.disabled.foreground": "S:c1a50d5f9d1e5e35e3c6a05d98f73dcc212e2ea0,",
+      "color.tag.subtle.disabled.border": "S:e7658bd2edfa7c60dc9ab6458155a78e16f7cc6a,",
+      "color.tag.bold.idle.background": "S:6a5d226ffc2f55d8f40a08a9a6075e75f5cc37c3,",
+      "color.tag.bold.idle.foreground": "S:6e7b7e11591266b1d8a32496897ff7f0aaf34af4,",
+      "color.tag.bold.idle.border": "S:4683382846d681bf8f46ce800302cf8ebbda4906,",
+      "color.tag.bold.hover.background": "S:497165fdfe188ff88a06292a5b6ac97ed75e745e,",
+      "color.tag.bold.hover.foreground": "S:c2bf53b0c76e45f0eca6f148e17ab11fe79f05a6,",
+      "color.tag.bold.hover.border": "S:b938bdc4002879a865e9389328367e81cb67718d,",
+      "color.tag.bold.active.background": "S:b6e49ff7348de44a4c6de5a4d828f66e79d57f6c,",
+      "color.tag.bold.active.foreground": "S:0e497eb8bdd96f6cd9311d3069f9378c629ee6a1,",
+      "color.tag.bold.active.border": "S:0e29ab3189d6641344cdb7d142c9936355b7d835,",
+      "color.tag.bold.disabled.background": "S:e4710e1cbf0e9c626ed1b24eb033a68c8cc89294,",
+      "color.tag.bold.disabled.foreground": "S:17d88c25ee7e140cc552f20a1580851eeb02e680,",
+      "color.tag.bold.disabled.border": "S:53435bee2cd550d4c50d03c25d8d997eb03a51bd,",
+      "text.tag.close.md": "S:dc4c000326447e99a47298ba541e71d0f884b3fd,",
+      "text.tag.close.lg": "S:67c54b02a9ef0f83226eed022b6e3cdafc6a76ef,",
+      "text.dialog.message.mobile.heading": "S:9c6243c10914de58e9438ca2d7723d00d4ff76a9,",
+      "text.dialog.message.mobile.subheading": "S:12ba4d5bf94cb2600be79e550e63c38fe1cfe192,",
+      "color.tag.subtle.close.hover.background": "S:a6ec306834afa4618e07c7b14d4722e6f30a7f4a,",
+      "color.tag.subtle.close.hover.foreground": "S:6b18d6eaf9cedf30c67c214f01d7c63aaaa286ea,",
+      "color.tag.subtle.close.hover.border": "S:b42c1d5b769b2e962785367ed127cebb5bb7e2eb,",
+      "color.tag.subtle.close.active.background": "S:d508000a7c82ccaf1a091ee2df3cd02c0bea05a0,",
+      "color.tag.subtle.close.active.foreground": "S:4d6ff15fb8ac2d1ba66c069aef82306f27d1ef5f,",
+      "color.tag.subtle.close.active.border": "S:0acc0844d1e113b4da3aa956acc07b08c9a2fe1c,",
+      "color.tag.bold.close.hover.background": "S:b208b17c7478ea0d1eb3a93ab76fb2efa889f37f,",
+      "color.tag.bold.close.hover.foreground": "S:ac350b6bbd625419dfc6cd018689f590f3baf5ae,",
+      "color.tag.bold.close.hover.border": "S:897c59279a8fc6edeb6153fc7549b65d8964014f,",
+      "color.tag.bold.close.active.background": "S:7db8d1c754838751963b9f2ce3a6e6acf62918a5,",
+      "color.tag.bold.close.active.foreground": "S:0c722b5cb5c5a70d63f5b83c08b090ec5ffc3fb4,",
+      "color.tag.bold.close.active.border": "S:50d07464a24a4f0f5d437a9e59596083624e05ba,"
     }
   },
   {
@@ -8009,9 +8057,6 @@
       "text.input.fieldLabel.label.sm": "S:3650dd57707c95ede055baffa0d0e62a3f12dca1,",
       "text.input.fieldLabel.label.md": "S:c5ea66a886eb552f4f5cc3a8eaa1aef1460d126d,",
       "text.input.fieldLabel.label.lg": "S:98eb027f38054234d78abd90e9a4f1722bb3616b,",
-      "text.input.fieldLabel.tag.sm": "S:6ff697553d258a2c12f69bc4f2b23018b1dfb8ea,",
-      "text.input.fieldLabel.tag.md": "S:46cb0181c6d843293a298c5558c506e83dacd404,",
-      "text.input.fieldLabel.tag.lg": "S:ce5783ef6a1feecf4733e761f5c954ff598c10ba,",
       "text.input.helper.text.sm": "S:dbd6938d4f9aa11e1580789cc43eaeeb091effe2,",
       "text.input.helper.text.md": "S:fe269c854051ced5ef93c2951307a41935f43f9b,",
       "text.input.helper.text.lg": "S:b342bb68b75a1e7c406ac48db18eca2e28197bfa,",
@@ -8296,7 +8341,9 @@
       "color.href.disabled.foreground": "S:88c973247e87ae3f22927285680d3fad27549687,",
       "color.input.fieldLabel.hint.default": "S:6955b05fe3925f3f4b730eeaac3367208161b49b,",
       "color.input.fieldLabel.hint.disabled": "S:5d761b4b2b4a94eab10d44c9bc7337c86c0fb2be,",
-      "color.input.fieldLabel.hint.invalid": "S:87f7e18d7383e96a090c5dba5e42be48b6823570,"
+      "color.input.fieldLabel.hint.invalid": "S:87f7e18d7383e96a090c5dba5e42be48b6823570,",
+      "text.tag.label.md": "S:46cb0181c6d843293a298c5558c506e83dacd404,",
+      "text.tag.label.lg": "S:ce5783ef6a1feecf4733e761f5c954ff598c10ba,"
     }
   },
   {
@@ -9299,9 +9346,6 @@
       "text.input.fieldLabel.label.sm": "S:c8ba0b31ba10a294a6d884f4021def6d8b830cc7,",
       "text.input.fieldLabel.label.md": "S:931f136638835dc460a081cd4973569366cb6b9f,",
       "text.input.fieldLabel.label.lg": "S:19e1c71b76d31454159581d059b5c752bc7b694b,",
-      "text.input.fieldLabel.tag.sm": "S:1d383400740e7f4ff656eef9c183e97319ffc1f0,",
-      "text.input.fieldLabel.tag.md": "S:b43b13a837e3667d3aed285d74548fe0259e1f6a,",
-      "text.input.fieldLabel.tag.lg": "S:70115dc240cbbd70b52fefbb478529d394160d03,",
       "text.input.fieldLabel.hint.sm": "S:5eac24f14adfd464645b73264e437f010bef1268,",
       "text.input.fieldLabel.hint.md": "S:0459c8d34ace3eb86ac25a15b3fec86ef3431dfc,",
       "text.input.fieldLabel.hint.lg": "S:b66c00a822339b035205e36dead06cd861780759,",
@@ -9367,7 +9411,10 @@
       "text.badge.text.sm": "S:127569132f03acddc3e439c8d196742940ad9ef4,",
       "text.badge.text.md": "S:46840ce945b5fda2e9687c9cbf60079706931293,",
       "text.badge.text.lg": "S:5f68a61d68ca77065b6edc5352d2314c306ceefa,",
-      "text.badge.text.xl": "S:6578674ae9da5a8e9e776be438b42d875fbcf496,"
+      "text.badge.text.xl": "S:6578674ae9da5a8e9e776be438b42d875fbcf496,",
+      "text.tag.sm": "S:1d383400740e7f4ff656eef9c183e97319ffc1f0,",
+      "text.tag.label.md": "S:b43b13a837e3667d3aed285d74548fe0259e1f6a,",
+      "text.tag.label.lg": "S:70115dc240cbbd70b52fefbb478529d394160d03,"
     }
   },
   {
@@ -10552,9 +10599,6 @@
       "text.input.fieldLabel.label.sm": "S:abc7588cd37bbb2b92c35e8475ab39ab1ebc71a2,",
       "text.input.fieldLabel.label.md": "S:d8d0f66ba2e0d0cd165c8406730df694e1ba4af2,",
       "text.input.fieldLabel.label.lg": "S:07493082c765fb01c28debace49871d968661940,",
-      "text.input.fieldLabel.tag.sm": "S:50691ca7c9c44526da89fed134b698a91a6bbef4,",
-      "text.input.fieldLabel.tag.md": "S:5d5f0e2a546f6207d6e286b101b736b658238dda,",
-      "text.input.fieldLabel.tag.lg": "S:0bfa68dd5b36b2a2b4018cc8d41ce499e9d40fae,",
       "text.input.fieldLabel.hint.sm": "S:299348623f4728940ada4b506f29dc022fc626b8,",
       "text.input.fieldLabel.hint.md": "S:04c8d1d92c01fe0209517648659900e1faa35b7b,",
       "text.input.fieldLabel.hint.lg": "S:18a38a78301cd93c8278040596cbfd4905886acd,",
@@ -10610,7 +10654,10 @@
       "text.badge.text.sm": "S:5b4702d778983e701216b48f1040410bd118efd5,",
       "text.badge.text.md": "S:b6a14a17ce64827413a1e86768430b542a2b53a6,",
       "text.badge.text.lg": "S:6926d8d614409bd520103ec8090454fca67f11fc,",
-      "text.badge.text.xl": "S:2de50523fab8cd281cf8a9930c8f3ee18f1c0538,"
+      "text.badge.text.xl": "S:2de50523fab8cd281cf8a9930c8f3ee18f1c0538,",
+      "text.tag.sm": "S:50691ca7c9c44526da89fed134b698a91a6bbef4,",
+      "text.tag.label.md": "S:5d5f0e2a546f6207d6e286b101b736b658238dda,",
+      "text.tag.label.lg": "S:0bfa68dd5b36b2a2b4018cc8d41ce499e9d40fae,"
     }
   },
   {
@@ -12306,9 +12353,6 @@
       "text.input.fieldLabel.label.sm": "S:37d75bb0b5cd6398193aaa3f1fb932ad925b0a5a,",
       "text.input.fieldLabel.label.md": "S:593db03e8d2f9fa4b31891b693a14b33a833a400,",
       "text.input.fieldLabel.label.lg": "S:7b680cdd653edb51e2bf595b3e665d4244400859,",
-      "text.input.fieldLabel.tag.sm": "S:fc9ed136cff294c3b1bf453d4adbe01517e22bac,",
-      "text.input.fieldLabel.tag.md": "S:7764794d472821d22937c3b02a6456e142f9e99e,",
-      "text.input.fieldLabel.tag.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,",
       "text.input.fieldLabel.hint.sm": "S:e772a12e2e6fd7a79dd2bde2ac273a65d729ae6c,",
       "text.input.fieldLabel.hint.md": "S:3f7a114d64aab13f20a6a1a699febde99eca4dac,",
       "text.input.fieldLabel.hint.lg": "S:007fb7d1eff2b04b22f65a696ae2523fc28b8644,",
@@ -12398,7 +12442,10 @@
       "text.badge.text.sm": "S:81c06d2a0f667490657922080728860934664efe,",
       "text.badge.text.md": "S:df0acc2fbd1174972c7caacf981a37930ef59df1,",
       "text.badge.text.lg": "S:08dac7c72a8f184f2feed9a0c6de710a97aac894,",
-      "text.badge.text.xl": "S:7da463af80db77f51b35320fe67ce3bb76fb0db8,"
+      "text.badge.text.xl": "S:7da463af80db77f51b35320fe67ce3bb76fb0db8,",
+      "text.tag.sm": "S:fc9ed136cff294c3b1bf453d4adbe01517e22bac,",
+      "text.tag.label.md": "S:7764794d472821d22937c3b02a6456e142f9e99e,",
+      "text.tag.label.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,"
     },
     "selectedTokenSets": {
       "core": "enabled",
@@ -13256,9 +13303,6 @@
       "text.input.fieldLabel.label.sm": "S:d0a0977ba06b76cfaa6a0d525a2ea75de96f22c0,",
       "text.input.fieldLabel.label.md": "S:ce2d7d8592f6d994e99e09be2f825561b5bfe552,",
       "text.input.fieldLabel.label.lg": "S:42315d32570146f925facd4de34f78ec17db1a2a,",
-      "text.input.fieldLabel.tag.sm": "S:d1a67c3e1739d842b5d3d0afdd51594d235920b5,",
-      "text.input.fieldLabel.tag.md": "S:8cf855e9fad643a8fd9e4bb01c79a9bffe6a9a97,",
-      "text.input.fieldLabel.tag.lg": "S:1a4209246f938f7dad9d18d0cda28e9d6fce1646,",
       "text.input.helper.text.sm": "S:b6380624954ee4ee23e5c7a157ef6955b2b06fba,",
       "text.input.helper.text.md": "S:7ab81c702d6110fe38359efb346a31b01562806d,",
       "text.input.helper.text.lg": "S:1190901a414addd24d61ca1991ce631c24c0e28a,",
@@ -13461,7 +13505,10 @@
       "elevation.shadow.md": "S:edf11833f300be34f898667a933115b3bee59c37,",
       "elevation.shadow.lg": "S:d139b219688864ac5970756b1d65a1da23ca9c2e,",
       "elevation.shadow.none": "S:667da8ed561030cad93de6a25a1c877875e777f8,",
-      "boxShadow.slds.checklist": "S:9a4f5ec537635b3c2889865295ce04af7eebb026,"
+      "boxShadow.slds.checklist": "S:9a4f5ec537635b3c2889865295ce04af7eebb026,",
+      "text.tag.sm": "S:d1a67c3e1739d842b5d3d0afdd51594d235920b5,",
+      "text.tag.label.md": "S:8cf855e9fad643a8fd9e4bb01c79a9bffe6a9a97,",
+      "text.tag.label.lg": "S:1a4209246f938f7dad9d18d0cda28e9d6fce1646,"
     },
     "selectedTokenSets": {
       "core": "enabled",
@@ -14407,9 +14454,6 @@
       "text.input.fieldLabel.label.sm": "S:03f31b85cec3916c409c3c981b8f471a90f9856c,",
       "text.input.fieldLabel.label.md": "S:01f87459e4fd87d1e58e332689afbb26a9d021f9,",
       "text.input.fieldLabel.label.lg": "S:ca666182cdf17731f19922c18472658654ca8967,",
-      "text.input.fieldLabel.tag.sm": "S:81609ddd881876fcb574ad4d5bb69e61fea64cac,",
-      "text.input.fieldLabel.tag.md": "S:88f4efc7f6514a3220e0be32882d7d0344e3666e,",
-      "text.input.fieldLabel.tag.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,",
       "text.input.fieldLabel.hint.sm": "S:7e3355abf20a9ca61f0ff30bedade79230ed0a57,",
       "text.input.fieldLabel.hint.md": "S:7fc51463166aa8b5dd049c1723ab6c10349e2342,",
       "text.input.fieldLabel.hint.lg": "S:e411ebb89471a33b678694f607b9d55975cc95e0,",
@@ -14499,7 +14543,10 @@
       "text.badge.text.sm": "S:93b4422376b95ab3c68aee8c9a59ead327a8b1ea,",
       "text.badge.text.md": "S:a8a3a2d87e0f12f44e8873b08c4b63291fd491f8,",
       "text.badge.text.lg": "S:edf9c93bdd85027a129ade4853a5d08a97536026,",
-      "text.badge.text.xl": "S:1c79b3737e3f0ab0e3683f9d173b849363731f5d,"
+      "text.badge.text.xl": "S:1c79b3737e3f0ab0e3683f9d173b849363731f5d,",
+      "text.tag.sm": "S:81609ddd881876fcb574ad4d5bb69e61fea64cac,",
+      "text.tag.label.md": "S:88f4efc7f6514a3220e0be32882d7d0344e3666e,",
+      "text.tag.label.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,"
     },
     "selectedTokenSets": {
       "core": "enabled",

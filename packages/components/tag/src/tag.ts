@@ -55,13 +55,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** The emphasis of the tag; defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
+  @property({ reflect: true }) emphasis?: TagEmphasis;
 
   /** The label of the tag component. */
   @property({ reflect: true }) label?: string;
 
   /** The size of the tag. Defaults to `md`. */
-  @property({ reflect: true }) size?: TagSize = 'md';
+  @property({ reflect: true }) size?: TagSize;
 
   /** Whether you can interact with the tag or if it is just a static, readonly display. Readonly cannot be removable. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;

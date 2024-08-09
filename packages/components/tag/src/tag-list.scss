@@ -5,6 +5,7 @@
   --_group-margin-more: calc(var(--_group-space) * 2);
   --_group-space: var(--sl-space-tag-counter-gap);
   --_group-width: var(--sl-size-tag-counter);
+  --_stacked-height: var(--sl-size-tag-md);
 
   display: flex;
   flex-shrink: 0;
@@ -21,10 +22,6 @@
     gap: var(--_gap);
     overflow: hidden;
   }
-}
-
-:host([size='md']) {
-  --_stacked-height: var(--sl-size-tag-md);
 }
 
 :host([size='lg']) {
@@ -54,19 +51,14 @@
 
     &:not([label='1'])::before,
     &:not([label='1'], [label='2'])::after {
+      --_border-color: var(--sl-color-tag-subtle-idle-border);
+
       block-size: 100%;
       border-inline-start: calc(var(--_group-width) * 0.45) solid var(--_border-color);
       border-radius: var(--sl-border-radius-default);
       content: '';
       inline-size: 100%;
       position: absolute;
-    }
-  }
-
-  sl-tag[emphasis='subtle'] {
-    &:not([label='1'])::before,
-    &:not([label='1'], [label='2'])::after {
-      --_border-color: var(--sl-color-tag-subtle-idle-border);
     }
   }
 
@@ -77,7 +69,7 @@
     }
   }
 
-  sl-tag[emphasis='subtle']:focus {
+  sl-tag:focus {
     &:not([label='1'])::before,
     &:not([label='1'], [label='2'])::after {
       --_border-color: var(--sl-color-tag-subtle-active-border);

@@ -14,14 +14,14 @@ describe('sl-tag', () => {
       el = await fixture(html`<sl-tag label="my label"></sl-tag>`);
     });
 
-    it('should have medium size by default', () => {
-      expect(el.size).to.equal('md');
-      expect(el).to.have.attribute('size', 'md');
+    it('should not have size by default', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
     });
 
-    it('should have subtle emphasis by default', () => {
-      expect(el.emphasis).to.equal('subtle');
-      expect(el).to.have.attribute('emphasis', 'subtle');
+    it('should not have emphasis by default', () => {
+      expect(el).not.to.have.attribute('emphasis');
+      expect(el.size).to.be.undefined;
     });
 
     it('should not be removable by default', () => {

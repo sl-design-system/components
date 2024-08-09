@@ -31,10 +31,6 @@ export default {
       options: sizes
     }
   },
-  parameters: {
-    // Notifies Chromatic to pause the animations at the first frame for this specific story.
-    chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
-  },
   render: ({ disabled, emphasis, label, readonly, removable, size }) =>
     html` <sl-tag
       label=${label}

@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -76,10 +76,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   });
 
   /** The emphasis of the tag-list and tags inside. Defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis: TagEmphasis = 'subtle';
+  @property({ reflect: true }) emphasis?: TagEmphasis;
 
   /** The size of the tag-list (determines size of tags inside the tag-list). Defaults to `md`. */
-  @property({ reflect: true }) size?: TagSize = 'md';
+  @property({ reflect: true }) size?: TagSize;
 
   /** Whether there should be a stacked version shown when there is not enough space. The list doesn't wrap when `stacked` version is applied. */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
@@ -105,9 +105,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       this.#resizeObserver.observe(this);
 
-      this.tags?.forEach(tag => (tag.size = this.size));
-      this.tags?.forEach(tag => (tag.emphasis = this.emphasis));
-      this.tags?.forEach(tag => tag.setAttribute('role', 'listitem'));
+      this.tags?.forEach(tag => {
+        tag.size = this.size;
+        tag.emphasis = this.emphasis;
+        tag.setAttribute('role', 'listitem');
+      });
 
       this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
     });
@@ -135,8 +137,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       ${this.stacked && this.#hiddenLabel > 0
-        ? html`
-          <div class="group" tabindex="-1">
+        ? html` <div class="group" tabindex="-1">
             <sl-tag
               emphasis=${this.emphasis}
               aria-describedby="tooltip"
@@ -198,7 +199,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute(
       'aria-label',
-      `${msg('Showing')} ${this.#visibleTags.length} ${msg('out of')} ${this.tags.length} ${msg('elements')}`
+      `${msg(str`Showing ${this.#visibleTags.length} out of ${this.tags.length} elements`)}`
     );
 
     this.requestUpdate();

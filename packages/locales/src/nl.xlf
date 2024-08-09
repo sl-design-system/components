@@ -146,17 +146,9 @@
   <source>List of hidden elements</source>
   <target>Lijst met verborgen elementen</target>
 </trans-unit>
-<trans-unit id="s40664bffa760c01c">
-  <source>Showing</source>
-  <target>Met</target>
-</trans-unit>
-<trans-unit id="sca2705f9edb67c80">
-  <source>out of</source>
-  <target>uit</target>
-</trans-unit>
-<trans-unit id="s57fb856cf6da3a6c">
-  <source>elements</source>
-  <target>elementen</target>
+<trans-unit id="s7def263d68b5a0be">
+  <source>Showing <x id="0" equiv-text="${this.#visibleTags.length}"/> out of <x id="1" equiv-text="${this.tags.length}"/> elements</source>
+  <target>Met <x id="0" equiv-text="${this.#visibleTags.length}"/> uit <x id="1" equiv-text="${this.tags.length}"/> elementen</target>
 </trans-unit>
 </body>
 </file>

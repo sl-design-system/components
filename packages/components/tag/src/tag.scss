@@ -1,8 +1,7 @@
-$emphases: subtle, bold;
-
 :host {
   --_button-border: var(--sl-color-tag-subtle-idle-border);
   --_border-radius: var(--sl-border-radius-default);
+  --_focus-color: var(--sl-color-focusring-inversed);
   --_focus-outline: var(--_focus-color) solid var(--sl-border-width-focusring-inside);
   --_focus-outline-offset: calc(var(--sl-border-width-focusring-offset) * -1);
   --_font: var(--sl-text-tag-label-md);
@@ -12,10 +11,6 @@ $emphases: subtle, bold;
 
   display: block;
   pointer-events: none;
-}
-
-:host([emphasis='subtle']) {
-  --_focus-color: var(--sl-color-focusring-inversed);
 }
 
 :host([emphasis='bold']) {
@@ -35,96 +30,180 @@ $emphases: subtle, bold;
   pointer-events: auto;
   transition: background-color 200ms linear;
   vertical-align: middle;
+  background: var(--sl-color-tag-subtle-idle-background);
+  color: var(--sl-color-tag-subtle-idle-foreground);
+
+  .remove-button {
+    background: var(--sl-color-tag-subtle-idle-background);
+    color: var(--sl-color-tag-subtle-idle-foreground);
+
+    --_button-border: var(--sl-color-tag-subtle-idle-border);
+  }
+
+  .remove-button:hover {
+    background: var(--sl-color-tag-subtle-hover-background);
+  }
+
+  .remove-button:active {
+    background: var(--sl-color-tag-subtle-close-active-foreground);
+  }
 }
 
-@each $emphasis in $emphases {
-  :host([emphasis='#{$emphasis}']) .wrapper {
-    background: var(--sl-color-tag-#{$emphasis}-idle-background);
-    color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
+:host([disabled]) .wrapper {
+  background: var(--sl-color-tag-subtle-disabled-background);
+  color: var(--sl-color-tag-subtle-disabled-foreground);
 
-    .remove-button {
-      background: var(--sl-color-tag-#{$emphasis}-idle-background);
-      color: var(--sl-color-tag-#{$emphasis}-idle-foreground);
+  .remove-button {
+    background: var(--sl-color-tag-subtle-disabled-background);
+    color: var(--sl-color-tag-subtle-disabled-foreground);
 
-      --_button-border: var(--sl-color-tag-#{$emphasis}-idle-border);
-    }
+    --_button-border: var(--sl-color-tag-subtle-disabled-border);
+  }
+}
 
-    .remove-button:hover {
-      background: var(--sl-color-tag-#{$emphasis}-hover-background);
-    }
+:host(:hover:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-subtle-hover-background);
+  color: var(--sl-color-tag-subtle-hover-foreground);
 
-    .remove-button:active {
-      background: var(--sl-color-tag-#{$emphasis}-close-active-foreground);
-    }
+  .remove-button {
+    background: var(--sl-color-tag-subtle-hover-background);
+
+    --_button-border: var(--sl-color-tag-subtle-hover-border);
+  }
+}
+
+:host([close-hover]:hover:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-subtle-idle-background);
+  color: var(--sl-color-tag-subtle-hover-foreground);
+
+  .remove-button {
+    background: var(--sl-color-tag-subtle-hover-background);
+
+    --_button-border: transparent;
+  }
+}
+
+:host(:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-subtle-idle-background);
+
+  .remove-button:hover {
+    background: var(--sl-color-tag-subtle-hover-background);
+  }
+}
+
+:host(:focus:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-subtle-active-background);
+  color: var(--sl-color-tag-subtle-active-foreground);
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+
+  .remove-button {
+    background: var(--sl-color-tag-subtle-active-background);
+    color: var(--sl-color-tag-subtle-active-foreground);
+
+    --_button-border: var(--sl-color-tag-subtle-active-border);
+  }
+}
+
+:host([close-hover]:focus:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-subtle-idle-background);
+  color: var(--sl-color-tag-subtle-hover-foreground);
+  outline: none;
+
+  .remove-button {
+    background: var(--sl-color-tag-subtle-close-active-background);
+    color: var(--sl-color-tag-subtle-close-active-foreground);
+
+    --_button-border: transparent;
+  }
+}
+
+:host([emphasis='bold']) .wrapper {
+  background: var(--sl-color-tag-bold-idle-background);
+  color: var(--sl-color-tag-bold-idle-foreground);
+
+  .remove-button {
+    background: var(--sl-color-tag-bold-idle-background);
+    color: var(--sl-color-tag-bold-idle-foreground);
+
+    --_button-border: var(--sl-color-tag-bold-idle-border);
   }
 
-  :host([emphasis='#{$emphasis}'][disabled]) .wrapper {
-    background: var(--sl-color-tag-#{$emphasis}-disabled-background);
-    color: var(--sl-color-tag-#{$emphasis}-disabled-foreground);
-
-    .remove-button {
-      background: var(--sl-color-tag-#{$emphasis}-disabled-background);
-      color: var(--sl-color-tag-#{$emphasis}-disabled-foreground);
-
-      --_button-border: var(--sl-color-tag-#{$emphasis}-disabled-border);
-    }
+  .remove-button:hover {
+    background: var(--sl-color-tag-bold-hover-background);
   }
 
-  :host([emphasis='#{$emphasis}']:hover:not([disabled])) .wrapper {
-    background: var(--sl-color-tag-#{$emphasis}-hover-background);
-    color: var(--sl-color-tag-#{$emphasis}-hover-foreground);
-
-    .remove-button {
-      background: var(--sl-color-tag-#{$emphasis}-hover-background);
-
-      --_button-border: var(--sl-color-tag-#{$emphasis}-hover-border);
-    }
+  .remove-button:active {
+    background: var(--sl-color-tag-bold-close-active-foreground);
   }
+}
 
-  :host([emphasis='#{$emphasis}'][close-hover]:hover:not([disabled])) .wrapper {
-    background: var(--sl-color-tag-#{$emphasis}-idle-background);
-    color: var(--sl-color-tag-#{$emphasis}-hover-foreground);
+:host([emphasis='bold'][disabled]) .wrapper {
+  background: var(--sl-color-tag-bold-disabled-background);
+  color: var(--sl-color-tag-bold-disabled-foreground);
 
-    .remove-button {
-      background: var(--sl-color-tag-#{$emphasis}-hover-background);
+  .remove-button {
+    background: var(--sl-color-tag-bold-disabled-background);
+    color: var(--sl-color-tag-bold-disabled-foreground);
 
-      --_button-border: transparent;
-    }
+    --_button-border: var(--sl-color-tag-bold-disabled-border);
   }
+}
 
-  :host([emphasis='#{$emphasis}']:not([disabled])) .wrapper {
-    background: var(--sl-color-tag-#{$emphasis}-idle-background);
+:host([emphasis='bold']:hover:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-bold-hover-background);
+  color: var(--sl-color-tag-bold-hover-foreground);
 
-    .remove-button:hover {
-      background: var(--sl-color-tag-#{$emphasis}-hover-background);
-    }
+  .remove-button {
+    background: var(--sl-color-tag-bold-hover-background);
+
+    --_button-border: var(--sl-color-tag-bold-hover-border);
   }
+}
 
-  :host([emphasis='#{$emphasis}']:focus:not([disabled])) .wrapper {
-    background: var(--sl-color-tag-#{$emphasis}-active-background);
-    color: var(--sl-color-tag-#{$emphasis}-active-foreground);
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
+:host([emphasis='bold'][close-hover]:hover:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-bold-idle-background);
+  color: var(--sl-color-tag-bold-hover-foreground);
 
-    .remove-button {
-      background: var(--sl-color-tag-#{$emphasis}-active-background);
-      color: var(--sl-color-tag-#{$emphasis}-active-foreground);
+  .remove-button {
+    background: var(--sl-color-tag-bold-hover-background);
 
-      --_button-border: var(--sl-color-tag-#{$emphasis}-active-border);
-    }
+    --_button-border: transparent;
   }
+}
 
-  :host([emphasis='#{$emphasis}'][close-hover]:focus:not([disabled])) .wrapper {
-    background: var(--sl-color-tag-#{$emphasis}-idle-background);
-    color: var(--sl-color-tag-#{$emphasis}-hover-foreground);
-    outline: none;
+:host([emphasis='bold']:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-bold-idle-background);
 
-    .remove-button {
-      background: var(--sl-color-tag-#{$emphasis}-close-active-background);
-      color: var(--sl-color-tag-#{$emphasis}-close-active-foreground);
+  .remove-button:hover {
+    background: var(--sl-color-tag-bold-hover-background);
+  }
+}
 
-      --_button-border: transparent;
-    }
+:host([emphasis='bold']:focus:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-bold-active-background);
+  color: var(--sl-color-tag-bold-active-foreground);
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+
+  .remove-button {
+    background: var(--sl-color-tag-bold-active-background);
+    color: var(--sl-color-tag-bold-active-foreground);
+
+    --_button-border: var(--sl-color-tag-bold-active-border);
+  }
+}
+
+:host([emphasis='bold'][close-hover]:focus:not([disabled])) .wrapper {
+  background: var(--sl-color-tag-bold-idle-background);
+  color: var(--sl-color-tag-bold-hover-foreground);
+  outline: none;
+
+  .remove-button {
+    background: var(--sl-color-tag-bold-close-active-background);
+    color: var(--sl-color-tag-bold-close-active-foreground);
+
+    --_button-border: transparent;
   }
 }
 

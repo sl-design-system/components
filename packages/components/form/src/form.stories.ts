@@ -8,7 +8,8 @@ import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
+import { when } from 'lit/directives/when.js';
 import '../register.js';
 import { type Form } from './form.js';
 
@@ -80,6 +81,78 @@ export const Basic: Story = {
         <sl-text-field name="textField" required></sl-text-field>
       </sl-form-field>
     `
+  }
+};
+
+export const ClashingEvents: Story = {
+  render: () => {
+    try {
+      customElements.define(
+        'clashing-events-example',
+        class extends LitElement {
+          mayChangeColumnProperties = false;
+
+          private visibilityOptions: string[] = [];
+
+          changeCheckbox(event: CustomEvent<string[]>) {
+            console.log('checkbox change', event.detail);
+          }
+
+          changeRadio(event: CustomEvent<boolean>) {
+            console.log('radio change');
+            this.mayChangeColumnProperties = event.detail;
+          }
+
+          override render() {
+            return html`
+              <sl-form>
+                <sl-form-field label="Who is allowed to see this column and the results in it?">
+                  <sl-checkbox-group
+                    name="visibility"
+                    .value=${this.visibilityOptions}
+                    @sl-change=${this.changeCheckbox}
+                  >
+                    <sl-checkbox value="isVisibleForStudent">Parents and students</sl-checkbox>
+                    <sl-checkbox value="isVisibleForTeacher">Teaching staff (OP)</sl-checkbox>
+                  </sl-checkbox-group>
+                </sl-form-field>
+
+                <sl-form-field label="Can an OP-er change column properties?">
+                  <sl-radio-group
+                    name="change-column-properties"
+                    .value=${this.mayChangeColumnProperties}
+                    @sl-change=${this.changeRadio}
+                  >
+                    <sl-radio .value=${false} checked>No</sl-radio>
+                    <sl-radio .value=${true}>Yes</sl-radio>
+                  </sl-radio-group>
+                </sl-form-field>
+
+                ${when(
+                  this.mayChangeColumnProperties,
+                  () => html`
+                  <div class="edit-options">
+                    <sl-form-field label="Specify what can be changed:">
+                      <sl-checkbox-group name="edit-options">
+                        <sl-checkbox value="isAllowedToChangeHeader">Changing the extended description</sl-checkbox>
+                        <sl-checkbox value="isAllowedToChangeDescription">Changing the short description (column header)</sl-checkbox>
+                        <sl-checkbox value="isAllowedToLinkToAssignment">Linking this column to an ELO assignment</sl-checkbox>
+                      </sl-checkbox-group>
+                    </sl-form-field>
+                  </div>
+                </sl-form>
+                  `
+                )}
+              </sl-form>
+            `;
+          }
+        }
+      );
+    } catch {
+      /* empty */
+    }
+
+    return html`<clashing-events-example></clashing-events-example>`;
   }
 };
 

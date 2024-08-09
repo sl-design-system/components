@@ -58,6 +58,13 @@ export const Sizes: Story = {
   },
   render: ({ disabled, emphasis, label, readonly, removable }) => {
     return html`
+      <style>
+        #root-inner {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+      </style>
       <sl-tag
         .emphasis=${emphasis}
         ?disabled=${disabled}

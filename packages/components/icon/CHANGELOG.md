@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1414](https://github.com/sl-design-system/components/pull/1414) [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c) - Update icons to the latest fontawesome release (6.6.0)
+
 ## 1.0.1
 
 ### Patch Changes

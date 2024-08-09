@@ -15,6 +15,7 @@ describe('sl-accordion-item', () => {
       el = await fixture(
         html` <sl-accordion-item summary="Accordion summary">Content of accordion</sl-accordion-item>`
       );
+      await el.updateComplete;
 
       details = el.renderRoot.querySelector('details') as HTMLDetailsElement;
       summary = el.renderRoot.querySelector('summary') as HTMLElement;
@@ -64,14 +65,15 @@ describe('sl-accordion-item', () => {
     });
 
     it('should animate opening and closing the details on click', async () => {
+      el.open = false;
+      await new Promise(resolve => setTimeout(resolve, 50));
+      await el.updateComplete;
+
       summary.click();
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       // Open attribute is immediately set
       expect(details).to.have.attribute('open');
-
-      // Wait for the next frame
-      await new Promise(resolve => setTimeout(resolve, 50));
-
       expect(details).to.have.class('opening');
 
       // Trigger the animationend event
@@ -97,7 +99,7 @@ describe('sl-accordion-item', () => {
       expect(details).not.to.have.attribute('open');
       expect(details).not.to.have.class('closing');
 
-      // Wait for the toggle event to be emitted
+      // // Wait for the toggle event to be emitted
       await new Promise(resolve => setTimeout(resolve));
 
       expect(el.open).to.be.false;

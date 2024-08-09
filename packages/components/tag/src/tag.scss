@@ -19,7 +19,9 @@
 
 .wrapper {
   align-items: center;
+  background: var(--sl-color-tag-subtle-idle-background);
   border-radius: var(--_border-radius);
+  color: var(--sl-color-tag-subtle-idle-foreground);
   display: inline-flex;
   flex-shrink: 0;
   font: var(--_font);
@@ -30,8 +32,6 @@
   pointer-events: auto;
   transition: background-color 200ms linear;
   vertical-align: middle;
-  background: var(--sl-color-tag-subtle-idle-background);
-  color: var(--sl-color-tag-subtle-idle-foreground);
 
   .remove-button {
     background: var(--sl-color-tag-subtle-idle-background);

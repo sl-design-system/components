@@ -17,7 +17,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
-import { type GridColumnGroup } from './column-group.js';
+import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
 import { type GridFilter, type SlFilterChangeEvent } from './filter.js';
@@ -312,14 +312,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return html`
       ${rows.slice(0, -1).map((row, rowIndex) => {
         return row.map((col, colIndex) => {
-          return `
+          return col instanceof GridColumnGroup
+            ? `
             thead tr:nth-child(${rowIndex + 1}) th:nth-child(${colIndex + 1}) {
-              flex-grow: ${(col as GridColumnGroup<T>).columns.length};
+              flex-grow: ${Math.max((col as GridColumnGroup<T>).columns.length, 1)};
               inline-size: ${col.width || '100'}px;
               justify-content: ${col.align};
               ${col.renderStyles()?.toString() ?? ''}
             }
-            `;
+            `
+            : nothing;
         });
       })}
       ${rows[rows.length - 1].map((col, index) => {
@@ -350,7 +352,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         selectionColumn &&
         this.selection.size > 0 &&
         (this.selection.areSomeSelected() || this.selection.areAllSelected());
-
     return html`
       ${rows.slice(0, -1).map(
         row => html`
@@ -437,9 +438,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
-        const index = this.view.columns.indexOf(col),
+        const index = this.view.headerRows[this.view.headerRows.length - 1].indexOf(col),
           cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(td, th):nth-child(${index + 1})`);
-
         col.width = Array.from(cells).reduce((acc, cur) => {
           cur.style.flexGrow = '0';
           cur.style.width = 'auto';

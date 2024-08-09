@@ -1,5 +1,16 @@
 # @sl-design-system/editorial-suite
 
+## 0.0.15
+
+### Patch Changes
+
+- [#1414](https://github.com/sl-design-system/components/pull/1414) [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c) - Update icons to the latest fontawesome release (6.6.0)
+
+- [#1422](https://github.com/sl-design-system/components/pull/1422) [`2833861`](https://github.com/sl-design-system/components/commit/28338611d0fccf175c3e22eb268fc5892522dc78) - Added first part of tag tokens
+
+- Updated dependencies [[`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c)]:
+  - @sl-design-system/icon@1.0.2
+
 ## 0.0.14
 
 ### Patch Changes

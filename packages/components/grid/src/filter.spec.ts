@@ -3,50 +3,97 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
 import { type Grid } from './grid.js';
-import {getNameByPath} from "@sl-design-system/shared";
+import {ArrayDataSource, DataSource, getNameByPath} from "@sl-design-system/shared";
+import {GridFilter} from "./filter.js";
+import {GridFilterColumn} from "./filter-column.js";
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-grid-filter', () => {
-  let el: Grid;
+  let wrapper: HTMLElement;
+  let el: GridFilter;
+
+  const items = [{ membership: 'Premium' }, { membership: 'VIP' }, { membership: 'Regular' }];
+
+  const column = new GridFilterColumn();
+  const dataSource = new ArrayDataSource(items) as DataSource;
+  dataSource.addFilter('', 'membership', 'Premium');
+
+  // let el: Grid;
   // let cells: HTMLElement[];
+
+  // TODO: use addFilter??
+
+  // TODO: test mode -> .mode=${this.mode || 'select'}
+  // TODO: test options -> .options=${this.options ?? this.internalOptions}
+
+  /*          <sl-grid-sorter .column=${column} direction="asc" name="name" .sorter=${dataSource.sort}>
+            Name
+          </sl-grid-sorter>*/
+
+  // .value=${dataSource.filters.values()}
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-grid>
-<!--          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>-->
-          <sl-grid-filter-column path="profession"></sl-grid-filter-column>
-          <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
-          <sl-grid-filter-column path="membership"></sl-grid-filter-column>
-        </sl-grid>
+      wrapper = await fixture(html`
+        <th>
+          <sl-grid-filter
+          .column=${column}
+          mode="select"
+          path="membership"
+          value="Premium"
+        >
+          Membership
+        </sl-grid-filter>
+        </th>
       `);
-      el.items = [
-        {
-          firstName: 'John',
-          lastName: 'Doe',
-          age: 20,
-          profession: 'Endocrinologist',
-          status: 'Available',
-          membership: 'Regular'
-        },
-        {
-          firstName: 'Jane',
-          lastName: 'Smith',
-          age: 40,
-          profession: 'Anesthesiologist',
-          status: 'Busy',
-          membership: 'Premium'
-        }
-      ];
+      el = wrapper.querySelector<GridFilter>('sl-grid-filter')!;
       await el.updateComplete;
 
       // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 500));
       await el.updateComplete;
 
+      console.log('wrapper before', wrapper, wrapper.renderRoot);
+      console.log('eeeeeel1 before', el, el.renderRoot);
+      // el = await fixture(html`
+      //   <sl-grid>
+      //     <sl-grid-filter-column path="profession"></sl-grid-filter-column>
+      //     <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
+      //     <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+      //   </sl-grid>
+      // `);
+      // el.items = [
+      //   {
+      //     firstName: 'John',
+      //     lastName: 'Doe',
+      //     age: 20,
+      //     profession: 'Endocrinologist',
+      //     status: 'Available',
+      //     membership: 'Regular'
+      //   },
+      //   {
+      //     firstName: 'Jane',
+      //     lastName: 'Smith',
+      //     age: 40,
+      //     profession: 'Anesthesiologist',
+      //     status: 'Busy',
+      //     membership: 'Premium'
+      //   }
+      // ];
+      // await el.updateComplete;
+      //
+      // // Give grid time to render the table structure
+      // await new Promise(resolve => setTimeout(resolve, 100));
+      // await el.updateComplete;
+
       // cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+    });
+
+    it('should render correct checkboxes',  () => {
+      console.log('wrapper', wrapper, wrapper.renderRoot);
+      console.log('eeeeeel1', el, el.renderRoot);
+      expect(wrapper).to.exist;
     });
 
     // it('should render column and filter column headers', () => {

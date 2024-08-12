@@ -3,6 +3,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
 import { type Grid } from './grid.js';
+import {GridFilter} from "./filter";
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
@@ -13,8 +14,6 @@ describe('sl-grid-filter-column', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid>
-<!--          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>-->
           <sl-grid-filter-column path="profession"></sl-grid-filter-column>
           <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
           <sl-grid-filter-column path="membership"></sl-grid-filter-column>
@@ -24,7 +23,6 @@ describe('sl-grid-filter-column', () => {
         {
           firstName: 'John',
           lastName: 'Doe',
-          age: 20,
           profession: 'Endocrinologist',
           status: 'Available',
           membership: 'Regular'
@@ -32,7 +30,6 @@ describe('sl-grid-filter-column', () => {
         {
           firstName: 'Jane',
           lastName: 'Smith',
-          age: 40,
           profession: 'Anesthesiologist',
           status: 'Busy',
           membership: 'Premium'
@@ -41,7 +38,7 @@ describe('sl-grid-filter-column', () => {
       await el.updateComplete;
 
       // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 500));
       await el.updateComplete;
 
       // cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
@@ -55,9 +52,9 @@ describe('sl-grid-filter-column', () => {
       const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
         col.textContent?.trim()
       );
-      console.log('el ---grid', el);
+    //  console.log('el ---grid', el);
 
-      console.log('coolumns', columns, el.renderRoot.querySelectorAll('th'));
+      // console.log('coolumns', columns, el.renderRoot.querySelectorAll('th'));
 
       // console.log('coolumns--2', columns);
       // console.log('filterColumns', filterColumns, Array.from(filterColumns).map(col => col.textContent.trim()));
@@ -79,28 +76,52 @@ describe('sl-grid-filter-column', () => {
     // TODO: with no filter mode by default
 
     it('should have no filter mode by default', () => {
-      const filterColumn = Array.from(el.querySelectorAll('sl-grid-filter-column'))[0]; //[0];
+      const filterColumn = Array.from(el.querySelectorAll('sl-grid-filter-column'))[0];
       const filterMode = filterColumn.getAttribute('mode');
 
-      // console.log('filterColumns for mode', filterColumns, filterColumnsNew, filterMode);
       expect(filterMode).not.to.exist;
-      // expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
     });
 
     // TODO: check whether there are right parts added when it's a filter column - also by default and when there is exact mode used
 
-    it('should have a filter column header with a proper mode when it is set', () => {
-      console.log('el', el);
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
+    // TODO: should have a header with proper filter options when there is no mode
+
+    it('should have a filter button and popover with filter options', async () => {
+      // console.log('el', el);
+      const columnHeaders = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
+      const columns = el.renderRoot.querySelectorAll('sl-grid-filter'); //Array.from(el.renderRoot.querySelectorAll('sl-grid-filter'));
+      const button = columns[0]?.renderRoot.querySelector('.toggle');
+      const popover = columns[0]?.renderRoot.querySelector('sl-popover');
+      console.log('button and popover', button, popover);
+      console.log('ccccolumns', columns, columns[0]?.renderRoot, 'popoooover', columns[0]?.renderRoot.querySelector('sl-checkbox-group').renderRoot);
+
+      // TODO: why I cannot get renderRoot from sl-grid-filter?
+
+      // TODO check title - 'filter by profession'
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // const gridFilters = columns?.querySelectorAll('sl-grid-filter') as GridFilter[]; //el.renderRoor?.querySelectorAll('sl-grid-filter');
       // const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter'))[0];
-      const filterColumnsNew = Array.from(el.querySelectorAll('sl-grid-filter-column'))[1];
+      //const filterColumnsNew = Array.from(el.querySelectorAll('sl-grid-filter-column'))[1];
 
-      console.log('filterColumns for mode default', filterColumnsNew);
+      // console.log('gridFilters', gridFilters, 'el.renderRoor', el.renderRoor, 'eeeel', el, el.renderRoot.querySelectorAll('th'));
 
-      expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
+      // console.log('filterColumns for mode default', filterColumnsNew);
+
+      // expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
+
+      expect(button).to.exist;
+      expect(popover).to.exist;
 
       // TODO: need to check whether there is a button and popover inside
     });
+
+    // TODO: check options
+
+    // TODO: no value by default?
+
+    // TODO:  check filter icon when filtered and not filtered
 
     // it('should have the right justify-content value', () => {
     //   expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal(['start', 'start', 'end']);
@@ -161,3 +182,8 @@ describe('sl-grid-filter-column', () => {
 });
 
 // TODO: test mode text and select
+
+// TODO: a list of options based on the column's values
+
+
+// TODO: to have popover

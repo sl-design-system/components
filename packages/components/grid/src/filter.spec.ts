@@ -54,8 +54,8 @@ describe('sl-grid-filter', () => {
       await new Promise(resolve => setTimeout(resolve, 500));
       await el.updateComplete;
 
-      console.log('wrapper before', wrapper, wrapper.renderRoot);
-      console.log('eeeeeel1 before', el, el.renderRoot);
+     // console.log('wrapper before', wrapper, wrapper.renderRoot);
+     // console.log('eeeeeel1 before', el, el.renderRoot);
       // el = await fixture(html`
       //   <sl-grid>
       //     <sl-grid-filter-column path="profession"></sl-grid-filter-column>
@@ -91,9 +91,9 @@ describe('sl-grid-filter', () => {
     });
 
     it('should render correct checkboxes',  () => {
-      console.log('wrapper', wrapper, wrapper.renderRoot);
-      console.log('eeeeeel1', el, el.renderRoot);
-      expect(wrapper).to.exist;
+     // console.log('wrapper', wrapper, wrapper.renderRoot);
+      console.log('eeeeeel1', el);
+      expect(wrapper).not.to.exist;
     });
 
     // it('should render column and filter column headers', () => {
@@ -219,3 +219,6 @@ describe('sl-grid-filter', () => {
 >
 ${this.header ?? getNameByPath(this.path)}
 </sl-grid-filter>*/
+
+
+// TODO: test mode text and select

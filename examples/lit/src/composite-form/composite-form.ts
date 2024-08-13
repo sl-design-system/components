@@ -37,6 +37,9 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
     emailAddress: string;
     age: 'under-10' | 'under-12' | 'under-18' | 'other';
     otherAge: string;
+    remarks: string;
+    subscriptions: string[];
+    termsAndConditions?: boolean;
   }>(this);
 
   override render(): TemplateResult {
@@ -95,6 +98,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
         <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>
 
         <sl-button-bar align="end">
+          <sl-button @click=${this.#onSetFormValue}>Set form value</sl-button>
           <sl-button @click=${this.#onSave} variant="primary">Save</sl-button>
         </sl-button-bar>
       </sl-form>
@@ -104,5 +108,18 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
 
   #onSave(): void {
     this.#form.reportValidity();
+  }
+
+  #onSetFormValue(): void {
+    this.#form.value = {
+      firstName: 'John',
+      lastName: 'Doe',
+      emailAddress: 'john@doe.com',
+      age: 'other',
+      otherAge: '24',
+      remarks: 'These are remarks',
+      subscriptions: ['newsletter', 'updates'],
+      termsAndConditions: true
+    };
   }
 }

@@ -81,6 +81,15 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     return this.value?.filter((v): v is T => v !== null) ?? [];
   }
 
+  /**
+   * We need to override the setter as well, otherwise it won't work.
+   * See https://github.com/sl-design-system/components/issues/1441
+   */
+  @property({ attribute: false })
+  override set formValue(value: T[]) {
+    super.formValue = value;
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 

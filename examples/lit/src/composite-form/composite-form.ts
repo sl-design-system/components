@@ -4,6 +4,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
 import { Radio, RadioGroup } from '@sl-design-system/radio-group';
+import { Switch } from '@sl-design-system/switch';
 import { TextArea } from '@sl-design-system/text-area';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -22,6 +23,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
       'sl-form-validation-errors': FormValidationErrors,
       'sl-radio': Radio,
       'sl-radio-group': RadioGroup,
+      'sl-switch': Switch,
       'sl-text-field': TextField,
       'sl-text-area': TextArea
     };
@@ -34,6 +36,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
   #form = new FormController<{
     firstName: string;
     lastName: string;
+    showFullName?: boolean;
     emailAddress: string;
     age: 'under-10' | 'under-12' | 'under-18' | 'other';
     otherAge: string;
@@ -56,6 +59,10 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             placeholder="Enter a first name first"
             required
           ></sl-text-field>
+        </sl-form-field>
+
+        <sl-form-field>
+          <sl-switch name="showFullName" required reverse>Always show full name</sl-switch>
         </sl-form-field>
 
         <sl-form-field label="Email">
@@ -114,6 +121,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
     this.#form.value = {
       firstName: 'John',
       lastName: 'Doe',
+      showFullName: true,
       emailAddress: 'john@doe.com',
       age: 'other',
       otherAge: '24',

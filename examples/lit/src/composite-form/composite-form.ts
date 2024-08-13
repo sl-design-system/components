@@ -62,7 +62,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
         </sl-form-field>
 
         <sl-form-field>
-          <sl-switch name="showFullName" required reverse>Always show full name</sl-switch>
+          <sl-switch name="showFullName" reverse>Always show full name</sl-switch>
         </sl-form-field>
 
         <sl-form-field label="Email">

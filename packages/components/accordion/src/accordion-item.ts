@@ -37,12 +37,29 @@ export class AccordionItem extends LitElement {
   /** @internal Emits when the accordion item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  initial = true;
+
+  // override firstUpdated(changes: PropertyValues<this>): void {
+  //   super.firstUpdated(changes);
+  //   this.#animateState(this.open ? 'opening' : 'closing', true);
+  //   console.log(this.summary, 'firstUpdated', this.initial);
+  //   this.initial = false;
+  // }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    if (this.open) {
+      const details = this.renderRoot.querySelector('details') as HTMLElement;
+      details?.setAttribute('open', '');
+    }
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    const initial = !(changes.get('open') !== undefined);
     if (changes.has('open')) {
-      this.#animateState(this.open ? 'opening' : 'closing', initial);
+      this.#animateState(this.open ? 'opening' : 'closing');
     }
   }
 
@@ -137,38 +154,38 @@ export class AccordionItem extends LitElement {
    *
    * @param state - The state which we should animate to
    */
-  #animateState(state: 'opening' | 'closing', initial?: boolean): void {
+  #animateState(state: 'opening' | 'closing'): void {
     const details = this.renderRoot.querySelector('details') as HTMLElement,
       wrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement;
 
+    if (
+      (details.hasAttribute('open') && state === 'opening') ||
+      (!details.hasAttribute('open') && state === 'closing')
+    ) {
+      return;
+    }
+
     Object.assign(wrapper.style, {
-      animationDuration: initial ? '' : 'var(--_transition-duration)',
-      transitionDuration: initial ? '' : 'var(--_transition-duration)'
+      animationDuration: 'var(--_transition-duration)',
+      transitionDuration: 'var(--_transition-duration)'
     });
 
     if (state === 'opening') {
       details?.setAttribute('open', '');
     }
 
-    if (!initial) {
-      details.addEventListener(
-        'animationend',
-        () => {
-          details.classList.remove(state);
+    details.addEventListener(
+      'animationend',
+      () => {
+        details.classList.remove(state);
 
-          if (state === 'closing') {
-            details.removeAttribute('open');
-          }
-        },
-        { once: true }
-      );
+        if (state === 'closing') {
+          details.removeAttribute('open');
+        }
+      },
+      { once: true }
+    );
 
-      requestAnimationFrame(() => details.classList.add(state));
-    } else {
-      details.classList.remove(state);
-      if (state === 'closing') {
-        details.removeAttribute('open');
-      }
-    }
+    requestAnimationFrame(() => details.classList.add(state));
   }
 }

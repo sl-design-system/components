@@ -30,7 +30,7 @@ A package can have dependencies on other SLDS packages. Sometimes you may be abl
 
 Aside from these dependencies, there is no SLDS release as a whole. There is no “SLDS version 1.0”. Instead there are a bunch of NPM packages, each having its own version. The major versions of these packages also don’t have to match. For example: you could have a checkbox version 1.0.3 and a button 2.1.2.
 
-This also means that support works differently: we ship each package/component on its own. This also means that a new major could mean something as small as changing the CSS part name within the component. Major just means it’s a breaking change. It doesn’t mean a lot has actually changed. Usually that also means that upgrading to a new major version is not a lot of effort.
+This also means that support works differently: we ship each package/component on its own. A new major could mean something as small as changing the CSS part name within the component. Major just means it’s a breaking change. It doesn’t mean a lot has actually changed. Usually that also means that upgrading to a new major version is not a lot of effort.
 
 Changes to some packages are more impactful. One example of this is the `@sl-design-system/form` package. This contains the building blocks for all form controls. If, at some point, this package gets a new major release, you most likely also have to upgrade the form controls you are using. But that will also be specified in the `package.json` files of each package.
 

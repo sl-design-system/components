@@ -35,9 +35,11 @@
                   </thead>
                   <tbody>
                   {%- for member in declaration.members -%}
-                    {%- if member.kind == 'field' and not member.static -%}
+                    {%- if member.kind == 'field' -%}
                       <tr>
-                      <td><code>{{member.name | escape}}</code></td>
+                      <td>
+                        <code>{%- if member.static -%}<span>static </span>{%- endif -%}{{member.name | escape}}</code>
+                      </td>
                       <td>
                       {%- if member.attribute -%}<code>{{ member.attribute  | escape}}</code>{%- else -%} - {%- endif -%}
                       </td>

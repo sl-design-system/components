@@ -35,7 +35,7 @@
                   </thead>
                   <tbody>
                   {%- for member in declaration.members -%}
-                    {%- if member.kind == 'field' -%}
+                    {%- if member.kind == 'field' and not member.static -%}
                       <tr>
                       <td><code>{{member.name | escape}}</code></td>
                       <td>

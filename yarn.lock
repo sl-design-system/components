@@ -4457,12 +4457,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/avatar@workspace:packages/components/avatar"
   dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/badge": "npm:^1.0.0"
     "@sl-design-system/shared": "npm:^0.2.13"
     "@sl-design-system/tooltip": "npm:^1.0.1"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/badge@workspace:packages/components/badge":
+"@sl-design-system/badge@npm:^1.0.0, @sl-design-system/badge@workspace:packages/components/badge":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/badge@workspace:packages/components/badge"
   dependencies:

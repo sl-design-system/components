@@ -98,6 +98,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
     const parts = ['header', 'filter', ...this.getParts()];
 
      console.log(' this.internalOptions',  this.internalOptions, this.options, this.path, this, this.value);
+     console.log('dataSource', this.grid?.dataSource, this.grid);
 
     return html`
       <th part=${parts.join(' ')}>

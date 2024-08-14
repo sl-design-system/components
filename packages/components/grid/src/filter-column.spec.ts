@@ -94,10 +94,10 @@ describe('sl-grid-filter-column', () => {
     it('should have a header with proper filter options when there is no mode', async () => {
       const columns = el.renderRoot.querySelectorAll('sl-grid-filter'); //Array.from(el.renderRoot.querySelectorAll('sl-grid-filter'));
       const popover = columns[0]?.renderRoot.querySelector('sl-popover');
-      const checkboxGroup = popover.querySelector('sl-checkbox-group') as CheckboxGroup;
-      const filterColumns = Array.from(popover?.querySelectorAll('sl-checkbox')).map(col =>
-        col.textContent?.trim()
-      );
+      const checkboxGroup = popover?.querySelector('sl-checkbox-group') as CheckboxGroup;
+      const filterColumns = popover?.querySelectorAll('sl-checkbox'); /*Array.from(popover?.querySelectorAll('sl-checkbox')).map(col =>
+        col.innerHTML
+      );*/ // col.textContent?.trim()
 
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 500));
@@ -114,14 +114,14 @@ describe('sl-grid-filter-column', () => {
       const button = columns[0]?.renderRoot.querySelector('.toggle');
       const popover = columns[0]?.renderRoot.querySelector('sl-popover');
       const checkbox = columns[0]?.renderRoot.querySelectorAll('sl-checkbox');
-      const checkboxGroup = popover.querySelector('sl-checkbox-group') as CheckboxGroup;
+      const checkboxGroup = popover?.querySelector('sl-checkbox-group') as CheckboxGroup;
       const title = popover?.querySelector('#title');
-      const dataSource = el?.dataSource as DataSource<T> | undefined;
+      const dataSource = el?.dataSource;
       await new Promise(resolve => setTimeout(resolve, 500));
-      console.log('dataSource1', dataSource, dataSource.items, 'eeeeeeel options', el.dataSource?.filters);
-      console.log('columns1', columns, 'has attribute??', (columns[0] as GridFilterColumn).hasAttribute('active'), (columns[0] as GridFilterColumn).options, (columns[0] as GridFilterColumn).internalOptions, popover?.querySelector('#title'));
+      console.log('dataSource1', dataSource, dataSource?.items, 'eeeeeeel options', el.dataSource?.filters);
+      console.log('columns1', columns, 'has attribute??', (columns[0])?.hasAttribute('active'), (columns[0])?.options, /*(columns[0])?.internalOptions,*/ popover?.querySelector('#title'));
       console.log('button and popover', button, popover);
-      console.log('cheeeckbox', checkbox, 'pooopover checkbox', popover.querySelectorAll('sl-checkbox'), Array.from(checkboxGroup.querySelectorAll('sl-checkbox')),
+      console.log('cheeeckbox', checkbox, 'pooopover checkbox', popover?.querySelectorAll('sl-checkbox'), Array.from(checkboxGroup.querySelectorAll('sl-checkbox')),
         'checkboxGroupcheckboxGroupcheckboxGroupcheckboxGroup', checkboxGroup, checkboxGroup.renderRoot);
      // console.log('ccccolumns', columns, columns[0]?.renderRoot, 'popoooover', columns[0]?.renderRoot.querySelector('sl-checkbox-group').renderRoot);
 

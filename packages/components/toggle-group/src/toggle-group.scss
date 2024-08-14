@@ -1,0 +1,52 @@
+:host {
+  --_border-color: var(--sl-color-button-default-outline-idle-border);
+  --_border-radius: var(--sl-border-radius-button-md);
+  --_border-width: var(--sl-border-width-button-outline);
+  --_text-padding-inline: 2rem;
+  --_separator-color: var(--sl-color-button-default-outline-idle-border);
+  --_separator-width: var(--sl-border-width-button-outline);
+
+  border: 1px solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  display: inline-flex;
+  gap: var(--_border-width);
+}
+
+:host([size='sm']) {
+  --_border-radius: --_var(--sl-border-radius-button-sm);
+}
+
+:host([size='lg']) {
+  --_border-radius: --_var(--sl-border-radius-button-lg);
+}
+
+::slotted(*) {
+  --_border-width: 0;
+
+  position: relative;
+
+  &::after {
+    background: var(--_separator-color);
+    block-size: 100%;
+    content: '';
+    inline-size: var(--_separator-width);
+    inset: 0 calc(var(--_separator-width) * -1) 0 auto;
+    position: absolute;
+  }
+
+  &::part(wrapper) {
+    border-radius: 0;
+  }
+}
+
+::slotted(:last-child)::after {
+  display: none;
+}
+
+::slotted(:not([icon-only])) {
+  --_padding-inline: calc(var(--_text-padding-inline) + var(--sl-space-button-gap-md)) var(--_text-padding-inline);
+}
+
+::slotted(:not([icon-only])[pressed]) {
+  --_padding-inline: calc(var(--_text-padding-inline) - 0.5rem) calc(var(--_text-padding-inline) - 0.5rem);
+}

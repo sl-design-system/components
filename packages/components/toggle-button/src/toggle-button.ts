@@ -1,3 +1,4 @@
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -27,9 +28,19 @@ export type ToggleButtonFill = 'ghost' | 'outline';
  * @slot default - The icon shown in the default state of the button
  * @slot pressed - The icon shown in the pressed state of the button
  */
-export class ToggleButton extends LitElement {
+export class ToggleButton extends ScopedElementsMixin(LitElement) {
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** The default (non-pressed) icon. */
+  #defaultIcon?: Icon;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
@@ -37,8 +48,8 @@ export class ToggleButton extends LitElement {
     keydown: this.#onKeydown
   });
 
-  /** @internal Emits when the button item has been toggled. */
-  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+  /** The pressed icon. */
+  #pressedIcon?: Icon;
 
   /** Whether the toggle-button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -46,20 +57,23 @@ export class ToggleButton extends LitElement {
   /** The variant of the toggle-button. */
   @property({ reflect: true }) fill?: ToggleButtonFill;
 
+  /** @internal Indicate no label present; used for styling. */
+  @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly = true;
+
   /** The state of the toggle-button. */
-  @property({ type: Boolean, reflect: true }) pressed = false;
+  @property({ type: Boolean, reflect: true }) pressed?: boolean;
 
   /** The size of the toggle-button component. */
   @property({ reflect: true }) size?: ToggleButtonSize;
 
-  #defaultIcon?: Icon;
-  #pressedIcon?: Icon;
+  /** @internal Emits when the button item has been toggled. */
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.setAttribute('role', 'button');
-    this.setAttribute('aria-pressed', this.pressed.toString());
+
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
@@ -68,6 +82,10 @@ export class ToggleButton extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('pressed')) {
+      this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
+    }
+
     if (changes.has('size')) {
       this.#setIconProperties();
     }
@@ -75,40 +93,52 @@ export class ToggleButton extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange} name="pressed"></slot>
-      <slot @slotchange=${this.#onSlotChange}></slot>
+      <div part="wrapper">
+        <slot @slotchange=${this.#onIconSlotChange} name="default"></slot>
+        <slot @slotchange=${this.#onIconSlotChange} name="pressed">
+          <sl-icon name="check-solid"></sl-icon>
+        </slot>
+        <slot @slotchange=${this.#onSlotChange}></slot>
+      </div>
     `;
-  }
-
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    if (location.hostname === 'localhost') {
-      this.removeAttribute('error');
-      if (event.target.matches('[name="pressed"]')) {
-        this.#pressedIcon = event.target.assignedNodes().find((node: Node) => node.nodeName === 'SL-ICON') as Icon;
-      } else {
-        this.#defaultIcon = event.target.assignedNodes().find((node: Node) => node.nodeName === 'SL-ICON') as Icon;
-      }
-      if (!this.#pressedIcon) {
-        console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
-        this.setAttribute('error', 'true');
-      } else if (this.#defaultIcon && this.#pressedIcon.name === this.#defaultIcon.name) {
-        console.error('Do not use the same icon for both states of the toggle button.');
-        this.setAttribute('error', 'true');
-      }
-    }
-    this.#setIconProperties();
   }
 
   #onClick(event: Event): void {
     if (this.hasAttribute('disabled')) {
       event.preventDefault();
       event.stopPropagation();
+
       return;
     }
 
     this.pressed = !this.pressed;
-    this.setAttribute('aria-pressed', this.pressed.toString());
     this.toggleEvent.emit(this.pressed);
+  }
+
+  #onIconSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    if (event.target.matches('[name="default"]')) {
+      this.#defaultIcon = event.target
+        .assignedElements({ flatten: true })
+        .find((element): element is Icon => element instanceof Icon);
+    } else {
+      this.#pressedIcon = event.target
+        .assignedElements({ flatten: true })
+        .find((element): element is Icon => element instanceof Icon);
+    }
+
+    if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && location.hostname === 'localhost') {
+      this.removeAttribute('error');
+
+      if (!this.#pressedIcon) {
+        console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
+        this.setAttribute('error', '');
+      } else if (this.#defaultIcon && this.#pressedIcon.name === this.#defaultIcon.name) {
+        console.error('Do not use the same icon for both states of the toggle button.');
+        this.setAttribute('error', '');
+      }
+    }
+
+    this.#setIconProperties();
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -117,12 +147,16 @@ export class ToggleButton extends LitElement {
     }
   }
 
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.iconOnly =
+      event.target
+        .assignedNodes({ flatten: true })
+        .filter(node => node.textContent && node.textContent.trim().length > 0).length === 0;
+  }
+
   #setIconProperties(): void {
-    const nodes = [this.#defaultIcon, this.#pressedIcon];
-    nodes.forEach(node => {
-      if (node) {
-        node.size = this.size;
-      }
+    [this.#defaultIcon, this.#pressedIcon].filter(Boolean).forEach(node => {
+      node!.size = this.size;
     });
   }
 }

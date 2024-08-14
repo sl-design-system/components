@@ -1,10 +1,10 @@
 import { faEllipsisVertical } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
-import { ButtonGroup } from '@sl-design-system/button-group';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { ToggleButton } from '@sl-design-system/toggle-button';
+import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
@@ -194,8 +194,8 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .map(element => {
         if (element instanceof Button || element instanceof ToggleButton) {
           return this.#mapButtonToItem(element);
-        } else if (element instanceof ButtonGroup) {
-          return this.#mapButtonGroupToItem(element);
+        } else if (element instanceof ToggleGroup) {
+          return this.#mapToggleGroupToItem(element);
         } else if (element instanceof ToolBarDivider) {
           return { element, type: 'divider' };
         } else {
@@ -207,7 +207,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       .filter(item => item !== undefined) as ToolBarItem[];
   }
 
-  #mapButtonGroupToItem(group: HTMLElement): ToolBarItemGroup {
+  #mapToggleGroupToItem(group: HTMLElement): ToolBarItemGroup {
     return {
       element: group,
       type: 'group',

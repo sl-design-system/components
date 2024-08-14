@@ -1,11 +1,11 @@
 import { expect, fixture } from '@open-wc/testing';
-import '@sl-design-system/button/register.js';
+import '@sl-design-system/toggle-button/register.js';
 import { html } from 'lit';
 import '../register.js';
-import { ButtonGroup } from './button-group.js';
+import { ToggleGroup } from './toggle-group.js';
 
 describe('sl-button-group', () => {
-  let el: ButtonGroup;
+  let el: ToggleGroup;
 
   beforeEach(async () => {
     el = await fixture(html`

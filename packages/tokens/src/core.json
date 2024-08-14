@@ -2412,6 +2412,11 @@
         "type": "Icons",
         "description": "icon.core.check"
       },
+      "check-solid": {
+        "value": "check",
+        "type": "Icons",
+        "description": "icon.core.check-solid"
+      },
       "xmark": {
         "value": "xmark",
         "type": "Icons",

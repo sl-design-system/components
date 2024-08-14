@@ -4515,17 +4515,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button-group@npm:^0.0.1, @sl-design-system/button-group@workspace:packages/components/button-group":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/button-group@workspace:packages/components/button-group"
-  dependencies:
-    "@sl-design-system/button": "npm:^1.0.2"
-    lit: "npm:^3.1.4"
-  peerDependencies:
-    lit: ^3.1.4
-  languageName: unknown
-  linkType: soft
-
 "@sl-design-system/button@npm:^1.0.0, @sl-design-system/button@npm:^1.0.1, @sl-design-system/button@npm:^1.0.2, @sl-design-system/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
@@ -5172,6 +5161,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
   dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/toggle-group@npm:^0.0.1, @sl-design-system/toggle-group@workspace:packages/components/toggle-group":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/toggle-group@workspace:packages/components/toggle-group"
+  dependencies:
+    "@sl-design-system/toggle-button": "npm:^0.0.1"
     lit: "npm:^3.1.4"
   peerDependencies:
     lit: ^3.1.4
@@ -5190,10 +5192,10 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/button": "npm:^1.0.2"
-    "@sl-design-system/button-group": "npm:^0.0.1"
     "@sl-design-system/icon": "npm:^1.0.1"
     "@sl-design-system/menu": "npm:^0.0.10"
     "@sl-design-system/toggle-button": "npm:^0.0.1"
+    "@sl-design-system/toggle-group": "npm:^0.0.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown

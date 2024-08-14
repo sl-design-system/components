@@ -5173,6 +5173,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-group@workspace:packages/components/toggle-group"
   dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/shared": "npm:^0.2.13"
     "@sl-design-system/toggle-button": "npm:^0.0.1"
     lit: "npm:^3.1.4"
   peerDependencies:

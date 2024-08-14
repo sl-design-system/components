@@ -38,9 +38,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@sl-design-system/shared": "^0.2.13",
     "@sl-design-system/toggle-button": "^0.0.1"
   },
   "devDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5",
     "lit": "^3.1.4"
   },
   "peerDependencies": {

@@ -6,15 +6,14 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
-export type Props = Pick<Accordion, 'single'> & { items: TemplateResult; open: boolean };
+export type Props = Pick<Accordion, 'single'> & { items: TemplateResult };
 export type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Accordion',
   tags: ['stable'],
   args: {
-    single: false,
-    open: false
+    single: false
   },
   argTypes: {
     items: {
@@ -230,7 +229,7 @@ export const Sticky: Story = {
 };
 
 export const ToggleExternally: Story = {
-  render: ({ single }) => {
+  render: () => {
     try {
       customElements.define(
         'accordion-toggle-example',
@@ -246,7 +245,7 @@ export const ToggleExternally: Story = {
                 🦖 state: ${this.dino ? 'open' : 'closed'}<br />
                 👽 state: ${this.alien ? 'open' : 'closed'}
               </p>
-              <sl-accordion ?single=${single}>
+              <sl-accordion>
                 <sl-accordion-item
                   summary="🦖"
                   .open=${this.dino}

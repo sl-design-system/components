@@ -140,8 +140,8 @@ g {
 .wrapper {
   animation-duration: 1ms; // Make sure it works when prefers-reduced-motion is on
   animation-fill-mode: both;
-  animation-timing-function: linear;
   animation-iteration-count: 1;
+  animation-timing-function: linear;
   background: var(--_background);
   display: grid;
   overflow: hidden;
@@ -166,11 +166,9 @@ g {
 @keyframes content-expand {
   0% {
     grid-template-rows: 0fr;
-    // opacity: 0;
   }
 
   100% {
     grid-template-rows: 1fr;
-    // opacity: 1;
   }
 }

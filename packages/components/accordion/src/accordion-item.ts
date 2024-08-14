@@ -37,21 +37,11 @@ export class AccordionItem extends LitElement {
   /** @internal Emits when the accordion item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  initial = true;
-
-  // override firstUpdated(changes: PropertyValues<this>): void {
-  //   super.firstUpdated(changes);
-  //   this.#animateState(this.open ? 'opening' : 'closing', true);
-  //   console.log(this.summary, 'firstUpdated', this.initial);
-  //   this.initial = false;
-  // }
-
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     if (this.open) {
-      const details = this.renderRoot.querySelector('details') as HTMLElement;
-      details?.setAttribute('open', '');
+      this.renderRoot.querySelector('details')?.setAttribute('open', '');
     }
   }
 

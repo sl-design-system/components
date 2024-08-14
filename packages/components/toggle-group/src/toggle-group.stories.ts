@@ -177,8 +177,8 @@ export const All: Story = {
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
-      <sl-toggle-group disabled multiple>
-        <sl-toggle-button aria-label="Bold" pressed>
+      <sl-toggle-group disabled>
+        <sl-toggle-button aria-label="Bold">
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
@@ -186,7 +186,7 @@ export const All: Story = {
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline" pressed>
+        <sl-toggle-button aria-label="Underline">
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
@@ -235,8 +235,8 @@ export const All: Story = {
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </sl-toggle-group>
-      <sl-toggle-group disabled multiple size="lg">
-        <sl-toggle-button aria-label="Bold" pressed>
+      <sl-toggle-group disabled size="lg">
+        <sl-toggle-button aria-label="Bold">
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>
         </sl-toggle-button>
@@ -244,7 +244,7 @@ export const All: Story = {
           <sl-icon name="far-italic" slot="default"></sl-icon>
           <sl-icon name="fas-italic" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button aria-label="Underline" pressed>
+        <sl-toggle-button aria-label="Underline">
           <sl-icon name="far-underline" slot="default"></sl-icon>
           <sl-icon name="fas-underline" slot="pressed"></sl-icon>
         </sl-toggle-button>

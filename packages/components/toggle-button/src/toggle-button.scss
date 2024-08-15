@@ -47,6 +47,7 @@
 
 :host([disabled]) {
   --_background: var(--sl-color-button-default-ghost-disabled-background);
+  --_color: var(--sl-color-button-default-ghost-disabled-foreground);
 
   cursor: default;
   pointer-events: none;

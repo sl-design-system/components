@@ -14,6 +14,11 @@
   gap: var(--_border-width);
 }
 
+:host([disabled]) {
+  --_border-color: var(--sl-color-button-default-outline-disabled-border);
+  --_separator-color: var(--sl-color-button-default-outline-disabled-border);
+}
+
 :host([size='lg']) {
   --_border-radius: var(--sl-border-radius-button-lg);
 }

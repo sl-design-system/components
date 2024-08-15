@@ -4483,7 +4483,7 @@
       "subtle": {
         "idle": {
           "background": {
-            "value": "{color.palette.info.100}",
+            "value": "{color.palette.accent.100}",
             "type": "color"
           },
           "foreground": {

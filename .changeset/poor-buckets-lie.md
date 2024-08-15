@@ -15,4 +15,6 @@
 '@sl-design-system/max': patch
 ---
 
-Improve toggle button and group tokens
+- Improve toggle button and group tokens
+- Add a `check-solid` icon for use in the `toggle-button` component
+

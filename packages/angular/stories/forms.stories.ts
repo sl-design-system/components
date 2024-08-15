@@ -9,31 +9,27 @@ import {
 } from '@angular/forms';
 import { type Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
-import {
-  CheckboxDirective,
-  CheckboxGroupDirective,
-  RadioGroupDirective,
-  SelectDirective,
-  SwitchDirective,
-  TextAreaDirective,
-  TextFieldDirective
-} from '../src/forms/index';
-import {
-  ButtonBarComponent,
-  ButtonComponent,
-  CheckboxComponent,
-  CheckboxGroupComponent,
-  FormComponent,
-  FormFieldComponent,
-  InlineMessageComponent,
-  RadioComponent,
-  RadioGroupComponent,
-  SelectComponent,
-  SelectOptionComponent,
-  SwitchComponent,
-  TextAreaComponent,
-  TextFieldComponent
-} from '../src/wrappers';
+import { ButtonComponent } from '../src/button/button.component';
+import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
+import { CheckboxComponent } from '../src/checkbox/checkbox.component';
+import { CheckboxGroupComponent } from '../src/checkbox-group/checkbox-group.component';
+import { FormComponent } from '../src/form/form.component';
+import { FormFieldComponent } from '../src/form-field/form-field.component';
+import { CheckboxGroupDirective } from '../src/forms/checkbox-group.directive';
+import { CheckboxDirective } from '../src/forms/checkbox.directive';
+import { RadioGroupDirective } from '../src/forms/radio-group.directive';
+import { SelectDirective } from '../src/forms/select.directive';
+import { SwitchDirective } from '../src/forms/switch.directive';
+import { TextAreaDirective } from '../src/forms/text-area.directive';
+import { TextFieldDirective } from '../src/forms/text-field.directive';
+import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
+import { RadioComponent } from '../src/radio/radio.component';
+import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
+import { SelectComponent } from '../src/select/select.component';
+import { SelectOptionComponent } from '../src/select-option/select-option.component';
+import { SwitchComponent } from '../src/switch/switch.component';
+import { TextAreaComponent } from '../src/text-area/text-area.component';
+import { TextFieldComponent } from '../src/text-field/text-field.component';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',

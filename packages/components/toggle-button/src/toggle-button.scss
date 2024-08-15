@@ -90,6 +90,10 @@
   --_color: var(--sl-color-button-default-outline-disabled-foreground);
 }
 
+:host([icon-only]) [part='wrapper'] {
+  aspect-ratio: 1;
+}
+
 :host([size='lg']) {
   --_border-radius: var(--sl-border-radius-button-lg);
   --_font: var(--sl-text-button-text-lg);
@@ -122,6 +126,7 @@
   display: flex;
   gap: var(--_label-gap);
   justify-content: center;
+  min-block-size: 1lh;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transition: background var(--_transition-duration) var(--_transition-easing);

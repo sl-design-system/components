@@ -477,51 +477,51 @@
           "selected": {
             "idle": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.button.default.outline.selected.idle.background}",
                 "type": "color",
                 "description": "color.button.default.outline.idle.background"
               },
               "foreground": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.button.default.outline.selected.idle.foreground}",
                 "type": "color",
                 "description": "color.button.default.outline.idle.foreground"
               },
               "border": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.button.default.outline.selected.idle.background}",
                 "type": "color",
                 "description": "color.button.default.outline.idle.border"
               }
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.button.default.outline.selected.hover.background}",
                 "type": "color",
                 "description": "color.button.default.outline.hover.background"
               },
               "foreground": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.button.default.outline.selected.hover.foreground}",
                 "type": "color",
                 "description": "color.button.default.outline.hover.foreground"
               },
               "border": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.button.default.outline.selected.hover.background}",
                 "type": "color",
                 "description": "color.button.default.outline.hover.border"
               }
             },
             "active": {
               "background": {
-                "value": "{color.button.default.ghost.hover.background}",
+                "value": "{color.button.default.outline.selected.active.background}",
                 "type": "color",
                 "description": "color.button.default.outline.active.background"
               },
               "foreground": {
-                "value": "{color.button.default.ghost.hover.foreground}",
+                "value": "{color.button.default.outline.selected.active.foreground}",
                 "type": "color",
                 "description": "color.button.primary.outline.active.foreground"
               },
               "border": {
-                "value": "{color.button.default.ghost.hover.border}",
+                "value": "{color.button.default.outline.selected.active.background}",
                 "type": "color",
                 "description": "color.button.default.outline.active.border"
               }

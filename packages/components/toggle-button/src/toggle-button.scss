@@ -27,26 +27,26 @@
 
 :host(:hover) {
   --_background: var(--sl-color-button-default-ghost-hover-background);
-  --_border-color: var(--sl-color-button-default-ghost-hover-border);
-  --_color: var(--sl-color-button-default-ghost-hover-foreground);
 }
 
 :host(:active) {
   --_background: var(--sl-color-button-default-ghost-active-background);
-  --_border-color: var(--sl-color-button-default-ghost-active-border);
-  --_color: var(--sl-color-button-default-ghost-active-foreground);
 }
 
 :host([pressed]) {
   --_background: var(--sl-color-button-default-ghost-selected-idle-background);
-  --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
-  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
+}
+
+:host([pressed]:hover) {
+  --_background: var(--sl-color-button-default-ghost-selected-hover-background);
+}
+
+:host([pressed]:active) {
+  --_background: var(--sl-color-button-default-ghost-selected-active-background);
 }
 
 :host([disabled]) {
   --_background: var(--sl-color-button-default-ghost-disabled-background);
-  --_border-color: var(--sl-color-button-default-ghost-disabled-border);
-  --_color: var(--sl-color-button-default-ghost-disabled-foreground);
 
   cursor: default;
   pointer-events: none;
@@ -66,20 +66,22 @@
 
 :host([fill='outline']:hover) {
   --_background: var(--sl-color-button-default-outline-hover-background);
-  --_border-color: var(--sl-color-button-default-outline-hover-border);
-  --_color: var(--sl-color-button-default-outline-hover-foreground);
 }
 
 :host([fill='outline']:active) {
   --_background: var(--sl-color-button-default-outline-active-background);
-  --_border-color: var(--sl-color-button-default-outline-active-border);
-  --_color: var(--sl-color-button-default-outline-active-foreground);
 }
 
 :host([fill='outline'][pressed]) {
+  --_background: var(--sl-color-button-default-outline-selected-idle-background);
+}
+
+:host([fill='outline'][pressed]:hover) {
   --_background: var(--sl-color-button-default-outline-selected-hover-background);
-  --_border-color: var(--sl-color-button-default-outline-selected-hover-border);
-  --_color: var(--sl-color-button-default-outline-selected-hover-foreground);
+}
+
+:host([fill='outline'][pressed]:active) {
+  --_background: var(--sl-color-button-default-outline-selected-active-background);
 }
 
 :host([fill='outline'][disabled]) {

@@ -1516,7 +1516,7 @@
         "description": "space.button.solid.block.md"
       },
       "inline": {
-        "value": "{space.md}",
+        "value": "{space.sm}",
         "type": "spacing",
         "description": "space.button.solid.inline.md"
       },

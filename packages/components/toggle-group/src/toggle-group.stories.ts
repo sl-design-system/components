@@ -4,6 +4,7 @@ import {
   faAlignRight,
   faBold,
   faItalic,
+  faMedal,
   faUnderline
 } from '@fortawesome/pro-regular-svg-icons';
 import {
@@ -11,7 +12,10 @@ import {
   faAlignLeft as fasAlignLeft,
   faAlignRight as fasAlignRight,
   faBold as fasBold,
+  faFaceSmile as fasFaceSmile,
   faItalic as fasItalic,
+  faMedal as fasMedal,
+  faStar as fasStar,
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button-bar/register.js';
@@ -33,12 +37,16 @@ Icon.register(
   faAlignRight,
   faBold,
   faItalic,
+  faMedal,
   faUnderline,
   fasAlignJustify,
   fasAlignLeft,
   fasAlignRight,
   fasBold,
+  fasFaceSmile,
   fasItalic,
+  fasMedal,
+  fasStar,
   fasUnderline
 );
 
@@ -52,7 +60,7 @@ export default {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: ['sm', 'md', 'lg']
+      options: ['md', 'lg']
     },
     slot: {
       table: { disable: true }
@@ -114,9 +122,31 @@ export const Multiple: Story = {
 export const Text: Story = {
   args: {
     slot: () => html`
-      <sl-toggle-button>Insufficient</sl-toggle-button>
-      <sl-toggle-button>Pass</sl-toggle-button>
-      <sl-toggle-button>Good</sl-toggle-button>
+      <sl-toggle-button>Easy</sl-toggle-button>
+      <sl-toggle-button>Medium</sl-toggle-button>
+      <sl-toggle-button>Hard</sl-toggle-button>
+    `
+  }
+};
+
+export const TextWithIcons: Story = {
+  args: {
+    slot: () => html`
+      <sl-toggle-button>
+        <sl-icon name="face-smile" slot="default"></sl-icon>
+        <sl-icon name="fas-face-smile" slot="pressed"></sl-icon>
+        Easy
+      </sl-toggle-button>
+      <sl-toggle-button>
+        <sl-icon name="star" slot="default"></sl-icon>
+        <sl-icon name="fas-star" slot="pressed"></sl-icon>
+        Medium
+      </sl-toggle-button>
+      <sl-toggle-button>
+        <sl-icon name="far-medal" slot="default"></sl-icon>
+        <sl-icon name="fas-medal" slot="pressed"></sl-icon>
+        Hard
+      </sl-toggle-button>
     `
   }
 };
@@ -138,7 +168,7 @@ export const All: Story = {
         justify-items: center;
       }
       #root-inner > div:last-child {
-        grid-template-columns: auto 1fr 1fr;
+        grid-template-columns: auto 1fr 1fr 1fr;
       }
     </style>
     <div>
@@ -269,6 +299,7 @@ export const All: Story = {
       <span></span>
       <span>Text</span>
       <span>Text, pressed</span>
+      <span>Text, custom icons</span>
 
       <span>md</span>
       <sl-toggle-group>
@@ -281,6 +312,23 @@ export const All: Story = {
         <sl-toggle-button>Medium</sl-toggle-button>
         <sl-toggle-button pressed>Hard</sl-toggle-button>
       </sl-toggle-group>
+      <sl-toggle-group>
+        <sl-toggle-button>
+          <sl-icon name="face-smile" slot="default"></sl-icon>
+          <sl-icon name="fas-face-smile" slot="pressed"></sl-icon>
+          Easy
+        </sl-toggle-button>
+        <sl-toggle-button>
+          <sl-icon name="star" slot="default"></sl-icon>
+          <sl-icon name="fas-star" slot="pressed"></sl-icon>
+          Medium
+        </sl-toggle-button>
+        <sl-toggle-button>
+          <sl-icon name="far-medal" slot="default"></sl-icon>
+          <sl-icon name="fas-medal" slot="pressed"></sl-icon>
+          Hard
+        </sl-toggle-button>
+      </sl-toggle-group>
 
       <span>lg</span>
       <sl-toggle-group size="lg">
@@ -292,6 +340,23 @@ export const All: Story = {
         <sl-toggle-button>Easy</sl-toggle-button>
         <sl-toggle-button>Medium</sl-toggle-button>
         <sl-toggle-button pressed>Hard</sl-toggle-button>
+      </sl-toggle-group>
+      <sl-toggle-group size="lg">
+        <sl-toggle-button>
+          <sl-icon name="face-smile" slot="default"></sl-icon>
+          <sl-icon name="fas-face-smile" slot="pressed"></sl-icon>
+          Easy
+        </sl-toggle-button>
+        <sl-toggle-button>
+          <sl-icon name="star" slot="default"></sl-icon>
+          <sl-icon name="fas-star" slot="pressed"></sl-icon>
+          Medium
+        </sl-toggle-button>
+        <sl-toggle-button>
+          <sl-icon name="far-medal" slot="default"></sl-icon>
+          <sl-icon name="fas-medal" slot="pressed"></sl-icon>
+          Hard
+        </sl-toggle-button>
       </sl-toggle-group>
     </div>
   `

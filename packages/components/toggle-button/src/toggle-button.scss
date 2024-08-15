@@ -159,6 +159,10 @@ $variants: default, primary, success, info, warning, danger;
   pointer-events: none;
 }
 
+:host(:not([icon-only])) slot[name='default'] sl-icon {
+  visibility: hidden;
+}
+
 :host([pressed]) slot[name='default'],
 :host(:not([pressed])) slot[name='pressed'] {
   display: none;

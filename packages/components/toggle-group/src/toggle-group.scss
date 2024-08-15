@@ -2,7 +2,9 @@
   --_border-color: var(--sl-color-button-default-outline-idle-border);
   --_border-radius: var(--sl-border-radius-button-md);
   --_border-width: var(--sl-border-width-button-outline);
-  --_text-padding-inline: 2rem;
+  --_paddingInline: 1.25rem 1.5rem;
+  --_paddingInline-textOnly-pressed: calc(1.5rem - var(--sl-space-button-gap-md)) 1.5rem;
+  --_paddingInline-textOnly: 2rem;
   --_separator-color: var(--sl-color-button-default-outline-idle-border);
   --_separator-width: var(--sl-border-width-button-outline);
 
@@ -43,10 +45,14 @@
   display: none;
 }
 
-::slotted(:not([icon-only])) {
-  --_padding-inline: calc(var(--_text-padding-inline) + var(--sl-space-button-gap-md)) var(--_text-padding-inline);
+::slotted([text-only]) {
+  --_padding-inline: var(--_paddingInline-textOnly);
 }
 
-::slotted(:not([icon-only])[pressed]) {
-  --_padding-inline: calc(var(--_text-padding-inline) - 0.5rem) calc(var(--_text-padding-inline) - 0.5rem);
+::slotted([text-only][pressed]) {
+  --_padding-inline: var(--_paddingInline-textOnly-pressed);
+}
+
+::slotted(:not([icon-only], [text-only])) {
+  --_padding-inline: var(--_paddingInline);
 }

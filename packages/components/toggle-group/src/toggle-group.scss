@@ -15,7 +15,7 @@
 }
 
 :host([size='lg']) {
-  --_border-radius: --_var(--sl-border-radius-button-lg);
+  --_border-radius: var(--sl-border-radius-button-lg);
 }
 
 ::slotted(*) {

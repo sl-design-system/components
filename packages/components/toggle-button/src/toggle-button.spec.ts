@@ -231,7 +231,7 @@ describe('sl-toggle-button', () => {
 
       el = await fixture(html`<sl-toggle-button></sl-toggle-button>`);
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(errorStub).to.have.been.calledWith(
         'There needs to be an sl-icon in the "default" slot for the component to work'
@@ -249,7 +249,7 @@ describe('sl-toggle-button', () => {
         </sl-toggle-button>
       `);
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(errorStub).to.have.been.calledWith(
         'There needs to be an sl-icon in the "pressed" slot for the component to work'
@@ -268,7 +268,7 @@ describe('sl-toggle-button', () => {
         </sl-toggle-button>
       `);
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(errorStub).to.have.been.calledWith('Do not use the same icon for both states of the toggle button.');
 

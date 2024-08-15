@@ -2,6 +2,7 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import { playwrightLauncher } from '@web/test-runner-playwright';
+import { log } from 'console';
 import { readFile } from 'fs/promises';
 import { env } from 'node:process';
 
@@ -21,6 +22,10 @@ const config = {
 
   filterBrowserLogs: ({ type, args }) => {
     if (type === 'warn' && args?.at(0)?.startsWith('Lit is in dev mode.')) {
+      return false;
+    } else if (type === 'error' && args?.at(0) === null) {
+      // This is unwanted output due to the `setupIgnoreWindowResizeObserverLoopErrors`
+      // function from `@lit-labs/virtualizer/support/resize-observer-errors.js`.
       return false;
     }
 

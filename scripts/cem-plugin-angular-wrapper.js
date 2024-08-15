@@ -20,7 +20,7 @@ function getComponentEvents(component, eventMap) {
 function generateComponent(imports, component, events) {
   return `import { Component, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
 ${imports.join('\n')}
-import { CePassthrough } from '../ce-passthrough';
+import { CePassthrough } from '@sl-design-system/angular';
 
 @Component({
   selector: '${component.tagName}',

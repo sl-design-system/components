@@ -1,4 +1,4 @@
-import { writeFile } from 'fs/promises';
+import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { camelize, dasherize } from './utils.js';
 
@@ -20,7 +20,7 @@ function getComponentEvents(component, eventMap) {
 function generateComponent(imports, component, events) {
   return `import { Component, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
 ${imports.join('\n')}
-import { CePassthrough } from './ce-passthrough';
+import { CePassthrough } from '../ce-passthrough';
 
 @Component({
   selector: '${component.tagName}',
@@ -74,7 +74,10 @@ const generateComponents = async (modules, exclude, outDir) => {
 
     const componentSrc = await generateComponent(imports, component, events);
 
-    await writeFile(join(outDir, `${dasherize(component.name)}.component.ts`), componentSrc, 'utf8');
+    const folder = join(outDir, ce.package.split('/').pop());
+
+    await mkdir(folder, { recursive: true });
+    await writeFile(join(folder, `${dasherize(component.name)}.component.ts`), componentSrc, 'utf8');
   }
 
   await generateIndex(components, outDir);

@@ -274,5 +274,17 @@ describe('sl-toggle-button', () => {
 
       errorStub.restore();
     });
+
+    it('should not log an error if only text is slotted', async () => {
+      const errorStub = stub(console, 'error');
+
+      el = await fixture(html`<sl-toggle-button>Toggle me</sl-toggle-button>`);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(errorStub).not.to.have.been.called;
+
+      errorStub.restore();
+    });
   });
 });

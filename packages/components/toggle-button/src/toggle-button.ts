@@ -93,20 +93,22 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && location.hostname === 'localhost') {
+    if (location.hostname === 'localhost') {
       // Wait for the slotchange events to fire before checking for errors
       requestAnimationFrame(() => {
         this.removeAttribute('error');
 
-        if (!this.defaultIcon) {
-          console.error('There needs to be an sl-icon in the "default" slot for the component to work');
-          this.setAttribute('error', '');
-        } else if (!this.pressedIcon) {
-          console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
-          this.setAttribute('error', '');
-        } else if (this.defaultIcon.name === this.pressedIcon.name) {
-          console.error('Do not use the same icon for both states of the toggle button.');
-          this.setAttribute('error', '');
+        if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && !this.hasText) {
+          if (!this.defaultIcon) {
+            console.error('There needs to be an sl-icon in the "default" slot for the component to work');
+            this.setAttribute('error', '');
+          } else if (!this.pressedIcon) {
+            console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
+            this.setAttribute('error', '');
+          } else if (this.defaultIcon.name === this.pressedIcon.name) {
+            console.error('Do not use the same icon for both states of the toggle button.');
+            this.setAttribute('error', '');
+          }
         }
       });
     }

@@ -28,7 +28,11 @@ describe('sl-toggle-group', () => {
       `);
     });
 
-    it('should not be disabled by default', () => {
+    it('should not support multiple pressed buttons at the same time', () => {
+      expect(el.multiple).not.to.be.true;
+    });
+
+    it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
     });
@@ -40,7 +44,7 @@ describe('sl-toggle-group', () => {
       expect(el).to.have.attribute('disabled');
     });
 
-    it('should not have a size by default', () => {
+    it('should not have a size', () => {
       expect(el).not.to.have.attribute('size');
       expect(el.size).to.be.undefined;
     });
@@ -74,6 +78,67 @@ describe('sl-toggle-group', () => {
       await el.updateComplete;
 
       expect(buttons.map(b => b.size)).to.deep.equal(['lg', 'lg', 'lg']);
+    });
+
+    it('should only allow one button to be pressed at a time', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+
+      buttons[0].click();
+      await el.updateComplete;
+
+      expect(buttons[0].pressed).to.be.true;
+      expect(buttons[1].pressed).to.be.false;
+      expect(buttons[2].pressed).to.be.false;
+
+      buttons[1].click();
+      await el.updateComplete;
+
+      expect(buttons[0].pressed).to.be.false;
+      expect(buttons[1].pressed).to.be.true;
+      expect(buttons[2].pressed).to.be.false;
+    });
+  });
+
+  describe('multiple', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-toggle-group multiple>
+          <sl-toggle-button>
+            <sl-icon name="check" slot="default"></sl-icon>
+            <sl-icon name="check-solid" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button>
+            <sl-icon name="check" slot="default"></sl-icon>
+            <sl-icon name="check-solid" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button>
+            <sl-icon name="check" slot="default"></sl-icon>
+            <sl-icon name="check-solid" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </sl-toggle-group>
+      `);
+    });
+
+    it('should be set to multiple', () => {
+      expect(el.multiple).to.be.true;
+    });
+
+    it('should allow multiple buttons to be pressed at the same time', async () => {
+      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
+
+      buttons[0].click();
+      await el.updateComplete;
+
+      expect(buttons[0].pressed).to.be.true;
+      expect(buttons[1].pressed).to.be.false;
+      expect(buttons[2].pressed).to.be.false;
+
+      buttons[1].click();
+      await el.updateComplete;
+
+      expect(buttons[0].pressed).to.be.true;
+      expect(buttons[1].pressed).to.be.true;
+      expect(buttons[2].pressed).to.be.false;
     });
   });
 

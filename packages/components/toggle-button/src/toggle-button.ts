@@ -17,13 +17,13 @@ export type ToggleButtonFill = 'ghost' | 'outline';
 export type ToggleButtonSize = 'md' | 'lg';
 
 /**
- * Let the user toggle between two states.
+ * Let's the user toggle between two states.
  *
  * ```html
  *  <sl-toggle-button>
- *    <sl-icon name="far-gear"></sl-icon>
-      <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-    </sl-toggle-button>
+ *    <sl-icon name="far-gear" slot="default"></sl-icon>
+ *    <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+ *  </sl-toggle-button>
  * ```
  *
  * @slot default - The icon shown in the default state of the button
@@ -87,6 +87,28 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
+    }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && location.hostname === 'localhost') {
+      // Wait for the slotchange events to fire before checking for errors
+      requestAnimationFrame(() => {
+        this.removeAttribute('error');
+
+        if (!this.defaultIcon) {
+          console.error('There needs to be an sl-icon in the "default" slot for the component to work');
+          this.setAttribute('error', '');
+        } else if (!this.pressedIcon) {
+          console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
+          this.setAttribute('error', '');
+        } else if (this.defaultIcon.name === this.pressedIcon.name) {
+          console.error('Do not use the same icon for both states of the toggle button.');
+          this.setAttribute('error', '');
+        }
+      });
     }
   }
 
@@ -162,18 +184,6 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       this.pressedIcon = event.target
         .assignedElements({ flatten: true })
         .find((element): element is Icon => element instanceof Icon);
-    }
-
-    if (this.parentElement?.tagName !== 'SL-TOGGLE-GROUP' && location.hostname === 'localhost') {
-      this.removeAttribute('error');
-
-      if (!this.pressedIcon) {
-        console.error('There needs to be an sl-icon in the "pressed" slot for the component to work');
-        this.setAttribute('error', '');
-      } else if (this.defaultIcon && this.pressedIcon.name === this.defaultIcon.name) {
-        console.error('Do not use the same icon for both states of the toggle button.');
-        this.setAttribute('error', '');
-      }
     }
   }
 

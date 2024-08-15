@@ -24,13 +24,6 @@ describe('sl-toggle-button', () => {
       expect(el.role).to.equal('button');
     });
 
-    it('should be small size when set', async () => {
-      el.size = 'sm';
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('size', 'sm');
-    });
-
     it('should be large size when set', async () => {
       el.size = 'lg';
       await el.updateComplete;

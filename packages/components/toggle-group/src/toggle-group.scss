@@ -14,10 +14,6 @@
   gap: var(--_border-width);
 }
 
-:host([size='sm']) {
-  --_border-radius: --_var(--sl-border-radius-button-sm);
-}
-
 :host([size='lg']) {
   --_border-radius: --_var(--sl-border-radius-button-lg);
 }

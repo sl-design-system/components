@@ -12,8 +12,8 @@ declare global {
   }
 }
 
-export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 export type ToggleButtonFill = 'ghost' | 'outline';
+export type ToggleButtonSize = 'md' | 'lg';
 
 /**
  * Let the user toggle between two states.
@@ -82,10 +82,6 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('pressed')) {
-      this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
-    }
-
     if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
       this.toggleAttribute('icon-only', !this.hasText && !!this.defaultIcon && !!this.pressedIcon);
       this.toggleAttribute('text-only', this.hasText && !this.defaultIcon && !this.pressedIcon);
@@ -97,6 +93,10 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
           icon!.size = this.size;
         }
       });
+    }
+
+    if (changes.has('pressed')) {
+      this.setAttribute('aria-pressed', (this.pressed ?? false).toString());
     }
   }
 

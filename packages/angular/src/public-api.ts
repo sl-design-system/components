@@ -1,3 +1,2 @@
-export * from './forms/index';
-export * from './tooltip.directive';
-export * from './wrappers/index';
+// Export an empty object so this file will be considered an ES6 module
+export {};

@@ -35,10 +35,18 @@ ${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}}
 `;
 };
 
-const generateIndex = async (components, outDir) => {
-  const indexSrc = components.map(component => `export * from './${dasherize(component.name)}.component';`).join('\n');
+const generatePublicApis = async (packages, outDir) => {
+  for (const [packageName, files] of packages) {
+    await writeFile(join(outDir, packageName, 'public-api.ts'), files.map(f => `export * from './${f}';`).join('\n').concat('\n'), 'utf8');
 
-  await writeFile(join(outDir, 'index.ts'), indexSrc, 'utf8');
+    await writeFile(join(outDir, packageName, 'ng-package.json'), `{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "lib": {
+    "entryFile": "public-api.ts"
+  }
+}
+`, 'utf8');
+  }
 };
 
 const generateComponents = async (modules, exclude, outDir) => {
@@ -62,6 +70,8 @@ const generateComponents = async (modules, exclude, outDir) => {
     .flatMap(m => m.declarations.filter(decl => !exclude.includes(decl.name) && decl.customElement || decl.tagName))
     .filter(({ tagName }) => ceMap.has(tagName) && ceMap.get(tagName).package);
 
+  const packages = new Map(components.map(c => ([ceMap.get(c.tagName).package.split('/').pop(), []])));
+
   for (const component of components) {
     const ce = ceMap.get(component.tagName),
       events = getComponentEvents(component, eventMap) ?? [];
@@ -74,13 +84,17 @@ const generateComponents = async (modules, exclude, outDir) => {
 
     const componentSrc = await generateComponent(imports, component, events);
 
-    const folder = join(outDir, ce.package.split('/').pop());
+    const packageName = ce.package.split('/').pop(),
+      folder = join(outDir, packageName),
+      fileName = `${dasherize(component.name)}.component`;
+
+    packages.set(packageName, [...packages.get(packageName), fileName]);
 
     await mkdir(folder, { recursive: true });
-    await writeFile(join(folder, `${dasherize(component.name)}.component.ts`), componentSrc, 'utf8');
+    await writeFile(join(folder, `${fileName}.ts`), componentSrc, 'utf8');
   }
 
-  await generateIndex(components, outDir);
+  await generatePublicApis(packages, outDir);
 };
 
 export default function plugin({

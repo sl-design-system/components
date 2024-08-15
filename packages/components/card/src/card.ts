@@ -35,7 +35,7 @@ export type CardMediaPosition = 'start' | 'end';
  * @slot actions - Icon button for actions on the card.
  */
 export class Card extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Observe the card width. */
@@ -43,9 +43,9 @@ export class Card extends LitElement {
     this.#setOrientation();
   });
 
-  /** @private The slotted media. */
+  /** @internal The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
-  /** @private The slotted icon. */
+  /** @internal The slotted icon. */
   @queryAssignedElements({ slot: 'icon' }) icon?: HTMLElement[];
 
   /** Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100% */

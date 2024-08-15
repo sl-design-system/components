@@ -13,7 +13,7 @@ declare global {
 export type RadioButtonSize = 'md' | 'lg';
 
 export class Radio<T = unknown> extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members

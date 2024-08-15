@@ -18,19 +18,19 @@ let nextUniqueId = 0;
  * @slot default - Body content for the popover
  */
 export class Popover extends LitElement {
-  /** The default padding of the arrow. */
+  /** @internal The default padding of the arrow. */
   static arrowPadding = 16;
 
-  /** The default offset of the popover to its anchor. */
+  /** @internal The default offset of the popover to its anchor. */
   static offset = 12;
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The default margin between the tooltip and the viewport. */
+  /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
   /** Controller for managing anchoring. */
@@ -48,8 +48,8 @@ export class Popover extends LitElement {
   @property() position?: PopoverPosition = 'bottom';
 
   /**
-   * When the contents of your popover is too long to be read inline this should be set to true so the user can navigate to the popover content themselves.
-   * aria-details is always set, regardless of this property.
+   * When the contents of your popover is too long to be read inline this should be set to true so the user
+   * can navigate to the popover content themselves. `aria-details` is always set, regardless of this property.
    * Read more about this on the accessibility tab.
    */
   @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;

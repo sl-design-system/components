@@ -8,14 +8,14 @@ import { type SelectOption } from './select-option.js';
 import { type SelectSize } from './select.js';
 
 export class SelectButton extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Whether the button is disabled. */

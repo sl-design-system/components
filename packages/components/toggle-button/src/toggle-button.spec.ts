@@ -61,8 +61,9 @@ describe('sl-toggle-button', () => {
 
     it('should toggle the pressed state when pressing the enter key', async () => {
       const onToggle = spy();
+
       expect(el).not.to.have.attribute('pressed');
-      expect(el.pressed).to.be.false;
+      expect(el.pressed).not.to.be.true;
 
       el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
         onToggle(event.detail);
@@ -70,6 +71,26 @@ describe('sl-toggle-button', () => {
 
       el.focus();
       await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.args[0]).to.be.true;
+      expect(el).to.have.attribute('pressed');
+      expect(el.pressed).to.be.true;
+    });
+
+    it('should toggle the pressed state when pressing the space key', async () => {
+      const onToggle = spy();
+
+      expect(el).not.to.have.attribute('pressed');
+      expect(el.pressed).not.to.be.true;
+
+      el.addEventListener('sl-toggle', (event: SlToggleEvent<boolean>) => {
+        onToggle(event.detail);
+      });
+
+      el.focus();
+      await sendKeys({ press: 'Space' });
       await el.updateComplete;
 
       expect(onToggle).to.have.been.calledOnce;

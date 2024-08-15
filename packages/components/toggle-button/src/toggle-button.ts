@@ -65,8 +65,11 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** @internal Used for setting the tooltip on the button. */
   @property({ reflect: true, attribute: 'aria-label' }) label?: string;
 
-  /** The pressed state of the button. */
-  @property({ type: Boolean, reflect: true }) pressed?: boolean;
+  /**
+   * The pressed state of the button. Set the default value, so the
+   * `aria-pressed` attribute is added to the element.
+   */
+  @property({ type: Boolean, reflect: true }) pressed = false;
 
   /** @internal The pressed icon. */
   @state() pressedIcon?: Icon;

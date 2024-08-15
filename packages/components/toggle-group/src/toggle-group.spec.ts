@@ -141,16 +141,4 @@ describe('sl-toggle-group', () => {
       expect(buttons[2].pressed).to.be.false;
     });
   });
-
-  describe('text only', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-button-group>
-          <sl-toggle-button>Lorem</sl-toggle-button>
-          <sl-toggle-button>Ipsum</sl-toggle-button>
-          <sl-toggle-button>Dolar</sl-toggle-button>
-        </sl-button-group>
-      `);
-    });
-  });
 });

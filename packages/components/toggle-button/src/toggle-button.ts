@@ -2,6 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './toggle-button.scss.js';
@@ -32,7 +33,8 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -45,6 +47,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     keydown: this.#onKeydown
   });
 
+  /** Lazy tooltip. */
+  #tooltip?: Tooltip;
+
   /** @internal The default (non-pressed) icon. */
   @state() defaultIcon?: Icon;
 
@@ -56,6 +61,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
   /** @internal True when the user has slotted text in the  */
   @state() hasText?: boolean;
+
+  /** @internal Used for setting the tooltip on the button. */
+  @property({ reflect: true, attribute: 'aria-label' }) label?: string;
 
   /** The pressed state of the button. */
   @property({ type: Boolean, reflect: true }) pressed?: boolean;
@@ -93,6 +101,24 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
           icon!.size = this.size;
         }
       });
+    }
+
+    if (changes.has('label')) {
+      if (this.label && !this.#tooltip) {
+        Tooltip.lazy(
+          this,
+          tooltip => {
+            this.#tooltip = tooltip;
+            tooltip.textContent = this.label!;
+          },
+          { context: this.shadowRoot! }
+        );
+      } else if (this.label && this.#tooltip) {
+        this.#tooltip.textContent = this.label;
+      } else if (this.#tooltip) {
+        this.#tooltip.remove();
+        this.#tooltip = undefined;
+      }
     }
 
     if (changes.has('pressed')) {

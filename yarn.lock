@@ -5168,6 +5168,9 @@ __metadata:
   resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:^1.0.1"
+    "@sl-design-system/shared": "npm:^0.2.13"
+    "@sl-design-system/tooltip": "npm:^1.0.1"
     lit: "npm:^3.1.4"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5

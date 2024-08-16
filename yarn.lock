@@ -4435,7 +4435,6 @@ __metadata:
     "@storybook/addon-links": "npm:^8.2.9"
     "@storybook/angular": "npm:^8.2.9"
     "@storybook/blocks": "npm:^8.2.9"
-    "@storybook/builder-vite": "npm:^8.2.9"
     "@storybook/theming": "npm:^8.2.9"
     "@types/jasmine": "npm:~5.1.4"
     jasmine-core: "npm:~5.1.2"
@@ -5524,7 +5523,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/builder-vite@npm:8.2.9, @storybook/builder-vite@npm:^8.2.9":
+"@storybook/builder-vite@npm:8.2.9":
   version: 8.2.9
   resolution: "@storybook/builder-vite@npm:8.2.9"
   dependencies:

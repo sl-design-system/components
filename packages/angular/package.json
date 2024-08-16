@@ -81,7 +81,6 @@
     "@storybook/addon-links": "^8.2.9",
     "@storybook/angular": "^8.2.9",
     "@storybook/blocks": "^8.2.9",
-    "@storybook/builder-vite": "^8.2.9",
     "@storybook/theming": "^8.2.9",
     "@types/jasmine": "~5.1.4",
     "jasmine-core": "~5.1.2",

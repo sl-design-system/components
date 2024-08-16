@@ -52,7 +52,10 @@
       ]
     },
     "storybook": {
-      "command": "ng run angular:build-storybook"
+      "command": "ng run angular:build-storybook",
+      "dependencies": [
+        "build"
+      ]
     }
   },
   "devDependencies": {

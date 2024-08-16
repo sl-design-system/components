@@ -191,6 +191,6 @@
     "slugify": "^1.6.6",
     "tiny-glob": "^0.2.9",
     "typescript": "^5.4.5",
-    "wireit": "^0.14.5"
+    "wireit": "^0.14.7"
   }
 }

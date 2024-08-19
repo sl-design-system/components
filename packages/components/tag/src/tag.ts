@@ -71,9 +71,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     return this.#label;
   }
 
-  /** Whether you can interact with the tag or if it is just a static, readonly display. Readonly cannot be removable. */
-  @property({ type: Boolean, reflect: true }) readonly?: boolean;
-
   /** Whether the tag component is removable. */
   @property({ type: Boolean, reflect: true }) removable?: boolean;
 
@@ -113,22 +110,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     if (changes.has('disabled')) {
       this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     }
-
-    if (changes.has('readonly')) {
-      if (this.readonly) {
-        this.setAttribute('aria-readonly', 'true');
-      } else {
-        this.removeAttribute('aria-readonly');
-      }
-    }
   }
 
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange}></slot>
-      ${this.removable && !this.readonly
+      ${this.removable
         ? html`
-            <button @click=${this.#onRemove} aria-label=${msg('Remove')} tabindex="-1">
+            <button @click=${this.#onRemove} aria-label=${msg('Remove')} ?disabled=${this.disabled} tabindex="-1">
               <sl-icon name="xmark" size=${ifDefined(this.size)}></sl-icon>
             </button>
           `
@@ -143,7 +132,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onRemove(event: Event): void {
-    if (this.disabled || this.readonly) {
+    if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
 

@@ -44,33 +44,6 @@ describe('sl-tag', () => {
     });
   });
 
-  describe('readonly', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-tag>My label</sl-tag>`);
-    });
-
-    it('should have proper aria when readonly is set', async () => {
-      el.setAttribute('readonly', '');
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('aria-readonly', 'true');
-    });
-
-    it('should not have aria-readonly when readonly is not set', async () => {
-      el.readonly = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('readonly');
-      expect(el).to.have.attribute('aria-readonly', 'true');
-
-      el.readonly = false;
-      await el.updateComplete;
-
-      expect(el).not.to.have.attribute('readonly');
-      expect(el).not.to.have.attribute('aria-readonly');
-    });
-  });
-
   describe('removable', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-tag removable>My label</sl-tag>`);

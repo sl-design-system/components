@@ -55,12 +55,6 @@ button:hover {
   }
 }
 
-:host([readonly]) {
-  --_cursor: default;
-
-  pointer-events: none;
-}
-
 :host([emphasis='bold']) {
   --_background: var(--sl-color-tag-bold-idle-background);
   --_border-color: var(--sl-color-tag-bold-idle-border);

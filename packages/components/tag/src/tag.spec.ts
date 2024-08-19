@@ -1,6 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
-import { type Tooltip } from '@sl-design-system/tooltip';
-import { sendKeys, sendMouse } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
@@ -11,12 +10,7 @@ describe('sl-tag', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tag label="my label"></sl-tag>`);
-    });
-
-    it('should not have size by default', () => {
-      expect(el).not.to.have.attribute('size');
-      expect(el.size).to.be.undefined;
+      el = await fixture(html`<sl-tag>My label</sl-tag>`);
     });
 
     it('should not have emphasis by default', () => {
@@ -24,27 +18,35 @@ describe('sl-tag', () => {
       expect(el.size).to.be.undefined;
     });
 
-    it('should not be removable by default', () => {
-      const removeBtn = el.renderRoot.querySelector('.remove-button');
+    it('should not have size by default', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
+    });
 
+    it('should not be removable by default', () => {
       expect(el).not.to.have.attribute('removable');
-      expect(removeBtn).not.to.exist;
+      expect(el.removable).not.to.be.true;
+      expect(el.renderRoot.querySelector('button')).not.to.exist;
     });
 
     it('should have a tabindex of -1 when it is disabled', async () => {
       el.setAttribute('disabled', '');
       await el.updateComplete;
 
-      const wrapper = el.renderRoot.querySelector('.wrapper') as HTMLDivElement;
+      expect(el).to.have.attribute('tabindex', '-1');
+    });
 
-      expect(wrapper).to.exist;
-      expect(wrapper).to.have.attribute('tabindex', '-1');
+    it('should not have a tooltip', async () => {
+      el.focus();
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('aria-describedby');
     });
   });
 
   describe('readonly', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tag label="my label"></sl-tag>`);
+      el = await fixture(html`<sl-tag>My label</sl-tag>`);
     });
 
     it('should have proper aria when readonly is set', async () => {
@@ -55,13 +57,13 @@ describe('sl-tag', () => {
     });
 
     it('should not have aria-readonly when readonly is not set', async () => {
-      el.setAttribute('readonly', '');
+      el.readonly = true;
       await el.updateComplete;
 
       expect(el).to.have.attribute('readonly');
       expect(el).to.have.attribute('aria-readonly', 'true');
 
-      el.removeAttribute('readonly');
+      el.readonly = false;
       await el.updateComplete;
 
       expect(el).not.to.have.attribute('readonly');
@@ -71,121 +73,69 @@ describe('sl-tag', () => {
 
   describe('removable', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tag label="my label" removable></sl-tag>`);
+      el = await fixture(html`<sl-tag removable>My label</sl-tag>`);
     });
 
-    it('should have remove button', () => {
-      const removeBtn = el.renderRoot.querySelector('.remove-button');
-
-      expect(removeBtn).to.exist;
+    it('should have a button', () => {
+      expect(el.renderRoot.querySelector('button')).to.exist;
     });
 
     it('should not be be removed when it is disabled and remove button is clicked', async () => {
       el.setAttribute('disabled', '');
       await el.updateComplete;
 
-      const removeBtn = el.renderRoot.querySelector('.remove-button') as HTMLButtonElement;
-
-      expect(removeBtn).to.exist;
-
-      removeBtn?.click();
+      el.renderRoot.querySelector('button')?.click();
       await el.updateComplete;
 
       expect(el).to.exist;
     });
 
-    it('should be removed on pressing Delete key', async () => {
-      const removeSpy = spy(el, 'remove');
-      const wrapper = el.renderRoot.querySelector('.wrapper') as HTMLDivElement;
-
-      expect(wrapper).to.exist;
-
-      wrapper.focus();
-      await sendKeys({ press: 'Delete' });
-
-      expect(removeSpy).to.have.been.calledOnce;
-    });
-
     it('should be removed on pressing Backspace key', async () => {
-      const removeSpy = spy(el, 'remove');
-      const wrapper = el.renderRoot.querySelector('.wrapper') as HTMLDivElement;
+      const onRemove = spy(el, 'remove');
 
-      expect(wrapper).to.exist;
-
-      wrapper.focus();
+      el.focus();
       await sendKeys({ press: 'Backspace' });
-
-      expect(removeSpy).to.have.been.calledOnce;
-    });
-
-    it('should emit an sl-remove event when a remove button is clicked', async () => {
-      const removeBtn = el.renderRoot.querySelector('.remove-button') as HTMLButtonElement;
-
-      expect(removeBtn).to.exist;
-
-      const onRemove = spy();
-
-      el.addEventListener('sl-remove', onRemove);
-      removeBtn?.click();
-      await el.updateComplete;
 
       expect(onRemove).to.have.been.calledOnce;
     });
 
-    it('should have a proper attribute when the remove button is hovered', async () => {
-      const removeBtn = el.renderRoot.querySelector('.remove-button') as HTMLButtonElement;
-      expect(removeBtn).to.exist;
+    it('should be removed on pressing Delete key', async () => {
+      const onRemove = spy(el, 'remove');
 
-      const { x, y } = {
-        x: Math.floor(
-          removeBtn.getBoundingClientRect().x + window.scrollX + removeBtn.getBoundingClientRect().width / 2
-        ),
-        y: Math.floor(
-          removeBtn.getBoundingClientRect().y + window.scrollY + removeBtn.getBoundingClientRect().height / 2
-        )
-      };
+      el.focus();
+      await sendKeys({ press: 'Delete' });
 
-      await sendMouse({ type: 'move', position: [x, y] });
+      expect(onRemove).to.have.been.calledOnce;
+    });
 
-      expect(el).to.have.attribute('close-hover');
+    it('should emit an sl-remove event when a remove button is clicked', async () => {
+      const onRemove = spy();
 
-      await sendMouse({ type: 'move', position: [1, 1] });
+      el.addEventListener('sl-remove', onRemove);
+      el.renderRoot.querySelector('button')?.click();
+      await el.updateComplete;
 
-      expect(el).not.to.have.attribute('close-hover');
+      expect(onRemove).to.have.been.calledOnce;
     });
   });
 
   describe('overflow', () => {
-    let tag: Tag;
-
     beforeEach(async () => {
-      el = await fixture(html`
-        <div style="inline-size: 50px;">
-          <sl-tag label="my label is very long"></sl-tag>
-        </div>
-      `);
-      tag = el.querySelector('sl-tag') as Tag;
+      el = await fixture(html`<sl-tag style="inline-size: 50px">My label is very long</sl-tag>`);
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 50));
     });
 
-    it('should set proper styling when the label is too long', () => {
-      const labelEl = tag.renderRoot.querySelector('.label') as HTMLDivElement;
+    it('should have a tooltip when the label is too long', async () => {
+      el.focus();
+      await el.updateComplete;
 
-      expect(labelEl).to.exist;
-      expect(labelEl.style.overflow).to.equal('hidden');
-    });
+      expect(el).to.have.attribute('aria-describedby');
 
-    it('should have a tooltip when the label is too long', () => {
-      const labelEl = tag.renderRoot.querySelector('.label') as HTMLDivElement;
-
-      expect(labelEl).to.exist;
-
-      const tooltipEl = tag.renderRoot.querySelector('sl-tooltip') as Tooltip;
-
-      expect(tooltipEl).to.exist;
-      expect(tooltipEl).to.have.trimmed.text('my label is very long');
+      const tooltip = document.getElementById(el.getAttribute('aria-describedby')!);
+      expect(tooltip).to.exist;
+      expect(tooltip).to.have.trimmed.text('My label is very long');
     });
   });
 });

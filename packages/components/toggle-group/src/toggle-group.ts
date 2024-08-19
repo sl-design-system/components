@@ -1,3 +1,4 @@
+import { RovingTabindexController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToggleButton, type ToggleButtonSize } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -11,7 +12,7 @@ declare global {
 }
 
 /**
- * A component for visually grouping buttons together.
+ * A component for visually grouping toggle buttons together.
  *
  * @slot default - The default slot.
  */
@@ -27,6 +28,14 @@ export class ToggleGroup extends LitElement {
         .filter((element): element is ToggleButton => element instanceof ToggleButton) ?? []
     );
   }
+
+  /** Manage keyboard navigation between buttons. */
+  #rovingTabindexController = new RovingTabindexController<ToggleButton>(this, {
+    focusInIndex: (elements: ToggleButton[]) => elements.findIndex(el => !el.disabled),
+    direction: 'horizontal',
+    elements: () => this.#buttons || [],
+    isFocusableElement: (el: ToggleButton) => !el.disabled
+  });
 
   /** If set, will disable all buttons in the group. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -53,7 +62,13 @@ export class ToggleGroup extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot @sl-toggle=${this.#onToggle} @slotchange=${this.#updateButtonProperties}></slot>`;
+    return html`<slot @sl-toggle=${this.#onToggle} @slotchange=${this.#onSlotChange}></slot>`;
+  }
+
+  #onSlotChange(): void {
+    this.#rovingTabindexController.clearElementCache();
+
+    this.#updateButtonProperties();
   }
 
   #onToggle(event: SlToggleEvent): void {

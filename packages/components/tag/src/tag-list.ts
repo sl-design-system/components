@@ -107,6 +107,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       this.tags?.forEach(tag => (tag.size = this.size));
     }
 
+    if (changes.has('stacked') && !this.stacked) {
+      this.tags.forEach(tag => (tag.style.display = ''));
+    }
+
     if (changes.has('stacked') || changes.has('stackSize') || changes.has('tags')) {
       if (this.stacked) {
         const total = this.tags.length;

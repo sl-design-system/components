@@ -78,6 +78,48 @@
         "type": "fontSizes"
       }
     },
+    "lineHeight": {
+      "150": {
+        "value": "{size.150}",
+        "type": "lineHeights"
+      },
+      "175": {
+        "value": "{size.175}",
+        "type": "lineHeights"
+      },
+      "200": {
+        "value": "{size.200}",
+        "type": "lineHeights"
+      },
+      "250": {
+        "value": "{size.250}",
+        "type": "lineHeights"
+      },
+      "300": {
+        "value": "{size.300}",
+        "type": "lineHeights"
+      },
+      "400": {
+        "value": "{size.400}",
+        "type": "lineHeights"
+      },
+      "500": {
+        "value": "{size.500}",
+        "type": "lineHeights"
+      },
+      "600": {
+        "value": "{size.600}",
+        "type": "lineHeights"
+      },
+      "800": {
+        "value": "{size.800}",
+        "type": "lineHeights"
+      },
+      "1000": {
+        "value": "{size.1000}",
+        "type": "lineHeights"
+      }
+    },
     "border": {
       "radius": {
         "none": {
@@ -105,7 +147,9 @@
           "type": "borderRadius"
         }
       }
-    },
+    }
+  },
+  "size-new": {
     "icon": {
       "xs": {
         "value": "{size.150}",
@@ -221,7 +265,7 @@
       }
     }
   },
-  "space": {
+  "space-new": {
     "none": {
       "value": "{size.none}",
       "type": "spacing"
@@ -261,17 +305,11 @@
     },
     "input": {
       "vertical": {
-        "md": {
-          "value": "{space.sm}-{size.border.width.default}",
-          "type": "spacing"
-        },
-        "lg": {
-          "value": "{space.md}-{size.border.width.default}",
-          "type": "spacing"
-        }
+        "value": "{space-new.sm}-{size.border.width.default}",
+        "type": "spacing"
       },
       "horizontal": {
-        "value": "{space.md}-{size.border.width.default}",
+        "value": "{space-new.md}-{size.border.width.default}",
         "type": "spacing"
       }
     }

@@ -509,24 +509,24 @@
       "textField": {
         "block": {
           "md": {
-            "value": "{space.sm}",
+            "value": "{space-new.sm}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm}",
+            "value": "{space-new.sm}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "md": {
-            "value": "{space.md}",
+            "value": "{space-new.md}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.lg}",
+            "value": "{space-new.lg}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -551,15 +551,15 @@
         "type": "spacing"
       },
       "md": {
-        "value": "{space.xs}",
+        "value": "{space-new.xs}",
         "type": "spacing"
       },
       "lg": {
-        "value": "{space.sm}",
+        "value": "{space-new.sm}",
         "type": "spacing"
       },
       "xl": {
-        "value": "{space.sm}",
+        "value": "{space-new.sm}",
         "type": "spacing"
       }
     }

@@ -28,7 +28,7 @@ export type SlFormFieldEvent = CustomEvent<{ unregister?(): void }> & { target: 
 let nextUniqueId = 0;
 
 export class FormField extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-error': Error,
@@ -37,7 +37,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Whether a custom error has been slotted. */

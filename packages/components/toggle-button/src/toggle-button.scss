@@ -124,6 +124,7 @@
 [part='wrapper'] {
   align-items: center;
   background: var(--_background);
+  border-radius: var(--_border-radius);
   display: flex;
   gap: var(--_label-gap);
   justify-content: center;

@@ -25,9 +25,6 @@ export class AccordionItem extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Whether we should actually animate opening/closing the wrapper. */
-  #shouldAnimate = true;
-
   /** Whether the element is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -43,11 +40,16 @@ export class AccordionItem extends LitElement {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    if (this.open) {
+      this.renderRoot.querySelector('details')?.setAttribute('open', '');
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
     if (changes.has('open')) {
-      // Do not animate the opening on the first render
-      this.#shouldAnimate = false;
       this.#animateState(this.open ? 'opening' : 'closing');
-      this.#shouldAnimate = true;
     }
   }
 
@@ -104,7 +106,6 @@ export class AccordionItem extends LitElement {
     }
 
     this.open = force ?? !this.open;
-    this.#animateState(this.open ? 'opening' : 'closing');
   }
 
   #onClick(event: Event): void {
@@ -117,7 +118,7 @@ export class AccordionItem extends LitElement {
       return;
     }
 
-    this.#animateState(this.open ? 'closing' : 'opening');
+    this.open = !this.open;
   }
 
   #onToggle(event: ToggleEvent): void {
@@ -147,9 +148,16 @@ export class AccordionItem extends LitElement {
     const details = this.renderRoot.querySelector('details') as HTMLElement,
       wrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement;
 
+    if (
+      (details.hasAttribute('open') && state === 'opening') ||
+      (!details.hasAttribute('open') && state === 'closing')
+    ) {
+      return;
+    }
+
     Object.assign(wrapper.style, {
-      animationDuration: this.#shouldAnimate ? '' : '0s',
-      transitionDuration: this.#shouldAnimate ? '' : '0s'
+      animationDuration: 'var(--_transition-duration)',
+      transitionDuration: 'var(--_transition-duration)'
     });
 
     if (state === 'opening') {

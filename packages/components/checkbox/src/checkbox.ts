@@ -83,11 +83,11 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   @property() override value?: T;
 
   override get formValue(): T | null {
-    return this.checked ? ((this.value ?? 'on') as T) : null;
+    return this.checked ? ((this.value ?? true) as T) : null;
   }
 
   override set formValue(value: T | null) {
-    this.checked = value === this.value || (this.value === undefined && value === 'on');
+    this.checked = value === this.value || (this.value === undefined && value === true);
   }
 
   override connectedCallback(): void {

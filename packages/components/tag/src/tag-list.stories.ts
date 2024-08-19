@@ -25,7 +25,7 @@ export default {
     }
   },
   render: ({ count, emphasis, size, stacked }) => {
-    const tags = Array.from({ length: count }).map((_, index) => html`<sl-tag .label=${`Tag ${index + 1}`}></sl-tag>`);
+    const tags = Array.from({ length: count }).map((_, index) => html`<sl-tag>${`Tag ${index + 1}`}</sl-tag>`);
 
     return html`
       <sl-tag-list emphasis=${ifDefined(emphasis)} size=${ifDefined(size)} ?stacked=${stacked}>${tags}</sl-tag-list>

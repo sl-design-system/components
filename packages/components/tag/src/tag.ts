@@ -48,6 +48,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     keydown: this.#onKeydown
   });
 
+  /** The label text. */
+  #label = '';
+
   /**
    * Observe changes in size, so we can check whether we need to show tooltips
    * for truncated links.
@@ -64,7 +67,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) emphasis?: TagEmphasis;
 
   /** The label of the tag component. */
-  @property({ reflect: true }) label?: string;
+  get label(): string {
+    return this.#label;
+  }
 
   /** Whether you can interact with the tag or if it is just a static, readonly display. Readonly cannot be removable. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
@@ -120,7 +125,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div class="label">${this.label}</div>
+      <slot @slotchange=${this.#onSlotChange}></slot>
       ${this.removable && !this.readonly
         ? html`
             <button @click=${this.#onRemove} aria-label=${msg('Remove')} aria-labelledby="tag-element" tabindex="-1">
@@ -151,14 +156,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
-    const label = this.renderRoot.querySelector('div');
+    const label = this.renderRoot.querySelector('slot');
 
     if (label && label.clientWidth < label.scrollWidth) {
       this.#tooltip ||= Tooltip.lazy(
         this,
         tooltip => {
           this.#tooltip = tooltip;
-          tooltip.textContent = this.label!;
+          tooltip.textContent = this.label;
         },
         { context: this.shadowRoot! }
       );
@@ -169,5 +174,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       this.#tooltip();
       this.#tooltip = undefined;
     }
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.#label = event.target
+      .assignedNodes({ flatten: true })
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join('');
   }
 }

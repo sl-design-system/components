@@ -22,8 +22,8 @@
   vertical-align: middle;
 }
 
-.label:hover,
-.label:hover + button,
+slot:hover,
+slot:hover + button,
 button:hover {
   --_background: var(--sl-color-tag-subtle-hover-background);
   --_border-color: var(--sl-color-tag-subtle-hover-border);
@@ -34,7 +34,7 @@ button:hover {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 
-  .label,
+  slot,
   button {
     --_background: var(--sl-color-tag-subtle-active-background);
     --_border-color: var(--sl-color-tag-subtle-active-border);
@@ -47,7 +47,7 @@ button:hover {
 
   pointer-events: none;
 
-  .label,
+  slot,
   button {
     --_background: var(--sl-color-tag-subtle-disabled-background);
     --_border-color: var(--sl-color-tag-subtle-disabled-border);
@@ -66,8 +66,8 @@ button:hover {
   --_border-color: var(--sl-color-tag-bold-idle-border);
   --_color: var(--sl-color-tag-bold-idle-foreground);
 
-  .label:hover,
-  .label:hover + button,
+  slot:hover,
+  slot:hover + button,
   button:hover {
     --_background: var(--sl-color-tag-bold-hover-background);
     --_border-color: var(--sl-color-tag-bold-hover-border);
@@ -78,7 +78,7 @@ button:hover {
 :host([emphasis='bold']:focus) {
   --_focus-color: var(--sl-color-focusring-default);
 
-  .label,
+  slot,
   button {
     --_background: var(--sl-color-tag-bold-active-background);
     --_border-color: var(--sl-color-tag-bold-active-border);
@@ -87,7 +87,7 @@ button:hover {
 }
 
 :host([emphasis='bold'][disabled]) {
-  .label,
+  slot,
   button {
     --_background: var(--sl-color-tag-bold-disabled-background);
     --_border-color: var(--sl-color-tag-bold-disabled-border);
@@ -105,7 +105,7 @@ button:hover {
   display: none;
 }
 
-.label {
+slot {
   background: var(--_background);
   color: var(--_color);
   display: block;

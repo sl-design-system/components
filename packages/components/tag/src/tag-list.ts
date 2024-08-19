@@ -20,8 +20,8 @@ declare global {
  *
  * ```html
  *   <sl-tag-list>
- *     <sl-tag label="First tag"></sl-tag>
- *     <sl-tag label="Second tag"></sl-tag>
+ *     <sl-tag>First tag</sl-tag>
+ *     <sl-tag>Second tag</sl-tag>
  *     ...
  *   </sl-tag-list>
  * ```
@@ -123,12 +123,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       ${this.stacked && this.stackSize > 0
         ? html`
             <div class=${classMap({ stack: true, double: this.stackSize === 2, triple: this.stackSize >= 3 })}>
-              <sl-tag
-                .label=${this.stackSize > 99 ? '+99' : this.stackSize}
-                aria-describedby="tooltip"
-                emphasis=${ifDefined(this.emphasis)}
-                size=${ifDefined(this.size)}
-              ></sl-tag>
+              <sl-tag aria-describedby="tooltip" emphasis=${ifDefined(this.emphasis)} size=${ifDefined(this.size)}>
+                ${this.stackSize > 99 ? '+99' : this.stackSize}
+              </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
                 ${msg('List of stacked tags')}: ${this.stackedTags.map(tag => tag.label).join(', ')}
               </sl-tooltip>

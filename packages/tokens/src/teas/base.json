@@ -2232,7 +2232,7 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth"
         },
         "offset": {

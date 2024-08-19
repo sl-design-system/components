@@ -39,16 +39,16 @@ let nextUniqueId = 0;
  * @slot default - The slot for the tooltip content.
  */
 export class Tooltip extends LitElement {
-  /** The default padding of the arrow. */
+  /** @internal The default padding of the arrow. */
   static arrowPadding = 16;
 
-  /** The default offset of the tooltip to its anchor. */
+  /** @internal The default offset of the tooltip to its anchor. */
   static offset = 12;
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The default margin between the tooltip and the viewport. */
+  /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */

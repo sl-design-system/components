@@ -1,4 +1,4 @@
-import { LitElement, CSSResultGroup, type TemplateResult, html } from 'lit';
+import { CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { verticalTabsStyles } from './vertical-tabs-style';
 
@@ -24,7 +24,7 @@ const isMobileOrTablet = (): boolean => matchMedia('(width < 1200px)').matches;
 
 @customElement('ds-vertical-tabs')
 export class VerticalTabs extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = verticalTabsStyles;
 
   /** Used to render vertical links content - tagElement is a source of links text, H2 is the default */
@@ -36,9 +36,12 @@ export class VerticalTabs extends LitElement {
     entries => {
       let updated = false;
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
-        links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
+        links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
 
-      if (links.length === entries.filter(entry => entry.intersectionRatio === 1).length || (!window.location.hash && entries.length === links.length)) {
+      if (
+        links.length === entries.filter(entry => entry.intersectionRatio === 1).length ||
+        (!window.location.hash && entries.length === links.length)
+      ) {
         return;
       }
 
@@ -49,7 +52,7 @@ export class VerticalTabs extends LitElement {
         let section: Element | null | undefined;
         if (entry.isIntersecting && entry.intersectionRatio > 0) {
           section = entry.target;
-          let index = sections.findIndex(b => {
+          const index = sections.findIndex(b => {
             return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
           });
 
@@ -59,7 +62,7 @@ export class VerticalTabs extends LitElement {
           }
         }
 
-         updated = true;
+        updated = true;
       });
     },
     { root: null, rootMargin: '-96px 0px 0px 0px' }
@@ -72,20 +75,19 @@ export class VerticalTabs extends LitElement {
       return;
     }
 
-
     requestAnimationFrame(() => {
-    /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
-    const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
-       verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+      /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
+      const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
+        verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
 
       if (verticalTabs.length && !window.location.hash) {
         this.#setActiveTab(verticalTabs[0] as HTMLElement);
-       window.scrollTo(0, 0);
+        window.scrollTo(0, 0);
       } else if (window.location.hash) {
         setTimeout(() => {
           const targetElement = document.querySelector(window.location.hash),
-                links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
-          let index = links.findIndex(link => {
+            links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
+          const index = links.findIndex(link => {
             return (link as HTMLAnchorElement).hash == window.location.hash;
           });
           if (targetElement) {
@@ -95,18 +97,22 @@ export class VerticalTabs extends LitElement {
         }, 100);
       }
 
-    if (sections.length) {
-     sections.forEach(section => this.observer.observe(section));
-    }
+      if (sections.length) {
+        sections.forEach(section => this.observer.observe(section));
+      }
     });
 
-    window.addEventListener('hashchange',  () => {
-      const links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
-      let index = links.findIndex(link => {
-        return (link as HTMLAnchorElement).hash == window.location.hash;
-      });
+    window.addEventListener(
+      'hashchange',
+      () => {
+        const links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
+        const index = links.findIndex(link => {
+          return (link as HTMLAnchorElement).hash == window.location.hash;
+        });
         links[index].click();
-    }, false);
+      },
+      false
+    );
   }
 
   override disconnectedCallback(): void {
@@ -125,7 +131,7 @@ export class VerticalTabs extends LitElement {
           }
           return element.parentElement as Element;
         } else if (element.hasAttribute('link-in-navigation')) {
-          return element as Element;
+          return element;
         }
         return null;
       })
@@ -167,17 +173,17 @@ export class VerticalTabs extends LitElement {
     this.#alignVerticalTabIndicator(link);
 
     const indicator = this.renderRoot.querySelector('.ds-tabs__vertical-indicator');
-    indicator?.addEventListener(
-      'transitionend',
-      () => {
-        setTimeout(() => {
-          /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
-        const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+    indicator?.addEventListener('transitionend', () => {
+      setTimeout(() => {
+        /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
+        const sections = Array.from(
+          this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []
+        );
         if (sections.length) {
-         sections.forEach(section => this.observer.observe(section));
+          sections.forEach(section => this.observer.observe(section));
         }
-        }, 500);
-      })
+      }, 500);
+    });
   }
 
   #setActiveTab(verticalTab: HTMLElement): void {

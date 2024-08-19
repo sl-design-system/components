@@ -1,4 +1,4 @@
-# @sl-design-system/button-group
+# @sl-design-system/toggle-group
 
 ## 0.0.1
 

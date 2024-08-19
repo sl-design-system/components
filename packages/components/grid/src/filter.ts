@@ -41,7 +41,7 @@ Icon.register(faFilter, faFilterSolid);
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -53,7 +53,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The filter value(s). */
@@ -61,7 +61,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * Whether the grid is currently being filtered by this column.
-   * @private
+   * @internal
    */
   @property({ type: Boolean, reflect: true }) active = false;
 

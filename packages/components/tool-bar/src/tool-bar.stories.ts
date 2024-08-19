@@ -88,7 +88,7 @@ export default {
 export const Basic: Story = {
   args: {
     items: () => html`
-      <sl-toggle-group>
+      <sl-toggle-group multiple>
         <sl-toggle-button aria-label="Bold">
           <sl-icon name="far-bold" slot="default"></sl-icon>
           <sl-icon name="fas-bold" slot="pressed"></sl-icon>

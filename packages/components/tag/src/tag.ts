@@ -128,7 +128,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       <slot @slotchange=${this.#onSlotChange}></slot>
       ${this.removable && !this.readonly
         ? html`
-            <button @click=${this.#onRemove} aria-label=${msg('Remove')} aria-labelledby="tag-element" tabindex="-1">
+            <button @click=${this.#onRemove} aria-label=${msg('Remove')} tabindex="-1">
               <sl-icon name="xmark" size=${ifDefined(this.size)}></sl-icon>
             </button>
           `

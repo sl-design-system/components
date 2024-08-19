@@ -9,7 +9,7 @@ eleventyNavigation:
 
 ## Keyboard interactions
 
-Users can move through the tags within a tag-list using the `arrow keys`. 
+Users can move through the tags within a tag-list using the `arrow keys`.
 You can navigate back to the previous tag with `left` or `up`. The focus indicator loops, so when you are at the last option and press `down` it will focus on the first tag.
 In the stacked version of tag-list, when there are hidden tags, you can navigate only through visible tags with arrow keys, and you can focus tag with amount of hidden tags by `Tab` key.
 
@@ -36,7 +36,7 @@ WAI-ARIA Roles, States, and Properties for a tag and tag-list component provide 
 |`role`|`'listitem', 'button'`|Identifies the tag element as a `listitem` when it's used inside the `sl-tag-list` - this role is added automatically. Please provide a role `button` when the tag is interactive, is used to perform an action or is removable and not used inside `sl-tag-list`.|no/yes|
 |`aria-readonly`|`true`|Applied when the tag is `readonly`.|no|
 |`aria-label`|string|Defines a string that labels the action that will be performed when the user interacts with the tag or the purpose/more information about the tag. `Aria-label` is added automatically in the `removable` tag to its button inside, used to perform a remove action, which contains only an icon.|yes/no|
-|`aria-labelledby`|string|Used to connect with a single header/element that describes the tag. `Aria-labelledby` with `id` of the tag is added automatically in the `removable` tag to its remove button inside, used to connect the remove button with tag.|yes/no|
+|`aria-labelledby`|string|Used to connect with a single header/element that describes the tag.|yes|
 |`aria-describedby`|string|Used to connect (and describe) with a tooltip which is shown, when there is not enough space to show the whole label in the tag. It contains `id` of the tooltip. It's added to a tag element when the label overflows. The tooltip contains the whole label of the tag (when the label inside a tag got ellipsis).|no|
 
 {.ds-table .ds-table-align-top}

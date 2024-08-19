@@ -12,7 +12,8 @@ declare global {
 }
 
 /**
- * A component for visually grouping toggle buttons together.
+ * A component for visually grouping toggle buttons together. By default, this component ensures that only one button
+ * in the group is active at a time. This behavior can be disabled by setting the `multiple` property.
  *
  * @slot default - The default slot.
  */

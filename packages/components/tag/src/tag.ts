@@ -145,6 +145,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    // Emit remove event *before* removing the tag, so consumers can react to the event.
     this.removeEvent.emit();
     this.remove();
   }

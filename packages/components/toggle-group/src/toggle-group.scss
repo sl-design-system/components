@@ -4,7 +4,7 @@
   --_border-width: var(--sl-border-width-button-outline);
   --_icon-size: var(--sl-size-icon-md);
   --_paddingInline: var(--sl-space-button-outline-inline-md);
-  --_paddingInline-textOnly: var(--sl-space-button-outline-inline-textOnly-md);
+  --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-md);
   --_separator-color: var(--sl-color-button-default-outline-idle-border);
   --_separator-width: var(--sl-border-width-button-outline);
 
@@ -23,7 +23,7 @@
   --_border-radius: var(--sl-border-radius-button-lg);
   --_icon-size: var(--sl-size-icon-lg);
   --_paddingInline: var(--sl-space-button-outline-inline-lg);
-  --_paddingInline-textOnly: var(--sl-space-button-outline-inline-textOnly-lg);
+  --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-lg);
 }
 
 ::slotted(*) {

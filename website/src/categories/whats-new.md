@@ -42,7 +42,7 @@ eleventyNavigation:
 - [Accordion item summary slottable](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md)
 - [Improve breadcrumbs hover state by changing text decoration thickness](https://github.com/sl-design-system/components/blob/main/packages/components/breadcrumbs/CHANGELOG.md)
 
-</secion>
+</section>
 
 <section>
 

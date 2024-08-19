@@ -1,11 +1,6 @@
 :host {
   --_border-color: var(--sl-color-tag-subtle-idle-border);
   --_gap: var(--sl-space-tag-list-md);
-  --_group-font: var(--sl-text-tag-label-md);
-  --_group-margin: calc(var(--_group-space) * 4);
-  --_group-margin-more: calc(var(--_group-space) * 2);
-  --_group-space: var(--sl-space-tag-counter-gap);
-  --_group-width: var(--sl-size-tag-counter);
 
   display: flex;
   gap: var(--_gap);

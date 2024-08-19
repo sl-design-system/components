@@ -33,6 +33,11 @@
   display: flex;
   position: relative;
 
+  &.double,
+  &.triple {
+    border-inline-start: 1px solid #fff;
+  }
+
   &.double {
     padding-inline-start: 2px;
   }
@@ -54,17 +59,21 @@
 .triple::before,
 .triple::after {
   border-color: var(--_border-color);
-  border-end-start-radius: var(--sl-border-radius-default);
-  border-inline-start: calc(var(--_group-width) * 0.45) solid var(--_border-color);
-  border-start-start-radius: var(--sl-border-radius-default);
+  border-inline-start: 2px solid var(--_border-color);
+  border-radius: 4px;
   content: '';
   display: flex;
-  inset: 0 auto 0 2px;
+  inline-size: 4px;
+  inset: 0 auto 0 -1px;
   position: absolute;
 }
 
+.triple::before {
+  inset-inline-start: 1px;
+}
+
 .triple::after {
-  inset-inline-start: 0;
+  inset-inline-start: -2px;
 }
 
 .list {

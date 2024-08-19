@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type TagList } from './tag-list.js';
 
-type Props = Pick<TagList, 'emphasis' | 'size' | 'stacked'> & { count: number };
+type Props = Pick<TagList, 'emphasis' | 'size' | 'stacked'> & { count: number; removable?: boolean };
 type Story = StoryObj<Props>;
 
 export default {
@@ -12,6 +12,7 @@ export default {
   tags: ['draft'],
   args: {
     count: 50,
+    removable: false,
     stacked: false
   },
   argTypes: {
@@ -24,8 +25,10 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ count, emphasis, size, stacked }) => {
-    const tags = Array.from({ length: count }).map((_, index) => html`<sl-tag>${`Tag ${index + 1}`}</sl-tag>`);
+  render: ({ count, emphasis, removable, size, stacked }) => {
+    const tags = Array.from({ length: count }).map(
+      (_, index) => html`<sl-tag ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
+    );
 
     return html`
       <sl-tag-list emphasis=${ifDefined(emphasis)} size=${ifDefined(size)} ?stacked=${stacked}>${tags}</sl-tag-list>
@@ -58,5 +61,12 @@ export const StackedOver100: Story = {
   args: {
     ...Stacked.args,
     count: 120
+  }
+};
+
+export const StackedRemovable: Story = {
+  args: {
+    ...Stacked.args,
+    removable: true
   }
 };

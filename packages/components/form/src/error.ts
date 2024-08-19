@@ -18,14 +18,14 @@ export type ErrorSize = 'sm' | 'md' | 'lg';
  * @slot error-text - The error message to display.
  */
 export class Error extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The light DOM slot. */

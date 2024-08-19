@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-group/register.js';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/toggle-button/register.js';
+import '@sl-design-system/toggle-group/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -88,14 +89,14 @@ export const Alignment: Story = {
 export const Groups: Story = {
   args: {
     buttons: html`
-      <sl-button-group>
-        <sl-button>Foo</sl-button>
-        <sl-button>Bar</sl-button>
-      </sl-button-group>
-      <sl-button-group>
-        <sl-button>Baz</sl-button>
-        <sl-button>Qux</sl-button>
-      </sl-button-group>
+      <sl-toggle-group>
+        <sl-toggle-button>Foo</sl-toggle-button>
+        <sl-toggle-button>Bar</sl-toggle-button>
+      </sl-toggle-group>
+      <sl-toggle-group>
+        <sl-toggle-button>Baz</sl-toggle-button>
+        <sl-toggle-button>Qux</sl-toggle-button>
+      </sl-toggle-group>
     `
   }
 };

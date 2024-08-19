@@ -290,11 +290,11 @@ describe('sl-checkbox-group', () => {
       expect(el.value).to.deep.equal([null, null, null]);
     });
 
-    it('should have a value of "on" when checked', async () => {
+    it('should have a value of true when checked', async () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.value).to.deep.equal(['on', null, null]);
+      expect(el.value).to.deep.equal([true, null, null]);
     });
 
     it('should filter out the null values in the formValue', async () => {
@@ -303,7 +303,7 @@ describe('sl-checkbox-group', () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.formValue).to.deep.equal(['on']);
+      expect(el.formValue).to.deep.equal([true]);
     });
   });
 

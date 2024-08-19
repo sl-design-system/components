@@ -11,8 +11,8 @@
     "directory": "packages/angular"
   },
   "peerDependencies": {
-    "@angular/core": "^16.0.0 || ^17.0.0",
-    "@angular/forms": "^16.0.0 || ^17.0.0",
+    "@angular/core": "^17.0.0 || ^18.0.0",
+    "@angular/forms": "^17.0.0 || ^18.0.0",
     "@sl-design-system/checkbox": "*",
     "@sl-design-system/form": "*",
     "@sl-design-system/icon": "*",

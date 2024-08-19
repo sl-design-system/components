@@ -53,6 +53,13 @@ export class ToggleGroup extends LitElement {
   /** Determines the size of all buttons in the group. */
   @property({ reflect: true }) size?: ToggleButtonSize;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // https://twitter.com/LeonieWatson/status/1545788775644667904
+    this.setAttribute('role', 'region');
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 

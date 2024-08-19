@@ -8,7 +8,7 @@
   --_separator-color: var(--sl-color-button-default-outline-idle-border);
   --_separator-width: var(--sl-border-width-button-outline);
 
-  border: 1px solid var(--_border-color);
+  border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
   display: inline-flex;
   gap: var(--_border-width);

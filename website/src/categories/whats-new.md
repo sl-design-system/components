@@ -20,7 +20,6 @@ eleventyNavigation:
 <div class="ds-subpage-section__wrapper">
 <section>
   
-</section>
 ## New Components and Key Bugfixes Rolled Out, Including Tool-Bar, Checkbox Group, and Enhanced Styling
 <small>July 2024</small>
 
@@ -41,6 +40,8 @@ eleventyNavigation:
 - [Add size property to button-bar](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md)
 - [Accordion item summary slottable](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md)
 - [Improve breadcrumbs hover state by changing text decoration thickness](https://github.com/sl-design-system/components/blob/main/packages/components/breadcrumbs/CHANGELOG.md)
+
+</secion>
 
 <section>
 

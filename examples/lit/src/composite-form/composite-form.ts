@@ -42,7 +42,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
     otherAge: string;
     remarks: string;
     subscriptions: string[];
-    termsAndConditions?: string;
+    termsAndConditions?: boolean;
   }>(this);
 
   override render(): TemplateResult {
@@ -127,7 +127,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
       otherAge: '24',
       remarks: 'These are remarks',
       subscriptions: ['newsletter', 'updates'],
-      termsAndConditions: 'on'
+      termsAndConditions: true
     };
   }
 }

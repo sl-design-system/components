@@ -39,7 +39,7 @@ describe('sl-grid-filter-column', () => {
       await el.updateComplete;
 
       // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
       await el.updateComplete;
 
       // cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
@@ -93,16 +93,34 @@ describe('sl-grid-filter-column', () => {
 
     it('should have a header with proper filter options when there is no mode', async () => {
       const columns = el.renderRoot.querySelectorAll('sl-grid-filter'); //Array.from(el.renderRoot.querySelectorAll('sl-grid-filter'));
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      // await columns.updateComplete;
       const popover = columns[0]?.renderRoot.querySelector('sl-popover');
+      await popover.updateComplete;
+      const filterButton = columns[0]?.renderRoot.querySelector('#anchor');
+      await new Promise(resolve => setTimeout(resolve, 100));
+      console.log('filterButton no mode---', filterButton);
+      // TODO:  filterButton to exist
+      // filterButton?.click();
+      const clickEvent = new Event('click');
+      filterButton?.dispatchEvent(clickEvent);
+      await popover.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
       const checkboxGroup = popover?.querySelector('sl-checkbox-group') as CheckboxGroup;
-      const filterColumns = popover?.querySelectorAll('sl-checkbox'); /*Array.from(popover?.querySelectorAll('sl-checkbox')).map(col =>
-        col.innerHTML
-      );*/ // col.textContent?.trim()
+      await checkboxGroup.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      const filterColumns = checkboxGroup?.querySelectorAll('sl-checkbox');
+      // const filterColumns = popover?.querySelectorAll('sl-checkbox'); /*Array.from(popover?.querySelectorAll('sl-checkbox')).map(col =>
+      //  col.innerHTML
+      //);*/ // col.textContent?.trim()
 
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await popover.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
+      console.log('popover in no mode---', popover, 'columns no mode---', columns[0].renderRoot, 'checkboxGroup no mode---', checkboxGroup.renderRoot, checkboxGroup.renderRoot.querySelector('slot')?.assignedNodes());
 
-      console.log('checkboxgroup no mode---', checkboxGroup, filterColumns, Array.from(checkboxGroup?.querySelectorAll('sl-checkbox')));
+      console.log('checkboxgroup no mode---', checkboxGroup, filterColumns, Array.from(checkboxGroup?.querySelectorAll('sl-checkbox')), popover?.querySelectorAll('sl-checkbox'));
 
       expect(checkboxGroup).to.have.trimmed.text('Endocrinologist');
     });
@@ -117,7 +135,7 @@ describe('sl-grid-filter-column', () => {
       const checkboxGroup = popover?.querySelector('sl-checkbox-group') as CheckboxGroup;
       const title = popover?.querySelector('#title');
       const dataSource = el?.dataSource;
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
       console.log('dataSource1', dataSource, dataSource?.items, 'eeeeeeel options', el.dataSource?.filters);
       console.log('columns1', columns, 'has attribute??', (columns[0])?.hasAttribute('active'), (columns[0])?.options, /*(columns[0])?.internalOptions,*/ popover?.querySelector('#title'));
       console.log('button and popover', button, popover);
@@ -133,7 +151,7 @@ describe('sl-grid-filter-column', () => {
 
       // TODO check title - 'filter by profession'
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       // const gridFilters = columns?.querySelectorAll('sl-grid-filter') as GridFilter[]; //el.renderRoor?.querySelectorAll('sl-grid-filter');
       // const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter'))[0];

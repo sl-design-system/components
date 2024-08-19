@@ -17,7 +17,7 @@ describe('sl-grid-filter', () => {
 
   const column = new GridFilterColumn();
   const dataSource = new ArrayDataSource(items) as DataSource;
-  dataSource.addFilter('', 'membership', 'Premium');
+  dataSource.addFilter('', 'membership', ['Premium']);
 
   const options = [
     {
@@ -48,16 +48,19 @@ describe('sl-grid-filter', () => {
 
   // .value=${dataSource.filters.values()}
 
+  // .filter=...
+
+  //           path="membership"
+  //           value="Premium"
+
   describe('defaults', () => {
     beforeEach(async () => {
       wrapper = await fixture(html`
         <th>
           <sl-grid-filter
           .column=${column}
-          options=${options}
+          .options=${options}
           mode="select"
-          path="membership"
-          value="Premium"
         >
           Membership
         </sl-grid-filter>
@@ -67,10 +70,10 @@ describe('sl-grid-filter', () => {
       await el.updateComplete;
 
       // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
 
-     console.log('wrapper before and el', wrapper, el);
+     console.log('wrapper before and el', wrapper, el, dataSource);
      // console.log('eeeeeel1 before', el, el.renderRoot);
       // el = await fixture(html`
       //   <sl-grid>

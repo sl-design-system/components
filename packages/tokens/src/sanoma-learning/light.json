@@ -459,7 +459,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.button.default.outline.disabled.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.info.outline.disabled.background"
             },
@@ -469,7 +469,7 @@
               "description": "color.button.info.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.button.default.outline.disabled.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.info.outline.disabled.border"
             }

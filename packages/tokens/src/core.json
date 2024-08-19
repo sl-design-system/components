@@ -795,6 +795,16 @@
             "value": "{space.xl} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
+          },
+          "textOnly": {
+            "md": {
+              "value": "{space.2xl}",
+              "type": "spacing"
+            },
+            "lg": {
+              "value": "{space.2xl}",
+              "type": "spacing"
+            }
           }
         },
         "icon-only": {

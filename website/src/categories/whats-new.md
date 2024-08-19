@@ -18,6 +18,29 @@ eleventyNavigation:
 <section class="ds-subpage-section">
 
 <div class="ds-subpage-section__wrapper">
+<section>
+  
+</section>
+## New Components and Key Bugfixes Rolled Out, Including Tool-Bar, Checkbox Group, and Enhanced Styling
+<small>July 2024</small>
+
+### New components and status changes
+- [Tool bar](https://storybook.sanomalearning.design/?path=/story/components-tool-bar--basic) <ds-status status="draft"></ds-status>
+- [Panel](https://storybook.sanomalearning.design/?path=/story/layout-panel--basic) <ds-status status="draft"></ds-status>
+- [Progress bar](https://storybook.sanomalearning.design/?path=/story/components-progress-bar--basic) <ds-status status="preview"></ds-status>
+- [Message dialog](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md) <ds-status status="preview"></ds-status> > <ds-status status="stable"></ds-status>
+
+### Bug fixes
+- [Checkbox group bugfix for initial checked state](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)
+- [Form field custom label styling fix](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md)
+- [Various message dialog fixes](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md)
+- [Fix avatar line-height bug](https://github.com/sl-design-system/components/blob/main/packages/components/avatar/CHANGELOG.md)
+- [Fix inline size berhavior of dialog](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md)
+  
+### Enhancements
+- [Add size property to button-bar](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md)
+- [Accordion item summary slottable](https://github.com/sl-design-system/components/blob/main/packages/components/accordion/CHANGELOG.md)
+- [Improve breadcrumbs hover state by changing text decoration thickness](https://github.com/sl-design-system/components/blob/main/packages/components/breadcrumbs/CHANGELOG.md)
 
 <section>
 

@@ -5,7 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type Tag } from './tag.js';
 
-type Props = Pick<Tag, 'disabled' | 'emphasis' | 'label' | 'readonly' | 'removable' | 'size'> & { maxWidth?: string };
+type Props = Pick<Tag, 'disabled' | 'emphasis' | 'label' | 'removable' | 'size'> & { maxWidth?: string };
 type Story = StoryObj<Props>;
 
 export default {
@@ -15,7 +15,6 @@ export default {
     disabled: false,
     emphasis: 'subtle',
     label: 'Tag label',
-    readonly: false,
     removable: false,
     size: 'md'
   },
@@ -29,10 +28,9 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ disabled, emphasis, label, maxWidth, readonly, removable, size }) => html`
+  render: ({ disabled, emphasis, label, maxWidth, removable, size }) => html`
     <sl-tag
       ?disabled=${disabled}
-      ?readonly=${readonly}
       ?removable=${removable}
       emphasis=${ifDefined(emphasis)}
       size=${ifDefined(size)}
@@ -65,13 +63,6 @@ export const Overflow: Story = {
   }
 };
 
-export const Readonly: Story = {
-  args: {
-    ...Basic.args,
-    readonly: true
-  }
-};
-
 export const Removable: Story = {
   args: {
     ...Basic.args,
@@ -92,7 +83,7 @@ export const All: Story = {
         #root-inner > div {
           display: inline-grid;
           gap: 1rem;
-          grid-template-columns: auto auto auto auto auto;
+          grid-template-columns: auto auto auto auto;
           justify-items: start;
         }
         span {
@@ -104,13 +95,11 @@ export const All: Story = {
       <div>
         <span>md</span>
         <sl-tag size="md">Label</sl-tag>
-        <sl-tag size="md" readonly>Readonly</sl-tag>
         <sl-tag removable size="md">Removable</sl-tag>
         <sl-tag size="md" disabled>Disabled</sl-tag>
         <sl-tag removable size="md" disabled>Disabled, removable</sl-tag>
 
         <sl-tag emphasis="bold" size="md">Label</sl-tag>
-        <sl-tag emphasis="bold" size="md" readonly>Readonly</sl-tag>
         <sl-tag emphasis="bold" removable size="md">Removable</sl-tag>
         <sl-tag emphasis="bold" size="md" disabled>Disabled</sl-tag>
         <sl-tag emphasis="bold" removable size="md" disabled>Disabled, removable</sl-tag>
@@ -119,13 +108,11 @@ export const All: Story = {
       <div>
         <span>lg</span>
         <sl-tag size="lg">Label</sl-tag>
-        <sl-tag size="lg" readonly>Readonly</sl-tag>
         <sl-tag removable size="lg">Removable</sl-tag>
         <sl-tag size="lg" disabled>Disabled</sl-tag>
         <sl-tag removable size="lg" disabled>Disabled, removable</sl-tag>
 
         <sl-tag emphasis="bold" size="lg">Label</sl-tag>
-        <sl-tag emphasis="bold" size="lg" readonly>Readonly</sl-tag>
         <sl-tag emphasis="bold" removable size="lg">Removable</sl-tag>
         <sl-tag emphasis="bold" size="lg" disabled>Disabled</sl-tag>
         <sl-tag emphasis="bold" removable size="lg" disabled>Disabled, removable</sl-tag>

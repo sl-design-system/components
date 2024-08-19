@@ -18,6 +18,7 @@ eleventyNavigation:
 <section class="ds-subpage-section">
 
 <div class="ds-subpage-section__wrapper">
+  
 <section>
   
 ## New Components and Key Bugfixes Rolled Out, Including Tool-Bar, Checkbox Group, and Enhanced Styling
@@ -27,7 +28,7 @@ eleventyNavigation:
 - [Tool bar](https://storybook.sanomalearning.design/?path=/story/components-tool-bar--basic) <ds-status status="draft"></ds-status>
 - [Panel](https://storybook.sanomalearning.design/?path=/story/layout-panel--basic) <ds-status status="draft"></ds-status>
 - [Progress bar](https://storybook.sanomalearning.design/?path=/story/components-progress-bar--basic) <ds-status status="preview"></ds-status>
-- [Message dialog](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md) <ds-status status="preview"></ds-status> > <ds-status status="stable"></ds-status>
+- [Message dialog](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md) <ds-status status="stable"></ds-status>
 
 ### Bug fixes
 - [Checkbox group bugfix for initial checked state](https://github.com/sl-design-system/components/blob/main/packages/components/checkbox/CHANGELOG.md)

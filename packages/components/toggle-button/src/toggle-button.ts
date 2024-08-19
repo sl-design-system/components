@@ -5,6 +5,7 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './toggle-button.scss.js';
 
 declare global {
@@ -17,7 +18,7 @@ export type ToggleButtonFill = 'ghost' | 'outline';
 export type ToggleButtonSize = 'md' | 'lg';
 
 /**
- * Let's the user toggle between two states.
+ * Lets the user toggle between two states.
  *
  * ```html
  *  <sl-toggle-button>
@@ -59,7 +60,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** The variant of the toggle-button. */
   @property({ reflect: true }) fill?: ToggleButtonFill;
 
-  /** @internal True when the user has slotted text in the  */
+  /** @internal True when the user has slotted text in the button. */
   @state() hasText?: boolean;
 
   /** @internal Used for setting the tooltip on the button. */
@@ -158,7 +159,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       <div part="wrapper">
         <slot @slotchange=${this.#onIconSlotChange} name="default"></slot>
         <slot @slotchange=${this.#onIconSlotChange} name="pressed">
-          <sl-icon name="check-solid"></sl-icon>
+          <sl-icon name="check-solid" size=${ifDefined(this.size)}></sl-icon>
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>

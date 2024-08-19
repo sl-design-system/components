@@ -7,7 +7,6 @@
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_font: var(--sl-text-button-text-md);
-  --_icon-container-size: var(--sl-size-button-icon-md);
   --_label-gap: var(--sl-space-button-gap-md);
   --_padding-block: var(--sl-space-button-ghost-icon-only-md);
   --_padding-inline: var(--sl-space-button-ghost-icon-only-md);
@@ -98,7 +97,6 @@
 :host([size='lg']) {
   --_border-radius: var(--sl-border-radius-button-lg);
   --_font: var(--sl-text-button-text-lg);
-  --_icon-container-size: var(--sl-size-button-icon-lg);
   --_padding-block: var(--sl-space-button-ghost-icon-only-lg);
   --_padding-inline: var(--sl-space-button-ghost-icon-only-lg);
 }
@@ -136,8 +134,6 @@
 
 sl-icon,
 ::slotted(sl-icon) {
-  --sl-icon-container-size: var(--_icon-container-size);
-
   fill: var(--_color);
   pointer-events: none; // Prevent the icon from ever gaining focus inside the button
 }

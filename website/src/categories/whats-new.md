@@ -35,7 +35,7 @@ eleventyNavigation:
 - [Form field custom label styling fix](https://github.com/sl-design-system/components/blob/main/packages/components/form/CHANGELOG.md)
 - [Various message dialog fixes](https://github.com/sl-design-system/components/blob/main/packages/components/message-dialog/CHANGELOG.md)
 - [Fix avatar line-height bug](https://github.com/sl-design-system/components/blob/main/packages/components/avatar/CHANGELOG.md)
-- [Fix inline size berhavior of dialog](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md)
+- [Fix inline size behavior of dialog](https://github.com/sl-design-system/components/blob/main/packages/components/dialog/CHANGELOG.md)
   
 ### Enhancements
 - [Add size property to button-bar](https://github.com/sl-design-system/components/blob/main/packages/components/button-bar/CHANGELOG.md)

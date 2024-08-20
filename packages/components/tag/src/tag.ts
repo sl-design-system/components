@@ -117,7 +117,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       <slot @slotchange=${this.#onSlotChange} .tabIndex=${this.disabled ? -1 : 0}></slot>
       ${this.removable
         ? html`
-            <button @click=${this.#onRemove} aria-label=${msg('Remove')} ?disabled=${this.disabled} tabindex="-1">
+            <button
+              @click=${this.#onRemove}
+              @mousedown=${this.#onMousedown}
+              aria-label=${msg('Remove')}
+              ?disabled=${this.disabled}
+              tabindex="-1"
+            >
               <sl-icon name="xmark" size=${ifDefined(this.size)}></sl-icon>
             </button>
           `
@@ -129,6 +135,11 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     if (['Backspace', 'Delete'].includes(event.key) && this.removable) {
       this.#onRemove(event);
     }
+  }
+
+  #onMousedown(event: MouseEvent): void {
+    // Prevent button from getting focus
+    event.preventDefault();
   }
 
   #onRemove(event: Event): void {

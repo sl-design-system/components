@@ -114,7 +114,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange}></slot>
+      <slot @slotchange=${this.#onSlotChange} .tabIndex=${this.disabled ? -1 : 0}></slot>
       ${this.removable
         ? html`
             <button @click=${this.#onRemove} aria-label=${msg('Remove')} ?disabled=${this.disabled} tabindex="-1">

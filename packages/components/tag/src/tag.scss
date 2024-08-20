@@ -23,14 +23,13 @@
 }
 
 slot:hover,
-slot:hover + button,
-button:hover {
+slot:hover + button {
   --_background: var(--sl-color-tag-subtle-hover-background);
   --_border-color: var(--sl-color-tag-subtle-hover-border);
   --_color: var(--sl-color-tag-subtle-hover-foreground);
 }
 
-:host(:focus) {
+:host(:focus-within) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 
@@ -39,6 +38,14 @@ button:hover {
     --_background: var(--sl-color-tag-subtle-active-background);
     --_border-color: var(--sl-color-tag-subtle-active-border);
     --_color: var(--sl-color-tag-subtle-active-foreground);
+  }
+
+  slot:hover,
+  slot:hover + button,
+  button:hover {
+    --_background: var(--sl-color-tag-bold-hover-background);
+    --_border-color: var(--sl-color-tag-bold-hover-border);
+    --_color: var(--sl-color-tag-bold-hover-foreground);
   }
 }
 
@@ -127,6 +134,18 @@ button {
   justify-content: center;
   transition: 200ms linear;
   transition-property: background, border-color;
+
+  &:hover {
+    --_background: var(--sl-color-tag-subtle-hover-background);
+    --_border-color: var(--sl-color-tag-subtle-hover-background);
+    --_color: var(--sl-color-tag-subtle-hover-foreground);
+  }
+
+  &:active {
+    --_background: var(--sl-color-tag-subtle-active-background);
+    --_border-color: var(--sl-color-tag-subtle-active-background);
+    --_color: var(--sl-color-tag-subtle-active-foreground);
+  }
 }
 
 sl-icon {

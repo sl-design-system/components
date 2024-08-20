@@ -2,10 +2,10 @@ import { faBell, faGear } from '@fortawesome/pro-regular-svg-icons';
 import { faBell as fasBell, faGear as fasGear } from '@fortawesome/pro-solid-svg-icons';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-group/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/toggle-button/register.js';
+import '@sl-design-system/toggle-group/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
@@ -27,16 +27,16 @@ describe('sl-tool-bar', () => {
 
           <sl-tool-bar-divider></sl-tool-bar-divider>
 
-          <sl-button-group>
+          <sl-toggle-group>
             <sl-toggle-button aria-label="Bell">
-              <sl-icon name="far-bell"></sl-icon>
+              <sl-icon name="far-bell" slot="default"></sl-icon>
               <sl-icon name="fas-bell" slot="pressed"></sl-icon>
             </sl-toggle-button>
             <sl-toggle-button aria-label="Gear">
-              <sl-icon name="far-gear"></sl-icon>
+              <sl-icon name="far-gear" slot="default"></sl-icon>
               <sl-icon name="fas-gear" slot="pressed"></sl-icon>
             </sl-toggle-button>
-          </sl-button-group>
+          </sl-toggle-group>
         </sl-tool-bar>
       `);
 
@@ -118,16 +118,16 @@ describe('sl-tool-bar', () => {
 
           <sl-tool-bar-divider></sl-tool-bar-divider>
 
-          <sl-button-group>
+          <sl-toggle-group>
             <sl-toggle-button aria-label="Bell">
-              <sl-icon name="far-bell"></sl-icon>
+              <sl-icon name="far-bell" slot="default"></sl-icon>
               <sl-icon name="fas-bell" slot="pressed"></sl-icon>
             </sl-toggle-button>
             <sl-toggle-button aria-label="Gear">
-              <sl-icon name="far-gear"></sl-icon>
+              <sl-icon name="far-gear" slot="default"></sl-icon>
               <sl-icon name="fas-gear" slot="pressed"></sl-icon>
             </sl-toggle-button>
-          </sl-button-group>
+          </sl-toggle-group>
         </sl-tool-bar>
       `);
 
@@ -161,7 +161,7 @@ describe('sl-tool-bar', () => {
       expect(hr).to.exist;
     });
 
-    it('should have a menu group for the button group', () => {
+    it('should have a menu group for the toggle group', () => {
       const group = el.renderRoot.querySelector('sl-menu-item-group');
 
       expect(group).to.exist;

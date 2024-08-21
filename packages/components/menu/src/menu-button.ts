@@ -5,6 +5,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type PopoverPosition } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './menu-button.scss.js';
 import { MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
@@ -78,11 +79,11 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
       <sl-button
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
-        .disabled=${this.disabled}
-        .fill=${this.fill}
-        .size=${this.size}
-        .variant=${this.variant}
+        ?disabled=${this.disabled}
+        fill=${ifDefined(this.fill)}
         part="button"
+        size=${ifDefined(this.size)}
+        variant=${ifDefined(this.variant)}
       >
         <slot name="button"></slot>
         ${iconOnly ? nothing : html`<sl-icon name="angle-down"></sl-icon>`}

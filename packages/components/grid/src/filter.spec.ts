@@ -1,11 +1,10 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { ArrayDataSource, DataSource } from '@sl-design-system/shared';
 import { html } from 'lit';
 import '../register.js';
-import { type Grid } from './grid.js';
-import {ArrayDataSource, DataSource, getNameByPath} from "@sl-design-system/shared";
-import {GridFilter} from "./filter.js";
-import {GridFilterColumn} from "./filter-column.js";
+import { GridFilterColumn } from './filter-column.js';
+import { GridFilter } from './filter.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
@@ -21,30 +20,21 @@ describe('sl-grid-filter', () => {
 
   const options = [
     {
-      "label": "Premium",
-      "value": "Premium"
+      label: 'Premium',
+      value: 'Premium'
     },
     {
-      "label": "Regular",
-      "value": "Regular"
+      label: 'Regular',
+      value: 'Regular'
     },
     {
-      "label": "VIP",
-      "value": "VIP"
+      label: 'VIP',
+      value: 'VIP'
     }
   ];
 
-  // let el: Grid;
-  // let cells: HTMLElement[];
-
-  // TODO: use addFilter??
-
   // TODO: test mode -> .mode=${this.mode || 'select'}
   // TODO: test options -> .options=${this.options ?? this.internalOptions}
-
-  /*          <sl-grid-sorter .column=${column} direction="asc" name="name" .sorter=${dataSource.sort}>
-            Name
-          </sl-grid-sorter>*/
 
   // .value=${dataSource.filters.values()}
 
@@ -57,13 +47,9 @@ describe('sl-grid-filter', () => {
     beforeEach(async () => {
       wrapper = await fixture(html`
         <th>
-          <sl-grid-filter
-          .column=${column}
-          .options=${options}
-          mode="select"
-        >
-          Membership
-        </sl-grid-filter>
+          <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership" value="Premium">
+            Membership
+          </sl-grid-filter>
         </th>
       `);
       el = wrapper.querySelector<GridFilter>('sl-grid-filter')!;
@@ -73,8 +59,8 @@ describe('sl-grid-filter', () => {
       await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
 
-     console.log('wrapper before and el', wrapper, el, dataSource);
-     // console.log('eeeeeel1 before', el, el.renderRoot);
+      console.log('wrapper before and el', wrapper, el, dataSource);
+      // console.log('el before', el, el.renderRoot);
       // el = await fixture(html`
       //   <sl-grid>
       //     <sl-grid-filter-column path="profession"></sl-grid-filter-column>
@@ -105,12 +91,10 @@ describe('sl-grid-filter', () => {
       // // Give grid time to render the table structure
       // await new Promise(resolve => setTimeout(resolve, 100));
       // await el.updateComplete;
-
-      // cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
     });
 
-    it('should render correct checkboxes',  () => {
-     // console.log('wrapper', wrapper, wrapper.renderRoot);
+    it('should render correct checkboxes', () => {
+      // console.log('wrapper', wrapper, wrapper.renderRoot);
       console.log('eeeeeel1', el);
       expect(wrapper).not.to.exist;
     });
@@ -151,7 +135,6 @@ describe('sl-grid-filter', () => {
     //   expect(filterMode).not.to.exist;
     //   // expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
     // });
-
 
     // it('should have a filter column header with a proper mode when it is set', () => {
     //   console.log('el', el);
@@ -226,7 +209,6 @@ describe('sl-grid-filter', () => {
 
 // TODO: events emitting tests
 
-
 // TODO: test this exactly (inside th, similar to sorter.spec.ts?):
 /*
 <sl-grid-filter
@@ -238,6 +220,5 @@ describe('sl-grid-filter', () => {
 >
 ${this.header ?? getNameByPath(this.path)}
 </sl-grid-filter>*/
-
 
 // TODO: test mode text and select

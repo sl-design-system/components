@@ -22,7 +22,7 @@ export const Simple: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
-      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="firstName"><sl-icon name="xmark" slot="header"></sl-icon></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column path="address.phone"></sl-grid-column>
@@ -108,7 +108,7 @@ export const CustomRenderers: Story = {
             'sl-menu-item': MenuItem
           }}
         ></sl-grid-column>
-        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="email"><sl-icon name="xmark" slot="header"></sl-icon></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
         <sl-grid-column grow="0" header="" .renderer=${menuButtonRenderer} width="64"></sl-grid-column>
       </sl-grid>

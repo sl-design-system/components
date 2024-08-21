@@ -86,7 +86,10 @@ export class Menu extends LitElement {
     super.connectedCallback();
 
     this.role = 'menu';
-    this.setAttribute('popover', '');
+
+    if (!this.hasAttribute('popover')) {
+      this.setAttribute('popover', '');
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {

@@ -19,6 +19,8 @@ declare global {
   }
 }
 
+export type MenuItemVariant = 'default' | 'danger';
+
 /**
  * Menu item component for use inside a menu.
  *
@@ -70,6 +72,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
+
+  /** The variant of the menu item. */
+  @property({ reflect: true }) variant?: MenuItemVariant;
 
   override connectedCallback(): void {
     super.connectedCallback();

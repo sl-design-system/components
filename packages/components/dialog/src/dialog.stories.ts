@@ -139,6 +139,29 @@ export const HeaderButtons: Story = {
   }
 };
 
+export const Lazy: Story = {
+  render: () => {
+    const onClick = async (event: Event & { target: HTMLElement }) => {
+      const dialog = document.createElement('sl-dialog');
+      dialog.innerHTML = `
+        <span slot="title">Title</span>
+        Hello world!
+      `;
+      dialog.addEventListener('sl-close', () => {
+        console.log('Dialog closed');
+
+        dialog.remove();
+      });
+
+      event.target.insertAdjacentElement('afterend', dialog);
+      await dialog.updateComplete;
+      dialog.showModal();
+    };
+
+    return html`<sl-button @click=${onClick}>Show dialog</sl-button>`;
+  }
+};
+
 export const Mobile: Story = {
   ...Basic,
   parameters: {

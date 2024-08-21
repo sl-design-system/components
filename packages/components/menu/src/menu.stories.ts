@@ -58,7 +58,9 @@ export default {
           position: static !important;
         }
       </style>
-      <sl-menu .selects=${selects} class="root-menu" style="max-width: ${maxWidth}">${menuItems()}</sl-menu>
+      <sl-menu .selects=${selects} class="root-menu" popover="manual" style="max-width: ${maxWidth}">
+        ${menuItems()}
+      </sl-menu>
     `;
   }
 } satisfies Meta<Props>;
@@ -78,7 +80,23 @@ export const Basic: Story = {
   }
 };
 
-export const Grouped: Story = {
+export const Divider: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-pen"></sl-icon>
+        Rename...
+      </sl-menu-item>
+      <hr />
+      <sl-menu-item>
+        <sl-icon name="far-trash"></sl-icon>
+        Delete...
+      </sl-menu-item>
+    `
+  }
+};
+
+export const Group: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item>
@@ -89,7 +107,31 @@ export const Grouped: Story = {
         <sl-icon name="far-gear"></sl-icon>
         Settings
       </sl-menu-item>
-      <hr />
+      <sl-menu-item-group>
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
+    `
+  }
+};
+
+export const GroupWithHeading: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-code"></sl-icon>
+        Components
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-gear"></sl-icon>
+        Settings
+      </sl-menu-item>
       <sl-menu-item-group heading="Design System">
         <sl-menu-item>
           <sl-icon name="far-rocket"></sl-icon>
@@ -109,42 +151,6 @@ export const Overflow: Story = {
     menuItems: () => html`
       <sl-menu-item>Cupidatat amet aute sint voluptate fugiat dolore.</sl-menu-item>
       <sl-menu-item>Laboris laborum excepteur aute esse reprehenderit.</sl-menu-item>
-    `
-  }
-};
-
-export const SingleSelect: Story = {
-  args: {
-    menuItems: () => html`
-      <sl-menu-item selectable selected>Lorem</sl-menu-item>
-      <sl-menu-item selectable>Ipsum</sl-menu-item>
-      <sl-menu-item selectable>Dolar</sl-menu-item>
-    `,
-    selects: 'single'
-  }
-};
-
-export const MultiSelect: Story = {
-  args: {
-    menuItems: () => html`
-      <sl-menu-item selectable selected>Lorem</sl-menu-item>
-      <sl-menu-item selectable>Ipsum</sl-menu-item>
-      <sl-menu-item selectable>Dolar</sl-menu-item>
-    `,
-    selects: 'multiple'
-  }
-};
-
-export const ComboSelect: Story = {
-  args: {
-    menuItems: () => html`
-      <sl-menu-item-group selects="multiple">
-        <sl-menu-item selectable selected>Lorem</sl-menu-item>
-        <sl-menu-item selectable>Ipsum</sl-menu-item>
-        <sl-menu-item selectable>Dolar</sl-menu-item>
-      </sl-menu-item-group>
-      <hr />
-      <sl-menu-item selectable selected>Foo bar</sl-menu-item>
     `
   }
 };
@@ -250,7 +256,7 @@ export const All: Story = {
           <sl-icon name="far-pen"></sl-icon>
           Rename...
         </sl-menu-item>
-        <sl-menu-item>
+        <sl-menu-item variant="danger">
           <sl-icon name="far-trash"></sl-icon>
           Delete...
         </sl-menu-item>

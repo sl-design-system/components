@@ -1,15 +1,17 @@
 :host {
-  --_header-color: rgb(var(--sl-color-palette-neutral-500));
-  --_header-padding: 6px;
-
   display: flex;
   flex: 1;
-  flex-direction: column;
 }
 
 slot[name='header'] span,
 slot[name='header']::slotted(*) {
-  color: var(--_header-color);
-  font-weight: 600;
-  padding: var(--_header-padding);
+  color: var(--sl-color-text-subtle);
+  padding: var(--sl-space-new-md);
+}
+
+[part='wrapper'] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-new-xs);
+  margin-inline: var(--sl-space-new-md);
 }

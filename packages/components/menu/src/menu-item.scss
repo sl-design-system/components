@@ -23,20 +23,41 @@
 }
 
 :host(:focus-visible) {
-  outline: var(--_focus-outline);
+  border-radius: var(--sl-size-border-radius-default);
+  outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  outline-offset: var(--sl-border-width-focusring-offset);
   position: relative;
   z-index: 1;
 }
 
 :host([disabled]) {
-  --_cursor: default;
-
   color: var(--sl-color-select-item-disabled-foreground);
   pointer-events: none;
+
+  .wrapper {
+    cursor: default;
+  }
 }
 
 :host([selected]) {
   --_indent: 6px;
+}
+
+:host([variant='danger']) [part='wrapper'] {
+  background: var(--sl-color-action-background-error-subtle-idle);
+  color: var(--sl-color-text-danger-idle);
+
+  &:hover {
+    background: var(--sl-color-action-background-error-subtle-hover);
+  }
+
+  &:active {
+    background: var(--sl-color-action-background-error-subtle-active);
+  }
+}
+
+::slotted(sl-icon) {
+  --sl-icon-size: var(--sl-size-icon-xs);
 }
 
 slot[name='submenu']::slotted(sl-menu) {
@@ -57,31 +78,34 @@ slot[name='submenu']::slotted(sl-menu) {
     calc(var(--_safe-triangle-inset-inline-start) - var(--sl-menu-border-width, 1px));
   position: fixed;
 
-  &:hover + .wrapper {
-    --_background: var(--sl-color-select-item-hover-background);
+  &:hover + [part='wrapper'] {
+    background: var(--sl-color-action-background-accent-subtle-hover);
   }
 }
 
 [part='wrapper'] {
   align-items: center;
-  background: var(--_background);
-  border-radius: var(--_border-radius);
-  cursor: var(--_cursor);
+  background: var(--sl-color-action-background-accent-subtle-idle);
+  border-radius: var(--sl-size-border-radius-default);
+  color: var(--sl-color-text-default);
+  cursor: pointer;
   display: flex;
-  gap: var(--_gap);
-  padding: var(--_padding);
+  gap: var(--sl-space-new-md);
+  padding: var(--sl-space-new-md);
   padding-inline-start: var(--_indent);
 
   &:hover {
-    --_background: var(--sl-color-select-item-hover-background);
+    background: var(--sl-color-action-background-accent-subtle-hover);
   }
 
   &:active {
-    --_background: var(--sl-color-select-item-active-background);
+    background: var(--sl-color-action-background-accent-subtle-active);
   }
 }
 
 sl-icon[name='check'] {
+  --sl-icon-size: var(--sl-size-icon-sm);
+
   padding-inline: 3px;
 }
 

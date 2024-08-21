@@ -9,7 +9,7 @@
         "value": "#262626",
         "type": "color"
       },
-      "transparant": {
+      "transparent": {
         "value": "#00000000",
         "type": "color"
       }
@@ -451,7 +451,7 @@
         "accent": {
           "subtle": {
             "idle": {
-              "value": "{color.base.transparant}",
+              "value": "{color.base.transparent}",
               "type": "color"
             },
             "hover": {
@@ -467,7 +467,7 @@
         "error": {
           "subtle": {
             "idle": {
-              "value": "{color.base.transparant}",
+              "value": "{color.base.transparent}",
               "type": "color"
             },
             "hover": {

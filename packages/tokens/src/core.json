@@ -375,12 +375,12 @@
             "type": "sizing"
           },
           "md": {
-            "value": "{size.icon.font.md}",
+            "value": "{size.icon.md}",
             "type": "sizing",
             "description": "size.input.md"
           },
           "lg": {
-            "value": "{size.icon.font.lg}",
+            "value": "{size.icon.lg}",
             "type": "sizing",
             "description": "size.input.lg"
           }

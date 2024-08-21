@@ -11,12 +11,12 @@
           "type": "fontFamilies"
         },
         "icon": {
-          "value": "{icon.typeset.fontfamily.classic}",
+          "value": "{icon.typeset.fontFamily.classic}",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.fontIcon"
         }
       },
-      "fontweight": {
+      "fontWeight": {
         "regular": {
           "value": "Regular",
           "type": "fontWeights"

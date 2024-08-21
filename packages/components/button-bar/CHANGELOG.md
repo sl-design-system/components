@@ -1,5 +1,16 @@
 # @sl-design-system/button-bar
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1411](https://github.com/sl-design-system/components/pull/1411) [`1ea82aa`](https://github.com/sl-design-system/components/commit/1ea82aad5579752ba52e8e6c08c97e3c14237816) - Add `size` property to button-bar for ease of use
+
+### Patch Changes
+
+- Updated dependencies [[`6c7f900`](https://github.com/sl-design-system/components/commit/6c7f9004959dfbb7a715a6ecec8d82da6b1e5e9c)]:
+  - @sl-design-system/button@1.0.2
+
 ## 1.0.0
 
 ### Major Changes

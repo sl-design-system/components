@@ -4,12 +4,12 @@ import { codeSnippetStyles } from './code-snippet-style';
 
 @customElement('ds-code-snippet')
 export class CodeSnippet extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = codeSnippetStyles;
 
   @property() language?: string;
 
-  /** @private The slotted code. */
+  /** @internal The slotted code. */
   @queryAssignedNodes({ flatten: true }) code?: Node[];
 
   override render(): TemplateResult {

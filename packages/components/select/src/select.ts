@@ -23,13 +23,14 @@ export type SelectSize = 'md' | 'lg';
  * A form control that allows users to select one option from a list of options.
  *
  * @slot default - Place for `sl-select-option` elements
+ * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
  */
 @localized()
 export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
 
-  /** The default offset of the listbox to the button. */
+  /** @internal The default offset of the listbox to the button. */
   static offset = 6;
 
   /** @internal */
@@ -45,7 +46,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The default margin between the tooltip and the viewport. */
+  /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
   /** Events controller. */
@@ -96,7 +97,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
-  /** The listbox element. */
+  /** @internal The listbox element. */
   @query('[popover]') listbox!: HTMLElement;
 
   /** The placeholder text to show when no option is chosen. */
@@ -114,9 +115,11 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** The size of the select. */
   @property({ reflect: true }) size: SelectSize = 'md';
 
-  /** The number of pixels from the top of the viewport the select should be hidden on scroll.
-   * Use this when there is a sticky header you don't want dropdowns to fall on top of. */
-  @property({ attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
+  /**
+   * The number of pixels from the top of the viewport the select should be hidden on scroll.
+   * Use this when there is a sticky header you don't want dropdowns to fall on top of.
+   */
+  @property({ type: Number, attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
 
   /** The value for the select, to be used in forms. */
   @property() override value?: T;

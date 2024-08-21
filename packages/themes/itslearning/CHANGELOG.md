@@ -1,5 +1,25 @@
 # @sanomalearning/slds-itslearning
 
+## 0.1.13
+
+### Patch Changes
+
+- [#1389](https://github.com/sl-design-system/components/pull/1389) [`f03971b`](https://github.com/sl-design-system/components/commit/f03971b7b338a4248df292060b91b6b903b6c8ed) - Minor style fixes:
+
+  - Fix the title and subtitle text being cutoff for certain characters due not enough line-height
+  - Use a different color for the subtitle text
+
+- [#1395](https://github.com/sl-design-system/components/pull/1395) [`1647361`](https://github.com/sl-design-system/components/commit/1647361aba7af478745fc30a8067154debff0808) - Fixed issues where icons did not apply the color set on the parent element or in the `--sl-icon-fill-default` property
+
+- [#1365](https://github.com/sl-design-system/components/pull/1365) [`6c7f900`](https://github.com/sl-design-system/components/commit/6c7f9004959dfbb7a715a6ecec8d82da6b1e5e9c) - Added tokens for toggle button and updated style for ghost button to match
+
+- [#1392](https://github.com/sl-design-system/components/pull/1392) [`fdf3644`](https://github.com/sl-design-system/components/commit/fdf36446ce68afe58d10ace6706258a46c822579) - Add new tokens for message-dialog on mobile
+
+- [#1377](https://github.com/sl-design-system/components/pull/1377) [`91a81b1`](https://github.com/sl-design-system/components/commit/91a81b1ceb72df0c7a1c149dc9a7b73aabd08fd0) - Added progress bar tokens
+
+- Updated dependencies [[`1647361`](https://github.com/sl-design-system/components/commit/1647361aba7af478745fc30a8067154debff0808)]:
+  - @sl-design-system/icon@1.0.1
+
 ## 0.1.12
 
 ### Patch Changes

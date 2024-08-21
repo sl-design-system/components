@@ -22,7 +22,7 @@ export default {
   args: {
     alignSelf: 'center',
     justifySelf: 'center',
-    maxWidth: 150,
+    maxWidth: 160,
     message: 'This is the tooltip message',
     position: 'top'
   },
@@ -115,7 +115,7 @@ export const Shared: Story = {
 };
 
 export const All: Story = {
-  render: ({ message }) => {
+  render: () => {
     setTimeout(() => {
       document.querySelectorAll('sl-button').forEach(button => {
         button.dispatchEvent(new Event('pointerover', { bubbles: true }));
@@ -130,7 +130,7 @@ export const All: Story = {
         }
       </style>
       <sl-button aria-describedby="tooltip"> Button </sl-button>
-      <sl-tooltip id="tooltip" position="top" max-width="300">${message}</sl-tooltip>
+      <sl-tooltip id="tooltip" position="top" max-width="300">This is the tooltip message</sl-tooltip>
     `;
   }
 };

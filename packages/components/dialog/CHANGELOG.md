@@ -1,5 +1,21 @@
 # @sl-design-system/dialog
 
+## 1.0.3
+
+### Patch Changes
+
+- [#1392](https://github.com/sl-design-system/components/pull/1392) [`fdf3644`](https://github.com/sl-design-system/components/commit/fdf36446ce68afe58d10ace6706258a46c822579) - Fix `max-inline-size` default behavior to account for inline margins
+
+- [#1379](https://github.com/sl-design-system/components/pull/1379) [`4242ea2`](https://github.com/sl-design-system/components/commit/4242ea24a85d758a71bb8c88aa6ae8a0aba442b5) - Fix various issues:
+  - Add focus outline for `<dialog>`; see https://adrianroselli.com/2020/10/dialog-focus-in-screen-readers.html#Update01
+  - Add workaround for dialog focus behavior in combination with slots; see https://github.com/whatwg/html/issues/9245
+  - Improve API documentation
+- Updated dependencies [[`1ea82aa`](https://github.com/sl-design-system/components/commit/1ea82aad5579752ba52e8e6c08c97e3c14237816), [`1647361`](https://github.com/sl-design-system/components/commit/1647361aba7af478745fc30a8067154debff0808), [`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220), [`6c7f900`](https://github.com/sl-design-system/components/commit/6c7f9004959dfbb7a715a6ecec8d82da6b1e5e9c)]:
+  - @sl-design-system/button-bar@1.1.0
+  - @sl-design-system/icon@1.0.1
+  - @sl-design-system/shared@0.2.13
+  - @sl-design-system/button@1.0.2
+
 ## 1.0.2
 
 ### Patch Changes

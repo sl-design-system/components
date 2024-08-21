@@ -71,11 +71,8 @@ const preview: Preview = {
           magister: themes['magister'],
           max: themes['max'],
           'my-digital-book': themes['my-digital-book'],
-          myvanin: themes['myvanin'],
           neon: themes['neon'],
-          // 'nowa-era': themes['nowa-era'],
           'sanoma-learning': themes['sanoma-learning'],
-          'sanoma-utbildning': themes['sanoma-utbildning'],
           teas: themes['teas'],
         },
         defaultTheme: 'sanoma-learning'

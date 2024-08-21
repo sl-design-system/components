@@ -1,4 +1,4 @@
-import {LitElement, CSSResultGroup, type TemplateResult, html, nothing} from 'lit';
+import { CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { componentStatusStyles } from './component-status-style';
 
@@ -7,7 +7,7 @@ export type StatusType = 'planned' | 'draft' | 'preview' | 'new' | 'stable' | 'd
 
 @customElement('ds-component-status')
 export class ComponentStatus extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = componentStatusStyles;
 
   @property() componentName = '';
@@ -40,39 +40,57 @@ export class ComponentStatus extends LitElement {
   override render(): TemplateResult {
     return html`
       <div class="wrapper">
-            <div class="component-info">
-              <div class="ds-heading-4 info">
-                Status
-                <ds-status status=${this.status}></ds-status>
-              </div>
-              ${this.version ? html`
-                  <div class="ds-heading-4 info">
-                    Version
-                    <span class="link">
-                  <a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F${this.componentName}%40${this.version}" target="_blank">
-                      v${this.version}
+        <div class="component-info">
+          <div class="ds-heading-4 info">
+            Status
+            <ds-status status=${this.status}></ds-status>
+          </div>
+          ${this.version
+            ? html` <div class="ds-heading-4 info">
+                Version
+                <span class="link">
+                  <a
+                    href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F${this
+                      .componentName}%40${this.version}"
+                    target="_blank"
+                  >
+                    v${this.version}
                   </a>
                   <sl-icon name="far-arrow-up-right-from-square"></sl-icon>
                 </span>
-                  </div>`
-                : nothing}
-            </div>
-            <div class="links">
-              <sl-button-bar>
-                <a class="ds-button" href="https://github.com/sl-design-system/components/blob/main/packages/components/${this.componentName}/CHANGELOG.md" target="_blank">
-                  <sl-icon name="github"></sl-icon>
-                  View changelog
-                </a>
-                <a class="ds-button" href="https://github.com/sl-design-system/components/tree/main/packages/components/${this.componentName}" target="_blank">
-                  <sl-icon name="github"></sl-icon>
-                  View code
-                </a>
-                <a class="ds-button" href="https://storybook.sanomalearning.design/?path=/story/${this.storybookCategory}-${this.storybookComponentName}" target="_blank">
-                  <sl-icon name="storybook"></sl-icon>
-                  View Storybook
-                </a>
-              </sl-button-bar>
-            </div>
+              </div>`
+            : nothing}
+        </div>
+        <div class="links">
+          <sl-button-bar>
+            <a
+              class="ds-button"
+              href="https://github.com/sl-design-system/components/blob/main/packages/components/${this
+                .componentName}/CHANGELOG.md"
+              target="_blank"
+            >
+              <sl-icon name="github"></sl-icon>
+              View changelog
+            </a>
+            <a
+              class="ds-button"
+              href="https://github.com/sl-design-system/components/tree/main/packages/components/${this.componentName}"
+              target="_blank"
+            >
+              <sl-icon name="github"></sl-icon>
+              View code
+            </a>
+            <a
+              class="ds-button"
+              href="https://storybook.sanomalearning.design/?path=/story/${this.storybookCategory}-${this
+                .storybookComponentName}"
+              target="_blank"
+            >
+              <sl-icon name="storybook"></sl-icon>
+              View Storybook
+            </a>
+          </sl-button-bar>
+        </div>
       </div>
     `;
   }

@@ -23,11 +23,10 @@
 
 [part='header'] {
   align-items: start;
-  display: flex;
+  display: grid;
   flex: 1;
+  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
   justify-content: space-between;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
 
   > * {
     // FIXME: This is a quick hack to vertically align the heading with any action buttons
@@ -39,7 +38,8 @@
   align-items: center;
   display: flex;
   gap: 0.5rem;
-  padding-inline: var(--_wrapper-padding-inline);
+  padding-block: var(--_padding-block);
+  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }
 
 button {
@@ -51,6 +51,7 @@ button {
   flex: 1;
   outline: 0;
   padding: 0;
+  text-align: start;
 
   &:focus-visible {
     outline: var(--_focus-outline);
@@ -71,6 +72,14 @@ slot[name='heading']::slotted(*) {
 
 slot[name='heading'] {
   display: block;
+}
+
+sl-tool-bar {
+  min-inline-size: 0;
+
+  &:not([empty]) {
+    padding-inline-end: var(--_padding-inline);
+  }
 }
 
 slot[name='actions']::slotted(:first-child) {

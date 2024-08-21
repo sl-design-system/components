@@ -36,7 +36,7 @@ export default {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'default'
+      defaultViewport: 'reset'
     }
   },
   render: args => {
@@ -143,7 +143,7 @@ export const Mobile: Story = {
   ...Basic,
   parameters: {
     viewport: {
-      defaultViewport: 'iphone14'
+      defaultViewport: 'iphone13'
     }
   }
 };

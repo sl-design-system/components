@@ -11,14 +11,16 @@ export default {
   tags: ['preview'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
-    chromatic: { disableSnapshot: true }
+    chromatic: { disableSnapshot: true },
+    viewport: {
+      defaultViewport: 'reset'
+    }
   },
   render: args => {
     const onClick = async (): Promise<void> => {
       const result = await args.onClick(args);
 
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      void MessageDialog.alert(`The result was: ${result}`);
+      void MessageDialog.alert(`The result was: ${result as string}`);
     };
 
     return html`<sl-button @click=${onClick}>Show message</sl-button>`;

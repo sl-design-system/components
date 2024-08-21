@@ -36,14 +36,14 @@ export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   #events = new EventsController(this);

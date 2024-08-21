@@ -34,13 +34,13 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  */
 @localized()
 export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */

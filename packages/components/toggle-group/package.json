@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/button-group",
+  "name": "@sl-design-system/toggle-group",
   "version": "0.0.1",
-  "description": "Button group component for the SL Design System",
+  "description": "Toggle group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/button-group"
+    "directory": "packages/components/toggle-group"
   },
-  "homepage": "https://sanomalearning.design/components/button-group",
+  "homepage": "https://sanomalearning.design/components/toggle-group",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },
@@ -38,9 +38,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "^1.0.2"
+    "@sl-design-system/shared": "^0.2.13",
+    "@sl-design-system/toggle-button": "^0.0.1"
   },
   "devDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5",
     "lit": "^3.1.4"
   },
   "peerDependencies": {

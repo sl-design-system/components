@@ -30,7 +30,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @internal */
   static formAssociated = true;
 
-  /** The default offset of the listbox to the button. */
+  /** @internal The default offset of the listbox to the button. */
   static offset = 6;
 
   /** @internal */
@@ -46,7 +46,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The default margin between the tooltip and the viewport. */
+  /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
   /** Events controller. */
@@ -115,9 +115,11 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** The size of the select. */
   @property({ reflect: true }) size: SelectSize = 'md';
 
-  /** The number of pixels from the top of the viewport the select should be hidden on scroll.
-   * Use this when there is a sticky header you don't want dropdowns to fall on top of. */
-  @property({ attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
+  /**
+   * The number of pixels from the top of the viewport the select should be hidden on scroll.
+   * Use this when there is a sticky header you don't want dropdowns to fall on top of.
+   */
+  @property({ type: Number, attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
 
   /** The value for the select, to be used in forms. */
   @property() override value?: T;

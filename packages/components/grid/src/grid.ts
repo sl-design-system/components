@@ -92,14 +92,14 @@ export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-grid-group-header': GridGroupHeader
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The item being dragged. */

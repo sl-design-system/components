@@ -1,7 +1,7 @@
 {
   "icon": {
     "typeset": {
-      "fontfamily": {
+      "fontFamily": {
         "classic": {
           "value": {
             "fontFamily": "Font Awesome 6 Pro"
@@ -15,7 +15,7 @@
           "type": "typography"
         }
       },
-      "fontweight": {
+      "fontWeight": {
         "icon-thin": {
           "value": "Thin",
           "type": "fontWeights"

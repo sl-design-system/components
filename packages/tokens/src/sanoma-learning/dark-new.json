@@ -118,7 +118,7 @@
         "type": "color"
       }
     },
-    "succes": {
+    "success": {
       "faint": {
         "value": "{color.foundation.green.050}",
         "type": "color"

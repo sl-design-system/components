@@ -1,4 +1,4 @@
-import { permutateThemes, register, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { permutateThemes, register, transformLineHeight } from '@tokens-studio/sd-transforms';
 import cssnano from 'cssnano';
 import { readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
@@ -157,6 +157,7 @@ const build = async (production = false) => {
 
       return {
         log: {
+          // verbosity: 'verbose',
           warnings: 'disabled'
         },
         source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),

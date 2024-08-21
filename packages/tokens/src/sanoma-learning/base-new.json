@@ -16,7 +16,7 @@
           "description": "text.typeset.fontFamily.fontIcon"
         }
       },
-      "fontweight": {
+      "fontWeight": {
         "regular": {
           "value": "Regular",
           "type": "fontWeights"

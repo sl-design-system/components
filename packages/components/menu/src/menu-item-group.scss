@@ -14,6 +14,7 @@ slot[name='header']::slotted(*) {
 
 [part='wrapper'] {
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--sl-space-new-xs);
   margin-inline: var(--sl-space-new-md);

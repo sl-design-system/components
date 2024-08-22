@@ -120,32 +120,30 @@
         "type": "lineHeights"
       }
     },
-    "border": {
-      "radius": {
-        "none": {
-          "value": "{size.none}",
-          "type": "borderRadius"
-        },
-        "sm": {
-          "value": "{size.025}",
-          "type": "borderRadius"
-        },
-        "md": {
-          "value": "{size.050}",
-          "type": "borderRadius"
-        },
-        "lg": {
-          "value": "{size.100}",
-          "type": "borderRadius"
-        },
-        "xl": {
-          "value": "{size.150}",
-          "type": "borderRadius"
-        },
-        "full": {
-          "value": "{size.full}",
-          "type": "borderRadius"
-        }
+    "borderRadius": {
+      "none": {
+        "value": "{size.none}",
+        "type": "borderRadius"
+      },
+      "sm": {
+        "value": "{size.025}",
+        "type": "borderRadius"
+      },
+      "md": {
+        "value": "{size.050}",
+        "type": "borderRadius"
+      },
+      "lg": {
+        "value": "{size.100}",
+        "type": "borderRadius"
+      },
+      "xl": {
+        "value": "{size.150}",
+        "type": "borderRadius"
+      },
+      "full": {
+        "value": "{size.full}",
+        "type": "borderRadius"
       }
     }
   },
@@ -305,11 +303,11 @@
     },
     "input": {
       "vertical": {
-        "value": "{space-new.sm}-{size.border.width.default}",
+        "value": "{space-new.sm}-{size.borderWidth.default}",
         "type": "spacing"
       },
       "horizontal": {
-        "value": "{space-new.md}-{size.border.width.default}",
+        "value": "{space-new.md}-{size.borderWidth.default}",
         "type": "spacing"
       }
     }

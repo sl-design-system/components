@@ -464,7 +464,7 @@
             }
           }
         },
-        "error": {
+        "danger": {
           "subtle": {
             "idle": {
               "value": "{color.base.transparent}",

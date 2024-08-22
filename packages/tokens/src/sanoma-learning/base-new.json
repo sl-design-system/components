@@ -86,18 +86,16 @@
         }
       }
     },
-    "border": {
-      "radius": {
-        "default": {
-          "value": "{size.border.radius.sm}",
-          "type": "borderRadius"
-        }
-      },
-      "width": {
-        "default": {
-          "value": "{size.010}",
-          "type": "borderWidth"
-        }
+    "borderRadius": {
+      "default": {
+        "value": "{size.borderRadius.sm}",
+        "type": "borderRadius"
+      }
+    },
+    "borderWidth": {
+      "default": {
+        "value": "{size.010}",
+        "type": "borderWidth"
       }
     },
     "icon": {

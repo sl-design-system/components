@@ -307,7 +307,7 @@ export const All: Story = {
           <sl-menu-item selectable>Other</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
-      <sl-menu-item>
+      <sl-menu-item disabled>
         Submenu, disabled
         <sl-menu selects="single" slot="submenu">
           <sl-menu-item selectable selected>Something</sl-menu-item>
@@ -331,7 +331,7 @@ export const All: Story = {
           <sl-menu-item selectable>Other</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
-      <sl-menu-item>
+      <sl-menu-item disabled>
         Submenu, disabled
         <sl-menu selects="single" slot="submenu">
           <sl-menu-item selectable selected>Something</sl-menu-item>
@@ -362,7 +362,7 @@ export const All: Story = {
           <sl-menu-item selectable>Other</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
-      <sl-menu-item>
+      <sl-menu-item disabled>
         <sl-icon name="far-gear"></sl-icon>
         Submenu, disabled
         <sl-menu selects="single" slot="submenu">
@@ -400,7 +400,7 @@ export const All: Story = {
           <sl-menu-item selectable>Other</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
-      <sl-menu-item>
+      <sl-menu-item disabled>
         <sl-icon name="far-gear"></sl-icon>
         Submenu, disabled
         <sl-menu selects="single" slot="submenu">

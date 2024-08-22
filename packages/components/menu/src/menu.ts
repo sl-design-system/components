@@ -191,7 +191,7 @@ export class Menu extends LitElement {
 
   #onToggle(event: Event): void {
     if ((event as ToggleEvent).newState === 'closed' && this.anchorElement instanceof MenuItem) {
-      this.anchorElement.focus();
+      // this.anchorElement.focus();
     }
   }
 }

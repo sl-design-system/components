@@ -9,7 +9,7 @@ export type Props = Pick<Accordion, 'single'> & { items: TemplateResult };
 export type Story = StoryObj<Props>;
 
 export default {
-  title: 'General/Accordion',
+  title: 'Layout/Accordion',
   tags: ['stable'],
   args: {
     single: false

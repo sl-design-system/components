@@ -68,14 +68,8 @@ export default {
 export const Basic: Story = {
   args: {
     menuItems: () => html`
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
+      <sl-menu-item>Rename...</sl-menu-item>
+      <sl-menu-item>Delete...</sl-menu-item>
     `
   }
 };
@@ -83,11 +77,20 @@ export const Basic: Story = {
 export const Divider: Story = {
   args: {
     menuItems: () => html`
+      <sl-menu-item>Rename...</sl-menu-item>
+      <hr />
+      <sl-menu-item>Delete...</sl-menu-item>
+    `
+  }
+};
+
+export const Icons: Story = {
+  args: {
+    menuItems: () => html`
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>
         Rename...
       </sl-menu-item>
-      <hr />
       <sl-menu-item>
         <sl-icon name="far-trash"></sl-icon>
         Delete...
@@ -172,41 +175,6 @@ export const Shortcut: Story = {
       </sl-menu-item>
     `,
     selects: 'single'
-  }
-};
-
-export const Avatar: Story = {
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.nextElementSibling as HTMLElement)?.showPopover();
-    };
-
-    const onKeydown = (event: KeyboardEvent & { target: HTMLElement }): void => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        onClick(event);
-      }
-    };
-
-    return html`
-      <sl-avatar
-        @click=${onClick}
-        @keydown=${onKeydown}
-        id="avatar"
-        image-only
-        picture-url="https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&amp;w=188&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        size="lg"
-        status="warning"
-        style="cursor: pointer"
-        tabindex="0"
-      >
-      </sl-avatar>
-      <sl-menu anchor="avatar" offset="8" position="bottom-end">
-        <sl-menu-item>Your profile</sl-menu-item>
-        <sl-menu-item>Settings</sl-menu-item>
-        <hr />
-        <sl-menu-item>Sign out</sl-menu-item>
-      </sl-menu>
-    `;
   }
 };
 

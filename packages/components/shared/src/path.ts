@@ -6,8 +6,6 @@ export const getNameByPath = (path?: string): string => {
   } else {
     const parts = path.split('.');
 
-    console.log('path in getNameByPath', path);
-
     return humanize(parts[parts.length - 1]);
   }
 };

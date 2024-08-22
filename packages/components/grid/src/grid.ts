@@ -351,10 +351,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.selection.size > 0 &&
         (this.selection.areSomeSelected() || this.selection.areAllSelected());
 
-    console.log('rows in renderHeader', rows, rows[0]);
-
-    // TODO: maybe we need a slot here instead of in column.ts?
-
     return html`
       ${rows.slice(0, -1).map(
         row => html`

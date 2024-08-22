@@ -2,6 +2,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -22,7 +23,7 @@ export const Simple: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
-      <sl-grid-column path="firstName"><sl-icon name="xmark" slot="header"></sl-icon></sl-grid-column>
+      <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column path="address.phone"></sl-grid-column>
@@ -99,7 +100,7 @@ export const CustomRenderers: Story = {
       <sl-grid .items=${people}>
         <sl-grid-column
           grow="3"
-          header="Person"
+          .header=${html`<sl-icon name="xmark"></sl-icon> Person`}
           .renderer=${avatarRenderer}
           .scopedElements=${{
             'sl-avatar': Avatar,
@@ -108,10 +109,64 @@ export const CustomRenderers: Story = {
             'sl-menu-item': MenuItem
           }}
         ></sl-grid-column>
-        <sl-grid-column path="email"><sl-icon name="xmark" slot="header"></sl-icon></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
         <sl-grid-column grow="0" header="" .renderer=${menuButtonRenderer} width="64"></sl-grid-column>
       </sl-grid>
     `;
   }
+};
+
+export const CustomHeader: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => html`
+    <style>
+      sl-grid::part(first-name),
+      sl-grid::part(address-city) {
+        gap: 8px;
+      }
+
+      sl-grid::part(profession) {
+        justify-content: space-between;
+      }
+    </style>
+    <sl-grid .items=${people}>
+      <sl-grid-column
+        path="firstName"
+        .header=${html`
+          First name
+          <sl-icon aria-describedby="tooltip" name="info"></sl-icon>
+          <sl-tooltip id="tooltip">Some information about the first name</sl-tooltip>
+        `}
+        .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}
+      >
+      </sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="address.phone"></sl-grid-column>
+      <sl-grid-column
+        path="address.city"
+        .header=${html`
+          City
+          <sl-icon name="home-blank"></sl-icon>
+        `}
+        .scopedElements=${{ 'sl-icon': Icon }}
+      >
+      </sl-grid-column>
+      <sl-grid-column
+        path="profession"
+        .header=${html`
+          Profession
+          <sl-menu-button fill="ghost">
+            <sl-icon slot="button" name="ellipsis"></sl-icon>
+            <sl-menu-item>Option 1</sl-menu-item>
+            <sl-menu-item>Option 2</sl-menu-item>
+            <sl-menu-item>Option 3</sl-menu-item>
+          </sl-menu-button>
+        `}
+        .scopedElements=${{ 'sl-icon': Icon, 'sl-menu-button': MenuButton, 'sl-menu-item': MenuItem }}
+      >
+      </sl-grid-column>
+    </sl-grid>
+  `
 };

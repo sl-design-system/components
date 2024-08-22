@@ -76,7 +76,7 @@ export class GridColumn<T = any> extends LitElement {
    */
   @property({ type: Number }) grow = 1;
 
-  /** The label for the column header. */
+  /** The label for the column header. Can contain custom HTML. */
   @property() header?: string | GridColumnHeaderRenderer;
 
   /** The path to the value for this column. */
@@ -136,17 +136,10 @@ export class GridColumn<T = any> extends LitElement {
    */
   stateChanged(): void {}
 
-  override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
-  }
-
   renderHeader(): TemplateResult {
     const parts = ['header', ...this.getParts()];
-    console.log('parts in render header in column', parts);
-    // TODO: add slot?
-    return html`<th part=${parts.join(' ')}>
-      <slot @slotchange=${this.#onSlotchange} name="header">${this.header ?? getNameByPath(this.path)}</slot>
-    </th>`;
+
+    return html`<th part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
   }
 
   renderData(item: T): TemplateResult {
@@ -175,11 +168,5 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return parts;
-  }
-
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const elements = event.target.assignedElements({ flatten: true });
-
-    console.log('elements in onSlotChange', elements);
   }
 }

@@ -6,10 +6,9 @@
   --_gap: 0.25rem;
   --_indent: calc(var(--sl-menu-item-indent, 0) * 26px + 6px);
   --_gap-shortcut: 0.5rem;
-  --_gap-sub-menu-indicator: 1rem;
   --_padding: 6px;
-  --_submenu-offset: -5px;
 
+  border-radius: var(--sl-size-border-radius-default);
   display: block;
   flex-grow: 1;
 }
@@ -23,7 +22,6 @@
 }
 
 :host(:focus-visible) {
-  border-radius: var(--sl-size-border-radius-default);
   outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   outline-offset: var(--sl-border-width-focusring-offset);
   position: relative;
@@ -49,6 +47,7 @@
 
   &:hover {
     background: var(--sl-color-action-background-error-subtle-hover);
+    color: var(--sl-color-text-danger-hover);
   }
 
   &:active {
@@ -56,13 +55,16 @@
   }
 }
 
-::slotted(sl-icon) {
+::slotted(sl-icon),
+sl-icon[name='chevron-right'] {
+  --sl-icon-container-size: var(--sl-size-icon-xs);
   --sl-icon-size: var(--sl-size-icon-xs);
 }
 
 slot[name='submenu']::slotted(sl-menu) {
-  // Make sure the first menu item in the nested menu aligns vertically
-  margin-block-start: var(--_submenu-offset);
+  // Make sure the first menu item in the nested menu aligns horizontally
+  // margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-border-width-default)) * -1px);
+  margin-block-start: -9px;
 }
 
 .safe-triangle {
@@ -104,9 +106,8 @@ slot[name='submenu']::slotted(sl-menu) {
 }
 
 sl-icon[name='check'] {
+  --sl-icon-container-size: var(--sl-size-icon-sm);
   --sl-icon-size: var(--sl-size-icon-sm);
-
-  padding-inline: 3px;
 }
 
 kbd {
@@ -118,5 +119,5 @@ kbd {
 
 sl-icon[name='chevron-right'] {
   margin-inline-start: auto;
-  padding-inline-start: var(--_gap-sub-menu-indicator);
+  padding-inline-start: var(--sl-space-new-lg);
 }

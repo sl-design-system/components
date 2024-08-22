@@ -1,7 +1,9 @@
 :host {
   border-radius: var(--sl-size-border-radius-default);
+  color: var(--sl-color-text-default);
   display: block;
   flex-grow: 1;
+  line-height: 1rem; // FIXME: var(--sl-size-text-lineHeight-200);
 }
 
 :host(:hover) .safe-triangle {
@@ -15,31 +17,33 @@
   z-index: 1;
 }
 
-:host([disabled]) {
-  color: var(--sl-color-select-item-disabled-foreground);
-  pointer-events: none;
-
-  .wrapper {
-    color: var(--sl-color-text-disabled);
-    cursor: default;
-  }
-}
-
 :host([selected]) {
   --sl-menu-item-indent: 0;
 }
 
-:host([variant='danger']) [part='wrapper'] {
-  background: var(--sl-color-action-background-error-subtle-idle);
+:host([variant='danger']) {
   color: var(--sl-color-text-danger-idle);
 
-  &:hover {
-    background: var(--sl-color-action-background-error-subtle-hover);
-    color: var(--sl-color-text-danger-hover);
-  }
+  [part='wrapper'] {
+    background: var(--sl-color-action-background-danger-subtle-idle);
 
-  &:active {
-    background: var(--sl-color-action-background-error-subtle-active);
+    &:hover {
+      background: var(--sl-color-action-background-danger-subtle-hover);
+      color: var(--sl-color-text-danger-hover);
+    }
+
+    &:active {
+      background: var(--sl-color-action-background-danger-subtle-active);
+    }
+  }
+}
+
+:host([disabled]) {
+  color: var(--sl-color-text-disabled);
+  pointer-events: none;
+
+  .wrapper {
+    cursor: default;
   }
 }
 
@@ -47,11 +51,6 @@
 sl-icon[name='chevron-right'] {
   --sl-icon-container-size: var(--sl-size-icon-xs);
   --sl-icon-size: var(--sl-size-icon-xs);
-}
-
-slot[name='submenu']::slotted(sl-menu) {
-  // Make sure the first menu item in the nested menu aligns horizontally
-  margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-border-width-default)) * -1);
 }
 
 .safe-triangle {
@@ -71,7 +70,6 @@ slot[name='submenu']::slotted(sl-menu) {
   align-items: center;
   background: var(--sl-color-action-background-accent-subtle-idle);
   border-radius: var(--sl-size-border-radius-default);
-  color: var(--sl-color-text-default);
   cursor: pointer;
   display: flex;
   gap: var(--sl-space-new-md);
@@ -104,4 +102,9 @@ kbd {
 sl-icon[name='chevron-right'] {
   margin-inline-start: auto;
   padding-inline-start: var(--sl-space-new-lg);
+}
+
+slot[name='submenu']::slotted(sl-menu) {
+  // Make sure the first menu item in the nested menu aligns horizontally
+  margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-border-width-default)) * -1);
 }

@@ -114,6 +114,14 @@ export class Menu extends LitElement {
     `;
   }
 
+  /**
+   * @internal Workaround for `delegatesFocus` on the shadowroot not taking
+   * any of the menu items in the light DOM into account.
+   */
+  override focus(): void {
+    this.#rovingTabindexController.focus();
+  }
+
   /** @internal */
   focusLastItem(): void {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);

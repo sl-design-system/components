@@ -200,6 +200,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     this.submenu?.showPopover();
 
     if (focus) {
+      // this.submenu?.querySelector<HTMLElement>('sl-menu-item:not(disabled)')?.focus();
       this.submenu?.focus();
     }
   }

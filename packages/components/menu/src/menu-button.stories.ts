@@ -149,6 +149,24 @@ export const Text: Story = {
   }
 };
 
+export const Submenu: Story = {
+  args: {
+    ...Basic.args,
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Sort by
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
+          <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+    `
+  }
+};
+
 export const Avatar: Story = {
   args: {
     body: html`<sl-avatar display-name="John Doe" size="sm" slot="button"></sl-avatar>`,

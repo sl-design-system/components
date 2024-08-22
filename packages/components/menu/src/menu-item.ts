@@ -30,15 +30,15 @@ export type MenuItemVariant = 'default' | 'danger';
  * @slot submenu - The menu items that will be displayed when the menu item is shown.
  */
 export class MenuItem extends ScopedElementsMixin(LitElement) {
-  /** @internal The default offset of the submenu to the menu item. */
-  static submenuOffset = 0;
-
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
+
+  /** @internal The default offset of the submenu to the menu item. */
+  static submenuOffset = 0;
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -214,44 +214,40 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
    * See https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
    */
   #calculateSafeTriangle(event: PointerEvent): void {
-    const actualPlacement = this.submenu?.getAttribute('actual-placement'),
-      parentMenu = this.closest('sl-menu') || this.assignedSlot?.closest('sl-menu');
+    const actualPlacement = this.submenu?.getAttribute('actual-placement');
 
-    if (!actualPlacement || !parentMenu || !this.submenu) {
+    if (!actualPlacement || !this.submenu) {
       return;
     }
 
-    const parentRect = parentMenu?.getBoundingClientRect(),
-      rect = this.getBoundingClientRect(),
-      submenuRect = this.submenu.getBoundingClientRect();
+    const rect = this.getBoundingClientRect(),
+      submenuRect = this.submenu.getBoundingClientRect(),
+      insetBlockStart = Math.floor(Math.min(rect.top, submenuRect.top)),
+      blockSize = Math.ceil(Math.max(rect.bottom, submenuRect.bottom) - insetBlockStart);
 
-    // Top, right, bottom, left
-    const inset = [
-      Math.floor(Math.min(rect.top, submenuRect.top) - parentRect.top),
-      0,
-      Math.ceil(parentRect.bottom - Math.max(rect.bottom, submenuRect.bottom)),
-      0
-    ];
-
-    let polygon = '';
+    let inlineSize = 0,
+      inset = '',
+      polygon = '';
     if (actualPlacement.startsWith('right')) {
-      inset[1] = Math.floor(parentRect.right - submenuRect.left);
-      inset[3] = Math.floor(rect.left - parentRect.left);
+      const insetInlineStart = Math.floor(rect.left);
 
-      polygon = `${event.clientX - rect.left}px ${event.clientY - submenuRect.top}px, 100% 0, 100% 100%`;
+      inlineSize = Math.floor(submenuRect.left - rect.left);
+      inset = `${insetBlockStart}px auto auto ${insetInlineStart}px`;
+      polygon = `${event.clientX - insetInlineStart}px ${event.clientY - insetBlockStart}px, 100% 0, 100% 100%`;
     } else if (actualPlacement.startsWith('left')) {
-      inset[1] = Math.floor(parentRect.right - rect.right);
-      inset[3] = Math.floor(submenuRect.right - parentRect.left);
+      const insetInlineStart = Math.floor(submenuRect.right);
 
-      polygon = `${event.clientX - rect.left}px ${event.clientY - submenuRect.top}px, 0 100%, 0 0`;
+      inlineSize = Math.floor(rect.right - submenuRect.right);
+      inset = `${insetBlockStart}px auto auto ${insetInlineStart}px`;
+      polygon = `${event.clientX - insetInlineStart}px ${event.clientY - insetBlockStart}px, 0 100%, 0 0`;
     } else {
       console.warn('Unsupported submenu placement: ', actualPlacement);
       return;
     }
 
-    ['block-start', 'inline-end', 'block-end', 'inline-start'].forEach((side, i) => {
-      this.style.setProperty(`--_safe-triangle-inset-${side}`, `${inset[i]}px`);
-    });
+    this.style.setProperty('--_safe-triangle-block-size', `${blockSize}px`);
+    this.style.setProperty('--_safe-triangle-inline-size', `${inlineSize}px`);
+    this.style.setProperty('--_safe-triangle-inset', inset);
     this.style.setProperty('--_safe-triangle-polygon', polygon);
   }
 }

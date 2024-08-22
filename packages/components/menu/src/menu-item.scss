@@ -4,12 +4,8 @@
   flex-grow: 1;
 }
 
-:host(:hover) {
-  position: relative;
-
-  .safe-triangle {
-    display: block;
-  }
+:host(:hover) .safe-triangle {
+  display: block;
 }
 
 :host(:focus-visible) {
@@ -54,21 +50,15 @@ sl-icon[name='chevron-right'] {
 
 slot[name='submenu']::slotted(sl-menu) {
   // Make sure the first menu item in the nested menu aligns horizontally
-  // margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-border-width-default)) * -1px);
-  margin-block-start: -9px;
+  margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-border-width-default)) * -1);
 }
 
 .safe-triangle {
+  block-size: var(--_safe-triangle-block-size);
   clip-path: polygon(var(--_safe-triangle-polygon));
   display: none;
-
-  // The variables were calculated using getBoundingClientRect(), but that also
-  // includes the border width, so we need to subtract it because CSS inset does
-  // NOT include the border.
-  inset: calc(var(--_safe-triangle-inset-block-start) - var(--sl-menu-border-width, 1px))
-    calc(var(--_safe-triangle-inset-inline-end) - var(--sl-menu-border-width, 1px))
-    calc(var(--_safe-triangle-inset-block-end) - var(--sl-menu-border-width, 1px))
-    calc(var(--_safe-triangle-inset-inline-start) - var(--sl-menu-border-width, 1px));
+  inline-size: var(--_safe-triangle-inline-size);
+  inset: var(--_safe-triangle-inset);
   position: fixed;
 
   &:hover + [part='wrapper'] {

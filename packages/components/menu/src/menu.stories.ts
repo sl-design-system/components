@@ -74,6 +74,15 @@ export const Basic: Story = {
   }
 };
 
+export const Danger: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>Rename...</sl-menu-item>
+      <sl-menu-item variant="danger">Delete...</sl-menu-item>
+    `
+  }
+};
+
 export const Divider: Story = {
   args: {
     menuItems: () => html`
@@ -178,24 +187,45 @@ export const Shortcut: Story = {
   }
 };
 
-export const All: Story = {
+export const Submenu: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Sort by
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
+          <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-table-rows"></sl-icon>
+        Group by
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>Something</sl-menu-item>
+          <sl-menu-item selectable>Other</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+    `
+  }
+};
+
+export const Combination: Story = {
   args: {
     menuItems: () => {
-      const onClick = (event: Event): void => {
-        console.log('click', event.target);
-      };
-
       return html`
         <sl-menu-item-group selects="single">
-          <sl-menu-item @click=${onClick} selectable selected shortcut="$mod+Digit1">
+          <sl-menu-item selectable selected shortcut="$mod+Digit1">
             <sl-icon name="far-list"></sl-icon>
             List
           </sl-menu-item>
-          <sl-menu-item @click=${onClick} selectable shortcut="$mod+Digit2">
+          <sl-menu-item selectable shortcut="$mod+Digit2">
             <sl-icon name="far-rectangles-mixed"></sl-icon>
             Cards
           </sl-menu-item>
-          <sl-menu-item @click=${onClick} selectable shortcut="$mod+Digit3">
+          <sl-menu-item selectable shortcut="$mod+Digit3">
             <sl-icon name="far-table-cells"></sl-icon>
             Grid
           </sl-menu-item>

@@ -24,9 +24,6 @@ declare global {
  *
  * @cssprop --sl-menu-max-inline-size - The maximum inline size of the menu.
  * @cssprop --sl-menu-min-inline-size - The minimum inline size of the menu.
- * @cssprop --sl-popover-max-block-size - The maximum block size of the menu.
- * @cssprop --sl-popover-min-block-size - The minimum block size of the menu.
-
  *
  * @slot default - The menu's content: menu items or menu item groups.
  */

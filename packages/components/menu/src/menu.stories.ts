@@ -315,8 +315,8 @@ export const All: Story = {
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item-group heading="Group heading">
-        <sl-menu-item>Danger</sl-menu-item>
-        <sl-menu-item>Danger, disabled</sl-menu-item>
+        <sl-menu-item variant="danger">Danger</sl-menu-item>
+        <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
       </sl-menu-item-group>
     </sl-menu>
 
@@ -339,8 +339,8 @@ export const All: Story = {
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item-group heading="Group heading">
-        <sl-menu-item>Danger</sl-menu-item>
-        <sl-menu-item>Danger, disabled</sl-menu-item>
+        <sl-menu-item variant="danger">Danger</sl-menu-item>
+        <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
       </sl-menu-item-group>
     </sl-menu>
 
@@ -371,11 +371,11 @@ export const All: Story = {
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item-group heading="Group heading">
-        <sl-menu-item>
+        <sl-menu-item variant="danger">
           <sl-icon name="far-trash"></sl-icon>
           Danger
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item disabled variant="danger">
           <sl-icon name="far-trash"></sl-icon>
           Danger, disabled
         </sl-menu-item>
@@ -409,11 +409,11 @@ export const All: Story = {
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item-group heading="Group heading">
-        <sl-menu-item>
+        <sl-menu-item variant="danger">
           <sl-icon name="far-trash"></sl-icon>
           Danger
         </sl-menu-item>
-        <sl-menu-item disabled>
+        <sl-menu-item disabled variant="danger">
           <sl-icon name="far-trash"></sl-icon>
           Danger, disabled
         </sl-menu-item>

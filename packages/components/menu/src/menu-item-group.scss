@@ -3,10 +3,13 @@
   flex: 1;
 }
 
-slot[name='header'] span,
+slot[name='header'] .heading,
 slot[name='header']::slotted(*) {
   color: var(--sl-color-text-subtle);
   padding: var(--sl-space-new-md);
+  padding-inline-start: calc(
+    var(--sl-menu-item-indent, 0) * (var(--sl-size-icon-sm) + var(--sl-space-new-md)) + var(--sl-space-new-md)
+  );
 }
 
 [part='wrapper'] {

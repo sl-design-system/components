@@ -12,7 +12,7 @@ declare global {
 let nextUniqueId = 0;
 
 export class SelectOption<T = unknown> extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Whether the option item is disabled. */
@@ -21,7 +21,7 @@ export class SelectOption<T = unknown> extends LitElement {
   /** Whether the option item is selected. */
   @property({ reflect: true, type: Boolean }) selected?: boolean;
 
-  /** @ignore The size of the select, is set by the select component. */
+  /** @internal The size of the select, is set by the select component. */
   @property({ reflect: true }) size: SelectSize = 'md';
 
   /** The value for the option item, to be used in forms. */

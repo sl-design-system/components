@@ -23,7 +23,7 @@ declare global {
  * See https://github.com/whatwg/html/issues/9878
  */
 export class Form<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members

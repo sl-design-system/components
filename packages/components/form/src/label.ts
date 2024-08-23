@@ -16,7 +16,7 @@ export type LabelSize = 'sm' | 'md' | 'lg';
 
 @localized()
 export class Label extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The actual form control id this label links to. */
@@ -34,13 +34,13 @@ export class Label extends LitElement {
   /** The DOM id of the form control this is linked to. */
   @property() for?: string;
 
-  /** @ignore The associated form control. */
+  /** @internal The associated form control. */
   @state() formControl: (HTMLElement & FormControl & { size?: string }) | null = null;
 
   /** Indicates whether the label should indicate if the field is optional or required. */
   @property() mark?: LabelMark;
 
-  /** @ignore Whether this label should be marked as required. */
+  /** @internal Whether this label should be marked as required. */
   @state() required?: boolean;
 
   /** The size of the label. */

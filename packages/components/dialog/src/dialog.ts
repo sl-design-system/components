@@ -54,7 +54,7 @@ export type SlCloseEvent = CustomEvent<void>;
 
 @localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -63,10 +63,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  /** @private */
+  /** @internal */
   @query('dialog') dialog?: HTMLDialogElement;
 
   /**

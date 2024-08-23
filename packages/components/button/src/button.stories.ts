@@ -22,7 +22,7 @@ const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 Icon.register(faPinata);
 
 export default {
-  title: 'Components/Button',
+  title: 'Actions/Button',
   tags: ['stable'],
   args: {
     text: 'Button',

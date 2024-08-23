@@ -30,17 +30,17 @@ let nextUniqueId = 0;
  */
 @localized()
 export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Observe the textarea width. */

@@ -47,6 +47,8 @@
     { "path": "./packages/components/tag" },
     { "path": "./packages/components/text-area" },
     { "path": "./packages/components/text-field"},
+    { "path": "./packages/components/toggle-button" },
+    { "path": "./packages/components/toggle-group" },
     { "path": "./packages/components/tooltip" },
     { "path": "./packages/locales" },
     { "path": "./packages/themes/bingel-dc" },

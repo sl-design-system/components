@@ -54,7 +54,7 @@ Icon.register(
 );
 
 export default {
-  title: 'Components/Tool bar',
+  title: 'Actions/Tool bar',
   tags: ['draft'],
   args: {
     noBorder: false

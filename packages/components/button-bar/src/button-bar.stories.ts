@@ -12,7 +12,7 @@ type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size'> & { buttons: Template
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Button bar',
+  title: 'Actions/Button bar',
   tags: ['stable'],
   args: {
     align: 'start',

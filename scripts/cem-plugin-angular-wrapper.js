@@ -40,7 +40,7 @@ const generatePublicApis = async (packages, outDir) => {
     await writeFile(join(outDir, packageName, 'public-api.ts'), files.map(f => `export * from './${f}';`).join('\n').concat('\n'), 'utf8');
 
     await writeFile(join(outDir, packageName, 'ng-package.json'), `{
-  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "$schema": "../../node_modules/ng-packagr/ng-entrypoint.schema.json",
   "lib": {
     "entryFile": "public-api.ts"
   }

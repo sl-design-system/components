@@ -1,7 +1,7 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { EventEmitter, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -45,11 +45,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    keydown: this.#onKeydown
-  });
 
   /** The label text. */
   #label = '';
@@ -121,29 +116,13 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
         ${this.removable
           ? html`
-              <button
-                @click=${this.#onRemove}
-                @mousedown=${this.#onMousedown}
-                aria-label=${msg('Remove')}
-                ?disabled=${this.disabled}
-              >
+              <button @click=${this.#onRemove} aria-label=${msg(`Remove ${this.label}`)} ?disabled=${this.disabled}>
                 <sl-icon name="xmark" size=${ifDefined(this.size)}></sl-icon>
               </button>
             `
           : nothing}
       </div>
     `;
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (['Backspace', 'Delete'].includes(event.key) && this.removable) {
-      this.#onRemove(event);
-    }
-  }
-
-  #onMousedown(event: MouseEvent): void {
-    // Prevent button from getting focus
-    event.preventDefault();
   }
 
   #onRemove(event: Event): void {

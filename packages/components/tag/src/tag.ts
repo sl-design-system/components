@@ -41,6 +41,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -114,20 +117,21 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange} .tabIndex=${this.disabled ? -1 : 0}></slot>
-      ${this.removable
-        ? html`
-            <button
-              @click=${this.#onRemove}
-              @mousedown=${this.#onMousedown}
-              aria-label=${msg('Remove')}
-              ?disabled=${this.disabled}
-              tabindex="-1"
-            >
-              <sl-icon name="xmark" size=${ifDefined(this.size)}></sl-icon>
-            </button>
-          `
-        : nothing}
+      <div class="wrapper" .tabIndex=${this.disabled ? -1 : 0}>
+        <slot @slotchange=${this.#onSlotChange}></slot>
+        ${this.removable
+          ? html`
+              <button
+                @click=${this.#onRemove}
+                @mousedown=${this.#onMousedown}
+                aria-label=${msg('Remove')}
+                ?disabled=${this.disabled}
+              >
+                <sl-icon name="xmark" size=${ifDefined(this.size)}></sl-icon>
+              </button>
+            `
+          : nothing}
+      </div>
     `;
   }
 

@@ -9,7 +9,7 @@ type Props = Pick<Tag, 'disabled' | 'emphasis' | 'label' | 'removable' | 'size'>
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Tag',
+  title: 'Feedback & status/Tag',
   tags: ['draft'],
   args: {
     disabled: false,

@@ -51,7 +51,7 @@ Icon.register(
 );
 
 export default {
-  title: 'Components/Toggle group',
+  title: 'Actions/Toggle group',
   tags: ['draft'],
   args: {
     disabled: false,

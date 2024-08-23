@@ -19,7 +19,6 @@
   font: var(--_font);
   max-inline-size: 100%;
   outline: 0;
-  overflow: hidden;
   vertical-align: middle;
 }
 
@@ -79,12 +78,9 @@
   --_padding-inline: var(--sl-space-tag-inline-lg);
 }
 
-:host([hidden]) {
-  display: none;
-}
-
 .wrapper {
   display: flex;
+  overflow: hidden;
 
   &:focus {
     outline: var(--_focus-outline);

@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag-list.scss.js';
@@ -49,9 +49,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
-    focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
-    elements: () => (this.visibleTags.length ? this.visibleTags : this.tags) || [],
-    isFocusableElement: (el: Tag) => !el.disabled
+    direction: 'horizontal',
+    focusInIndex: (elements: Tag[]) => elements.findIndex(el => !(el.disabled || el.style.display === 'none')),
+    elements: () => [...(this.stackTag ? [this.stackTag] : []), ...(this.tags ?? [])],
+    isFocusableElement: (el: Tag) => !(el.disabled || el.style.display === 'none')
   });
 
   /** The emphasis of the tag-list and tags inside. Defaults to 'subtle'. */
@@ -66,21 +67,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
 
-  /** @internal Returns a list of all stacked (hidden) tags. */
-  get stackedTags(): Tag[] {
-    return this.tags.filter(tag => tag.style.display === 'none');
-  }
-
   /** @internal The number of stacked tags. Applicable only in the `stacked` version. */
   @state() stackSize = 0;
 
+  /** @internal The tag used to display the stack. */
+  @query('sl-tag') stackTag?: Tag;
+
   /** @internal The slotted tags. */
   @state() tags: Tag[] = [];
-
-  /** @internal Returns a list of all visible tags. */
-  get visibleTags(): Tag[] {
-    return this.tags.filter(tag => tag.style.display !== 'none');
-  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -115,7 +109,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       if (this.stacked) {
         const total = this.tags.length;
 
-        this.setAttribute('aria-label', `${msg(str`Showing ${total - this.stackSize} out of ${total} tags`)}`);
+        this.setAttribute('aria-label', `${msg(str`Showing ${total - this.stackSize} out of ${total} items`)}`);
       } else {
         this.removeAttribute('aria-label');
       }
@@ -131,7 +125,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
                 ${this.stackSize > 99 ? '+99' : this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
-                ${this.stackedTags.map(tag => tag.label).join(', ')}
+                ${this.tags
+                  .filter(tag => tag.style.display === 'none')
+                  .map(tag => tag.label)
+                  .join(', ')}
               </sl-tooltip>
             </div>
           `
@@ -196,6 +193,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       this.tags.forEach(tag => (tag.style.display = ''));
     }
 
-    this.stackSize = this.stackedTags.length;
+    this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
   }
 }

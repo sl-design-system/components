@@ -21,6 +21,13 @@ const ITEMS = [
     profession: 'Anesthesiologist',
     status: 'Busy',
     membership: 'Premium'
+  },
+  {
+    firstName: 'Jimmy',
+    lastName: 'Adams',
+    profession: 'Cardiologist',
+    status: 'Busy',
+    membership: 'Premium'
   }
 ];
 
@@ -31,7 +38,7 @@ describe('sl-grid-filter-column', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid .items=${ITEMS}>
-          <sl-grid-filter-column path="profession" value="Endocrinologist"></sl-grid-filter-column>
+          <sl-grid-filter-column path="profession"></sl-grid-filter-column>
           <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
           <sl-grid-filter-column path="membership"></sl-grid-filter-column>
         </sl-grid>
@@ -72,7 +79,7 @@ describe('sl-grid-filter-column', () => {
         filter.hasAttribute('active')
       );
 
-      expect(active).to.deep.equal([true, false, false]);
+      expect(active).to.deep.equal([false, false, false]);
     });
 
     it('should have proper filter titles', () => {
@@ -117,9 +124,9 @@ describe('sl-grid-filter-column', () => {
       const options = Array.from(checkboxGroup!.querySelectorAll('sl-checkbox')),
         labels = options.map(o => o.querySelector('[slot="label"]')?.textContent?.trim());
 
-      expect(options).to.have.length(2);
-      expect(options.map(o => o.checked)).to.deep.equal([false, true]);
-      expect(labels).to.deep.equal(['Anesthesiologist', 'Endocrinologist']);
+      expect(options).to.have.length(3);
+      expect(options.map(o => o.checked)).to.deep.equal([false, false, false]);
+      expect(labels).to.deep.equal(['Anesthesiologist', 'Cardiologist', 'Endocrinologist']);
     });
 
     // TODO: check filter options
@@ -128,6 +135,109 @@ describe('sl-grid-filter-column', () => {
 
     // TODO:  check filter icon when filtered and not filtered - maybe in filter.spec.ts
   });
+
+  describe('active filter', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-filter-column path="profession" value=${['Endocrinologist', 'Cardiologist']}></sl-grid-filter-column>
+          <sl-grid-filter-column path="status" value="available"></sl-grid-filter-column>
+          <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+        </sl-grid>
+      `);
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 200));
+      await el.updateComplete;
+    });
+
+    it('should have active filter', () => {
+      const active = Array.from(el.renderRoot.querySelectorAll('sl-grid-filter')).map(filter =>
+        filter.hasAttribute('active')
+      );
+
+      expect(active).to.deep.equal([true, true, false]);
+    });
+
+    // TODO: check shown items
+  });
+
+  describe('select mode', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-filter-column path="profession" value="Endocrinologist"></sl-grid-filter-column>
+          <sl-grid-filter-column path="status"></sl-grid-filter-column>
+          <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+        </sl-grid>
+      `);
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 200));
+      await el.updateComplete;
+    });
+
+    // it('should render column and filter column headers', () => {
+    //   const columns = Array.from(el.renderRoot.querySelectorAll('th'));
+    //   const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
+    //     col.textContent?.trim()
+    //   );
+    //
+    //   expect(columns).to.exist;
+    //   expect(filterColumns).to.exist;
+    //
+    //   expect(columns.map(col => col.getAttribute('part')?.trim())).to.deep.equal([
+    //     'header filter profession',
+    //     'header filter status',
+    //     'header filter membership'
+    //   ]);
+    //   expect(filterColumns).to.deep.equal(['Profession', 'Status', 'Membership']);
+    // });
+  });
+
+  describe('text mode', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid .items=${ITEMS}>
+          <sl-grid-filter-column path="profession" value="Endocrinologist"></sl-grid-filter-column>
+          <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
+          <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+        </sl-grid>
+      `);
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 200));
+      await el.updateComplete;
+    });
+
+    // it('should render column and filter column headers', () => {
+    //   const columns = Array.from(el.renderRoot.querySelectorAll('th'));
+    //   const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
+    //     col.textContent?.trim()
+    //   );
+    //
+    //   expect(columns).to.exist;
+    //   expect(filterColumns).to.exist;
+    //
+    //   expect(columns.map(col => col.getAttribute('part')?.trim())).to.deep.equal([
+    //     'header filter profession',
+    //     'header filter status',
+    //     'header filter membership'
+    //   ]);
+    //   expect(filterColumns).to.deep.equal(['Profession', 'Status', 'Membership']);
+    // });
+  });
 });
 
 // TODO: a list of options based on the column's values - I cannot get checkboxes from checkbox group
+
+/*describe('defaults)
+
+describe('active filter')
+
+describe('select mode')
+
+describe('text mode')*/

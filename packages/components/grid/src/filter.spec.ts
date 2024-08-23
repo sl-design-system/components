@@ -93,7 +93,8 @@ describe('sl-grid-filter', () => {
     it('should render correct checkboxes', () => {
       // console.log('wrapper', wrapper, wrapper.renderRoot);
       console.log('eeeeeel1', el);
-      expect(wrapper).not.to.exist;
+      // expect(wrapper).not.to.exist;
+      expect(el).not.to.exist;
     });
 
     // it('should render column and filter column headers', () => {

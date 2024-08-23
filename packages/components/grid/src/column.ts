@@ -76,7 +76,7 @@ export class GridColumn<T = any> extends LitElement {
    */
   @property({ type: Number }) grow = 1;
 
-  /** The label for the column header. */
+  /** The label for the column header. Can contain custom HTML. */
   @property() header?: string | GridColumnHeaderRenderer;
 
   /** The path to the value for this column. */

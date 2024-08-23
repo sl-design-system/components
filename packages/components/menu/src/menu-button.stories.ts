@@ -29,7 +29,7 @@ type Story = StoryObj<Props>;
 Icon.register(faArrowUpShortWide, faGear, faList, faPen, faRectanglesMixed, faTableCells, faTableRows, faTrash);
 
 export default {
-  title: 'Components/Menu button',
+  title: 'Actions/Menu button',
   tags: ['draft'],
   args: {
     alignSelf: 'center',

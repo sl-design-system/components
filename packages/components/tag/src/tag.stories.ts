@@ -11,7 +11,7 @@ const sizes: TagSize[] = ['md', 'lg'];
 const emphases: TagEmphasis[] = ['subtle', 'bold'];
 
 export default {
-  title: 'Components/Tag',
+  title: 'Feedback & status/Tag',
   tags: ['draft'],
   args: {
     disabled: false,

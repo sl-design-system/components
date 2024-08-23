@@ -48,8 +48,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     click: this.#onClick,
     keydown: this.#onKeydown,
     pointerenter: this.#onPointerenter,
-    pointerleave: this.#onPointerleave,
-    pointermove: this.#onPointermove
+    pointerleave: this.#onPointerleave
   });
 
   /** Shortcut controller. */
@@ -101,12 +100,14 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div aria-hidden="true" class="safe-triangle"></div>
-      <div part="wrapper">
-        ${this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
-        <slot></slot>
-        ${this.shortcut ? html`<kbd>${this.#shortcut.render(this.shortcut)}</kbd>` : nothing}
-        ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
+      <div @pointermove=${this.#onPointermove} class="container">
+        <div aria-hidden="true" class="safe-triangle"></div>
+        <div part="wrapper">
+          ${this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
+          <slot></slot>
+          ${this.shortcut ? html`<kbd>${this.#shortcut.render(this.shortcut)}</kbd>` : nothing}
+          ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
+        </div>
       </div>
       <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
     `;
@@ -171,7 +172,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onPointermove(event: PointerEvent): void {
-    if (isPopoverOpen(this.submenu)) {
+    if (this.submenu && isPopoverOpen(this.submenu)) {
       this.#calculateSafeTriangle(event);
     }
   }
@@ -200,7 +201,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     this.submenu?.showPopover();
 
     if (focus) {
-      // this.submenu?.querySelector<HTMLElement>('sl-menu-item:not(disabled)')?.focus();
       this.submenu?.focus();
     }
   }
@@ -246,9 +246,12 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.style.setProperty('--_safe-triangle-block-size', `${blockSize}px`);
-    this.style.setProperty('--_safe-triangle-inline-size', `${inlineSize}px`);
-    this.style.setProperty('--_safe-triangle-inset', inset);
-    this.style.setProperty('--_safe-triangle-polygon', polygon);
+    // Set the CSS variables on the container, not the host, otherwise they will be
+    // inherited by the safe triangle of the menu item children in any submenus.
+    const container = this.renderRoot.querySelector<HTMLElement>('.container');
+    container?.style.setProperty('--_safe-triangle-block-size', `${blockSize}px`);
+    container?.style.setProperty('--_safe-triangle-inline-size', `${inlineSize}px`);
+    container?.style.setProperty('--_safe-triangle-inset', inset);
+    container?.style.setProperty('--_safe-triangle-polygon', polygon);
   }
 }

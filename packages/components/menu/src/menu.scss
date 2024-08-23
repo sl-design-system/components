@@ -12,9 +12,8 @@
   max-inline-size: var(--sl-menu-max-inline-size, auto);
   min-inline-size: var(--sl-menu-min-inline-size, min-content);
   opacity: 0;
-  overflow: visible auto;
-  padding: var(--sl-space-new-md);
-  padding-inline: 0;
+  overflow: auto;
+  padding: var(--sl-space-new-md) 0;
   scrollbar-width: thin;
 
   @media (prefers-reduced-motion: no-preference) {
@@ -32,8 +31,8 @@
 
   display: flex;
   opacity: 1;
-  scale: 1;
-  translate: 0;
+  scale: none;
+  translate: none;
 }
 
 :host([actual-placement='top']) {

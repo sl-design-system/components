@@ -44,10 +44,7 @@ export class Menu extends LitElement {
   #anchor = new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin });
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    keydown: this.#onKeydown,
-    toggle: this.#onToggle
-  });
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** The menu items. */
   #menuItems: MenuItem[] = [];
@@ -192,11 +189,5 @@ export class Menu extends LitElement {
     });
 
     this.#rovingTabindexController.clearElementCache();
-  }
-
-  #onToggle(event: Event): void {
-    if ((event as ToggleEvent).newState === 'closed' && this.anchorElement instanceof MenuItem) {
-      // this.anchorElement.focus();
-    }
   }
 }

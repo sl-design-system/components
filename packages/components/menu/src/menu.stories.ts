@@ -280,7 +280,7 @@ export const All: Story = {
     <style>
       #root-inner {
         display: inline-grid;
-        grid-template-columns: auto auto auto auto;
+        grid-template-columns: repeat(4, auto);
         gap: 1rem;
         justify-items: center;
       }

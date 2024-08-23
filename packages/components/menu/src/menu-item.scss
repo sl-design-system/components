@@ -6,10 +6,6 @@
   line-height: 1rem; // FIXME: var(--sl-size-text-lineHeight-200);
 }
 
-:host(:hover) .safe-triangle {
-  display: block;
-}
-
 :host(:focus-visible) {
   outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   outline-offset: var(--sl-border-width-focusring-offset);
@@ -51,6 +47,10 @@
 sl-icon[name='chevron-right'] {
   --sl-icon-container-size: var(--sl-size-icon-xs);
   --sl-icon-size: var(--sl-size-icon-xs);
+}
+
+.container:hover .safe-triangle {
+  display: block;
 }
 
 .safe-triangle {

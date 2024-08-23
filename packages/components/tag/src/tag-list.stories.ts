@@ -8,7 +8,7 @@ type Props = Pick<TagList, 'emphasis' | 'size' | 'stacked'> & { count: number; r
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Tag list',
+  title: 'Feedback & status/Tag list',
   tags: ['draft'],
   args: {
     count: 50,

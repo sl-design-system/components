@@ -6,7 +6,7 @@ shortDescription: The progress bar is a visual indicator that shows how much of 
 layout: "categories/components/components.njk"
 tags: component
 packageName: progress-bar
-storybookCategory: components
+storybookCategory: feedback-status
 eleventyNavigation:
   parent: Components
   key: Progress bar

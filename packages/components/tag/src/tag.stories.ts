@@ -83,7 +83,7 @@ export const All: Story = {
         #root-inner > div {
           display: inline-grid;
           gap: 1rem;
-          grid-template-columns: auto auto auto auto;
+          grid-template-columns: repeat(5, auto);
           justify-items: start;
         }
         span {
@@ -94,25 +94,29 @@ export const All: Story = {
 
       <div>
         <span>md</span>
-        <sl-tag size="md">Label</sl-tag>
-        <sl-tag removable size="md">Removable</sl-tag>
-        <sl-tag size="md" disabled>Disabled</sl-tag>
-        <sl-tag removable size="md" disabled>Disabled, removable</sl-tag>
+        <sl-tag>Label</sl-tag>
+        <sl-tag style="max-inline-size: 100px">Overflow label</sl-tag>
+        <sl-tag removable>Removable</sl-tag>
+        <sl-tag disabled>Disabled</sl-tag>
+        <sl-tag removable disabled>Disabled, removable</sl-tag>
 
-        <sl-tag emphasis="bold" size="md">Label</sl-tag>
-        <sl-tag emphasis="bold" removable size="md">Removable</sl-tag>
-        <sl-tag emphasis="bold" size="md" disabled>Disabled</sl-tag>
-        <sl-tag emphasis="bold" removable size="md" disabled>Disabled, removable</sl-tag>
+        <sl-tag emphasis="bold">Label</sl-tag>
+        <sl-tag emphasis="bold" style="max-inline-size: 100px">Overflow label</sl-tag>
+        <sl-tag emphasis="bold" removable>Removable</sl-tag>
+        <sl-tag emphasis="bold" disabled>Disabled</sl-tag>
+        <sl-tag emphasis="bold" removable disabled>Disabled, removable</sl-tag>
       </div>
 
       <div>
         <span>lg</span>
         <sl-tag size="lg">Label</sl-tag>
+        <sl-tag size="lg" style="max-inline-size: 100px">Overflow label</sl-tag>
         <sl-tag removable size="lg">Removable</sl-tag>
         <sl-tag size="lg" disabled>Disabled</sl-tag>
         <sl-tag removable size="lg" disabled>Disabled, removable</sl-tag>
 
         <sl-tag emphasis="bold" size="lg">Label</sl-tag>
+        <sl-tag emphasis="bold" size="lg" style="max-inline-size: 100px">Overflow label</sl-tag>
         <sl-tag emphasis="bold" removable size="lg">Removable</sl-tag>
         <sl-tag emphasis="bold" size="lg" disabled>Disabled</sl-tag>
         <sl-tag emphasis="bold" removable size="lg" disabled>Disabled, removable</sl-tag>

@@ -2,6 +2,7 @@
   --_background: var(--sl-color-tag-subtle-idle-background);
   --_border-color: var(--sl-color-tag-subtle-idle-border);
   --_border-radius: var(--sl-border-radius-default);
+  --_border-width: var(--sl-border-width-divider);
   --_button-size: var(--sl-size-tag-md);
   --_color: var(--sl-color-tag-subtle-idle-foreground);
   --_cursor: pointer;
@@ -114,7 +115,7 @@ button {
   background: var(--_background);
   border: 0;
   border-end-end-radius: var(--_border-radius);
-  border-inline-start: 1px solid var(--_border-color);
+  border-inline-start: var(--_border-width) solid var(--_border-color);
   border-start-end-radius: var(--_border-radius);
   color: var(--_color);
   cursor: var(--_cursor);

@@ -50,6 +50,12 @@ export const Large: Story = {
   }
 };
 
+export const Removable: Story = {
+  args: {
+    removable: true
+  }
+};
+
 export const Stacked: Story = {
   args: {
     count: 20,

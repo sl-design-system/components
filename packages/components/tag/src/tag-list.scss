@@ -28,17 +28,12 @@
   display: flex;
   position: relative;
 
-  &.double,
-  &.triple {
-    border-inline-start: 1px solid #fff;
-  }
-
   &.double {
-    padding-inline-start: 2px;
+    padding-inline-start: 3px;
   }
 
   &.triple {
-    padding-inline-start: 4px;
+    padding-inline-start: 6px;
   }
 
   &:has(sl-tag:focus) {
@@ -59,16 +54,12 @@
   content: '';
   display: flex;
   inline-size: 4px;
-  inset: 0 auto 0 -1px;
+  inset: 0 auto 0 0;
   position: absolute;
 }
 
 .triple::before {
-  inset-inline-start: 1px;
-}
-
-.triple::after {
-  inset-inline-start: -2px;
+  inset-inline-start: 3px;
 }
 
 .list {

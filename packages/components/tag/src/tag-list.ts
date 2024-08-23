@@ -131,7 +131,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
                 ${this.stackSize > 99 ? '+99' : this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
-                ${msg('List of stacked tags')}: ${this.stackedTags.map(tag => tag.label).join(', ')}
+                ${this.stackedTags.map(tag => tag.label).join(', ')}
               </sl-tooltip>
             </div>
           `

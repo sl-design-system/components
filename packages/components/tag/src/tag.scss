@@ -13,7 +13,6 @@
   --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
 
   align-items: center;
-  border-radius: var(--_border-radius);
   cursor: var(--_cursor);
   display: inline-flex;
   font: var(--_font);
@@ -79,6 +78,7 @@
 }
 
 .wrapper {
+  border-radius: var(--_border-radius);
   display: flex;
   overflow: hidden;
 
@@ -113,7 +113,9 @@ button {
   aspect-ratio: 1;
   background: var(--_background);
   border: 0;
+  border-end-end-radius: var(--_border-radius);
   border-inline-start: 1px solid var(--_border-color);
+  border-start-end-radius: var(--_border-radius);
   color: var(--_color);
   cursor: var(--_cursor);
   display: inline-flex;

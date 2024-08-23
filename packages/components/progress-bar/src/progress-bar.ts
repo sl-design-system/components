@@ -67,10 +67,13 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html` ${this.label
-        ? html` <div id="label" class="label">
-            ${this.label} ${this.variant ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
-          </div>`
+    return html`
+      ${this.label
+        ? html`
+            <div id="label" class="label">
+              ${this.label} ${this.variant ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+            </div>
+          `
         : nothing}
       <div
         aria-labelledby=${ifDefined(this.label ? 'label' : undefined)}
@@ -94,7 +97,8 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
           <span aria-live="polite" aria-atomic="true">${this.value}%</span>
         </span>
         ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
-      </div>`;
+      </div>
+    `;
   }
 
   #getLocalizedVariant(): TemplateResult {

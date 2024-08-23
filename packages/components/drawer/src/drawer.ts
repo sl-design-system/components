@@ -22,7 +22,7 @@ export type DrawerAttachment = 'right' | 'left' | 'top' | 'bottom';
  * @slot title - The title of the drawer
  */
 export class Drawer extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -30,7 +30,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   @query('dialog') dialog?: HTMLDialogElement;

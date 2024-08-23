@@ -246,12 +246,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // Set the CSS variables on the container, not the host, otherwise they will be
-    // inherited by the safe triangle of the menu item children in any submenus.
-    const container = this.renderRoot.querySelector<HTMLElement>('.container');
-    container?.style.setProperty('--_safe-triangle-block-size', `${blockSize}px`);
-    container?.style.setProperty('--_safe-triangle-inline-size', `${inlineSize}px`);
-    container?.style.setProperty('--_safe-triangle-inset', inset);
-    container?.style.setProperty('--_safe-triangle-polygon', polygon);
+    const safeTriangle = this.renderRoot.querySelector<HTMLElement>('.safe-triangle')!;
+    safeTriangle.style.blockSize = `${blockSize}px`;
+    safeTriangle.style.clipPath = `polygon(${polygon})`;
+    safeTriangle.style.inlineSize = `${inlineSize}px`;
+    safeTriangle.style.inset = inset;
   }
 }

@@ -54,11 +54,7 @@ sl-icon[name='chevron-right'] {
 }
 
 .safe-triangle {
-  block-size: var(--_safe-triangle-block-size);
-  clip-path: polygon(var(--_safe-triangle-polygon));
   display: none;
-  inline-size: var(--_safe-triangle-inline-size);
-  inset: var(--_safe-triangle-inset);
   position: fixed;
 
   &:hover + [part='wrapper'] {

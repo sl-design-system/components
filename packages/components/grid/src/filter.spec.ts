@@ -45,14 +45,11 @@ describe('sl-grid-filter', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      wrapper = await fixture(html`
-        <th>
-          <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership" value="Premium">
-            Membership
-          </sl-grid-filter>
-        </th>
+      el = await fixture(html`
+        <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership" value="Premium">
+          Membership
+        </sl-grid-filter>
       `);
-      el = wrapper.querySelector<GridFilter>('sl-grid-filter')!;
       await el.updateComplete;
 
       // Give grid time to render the table structure

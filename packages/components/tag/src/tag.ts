@@ -26,8 +26,10 @@ export type TagEmphasis = 'subtle' | 'bold';
  * A tag component containing label.
  *
  * ```html
- * <sl-tag label="tag label"></sl-tag>
+ * <sl-tag>Tag label</sl-tag>
  * ```
+ *
+ * @slot default - The tag label.
  */
 @localized()
 export class Tag extends ScopedElementsMixin(LitElement) {

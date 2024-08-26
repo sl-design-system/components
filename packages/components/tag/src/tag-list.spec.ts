@@ -85,7 +85,7 @@ describe('sl-tag', () => {
       expect(tooltip).to.exist;
       expect(tooltip?.id).to.equal(tag?.getAttribute('aria-describedby'));
       expect(tooltip).to.have.trimmed.text(
-        'List of stacked tags: My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
+        'My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'
       );
     });
 

@@ -63,20 +63,11 @@ describe('sl-tag', () => {
       expect(el).to.exist;
     });
 
-    it('should be removed on pressing Backspace key', async () => {
+    it('should be removed when the button is clicked using the keyboard', async () => {
       const onRemove = spy(el, 'remove');
 
-      el.focus();
-      await sendKeys({ press: 'Backspace' });
-
-      expect(onRemove).to.have.been.calledOnce;
-    });
-
-    it('should be removed on pressing Delete key', async () => {
-      const onRemove = spy(el, 'remove');
-
-      el.focus();
-      await sendKeys({ press: 'Delete' });
+      el.renderRoot.querySelector('button')?.focus();
+      await sendKeys({ press: 'Enter' });
 
       expect(onRemove).to.have.been.calledOnce;
     });

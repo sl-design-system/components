@@ -25,7 +25,7 @@ const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 Icon.register(faSchool);
 
 export default {
-  title: 'Components/Avatar',
+  title: 'Media/Avatar',
   tags: ['stable'],
   args: {
     displayName: 'Rose Nylund',

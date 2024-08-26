@@ -9,7 +9,7 @@ type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateRe
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Breadcrumbs',
+  title: 'Navigation/Breadcrumbs',
   tags: ['stable'],
   args: {
     homeUrl: '/',

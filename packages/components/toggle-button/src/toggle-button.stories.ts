@@ -17,7 +17,7 @@ type Story = StoryObj<Props>;
 Icon.register(faGear, fasGear);
 
 export default {
-  title: 'Components/Toggle button',
+  title: 'Actions/Toggle button',
   tags: ['preview'],
   args: {
     disabled: false,

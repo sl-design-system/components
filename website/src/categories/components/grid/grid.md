@@ -1,12 +1,12 @@
 ---
 title: Grid
 description: Grid description
-componentType: feedback
+componentType: grid
 shortDescription: We are still working on the grid component
 layout: "categories/components/components.njk"
 tags: component
 packageName: grid
-storybookCategory: layout
+storybookCategory: grid
 eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components

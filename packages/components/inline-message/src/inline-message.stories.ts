@@ -15,7 +15,7 @@ type Story = StoryObj<Props>;
 const variants: InlineMessageVariant[] = ['info', 'success', 'warning', 'danger'];
 
 export default {
-  title: 'Components/Inline message',
+  title: 'Feedback & status/Inline message',
   tags: ['stable'],
   args: {
     button: 'Action',

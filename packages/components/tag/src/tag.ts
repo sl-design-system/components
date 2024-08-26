@@ -4,8 +4,7 @@ import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './tag.scss.js';
 
 declare global {
@@ -46,9 +45,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The label text. */
-  #label = '';
-
   /**
    * Observe changes in size, so we can check whether we need to show tooltips
    * for truncated links.
@@ -64,10 +60,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** The emphasis of the tag; defaults to 'subtle'. */
   @property({ reflect: true }) emphasis?: TagEmphasis;
 
-  /** The label of the tag component. */
-  get label(): string {
-    return this.#label;
-  }
+  /** @internal The label of the tag component. */
+  @state() label = '';
 
   /** Whether the tag component is removable. */
   @property({ type: Boolean, reflect: true }) removable?: boolean;
@@ -116,8 +110,8 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
         ${this.removable
           ? html`
-              <button @click=${this.#onRemove} aria-label=${msg(`Remove ${this.label}`)} ?disabled=${this.disabled}>
-                <sl-icon name="xmark" size=${ifDefined(this.size)}></sl-icon>
+              <button @click=${this.#onRemove} aria-label=${msg(`Remove '${this.label}'`)} ?disabled=${this.disabled}>
+                <sl-icon name="xmark"></sl-icon>
               </button>
             `
           : nothing}
@@ -139,9 +133,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(): void {
-    const label = this.renderRoot.querySelector('slot');
+    const slot = this.renderRoot.querySelector('slot');
 
-    if (label && label.clientWidth < label.scrollWidth) {
+    if (slot && slot.clientWidth < slot.scrollWidth) {
       this.#tooltip ||= Tooltip.lazy(
         this,
         tooltip => {
@@ -160,7 +154,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.#label = event.target
+    this.label = event.target
       .assignedNodes({ flatten: true })
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent?.trim())

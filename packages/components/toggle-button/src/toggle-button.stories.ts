@@ -105,7 +105,7 @@ export const All: Story = {
   render: () => {
     return html`
       <style>
-        #root-inner {
+        section {
           align-items: center;
           align-self: start;
           display: inline-grid;
@@ -114,89 +114,91 @@ export const All: Story = {
           justify-items: center;
         }
       </style>
-      <span>Ghost</span>
-      <span>Idle</span>
-      <span>Pressed</span>
-      <span>Disabled</span>
-      <span>Disabled + pressed</span>
+      <section>
+        <span>Ghost</span>
+        <span>Idle</span>
+        <span>Pressed</span>
+        <span>Disabled</span>
+        <span>Disabled + pressed</span>
 
-      <span>md</span>
-      <sl-toggle-button>
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button pressed>
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button disabled>
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button disabled pressed>
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
+        <span>md</span>
+        <sl-toggle-button>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button pressed>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button disabled>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button disabled pressed>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
 
-      <span>lg</span>
-      <sl-toggle-button size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button pressed size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button disabled size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button disabled pressed size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
+        <span>lg</span>
+        <sl-toggle-button size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button pressed size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button disabled size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button disabled pressed size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
 
-      <span>Outline</span>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
+        <span>Outline</span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
 
-      <span>md</span>
-      <sl-toggle-button fill="outline">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button fill="outline" pressed>
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button fill="outline" disabled>
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button disabled fill="outline" pressed>
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
+        <span>md</span>
+        <sl-toggle-button fill="outline">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button fill="outline" pressed>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button fill="outline" disabled>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button disabled fill="outline" pressed>
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
 
-      <span>lg</span>
-      <sl-toggle-button fill="outline" size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button fill="outline" pressed size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button disabled fill="outline" size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
-      <sl-toggle-button disabled fill="outline" pressed size="lg">
-        <sl-icon name="far-gear" slot="default"></sl-icon>
-        <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-      </sl-toggle-button>
+        <span>lg</span>
+        <sl-toggle-button fill="outline" size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button fill="outline" pressed size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button disabled fill="outline" size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+        <sl-toggle-button disabled fill="outline" pressed size="lg">
+          <sl-icon name="far-gear" slot="default"></sl-icon>
+          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+        </sl-toggle-button>
+      </section>
     `;
   }
 };

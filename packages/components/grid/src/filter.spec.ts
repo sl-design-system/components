@@ -90,11 +90,22 @@ describe('sl-grid-filter', () => {
       // await el.updateComplete;
     });
 
-    it('should render correct checkboxes', () => {
+    it('should render correct icon', () => {
+      const button = el.renderRoot?.querySelector('sl-button'),
+        icon = el.querySelector('sl-icon');
+      // console.log('wrapper', wrapper, wrapper.renderRoot);
+      console.log('icon', icon, button, el);
+      // expect(wrapper).not.to.exist;
+      expect(button).to.exist;
+      expect(icon).to.exist;
+    }); // TODO: check right title? membership
+
+    it('should render correct items', () => {
+      // TODO: check this one...
       // console.log('wrapper', wrapper, wrapper.renderRoot);
       console.log('eeeeeel1', el);
       // expect(wrapper).not.to.exist;
-      expect(el).not.to.exist;
+      expect(el).to.exist;
     });
 
     // it('should render column and filter column headers', () => {
@@ -220,3 +231,5 @@ ${this.header ?? getNameByPath(this.path)}
 </sl-grid-filter>*/
 
 // TODO: test mode text and select
+
+// TODO: check shown items when filtered

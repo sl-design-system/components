@@ -82,6 +82,15 @@ describe('sl-grid-filter-column', () => {
       expect(active).to.deep.equal([false, false, false]);
     });
 
+    it('should have a button with the right icon when it is not filtered', () => {
+      const filter = el.renderRoot.querySelector('sl-grid-filter'),
+        button = filter?.renderRoot.querySelector('sl-button'),
+        icon = button?.querySelector('sl-icon');
+
+      expect(icon).to.exist;
+      expect(icon.getAttribute('name')).to.equal('far-filter');
+    });
+
     it('should have proper filter titles', () => {
       const titles = Array.from(el.renderRoot.querySelectorAll('sl-grid-filter')).map(filter =>
         filter?.renderRoot.querySelector('sl-popover')?.querySelector('#title')?.textContent?.trim()
@@ -128,12 +137,6 @@ describe('sl-grid-filter-column', () => {
       expect(options.map(o => o.checked)).to.deep.equal([false, false, false]);
       expect(labels).to.deep.equal(['Anesthesiologist', 'Cardiologist', 'Endocrinologist']);
     });
-
-    // TODO: check filter options
-
-    // TODO: no value by default? when it's not filtered
-
-    // TODO:  check filter icon when filtered and not filtered - maybe in filter.spec.ts
   });
 
   describe('active filter', () => {
@@ -160,14 +163,42 @@ describe('sl-grid-filter-column', () => {
       expect(active).to.deep.equal([true, true, false]);
     });
 
-    // TODO: check shown items
+    it('should have checked option in the select mode when it is filtered', async () => {
+      const filter = el.renderRoot.querySelector('sl-grid-filter'),
+        popover = filter?.renderRoot.querySelector('sl-popover'),
+        button = filter?.renderRoot.querySelector('sl-button');
+
+      expect(button).to.exist;
+
+      // Open the popover
+      button?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const checkboxGroup = popover?.querySelector('sl-checkbox-group');
+
+      expect(checkboxGroup).to.exist;
+
+      const optionsChecked = Array.from(checkboxGroup!.querySelectorAll('sl-checkbox[checked]')),
+        labels = optionsChecked.map(o => o.querySelector('[slot="label"]')?.textContent?.trim());
+
+      expect(labels).to.deep.equal(['Cardiologist', 'Endocrinologist']);
+    });
+
+    it('should have a button with the right icon when it is filtered', () => {
+      const filter = el.renderRoot.querySelector('sl-grid-filter'),
+        button = filter?.renderRoot.querySelector('sl-button'),
+        icon = button?.querySelector('sl-icon');
+
+      expect(icon).to.exist;
+      expect(icon.getAttribute('name')).to.equal('fas-filter');
+    });
   });
 
   describe('select mode', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid .items=${ITEMS}>
-          <sl-grid-filter-column path="profession" value="Endocrinologist"></sl-grid-filter-column>
+          <sl-grid-filter-column path="profession"></sl-grid-filter-column>
           <sl-grid-filter-column path="status"></sl-grid-filter-column>
           <sl-grid-filter-column path="membership"></sl-grid-filter-column>
         </sl-grid>
@@ -179,31 +210,69 @@ describe('sl-grid-filter-column', () => {
       await el.updateComplete;
     });
 
-    // it('should render column and filter column headers', () => {
-    //   const columns = Array.from(el.renderRoot.querySelectorAll('th'));
-    //   const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
-    //     col.textContent?.trim()
-    //   );
-    //
-    //   expect(columns).to.exist;
-    //   expect(filterColumns).to.exist;
-    //
-    //   expect(columns.map(col => col.getAttribute('part')?.trim())).to.deep.equal([
-    //     'header filter profession',
-    //     'header filter status',
-    //     'header filter membership'
-    //   ]);
-    //   expect(filterColumns).to.deep.equal(['Profession', 'Status', 'Membership']);
-    // });
+    it('should have proper options', async () => {
+      const filters = el.renderRoot.querySelectorAll('sl-grid-filter'),
+        popoverProfession = filters[0]?.renderRoot.querySelector('sl-popover'),
+        buttonProfession = filters[0]?.renderRoot.querySelector('sl-button'),
+        popoverStatus = filters[1]?.renderRoot.querySelector('sl-popover'),
+        buttonStatus = filters[1]?.renderRoot.querySelector('sl-button'),
+        popoverMembership = filters[2]?.renderRoot.querySelector('sl-popover'),
+        buttonMembership = filters[2]?.renderRoot.querySelector('sl-button');
+
+      expect(buttonProfession).to.exist;
+
+      // Open the popover
+      buttonProfession?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const checkboxGroupProfession = popoverProfession?.querySelector('sl-checkbox-group');
+
+      expect(checkboxGroupProfession).to.exist;
+
+      const optionsProfession = Array.from(checkboxGroupProfession!.querySelectorAll('sl-checkbox')),
+        labelsProfession = optionsProfession.map(o => o.querySelector('[slot="label"]')?.textContent?.trim());
+
+      expect(labelsProfession).to.deep.equal(['Anesthesiologist', 'Cardiologist', 'Endocrinologist']);
+
+      expect(buttonStatus).to.exist;
+
+      // Open the popover
+      buttonStatus?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const checkboxGroupStatus = popoverStatus?.querySelector('sl-checkbox-group');
+
+      expect(checkboxGroupStatus).to.exist;
+
+      const optionsStatus = Array.from(checkboxGroupStatus!.querySelectorAll('sl-checkbox')),
+        labelsStatus = optionsStatus.map(o => o.querySelector('[slot="label"]')?.textContent?.trim());
+
+      expect(labelsStatus).to.deep.equal(['Available', 'Busy']);
+
+      expect(buttonMembership).to.exist;
+
+      // Open the popover
+      buttonMembership?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const checkboxGroupMembership = popoverMembership?.querySelector('sl-checkbox-group');
+
+      expect(checkboxGroupProfession).to.exist;
+
+      const optionsMembership = Array.from(checkboxGroupMembership!.querySelectorAll('sl-checkbox')),
+        labelsMembership = optionsMembership.map(o => o.querySelector('[slot="label"]')?.textContent?.trim());
+
+      expect(labelsMembership).to.deep.equal(['Premium', 'Regular']);
+    });
   });
 
   describe('text mode', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid .items=${ITEMS}>
-          <sl-grid-filter-column path="profession" value="Endocrinologist"></sl-grid-filter-column>
+          <sl-grid-filter-column mode="text" path="profession" value="Endocrinologist"></sl-grid-filter-column>
           <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
-          <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+          <sl-grid-filter-column mode="text" path="membership"></sl-grid-filter-column>
         </sl-grid>
       `);
       await el.updateComplete;
@@ -213,31 +282,16 @@ describe('sl-grid-filter-column', () => {
       await el.updateComplete;
     });
 
-    // it('should render column and filter column headers', () => {
-    //   const columns = Array.from(el.renderRoot.querySelectorAll('th'));
-    //   const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
-    //     col.textContent?.trim()
-    //   );
-    //
-    //   expect(columns).to.exist;
-    //   expect(filterColumns).to.exist;
-    //
-    //   expect(columns.map(col => col.getAttribute('part')?.trim())).to.deep.equal([
-    //     'header filter profession',
-    //     'header filter status',
-    //     'header filter membership'
-    //   ]);
-    //   expect(filterColumns).to.deep.equal(['Profession', 'Status', 'Membership']);
-    // });
+    it('should have text field', () => {
+      const filters = el.renderRoot.querySelectorAll('sl-grid-filter'),
+        popovers = Array.from(filters).map(o => o.renderRoot.querySelector('sl-popover'));
+
+      expect(popovers).to.exist;
+
+      const textFields = Array.from(popovers).map(o => o.querySelector('sl-text-field'));
+
+      expect(textFields).to.exist;
+      expect(textFields).to.have.length(3);
+    });
   });
 });
-
-// TODO: a list of options based on the column's values - I cannot get checkboxes from checkbox group
-
-/*describe('defaults)
-
-describe('active filter')
-
-describe('select mode')
-
-describe('text mode')*/

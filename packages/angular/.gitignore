@@ -1,7 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-src/wrappers/*.component.ts
-src/wrappers/index.ts
+src/*
+!src/forms
+!src/*.ts
 
 # Compiled output
 /dist

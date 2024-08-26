@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { type Meta, StoryFn, moduleMetadata } from '@storybook/angular';
-import { AccordionComponent, ButtonComponent } from '../src/wrappers';
+import { AccordionComponent } from '../src/accordion/accordion.component';
+import { ButtonComponent } from '../src/button/button.component';
 
 @Component({
   selector: 'sla-accordion-external-actions',

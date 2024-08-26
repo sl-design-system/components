@@ -52,7 +52,7 @@ export class Tooltip extends LitElement {
   static viewportMargin = 8;
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
-  static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): void {
+  static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
     const createTooltip = (): void => {
       const tooltip = (options.context ?? document).createElement('sl-tooltip') as Tooltip;
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
@@ -71,10 +71,16 @@ export class Tooltip extends LitElement {
       tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.
+      cleanup();
+    };
+
+    const cleanup = () => {
       ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
     };
 
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
+
+    return cleanup;
   }
 
   /** Controller for managing anchoring. */

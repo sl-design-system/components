@@ -88,7 +88,7 @@ describe('sl-grid-filter-column', () => {
         icon = button?.querySelector('sl-icon');
 
       expect(icon).to.exist;
-      expect(icon.getAttribute('name')).to.equal('far-filter');
+      expect(icon!.getAttribute('name')).to.equal('far-filter');
     });
 
     it('should have proper filter titles', () => {
@@ -190,7 +190,7 @@ describe('sl-grid-filter-column', () => {
         icon = button?.querySelector('sl-icon');
 
       expect(icon).to.exist;
-      expect(icon.getAttribute('name')).to.equal('fas-filter');
+      expect(icon!.getAttribute('name')).to.equal('fas-filter');
     });
   });
 
@@ -288,7 +288,7 @@ describe('sl-grid-filter-column', () => {
 
       expect(popovers).to.exist;
 
-      const textFields = Array.from(popovers).map(o => o.querySelector('sl-text-field'));
+      const textFields = Array.from(popovers).map(o => o!.querySelector('sl-text-field'));
 
       expect(textFields).to.exist;
       expect(textFields).to.have.length(3);

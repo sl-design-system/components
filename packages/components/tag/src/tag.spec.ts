@@ -53,6 +53,10 @@ describe('sl-tag', () => {
       expect(el.renderRoot.querySelector('button')).to.exist;
     });
 
+    it('should label the button', () => {
+      expect(el.renderRoot.querySelector('button')).to.have.attribute('aria-label', "Remove 'My label'");
+    });
+
     it('should not be be removed when it is disabled and remove button is clicked', async () => {
       el.setAttribute('disabled', '');
       await el.updateComplete;

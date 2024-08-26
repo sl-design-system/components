@@ -15,6 +15,7 @@ import {
   unsafeCSS
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './dialog.scss.js';
 
 declare global {
@@ -53,7 +54,7 @@ export type SlCloseEvent = CustomEvent<void>;
 
 @localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -62,10 +63,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  /** @private */
+  /** @internal */
   @query('dialog') dialog?: HTMLDialogElement;
 
   /**
@@ -103,7 +104,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @close=${this.#onClose}
         aria-labelledby="title"
-        role=${this.dialogRole}
+        role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
         part="dialog"
       >
         <div part="header">
@@ -140,6 +141,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /** Show the dialog as a modal, in the top layer, with a backdrop. */
   showModal(): void {
     if (this.dialog?.open) {
       return;
@@ -165,8 +167,19 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = false;
     this.dialog?.showModal();
+
+    // Workaround for broken focus behavior when using <slot> inside <dialog>
+    // See https://github.com/whatwg/html/issues/9245
+    requestAnimationFrame(() => {
+      const focusable = this.querySelector<HTMLElement>('[autofocus], [tabindex]:not([tabindex="-1"])');
+
+      if (focusable && this.shadowRoot?.activeElement !== focusable) {
+        focusable.focus();
+      }
+    });
   }
 
+  /** Close the dialog. */
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();

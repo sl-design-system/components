@@ -39,20 +39,20 @@ let nextUniqueId = 0;
  * @slot default - The slot for the tooltip content.
  */
 export class Tooltip extends LitElement {
-  /** The default padding of the arrow. */
+  /** @internal The default padding of the arrow. */
   static arrowPadding = 16;
 
-  /** The default offset of the tooltip to its anchor. */
+  /** @internal The default offset of the tooltip to its anchor. */
   static offset = 12;
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The default margin between the tooltip and the viewport. */
+  /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
-  static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): void {
+  static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
     const createTooltip = (): void => {
       const tooltip = (options.context ?? document).createElement('sl-tooltip') as Tooltip;
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
@@ -71,10 +71,16 @@ export class Tooltip extends LitElement {
       tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.
+      cleanup();
+    };
+
+    const cleanup = () => {
       ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
     };
 
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
+
+    return cleanup;
   }
 
   /** Controller for managing anchoring. */

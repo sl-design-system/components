@@ -37,7 +37,9 @@
                   {%- for member in declaration.members -%}
                     {%- if member.kind == 'field' -%}
                       <tr>
-                      <td><code>{{member.name | escape}}</code></td>
+                      <td>
+                        <code>{%- if member.static -%}<span>static </span>{%- endif -%}{{member.name | escape}}</code>
+                      </td>
                       <td>
                       {%- if member.attribute -%}<code>{{ member.attribute  | escape}}</code>{%- else -%} - {%- endif -%}
                       </td>
@@ -174,7 +176,32 @@
                   {%- for property in declaration.cssProperties -%}
                     <tr>
                       <td><code>{{property.name}}</code></td>
-                      <td>{{property.description }}</td>
+                      <td>{{property.description | escape | nl2br}}</td>
+                    </tr>
+                  {%- endfor -%}
+                  </tbody>
+                </table>
+              </div>
+            {%- endif -%}
+            {%- if declaration.cssParts.length -%}
+              <h3>
+                <a class="header-anchor" href="#css-parts">
+                  CSS Parts
+                </a>
+              </h3>
+              <div class="ds-table-wrapper">
+                <table class="ds-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {%- for property in declaration.cssParts -%}
+                    <tr>
+                      <td><code>{{property.name}}</code></td>
+                      <td>{{property.description | escape | nl2br }}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>

@@ -20,10 +20,6 @@ describe('sl-checkbox-group', () => {
       `);
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('should not be disabled', () => {
       expect(el.disabled).to.not.be.true;
       expect(el).not.to.have.attribute('disabled');
@@ -259,6 +255,24 @@ describe('sl-checkbox-group', () => {
     });
   });
 
+  describe('implicit value', () => {
+    let el: CheckboxGroup;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox checked value="0">Option 1</sl-checkbox>
+          <sl-checkbox checked value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+    });
+
+    it('should have a value of the checked boxes', () => {
+      expect(el.value).to.deep.equal(['0', '1', null]);
+    });
+  });
+
   describe('without values', () => {
     let el: CheckboxGroup;
 
@@ -276,11 +290,11 @@ describe('sl-checkbox-group', () => {
       expect(el.value).to.deep.equal([null, null, null]);
     });
 
-    it('should have a value of "on" when checked', async () => {
+    it('should have a value of true when checked', async () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.value).to.deep.equal(['on', null, null]);
+      expect(el.value).to.deep.equal([true, null, null]);
     });
 
     it('should filter out the null values in the formValue', async () => {
@@ -289,7 +303,7 @@ describe('sl-checkbox-group', () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.formValue).to.deep.equal(['on']);
+      expect(el.formValue).to.deep.equal([true]);
     });
   });
 

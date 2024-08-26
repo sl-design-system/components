@@ -118,6 +118,38 @@
   <source>Frequently Used</source>
   <target>Vaak gebruikt</target>
 </trans-unit>
+<trans-unit id="see63aaad45b1b116">
+  <source>state</source>
+  <target>status</target>
+</trans-unit>
+<trans-unit id="s6580790b036f0c6f">
+  <source>active</source>
+  <target>actief</target>
+</trans-unit>
+<trans-unit id="s19fe06e3408e53d0">
+  <source>success</source>
+  <target>succes</target>
+</trans-unit>
+<trans-unit id="s129fac0ae1df7c8f">
+  <source>warning</source>
+  <target>waarschuwing</target>
+</trans-unit>
+<trans-unit id="s9f7452dd75d54d31">
+  <source>error</source>
+  <target>fout</target>
+</trans-unit>
+<trans-unit id="sea4f08110bb8f15d">
+  <source>Remove</source>
+  <target>verwijderen</target>
+</trans-unit>
+<trans-unit id="s9cd91b99a108a45f">
+  <source>List of hidden elements</source>
+  <target>Lijst met verborgen elementen</target>
+</trans-unit>
+<trans-unit id="s7def263d68b5a0be">
+  <source>Showing <x id="0" equiv-text="${this.#visibleTags.length}"/> out of <x id="1" equiv-text="${this.tags.length}"/> elements</source>
+  <target>Met <x id="0" equiv-text="${this.#visibleTags.length}"/> uit <x id="1" equiv-text="${this.tags.length}"/> elementen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

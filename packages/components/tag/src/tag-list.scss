@@ -1,0 +1,72 @@
+:host {
+  --_border-color: var(--sl-color-tag-subtle-idle-border);
+  --_gap: var(--sl-space-tag-list-md);
+  --_stack-width: var(--sl-border-width-lg);
+  --_stack-offset: var(--sl-border-width-md);
+  --_stack-margin: var(--sl-border-width-xs);
+
+  display: flex;
+  gap: var(--_gap);
+}
+
+:host([stacked]) {
+  flex-wrap: nowrap;
+
+  .list {
+    align-content: flex-end;
+    flex-wrap: nowrap;
+    overflow: hidden;
+  }
+}
+
+:host([emphasis='bold']) {
+  --_border-color: var(--sl-color-tag-bold-idle-border);
+}
+
+::slotted(*) {
+  flex-shrink: 0;
+}
+
+.stack {
+  display: flex;
+  position: relative;
+
+  &.double {
+    padding-inline-start: var(--_stack-offset);
+  }
+
+  &.triple {
+    padding-inline-start: calc(var(--_stack-offset) * 2);
+  }
+
+  &:has(sl-tag:focus) {
+    --_border-color: var(--sl-color-tag-subtle-active-border);
+  }
+
+  &:has(sl-tag[emphasis='bold']:focus) {
+    --_border-color: var(--sl-color-tag-subtle-active-border);
+  }
+}
+
+.double::before,
+.triple::before,
+.triple::after {
+  border-color: var(--_border-color);
+  border-inline-start: calc(var(--_stack-offset) - var(--_stack-margin)) solid var(--_border-color);
+  border-radius: var(--sl-border-radius-full);
+  content: '';
+  display: flex;
+  inline-size: var(--_stack-width);
+  inset: 0 auto 0 0;
+  position: absolute;
+}
+
+.triple::before {
+  inset-inline-start: var(--_stack-offset);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--_gap);
+}

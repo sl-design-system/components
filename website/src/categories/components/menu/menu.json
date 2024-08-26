@@ -1,0 +1,23 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "menu",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Menu button",
+      "selector": "sl-menu-button"
+    },
+    {
+      "name": "Menu",
+      "selector": "sl-menu"
+    },
+    {
+      "name": "Menu item",
+      "selector": "sl-menu-item"
+    },
+    {
+      "name": "Menu item group",
+      "selector": "sl-menu-item-group"
+    }
+  ]
+}

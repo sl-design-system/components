@@ -26,7 +26,7 @@ declare global {
  */
 @localized()
 export class MenuButton extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -35,13 +35,13 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The state of the menu popover. */
   #popoverState?: string;
 
-  /** The button. */
+  /** @internal The button. */
   @query('sl-button') button!: Button;
 
   /** Whether the button is disabled; when set no interaction is possible. */
@@ -50,16 +50,17 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** The fill of the button. */
   @property() fill: ButtonFill = 'outline';
 
-  /** The menu. */
+  /** @internal The menu. */
   @query('sl-menu') menu!: Menu;
 
-  /** Returns the string to be used when there is more than 1 item selected. */
+  /** Returns the string to be used when there is more than 1 item selected.
+   * Should be used together with `selects = "multiple"`. */
   @property({ attribute: false }) pluralize?: (count: number) => string;
 
   /** The position of the menu relative to the button. */
   @property() position?: PopoverPosition;
 
-  /** The text representing the selected menuitem(s). */
+  /** The text representing the selected menuitem(s) that will be shown in the menu button after selection. */
   @state() selected?: string;
 
   /** Determines whether if and how many menu items can be selected. */
@@ -103,6 +104,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
         .selects=${this.selects}
+        part="listbox"
       >
         <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-menu>

@@ -8,17 +8,17 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-tag label="Mathematics"></sl-tag>
-<sl-tag label="History" removable></sl-tag>
-<sl-tag label="Science" removable disabled></sl-tag>
+<sl-tag>Mathematics</sl-tag>
+<sl-tag removable>History</sl-tag>
+<sl-tag disabled removable>Science</sl-tag>
 </div>
 
 <div class="ds-code">
 
   ```html
-<sl-tag label="Mathematics"></sl-tag>
-<sl-tag label="History" removable></sl-tag>
-<sl-tag label="Science" removable disabled></sl-tag>
+<sl-tag>Mathematics</sl-tag>
+<sl-tag removable>History</sl-tag>
+<sl-tag disabled removable>Science</sl-tag>
   ```
 
 </div>
@@ -85,7 +85,7 @@ For tracking the status of tasks or items, such as "In Progress," "Completed," o
 
 With these options, you can tweak the appearance of the tag in Figma. They are available in the Design Panel so you can compose the tag to exactly fit the user experience need for the use case you are working on.
 
-### Tag 
+### Tag
 
 <div class="ds-table-wrapper">
 

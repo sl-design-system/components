@@ -1,10 +1,10 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { EventEmitter, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './tag.scss.js';
 
 declare global {
@@ -26,9 +26,10 @@ export type TagEmphasis = 'subtle' | 'bold';
  * A tag component containing label.
  *
  * ```html
- * <sl-tag label="tag label"></sl-tag>
+ * <sl-tag>Tag label</sl-tag>
  * ```
  *
+ * @slot default - The tag label.
  */
 @localized()
 export class Tag extends ScopedElementsMixin(LitElement) {
@@ -41,15 +42,19 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Events controller. */
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    keydown: this.#onKeydown,
-    focusin: this.#onFocusin,
-    click: this.#onFocusin
-  });
+  /**
+   * Observe changes in size, so we can check whether we need to show tooltips
+   * for truncated links.
+   */
+  #observer = new ResizeObserver(() => this.#onResize());
+
+  /** Either an instanceof of Tooltip, or a cleanup function. */
+  #tooltip?: Tooltip | (() => void);
 
   /** Whether the tag component is disabled, when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -57,129 +62,104 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** The emphasis of the tag; defaults to 'subtle'. */
   @property({ reflect: true }) emphasis?: TagEmphasis;
 
-  /** The label of the tag component. */
-  @property({ reflect: true }) label?: string;
-
-  /** The size of the tag. Defaults to `md`. */
-  @property({ reflect: true }) size?: TagSize;
-
-  /** Whether you can interact with the tag or if it is just a static, readonly display. Readonly cannot be removable. */
-  @property({ type: Boolean, reflect: true }) readonly?: boolean;
+  /** @internal The label of the tag component. */
+  @state() label = '';
 
   /** Whether the tag component is removable. */
   @property({ type: Boolean, reflect: true }) removable?: boolean;
 
-  /** @internal Emits when the inline message is dismissed. */
+  /** @internal Emits when the tag is removed. */
   @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
 
-  /** Whether the tag label is overflowing. */
-  #overflow = false;
+  /** The size of the tag. Defaults to `md`. */
+  @property({ reflect: true }) size?: TagSize;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('id', 'tag-element');
-
-    if (this.readonly) {
-      this.setAttribute('aria-readonly', 'true');
+    if (!this.hasAttribute('tabindex')) {
+      this.setAttribute('tabindex', '0');
     }
+
+    this.#observer.observe(this);
   }
 
-  override render(): TemplateResult {
-    return html`
-      <div class="wrapper" aria-describedby="tooltip-label" tabindex="0">
-        <div class="label">${this.label}</div>
-        ${this.removable && !this.readonly
-          ? html` <button
-              id="close-button"
-              aria-labelledby="tag-element"
-              aria-label=${msg('Remove')}
-              @mouseover=${this.#onMouseover}
-              @mouseout=${this.#onMouseover}
-              @click=${this.#onRemoveClick}
-              class="remove-button"
-              tabindex="-1"
-            >
-              <sl-icon name="xmark" .size=${this.size}></sl-icon>
-            </button>`
-          : nothing}
-      </div>
-      ${this.#overflow ? html`<sl-tooltip id="tooltip-label" position="bottom"> ${this.label} </sl-tooltip>` : nothing}
-    `;
-  }
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
+    if (this.#tooltip instanceof Tooltip) {
+      this.#tooltip?.remove();
+    } else if (this.#tooltip) {
+      this.#tooltip();
+    }
 
-    this.#checkOverflow();
-    this.requestUpdate();
+    this.#tooltip = undefined;
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('readonly')) {
-      if (this.readonly) {
-        this.setAttribute('aria-readonly', 'true');
-      } else {
-        this.removeAttribute('aria-readonly');
-      }
-    }
-
     if (changes.has('disabled')) {
-      const wrapper = this.renderRoot.querySelector('.wrapper') as HTMLDivElement;
-      wrapper.setAttribute('tabindex', this.disabled ? '-1' : '0');
+      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     }
-
-    this.#checkOverflow();
   }
 
-  #onRemoveClick(): void {
-    if (this.disabled || this.readonly) {
+  override render(): TemplateResult {
+    return html`
+      <div class="wrapper" .tabIndex=${this.disabled ? -1 : 0}>
+        <slot @slotchange=${this.#onSlotChange}></slot>
+        ${this.removable
+          ? html`
+              <button @click=${this.#onRemove} aria-label=${msg(`Remove '${this.label}'`)} ?disabled=${this.disabled}>
+                <sl-icon name="xmark"></sl-icon>
+              </button>
+            `
+          : nothing}
+      </div>
+    `;
+  }
+
+  #onRemove(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+
       return;
     }
 
+    // Emit remove event *before* removing the tag, so consumers can react to the event.
     this.removeEvent.emit();
     this.remove();
   }
 
-  /** Since :has is not working with :host (works only in Safari), this workaround is needed. */
-  #onMouseover(event: MouseEvent): void {
-    if (!(event.target instanceof HTMLButtonElement)) {
-      return;
-    }
+  #onResize(): void {
+    const slot = this.renderRoot.querySelector('slot');
 
-    if (event.type === 'mouseover') {
-      this.setAttribute('close-hover', '');
-    } else {
-      this.removeAttribute('close-hover');
+    if (slot && slot.clientWidth < slot.scrollWidth) {
+      this.#tooltip ||= Tooltip.lazy(
+        this,
+        tooltip => {
+          this.#tooltip = tooltip;
+          tooltip.textContent = this.label;
+        },
+        { context: this.shadowRoot! }
+      );
+    } else if (this.#tooltip instanceof Tooltip) {
+      this.#tooltip.remove();
+      this.#tooltip = undefined;
+    } else if (this.#tooltip) {
+      this.#tooltip();
+      this.#tooltip = undefined;
     }
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    if (['Delete', 'Backspace'].includes(event.key) && this.removable) {
-      this.#onRemoveClick();
-    }
-  }
-
-  #onFocusin(): void {
-    const wrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement;
-    wrapper?.focus();
-  }
-
-  #checkOverflow(): void {
-    const labelEl = this.renderRoot.querySelector('.label') as HTMLElement,
-      wrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement;
-
-    if (!labelEl) {
-      return;
-    }
-
-    const isOverflowing = wrapper.clientWidth < wrapper.scrollWidth;
-
-    if (isOverflowing) {
-      labelEl.style.overflow = 'hidden';
-      this.#overflow = isOverflowing;
-    }
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.label = event.target
+      .assignedNodes({ flatten: true })
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join('');
   }
 }

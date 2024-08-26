@@ -50,9 +50,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
-    focusInIndex: (elements: Tag[]) => elements.findIndex(el => !(el.disabled || el.style.display === 'none')),
-    elements: () => [...(this.stackTag ? [this.stackTag] : []), ...(this.tags ?? [])],
-    isFocusableElement: (el: Tag) => !(el.disabled || el.style.display === 'none')
+    focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
+    elements: () => [
+      ...(this.stackTag ? [this.stackTag] : []),
+      ...(this.tags ?? []).filter(t => t.style.display !== 'none')
+    ],
+    isFocusableElement: (el: Tag) => !el.disabled
   });
 
   /** The emphasis of the tag-list and tags inside. Defaults to 'subtle'. */

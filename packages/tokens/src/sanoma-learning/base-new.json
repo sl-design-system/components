@@ -26,13 +26,44 @@
           "type": "fontWeights"
         }
       }
+    }
+  },
+  "text-new": {
+    "body": {
+      "sm": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.sm}",
+          "lineHeight": "{size.lineHeight.200}",
+          "fontWeight": "{text.typeset.fontWeight.regular}"
+        },
+        "type": "typography"
+      },
+      "md": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.md}",
+          "lineHeight": "{size.lineHeight.250}",
+          "fontWeight": "{text.typeset.fontWeight.regular}"
+        },
+        "type": "typography"
+      },
+      "lg": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.lg}",
+          "lineHeight": "{size.lineHeight.300}",
+          "fontWeight": "{text.typeset.fontWeight.regular}"
+        },
+        "type": "typography"
+      }
     },
     "input": {
       "md": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontSize": "{size.text.body.md}",
-          "lineHeight": "{size.lineHeight.250}"
+          "lineHeight": "{size.lineHeight.300}"
         },
         "type": "typography"
       },

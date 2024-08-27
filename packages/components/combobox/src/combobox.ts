@@ -61,6 +61,9 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
    */
   #pointerDown = false;
 
+  /** The value of the combobox. */
+  #value: T | undefined;
+
   /**
    * The behavior of the combobox when it comes to suggesting options based on user input.
    * - 'off': Suggest is off
@@ -108,6 +111,8 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
 
   @property()
   override set value(value: T | undefined) {
+    this.#value = value;
+
     if (this.multiple && Array.isArray(value)) {
       this.currentSelection = this.options.filter(o => value.includes(o.value as T));
     } else {
@@ -227,14 +232,35 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     if (event.key === 'Enter' && this.currentOption) {
       this.#updateSelection(this.currentOption);
       this.#updateCurrent();
+      this.#updateTextFieldValue();
 
       if (!this.multiple) {
         this.listbox?.hidePopover();
       }
+    } else if (event.key === 'ArrowDown' && !this.listbox?.matches(':popover-open')) {
+      this.listbox?.showPopover();
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
 
-      // this.#navigateOptions(event.key);
+      let delta = 0,
+        index = this.currentOption ? this.options.findIndex(o => o.id === this.currentOption?.id) : -1;
+      switch (event.key) {
+        case 'ArrowDown':
+          delta = 1;
+          break;
+        case 'ArrowUp':
+          delta = -1;
+          break;
+        case 'Home':
+          index = 0;
+          break;
+        case 'End':
+          index = this.options.length - 1;
+          break;
+      }
+
+      index = (index + delta + this.options.length) % this.options.length;
+      this.#updateCurrent(this.options[index]);
     }
   }
 
@@ -246,6 +272,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     if (option?.id) {
       this.#updateSelection(this.options.find(o => o.id === option.id) as ComboboxOption);
       this.#updateCurrent();
+      this.#updateTextFieldValue();
 
       if (!this.multiple) {
         this.listbox?.hidePopover();
@@ -306,6 +333,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       if (optionElement) {
         optionElement.current = true;
         optionElement.setAttribute('aria-current', 'true');
+        optionElement.scrollIntoView({ block: 'nearest' });
       }
     } else {
       this.#updateOptions();
@@ -327,6 +355,10 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
           value: el.value || el.textContent?.trim() || ''
         };
       });
+
+    if (this.#value) {
+      this.currentSelection = this.options.filter(o => o.value === this.#value);
+    }
 
     if (this.currentOption) {
       this.input.setAttribute('aria-activedescendant', this.currentOption.id);
@@ -369,5 +401,14 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();
+  }
+
+  #updateTextFieldValue(): void {
+    if (this.multiple) {
+      this.input.value = '';
+    } else {
+      this.input.value = this.currentSelection.at(0)?.content || '';
+      this.input.setSelectionRange(-1, -1);
+    }
   }
 }

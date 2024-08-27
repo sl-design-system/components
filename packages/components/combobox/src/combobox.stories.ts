@@ -135,6 +135,12 @@ export const Disabled: Story = {
   }
 };
 
+export const Selected: Story = {
+  args: {
+    value: 'Button bar'
+  }
+};
+
 export const FilterResults: Story = {
   args: {
     hint: 'The filterResults property is true, which means the list of options will be filtered based on user input.',

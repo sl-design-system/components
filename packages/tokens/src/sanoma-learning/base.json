@@ -1983,7 +1983,7 @@
     },
     "focusring": {
       "default": {
-        "value": "{borderRadius.default} - 1px",
+        "value": "{borderRadius.default}+1",
         "type": "borderRadius"
       },
       "inside": {

@@ -9,7 +9,7 @@ import { GridFilter } from './filter.js';
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-grid-filter', () => {
-  let wrapper: HTMLElement;
+  // let wrapper: HTMLElement;
   let el: GridFilter;
 
   const items = [{ membership: 'Premium' }, { membership: 'VIP' }, { membership: 'Regular' }];
@@ -45,18 +45,19 @@ describe('sl-grid-filter', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
+      // TODO: how to connect grid-filter with dataSource?
       el = await fixture(html`
         <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership" value="Premium">
           Membership
         </sl-grid-filter>
-      `);
+      `); // .filter=${dataSource.filters}
       await el.updateComplete;
 
       // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 200));
+      await new Promise(resolve => setTimeout(resolve, 500));
       await el.updateComplete;
 
-      console.log('wrapper before and el', wrapper, el, dataSource);
+      // console.log('wrapper before and el', wrapper, el, dataSource);
       // console.log('el before', el, el.renderRoot);
       // el = await fixture(html`
       //   <sl-grid>
@@ -94,7 +95,7 @@ describe('sl-grid-filter', () => {
       const button = el.renderRoot?.querySelector('sl-button'),
         icon = el.querySelector('sl-icon');
       // console.log('wrapper', wrapper, wrapper.renderRoot);
-      console.log('icon', icon, button, el);
+      console.log('icon', icon, button, el, 'el.renderRoot', el.renderRoot, 'dataSource', dataSource);
       // expect(wrapper).not.to.exist;
       expect(button).to.exist;
       expect(icon).to.exist;
@@ -233,3 +234,5 @@ ${this.header ?? getNameByPath(this.path)}
 // TODO: test mode text and select
 
 // TODO: check shown items when filtered
+
+// TODO: check whether grid filter is active

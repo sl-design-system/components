@@ -112,6 +112,8 @@ describe('sl-menu-button', () => {
         spy(button, 'focus');
 
         button.click();
+
+        el.querySelector('sl-menu-item')?.focus();
         await sendKeys({ press: 'Escape' });
 
         expect(button.focus).to.have.been.calledOnce;

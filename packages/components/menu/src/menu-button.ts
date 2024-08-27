@@ -133,7 +133,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   #onToggle(event: ToggleEvent): void {
     this.#popoverState = event.newState;
 
-    if (event.newState === 'closed') {
+    if (event.newState === 'closed' && this.menu.matches(':focus-within')) {
       this.button.focus();
     }
   }

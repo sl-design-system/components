@@ -1,0 +1,90 @@
+{
+  "size": {
+    "100": {
+      "value": "8px",
+      "type": "sizing"
+    },
+    "125": {
+      "value": "10px",
+      "type": "sizing"
+    },
+    "150": {
+      "value": "12px",
+      "type": "sizing"
+    },
+    "175": {
+      "value": "14px",
+      "type": "sizing"
+    },
+    "200": {
+      "value": "16px",
+      "type": "sizing"
+    },
+    "250": {
+      "value": "20px",
+      "type": "sizing"
+    },
+    "300": {
+      "value": "24px",
+      "type": "sizing"
+    },
+    "400": {
+      "value": "32px",
+      "type": "sizing"
+    },
+    "500": {
+      "value": "40px",
+      "type": "sizing"
+    },
+    "600": {
+      "value": "48px",
+      "type": "sizing"
+    },
+    "800": {
+      "value": "64px",
+      "type": "sizing"
+    },
+    "1000": {
+      "value": "80px",
+      "type": "sizing"
+    },
+    "none": {
+      "value": "0",
+      "type": "sizing"
+    },
+    "010": {
+      "value": "1px",
+      "type": "sizing"
+    },
+    "025": {
+      "value": "2px",
+      "type": "sizing"
+    },
+    "050": {
+      "value": "4px",
+      "type": "sizing"
+    },
+    "075": {
+      "value": "6px",
+      "type": "sizing"
+    },
+    "full": {
+      "value": "999",
+      "type": "sizing"
+    }
+  },
+  "opacity": {
+    "100": {
+      "value": "0.1",
+      "type": "opacity"
+    },
+    "250": {
+      "value": "0.25",
+      "type": "opacity"
+    },
+    "050": {
+      "value": "0.05",
+      "type": "opacity"
+    }
+  }
+}

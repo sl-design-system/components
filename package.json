@@ -460,14 +460,14 @@
     "chai-as-promised": "^8.0.0",
     "chromatic": "^11.7.1",
     "eslint": "9.5.0",
-    "husky": "^9.1.4",
-    "lint-staged": "^15.2.8",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.9",
     "lit": "^3.1.4",
     "sinon": "^18.0.0",
     "storybook": "^8.2.9",
     "stylelint": "^16.6.1",
     "typescript": "^5.4.5",
-    "vite": "^5.4.1",
+    "vite": "^5.4.2",
     "wireit": "^0.14.7"
   }
 }

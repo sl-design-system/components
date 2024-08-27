@@ -24,9 +24,6 @@ declare global {
  *
  * @cssprop --sl-menu-max-inline-size - The maximum inline size of the menu.
  * @cssprop --sl-menu-min-inline-size - The minimum inline size of the menu.
- * @cssprop --sl-popover-max-block-size - The maximum block size of the menu.
- * @cssprop --sl-popover-min-block-size - The minimum block size of the menu.
-
  *
  * @slot default - The menu's content: menu items or menu item groups.
  */
@@ -47,10 +44,7 @@ export class Menu extends LitElement {
   #anchor = new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin });
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    keydown: this.#onKeydown,
-    toggle: this.#onToggle
-  });
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** The menu items. */
   #menuItems: MenuItem[] = [];
@@ -86,7 +80,10 @@ export class Menu extends LitElement {
     super.connectedCallback();
 
     this.role = 'menu';
-    this.setAttribute('popover', '');
+
+    if (!this.hasAttribute('popover')) {
+      this.setAttribute('popover', '');
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -109,6 +106,14 @@ export class Menu extends LitElement {
         style="--sl-menu-item-indent: ${this.selects || this.selectableChildren ? '1' : '0'}"
       ></slot>
     `;
+  }
+
+  /**
+   * @internal Workaround for `delegatesFocus` on the shadowroot not taking
+   * any of the menu items in the light DOM into account.
+   */
+  override focus(): void {
+    this.#rovingTabindexController.focus();
   }
 
   /** @internal */
@@ -184,11 +189,5 @@ export class Menu extends LitElement {
     });
 
     this.#rovingTabindexController.clearElementCache();
-  }
-
-  #onToggle(event: Event): void {
-    if ((event as ToggleEvent).newState === 'closed' && this.anchorElement instanceof MenuItem) {
-      this.anchorElement.focus();
-    }
   }
 }

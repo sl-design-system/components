@@ -1,15 +1,21 @@
 :host {
-  --_header-color: rgb(var(--sl-color-palette-neutral-500));
-  --_header-padding: 6px;
+  display: flex;
+  flex: 1;
+}
 
+[part='wrapper'] {
   display: flex;
   flex: 1;
   flex-direction: column;
+  gap: var(--sl-space-new-2xs);
+  margin-inline: var(--sl-space-new-md);
 }
 
-slot[name='header'] span,
+slot[name='header'] .heading,
 slot[name='header']::slotted(*) {
-  color: var(--_header-color);
-  font-weight: 600;
-  padding: var(--_header-padding);
+  color: var(--sl-color-text-plain);
+  padding: var(--sl-space-new-md);
+  padding-inline-start: calc(
+    var(--sl-menu-item-indent, 0) * (var(--sl-size-icon-sm) + var(--sl-space-new-md)) + var(--sl-space-new-md)
+  );
 }

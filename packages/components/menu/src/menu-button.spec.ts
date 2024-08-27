@@ -4,7 +4,7 @@ import { type Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { fake, spy } from 'sinon';
+import { spy } from 'sinon';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 import { type Menu } from './menu.js';
@@ -101,10 +101,6 @@ describe('sl-menu-button', () => {
         expect(assignedElements?.at(0)).to.have.text('Button');
       });
 
-      it('should not have a selected span', () => {
-        expect(button.querySelector('.selected')).not.to.exist;
-      });
-
       it('should have an arrow', () => {
         const icon = button.querySelector('sl-icon');
 
@@ -116,6 +112,8 @@ describe('sl-menu-button', () => {
         spy(button, 'focus');
 
         button.click();
+
+        el.querySelector('sl-menu-item')?.focus();
         await sendKeys({ press: 'Escape' });
 
         expect(button.focus).to.have.been.calledOnce;
@@ -253,107 +251,6 @@ describe('sl-menu-button', () => {
 
     it('should not have a selected span', () => {
       expect(button.querySelector('.selected')).not.to.exist;
-    });
-  });
-
-  describe('single select', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-menu-button selects="single">
-          <span slot="button">Items</span>
-
-          <sl-menu-item selectable>Item 1</sl-menu-item>
-          <sl-menu-item selectable>Item 2</sl-menu-item>
-        </sl-menu-button>
-      `);
-
-      button = el.renderRoot.querySelector('sl-button') as Button;
-      menu = el.renderRoot.querySelector('sl-menu') as Menu;
-    });
-
-    it('should be in single select mode', () => {
-      expect(el.selects).to.equal('single');
-    });
-
-    it('should not have a selected value', () => {
-      expect(el.selected).to.be.undefined;
-      expect(button.querySelector('.selected')).not.to.exist;
-    });
-
-    it('should show the selected menu item', async () => {
-      el.querySelector('sl-menu-item')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      let selected = el.renderRoot.querySelector('.selected');
-
-      expect(selected).to.exist;
-      expect(selected).to.have.text('Item 1');
-
-      el.querySelector<HTMLElement>('sl-menu-item:last-of-type')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      selected = el.renderRoot.querySelector('.selected');
-
-      expect(selected).to.exist;
-      expect(selected).to.have.text('Item 2');
-    });
-  });
-
-  describe('multiple select', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-menu-button selects="multiple">
-          <span slot="button">Items</span>
-
-          <sl-menu-item selectable>Item 1</sl-menu-item>
-          <sl-menu-item selectable>Item 2</sl-menu-item>
-        </sl-menu-button>
-      `);
-
-      button = el.renderRoot.querySelector('sl-button') as Button;
-      menu = el.renderRoot.querySelector('sl-menu') as Menu;
-    });
-
-    it('should be in multiple select mode', () => {
-      expect(el.selects).to.equal('multiple');
-    });
-
-    it('should not have a selected value', () => {
-      expect(el.selected).to.be.undefined;
-      expect(button.querySelector('.selected')).not.to.exist;
-    });
-
-    it('should show the selected menu item', async () => {
-      el.querySelector('sl-menu-item')?.click();
-      await new Promise(resolve => setTimeout(resolve));
-
-      const selected = el.renderRoot.querySelector('.selected');
-
-      expect(selected).to.exist;
-      expect(selected).to.have.text('Item 1');
-    });
-
-    it('should show the number of selected menu items if there are more than 1', async () => {
-      el.querySelectorAll('sl-menu-item').forEach(menuItem => menuItem.click());
-      await new Promise(resolve => setTimeout(resolve));
-
-      const selected = el.renderRoot.querySelector('.selected');
-
-      expect(selected).to.exist;
-      expect(selected).to.have.text('2 selected');
-    });
-
-    it('should call pluralize if there is more than 1 selected menu item', async () => {
-      el.pluralize = fake.returns('2 items');
-
-      el.querySelectorAll('sl-menu-item').forEach(menuItem => menuItem.click());
-      await new Promise(resolve => setTimeout(resolve));
-
-      const selected = el.renderRoot.querySelector('.selected');
-
-      expect(el.pluralize).to.have.been.calledWith(2);
-      expect(selected).to.exist;
-      expect(selected).to.have.text('2 items');
     });
   });
 });

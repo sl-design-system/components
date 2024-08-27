@@ -20,7 +20,7 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
 Icon.register(faSchool);
 
@@ -91,7 +91,9 @@ export const Basic: Story = {};
 
 export const Badge: Story = {
   args: {
-    badge: html`<sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">1</sl-badge>`,
+    badge: html`<sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning" size="lg"
+      >1</sl-badge
+    >`,
     size: 'xl'
   }
 };
@@ -314,6 +316,13 @@ export const All: StoryObj = {
             </td>
             <td>
               <sl-avatar .displayName=${users[3].name} size="3xl" image-only>
+                <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
+                  <sl-icon name="check"></sl-icon>1
+                </sl-badge>
+              </sl-avatar>
+            </td>
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="4xl" image-only>
                 <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
                   <sl-icon name="check"></sl-icon>1
                 </sl-badge>

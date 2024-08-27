@@ -9,14 +9,18 @@ import { GridFilter } from './filter.js';
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-grid-filter', () => {
-  // let wrapper: HTMLElement;
+  let wrapper: HTMLElement;
   let el: GridFilter;
 
   const items = [{ membership: 'Premium' }, { membership: 'VIP' }, { membership: 'Regular' }];
 
   const column = new GridFilterColumn();
+  // column.path = 'membership';
+  // column.value = 'Premium';
+  // await column.updateComplete;
+
   const dataSource = new ArrayDataSource(items) as DataSource;
-  dataSource.addFilter('', 'membership', ['Premium']);
+  // dataSource.addFilter('', 'membership', ['Premium']);
 
   const options = [
     {
@@ -33,6 +37,8 @@ describe('sl-grid-filter', () => {
     }
   ];
 
+  console.log('column before', column);
+
   // TODO: test mode -> .mode=${this.mode || 'select'}
   // TODO: test options -> .options=${this.options ?? this.internalOptions}
 
@@ -45,19 +51,50 @@ describe('sl-grid-filter', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
+      column.path = 'membership';
+      column.value = 'Premium';
+      await new Promise(resolve => setTimeout(resolve, 200));
+      // await column.updateComplete;
+
+      dataSource.addFilter('', 'membership', ['Premium']);
+      await new Promise(resolve => setTimeout(resolve, 200));
+
       // TODO: how to connect grid-filter with dataSource?
-      el = await fixture(html`
-        <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership" value="Premium">
-          Membership
-        </sl-grid-filter>
+      wrapper = await fixture(html`
+        <th part="header filter membership">
+          <sl-grid-filter
+            .column=${column}
+            .options=${options}
+            mode="select"
+            path="membership"
+            value="Premium"
+            .filter=${dataSource.filters}
+          >
+            Membership
+          </sl-grid-filter>
+        </th>
       `); // .filter=${dataSource.filters}
+      el = wrapper.querySelector<GridFilter>('sl-grid-filter')!;
+      await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
 
       // Give grid time to render the table structure
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
 
-      // console.log('wrapper before and el', wrapper, el, dataSource);
+      console.log(
+        'wrapper before and el',
+        wrapper,
+        el,
+        dataSource,
+        'column',
+        column,
+        dataSource.filters,
+        'filteredItems',
+        dataSource.filteredItems,
+        'column',
+        column
+      );
       // console.log('el before', el, el.renderRoot);
       // el = await fixture(html`
       //   <sl-grid>
@@ -95,7 +132,18 @@ describe('sl-grid-filter', () => {
       const button = el.renderRoot?.querySelector('sl-button'),
         icon = el.querySelector('sl-icon');
       // console.log('wrapper', wrapper, wrapper.renderRoot);
-      console.log('icon', icon, button, el, 'el.renderRoot', el.renderRoot, 'dataSource', dataSource);
+      console.log(
+        'icon',
+        icon,
+        button,
+        el,
+        'el.renderRoot',
+        el.renderRoot,
+        'dataSource',
+        dataSource,
+        'wrapper',
+        wrapper
+      );
       // expect(wrapper).not.to.exist;
       expect(button).to.exist;
       expect(icon).to.exist;
@@ -236,3 +284,5 @@ ${this.header ?? getNameByPath(this.path)}
 // TODO: check shown items when filtered
 
 // TODO: check whether grid filter is active
+
+// TODO: defaults, filtered tests

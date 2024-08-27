@@ -3,7 +3,6 @@
   color: var(--sl-color-text-default);
   display: block;
   flex-grow: 1;
-  line-height: 1rem; // FIXME: var(--sl-size-text-lineHeight-200);
 }
 
 :host(:focus-visible) {
@@ -69,7 +68,7 @@ sl-icon[name='chevron-right'] {
   cursor: pointer;
   display: flex;
   gap: var(--sl-space-new-md);
-  padding: var(--sl-space-new-md);
+  padding: var(--sl-space-new-sm) var(--sl-space-new-md);
   padding-inline-start: calc(
     var(--sl-menu-item-indent, 0) * (var(--sl-size-icon-sm) + var(--sl-space-new-md)) + var(--sl-space-new-md)
   );

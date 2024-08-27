@@ -7,7 +7,7 @@
   color: var(--sl-color-text-default);
   display: none;
   flex-direction: column;
-  gap: var(--sl-space-new-xs);
+  gap: var(--sl-space-new-2xs);
   margin: 0;
   max-inline-size: var(--sl-menu-max-inline-size, auto);
   min-inline-size: var(--sl-menu-min-inline-size, min-content);
@@ -113,7 +113,7 @@
 
 ::slotted(sl-menu-item-group:not(:first-child)) {
   border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
-  margin-block-start: calc(var(--sl-space-new-md) - var(--sl-space-new-xs));
+  margin-block-start: var(--sl-space-new-sm);
   padding-block-start: var(--sl-space-new-md);
 }
 

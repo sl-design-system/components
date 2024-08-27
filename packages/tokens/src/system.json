@@ -268,12 +268,16 @@
       "value": "{size.none}",
       "type": "spacing"
     },
-    "xs": {
+    "2xs": {
       "value": "{size.025}",
       "type": "spacing"
     },
-    "sm": {
+    "xs": {
       "value": "{size.050}",
+      "type": "spacing"
+    },
+    "sm": {
+      "value": "{size.075}",
       "type": "spacing",
       "description": "Use when components are 'besties'"
     },

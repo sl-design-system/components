@@ -307,7 +307,7 @@
     },
     "input": {
       "vertical": {
-        "value": "{space-new.sm}-{size.borderWidth.default}",
+        "value": "{space-new.xs}-{size.borderWidth.default}",
         "type": "spacing"
       },
       "horizontal": {

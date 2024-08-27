@@ -1,4 +1,6 @@
+import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { EventsController, anchor } from '@sl-design-system/shared';
+import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
@@ -27,13 +29,22 @@ export type ComboboxMultipleSelectionType = 'automatic' | 'manual';
 let nextUniqueId = 0;
 
 export class Combobox<T extends { toString(): string } = string> extends TextField<T> {
-  /** The default offset of the popover to the input. */
+  /** @internal The default offset of the popover to the input. */
   static offset = 6;
+
+  /** @internal */
+  static override get scopedElements(): ScopedElementsMap {
+    return {
+      ...TextField.scopedElements,
+      'sl-tag': Tag,
+      'sl-tag-list': TagList
+    };
+  }
 
   /** @internal */
   static override styles: CSSResultGroup = [TextField.styles, styles];
 
-  /** The default margin between the popover and the viewport. */
+  /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
   /** Event controller. */
@@ -70,8 +81,8 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
-  /** @internal The popover containing the list. */
-  @query('[popover]') menu?: HTMLElement;
+  /** @internal The popover containing the options. */
+  @query('[popover]') listbox?: HTMLElement;
 
   /** Use a custom model for the options. */
   @property({ attribute: false }) model?: ComboboxModel;
@@ -171,24 +182,24 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.input.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
 
     if (event.newState === 'open') {
-      this.menu!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
+      this.listbox!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
     }
   }
 
   #onButtonClick(): void {
-    this.menu?.togglePopover();
+    this.listbox?.togglePopover();
   }
 
   #onFocus(): void {
     if (!this.#pointerDown) {
-      this.menu?.showPopover();
+      this.listbox?.showPopover();
     }
   }
 
   #onInput(event: InputEvent): void {
     const value = this.input.value;
 
-    this.menu?.showPopover();
+    this.listbox?.showPopover();
 
     let currentOption: ComboboxOption | undefined = undefined;
     if (
@@ -209,7 +220,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   }
 
   #onInputClick(): void {
-    this.menu?.showPopover();
+    this.listbox?.showPopover();
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -218,7 +229,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       this.#updateCurrent();
 
       if (!this.multiple) {
-        this.menu?.hidePopover();
+        this.listbox?.hidePopover();
       }
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
@@ -237,7 +248,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       this.#updateCurrent();
 
       if (!this.multiple) {
-        this.menu?.hidePopover();
+        this.listbox?.hidePopover();
       }
     }
   }

@@ -183,7 +183,7 @@ export const Avatar: Story = {
 export const All: Story = {
   render: () => html`
     <style>
-      #root-inner {
+      .container {
         align-items: center;
         display: inline-grid;
         gap: 1rem;
@@ -191,106 +191,108 @@ export const All: Story = {
         justify-items: center;
       }
     </style>
-    <span></span>
-    <span>Icon</span>
-    <span>Icon & text</span>
-    <span>Text</span>
-    <span>Disabled</span>
+    <div class="container">
+      <span></span>
+      <span>Icon</span>
+      <span>Icon & text</span>
+      <span>Text</span>
+      <span>Disabled</span>
 
-    <span>md</span>
-    <sl-menu-button>
-      <sl-icon name="far-gear" slot="button"></sl-icon>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
-    <sl-menu-button>
-      <sl-icon name="far-gear" slot="button"></sl-icon>
-      <span slot="button">Settings</span>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
-    <sl-menu-button>
-      <span slot="button">Settings</span>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
-    <sl-menu-button disabled>
-      <sl-icon name="far-gear" slot="button"></sl-icon>
-      <span slot="button">Settings</span>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
+      <span>md</span>
+      <sl-menu-button>
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button>
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button disabled>
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
 
-    <span>lg</span>
-    <sl-menu-button size="lg">
-      <sl-icon name="far-gear" slot="button"></sl-icon>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
-    <sl-menu-button size="lg">
-      <sl-icon name="far-gear" slot="button"></sl-icon>
-      <span slot="button">Settings</span>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
-    <sl-menu-button size="lg">
-      <span slot="button">Settings</span>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
-    <sl-menu-button disabled size="lg">
-      <sl-icon name="far-gear" slot="button"></sl-icon>
-      <span slot="button">Settings</span>
-      <sl-menu-item>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    </sl-menu-button>
+      <span>lg</span>
+      <sl-menu-button size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button size="lg">
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button disabled size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+    </div>
   `
 };

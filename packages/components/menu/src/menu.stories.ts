@@ -278,146 +278,148 @@ export const All: Story = {
   },
   render: () => html`
     <style>
-      #root-inner {
+      .container {
         display: inline-grid;
         grid-template-columns: repeat(4, auto);
         gap: 1rem;
         justify-items: center;
       }
-      #root-inner > sl-menu {
+      .container > sl-menu {
         display: flex;
         margin: 0 !important;
         opacity: 1;
         position: static !important;
       }
     </style>
-    <span>Basic</span>
-    <span>Selectable</span>
-    <span>Icons</span>
-    <span>Selectable + icons</span>
+    <div class="container">
+      <span>Basic</span>
+      <span>Selectable</span>
+      <span>Icons</span>
+      <span>Selectable + icons</span>
 
-    <sl-menu>
-      <sl-menu-item shortcut="$mod+Digit1">Default</sl-menu-item>
-      <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
-      <hr />
-      <sl-menu-item>
-        Submenu
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item disabled>
-        Submenu, disabled
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item-group heading="Group heading">
-        <sl-menu-item variant="danger">Danger</sl-menu-item>
-        <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
-      </sl-menu-item-group>
-    </sl-menu>
+      <sl-menu>
+        <sl-menu-item shortcut="$mod+Digit1">Default</sl-menu-item>
+        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <hr />
+        <sl-menu-item>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">Danger</sl-menu-item>
+          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
 
-    <sl-menu>
-      <sl-menu-item selectable selected shortcut="$mod+Digit1">Default, selected</sl-menu-item>
-      <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
-      <hr />
-      <sl-menu-item>
-        Submenu
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item disabled>
-        Submenu, disabled
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item-group heading="Group heading">
-        <sl-menu-item variant="danger">Danger</sl-menu-item>
-        <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
-      </sl-menu-item-group>
-    </sl-menu>
+      <sl-menu>
+        <sl-menu-item selectable selected shortcut="$mod+Digit1">Default, selected</sl-menu-item>
+        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <hr />
+        <sl-menu-item>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">Danger</sl-menu-item>
+          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
 
-    <sl-menu>
-      <sl-menu-item shortcut="$mod+Digit1">
-        <sl-icon name="far-rocket"></sl-icon>
-        Default
-      </sl-menu-item>
-      <sl-menu-item disabled shortcut="$mod+Digit2">
-        <sl-icon name="far-rocket"></sl-icon>
-        Default, disabled
-      </sl-menu-item>
-      <hr />
-      <sl-menu-item>
-        <sl-icon name="far-gear"></sl-icon>
-        Submenu
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item disabled>
-        <sl-icon name="far-gear"></sl-icon>
-        Submenu, disabled
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item-group heading="Group heading">
-        <sl-menu-item variant="danger">
-          <sl-icon name="far-trash"></sl-icon>
-          Danger
+      <sl-menu>
+        <sl-menu-item shortcut="$mod+Digit1">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default
         </sl-menu-item>
-        <sl-menu-item disabled variant="danger">
-          <sl-icon name="far-trash"></sl-icon>
-          Danger, disabled
+        <sl-menu-item disabled shortcut="$mod+Digit2">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default, disabled
         </sl-menu-item>
-      </sl-menu-item-group>
-    </sl-menu>
+        <hr />
+        <sl-menu-item>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger
+          </sl-menu-item>
+          <sl-menu-item disabled variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger, disabled
+          </sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
 
-    <sl-menu>
-      <sl-menu-item selectable selected shortcut="$mod+Digit1">
-        <sl-icon name="far-rocket"></sl-icon>
-        Default
-      </sl-menu-item>
-      <sl-menu-item disabled shortcut="$mod+Digit2">
-        <sl-icon name="far-rocket"></sl-icon>
-        Default, disabled
-      </sl-menu-item>
-      <hr />
-      <sl-menu-item>
-        <sl-icon name="far-gear"></sl-icon>
-        Submenu
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item disabled>
-        <sl-icon name="far-gear"></sl-icon>
-        Submenu, disabled
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item-group heading="Group heading">
-        <sl-menu-item variant="danger">
-          <sl-icon name="far-trash"></sl-icon>
-          Danger
+      <sl-menu>
+        <sl-menu-item selectable selected shortcut="$mod+Digit1">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default
         </sl-menu-item>
-        <sl-menu-item disabled variant="danger">
-          <sl-icon name="far-trash"></sl-icon>
-          Danger, disabled
+        <sl-menu-item disabled shortcut="$mod+Digit2">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default, disabled
         </sl-menu-item>
-      </sl-menu-item-group>
-    </sl-menu>
+        <hr />
+        <sl-menu-item>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger
+          </sl-menu-item>
+          <sl-menu-item disabled variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger, disabled
+          </sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
+    </div>
   `
 };

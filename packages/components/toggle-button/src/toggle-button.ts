@@ -48,8 +48,8 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     keydown: this.#onKeydown
   });
 
-  /** Lazy tooltip. */
-  #tooltip?: Tooltip;
+  /** Either an instanceof of Tooltip, or a cleanup function. */
+  #tooltip?: Tooltip | (() => void);
 
   /** @internal The default (non-pressed) icon. */
   @state() defaultIcon?: Icon;
@@ -89,6 +89,18 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
+  }
+
+  override disconnectedCallback(): void {
+    if (this.#tooltip instanceof Tooltip) {
+      this.#tooltip.remove();
+    } else if (this.#tooltip) {
+      this.#tooltip();
+    }
+
+    this.#tooltip = undefined;
+
+    super.disconnectedCallback();
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -132,19 +144,24 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('label')) {
-      if (this.label && !this.#tooltip) {
-        Tooltip.lazy(
-          this,
-          tooltip => {
-            this.#tooltip = tooltip;
-            tooltip.textContent = this.label!;
-          },
-          { context: this.shadowRoot! }
-        );
-      } else if (this.label && this.#tooltip) {
-        this.#tooltip.textContent = this.label;
-      } else if (this.#tooltip) {
+      if (this.label) {
+        if (this.#tooltip instanceof Tooltip) {
+          this.#tooltip.textContent = this.label;
+        } else {
+          this.#tooltip ||= Tooltip.lazy(
+            this,
+            tooltip => {
+              this.#tooltip = tooltip;
+              tooltip.textContent = this.label!;
+            },
+            { context: this.shadowRoot! }
+          );
+        }
+      } else if (this.#tooltip instanceof Tooltip) {
         this.#tooltip.remove();
+        this.#tooltip = undefined;
+      } else if (this.#tooltip) {
+        this.#tooltip();
         this.#tooltip = undefined;
       }
     }

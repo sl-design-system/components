@@ -52,7 +52,10 @@
       ]
     },
     "storybook": {
-      "command": "ng run angular:build-storybook"
+      "command": "ng run angular:build-storybook",
+      "dependencies": [
+        "build"
+      ]
     }
   },
   "devDependencies": {
@@ -95,7 +98,7 @@
     "tslib": "^2.6.3",
     "typescript": "~5.4.5",
     "wireit": "^0.14.7",
-    "zone.js": "~0.14.8"
+    "zone.js": "~0.14.10"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"

@@ -133,7 +133,9 @@ export class Icon extends LitElement {
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    await this.#waitForWindowProperty(this.name);
+    if (this.name) {
+      await this.#waitForWindowProperty(this.name);
+    }
     this.sldsLibrary = window.SLDS;
     this.iconHTML = this.#getIconHTML();
   }

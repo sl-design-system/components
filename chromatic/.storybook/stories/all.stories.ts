@@ -8,6 +8,8 @@ import {All as AllCheckbox} from '../../../packages/components/checkbox/src/chec
 import {All as AllDialog} from '../../../packages/components/dialog/src/dialog.stories';
 import {All as AllIcon} from '../../../packages/components/icon/src/icon.stories';
 import {All as AllInlineMessage} from '../../../packages/components/inline-message/src/inline-message.stories';
+import {All as AllMenu} from '../../../packages/components/menu/src/menu.stories';
+import {All as AllMenuButton} from '../../../packages/components/menu/src/menu-button.stories';
 import {All as AllPopover} from '../../../packages/components/popover/src/popover.stories';
 import {All as AllRadioGroup} from '../../../packages/components/radio-group/src/radio-group.stories';
 import {All as AllSelect} from '../../../packages/components/select/src/select.stories';
@@ -46,13 +48,13 @@ export default {
   },
 };
 
-/** 
- * When adding an "All" story of a component you need to only include all variants that can have changes per style; 
- * so when multiple variants or scenarios use the exact same styling or, more specifically, tokens, 
+/**
+ * When adding an "All" story of a component you need to only include all variants that can have changes per style;
+ * so when multiple variants or scenarios use the exact same styling or, more specifically, tokens,
  * there is no need to incluse all those scenarios.
- * 
+ *
  * The All story always needs its own `render` function, otherwise this doesn't work.
- */ 
+ */
 export const Accordion = {render: AllAccordion.render};
 export const Avatar = {render: AllAvatar.render};
 export const Badge = {render: AllBadge.render};
@@ -63,6 +65,8 @@ export const Checkbox = {render: AllCheckbox.render};
 export const Dialog = {render: AllDialog.render, play: AllDialog.play};
 export const Icon = {render:  AllIcon.render};
 export const InlineMessage = {render: AllInlineMessage.render};
+export const Menu = {render: AllMenu.render};
+export const MenuButton = {render: AllMenuButton.render};
 export const Popover = {render: AllPopover.render};
 export const RadioGroup = {render: AllRadioGroup.render};
 export const Select = {render: AllSelect.render};

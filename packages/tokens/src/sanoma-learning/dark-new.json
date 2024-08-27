@@ -501,6 +501,16 @@
         "value": "{color.base.black}",
         "type": "color"
       }
+    },
+    "input": {
+      "background": {
+        "value": "{color.base.black}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.neutral.subtle}",
+        "type": "color"
+      }
     }
   }
 }

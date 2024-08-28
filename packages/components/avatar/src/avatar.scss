@@ -88,7 +88,7 @@
 }
 
 :host([size='4xl']) {
-  --_badge-inset: var(--sl-space-avatar-badge-inset-4xl); // TODO: needs to be changed
+  --_badge-inset: var(--sl-space-avatar-badge-inset-4xl);
   --_block-gap: var(--sl-space-avatar-block-3xl);
   --_icon-size: var(--sl-size-icon-4xl);
   --_inline-gap: var(--sl-space-avatar-inline-3xl);

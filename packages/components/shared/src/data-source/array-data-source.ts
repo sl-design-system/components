@@ -25,7 +25,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
   constructor(items: T[]) {
     super();
-    console.log('items in array data source', items);
     this.#filteredItems = [...items];
     this.#items = [...items];
   }

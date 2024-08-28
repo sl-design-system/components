@@ -1,6 +1,5 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
-import { ArrayDataSource, DataSource } from '@sl-design-system/shared';
 import { html } from 'lit';
 import '../register.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -12,14 +11,14 @@ describe('sl-grid-filter', () => {
   let wrapper: HTMLElement;
   let el: GridFilter;
 
-  const items = [{ membership: 'Premium' }, { membership: 'VIP' }, { membership: 'Regular' }];
+  // const items = [{ membership: 'Premium' }, { membership: 'VIP' }, { membership: 'Regular' }];
 
   const column = new GridFilterColumn();
   // column.path = 'membership';
   // column.value = 'Premium';
   // await column.updateComplete;
 
-  const dataSource = new ArrayDataSource(items) as DataSource;
+  // const dataSource = new ArrayDataSource(items) as DataSource;
   // dataSource.addFilter('', 'membership', ['Premium']);
 
   const options = [
@@ -36,8 +35,6 @@ describe('sl-grid-filter', () => {
       value: 'VIP'
     }
   ];
-
-  console.log('column before', column);
 
   // TODO: test mode -> .mode=${this.mode || 'select'}
   // TODO: test options -> .options=${this.options ?? this.internalOptions}
@@ -62,20 +59,13 @@ describe('sl-grid-filter', () => {
       await new Promise(resolve => setTimeout(resolve, 200));
       // await column.updateComplete;
 
-      dataSource.addFilter('', 'membership', ['Premium']);
-      await new Promise(resolve => setTimeout(resolve, 200));
+      // dataSource.addFilter('', 'membership', ['Premium']);
+      // await new Promise(resolve => setTimeout(resolve, 200));
 
       // TODO: how to connect grid-filter with dataSource?
       wrapper = await fixture(html`
         <th part="header filter membership">
-          <sl-grid-filter
-            .column=${column}
-            .options=${options}
-            mode="select"
-            path="membership"
-            value="Premium"
-            .filter=${dataSource.filters}
-          >
+          <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
             Membership
           </sl-grid-filter>
         </th>
@@ -87,208 +77,112 @@ describe('sl-grid-filter', () => {
       // Give grid time to render the table structure
       await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
-
-      /*      console.log(
-        'wrapper before and el',
-        wrapper,
-        el,
-        dataSource,
-        'column',
-        column,
-        dataSource.filters,
-        'filteredItems',
-        dataSource.filteredItems,
-        'column',
-        column
-      );*/
-      // console.log('el before', el, el.renderRoot);
-      // el = await fixture(html`
-      //   <sl-grid>
-      //     <sl-grid-filter-column path="profession"></sl-grid-filter-column>
-      //     <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
-      //     <sl-grid-filter-column path="membership"></sl-grid-filter-column>
-      //   </sl-grid>
-      // `);
-      // el.items = [
-      //   {
-      //     firstName: 'John',
-      //     lastName: 'Doe',
-      //     age: 20,
-      //     profession: 'Endocrinologist',
-      //     status: 'Available',
-      //     membership: 'Regular'
-      //   },
-      //   {
-      //     firstName: 'Jane',
-      //     lastName: 'Smith',
-      //     age: 40,
-      //     profession: 'Anesthesiologist',
-      //     status: 'Busy',
-      //     membership: 'Premium'
-      //   }
-      // ];
-      // await el.updateComplete;
-      //
-      // // Give grid time to render the table structure
-      // await new Promise(resolve => setTimeout(resolve, 100));
-      // await el.updateComplete;
     });
 
     it('should render correct icon', () => {
       const button = el.renderRoot?.querySelector('sl-button'),
-        icon = el.querySelector('sl-icon');
-      // console.log('wrapper', wrapper, wrapper.renderRoot);
-      console.log(
-        'icon',
-        icon,
-        button,
-        el,
-        'el.renderRoot',
-        el.renderRoot,
-        'dataSource',
-        dataSource,
-        'wrapper',
-        wrapper
-      );
-      // expect(wrapper).not.to.exist;
+        icon = button?.querySelector('sl-icon');
+
       expect(button).to.exist;
       expect(icon).to.exist;
-    }); // TODO: check right title? membership
-
-    it('should render correct items', () => {
-      // TODO: check this one...
-      // console.log('wrapper', wrapper, wrapper.renderRoot);
-      console.log('eeeeeel1', el);
-      // expect(wrapper).not.to.exist;
-      expect(el).to.exist;
+      expect(icon!.getAttribute('name')).to.equal('far-filter');
     });
 
-    // it('should render column and filter column headers', () => {
-    //   const columns = Array.from(el.renderRoot.querySelectorAll('th'));
-    //   // .map(col => col.textContent);
-    //   // .slice(0, 2);
-    //   // const filterColumns = el.renderRoot?.querySelectorAll('sl-grid-filter');
-    //   const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter')).map(col =>
-    //     col.textContent?.trim()
-    //   );
-    //
-    //   console.log('coolumns', columns, el.renderRoot.querySelectorAll('th'));
-    //
-    //   // console.log('coolumns--2', columns);
-    //   // console.log('filterColumns', filterColumns, Array.from(filterColumns).map(col => col.textContent.trim()));
-    //   // console.log('filterColumns trimmed', Array.from(filterColumns).map(col => col.textContent.trim()));
-    //   // console.log('filterColumnsTrimmedfilterColumnsTrimmedfilterColumnsTrimmed', filterColumnsTrimmed);
-    //
-    //   expect(columns).to.exist;
-    //   expect(filterColumns).to.exist;
-    //
-    //   // expect(columns).to.deep.equal(['First name', 'Last name']);
-    //   expect(columns.map(col => col.getAttribute('part')?.trim())).to.deep.equal([
-    //     'header filter profession',
-    //     'header filter status',
-    //     'header filter membership'
-    //   ]);
-    //   expect(filterColumns).to.deep.equal(['Profession', 'Status', 'Membership']);
-    // });
+    it('should have no active filter by default', () => {
+      const active = el.hasAttribute('active');
 
-    // it('should have no filter mode by default', () => {
-    //   const filterColumn = Array.from(el.querySelectorAll('sl-grid-filter-column'))[0]; //[0];
-    //   const filterMode = filterColumn.getAttribute('mode');
-    //
-    //   // console.log('filterColumns for mode', filterColumns, filterColumnsNew, filterMode);
-    //   expect(filterMode).not.to.exist;
-    //   // expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
-    // });
-
-    // it('should have a filter column header with a proper mode when it is set', () => {
-    //   console.log('el', el);
-    //   const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
-    //   // const filterColumns = Array.from(el.renderRoot?.querySelectorAll('sl-grid-filter'))[0];
-    //   const filterColumnsNew = Array.from(el.querySelectorAll('sl-grid-filter-column'))[1];
-    //
-    //   console.log('filterColumns for mode default', filterColumnsNew);
-    //
-    //   expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
-    //
-    //   // TODO: need to check whether there is a button and popover inside
-    // });
-
-    // it('should have the right justify-content value', () => {
-    //   expect(cells.map(cell => getComputedStyle(cell).justifyContent)).to.deep.equal(['start', 'start', 'end']);
-    // });
-    //
-    // it('should have the right grow value', () => {
-    //   expect(cells.map(cell => getComputedStyle(cell).flexGrow)).to.deep.equal(['1', '1', '3']);
-    // });
-    //
-    // it('should have the right parts', () => {
-    //   expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal([
-    //     'data first-name',
-    //     'data last-name',
-    //     'data age'
-    //   ]);
-    // });
+      expect(active).to.equal(false);
+    });
   });
 
-  // describe('custom renderer', () => {
-  //   beforeEach(async () => {
-  //     const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
-  //       return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
-  //     };
-  //
-  //     el = await fixture(html`
-  //       <sl-grid>
-  //         <sl-grid-column
-  //           header="Person"
-  //           .renderer=${avatarRenderer}
-  //           .scopedElements=${{
-  //       'sl-avatar': Avatar
-  //     }}
-  //         ></sl-grid-column>
-  //         <sl-grid-column path="age" parts="number"></sl-grid-column>
-  //       </sl-grid>
-  //     `);
-  //     el.items = [
-  //       { firstName: 'John', lastName: 'Doe', age: 20 },
-  //       { firstName: 'Jane', lastName: 'Smith', age: 40 }
-  //     ];
-  //     await el.updateComplete;
-  //
-  //     // Give grid time to render the table structure
-  //     await new Promise(resolve => setTimeout(resolve, 100));
-  //     await el.updateComplete;
-  //
-  //     cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
-  //   });
-  //
-  //   it('should render the elements set with the custom renderer', () => {
-  //     expect(cells[0]).to.contain('sl-avatar');
-  //   });
-  //
-  //   it('should have the right parts, including one set on the column', () => {
-  //     expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal(['data', 'data number age']);
-  //   });
-  // });
+  describe('active filter', () => {
+    beforeEach(async () => {
+      try {
+        customElements.define('sl-grid-filter', GridFilter);
+      } catch {
+        //
+      }
+
+      column.path = 'membership';
+      column.value = 'Premium';
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      // dataSource.addFilter('', 'membership', ['Premium']);
+      // await new Promise(resolve => setTimeout(resolve, 200));
+
+      // TODO: how to connect grid-filter with dataSource?
+      wrapper = await fixture(html`
+        <th part="header filter membership">
+          <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
+            Membership
+          </sl-grid-filter>
+        </th>
+      `);
+      el = wrapper.querySelector<GridFilter>('sl-grid-filter')!;
+      await new Promise(resolve => setTimeout(resolve, 200));
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 200));
+      await el.updateComplete;
+    });
+
+    it('should have active attribute when filtered', async () => {
+      const button = el.renderRoot?.querySelector('sl-button'),
+        popover = el?.renderRoot.querySelector('sl-popover');
+
+      // Open the popover
+      button?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const checkboxGroup = popover?.querySelector('sl-checkbox-group');
+
+      expect(checkboxGroup).to.exist;
+
+      const options = Array.from(checkboxGroup!.querySelectorAll('sl-checkbox'));
+
+      expect(options).to.exist;
+
+      options[0].click();
+      el.value = 'Premium';
+      await new Promise(resolve => setTimeout(resolve, 200));
+      await el.updateComplete;
+
+      expect(el.hasAttribute('active')).to.equal(true);
+    });
+
+    it('should have a proper icon when filtered', async () => {
+      const button = el.renderRoot?.querySelector('sl-button'),
+        popover = el?.renderRoot.querySelector('sl-popover'),
+        icon = button?.querySelector('sl-icon');
+
+      // Open the popover
+      button?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const checkboxGroup = popover?.querySelector('sl-checkbox-group');
+
+      expect(checkboxGroup).to.exist;
+
+      const options = Array.from(checkboxGroup!.querySelectorAll('sl-checkbox'));
+
+      expect(options).to.exist;
+
+      options[0].click();
+      el.value = 'Premium';
+      await new Promise(resolve => setTimeout(resolve, 200));
+      await el.updateComplete;
+
+      expect(icon).to.exist;
+      expect(icon!.getAttribute('name')).to.equal('fas-filter');
+    });
+
+    it('should have no active filter by default', () => {
+      const active = el.hasAttribute('active');
+
+      expect(active).to.equal(false);
+    });
+  });
 });
 
-// TODO: events emitting tests
-
-// TODO: test this exactly (inside th, similar to sorter.spec.ts?):
-/*
-<sl-grid-filter
-  .column=${this}
-.mode=${this.mode || 'select'}
-.options=${this.options ?? this.internalOptions}
-.path=${this.path}
-.value=${this.value}
->
-${this.header ?? getNameByPath(this.path)}
-</sl-grid-filter>*/
-
-// TODO: test mode text and select
-
-// TODO: check shown items when filtered
-
-// TODO: check whether grid filter is active
-
-// TODO: defaults, filtered tests
+// TODO: remove th!!!

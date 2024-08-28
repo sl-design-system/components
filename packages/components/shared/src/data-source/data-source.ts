@@ -44,7 +44,6 @@ export abstract class DataSource<T = any> extends EventTarget {
   #sort?: DataSourceSort<T>;
 
   get filters(): Map<string, DataSourceFilter<T>> {
-    console.log('this.#filters in data source', this.#filters);
     return this.#filters;
   }
 
@@ -73,7 +72,6 @@ export abstract class DataSource<T = any> extends EventTarget {
     pathOrFilter: U,
     value?: string | string[]
   ): void {
-    console.log('in addFilter', id, pathOrFilter, value);
     if (typeof pathOrFilter === 'string') {
       this.#filters.set(id, { path: pathOrFilter, value: value ?? '' });
     } else {

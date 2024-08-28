@@ -97,9 +97,6 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   override renderHeader(): TemplateResult {
     const parts = ['header', 'filter', ...this.getParts()];
 
-    // console.log(' this.internalOptions', this.internalOptions, this.options, this.path, this, this.value);
-    // console.log('dataSource', this.grid?.dataSource, this.grid);
-
     return html`
       <th part=${parts.join(' ')}>
         <sl-grid-filter
@@ -112,6 +109,6 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-filter>
       </th>
-    `; // .filter=${this.filter}
+    `;
   }
 }

@@ -1749,7 +1749,7 @@
             "type": "spacing"
           },
           "4xl": {
-            "value": "{space.md}+2",
+            "value": "{space.md} + 2px",
             "type": "spacing"
           }
         },

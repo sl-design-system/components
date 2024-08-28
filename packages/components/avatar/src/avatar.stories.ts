@@ -324,7 +324,7 @@ export const All: StoryObj = {
             <td>
               <sl-avatar .displayName=${users[3].name} size="4xl" image-only>
                 <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
-                  <sl-icon name="check"></sl-icon>1
+                  12
                 </sl-badge>
               </sl-avatar>
             </td>

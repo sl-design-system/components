@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/avatar': patch
+'@sl-design-system/avatar': minor
 ---
 
 New `4xl` size added

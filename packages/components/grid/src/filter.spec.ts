@@ -51,6 +51,12 @@ describe('sl-grid-filter', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
+      try {
+        customElements.define('sl-grid-filter', GridFilter);
+      } catch {
+        //
+      }
+
       column.path = 'membership';
       column.value = 'Premium';
       await new Promise(resolve => setTimeout(resolve, 200));
@@ -82,7 +88,7 @@ describe('sl-grid-filter', () => {
       await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
 
-      console.log(
+      /*      console.log(
         'wrapper before and el',
         wrapper,
         el,
@@ -94,7 +100,7 @@ describe('sl-grid-filter', () => {
         dataSource.filteredItems,
         'column',
         column
-      );
+      );*/
       // console.log('el before', el, el.renderRoot);
       // el = await fixture(html`
       //   <sl-grid>

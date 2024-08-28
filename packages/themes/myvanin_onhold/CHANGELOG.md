@@ -1,5 +1,14 @@
 # @sl-design-system/myvanin
 
+## 0.1.15
+
+### Patch Changes
+
+- [#1454](https://github.com/sl-design-system/components/pull/1454) [`af62ce4`](https://github.com/sl-design-system/components/commit/af62ce4d0e65b1363b9cede48642bc22d1fc9365) - - Improve toggle button and group tokens
+  - Add a `check-solid` icon for use in the `toggle-button` component
+- Updated dependencies [[`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb), [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c)]:
+  - @sl-design-system/icon@1.0.2
+
 ## 0.1.14
 
 ### Patch Changes

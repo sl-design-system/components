@@ -77,7 +77,7 @@ describe('sl-icon', () => {
       el.name = 'check';
       await el.updateComplete;
 
-      expect(el.shadowRoot?.firstElementChild).to.match('.icon-loading');
+      expect(el.shadowRoot?.firstElementChild).to.match('.icon-not-def');
     });
 
     it('should be able to register icons from the icons.js', async () => {

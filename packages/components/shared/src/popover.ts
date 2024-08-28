@@ -102,7 +102,8 @@ export const positionPopover = (
       middleware
     }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
       Object.assign(element.style, {
-        translate: `${roundByDPR(x)}px ${roundByDPR(y)}px`
+        insetInlineStart: `${roundByDPR(x)}px`,
+        insetBlockStart: `${roundByDPR(y)}px`
       });
       element.setAttribute('actual-placement', actualPlacement);
 

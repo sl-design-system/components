@@ -5487,9 +5487,13 @@
     "id": "449e41c0b79397c25c33901ab5f3d8368791872f",
     "name": "sanoma-learning/light",
     "selectedTokenSets": {
-      "core": "enabled",
+      "core": "source",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/light": "enabled"
+      "sanoma-learning/light": "enabled",
+      "primitives": "source",
+      "system": "source",
+      "sanoma-learning/light-new": "enabled",
+      "sanoma-learning/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:9d741285dde5790b1e99f1f9a902df7e67409616,",
@@ -7167,9 +7171,13 @@
     "id": "a00a0a39a93c4999fa17c244b2d1efa344b553a5",
     "name": "sanoma-learning/dark",
     "selectedTokenSets": {
-      "core": "enabled",
+      "core": "source",
       "sanoma-learning/base": "enabled",
-      "sanoma-learning/dark": "enabled"
+      "sanoma-learning/dark": "enabled",
+      "primitives": "source",
+      "system": "source",
+      "sanoma-learning/base-new": "enabled",
+      "sanoma-learning/dark-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",

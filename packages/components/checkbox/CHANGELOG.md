@@ -1,5 +1,23 @@
 # @sl-design-system/checkbox
 
+## 2.0.0
+
+### Major Changes
+
+- [#1444](https://github.com/sl-design-system/components/pull/1444) [`5679f25`](https://github.com/sl-design-system/components/commit/5679f25338d5d5e356c6d5c0052bb7bf4a066f50) - Change `formValue` behavior to be boolean instead of `'on'`
+
+  This is a breaking change. Even though `'on'` matches the HTML standard, it is not the most common use case for a checkbox. This change will make it easier to use the component in most cases.
+
+  This also makes it possible to use a boolean when setting the value of the checkbox in a form using `FormController`.
+
+### Patch Changes
+
+- [#1443](https://github.com/sl-design-system/components/pull/1443) [`07b4c26`](https://github.com/sl-design-system/components/commit/07b4c2697c0a8221f808927b0c52f4a0c46567e9) - Fix bug where the `formValue` setter override was missing, causing an error
+
+- Updated dependencies [[`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/shared@0.3.0
+  - @sl-design-system/form@1.0.3
+
 ## 1.0.3
 
 ### Patch Changes

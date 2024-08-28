@@ -58,12 +58,51 @@ export default {
           position: static !important;
         }
       </style>
-      <sl-menu .selects=${selects} class="root-menu" style="max-width: ${maxWidth}">${menuItems()}</sl-menu>
+      <sl-menu .selects=${selects} class="root-menu" popover="manual" style="max-width: ${maxWidth}">
+        ${menuItems()}
+      </sl-menu>
     `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>Rename...</sl-menu-item>
+      <sl-menu-item>Delete...</sl-menu-item>
+    `
+  }
+};
+
+export const Danger: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>Rename...</sl-menu-item>
+      <sl-menu-item variant="danger">Delete...</sl-menu-item>
+    `
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>Rename...</sl-menu-item>
+      <sl-menu-item disabled>Delete...</sl-menu-item>
+    `
+  }
+};
+
+export const Divider: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>Rename...</sl-menu-item>
+      <hr />
+      <sl-menu-item>Delete...</sl-menu-item>
+    `
+  }
+};
+
+export const Icons: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item>
@@ -78,7 +117,7 @@ export const Basic: Story = {
   }
 };
 
-export const Grouped: Story = {
+export const Group: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item>
@@ -89,7 +128,31 @@ export const Grouped: Story = {
         <sl-icon name="far-gear"></sl-icon>
         Settings
       </sl-menu-item>
-      <hr />
+      <sl-menu-item-group>
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
+    `
+  }
+};
+
+export const GroupWithHeading: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-code"></sl-icon>
+        Components
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-gear"></sl-icon>
+        Settings
+      </sl-menu-item>
       <sl-menu-item-group heading="Design System">
         <sl-menu-item>
           <sl-icon name="far-rocket"></sl-icon>
@@ -109,42 +172,6 @@ export const Overflow: Story = {
     menuItems: () => html`
       <sl-menu-item>Cupidatat amet aute sint voluptate fugiat dolore.</sl-menu-item>
       <sl-menu-item>Laboris laborum excepteur aute esse reprehenderit.</sl-menu-item>
-    `
-  }
-};
-
-export const SingleSelect: Story = {
-  args: {
-    menuItems: () => html`
-      <sl-menu-item selectable selected>Lorem</sl-menu-item>
-      <sl-menu-item selectable>Ipsum</sl-menu-item>
-      <sl-menu-item selectable>Dolar</sl-menu-item>
-    `,
-    selects: 'single'
-  }
-};
-
-export const MultiSelect: Story = {
-  args: {
-    menuItems: () => html`
-      <sl-menu-item selectable selected>Lorem</sl-menu-item>
-      <sl-menu-item selectable>Ipsum</sl-menu-item>
-      <sl-menu-item selectable>Dolar</sl-menu-item>
-    `,
-    selects: 'multiple'
-  }
-};
-
-export const ComboSelect: Story = {
-  args: {
-    menuItems: () => html`
-      <sl-menu-item-group selects="multiple">
-        <sl-menu-item selectable selected>Lorem</sl-menu-item>
-        <sl-menu-item selectable>Ipsum</sl-menu-item>
-        <sl-menu-item selectable>Dolar</sl-menu-item>
-      </sl-menu-item-group>
-      <hr />
-      <sl-menu-item selectable selected>Foo bar</sl-menu-item>
     `
   }
 };
@@ -169,59 +196,45 @@ export const Shortcut: Story = {
   }
 };
 
-export const Avatar: Story = {
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.nextElementSibling as HTMLElement)?.showPopover();
-    };
-
-    const onKeydown = (event: KeyboardEvent & { target: HTMLElement }): void => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        onClick(event);
-      }
-    };
-
-    return html`
-      <sl-avatar
-        @click=${onClick}
-        @keydown=${onKeydown}
-        id="avatar"
-        image-only
-        picture-url="https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&amp;w=188&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        size="lg"
-        status="warning"
-        style="cursor: pointer"
-        tabindex="0"
-      >
-      </sl-avatar>
-      <sl-menu anchor="avatar" offset="8" position="bottom-end">
-        <sl-menu-item>Your profile</sl-menu-item>
-        <sl-menu-item>Settings</sl-menu-item>
-        <hr />
-        <sl-menu-item>Sign out</sl-menu-item>
-      </sl-menu>
-    `;
+export const Submenu: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Sort by
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
+          <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-table-rows"></sl-icon>
+        Group by
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>Something</sl-menu-item>
+          <sl-menu-item selectable>Other</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+    `
   }
 };
 
-export const All: Story = {
+export const Combination: Story = {
   args: {
     menuItems: () => {
-      const onClick = (event: Event): void => {
-        console.log('click', event.target);
-      };
-
       return html`
         <sl-menu-item-group selects="single">
-          <sl-menu-item @click=${onClick} selectable selected shortcut="$mod+Digit1">
+          <sl-menu-item selectable selected shortcut="$mod+Digit1">
             <sl-icon name="far-list"></sl-icon>
             List
           </sl-menu-item>
-          <sl-menu-item @click=${onClick} selectable shortcut="$mod+Digit2">
+          <sl-menu-item selectable shortcut="$mod+Digit2">
             <sl-icon name="far-rectangles-mixed"></sl-icon>
             Cards
           </sl-menu-item>
-          <sl-menu-item @click=${onClick} selectable shortcut="$mod+Digit3">
+          <sl-menu-item selectable shortcut="$mod+Digit3">
             <sl-icon name="far-table-cells"></sl-icon>
             Grid
           </sl-menu-item>
@@ -250,11 +263,163 @@ export const All: Story = {
           <sl-icon name="far-pen"></sl-icon>
           Rename...
         </sl-menu-item>
-        <sl-menu-item>
+        <sl-menu-item variant="danger">
           <sl-icon name="far-trash"></sl-icon>
           Delete...
         </sl-menu-item>
       `;
     }
   }
+};
+
+export const All: Story = {
+  parameters: {
+    layout: 'padded'
+  },
+  render: () => html`
+    <style>
+      .container {
+        display: inline-grid;
+        grid-template-columns: repeat(4, auto);
+        gap: 1rem;
+        justify-items: center;
+      }
+      .container > sl-menu {
+        display: flex;
+        margin: 0 !important;
+        opacity: 1;
+        position: static !important;
+      }
+    </style>
+    <div class="container">
+      <span>Basic</span>
+      <span>Selectable</span>
+      <span>Icons</span>
+      <span>Selectable + icons</span>
+
+      <sl-menu>
+        <sl-menu-item shortcut="$mod+Digit1">Default</sl-menu-item>
+        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <hr />
+        <sl-menu-item>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">Danger</sl-menu-item>
+          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
+
+      <sl-menu>
+        <sl-menu-item selectable selected shortcut="$mod+Digit1">Default, selected</sl-menu-item>
+        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <hr />
+        <sl-menu-item>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">Danger</sl-menu-item>
+          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
+
+      <sl-menu>
+        <sl-menu-item shortcut="$mod+Digit1">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default
+        </sl-menu-item>
+        <sl-menu-item disabled shortcut="$mod+Digit2">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default, disabled
+        </sl-menu-item>
+        <hr />
+        <sl-menu-item>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger
+          </sl-menu-item>
+          <sl-menu-item disabled variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger, disabled
+          </sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
+
+      <sl-menu>
+        <sl-menu-item selectable selected shortcut="$mod+Digit1">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default
+        </sl-menu-item>
+        <sl-menu-item disabled shortcut="$mod+Digit2">
+          <sl-icon name="far-rocket"></sl-icon>
+          Default, disabled
+        </sl-menu-item>
+        <hr />
+        <sl-menu-item>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          <sl-icon name="far-gear"></sl-icon>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger
+          </sl-menu-item>
+          <sl-menu-item disabled variant="danger">
+            <sl-icon name="far-trash"></sl-icon>
+            Danger, disabled
+          </sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
+    </div>
+  `
 };

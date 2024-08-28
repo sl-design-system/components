@@ -1,5 +1,15 @@
 # @sl-design-system/avatar
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1450](https://github.com/sl-design-system/components/pull/1450) [`6fdf413`](https://github.com/sl-design-system/components/commit/6fdf4134257825ac85b1e7fa64c92152ef229b2a) - Fix missing dependencies in avatar component
+
+- Updated dependencies [[`5c4063e`](https://github.com/sl-design-system/components/commit/5c4063ed63560ca3e07940492653d23a4ec009d8), [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`3070e81`](https://github.com/sl-design-system/components/commit/3070e81b03ec83ef79149c84d3e5e7876b38591f), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/tooltip@1.1.0
+  - @sl-design-system/shared@0.3.0
+
 ## 1.0.1
 
 ### Patch Changes

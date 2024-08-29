@@ -158,7 +158,8 @@ export const FilterResults: Story = {
 export const Multiple: Story = {
   args: {
     hint: 'The multiple property is true, which means you can select more than 1 option at a time. This will render the selected options as tags.',
-    multiple: true
+    multiple: true,
+    value: ['Button bar', 'Checkbox']
   }
 };
 

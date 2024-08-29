@@ -4707,6 +4707,8 @@ __metadata:
   resolution: "@sl-design-system/combobox@workspace:packages/components/combobox"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/form": "npm:^1.0.3"
+    "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/option": "npm:^0.0.0"
     "@sl-design-system/tag": "npm:^0.0.1"
     "@sl-design-system/text-field": "npm:^1.3.5"

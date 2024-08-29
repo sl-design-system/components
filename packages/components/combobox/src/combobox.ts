@@ -1,10 +1,15 @@
-import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { localized, msg } from '@lit/localize';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { FormControlMixin } from '@sl-design-system/form';
+import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/option';
-import { EventsController, anchor } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, anchor, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './combobox.scss.js';
 
 declare global {
@@ -34,21 +39,31 @@ let nextUniqueId = 0;
  * @slot default - The input field
  * @slot options - Contains the listbox with options
  */
-export class Combobox<T extends { toString(): string } = string> extends TextField<T> {
+@localized()
+export class Combobox<T extends { toString(): string } = string> extends FormControlMixin(
+  ScopedElementsMixin(LitElement)
+) {
+  /** @internal */
+  static formAssociated = true;
+
   /** @internal The default offset of the popover to the input. */
   static offset = 6;
 
   /** @internal */
-  static override get scopedElements(): ScopedElementsMap {
+  static get scopedElements(): ScopedElementsMap {
     return {
-      ...TextField.scopedElements,
+      'sl-icon': Icon,
       'sl-tag': Tag,
-      'sl-tag-list': TagList
+      'sl-tag-list': TagList,
+      'sl-text-field': TextField
     };
   }
 
   /** @internal */
-  static override styles: CSSResultGroup = [TextField.styles, styles];
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
+  static override styles: CSSResultGroup = styles;
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
@@ -76,7 +91,13 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete
    */
-  @property() override autocomplete?: 'off' | 'inline' | 'list' | 'both' = 'both';
+  @property() autocomplete?: 'off' | 'inline' | 'list' | 'both' = 'both';
+
+  /** @internal Emits when the focus leaves the component. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
+
+  /** @internal Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | T[] | undefined>>;
 
   /** @internal The current highlighted option in the listbox. */
   currentOption?: ComboboxOption;
@@ -84,8 +105,17 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   /** @internal The current selected options. */
   currentSelection: ComboboxOption[] = [];
 
+  /** Whether the text field is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
+
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
+
+  /** The input element in the light DOM. */
+  input!: HTMLInputElement;
+
+  /** @internal Element internals. */
+  readonly internals = this.attachInternals();
 
   /** @internal The listbox containing the options. */
   @state() listbox?: Element;
@@ -93,22 +123,42 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   /** Will allow the selection of multiple options if true. */
   @property({ type: Boolean }) multiple?: boolean;
 
-  /**
-   * If set to 'automatic' (default), it will be one single text input with delimited values.
-   * If set to "manual", you will only enter 1 option at a time, and then need to confirm selection, and then the input will clear,
-   * and then you will add another selection.
-   */
-  @property({ attribute: 'multiple-selection-type' }) multipleSelectionType: ComboboxMultipleSelectionType =
-    'automatic';
-
   /** @internal The options to choose from. */
   @state() options: ComboboxOption[] = [];
+
+  /** Placeholder text in the input. */
+  @property() placeholder?: string;
+
+  /** Whether you can interact with the input or if it is just a static, readonly display. */
+  @property({ type: Boolean, reflect: true }) readonly?: boolean;
+
+  /** Whether the text field is a required field. */
+  @property({ type: Boolean, reflect: true }) override required?: boolean;
+
+  /** When set will cause the control to show it is valid after reportValidity is called. */
+  @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
+
+  /**
+   * The value of the combobox. It `multiple` selection is enabled, then this
+   * will be an array of values. Otherwise, it will be a single value.
+   */
+  @property() override value?: T | T[];
 
   /** @internal The wrapper element that is also the popover. */
   @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    if (!this.input) {
+      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.autocomplete = 'off';
+      this.input.slot = 'input';
+
+      if (!this.input.parentElement) {
+        this.append(this.input);
+      }
+    }
 
     this.#events.listen(this.input, 'click', this.#onInputClick);
     this.#events.listen(this.input, 'focus', this.#onFocus);
@@ -121,6 +171,8 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.input.setAttribute('aria-haspopup', 'listbox');
 
     this.#observer.observe(this, { childList: true, subtree: true });
+
+    this.setFormControlElement(this);
   }
 
   override disconnectedCallback(): void {
@@ -132,6 +184,18 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('autocomplete')) {
+      this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
+    }
+
+    if (changes.has('autocomplete') || changes.has('readonly')) {
+      this.input.readOnly = this.readonly ?? this.autocomplete === 'off';
+    }
+
+    if (changes.has('disabled')) {
+      this.input.disabled = !!this.disabled;
+    }
+
     if (changes.has('options') || changes.has('value')) {
       this.#updateSelected();
     }
@@ -139,10 +203,22 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
 
   override render(): TemplateResult {
     return html`
-      <div @input=${this.#onInput} @keydown=${this.#onKeydown} class="input">${this.renderInputSlot()}</div>
-      <button @click=${this.#onButtonClick}>
-        <sl-icon name="chevron-down"></sl-icon>
-      </button>
+      <sl-text-field
+        @input=${this.#onInput}
+        @keydown=${this.#onKeydown}
+        ?disabled=${this.disabled}
+        placeholder=${ifDefined(this.placeholder)}
+      >
+        <slot name="input" slot="input"></slot>
+        <button
+          @click=${this.#onButtonClick}
+          ?disabled=${this.disabled}
+          aria-label=${msg('Toggle the options')}
+          slot="suffix"
+        >
+          <sl-icon name="chevron-down"></sl-icon>
+        </button>
+      </sl-text-field>
 
       <slot
         ${anchor({
@@ -160,18 +236,6 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
         tabindex="-1"
       ></slot>
     `;
-  }
-
-  /** @internal Synchronize the input element with the component properties. */
-  override updateInputElement(input: HTMLInputElement): void {
-    super.updateInputElement(input);
-
-    // Set readOnly if autocomplete is off
-    input.readOnly = this.readonly ?? this.autocomplete === 'off';
-
-    // Combobox uses aria-autocomplete instead of autocomplete
-    input.autocomplete = 'off';
-    input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
@@ -276,45 +340,37 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.#pointerDown = false;
   }
 
-  #findOptionElement(option: ComboboxOption): Option | null {
-    return option?.id ? this.querySelector(`#${option.id}`) : null;
-  }
-
   #toggleSelected(option: ComboboxOption): void {
     option.selected = !option.selected;
 
-    const optionElement = this.#findOptionElement(option);
     if (option.selected) {
-      optionElement?.setAttribute('aria-selected', 'true');
+      option.element.setAttribute('aria-selected', 'true');
     } else {
-      optionElement?.removeAttribute('aria-selected');
+      option.element.removeAttribute('aria-selected');
     }
   }
 
+  /** Updates the options to reflect the current one. */
   #updateCurrent(option?: ComboboxOption): void {
     if (this.currentOption) {
       this.currentOption.current = false;
+      this.currentOption.element.removeAttribute('aria-current');
 
       this.input.removeAttribute('aria-activedescendant');
-
-      this.#findOptionElement(this.currentOption)?.removeAttribute('aria-current');
     }
 
     this.currentOption = option;
 
     if (this.currentOption) {
       this.currentOption.current = true;
+      this.currentOption.element.setAttribute('aria-current', 'true');
+      this.currentOption.element.scrollIntoView({ block: 'nearest' });
 
       this.input.setAttribute('aria-activedescendant', this.currentOption.id);
-
-      const optionElement = this.#findOptionElement(this.currentOption);
-      if (optionElement) {
-        optionElement.setAttribute('aria-current', 'true');
-        optionElement.scrollIntoView({ block: 'nearest' });
-      }
     }
   }
 
+  /** Updates the list of options and the listbox link with the text input. */
   #updateOptions(): void {
     this.listbox = this.wrapper?.assignedElements({ flatten: true })?.at(0);
 
@@ -340,12 +396,9 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
           };
         });
     } else {
+      this.input.removeAttribute('aria-controls');
       this.options = [];
     }
-
-    // if (this.#value) {
-    //   this.currentSelection = this.options.filter(o => o.value === this.#value);
-    // }
 
     // const value = this.input.value.slice(0, this.input.selectionStart ?? 0).trim();
 
@@ -362,6 +415,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     // });
   }
 
+  /** Updates the state of the options to reflect the current value. */
   #updateSelected(): void {
     // Clear all selected options
     this.options.filter(o => o.selected).forEach(o => this.#toggleSelected(o));

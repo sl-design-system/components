@@ -119,11 +119,15 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     this.#value = value;
   }
 
-  override connectedCallback(): void {
-    super.connectedCallback();
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
 
     if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input =
+        (this.renderRoot
+          .querySelector<HTMLSlotElement>('slot[name="input"]')
+          ?.assignedElements({ flatten: true })
+          ?.at(0) as HTMLInputElement) || document.createElement('input');
       this.input.slot = 'input';
       this.updateInputElement(this.input);
 
@@ -281,6 +285,10 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
 
   /** @internal Synchronize the input element with the component properties. */
   updateInputElement(input: HTMLInputElement): void {
+    if (!input) {
+      return;
+    }
+
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-text-field-${nextUniqueId++}`;

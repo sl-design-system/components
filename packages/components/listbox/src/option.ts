@@ -26,6 +26,12 @@ export class Option extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Whether this option is disabled. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** Whether this option is selected. */
+  @property({ type: Boolean, reflect: true }) selected?: boolean;
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @property() value?: any;
 

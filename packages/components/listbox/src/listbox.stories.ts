@@ -28,6 +28,16 @@ export const Basic: Story = {
   }
 };
 
+export const Disabled: Story = {
+  args: {
+    options: () => html`
+      <sl-option disabled>Option 1</sl-option>
+      <sl-option>Option 2</sl-option>
+      <sl-option>Option 3</sl-option>
+    `
+  }
+};
+
 export const Divider: Story = {
   args: {
     options: () => html`
@@ -50,6 +60,16 @@ export const Grouped: Story = {
         <sl-option>Option 3</sl-option>
         <sl-option>Option 4</sl-option>
       </sl-option-group>
+    `
+  }
+};
+
+export const Selected: Story = {
+  args: {
+    options: () => html`
+      <sl-option>Option 1</sl-option>
+      <sl-option selected>Option 2</sl-option>
+      <sl-option>Option 3</sl-option>
     `
   }
 };

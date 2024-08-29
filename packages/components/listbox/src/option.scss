@@ -9,12 +9,11 @@
   user-select: none;
 }
 
-:host([aria-current]),
-:host(:hover) {
+:host(:where(:hover, [aria-current])) {
   background: var(--sl-color-action-background-accent-subtle-hover);
 }
 
-:host([aria-selected='true']) sl-icon {
+:host(:where([aria-selected='true'], [selected])) sl-icon {
   visibility: visible;
 }
 

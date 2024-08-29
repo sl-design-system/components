@@ -138,7 +138,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
     if (changes.has('defaultIcon') || changes.has('pressedIcon') || changes.has('size')) {
       [this.defaultIcon, this.pressedIcon].filter(Boolean).forEach(icon => {
         if (this.size) {
-          icon!.size = this.size;
+          icon!.size = 'md'; //this.size;
         }
       });
     }

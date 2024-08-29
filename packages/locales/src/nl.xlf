@@ -140,11 +140,11 @@
 </trans-unit>
 <trans-unit id="sf75c5ddbac2b60f9">
   <source>Showing <x id="0" equiv-text="${total - this.stackSize}"/> out of <x id="1" equiv-text="${total}"/> items</source>
-  <target>Met <x id="0" equiv-text="${total - this.stackSize}"/> uit <x id="1" equiv-text="${this.tags.length}"/> items</target>
+  <target><x id="0" equiv-text="${total - this.stackSize}"/> van <x id="1" equiv-text="${this.tags.length}"/> items zichtbaar</target>
 </trans-unit>
 <trans-unit id="sebd54694b2f83547">
   <source>Remove '<x id="0" equiv-text="${this.label}"/>'</source>
-  <target>verwijderen '<x id="0" equiv-text="${this.label}"/>'</target>
+  <target>verwijder '<x id="0" equiv-text="${this.label}"/>'</target>
 </trans-unit>
 <trans-unit id="s9cd91b99a108a45f">
   <source>List of hidden elements</source>

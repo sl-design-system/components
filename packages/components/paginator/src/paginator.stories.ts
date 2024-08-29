@@ -27,14 +27,15 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ actions, collapsed, collapsible, content, heading }) => {
+  render: ({ heading }) => {
     return html`
-      <sl-panel ?collapsed=${collapsible && collapsed} ?collapsible=${collapsible} .heading=${heading}>
-        ${actions?.()}${content?.()}
-      </sl-panel>
+      ${heading}
+      <sl-paginator></sl-paginator>
     `;
   }
 } satisfies Meta<Props>;
+
+// TODO: is slot necessary?
 
 export const Basic: Story = {
   args: {

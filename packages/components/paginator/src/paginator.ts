@@ -1,12 +1,12 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToolBar } from '@sl-design-system/tool-bar';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
 
 declare global {
@@ -34,6 +34,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon,
       'sl-tool-bar': ToolBar
     };
@@ -57,43 +58,40 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  // TODO: how many pages? 'pages' prop? or state?
+  // TODO: current page (state?)
+  // TODO: data?
+  // TODO: size md and lg?
+  // TODO: elements per page?
+
+  // TODO: total elements?
+
+  // TODO: routing? with url change
+  // TODO: emit event on page change
+
+  /** Total items */
+  @property() total?: number;
+
   override render(): TemplateResult {
     return html`
-      <div part="header">
-        ${this.collapsible
-          ? html`
-              <button
-                @click=${() => this.toggle()}
-                aria-controls="body"
-                aria-expanded=${this.collapsed ? 'false' : 'true'}
-                part="wrapper"
-              >
-                ${this.renderHeading()}
-              </button>
-            `
-          : html`<div part="wrapper">${this.renderHeading()}</div>`}
-        <slot name="aside">
-          <sl-tool-bar align="end" no-border>
-            <slot name="actions"></slot>
-          </sl-tool-bar>
-        </slot>
-      </div>
-      <div id="body" part="body" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
-        <div part="inner">
-          <div part="content">
-            <slot></slot>
-          </div>
-        </div>
+      <div>
+        <sl-button fill="ghost" size="sm">&lt; Previous</sl-button>
+        <sl-button fill="ghost" size="sm">1</sl-button>
+        <sl-button fill="ghost" size="sm">2</sl-button>
+        <sl-button fill="ghost" size="sm">2</sl-button>
+        <sl-button fill="ghost" size="sm">Next &gt;</sl-button>
+        <slot></slot>
+        <div>Total elements: 100 ${this.total}</div>
       </div>
     `;
   }
 
-  renderHeading(): TemplateResult {
-    return html`
-      ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing}
-      <slot name="heading">${this.heading}</slot>
-    `;
-  }
+  // renderHeading(): TemplateResult {
+  //   return html`
+  //     ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing}
+  //     <slot name="heading">${this.heading}</slot>
+  //   `;
+  // }
 
   /**
    * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.

@@ -58,7 +58,7 @@
     },
     "width": {
       "none": {
-        "value": "0",
+        "value": "0px",
         "type": "borderWidth",
         "description": "border.width.none"
       },

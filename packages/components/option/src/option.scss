@@ -1,25 +1,33 @@
 :host {
-  border-radius: var(--sl-border-radius-select-item);
-  color: var(--sl-color-select-item-default-foreground);
+  align-items: center;
+  border-radius: var(--sl-size-border-radius-default);
+  color: var(--sl-color-text-default);
   cursor: pointer;
-  display: block;
-  font: var(--sl-text-select-selectbox-text-md);
-  padding-block: var(--sl-space-select-item-block-md);
-  padding-inline: var(--sl-space-select-item-inline-md);
+  display: flex;
+  gap: var(--sl-space-new-md);
+  padding: var(--sl-space-new-sm) var(--sl-space-new-md);
   user-select: none;
 }
 
 :host([aria-current]),
 :host(:hover) {
-  background: var(--sl-color-select-item-hover-background);
+  background: var(--sl-color-action-background-accent-subtle-hover);
+}
+
+:host([aria-selected='true']) sl-icon {
+  visibility: visible;
 }
 
 :host(:active) {
-  background: var(--sl-color-select-item-active-background);
+  background: var(--sl-color-action-background-accent-subtle-active);
 }
 
 :host([disabled]) {
-  color: var(--sl-color-select-item-disabled-foreground);
+  color: var(--sl-color-text-disabled);
   cursor: default;
   pointer-events: none;
+}
+
+sl-icon {
+  visibility: hidden;
 }

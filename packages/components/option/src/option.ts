@@ -1,3 +1,5 @@
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './option.scss.js';
@@ -13,7 +15,14 @@ declare global {
  *
  * @slot default - The option's label.
  */
-export class Option extends LitElement {
+export class Option extends ScopedElementsMixin(LitElement) {
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -21,6 +30,11 @@ export class Option extends LitElement {
   @property() value?: any;
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`
+      <sl-icon name="check"></sl-icon>
+      <div part="wrapper">
+        <slot></slot>
+      </div>
+    `;
   }
 }

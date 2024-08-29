@@ -3,7 +3,7 @@ import { Option } from '@sl-design-system/option';
 import { EventsController, anchor } from '@sl-design-system/shared';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import styles from './combobox.scss.js';
 
@@ -15,6 +15,7 @@ declare global {
 
 export type ComboboxOption = {
   id: string;
+  element: HTMLElement;
   content: string;
   current: boolean;
   selected: boolean;
@@ -103,20 +104,6 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   /** @internal The options to choose from. */
   @state() options: ComboboxOption[] = [];
 
-  override get value(): T | undefined {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return this.multiple ? this.currentSelection.map(o => o.value) : this.currentSelection[0]?.value;
-  }
-
-  @property()
-  override set value(value: T | undefined) {
-    if (this.multiple && Array.isArray(value)) {
-      this.currentSelection = this.options.filter(o => value.includes(o.value as T));
-    } else {
-      this.currentSelection = this.options.filter(o => o.value === value);
-    }
-  }
-
   /** @internal The wrapper element that is also the popover. */
   @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
@@ -129,9 +116,9 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.#events.listen(this.input, 'pointerup', this.#onPointerUp);
 
     this.input.setAttribute('role', 'combobox');
-    this.input.setAttribute('aria-haspopup', 'listbox');
-    this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-autocomplete', 'both');
+    this.input.setAttribute('aria-expanded', 'false');
+    this.input.setAttribute('aria-haspopup', 'listbox');
 
     this.#observer.observe(this, { childList: true, subtree: true });
   }
@@ -140,6 +127,14 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.#observer.disconnect();
 
     super.disconnectedCallback();
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('options') || changes.has('value')) {
+      this.#updateSelected();
+    }
   }
 
   override render(): TemplateResult {
@@ -167,7 +162,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     `;
   }
 
-  /** @internal */
+  /** @internal Synchronize the input element with the component properties. */
   override updateInputElement(input: HTMLInputElement): void {
     super.updateInputElement(input);
 
@@ -227,7 +222,6 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && this.currentOption) {
       this.#updateSelection(this.currentOption);
-      this.#updateCurrent();
       this.#updateTextFieldValue();
 
       if (!this.multiple) {
@@ -262,13 +256,10 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   }
 
   #onOptionsClick(event: Event): void {
-    const option = event
-      .composedPath()
-      .find((el): el is HTMLElement => el instanceof Option || el instanceof HTMLOptionElement);
+    const option = event.composedPath().find((el): el is Option => el instanceof Option);
 
     if (option?.id) {
-      this.#updateSelection(this.options.find(o => o.id === option.id) as ComboboxOption);
-      this.#updateCurrent();
+      this.#updateSelection(this.options.find(o => o.id === option.id));
       this.#updateTextFieldValue();
 
       if (!this.multiple) {
@@ -292,7 +283,12 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   #toggleSelected(option: ComboboxOption): void {
     option.selected = !option.selected;
 
-    this.#findOptionElement(option)?.setAttribute('aria-selected', option.selected.toString());
+    const optionElement = this.#findOptionElement(option);
+    if (option.selected) {
+      optionElement?.setAttribute('aria-selected', 'true');
+    } else {
+      optionElement?.removeAttribute('aria-selected');
+    }
   }
 
   #updateCurrent(option?: ComboboxOption): void {
@@ -329,12 +325,13 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       this.input.setAttribute('aria-controls', this.listbox.id);
 
       this.options = Array.from(this.listbox.children)
-        .filter((el): el is Option | HTMLOptionElement => el instanceof Option || el instanceof HTMLOptionElement)
+        .filter((el): el is Option => el instanceof Option)
         .map(el => {
           el.id ||= `sl-combobox-option-${nextUniqueId++}`;
 
           return {
             id: el.id,
+            element: el,
             content: el.textContent?.trim() || '',
             current: el.getAttribute('aria-current') === 'true',
             selected: el.getAttribute('aria-selected') === 'true',
@@ -365,7 +362,26 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     // });
   }
 
-  #updateSelection(option: ComboboxOption): void {
+  #updateSelected(): void {
+    // Clear all selected options
+    this.options.filter(o => o.selected).forEach(o => this.#toggleSelected(o));
+
+    if (this.multiple) {
+      // empty
+    } else {
+      const option = this.options.find(o => o.value === this.value);
+      if (option) {
+        this.#toggleSelected(option);
+        this.#updateCurrent(option);
+      }
+    }
+  }
+
+  #updateSelection(option?: ComboboxOption): void {
+    if (!option) {
+      return;
+    }
+
     this.#toggleSelected(option);
 
     if (this.multiple) {
@@ -374,12 +390,16 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       } else {
         this.currentSelection = this.currentSelection.filter(o => o !== option);
       }
+
+      this.value = this.currentSelection.map(o => o.value as T) as unknown as T;
     } else {
       if (this.currentSelection.length && this.currentSelection[0] !== option) {
+        // Deselect the old option
         this.#toggleSelected(this.currentSelection[0]);
       }
 
       this.currentSelection = option.selected ? [option] : [];
+      this.value = option.value as T;
     }
 
     this.changeEvent.emit(this.value);

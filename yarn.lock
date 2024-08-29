@@ -5045,8 +5045,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/option@workspace:packages/components/option"
   dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:^1.0.2"
     lit: "npm:^3.1.4"
   peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
     lit: ^3.1.4
   languageName: unknown
   linkType: soft

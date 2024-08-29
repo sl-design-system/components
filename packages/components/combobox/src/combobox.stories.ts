@@ -44,7 +44,9 @@ const components = [
   'Inline message',
   'Menu',
   'Message dialog',
+  'Panel',
   'Popover',
+  'Progress bar',
   'Radio group',
   'Search field',
   'Select',
@@ -52,8 +54,12 @@ const components = [
   'Spinner',
   'Switch',
   'Tabs',
+  'Tag',
+  'Tag list',
   'Text area',
   'Text field',
+  'Toggle button',
+  'Toggle group',
   'Tooltip'
 ];
 
@@ -175,11 +181,5 @@ export const StressTest: Story = {
     options: () => html`
       <div slot="options">${Array.from({ length: 5000 }).map((_, i) => html`<sl-option>Option ${i}</sl-option>`)}</div>
     `
-  }
-};
-
-export const Value: Story = {
-  args: {
-    value: 'Button'
   }
 };

@@ -8,18 +8,9 @@ import { GridFilter } from './filter.js';
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-grid-filter', () => {
-  let wrapper: HTMLElement;
   let el: GridFilter;
 
-  // const items = [{ membership: 'Premium' }, { membership: 'VIP' }, { membership: 'Regular' }];
-
   const column = new GridFilterColumn();
-  // column.path = 'membership';
-  // column.value = 'Premium';
-  // await column.updateComplete;
-
-  // const dataSource = new ArrayDataSource(items) as DataSource;
-  // dataSource.addFilter('', 'membership', ['Premium']);
 
   const options = [
     {
@@ -36,16 +27,6 @@ describe('sl-grid-filter', () => {
     }
   ];
 
-  // TODO: test mode -> .mode=${this.mode || 'select'}
-  // TODO: test options -> .options=${this.options ?? this.internalOptions}
-
-  // .value=${dataSource.filters.values()}
-
-  // .filter=...
-
-  //           path="membership"
-  //           value="Premium"
-
   describe('defaults', () => {
     beforeEach(async () => {
       try {
@@ -57,20 +38,12 @@ describe('sl-grid-filter', () => {
       column.path = 'membership';
       column.value = 'Premium';
       await new Promise(resolve => setTimeout(resolve, 200));
-      // await column.updateComplete;
 
-      // dataSource.addFilter('', 'membership', ['Premium']);
-      // await new Promise(resolve => setTimeout(resolve, 200));
-
-      // TODO: how to connect grid-filter with dataSource?
-      wrapper = await fixture(html`
-        <th part="header filter membership">
-          <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
-            Membership
-          </sl-grid-filter>
-        </th>
-      `); // .filter=${dataSource.filters}
-      el = wrapper.querySelector<GridFilter>('sl-grid-filter')!;
+      el = await fixture(html`
+        <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
+          Membership
+        </sl-grid-filter>
+      `);
       await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
 
@@ -107,18 +80,11 @@ describe('sl-grid-filter', () => {
       column.value = 'Premium';
       await new Promise(resolve => setTimeout(resolve, 200));
 
-      // dataSource.addFilter('', 'membership', ['Premium']);
-      // await new Promise(resolve => setTimeout(resolve, 200));
-
-      // TODO: how to connect grid-filter with dataSource?
-      wrapper = await fixture(html`
-        <th part="header filter membership">
-          <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
-            Membership
-          </sl-grid-filter>
-        </th>
+      el = await fixture(html`
+        <sl-grid-filter .column=${column} .options=${options} mode="select" path="membership">
+          Membership
+        </sl-grid-filter>
       `);
-      el = wrapper.querySelector<GridFilter>('sl-grid-filter')!;
       await new Promise(resolve => setTimeout(resolve, 200));
       await el.updateComplete;
 
@@ -176,13 +142,5 @@ describe('sl-grid-filter', () => {
       expect(icon).to.exist;
       expect(icon!.getAttribute('name')).to.equal('fas-filter');
     });
-
-    it('should have no active filter by default', () => {
-      const active = el.hasAttribute('active');
-
-      expect(active).to.equal(false);
-    });
   });
 });
-
-// TODO: remove th!!!

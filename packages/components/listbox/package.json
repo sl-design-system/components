@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/option",
+  "name": "@sl-design-system/listbox",
   "version": "0.0.0",
-  "description": "Option components for the SL Design System",
+  "description": "Listbox components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/option"
+    "directory": "packages/components/listbox"
   },
   "homepage": "https://sanomalearning.design/components",
   "bugs": {

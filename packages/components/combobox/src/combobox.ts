@@ -2,7 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { Option } from '@sl-design-system/option';
+import { Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';

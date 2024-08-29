@@ -39,5 +39,6 @@ export const templates = {
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf75c5ddbac2b60f9: str`${0} van de ${1} zichtbaar`
+  sf75c5ddbac2b60f9: str`${0} van de ${1} zichtbaar`,
+  sb478417d3a213540: 'Toggle the options'
 };

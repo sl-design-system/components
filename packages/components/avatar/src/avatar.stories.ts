@@ -142,7 +142,7 @@ export const CustomInitials: Story = {
 export const Overflow: Story = {
   args: {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
-    maxWidth: '175px',
+    maxWidth: '300px',
     subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'
   }
 };
@@ -168,15 +168,15 @@ export const All: StoryObj = {
     const users: Array<{ name: string; picture?: string }> = [
       {
         name: 'Yousef van der Schaaf',
-        picture: 'https://randomuser.me/api/portraits/thumb/mendfgdfgdfdfg/81.jpg'
+        picture: 'https://randomuser.me/api/portraits/mendfgdfgdfdfg/81.jpg'
       },
       {
         name: 'Chester Reid',
-        picture: 'https://randomuser.me/api/portraits/thumb/men/19.jpg'
+        picture: 'https://randomuser.me/api/portraits/men/19.jpg'
       },
       {
         name: 'Emma Henderson - Van Deursen',
-        picture: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
+        picture: 'https://randomuser.me/api/portraits/women/19.jpg'
       },
       {
         name: 'Johnni Sullivan'
@@ -186,7 +186,7 @@ export const All: StoryObj = {
       },
       {
         name: 'Rose Nylund',
-        picture: 'https://randomuser.me/api/portraits/thumb/women/10.jpg'
+        picture: 'https://randomuser.me/api/portraits/women/10.jpg'
       }
     ];
 

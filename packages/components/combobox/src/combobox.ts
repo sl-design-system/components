@@ -1,19 +1,17 @@
 import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { Option } from '@sl-design-system/option';
 import { EventsController, anchor } from '@sl-design-system/shared';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import styles from './combobox.scss.js';
-import { Option } from './option.js';
 
 declare global {
   interface HTMLElementTagNameMap {
     'sl-combobox': Combobox;
   }
 }
-
-export interface ComboboxModel {}
 
 export type ComboboxOption = {
   id: string;
@@ -28,6 +26,13 @@ export type ComboboxMultipleSelectionType = 'automatic' | 'manual';
 
 let nextUniqueId = 0;
 
+/**
+ * Component for selecting one or more options from a list, similar to a native `<select>` element
+ * but with the ability to search and filter options.
+ *
+ * @slot default - The input field
+ * @slot options - Contains the listbox with options
+ */
 export class Combobox<T extends { toString(): string } = string> extends TextField<T> {
   /** @internal The default offset of the popover to the input. */
   static offset = 6;
@@ -61,9 +66,6 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
    */
   #pointerDown = false;
 
-  /** The value of the combobox. */
-  #value: T | undefined;
-
   /**
    * The behavior of the combobox when it comes to suggesting options based on user input.
    * - 'off': Suggest is off
@@ -84,11 +86,8 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
-  /** @internal The popover containing the options. */
-  @query('[popover]') listbox?: HTMLElement;
-
-  /** Use a custom model for the options. */
-  @property({ attribute: false }) model?: ComboboxModel;
+  /** @internal The listbox containing the options. */
+  @state() listbox?: Element;
 
   /** Will allow the selection of multiple options if true. */
   @property({ type: Boolean }) multiple?: boolean;
@@ -102,7 +101,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     'automatic';
 
   /** @internal The options to choose from. */
-  options: ComboboxOption[] = [];
+  @state() options: ComboboxOption[] = [];
 
   override get value(): T | undefined {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -111,14 +110,15 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
 
   @property()
   override set value(value: T | undefined) {
-    this.#value = value;
-
     if (this.multiple && Array.isArray(value)) {
       this.currentSelection = this.options.filter(o => value.includes(o.value as T));
     } else {
       this.currentSelection = this.options.filter(o => o.value === value);
     }
   }
+
+  /** @internal The wrapper element that is also the popover. */
+  @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -133,12 +133,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-autocomplete', 'both');
 
-    this.#observer.observe(this, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['aria-current', 'aria-selected', 'current', 'role', 'selected']
-    });
+    this.#observer.observe(this, { childList: true, subtree: true });
   }
 
   override disconnectedCallback(): void {
@@ -163,8 +158,9 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
         })}
         @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onOptionsClick}
-        @slotchange=${this.#onSlotChange}
+        @slotchange=${() => this.#updateOptions()}
         name="options"
+        part="wrapper"
         popover
         tabindex="-1"
       ></slot>
@@ -187,24 +183,24 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.input.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
 
     if (event.newState === 'open') {
-      this.listbox!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
+      this.wrapper!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
     }
   }
 
   #onButtonClick(): void {
-    this.listbox?.togglePopover();
+    this.wrapper?.togglePopover();
   }
 
   #onFocus(): void {
     if (!this.#pointerDown) {
-      this.listbox?.showPopover();
+      this.wrapper?.showPopover();
     }
   }
 
   #onInput(event: InputEvent): void {
     const value = this.input.value;
 
-    this.listbox?.showPopover();
+    this.wrapper?.showPopover();
 
     let currentOption: ComboboxOption | undefined = undefined;
     if (
@@ -225,7 +221,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   }
 
   #onInputClick(): void {
-    this.listbox?.showPopover();
+    this.wrapper?.showPopover();
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -235,15 +231,16 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       this.#updateTextFieldValue();
 
       if (!this.multiple) {
-        this.listbox?.hidePopover();
+        this.wrapper?.hidePopover();
       }
-    } else if (event.key === 'ArrowDown' && !this.listbox?.matches(':popover-open')) {
-      this.listbox?.showPopover();
+    } else if (!this.wrapper?.matches(':popover-open') && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
+      this.wrapper?.showPopover();
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
+      event.stopPropagation();
 
       let delta = 0,
-        index = this.currentOption ? this.options.findIndex(o => o.id === this.currentOption?.id) : -1;
+        index = this.currentOption ? this.options.indexOf(this.currentOption) : -1;
       switch (event.key) {
         case 'ArrowDown':
           delta = 1;
@@ -275,7 +272,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       this.#updateTextFieldValue();
 
       if (!this.multiple) {
-        this.listbox?.hidePopover();
+        this.wrapper?.hidePopover();
       }
     }
   }
@@ -288,17 +285,6 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.#pointerDown = false;
   }
 
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const listbox = event.target.assignedElements({ flatten: true }).at(0);
-
-    if (listbox) {
-      listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
-      listbox.setAttribute('role', 'listbox');
-
-      this.input.setAttribute('aria-controls', listbox.id);
-    }
-  }
-
   #findOptionElement(option: ComboboxOption): Option | null {
     return option?.id ? this.querySelector(`#${option.id}`) : null;
   }
@@ -306,22 +292,16 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   #toggleSelected(option: ComboboxOption): void {
     option.selected = !option.selected;
 
-    const optionElement = this.#findOptionElement(option);
-    if (optionElement) {
-      optionElement.selected = option.selected;
-      optionElement.setAttribute('aria-selected', option.selected ? 'true' : 'false');
-    }
+    this.#findOptionElement(option)?.setAttribute('aria-selected', option.selected.toString());
   }
 
   #updateCurrent(option?: ComboboxOption): void {
     if (this.currentOption) {
       this.currentOption.current = false;
 
-      const optionElement = this.#findOptionElement(this.currentOption);
-      if (optionElement) {
-        optionElement.current = false;
-        optionElement.removeAttribute('aria-current');
-      }
+      this.input.removeAttribute('aria-activedescendant');
+
+      this.#findOptionElement(this.currentOption)?.removeAttribute('aria-current');
     }
 
     this.currentOption = option;
@@ -329,56 +309,60 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     if (this.currentOption) {
       this.currentOption.current = true;
 
+      this.input.setAttribute('aria-activedescendant', this.currentOption.id);
+
       const optionElement = this.#findOptionElement(this.currentOption);
       if (optionElement) {
-        optionElement.current = true;
         optionElement.setAttribute('aria-current', 'true');
         optionElement.scrollIntoView({ block: 'nearest' });
       }
-    } else {
-      this.#updateOptions();
     }
   }
 
   #updateOptions(): void {
-    this.options = Array.from(this.querySelectorAll(':is(sl-option, [role="option"]):not(:disabled, [disabled])'))
-      .filter((el): el is Option => el instanceof Option)
-      .map(el => {
-        el.id ||= `sl-combobox-option-${nextUniqueId++}`;
+    this.listbox = this.wrapper?.assignedElements({ flatten: true })?.at(0);
 
-        return {
-          id: el.id,
-          content: el.textContent?.trim() || '',
-          current: el.current || el.getAttribute('aria-current') === 'true',
-          selected: el.selected || el.getAttribute('aria-selected') === 'true',
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          value: el.value || el.textContent?.trim() || ''
-        };
-      });
+    if (this.listbox) {
+      this.listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
+      this.listbox.setAttribute('role', 'listbox');
 
-    if (this.#value) {
-      this.currentSelection = this.options.filter(o => o.value === this.#value);
-    }
+      this.input.setAttribute('aria-controls', this.listbox.id);
 
-    if (this.currentOption) {
-      this.input.setAttribute('aria-activedescendant', this.currentOption.id);
+      this.options = Array.from(this.listbox.children)
+        .filter((el): el is Option | HTMLOptionElement => el instanceof Option || el instanceof HTMLOptionElement)
+        .map(el => {
+          el.id ||= `sl-combobox-option-${nextUniqueId++}`;
+
+          return {
+            id: el.id,
+            content: el.textContent?.trim() || '',
+            current: el.getAttribute('aria-current') === 'true',
+            selected: el.getAttribute('aria-selected') === 'true',
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            value: el.value || el.textContent?.trim() || ''
+          };
+        });
     } else {
-      this.input.removeAttribute('aria-activedescendant');
+      this.options = [];
     }
 
-    const value = this.input.value.slice(0, this.input.selectionStart ?? 0).trim();
+    // if (this.#value) {
+    //   this.currentSelection = this.options.filter(o => o.value === this.#value);
+    // }
 
-    this.options.forEach(option => {
-      let match = !this.filterResults || !value;
-      if (!match) {
-        match = option.content.toLowerCase().startsWith(value.toLowerCase());
-      }
+    // const value = this.input.value.slice(0, this.input.selectionStart ?? 0).trim();
 
-      const optionElement = this.#findOptionElement(option);
-      if (optionElement) {
-        optionElement.style.display = match ? '' : 'none';
-      }
-    });
+    // this.options.forEach(option => {
+    //   let match = !this.filterResults || !value;
+    //   if (!match) {
+    //     match = option.content.toLowerCase().startsWith(value.toLowerCase());
+    //   }
+
+    //   const optionElement = this.#findOptionElement(option);
+    //   if (optionElement) {
+    //     optionElement.style.display = match ? '' : 'none';
+    //   }
+    // });
   }
 
   #updateSelection(option: ComboboxOption): void {

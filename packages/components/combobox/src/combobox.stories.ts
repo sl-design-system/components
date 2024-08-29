@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/option/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -166,6 +167,14 @@ export const Required: Story = {
   args: {
     hint: 'The component is required. This means you must select an option in order for the field to be valid.',
     required: true
+  }
+};
+
+export const StressTest: Story = {
+  args: {
+    options: () => html`
+      <div slot="options">${Array.from({ length: 5000 }).map((_, i) => html`<sl-option>Option ${i}</sl-option>`)}</div>
+    `
   }
 };
 

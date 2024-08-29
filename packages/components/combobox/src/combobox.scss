@@ -37,9 +37,7 @@
     position: fixed;
   }
 
-  /* stylelint-disable-next-line selector-class-pattern */
-  &:where(:popover-open, .\\:popover-open) {
-    /* stylelint-disable-next-line max-nesting-depth, scss/at-rule-no-unknown */
+  &:where(:popover-open) {
     @starting-style {
       display: flex;
       opacity: 0;

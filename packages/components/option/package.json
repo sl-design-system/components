@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/combobox",
+  "name": "@sl-design-system/option",
   "version": "0.0.0",
-  "description": "Combobox component for the SL Design System",
+  "description": "Option components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/combobox"
+    "directory": "packages/components/option"
   },
-  "homepage": "https://sanomalearning.design/components/combobox",
+  "homepage": "https://sanomalearning.design/components",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },
@@ -37,17 +37,10 @@
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
-  "dependencies": {
-    "@sl-design-system/option": "^0.0.0",
-    "@sl-design-system/tag": "^0.0.1",
-    "@sl-design-system/text-field": "^1.3.5"
-  },
   "devDependencies": {
-    "@open-wc/scoped-elements": "^3.0.5",
     "lit": "^3.1.4"
   },
   "peerDependencies": {
-    "@open-wc/scoped-elements": "^3.0.5",
     "lit": "^3.1.4"
   }
 }

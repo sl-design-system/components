@@ -128,6 +128,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
                 ${this.stackSize > 99 ? '+99' : this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
+                ${msg('List of hidden elements')}:
                 ${this.tags
                   .filter(tag => tag.style.display === 'none')
                   .map(tag => tag.label)

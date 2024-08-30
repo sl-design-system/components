@@ -7,7 +7,7 @@ import { type EventEmitter, EventsController, anchor, event } from '@sl-design-s
 import { type SlBlurEvent, type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './combobox.scss.js';
@@ -20,7 +20,7 @@ declare global {
 
 export type ComboboxOption = {
   id: string;
-  element: HTMLElement;
+  element: Option;
   content: string;
   current: boolean;
   selected: boolean;
@@ -83,6 +83,13 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
   #pointerDown = false;
 
   /**
+   * Flag indicating whether the popover was just closed. We need to know this so we can
+   * properly handle button clicks that close the popover. If the popover was just closed,
+   * we don't want to show it again when the button click event fires.
+   */
+  #popoverJustClosed = false;
+
+  /**
    * The behavior of the combobox when it comes to suggesting options based on user input.
    * - 'off': Suggest is off
    * - 'inline': Only suggest options inside the input
@@ -103,7 +110,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
   currentOption?: ComboboxOption;
 
   /** @internal The current selected options. */
-  currentSelection: ComboboxOption[] = [];
+  @state() currentSelection: ComboboxOption[] = [];
 
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -111,7 +118,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
-  /** The input element in the light DOM. */
+  /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
   /** @internal Element internals. */
@@ -139,7 +146,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /**
-   * The value of the combobox. It `multiple` selection is enabled, then this
+   * The value of the combobox. If `multiple` selection is enabled, then this
    * will be an array of values. Otherwise, it will be a single value.
    */
   @property() override value?: T | T[];
@@ -208,8 +215,22 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
+        ?required=${this.required}
         placeholder=${ifDefined(this.placeholder)}
       >
+        ${this.multiple && this.currentSelection.length
+          ? html`
+              <sl-tag-list slot="prefix">
+                ${this.currentSelection.map(
+                  option => html`
+                    <sl-tag @sl-remove=${() => this.#onRemove(option)} ?removable=${!this.disabled}>
+                      ${option.content}
+                    </sl-tag>
+                  `
+                )}
+              </sl-tag-list>
+            `
+          : nothing}
         <slot name="input" slot="input"></slot>
         <button
           @click=${this.#onButtonClick}
@@ -232,6 +253,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
         @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onOptionsClick}
         @slotchange=${() => this.#updateOptions()}
+        @toggle=${this.#onToggle}
         part="wrapper"
         popover
         tabindex="-1"
@@ -244,11 +266,15 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
 
     if (event.newState === 'open') {
       this.wrapper!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
+    } else {
+      this.#popoverJustClosed = true;
     }
   }
 
   #onButtonClick(): void {
-    this.wrapper?.togglePopover();
+    if (!this.#popoverJustClosed) {
+      this.wrapper?.showPopover();
+    }
   }
 
   #onFocus(): void {
@@ -286,8 +312,9 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && this.currentOption) {
+      this.#toggleSelected(this.currentOption);
       this.#updateSelection(this.currentOption);
-      this.#updateTextFieldValue();
+      this.#updateValue();
 
       if (!this.multiple) {
         this.wrapper?.hidePopover();
@@ -321,11 +348,14 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
   }
 
   #onOptionsClick(event: Event): void {
-    const option = event.composedPath().find((el): el is Option => el instanceof Option);
+    const optionElement = event.composedPath().find((el): el is Option => el instanceof Option);
 
-    if (option?.id) {
-      this.#updateSelection(this.options.find(o => o.id === option.id));
-      this.#updateTextFieldValue();
+    if (optionElement?.id) {
+      const option = this.options.find(o => o.id === optionElement.id);
+
+      this.#toggleSelected(option);
+      this.#updateSelection(option);
+      this.#updateValue();
 
       if (!this.multiple) {
         this.wrapper?.hidePopover();
@@ -341,10 +371,29 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
     this.#pointerDown = false;
   }
 
-  #toggleSelected(option: ComboboxOption): void {
-    option.selected = !option.selected;
+  #onRemove(option: ComboboxOption): void {
+    this.#toggleSelected(option, false);
+    this.#updateSelection(option);
+    this.#updateValue();
+  }
 
-    if (option.selected) {
+  #onToggle(event: ToggleEvent): void {
+    if (event.newState === 'closed') {
+      this.#popoverJustClosed = false;
+    }
+  }
+
+  #toggleSelected(option?: ComboboxOption, force?: boolean): void {
+    if (!option) {
+      return;
+    }
+
+    const selected = typeof force === 'boolean' ? force : !option.selected;
+
+    option.selected = selected;
+    option.element.selected = selected;
+
+    if (selected) {
       option.element.setAttribute('aria-selected', 'true');
     } else {
       option.element.removeAttribute('aria-selected');
@@ -419,49 +468,43 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
   /** Updates the state of the options to reflect the current value. */
   #updateSelected(): void {
     // Clear all selected options
-    this.options.filter(o => o.selected).forEach(o => this.#toggleSelected(o));
+    this.options.filter(o => o.selected).forEach(o => this.#toggleSelected(o, false));
 
     if (this.multiple) {
-      // empty
+      const values = Array.isArray(this.value) ? this.value : [this.value];
+
+      this.options.filter(o => values.includes(o.value as T)).forEach(o => this.#toggleSelected(o, true));
+
+      this.#updateSelection();
     } else {
       const option = this.options.find(o => o.value === this.value);
       if (option) {
-        this.#toggleSelected(option);
+        this.#toggleSelected(option, true);
+
         this.#updateCurrent(option);
+        this.#updateSelection(option);
+        this.#updateTextFieldValue();
       }
     }
   }
 
+  /** Updates the selection based on the `selected` property of the options. */
   #updateSelection(option?: ComboboxOption): void {
-    if (!option) {
-      return;
-    }
-
-    this.#toggleSelected(option);
-
+    let selection: ComboboxOption[] = [];
     if (this.multiple) {
-      if (option.selected) {
-        this.currentSelection = [...this.currentSelection, option];
-      } else {
-        this.currentSelection = this.currentSelection.filter(o => o !== option);
-      }
-
-      this.value = this.currentSelection.map(o => o.value as T) as unknown as T;
+      selection = this.options.filter(o => o.selected);
     } else {
-      if (this.currentSelection.length && this.currentSelection[0] !== option) {
-        // Deselect the old option
-        this.#toggleSelected(this.currentSelection[0]);
-      }
-
-      this.currentSelection = option.selected ? [option] : [];
-      this.value = option.value as T;
+      selection = option?.selected ? [option] : [];
     }
 
-    this.changeEvent.emit(this.value);
-    this.updateState({ dirty: true });
-    this.updateValidity();
+    console.log(...selection);
+
+    this.currentSelection.filter(o => !selection.includes(o)).forEach(o => this.#toggleSelected(o, false));
+    this.currentSelection = selection;
+    this.currentSelection.forEach(o => this.#toggleSelected(o, true));
   }
 
+  /** Update the value in the text field. */
   #updateTextFieldValue(): void {
     if (this.multiple) {
       this.input.value = '';
@@ -469,5 +512,18 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
       this.input.value = this.currentSelection.at(0)?.content || '';
       this.input.setSelectionRange(-1, -1);
     }
+  }
+
+  /** Updates the value based on the current selection. */
+  #updateValue(): void {
+    if (this.multiple) {
+      this.value = this.currentSelection.map(o => o.value as T) as unknown as T;
+    } else {
+      this.value = this.currentSelection.at(0)?.value as T;
+    }
+
+    this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 }

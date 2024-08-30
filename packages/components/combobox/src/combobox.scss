@@ -38,4 +38,5 @@ sl-icon {
 
 ::slotted(sl-listbox) {
   flex: 1;
+  max-block-size: var(--sl-combobox-listbox-maxBlockSize, 20rem);
 }

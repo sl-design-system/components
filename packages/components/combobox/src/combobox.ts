@@ -207,6 +207,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
         @input=${this.#onInput}
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
+        ?readonly=${this.readonly}
         placeholder=${ifDefined(this.placeholder)}
       >
         <slot name="input" slot="input"></slot>
@@ -215,6 +216,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
           ?disabled=${this.disabled}
           aria-label=${msg('Toggle the options')}
           slot="suffix"
+          tabindex="-1"
         >
           <sl-icon name="chevron-down"></sl-icon>
         </button>

@@ -17,13 +17,19 @@ export class OptionGroup extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The optional heading for the group. */
-  @property() heading?: string;
+  /** The optional label for the group. */
+  @property() label?: string;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('role', 'group');
+  }
 
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        <slot name="header">${this.heading ? html`<div class="heading">${this.heading}</div>` : nothing}</slot>
+        <slot name="header">${this.label ? html`<div class="label">${this.label}</div>` : nothing}</slot>
         <slot></slot>
       </div>
     `;

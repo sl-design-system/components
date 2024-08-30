@@ -35,6 +35,12 @@ export class Option extends ScopedElementsMixin(LitElement) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @property() value?: any;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('role', 'option');
+  }
+
   override render(): TemplateResult {
     return html`
       <sl-icon name="check"></sl-icon>

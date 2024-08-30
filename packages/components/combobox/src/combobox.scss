@@ -7,6 +7,14 @@ sl-text-field {
   padding: 0 0 0 var(--_padding-inline);
 }
 
+sl-text-field:has(+ :popover-open) sl-icon {
+  rotate: 180deg;
+}
+
+sl-icon {
+  transition: rotate 0.2s ease-in-out;
+}
+
 [popover] {
   background: var(--sl-color-elevation-surface-raised);
   border: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);

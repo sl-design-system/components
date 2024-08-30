@@ -184,3 +184,45 @@ export const StressTest: Story = {
     `
   }
 };
+
+export const All: Story = {
+  render: () => html`
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    </style>
+    <div class="container">
+      <sl-combobox placeholder="Empty">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox placeholder="Selected" value="Option 2">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox readonly placeholder="Readonly">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox disabled placeholder="Disabled">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+    </div>
+  `
+};

@@ -11,7 +11,7 @@
   margin-inline: var(--sl-space-new-md);
 }
 
-slot[name='header'] .heading,
+slot[name='header'] .label,
 slot[name='header']::slotted(*) {
   color: var(--sl-color-text-plain);
   padding: var(--sl-space-new-md);

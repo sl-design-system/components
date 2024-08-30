@@ -52,11 +52,11 @@ export const Divider: Story = {
 export const Grouped: Story = {
   args: {
     options: () => html`
-      <sl-option-group heading="Group 1">
+      <sl-option-group label="Group 1">
         <sl-option>Option 1</sl-option>
         <sl-option>Option 2</sl-option>
       </sl-option-group>
-      <sl-option-group heading="Group 2">
+      <sl-option-group label="Group 2">
         <sl-option>Option 3</sl-option>
         <sl-option>Option 4</sl-option>
       </sl-option-group>

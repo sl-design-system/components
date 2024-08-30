@@ -4,11 +4,20 @@
 
 sl-text-field {
   flex: 1;
-  padding: 0 0 0 var(--_padding-inline);
+  padding-block: 0;
+  padding-inline: var(--_padding-inline) 0;
+
+  &:has(> sl-tag-list) {
+    padding-inline: 3px 0;
+  }
 }
 
 sl-text-field:has(+ :popover-open) sl-icon {
   rotate: 180deg;
+}
+
+sl-tag-list {
+  max-inline-size: 66%;
 }
 
 sl-icon {

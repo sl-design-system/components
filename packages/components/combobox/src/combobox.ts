@@ -220,7 +220,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
       >
         ${this.multiple && this.currentSelection.length
           ? html`
-              <sl-tag-list slot="prefix">
+              <sl-tag-list slot="prefix" stacked>
                 ${this.currentSelection.map(
                   option => html`
                     <sl-tag @sl-remove=${() => this.#onRemove(option)} ?removable=${!this.disabled}>

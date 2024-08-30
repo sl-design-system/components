@@ -4,7 +4,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'collapsed' | 'collapsible' | 'heading'> & {
+type Props = Pick<Paginator, 'collapsed' | 'collapsible' | 'heading' | 'itemsPerPage' | 'total'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
@@ -14,7 +14,9 @@ export default {
   title: 'Layout/Paginator',
   tags: ['draft'],
   args: {
-    collapsible: false
+    collapsible: false,
+    total: 50,
+    itemsPerPage: 15
   },
   argTypes: {
     actions: {
@@ -27,11 +29,8 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ heading }) => {
-    return html`
-      ${heading}
-      <sl-paginator></sl-paginator>
-    `;
+  render: ({ itemsPerPage, total }) => {
+    return html` <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage}></sl-paginator> `;
   }
 } satisfies Meta<Props>;
 
@@ -45,49 +44,12 @@ export const Basic: Story = {
   }
 };
 
-export const Collapsible: Story = {
-  args: {
-    ...Basic.args,
-    collapsible: true
-  }
-};
-
-export const Collapsed: Story = {
-  args: {
-    ...Collapsible.args,
-    collapsed: true
-  }
-};
-
-export const OverflowHeading: Story = {
+export const Overflow: Story = {
   args: {
     ...Basic.args,
     heading:
       'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
     content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'
-  }
-};
-
-export const OverflowActions: Story = {
-  args: {
-    ...Basic.args,
-    actions: () => html`
-      <sl-button fill="outline" slot="actions">Action 1</sl-button>
-      <sl-button fill="outline" slot="actions">Action 2</sl-button>
-      <sl-button fill="outline" slot="actions">Action 3</sl-button>
-      <sl-button fill="outline" slot="actions">Action 4</sl-button>
-      <sl-button fill="outline" slot="actions">Action 5</sl-button>
-      <sl-button fill="outline" slot="actions">Action 6</sl-button>
-      <sl-button fill="outline" slot="actions">Action 7</sl-button>
-    `,
-    content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
-  }
-};
-
-export const WithoutActions: Story = {
-  args: {
-    ...OverflowHeading.args,
-    actions: undefined
   }
 };
 

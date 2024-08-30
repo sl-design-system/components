@@ -103,3 +103,7 @@ slot[name='actions']::slotted(:first-child) {
   padding-block-end: var(--_padding-block);
   padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }
+
+.active {
+  border: 1px solid #0d1a24;
+}

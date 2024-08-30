@@ -223,6 +223,20 @@ export const All: Story = {
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
+      <sl-combobox multiple placeholder="Multiple" .value=${['Option 1', 'Option 2']}>
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox disabled multiple placeholder="Multiple, disabled" .value=${['Option 1', 'Option 2']}>
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
     </div>
   `
 };

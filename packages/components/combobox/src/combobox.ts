@@ -501,8 +501,6 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
       selection = option?.selected ? [option] : [];
     }
 
-    console.log(...selection);
-
     this.currentSelection.filter(o => !selection.includes(o)).forEach(o => this.#toggleSelected(o, false));
     this.currentSelection = selection;
     this.currentSelection.forEach(o => this.#toggleSelected(o, true));

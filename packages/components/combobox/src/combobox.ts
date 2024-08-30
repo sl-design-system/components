@@ -230,7 +230,6 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
         @beforetoggle=${this.#onBeforeToggle}
         @click=${this.#onOptionsClick}
         @slotchange=${() => this.#updateOptions()}
-        name="options"
         part="wrapper"
         popover
         tabindex="-1"

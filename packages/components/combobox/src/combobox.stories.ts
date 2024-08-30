@@ -122,7 +122,7 @@ export default {
             .placeholder=${placeholder}
             .value=${value}
           >
-            ${options?.() ?? html`<div slot="options">${components.map(c => html`<sl-option>${c}</sl-option>`)}</div>`}
+            ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
           </sl-combobox>
         </sl-form-field>
         <sl-button-bar>
@@ -180,7 +180,7 @@ export const Required: Story = {
 export const StressTest: Story = {
   args: {
     options: () => html`
-      <div slot="options">${Array.from({ length: 5000 }).map((_, i) => html`<sl-option>Option ${i}</sl-option>`)}</div>
+      <sl-listbox>${Array.from({ length: 5000 }).map((_, i) => html`<sl-option>Option ${i}</sl-option>`)}</sl-listbox>
     `
   }
 };

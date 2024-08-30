@@ -2,7 +2,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 
-type Props = { options?(): TemplateResult };
+type Props = { options?(): TemplateResult | TemplateResult[] };
 type Story = StoryObj<Props>;
 
 export default {
@@ -72,4 +72,20 @@ export const Selected: Story = {
       <sl-option>Option 3</sl-option>
     `
   }
+};
+
+export const Overflow: Story = {
+  parameters: {
+    layout: 'fullscreen'
+  },
+  render: () => html`
+    <style>
+      sl-listbox {
+        max-block-size: calc(100dvh - 1rem);
+      }
+    </style>
+    <sl-listbox>
+      ${Array.from({ length: 100 }).map((_, i) => html`<sl-option>Option ${i + 1}</sl-option>`)}
+    </sl-listbox>
+  `
 };

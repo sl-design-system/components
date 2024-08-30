@@ -87,6 +87,17 @@
   --_subheading-font: var(--sl-text-avatar-subheader-3xl);
 }
 
+:host([size='4xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-4xl);
+  --_block-gap: var(--sl-space-avatar-block-3xl);
+  --_icon-size: var(--sl-size-icon-4xl);
+  --_inline-gap: var(--sl-space-avatar-inline-3xl);
+  --_heading-font: var(--sl-text-avatar-header-4xl);
+  --_initials-font: var(--sl-text-avatar-initials-4xl);
+  --_picture-size: var(--sl-size-avatar-4xl);
+  --_subheading-font: var(--sl-text-avatar-subheader-4xl);
+}
+
 :host([image-only]) {
   border-radius: 50%;
 

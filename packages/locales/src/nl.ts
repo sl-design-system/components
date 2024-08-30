@@ -22,6 +22,7 @@ export const templates = {
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
+  s9cd91b99a108a45f: 'Lijst met verborgen elementen',
   s9f7452dd75d54d31: 'fout',
   sa447e2f801a7eb2d: 'Kies een optie.',
   sa996297f6a208e98: 'Kruimelpad',
@@ -35,10 +36,10 @@ export const templates = {
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
   sd711c88b851db6c9: 'De volgende velden zijn incorrect:',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
-  sebd54694b2f83547: str`Verwijder '${0}'`,
+  sebd54694b2f83547: str`verwijder '${0}'`,
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf75c5ddbac2b60f9: str`${0} van de ${1} zichtbaar`,
+  sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`,
   sb478417d3a213540: 'Toggle the options'
 };

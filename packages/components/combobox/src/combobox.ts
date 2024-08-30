@@ -375,6 +375,10 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
     this.#toggleSelected(option, false);
     this.#updateSelection(option);
     this.#updateValue();
+
+    if (this.#popoverJustClosed) {
+      this.wrapper?.showPopover();
+    }
   }
 
   #onToggle(event: ToggleEvent): void {

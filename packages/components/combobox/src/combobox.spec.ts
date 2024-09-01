@@ -10,7 +10,10 @@ describe('sl-combobox', () => {
     el = await fixture(html`<sl-combobox></sl-combobox>`);
   });
 
-  it('should have a combobox role', () => {
-    expect(el).to.have.attribute('role', 'combobox');
+  it('should have an input with role combobox', () => {
+    const input = el.querySelector('input[slot="input"]');
+
+    expect(input).to.exist;
+    expect(input).to.have.attribute('role', 'combobox');
   });
 });

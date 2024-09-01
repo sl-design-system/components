@@ -119,17 +119,12 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     this.#value = value;
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
+  override connectedCallback(): void {
+    super.connectedCallback();
 
     if (!this.input) {
-      this.input =
-        (this.renderRoot
-          .querySelector<HTMLSlotElement>('slot[name="input"]')
-          ?.assignedElements({ flatten: true })
-          ?.at(0) as HTMLInputElement) || document.createElement('input');
+      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
-      this.updateInputElement(this.input);
 
       if (!this.input.parentElement) {
         this.append(this.input);
@@ -270,17 +265,19 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
+      inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 
-    // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    if (input) {
-      this.input = input;
-      this.input.addEventListener('blur', () => this.#onBlur());
-      this.input.addEventListener('focus', () => this.#onFocus());
-      this.updateInputElement(this.input);
-
-      this.setFormControlElement(this.input);
+    // If an input has been slotted after `connectedCallback`, that input takes precedence
+    if (this.input && this.input !== inputs.at(0)) {
+      this.input.remove();
     }
+
+    this.input = inputs.at(0)!;
+    this.input.addEventListener('blur', () => this.#onBlur());
+    this.input.addEventListener('focus', () => this.#onFocus());
+    this.updateInputElement(this.input);
+
+    this.setFormControlElement(this.input);
   }
 
   /** @internal Synchronize the input element with the component properties. */

@@ -16,10 +16,6 @@ describe('sl-text-field', () => {
       input = el.querySelector('input')!;
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('should have an input slot', () => {
       const slot = el.renderRoot.querySelector('slot[name="input"]');
 

@@ -1,15 +1,14 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, anchor, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent } from '@sl-design-system/shared/events.js';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './combobox.scss.js';
 
 declare global {
@@ -28,8 +27,6 @@ export type ComboboxOption = {
   value: any;
 };
 
-export type ComboboxMultipleSelectionType = 'automatic' | 'manual';
-
 let nextUniqueId = 0;
 
 /**
@@ -40,9 +37,7 @@ let nextUniqueId = 0;
  * @slot options - Contains the listbox with options
  */
 @localized()
-export class Combobox<T extends { toString(): string } = string> extends FormControlMixin(
-  ScopedElementsMixin(LitElement)
-) {
+export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static formAssociated = true;
 
@@ -118,6 +113,9 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
+  /** @internal Emits when the component gains focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
+
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
@@ -167,15 +165,15 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
       }
     }
 
-    this.#events.listen(this.input, 'click', this.#onInputClick);
-    this.#events.listen(this.input, 'focus', this.#onFocus);
-    this.#events.listen(this.input, 'pointerdown', this.#onPointerDown);
-    this.#events.listen(this.input, 'pointerup', this.#onPointerUp);
-
     this.input.setAttribute('role', 'combobox');
     this.input.setAttribute('aria-autocomplete', 'both');
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-haspopup', 'listbox');
+
+    this.#events.listen(this.input, 'click', this.#onInputClick);
+    this.#events.listen(this.input, 'focus', this.#onFocus);
+    this.#events.listen(this.input, 'pointerdown', this.#onPointerDown);
+    this.#events.listen(this.input, 'pointerup', this.#onPointerUp);
 
     this.#observer.observe(this, { childList: true, subtree: true });
 
@@ -206,6 +204,10 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
     if (changes.has('options') || changes.has('value')) {
       this.#updateSelected();
     }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
+    }
   }
 
   override render(): TemplateResult {
@@ -213,10 +215,13 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
       <sl-text-field
         @input=${this.#onInput}
         @keydown=${this.#onKeydown}
+        @sl-blur=${this.#onTextFieldBlur}
+        @sl-change=${this.#onTextFieldChange}
+        @sl-focus=${this.#onTextFieldFocus}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
         ?required=${this.required}
-        placeholder=${ifDefined(this.placeholder)}
+        .placeholder=${this.placeholder}
       >
         ${this.multiple && this.currentSelection.length
           ? html`
@@ -235,7 +240,7 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg('Toggle the options')}
+          aria-label=${msg(str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`)}
           slot="suffix"
           tabindex="-1"
         >
@@ -379,6 +384,26 @@ export class Combobox<T extends { toString(): string } = string> extends FormCon
     if (this.#popoverJustClosed) {
       this.wrapper?.showPopover();
     }
+  }
+
+  #onTextFieldBlur(event: SlBlurEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
+  #onTextFieldChange(event: SlChangeEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  #onTextFieldFocus(event: SlFocusEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.focusEvent.emit();
   }
 
   #onToggle(event: ToggleEvent): void {

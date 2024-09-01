@@ -179,8 +179,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // Reset styles to calculate total width correctly and calculate total width of tags
     this.tags.forEach(tag => {
       tag.style.display = '';
-      totalTagsWidth += tag.offsetWidth + gap;
+      totalTagsWidth += tag.offsetWidth;
     });
+
+    totalTagsWidth += gap * (this.tags.length - 1);
 
     // Determine which tags to show or hide
     if (totalTagsWidth > containerWidth - counterWidth) {

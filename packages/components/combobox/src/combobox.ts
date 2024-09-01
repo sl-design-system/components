@@ -186,6 +186,14 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     super.disconnectedCallback();
   }
 
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('options') || changes.has('value')) {
+      this.#updateSelected();
+    }
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -199,10 +207,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('disabled')) {
       this.input.disabled = !!this.disabled;
-    }
-
-    if (changes.has('options') || changes.has('value')) {
-      this.#updateSelected();
     }
 
     if (changes.has('required')) {

@@ -17,6 +17,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'showValid'
   | 'value'
 > & {
   hint?: string;

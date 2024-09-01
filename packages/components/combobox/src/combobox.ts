@@ -313,6 +313,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     }
 
     this.#updateCurrent(currentOption);
+    this.#updateFilteredOptions(value);
   }
 
   #onInputClick(): void {
@@ -323,6 +324,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     if (event.key === 'Enter' && this.currentOption) {
       this.#toggleSelected(this.currentOption);
       this.#updateSelection(this.currentOption);
+      this.#updateFilteredOptions();
       this.#updateValue();
 
       if (!this.multiple) {
@@ -364,6 +366,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
       this.#toggleSelected(option);
       this.#updateSelection(option);
+      this.#updateFilteredOptions();
       this.#updateValue();
 
       if (!this.multiple) {
@@ -453,6 +456,17 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  #updateFilteredOptions(value?: string): void {
+    this.options.forEach(option => {
+      let match = !this.filterResults || !value;
+      if (!match) {
+        match = option.content.toLowerCase().startsWith(value!.toLowerCase());
+      }
+
+      option.element.style.display = match ? '' : 'none';
+    });
+  }
+
   /** Updates the list of options and the listbox link with the text input. */
   #updateOptions(): void {
     this.listbox = this.wrapper?.assignedElements({ flatten: true })?.at(0);
@@ -482,20 +496,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.input.removeAttribute('aria-controls');
       this.options = [];
     }
-
-    // const value = this.input.value.slice(0, this.input.selectionStart ?? 0).trim();
-
-    // this.options.forEach(option => {
-    //   let match = !this.filterResults || !value;
-    //   if (!match) {
-    //     match = option.content.toLowerCase().startsWith(value.toLowerCase());
-    //   }
-
-    //   const optionElement = this.#findOptionElement(option);
-    //   if (optionElement) {
-    //     optionElement.style.display = match ? '' : 'none';
-    //   }
-    // });
   }
 
   /** Updates the state of the options to reflect the current value. */

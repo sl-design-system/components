@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-config
 
+## 0.2.1
+
+### Patch Changes
+
+- [#1494](https://github.com/sl-design-system/components/pull/1494) [`5f5c990`](https://github.com/sl-design-system/components/commit/5f5c990e109c6f8e5ae27b1298c5e5610431e225) - Disable `lit-a11y/anchor-is-valid` rule for now
+
 ## 0.2.0
 
 ### Minor Changes

@@ -459,15 +459,15 @@
     "chai": "^5.1.1",
     "chai-as-promised": "^8.0.0",
     "chromatic": "^11.7.1",
-    "eslint": "9.5.0",
+    "eslint": "9.9.1",
     "husky": "^9.1.5",
-    "lint-staged": "^15.2.9",
+    "lint-staged": "^15.2.10",
     "lit": "^3.1.4",
     "sinon": "^18.0.0",
     "storybook": "^8.2.9",
-    "stylelint": "^16.6.1",
+    "stylelint": "^16.9.0",
     "typescript": "^5.4.5",
     "vite": "^5.4.2",
-    "wireit": "^0.14.7"
+    "wireit": "^0.14.8"
   }
 }

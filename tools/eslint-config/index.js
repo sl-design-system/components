@@ -51,7 +51,9 @@ export default tseslint.config(
   {
     plugins: { 'lit-a11y': litA11y },
     rules: {
-      ...litA11y.configs.recommended.rules
+      ...litA11y.configs.recommended.rules,
+      // https://github.com/open-wc/open-wc/issues/2814
+      'lit-a11y/anchor-is-valid': 'off',
     }
   },
   {

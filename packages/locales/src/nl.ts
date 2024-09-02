@@ -16,6 +16,7 @@ export const templates = {
   s5d929ff1619ac0c9: 'Zoeken',
   s5e10d00d437e2e21: 'Leeg',
   s5e8250fb85d64c23: 'Sluiten',
+  s606beeef09212e6c: str`${0} de opties`,
   s629576c6b305d539: 'optioneel',
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
   s6580790b036f0c6f: 'actief',
@@ -40,6 +41,5 @@ export const templates = {
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`,
-  s606beeef09212e6c: str`${0} the options`
+  sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`
 };

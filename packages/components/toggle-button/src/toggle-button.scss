@@ -17,8 +17,6 @@
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
-
-  // border-radius: var(--_border-radius);
   color: var(--_color);
   cursor: pointer;
   display: inline-flex;
@@ -30,11 +28,13 @@
 
 :host(:hover) {
   --_background: var(--sl-color-button-default-ghost-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-hover-border);
   --_color: var(--sl-color-button-default-ghost-hover-foreground);
 }
 
 :host(:active) {
   --_background: var(--sl-color-button-default-ghost-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-active-border);
   --_color: var(--sl-color-button-default-ghost-active-foreground);
 }
 
@@ -80,7 +80,7 @@
 
 :host([fill='outline']:hover) {
   --_background: var(--sl-color-button-default-outline-hover-background);
-  --_border-color: var(--sl-color-button-default-outline-disabled-border);
+  --_border-color: var(--sl-color-button-default-outline-hover-border);
   --_color: var(--sl-color-button-default-outline-hover-foreground);
 }
 

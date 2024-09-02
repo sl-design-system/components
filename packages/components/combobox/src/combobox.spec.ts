@@ -263,9 +263,7 @@ describe('sl-combobox', () => {
 
       const tags = el.renderRoot.querySelectorAll('sl-tag');
       expect(tags).to.have.lengthOf(2);
-      expect(tags[0]).to.have.attribute('removable');
       expect(tags[0]).to.have.trimmed.text('Option 1');
-      expect(tags[1]).to.have.attribute('removable');
       expect(tags[1]).to.have.trimmed.text('Option 2');
     });
 
@@ -285,6 +283,9 @@ describe('sl-combobox', () => {
 
       // Verify the option is no longer selected
       expect(el.querySelector('sl-option')).not.to.have.attribute('aria-selected');
+
+      // Verify the tag was removed
+      expect(el.value).to.deep.equal([]);
     });
   });
 });

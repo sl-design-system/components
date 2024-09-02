@@ -4446,7 +4446,7 @@ __metadata:
     "@sl-design-system/checkbox": "npm:^2.0.0"
     "@sl-design-system/form": "npm:^1.0.3"
     "@sl-design-system/icon": "npm:^1.0.2"
-    "@sl-design-system/locales": "npm:^0.0.9"
+    "@sl-design-system/locales": "npm:^0.0.10"
     "@sl-design-system/radio-group": "npm:^1.0.1"
     "@sl-design-system/select": "npm:^1.1.0"
     "@sl-design-system/switch": "npm:^1.0.2"
@@ -4814,7 +4814,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/locales@npm:^0.0.9, @sl-design-system/locales@workspace:packages/locales":
+"@sl-design-system/locales@npm:^0.0.10, @sl-design-system/locales@workspace:packages/locales":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/locales@workspace:packages/locales"
   dependencies:

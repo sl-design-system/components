@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/listbox/register.js';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { type Combobox } from './combobox.js';
@@ -115,6 +116,159 @@ describe('sl-combobox', () => {
       it('should link the input to the listbox', () => {
         expect(input).to.have.attribute('aria-controls', listbox.id);
       });
+    });
+  });
+
+  describe('disabled', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-combobox disabled multiple .value=${['Option 1']}>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      listbox = el.querySelector('sl-listbox')!;
+    });
+
+    it('should disable the text field', () => {
+      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('disabled');
+    });
+
+    it('should disable the input element', () => {
+      expect(input).to.have.attribute('disabled');
+    });
+
+    it('should disable any tags', () => {
+      const tags = el.renderRoot.querySelectorAll('sl-tag');
+
+      expect(tags).to.have.lengthOf(1);
+      expect(tags[0]).to.have.attribute('disabled');
+    });
+
+    it('should not have remove buttons on the tags', () => {
+      const tag = el.renderRoot.querySelector('sl-tag');
+
+      expect(tag).to.exist;
+      expect(tag?.renderRoot.querySelector('button')).not.to.exist;
+    });
+  });
+
+  describe('filter results', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-combobox filter-results>
+          <sl-listbox>
+            <sl-option>Lorem</sl-option>
+            <sl-option>Ipsum</sl-option>
+            <sl-option>Ipsom</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      listbox = el.querySelector('sl-listbox')!;
+    });
+
+    it('should filter the results in the list when typing', async () => {
+      input.focus();
+      await sendKeys({ type: 'Ip' });
+
+      const options = Array.from(listbox.querySelectorAll('sl-option'));
+
+      expect(options).to.have.lengthOf(3);
+      expect(options[0]).not.to.be.displayed;
+      expect(options[1]).to.be.displayed;
+      expect(options[2]).to.be.displayed;
+    });
+  });
+
+  describe('multiple', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-combobox multiple>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      listbox = el.querySelector('sl-listbox')!;
+    });
+
+    it('should support multiple selection', () => {
+      expect(el.multiple).to.be.true;
+    });
+
+    it('should have a stacked tag list when options are selected', async () => {
+      el.value = ['Option 1', 'Option 2'];
+      await el.updateComplete;
+
+      const tagList = el.renderRoot.querySelector('sl-tag-list');
+      expect(tagList).to.exist;
+      expect(tagList).to.have.attribute('stacked');
+    });
+
+    it('should have a tag for each selected option', async () => {
+      el.value = ['Option 1', 'Option 2'];
+      await el.updateComplete;
+
+      const tags = el.renderRoot.querySelectorAll('sl-tag');
+
+      expect(tags).to.have.lengthOf(2);
+      expect(tags[0]).to.have.trimmed.text('Option 1');
+      expect(tags[1]).to.have.trimmed.text('Option 2');
+    });
+
+    it('should have remove buttons on the tags', async () => {
+      el.value = ['Option 1', 'Option 2'];
+      await el.updateComplete;
+
+      const removable = Array.from(el.renderRoot.querySelectorAll('sl-tag')).every(
+        tag => !!tag.renderRoot.querySelector('button')
+      );
+
+      expect(removable).to.be.true;
+    });
+
+    it('should add a tag after selecting an option', async () => {
+      el.value = ['Option 2'];
+      await el.updateComplete;
+
+      input.click();
+      await el.updateComplete;
+
+      el.querySelector('sl-option')?.click();
+      await el.updateComplete;
+
+      const tags = el.renderRoot.querySelectorAll('sl-tag');
+      expect(tags).to.have.lengthOf(2);
+      expect(tags[0]).to.have.attribute('removable');
+      expect(tags[0]).to.have.trimmed.text('Option 1');
+      expect(tags[1]).to.have.attribute('removable');
+      expect(tags[1]).to.have.trimmed.text('Option 2');
+    });
+
+    it('should remove a tag after clicking the remove button', async () => {
+      el.value = ['Option 1'];
+      await el.updateComplete;
+
+      // Show the listbox
+      input.click();
+
+      // Verify the first option is selected
+      expect(el.querySelector('sl-option')).to.have.attribute('aria-selected');
+
+      // Click the remove button in the tag
+      el.renderRoot.querySelector('sl-tag')?.renderRoot.querySelector('button')?.click();
+      await el.updateComplete;
+
+      // Verify the option is no longer selected
+      expect(el.querySelector('sl-option')).not.to.have.attribute('aria-selected');
     });
   });
 });

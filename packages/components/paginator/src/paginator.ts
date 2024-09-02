@@ -179,12 +179,17 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         : nothing}
       <div>Active page: ${this.activePage}</div>
       Items per page:
+      ${this.pageSizes ?
+        html`
       <sl-select @change=${this.#onValueChange} .value=${this.itemsPerPage} style="inline-size: 60px;">
-        <sl-select-option value="1">5</sl-select-option>
-        <sl-select-option value="2">10</sl-select-option>
-        <sl-select-option value="3">15</sl-select-option>
-        ${this.pageSizes ? html` <sl-select-option value="3">15 pageSizes</sl-select-option> ` : nothing}
+          ${this.pageSizes?.map(
+            (size) => html`
+              <sl-select-option @click=${this.#setValue} .value=${size}>${size}</sl-select-option
+            `
+          )}
       </sl-select>
+      `
+    : nothing}
     `;
   } // <slot></slot>
 
@@ -302,6 +307,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   #onValueChange(event: Event): void {
     console.log('on value change', event, event.target);
+  }
+
+  #setValue(event: Event): void {
+    console.log('on value change', event, event.target, (event.target as SelectOption).value);
+    this.itemsPerPage = (event.target as SelectOption).value as number;
   }
 }
 

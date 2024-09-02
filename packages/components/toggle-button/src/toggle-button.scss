@@ -105,7 +105,7 @@
 :host([fill='outline'][pressed]:active) {
   --_background: var(--sl-color-button-default-outline-selected-active-background);
   --_border-color: var(--sl-color-button-default-outline-selected-active-border);
-  --_color: var(--sl-color-button-default-outline-selected-foreground);
+  --_color: var(--sl-color-button-default-outline-selected-active-foreground);
 }
 
 :host([fill='outline'][disabled]) {

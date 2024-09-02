@@ -1,5 +1,5 @@
 import eslint from '@eslint/js';
-import stylisticJs from '@stylistic/eslint-plugin-js';
+import stylistic from '@stylistic/eslint-plugin';
 import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
 import importPlugin from 'eslint-plugin-import';
@@ -12,7 +12,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import wc from 'eslint-plugin-wc';
 import tseslint from 'typescript-eslint';
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
@@ -29,7 +29,7 @@ export default tseslint.config(
       import: importPlugin,
       mocha,
       storybook,
-      '@stylistic/js': stylisticJs,
+      '@stylistic': stylistic,
       'chai-expect': chaiExpect,
       'chai-friendly': chaiFriendly,
       'unused-imports': unusedImports
@@ -71,22 +71,28 @@ export default tseslint.config(
           ignoreDeclarationSort: true
         }
       ],
-      '@stylistic/js/quotes': ['error', 'single', { avoidEscape: true }],
-      '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
-      '@typescript-eslint/consistent-type-assertions': 'off',
-      '@typescript-eslint/indent': 'off',
-      '@typescript-eslint/member-delimiter-style': [
+      '@stylistic/member-delimiter-style': [
         'error',
         {
           multiline: { delimiter: 'semi' },
           singleline: { delimiter: 'semi', requireLast: false }
         }
       ],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
+      '@typescript-eslint/consistent-type-assertions': 'off',
+      '@typescript-eslint/indent': 'off',
       '@typescript-eslint/method-signature-style': ['error', 'method'],
       '@typescript-eslint/no-confusing-void-expression': [
         'error',
         {
           ignoreArrowShorthand: true
+        }
+      ],
+      '@typescript-eslint/no-misused-promises': [
+        'error',
+        {
+          checksVoidReturn: false
         }
       ],
       '@typescript-eslint/no-unused-vars': [
@@ -149,6 +155,8 @@ export default tseslint.config(
        * chai-as-promised and the expect() method in tests.
        */
       '@typescript-eslint/no-floating-promises': 'off',
+      // False positives with `.not.to.be.true` etc.
+      '@typescript-eslint/no-unused-expressions': 'off',
       // No warnings when using dummy images
       'lit-a11y/alt-text': 'off',
       // No warning when using dummy hrefs

@@ -172,7 +172,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     const gap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0'),
       stack = this.renderRoot.querySelector<HTMLElement>('.stack'),
       containerWidth = this.offsetWidth,
-      counterWidth = this.stackSize > 0 ? stack?.offsetWidth ?? 0 : 0;
+      counterWidth = this.stackSize > 0 ? (stack?.offsetWidth ?? 0) : 0;
 
     let totalTagsWidth = 0;
 

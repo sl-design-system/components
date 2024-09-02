@@ -1,5 +1,11 @@
 # @sl-design-system/tag
 
+## 0.0.2
+
+### Patch Changes
+
+- [#1484](https://github.com/sl-design-system/components/pull/1484) [`56ddcea`](https://github.com/sl-design-system/components/commit/56ddcea15cb6b9711b3735f60abe8a723ac831c0) - Fixed tag translations
+
 ## 0.0.1
 
 ### Patch Changes

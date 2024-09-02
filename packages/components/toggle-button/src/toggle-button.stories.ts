@@ -199,6 +199,7 @@ export const All: Story = {
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
       </section>
+      😬
     `;
   }
 };

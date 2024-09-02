@@ -23390,21 +23390,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wireit@npm:^0.14.8":
-  version: 0.14.8
-  resolution: "wireit@npm:0.14.8"
-  dependencies:
-    brace-expansion: "npm:^4.0.0"
-    chokidar: "npm:^3.5.3"
-    fast-glob: "npm:^3.2.11"
-    jsonc-parser: "npm:^3.0.0"
-    proper-lockfile: "npm:^4.1.2"
-  bin:
-    wireit: bin/wireit.js
-  checksum: 10c0/c3806a2014d0b77de20464ea425d7ddd72b6563c5efc0af75e4cd77c796337e0e84108b57781f4a0999b0f8bf7f316ad39ac2be6fc584487402430a5d13706a6
-  languageName: node
-  linkType: hard
-
 "with@npm:^7.0.0":
   version: 7.0.2
   resolution: "with@npm:7.0.2"

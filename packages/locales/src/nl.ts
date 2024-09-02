@@ -41,5 +41,5 @@ export const templates = {
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
   sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`,
-  sb478417d3a213540: 'Toggle the options'
+  s606beeef09212e6c: str`${0} the options`
 };

@@ -150,6 +150,10 @@
   <source>List of hidden elements</source>
   <target>Lijst met verborgen elementen</target>
 </trans-unit>
+<trans-unit id="s606beeef09212e6c">
+  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
+  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

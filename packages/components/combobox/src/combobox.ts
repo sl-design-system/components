@@ -229,10 +229,14 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       >
         ${this.multiple && this.currentSelection.length
           ? html`
-              <sl-tag-list slot="prefix" stacked>
+              <sl-tag-list slot="prefix" stacked .emphasis=${this.disabled ? 'bold' : 'subtle'}>
                 ${this.currentSelection.map(
                   option => html`
-                    <sl-tag @sl-remove=${() => this.#onRemove(option)} ?removable=${!this.disabled}>
+                    <sl-tag
+                      @sl-remove=${() => this.#onRemove(option)}
+                      ?disabled=${this.disabled}
+                      ?removable=${!this.disabled}
+                    >
                       ${option.content}
                     </sl-tag>
                   `

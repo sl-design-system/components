@@ -13,7 +13,7 @@ export interface ClassElement {
   kind: 'field' | 'method';
   key: PropertyKey;
   placement: 'static' | 'prototype' | 'own';
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   initializer?: Function;
   extras?: ClassElement[];
   finisher?<T>(clazz: Constructor<T>): void | Constructor<T>;

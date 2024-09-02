@@ -193,6 +193,9 @@ describe('sl-combobox', () => {
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
             <sl-option>Option 3</sl-option>
+            <sl-option>Option 4</sl-option>
+            <sl-option>Option 5</sl-option>
+            <sl-option>Option 6</sl-option>
           </sl-listbox>
         </sl-combobox>
       `);
@@ -211,6 +214,19 @@ describe('sl-combobox', () => {
       const tagList = el.renderRoot.querySelector('sl-tag-list');
       expect(tagList).to.exist;
       expect(tagList).to.have.attribute('stacked');
+    });
+
+    it('should stack options when there is limited space', async () => {
+      el.style.maxInlineSize = '200px';
+      el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      const tagList = el.renderRoot.querySelector('sl-tag-list');
+      expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('5');
+
+      const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
+      expect(visible).to.deep.equal([false, false, false, false, false, true]);
     });
 
     it('should have a tag for each selected option', async () => {

@@ -164,6 +164,14 @@ export const Multiple: Story = {
   }
 };
 
+export const MultipleStacked: Story = {
+  args: {
+    ...Multiple.args,
+    hint: 'When there is not enough space to display all tags, they will be stacked.',
+    value: ['Button bar', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Switch']
+  }
+};
+
 export const Readonly: Story = {
   args: {
     hint: 'The component is readonly. This means you cannot type in the text field, but you can still select options.',

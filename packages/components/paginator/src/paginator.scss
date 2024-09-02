@@ -107,3 +107,11 @@ slot[name='actions']::slotted(:first-child) {
 .active {
   border: 1px solid #0d1a24;
 }
+
+.container {
+  display: flex;
+}
+
+.pages-wrapper {
+  display: flex;
+}

@@ -1,3 +1,4 @@
+import { faChevronLeft, faChevronRight } from '@fortawesome/pro-solid-svg-icons';
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
@@ -15,6 +16,8 @@ declare global {
     'sl-paginator': Paginator;
   }
 }
+
+Icon.register(faChevronLeft, faChevronRight);
 
 /**
  * A container that can be collapsed and expanded.
@@ -44,6 +47,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /**
+   * Observe changes in size, so we can check whether we need to show tooltips
+   * for truncated links.
+   */
+  #observer = new ResizeObserver(() => this.#onResize());
 
   /** Indicates whether the panel is collapsed or expanded . */
   @property({ type: Boolean, reflect: true }) collapsed?: boolean;
@@ -80,8 +89,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   // TODO showTotal as property?
 
-  /** Items per page */
-  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage? = 10; // or number[] ???
+  // TODO: items per page number[]
+
+  /** Page sizes - array of possible page sizes e.g. [5, 10, 15] */
+  @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
+
+  /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
+  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number; // = 10; // or number[] ???
 
   /** Total items */
   @property({ type: Number, attribute: 'current-page' }) currentPage?: number = 1; // 1 by default? // or maybe activePage should be enough?
@@ -102,11 +116,25 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     //   this.setAttribute('tabindex', '0');
     // }
 
+    if (!this.itemsPerPage) {
+      this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
+    }
+
+    console.log('itemsperpage in connectedCallback', this.itemsPerPage);
+
     const total = this.total ?? 0;
     const itemsPerPage = this.itemsPerPage ?? 10;
     this.#pages = Math.ceil(total / itemsPerPage) || 2;
 
     console.log('pages in connectedCallback', this.#pages);
+
+    this.#observer.observe(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   // TODO: updated when total or itemsperpage has changed
@@ -117,40 +145,45 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const pages = Math.ceil(total / itemsPerPage) || 2;
 
     return html`
-      <div>
+      <div class="container">
         <sl-button fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
-          >&lt; Previous</sl-button
+          ><sl-icon name="fas-chevron-right" size="xs"></sl-icon> Previous</sl-button
         >
-        ${Array.from({ length: pages }).map(
-          (_, index) => html`
-            <sl-button
-              fill="ghost"
-              size="md"
-              class=${classMap({ page: true, active: this.activePage == index + 1 })}
-              @click=${this.#setActive}
-            >
-              ${index + 1}
-            </sl-button>
-          `
-        )}
-        <sl-button fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
-          >Next &gt;</sl-button
-        >
-        <div>Total elements: 100 ${this.total}</div>
-        <div>Items per page: ${this.itemsPerPage}</div>
-        ${this.total && this.itemsPerPage
-          ? html`
-              <div>Pages: ${Math.ceil(this.total / this.itemsPerPage)}</div>
-              <div>Items left: ${this.total % this.itemsPerPage}</div>
+        <div>...</div>
+        <div class="pages-wrapper">
+          ${Array.from({ length: pages }).map(
+            (_, index) => html`
+              <sl-button
+                fill="ghost"
+                size="md"
+                class=${classMap({ page: true, active: this.activePage == index + 1 })}
+                @click=${this.#setActive}
+              >
+                ${index + 1}
+              </sl-button>
             `
-          : nothing}
+          )}
+        </div>
+        <div>...</div>
+        <sl-button fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
+          >Next <sl-icon name="fas-chevron-left" size="xs"></sl-icon
+        ></sl-button>
       </div>
+      <div>Total elements: 100 ${this.total}</div>
+      <div>Items per page: ${this.itemsPerPage}</div>
+      ${this.total && this.itemsPerPage
+        ? html`
+            <div>Pages: ${Math.ceil(this.total / this.itemsPerPage)}</div>
+            <div>Items left: ${this.total % this.itemsPerPage}</div>
+          `
+        : nothing}
       <div>Active page: ${this.activePage}</div>
       Items per page:
-      <sl-select value="3" style="inline-size: 60px;">
+      <sl-select @change=${this.#onValueChange} .value=${this.itemsPerPage} style="inline-size: 60px;">
         <sl-select-option value="1">5</sl-select-option>
         <sl-select-option value="2">10</sl-select-option>
         <sl-select-option value="3">15</sl-select-option>
+        ${this.pageSizes ? html` <sl-select-option value="3">15 pageSizes</sl-select-option> ` : nothing}
       </sl-select>
     `;
   } // <slot></slot>
@@ -250,4 +283,30 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   //   this.collapsed = force;
   //   this.toggleEvent.emit(this.collapsed);
   // }
+
+  #onResize(): void {
+    const pagesWrapper = this.renderRoot.querySelector('.pages-wrapper');
+
+    console.log(
+      'pagesWrapper',
+      pagesWrapper,
+      pagesWrapper?.clientWidth,
+      pagesWrapper?.scrollWidth,
+      (pagesWrapper as HTMLDivElement)?.offsetWidth
+    );
+
+    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
+      console.log('not enpough space, should show ellipsis', pagesWrapper);
+    }
+  }
+
+  #onValueChange(event: Event): void {
+    console.log('on value change', event, event.target);
+  }
 }
+
+// TODO: compct version on mobile?
+
+// TODO: visible amount out of (total) 1-15 of 50
+
+// TODO: nav -> ul -> li -> a href? or b

@@ -4,7 +4,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'collapsed' | 'collapsible' | 'heading' | 'itemsPerPage' | 'total'> & {
+type Props = Pick<Paginator, 'collapsed' | 'collapsible' | 'heading' | 'itemsPerPage' | 'pageSizes' | 'total'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
@@ -16,7 +16,8 @@ export default {
   args: {
     collapsible: false,
     total: 50,
-    itemsPerPage: 15
+    itemsPerPage: 15,
+    pageSizes: [5, 10, 15]
   },
   argTypes: {
     actions: {
@@ -29,8 +30,8 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ itemsPerPage, total }) => {
-    return html` <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage}></sl-paginator> `;
+  render: ({ itemsPerPage, pageSizes, total }) => {
+    return html` <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}></sl-paginator> `;
   }
 } satisfies Meta<Props>;
 
@@ -47,6 +48,7 @@ export const Basic: Story = {
 export const Overflow: Story = {
   args: {
     ...Basic.args,
+    total: 1000,
     heading:
       'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
     content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'

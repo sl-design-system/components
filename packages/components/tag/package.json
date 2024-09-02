@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tag",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tag component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

@@ -1,5 +1,11 @@
 # @sl-design-system/editorial-suite
 
+## 0.0.16
+
+### Patch Changes
+
+- [#1484](https://github.com/sl-design-system/components/pull/1484) [`56ddcea`](https://github.com/sl-design-system/components/commit/56ddcea15cb6b9711b3735f60abe8a723ac831c0) - Added tokens for new avatar size: `4xl`
+
 ## 0.0.15
 
 ### Patch Changes

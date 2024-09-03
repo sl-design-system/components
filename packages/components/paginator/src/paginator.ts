@@ -6,7 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './paginator.scss.js';
@@ -28,10 +28,7 @@ Icon.register(faChevronLeft, faChevronRight);
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
  *
- * @slot heading - The panel's heading. Use this is the `heading` property does not suffice.
- * @slot aside - Additional content to show in the header; replaces the button bar.
- * @slot actions - The panel's actions; will slot in a button bar by default.
- * @slot default - The panel's content.
+ * @slot default - ...
  */
 @localized()
 export class Paginator extends ScopedElementsMixin(LitElement) {
@@ -82,7 +79,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   // TODO: disabled?
 
-  // data - how to connect with data?
+  // TODO: role nav when links inside?
+
+  // data - how to connect with data? make an example / story
 
   /** Total items */
   @property() total?: number;
@@ -106,6 +105,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal active */ // TODO: state maybe?
   @state() activePage: number = 1;
 
+  /** @internal currently visible items on the current page */ // TODO: state maybe?
+  @state() currentlyVisibleItems: number = 1;
+
   /** @internal */
   @state() buttons: Button[] = []; // TODO: remove it?
 
@@ -120,13 +122,20 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
     }
 
-    console.log('itemsperpage in connectedCallback', this.itemsPerPage);
+    console.log('itemsperpage in connectedCallback', this.itemsPerPage, this.pageSizes);
 
     const total = this.total ?? 0;
     const itemsPerPage = this.itemsPerPage ?? 10;
     this.#pages = Math.ceil(total / itemsPerPage) || 2;
 
-    console.log('pages in connectedCallback', this.#pages);
+    console.log('pages in connectedCallback', this.#pages, this.activePage, itemsPerPage, total % itemsPerPage);
+
+    if (this.activePage === this.#pages) {
+      console.log('last page is active');
+      this.currentlyVisibleItems = total % itemsPerPage;
+    } else {
+      this.currentlyVisibleItems = this.itemsPerPage;
+    }
 
     this.#observer.observe(this);
   }
@@ -139,10 +148,35 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   // TODO: updated when total or itemsperpage has changed
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    console.log('changes in updated', changes);
+
+    if (changes.has('itemsPerPage')) {
+      const total = this.total ?? 0;
+      const itemsPerPage = this.itemsPerPage ?? 10;
+      this.#pages = Math.ceil(total / itemsPerPage) || 2;
+      if (this.activePage === this.#pages) {
+        const total = this.total ?? 0;
+        const itemsPerPage = this.itemsPerPage ?? 10;
+        console.log('last page is active');
+        this.currentlyVisibleItems = total % itemsPerPage;
+      } else {
+        this.currentlyVisibleItems = this.itemsPerPage!;
+      }
+    }
+  }
+
   override render(): TemplateResult {
     const total = this.total ?? 0;
     const itemsPerPage = this.itemsPerPage ?? 10;
     const pages = Math.ceil(total / itemsPerPage) || 2;
+    // const itemsAmountToCount = this.activePage === this.#pages ? itemsPerPage : this.currentlyVisibleItems;
+    const start = this.activePage === 1 ? 1 : ((this.activePage - 1) * itemsPerPage /*itemsAmountToCount*/ /*this.currentlyVisibleItems*/) + 1;
+    const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems; //this.activePage === this.#pages ? undefined : Math.min(start + pageSize, total == null ? Infinity : total);
+    // debugger;
+    console.log('start and end', start, end, this.renderRoot.querySelector<Select>('sl-select')?.value as number, itemsPerPage);
 
     return html`
       <div class="container">
@@ -169,7 +203,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           >Next <sl-icon name="fas-chevron-left" size="xs"></sl-icon
         ></sl-button>
       </div>
-      <div>Total elements: 100 ${this.total}</div>
+      <div>Total elements: ${this.total}</div>
       <div>Items per page: ${this.itemsPerPage}</div>
       ${this.total && this.itemsPerPage
         ? html`
@@ -178,6 +212,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <div>Active page: ${this.activePage}</div>
+      <div>Currently visible items ${this.currentlyVisibleItems}</div>
+      <div class="page-sizes">
       Items per page:
       ${this.pageSizes ?
         html`
@@ -188,6 +224,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
             `
           )}
       </sl-select>
+      1 - 10 of 102 items:
+      ${start} - ${end} of ${this.total} items
+
+      </div>
       `
     : nothing}
     `;
@@ -253,13 +293,30 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     this.activePage = Array.prototype.indexOf.call(pages, event.target) + 1;
 
+  //  this.requestUpdate();
+
+    if (this.activePage === this.#pages) {
+      console.log('last page is active');
+      const total = this.total ?? 0;
+      const itemsPerPage = this.itemsPerPage ?? 10;
+      this.currentlyVisibleItems = total % itemsPerPage;
+    } else {
+      this.currentlyVisibleItems = this.itemsPerPage!;
+    }
+
+    console.log('this.currentlyVisibleItems in setActive', this.currentlyVisibleItems, this.activePage, this.#pages, this.activePage === this.#pages);
+
     // TODO: emit page change
+
+    // TODO: update activePage not working with class when the last one is active and then there are less pages than before
 
     // this.activePage++;
     console.log('click next AFTER', this.activePage);
 
     // this.requestUpdate();
   }
+
+  // TODO: #updateVisibleItems?
 
   /*  ${this.options?.map(
     option => html`
@@ -312,6 +369,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   #setValue(event: Event): void {
     console.log('on value change', event, event.target, (event.target as SelectOption).value);
     this.itemsPerPage = (event.target as SelectOption).value as number;
+
+    // always go back to the first page when items per page has changed?
+    this.activePage = 1;
   }
 }
 

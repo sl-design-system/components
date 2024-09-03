@@ -8,8 +8,10 @@
   border: 1px solid var(--sl-color-palette-neutral-200);
   border-radius: var(--sl-border-radius-2xs);
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   padding-block: 8px;
+  align-items: center;
+  gap: 16px;
 }
 
 :host([collapsible][collapsed]) {
@@ -114,4 +116,10 @@ slot[name='actions']::slotted(:first-child) {
 
 .pages-wrapper {
   display: flex;
+}
+
+.page-sizes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

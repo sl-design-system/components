@@ -15,7 +15,7 @@ export default {
   tags: ['draft'],
   args: {
     collapsible: false,
-    total: 50,
+    total: 52,
     itemsPerPage: 15,
     pageSizes: [5, 10, 15]
   },

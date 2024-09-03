@@ -38,12 +38,12 @@ body:
       attributes:
           value: "## 🦄 Other"
     - type: input
-    id: name
-    attributes:
-      label: 👤 Your name
-      description: Please provide your full name
-    validations:
-      required: true
+      id: name
+      attributes:
+          label: 👤 Your name
+          description: Please provide your full name
+      validations:
+          required: true
     - type: input
       id: product
       attributes:

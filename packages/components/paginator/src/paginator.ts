@@ -179,11 +179,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('start and end', start, end, this.renderRoot.querySelector<Select>('sl-select')?.value as number, itemsPerPage);
 
     return html`
+      ${start} - ${end} of ${this.total} items
       <div class="container">
         <sl-button fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
           ><sl-icon name="fas-chevron-right" size="xs"></sl-icon> Previous</sl-button
         >
-        <div>...</div>
+        <!--<div>...</div>-->
         <div class="pages-wrapper">
           ${Array.from({ length: pages }).map(
             (_, index) => html`
@@ -198,35 +199,34 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
             `
           )}
         </div>
-        <div>...</div>
+        <!--<div>...</div>-->
         <sl-button fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
           >Next <sl-icon name="fas-chevron-left" size="xs"></sl-icon
         ></sl-button>
       </div>
-      <div>Total elements: ${this.total}</div>
-      <div>Items per page: ${this.itemsPerPage}</div>
-      ${this.total && this.itemsPerPage
-        ? html`
-            <div>Pages: ${Math.ceil(this.total / this.itemsPerPage)}</div>
-            <div>Items left: ${this.total % this.itemsPerPage}</div>
-          `
-        : nothing}
-      <div>Active page: ${this.activePage}</div>
-      <div>Currently visible items ${this.currentlyVisibleItems}</div>
+      <div class="details">
+        <div>Total elements: ${this.total}</div>
+        <div>Items per page: ${this.itemsPerPage}</div>
+        ${this.total && this.itemsPerPage
+          ? html`
+              <div>Pages: ${Math.ceil(this.total / this.itemsPerPage)}</div>
+              <div>Items left: ${this.total % this.itemsPerPage}</div>
+            `
+          : nothing}
+        <div>Active page: ${this.activePage}</div>
+        <div>Currently visible items ${this.currentlyVisibleItems}</div>
+      </div>
       <div class="page-sizes">
       Items per page:
       ${this.pageSizes ?
         html`
-      <sl-select @change=${this.#onValueChange} .value=${this.itemsPerPage} style="inline-size: 60px;">
+      <sl-select @change=${this.#onValueChange} .value=${this.itemsPerPage} style="inline-size: 100px;">
           ${this.pageSizes?.map(
             (size) => html`
               <sl-select-option @click=${this.#setValue} .value=${size}>${size}</sl-select-option
             `
           )}
       </sl-select>
-      1 - 10 of 102 items:
-      ${start} - ${end} of ${this.total} items
-
       </div>
       `
     : nothing}
@@ -276,6 +276,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('click next AFTER', this.activePage);
 
     // this.requestUpdate();
+
+    // TODO: update currentlyVisibleItems
   }
 
   #setActive(event: Event) {
@@ -307,6 +309,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('this.currentlyVisibleItems in setActive', this.currentlyVisibleItems, this.activePage, this.#pages, this.activePage === this.#pages);
 
     // TODO: emit page change
+    // TODO: emit currently visible items?
 
     // TODO: update activePage not working with class when the last one is active and then there are less pages than before
 

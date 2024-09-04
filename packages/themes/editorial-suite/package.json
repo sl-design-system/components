@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/editorial-suite",
   "description": "Editorial Suite theme for the SL Design System",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

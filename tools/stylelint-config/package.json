@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/stylelint-config",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "packageManager": "yarn@4.1.1",
   "description": "Stylelint config for SL Design System projects",
   "license": "Apache-2.0",
@@ -23,19 +23,19 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "postcss": "^8.4.41",
+    "postcss": "^8.4.43",
     "postcss-lit": "^1.1.1",
-    "prettier": "^3.3.2",
-    "stylelint-config-standard": "^36.0.0",
+    "prettier": "^3.3.3",
+    "stylelint-config-standard": "^36.0.1",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
-    "stylelint-prettier": "^5.0.0",
+    "stylelint-prettier": "^5.0.2",
     "stylelint-use-logical": "^2.1.2"
   },
   "devDependencies": {
-    "stylelint": "^16.6.1"
+    "stylelint": "^16.9.0"
   },
   "peerDependencies": {
-    "stylelint": "^16.6.1"
+    "stylelint": "^16.9.0"
   }
 }

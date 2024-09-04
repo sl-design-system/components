@@ -55,6 +55,14 @@ body:
   - type: markdown
     attributes:
       value: "## 🦄 Other"
+  
+  - type: input
+    id: name
+    attributes:
+      label: 👤 Your name
+      description: Please provide your full name
+    validations:
+      required: true
   - type: dropdown
     id: theme
     attributes:

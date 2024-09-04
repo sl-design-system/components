@@ -22,14 +22,13 @@
 
 :host([size='lg']) {
   --_border-radius: var(--sl-border-radius-button-lg);
-  --_icon-size: var(--sl-size-icon-lg);
   --_paddingInline: var(--sl-space-button-outline-inline-lg);
   --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-lg);
 }
 
 ::slotted(*) {
   --_border-width: 0;
-  --_border-radius: 0;
+  --_button-border-radius: 0;
 
   position: relative;
 

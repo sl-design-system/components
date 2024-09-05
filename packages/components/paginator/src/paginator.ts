@@ -9,6 +9,7 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
 
 declare global {
@@ -97,7 +98,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number; // = 10; // or number[] ???
 
   /** Total items */
-  @property({ type: Number, attribute: 'current-page' }) currentPage?: number = 1; // 1 by default? // or maybe activePage should be enough?
+  @property({ type: Number, attribute: 'current-page' }) currentPage?: number = 1; // 1 by default? // or maybe activePage should be enough? // TODO: or maybe rename to defaultPage?
 
   /** @internal pages amount */ // TODO: state maybe?
   #pages: number = 1;
@@ -110,6 +111,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   @state() buttons: Button[] = []; // TODO: remove it?
+
+  /** When `navigation` is set, the paginator will have links instead of buttons and should be used as a navigation on the page. */
+  @property() navigation?: boolean; // TODO: links? array with links?
+
+  /** should be used together with `navigation` property. The array should have the same width as itemsPerPage and should have the right order ???? */
+  @property() links?: string[] = []; // or maybe a function used to rendering urls?
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -177,33 +184,47 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems; //this.activePage === this.#pages ? undefined : Math.min(start + pageSize, total == null ? Infinity : total);
     // debugger;
     console.log('start and end', start, end, this.renderRoot.querySelector<Select>('sl-select')?.value as number, itemsPerPage);
+    console.log('links', this.links, this.links?.length);
 
     return html`
       ${start} - ${end} of ${this.total} items
-      <div class="container">
-        <sl-button fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
-          ><sl-icon name="fas-chevron-right" size="xs"></sl-icon> Previous</sl-button
-        >
-        <!--<div>...</div>-->
-        <div class="pages-wrapper">
-          ${Array.from({ length: pages }).map(
-            (_, index) => html`
-              <sl-button
-                fill="ghost"
-                size="md"
-                class=${classMap({ page: true, active: this.activePage == index + 1 })}
-                @click=${this.#setActive}
-              >
-                ${index + 1}
-              </sl-button>
-            `
-          )}
-        </div>
-        <!--<div>...</div>-->
-        <sl-button fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
-          >Next <sl-icon name="fas-chevron-left" size="xs"></sl-icon
-        ></sl-button>
-      </div>
+      <nav class="container">
+        <ul>
+          next and previous should be wrapped by 'li' as well
+          <sl-button fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
+            ><sl-icon name="fas-chevron-right" size="xs"></sl-icon> Previous</sl-button
+          >
+          ${Array.isArray(this.links) && this.links.length > 0
+            ? this.links.map(( url, index, array) => html`
+                  <li>
+                    <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
+                       class=${classMap({ page: true, active: this.activePage == index + 1 })}
+                       href=${url}>
+                      ${index + 1}
+                    </a>
+                  </li>
+                `)
+            : html`
+              <div class="pages-wrapper">
+                ${Array.from({ length: pages }).map(
+                  (_, index) => html`
+                <sl-button
+                  fill="ghost"
+                  size="md"
+                  class=${classMap({ page: true, active: this.activePage == index + 1 })}
+                  @click=${this.#setActive}
+                >
+                  ${index + 1}
+                </sl-button>
+              `
+                )}
+              </div>
+            `}
+          <sl-button fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
+            >Next <sl-icon name="fas-chevron-left" size="xs"></sl-icon
+          ></sl-button>
+        </ul>
+      </nav>
       <div class="details">
         <div>Total elements: ${this.total}</div>
         <div>Items per page: ${this.itemsPerPage}</div>
@@ -232,6 +253,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     : nothing}
     `;
   } // <slot></slot>
+
+  // TODO: if this.navigation? then links inside instead of buttons
 
   // TODO: which items should be shown on current page? st. like between 16 and 30? or not necessary for data? or just im event emit activePage * visible items?
 
@@ -382,7 +405,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       container,
       container?.clientWidth,
       container?.scrollWidth,
-      (container as HTMLDivElement)?.offsetWidth
+      (container as HTMLElement)?.offsetWidth
     );
 
     // if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
@@ -417,6 +440,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // always go back to the first page when items per page has changed?
     this.activePage = 1;
+
+    // TODO: if links, links need to be updated as well, so we need more links or less
   }
 }
 
@@ -425,3 +450,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 // TODO: visible amount out of (total) 1-15 of 50
 
 // TODO: nav -> ul -> li -> a href? or button - depending whether it is a navigation or not?
+
+// TODO: what to do when we have less pages than in the select selected? so always show all when there are less when the smaller value in select?
+// TODO: how to set active link? maybe parameter?

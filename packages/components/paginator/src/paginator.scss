@@ -135,3 +135,13 @@ slot[name='actions']::slotted(:first-child) {
   align-items: center;
   justify-content: end;
 }
+
+ul {
+  display: flex;
+  gap: 8px;
+}
+
+li {
+  list-style: none;
+  min-inline-size: 0;
+}

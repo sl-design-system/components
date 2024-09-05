@@ -31,7 +31,11 @@ export default {
     }
   },
   render: ({ itemsPerPage, pageSizes, total }) => {
-    return html` <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}></sl-paginator> `;
+    return html`
+      <h2>With buttons</h2>
+      <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}></sl-paginator>
+      <h2>With links</h2>
+    <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes} .links=${['#', '#1', '#1', '#1', '#1', '#1']}></sl-paginator>`;
   }
 } satisfies Meta<Props>;
 
@@ -49,6 +53,16 @@ export const Overflow: Story = {
   args: {
     ...Basic.args,
     total: 1000,
+    heading:
+      'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
+    content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'
+  }
+};
+
+export const Links: Story = {
+  args: {
+    ...Basic.args,
+    total: 100,
     heading:
       'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
     content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'

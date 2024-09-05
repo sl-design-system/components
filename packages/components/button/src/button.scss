@@ -106,7 +106,7 @@ $variants: default, primary, success, info, warning, danger;
       --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size});
     }
 
-    :host([size='#{$size}'][size='#{$size}'][icon-only]) {
+    :host([size='#{$size}'][fill='#{$fill}'][icon-only]) {
       --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
       --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
     }

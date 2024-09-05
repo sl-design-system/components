@@ -1,5 +1,13 @@
 # @sl-design-system/icon
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1483](https://github.com/sl-design-system/components/pull/1483) [`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb) - Fixed slow loading when using dynamic binding in Angular to set the name of the icon
+
+- [#1414](https://github.com/sl-design-system/components/pull/1414) [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c) - Update icons to the latest fontawesome release (6.6.0)
+
 ## 1.0.1
 
 ### Patch Changes

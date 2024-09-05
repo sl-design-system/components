@@ -1,5 +1,30 @@
 # @sl-design-system/teas
 
+## 0.1.16
+
+### Patch Changes
+
+- [#1484](https://github.com/sl-design-system/components/pull/1484) [`56ddcea`](https://github.com/sl-design-system/components/commit/56ddcea15cb6b9711b3735f60abe8a723ac831c0) - Added tokens for new avatar size: `4xl`
+
+## 0.1.15
+
+### Patch Changes
+
+- [#1458](https://github.com/sl-design-system/components/pull/1458) [`93b623c`](https://github.com/sl-design-system/components/commit/93b623cc2d312c84af28e9bb83071143f0110502) - Increased the focus ring thickness in TEAS from 1px to 2px.
+
+- [#1469](https://github.com/sl-design-system/components/pull/1469) [`7e31a0d`](https://github.com/sl-design-system/components/commit/7e31a0d63766e7efbdadffdd17b53bcdd1951515) - updated color default ghost button in TEAS
+
+- [#1454](https://github.com/sl-design-system/components/pull/1454) [`af62ce4`](https://github.com/sl-design-system/components/commit/af62ce4d0e65b1363b9cede48642bc22d1fc9365) - - Improve toggle button and group tokens
+
+  - Add a `check-solid` icon for use in the `toggle-button` component
+
+- [#1414](https://github.com/sl-design-system/components/pull/1414) [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c) - Update icons to the latest fontawesome release (6.6.0)
+
+- [#1422](https://github.com/sl-design-system/components/pull/1422) [`2833861`](https://github.com/sl-design-system/components/commit/28338611d0fccf175c3e22eb268fc5892522dc78) - Added first part of tag tokens
+
+- Updated dependencies [[`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb), [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c)]:
+  - @sl-design-system/icon@1.0.2
+
 ## 0.1.14
 
 ### Patch Changes

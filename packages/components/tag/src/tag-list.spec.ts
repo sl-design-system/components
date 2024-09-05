@@ -1,9 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
-import { type Tooltip } from '@sl-design-system/tooltip';
 import { html } from 'lit';
 import '../register.js';
 import { type TagList } from './tag-list.js';
-import { type Tag } from './tag.js';
 
 describe('sl-tag', () => {
   let el: TagList;
@@ -12,116 +10,112 @@ describe('sl-tag', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-tag-list>
-          <sl-tag label="my label 1"></sl-tag>
-          <sl-tag label="my label 2"></sl-tag>
-          <sl-tag label="my label 3"></sl-tag>
+          <sl-tag>My label 1</sl-tag>
+          <sl-tag>My label 2</sl-tag>
+          <sl-tag>My label 3</sl-tag>
         </sl-tag-list>
       `);
     });
 
-    it('should not have size by default', () => {
-      expect(el).not.to.have.attribute('size');
-      expect(el.size).to.be.undefined;
+    it('should have a list role', () => {
+      expect(el).to.have.attribute('role', 'list');
     });
 
-    it('should not have emphasis by default', () => {
+    it('should not have emphasis', () => {
       expect(el).not.to.have.attribute('emphasis');
       expect(el.size).to.be.undefined;
     });
 
-    it('should not be stacked by default', () => {
+    it('should propagate the emphasis to the tags', async () => {
+      el.emphasis = 'bold';
+      await el.updateComplete;
+
+      const emphasis = Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.emphasis);
+
+      expect(emphasis).to.deep.equal(['bold', 'bold', 'bold']);
+    });
+
+    it('should not have size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
+    });
+
+    it('should propagate the size to the tags', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      const sizes = Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.size);
+
+      expect(sizes).to.deep.equal(['lg', 'lg', 'lg']);
+    });
+
+    it('should not be stacked', () => {
       expect(el).not.to.have.attribute('stacked');
+      expect(el.stacked).not.to.be.true;
     });
   });
 
   describe('stacked', () => {
-    let tagList: TagList;
-
     beforeEach(async () => {
       el = await fixture(html`
-        <div style="inline-size: 200px;">
-          <sl-tag-list stacked>
-            <sl-tag label="my label 1" removable></sl-tag>
-            <sl-tag label="my label 2" removable></sl-tag>
-            <sl-tag label="my label 3" removable></sl-tag>
-            <sl-tag label="my label 4" removable></sl-tag>
-            <sl-tag label="my label 5" removable></sl-tag>
-            <sl-tag label="my label 6" removable></sl-tag>
-            <sl-tag label="my label 7" removable></sl-tag>
-            <sl-tag label="my label 8" removable></sl-tag>
-          </sl-tag-list>
-        </div>
+        <sl-tag-list stacked style="inline-size: 200px;">
+          <sl-tag removable>My label 1</sl-tag>
+          <sl-tag removable>My label 2</sl-tag>
+          <sl-tag removable>My label 3</sl-tag>
+          <sl-tag removable>My label 4</sl-tag>
+          <sl-tag removable>My label 5</sl-tag>
+          <sl-tag removable>My label 6</sl-tag>
+          <sl-tag removable>My label 7</sl-tag>
+          <sl-tag removable>My label 8</sl-tag>
+        </sl-tag-list>
       `);
 
-      tagList = el.querySelector('sl-tag-list') as TagList;
-
+      // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 100));
     });
 
-    it('should have a group', () => {
-      const groupEl = tagList.renderRoot.querySelector('.group');
-
-      expect(groupEl).to.exist;
+    it('should have a stack', () => {
+      expect(el.renderRoot.querySelector('.stack')).to.exist;
     });
 
-    it('should have a tooltip connected to a group', () => {
-      const groupEl = tagList.renderRoot.querySelector('.group');
+    it('should have a tooltip for the stack', () => {
+      const tag = el.renderRoot.querySelector('sl-tag'),
+        tooltip = el.renderRoot.querySelector('sl-tooltip');
 
-      expect(groupEl).to.exist;
+      expect(tooltip).to.exist;
+      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-describedby'));
 
-      const tooltipEl = tagList.renderRoot.querySelector('sl-tooltip') as Tooltip;
+      const tagContent = tooltip!.textContent?.trim();
 
-      expect(tooltipEl).to.exist;
-      expect(tooltipEl).to.have.trimmed.text(
-        'List of hidden elements: my label 1, my label 2, my label 3, my label 4, my label 5, my label 6, my label 7'
-      );
+      expect(tagContent).to.exist;
+      expect(tagContent!.includes('List of hidden elements:')).to.be.true;
+      expect(tagContent!.includes('My label 1, My label 2, My label 3, My label 4, My label 5, My label 6, My label 7'))
+        .to.be.true;
     });
 
-    it('should have a group with a tag, which contains a proper label', () => {
-      const groupEl = tagList?.renderRoot.querySelector('.group');
-
-      expect(groupEl).to.exist;
-
-      const tag = tagList.renderRoot.querySelector('sl-tag') as Tag;
+    it('should have a stack with a tag, which contains the stack size', () => {
+      const tag = el.renderRoot.querySelector('sl-tag');
 
       expect(tag).to.exist;
-      expect(tag.label).to.equal(7);
+      expect(tag).to.have.trimmed.text('7');
     });
 
-    it('should not have a group when there is enough space', async () => {
+    it('should not have a stack when there is enough space', async () => {
       el.style.inlineSize = '2000px';
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      const groupEl = tagList.renderRoot.querySelector('.group');
-
-      expect(groupEl).not.to.exist;
+      expect(el.renderRoot.querySelector('.stack')).not.to.exist;
     });
 
-    it('should update a label in a tag with amount of hidden tags, when a tag is removed', async () => {
-      const groupEl = tagList?.renderRoot.querySelector('.group');
+    it('should update the stack size when a tag is removed', async () => {
+      const tag = el.renderRoot.querySelector('sl-tag');
 
-      expect(groupEl).to.exist;
+      expect(tag).to.have.trimmed.text('7');
 
-      const tag = tagList.renderRoot.querySelector('sl-tag') as Tag;
-
-      expect(tag).to.exist;
-      expect(tag.label).to.equal(7);
-
-      const tags = el.querySelectorAll('sl-tag');
-
-      expect(tags).to.exist;
-
-      const tagButtonToRemove = tags[6]?.renderRoot.querySelector('.remove-button') as HTMLButtonElement;
-
-      expect(tagButtonToRemove).to.exist;
-
-      tagButtonToRemove?.click();
-      document.querySelectorAll('sl-tag')[6]?.remove();
-
-      // wait for the removal to be completed
+      el.querySelector('sl-tag:last-child')?.remove();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(tag.label).to.equal(5);
+      expect(tag).to.have.trimmed.text('6');
     });
   });
 });

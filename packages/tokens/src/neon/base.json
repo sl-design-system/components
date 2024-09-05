@@ -2052,7 +2052,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.sm}",
+      "value": "{border.radius.2xs}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },

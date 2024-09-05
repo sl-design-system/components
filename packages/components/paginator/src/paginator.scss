@@ -7,13 +7,15 @@
 
   border: 1px solid var(--sl-color-palette-neutral-200);
   border-radius: var(--sl-border-radius-2xs);
-  display: flex;
-  justify-content: space-between;;
+  // display: flex;
+  // justify-content: space-between;;
   // flex-direction: column;
   padding-block: 8px;
   padding-inline: 4px;
   align-items: center;
   gap: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto 2fr;
 }
 
 :host([collapsible][collapsed]) {
@@ -114,6 +116,7 @@ slot[name='actions']::slotted(:first-child) {
 
 .container {
   display: flex;
+  overflow: hidden;
 }
 
 .pages-wrapper {
@@ -129,4 +132,6 @@ slot[name='actions']::slotted(:first-child) {
 .details {
   display: flex;
   gap: 8px;
+  align-items: center;
+  justify-content: end;
 }

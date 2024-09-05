@@ -215,18 +215,18 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           : nothing}
         <div>Active page: ${this.activePage}</div>
         <div>Currently visible items ${this.currentlyVisibleItems}</div>
-      </div>
-      <div class="page-sizes">
-      Items per page:
-      ${this.pageSizes ?
-        html`
-      <sl-select @change=${this.#onValueChange} .value=${this.itemsPerPage} style="inline-size: 100px;">
-          ${this.pageSizes?.map(
-            (size) => html`
-              <sl-select-option @click=${this.#setValue} .value=${size}>${size}</sl-select-option
-            `
-          )}
-      </sl-select>
+        <div class="page-sizes">
+        Items per page:
+        ${this.pageSizes ?
+          html`
+        <sl-select @change=${this.#onValueChange} .value=${this.itemsPerPage} style="inline-size: 100px;">
+            ${this.pageSizes?.map(
+              (size) => html`
+                <sl-select-option @click=${this.#setValue} .value=${size}>${size}</sl-select-option
+              `
+            )}
+        </sl-select>
+        </div>
       </div>
       `
     : nothing}
@@ -259,6 +259,15 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     this.activePage--;
     console.log('click prev AFTER', this.activePage);
+
+    if (this.activePage === this.#pages) {
+      console.log('last page is active');
+      const total = this.total ?? 0;
+      const itemsPerPage = this.itemsPerPage ?? 10;
+      this.currentlyVisibleItems = total % itemsPerPage;
+    } else {
+      this.currentlyVisibleItems = this.itemsPerPage!;
+    }
   }
 
   /**
@@ -274,6 +283,15 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     this.activePage++;
     console.log('click next AFTER', this.activePage);
+
+    if (this.activePage === this.#pages) {
+      console.log('last page is active');
+      const total = this.total ?? 0;
+      const itemsPerPage = this.itemsPerPage ?? 10;
+      this.currentlyVisibleItems = total % itemsPerPage;
+    } else {
+      this.currentlyVisibleItems = this.itemsPerPage!;
+    }
 
     // this.requestUpdate();
 
@@ -310,6 +328,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // TODO: emit page change
     // TODO: emit currently visible items?
+
 
     // TODO: update activePage not working with class when the last one is active and then there are less pages than before
 
@@ -351,17 +370,40 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   #onResize(): void {
     const pagesWrapper = this.renderRoot.querySelector('.pages-wrapper');
+    const container = this.renderRoot.querySelector('.container');
 
     console.log(
-      'pagesWrapper',
+      'on RESIZE - pagesWrapper',
       pagesWrapper,
       pagesWrapper?.clientWidth,
       pagesWrapper?.scrollWidth,
-      (pagesWrapper as HTMLDivElement)?.offsetWidth
+      (pagesWrapper as HTMLDivElement)?.offsetWidth,
+      'container',
+      container,
+      container?.clientWidth,
+      container?.scrollWidth,
+      (container as HTMLDivElement)?.offsetWidth
     );
 
-    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
-      console.log('not enpough space, should show ellipsis', pagesWrapper);
+    // if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
+    //   console.log('on RESIZE - not enpough space, should show ellipsis', pagesWrapper);
+    // }
+
+    if (container && container.clientWidth < container.scrollWidth) {
+      console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
+      if (this.activePage === 1) {
+        const pages = this.renderRoot.querySelectorAll('sl-button.page');
+        const toHide = Array.from(pages)?.find(page => {
+         return page.textContent?.trim() === (this.activePage + 1)?.toString();
+         // console.log('page', page, page.textContent?.trim(), page.textContent?.trim() === (this.activePage + 1)?.toString());
+        });
+        console.log('toHide', toHide);
+        (toHide as HTMLElement).style.background = 'yellow';
+      }
+      // TODO: show and hide buttons
+      // TODO: count buttons width and compare with difference: container.scrollWidth - container.clientWidth
+      console.log('difference distance::::: container.scrollWidth - container.clientWidth ::::', container.scrollWidth - container.clientWidth);
+      // TODO: first one and last one should be always visible e.g. <1 ... 4 5 ...8>
     }
   }
 
@@ -382,4 +424,4 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
 // TODO: visible amount out of (total) 1-15 of 50
 
-// TODO: nav -> ul -> li -> a href? or b
+// TODO: nav -> ul -> li -> a href? or button - depending whether it is a navigation or not?

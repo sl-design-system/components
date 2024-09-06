@@ -7,7 +7,7 @@ import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, state, queryAssignedElements } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
@@ -21,13 +21,9 @@ declare global {
 Icon.register(faChevronLeft, faChevronRight);
 
 /**
- * A container that can be collapsed and expanded.
+ * A paginator component used when there are a lot of data that needs to be shown.
  *
  * @csspart header - The header of the panel.
- * @csspart wrapper - The wrapper around the heading.
- * @csspart body - The body of the panel.
- * @csspart inner - The inner container of the panel.
- * @csspart content - The content container of the panel.
  *
  * @slot default - ...
  */
@@ -57,12 +53,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** Indicates whether the panel can be collapsed. */
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
-
-  /**
-   * The heading shown in the header. Use this property if your heading is a string. If you need
-   * more flexibility, such as an icon or other elements, use the `heading` slot.
-   */
-  @property() heading?: string;
 
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -117,6 +107,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** should be used together with `navigation` property. The array should have the same width as itemsPerPage and should have the right order ???? */
   @property() links?: string[] = []; // or maybe a function used to rendering urls?
+
+  // /** @internal The slotted links. */
+  // @queryAssignedElements() linkElements?: HTMLLinkElement[];
+
+  /**  @internal The slotted links. */
+  @state() linkElements: HTMLLinkElement[] = []; // or add interface PaginatorItem with label in it, url and so on...
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -185,6 +181,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     // debugger;
     console.log('start and end', start, end, this.renderRoot.querySelector<Select>('sl-select')?.value as number, itemsPerPage);
     console.log('links', this.links, this.links?.length);
+    console.log('linkElements', this.linkElements, this.linkElements?.length);
 
     return html`
       ${start} - ${end} of ${this.total} items
@@ -211,7 +208,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
                 <sl-button
                   fill="ghost"
                   size="md"
-                  class=${classMap({ page: true, active: this.activePage == index + 1 })}
+                  class="page"
+                  ?active=${this.activePage == index + 1}
                   @click=${this.#setActive}
                 >
                   ${index + 1}
@@ -220,6 +218,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
                 )}
               </div>
             `}
+          <slot></slot>
           <sl-button fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
             >Next <sl-icon name="fas-chevron-left" size="xs"></sl-icon
           ></sl-button>
@@ -442,14 +441,33 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.activePage = 1;
 
     // TODO: if links, links need to be updated as well, so we need more links or less
+    // what about activePage with links? the page will rerender... maybe selected or active attribute like in tabs will be fine?
+    // TODO: maybe slot for links? and separately prev and nex link?
   }
 }
 
-// TODO: compct version on mobile?
-
-// TODO: visible amount out of (total) 1-15 of 50
+// TODO: compact version on mobile?
 
 // TODO: nav -> ul -> li -> a href? or button - depending whether it is a navigation or not?
 
 // TODO: what to do when we have less pages than in the select selected? so always show all when there are less when the smaller value in select?
 // TODO: how to set active link? maybe parameter?
+// TODO: when links... next and previous should be also a link, not a button
+
+// TODO: maybe hide pagination when there is only one page? https://element-plus.org/en-US/component/pagination#hide-pagination-when-there-is-only-one-page
+
+
+/**
+ * ACCESSIBILITY:::
+ *
+ * links:
+ * https://www.conductor.com/academy/pagination/
+ *
+ * buttons:
+ *
+ *
+ *
+ *
+ * Do we need PaginatorItem and PaginatorLabel in it?
+ *
+ * */

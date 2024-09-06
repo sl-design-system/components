@@ -18,15 +18,15 @@
   grid-template-columns: 1fr auto 2fr;
 }
 
-:host([collapsible][collapsed]) {
-  sl-icon {
-    rotate: 0deg;
-  }
-
-  [part='body'] {
-    grid-template-rows: 0fr;
-  }
-}
+// :host([collapsible][collapsed]) {
+//   sl-icon {
+//     rotate: 0deg;
+//   }
+//
+//   [part='body'] {
+//     grid-template-rows: 0fr;
+//   }
+// }
 
 [part='header'] {
   align-items: start;
@@ -110,9 +110,14 @@ slot[name='actions']::slotted(:first-child) {
   padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }
 
-.active {
+sl-button[active],
+.active { // TODO: maybe better use aria-current for links instead of active class
   border: 1px solid #0d1a24;
 }
+
+//.active {
+//  border: 1px solid #0d1a24;
+//}
 
 .container {
   display: flex;
@@ -138,6 +143,7 @@ slot[name='actions']::slotted(:first-child) {
 
 ul {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 

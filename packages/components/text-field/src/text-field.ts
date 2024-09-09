@@ -231,14 +231,20 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   }
 
   #onBlur(): void {
-    this.hasFocusRing = false;
-    this.blurEvent.emit();
-    this.updateState({ touched: true });
+    // Only emit the event if we have focus
+    if (this.hasFocusRing) {
+      this.hasFocusRing = false;
+      this.blurEvent.emit();
+      this.updateState({ touched: true });
+    }
   }
 
   #onFocus(): void {
-    this.hasFocusRing = true;
-    this.focusEvent.emit();
+    // Only emit the event if we don't have focus
+    if (!this.hasFocusRing) {
+      this.hasFocusRing = true;
+      this.focusEvent.emit();
+    }
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
@@ -276,7 +282,6 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     this.input.addEventListener('blur', () => this.#onBlur());
     this.input.addEventListener('focus', () => this.#onFocus());
     this.updateInputElement(this.input);
-
     this.setFormControlElement(this.input);
   }
 

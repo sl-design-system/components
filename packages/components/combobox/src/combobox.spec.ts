@@ -2,6 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/listbox/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 
@@ -19,6 +20,9 @@ describe('sl-combobox', () => {
           </sl-listbox>
         </sl-combobox>
       `);
+      // Give the embedded text field time to initialize
+      await new Promise(resolve => setTimeout(resolve));
+
       input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
       listbox = el.querySelector('sl-listbox')!;
     });
@@ -46,6 +50,32 @@ describe('sl-combobox', () => {
 
     it('should not support multiple selection', () => {
       expect(el.multiple).not.to.be.true;
+    });
+
+    it('should not have a value', () => {
+      expect(el.value).to.be.undefined;
+      expect(input.value).to.equal('');
+    });
+
+    it('should have a value when set', async () => {
+      el.value = 'Option 1';
+      await el.updateComplete;
+
+      expect(input.value).to.equal('Option 1');
+    });
+
+    it('should have a medium size', () => {
+      expect(el).to.have.attribute('size', 'md');
+      expect(el.size).to.equal('md');
+      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('size', 'md');
+    });
+
+    it('should have a large size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('size', 'lg');
+      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('size', 'lg');
     });
 
     it('should not have a placeholder', () => {
@@ -83,6 +113,105 @@ describe('sl-combobox', () => {
 
       expect(el).to.have.attribute('required');
       expect(el.internals.ariaRequired).to.equal('true');
+    });
+
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after typing in the input', async () => {
+      input.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after typing in the input', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      input.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after input loses focus', () => {
+      input.focus();
+      input.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      input.focus();
+      input.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should focus the input when focusing the element', () => {
+      el.focus();
+
+      expect(document.activeElement).to.equal(input);
+    });
+
+    it('should emit an sl-focus event when focusing the input', async () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      input.focus();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the input', async () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      input.focus();
+      await sendKeys({ press: 'Tab' });
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when selecting an option', () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      input.click();
+      el.querySelector('sl-option')?.click();
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when calling reportValidity', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when selecting an option', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      input.click();
+      el.querySelector('sl-option')?.click();
+
+      expect(onValidate).to.have.been.callCount(5);
     });
 
     describe('input', () => {
@@ -220,7 +349,7 @@ describe('sl-combobox', () => {
       el.style.maxInlineSize = '200px';
       el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       const tagList = el.renderRoot.querySelector('sl-tag-list');
       expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('5');

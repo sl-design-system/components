@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { FormControlMixin } from '@sl-design-system/form';
+import { FormControlMixin, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, anchor, event } from '@sl-design-system/shared';
@@ -9,6 +9,7 @@ import { Tag, TagList } from '@sl-design-system/tag';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './combobox.scss.js';
 
 declare global {
@@ -26,6 +27,8 @@ export type ComboboxOption = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any;
 };
+
+export type ComboboxSize = 'md' | 'lg';
 
 let nextUniqueId = 0;
 
@@ -143,6 +146,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
+  /** The size of the combobox. */
+  @property({ reflect: true }) size: ComboboxSize = 'md';
+
   /**
    * The value of the combobox. If `multiple` selection is enabled, then this
    * will be an array of values. Otherwise, it will be a single value.
@@ -222,14 +228,21 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         @sl-blur=${this.#onTextFieldBlur}
         @sl-change=${this.#onTextFieldChange}
         @sl-focus=${this.#onTextFieldFocus}
+        @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly}
         ?required=${this.required}
-        .placeholder=${this.placeholder}
+        placeholder=${ifDefined(this.placeholder)}
+        size=${ifDefined(this.size)}
       >
         ${this.multiple && this.currentSelection.length
           ? html`
-              <sl-tag-list slot="prefix" stacked .emphasis=${this.disabled ? 'bold' : 'subtle'}>
+              <sl-tag-list
+                slot="prefix"
+                size=${ifDefined(this.size)}
+                stacked
+                .emphasis=${this.disabled ? 'bold' : 'subtle'}
+              >
                 ${this.currentSelection.map(
                   option => html`
                     <sl-tag
@@ -318,6 +331,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     this.#updateCurrent(currentOption);
     this.#updateFilteredOptions(value);
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 
   #onInputClick(): void {
@@ -415,6 +431,11 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     event.stopPropagation();
 
     this.focusEvent.emit();
+  }
+
+  #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   #onToggle(event: ToggleEvent): void {

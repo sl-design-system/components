@@ -41,11 +41,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** The maximum width of the +99 stack counter; used for calculating the (in)visible tags. */
+  #maxStackInlineSize?: number;
+
   /**
    * Observe changes to the size of the tag-list,
    * so we can determine when to display a counter with amount of hidden tags
    */
-  #resizeObserver = new ResizeObserver(() => this.#updateVisibility());
+  #resizeObserver = new ResizeObserver(async () => await this.#updateVisibility());
 
   /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
@@ -144,7 +147,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.tags?.forEach(tag => this.#resizeObserver.unobserve(tag));
+    this.#rovingTabindexController.clearElementCache();
+
+    // this.tags?.forEach(tag => this.#resizeObserver.unobserve(tag));
 
     this.tags = Array.from(event.target.assignedElements({ flatten: true })).filter(
       (el): el is Tag => el instanceof Tag
@@ -155,24 +160,21 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       tag.size = this.size;
       tag.setAttribute('role', 'listitem');
 
-      this.#resizeObserver.observe(tag);
+      // this.#resizeObserver.observe(tag);
     });
 
     // Give the browser time to update the tag styling before we calculate the visibility
     requestAnimationFrame(() => this.#updateVisibility());
   }
 
-  #updateVisibility(): void {
-    this.#rovingTabindexController.clearElementCache();
-
+  async #updateVisibility(): Promise<void> {
     if (!this.stacked || !this.tags) {
       return;
     }
 
-    const gap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0'),
-      stack = this.renderRoot.querySelector<HTMLElement>('.stack'),
-      containerWidth = this.offsetWidth,
-      counterWidth = this.stackSize > 0 ? (stack?.offsetWidth ?? 0) : 0;
+    console.log('update visibility');
+
+    this.#maxStackInlineSize ||= await this.#getMaxStackInlineSize();
 
     let totalTagsWidth = 0;
 
@@ -182,23 +184,48 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       totalTagsWidth += tag.offsetWidth;
     });
 
+    const gap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0');
+
     totalTagsWidth += gap * (this.tags.length - 1);
 
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    const availableWidth = this.offsetWidth - this.#maxStackInlineSize - gap;
+
+    console.log('maxStackInlineSize', this.#maxStackInlineSize);
+    console.log('availableWidth', availableWidth);
+    console.log('totalTagsWidth', totalTagsWidth);
+
     // Determine which tags to show or hide
-    if (totalTagsWidth > containerWidth - counterWidth) {
+    if (totalTagsWidth > availableWidth) {
       for (let i = 0; i < this.tags.length; i++) {
         totalTagsWidth -= this.tags[i].offsetWidth + gap;
         this.tags[i].style.display = 'none';
 
-        if (totalTagsWidth <= containerWidth - counterWidth) {
-          this.tags[this.tags.length - 1].style.display = '';
+        console.log(i + 1, this.tags[i].offsetWidth, totalTagsWidth, availableWidth);
+        if (totalTagsWidth <= availableWidth) {
+          // this.tags[this.tags.length - 1].style.display = '';
           break;
         }
       }
-    } else {
-      this.tags.forEach(tag => (tag.style.display = ''));
     }
 
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
+  }
+
+  async #getMaxStackInlineSize(): Promise<number> {
+    const oldStackSize = this.stackSize;
+
+    // Set max stack size and wait for the browser to update the DOM
+    this.stackSize = 100;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    const maxStackInlineSize = this.renderRoot.querySelector('.stack')?.getBoundingClientRect()?.width ?? 0;
+
+    // Restore the stack size and wait for the browser to update the DOM
+    this.stackSize = oldStackSize;
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    return maxStackInlineSize;
   }
 }

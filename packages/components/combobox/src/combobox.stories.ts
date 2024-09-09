@@ -168,7 +168,8 @@ export const MultipleStacked: Story = {
   args: {
     ...Multiple.args,
     hint: 'When there is not enough space to display all tags, they will be stacked.',
-    value: ['Button bar', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Switch']
+    // value: ['Button bar', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Switch']
+    value: ['Button bar', 'Card', 'Checkbox']
   }
 };
 
@@ -198,12 +199,19 @@ export const All: Story = {
   render: () => html`
     <style>
       .container {
-        display: flex;
-        flex-direction: column;
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 1rem;
+
+        span {
+          justify-self: center;
+        }
       }
     </style>
     <div class="container">
+      <span>md</span>
+      <span>lg</span>
       <sl-combobox placeholder="Empty">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -211,6 +219,14 @@ export const All: Story = {
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
+      <sl-combobox placeholder="Empty" size="lg">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+
       <sl-combobox placeholder="Selected" value="Option 2">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -218,6 +234,14 @@ export const All: Story = {
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
+      <sl-combobox placeholder="Selected" size="lg" value="Option 2">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+
       <sl-combobox readonly placeholder="Readonly">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -225,6 +249,14 @@ export const All: Story = {
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
+      <sl-combobox readonly placeholder="Readonly" size="lg">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+
       <sl-combobox disabled placeholder="Disabled">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -232,6 +264,14 @@ export const All: Story = {
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
+      <sl-combobox disabled placeholder="Disabled" size="lg">
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+
       <sl-combobox multiple placeholder="Multiple" .value=${['Option 1', 'Option 2']}>
         <sl-listbox>
           <sl-option>Option 1</sl-option>
@@ -239,7 +279,22 @@ export const All: Story = {
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
+      <sl-combobox multiple placeholder="Multiple" size="lg" .value=${['Option 1', 'Option 2']}>
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+
       <sl-combobox disabled multiple placeholder="Multiple, disabled" .value=${['Option 1', 'Option 2']}>
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
+      <sl-combobox disabled multiple placeholder="Multiple, disabled" size="lg" .value=${['Option 1', 'Option 2']}>
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>

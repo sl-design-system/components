@@ -25,31 +25,34 @@ export default {
 export const LogIn: Story = {
   render: () => {
     const onSubmit = (event: Event & { target: HTMLElement }): void => {
+      event.preventDefault();
       const form = event.target.closest('sl-form') as Form;
 
       console.log(form.reportValidity(), form.value);
     };
 
+    const onReset = async (event: Event & { target: HTMLElement }): Promise<void> => {
+      const form = event.target.closest('sl-form') as Form;
+      await form.reset();
+    };
+
     return html`
       <sl-form>
         <sl-form-field label="Username">
-          <sl-text-field
-            name="username"
-            placeholder="Enter your username or email address here"
-            required
-          ></sl-text-field>
+          <sl-text-field name="username" placeholder="Enter your username or email address here"></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Password">
-          <sl-text-field name="password" type="password" required></sl-text-field>
+          <sl-text-field name="password"></sl-text-field>
         </sl-form-field>
 
         <sl-form-field>
           <sl-checkbox name="remember">Remember me</sl-checkbox>
         </sl-form-field>
 
-        <sl-button-bar align="space-between">
-          <sl-button fill="link">Forgot password?</sl-button>
+        <sl-button-bar align="end">
+          <sl-button fill="link" style="margin-inline-end:auto">Forgot password?</sl-button>
+          <sl-button @click=${onReset} fill="outline" variant="primary">Reset</sl-button>
           <sl-button @click=${onSubmit} variant="primary">Log in</sl-button>
         </sl-button-bar>
       </sl-form>

@@ -41,6 +41,8 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
    */
   #value: T | undefined;
 
+  #initialValue: T | undefined;
+
   /** The controls in the form; not necessarily the same amount as the fields. */
   controls: Array<HTMLElement & FormControl> = [];
 
@@ -107,6 +109,11 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     }
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+    this.#initialValue = this.#value;
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -124,6 +131,18 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#showValidity = true;
 
     return this.controls.map(c => c.reportValidity()).every(Boolean);
+  }
+
+  async reset(): Promise<void> {
+    this.controls.map(c => {
+      if (c.name) {
+        c.reset(this.#initialValue?.[c.name]);
+      }
+    });
+
+    // without waiting for the update after the reset to be complete the validity report uses the old values
+    await this.updateComplete;
+    this.reportValidity();
   }
 
   #onFormControl(event: SlFormControlEvent): void {

@@ -3,6 +3,7 @@ export default {
   extends: ['stylelint-config-standard'],
   plugins: ['stylelint-use-logical', 'stylelint-order', 'stylelint-prettier'],
   rules: {
+    'color-no-hex': true,
     'no-descending-specificity': null,
     'property-no-vendor-prefix': [
       true,

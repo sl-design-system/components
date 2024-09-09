@@ -4810,7 +4810,7 @@ __metadata:
   resolution: "@sl-design-system/lit-examples@workspace:examples/lit"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.3.0"
+    "@sl-design-system/shared": "npm:^0.3.1"
   languageName: unknown
   linkType: soft
 
@@ -5056,7 +5056,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/shared@npm:^0.3.0, @sl-design-system/shared@workspace:packages/components/shared":
+"@sl-design-system/shared@npm:^0.3.0, @sl-design-system/shared@npm:^0.3.1, @sl-design-system/shared@workspace:packages/components/shared":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:

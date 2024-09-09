@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.3.1
+
+### Patch Changes
+
+- [#1499](https://github.com/sl-design-system/components/pull/1499) [`d4bb7fe`](https://github.com/sl-design-system/components/commit/d4bb7fe67bf95807437e41528c334f62d6cff807) - Handle `rootMarginTop` being undefined
+
 ## 0.3.0
 
 ### Minor Changes

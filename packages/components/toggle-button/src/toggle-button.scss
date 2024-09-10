@@ -1,7 +1,7 @@
 :host {
   --_background: var(--sl-color-button-default-ghost-idle-background);
   --_border-color: var(--sl-color-button-default-ghost-idle-border);
-  --_border-radius: var(--sl-border-radius-button-md);
+  --_button-border-radius: var(--sl-border-radius-button-icon-only-md);
   --_border-width: var(--sl-border-width-button-ghost);
   --_color: var(--sl-color-button-default-ghost-idle-foreground);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
@@ -12,9 +12,11 @@
   --_padding-inline: var(--sl-space-button-ghost-icon-only-md);
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
+  --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-md);
 
+  background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
+  border-radius: var(--_button-border-radius);
   color: var(--_color);
   cursor: pointer;
   display: inline-flex;
@@ -26,22 +28,32 @@
 
 :host(:hover) {
   --_background: var(--sl-color-button-default-ghost-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-hover-border);
+  --_color: var(--sl-color-button-default-ghost-hover-foreground);
 }
 
 :host(:active) {
   --_background: var(--sl-color-button-default-ghost-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-active-border);
+  --_color: var(--sl-color-button-default-ghost-active-foreground);
 }
 
 :host([pressed]) {
   --_background: var(--sl-color-button-default-ghost-selected-idle-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
+  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
 }
 
 :host([pressed]:hover) {
   --_background: var(--sl-color-button-default-ghost-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-hover-border);
+  --_color: var(--sl-color-button-default-ghost-selected-hover-foreground);
 }
 
 :host([pressed]:active) {
   --_background: var(--sl-color-button-default-ghost-selected-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-active-border);
+  --_color: var(--sl-color-button-default-ghost-selected-active-foreground);
 }
 
 :host([disabled]) {
@@ -62,26 +74,38 @@
   --_background: var(--sl-color-button-default-outline-idle-background);
   --_border-color: var(--sl-color-button-default-outline-idle-border);
   --_color: var(--sl-color-button-default-outline-idle-foreground);
+  --_padding-block: var(--sl-space-button-outline-icon-only-md);
+  --_padding-inline: var(--sl-space-button-outline-icon-only-md);
 }
 
 :host([fill='outline']:hover) {
   --_background: var(--sl-color-button-default-outline-hover-background);
+  --_border-color: var(--sl-color-button-default-outline-hover-border);
+  --_color: var(--sl-color-button-default-outline-hover-foreground);
 }
 
 :host([fill='outline']:active) {
   --_background: var(--sl-color-button-default-outline-active-background);
+  --_border-color: var(--sl-color-button-default-outline-active-border);
+  --_color: var(--sl-color-button-default-outline-active-foreground);
 }
 
 :host([fill='outline'][pressed]) {
   --_background: var(--sl-color-button-default-outline-selected-idle-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-idle-border);
+  --_color: var(--sl-color-button-default-outline-selected-idle-foreground);
 }
 
 :host([fill='outline'][pressed]:hover) {
   --_background: var(--sl-color-button-default-outline-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-hover-border);
+  --_color: var(--sl-color-button-default-outline-selected-hover-foreground);
 }
 
 :host([fill='outline'][pressed]:active) {
   --_background: var(--sl-color-button-default-outline-selected-active-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-active-border);
+  --_color: var(--sl-color-button-default-outline-selected-active-foreground);
 }
 
 :host([fill='outline'][disabled]) {
@@ -95,10 +119,16 @@
 }
 
 :host([size='lg']) {
-  --_border-radius: var(--sl-border-radius-button-lg);
+  --_button-border-radius: var(--sl-border-radius-button-icon-only-lg);
   --_font: var(--sl-text-button-text-lg);
   --_padding-block: var(--sl-space-button-ghost-icon-only-lg);
   --_padding-inline: var(--sl-space-button-ghost-icon-only-lg);
+  --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-lg);
+}
+
+:host([fill='outline'][size='lg']) {
+  --_padding-block: var(--sl-space-button-outline-icon-only-lg);
+  --_padding-inline: var(--sl-space-button-outline-icon-only-lg);
 }
 
 :host(:where(:active, :focus-visible, :hover)) {
@@ -121,8 +151,6 @@
 
 [part='wrapper'] {
   align-items: center;
-  background: var(--_background);
-  border-radius: var(--_border-radius);
   display: flex;
   gap: var(--_label-gap);
   justify-content: center;

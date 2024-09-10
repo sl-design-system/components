@@ -97,7 +97,7 @@
     "storybook": "^8.2.9",
     "tslib": "^2.7.0",
     "typescript": "~5.4.5",
-    "wireit": "^0.14.8",
+    "wireit": "^0.14.9",
     "zone.js": "~0.14.10"
   },
   "installConfig": {

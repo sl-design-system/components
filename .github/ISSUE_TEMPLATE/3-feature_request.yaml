@@ -54,7 +54,16 @@ body:
     attributes:
       value: "## 🦄 Other"
   - type: input
+    id: name
+    attributes:
+      label: 👤 Your name
+      description: Please provide your full name
+    validations:
+      required: true
+  - type: input
     id: company-team
     attributes:
       label: 🧢 Your Product/Team
       description: Which product team needs this feature? (i.e. Bingel DC/Pokemon)
+    validations:
+      required: true

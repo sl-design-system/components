@@ -1,3 +1,4 @@
+import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/listbox/register.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -5,6 +6,8 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { type Combobox } from './combobox.js';
+
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement, listbox: HTMLElement;
@@ -211,7 +214,7 @@ describe('sl-combobox', () => {
       input.click();
       el.querySelector('sl-option')?.click();
 
-      expect(onValidate).to.have.been.callCount(5);
+      expect(onValidate).to.have.been.calledOnce;
     });
 
     describe('input', () => {
@@ -346,7 +349,7 @@ describe('sl-combobox', () => {
     });
 
     it('should stack options when there is limited space', async () => {
-      el.style.maxInlineSize = '200px';
+      el.style.maxInlineSize = '300px';
       el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 50));

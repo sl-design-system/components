@@ -93,7 +93,7 @@ export class ToggleGroup extends LitElement {
         button.disabled = this.disabled;
       }
 
-      button.fill = 'ghost';
+      button.fill = 'outline';
 
       if (this.size) {
         button.size = this.size;

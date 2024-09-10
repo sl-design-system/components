@@ -170,6 +170,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    // Hide the stack element while we calculate the visibility of the tags
+    const stack = this.renderRoot.querySelector<HTMLElement>('.stack');
+    if (stack) {
+      stack.style.display = 'none';
+    }
+
     // Reset visibility of all tags
     this.tags.forEach(tag => (tag.style.display = ''));
 
@@ -180,11 +186,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     let totalTagsWidth = sizes.reduce((acc, size) => acc + size, 0);
     totalTagsWidth += gap * (this.tags.length - 1);
 
-    // Calculate the available width: width of the tag-list - the max inline size of the stack - the gap between the list and the stack size
-    const availableWidth = this.getBoundingClientRect().width - this.#maxStackInlineSize - gap;
+    let availableWidth = this.getBoundingClientRect().width;
 
-    // Determine which tags to show or hide
+    // We only need to determine visibility if there isn't enough space
     if (totalTagsWidth > availableWidth) {
+      // Take the stack into account if there isn't enough space
+      availableWidth -= this.#maxStackInlineSize + gap;
+
       for (let i = 0; i < this.tags.length; i++) {
         totalTagsWidth -= sizes[i] + gap;
         this.tags[i].style.display = 'none';
@@ -195,6 +203,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       }
     }
 
+    // Reset the stack element visibility
+    if (stack) {
+      stack.style.display = '';
+    }
+
+    // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
   }
 

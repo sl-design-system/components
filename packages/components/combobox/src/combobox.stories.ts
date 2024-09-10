@@ -168,8 +168,7 @@ export const MultipleStacked: Story = {
   args: {
     ...Multiple.args,
     hint: 'When there is not enough space to display all tags, they will be stacked.',
-    // value: ['Button bar', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Switch']
-    value: ['Button bar', 'Card', 'Checkbox']
+    value: ['Button bar', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Switch']
   }
 };
 

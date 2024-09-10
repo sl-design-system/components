@@ -89,13 +89,16 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** The aggregated value of all form controls. */
   get value(): T {
-    return this.controls.reduce((value, control) => {
+    const value = this.controls.reduce((value, control) => {
       if (control.name) {
         setValueByPath(value, control.name, control.formValue);
       }
-
       return value;
     }, {}) as T;
+    if (!this.#initialValue && !!value) {
+      this.#initialValue = value;
+    }
+    return value;
   }
 
   @property({ attribute: false })
@@ -133,7 +136,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return this.controls.map(c => c.reportValidity()).every(Boolean);
   }
 
-  async reset(): Promise<void> {
+  reset(): void {
     this.controls.map(c => {
       if (c.name) {
         c.reset(this.#initialValue?.[c.name]);
@@ -141,8 +144,9 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     });
 
     // without waiting for the update after the reset to be complete the validity report uses the old values
-    await this.updateComplete;
-    this.reportValidity();
+    requestAnimationFrame(() => {
+      this.reportValidity();
+    });
   }
 
   #onFormControl(event: SlFormControlEvent): void {

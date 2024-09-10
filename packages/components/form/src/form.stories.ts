@@ -42,10 +42,10 @@ export default {
       console.log(form?.reportValidity(), form?.value);
     };
 
-    const onReset = async (): Promise<void> => {
+    const onReset = (): void => {
       const form = document.querySelector('sl-form');
 
-      await form?.reset();
+      form?.reset();
     };
 
     const onUpdate = (): void => {
@@ -97,14 +97,14 @@ export const Reset: Story = {
     reportValidity: true,
     fields: () =>
       html` <sl-form-field hint="Has value on load" label="Text field">
-          <sl-text-field name="input" placeholder="Placeholder" required></sl-text-field>
+          <sl-text-field name="input" placeholder="Placeholder" required value="Value set initially"></sl-text-field>
         </sl-form-field>
         <sl-form-field hint="Has no value on load" label="Text field">
           <sl-text-field name="input2" placeholder="Placeholder" required></sl-text-field>
-        </sl-form-field>`,
-    value: {
-      input: 'Value set initially'
-    }
+        </sl-form-field>`
+    // value: {
+    //   input: 'Value set initially'
+    // }
   }
 };
 

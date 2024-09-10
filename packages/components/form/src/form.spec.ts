@@ -175,6 +175,43 @@ describe('sl-form', () => {
     });
   });
 
+  describe('reset', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Foo">
+            <sl-text-field name="foo" value="lorem"></sl-text-field>
+          </sl-form-field>
+
+          <sl-form-field label="Bar">
+            <sl-text-field name="bar" required></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+      // Give the form time to register the controls
+      await new Promise(resolve => setTimeout(resolve, 600));
+    });
+
+    it('should reset the form', async () => {
+      expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
+      el.querySelector<HTMLElement>('sl-text-field[name="foo"]')?.focus();
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+
+      el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
+      await sendKeys({ type: 'asdf' });
+
+      expect(el.value).to.deep.equal({ foo: '', bar: 'asdf' });
+
+      el.reset();
+
+      expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
+    });
+  });
+
   describe('array values', () => {
     beforeEach(async () => {
       el = await fixture(html`

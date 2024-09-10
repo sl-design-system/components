@@ -31,9 +31,9 @@ export const LogIn: Story = {
       console.log(form.reportValidity(), form.value);
     };
 
-    const onReset = async (event: Event & { target: HTMLElement }): Promise<void> => {
+    const onReset = (event: Event & { target: HTMLElement }): void => {
       const form = event.target.closest('sl-form') as Form;
-      await form.reset();
+      form.reset();
     };
 
     return html`

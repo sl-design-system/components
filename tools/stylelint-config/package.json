@@ -23,7 +23,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "postcss": "^8.4.43",
+    "postcss": "^8.4.45",
     "postcss-lit": "^1.1.1",
     "prettier": "^3.3.3",
     "stylelint-config-standard": "^36.0.1",

@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-config
 
+## 0.2.2
+
+### Patch Changes
+
+- [#1501](https://github.com/sl-design-system/components/pull/1501) [`8c93dfa`](https://github.com/sl-design-system/components/commit/8c93dfa700101f7f1712cbb669cd5086f32d7aa7) - Tweak linting config
+
 ## 0.2.1
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import stylistic from '@stylistic/eslint-plugin';
 import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
 import importPlugin from 'eslint-plugin-import';
-import lit from 'eslint-plugin-lit';
+import { configs as litConfigs } from 'eslint-plugin-lit';
 import litA11y from 'eslint-plugin-lit-a11y';
 import mocha from 'eslint-plugin-mocha';
 import prettier from 'eslint-plugin-prettier/recommended';
@@ -16,10 +16,11 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
+  litConfigs['flat/all'],
   {
     languageOptions: {
       parserOptions: {
-        project: true
+        projectService: true
       }
     }
   },
@@ -38,15 +39,6 @@ export default tseslint.config(
   {
     plugins: { wc },
     rules: wc.configs.recommended.rules
-  },
-  {
-    plugins: { lit },
-    rules: {
-      ...lit.configs.all.rules,
-      // https://github.com/43081j/eslint-plugin-lit/issues/189
-      'lit/no-template-arrow': 'off',
-      'lit/no-template-map': 'off'
-    }
   },
   {
     plugins: { 'lit-a11y': litA11y },
@@ -128,6 +120,9 @@ export default tseslint.config(
           warnOnUnassignedImports: true
         }
       ],
+      // https://github.com/43081j/eslint-plugin-lit/issues/189
+      'lit/no-template-arrow': 'off',
+      'lit/no-template-map': 'off',
       // Generates too many false positives
       'lit-a11y/click-events-have-key-events': 'off',
       // This generates false positives for popovers
@@ -171,6 +166,8 @@ export default tseslint.config(
       'mocha/no-nested-tests': 'off',
       // We use dynamically generated tests, so this generates false positives
       'mocha/no-setup-in-describe': 'off',
+      // Disallow `it.skip(...)` tests
+      'mocha/no-skipped-tests': 'error',
       // Make sure all tests start with `it('should ...`
       'mocha/valid-test-description': [
         'warn',

@@ -1,5 +1,17 @@
 # @sl-design-system/eslint-config
 
+## 0.2.3
+
+### Patch Changes
+
+- [#1503](https://github.com/sl-design-system/components/pull/1503) [`a2b2949`](https://github.com/sl-design-system/components/commit/a2b2949c147e00fae634493a051277f19d168ed2) - Remove incorrect tsconfig root dir setting
+
+## 0.2.2
+
+### Patch Changes
+
+- [#1501](https://github.com/sl-design-system/components/pull/1501) [`8c93dfa`](https://github.com/sl-design-system/components/commit/8c93dfa700101f7f1712cbb669cd5086f32d7aa7) - Tweak linting config
+
 ## 0.2.1
 
 ### Patch Changes

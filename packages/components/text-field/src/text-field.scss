@@ -5,141 +5,142 @@ $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 
 :host {
-  --_border-size: var(--sl-border-width-input-border);
-  --_border: var(--_border-size) solid var(--_border-color);
-  --_border-radius: var(--sl-border-radius-default);
-  --_cursor: text;
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_transition: 200ms ease-in-out;
-
   align-items: center;
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
+  background: var(--sl-color-input-background);
+  border: var(--sl-color-input-border) solid var(--sl-size-border-width-default);
+  border-radius: var(--sl-size-border-radius-default);
   box-sizing: border-box;
+  color: var(--sl-color-text-default);
   display: flex;
-  font: var(--_font);
-  gap: var(--_gap);
+  font: var(--sl-text-new-input-md);
+  gap: var(--sl-space-new-md);
   outline-color: transparent;
-  padding: var(--_padding-block) var(--_padding-inline);
-  transition: var(--_transition);
-  transition-property: background, border, color, filter, outline-color;
+  padding-block: calc(var(--sl-space-new-sm) - var(--sl-size-border-width-default));
+  padding-inline: var(--sl-space-new-md);
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, color, outline-color;
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_gap: var(--sl-space-input-text-field-gap-#{$size});
-    --_font: var(--sl-text-input-text-field-text-#{$size});
-    --_padding-block: var(--sl-space-input-text-field-block-#{$size});
-    --_padding-inline: var(--sl-space-input-text-field-inline-#{$size});
-  }
+:host([size='lg']) {
+  font: var(--sl-text-new-input-lg);
 }
 
-@each $variant in $variants {
-  $i: list.index($variants, $variant);
-  $variant-selector: list.nth($variant-selectors, $i);
+// @each $size in $sizes {
+//   :host([size='#{$size}']) {
+//     --_gap: var(--sl-space-input-text-field-gap-#{$size});
+//     --_font: var(--sl-text-input-text-field-text-#{$size});
+//     --_padding-block: var(--sl-space-input-text-field-block-#{$size});
+//     --_padding-inline: var(--sl-space-input-text-field-inline-#{$size});
+//   }
+// }
 
-  :host(#{$variant-selector}) {
-    --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-default-border);
+// @each $variant in $variants {
+//   $i: list.index($variants, $variant);
+//   $variant-selector: list.nth($variant-selectors, $i);
 
-    slot[name='input']::slotted(input) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
-    }
+//   :host(#{$variant-selector}) {
+//     --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
+//     --_border-color: var(--sl-color-input-text-field-#{$variant}-default-border);
 
-    slot[name='suffix'] sl-icon {
-      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
-    }
-  }
+//     slot[name='input']::slotted(input) {
+//       --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
+//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
+//     }
 
-  :host(#{$variant-selector}:hover) {
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-hover-border);
-    --_background: var(--sl-color-input-text-field-#{$variant}-hover-background);
+//     slot[name='suffix'] sl-icon {
+//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
+//     }
+//   }
 
-    slot[name='input']::slotted(input) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-hover-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
-    }
+//   :host(#{$variant-selector}:hover) {
+//     --_border-color: var(--sl-color-input-text-field-#{$variant}-hover-border);
+//     --_background: var(--sl-color-input-text-field-#{$variant}-hover-background);
 
-    slot[name='suffix'] sl-icon {
-      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
-    }
-  }
+//     slot[name='input']::slotted(input) {
+//       --_color: var(--sl-color-input-text-field-#{$variant}-hover-input-text);
+//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
+//     }
 
-  :host(#{$variant-selector}:active:not([disabled])) {
-    --_background: var(--sl-color-input-text-field-#{$variant}-active-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-active-border);
+//     slot[name='suffix'] sl-icon {
+//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
+//     }
+//   }
 
-    slot[name='input']::slotted(input) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-active-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
-    }
+//   :host(#{$variant-selector}:active:not([disabled])) {
+//     --_background: var(--sl-color-input-text-field-#{$variant}-active-background);
+//     --_border-color: var(--sl-color-input-text-field-#{$variant}-active-border);
 
-    slot[name='suffix'] sl-icon {
-      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
-    }
-  }
+//     slot[name='input']::slotted(input) {
+//       --_color: var(--sl-color-input-text-field-#{$variant}-active-input-text);
+//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
+//     }
 
-  :host(#{$variant-selector}:focus-within:not([disabled])) {
-    --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
+//     slot[name='suffix'] sl-icon {
+//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
+//     }
+//   }
 
-    slot[name='input']::slotted(input) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
-    }
+//   :host(#{$variant-selector}:focus-within:not([disabled])) {
+//     --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
+//     --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
 
-    slot[name='suffix'] sl-icon {
-      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
-    }
-  }
+//     slot[name='input']::slotted(input) {
+//       --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
+//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
+//     }
 
-  :host(#{$variant-selector}[disabled]) {
-    --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-disabled-border);
+//     slot[name='suffix'] sl-icon {
+//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
+//     }
+//   }
 
-    slot[name='input']::slotted(input) {
-      --_color: var(--sl-color-input-text-field-#{$variant}-disabled-input-text);
-      --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
-    }
+//   :host(#{$variant-selector}[disabled]) {
+//     --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
+//     --_border-color: var(--sl-color-input-text-field-#{$variant}-disabled-border);
 
-    slot[name='prefix']::slotted(sl-icon),
-    slot[name='suffix']::slotted(sl-icon),
-    slot[name='suffix'] sl-icon {
-      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
-    }
-  }
-}
+//     slot[name='input']::slotted(input) {
+//       --_color: var(--sl-color-input-text-field-#{$variant}-disabled-input-text);
+//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
+//     }
+
+//     slot[name='prefix']::slotted(sl-icon),
+//     slot[name='suffix']::slotted(sl-icon),
+//     slot[name='suffix'] sl-icon {
+//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
+//     }
+//   }
+// }
 
 :host([disabled]) {
-  --_cursor: default;
-
+  color: var(--sl-color-text-disabled);
   pointer-events: none;
+
+  ::slotted(input) {
+    cursor: default;
+  }
 }
 
 :host([has-focus-ring]) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 :host([input-size]) {
   inline-size: fit-content;
 }
 
-:host([readonly]) {
-  --_cursor: default;
+:host([readonly]) ::slotted(input) {
+  cursor: default;
 }
 
 slot[name='input']::slotted(input) {
   appearance: none;
-  background: none;
+  background: transparent;
   border: 0;
-  color: var(--_color);
-  cursor: var(--_cursor);
+  color: inherit;
+  cursor: text;
   flex: 1;
-  font: var(--_font);
+  font: inherit;
   margin: 0;
   min-inline-size: 0;
   outline: none;
@@ -150,12 +151,13 @@ slot[name='input']::slotted(input) {
   }
 
   &::placeholder {
-    color: var(--_placeholder-color);
+    color: var(--sl-color-text-plain);
     opacity: 1;
   }
 }
 
-:is(button, ::slotted(button)) {
+button,
+::slotted(button) {
   align-items: center;
   appearance: none;
   aspect-ratio: 1 / 1;

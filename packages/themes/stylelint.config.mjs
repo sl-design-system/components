@@ -9,9 +9,10 @@ export default {
     'custom-property-pattern': [
       'sl-[a-z][a-zA-Z]*(-[a-z][a-zA-Z]*)*',
       {
-        message: 'Expected --sl custom property prefix'
+        message: 'Expected custom property names to match --sl(-snakeCase)+'
       }
     ],
-    'font-family-no-missing-generic-family-keyword': null
+    'font-family-no-missing-generic-family-keyword': null,
+    'no-unknown-custom-properties': true
   }
 };

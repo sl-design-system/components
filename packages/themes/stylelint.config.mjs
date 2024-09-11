@@ -5,6 +5,13 @@ export default {
   rules: {
     ...config.rules,
     'block-no-empty': null,
+    'color-no-hex': null,
+    'custom-property-pattern': [
+      'sl-[a-z][a-zA-Z]*(-[a-z][a-zA-Z]*)*',
+      {
+        message: 'Expected --sl custom property prefix'
+      }
+    ],
     'font-family-no-missing-generic-family-keyword': null
   }
 };

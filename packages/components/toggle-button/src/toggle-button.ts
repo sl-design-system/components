@@ -5,7 +5,6 @@ import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './toggle-button.scss.js';
 
 declare global {
@@ -135,11 +134,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       this.toggleAttribute('text-only', this.hasText && !this.defaultIcon && !this.pressedIcon);
     }
 
-    if (changes.has('defaultIcon') || changes.has('pressedIcon') || changes.has('size')) {
+    if (changes.has('defaultIcon') || changes.has('pressedIcon')) {
       [this.defaultIcon, this.pressedIcon].filter(Boolean).forEach(icon => {
-        if (this.size) {
-          icon!.size = this.size;
-        }
+        icon!.size = 'md';
       });
     }
 
@@ -176,7 +173,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       <div part="wrapper">
         <slot @slotchange=${this.#onIconSlotChange} name="default"></slot>
         <slot @slotchange=${this.#onIconSlotChange} name="pressed">
-          <sl-icon name="check-solid" size=${ifDefined(this.size)}></sl-icon>
+          <sl-icon name="check-solid" size="md"></sl-icon>
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>

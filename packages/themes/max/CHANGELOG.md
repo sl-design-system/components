@@ -1,5 +1,11 @@
 # @sanomalearning/slds-max
 
+## 0.1.16
+
+### Patch Changes
+
+- [#1459](https://github.com/sl-design-system/components/pull/1459) [`ff8751a`](https://github.com/sl-design-system/components/commit/ff8751a79e3f1c0091eddbd702e706f8784dbb38) - Updated styling of tag component
+
 ## 0.1.15
 
 ### Patch Changes

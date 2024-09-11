@@ -1,9 +1,9 @@
 import eslint from '@eslint/js';
-import stylisticJs from '@stylistic/eslint-plugin-js';
+import stylistic from '@stylistic/eslint-plugin';
 import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
 import importPlugin from 'eslint-plugin-import';
-import lit from 'eslint-plugin-lit';
+import { configs as litConfigs } from 'eslint-plugin-lit';
 import litA11y from 'eslint-plugin-lit-a11y';
 import mocha from 'eslint-plugin-mocha';
 import prettier from 'eslint-plugin-prettier/recommended';
@@ -12,14 +12,15 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import wc from 'eslint-plugin-wc';
 import tseslint from 'typescript-eslint';
 
-/** @type {import('eslint').Linter.FlatConfig[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
+  litConfigs['flat/all'],
   {
     languageOptions: {
       parserOptions: {
-        project: true
+        projectService: true
       }
     }
   },
@@ -29,7 +30,7 @@ export default tseslint.config(
       import: importPlugin,
       mocha,
       storybook,
-      '@stylistic/js': stylisticJs,
+      '@stylistic': stylistic,
       'chai-expect': chaiExpect,
       'chai-friendly': chaiFriendly,
       'unused-imports': unusedImports
@@ -40,18 +41,11 @@ export default tseslint.config(
     rules: wc.configs.recommended.rules
   },
   {
-    plugins: { lit },
-    rules: {
-      ...lit.configs.all.rules,
-      // https://github.com/43081j/eslint-plugin-lit/issues/189
-      'lit/no-template-arrow': 'off',
-      'lit/no-template-map': 'off'
-    }
-  },
-  {
     plugins: { 'lit-a11y': litA11y },
     rules: {
-      ...litA11y.configs.recommended.rules
+      ...litA11y.configs.recommended.rules,
+      // https://github.com/open-wc/open-wc/issues/2814
+      'lit-a11y/anchor-is-valid': 'off',
     }
   },
   {
@@ -71,22 +65,28 @@ export default tseslint.config(
           ignoreDeclarationSort: true
         }
       ],
-      '@stylistic/js/quotes': ['error', 'single', { avoidEscape: true }],
-      '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
-      '@typescript-eslint/consistent-type-assertions': 'off',
-      '@typescript-eslint/indent': 'off',
-      '@typescript-eslint/member-delimiter-style': [
+      '@stylistic/member-delimiter-style': [
         'error',
         {
           multiline: { delimiter: 'semi' },
           singleline: { delimiter: 'semi', requireLast: false }
         }
       ],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
+      '@typescript-eslint/consistent-type-assertions': 'off',
+      '@typescript-eslint/indent': 'off',
       '@typescript-eslint/method-signature-style': ['error', 'method'],
       '@typescript-eslint/no-confusing-void-expression': [
         'error',
         {
           ignoreArrowShorthand: true
+        }
+      ],
+      '@typescript-eslint/no-misused-promises': [
+        'error',
+        {
+          checksVoidReturn: false
         }
       ],
       '@typescript-eslint/no-unused-vars': [
@@ -120,6 +120,9 @@ export default tseslint.config(
           warnOnUnassignedImports: true
         }
       ],
+      // https://github.com/43081j/eslint-plugin-lit/issues/189
+      'lit/no-template-arrow': 'off',
+      'lit/no-template-map': 'off',
       // Generates too many false positives
       'lit-a11y/click-events-have-key-events': 'off',
       // This generates false positives for popovers
@@ -149,6 +152,8 @@ export default tseslint.config(
        * chai-as-promised and the expect() method in tests.
        */
       '@typescript-eslint/no-floating-promises': 'off',
+      // False positives with `.not.to.be.true` etc.
+      '@typescript-eslint/no-unused-expressions': 'off',
       // No warnings when using dummy images
       'lit-a11y/alt-text': 'off',
       // No warning when using dummy hrefs
@@ -161,6 +166,8 @@ export default tseslint.config(
       'mocha/no-nested-tests': 'off',
       // We use dynamically generated tests, so this generates false positives
       'mocha/no-setup-in-describe': 'off',
+      // Disallow `it.skip(...)` tests
+      'mocha/no-skipped-tests': 'error',
       // Make sure all tests start with `it('should ...`
       'mocha/valid-test-description': [
         'warn',

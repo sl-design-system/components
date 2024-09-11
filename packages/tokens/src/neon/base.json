@@ -756,6 +756,16 @@
             "textCase": "{text.typeset.textCase.uppercase}"
           },
           "type": "typography"
+        },
+        "4xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontSize": "{icon.typeset.fontSize.4xl}",
+            "lineHeight": "{text.typeset.lineHeight.2xl}",
+            "textCase": "{text.typeset.textCase.uppercase}"
+          },
+          "type": "typography"
         }
       },
       "icon": {
@@ -804,6 +814,14 @@
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{icon.typeset.fontSize.2xl}"
+          },
+          "type": "typography"
+        },
+        "4xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontWeight": "{icon.style.outline}",
+            "fontSize": "{icon.typeset.fontSize.4xl}"
           },
           "type": "typography"
         }
@@ -868,6 +886,16 @@
             "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
+        },
+        "4xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{icon.typeset.fontSize.xl}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.lg}"
+          },
+          "type": "typography"
         }
       },
       "subheader": {
@@ -928,6 +956,16 @@
             "fontSize": "{text.typeset.fontSize.md}",
             "textCase": "{text.typeset.textCase.none}",
             "lineHeight": "18px"
+          },
+          "type": "typography"
+        },
+        "4xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
         }
@@ -2014,7 +2052,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.sm}",
+      "value": "{border.radius.2xs}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },

@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /**
  * An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.

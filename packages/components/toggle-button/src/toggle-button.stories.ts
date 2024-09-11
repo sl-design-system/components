@@ -88,12 +88,12 @@ export const Errors: Story = {
       <p>
         When the 'pressed' icon is not set you will get an error in the console and the button will not look correct
       </p>
-      <sl-toggle-button fill="outline">
+      <sl-toggle-button aria-label="Show settings" fill="outline">
         <sl-icon name="pinata" slot="default"></sl-icon>
       </sl-toggle-button>
 
       <p>Setting the same icon for both states as "workaround" will not work, you will get the same error</p>
-      <sl-toggle-button fill="outline">
+      <sl-toggle-button aria-label="Show settings" fill="outline">
         <sl-icon name="far-gear" slot="default"></sl-icon>
         <sl-icon name="far-gear" slot="pressed"></sl-icon>
       </sl-toggle-button>
@@ -122,37 +122,37 @@ export const All: Story = {
         <span>Disabled + pressed</span>
 
         <span>md</span>
-        <sl-toggle-button>
+        <sl-toggle-button aria-label="Show settings">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button pressed>
+        <sl-toggle-button aria-label="Show settings" pressed>
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button disabled>
+        <sl-toggle-button aria-label="Show settings" disabled>
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button disabled pressed>
+        <sl-toggle-button aria-label="Show settings" disabled pressed>
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
 
         <span>lg</span>
-        <sl-toggle-button size="lg">
+        <sl-toggle-button aria-label="Show settings" size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button pressed size="lg">
+        <sl-toggle-button aria-label="Show settings" pressed size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button disabled size="lg">
+        <sl-toggle-button aria-label="Show settings" disabled size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button disabled pressed size="lg">
+        <sl-toggle-button aria-label="Show settings" disabled pressed size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
@@ -164,37 +164,37 @@ export const All: Story = {
         <span></span>
 
         <span>md</span>
-        <sl-toggle-button fill="outline">
+        <sl-toggle-button aria-label="Show settings" fill="outline">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button fill="outline" pressed>
+        <sl-toggle-button aria-label="Show settings" fill="outline" pressed>
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button fill="outline" disabled>
+        <sl-toggle-button aria-label="Show settings" fill="outline" disabled>
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button disabled fill="outline" pressed>
+        <sl-toggle-button aria-label="Show settings" disabled fill="outline" pressed>
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
 
         <span>lg</span>
-        <sl-toggle-button fill="outline" size="lg">
+        <sl-toggle-button aria-label="Show settings" fill="outline" size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button fill="outline" pressed size="lg">
+        <sl-toggle-button aria-label="Show settings" fill="outline" pressed size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button disabled fill="outline" size="lg">
+        <sl-toggle-button aria-label="Show settings" disabled fill="outline" size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
-        <sl-toggle-button disabled fill="outline" pressed size="lg">
+        <sl-toggle-button aria-label="Show settings" disabled fill="outline" pressed size="lg">
           <sl-icon name="far-gear" slot="default"></sl-icon>
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>

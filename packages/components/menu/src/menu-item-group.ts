@@ -31,8 +31,10 @@ export class MenuItemGroup extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <slot name="header">${this.heading ? html`<span>${this.heading}</span>` : nothing}</slot>
-      <slot @slotchange=${this.#onSlotchange} @sl-select=${this.#onSelect}></slot>
+      <div part="wrapper">
+        <slot name="header">${this.heading ? html`<div class="heading">${this.heading}</div>` : nothing}</slot>
+        <slot @slotchange=${this.#onSlotchange} @sl-select=${this.#onSelect}></slot>
+      </div>
     `;
   }
 

@@ -1,5 +1,27 @@
 # @sl-design-system/angular
 
+## 2.0.0
+
+### Major Changes
+
+- [#1456](https://github.com/sl-design-system/components/pull/1456) [`347418f`](https://github.com/sl-design-system/components/commit/347418fa98477365f5bc0aef1c70c9da4579f2a4) - BREAKING: Split entrypoints
+
+  This change splits the wrappers for each web component package into their own secondary entrypoints.
+
+  Before: `import { ButtonComponent } from '@sl-design-system/angular';`
+
+  After: `import { ButtonComponent } from '@sl-design-system/angular/button';`
+
+  This also moves the form bindings to `@sl-design-system/angular/forms`.
+
+  This change is necessary to allow you to pick-and-choose which components you want to use in your application. This is a workaround because Angular creates Flattened ESM (FESM) bundles which include all components in a single file. This requires users to include _all_ web components in their application, even if they only use one.
+
+### Patch Changes
+
+- [#1446](https://github.com/sl-design-system/components/pull/1446) [`5dab445`](https://github.com/sl-design-system/components/commit/5dab445f7f4fee90b27b7142dfaa493baa278cb0) - Fix incorrect Angular dependencies to be on 17 or 18
+
+- [#1479](https://github.com/sl-design-system/components/pull/1479) [`5c4063e`](https://github.com/sl-design-system/components/commit/5c4063ed63560ca3e07940492653d23a4ec009d8) - Add proper tooltip cleanup
+
 ## 1.0.1
 
 ### Patch Changes

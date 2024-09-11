@@ -147,7 +147,7 @@ export class GridViewModel<T = any> {
 
   /** Returns true if the group is expanded, false if collapsed. */
   getGroupState(value?: string): boolean {
-    return value ? this.#groups.get(value) ?? true : true;
+    return value ? (this.#groups.get(value) ?? true) : true;
   }
 
   getItemAtIndex(index: number): T {

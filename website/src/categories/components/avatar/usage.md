@@ -92,11 +92,11 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 <div class="ds-table-wrapper">
 
 ### Avatar
-|Item|Options|Description|
-|-|-|-|
-|Size|`sm` `md` `lg` `xl` `2xl` `3xl`|The avatar come in six sizes: sm, md, large, xl, 2xl and 3xl providing flexibility to align with your design requirements.|
-|Orientation|`horizontal` `vertical`|The avatar has two different lay-out possibilities relating to the positions of the avatar, name and description relative to each other.|
-|Header|`boolean`|To show the header with the name of the user or entity.|
+|Item| Options                               |Description|
+|-|---------------------------------------|-|
+|Size| `sm` `md` `lg` `xl` `2xl` `3xl` `4xl` |The avatar come in six sizes: sm, md, large, xl, 2xl and 3xl providing flexibility to align with your design requirements.|
+|Orientation| `horizontal` `vertical`               |The avatar has two different lay-out possibilities relating to the positions of the avatar, name and description relative to each other.|
+|Header| `boolean`                             |To show the header with the name of the user or entity.|
 
 {.ds-table .ds-table-align-top}
 </div>

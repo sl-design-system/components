@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, event } from '@sl-design-system/shared';
@@ -112,7 +112,11 @@ export class Tag extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
         ${this.removable
           ? html`
-              <button @click=${this.#onRemove} aria-label=${msg(`Remove '${this.label}'`)} ?disabled=${this.disabled}>
+              <button
+                @click=${this.#onRemove}
+                aria-label=${msg(str`Remove '${this.label}'`)}
+                ?disabled=${this.disabled}
+              >
                 <sl-icon name="xmark"></sl-icon>
               </button>
             `

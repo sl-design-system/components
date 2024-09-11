@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export interface ConfigSettings {}
+export type ConfigSettings = object;
 
 const defaultConfig: ConfigSettings = {};
 

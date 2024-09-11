@@ -22,12 +22,12 @@
     "@fortawesome/sharp-light-svg-icons": "^6.6.0",
     "@fortawesome/sharp-regular-svg-icons": "^6.6.0",
     "@fortawesome/sharp-solid-svg-icons": "^6.6.0",
-    "@tokens-studio/sd-transforms": "^1.2.2",
-    "cssnano": "^7.0.4",
-    "esbuild": "^0.23.0",
+    "@tokens-studio/sd-transforms": "^1.2.3",
+    "cssnano": "^7.0.6",
+    "esbuild": "^0.23.1",
     "fast-glob": "^3.3.2",
-    "postcss": "^8.4.40",
-    "sass": "^1.77.8",
+    "postcss": "^8.4.45",
+    "sass": "^1.78.0",
     "style-dictionary": "^4.0.1"
   }
 }

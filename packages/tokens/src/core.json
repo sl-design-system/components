@@ -58,7 +58,7 @@
     },
     "width": {
       "none": {
-        "value": "0",
+        "value": "0px",
         "type": "borderWidth",
         "description": "border.width.none"
       },
@@ -579,6 +579,10 @@
       },
       "3xl": {
         "value": "80",
+        "type": "sizing"
+      },
+      "4xl": {
+        "value": "160",
         "type": "sizing"
       },
       "badge": {
@@ -1742,6 +1746,10 @@
           },
           "3xl": {
             "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "4xl": {
+            "value": "{space.md} + 2px",
             "type": "spacing"
           }
         },

@@ -8,6 +8,12 @@ import { GridFilter } from './filter.js';
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-grid-filter', () => {
+  try {
+    customElements.define('sl-grid-filter', GridFilter);
+  } catch {
+    //
+  }
+
   let el: GridFilter;
 
   const column = new GridFilterColumn();
@@ -29,12 +35,6 @@ describe('sl-grid-filter', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      try {
-        customElements.define('sl-grid-filter', GridFilter);
-      } catch {
-        //
-      }
-
       column.path = 'membership';
       column.value = 'Premium';
       await new Promise(resolve => setTimeout(resolve, 200));
@@ -70,12 +70,6 @@ describe('sl-grid-filter', () => {
 
   describe('active filter', () => {
     beforeEach(async () => {
-      try {
-        customElements.define('sl-grid-filter', GridFilter);
-      } catch {
-        //
-      }
-
       column.path = 'membership';
       column.value = 'Premium';
       await new Promise(resolve => setTimeout(resolve, 200));

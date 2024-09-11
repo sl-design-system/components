@@ -1,6 +1,5 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
-// import { Checkbox } from '@sl-design-system/checkbox';
 import { html } from 'lit';
 import '../register.js';
 import { type Grid } from './grid.js';

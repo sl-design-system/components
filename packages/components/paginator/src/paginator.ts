@@ -4,6 +4,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Select, SelectOption } from '@sl-design-system/select';
+import {Menu, MenuButton, MenuItem} from '@sl-design-system/menu';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
@@ -34,9 +35,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
+      'sl-menu-button': MenuButton,
+      'sl-menu': Menu,
+      'sl-menu-item': MenuItem,
       'sl-select': Select,
       'sl-select-option': SelectOption
-    };
+    }; // TODO: update dependencies
   }
 
   /** @internal */
@@ -114,6 +118,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /**  @internal The slotted links. */
   @state() linkElements: HTMLLinkElement[] = []; // or add interface PaginatorItem with label in it, url and so on...
 
+  #hiddenLeft: Element[] = []; // TODO: separated component for pageItem?
+
+  #hiddenRight: Element[] = []; // TODO: separated component for pageItem?
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -188,8 +196,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       <nav class="container">
         <ul>
           next and previous should be wrapped by 'li' as well
-          <sl-button fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
-            ><sl-icon name="fas-chevron-right" size="xs"></sl-icon> Previous</sl-button
+          <sl-button aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
+            ><sl-icon name="fas-chevron-right" size="xs"></sl-icon></sl-button
           >
           ${Array.isArray(this.links) && this.links.length > 0
             ? this.links.map(( url, index, array) => html`
@@ -219,8 +227,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
               </div>
             `}
           <slot></slot>
-          <sl-button fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
-            >Next <sl-icon name="fas-chevron-left" size="xs"></sl-icon
+          <sl-menu-button fill="ghost" aria-label="TODO...">
+            <sl-icon slot="button" name="ellipsis"></sl-icon>
+            <sl-menu-item>1</sl-menu-item>
+            <sl-menu-item>2</sl-menu-item>
+            <sl-menu-item>...</sl-menu-item>
+          </sl-menu-button>
+          <sl-button aria-label="Go to the next page {page}" fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
+            ><sl-icon name="fas-chevron-left" size="xs"></sl-icon
           ></sl-button>
         </ul>
       </nav>
@@ -362,6 +376,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   // TODO: #updateVisibleItems?
 
+  // TODO: use #renderMenuButton when it's necessary and use append to add it in the shadow DOM after first and before last page when it's necessary
+
   /*  ${this.options?.map(
     option => html`
                     <sl-checkbox
@@ -407,6 +423,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       (container as HTMLElement)?.offsetWidth
     );
 
+    // TODO: check whether all are visible and should, when not enough wpace and 1 selected it should hide few before last one
+
     // if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
     //   console.log('on RESIZE - not enpough space, should show ellipsis', pagesWrapper);
     // }
@@ -416,11 +434,15 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       if (this.activePage === 1) {
         const pages = this.renderRoot.querySelectorAll('sl-button.page');
         const toHide = Array.from(pages)?.find(page => {
-         return page.textContent?.trim() === (this.activePage + 1)?.toString();
+         // return page.textContent?.trim() === (this.activePage + 1)?.toString();
+          return page.textContent?.trim() === (pages.length - 1)?.toString();
          // console.log('page', page, page.textContent?.trim(), page.textContent?.trim() === (this.activePage + 1)?.toString());
         });
         console.log('toHide', toHide);
         (toHide as HTMLElement).style.background = 'yellow';
+        if (toHide) {
+          this.#hiddenLeft.push(toHide);
+        }
       }
       // TODO: show and hide buttons
       // TODO: count buttons width and compare with difference: container.scrollWidth - container.clientWidth
@@ -451,7 +473,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 // TODO: nav -> ul -> li -> a href? or button - depending whether it is a navigation or not?
 
 // TODO: what to do when we have less pages than in the select selected? so always show all when there are less when the smaller value in select?
-// TODO: how to set active link? maybe parameter?
+// TODO: how to set active link? maybe parameter? links should be slotted?
 // TODO: when links... next and previous should be also a link, not a button
 
 // TODO: maybe hide pagination when there is only one page? https://element-plus.org/en-US/component/pagination#hide-pagination-when-there-is-only-one-page

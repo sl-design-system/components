@@ -11,9 +11,8 @@
           "type": "fontFamilies"
         },
         "icon": {
-          "value": "{icon.typeset.fontFamily.classic}",
-          "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.fontIcon"
+          "value": "{icon.fontFamily.classic}",
+          "type": "fontFamilies"
         }
       },
       "fontWeight": {
@@ -162,6 +161,20 @@
         "4xl": {
           "value": "{size-new.icon.4xl}",
           "type": "fontSizes"
+        }
+      }
+    }
+  },
+  "icon": {
+    "typeset": {
+      "fontWeight": {
+        "regular": {
+          "value": "{icon.typeset.fontWeight.icon-regular}",
+          "type": "fontWeights"
+        },
+        "solid": {
+          "value": "{icon.typeset.fontWeight.icon-solid}",
+          "type": "fontWeights"
         }
       }
     }

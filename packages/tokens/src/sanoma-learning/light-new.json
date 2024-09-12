@@ -16,7 +16,7 @@
     },
     "neutral": {
       "faint": {
-        "value": "{color.foundation.grey.100}",
+        "value": "{color.foundation.grey.050}",
         "type": "color"
       },
       "muted": {
@@ -42,7 +42,7 @@
     },
     "primary": {
       "faint": {
-        "value": "{color.foundation.grey.100}",
+        "value": "{color.foundation.grey.050}",
         "type": "color"
       },
       "muted": {
@@ -521,6 +521,28 @@
       },
       "border": {
         "value": "{color.neutral.subtle}",
+        "type": "color"
+      }
+    },
+    "divider": {
+      "value": "{color.neutral.subtle}",
+      "type": "color"
+    },
+    "grid": {
+      "header": {
+        "value": "{color.neutral.muted}",
+        "type": "color"
+      },
+      "zebra": {
+        "value": "{color.neutral.faint}",
+        "type": "color"
+      },
+      "default": {
+        "value": "{color.base.white}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.divider}",
         "type": "color"
       }
     }

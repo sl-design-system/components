@@ -5,7 +5,7 @@ import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Select, SelectOption } from '@sl-design-system/select';
 import {Menu, MenuButton, MenuItem} from '@sl-design-system/menu';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import {type EventEmitter, event, getNameByPath} from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
 import { property, state, queryAssignedElements } from 'lit/decorators.js';
@@ -423,16 +423,51 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       (container as HTMLElement)?.offsetWidth
     );
 
+    const pages = this.renderRoot.querySelectorAll<Button>('sl-button.page'); // TODO: should work also for links, not only for buttons
+
     // TODO: check whether all are visible and should, when not enough wpace and 1 selected it should hide few before last one
 
     // if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
     //   console.log('on RESIZE - not enpough space, should show ellipsis', pagesWrapper);
     // }
 
+    // todo: check how many items should be hidden and when? and how many pages in the middle between ellipsis
+
+    let totalPagesWidth = 0;
+
+    const lastPage = pages.length;
+
+    pages.forEach(page => {
+      page.style.display = '';
+      totalPagesWidth += page.offsetWidth; // + gap;
+    });
+
+    const moreButton = document.createElement('sl-menu-button') as MenuButton;
+    console.log('moreButton', moreButton);
+    moreButton.fill = 'ghost';
+    moreButton.classList.add('more-button');
+    // moreButton.innerHTML = `<sl-icon slot="button" name="ellipsis"></sl-icon>
+    //         <sl-menu-item>1</sl-menu-item>
+    //         <sl-menu-item>2</sl-menu-item>
+    //         <sl-menu-item>...</sl-menu-item>`;// 'ellipsis';
+    const icon = document.createElement('sl-icon') as Icon;
+    icon.slot = 'button';
+    icon.name = 'ellipsis';
+    moreButton.appendChild(icon);
+
+    const menuItem = document.createElement('sl-menu-item') as MenuItem;
+    menuItem.innerHTML = '1';
+    moreButton.appendChild(menuItem);
+
+    // const moreButton = this.renderMenu();
+
+
+    console.log('totalPagesWidth', totalPagesWidth, 'lastPage', lastPage, 'moreButton', moreButton);
+
     if (container && container.clientWidth < container.scrollWidth) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
       if (this.activePage === 1) {
-        const pages = this.renderRoot.querySelectorAll('sl-button.page');
+        // const pages = this.renderRoot.querySelectorAll('sl-button.page');
         const toHide = Array.from(pages)?.find(page => {
          // return page.textContent?.trim() === (this.activePage + 1)?.toString();
           return page.textContent?.trim() === (pages.length - 1)?.toString();
@@ -441,13 +476,22 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         console.log('toHide', toHide);
         (toHide as HTMLElement).style.background = 'yellow';
         if (toHide) {
-          this.#hiddenLeft.push(toHide);
+          this.#hiddenRight.push(toHide);
+          // toHide.remove();
+          // toHide.append(moreButton);
+          if (!this.renderRoot.querySelector('sl-menu-button.more-button')) {
+           pages[lastPage - 1].before(moreButton);
+           //  moreButton;
+          }
         }
       }
       // TODO: show and hide buttons
       // TODO: count buttons width and compare with difference: container.scrollWidth - container.clientWidth
       console.log('difference distance::::: container.scrollWidth - container.clientWidth ::::', container.scrollWidth - container.clientWidth);
       // TODO: first one and last one should be always visible e.g. <1 ... 4 5 ...8>
+    } else {
+      pages.forEach(page => (page.style.background = ''));
+      this.renderRoot.querySelector('sl-menu-button.more-button')?.remove();
     }
   }
 
@@ -465,6 +509,19 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     // TODO: if links, links need to be updated as well, so we need more links or less
     // what about activePage with links? the page will rerender... maybe selected or active attribute like in tabs will be fine?
     // TODO: maybe slot for links? and separately prev and nex link?
+  }
+
+  renderMenu(): TemplateResult {
+    // const parts = ['header', 'filter', ...this.getParts()];
+
+    return html`
+      <sl-menu-button fill="ghost" aria-label="TODO...">
+            <sl-icon slot="button" name="ellipsis"></sl-icon>
+            <sl-menu-item>1</sl-menu-item>
+            <sl-menu-item>2</sl-menu-item>
+            <sl-menu-item>...</sl-menu-item>
+          </sl-menu-button>
+    `;
   }
 }
 

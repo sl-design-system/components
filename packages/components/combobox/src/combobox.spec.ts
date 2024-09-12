@@ -94,11 +94,11 @@ describe('sl-combobox', () => {
     });
 
     it('should not be readonly', () => {
-      expect(el.readonly).not.to.be.true;
+      expect(el.selectOnly).not.to.be.true;
     });
 
     it('should be readonly when set', async () => {
-      el.readonly = true;
+      el.selectOnly = true;
       await el.updateComplete;
 
       expect(el).to.have.attribute('readonly');

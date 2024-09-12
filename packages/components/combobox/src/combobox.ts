@@ -138,7 +138,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   @property() placeholder?: string;
 
   /** Whether you can interact with the input or if it is just a static, readonly display. */
-  @property({ type: Boolean, reflect: true }) readonly?: boolean;
+  @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
   /** Whether the text field is a required field. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
@@ -147,7 +147,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /** The size of the combobox. */
-  @property({ reflect: true }) size: ComboboxSize = 'md';
+  @property({ reflect: true }) size?: ComboboxSize;
 
   /**
    * The value of the combobox. If `multiple` selection is enabled, then this
@@ -210,8 +210,8 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
     }
 
-    if (changes.has('autocomplete') || changes.has('readonly')) {
-      this.input.readOnly = this.readonly ?? this.autocomplete === 'off';
+    if (changes.has('autocomplete') || changes.has('selectOnly')) {
+      this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
     }
 
     if (changes.has('disabled')) {
@@ -235,7 +235,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         @sl-focus=${this.#onTextFieldFocus}
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
-        ?readonly=${this.readonly}
+        ?readonly=${this.selectOnly}
         ?required=${this.required}
         placeholder=${ifDefined(this.placeholder)}
         size=${ifDefined(this.size)}

@@ -15,8 +15,8 @@ type Props = Pick<
   | 'multiple'
   | 'name'
   | 'placeholder'
-  | 'readonly'
   | 'required'
+  | 'selectOnly'
   | 'showValid'
   | 'value'
 > & {
@@ -75,8 +75,8 @@ export default {
     multiple: false,
     name: 'combobox',
     placeholder: 'Choose a component',
-    readonly: false,
-    required: false
+    required: false,
+    selectOnly: false
   },
   argTypes: {
     autocomplete: {
@@ -94,8 +94,8 @@ export default {
     name,
     options,
     placeholder,
-    readonly,
     required,
+    selectOnly,
     value
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
@@ -116,8 +116,8 @@ export default {
             ?disabled=${disabled}
             ?filter-results=${filterResults}
             ?multiple=${multiple}
-            ?readonly=${readonly}
             ?required=${required}
+            ?select-only=${selectOnly}
             .autocomplete=${autocomplete}
             .name=${name}
             .placeholder=${placeholder}
@@ -172,17 +172,17 @@ export const MultipleStacked: Story = {
   }
 };
 
-export const Readonly: Story = {
-  args: {
-    hint: 'The component is readonly. This means you cannot type in the text field, but you can still select options.',
-    readonly: true
-  }
-};
-
 export const Required: Story = {
   args: {
     hint: 'The component is required. This means you must select an option in order for the field to be valid.',
     required: true
+  }
+};
+
+export const SelectOnly: Story = {
+  args: {
+    hint: 'The component is select only. This means you cannot type in the text field, but you can still select options.',
+    selectOnly: true
   }
 };
 
@@ -241,14 +241,14 @@ export const All: Story = {
         </sl-listbox>
       </sl-combobox>
 
-      <sl-combobox readonly placeholder="Readonly">
+      <sl-combobox select-only placeholder="Select only">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>
           <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
-      <sl-combobox readonly placeholder="Readonly" size="lg">
+      <sl-combobox select-only placeholder="Select only" size="lg">
         <sl-listbox>
           <sl-option>Option 1</sl-option>
           <sl-option>Option 2</sl-option>

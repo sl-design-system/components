@@ -1,6 +1,7 @@
 import { type DataSourceSortDirection, type DataSourceSortFunction, getNameByPath } from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
 import { GridSorter } from './sorter.js';
 
@@ -20,6 +21,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   /** If you want to provide a custom sort function, you can via this property. */
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
 
+  /** The direction of the sorting */
   @property({ attribute: false }) ariaSorting?: 'ascending' | 'descending';
 
   override connectedCallback(): void {
@@ -50,7 +52,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     const parts = ['header', 'sort', ...this.getParts()];
 
     return html`
-      <th part=${parts.join(' ')} .ariaSort=${this.ariaSorting as string}>
+      <th part=${parts.join(' ')} aria-sort=${ifDefined(this.ariaSorting)}>
         <sl-grid-sorter .column=${this} .direction=${this.direction} .path=${this.path} .sorter=${this.sorter}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>

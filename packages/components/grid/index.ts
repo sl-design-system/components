@@ -6,5 +6,4 @@ export * from './src/grid.js';
 export * from './src/select-column.js';
 export * from './src/selection-column.js';
 export * from './src/sort-column.js';
-export * from './src/sorter.js';
 export * from './src/text-field-column.js';

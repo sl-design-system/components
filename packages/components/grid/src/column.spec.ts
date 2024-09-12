@@ -1,6 +1,7 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import { Avatar } from '@sl-design-system/avatar';
+import '@sl-design-system/avatar/register.js';
 import { html } from 'lit';
 import { Person } from 'tools/example-data/index.js';
 import '../register.js';
@@ -19,7 +20,7 @@ describe('sl-column', () => {
         <sl-grid>
           <sl-grid-column path="firstName"></sl-grid-column>
           <sl-grid-column path="lastName"></sl-grid-column>
-          <sl-grid-column path="age" align="end" grow="3"></sl-grid-column>
+          <sl-grid-column path="age" align="end" grow="3" header="Current age"></sl-grid-column>
         </sl-grid>
       `);
       el.items = [
@@ -38,7 +39,7 @@ describe('sl-column', () => {
     it('should render column headers', () => {
       const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
 
-      expect(columns).to.deep.equal(['First name', 'Last name', 'Age']);
+      expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });
 
     it('should have the right justify-content value', () => {
@@ -90,7 +91,10 @@ describe('sl-column', () => {
     });
 
     it('should render the elements set with the custom renderer', () => {
-      expect(cells[0]).to.contain('sl-avatar');
+      const avatar = cells[0].querySelector('sl-avatar') as Avatar;
+
+      expect(avatar).to.exist;
+      expect(avatar?.shadowRoot?.querySelector('[part="name"]')?.textContent).to.equal('John Doe');
     });
 
     it('should have the right parts, including one set on the column', () => {

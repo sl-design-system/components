@@ -8,9 +8,9 @@ import { GridSortColumn } from './sort-column.js';
 import { GridSorter } from './sorter.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+customElements.define('sl-grid-sorter', GridSorter);
 
-describe('sl-sort-column', () => {
-  let wrapper: HTMLElement;
+describe('sl-grid-sorter', () => {
   let el: GridSorter;
   const items = [{ name: 'John' }, { name: 'Jane' }, { name: 'Jimmy' }, { name: 'Jane' }];
 
@@ -20,14 +20,9 @@ describe('sl-sort-column', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      wrapper = await fixture(html`
-        <th>
-          <sl-grid-sorter .column=${column} direction="asc" name="name" .sorter=${dataSource.sort}>
-            Name
-          </sl-grid-sorter>
-        </th>
+      el = await fixture(html`
+        <sl-grid-sorter .column=${column} direction="asc" name="name" .sorter=${dataSource.sort}> Name </sl-grid-sorter>
       `);
-      el = wrapper.querySelector<GridSorter>('sl-grid-sorter')!;
       await el.updateComplete;
 
       // Give grid time to render the table structure

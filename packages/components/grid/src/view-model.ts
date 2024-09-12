@@ -199,6 +199,8 @@ export class GridViewModel<T = any> {
     const children = groups.reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
       return [...acc, ...this.#getHeaderRows(cur.columns)];
     }, []);
+
+    // when there are columns groups, return the groups and the columns outside groups, otherwise only return the columns
     return children.length ? [[...groupsNew], [...children.flat(2), ...columnsOutsideGroups]] : [[...columns]];
   }
 }

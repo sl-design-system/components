@@ -7,7 +7,7 @@ import {
   EventsController,
   event
 } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { type GridColumn } from './column.js';
@@ -75,21 +75,6 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
     this.#events.listen(this, 'keydown', this.#onKeydown);
 
     this.sorterChangeEvent.emit('added');
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    // if (changes.has('direction')) {
-    //   //TODO isn't this a bit dangerous? setting attributes of elements OUTSIDE of this component.
-    //   const header = this.closest('th');
-
-    //   if (!this.direction) {
-    //     header?.removeAttribute('aria-sort');
-    //   } else {
-    //     header?.setAttribute('aria-sort', this.direction === 'asc' ? 'ascending' : 'descending');
-    //   }
-    // }
   }
 
   override disconnectedCallback(): void {

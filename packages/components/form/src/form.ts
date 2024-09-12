@@ -41,6 +41,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
    */
   #value: T | undefined;
 
+  /** Value when the form is initialised, used when the form is reset. */
   #initialValue: T | undefined;
 
   /** The controls in the form; not necessarily the same amount as the fields. */
@@ -95,9 +96,11 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
       }
       return value;
     }, {}) as T;
+
     if (!this.#initialValue && !!value) {
       this.#initialValue = value;
     }
+
     return value;
   }
 
@@ -136,6 +139,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return this.controls.map(c => c.reportValidity()).every(Boolean);
   }
 
+  /** Puts all the initial values of the form controls back and updates the validity of all fields. */
   reset(): void {
     this.controls.map(c => {
       if (c.name) {

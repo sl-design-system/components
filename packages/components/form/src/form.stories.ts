@@ -28,7 +28,7 @@ export default {
     reportValidity: false
   },
   render: args => {
-    const { buttons, disabled, fields, reportValidity, value, reset } = args;
+    const { buttons, disabled, fields, reportValidity, reset, value } = args;
 
     const onToggle = (): void => {
       const form = document.querySelector('sl-form')!;
@@ -43,9 +43,7 @@ export default {
     };
 
     const onReset = (): void => {
-      const form = document.querySelector('sl-form');
-
-      form?.reset();
+      document.querySelector('sl-form')?.reset();
     };
 
     const onUpdate = (): void => {
@@ -101,10 +99,10 @@ export const Reset: Story = {
         </sl-form-field>
         <sl-form-field hint="Has no value on load" label="Text field">
           <sl-text-field name="input2" placeholder="Placeholder" required></sl-text-field>
-        </sl-form-field>`
-    // value: {
-    //   input: 'Value set initially'
-    // }
+        </sl-form-field>`,
+    value: {
+      input: 'Value set initially'
+    }
   }
 };
 

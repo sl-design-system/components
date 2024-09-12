@@ -189,7 +189,7 @@ describe('sl-form', () => {
         </sl-form>
       `);
       // Give the form time to register the controls
-      await new Promise(resolve => setTimeout(resolve, 600));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should reset the form', async () => {

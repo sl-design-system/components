@@ -25,15 +25,13 @@ export default {
 export const LogIn: Story = {
   render: () => {
     const onSubmit = (event: Event & { target: HTMLElement }): void => {
-      event.preventDefault();
       const form = event.target.closest('sl-form') as Form;
 
       console.log(form.reportValidity(), form.value);
     };
 
     const onReset = (event: Event & { target: HTMLElement }): void => {
-      const form = event.target.closest('sl-form') as Form;
-      form.reset();
+      (event.target.closest('sl-form') as Form).reset();
     };
 
     return html`

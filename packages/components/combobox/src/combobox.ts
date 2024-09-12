@@ -243,8 +243,8 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         ${this.multiple && this.currentSelection.length
           ? html`
               <sl-tag-list
-                slot="prefix"
                 size=${ifDefined(this.size)}
+                slot="prefix"
                 stacked
                 .emphasis=${this.disabled ? 'bold' : 'subtle'}
               >

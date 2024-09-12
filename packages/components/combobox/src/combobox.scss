@@ -2,6 +2,10 @@
   display: flex;
 }
 
+:host([disabled]) {
+  pointer-events: none;
+}
+
 sl-text-field {
   flex: 1;
   max-inline-size: 100%;

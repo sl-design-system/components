@@ -68,8 +68,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   @property() size?: TagSize;
 
   /**
-   * Whether there should be a stacked version shown when there is not enough space.
-   * The list doesn't wrap when `stacked` version is applied.
+   * This will hide tags that do not fit inside the available space when set. It will also
+   * display a counter that indicates the number of hidden tags.
    */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
 

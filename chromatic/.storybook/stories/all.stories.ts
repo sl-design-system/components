@@ -5,6 +5,7 @@ import {All as AllBreadcrumbs} from '../../../packages/components/breadcrumbs/sr
 import {All as AllButton} from '../../../packages/components/button/src/button.stories';
 import {All as AllCard} from '../../../packages/components/card/src/card.stories';
 import {All as AllCheckbox} from '../../../packages/components/checkbox/src/checkbox.stories';
+import {All as AllCombobox} from '../../../packages/components/combobox/src/combobox.stories';
 import {All as AllDialog} from '../../../packages/components/dialog/src/dialog.stories';
 import {All as AllIcon} from '../../../packages/components/icon/src/icon.stories';
 import {All as AllInlineMessage} from '../../../packages/components/inline-message/src/inline-message.stories';
@@ -62,6 +63,7 @@ export const Breadcrumbs = {render: AllBreadcrumbs.render};
 export const Button = {render: AllButton.render};
 export const Card = {render: AllCard.render};
 export const Checkbox = {render: AllCheckbox.render};
+export const Combobox = {render: AllCombobox.render};
 export const Dialog = {render: AllDialog.render, play: AllDialog.play};
 export const Icon = {render:  AllIcon.render};
 export const InlineMessage = {render: AllInlineMessage.render};

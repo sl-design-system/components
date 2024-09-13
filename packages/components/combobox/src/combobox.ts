@@ -559,7 +559,16 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   #updateSelection(option?: ComboboxOption): void {
     let selection: ComboboxOption[] = [];
     if (this.multiple) {
-      selection = this.options.filter(o => o.selected);
+      selection =
+        (this.value as T[])
+          ?.map(v => this.options.find(o => (o.value ?? o.content) === v))
+          .filter((o): o is ComboboxOption => !!o) ?? [];
+
+      if (option?.selected) {
+        selection = [...selection, option];
+      } else if (option) {
+        selection = selection.filter(o => o !== option);
+      }
     } else {
       selection = option?.selected ? [option] : [];
     }

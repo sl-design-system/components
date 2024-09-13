@@ -26,6 +26,7 @@ export type ComboboxOption = {
   content: string;
   current: boolean;
   selected: boolean;
+  group?: string;
   value: unknown;
 };
 
@@ -110,7 +111,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | T[] | undefined>>;
 
   /** @internal The current highlighted option in the listbox. */
-  currentOption?: ComboboxOption;
+  @state() currentOption?: ComboboxOption;
 
   /** @internal The current selected options. */
   @state() currentSelection: ComboboxOption[] = [];
@@ -222,11 +223,18 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
     }
 
-    if (changes.has('currentSelection') || changes.has('groupSelected') || changes.has('listbox')) {
-      console.log('groupSelected', this.groupSelected);
-
-      if (this.groupSelected) {
-        this.#selectedGroup ??= this.shadowRoot!.createElement('sl-combobox-selected-group') as SelectedGroup;
+    if (
+      changes.has('currentOption') ||
+      changes.has('currentSelection') ||
+      changes.has('groupSelected') ||
+      changes.has('listbox')
+    ) {
+      if (this.groupSelected && this.currentSelection.length) {
+        if (!this.#selectedGroup) {
+          this.#selectedGroup = this.shadowRoot!.createElement('sl-combobox-selected-group') as SelectedGroup;
+          this.#selectedGroup.addEventListener('click', this.#onOptionsClick);
+        }
+        this.#selectedGroup.currentOption = this.currentOption;
         this.#selectedGroup.options = this.currentSelection;
 
         if (this.#selectedGroup.parentElement !== this.listbox) {
@@ -389,7 +397,17 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       event.stopPropagation();
 
       let delta = 0,
-        index = this.currentOption ? this.options.indexOf(this.currentOption) : -1;
+        index = -1;
+
+      if (this.groupSelected && this.currentOption) {
+        index = this.currentSelection.indexOf(this.currentOption);
+        if (index === -1) {
+          index = this.options.filter(o => !o.selected).indexOf(this.currentOption) + this.currentSelection.length;
+        }
+      } else if (this.currentOption) {
+        index = this.options.indexOf(this.currentOption);
+      }
+
       switch (event.key) {
         case 'ArrowDown':
           delta = 1;
@@ -406,7 +424,16 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       }
 
       index = (index + delta + this.options.length) % this.options.length;
-      this.#updateCurrent(this.options[index]);
+
+      let option = this.options[index];
+      if (this.groupSelected) {
+        option =
+          index < this.currentSelection.length
+            ? this.currentSelection[index]
+            : this.options.filter(o => !o.selected)[index - this.currentSelection.length];
+      }
+
+      this.#updateCurrent(option);
     }
   }
 
@@ -521,7 +548,12 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     if (this.currentOption) {
       this.currentOption.current = true;
       this.currentOption.element.setAttribute('aria-current', 'true');
-      this.currentOption.element.scrollIntoView({ block: 'nearest' });
+
+      if (this.groupSelected && this.currentSelection.includes(this.currentOption)) {
+        this.#selectedGroup!.scrollIntoView({ block: 'nearest' });
+      } else {
+        this.currentOption.element.scrollIntoView({ block: 'nearest' });
+      }
 
       this.input.setAttribute('aria-activedescendant', this.currentOption.id);
     }

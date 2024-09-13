@@ -10,6 +10,7 @@ import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { repeat } from 'lit/directives/repeat.js';
 import styles from './combobox.scss.js';
 
 declare global {
@@ -248,7 +249,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
                 stacked
                 .emphasis=${this.disabled ? 'bold' : 'subtle'}
               >
-                ${this.currentSelection.map(
+                ${repeat(
+                  this.currentSelection,
+                  option => option.id,
                   option => html`
                     <sl-tag
                       @sl-remove=${() => this.#onRemove(option)}

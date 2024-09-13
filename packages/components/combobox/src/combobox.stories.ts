@@ -22,6 +22,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
+  maxWidth?: string;
   options?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -90,6 +91,7 @@ export default {
     filterResults,
     hint,
     label,
+    maxWidth,
     multiple,
     name,
     options,
@@ -122,6 +124,7 @@ export default {
             .name=${name}
             .placeholder=${placeholder}
             .value=${value}
+            style=${`max-width: ${maxWidth ?? 'auto'}`}
           >
             ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
           </sl-combobox>
@@ -168,6 +171,7 @@ export const MultipleStacked: Story = {
   args: {
     ...Multiple.args,
     hint: 'When there is not enough space to display all tags, they will be stacked.',
+    maxWidth: '700px',
     value: ['Button bar', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Switch']
   }
 };

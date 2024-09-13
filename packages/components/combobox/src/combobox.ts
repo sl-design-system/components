@@ -25,8 +25,7 @@ export type ComboboxOption = {
   content: string;
   current: boolean;
   selected: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any;
+  value: unknown;
 };
 
 export type ComboboxSize = 'md' | 'lg';

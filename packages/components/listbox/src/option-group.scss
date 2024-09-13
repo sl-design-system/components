@@ -11,8 +11,7 @@
   margin-inline: var(--sl-space-new-md);
 }
 
-slot[name='header'] .label,
-slot[name='header']::slotted(*) {
+.label {
   color: var(--sl-color-text-plain);
   padding: var(--sl-space-new-md);
   padding-inline-start: calc(

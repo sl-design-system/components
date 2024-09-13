@@ -29,7 +29,7 @@ export class OptionGroup extends LitElement {
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        <slot name="header">${this.label ? html`<div class="label">${this.label}</div>` : nothing}</slot>
+        ${this.label ? html`<div class="label">${this.label}</div>` : nothing}
         <slot></slot>
       </div>
     `;

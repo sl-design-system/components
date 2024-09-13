@@ -13,7 +13,7 @@ sl-text-field {
   padding-inline: var(--_padding-inline) 0;
 
   &:has(> sl-tag-list) {
-    padding-inline: 3px 0;
+    padding-inline: calc(var(--sl-space-new-md) - var(--sl-size-border-width-default)) 0;
   }
 }
 

@@ -4,7 +4,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'collapsed' | 'collapsible' | 'itemsPerPage' | 'pageSizes' | 'total'> & {
+type Props = Pick<Paginator,  'itemsPerPage' | 'pageSizes' | 'total'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
@@ -14,7 +14,6 @@ export default {
   title: 'Navigation/Paginator',
   tags: ['draft'],
   args: {
-    collapsible: false,
     total: 52,
     itemsPerPage: 15,
     pageSizes: [5, 10, 15]
@@ -22,9 +21,6 @@ export default {
   argTypes: {
     actions: {
       table: { disable: true }
-    },
-    collapsed: {
-      control: 'boolean'
     },
     content: {
       table: { disable: true }
@@ -55,46 +51,42 @@ export const Overflow: Story = {
   }
 };
 
-export const Links: Story = {
-  args: {
-    ...Basic.args,
-    total: 100
-  }
-};
+// export const Links: Story = {
+//   args: {
+//     ...Basic.args,
+//     total: 100
+//   }
+// };
 
-export const LinksSlotted: Story = {
-  args: {
-    collapsible: false,
-    total: 52,
-    itemsPerPage: 15,
-    pageSizes: [5, 10, 15]
-  },
-  argTypes: {
-    actions: {
-      table: { disable: true }
-    },
-    collapsed: {
-      control: 'boolean'
-    },
-    content: {
-      table: { disable: true }
-    }
-  },
-  render: ({total, itemsPerPage, pageSizes}) => html`
-    <style>
-      #root-inner {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-    </style>
-    <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}>
-      <a href="javascript:void(0)">1</a>
-      <a href="javascript:void(0)" class="active">2</a>
-      <a href="javascript:void(0)">3</a>
-    </sl-paginator>
-  `
-};
+// export const LinksSlotted: Story = {
+//   args: {
+//     total: 52,
+//     itemsPerPage: 15,
+//     pageSizes: [5, 10, 15]
+//   },
+//   argTypes: {
+//     actions: {
+//       table: { disable: true }
+//     },
+//     content: {
+//       table: { disable: true }
+//     }
+//   },
+//   render: ({total, itemsPerPage, pageSizes}) => html`
+//     <style>
+//       #root-inner {
+//         display: flex;
+//         flex-direction: column;
+//         gap: 1rem;
+//       }
+//     </style>
+//     <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}>
+//       <a href="javascript:void(0)">1</a>
+//       <a href="javascript:void(0)" class="active">2</a>
+//       <a href="javascript:void(0)">3</a>
+//     </sl-paginator>
+//   `
+// };
 
 export const All: Story = {
   render: () => html`

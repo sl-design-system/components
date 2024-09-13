@@ -5,10 +5,10 @@ import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Select, SelectOption } from '@sl-design-system/select';
 import {Menu, MenuButton, MenuItem} from '@sl-design-system/menu';
-import {type EventEmitter, event, getNameByPath} from '@sl-design-system/shared';
+import {type EventEmitter, event} from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
-import { property, state, queryAssignedElements } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
@@ -22,7 +22,7 @@ declare global {
 Icon.register(faChevronLeft, faChevronRight);
 
 /**
- * A paginator component used when there are a lot of data that needs to be shown.
+ * A paginator component used when there are a lot of data that needs to be shown and cannot be shown at once, in one view/page.
  *
  * @csspart header - The header of the panel.
  *
@@ -47,16 +47,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /**
-   * Observe changes in size, so we can check whether we need to show tooltips
-   * for truncated links.
+   * Observe changes in size...
    */
   #observer = new ResizeObserver(() => this.#onResize());
-
-  /** Indicates whether the panel is collapsed or expanded . */
-  @property({ type: Boolean, reflect: true }) collapsed?: boolean;
-
-  /** Indicates whether the panel can be collapsed. */
-  @property({ type: Boolean, reflect: true }) collapsible?: boolean;
 
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -397,15 +390,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   //   `;
   // }
 
-  // /**
-  //  * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.
-  //  * @param force - Whether to force the panel to be collapsed or expanded.
-  //  */
-  // toggle(force = !this.collapsed): void {
-  //   this.collapsed = force;
-  //   this.toggleEvent.emit(this.collapsed);
-  // }
-
   #onResize(): void {
     const pagesWrapper = this.renderRoot.querySelector('.pages-wrapper');
     const container = this.renderRoot.querySelector('.container');
@@ -424,6 +408,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     );
 
     const pages = this.renderRoot.querySelectorAll<Button>('sl-button.page'); // TODO: should work also for links, not only for buttons
+
+    /**
+     * First variant, when 1 is active and not enought space - last one -1 should get ellipsis - or even more
+     * Second variant, when last page is active and not enough space, 2nd one should get ellipsis - or even more
+     * Third variant, ellipsis on the left and on the right, after 1st and before last page. check how many items are currently visible and when the middle one is active?
+     * Maybe use slice to manipulate the visible/hidden arrays?
+     *
+     * */
 
     // TODO: check whether all are visible and should, when not enough wpace and 1 selected it should hide few before last one
 
@@ -459,10 +451,35 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     menuItem.innerHTML = '1';
     moreButton.appendChild(menuItem);
 
+    if (container && pages[0]) {
+      const itemsPerRow = Math.floor(container?.clientWidth / pages[0].clientWidth);
+      console.log('itemsPerRow', itemsPerRow, container?.clientWidth, pages[0].clientWidth);
+    }
+
     // const moreButton = this.renderMenu();
 
+    // TODO: how many pages can be visible (check with buttons ellipsis) - always the same amount
 
-    console.log('totalPagesWidth', totalPagesWidth, 'lastPage', lastPage, 'moreButton', moreButton);
+
+    console.log('totalPagesWidth', totalPagesWidth, 'lastPage', lastPage, 'moreButton', moreButton, container, this.activePage === lastPage - 1, this.activePage, lastPage - 1, lastPage, this.activePage === lastPage);
+
+    let totalWidth = 0;
+    let hiddenButtons = [];
+
+    pages.forEach(button => {
+      // Ensure all pages are visible initially
+      button.style.display = 'inline-block';
+      totalWidth += button.offsetWidth;
+
+      if (container && totalWidth > container.clientWidth) {
+        button.style.display = 'none';
+        hiddenButtons.push(button);
+      }
+    });
+
+    console.log('Visible buttons:', pages.length - hiddenButtons.length, pages.length, totalWidth);
+    console.log(`Hidden buttons:`, hiddenButtons.length);
+
 
     if (container && container.clientWidth < container.scrollWidth) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
@@ -482,6 +499,23 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           if (!this.renderRoot.querySelector('sl-menu-button.more-button')) {
            pages[lastPage - 1].before(moreButton);
            //  moreButton;
+          }
+        }
+      } else if (this.activePage === lastPage) {
+        const toHide = Array.from(pages)?.find(page => {
+          return page.textContent?.trim() === '2';
+          // return page.textContent?.trim() === (pages.length - 1)?.toString();
+          // console.log('page', page, page.textContent?.trim(), page.textContent?.trim() === (this.activePage + 1)?.toString());
+        });
+        (toHide as HTMLElement).style.background = 'yellow';
+        if (toHide) {
+          this.#hiddenLeft.push(toHide);
+          // toHide.remove();
+          // toHide.append(moreButton);
+          if (!this.renderRoot.querySelector('sl-menu-button.more-button')) {
+            // pages[this.activePage + 1].after(moreButton);
+            pages[0].after(moreButton);
+            //  moreButton;
           }
         }
       }
@@ -550,3 +584,5 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
  * Do we need PaginatorItem and PaginatorLabel in it?
  *
  * */
+
+// TODO: paginator with links will be made in a later stage

@@ -67,10 +67,9 @@ describe('sl-combobox', () => {
       expect(input.value).to.equal('Option 1');
     });
 
-    it('should have a medium size', () => {
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
-      expect(el.renderRoot.querySelector('sl-text-field')).to.have.attribute('size', 'md');
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
     });
 
     it('should have a large size when set', async () => {
@@ -93,15 +92,15 @@ describe('sl-combobox', () => {
       expect(input).to.have.attribute('placeholder', 'Placeholder');
     });
 
-    it('should not be readonly', () => {
+    it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });
 
-    it('should be readonly when set', async () => {
+    it('should be select only when set', async () => {
       el.selectOnly = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('readonly');
+      expect(el).to.have.attribute('select-only');
       expect(input).to.have.attribute('readonly');
     });
 
@@ -395,8 +394,8 @@ describe('sl-combobox', () => {
 
       const tags = el.renderRoot.querySelectorAll('sl-tag');
       expect(tags).to.have.lengthOf(2);
-      expect(tags[0]).to.have.trimmed.text('Option 1');
-      expect(tags[1]).to.have.trimmed.text('Option 2');
+      expect(tags[0]).to.have.trimmed.text('Option 2');
+      expect(tags[1]).to.have.trimmed.text('Option 1');
     });
 
     it('should remove a tag after clicking the remove button', async () => {

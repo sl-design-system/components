@@ -353,6 +353,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.#toggleSelected(this.currentOption);
       this.#updateSelection(this.currentOption);
       this.#updateFilteredOptions();
+      this.#updateTextFieldValue();
       this.#updateValue();
 
       if (!this.multiple) {
@@ -395,6 +396,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.#toggleSelected(option);
       this.#updateSelection(option);
       this.#updateFilteredOptions();
+      this.#updateTextFieldValue();
       this.#updateValue();
 
       if (!this.multiple) {

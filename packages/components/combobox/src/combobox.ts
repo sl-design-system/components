@@ -2,7 +2,7 @@ import { LOCALE_STATUS_EVENT, localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { Option } from '@sl-design-system/listbox';
+import { Option, OptionGroup } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';
@@ -12,6 +12,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
 import styles from './combobox.scss.js';
+import { SelectedGroup } from './selected-group.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -50,6 +51,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-combobox-selected-group': SelectedGroup,
       'sl-icon': Icon,
       'sl-tag': Tag,
       'sl-tag-list': TagList,
@@ -87,6 +89,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
    */
   #popoverJustClosed = false;
 
+  /** The group that contains all the selected options when `groupSelected` is set. */
+  #selectedGroup?: SelectedGroup;
+
   /**
    * The behavior of the combobox when it comes to suggesting options based on user input.
    * - 'off': Suggest is off
@@ -118,6 +123,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
+
+  /** When set will group all the selected options at the top of the listbox. */
+  @property({ type: Boolean, attribute: 'group-selected' }) groupSelected?: boolean;
 
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -212,6 +220,22 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('autocomplete') || changes.has('selectOnly')) {
       this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
+    }
+
+    if (changes.has('currentSelection') || changes.has('groupSelected') || changes.has('listbox')) {
+      console.log('groupSelected', this.groupSelected);
+
+      if (this.groupSelected) {
+        this.#selectedGroup ??= this.shadowRoot!.createElement('sl-combobox-selected-group') as SelectedGroup;
+        this.#selectedGroup.options = this.currentSelection;
+
+        if (this.#selectedGroup.parentElement !== this.listbox) {
+          this.listbox?.prepend(this.#selectedGroup);
+        }
+      } else {
+        this.#selectedGroup?.remove();
+        this.#selectedGroup = undefined;
+      }
     }
 
     if (changes.has('disabled')) {
@@ -453,6 +477,18 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     }
   }
 
+  #flattenOptions(el: Element): Option[] {
+    if (el instanceof Option) {
+      return [el];
+    } else if (el instanceof OptionGroup) {
+      return Array.from(el.children).flatMap(child => this.#flattenOptions(child));
+    } else if (el instanceof HTMLSlotElement) {
+      return Array.from(el.assignedElements({ flatten: true })).flatMap(child => this.#flattenOptions(child));
+    }
+
+    return [];
+  }
+
   #toggleSelected(option?: ComboboxOption, force?: boolean): void {
     if (!option) {
       return;
@@ -462,6 +498,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     option.selected = selected;
     option.element.selected = selected;
+    option.element.style.display = this.groupSelected && selected ? 'none' : '';
 
     if (selected) {
       option.element.setAttribute('aria-selected', 'true');
@@ -512,7 +549,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.input.setAttribute('aria-controls', this.listbox.id);
 
       this.options = Array.from(this.listbox.children)
-        .filter((el): el is Option => el instanceof Option)
+        .flatMap(el => this.#flattenOptions(el))
         .map(el => {
           el.id ||= `sl-combobox-option-${nextUniqueId++}`;
 

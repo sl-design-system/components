@@ -1,0 +1,10 @@
+:host {
+  flex-direction: column;
+}
+
+.other {
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
+  margin-block-start: var(--sl-space-new-sm);
+  padding-block-start: var(--sl-space-new-lg);
+  padding-inline-start: calc(var(--sl-space-new-2xl) + var(--sl-space-new-md));
+}

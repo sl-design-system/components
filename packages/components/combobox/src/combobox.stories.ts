@@ -12,6 +12,7 @@ type Props = Pick<
   | 'autocomplete'
   | 'disabled'
   | 'filterResults'
+  | 'groupSelected'
   | 'multiple'
   | 'name'
   | 'placeholder'
@@ -89,6 +90,7 @@ export default {
     autocomplete,
     disabled,
     filterResults,
+    groupSelected,
     hint,
     label,
     maxWidth,
@@ -117,6 +119,7 @@ export default {
           <sl-combobox
             ?disabled=${disabled}
             ?filter-results=${filterResults}
+            ?group-selected=${groupSelected}
             ?multiple=${multiple}
             ?required=${required}
             ?select-only=${selectOnly}
@@ -159,11 +162,51 @@ export const FilterResults: Story = {
   }
 };
 
+export const Grouped: Story = {
+  args: {
+    options: () => html`
+      <sl-listbox>
+        <sl-option-group label="Actions">
+          <sl-option>Button</sl-option>
+          <sl-option>Button bar</sl-option>
+          <sl-option>Menu button</sl-option>
+          <sl-option>Toggle button</sl-option>
+          <sl-option>Toggle group</sl-option>
+        </sl-option-group>
+        <sl-option-group label="Form">
+          <sl-option>Checkbox</sl-option>
+          <sl-option>Checkbox group</sl-option>
+          <sl-option>Combobox</sl-option>
+          <sl-option>Radio group</sl-option>
+          <sl-option>Select</sl-option>
+          <sl-option>Switch</sl-option>
+          <sl-option>Text area</sl-option>
+          <sl-option>Text field</sl-option>
+        </sl-option-group>
+      </sl-listbox>
+    `
+  }
+};
+
 export const Multiple: Story = {
   args: {
     hint: 'The multiple property is true, which means you can select more than 1 option at a time. This will render the selected options as tags.',
     multiple: true,
     value: ['Button bar', 'Checkbox']
+  }
+};
+
+export const MultipleGroupSelected: Story = {
+  args: {
+    ...Multiple.args,
+    groupSelected: true
+  }
+};
+
+export const MultipleGrouped: Story = {
+  args: {
+    ...Grouped.args,
+    multiple: true
   }
 };
 

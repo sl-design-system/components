@@ -14,7 +14,5 @@
 .label {
   color: var(--sl-color-text-plain);
   padding: var(--sl-space-new-md);
-  padding-inline-start: calc(
-    var(--sl-menu-item-indent, 0) * (var(--sl-size-icon-sm) + var(--sl-space-new-md)) + var(--sl-space-new-md)
-  );
+  padding-inline-start: var(--sl-space-new-2xl);
 }

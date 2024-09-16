@@ -1,7 +1,7 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Option, OptionGroup } from '@sl-design-system/listbox';
-import { type CSSResultGroup, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { type ComboboxOption } from './combobox';
@@ -31,6 +31,9 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
   /** The current option. */
   @property({ attribute: false }) currentOption?: ComboboxOption;
 
+  /** Indicates whether the options are grouped. */
+  @property({ type: Boolean, reflect: true, attribute: 'has-groups' }) hasGroups?: boolean;
+
   /** The selected options to be displayed. */
   @property({ attribute: false }) options: ComboboxOption[] = [];
 
@@ -45,8 +48,9 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
               selected
               .id=${option.id}
               .value=${option.value}
-              >${option.content}</sl-option
             >
+              ${option.content} ${this.hasGroups ? html`<span class="group">${option.group}</span>` : nothing}
+            </sl-option>
           `
         )}
       </div>

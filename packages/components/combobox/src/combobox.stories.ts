@@ -206,7 +206,9 @@ export const MultipleGroupSelected: Story = {
 export const MultipleGrouped: Story = {
   args: {
     ...Grouped.args,
-    multiple: true
+    groupSelected: true,
+    multiple: true,
+    value: ['Button bar', 'Checkbox']
   }
 };
 

@@ -235,6 +235,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
           this.#selectedGroup.addEventListener('click', this.#onOptionsClick);
         }
         this.#selectedGroup.currentOption = this.currentOption;
+        this.#selectedGroup.hasGroups = !!this.listbox?.querySelector('sl-option-group');
         this.#selectedGroup.options = this.currentSelection;
 
         if (this.#selectedGroup.parentElement !== this.listbox) {
@@ -590,6 +591,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
             element: el,
             content: el.textContent?.trim() || '',
             current: el.getAttribute('aria-current') === 'true',
+            group: el.closest('sl-option-group')?.getAttribute('label') || undefined,
             selected: el.getAttribute('aria-selected') === 'true',
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             value: el.value || el.textContent?.trim() || ''

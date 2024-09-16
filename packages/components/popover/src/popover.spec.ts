@@ -49,11 +49,9 @@ describe('sl-popover', () => {
       expect(popover).to.have.attribute('popover');
     });
 
-    // FIXME: Don't test a custom element using its constructor
-    it.skip('should set id attribute if not already set', () => {
-      const element = new Popover();
-
-      expect(element.hasAttribute('id')).to.be.true;
+    it('should set id if not already set', () => {
+      expect(popover).to.have.attribute('id');
+      expect(popover.id).to.match(/sl-popover-(\d+)/);
     });
 
     it('should not show the popover by default', () => {
@@ -64,13 +62,6 @@ describe('sl-popover', () => {
       await showPopoverElement();
 
       expect(popover?.matches(':popover-open')).to.be.true;
-    });
-
-    // FIXME: This probably fails due to limited space and the flip() middleware
-    it.skip('should have an actual placement bottom by default', async () => {
-      await showPopoverElement();
-
-      expect(popover).to.have.attribute('actual-placement', 'bottom');
     });
   });
 

@@ -4,9 +4,9 @@
   --_border-width: 1px;
   --_border-radius: 3px;
   --_cell-background: #fff;
-  --_cell-border: 1px solid #eee;
-  --_cell-padding-block: 0.5rem;
-  --_cell-padding-inline: 1rem;
+  --_cell-border: var(--sl-size-border-width-default) solid var(--sl-color-grid-border);
+  --_cell-padding-block: var(--sl-space-150);
+  --_cell-padding-inline: var(--sl-space-200);
   --_drag-handle-inline-size: 28px;
   --_dragging-background: #ddeffe;
   --_dragging-border: var(--_border-width) solid #056dc2;

@@ -200,13 +200,12 @@ export class GridViewModel<T = any> {
         if (col instanceof GridColumnGroup) {
           return col;
         }
+        const newGroup = new GridColumnGroup<T>();
         if (!(col.parentElement instanceof GridColumnGroup)) {
-          const newGroup = new GridColumnGroup<T>();
           // add the column this header group represents to the group in order to calculate the width correctly.
-          newGroup.columns = [col];
-          return newGroup;
+          newGroup.columns = [col as GridColumnGroup<T>];
         }
-        return null;
+        return newGroup;
       })
       .filter(g => !!g);
     const children = groups.reduce((acc: Array<Array<GridColumn<T>>>, cur) => {

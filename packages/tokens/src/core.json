@@ -1114,7 +1114,7 @@
             "description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "{space.button.gap.md}"
           },

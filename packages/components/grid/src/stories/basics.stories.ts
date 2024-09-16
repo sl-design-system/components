@@ -69,7 +69,7 @@ export const ColumnGroups: Story = {
         <sl-grid-column path="address.zip"></sl-grid-column>
         <sl-grid-column path="address.state"></sl-grid-column>
       </sl-grid-column-group>
-      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
     </sl-grid>
   `
 };

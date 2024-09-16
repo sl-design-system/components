@@ -194,8 +194,21 @@ export class GridViewModel<T = any> {
 
   #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
     const groups = columns.filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup);
-    const groupsNew = columns.map(col => (col instanceof GridColumnGroup ? col : new GridColumnGroup<T>()));
     const columnsOutsideGroups = columns.filter((col): col is GridColumn<T> => !(col instanceof GridColumnGroup));
+    const groupsNew = columns
+      .map(col => {
+        if (col instanceof GridColumnGroup) {
+          return col;
+        }
+        if (!(col.parentElement instanceof GridColumnGroup)) {
+          const newGroup = new GridColumnGroup<T>();
+          // add the column this header group represents to the group in order to calculate the width correctly.
+          newGroup.columns = [col];
+          return newGroup;
+        }
+        return null;
+      })
+      .filter(g => !!g);
     const children = groups.reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
       return [...acc, ...this.#getHeaderRows(cur.columns)];
     }, []);

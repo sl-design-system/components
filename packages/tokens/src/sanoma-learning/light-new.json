@@ -20,7 +20,7 @@
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.grey.150}",
+        "value": "{color.foundation.grey.100}",
         "type": "color"
       },
       "subtle": {
@@ -46,7 +46,7 @@
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.grey.150}",
+        "value": "{color.foundation.grey.100}",
         "type": "color"
       },
       "subtle": {
@@ -530,7 +530,7 @@
     },
     "grid": {
       "header": {
-        "value": "{color.neutral.muted}",
+        "value": "{color.neutral.faint}",
         "type": "color"
       },
       "zebra": {

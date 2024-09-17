@@ -3416,30 +3416,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma-export/cli@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "@figma-export/cli@npm:6.0.1"
+"@figma-export/cli@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@figma-export/cli@npm:6.0.2"
   dependencies:
-    "@figma-export/core": "npm:^6.0.0"
+    "@figma-export/core": "npm:^6.0.2"
     "@figma-export/types": "npm:^6.0.0"
-    ora: "npm:~8.0.1"
+    ora: "npm:~8.1.0"
     sade: "npm:~1.8.1"
   bin:
-    figma-export: bin/run.js
-  checksum: 10c0/814eb1fa2f44b402ddc90c1372e9d2fe3d536f1f3bc202316541f596d2ec34eed238cf9ba2c988b759495fe80d0f5f970c7c60f1d60c75125900d3a94e0e1f56
+    figma-export: ./bin/run.js
+  checksum: 10c0/f68546de9dca783dbe7814bc42b4e47ae104826b0c28dda749b298a97f2b293ef2f990d3502c719f2efc9fac1f039475f742ef976ebed6acb41a003d1a17b675
   languageName: node
   linkType: hard
 
-"@figma-export/core@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "@figma-export/core@npm:6.0.0"
+"@figma-export/core@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@figma-export/core@npm:6.0.2"
   dependencies:
     "@figma-export/types": "npm:^6.0.0"
-    axios: "npm:^1.6.8"
+    axios: "npm:^1.7.7"
     figma-js: "npm:~1.16.0"
-    p-limit: "npm:^5.0.0"
+    p-limit: "npm:^6.1.0"
     p-retry: "npm:^6.2.0"
-  checksum: 10c0/19bf5acdd704db8625f427f19be00bb1fed0b5c2f1bfdab7832b06fcc6d6e262ae49734007999dcefdbca649625214bba33c6e6c0987628c07f94e648d1e6e40
+  checksum: 10c0/88357409375967b392ce55a4f411914059d88bf839031a725d7deb476143057ddf792672deab5b7b6928722bbdcd3c4326a0073272351dcc1e5efe48b13fb3cc
   languageName: node
   linkType: hard
 
@@ -3452,14 +3452,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma-export/transform-svg-with-svgo@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "@figma-export/transform-svg-with-svgo@npm:6.0.1"
+"@figma-export/transform-svg-with-svgo@npm:^6.0.2":
+  version: 6.0.2
+  resolution: "@figma-export/transform-svg-with-svgo@npm:6.0.2"
   dependencies:
     "@figma-export/types": "npm:^6.0.0"
-    "@types/svgo": "npm:~2.6.4"
+    "@types/svgo": "npm:~3.0.0"
     svgo: "npm:~3.3.2"
-  checksum: 10c0/eca623a498bbf00ba9c5a5a9d42d334b3c0def143d9cc8e912fcf7f92751c65d6768309ccefe3704c8c77f25ae6cf7f3b2f23899bb3d62f56b4e52953210bbdb
+  checksum: 10c0/9af6d03e374145b5f48a53342d5596e453ad45b674cbe38878536b8a3e1a45112e8b84aff6b19a18ee330728b92bda2587fe7ce0da27bafb802b9d64a95bb687
   languageName: node
   linkType: hard
 
@@ -4941,7 +4941,7 @@ __metadata:
     storybook: "npm:^8.2.9"
     stylelint: "npm:^16.9.0"
     typescript: "npm:^5.4.5"
-    vite: "npm:^5.4.3"
+    vite: "npm:^5.4.4"
     wireit: "npm:^0.14.9"
   languageName: unknown
   linkType: soft
@@ -5040,9 +5040,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/scripts@workspace:scripts"
   dependencies:
-    "@figma-export/cli": "npm:^6.0.1"
+    "@figma-export/cli": "npm:^6.0.2"
     "@figma-export/output-components-as-svg": "npm:^6.0.1"
-    "@figma-export/transform-svg-with-svgo": "npm:^6.0.1"
+    "@figma-export/transform-svg-with-svgo": "npm:^6.0.2"
     "@fortawesome/fontawesome-svg-core": "npm:^6.6.0"
     "@fortawesome/free-brands-svg-icons": "npm:^6.6.0"
     "@fortawesome/pro-duotone-svg-icons": "npm:^6.6.0"
@@ -5053,13 +5053,13 @@ __metadata:
     "@fortawesome/sharp-light-svg-icons": "npm:^6.6.0"
     "@fortawesome/sharp-regular-svg-icons": "npm:^6.6.0"
     "@fortawesome/sharp-solid-svg-icons": "npm:^6.6.0"
-    "@tokens-studio/sd-transforms": "npm:^1.2.3"
+    "@tokens-studio/sd-transforms": "npm:^1.2.4"
     cssnano: "npm:^7.0.6"
     esbuild: "npm:^0.23.1"
     fast-glob: "npm:^3.3.2"
     postcss: "npm:^8.4.45"
     sass: "npm:^1.78.0"
-    style-dictionary: "npm:^4.0.1"
+    style-dictionary: "npm:^4.1.0"
   languageName: unknown
   linkType: soft
 
@@ -5969,9 +5969,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokens-studio/sd-transforms@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "@tokens-studio/sd-transforms@npm:1.2.3"
+"@tokens-studio/sd-transforms@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "@tokens-studio/sd-transforms@npm:1.2.4"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.1"
     "@bundled-es-modules/postcss-calc-ast-parser": "npm:^0.1.6"
@@ -5981,7 +5981,7 @@ __metadata:
     is-mergeable-object: "npm:^1.1.1"
   peerDependencies:
     style-dictionary: ^4.0.1
-  checksum: 10c0/4dd44ee9faec1a591cda5c4852619589f1d85e87b45b75a7ffcdd461887d4b2f79183bc5e5820d9924f96853740422462284dd8824412628252c1450b82f38ec
+  checksum: 10c0/44fce747bb192b5dc6792a5d640746c09a24b0a8a5455108c70f424f1215380a0a3c4bb25ab27924ef3cd8332c45bc0576a3770488dc00fd0604b8c0df43f64a
   languageName: node
   linkType: hard
 
@@ -6679,12 +6679,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/svgo@npm:~2.6.4":
-  version: 2.6.4
-  resolution: "@types/svgo@npm:2.6.4"
+"@types/svgo@npm:~3.0.0":
+  version: 3.0.0
+  resolution: "@types/svgo@npm:3.0.0"
   dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/cc148fc6c0b734c88f0db0753692560f930c20ac5f3739b6147143bebb5007357bc0f8a82f9d9d0bddedca70b713e8e16530b036546a095084ee8c43911432a0
+    svgo: "npm:*"
+  checksum: 10c0/59aee8e9e9348565a4397f0295ddefee2c3cecb02b0f6d08671d541d2bd3baf1697a76764f4930bd0948fc2e8f7dacda7d7b282e08418a7a36fa393b410e924c
   languageName: node
   linkType: hard
 
@@ -8202,14 +8202,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.6.8":
-  version: 1.7.3
-  resolution: "axios@npm:1.7.3"
+"axios@npm:^1.7.7":
+  version: 1.7.7
+  resolution: "axios@npm:1.7.7"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10c0/a18cbe559203efa05fb1fec2d1898e23bf6329bd2575784ee32aa11b5bbe1d54b9f472c49a261294125519cf62aa4fe5ef6e647bb7482eafc15bffe15ab314ce
+  checksum: 10c0/4499efc89e86b0b49ffddc018798de05fab26e3bf57913818266be73279a6418c3ce8f9e934c7d2d707ab8c095e837fc6c90608fb7715b94d357720b5f568af7
   languageName: node
   linkType: hard
 
@@ -9228,15 +9228,6 @@ __metadata:
   dependencies:
     restore-cursor: "npm:^3.1.0"
   checksum: 10c0/92a2f98ff9037d09be3dfe1f0d749664797fb674bf388375a2207a1203b69d41847abf16434203e0089212479e47a358b13a0222ab9fccfe8e2644a7ccebd111
-  languageName: node
-  linkType: hard
-
-"cli-cursor@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "cli-cursor@npm:4.0.0"
-  dependencies:
-    restore-cursor: "npm:^4.0.0"
-  checksum: 10c0/e776e8c3c6727300d0539b0d25160b2bb56aed1a63942753ba1826b012f337a6f4b7ace3548402e4f2f13b5e16bfd751be672c44b203205e7eca8be94afec42c
   languageName: node
   linkType: hard
 
@@ -17776,20 +17767,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ora@npm:~8.0.1":
-  version: 8.0.1
-  resolution: "ora@npm:8.0.1"
+"ora@npm:~8.1.0":
+  version: 8.1.0
+  resolution: "ora@npm:8.1.0"
   dependencies:
     chalk: "npm:^5.3.0"
-    cli-cursor: "npm:^4.0.0"
+    cli-cursor: "npm:^5.0.0"
     cli-spinners: "npm:^2.9.2"
     is-interactive: "npm:^2.0.0"
     is-unicode-supported: "npm:^2.0.0"
     log-symbols: "npm:^6.0.0"
-    stdin-discarder: "npm:^0.2.1"
-    string-width: "npm:^7.0.0"
+    stdin-discarder: "npm:^0.2.2"
+    string-width: "npm:^7.2.0"
     strip-ansi: "npm:^7.1.0"
-  checksum: 10c0/7a94c075a7f182a6ace80c3505b945520ab16e05ebe536a714a3d61e51dd8f777c75c8be920e157e0c60ada6fe89bca37376897fb4d486bea5771229be992097
+  checksum: 10c0/4ac9a6dd7fe915a354680f33ced21ee96d13d3c5ab0dc00b3c3ba9e3695ed141b1d045222990f5a71a9a91f801042a0b0d32e58dfc5509ff9b81efdd3fcf6339
   languageName: node
   linkType: hard
 
@@ -17866,12 +17857,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-limit@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "p-limit@npm:5.0.0"
+"p-limit@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "p-limit@npm:6.1.0"
   dependencies:
-    yocto-queue: "npm:^1.0.0"
-  checksum: 10c0/574e93b8895a26e8485eb1df7c4b58a1a6e8d8ae41b1750cc2cc440922b3d306044fc6e9a7f74578a883d46802d9db72b30f2e612690fcef838c173261b1ed83
+    yocto-queue: "npm:^1.1.1"
+  checksum: 10c0/40af29461206185a81bdc971ed499d97ceb344114fd21420db95debd9c979b6c02d66a41c321246d09245a51e68410e13df92622cc8c0130f87c6bd81a15d777
   languageName: node
   linkType: hard
 
@@ -20139,16 +20130,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"restore-cursor@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "restore-cursor@npm:4.0.0"
-  dependencies:
-    onetime: "npm:^5.1.0"
-    signal-exit: "npm:^3.0.2"
-  checksum: 10c0/6f7da8c5e422ac26aa38354870b1afac09963572cf2879443540449068cb43476e9cbccf6f8de3e0171e0d6f7f533c2bc1a0a008003c9a525bbc098e89041318
-  languageName: node
-  linkType: hard
-
 "restore-cursor@npm:^5.0.0":
   version: 5.1.0
   resolution: "restore-cursor@npm:5.1.0"
@@ -21212,7 +21193,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stdin-discarder@npm:^0.2.1":
+"stdin-discarder@npm:^0.2.2":
   version: 0.2.2
   resolution: "stdin-discarder@npm:0.2.2"
   checksum: 10c0/c78375e82e956d7a64be6e63c809c7f058f5303efcaf62ea48350af072bacdb99c06cba39209b45a071c1acbd49116af30df1df9abb448df78a6005b72f10537
@@ -21347,6 +21328,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string-width@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "string-width@npm:7.2.0"
+  dependencies:
+    emoji-regex: "npm:^10.3.0"
+    get-east-asian-width: "npm:^1.0.0"
+    strip-ansi: "npm:^7.1.0"
+  checksum: 10c0/eb0430dd43f3199c7a46dcbf7a0b34539c76fe3aa62763d0b0655acdcbdf360b3f66f3d58ca25ba0205f42ea3491fa00f09426d3b7d3040e506878fc7664c9b9
+  languageName: node
+  linkType: hard
+
 "string.prototype.trim@npm:^1.2.9":
   version: 1.2.9
   resolution: "string.prototype.trim@npm:1.2.9"
@@ -21468,9 +21460,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-dictionary@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "style-dictionary@npm:4.0.1"
+"style-dictionary@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "style-dictionary@npm:4.1.0"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.1"
     "@bundled-es-modules/glob": "npm:^10.4.2"
@@ -21486,7 +21478,7 @@ __metadata:
     tinycolor2: "npm:^1.6.0"
   bin:
     style-dictionary: bin/style-dictionary.js
-  checksum: 10c0/7d8fd94eaba4ce1cc72bad1906c0cf82aa48c357ec37eda0f0b50186fbdc3eadd9c8f8a13d0eb7b0bb24e259e24175a6077521aa1d16c3139eb445cfa066a331
+  checksum: 10c0/4949e032bc13f1a28191fa83f0d64a1f86236660ba978781237df84e2e2dd93bcb1a1a87a619e2fbdfc80170321bbd4997e524d3fb5922e9ce60fb4d3b0e4e1f
   languageName: node
   linkType: hard
 
@@ -21721,7 +21713,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svgo@npm:^3.3.2, svgo@npm:~3.3.2":
+"svgo@npm:*, svgo@npm:^3.3.2, svgo@npm:~3.3.2":
   version: 3.3.2
   resolution: "svgo@npm:3.3.2"
   dependencies:
@@ -22992,9 +22984,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^5.4.3":
-  version: 5.4.3
-  resolution: "vite@npm:5.4.3"
+"vite@npm:^5.4.4":
+  version: 5.4.4
+  resolution: "vite@npm:5.4.4"
   dependencies:
     esbuild: "npm:^0.21.3"
     fsevents: "npm:~2.3.3"
@@ -23031,7 +23023,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/7afe601bcba82f81980c718fc171ba8f0c45e3bffaeb7ef831b64b84e396f963c3c87818b74da4c8e817d1bce1c179f1efae3bcb14d2e94b4eb635071722c8f2
+  checksum: 10c0/2752e7dd5584ea7cc057742e8f5cbf2f2bd3a2bceb8794fbd3d52f1e88d362b5ac7f1c70be7a3d01b3d768320c8a8ad0df287fd72f253bf040423c36c67a3e89
   languageName: node
   linkType: hard
 
@@ -23685,6 +23677,13 @@ __metadata:
   version: 1.0.0
   resolution: "yocto-queue@npm:1.0.0"
   checksum: 10c0/856117aa15cf5103d2a2fb173f0ab4acb12b4b4d0ed3ab249fdbbf612e55d1cadfd27a6110940e24746fb0a78cf640b522cc8bca76f30a3b00b66e90cf82abe0
+  languageName: node
+  linkType: hard
+
+"yocto-queue@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "yocto-queue@npm:1.1.1"
+  checksum: 10c0/cb287fe5e6acfa82690acb43c283de34e945c571a78a939774f6eaba7c285bacdf6c90fbc16ce530060863984c906d2b4c6ceb069c94d1e0a06d5f2b458e2a92
   languageName: node
   linkType: hard
 

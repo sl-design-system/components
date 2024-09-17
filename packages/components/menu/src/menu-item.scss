@@ -1,5 +1,5 @@
 :host {
-  border-radius: var(--sl-size-border-radius-default);
+  border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-text-default);
   display: block;
   flex-grow: 1;
@@ -64,7 +64,7 @@ sl-icon[name='chevron-right'] {
 [part='wrapper'] {
   align-items: center;
   background: var(--sl-color-action-background-accent-subtle-idle);
-  border-radius: var(--sl-size-border-radius-default);
+  border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: flex;
   gap: var(--sl-space-new-md);
@@ -101,5 +101,5 @@ sl-icon[name='chevron-right'] {
 
 slot[name='submenu']::slotted(sl-menu) {
   // Make sure the first menu item in the nested menu aligns horizontally
-  margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-border-width-default)) * -1);
+  margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-borderWidth-default)) * -1);
 }

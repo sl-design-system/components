@@ -1,4 +1,5 @@
 import { permutateThemes, register, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
 import { readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
@@ -10,6 +11,21 @@ import StyleDictionary from 'style-dictionary';
 const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
 register(StyleDictionary);
+
+StyleDictionary.registerTransform({
+  name: 'name/kebabWithCamel',
+  type: 'name',
+  transform: function (token, config) {
+    const { filePath, path } = token;
+
+    // If the token is a new contextual token, do not kebab-case it
+    if (filePath && (filePath.includes('primitives.json') || filePath.includes('system.json') || filePath.endsWith('-new.json'))) {
+      return [config.prefix].concat(path).join('-');
+    } else {
+      return kebabCase([config.prefix].concat(path).join(' '));
+    }
+  }
+});
 
 StyleDictionary.registerFileHeader({
   name: 'sl/legal',
@@ -166,7 +182,7 @@ const build = async (production = false) => {
           css: {
             transformGroup: 'tokens-studio',
             transforms: [
-              'name/kebab',
+              'name/kebabWithCamel',
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',

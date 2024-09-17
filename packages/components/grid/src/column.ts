@@ -1,12 +1,5 @@
-import {
-  type EventEmitter,
-  EventsController,
-  dasherize,
-  event,
-  getNameByPath,
-  getValueByPath
-} from '@sl-design-system/shared';
-import { type CSSResult, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type EventEmitter, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type Grid } from './grid.js';
 
@@ -37,7 +30,11 @@ export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: Gri
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
-  #events = new EventsController(this);
+  /** The parent grid. */
+  #grid?: Grid<T>;
+
+  /** The state changed event callback. */
+  #onStateChanged = () => this.stateChanged();
 
   /** Actual width of the column. */
   #width?: number;
@@ -66,7 +63,19 @@ export class GridColumn<T = any> extends LitElement {
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
   /** The parent grid instance. */
-  @property({ attribute: false }) grid?: Grid<T>;
+  @property({ attribute: false })
+  set grid(value: Grid<T> | undefined) {
+    if (this.#grid) {
+      this.#grid.removeEventListener('sl-grid-state-change', this.#onStateChanged);
+    }
+
+    this.#grid = value;
+    this.#grid?.addEventListener('sl-grid-state-change', this.#onStateChanged);
+  }
+
+  get grid(): Grid<T> | undefined {
+    return this.#grid;
+  }
 
   /**
    * The ratio with which the column will grow relative to the other columns.
@@ -116,12 +125,11 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
-  override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('grid')) {
-      if (this.grid) {
-        this.#events.listen(this.grid, 'sl-grid-state-change', this.stateChanged);
-      }
-    }
+  override disconnectedCallback(): void {
+    this.#grid?.removeEventListener('sl-grid-state-change', this.#onStateChanged);
+    this.#grid = undefined;
+
+    super.disconnectedCallback();
   }
 
   /**

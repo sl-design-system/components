@@ -65,10 +65,7 @@ export class GridColumn<T = any> extends LitElement {
   /** The parent grid instance. */
   @property({ attribute: false })
   set grid(value: Grid<T> | undefined) {
-    if (this.#grid) {
-      this.#grid.removeEventListener('sl-grid-state-change', this.#onStateChanged);
-    }
-
+    this.#grid?.removeEventListener('sl-grid-state-change', this.#onStateChanged);
     this.#grid = value;
     this.#grid?.addEventListener('sl-grid-state-change', this.#onStateChanged);
   }

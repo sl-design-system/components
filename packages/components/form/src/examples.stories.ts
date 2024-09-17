@@ -30,6 +30,10 @@ export const LogIn: Story = {
       console.log(form.reportValidity(), form.value);
     };
 
+    const onReset = (event: Event & { target: HTMLElement }): void => {
+      (event.target.closest('sl-form') as Form).reset();
+    };
+
     return html`
       <sl-form>
         <sl-form-field label="Username">
@@ -48,8 +52,9 @@ export const LogIn: Story = {
           <sl-checkbox name="remember">Remember me</sl-checkbox>
         </sl-form-field>
 
-        <sl-button-bar align="space-between">
-          <sl-button fill="link">Forgot password?</sl-button>
+        <sl-button-bar align="end">
+          <sl-button fill="link" style="margin-inline-end:auto">Forgot password?</sl-button>
+          <sl-button @click=${onReset} fill="outline" variant="primary">Reset</sl-button>
           <sl-button @click=${onSubmit} variant="primary">Log in</sl-button>
         </sl-button-bar>
       </sl-form>

@@ -11,13 +11,14 @@ import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';
 
 type Props = Pick<Form, 'disabled' | 'value'> & {
   buttons?(): TemplateResult;
   fields(args: Props): TemplateResult;
+  reset: boolean;
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
@@ -30,7 +31,7 @@ export default {
     reportValidity: false
   },
   render: args => {
-    const { buttons, disabled, fields, reportValidity, value } = args;
+    const { buttons, disabled, fields, reportValidity, reset, value } = args;
 
     const onToggle = (): void => {
       const form = document.querySelector('sl-form')!;
@@ -42,6 +43,10 @@ export default {
       const form = document.querySelector('sl-form');
 
       console.log(form?.reportValidity(), form?.value);
+    };
+
+    const onReset = (): void => {
+      document.querySelector('sl-form')?.reset();
     };
 
     const onUpdate = (): void => {
@@ -67,6 +72,7 @@ export default {
           ${buttons?.() ??
           html`
             <sl-button @click=${onToggle}>Toggle</sl-button>
+            ${reset ? html`<sl-button @click=${onReset}>Reset</sl-button>` : nothing}
             <sl-button @click=${onReport} variant="primary">Report</sl-button>
           `}
         </sl-button-bar>
@@ -83,6 +89,23 @@ export const Basic: Story = {
         <sl-text-field name="textField" required></sl-text-field>
       </sl-form-field>
     `
+  }
+};
+
+export const Reset: Story = {
+  args: {
+    reset: true,
+    reportValidity: true,
+    fields: () =>
+      html` <sl-form-field hint="Has value on load" label="Text field">
+          <sl-text-field name="input" placeholder="Placeholder" required value="Value set initially"></sl-text-field>
+        </sl-form-field>
+        <sl-form-field hint="Has no value on load" label="Text field">
+          <sl-text-field name="input2" placeholder="Placeholder" required></sl-text-field>
+        </sl-form-field>`,
+    value: {
+      input: 'Value set initially'
+    }
   }
 };
 
@@ -205,6 +228,7 @@ export const AllValid: Story = {
   args: {
     ...All.args,
     reportValidity: true,
+    reset: true,
     value: {
       textField: 'Text field',
       textArea: 'Text area',

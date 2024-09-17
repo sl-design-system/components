@@ -295,7 +295,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.neutral.100}",
               "type": "color",
               "description": "color.button.info.outline.disabled.background"
             },
@@ -305,7 +305,7 @@
               "description": "color.button.info.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.neutral.100}",
               "type": "color",
               "description": "color.button.info.outline.disabled.border"
             }

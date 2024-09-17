@@ -120,12 +120,13 @@ sl-button[active],
 //}
 
 .container {
-  display: flex;
-  overflow: hidden;
+  //display: flex;
+  //overflow: hidden;
 }
 
 .pages-wrapper {
   display: flex;
+  overflow: hidden;
 }
 
 .page-sizes {
@@ -142,9 +143,11 @@ sl-button[active],
 }
 
 ul {
-  display: flex;
+  //display: flex;
   align-items: center;
   gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
 }
 
 li {

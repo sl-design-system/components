@@ -30,12 +30,15 @@ export default {
     return html`
       <h2>With buttons</h2>
       <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}></sl-paginator>
-      <h2>With links</h2>
-    <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes} .links=${['javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)']}></sl-paginator>`;
+      `;
   }
 } satisfies Meta<Props>;
 
 // TODO: is slot necessary?
+
+
+// <h2>With links</h2>
+// <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes} .links=${['javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)']}></sl-paginator>
 
 export const Basic: Story = {
   args: {

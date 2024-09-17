@@ -100,16 +100,16 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @state() buttons: Button[] = []; // TODO: remove it?
 
   /** When `navigation` is set, the paginator will have links instead of buttons and should be used as a navigation on the page. */
-  @property() navigation?: boolean; // TODO: links? array with links?
+ // @property() navigation?: boolean; // TODO: links? array with links?
 
   /** should be used together with `navigation` property. The array should have the same width as itemsPerPage and should have the right order ???? */
-  @property() links?: string[] = []; // or maybe a function used to rendering urls?
+ // @property() links?: string[] = []; // or maybe a function used to rendering urls?
 
   // /** @internal The slotted links. */
   // @queryAssignedElements() linkElements?: HTMLLinkElement[];
 
   /**  @internal The slotted links. */
-  @state() linkElements: HTMLLinkElement[] = []; // or add interface PaginatorItem with label in it, url and so on...
+ // @state() linkElements: HTMLLinkElement[] = []; // or add interface PaginatorItem with label in it, url and so on...
 
   #hiddenLeft: Element[] = []; // TODO: separated component for pageItem?
 
@@ -179,30 +179,20 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     // const itemsAmountToCount = this.activePage === this.#pages ? itemsPerPage : this.currentlyVisibleItems;
     const start = this.activePage === 1 ? 1 : ((this.activePage - 1) * itemsPerPage /*itemsAmountToCount*/ /*this.currentlyVisibleItems*/) + 1;
     const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems; //this.activePage === this.#pages ? undefined : Math.min(start + pageSize, total == null ? Infinity : total);
-    // debugger;
+
     console.log('start and end', start, end, this.renderRoot.querySelector<Select>('sl-select')?.value as number, itemsPerPage);
-    console.log('links', this.links, this.links?.length);
-    console.log('linkElements', this.linkElements, this.linkElements?.length);
+   // console.log('links', this.links, this.links?.length);
+   // console.log('linkElements', this.linkElements, this.linkElements?.length);
+
+    // TODO: next and previous should be wrapped by 'li' as well
 
     return html`
       ${start} - ${end} of ${this.total} items
       <nav class="container">
         <ul>
-          next and previous should be wrapped by 'li' as well
           <sl-button aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
             ><sl-icon name="fas-chevron-right" size="xs"></sl-icon></sl-button
           >
-          ${Array.isArray(this.links) && this.links.length > 0
-            ? this.links.map(( url, index, array) => html`
-                  <li>
-                    <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
-                       class=${classMap({ page: true, active: this.activePage == index + 1 })}
-                       href=${url}>
-                      ${index + 1}
-                    </a>
-                  </li>
-                `)
-            : html`
               <div class="pages-wrapper">
                 ${Array.from({ length: pages }).map(
                   (_, index) => html`
@@ -217,15 +207,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
                 </sl-button>
               `
                 )}
+                <sl-menu-button fill="ghost" aria-label="TODO...">
+                  <sl-icon slot="button" name="ellipsis"></sl-icon>
+                  <sl-menu-item>1</sl-menu-item>
+                  <sl-menu-item>2</sl-menu-item>
+                  <sl-menu-item>...</sl-menu-item>
+                </sl-menu-button>
               </div>
-            `}
           <slot></slot>
-          <sl-menu-button fill="ghost" aria-label="TODO...">
-            <sl-icon slot="button" name="ellipsis"></sl-icon>
-            <sl-menu-item>1</sl-menu-item>
-            <sl-menu-item>2</sl-menu-item>
-            <sl-menu-item>...</sl-menu-item>
-          </sl-menu-button>
           <sl-button aria-label="Go to the next page {page}" fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
             ><sl-icon name="fas-chevron-left" size="xs"></sl-icon
           ></sl-button>
@@ -259,6 +248,35 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     : nothing}
     `;
   } // <slot></slot>
+
+  // with links:::::
+//   ${Array.isArray(this.links) && this.links.length > 0
+//     ? this.links.map(( url, index, array) => html`
+//                   <li>
+//                     <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
+//                        class=${classMap({ page: true, active: this.activePage == index + 1 })}
+//                        href=${url}>
+//                       ${index + 1}
+//                     </a>
+//                   </li>
+//                 `)
+// : html`
+//               <div class="pages-wrapper">
+//                 ${Array.from({ length: pages }).map(
+//   (_, index) => html`
+//                 <sl-button
+//                   fill="ghost"
+//                   size="md"
+//                   class="page"
+//                   ?active=${this.activePage == index + 1}
+//                   @click=${this.#setActive}
+//                 >
+//                   ${index + 1}
+//                 </sl-button>
+//               `
+// )}
+//               </div>
+//             `}
 
   // TODO: if this.navigation? then links inside instead of buttons
 
@@ -464,26 +482,30 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('totalPagesWidth', totalPagesWidth, 'lastPage', lastPage, 'moreButton', moreButton, container, this.activePage === lastPage - 1, this.activePage, lastPage - 1, lastPage, this.activePage === lastPage);
 
     let totalWidth = 0;
-    let hiddenButtons = [];
+    let hiddenButtons: Button[] = [];
 
     pages.forEach(button => {
       // Ensure all pages are visible initially
       button.style.display = 'inline-block';
       totalWidth += button.offsetWidth;
 
-      if (container && totalWidth > container.clientWidth) {
+      console.log('should hide buttons?', pagesWrapper && totalWidth > pagesWrapper.clientWidth);
+
+      if (pagesWrapper && totalWidth > pagesWrapper.clientWidth /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
         button.style.display = 'none';
         hiddenButtons.push(button);
       }
     });
 
     console.log('Visible buttons:', pages.length - hiddenButtons.length, pages.length, totalWidth);
-    console.log(`Hidden buttons:`, hiddenButtons.length);
+    console.log(`Hidden buttons:`, hiddenButtons.length, hiddenButtons);
+
+    // TODO: add hidden buttons to sl-menu
 
 
-    if (container && container.clientWidth < container.scrollWidth) {
+    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth /*container && container.clientWidth < container.scrollWidth*/) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
-      if (this.activePage === 1) {
+      if (this.activePage === 1 || this.activePage === 2) {
         // const pages = this.renderRoot.querySelectorAll('sl-button.page');
         const toHide = Array.from(pages)?.find(page => {
          // return page.textContent?.trim() === (this.activePage + 1)?.toString();
@@ -521,7 +543,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       }
       // TODO: show and hide buttons
       // TODO: count buttons width and compare with difference: container.scrollWidth - container.clientWidth
-      console.log('difference distance::::: container.scrollWidth - container.clientWidth ::::', container.scrollWidth - container.clientWidth);
+      // console.log('difference distance::::: container.scrollWidth - container.clientWidth ::::', container.scrollWidth - container.clientWidth);
+      console.log('difference distance::::: pagesWrapper.scrollWidth - pagesWrapper.clientWidth ::::', pagesWrapper.scrollWidth - pagesWrapper.clientWidth);
       // TODO: first one and last one should be always visible e.g. <1 ... 4 5 ...8>
     } else {
       pages.forEach(page => (page.style.background = ''));

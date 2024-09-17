@@ -101,6 +101,10 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
     return this.#form?.reportValidity() ?? false;
   }
 
+  reset(): void {
+    this.#form?.reset();
+  }
+
   /**
    * Notify the `FormValidationErrors` component that the form state has changed.
    * Emit the event in the next frame, so the form controls have to time to update.

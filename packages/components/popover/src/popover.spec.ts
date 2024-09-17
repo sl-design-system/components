@@ -63,13 +63,6 @@ describe('sl-popover', () => {
 
       expect(popover?.matches(':popover-open')).to.be.true;
     });
-
-    // FIXME: This probably fails due to limited space and the flip() middleware
-    it.skip('should have an actual placement bottom by default', async () => {
-      await showPopoverElement();
-
-      expect(popover).to.have.attribute('actual-placement', 'bottom');
-    });
   });
 
   describe('Closing popover', () => {

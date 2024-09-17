@@ -43,7 +43,7 @@ export class AnchorDirective extends Directive {
     this.#host.addEventListener('beforetoggle', (event: Event) =>
       this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
     );
-    const rootMargin = `-${this.#config?.rootMarginTop}px 0px 0px 0px`;
+    const rootMargin = `-${this.#config?.rootMarginTop ?? 0}px 0px 0px 0px`;
     this.observer = new IntersectionObserver(
       (entries, _) => {
         updatePopoverVisibility(this.#host, !entries[0].isIntersecting);

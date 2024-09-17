@@ -9,6 +9,7 @@ import { type Combobox } from './combobox.js';
 
 type Props = Pick<
   Combobox,
+  | 'allowCustomValues'
   | 'autocomplete'
   | 'disabled'
   | 'filterResults'
@@ -70,6 +71,7 @@ export default {
   title: 'Form/Combobox',
   tags: ['draft'],
   args: {
+    allowCustomValues: false,
     autocomplete: 'both',
     disabled: false,
     filterResults: false,
@@ -87,6 +89,7 @@ export default {
     }
   },
   render: ({
+    allowCustomValues,
     autocomplete,
     disabled,
     filterResults,
@@ -117,6 +120,7 @@ export default {
       <sl-form @sl-update-state=${onUpdate} @sl-update-validity=${onUpdate}>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-combobox
+            ?allow-custom-values=${allowCustomValues}
             ?disabled=${disabled}
             ?filter-results=${filterResults}
             ?group-selected=${groupSelected}
@@ -142,6 +146,12 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const AllowCustomValues: Story = {
+  args: {
+    allowCustomValues: true
+  }
+};
 
 export const Disabled: Story = {
   args: {

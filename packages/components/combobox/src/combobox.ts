@@ -12,6 +12,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { repeat } from 'lit/directives/repeat.js';
 import styles from './combobox.scss.js';
+import { CustomOption } from './custom-option.js';
 import { SelectedGroup } from './selected-group.js';
 
 declare global {
@@ -22,9 +23,10 @@ declare global {
 
 export type ComboboxOption = {
   id: string;
-  element: Option;
+  element?: Option;
   content: string;
   current: boolean;
+  custom?: boolean;
   selected: boolean;
   group?: string;
   value: unknown;
@@ -52,6 +54,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-combobox-custom-option': CustomOption,
       'sl-combobox-selected-group': SelectedGroup,
       'sl-icon': Icon,
       'sl-tag': Tag,
@@ -68,6 +71,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
+
+  /** The custom option element used to display the `customOption` value. */
+  #customOption?: CustomOption;
 
   /** Event controller. */
   #events = new EventsController(this);
@@ -93,6 +99,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
 
+  /** Will allow custom values not in the listbox when set. */
+  @property({ type: Boolean, attribute: 'allow-custom-values' }) allowCustomValues?: boolean;
+
   /**
    * The behavior of the combobox when it comes to suggesting options based on user input.
    * - 'off': Suggest is off
@@ -115,6 +124,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** @internal The current selected options. */
   @state() currentSelection: ComboboxOption[] = [];
+
+  /** @internal The custom option (used in combination with `allowCustomValues`). */
+  @state() customOption?: ComboboxOption;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -247,6 +259,20 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       }
     }
 
+    if (changes.has('customOption')) {
+      if (this.customOption) {
+        if (!this.#customOption) {
+          this.#customOption ||= this.shadowRoot!.createElement('sl-combobox-custom-option') as CustomOption;
+          this.#customOption.addEventListener('click', this.#onOptionsClick);
+        }
+
+        this.#customOption.value = this.customOption?.value;
+      } else {
+        this.#customOption?.remove();
+        this.#customOption = undefined;
+      }
+    }
+
     if (changes.has('disabled')) {
       this.input.disabled = !!this.disabled;
     }
@@ -365,6 +391,14 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         this.input.value = currentOption.content;
         this.input.setSelectionRange(value.length, currentOption.content.length);
       }
+    } else if (this.allowCustomValues) {
+      currentOption = {
+        id: `sl-combobox-custom-option-${nextUniqueId++}`,
+        content: value,
+        current: false,
+        selected: false,
+        value
+      };
     } else {
       currentOption = this.options.find(option => value === option.value);
     }
@@ -381,7 +415,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' && this.currentOption) {
+    if (event.key === 'Enter' && this.allowCustomValues && !this.currentOption) {
+      console.log('Add custom option', this.input.value);
+    } else if (event.key === 'Enter' && this.currentOption) {
       this.#toggleSelected(this.currentOption);
       this.#updateSelection(this.currentOption);
       this.#updateFilteredOptions();
@@ -525,13 +561,16 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     const selected = typeof force === 'boolean' ? force : !option.selected;
 
     option.selected = selected;
-    option.element.selected = selected;
-    option.element.style.display = this.groupSelected && selected ? 'none' : '';
 
-    if (selected) {
-      option.element.setAttribute('aria-selected', 'true');
-    } else {
-      option.element.removeAttribute('aria-selected');
+    if (option.element) {
+      option.element.selected = selected;
+      option.element.style.display = this.groupSelected && selected ? 'none' : '';
+
+      if (selected) {
+        option.element.setAttribute('aria-selected', 'true');
+      } else {
+        option.element.removeAttribute('aria-selected');
+      }
     }
   }
 
@@ -539,7 +578,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   #updateCurrent(option?: ComboboxOption): void {
     if (this.currentOption) {
       this.currentOption.current = false;
-      this.currentOption.element.removeAttribute('aria-current');
+      this.currentOption.element?.removeAttribute('aria-current');
 
       this.input.removeAttribute('aria-activedescendant');
     }
@@ -548,12 +587,12 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     if (this.currentOption) {
       this.currentOption.current = true;
-      this.currentOption.element.setAttribute('aria-current', 'true');
+      this.currentOption.element?.setAttribute('aria-current', 'true');
 
       if (this.groupSelected && this.currentSelection.includes(this.currentOption)) {
         this.#selectedGroup!.scrollIntoView({ block: 'nearest' });
       } else {
-        this.currentOption.element.scrollIntoView({ block: 'nearest' });
+        this.currentOption.element?.scrollIntoView({ block: 'nearest' });
       }
 
       this.input.setAttribute('aria-activedescendant', this.currentOption.id);
@@ -567,7 +606,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         match = option.content.toLowerCase().startsWith(value!.toLowerCase());
       }
 
-      option.element.style.display = match ? '' : 'none';
+      if (option.element) {
+        option.element.style.display = match ? '' : 'none';
+      }
     });
   }
 

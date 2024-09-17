@@ -15,6 +15,7 @@ import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
 import { GridColumnGroup } from './column-group.js';
@@ -356,7 +357,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ${rows.slice(0, -1).map(
         row => html`
           <tr>
-            ${row.map(col => col.renderHeader())}
+            ${repeat(
+              row,
+              col => col.path,
+              col => col.renderHeader()
+            )}
           </tr>
         `
       )}
@@ -368,7 +373,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <tr style=${styleMap({ display: showSelectionHeader ? 'none' : '' })}>
-        ${rows.at(-1)?.map(col => col.renderHeader())}
+        ${repeat(
+          rows.at(-1) ?? [],
+          col => col.path,
+          col => col.renderHeader()
+        )}
       </tr>
     `;
   }

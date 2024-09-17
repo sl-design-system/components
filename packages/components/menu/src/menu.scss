@@ -1,7 +1,7 @@
 :host {
   background: var(--sl-color-elevation-surface-raised);
-  border: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
-  border-radius: var(--sl-size-border-radius-default);
+  border: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
   color: var(--sl-color-text-default);
@@ -112,14 +112,14 @@
 }
 
 ::slotted(sl-menu-item-group:not(:first-child)) {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
   margin-block-start: var(--sl-space-new-sm);
   padding-block-start: var(--sl-space-new-md);
 }
 
 ::slotted(hr) {
   border: 0;
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
   margin: var(--sl-space-new-sm) 0;
   padding: 0;
 }

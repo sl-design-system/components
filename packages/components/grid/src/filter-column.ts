@@ -91,6 +91,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
     super.stateChanged();
 
     const filter = this.grid?.dataSource?.filters.get(this.id);
+
     this.value = filter ? filter.value : undefined;
   }
 

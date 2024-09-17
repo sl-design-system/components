@@ -1,11 +1,11 @@
 // stylelint-disable color-no-hex
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
-  --_border-color: #eee;
-  --_border-width: 1px;
+  --_border-color: var(--sl-color-grid-border);
+  --_border-width: var(--sl-size-border-width-default);
   --_border-radius: 3px;
   --_cell-background: #fff;
-  --_cell-border: var(--sl-size-border-width-default) solid var(--sl-color-grid-border);
+  --_cell-border: var(--_border-width) solid var(--_border-color);
   --_cell-padding-block: var(--sl-space-150);
   --_cell-padding-inline: var(--sl-space-200);
   --_drag-handle-inline-size: 28px;
@@ -16,12 +16,14 @@
   --_drop-target-outline-offset: -2px;
   --_font: var(--sl-text-body-md-normal);
   --_group-background: #eee;
-  --_header-background: #f9f9f9;
+  --_header-background: var(--sl-color-grid-header);
   --_header-font-weight: 600;
   --_header-padding-block: 0.5rem;
   --_header-padding-inline: 1rem;
+  --_vertical-border: none;
+  --_vertical-border-offset: 8px;
   --_selected-background: #338bff0f;
-  --_striped-background: #f9f9f9;
+  --_striped-background: var(--sl-color-grid-zebra);
 
   display: block;
   font: var(--_font);
@@ -39,7 +41,22 @@
   --_cell-border: none;
 }
 
-:host([striped]) tr[part~='odd'] {
+:host([column-divider]) {
+  // this is needed because we need to set the vertical-border-offset separately for the th,
+  // when this is set on a highter level than the `--_vertical-border-offset` var it can't "reach" it.
+  td,
+  th {
+    --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+      calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+      no-repeat;
+
+    &:first-of-type {
+      --_vertical-border: none;
+    }
+  }
+}
+
+:host([striped]) tr[part~='even'] {
   --_cell-background: var(--_striped-background);
 }
 
@@ -130,7 +147,7 @@ tr {
 th,
 td {
   align-items: center;
-  background: var(--_cell-background);
+  background: var(--_vertical-border), var(--_cell-background);
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
@@ -153,6 +170,7 @@ th {
   --_cell-background: var(--_header-background);
   --_cell-padding-block: var(--_header-padding-block);
   --_cell-padding-inline: var(--_header-padding-inline);
+  --_vertical-border-offset: 0px;
 
   font-weight: var(--_header-font-weight);
   text-align: start;

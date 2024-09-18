@@ -25,7 +25,7 @@ export const templates = {
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
-  s8c1f47dc13ead0c3: str`Creëer "${0}"`,
+  s8c1f47dc13ead0c3: str`Maak "${0}" aan`,
   s9cd91b99a108a45f: 'Lijst met verborgen elementen',
   s9f7452dd75d54d31: 'fout',
   sa447e2f801a7eb2d: 'Kies een optie.',

@@ -187,7 +187,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     // TODO: next and previous should be wrapped by 'li' as well
 
     return html`
-      ${start} - ${end} of ${this.total} items
+      <div style="display: none;">${start} - ${end} of ${this.total} items</div>
       <nav class="container">
         <ul>
           <sl-button aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
@@ -220,7 +220,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           ></sl-button>
         </ul>
       </nav>
-      <div class="details">
+      <div class="details" style="display: none;">
         <div>Total elements: ${this.total}</div>
         <div>Items per page: ${this.itemsPerPage}</div>
         ${this.total && this.itemsPerPage
@@ -428,7 +428,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const pages = this.renderRoot.querySelectorAll<Button>('sl-button.page'); // TODO: should work also for links, not only for buttons
 
     /**
-     * First variant, when 1 is active and not enought space - last one -1 should get ellipsis - or even more
+     * First variant, when 1 is active and not enough space - last one -1 should get ellipsis - or even more
      * Second variant, when last page is active and not enough space, 2nd one should get ellipsis - or even more
      * Third variant, ellipsis on the left and on the right, after 1st and before last page. check how many items are currently visible and when the middle one is active?
      * Maybe use slice to manipulate the visible/hidden arrays?
@@ -447,12 +447,15 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     const lastPage = pages.length;
 
+    let totalWidth = 0;
+    let hiddenButtons: Button[] = [];
+
     pages.forEach(page => {
       page.style.display = '';
       totalPagesWidth += page.offsetWidth; // + gap;
     });
 
-    const moreButton = document.createElement('sl-menu-button') as MenuButton;
+    const moreButton = /*document*/this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
     console.log('moreButton', moreButton);
     moreButton.fill = 'ghost';
     moreButton.classList.add('more-button');
@@ -465,9 +468,25 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     icon.name = 'ellipsis';
     moreButton.appendChild(icon);
 
+    let menuItems: Node[] = [];
+
     const menuItem = document.createElement('sl-menu-item') as MenuItem;
     menuItem.innerHTML = '1';
-    moreButton.appendChild(menuItem);
+    const menuItems3 = hiddenButtons?.forEach(() => { return document.createElement('sl-menu-item') as MenuItem});
+    const menuItems2 = hiddenButtons.map(
+      (button) => {
+        // Temporarily make the button visible
+        button.style.display = 'block';
+        const innerHTML = button.innerText;
+        // Revert the display property back to none
+        button.style.display = 'none';
+        return innerHTML;
+        // return item.className;
+      }
+    ) ?? [];
+  //  debugger;
+    console.log('menuItems', menuItems, hiddenButtons, menuItems2);
+    // moreButton.appendChild(menuItem);
 
     if (container && pages[0]) {
       const itemsPerRow = Math.floor(container?.clientWidth / pages[0].clientWidth);
@@ -478,34 +497,105 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // TODO: how many pages can be visible (check with buttons ellipsis) - always the same amount
 
+    // TODO: for array slice - starting point and end like 1-10 1 selected, 1 to length -1 slice from selected to length -1?
+
 
     console.log('totalPagesWidth', totalPagesWidth, 'lastPage', lastPage, 'moreButton', moreButton, container, this.activePage === lastPage - 1, this.activePage, lastPage - 1, lastPage, this.activePage === lastPage);
 
-    let totalWidth = 0;
-    let hiddenButtons: Button[] = [];
+    // let totalWidth = 0;
+    // let hiddenButtons: Button[] = [];
 
-    pages.forEach(button => {
-      // Ensure all pages are visible initially
-      button.style.display = 'inline-block';
-      totalWidth += button.offsetWidth;
+    // TODO: slice here below on pages:
 
-      console.log('should hide buttons?', pagesWrapper && totalWidth > pagesWrapper.clientWidth);
+    console.log('pages slice', Array.from(pages).slice(0, -1)); // or -1 instead of length -1 /*pages.length -1)*/
 
-      if (pagesWrapper && totalWidth > pagesWrapper.clientWidth /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
-        button.style.display = 'none';
-        hiddenButtons.push(button);
-      }
-    });
-
-    console.log('Visible buttons:', pages.length - hiddenButtons.length, pages.length, totalWidth);
-    console.log(`Hidden buttons:`, hiddenButtons.length, hiddenButtons);
+    // (Array.from(pages).slice(0, -1)).forEach(button => {
+    //   // Ensure all pages are visible initially
+    //   button.style.display = 'inline-block';
+    //   totalWidth += button.offsetWidth;
+    //
+    //   console.log('should hide buttons?', pagesWrapper && totalWidth > pagesWrapper.clientWidth);
+    //
+    //   if (pagesWrapper && totalWidth > pagesWrapper.clientWidth /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+    //     button.style.display = 'none';
+    //     hiddenButtons.push(button);
+    //   }
+    // });
+    //
+    const visibleButtons = pages.length - hiddenButtons.length;
+    //
+    console.log('Visible buttons1:', pages.length - hiddenButtons.length, pages.length, totalWidth);
+    console.log(`Hidden buttons1:`, hiddenButtons?.length, hiddenButtons);
+    console.log('visibleButtons and activePage - buttons1:', visibleButtons, this.activePage, 'half', Math.ceil(visibleButtons / 2),'activePage bigger than half',  this.activePage > Math.ceil(visibleButtons / 2));
 
     // TODO: add hidden buttons to sl-menu
 
 
-    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth /*container && container.clientWidth < container.scrollWidth*/) {
+    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - moreButton.offsetWidth /*container && container.clientWidth < container.scrollWidth*/) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
       if (this.activePage === 1 || this.activePage === 2) {
+
+        (Array.from(pages).slice(0, -1)).forEach(button => {
+          // Ensure all pages are visible initially
+          button.style.display = 'inline-block';
+          totalWidth += button.offsetWidth;
+
+          console.log('should hide buttons?', pagesWrapper && totalWidth > pagesWrapper.clientWidth);
+
+          if (pagesWrapper && totalWidth > pagesWrapper.clientWidth - moreButton.offsetWidth /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+            hiddenButtons.push(button);
+
+            const menuItems1 = hiddenButtons?.forEach(() => { return document.createElement('sl-menu-item') as MenuItem});
+            const menuItems2 = hiddenButtons.map(
+              (button) => {
+                // Temporarily make the button visible
+                // button.style.display = 'block';
+                // const innerHTML = button.innerText;
+                // // Revert the display property back to none
+                // button.style.display = 'none';
+                // return innerHTML;
+                // return item.className;
+                // const newItem = document.createElement('sl-menu-item') as MenuItem;
+                // newItem.innerText = button.innerText.trim();
+                return button.innerText.trim();
+              }
+            ) ?? [];
+            menuItems = hiddenButtons.map(
+              (button) => {
+                // Temporarily make the button visible
+                // button.style.display = 'block';
+                // const innerHTML = button.innerText;
+                // // Revert the display property back to none
+                // button.style.display = 'none';
+                // return innerHTML;
+                // return item.className;
+                const newItem = document.createElement('sl-menu-item') as MenuItem;
+                newItem.innerText = button.innerText.trim();
+                return newItem;
+              }
+            ) ?? [];
+            //  debugger;
+            console.log('menuItems2', menuItems1, hiddenButtons, menuItems, menuItems2);
+           // moreButton.appendChild(menuItems);
+           // menuItems.forEach(item => moreButton.appendChild(item));
+
+           // menuItems.forEach(item => moreButton.appendChild(item));
+            console.log('menuItems and moreButton', menuItems, moreButton);
+
+            button.style.display = 'none';
+          }
+        });
+
+        // moreButton.innerHTML = '';
+        menuItems.forEach(item => moreButton.appendChild(item));
+
+        const visibleButtons = pages.length - hiddenButtons.length;
+
+        console.log('Visible buttons:', pages.length - hiddenButtons.length, pages.length, totalWidth);
+        console.log(`Hidden buttons:`, hiddenButtons.length, hiddenButtons);
+        console.log('visibleButtons and activePage - buttons:', visibleButtons, this.activePage, 'half', Math.ceil(visibleButtons / 2),'activePage bigger than half',  this.activePage > Math.ceil(visibleButtons / 2));
+
+
         // const pages = this.renderRoot.querySelectorAll('sl-button.page');
         const toHide = Array.from(pages)?.find(page => {
          // return page.textContent?.trim() === (this.activePage + 1)?.toString();
@@ -524,6 +614,28 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           }
         }
       } else if (this.activePage === lastPage) {
+
+
+        (Array.from(pages).reverse().slice(0, -1)).forEach(button => {
+          // Ensure all pages are visible initially
+          button.style.display = 'inline-block';
+          totalWidth += button.offsetWidth;
+
+          console.log('should hide buttons?', pagesWrapper && totalWidth > pagesWrapper.clientWidth);
+
+          if (pagesWrapper && totalWidth > pagesWrapper.clientWidth /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+            hiddenButtons.push(button);
+            button.style.display = 'none';
+          }
+        });
+
+        const visibleButtons = pages.length - hiddenButtons.length;
+
+        console.log('Visible buttons:', pages.length - hiddenButtons.length, pages.length, totalWidth);
+        console.log(`Hidden buttons:`, hiddenButtons.length, hiddenButtons);
+        console.log('visibleButtons and activePage - buttons:', visibleButtons, this.activePage, 'half', Math.ceil(visibleButtons / 2),'activePage bigger than half',  this.activePage > Math.ceil(visibleButtons / 2));
+
+
         const toHide = Array.from(pages)?.find(page => {
           return page.textContent?.trim() === '2';
           // return page.textContent?.trim() === (pages.length - 1)?.toString();

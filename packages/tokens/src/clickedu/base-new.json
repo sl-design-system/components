@@ -3,11 +3,11 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "The Message",
+          "value": "Open Sans",
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Open Sans",
           "type": "fontFamilies"
         },
         "icon": {
@@ -119,7 +119,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.sm}",
+        "value": "{size.borderRadius.md}",
         "type": "borderRadius"
       }
     },

@@ -317,11 +317,11 @@
     },
     "grid": {
       "vertical": {
-        "value": "{size.175}",
+        "value": "{space.175}",
         "type": "spacing"
       },
       "horizontal": {
-        "value": "{size.200}",
+        "value": "{space.200}",
         "type": "spacing"
       }
     }

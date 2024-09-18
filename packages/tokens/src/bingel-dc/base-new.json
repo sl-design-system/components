@@ -119,7 +119,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.sm}",
+        "value": "{size.borderRadius.lg}",
         "type": "borderRadius"
       }
     },

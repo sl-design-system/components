@@ -43,9 +43,11 @@ export class Option extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-icon name="check"></sl-icon>
-      <div part="wrapper">
-        <slot></slot>
+      <div part="container">
+        <sl-icon name="check"></sl-icon>
+        <div part="wrapper">
+          <slot></slot>
+        </div>
       </div>
     `;
   }

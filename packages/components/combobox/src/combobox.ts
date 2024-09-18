@@ -72,9 +72,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
-  /** The custom option element used to display the `customOption` value. */
-  #customOption?: CustomOption;
-
   /** Event controller. */
   #events = new EventsController(this);
 
@@ -125,7 +122,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** @internal The current selected options. */
   @state() currentSelection: ComboboxOption[] = [];
 
-  /** @internal The custom option (used in combination with `allowCustomValues`). */
+  /** @internal The custom option (used when `allowCustomValues` is set). */
   @state() customOption?: ComboboxOption;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
@@ -259,20 +256,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       }
     }
 
-    if (changes.has('customOption')) {
-      if (this.customOption) {
-        if (!this.#customOption) {
-          this.#customOption ||= this.shadowRoot!.createElement('sl-combobox-custom-option') as CustomOption;
-          this.#customOption.addEventListener('click', this.#onOptionsClick);
-        }
-
-        this.#customOption.value = this.customOption?.value;
-      } else {
-        this.#customOption?.remove();
-        this.#customOption = undefined;
-      }
-    }
-
     if (changes.has('disabled')) {
       this.input.disabled = !!this.disabled;
     }
@@ -380,7 +363,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     this.wrapper?.showPopover();
 
-    let currentOption: ComboboxOption | undefined = undefined;
+    let currentOption: ComboboxOption | undefined = undefined,
+      customOption: ComboboxOption | undefined = undefined;
+
     if (
       event.inputType !== 'deleteContentBackward' &&
       (this.autocomplete === 'inline' || this.autocomplete === 'both')
@@ -390,19 +375,36 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       if (currentOption) {
         this.input.value = currentOption.content;
         this.input.setSelectionRange(value.length, currentOption.content.length);
+      } else if (this.allowCustomValues) {
+        customOption = currentOption = {
+          id: `sl-combobox-custom-option-${nextUniqueId++}`,
+          content: value,
+          current: false,
+          selected: false,
+          value
+        };
       }
-    } else if (this.allowCustomValues) {
-      currentOption = {
-        id: `sl-combobox-custom-option-${nextUniqueId++}`,
-        content: value,
-        current: false,
-        selected: false,
-        value
-      };
     } else {
       currentOption = this.options.find(option => value === option.value);
+
+      if (this.allowCustomValues) {
+        if (value.length === 0) {
+          customOption = currentOption = undefined;
+        } else if (!currentOption) {
+          customOption = currentOption = {
+            id: `sl-combobox-custom-option-${nextUniqueId++}`,
+            content: value,
+            current: false,
+            selected: false,
+            value
+          };
+        } else if (currentOption.custom) {
+          customOption = currentOption = { ...currentOption, value };
+        }
+      }
     }
 
+    this.#updateCustomOption(customOption);
     this.#updateCurrent(currentOption);
     this.#updateFilteredOptions(value);
 
@@ -477,7 +479,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   #onOptionsClick(event: Event): void {
     const optionElement = event.composedPath().find((el): el is Option => el instanceof Option);
 
-    if (optionElement?.id) {
+    if (optionElement instanceof CustomOption) {
+      console.log('Add custom option', optionElement.value);
+    } else if (optionElement?.id) {
       const option = this.options.find(o => o.id === optionElement.id);
 
       this.#toggleSelected(option);
@@ -589,6 +593,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.currentOption.current = true;
       this.currentOption.element?.setAttribute('aria-current', 'true');
 
+      // Scroll to the selected group or the current option
       if (this.groupSelected && this.currentSelection.includes(this.currentOption)) {
         this.#selectedGroup!.scrollIntoView({ block: 'nearest' });
       } else {
@@ -596,6 +601,25 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       }
 
       this.input.setAttribute('aria-activedescendant', this.currentOption.id);
+    }
+  }
+
+  #updateCustomOption(customOption?: ComboboxOption): void {
+    if (this.customOption && !customOption) {
+      this.customOption.element?.remove();
+    } else if (this.customOption && customOption) {
+      customOption.element = this.customOption.element;
+    }
+
+    this.customOption = customOption;
+
+    if (this.customOption) {
+      if (!this.customOption?.element) {
+        this.customOption.element ||= this.shadowRoot!.createElement('sl-combobox-custom-option') as CustomOption;
+        this.listbox?.prepend(this.customOption.element);
+      }
+
+      this.customOption.element.value = this.customOption?.value;
     }
   }
 
@@ -632,6 +656,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
             element: el,
             content: el.textContent?.trim() || '',
             current: el.getAttribute('aria-current') === 'true',
+            custom: el instanceof CustomOption,
             group: el.closest('sl-option-group')?.getAttribute('label') || undefined,
             selected: el.getAttribute('aria-selected') === 'true',
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

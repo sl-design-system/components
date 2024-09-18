@@ -154,6 +154,22 @@
   <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
   <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
 </trans-unit>
+<trans-unit id="s8c1f47dc13ead0c3">
+  <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
+  <target>"<x id="0" equiv-text="${this.value}"/>" aanmaken</target>
+</trans-unit>
+<trans-unit id="s00a84204340a1db4">
+  <source>Selected</source>
+  <target>Geselecteerd</target>
+</trans-unit>
+<trans-unit id="s602a5722e101c0d2">
+  <source>All options</source>
+  <target>Alle opties</target>
+</trans-unit>
+<trans-unit id="se412fe8953013d92">
+  <source>Please select at least one option.</source>
+  <target>Selecteer tenminste één optie.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -1,4 +1,5 @@
 import { faPlus } from '@fortawesome/pro-regular-svg-icons';
+import { localized, msg, str } from '@lit/localize';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html } from 'lit';
@@ -18,14 +19,17 @@ Icon.register(faPlus);
  *
  * @slot default - The option's label.
  */
+@localized()
 export class CustomOption extends Option {
   /** @internal */
   static override styles: CSSResultGroup = [Option.styles, styles];
 
   override render(): TemplateResult {
     return html`
-      <sl-icon name="far-plus"></sl-icon>
-      <div part="wrapper">Add option: <span>${this.value}</span></div>
+      <div class="container">
+        <sl-icon name="far-plus"></sl-icon>
+        <div class="wrapper">${msg(str`Create "${this.value}"`)}</div>
+      </div>
     `;
   }
 }

@@ -13,7 +13,7 @@ sl-text-field {
   padding-inline: var(--_padding-inline) 0;
 
   &:has(> sl-tag-list) {
-    padding-inline: calc(var(--sl-space-new-md) - var(--sl-size-border-width-default)) 0;
+    padding-inline: calc(var(--sl-space-new-md) - var(--sl-size-borderWidth-default)) 0;
   }
 }
 
@@ -31,8 +31,8 @@ sl-icon {
 
 [popover] {
   background: var(--sl-color-elevation-surface-raised);
-  border: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
-  border-radius: var(--sl-size-border-radius-default);
+  border: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
   display: none;

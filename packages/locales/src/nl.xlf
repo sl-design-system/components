@@ -156,7 +156,7 @@
 </trans-unit>
 <trans-unit id="s8c1f47dc13ead0c3">
   <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
-  <target>"<x id="0" equiv-text="${this.value}"/>" aanmaken</target>
+  <target>Creëer "<x id="0" equiv-text="${this.value}"/>"</target>
 </trans-unit>
 <trans-unit id="s00a84204340a1db4">
   <source>Selected</source>

@@ -2057,7 +2057,7 @@
     },
     "focus": {
       "gap": {
-        "value": "{border.width.focusring.default}+{border.width.focusring.offset}",
+        "value": "{border.width.focusring.default} + {border.width.focusring.offset}",
         "type": "spacing"
       }
     }

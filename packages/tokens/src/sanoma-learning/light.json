@@ -2973,6 +2973,18 @@
                 "description": "color.surface.solid.primary.background"
               }
             }
+          },
+          "text": {
+            "idle": {
+              "value": "{body.foreground}",
+              "type": "color",
+              "description": "Color text inside the switch "
+            },
+            "disabled": {
+              "value": "{color.palette.neutral.400}",
+              "type": "color",
+              "description": "Color text inside the switch "
+            }
           }
         }
       },

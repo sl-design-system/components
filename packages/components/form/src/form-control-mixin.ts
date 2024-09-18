@@ -70,6 +70,7 @@ export interface FormControl {
   value?: unknown;
 
   reportValidity(): boolean;
+  reset(value: unknown): void;
   updateState(options: { dirty?: boolean; touched?: boolean }): void;
   updateValidity(): void;
 
@@ -331,6 +332,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       this.updateValidity();
 
       return valid;
+    }
+
+    reset(value: unknown): void {
+      this.formValue = value;
     }
 
     /**

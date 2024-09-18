@@ -307,21 +307,21 @@
     },
     "input": {
       "vertical": {
-        "value": "{space-new.xs}-{size.borderWidth.default}",
+        "value": "{space-new.xs} - {size.borderWidth.default}",
         "type": "spacing"
       },
       "horizontal": {
-        "value": "{space-new.md}-{size.borderWidth.default}",
+        "value": "{space-new.md} - {size.borderWidth.default}",
         "type": "spacing"
       }
     },
     "grid": {
       "vertical": {
-        "value": "{size.175}",
+        "value": "{space.175}",
         "type": "spacing"
       },
       "horizontal": {
-        "value": "{size.200}",
+        "value": "{space.200}",
         "type": "spacing"
       }
     }

@@ -3,11 +3,11 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Open Sans",
+          "value": "Proxima Nova",
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Open Sans",
+          "value": "Proxima Nova",
           "type": "fontFamilies"
         },
         "icon": {
@@ -119,7 +119,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.lg}",
+        "value": "{size.borderRadius.md}",
         "type": "borderRadius"
       }
     },

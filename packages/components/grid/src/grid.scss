@@ -3,8 +3,8 @@
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-grid-border);
   --_border-width: var(--sl-size-border-width-default);
-  --_border-radius: 3px;
-  --_cell-background: #fff;
+  --_border-radius: var(--sl-size-border-radius-default);
+  --_cell-background: var(--sl-color-grid-default);
   --_cell-border: var(--_border-width) solid var(--_border-color);
   --_cell-padding-block: var(--sl-space-150);
   --_cell-padding-inline: var(--sl-space-200);
@@ -46,6 +46,7 @@
   // when this is set on a highter level than the `--_vertical-border-offset` var it can't "reach" it.
   td,
   th {
+    --_vertical-border-offset: 0px;
     --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
       calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
       no-repeat;
@@ -151,7 +152,8 @@ td {
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: clip;
+  overflow-clip-margin: content-box 0;
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
   &:first-of-type:not([part~='drag-handle']) {
@@ -170,10 +172,16 @@ th {
   --_cell-background: var(--_header-background);
   --_cell-padding-block: var(--_header-padding-block);
   --_cell-padding-inline: var(--_header-padding-inline);
-  --_vertical-border-offset: 0px;
+  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+    no-repeat;
 
   font-weight: var(--_header-font-weight);
   text-align: start;
+
+  &:first-of-type {
+    --_vertical-border: none;
+  }
 }
 
 th[part~='drag-handle'] {

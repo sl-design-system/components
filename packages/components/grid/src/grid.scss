@@ -2,12 +2,12 @@
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-grid-border);
-  --_border-width: var(--sl-size-border-width-default);
-  --_border-radius: var(--sl-size-border-radius-default);
+  --_border-width: var(--sl-size-borderWidth-default);
+  --_border-radius: var(--sl-size-borderRadius-default);
   --_cell-background: var(--sl-color-grid-default);
   --_cell-border: var(--_border-width) solid var(--_border-color);
-  --_cell-padding-block: var(--sl-space-150);
-  --_cell-padding-inline: var(--sl-space-200);
+  --_cell-padding-block: var(--sl-space-new-md);
+  --_cell-padding-inline: var(--sl-space-new-lg);
   --_drag-handle-inline-size: 28px;
   --_dragging-background: #ddeffe;
   --_dragging-border: var(--_border-width) solid #056dc2;
@@ -232,6 +232,14 @@ td[part~='text-field'] {
 
 [part='group-heading'] {
   font-weight: 600;
+}
+
+:host([clickable-row]) [part~='row'] {
+  cursor: pointer;
+
+  &:hover {
+    --_cell-background: var(--sl-color-action-background-accent-subtle-hover);
+  }
 }
 
 .selection-count {

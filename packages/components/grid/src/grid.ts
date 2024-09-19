@@ -471,6 +471,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onClickRow(event: Event, item: T): void {
+    console.log('hee');
     this.activeItem = item;
     this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
   }

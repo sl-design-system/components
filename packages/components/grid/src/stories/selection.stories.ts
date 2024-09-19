@@ -26,15 +26,7 @@ export const Single: Story = {
     };
 
     return html`
-      <style>
-        sl-grid::part(row) {
-          cursor: pointer;
-        }
-        sl-grid::part(row):hover {
-          --_cell-background: #f5f5f5;
-        }
-      </style>
-      <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people}>
+      <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people} clickable-row>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>

@@ -1804,9 +1804,13 @@
     "id": "75c085de26b040da28d51d8de52eb55f6c5def28",
     "name": "itslearning/light",
     "selectedTokenSets": {
-      "core": "enabled",
+      "core": "source",
       "itslearning/base": "enabled",
-      "itslearning/light": "enabled"
+      "itslearning/light": "enabled",
+      "itslearning/base-new": "enabled",
+      "itslearning/light-new": "enabled",
+      "primitives": "source",
+      "system": "source"
     },
     "$figmaStyleReferences": {
       "color.palette.primary.50": "S:81f94c85600eb5a455519aebf2265c864fd0e529,",

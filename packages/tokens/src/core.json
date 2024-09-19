@@ -2364,7 +2364,7 @@
           "heading": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.heading}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "{icon.typeset.fontSize.md}"
             },

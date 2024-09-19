@@ -20,15 +20,15 @@
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.grey.150}",
-        "type": "color"
-      },
-      "subtle": {
         "value": "{color.foundation.grey.300}",
         "type": "color"
       },
-      "plain": {
+      "subtle": {
         "value": "{color.foundation.grey.500}",
+        "type": "color"
+      },
+      "plain": {
+        "value": "{color.foundation.grey.600}",
         "type": "color"
       },
       "bold": {
@@ -566,7 +566,7 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.neutral.subtle}",
+        "value": "{color.neutral.plain}",
         "type": "color"
       }
     }

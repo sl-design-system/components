@@ -2144,7 +2144,7 @@
           "description": "border.width.button.outline"
         },
         "ghost": {
-          "value": "{border.width.none}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.ghost"
         },

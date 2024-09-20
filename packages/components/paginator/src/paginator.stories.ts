@@ -28,7 +28,6 @@ export default {
   },
   render: ({ itemsPerPage, pageSizes, total }) => {
     return html`
-      <h2>With buttons</h2>
       <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}></sl-paginator>
       `;
   }

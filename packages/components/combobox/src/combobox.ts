@@ -391,8 +391,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
           selected: false,
           value
         };
-
-        console.log('HOHOHO');
       }
 
       this.#updateCreateCustomOption(currentOption);
@@ -560,11 +558,10 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       value
     };
 
-    console.log('Add custom option', currentOption, element);
-
     this.#updateCreateCustomOption();
     this.#updateCurrent(currentOption);
     this.#updateSelection(currentOption);
+    this.#updateTextFieldValue();
     this.#updateValue();
   }
 
@@ -572,8 +569,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     if (!option) {
       return;
     }
-
-    console.log('Remove custom option', option);
 
     option.element?.remove();
   }
@@ -591,8 +586,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   }
 
   #toggleSelected(option?: ComboboxOption, force?: boolean): void {
-    console.log('Toggle selected', option, force);
-
     if (!option) {
       return;
     }
@@ -615,8 +608,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** Updates the options to reflect the current one. */
   #updateCurrent(option?: ComboboxOption): void {
-    console.log('Update current', option);
-
     if (this.currentOption) {
       this.currentOption.current = false;
       this.currentOption.element?.removeAttribute('aria-current');
@@ -677,8 +668,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** Updates the list of options and the listbox link with the text input. */
   #updateOptions(): void {
-    console.log('Update options');
-
     this.listbox = this.wrapper?.assignedElements({ flatten: true })?.at(0);
 
     if (this.listbox) {
@@ -713,8 +702,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** Updates the state of the options to reflect the current value. */
   #updateSelected(): void {
-    console.log('Update selected');
-
     if (this.multiple) {
       const selected = this.options.filter(o => o.selected).map(o => o.value),
         values = Array.isArray(this.value) ? this.value : [this.value];
@@ -751,8 +738,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** Updates the selection based on the `selected` property of the options. */
   #updateSelection(option?: ComboboxOption): void {
-    console.log('Update selection', option);
-
     let selection: ComboboxOption[] = [];
     if (this.multiple) {
       selection =

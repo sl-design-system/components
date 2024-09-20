@@ -10,6 +10,5 @@ storybookCategory: feedback-status
 eleventyNavigation:
   parent: Components
   key: Progress bar
-  status: new
 ---
 

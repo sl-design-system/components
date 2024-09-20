@@ -1,33 +1,3 @@
 :host {
-  border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin-block-end: var(--sl-space-new-sm);
-  padding-block-end: var(--sl-space-new-md);
-  user-select: none;
-}
-
-:host([aria-current]) .container {
-  background: var(--sl-color-action-background-accent-subtle-hover);
-}
-
-:host(:active) .container {
-  background: var(--sl-color-action-background-accent-subtle-active);
-}
-
-.container {
-  align-items: center;
-  border-radius: var(--sl-size-border-radius-default);
-  color: var(--sl-color-text-default);
-  cursor: pointer;
-  display: flex;
-  gap: var(--sl-space-new-md);
   margin-inline: var(--sl-space-new-md);
-  padding: var(--sl-space-new-sm) var(--sl-space-new-md);
-
-  &:hover {
-    background: var(--sl-color-action-background-accent-subtle-hover);
-  }
-}
-
-sl-icon {
-  visibility: visible;
 }

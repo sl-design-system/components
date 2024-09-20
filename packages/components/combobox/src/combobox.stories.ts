@@ -3,7 +3,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 
@@ -26,10 +26,11 @@ type Props = Pick<
   label?: string;
   maxWidth?: string;
   options?(): TemplateResult;
+  reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
 
-const components = [
+export const components = [
   'Accordion',
   'Avatar',
   'Badge',
@@ -70,6 +71,7 @@ const components = [
 export default {
   title: 'Form/Combobox',
   tags: ['draft'],
+  excludeStories: ['components'],
   args: {
     allowCustomValues: false,
     autocomplete: 'both',
@@ -101,6 +103,7 @@ export default {
     name,
     options,
     placeholder,
+    reportValidity,
     required,
     selectOnly,
     value
@@ -136,9 +139,13 @@ export default {
             ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
           </sl-combobox>
         </sl-form-field>
-        <sl-button-bar>
-          <sl-button @click=${onClick}>Report validity</sl-button>
-        </sl-button-bar>
+        ${reportValidity
+          ? html`
+              <sl-button-bar>
+                <sl-button @click=${onClick}>Report validity</sl-button>
+              </sl-button-bar>
+            `
+          : nothing}
       </sl-form>
       <pre></pre>
     `;
@@ -156,12 +163,6 @@ export const AllowCustomValues: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true
-  }
-};
-
-export const Selected: Story = {
-  args: {
-    value: 'Button bar'
   }
 };
 
@@ -198,43 +199,17 @@ export const Grouped: Story = {
   }
 };
 
-export const Multiple: Story = {
-  args: {
-    hint: 'The multiple property is true, which means you can select more than 1 option at a time. This will render the selected options as tags.',
-    multiple: true,
-    value: ['Button bar', 'Checkbox']
-  }
-};
-
-export const MultipleGroupSelected: Story = {
-  args: {
-    ...Multiple.args,
-    groupSelected: true
-  }
-};
-
-export const MultipleGrouped: Story = {
-  args: {
-    ...Grouped.args,
-    groupSelected: true,
-    multiple: true,
-    value: ['Button bar', 'Checkbox']
-  }
-};
-
-export const MultipleStacked: Story = {
-  args: {
-    ...Multiple.args,
-    hint: 'When there is not enough space to display all tags, they will be stacked.',
-    maxWidth: '700px',
-    value: ['Switch', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Button bar']
-  }
-};
-
 export const Required: Story = {
   args: {
     hint: 'The component is required. This means you must select an option in order for the field to be valid.',
+    reportValidity: true,
     required: true
+  }
+};
+
+export const Selected: Story = {
+  args: {
+    value: 'Button bar'
   }
 };
 

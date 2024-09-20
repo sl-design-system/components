@@ -22,7 +22,7 @@
   --_header-padding-inline: 1rem;
   --_vertical-border: none;
   --_vertical-border-offset: 8px;
-  --_selected-background: #338bff0f;
+  --_selected-background: var(--sl-color-action-background-accent-subtle-active);
   --_striped-background: var(--sl-color-grid-zebra);
 
   display: block;

@@ -2021,7 +2021,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.2xs}",
+      "value": "{border.radius.sm}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },

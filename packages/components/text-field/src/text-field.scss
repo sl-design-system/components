@@ -155,7 +155,8 @@ slot[name='input']::slotted(input) {
   }
 }
 
-:is(button, ::slotted(button)) {
+button,
+::slotted(button) {
   align-items: center;
   appearance: none;
   aspect-ratio: 1 / 1;

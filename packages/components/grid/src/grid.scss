@@ -135,10 +135,6 @@ tr {
     }
   }
 
-  &[part~='selected'] {
-    --_cell-background: var(--_selected-background);
-  }
-
   &.drop-target {
     outline: var(--_drop-target-outline);
     outline-offset: var(--_drop-target-outline-offset);
@@ -234,11 +230,17 @@ td[part~='text-field'] {
   font-weight: 600;
 }
 
-:host([clickable-row]) [part~='row'] {
-  cursor: pointer;
+:host([clickable-row]) {
+  [part~='row'] {
+    cursor: pointer;
 
-  &:hover {
-    --_cell-background: var(--sl-color-action-background-accent-subtle-hover);
+    &:hover {
+      --_cell-background: var(--sl-color-action-background-accent-subtle-hover);
+    }
+  }
+
+  tr[part~='selected'] {
+    --_cell-background: var(--_selected-background);
   }
 }
 

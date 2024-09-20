@@ -18,7 +18,7 @@ export default {
   }
 };
 
-export const Single: Story = {
+export const ClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const onActiveItemChange = ({ detail: { item, grid } }: SlActiveItemChangeEvent<Person>): void => {
@@ -37,7 +37,7 @@ export const Single: Story = {
   }
 };
 
-export const Multiple: Story = {
+export const SelectionColumn: Story = {
   args: {
     selectAll: false
   },
@@ -69,19 +69,11 @@ export const Multiple: Story = {
   }
 };
 
-export const MultipleAutoSelect: Story = {
+export const SelectionColumnAndClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     return html`
-      <style>
-        sl-grid::part(row) {
-          cursor: pointer;
-        }
-        sl-grid::part(row):hover {
-          --_cell-background: #f5f5f5;
-        }
-      </style>
-      <sl-grid .items=${people}>
+      <sl-grid .items=${people} clickable-row>
         <sl-grid-selection-column auto-select></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -91,7 +83,7 @@ export const MultipleAutoSelect: Story = {
   }
 };
 
-export const MultipleWithCustomHeader: Story = {
+export const SelectionColumnWithCustomHeader: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: ({ selectAll }, { loaded: { people } }) => {
     return html`

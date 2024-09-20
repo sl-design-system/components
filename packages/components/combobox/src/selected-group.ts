@@ -37,6 +37,13 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
   /** The selected options to be displayed. */
   @property({ attribute: false }) options: ComboboxOption[] = [];
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Set the label property, so the parent class uses that as the element's ARIA label
+    this.label = msg('Selected');
+  }
+
   override render(): TemplateResult {
     return html`
       <div part="wrapper">

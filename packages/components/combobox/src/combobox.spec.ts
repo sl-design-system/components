@@ -8,6 +8,7 @@ import { spy } from 'sinon';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
+import { type SelectedGroup } from './selected-group.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
@@ -251,6 +252,107 @@ describe('sl-combobox', () => {
     });
   });
 
+  describe('allow custom values', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-combobox allow-custom-values>
+          <sl-listbox>
+            <sl-option>Lorem</sl-option>
+            <sl-option>Ipsum</sl-option>
+            <sl-option>Ipsom</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      `);
+      input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+    });
+
+    it('should add a create-custom-option element while typing', async () => {
+      input.focus();
+      await sendKeys({ type: 'Custom value' });
+      await el.updateComplete;
+
+      const createCustomOption = el.querySelector('sl-combobox-create-custom-option');
+
+      expect(createCustomOption).to.exist;
+      expect(createCustomOption).to.have.attribute('aria-current', 'true');
+      expect(createCustomOption?.value).to.equal('Custom value');
+    });
+
+    it('should not add a create-custom-option element when the typed text matches an existing option', async () => {
+      input.focus();
+      await sendKeys({ type: 'Lorem' });
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
+    });
+
+    it('should remove the create-custom-option element if the text is cleared', async () => {
+      input.focus();
+      await sendKeys({ type: 'Custom' });
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
+    });
+
+    it('should create a custom option after pressing Enter', async () => {
+      input.focus();
+      await sendKeys({ type: 'Custom value' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
+
+      expect(customOption).to.exist;
+      expect(customOption).to.match('sl-combobox-custom-option');
+      expect(customOption).to.have.attribute('aria-current', 'true');
+      expect(customOption).to.have.attribute('aria-selected', 'true');
+      expect(customOption?.value).to.equal('Custom value');
+      expect(el.value).to.equal('Custom value');
+    });
+
+    it('should create a custom option after clicking on the create-custom-option element', async () => {
+      input.focus();
+      await sendKeys({ type: 'Custom value' });
+      el.querySelector('sl-combobox-create-custom-option')?.click();
+      await el.updateComplete;
+
+      const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
+
+      expect(customOption).to.exist;
+      expect(customOption).to.match('sl-combobox-custom-option');
+      expect(customOption).to.have.attribute('aria-current', 'true');
+      expect(customOption).to.have.attribute('aria-selected', 'true');
+      expect(customOption?.value).to.equal('Custom value');
+      expect(el.value).to.equal('Custom value');
+    });
+
+    it('should remove the custom option after deselecting it', async () => {
+      input.focus();
+      await sendKeys({ type: 'Custom value' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      const customOption = el.querySelector('sl-combobox-custom-option');
+
+      expect(customOption).to.exist;
+
+      customOption?.click();
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-custom-option')).not.to.exist;
+    });
+  });
+
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -360,74 +462,42 @@ describe('sl-combobox', () => {
         input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
       });
 
-      it('should add a create-custom-option element while typing', async () => {
-        input.focus();
-        await sendKeys({ type: 'Custom value' });
-        await el.updateComplete;
-
-        const createCustomOption = el.querySelector('sl-combobox-create-custom-option');
-
-        expect(createCustomOption).to.exist;
-        expect(createCustomOption).to.have.attribute('aria-current', 'true');
-        expect(createCustomOption?.value).to.equal('Custom value');
-      });
-
-      it('should not add a create-custom-option element when the typed text matches an existing option', async () => {
-        input.focus();
-        await sendKeys({ type: 'Lorem' });
-        await el.updateComplete;
-
-        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
-      });
-
-      it('should remove the create-custom-option element if the text is cleared', async () => {
-        input.focus();
-        await sendKeys({ type: 'Custom' });
-        await el.updateComplete;
-
-        expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
-
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
-        await sendKeys({ press: 'Backspace' });
-        await el.updateComplete;
-
-        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
-      });
-
-      it('should create a custom option after pressing Enter', async () => {
+      it('should remove the custom option after selecting a different option', async () => {
         input.focus();
         await sendKeys({ type: 'Custom value' });
         await sendKeys({ press: 'Enter' });
         await el.updateComplete;
 
-        const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
+        expect(el.querySelector('sl-combobox-custom-option')).to.exist;
 
-        expect(customOption).to.exist;
-        expect(customOption).to.match('sl-combobox-custom-option');
-        expect(customOption).to.have.attribute('aria-current', 'true');
-        expect(customOption).to.have.attribute('aria-selected', 'true');
-        expect(customOption?.value).to.equal('Custom value');
-        expect(el.value).to.equal('Custom value');
-      });
-
-      it('should create a custom option after clicking on the create-custom-option element', async () => {
-        input.focus();
-        await sendKeys({ type: 'Custom value' });
-        el.querySelector('sl-combobox-create-custom-option')?.click();
+        el.querySelector('sl-option')?.click();
         await el.updateComplete;
 
-        const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
+        expect(el.querySelector('sl-combobox-custom-option')).not.to.exist;
+      });
+
+      it('should remove the custom option after adding a different custom option', async () => {
+        input.focus();
+        await sendKeys({ type: 'Foo' });
+        await sendKeys({ press: 'Enter' });
+        await el.updateComplete;
+
+        const customOption = el.querySelector('sl-combobox-custom-option');
 
         expect(customOption).to.exist;
-        expect(customOption).to.match('sl-combobox-custom-option');
-        expect(customOption).to.have.attribute('aria-current', 'true');
-        expect(customOption).to.have.attribute('aria-selected', 'true');
-        expect(customOption?.value).to.equal('Custom value');
-        expect(el.value).to.equal('Custom value');
+        expect(customOption?.value).to.equal('Foo');
+
+        input.focus();
+        input.select();
+        await sendKeys({ type: 'Bar' });
+        await sendKeys({ press: 'Enter' });
+        await el.updateComplete;
+
+        const customOptions = Array.from(el.querySelectorAll('sl-combobox-custom-option'));
+
+        expect(customOptions).to.have.lengthOf(1);
+        expect(customOptions.at(0)).to.exist;
+        expect(customOptions.at(0)?.value).to.equal('Bar');
       });
 
       it('should emit an sl-change event when the custom option is created', async () => {
@@ -469,6 +539,25 @@ describe('sl-combobox', () => {
 
         expect(options).to.have.lengthOf(3);
         expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+      });
+
+      it('should reset the results when the input is cleared', async () => {
+        input.focus();
+        await sendKeys({ type: 'Ip' });
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+
+        expect(options[0]).to.be.displayed;
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
@@ -628,7 +717,39 @@ describe('sl-combobox', () => {
       });
     });
 
-    describe('allow custom values', () => {});
+    describe('allow custom values', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox allow-custom-values multiple>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should allow for multiple custom options', async () => {
+        input.focus();
+        await sendKeys({ type: 'Custom 1' });
+        await sendKeys({ press: 'Enter' });
+        await el.updateComplete;
+
+        expect(el.querySelectorAll('sl-combobox-custom-option')).to.have.lengthOf(1);
+
+        input.focus();
+        input.select();
+        await sendKeys({ type: 'Custom 2' });
+        await sendKeys({ press: 'Enter' });
+        await el.updateComplete;
+
+        expect(el.querySelectorAll('sl-combobox-custom-option')).to.have.lengthOf(2);
+
+        expect(el.value).to.deep.equal(['Custom 1', 'Custom 2']);
+      });
+    });
 
     describe('disabled', () => {
       beforeEach(async () => {
@@ -658,6 +779,90 @@ describe('sl-combobox', () => {
       });
     });
 
-    describe('filter results', () => {});
+    describe('filter results', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox filter-results multiple .value=${['Lorem']}>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should filter the results in the list when typing', async () => {
+        input.focus();
+        await sendKeys({ type: 'Ip' });
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options).to.have.lengthOf(3);
+        expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+      });
+
+      it('should reset the results when the input is cleared', async () => {
+        input.focus();
+        await sendKeys({ type: 'Ip' });
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+
+        expect(options[0]).to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+      });
+    });
+
+    describe('group selected', () => {
+      let selectedGroup: SelectedGroup;
+
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox group-selected multiple .value=${['Option 1', 'Option 2']}>
+            <sl-listbox>
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+              <sl-option>Option 3</sl-option>
+              <sl-option>Option 4</sl-option>
+              <sl-option>Option 5</sl-option>
+              <sl-option>Option 6</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+        selectedGroup = el.querySelector('sl-combobox-selected-group')!;
+      });
+
+      it('should have the group selected property set', () => {
+        expect(el.groupSelected).to.be.true;
+      });
+
+      it('should group the selected options', () => {
+        expect(selectedGroup).to.exist;
+        expect(selectedGroup).to.have.attribute('aria-label', 'Selected');
+
+        const options = Array.from(selectedGroup.renderRoot.querySelectorAll('sl-option')).map(o => o.value as string);
+        expect(options).to.deep.equal(['Option 1', 'Option 2']);
+      });
+
+      it('should have a label for all the unselected options', () => {
+        const otherLabel = selectedGroup.renderRoot.querySelector('.other');
+
+        expect(otherLabel).to.exist;
+        expect(otherLabel).to.have.trimmed.text('All options');
+      });
+    });
   });
 });

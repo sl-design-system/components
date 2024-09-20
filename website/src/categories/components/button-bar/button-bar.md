@@ -10,5 +10,4 @@ storybookCategory: actions
 eleventyNavigation:
   parent: Components
   key: Button bar
-  status: new
 ---

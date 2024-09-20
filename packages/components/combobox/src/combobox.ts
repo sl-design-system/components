@@ -66,8 +66,8 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     };
   }
 
-  /** @internal */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  // /** @internal */
+  // static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -337,6 +337,10 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         tabindex="-1"
       ></slot>
     `;
+  }
+
+  override focus(options?: FocusOptions): void {
+    this.input?.focus(options);
   }
 
   #onBeforeToggle(event: ToggleEvent): void {

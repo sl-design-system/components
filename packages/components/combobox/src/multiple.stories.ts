@@ -30,7 +30,16 @@ export default {
   title: 'Form/Combobox/Multiple',
   tags: ['draft'],
   args: {
-    multiple: true
+    allowCustomValues: false,
+    autocomplete: 'both',
+    disabled: false,
+    filterResults: false,
+    label: 'Label',
+    multiple: true,
+    name: 'combobox',
+    placeholder: 'Choose a component',
+    required: false,
+    selectOnly: false
   },
   argTypes: {
     autocomplete: {

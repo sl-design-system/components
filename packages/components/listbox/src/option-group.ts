@@ -1,4 +1,4 @@
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './option-group.scss.js';
 
@@ -24,6 +24,18 @@ export class OptionGroup extends LitElement {
     super.connectedCallback();
 
     this.setAttribute('role', 'group');
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('label')) {
+      if (this.label) {
+        this.setAttribute('aria-label', this.label);
+      } else {
+        this.removeAttribute('aria-label');
+      }
+    }
   }
 
   override render(): TemplateResult {

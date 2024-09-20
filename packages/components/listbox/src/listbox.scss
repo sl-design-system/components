@@ -13,14 +13,14 @@
 }
 
 ::slotted(sl-option-group:not(:first-child)) {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
   margin-block-start: var(--sl-space-new-sm);
   padding-block-start: var(--sl-space-new-md);
 }
 
 ::slotted(hr) {
   border: 0;
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-border-width-default);
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
   margin: var(--sl-space-new-sm) 0;
   padding: 0;
 }

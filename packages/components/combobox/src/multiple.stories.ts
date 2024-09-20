@@ -123,7 +123,8 @@ export const AllowCustomValues: Story = {
 
 export const Disabled: Story = {
   args: {
-    disabled: true
+    disabled: true,
+    value: ['Button bar', 'Checkbox']
   }
 };
 

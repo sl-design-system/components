@@ -5,7 +5,6 @@ import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/radio-group/register.js';
-import '@sl-design-system/search-field/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
@@ -198,10 +197,6 @@ export const All: Story = {
         </sl-radio-group>
       </sl-form-field>
 
-      <sl-form-field hint="Hint text" label="Search field">
-        <sl-search-field name="searchField" placeholder="Search" required></sl-search-field>
-      </sl-form-field>
-
       <sl-form-field hint="Hint text" label="Select">
         <sl-select name="select" required>
           <sl-select-option value="1">Option 1</sl-select-option>
@@ -236,7 +231,6 @@ export const AllValid: Story = {
       checkboxGroup: ['1'],
       combobox: 'Option 2',
       radioGroup: '2',
-      searchField: 'Search field',
       select: '2',
       switch: 'toggled'
     }

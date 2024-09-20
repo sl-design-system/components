@@ -1,16 +1,18 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/listbox/register.js';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { type Combobox } from './combobox.js';
+import { type CustomOption } from './custom-option.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-combobox', () => {
-  let el: Combobox, input: HTMLInputElement, listbox: HTMLElement;
+  let el: Combobox, input: HTMLInputElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -27,7 +29,6 @@ describe('sl-combobox', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
-      listbox = el.querySelector('sl-listbox')!;
     });
 
     it('should not be disabled', () => {
@@ -51,7 +52,7 @@ describe('sl-combobox', () => {
       expect(el.filterResults).not.to.be.true;
     });
 
-    it('should not support multiple selection', () => {
+    it('should use single selection', () => {
       expect(el.multiple).not.to.be.true;
     });
 
@@ -245,7 +246,7 @@ describe('sl-combobox', () => {
       });
 
       it('should link the input to the listbox', () => {
-        expect(input).to.have.attribute('aria-controls', listbox.id);
+        expect(input).to.have.attribute('aria-controls', el.querySelector('sl-listbox')?.id);
       });
     });
   });
@@ -253,7 +254,7 @@ describe('sl-combobox', () => {
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-combobox disabled multiple .value=${['Option 1']}>
+        <sl-combobox disabled>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -262,7 +263,10 @@ describe('sl-combobox', () => {
         </sl-combobox>
       `);
       input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
-      listbox = el.querySelector('sl-listbox')!;
+    });
+
+    it('should be disabled', () => {
+      expect(el.disabled).to.be.true;
     });
 
     it('should disable the text field', () => {
@@ -272,151 +276,388 @@ describe('sl-combobox', () => {
     it('should disable the input element', () => {
       expect(input).to.have.attribute('disabled');
     });
+  });
 
-    it('should disable any tags', () => {
-      const tags = el.renderRoot.querySelectorAll('sl-tag');
+  describe('single select', () => {
+    describe('defaults', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
 
-      expect(tags).to.have.lengthOf(1);
-      expect(tags[0]).to.have.attribute('disabled');
+      it('should set the value when an option is selected', async () => {
+        input.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Lorem');
+      });
+
+      it('should unset the value when an option is deselected', async () => {
+        const option = el.querySelector('sl-option');
+
+        el.value = 'Lorem';
+        await el.updateComplete;
+
+        expect(option).to.have.attribute('aria-selected');
+
+        option?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.be.undefined;
+      });
+
+      it('should replace the value when a different option is selected', async () => {
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        options.at(0)?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Lorem');
+
+        options.at(1)?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.equal('Ipsum');
+      });
+
+      it('should emit an sl-change event with the value after selecting an option', async () => {
+        const onChange = spy();
+
+        el.addEventListener('sl-change', (event: SlChangeEvent) => {
+          onChange(event.detail);
+        });
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        expect(onChange).to.have.been.calledOnce;
+        expect(onChange.lastCall.args[0]).to.equal('Lorem');
+      });
     });
 
-    it('should not have remove buttons on the tags', () => {
-      const tag = el.renderRoot.querySelector('sl-tag');
+    describe('allow custom values', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox allow-custom-values>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
 
-      expect(tag).to.exist;
-      expect(tag?.renderRoot.querySelector('button')).not.to.exist;
+      it('should add a create-custom-option element while typing', async () => {
+        input.focus();
+        await sendKeys({ type: 'Custom value' });
+        await el.updateComplete;
+
+        const createCustomOption = el.querySelector('sl-combobox-create-custom-option');
+
+        expect(createCustomOption).to.exist;
+        expect(createCustomOption).to.have.attribute('aria-current', 'true');
+        expect(createCustomOption?.value).to.equal('Custom value');
+      });
+
+      it('should not add a create-custom-option element when the typed text matches an existing option', async () => {
+        input.focus();
+        await sendKeys({ type: 'Lorem' });
+        await el.updateComplete;
+
+        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
+      });
+
+      it('should remove the create-custom-option element if the text is cleared', async () => {
+        input.focus();
+        await sendKeys({ type: 'Custom' });
+        await el.updateComplete;
+
+        expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await sendKeys({ press: 'Backspace' });
+        await el.updateComplete;
+
+        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
+      });
+
+      it('should create a custom option after pressing Enter', async () => {
+        input.focus();
+        await sendKeys({ type: 'Custom value' });
+        await sendKeys({ press: 'Enter' });
+        await el.updateComplete;
+
+        const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
+
+        expect(customOption).to.exist;
+        expect(customOption).to.match('sl-combobox-custom-option');
+        expect(customOption).to.have.attribute('aria-current', 'true');
+        expect(customOption).to.have.attribute('aria-selected', 'true');
+        expect(customOption?.value).to.equal('Custom value');
+        expect(el.value).to.equal('Custom value');
+      });
+
+      it('should create a custom option after clicking on the create-custom-option element', async () => {
+        input.focus();
+        await sendKeys({ type: 'Custom value' });
+        el.querySelector('sl-combobox-create-custom-option')?.click();
+        await el.updateComplete;
+
+        const customOption = el.querySelector('sl-listbox')?.firstElementChild as CustomOption;
+
+        expect(customOption).to.exist;
+        expect(customOption).to.match('sl-combobox-custom-option');
+        expect(customOption).to.have.attribute('aria-current', 'true');
+        expect(customOption).to.have.attribute('aria-selected', 'true');
+        expect(customOption?.value).to.equal('Custom value');
+        expect(el.value).to.equal('Custom value');
+      });
+
+      it('should emit an sl-change event when the custom option is created', async () => {
+        const onChange = spy();
+
+        el.addEventListener('sl-change', (event: SlChangeEvent) => {
+          onChange(event.detail);
+        });
+
+        input.focus();
+        await sendKeys({ type: 'Custom value' });
+        await sendKeys({ press: 'Enter' });
+        await el.updateComplete;
+
+        expect(onChange).to.have.been.calledOnce;
+        expect(onChange.lastCall.args[0]).to.equal('Custom value');
+      });
+    });
+
+    describe('filter results', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox filter-results>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should filter the results in the list when typing', async () => {
+        input.focus();
+        await sendKeys({ type: 'Ip' });
+
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        expect(options).to.have.lengthOf(3);
+        expect(options[0]).not.to.be.displayed;
+        expect(options[1]).to.be.displayed;
+        expect(options[2]).to.be.displayed;
+      });
     });
   });
 
-  describe('filter results', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-combobox filter-results>
-          <sl-listbox>
-            <sl-option>Lorem</sl-option>
-            <sl-option>Ipsum</sl-option>
-            <sl-option>Ipsom</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      `);
-      input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
-      listbox = el.querySelector('sl-listbox')!;
+  describe('multiple select', () => {
+    describe('defaults', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox multiple>
+            <sl-listbox>
+              <sl-option>Lorem</sl-option>
+              <sl-option>Ipsum</sl-option>
+              <sl-option>Ipsom</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
+
+      it('should support multiple selection', () => {
+        expect(el.multiple).to.be.true;
+      });
+
+      it('should set the value when an option is selected', async () => {
+        input.click();
+        await el.updateComplete;
+
+        el.querySelector<HTMLElement>('sl-option:first-of-type')?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal(['Lorem']);
+
+        el.querySelector<HTMLElement>('sl-option:last-of-type')?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal(['Lorem', 'Ipsom']);
+      });
+
+      it('should unset the value when an option is deselected', async () => {
+        const options = Array.from(el.querySelectorAll('sl-option'));
+
+        el.value = ['Lorem', 'Ipsum'];
+        await el.updateComplete;
+
+        expect(options.map(o => o.hasAttribute('aria-selected'))).to.deep.equal([true, true, false]);
+
+        options.at(0)?.click();
+        await el.updateComplete;
+
+        expect(el.value).to.deep.equal(['Ipsum']);
+      });
+
+      it('should emit an sl-change event with the value after selecting an option', async () => {
+        const onChange = spy();
+
+        el.addEventListener('sl-change', (event: SlChangeEvent) => {
+          onChange(event.detail);
+        });
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        expect(onChange).to.have.been.calledOnce;
+        expect(onChange.lastCall.args[0]).to.deep.equal(['Lorem']);
+      });
     });
 
-    it('should filter the results in the list when typing', async () => {
-      input.focus();
-      await sendKeys({ type: 'Ip' });
+    describe('tags', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox multiple .value=${['Option 1', 'Option 2']}>
+            <sl-listbox>
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+              <sl-option>Option 3</sl-option>
+              <sl-option>Option 4</sl-option>
+              <sl-option>Option 5</sl-option>
+              <sl-option>Option 6</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+        input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
+      });
 
-      const options = Array.from(listbox.querySelectorAll('sl-option'));
+      it('should have a stacked tag list', () => {
+        const tagList = el.renderRoot.querySelector('sl-tag-list');
+        expect(tagList).to.exist;
+        expect(tagList).to.have.attribute('stacked');
+      });
 
-      expect(options).to.have.lengthOf(3);
-      expect(options[0]).not.to.be.displayed;
-      expect(options[1]).to.be.displayed;
-      expect(options[2]).to.be.displayed;
-    });
-  });
+      it('should have a tag for each selected option', () => {
+        const tags = el.renderRoot.querySelectorAll('sl-tag');
 
-  describe('multiple', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-combobox multiple>
-          <sl-listbox>
-            <sl-option>Option 1</sl-option>
-            <sl-option>Option 2</sl-option>
-            <sl-option>Option 3</sl-option>
-            <sl-option>Option 4</sl-option>
-            <sl-option>Option 5</sl-option>
-            <sl-option>Option 6</sl-option>
-          </sl-listbox>
-        </sl-combobox>
-      `);
-      input = el.querySelector<HTMLInputElement>('input[slot="input"]')!;
-      listbox = el.querySelector('sl-listbox')!;
-    });
+        expect(tags).to.have.lengthOf(2);
+        expect(tags[0]).to.have.trimmed.text('Option 1');
+        expect(tags[1]).to.have.trimmed.text('Option 2');
+      });
 
-    it('should support multiple selection', () => {
-      expect(el.multiple).to.be.true;
-    });
+      it('should have remove buttons on the tags', () => {
+        const removable = Array.from(el.renderRoot.querySelectorAll('sl-tag')).every(
+          tag => !!tag.renderRoot.querySelector('button')
+        );
 
-    it('should have a stacked tag list when options are selected', async () => {
-      el.value = ['Option 1', 'Option 2'];
-      await el.updateComplete;
+        expect(removable).to.be.true;
+      });
 
-      const tagList = el.renderRoot.querySelector('sl-tag-list');
-      expect(tagList).to.exist;
-      expect(tagList).to.have.attribute('stacked');
-    });
+      it('should stack options when there is limited space', async () => {
+        el.style.maxInlineSize = '300px';
+        el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 50));
 
-    it('should stack options when there is limited space', async () => {
-      el.style.maxInlineSize = '300px';
-      el.value = ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5', 'Option 6'];
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 50));
+        const tagList = el.renderRoot.querySelector('sl-tag-list');
+        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('5');
 
-      const tagList = el.renderRoot.querySelector('sl-tag-list');
-      expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('5');
+        const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
+        expect(visible).to.deep.equal([false, false, false, false, false, true]);
+      });
 
-      const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-      expect(visible).to.deep.equal([false, false, false, false, false, true]);
-    });
+      it('should add a tag after selecting an option', async () => {
+        el.value = ['Option 2'];
+        await el.updateComplete;
 
-    it('should have a tag for each selected option', async () => {
-      el.value = ['Option 1', 'Option 2'];
-      await el.updateComplete;
+        input.click();
+        await el.updateComplete;
 
-      const tags = el.renderRoot.querySelectorAll('sl-tag');
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
 
-      expect(tags).to.have.lengthOf(2);
-      expect(tags[0]).to.have.trimmed.text('Option 1');
-      expect(tags[1]).to.have.trimmed.text('Option 2');
-    });
+        const tags = el.renderRoot.querySelectorAll('sl-tag');
+        expect(tags).to.have.lengthOf(2);
+        expect(tags[0]).to.have.trimmed.text('Option 2');
+        expect(tags[1]).to.have.trimmed.text('Option 1');
+      });
 
-    it('should have remove buttons on the tags', async () => {
-      el.value = ['Option 1', 'Option 2'];
-      await el.updateComplete;
+      it('should remove a tag after clicking the remove button', async () => {
+        el.value = ['Option 1'];
+        await el.updateComplete;
 
-      const removable = Array.from(el.renderRoot.querySelectorAll('sl-tag')).every(
-        tag => !!tag.renderRoot.querySelector('button')
-      );
+        // Show the listbox
+        input.click();
 
-      expect(removable).to.be.true;
-    });
+        // Verify the first option is selected
+        expect(el.querySelector('sl-option')).to.have.attribute('aria-selected');
 
-    it('should add a tag after selecting an option', async () => {
-      el.value = ['Option 2'];
-      await el.updateComplete;
+        // Click the remove button in the tag
+        el.renderRoot.querySelector('sl-tag')?.renderRoot.querySelector('button')?.click();
+        await el.updateComplete;
 
-      input.click();
-      await el.updateComplete;
+        // Verify the option is no longer selected
+        expect(el.querySelector('sl-option')).not.to.have.attribute('aria-selected');
 
-      el.querySelector('sl-option')?.click();
-      await el.updateComplete;
-
-      const tags = el.renderRoot.querySelectorAll('sl-tag');
-      expect(tags).to.have.lengthOf(2);
-      expect(tags[0]).to.have.trimmed.text('Option 2');
-      expect(tags[1]).to.have.trimmed.text('Option 1');
+        // Verify the tag was removed
+        expect(el.value).to.deep.equal([]);
+      });
     });
 
-    it('should remove a tag after clicking the remove button', async () => {
-      el.value = ['Option 1'];
-      await el.updateComplete;
+    describe('allow custom values', () => {});
 
-      // Show the listbox
-      input.click();
+    describe('disabled', () => {
+      beforeEach(async () => {
+        el = await fixture(html`
+          <sl-combobox disabled multiple .value=${['Option 1']}>
+            <sl-listbox>
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+              <sl-option>Option 3</sl-option>
+            </sl-listbox>
+          </sl-combobox>
+        `);
+      });
 
-      // Verify the first option is selected
-      expect(el.querySelector('sl-option')).to.have.attribute('aria-selected');
+      it('should disable the tags', () => {
+        const tags = el.renderRoot.querySelectorAll('sl-tag');
 
-      // Click the remove button in the tag
-      el.renderRoot.querySelector('sl-tag')?.renderRoot.querySelector('button')?.click();
-      await el.updateComplete;
+        expect(tags).to.have.lengthOf(1);
+        expect(tags[0]).to.have.attribute('disabled');
+      });
 
-      // Verify the option is no longer selected
-      expect(el.querySelector('sl-option')).not.to.have.attribute('aria-selected');
+      it('should not have remove buttons on the tags', () => {
+        const tag = el.renderRoot.querySelector('sl-tag');
 
-      // Verify the tag was removed
-      expect(el.value).to.deep.equal([]);
+        expect(tag).to.exist;
+        expect(tag?.renderRoot.querySelector('button')).not.to.exist;
+      });
     });
+
+    describe('filter results', () => {});
   });
 });

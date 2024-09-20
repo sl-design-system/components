@@ -66,9 +66,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     };
   }
 
-  // /** @internal */
-  // static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -158,7 +155,10 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
-  /** Whether you can interact with the input or if it is just a static, readonly display. */
+  /**
+   * Whether the component is select only. This means you cannot type in the text field,
+   * but you can still select options.
+   */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
   /** Whether the text field is a required field. */
@@ -344,11 +344,11 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
-    this.input.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
-
     if (event.newState === 'open') {
+      this.input.setAttribute('aria-expanded', 'true');
       this.wrapper!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
     } else {
+      this.input.setAttribute('aria-expanded', 'false');
       this.#popoverJustClosed = true;
     }
   }

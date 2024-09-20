@@ -5,7 +5,7 @@ import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
-import { type Combobox } from './combobox.js';
+import { Combobox } from './combobox.js';
 
 type Props = Pick<
   Combobox,

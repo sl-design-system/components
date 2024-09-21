@@ -48,6 +48,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** Events controller. */
   #events = new EventsController(this, {
+    click: this.#onClick,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout
   });
@@ -257,6 +258,12 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     }
 
     this.#popoverClosing = false;
+  }
+
+  #onClick(event: Event): void {
+    if (event.target === this) {
+      this.button.focus();
+    }
   }
 
   #onFocusin(): void {

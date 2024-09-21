@@ -73,7 +73,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   static viewportMargin = 8;
 
   /** Event controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, { click: this.#onClick });
 
   /** Monitor the DOM for new options. */
   #observer = new MutationObserver(() => this.#updateOptions());
@@ -356,6 +356,12 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   #onButtonClick(): void {
     if (!this.#popoverJustClosed) {
       this.wrapper?.showPopover();
+    }
+  }
+
+  #onClick(event: Event): void {
+    if (event.target === this) {
+      this.input.focus();
     }
   }
 

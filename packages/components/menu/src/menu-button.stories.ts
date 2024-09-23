@@ -18,10 +18,11 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
-type Props = Pick<MenuButton, 'disabled' | 'fill' | 'label' | 'position' | 'size' | 'variant'> & {
+type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'size' | 'variant'> & {
   alignSelf: string;
   body: string | TemplateResult;
   justifySelf: string;
+  label?: string;
   menuItems?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -35,8 +36,7 @@ export default {
     alignSelf: 'center',
     body: 'Button',
     disabled: false,
-    justifySelf: 'center',
-    label: 'Label'
+    justifySelf: 'center'
   },
   argTypes: {
     alignSelf: {
@@ -98,8 +98,8 @@ export default {
       </style>
       <sl-menu-button
         ?disabled=${disabled}
+        aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
-        label=${ifDefined(label)}
         position=${ifDefined(position)}
         size=${ifDefined(size)}
         style=${styleMap({ alignSelf, justifySelf })}
@@ -114,6 +114,7 @@ export default {
 export const Basic: Story = {
   args: {
     body: html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
+    label: 'Label',
     menuItems: () => html`
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>
@@ -140,14 +141,16 @@ export const IconAndText: Story = {
     body: html`
       <sl-icon name="far-gear" slot="button"></sl-icon>
       <span slot="button">Settings</span>
-    `
+    `,
+    label: undefined
   }
 };
 
 export const Text: Story = {
   args: {
     ...Basic.args,
-    body: html`<span slot="button">Settings</span>`
+    body: html`<span slot="button">Settings</span>`,
+    label: undefined
   }
 };
 

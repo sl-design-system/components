@@ -38,18 +38,6 @@ describe('sl-menu-button', () => {
         expect(button).to.exist;
       });
 
-      it('should not have a label', () => {
-        expect(el.label).to.be.undefined;
-        expect(button).not.to.have.attribute('aria-label');
-      });
-
-      it('should have an label when set', async () => {
-        el.label = 'Label';
-        await el.updateComplete;
-
-        expect(button).to.have.attribute('aria-label', 'Label');
-      });
-
       it('should not be expanded', () => {
         expect(button).to.have.attribute('aria-expanded', 'false');
       });

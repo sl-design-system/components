@@ -1,5 +1,17 @@
 # @sl-design-system/tabs
 
+## 1.0.0
+
+### Major Changes
+
+- [#1535](https://github.com/sl-design-system/components/pull/1535) [`a11f679`](https://github.com/sl-design-system/components/commit/a11f679fc6ce89efccd852c69935494749199523) - Stable version release
+
+### Patch Changes
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`563dccc`](https://github.com/sl-design-system/components/commit/563dccce29fc961ef46147c41a8f9f82bd2db384)]:
+  - @sl-design-system/shared@0.3.2
+  - @sl-design-system/menu@0.1.1
+
 ## 0.1.13
 
 ### Patch Changes

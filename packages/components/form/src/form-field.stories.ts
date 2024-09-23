@@ -1,5 +1,7 @@
 import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
@@ -63,6 +65,20 @@ export const CheckboxGroup: Story = {
         <sl-checkbox>Checkbox 2</sl-checkbox>
         <sl-checkbox>Checkbox 3</sl-checkbox>
       </sl-checkbox-group>
+    `
+  }
+};
+
+export const Combobox: Story = {
+  args: {
+    slot: () => html`
+      <sl-combobox required>
+        <sl-listbox>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-listbox>
+      </sl-combobox>
     `
   }
 };

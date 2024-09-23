@@ -1,9 +1,9 @@
 :host {
   --_border-color: var(--sl-color-tag-subtle-idle-border);
   --_gap: var(--sl-space-tag-list-md);
-  --_stack-width: var(--sl-border-width-lg);
-  --_stack-offset: var(--sl-border-width-md);
   --_stack-margin: var(--sl-border-width-xs);
+  --_stack-offset: var(--sl-border-width-md);
+  --_stack-width: var(--sl-border-width-lg);
 
   display: flex;
   gap: var(--_gap);

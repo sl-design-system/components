@@ -41,9 +41,6 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   }
 
   /** @internal */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal The default margin between the tooltip and the viewport. */
@@ -154,10 +151,6 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = this.disabled ? -1 : 0;
-    }
   }
 
   /** @ignore Stores the initial state of the select */
@@ -186,7 +179,6 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     }
 
     if (changes.has('disabled')) {
-      this.tabIndex = this.disabled ? -1 : 0;
       this.button.disabled = this.disabled;
     }
 
@@ -241,6 +233,10 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
         <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
     `;
+  }
+
+  override focus(options?: FocusOptions): void {
+    this.button?.focus(options);
   }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {

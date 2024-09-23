@@ -452,7 +452,7 @@
     "@types/mocha": "^10.0.7",
     "@types/sinon": "^17.0.3",
     "@web/dev-server-esbuild": "^1.0.2",
-    "@web/test-runner": "^0.18.3",
+    "@web/test-runner": "^0.19.0",
     "@web/test-runner-commands": "^0.9.0",
     "@web/test-runner-playwright": "^0.11.0",
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",

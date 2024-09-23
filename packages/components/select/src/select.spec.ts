@@ -40,7 +40,7 @@ describe('sl-select', () => {
     });
 
     it('should have a tabindex of 0', () => {
-      expect(el).to.have.attribute('tabindex', '0');
+      expect(el.querySelector('sl-select-button')).to.have.attribute('tabindex', '0');
     });
 
     it('should not be disabled', () => {
@@ -246,8 +246,7 @@ describe('sl-select', () => {
     });
 
     it('should have a tabindex of -1', () => {
-      expect(el).to.have.attribute('tabindex', '-1');
-      expect(el.querySelector<SelectButton>('sl-select-button')).to.have.attribute('tabindex', '-1');
+      expect(el.querySelector('sl-select-button')).to.have.attribute('tabindex', '-1');
     });
 
     it('should not toggle the expanded state when clicked', async () => {

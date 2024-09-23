@@ -51,6 +51,9 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** The fill of the button. */
   @property() fill: ButtonFill = 'outline';
 
+  /** If the menu button is icon only, use this to set the `aria-label` on the button. */
+  @property() label?: string;
+
   /** @internal The menu. */
   @query('sl-menu') menu!: Menu;
 
@@ -80,6 +83,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
+        aria-label=${ifDefined(this.label)}
         fill=${ifDefined(this.fill)}
         part="button"
         size=${ifDefined(this.size)}

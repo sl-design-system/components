@@ -18,7 +18,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
-type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'size' | 'variant'> & {
+type Props = Pick<MenuButton, 'disabled' | 'fill' | 'label' | 'position' | 'size' | 'variant'> & {
   alignSelf: string;
   body: string | TemplateResult;
   justifySelf: string;
@@ -35,7 +35,8 @@ export default {
     alignSelf: 'center',
     body: 'Button',
     disabled: false,
-    justifySelf: 'center'
+    justifySelf: 'center',
+    label: 'Label'
   },
   argTypes: {
     alignSelf: {
@@ -86,7 +87,7 @@ export default {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({ alignSelf, body, disabled, fill, justifySelf, menuItems, position, size, variant }) => {
+  render: ({ alignSelf, body, disabled, fill, justifySelf, label, menuItems, position, size, variant }) => {
     return html`
       <style>
         #root-inner {
@@ -98,6 +99,7 @@ export default {
       <sl-menu-button
         ?disabled=${disabled}
         fill=${ifDefined(fill)}
+        label=${ifDefined(label)}
         position=${ifDefined(position)}
         size=${ifDefined(size)}
         style=${styleMap({ alignSelf, justifySelf })}

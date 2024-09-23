@@ -681,13 +681,18 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       let match = !this.filterResults || !value;
       if (!match) {
         match = option.content.toLowerCase().startsWith(value!.toLowerCase());
-        noMatch = !match;
+      }
+
+      if (noMatch && match) {
+        noMatch = false;
       }
 
       if (option.element) {
         option.element.style.display = match ? '' : 'none';
       }
     });
+
+    console.log({ noMatch, value });
 
     if (noMatch && value) {
       this.#noMatch ||= this.shadowRoot!.createElement('sl-combobox-no-match') as NoMatch;

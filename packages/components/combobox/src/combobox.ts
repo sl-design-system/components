@@ -1,6 +1,6 @@
 import { LOCALE_STATUS_EVENT, localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { FormControlMixin, type SlUpdateStateEvent } from '@sl-design-system/form';
+import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Option, OptionGroup } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, anchor, event } from '@sl-design-system/shared';
@@ -73,7 +73,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   static viewportMargin = 8;
 
   /** Event controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, { click: this.#onClick });
 
   /** Monitor the DOM for new options. */
   #observer = new MutationObserver(() => this.#updateOptions());
@@ -278,6 +278,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         @sl-blur=${this.#onTextFieldBlur}
         @sl-change=${this.#onTextFieldChange}
         @sl-focus=${this.#onTextFieldFocus}
+        @sl-form-control=${this.#onTextFieldFormControl}
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
@@ -356,6 +357,12 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   #onButtonClick(): void {
     if (!this.#popoverJustClosed) {
       this.wrapper?.showPopover();
+    }
+  }
+
+  #onClick(event: Event): void {
+    if (event.target === this) {
+      this.input.focus();
     }
   }
 
@@ -531,6 +538,11 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     event.stopPropagation();
 
     this.focusEvent.emit();
+  }
+
+  #onTextFieldFormControl(event: SlFormControlEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   #onTextFieldUpdateState(event: SlUpdateStateEvent): void {

@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
@@ -367,18 +368,47 @@ describe('sl-switch', () => {
       onFormControl: (event: SlFormControlEvent) => void = spy();
 
       override render(): TemplateResult {
-        return html`<sl-switch @sl-form-control=${this.onFormControl}></sl-switch>`;
+        return html`
+          <sl-form-field label="Label">
+            <sl-switch @sl-form-control=${this.onFormControl}></sl-switch>
+          </sl-form-field>
+        `;
       }
     }
 
     beforeEach(async () => {
-      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
 
       el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the switch when the label is clicked', async () => {
+      const control = el.renderRoot.querySelector('sl-switch'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(control);
+    });
+
+    it('should toggle the switch when the label is clicked', async () => {
+      const control = el.renderRoot.querySelector('sl-switch'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(control).to.have.attribute('checked');
+      expect(control?.checked).to.be.true;
     });
   });
 });

@@ -671,7 +671,7 @@
   },
   "space": {
     "none": {
-      "value": "0",
+      "value": "0px",
       "type": "spacing",
       "description": "space.none"
     },

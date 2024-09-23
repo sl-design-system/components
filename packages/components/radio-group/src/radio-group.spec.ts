@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -413,23 +414,39 @@ describe('sl-radio-group', () => {
 
       override render(): TemplateResult {
         return html`
-          <sl-radio-group @sl-form-control=${this.onFormControl}>
-            <sl-radio>Option 1</sl-radio>
-            <sl-radio>Option 2</sl-radio>
-            <sl-radio>Option 3</sl-radio>
-          </sl-radio-group>
+          <sl-form-field label="Label">
+            <sl-radio-group @sl-form-control=${this.onFormControl}>
+              <sl-radio>Option 1</sl-radio>
+              <sl-radio>Option 2</sl-radio>
+              <sl-radio>Option 3</sl-radio>
+            </sl-radio-group>
+          </sl-form-field>
         `;
       }
     }
 
     beforeEach(async () => {
-      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
 
       el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the first radio when the label is clicked', async () => {
+      const radio = el.renderRoot.querySelector('sl-radio'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(radio);
     });
   });
 });

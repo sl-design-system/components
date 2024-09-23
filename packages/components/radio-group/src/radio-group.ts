@@ -45,6 +45,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   /** Events controller. */
   #events = new EventsController(this, {
+    click: this.#onClick,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout
   });
@@ -183,6 +184,12 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   override focus(): void {
     this.#rovingTabindexController.focus();
+  }
+
+  #onClick(event: Event): void {
+    if (event.target === this) {
+      this.#rovingTabindexController.focus();
+    }
   }
 
   #onFocusin(): void {

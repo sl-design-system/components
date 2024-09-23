@@ -36,7 +36,7 @@ export class VerticalTabs extends LitElement {
     entries => {
       let updated = false;
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
-        links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
+        links = Array.from<HTMLElement>(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
 
       if (
         links.length === entries.filter(entry => entry.intersectionRatio === 1).length ||
@@ -86,7 +86,7 @@ export class VerticalTabs extends LitElement {
       } else if (window.location.hash) {
         setTimeout(() => {
           const targetElement = document.querySelector(window.location.hash),
-            links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
+            links = Array.from<HTMLElement>(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
           const index = links.findIndex(link => {
             return (link as HTMLAnchorElement).hash == window.location.hash;
           });
@@ -105,7 +105,7 @@ export class VerticalTabs extends LitElement {
     window.addEventListener(
       'hashchange',
       () => {
-        const links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
+        const links = Array.from<HTMLElement>(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
         const index = links.findIndex(link => {
           return (link as HTMLAnchorElement).hash == window.location.hash;
         });

@@ -58,7 +58,7 @@
     },
     "width": {
       "none": {
-        "value": "0",
+        "value": "0px",
         "type": "borderWidth",
         "description": "border.width.none"
       },
@@ -1093,6 +1093,11 @@
             "value": "{space.sm}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
+          },
+          "none": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         },
         "icon": {
@@ -1114,7 +1119,7 @@
             "description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "{space.button.gap.md}"
           },
@@ -2057,7 +2062,7 @@
     },
     "focus": {
       "gap": {
-        "value": "{border.width.focusring.default}+{border.width.focusring.offset}",
+        "value": "{border.width.focusring.default} + {border.width.focusring.offset}",
         "type": "spacing"
       }
     }

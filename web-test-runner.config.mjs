@@ -2,7 +2,6 @@
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { a11ySnapshotPlugin } from '@web/test-runner-commands/plugins';
 import { playwrightLauncher } from '@web/test-runner-playwright';
-import { log } from 'console';
 import { readFile } from 'fs/promises';
 import { env } from 'node:process';
 

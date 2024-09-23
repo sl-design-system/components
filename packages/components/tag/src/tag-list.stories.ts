@@ -4,7 +4,11 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type TagList } from './tag-list.js';
 
-type Props = Pick<TagList, 'emphasis' | 'size' | 'stacked'> & { count: number; removable?: boolean };
+type Props = Pick<TagList, 'emphasis' | 'size' | 'stacked'> & {
+  count: number;
+  disabled?: boolean;
+  removable?: boolean;
+};
 type Story = StoryObj<Props>;
 
 export default {
@@ -25,9 +29,9 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ count, emphasis, removable, size, stacked }) => {
+  render: ({ count, disabled, emphasis, removable, size, stacked }) => {
     const tags = Array.from({ length: count }).map(
-      (_, index) => html`<sl-tag ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
+      (_, index) => html`<sl-tag ?disabled=${disabled} ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
     );
 
     return html`
@@ -41,6 +45,12 @@ export const Basic: Story = {};
 export const Bold: Story = {
   args: {
     emphasis: 'bold'
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true
   }
 };
 

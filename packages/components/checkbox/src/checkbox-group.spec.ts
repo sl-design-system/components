@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -315,23 +316,39 @@ describe('sl-checkbox-group', () => {
 
       override render(): TemplateResult {
         return html`
-          <sl-checkbox-group @sl-form-control=${this.onFormControl}>
-            <sl-checkbox>Option 1</sl-checkbox>
-            <sl-checkbox>Option 2</sl-checkbox>
-            <sl-checkbox>Option 3</sl-checkbox>
-          </sl-checkbox-group>
+          <sl-form-field label="Label">
+            <sl-checkbox-group @sl-form-control=${this.onFormControl}>
+              <sl-checkbox>Option 1</sl-checkbox>
+              <sl-checkbox>Option 2</sl-checkbox>
+              <sl-checkbox>Option 3</sl-checkbox>
+            </sl-checkbox-group>
+          </sl-form-field>
         `;
       }
     }
 
     beforeEach(async () => {
-      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
 
       el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the input of the first checkbox when the label is clicked', async () => {
+      const input = el.renderRoot.querySelector('input'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(input);
     });
   });
 });

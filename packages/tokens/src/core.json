@@ -671,7 +671,7 @@
   },
   "space": {
     "none": {
-      "value": "0",
+      "value": "0px",
       "type": "spacing",
       "description": "space.none"
     },
@@ -1093,6 +1093,11 @@
             "value": "{space.sm}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
+          },
+          "none": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
           }
         },
         "icon": {
@@ -1114,7 +1119,7 @@
             "description": "{space.button.gap.md}"
           },
           "md": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "{space.button.gap.md}"
           },
@@ -2359,7 +2364,7 @@
           "heading": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.heading}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "{icon.typeset.fontSize.md}"
             },

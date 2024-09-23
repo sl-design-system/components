@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -40,7 +41,7 @@ describe('sl-select', () => {
     });
 
     it('should have a tabindex of 0', () => {
-      expect(el).to.have.attribute('tabindex', '0');
+      expect(el.querySelector('sl-select-button')).to.have.attribute('tabindex', '0');
     });
 
     it('should not be disabled', () => {
@@ -246,8 +247,7 @@ describe('sl-select', () => {
     });
 
     it('should have a tabindex of -1', () => {
-      expect(el).to.have.attribute('tabindex', '-1');
-      expect(el.querySelector<SelectButton>('sl-select-button')).to.have.attribute('tabindex', '-1');
+      expect(el.querySelector('sl-select-button')).to.have.attribute('tabindex', '-1');
     });
 
     it('should not toggle the expanded state when clicked', async () => {
@@ -455,23 +455,39 @@ describe('sl-select', () => {
 
       override render(): TemplateResult {
         return html`
-          <sl-select @sl-form-control=${this.onFormControl}>
-            <sl-select-option>Option 1</sl-select-option>
-            <sl-select-option>Option 2</sl-select-option>
-            <sl-select-option>Option 3</sl-select-option>
-          </sl-select>
+          <sl-form-field label="Label">
+            <sl-select @sl-form-control=${this.onFormControl}>
+              <sl-select-option>Option 1</sl-select-option>
+              <sl-select-option>Option 2</sl-select-option>
+              <sl-select-option>Option 3</sl-select-option>
+            </sl-select>
+          </sl-form-field>
         `;
       }
     }
 
     beforeEach(async () => {
-      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
 
       el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the button when the label is clicked', async () => {
+      const button = el.renderRoot.querySelector('sl-select-button'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(button);
     });
   });
 });

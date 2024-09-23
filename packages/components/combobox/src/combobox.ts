@@ -692,8 +692,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       }
     });
 
-    console.log({ noMatch, value });
-
     if (noMatch && value) {
       this.#noMatch ||= this.shadowRoot!.createElement('sl-combobox-no-match') as NoMatch;
       this.#noMatch.value = value;

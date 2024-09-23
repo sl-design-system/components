@@ -14,6 +14,7 @@ import { repeat } from 'lit/directives/repeat.js';
 import styles from './combobox.scss.js';
 import { CreateCustomOption } from './create-custom-option.js';
 import { CustomOption } from './custom-option.js';
+import { NoMatch } from './no-match.js';
 import { SelectedGroup } from './selected-group.js';
 
 declare global {
@@ -57,6 +58,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     return {
       'sl-combobox-create-custom-option': CreateCustomOption,
       'sl-combobox-custom-option': CustomOption,
+      'sl-combobox-no-match': NoMatch,
       'sl-combobox-selected-group': SelectedGroup,
       'sl-icon': Icon,
       'sl-option': Option,
@@ -74,6 +76,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** Event controller. */
   #events = new EventsController(this, { click: this.#onClick });
+
+  /** Message element for when filtering results did not yield any results. */
+  #noMatch?: NoMatch;
 
   /** Monitor the DOM for new options. */
   #observer = new MutationObserver(() => this.#updateOptions());
@@ -670,16 +675,31 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   }
 
   #updateFilteredOptions(value?: string): void {
+    let noMatch = true;
+
     this.options.forEach(option => {
       let match = !this.filterResults || !value;
       if (!match) {
         match = option.content.toLowerCase().startsWith(value!.toLowerCase());
       }
 
+      if (noMatch && match) {
+        noMatch = false;
+      }
+
       if (option.element) {
         option.element.style.display = match ? '' : 'none';
       }
     });
+
+    if (noMatch && value) {
+      this.#noMatch ||= this.shadowRoot!.createElement('sl-combobox-no-match') as NoMatch;
+      this.#noMatch.value = value;
+      this.listbox?.prepend(this.#noMatch);
+    } else {
+      this.#noMatch?.remove();
+      this.#noMatch = undefined;
+    }
   }
 
   /** Updates the list of options and the listbox link with the text input. */

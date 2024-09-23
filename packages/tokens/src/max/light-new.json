@@ -146,11 +146,11 @@
     },
     "warning": {
       "faint": {
-        "value": "{color.foundation.orange.050}",
+        "value": "{color.foundation.orange.100}",
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.orange.100}",
+        "value": "{color.foundation.orange.150}",
         "type": "color"
       },
       "subtle": {
@@ -158,11 +158,11 @@
         "type": "color"
       },
       "plain": {
-        "value": "{color.foundation.orange.900}",
+        "value": "{color.foundation.orange.600}",
         "type": "color"
       },
       "bold": {
-        "value": "{color.foundation.orange.600}",
+        "value": "{color.foundation.orange.700}",
         "type": "color"
       },
       "heavy": {
@@ -337,47 +337,47 @@
       },
       "orange": {
         "100": {
-          "value": "#FDE6CB",
+          "value": "#fde9c8",
           "type": "color"
         },
         "150": {
-          "value": "#FCD5A8",
+          "value": "#fbd28c",
           "type": "color"
         },
         "200": {
-          "value": "#FAC07D",
+          "value": "#f9b350",
           "type": "color"
         },
         "300": {
-          "value": "#F8A94C",
+          "value": "#f79928",
           "type": "color"
         },
         "400": {
-          "value": "#F79928",
+          "value": "#f1750f",
           "type": "color"
         },
         "500": {
-          "value": "#F68E14",
+          "value": "#d5530a",
           "type": "color"
         },
         "600": {
-          "value": "#E07D08",
+          "value": "#b1360c",
           "type": "color"
         },
         "700": {
-          "value": "#C86F08",
+          "value": "#902b10",
           "type": "color"
         },
         "800": {
-          "value": "#B26307",
+          "value": "#762411",
           "type": "color"
         },
         "900": {
-          "value": "#945306",
+          "value": "#440f04",
           "type": "color"
         },
         "050": {
-          "value": "#FEF4E8",
+          "value": "#fff7eb",
           "type": "color"
         }
       },
@@ -580,7 +580,7 @@
         "type": "color"
       },
       "subtle": {
-        "value": "{color.neutral.subtle}",
+        "value": "{color.neutral.plain}",
         "type": "color"
       },
       "plain": {
@@ -597,7 +597,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.danger.bold}",
+          "value": "{color.danger.heavy}",
           "type": "color"
         }
       },

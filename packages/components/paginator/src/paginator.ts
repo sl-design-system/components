@@ -9,7 +9,6 @@ import {type EventEmitter, event} from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
 
@@ -57,7 +56,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   // TODO: how many pages? 'pages' prop? or state?
   // TODO: current page (state?)
   // TODO: data?
-  // TODO: size md and lg?
   // TODO: elements per page?
 
   // TODO: total elements?
@@ -143,6 +141,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.currentlyVisibleItems = this.itemsPerPage;
     }
 
+    // TODO: Calculate the max inline size of the moreButton *before* we start the observer
+
     this.#observer.observe(this);
   }
 
@@ -172,6 +172,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         this.currentlyVisibleItems = this.itemsPerPage!;
       }
     }
+
+    // if (changes.has('activePage')) {
+    //   const pages = this.renderRoot.querySelectorAll('sl-button.page');
+    //   const active = this.renderRoot.querySelector('sl-button[active]');
+    //   active?.setAttribute('aria-current', 'page');
+    // }
   }
 
   override render(): TemplateResult {
@@ -192,28 +198,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       <div style="display: none;">${start} - ${end} of ${this.total} items</div>
       <nav class="container">
         <ul>
-          <sl-button aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
-            ><sl-icon name="fas-chevron-right" size="xs"></sl-icon></sl-button
-          >
+          <sl-button class="prev" aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
+            ><sl-icon name="fas-chevron-right" size="xs"></sl-icon></sl-button>
               <div class="pages-wrapper">
-                <!--<sl-menu-button fill="ghost" aria-label="TODO...">
-                  <sl-icon slot="button" name="ellipsis"></sl-icon>
-                  <sl-menu-item>1</sl-menu-item>
-                  <sl-menu-item>2</sl-menu-item>
-                  <sl-menu-item>...</sl-menu-item>
-                </sl-menu-button>-->
-                ${this.#mobileVariant ?
-                  html`
-        <sl-select @change=${this.#setActive} .value=${this.activePage} style="inline-size: 100px;">
-            ${Array.from({ length: pages })?.map(
-                    (_, index) => html`
-                <sl-select-option @click=${this.#setActive} .value=${index + 1}>${index + 1}</sl-select-option
-              `
-                  )}
-        </sl-select>
-                    of ${pages} pages [msg]
-      `
-                  : html`
                     ${Array.from({ length: pages }).map(
                       (_, index) => html`
                 <sl-button
@@ -221,16 +208,29 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
                   size="md"
                   class="page"
                   ?active=${this.activePage == index + 1}
+                  aria-current=${ifDefined(this.activePage == index + 1 ? 'page' : undefined)}
                   @click=${this.#setActive}
                 >
                   ${index + 1}
                 </sl-button>
               `
                     )}
-                  `}
               </div>
-          <!--<slot></slot>-->
-          <sl-button aria-label="Go to the next page {page}" fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
+          ${this.#mobileVariant ?
+            html`
+              <div class="select-wrapper">
+        <sl-select @change=${this.#setActive} .value=${this.activePage} style="inline-size: 100px;">
+            ${Array.from({ length: pages })?.map(
+              (_, index) => html`
+                <sl-select-option @click=${this.#setActive} .value=${index + 1}>${index + 1}</sl-select-option
+              `
+            )}
+        </sl-select>
+                    of ${pages} pages [msg]
+                </div>
+      `
+            : nothing}
+          <sl-button class="next" aria-label="Go to the next page {page}" fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
             ><sl-icon name="fas-chevron-left" size="xs"></sl-icon
           ></sl-button>
         </ul>
@@ -292,8 +292,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 // )}
 //               </div>
 //             `}
-
-  // TODO: if this.navigation? then links inside instead of buttons
 
   // TODO: which items should be shown on current page? st. like between 16 and 30? or not necessary for data? or just im event emit activePage * visible items?
 
@@ -379,14 +377,20 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('event', event, event.target, event.target instanceof Button, Array.prototype.indexOf.call(pages, event.target) + 1);
     console.log('buttons', this.buttons, pages, Array.prototype.indexOf.call(pages, event.target));
 
-    if (event.target instanceof MenuItem) {
+/*    if (event.target instanceof MenuItem) {
       console.log('event target is a menu item', event.target, event.target.innerText.trim());
-      this.activePage = Number(event.target.innerText.trim());
+      this.activePage = Number(event.target.innerText?.trim());
     } else {
       this.activePage = Array.prototype.indexOf.call(pages, event.target) + 1;
-    } // TODO: make simpler, only innerText in both cases?
+    } // TODO: make simpler, only innerText in both cases?*/
+
+    // this.activePage = Number(event.target?.innerText?.trim());
 
     // this.activePage = Array.prototype.indexOf.call(pages, event.target) + 1;
+
+    this.activePage = Number((event.target as HTMLElement).innerText?.trim());
+
+    console.log('activePage in setActive', this.activePage, Number((event.target as HTMLElement)?.innerText?.trim()));
 
   //  this.requestUpdate();
 
@@ -401,7 +405,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     console.log('this.currentlyVisibleItems in setActive', this.currentlyVisibleItems, this.activePage, this.#pages, this.activePage === this.#pages);
 
-    // TODO: emit page change
+    // TODO: emit page change, emit active page?
     // TODO: emit currently visible items?
 
 
@@ -439,8 +443,15 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   // }
 
   #onResize(): void {
-    const pagesWrapper = this.renderRoot.querySelector('.pages-wrapper');
+    const pagesWrapper = this.renderRoot.querySelector('.pages-wrapper') as HTMLDivElement;
     const container = this.renderRoot.querySelector('.container');
+    const buttonPrev = this.renderRoot.querySelector('sl-button.prev') as Button;
+    const buttonNext = this.renderRoot.querySelector('sl-button.next') as Button;
+
+    // reset display to check the width
+    pagesWrapper.style.display = '';
+    buttonPrev.style.display = '';
+    buttonNext.style.display = '';
 
     console.log(
       'on RESIZE - pagesWrapper',
@@ -597,6 +608,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     // this.#mobileVariant ? (possiblyVisible.length <= 3) : false;
 
     this.#mobileVariant = possiblyVisible.length <= 3;
+    if (this.#mobileVariant) {
+      // hide pages when there should be mobile variant visible and dimensions are already checked
+      pagesWrapper.style.display = 'none';
+      buttonPrev.style.display = 'none';
+      buttonNext.style.display = 'none';
+    }
     this.requestUpdate();
 
     // TODO: possiblyVisible is not working when we switch from mobile to bigger resolution and at the beginning

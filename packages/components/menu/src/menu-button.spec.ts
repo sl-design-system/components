@@ -50,6 +50,20 @@ describe('sl-menu-button', () => {
         expect(button).to.have.attribute('aria-label', 'Label');
       });
 
+      it('should not be expanded', () => {
+        expect(button).to.have.attribute('aria-expanded', 'false');
+      });
+
+      it('should be expanded when the menu is open', () => {
+        button.click();
+
+        expect(button).to.have.attribute('aria-expanded', 'true');
+      });
+
+      it('should be linked to the menu', () => {
+        expect(button.getAttribute('aria-details')).to.equal(menu.id);
+      });
+
       it('should not have a disabled button', () => {
         expect(button).not.to.have.attribute('disabled');
         expect(button.disabled).not.to.be.true;

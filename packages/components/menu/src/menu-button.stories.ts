@@ -22,6 +22,7 @@ type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'size' | 'varia
   alignSelf: string;
   body: string | TemplateResult;
   justifySelf: string;
+  label?: string;
   menuItems?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -86,7 +87,7 @@ export default {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({ alignSelf, body, disabled, fill, justifySelf, menuItems, position, size, variant }) => {
+  render: ({ alignSelf, body, disabled, fill, justifySelf, label, menuItems, position, size, variant }) => {
     return html`
       <style>
         #root-inner {
@@ -97,6 +98,7 @@ export default {
       </style>
       <sl-menu-button
         ?disabled=${disabled}
+        aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
         position=${ifDefined(position)}
         size=${ifDefined(size)}
@@ -112,6 +114,7 @@ export default {
 export const Basic: Story = {
   args: {
     body: html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
+    label: 'Label',
     menuItems: () => html`
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>
@@ -138,14 +141,16 @@ export const IconAndText: Story = {
     body: html`
       <sl-icon name="far-gear" slot="button"></sl-icon>
       <span slot="button">Settings</span>
-    `
+    `,
+    label: undefined
   }
 };
 
 export const Text: Story = {
   args: {
     ...Basic.args,
-    body: html`<span slot="button">Settings</span>`
+    body: html`<span slot="button">Settings</span>`,
+    label: undefined
   }
 };
 
@@ -199,7 +204,7 @@ export const All: Story = {
       <span>Disabled</span>
 
       <span>md</span>
-      <sl-menu-button>
+      <sl-menu-button aria-label="Label">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>
@@ -247,7 +252,7 @@ export const All: Story = {
       </sl-menu-button>
 
       <span>lg</span>
-      <sl-menu-button size="lg">
+      <sl-menu-button aria-label="Label" size="lg">
         <sl-icon name="far-gear" slot="button"></sl-icon>
         <sl-menu-item>
           <sl-icon name="far-pen"></sl-icon>

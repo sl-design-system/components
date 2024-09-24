@@ -2,7 +2,7 @@
   "name": "@sl-design-system/sanoma-utbildning",
   "description": "Sanoma Utbildning theme for the SL Design System",
   "private": true,
-  "version": "0.0.10",
+  "version": "0.0.11",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

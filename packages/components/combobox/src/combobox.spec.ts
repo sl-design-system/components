@@ -825,6 +825,27 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should show a message when there are no matches', async () => {
+        input.focus();
+        await sendKeys({ type: 'Foo' });
+
+        const noMatch = el.querySelector('sl-combobox-no-match');
+        expect(noMatch).to.exist;
+        expect(noMatch?.renderRoot).to.have.text('No options starting with "Foo" have been found.');
+      });
+
+      it('should remove the message when there are matches', async () => {
+        input.focus();
+        await sendKeys({ type: 'Foo' });
+
+        expect(el.querySelector('sl-combobox-no-match')).to.exist;
+
+        input.select();
+        await sendKeys({ press: 'Backspace' });
+
+        expect(el.querySelector('sl-combobox-no-match')).not.to.exist;
+      });
     });
 
     describe('group selected', () => {

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/combobox",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Combobox component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

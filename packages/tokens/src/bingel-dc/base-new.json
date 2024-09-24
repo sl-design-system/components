@@ -3,7 +3,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Open Sans",
+          "value": "Montserrat",
           "type": "fontFamilies"
         },
         "body": {

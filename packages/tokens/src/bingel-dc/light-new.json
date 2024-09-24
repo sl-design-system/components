@@ -46,7 +46,7 @@
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.blue.150}",
+        "value": "{color.foundation.blue.100}",
         "type": "color"
       },
       "subtle": {

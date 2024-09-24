@@ -109,13 +109,16 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /**  @internal The slotted links. */
  // @state() linkElements: HTMLLinkElement[] = []; // or add interface PaginatorItem with label in it, url and so on...
 
-  #hiddenLeft: Element[] = []; // TODO: separated component for pageItem?
+  // #hiddenLeft: Element[] = []; // TODO: separated component for pageItem?
 
-  #hiddenRight: Element[] = []; // TODO: separated component for pageItem?
+  // #hiddenRight: Element[] = []; // TODO: separated component for pageItem?
+
+  /** The width of the menu button; used for calculating the (in)visible pages. */
+  #menuButtonWidth = 0;
 
   #mobileVariant: boolean = false;
 
-  override connectedCallback(): void {
+  override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
     // if (!this.hasAttribute('tabindex')) {
@@ -142,6 +145,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     }
 
     // TODO: Calculate the max inline size of the moreButton *before* we start the observer
+    this.#menuButtonWidth = await this.#getMenuButtonWidth();
+
+    console.log('this.#menuButtonWidth', this.#menuButtonWidth);
+
 
     this.#observer.observe(this);
   }
@@ -588,12 +595,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       button.style.display = '';
       totalAmountOfPagesWidth += button.offsetWidth;
 
-      if (pagesWrapper && totalAmountOfPagesWidth + 32 /*moreButtonWidth*/ > pagesWrapper.clientWidth - 32 /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+      if (pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth - (2 * this.#menuButtonWidth) /*32*/ /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
         possiblyHidden.push(button);
         console.log('possiblyHidden in if', possiblyHidden, button);
       } else {
         // ...
-      }
+      } // or maybe 2 x menuButtonWidth ??
     });
     console.log('1possiblyVisible, possiblyHidden', possiblyVisible, possiblyHidden, totalPagesWidth, pagesWrapper?.clientWidth);
 
@@ -607,7 +614,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // this.#mobileVariant ? (possiblyVisible.length <= 3) : false;
 
-    this.#mobileVariant = possiblyVisible.length <= 3;
+    this.#mobileVariant = possiblyVisible.length <= 4;
     if (this.#mobileVariant) {
       // hide pages when there should be mobile variant visible and dimensions are already checked
       pagesWrapper.style.display = 'none';
@@ -710,7 +717,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // TODO: add hidden buttons to sl-menu
 
-    // to measure menu button width
+/*    // to measure menu button width
     const container2 = this.shadowRoot?.createElement('div');
     let moreButtonWidth = 0;
     if (container2) {
@@ -721,7 +728,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       // container2.appendChild(moreButton);
       this.renderRoot.appendChild(container2);
 
-      const moreButton2 = /*document*/this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
+      const moreButton2 = /!*document*!/this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
       moreButton2.fill = 'ghost';
       moreButton2.classList.add('more-button');
       // moreButton.innerHTML = `<sl-icon slot="button" name="ellipsis"></sl-icon>
@@ -743,19 +750,17 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       moreButtonWidth = this.renderRoot.querySelector('sl-menu-button')?.getBoundingClientRect().width ?? 0; //moreButton2.offsetWidth;
       this.renderRoot.removeChild(container2); // Clean up
       console.log('moreButton width after remove', moreButtonWidth, moreButton2, moreButton2.getBoundingClientRect());
-    }
+    }*/
 
 
 
 
 
-
-
-    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - moreButtonWidth /*moreButton.offsetWidth*/ /*container && container.clientWidth < container.scrollWidth*/) {
+    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth /*moreButtonWidth*/ /*moreButton.offsetWidth*/ /*container && container.clientWidth < container.scrollWidth*/) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
 
       // if activePage bigger than half
-      if (this.activePage > Math.ceil(/*visibleButtons*/ possiblyVisible.length / 2) && this.activePage < (lastPage - Math.ceil(/*visibleButtons*/ possiblyVisible.length / 2))) { // TODO change to not only last page applicable but last few pages
+      if (this.activePage > Math.floor(/*visibleButtons*/ possiblyVisible.length / 2) && this.activePage < (lastPage - Math.floor(/*visibleButtons*/ possiblyVisible.length / 2))) { // TODO change to not only last page applicable but last few pages
         console.log('enters first');
         // TODO: hide on the left and on the right
         // items before and items after from 1..active and active ...10
@@ -803,7 +808,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         hiddenButtonsLeft.forEach(button => button.style.display = 'none');
 
         // hide on the right
-        hiddenButtonsRight = Array.from(pages).slice(this.activePage + (toShowAmount), -1); //Array.from(pages).slice(this.activePage, this.activePage + ((pages.length - this.activePage -1) - Math.floor(pagesToShow.length / 2)));//.push(button);
+        hiddenButtonsRight = Array.from(pages).slice(this.activePage + (toShowAmount - 1), -1); //Array.from(pages).slice(this.activePage, this.activePage + ((pages.length - this.activePage -1) - Math.floor(pagesToShow.length / 2)));//.push(button);
         menuItemsRight = hiddenButtonsRight.map(
           (button) => {
             const newItem = /*document*/this.shadowRoot?.createElement('sl-menu-item') as MenuItem;
@@ -828,7 +833,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
         // TODO: make below when activePage is somewhere in the middle --- possiblyVisible.length / 2
         // TODO: first page -> hidden pages on the left (one more button) -> shown pages on the left -> this.activepage -> shown pages on the right -> hidden pages on the right (one more button) -> last page
-      } else if (this.activePage === 1 || this.activePage <= Math.ceil(/*visibleButtons*/ possiblyVisible.length / 2)) {
+      } else if (this.activePage === 1 || this.activePage <= Math.floor(/*visibleButtons*/ possiblyVisible.length / 2)) {
         console.log('enters second');
         (Array.from(pages).slice(0, -1)).forEach(button => {
           // Ensure all pages are visible initially
@@ -838,7 +843,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           console.log('should hide buttons?', pagesWrapper && totalWidth > pagesWrapper.clientWidth, pagesWrapper.clientWidth, pagesWrapper.clientWidth - moreButton.offsetWidth,
             moreButton.offsetWidth, moreButton.clientWidth, moreButton.getBoundingClientRect().width, moreButton);
 
-          if (pagesWrapper && totalWidth + moreButtonWidth > pagesWrapper.clientWidth - moreButtonWidth /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+console.log('last page width', Array.from(pages)[lastPage-1].offsetWidth);
+
+          if (pagesWrapper && totalWidth /*+ this.#menuButtonWidth *//*moreButtonWidth*/ > pagesWrapper.clientWidth - this.#menuButtonWidth - Array.from(pages)[lastPage-1].offsetWidth /*TODO: minus last page width*/ /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
             hiddenButtons.push(button);
             menuItems = hiddenButtons.map(
               (button) => {
@@ -910,7 +917,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           //   button.style.display = 'none';
           // }
 
-          if (pagesWrapper && totalWidth + moreButtonWidth > pagesWrapper.clientWidth - moreButtonWidth /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+          if (pagesWrapper && totalWidth /*+ this.#menuButtonWidth*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth - this.#menuButtonWidth - Array.from(pages)[0].offsetWidth /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
             hiddenButtons.push(button);
             menuItems = hiddenButtons.map(
               (button) => {
@@ -1005,6 +1012,39 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
             <sl-menu-item>...</sl-menu-item>
           </sl-menu-button>
     `;
+  }
+
+  /** This returns the width of the menu button. */
+  async #getMenuButtonWidth(): Promise<number> {
+    const moreButton = /*document*/this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
+    console.log('moreButton', moreButton);
+    moreButton.classList.add('initial');
+    moreButton.fill = 'ghost';
+    moreButton.classList.add('more-button');
+    // moreButton.innerHTML = `<sl-icon slot="button" name="ellipsis"></sl-icon>
+    //         <sl-menu-item>1</sl-menu-item>
+    //         <sl-menu-item>2</sl-menu-item>
+    //         <sl-menu-item>...</sl-menu-item>`;// 'ellipsis';
+    const icon = this.shadowRoot?.createElement('sl-icon') as Icon;
+    icon.slot = 'button';
+    icon.name = 'ellipsis';
+    moreButton.appendChild(icon);
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    this.shadowRoot?.appendChild(moreButton);
+
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    const width = moreButton.getBoundingClientRect()?.width;
+
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    console.log('maxStackInlineSize moreButton', moreButton, moreButton.getBoundingClientRect(), moreButton.getBoundingClientRect()?.width, moreButton.parentElement);
+
+   this.shadowRoot?.querySelector('sl-menu-button.initial')?.remove();
+
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    return width;
   }
 }
 

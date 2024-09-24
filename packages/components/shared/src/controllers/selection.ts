@@ -20,6 +20,9 @@ export class SelectionController<T = any> {
    */
   #selection = new Set<T>();
 
+  //** The currently highlighted row */
+  #active?: T | null;
+
   /** The total number of items in the selection. */
   size = 0;
 
@@ -35,7 +38,18 @@ export class SelectionController<T = any> {
     this.multiple = !!options?.multiple;
   }
 
+  toggleActive(item: T | undefined): T | undefined {
+    console.log('activate', this.#active, item, this.#active === item);
+    if (this.#active === item) {
+      this.#active = undefined;
+    } else {
+      this.#active = item;
+    }
+    return this.#active;
+  }
+
   select(item: T): void {
+    console.log('select', item);
     if (this.#selectAll) {
       this.#selection.delete(item);
     } else {
@@ -103,6 +117,10 @@ export class SelectionController<T = any> {
     } else {
       return this.#selection.has(item);
     }
+  }
+
+  isActive(item: T): boolean {
+    return this.#active === item;
   }
 
   isSelectAllToggled(): boolean {

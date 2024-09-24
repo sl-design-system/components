@@ -239,7 +239,7 @@ td[part~='text-field'] {
     }
   }
 
-  tr[part~='selected'] {
+  tr[part~='active'] {
     --_cell-background: var(--_selected-background);
   }
 }

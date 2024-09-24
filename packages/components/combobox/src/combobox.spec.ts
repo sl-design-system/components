@@ -1,9 +1,11 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { type Combobox } from './combobox.js';
@@ -823,6 +825,27 @@ describe('sl-combobox', () => {
         expect(options[1]).to.be.displayed;
         expect(options[2]).to.be.displayed;
       });
+
+      it('should show a message when there are no matches', async () => {
+        input.focus();
+        await sendKeys({ type: 'Foo' });
+
+        const noMatch = el.querySelector('sl-combobox-no-match');
+        expect(noMatch).to.exist;
+        expect(noMatch?.renderRoot).to.have.text('No options starting with "Foo" have been found.');
+      });
+
+      it('should remove the message when there are matches', async () => {
+        input.focus();
+        await sendKeys({ type: 'Foo' });
+
+        expect(el.querySelector('sl-combobox-no-match')).to.exist;
+
+        input.select();
+        await sendKeys({ press: 'Backspace' });
+
+        expect(el.querySelector('sl-combobox-no-match')).not.to.exist;
+      });
     });
 
     describe('group selected', () => {
@@ -863,6 +886,52 @@ describe('sl-combobox', () => {
         expect(otherLabel).to.exist;
         expect(otherLabel).to.have.trimmed.text('All options');
       });
+    });
+  });
+
+  describe('form integration', () => {
+    let el: FormIntegrationTestComponent;
+
+    class FormIntegrationTestComponent extends LitElement {
+      onFormControl: (event: SlFormControlEvent) => void = spy();
+
+      override render(): TemplateResult {
+        return html`
+          <sl-form-field label="Label">
+            <sl-combobox @sl-form-control=${this.onFormControl}>
+              <sl-listbox>
+                <sl-option>Option 1</sl-option>
+                <sl-option>Option 2</sl-option>
+                <sl-option>Option 3</sl-option>
+              </sl-listbox>
+            </sl-combobox>
+          </sl-form-field>
+        `;
+      }
+    }
+
+    beforeEach(async () => {
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
+
+      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+    });
+
+    it('should emit an sl-form-control event after first render', () => {
+      expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the input when the label is clicked', async () => {
+      const input = el.renderRoot.querySelector('input'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(input);
     });
   });
 });

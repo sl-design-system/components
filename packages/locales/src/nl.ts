@@ -9,6 +9,7 @@ export const templates = {
   s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',
   s19fe06e3408e53d0: 'succes',
+  s2362b49263f76ec8: str`Geen opties gevonden die beginnen met "${0}".`,
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',

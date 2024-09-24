@@ -68,6 +68,9 @@ export class GridViewModel<T = any> {
     this.#columns = this.#columnDefinitions.filter(col => !col.hidden);
     this.#headerRows = this.#getHeaderRows(this.#columnDefinitions);
 
+    console.log('headerRows');
+    console.log(this.#headerRows);
+
     if (this.#dataSource?.groupBy) {
       const groupByPath = this.#dataSource.groupBy.path,
         groups: string[] = [];
@@ -192,6 +195,24 @@ export class GridViewModel<T = any> {
     this.#rows = [...rows];
   }
 
+  /**
+   * Returns the header rows for the grid, by flattening the column groups.
+   *
+   * So the following column definitions:
+   * - group 1
+   *   - column 1
+   *   - column 2
+   * - group 2
+   *   - column 3
+   *   - column 4
+   * - column 5
+   *
+   * Will be flattened to:
+   * [
+   *  [ group 1, group 2 ],
+   *  [ column 1, column 2, column 3, column 4, column 5 ]
+   * ]
+   */
   #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
     const groups = columns.filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup);
     const columnsOutsideGroups = columns.filter((col): col is GridColumn<T> => !(col instanceof GridColumnGroup));

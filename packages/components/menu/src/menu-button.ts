@@ -66,6 +66,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    this.button.setAttribute('aria-details', this.menu.id);
     this.menu.anchorElement = this.button;
   }
 
@@ -80,6 +81,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
+        aria-expanded="false"
         fill=${ifDefined(this.fill)}
         part="button"
         size=${ifDefined(this.size)}

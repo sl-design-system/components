@@ -15,7 +15,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Tab group',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     alignTabs: 'start',
     vertical: false

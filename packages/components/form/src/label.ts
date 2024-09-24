@@ -14,6 +14,10 @@ export type LabelMark = 'optional' | 'required';
 
 export type LabelSize = 'sm' | 'md' | 'lg';
 
+/**
+ * Label component that hooks a `<label>` element up with the input element of the form control,
+ * assuming the input element is in the light DOM (same context of the label).
+ */
 @localized()
 export class Label extends LitElement {
   /** @internal */

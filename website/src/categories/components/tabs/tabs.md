@@ -13,6 +13,5 @@ storybookComponentName: tab-group
 eleventyNavigation:
   parent: Components
   key: Tabs
-  status: ready
 ---
 

@@ -1,6 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
+import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { Checkbox } from './checkbox.js';
@@ -371,6 +373,57 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el.validationMessage).to.equal('Custom validation message');
+    });
+  });
+
+  describe('form integration', () => {
+    let el: FormIntegrationTestComponent;
+
+    class FormIntegrationTestComponent extends LitElement {
+      onFormControl: (event: SlFormControlEvent) => void = spy();
+
+      override render(): TemplateResult {
+        return html`
+          <sl-form-field label="Label">
+            <sl-checkbox @sl-form-control=${this.onFormControl}>Checkbox</sl-checkbox>
+          </sl-form-field>
+        `;
+      }
+    }
+
+    beforeEach(async () => {
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
+
+      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+    });
+
+    it('should emit an sl-form-control event after first render', () => {
+      expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the input when the label is clicked', async () => {
+      const input = el.renderRoot.querySelector('input'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(input);
+    });
+
+    it('should toggle the checkbox when the label is clicked', async () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(checkbox).to.have.attribute('checked');
+      expect(checkbox?.checked).to.be.true;
     });
   });
 });

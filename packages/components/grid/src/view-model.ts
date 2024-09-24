@@ -66,7 +66,7 @@ export class GridViewModel<T = any> {
 
   update = (): void => {
     this.#columns = this.#columnDefinitions.filter(col => !col.hidden);
-    this.#headerRows = this.#getHeaderRows(this.#columnDefinitions);
+    this.#headerRows = this.#flattenColumnGroups(this.#columnDefinitions);
 
     if (this.#dataSource?.groupBy) {
       const groupByPath = this.#dataSource.groupBy.path,
@@ -208,27 +208,32 @@ export class GridViewModel<T = any> {
     this.#rows = [...rows];
   }
 
-  #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
+  /**
+   * Flattens the column groups.
+   *
+   * So the following column definitions:
+   * - group 1
+   *   - column 1
+   *   - column 2
+   * - group 2
+   *   - column 3
+   *   - column 4
+   * - group 3
+   *   - column 5
+   *
+   * Will be flattened to:
+   * [
+   *  [ group 1, group 2, group 3 ],
+   *  [ column 1, column 2, column 3, column 4, column 5 ]
+   * ]
+   */
+  #flattenColumnGroups(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
     const groups = columns.filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup);
-    const columnsOutsideGroups = columns.filter((col): col is GridColumn<T> => !(col instanceof GridColumnGroup));
-    const groupsNew = columns
-      .map(col => {
-        if (col instanceof GridColumnGroup) {
-          return col;
-        }
-        const newGroup = new GridColumnGroup<T>();
-        if (!(col.parentElement instanceof GridColumnGroup)) {
-          // add the column this header group represents to the group in order to calculate the width correctly.
-          newGroup.columns = [col as GridColumnGroup<T>];
-        }
-        return newGroup;
-      })
-      .filter(g => !!g);
-    const children = groups.reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
-      return [...acc, ...this.#getHeaderRows(cur.columns)];
-    }, []);
 
-    // when there are columns groups, return the groups and the columns outside groups, otherwise only return the columns
-    return children.length ? [[...groupsNew], [...children.flat(2), ...columnsOutsideGroups]] : [[...columns]];
+    if (groups.length) {
+      return [groups, groups.flatMap(group => this.#flattenColumnGroups(group.columns)).flat()];
+    } else {
+      return [columns];
+    }
   }
 }

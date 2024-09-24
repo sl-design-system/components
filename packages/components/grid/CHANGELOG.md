@@ -1,5 +1,18 @@
 # @sl-design-system/grid
 
+## 0.1.14
+
+### Patch Changes
+
+- [#1523](https://github.com/sl-design-system/components/pull/1523) [`31e3c16`](https://github.com/sl-design-system/components/commit/31e3c16b49056e2a90764ebd9e05d02bf0ccfb44) - Fix bug where reordering columns could cause events from the parent grid to no longer be received
+
+- [#1523](https://github.com/sl-design-system/components/pull/1523) [`31e3c16`](https://github.com/sl-design-system/components/commit/31e3c16b49056e2a90764ebd9e05d02bf0ccfb44) - Fix a bug where reordering filter columns wouldn't always update the checkbox group inside the filter popover
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`d79c397`](https://github.com/sl-design-system/components/commit/d79c3977b15cf55c8a83db94fc4ab98a1fe7e328), [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d)]:
+  - @sl-design-system/shared@0.3.2
+  - @sl-design-system/text-field@1.4.0
+  - @sl-design-system/select@1.1.1
+
 ## 0.1.13
 
 ### Patch Changes

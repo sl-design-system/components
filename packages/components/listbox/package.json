@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/listbox",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Listbox components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

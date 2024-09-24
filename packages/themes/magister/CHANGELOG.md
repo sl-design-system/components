@@ -1,5 +1,18 @@
 # @sanomalearning/slds-magister
 
+## 0.1.17
+
+### Patch Changes
+
+- [#1524](https://github.com/sl-design-system/components/pull/1524) [`26f8251`](https://github.com/sl-design-system/components/commit/26f825194432eee04ca8c67869dcddc1781b565e) - Feature/1163 toggle group make available in all themes
+
+- [#1488](https://github.com/sl-design-system/components/pull/1488) [`b724cf6`](https://github.com/sl-design-system/components/commit/b724cf629b28ee7afb85ccc072a4a07c8aa0e6bc) - Fixed several issues in toggle button and group that were cause by not using the correct tokens.
+  Also fixed an issue that would cause the `calc()` function to be missing in certain tokens.
+
+- [#1538](https://github.com/sl-design-system/components/pull/1538) [`7dc68cf`](https://github.com/sl-design-system/components/commit/7dc68cff7e5d4616d79cf9f313fe37477dc1fb1d) - Fix missing `px` unit in token that breaks calculation in checkbox
+
+- [#1521](https://github.com/sl-design-system/components/pull/1521) [`7615d0e`](https://github.com/sl-design-system/components/commit/7615d0e3ebfddd733505a90a6ea9a39bcad25919) - Change the bottom padding of the field label
+
 ## 0.1.16
 
 ### Patch Changes

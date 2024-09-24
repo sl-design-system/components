@@ -10,8 +10,8 @@
       "system": "source",
       "bingel-dc/base-new": "enabled",
       "bingel-dc/light-new": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:d862768937bd0d35b24f98a85118629fc7b35cb2,",
@@ -1049,8 +1049,8 @@
       "bingel-int/light-new": "enabled",
       "primitives": "source",
       "system": "source",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -1065,8 +1065,8 @@
       "clickedu/light-new": "enabled",
       "primitives": "source",
       "system": "source",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:3b0db99b398be113b810c4d06983807c3508ac71,",
@@ -2176,8 +2176,8 @@
       "system": "source",
       "itslearning/base-new": "enabled",
       "itslearning/light-new": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -2192,8 +2192,8 @@
       "kampus/light-new": "enabled",
       "primitives": "source",
       "system": "source",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:7cb020135af0657671582951d6d62d40e24b3b79,",
@@ -3196,8 +3196,8 @@
       "magister/light-new": "enabled",
       "primitives": "source",
       "system": "source",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:82656f62deb7a1ab8ab83d1dea04aa3b9e2958e5,",
@@ -4257,8 +4257,8 @@
       "max/light-new": "enabled",
       "primitives": "source",
       "system": "source",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:61d892acbfb0957e4286e168a9878f3f663f438d,",
@@ -5114,11 +5114,13 @@
     "id": "3c0efcad43272eb5bb21bcbff94b5f2dbd876fcf",
     "name": "neon/light",
     "selectedTokenSets": {
-      "core": "enabled",
+      "core": "source",
       "neon/base": "enabled",
       "neon/light": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "enabled",
+      "neon/light-new": "enabled",
+      "primitives": "source",
+      "system": "source"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e99a01cb7c691ea3724529a5ed35448899c014a7,",
@@ -5885,8 +5887,8 @@
       "system": "source",
       "sanoma-learning/light-new": "enabled",
       "sanoma-learning/base-new": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:9d741285dde5790b1e99f1f9a902df7e67409616,",
@@ -7571,8 +7573,8 @@
       "system": "source",
       "sanoma-learning/base-new": "enabled",
       "sanoma-learning/dark-new": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",
@@ -8858,8 +8860,8 @@
       "core": "enabled",
       "neon/base": "enabled",
       "neon/dark": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:5cf7b392afc2f205a80bd6a89cbca492a5117ec1,",
@@ -9931,8 +9933,8 @@
       "core": "enabled",
       "teas/base": "enabled",
       "teas/light": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:a18cd22854d1f77c00da09d143ce5cb088117cd8,",
@@ -11176,8 +11178,8 @@
       "core": "enabled",
       "magister/base": "enabled",
       "magister/dark": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e490577a117b657a4f6379ec6fb83921546a29b0,",
@@ -12962,8 +12964,8 @@
       "core": "enabled",
       "myvanin_onhold/base": "enabled",
       "myvanin_onhold/light": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     }
   },
   {
@@ -14030,8 +14032,8 @@
       "editorial-suite/base-new": "enabled",
       "editorial-suite/light-new": "enabled",
       "primitives": "source",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     }
   },
   {
@@ -14045,7 +14047,9 @@
       "my-digital-book/base-new": "enabled",
       "my-digital-book/light-new": "enabled",
       "primitives": "source",
-      "system": "source"
+      "system": "source",
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     }
   },
   {
@@ -15074,8 +15078,8 @@
       "core": "enabled",
       "sanoma-utbildning_onhold/base": "enabled",
       "sanoma-utbildning_onhold/light": "enabled",
-      "my-digital-book/base-new": "disabled",
-      "my-digital-book/light-new": "disabled"
+      "neon/base-new": "disabled",
+      "neon/light-new": "disabled"
     }
   }
 ]

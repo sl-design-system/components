@@ -47,6 +47,8 @@
     "neon/base",
     "neon/dark",
     "neon/light",
+    "neon/base-new",
+    "neon/light-new",
     "sanoma-learning/base",
     "sanoma-learning/light",
     "sanoma-learning/dark",

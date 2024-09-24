@@ -21,8 +21,8 @@ export default {
 export const ClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const onActiveItemChange = ({ detail: { item, grid } }: SlActiveItemChangeEvent<Person>): void => {
-      grid.selection.select(item);
+    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
+      console.log('current active item:', item);
     };
 
     return html`
@@ -72,8 +72,12 @@ export const SelectionColumn: Story = {
 export const SelectionColumnAndClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
+    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
+      console.log('current active item:', item);
+    };
+
     return html`
-      <sl-grid .items=${people} clickable-row>
+      <sl-grid .items=${people} clickable-row @sl-active-item-change=${onActiveItemChange}>
         <sl-grid-selection-column auto-select></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

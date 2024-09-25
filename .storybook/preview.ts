@@ -65,9 +65,31 @@ const preview: Preview = {
   },
   parameters: {
     options: {
-      storySort: {
-        method: 'alphabetical',
-        order: ['', 'Getting started']
+      storySort: (a, b) => {
+        if (a.id === b.id) {
+          return 0;
+        } else {
+          const [aGroup, aName] = a.title.split('/'),
+            [bGroup, bName] = b.title.split('/');
+
+          if (aGroup === bGroup) {
+            if (aName === 'Examples') {
+              return -1;
+            } else if (bName === 'Examples') {
+              return 1;
+            } else {
+              return aName.localeCompare(bName, undefined, { numeric: true });
+            }
+          } else {
+            if (aGroup === 'Getting started') {
+              return -1;
+            } else if (bGroup === 'Getting started') {
+              return 1;
+            } else {
+              return aGroup.localeCompare(bGroup, undefined, { numeric: true });
+            }
+          }
+        }
       }
     },
     viewport: {

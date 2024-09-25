@@ -56,20 +56,6 @@ describe('sl-column-group', () => {
         369, 636, 185, 183, 169, 157, 166, 144
       ]);
     });
-
-    // it('should emit an sl-column-update event after clicking the checkbox', async () => {
-    //   const columnUpdateEvent = spy();
-    //   const columnGoup = el.querySelector('sl-grid-column-group:first-of-type') as GridColumnGroup;
-    //   columnGoup?.addEventListener('sl-column-update', columnUpdateEvent);
-
-    //   const newColumn = document.createElement('sl-grid-column');
-    //   await new Promise(resolve => setTimeout(resolve, 100));
-
-    //   columnGoup?.appendChild(newColumn);
-
-    //   // expect(columnUpdateEvent).to.have.been.called;
-    //   expect(columnGoup?.columns).to.equal(3);
-    // });
   });
 
   describe('explicit width', () => {

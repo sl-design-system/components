@@ -48,7 +48,6 @@ export class SelectionController<T = any> {
   }
 
   select(item: T): void {
-    console.log('select', item);
     if (this.#selectAll) {
       this.#selection.delete(item);
     } else {

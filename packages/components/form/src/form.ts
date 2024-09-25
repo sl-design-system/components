@@ -23,7 +23,7 @@ declare global {
  * See https://github.com/whatwg/html/issues/9878
  */
 export class Form<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -40,6 +40,9 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
    * set it on the form controls when they are ready.
    */
   #value: T | undefined;
+
+  /** Value when the form is initialised, used when the form is reset. */
+  #initialValue: T | undefined;
 
   /** The controls in the form; not necessarily the same amount as the fields. */
   controls: Array<HTMLElement & FormControl> = [];
@@ -87,13 +90,18 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** The aggregated value of all form controls. */
   get value(): T {
-    return this.controls.reduce((value, control) => {
+    const value = this.controls.reduce((value, control) => {
       if (control.name) {
         setValueByPath(value, control.name, control.formValue);
       }
-
       return value;
     }, {}) as T;
+
+    if (!this.#initialValue && !!value) {
+      this.#initialValue = value;
+    }
+
+    return value;
   }
 
   @property({ attribute: false })
@@ -105,6 +113,11 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     } else {
       this.controls.forEach(c => (c.formValue = undefined));
     }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+    this.#initialValue = this.#value;
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -124,6 +137,20 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#showValidity = true;
 
     return this.controls.map(c => c.reportValidity()).every(Boolean);
+  }
+
+  /** Puts all the initial values of the form controls back and updates the validity of all fields. */
+  reset(): void {
+    this.controls.map(c => {
+      if (c.name) {
+        c.reset(this.#initialValue?.[c.name]);
+      }
+    });
+
+    // without waiting for the update after the reset to be complete the validity report uses the old values
+    requestAnimationFrame(() => {
+      this.reportValidity();
+    });
   }
 
   #onFormControl(event: SlFormControlEvent): void {

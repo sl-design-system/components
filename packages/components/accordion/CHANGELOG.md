@@ -1,5 +1,23 @@
 # @sl-design-system/accordion
 
+## 1.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/shared@0.3.0
+
+## 1.1.0
+
+### Minor Changes
+
+- [#1399](https://github.com/sl-design-system/components/pull/1399) [`de05a3b`](https://github.com/sl-design-system/components/commit/de05a3b26c6a027393791ed63289feba3967eb58) - Add the ability to slot a custom summary
+
+### Patch Changes
+
+- Updated dependencies [[`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220)]:
+  - @sl-design-system/shared@0.2.13
+
 ## 1.0.0
 
 ### Major Changes

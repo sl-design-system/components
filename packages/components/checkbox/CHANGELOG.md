@@ -1,5 +1,44 @@
 # @sl-design-system/checkbox
 
+## 2.0.0
+
+### Major Changes
+
+- [#1444](https://github.com/sl-design-system/components/pull/1444) [`5679f25`](https://github.com/sl-design-system/components/commit/5679f25338d5d5e356c6d5c0052bb7bf4a066f50) - Change `formValue` behavior to be boolean instead of `'on'`
+
+  This is a breaking change. Even though `'on'` matches the HTML standard, it is not the most common use case for a checkbox. This change will make it easier to use the component in most cases.
+
+  This also makes it possible to use a boolean when setting the value of the checkbox in a form using `FormController`.
+
+### Patch Changes
+
+- [#1443](https://github.com/sl-design-system/components/pull/1443) [`07b4c26`](https://github.com/sl-design-system/components/commit/07b4c2697c0a8221f808927b0c52f4a0c46567e9) - Fix bug where the `formValue` setter override was missing, causing an error
+
+- Updated dependencies [[`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/shared@0.3.0
+  - @sl-design-system/form@1.0.3
+
+## 1.0.3
+
+### Patch Changes
+
+- [#1421](https://github.com/sl-design-system/components/pull/1421) [`5051056`](https://github.com/sl-design-system/components/commit/5051056f67d8b25d96885d01c2fe7dde9e4c5ba4) - Fix group value not reflecting initial checked state
+
+- Updated dependencies [[`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220)]:
+  - @sl-design-system/shared@0.2.13
+
+## 1.0.2
+
+### Patch Changes
+
+- [#1369](https://github.com/sl-design-system/components/pull/1369) [`25d1de0`](https://github.com/sl-design-system/components/commit/25d1de0d8b6e032aa13463d18db201cf88d5ddd6) - Fix behavior to match native checkbox:
+
+  - If a checkbox has no value, the form value should be `"on"` when checked
+  - The value of the checkbox group should be an array of the form value of _all_ checkboxes
+  - The form value will filter out any `null` values (so this change is not breaking)
+
+  This also fixes the inability to check a checkbox in a group that has no values.
+
 ## 1.0.1
 
 ### Patch Changes

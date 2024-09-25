@@ -1,43 +1,61 @@
-import { faGear, faList, faRectanglesMixed, faTableCells } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faArrowUpShortWide,
+  faGear,
+  faList,
+  faPen,
+  faRectanglesMixed,
+  faTableCells,
+  faTableRows,
+  faTrash
+} from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/avatar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
-type Props = Pick<MenuButton, 'disabled' | 'fill' | 'pluralize' | 'position' | 'selects' | 'size' | 'variant'> & {
+type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'size' | 'variant'> & {
   alignSelf: string;
   body: string | TemplateResult;
   justifySelf: string;
+  label?: string;
   menuItems?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faGear, faList, faRectanglesMixed, faTableCells);
+Icon.register(faArrowUpShortWide, faGear, faList, faPen, faRectanglesMixed, faTableCells, faTableRows, faTrash);
 
 export default {
-  title: 'Components/Menu button',
+  title: 'Actions/Menu button',
   tags: ['draft'],
   args: {
     alignSelf: 'center',
     body: 'Button',
     disabled: false,
-    fill: 'outline',
-    justifySelf: 'center',
-    size: 'md',
-    variant: 'default'
+    justifySelf: 'center'
   },
   argTypes: {
     alignSelf: {
       control: 'inline-radio',
       options: ['start', 'center', 'end']
     },
+    body: {
+      table: { disable: true }
+    },
+    fill: {
+      control: 'inline-radio',
+      options: ['solid', 'outline', 'ghost']
+    },
     justifySelf: {
       control: 'inline-radio',
       options: ['start', 'center', 'end']
+    },
+    menuItems: {
+      table: { disable: true }
     },
     position: {
       control: 'select',
@@ -55,25 +73,21 @@ export default {
         'left-start',
         'left-end'
       ]
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['md', 'lg']
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['default', 'primary', 'info']
     }
   },
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({
-    alignSelf,
-    body,
-    disabled,
-    fill,
-    justifySelf,
-    menuItems,
-    pluralize,
-    position,
-    selects,
-    size,
-    variant
-  }) => {
+  render: ({ alignSelf, body, disabled, fill, justifySelf, label, menuItems, position, size, variant }) => {
     return html`
       <style>
         #root-inner {
@@ -83,14 +97,13 @@ export default {
         }
       </style>
       <sl-menu-button
-        .disabled=${disabled}
-        .fill=${fill}
-        .pluralize=${pluralize}
-        .position=${position}
-        .selects=${selects}
-        .size=${size}
-        .variant=${variant}
-        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
+        ?disabled=${disabled}
+        aria-label=${ifDefined(label)}
+        fill=${ifDefined(fill)}
+        position=${ifDefined(position)}
+        size=${ifDefined(size)}
+        style=${styleMap({ alignSelf, justifySelf })}
+        variant=${ifDefined(variant)}
       >
         ${body ?? html`<div slot="button">${body}</div>`} ${menuItems?.()}
       </sl-menu-button>
@@ -101,6 +114,7 @@ export default {
 export const Basic: Story = {
   args: {
     body: html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
+    label: 'Label',
     menuItems: () => html`
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>
@@ -121,41 +135,44 @@ export const Disabled: Story = {
   }
 };
 
-export const SingleSelect: Story = {
+export const IconAndText: Story = {
   args: {
-    body: html`<span slot="button">View</span>`,
-    menuItems: () => html`
-      <sl-menu-item selectable selected shortcut="$mod+Digit1">
-        <sl-icon name="far-list"></sl-icon>
-        List
-      </sl-menu-item>
-      <sl-menu-item selectable shortcut="$mod+Digit2">
-        <sl-icon name="far-rectangles-mixed"></sl-icon>
-        Cards
-      </sl-menu-item>
-      <sl-menu-item selectable shortcut="$mod+Digit3">
-        <sl-icon name="far-table-cells"></sl-icon>
-        Grid
-      </sl-menu-item>
+    ...Basic.args,
+    body: html`
+      <sl-icon name="far-gear" slot="button"></sl-icon>
+      <span slot="button">Settings</span>
     `,
-    selects: 'single'
+    label: undefined
   }
 };
 
-export const MultiSelect: Story = {
+export const Text: Story = {
   args: {
-    body: html`<span slot="button">Lists</span>`,
-    menuItems: () => html`
-      <sl-menu-item selectable selected>Side projects</sl-menu-item>
-      <sl-menu-item selectable>Design systems</sl-menu-item>
-      <sl-menu-item selectable>Plugins</sl-menu-item>
-    `,
-    pluralize: count => `${count} list${count > 1 ? 's' : ''}`,
-    selects: 'multiple'
+    ...Basic.args,
+    body: html`<span slot="button">Settings</span>`,
+    label: undefined
   }
 };
 
-export const WithAvatar: Story = {
+export const Submenu: Story = {
+  args: {
+    ...Basic.args,
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
+        Sort by
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
+          <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
+        </sl-menu>
+      </sl-menu-item>
+    `
+  }
+};
+
+export const Avatar: Story = {
   args: {
     body: html`<sl-avatar display-name="John Doe" size="sm" slot="button"></sl-avatar>`,
     fill: 'ghost',
@@ -169,51 +186,118 @@ export const WithAvatar: Story = {
 };
 
 export const All: Story = {
-  args: {
-    body: html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
-    menuItems: () => html`
-      <sl-menu-item-group selects="single">
-        <sl-menu-item selectable selected shortcut="$mod+Digit1">
-          <sl-icon name="far-list"></sl-icon>
-          List
+  render: () => html`
+    <style>
+      .container {
+        align-items: center;
+        display: inline-grid;
+        gap: 1rem;
+        grid-template-columns: repeat(5, auto);
+        justify-items: center;
+      }
+    </style>
+    <div class="container">
+      <span></span>
+      <span>Icon</span>
+      <span>Icon & text</span>
+      <span>Text</span>
+      <span>Disabled</span>
+
+      <span>md</span>
+      <sl-menu-button aria-label="Label">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
         </sl-menu-item>
-        <sl-menu-item selectable shortcut="$mod+Digit2">
-          <sl-icon name="far-rectangles-mixed"></sl-icon>
-          Cards
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
         </sl-menu-item>
-        <sl-menu-item selectable shortcut="$mod+Digit3">
-          <sl-icon name="far-table-cells"></sl-icon>
-          Grid
+      </sl-menu-button>
+      <sl-menu-button>
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
         </sl-menu-item>
-      </sl-menu-item-group>
-      <hr />
-      <sl-menu-item>
-        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
-        Sort by
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
-          <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
-          <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
-          <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-table-rows"></sl-icon>
-        Group by
-        <sl-menu selects="single" slot="submenu">
-          <sl-menu-item selectable selected>Something</sl-menu-item>
-          <sl-menu-item selectable>Other</sl-menu-item>
-        </sl-menu>
-      </sl-menu-item>
-      <hr />
-      <sl-menu-item disabled>
-        <sl-icon name="far-pen"></sl-icon>
-        Rename...
-      </sl-menu-item>
-      <sl-menu-item>
-        <sl-icon name="far-trash"></sl-icon>
-        Delete...
-      </sl-menu-item>
-    `
-  }
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button disabled>
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+
+      <span>lg</span>
+      <sl-menu-button aria-label="Label" size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button size="lg">
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+      <sl-menu-button disabled size="lg">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <span slot="button">Settings</span>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
+    </div>
+  `
 };

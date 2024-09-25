@@ -1,5 +1,37 @@
 # @sl-design-system/shared
 
+## 0.3.2
+
+### Patch Changes
+
+- [#1492](https://github.com/sl-design-system/components/pull/1492) [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d) - Prevent anchor directive from initializing more than once on the same host
+
+## 0.3.1
+
+### Patch Changes
+
+- [#1499](https://github.com/sl-design-system/components/pull/1499) [`d4bb7fe`](https://github.com/sl-design-system/components/commit/d4bb7fe67bf95807437e41528c334f62d6cff807) - Handle `rootMarginTop` being undefined
+
+## 0.3.0
+
+### Minor Changes
+
+- [#1428](https://github.com/sl-design-system/components/pull/1428) [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea) - Fixed issue where popover was too small to show any content even if there was space on the other side of the anchor component.
+  The way to set the min and max size of the popover have changed: use the following properties instead of setting the width directly on the popover. (Those values will be ignored when calculating the size of the popover as it can exist in the available space)
+  --sl-popover-min-block-size
+  --sl-popover-max-block-size
+  --sl-popover-max-inline-size
+
+### Patch Changes
+
+- [#1474](https://github.com/sl-design-system/components/pull/1474) [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56) - Change popover positioning to use `inset` rather than `translate`
+
+## 0.2.13
+
+### Patch Changes
+
+- [#1407](https://github.com/sl-design-system/components/pull/1407) [`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220) - Fix typing of `SlToggleEvent` to be slightly more flexible
+
 ## 0.2.12
 
 ### Patch Changes

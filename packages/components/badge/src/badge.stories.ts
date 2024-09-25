@@ -10,7 +10,7 @@ type Story = StoryObj<Props>;
 const variants: BadgeVariant[] = ['neutral', 'primary', 'info', 'danger', 'success', 'warning', 'accent'];
 
 export default {
-  title: 'Components/Badge',
+  title: 'Feedback & status/Badge',
   tags: ['stable'],
   args: {
     emphasis: 'subtle',

@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/clickedu",
   "description": "Clickedu theme for the SL Design System",
-  "version": "0.1.10",
+  "version": "0.1.17",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -31,6 +31,6 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "1.0.0"
+    "@sl-design-system/icon": "1.0.2"
   }
 }

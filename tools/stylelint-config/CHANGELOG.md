@@ -1,5 +1,17 @@
 # @sl-design-system/stylelint-config
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1501](https://github.com/sl-design-system/components/pull/1501) [`8c93dfa`](https://github.com/sl-design-system/components/commit/8c93dfa700101f7f1712cbb669cd5086f32d7aa7) - Tweak linting config
+
+## 0.1.0
+
+### Minor Changes
+
+- [#1493](https://github.com/sl-design-system/components/pull/1493) [`f9c048c`](https://github.com/sl-design-system/components/commit/f9c048cc4c53ad52c377f8c27f8b2aed5adcf596) - Update stylelint dependencies
+
 ## 0.0.4
 
 ### Patch Changes

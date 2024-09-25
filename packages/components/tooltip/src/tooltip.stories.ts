@@ -22,7 +22,7 @@ export default {
   args: {
     alignSelf: 'center',
     justifySelf: 'center',
-    maxWidth: 150,
+    maxWidth: 160,
     message: 'This is the tooltip message',
     position: 'top'
   },
@@ -130,7 +130,7 @@ export const All: Story = {
         }
       </style>
       <sl-button aria-describedby="tooltip"> Button </sl-button>
-      <sl-tooltip id="tooltip" position="top" max-width="300">Tooltip message</sl-tooltip>
+      <sl-tooltip id="tooltip" position="top" max-width="300">This is the tooltip message</sl-tooltip>
     `;
   }
 };

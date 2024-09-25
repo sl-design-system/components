@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/accordion",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "Accordion component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,6 +39,6 @@
   },
   "dependencies": {
     "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/shared": "^0.2.12"
+    "@sl-design-system/shared": "^0.3.0"
   }
 }

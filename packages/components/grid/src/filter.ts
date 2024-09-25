@@ -11,6 +11,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { type GridColumn } from './column.js';
 import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
@@ -41,7 +42,7 @@ Icon.register(faFilter, faFilterSolid);
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -53,7 +54,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The filter value(s). */
@@ -61,7 +62,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * Whether the grid is currently being filtered by this column.
-   * @private
+   * @internal
    */
   @property({ type: Boolean, reflect: true }) active = false;
 
@@ -74,7 +75,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the filter has been added or removed. */
   @event({ name: 'sl-filter-change' }) filterChangeEvent!: EventEmitter<SlFilterChangeEvent>;
 
-  /** @internal Emits when the value of the this filter has changed. */
+  /** @internal Emits when the value of the filter has changed. */
   @event({ name: 'sl-filter-value-change' }) filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
 
   /** The mode of the filter. */
@@ -88,7 +89,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   set value(value: string | string[] | undefined) {
     if (this.mode !== 'text') {
-      this.#value = Array.isArray(value) ? value : value?.split(',') ?? [];
+      this.#value = Array.isArray(value) ? value : (value?.split(',') ?? []);
     } else {
       this.#value = value;
     }
@@ -133,7 +134,9 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
         ${this.mode === 'select'
           ? html`
               <sl-checkbox-group aria-labelledby="title" autofocus>
-                ${this.options?.map(
+                ${repeat(
+                  this.options ?? [],
+                  option => option.value,
                   option => html`
                     <sl-checkbox
                       @sl-change=${(event: SlChangeEvent & { target: Checkbox }) => this.#onChange(event, option)}

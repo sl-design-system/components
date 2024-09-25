@@ -16,7 +16,7 @@ eleventyNavigation:
         title: 'Custom buttons',
         message: 'This is a message with custom buttons. Are you sure you want to press any buttons?',
         buttons: [
-          { text: 'No, run away!', value: 'NO' },
+          { text: 'No, run away!', autofocus: true, fill: 'outline', value: 'NO', variant: 'primary' },
           { text: `Yes, I don't care what it does`, value: 'YES', variant: 'danger' }
         ]
       });
@@ -35,7 +35,7 @@ eleventyNavigation:
         title: 'Custom buttons',
         message: 'This is a message with custom buttons. Are you sure you want to press any buttons?',
         buttons: [
-          { text: 'No, run away!', value: 'NO' },
+          { text: 'No, run away!', autofocus: true, fill: 'outline', value: 'NO', variant: 'primary' },
           { text: `Yes, I don't care what it does`, value: 'YES', variant: 'danger' }
         ]
       });
@@ -84,6 +84,7 @@ The `MessageDialog.show()` API is the most flexible of the three. It allows you 
 - `subtitle` (string): The subtitle of the dialog.
 - `message` (string): The message of the dialog.
 - `buttons` (array): An array of button objects. Each button object can have the following properties:
+  - `autofocus` (boolean): Whether the button should get focus when the dialog opens.
   - `text` (string): The text of the button.
   - `value` (string): The value of the button. This is what will be returned when the button is clicked.
   - `variant` (string): The variant of the button. This can be "primary", "success", "info", "warning", or "danger".
@@ -92,3 +93,5 @@ The `MessageDialog.show()` API is the most flexible of the three. It allows you 
 The `MessageDialog.show()` API returns a promise that resolves with the value of the button that was clicked. This allows you to perform different actions based on the button that was clicked.
 
 </section>
+
+{% include "../component-table.njk" %}

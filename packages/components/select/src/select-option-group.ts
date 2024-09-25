@@ -26,13 +26,13 @@ declare global {
  * @slot default - List of `sl-select-option` elements
  */
 export class SelectOptionGroup extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The heading for the group. */
   @property() heading?: string;
 
-  /** @private The size of the select. Is inherited from the select component it is in. */
+  /** @internal The size of the select. Is inherited from the select component it is in. */
   @property({ reflect: true }) size: SelectSize = 'md';
 
   override connectedCallback(): void {

@@ -7,7 +7,7 @@ import {
   EventsController,
   event
 } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { type GridColumn } from './column.js';
@@ -21,7 +21,7 @@ declare global {
   }
 
   interface HTMLElementTagNameMap {
-    'sl-sorter': GridSorter;
+    'sl-grid-sorter': GridSorter;
   }
 }
 
@@ -36,14 +36,14 @@ export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   #events = new EventsController(this);
@@ -75,20 +75,6 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
     this.#events.listen(this, 'keydown', this.#onKeydown);
 
     this.sorterChangeEvent.emit('added');
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('direction')) {
-      const header = this.closest('th');
-
-      if (!this.direction) {
-        header?.removeAttribute('aria-sort');
-      } else {
-        header?.setAttribute('aria-sort', this.direction === 'asc' ? 'ascending' : 'descending');
-      }
-    }
   }
 
   override disconnectedCallback(): void {

@@ -1,12 +1,5 @@
-import {
-  type EventEmitter,
-  EventsController,
-  dasherize,
-  event,
-  getNameByPath,
-  getValueByPath
-} from '@sl-design-system/shared';
-import { type CSSResult, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type EventEmitter, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type Grid } from './grid.js';
 
@@ -37,13 +30,17 @@ export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: Gri
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
-  #events = new EventsController(this);
+  /** The parent grid. */
+  #grid?: Grid<T>;
+
+  /** The state changed event callback. */
+  #onStateChanged = () => this.stateChanged();
 
   /** Actual width of the column. */
   #width?: number;
 
   /** The alignment of the content within the column. */
-  @property() align: GridColumnAlignment = 'start';
+  @property() align?: GridColumnAlignment;
 
   /**
    * Automatically sets the width of the column based on the column contents when this is set to `true`.
@@ -66,7 +63,16 @@ export class GridColumn<T = any> extends LitElement {
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
   /** The parent grid instance. */
-  @property({ attribute: false }) grid?: Grid<T>;
+  @property({ attribute: false })
+  set grid(value: Grid<T> | undefined) {
+    this.#grid?.removeEventListener('sl-grid-state-change', this.#onStateChanged);
+    this.#grid = value;
+    this.#grid?.addEventListener('sl-grid-state-change', this.#onStateChanged);
+  }
+
+  get grid(): Grid<T> | undefined {
+    return this.#grid;
+  }
 
   /**
    * The ratio with which the column will grow relative to the other columns.
@@ -76,7 +82,7 @@ export class GridColumn<T = any> extends LitElement {
    */
   @property({ type: Number }) grow = 1;
 
-  /** The label for the column header. */
+  /** The label for the column header. Can contain custom HTML. */
   @property() header?: string | GridColumnHeaderRenderer;
 
   /** The path to the value for this column. */
@@ -116,12 +122,11 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
-  override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('grid')) {
-      if (this.grid) {
-        this.#events.listen(this.grid, 'sl-grid-state-change', this.stateChanged);
-      }
-    }
+  override disconnectedCallback(): void {
+    this.#grid?.removeEventListener('sl-grid-state-change', this.#onStateChanged);
+    this.#grid = undefined;
+
+    super.disconnectedCallback();
   }
 
   /**
@@ -160,6 +165,7 @@ export class GridColumn<T = any> extends LitElement {
     if (typeof this.parts === 'string') {
       parts = this.parts.split(' ');
     } else if (typeof this.parts === 'function' && item) {
+      // TODO: what does this do? How can parts ever be a function? According to the typing this should not be possible.
       parts = this.parts(item)?.split(' ') ?? [];
     }
 

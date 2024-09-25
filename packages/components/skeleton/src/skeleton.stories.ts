@@ -6,7 +6,7 @@ import '../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Components/Skeleton',
+  title: 'Feedback & status/Skeleton',
   tags: ['stable']
 };
 

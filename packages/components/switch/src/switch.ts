@@ -25,20 +25,20 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
 export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -52,7 +52,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** The initial state of the switch. */
   #initialState = false;
 
-  /** @private Element internals. */
+  /** @internals Element internals. */
   readonly internals = this.attachInternals();
 
   /** @internal Emits when the component loses focus. */

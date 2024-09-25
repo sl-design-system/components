@@ -1,7 +1,5 @@
 :host {
-  --_active-color: #000;
-  --_inactive-color: #ccc;
-  --_direction-color: var(--_inactive-color);
+  --_direction-color: var(--sl-color-text-disabled);
   --_gap: 0.5rem;
 
   cursor: pointer;
@@ -10,7 +8,7 @@
 }
 
 :host([direction]) {
-  --_direction-color: var(--_active-color);
+  --_direction-color: var(--sl-color-text-default);
 }
 
 .direction {
@@ -19,5 +17,5 @@
 }
 
 sl-icon {
-  fill: var(--_direction-color);
+  color: var(--_direction-color);
 }

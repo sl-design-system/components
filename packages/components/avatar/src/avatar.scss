@@ -26,7 +26,10 @@
   --_inline-gap: var(--sl-space-avatar-inline-sm);
   --_heading-font: var(--sl-text-avatar-header-sm);
   --_picture-size: var(--sl-size-avatar-sm);
+}
 
+:host([size='sm']),
+:host([size='md']) {
   [part='wrapper'] {
     grid-template: 'picture spacer name' auto / auto var(--_inline-gap) 1fr;
   }
@@ -82,6 +85,17 @@
   --_initials-font: var(--sl-text-avatar-initials-3xl);
   --_picture-size: var(--sl-size-avatar-3xl);
   --_subheading-font: var(--sl-text-avatar-subheader-3xl);
+}
+
+:host([size='4xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-4xl);
+  --_block-gap: var(--sl-space-avatar-block-3xl);
+  --_icon-size: var(--sl-size-icon-4xl);
+  --_inline-gap: var(--sl-space-avatar-inline-3xl);
+  --_heading-font: var(--sl-text-avatar-header-4xl);
+  --_initials-font: var(--sl-text-avatar-initials-4xl);
+  --_picture-size: var(--sl-size-avatar-4xl);
+  --_subheading-font: var(--sl-text-avatar-subheader-4xl);
 }
 
 :host([image-only]) {
@@ -192,6 +206,7 @@ slot[name='fallback'] {
 
 slot:not([name]) {
   align-self: start;
+  color: var(--sl-color-avatar-subheader);
   display: block;
   font: var(--_subheading-font);
   grid-area: subheader;

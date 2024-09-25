@@ -1,15 +1,18 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/toggle-button/register.js';
+import '@sl-design-system/toggle-group/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ButtonBar } from './button-bar.js';
 
-type Props = Pick<ButtonBar, 'align' | 'reverse'> & { buttons: TemplateResult };
+type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size'> & { buttons: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Button bar',
+  title: 'Actions/Button bar',
   tags: ['stable'],
   args: {
     align: 'start',
@@ -19,14 +22,21 @@ export default {
     align: {
       control: 'select',
       options: ['start', 'center', 'end', 'space-between']
+    },
+    buttons: {
+      table: { disable: true }
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
     }
   },
   parameters: {
     viewport: {
-      defaultViewport: 'default'
+      defaultViewport: 'reset'
     }
   },
-  render: ({ align, buttons, reverse }) => html`
+  render: ({ align, buttons, reverse, size }) => html`
     <style>
       @media (max-width: 600px) {
         sl-button-bar {
@@ -34,12 +44,21 @@ export default {
         }
       }
     </style>
-    <sl-button-bar .align=${align} .reverse=${reverse}>
+    <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
       ${buttons ??
       html`
-        <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
-        <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-        <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
+        <sl-button>
+          <sl-icon name="home-blank"></sl-icon>
+          Foo
+        </sl-button>
+        <sl-button>
+          <sl-icon name="pinata"></sl-icon>
+          Bar
+        </sl-button>
+        <sl-button>
+          <sl-icon name="smile"></sl-icon>
+          Baz
+        </sl-button>
       `}
     </sl-button-bar>
   `
@@ -67,11 +86,26 @@ export const Alignment: Story = {
   }
 };
 
+export const Groups: Story = {
+  args: {
+    buttons: html`
+      <sl-toggle-group>
+        <sl-toggle-button>Foo</sl-toggle-button>
+        <sl-toggle-button>Bar</sl-toggle-button>
+      </sl-toggle-group>
+      <sl-toggle-group>
+        <sl-toggle-button>Baz</sl-toggle-button>
+        <sl-toggle-button>Qux</sl-toggle-button>
+      </sl-toggle-group>
+    `
+  }
+};
+
 export const Mobile: Story = {
   ...Basic,
   parameters: {
     viewport: {
-      defaultViewport: 'iphone5'
+      defaultViewport: 'iphone13'
     }
   }
 };

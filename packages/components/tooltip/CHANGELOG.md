@@ -1,5 +1,20 @@
 # @sl-design-system/tooltip
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1457](https://github.com/sl-design-system/components/pull/1457) [`3070e81`](https://github.com/sl-design-system/components/commit/3070e81b03ec83ef79149c84d3e5e7876b38591f) - Have `Tooltip.lazy` return a cleanup function to remove the event listeners
+
+  When you are using `Tooltip.lazy`, the tooltip may not have initialized yet when the host is disconnected/removed from the DOM. Another scenario is when your host attempts to call `Tooltip.lazy` multiple times, the tooltip may be initialized multiple times. This PR adds a cleanup function to remove the event listeners when the host is disconnected from the DOM or when the tooltip is initialized multiple times. See `<sl-tag>` for an example of how to use the cleanup function.
+
+### Patch Changes
+
+- [#1479](https://github.com/sl-design-system/components/pull/1479) [`5c4063e`](https://github.com/sl-design-system/components/commit/5c4063ed63560ca3e07940492653d23a4ec009d8) - Add proper tooltip cleanup
+
+- Updated dependencies [[`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/shared@0.3.0
+
 ## 1.0.1
 
 ### Patch Changes

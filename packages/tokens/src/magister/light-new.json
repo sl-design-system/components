@@ -533,16 +533,12 @@
         "value": "{color.base.black}",
         "type": "color"
       },
-      "subtle": {
-        "value": "{color.neutral.subtle}",
-        "type": "color"
-      },
       "plain": {
         "value": "{color.neutral.plain}",
         "type": "color"
       },
       "disabled": {
-        "value": "{color.neutral.subtle}",
+        "value": "{color.neutral.muted}",
         "type": "color"
       },
       "danger": {

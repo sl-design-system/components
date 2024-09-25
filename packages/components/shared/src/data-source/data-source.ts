@@ -83,6 +83,10 @@ export abstract class DataSource<T = any> extends EventTarget {
     this.#filters.delete(id);
   }
 
+  hasFilter(id: string): boolean {
+    return this.#filters.has(id);
+  }
+
   /**
    * Group the items by the given path. Optionally, you can provide a sorter and direction.
    *

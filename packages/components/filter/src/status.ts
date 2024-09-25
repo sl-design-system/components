@@ -41,6 +41,7 @@ export class FilterStatus<T = unknown> extends ScopedElementsMixin(LitElement) {
 
     this.#dataSource = value;
     this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+    this.#onUpdate();
   }
 
   /** @internal The total number of filtered items in the data source. */

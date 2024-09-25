@@ -57,6 +57,7 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
 
     this.#dataSource = value;
     this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+    this.#onUpdate();
   }
 
   /** The label for this group. */
@@ -94,6 +95,7 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
             option => html`
               <sl-checkbox
                 @sl-change=${(event: SlChangeEvent<string>) => this.#onCheckboxChange(event, option)}
+                .checked=${this.dataSource?.hasFilter(`${this.path}-${option.value}`)}
                 .value=${option.value}
               >
                 ${option.label}

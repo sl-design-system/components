@@ -3,6 +3,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Paginator } from './paginator.js';
+import { type PageSize } from './page-size.js';
 
 type Props = Pick<Paginator,  'itemsPerPage' | 'pageSizes' | 'total'> & {
   actions?(): string | TemplateResult;
@@ -26,9 +27,23 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ itemsPerPage, pageSizes, total }) => {
+  render: ({ pageSizes, total }) => { // itemsPerPage
+    setTimeout(() => {
+      const paginator = document.querySelector('sl-paginator') as Paginator;
+      const pageSize = document.querySelector('sl-page-size') as PageSize;
+      console.log('paginator story', paginator, 'pageSize', pageSize, pageSize.itemsPerPage);
+      paginator.itemsPerPage = pageSize.itemsPerPage;
+      paginator?.addEventListener('sl-page-change', event => {
+        console.log('sl-page-change event', event, event.detail);
+        pageSize.activePage = event.detail;
+        // onTabChange();
+        //
+        // selectedTabIndex = event.detail;
+      });
+    }); // .itemsPerPage=${itemsPerPage}
     return html`
-      <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}></sl-paginator>
+      <sl-paginator .total=${total} .pageSizes=${pageSizes}></sl-paginator>
+      <sl-page-size .pageSizes=${pageSizes}></sl-page-size>
       `;
   }
 } satisfies Meta<Props>;

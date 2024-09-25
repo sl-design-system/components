@@ -13,12 +13,18 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
 
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-page-change': SlPageChangeEvent; // SlTabChangeEvent
+  }
+
   interface HTMLElementTagNameMap {
     'sl-paginator': Paginator;
   }
 }
 
 Icon.register(faChevronLeft, faChevronRight);
+
+export type SlPageChangeEvent = CustomEvent<number>;
 
 /**
  * A paginator component used when there are a lot of data that needs to be shown and cannot be shown at once, in one view/page.
@@ -50,8 +56,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
    */
   #observer = new ResizeObserver(() => this.#onResize());
 
-  /** @internal Emits when the panel expands/collapses. */
+  /** @internal Emits when the activePage has changed. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+
+  /** @internal Emits when the page has been selected/changed. */
+  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>; // tabChangeEvent
+  // this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);
 
   // TODO: how many pages? 'pages' prop? or state?
   // TODO: current page (state?)
@@ -82,14 +92,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number; // = 10; // or number[] ???
 
-  /** Total items */
-  @property({ type: Number, attribute: 'current-page' }) currentPage?: number = 1; // 1 by default? // or maybe activePage should be enough? // TODO: or maybe rename to defaultPage?
+  // /** Total items */
+  // @property({ type: Number, attribute: 'current-page' }) currentPage?: number = 1; // 1 by default? // or maybe activePage should be enough? // TODO: or maybe rename to defaultPage?
 
   /** @internal pages amount */ // TODO: state maybe?
   #pages: number = 1;
 
   /** @internal active */ // TODO: state maybe?
-  @state() activePage: number = 1;
+  @state() activePage: number = 1; // TODO: should be possible to set manually!!!
 
   /** @internal currently visible items on the current page */ // TODO: state maybe?
   @state() currentlyVisibleItems: number = 1;
@@ -327,6 +337,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.activePage--;
     console.log('click prev AFTER', this.activePage);
 
+    this.pageChangeEvent.emit(this.activePage);
+
     if (this.activePage === this.#pages) {
       console.log('last page is active');
       const total = this.total ?? 0;
@@ -352,6 +364,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     this.activePage++;
     console.log('click next AFTER', this.activePage);
+
+    this.pageChangeEvent.emit(this.activePage);
 
     if (this.activePage === this.#pages) {
       console.log('last page is active');
@@ -397,6 +411,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     this.activePage = Number((event.target as HTMLElement).innerText?.trim());
 
+    this.pageChangeEvent.emit(this.activePage);
+
     console.log('activePage in setActive', this.activePage, Number((event.target as HTMLElement)?.innerText?.trim()));
 
   //  this.requestUpdate();
@@ -420,6 +436,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // this.activePage++;
     console.log('click next AFTER', this.activePage);
+
 
     this.#onResize();
 
@@ -595,9 +612,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       button.style.display = '';
       totalAmountOfPagesWidth += button.offsetWidth;
 
+      // reset display to check the width
+      pagesWrapper.style.display = '';
+      buttonPrev.style.display = '';
+      buttonNext.style.display = '';
+
       if (pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth - (2 * this.#menuButtonWidth) /*32*/ /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
         possiblyHidden.push(button);
-        console.log('possiblyHidden in if', possiblyHidden, button);
+        console.log('possiblyHidden in if', possiblyHidden, button, totalAmountOfPagesWidth, totalPagesWidth, 'pagesWrapper.clientWidth', pagesWrapper.clientWidth, pagesWrapper.clientWidth - (2 * this.#menuButtonWidth), pagesWrapper);
       } else {
         // ...
       } // or maybe 2 x menuButtonWidth ??
@@ -614,7 +636,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // this.#mobileVariant ? (possiblyVisible.length <= 3) : false;
 
-    this.#mobileVariant = possiblyVisible.length <= 4;
+    this.#mobileVariant = possiblyVisible.length <= 3; //4;
     if (this.#mobileVariant) {
       // hide pages when there should be mobile variant visible and dimensions are already checked
       pagesWrapper.style.display = 'none';
@@ -760,13 +782,15 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
 
       // if activePage bigger than half
-      if (this.activePage > Math.floor(/*visibleButtons*/ possiblyVisible.length / 2) && this.activePage < (lastPage - Math.floor(/*visibleButtons*/ possiblyVisible.length / 2))) { // TODO change to not only last page applicable but last few pages
+      if ((this.activePage - 1) > Math.floor(/*visibleButtons*/ possiblyVisible.length / 2) && (this.activePage - 1) < (lastPage - Math.floor(/*visibleButtons*/ possiblyVisible.length / 2))) { // TODO change to not only last page applicable but last few pages
         console.log('enters first');
         // TODO: hide on the left and on the right
         // items before and items after from 1..active and active ...10
         let pagesToShow: Button[] = [];
-        pagesToShow = possiblyVisible.filter((_, index) => index !== 0 && index !== (this.activePage - 1) && index !== (possiblyVisible.length - 1));
-        const toShowAmount = Math.floor(pagesToShow.length / 2);
+        pagesToShow = possiblyVisible.filter((_, index) => index !== 0 /*&& index !== (this.activePage - 1)*/ && index !== (possiblyVisible.length - 1));
+        const toShowAmount = Math.floor(pagesToShow.length / 2); // ceil?
+
+        console.log('toShowAmount and possiblyVisible', toShowAmount, possiblyVisible);
 
         console.log('pages to show', pagesToShow, Math.floor(pagesToShow.length / 2), this.activePage - 2, pages.length - this.activePage -1);
         console.log('to hide on the left', (this.activePage - 2) - Math.floor(pagesToShow.length / 2), 'to hide on the right', (pages.length - this.activePage -1) - Math.floor(pagesToShow.length / 2));
@@ -780,8 +804,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         console.log('to hide on the left', (Array.from(pages).slice(1, this.activePage)), 'possiblyVisible', possiblyVisible.length);
         console.log('to hide on the right', (Array.from(pages).slice((this.activePage + 1), -1)), 'possiblyVisible', possiblyVisible.length);
 
+
+        // TODO: minus first and last page?
+
         // hide on the left
-        hiddenButtonsLeft = Array.from(pages).slice(1, (this.activePage - 2) - Math.floor(pagesToShow.length / 2) + 1);//.push(button);
+        hiddenButtonsLeft = Array.from(pages).slice(1, (this.activePage) - Math.floor(pagesToShow.length / 2));//.push(button);
         menuItemsLeft = hiddenButtonsLeft.map(
           (button) => {
             const newItem = /*document*/this.shadowRoot?.createElement('sl-menu-item') as MenuItem;
@@ -833,7 +860,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
         // TODO: make below when activePage is somewhere in the middle --- possiblyVisible.length / 2
         // TODO: first page -> hidden pages on the left (one more button) -> shown pages on the left -> this.activepage -> shown pages on the right -> hidden pages on the right (one more button) -> last page
-      } else if (this.activePage === 1 || this.activePage <= Math.floor(/*visibleButtons*/ possiblyVisible.length / 2)) {
+      } else if (this.activePage === 1 || (this.activePage - 1) <= Math.floor(/*visibleButtons*/ possiblyVisible.length / 2)) {
         console.log('enters second');
         (Array.from(pages).slice(0, -1)).forEach(button => {
           // Ensure all pages are visible initially

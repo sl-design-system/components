@@ -7,7 +7,7 @@
   {# {% include "./search.njk" %} #}
 
   {% set navPages = collections.all | eleventyNavigation("Pages") %}
-  <ul class="ds-sidebar-nav__list" role="group">
+  <ul class="ds-sidebar-nav__list">
     {% for entry in navPages %}
       <li id="{{ entry.url }}" class="ds-sidebar-nav__list-item">
         <a
@@ -18,8 +18,7 @@
         </a>
       </li>
       {% if entry.title != 'Components' and entry.children | length %}
-        <ul role="group"
-            class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
+        <ul class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
           {% for child in entry.children %}
             <li>
               <a class="ds-sublist__link{% if page.url.includes(child.url) %} ds-sublist__link--active{% endif %} {% if child.status == 'planned' %}ds-sublist__link--disabled{% endif %}"
@@ -31,8 +30,7 @@
         </ul>
       {% endif %}
       {% if entry.title == 'Components' and entry.children | length %}
-        <ul role="group"
-            class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
+        <ul class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
           {% for child in entry.children | sortByTitle('Overview') %}
             {% if child.url %}
             <li>

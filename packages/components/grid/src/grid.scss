@@ -15,13 +15,12 @@
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
   --_font: var(--sl-text-body-md-normal);
-  --_group-background: #eee;
+  --_group-background: var(--sl-color-grid-group);
   --_header-background: var(--sl-color-grid-header);
-  --_header-font-weight: 600;
-  --_header-padding-block: 0.5rem;
-  --_header-padding-inline: 1rem;
+  --_header-padding-block: var(--sl-space-new-md);
+  --_header-padding-inline: var(--sl-space-new-lg);
   --_vertical-border: none;
-  --_vertical-border-offset: 8px;
+  --_vertical-border-offset: var(--sl-space-new-md);
   --_selected-background: var(--sl-color-action-background-accent-subtle-active);
   --_striped-background: var(--sl-color-grid-zebra);
 

@@ -39,7 +39,6 @@ export class SelectionController<T = any> {
   }
 
   toggleActive(item: T | undefined): T | undefined {
-    console.log('activate', this.#active, item, this.#active === item);
     if (this.#active === item) {
       this.#active = undefined;
     } else {

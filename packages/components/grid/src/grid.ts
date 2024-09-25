@@ -180,6 +180,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when an item has been dropped. */
   @event({ name: 'sl-grid-drop', cancelable: true }) dropEvent!: EventEmitter<SlDropEvent<T>>;
 
+  /** Whether a row can be set active by clicking anywhere in the row. */
+  @property({ type: Boolean, reflect: true, attribute: 'clickable-row' }) clickableRow?: boolean;
+
   /**
    * Determines if or what kind of drop target the given item is:
    * - boolean: the item is valid drop target based on the draggableRows value
@@ -473,10 +476,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onClickRow(event: Event, item: T): void {
-    console.log('onClickRow, now we are going to set the row active');
-    this.activeItem = this.selection.toggleActive(item);
-    console.log('this is the current this.activeIten:', this.activeItem);
-    this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
+    if (this.clickableRow) {
+      this.activeItem = this.selection.toggleActive(item);
+      this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
+    }
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {

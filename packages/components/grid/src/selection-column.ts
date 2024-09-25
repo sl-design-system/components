@@ -4,7 +4,6 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
-// import { type SlActiveItemChangeEvent } from './grid.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -97,22 +96,8 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return result;
   }
 
-  // #onActiveItemChange({ detail: { item, relatedEvent } }: SlActiveItemChangeEvent<T>): void {
-  //   const isCheckbox = (relatedEvent?.target as HTMLElement)?.tagName.toLowerCase() === 'sl-checkbox';
-
-  //   console.log('onActiveItemChange', isCheckbox);
-  //   if (!this.autoSelect || !item || isCheckbox) {
-  //     return;
-  //   }
-
-  //   console.log('this should not be done');
-  //   // this.selectAll = false;
-  //   // this.grid?.selection.toggle(item);
-  // }
-
   #onToggleSelect(item: T, checked: boolean): void {
     this.selectAll = false;
-    console.log('onToggleSelect');
 
     if (checked) {
       this.grid?.selection.select(item);

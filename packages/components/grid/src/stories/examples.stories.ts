@@ -1,5 +1,7 @@
+import { type Checkbox } from '@sl-design-system/checkbox';
 import '@sl-design-system/checkbox/register.js';
 import { type Person, getPeople } from '@sl-design-system/example-data';
+import '@sl-design-system/filter/register.js';
 import '@sl-design-system/form/register.js';
 import { type SlSearchEvent } from '@sl-design-system/search-field';
 import '@sl-design-system/search-field/register.js';
@@ -84,8 +86,9 @@ export const SortingAndFiltering: Story = {
         .header {
           grid-area: header;
           align-items: center;
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 1rem;
         }
 
         sl-grid {
@@ -132,10 +135,7 @@ export const SortingAndFiltering: Story = {
       override render(): TemplateResult {
         return html`
           <div class="header">
-            <span>
-              ${this.filteredCount !== undefined ? `${this.filteredCount} of ` : ''}${this.dataSource?.items.length}
-              people
-            </span>
+            <sl-filter-status .dataSource=${this.dataSource}></sl-filter-status>
             <sl-search-field
               @sl-clear=${this.#onClear}
               @sl-change=${this.#onSearch}
@@ -144,7 +144,6 @@ export const SortingAndFiltering: Story = {
           </div>
 
           <sl-grid @sl-selection-change=${this.#onSelectionChange} .dataSource=${this.dataSource}>
-            <sl-grid-selection-column></sl-grid-selection-column>
             <sl-grid-column path="firstName"></sl-grid-column>
             <sl-grid-column path="lastName"></sl-grid-column>
             <sl-grid-column path="profession"></sl-grid-column>
@@ -155,16 +154,22 @@ export const SortingAndFiltering: Story = {
             <h2>Filters</h2>
 
             <sl-form-field label="Profession">
-              <sl-checkbox-group @sl-change=${this.#onFilterProfession}>
-                ${professions.map(profession => html`<sl-checkbox .value=${profession}>${profession}</sl-checkbox>`)}
+              <sl-checkbox-group>
+                ${professions.map(
+                  profession => html`
+                    <sl-checkbox @sl-change=${this.#onFilterProfession} .value=${profession}>
+                      ${profession}
+                    </sl-checkbox>
+                  `
+                )}
               </sl-checkbox-group>
             </sl-form-field>
 
             <sl-form-field label="Membership">
-              <sl-checkbox-group @sl-change=${this.#onFilterMembership}>
-                <sl-checkbox value="Regular">Regular</sl-checkbox>
-                <sl-checkbox value="Premium">Premium</sl-checkbox>
-                <sl-checkbox value="VIP">VIP</sl-checkbox>
+              <sl-checkbox-group>
+                <sl-checkbox @sl-change=${this.#onFilterMembership} value="Regular">Regular</sl-checkbox>
+                <sl-checkbox @sl-change=${this.#onFilterMembership} value="Premium">Premium</sl-checkbox>
+                <sl-checkbox @sl-change=${this.#onFilterMembership} value="VIP">VIP</sl-checkbox>
               </sl-checkbox-group>
             </sl-form-field>
           </div>
@@ -176,25 +181,27 @@ export const SortingAndFiltering: Story = {
         this.dataSource?.update();
       }
 
-      #onFilterMembership(event: SlChangeEvent<string[]>): void {
-        const value = event.detail.filter(Boolean);
+      #onFilterMembership(event: SlChangeEvent<string> & { target: Checkbox<string> }): void {
+        const { checked, value } = event.target,
+          id = `membership-${value}`;
 
-        this.dataSource?.removeFilter('membership');
-
-        if (value.length) {
-          this.dataSource?.addFilter('membership', ({ membership }) => value.includes(membership));
+        if (checked && value) {
+          this.dataSource?.addFilter(id, 'membership', value);
+        } else {
+          this.dataSource?.removeFilter(id);
         }
 
         this.dataSource?.update();
       }
 
-      #onFilterProfession(event: SlChangeEvent<string[]>): void {
-        const value = event.detail.filter(Boolean);
+      #onFilterProfession(event: SlChangeEvent<string> & { target: Checkbox<string> }): void {
+        const { checked, value } = event.target,
+          id = `profession-${value}`;
 
-        this.dataSource?.removeFilter('profession');
-
-        if (value.length) {
-          this.dataSource?.addFilter('profession', ({ profession }) => value.includes(profession));
+        if (checked && value) {
+          this.dataSource?.addFilter(id, 'profession', value);
+        } else {
+          this.dataSource?.removeFilter(id);
         }
 
         this.dataSource?.update();

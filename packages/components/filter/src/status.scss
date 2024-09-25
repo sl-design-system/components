@@ -1,0 +1,15 @@
+:host {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  min-inline-size: 0;
+}
+
+[part='count'] {
+  flex-shrink: 0;
+}
+
+sl-tag-list {
+  flex: 1;
+  min-inline-size: 0;
+}

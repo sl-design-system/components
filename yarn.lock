@@ -4515,6 +4515,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/filter@workspace:packages/components/filter":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/filter@workspace:packages/components/filter"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:^1.0.3"
+    "@sl-design-system/shared": "npm:^0.3.0"
+    "@sl-design-system/tag": "npm:^0.0.3"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/form@npm:^1.0.3, @sl-design-system/form@npm:^1.0.4, @sl-design-system/form@workspace:packages/components/form":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"

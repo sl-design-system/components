@@ -3,7 +3,7 @@ import { type Person, getPeople } from '@sl-design-system/example-data';
 import '@sl-design-system/form/register.js';
 import { type SlSearchEvent } from '@sl-design-system/search-field';
 import '@sl-design-system/search-field/register.js';
-import { ArrayDataSource } from '@sl-design-system/shared';
+import { ArrayDataSource, type DataSource, type SlSelectionChangeEvent } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type StoryObj } from '@storybook/web-components';
 import { type CSSResultGroup, LitElement, type TemplateResult, css, html } from 'lit';
@@ -105,20 +105,45 @@ export const SortingAndFiltering: Story = {
         }
       `;
 
-      @state() dataSource = new ArrayDataSource(people as Person[]);
+      #dataSource?: DataSource<Person>;
+
+      get dataSource() {
+        return this.#dataSource;
+      }
+
+      @state()
+      set dataSource(value: DataSource<Person> | undefined) {
+        if (this.#dataSource) {
+          this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
+        }
+
+        this.#dataSource = value;
+        this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+      }
+
+      @state() filteredCount?: number;
+
+      override connectedCallback(): void {
+        super.connectedCallback();
+
+        this.dataSource = new ArrayDataSource(people as Person[]);
+      }
 
       override render(): TemplateResult {
         return html`
           <div class="header">
-            <span>${this.dataSource.items.length} people</span>
+            <span>
+              ${this.filteredCount !== undefined ? `${this.filteredCount} of ` : ''}${this.dataSource?.items.length}
+              people
+            </span>
             <sl-search-field
-              @sl-clear=${this.onClear}
-              @sl-change=${this.onSearch}
+              @sl-clear=${this.#onClear}
+              @sl-change=${this.#onSearch}
               placeholder="Find a person"
             ></sl-search-field>
           </div>
 
-          <sl-grid .dataSource=${this.dataSource}>
+          <sl-grid @sl-selection-change=${this.#onSelectionChange} .dataSource=${this.dataSource}>
             <sl-grid-selection-column></sl-grid-selection-column>
             <sl-grid-column path="firstName"></sl-grid-column>
             <sl-grid-column path="lastName"></sl-grid-column>
@@ -130,13 +155,13 @@ export const SortingAndFiltering: Story = {
             <h2>Filters</h2>
 
             <sl-form-field label="Profession">
-              <sl-checkbox-group @sl-change=${this.onFilterProfession}>
+              <sl-checkbox-group @sl-change=${this.#onFilterProfession}>
                 ${professions.map(profession => html`<sl-checkbox .value=${profession}>${profession}</sl-checkbox>`)}
               </sl-checkbox-group>
             </sl-form-field>
 
             <sl-form-field label="Membership">
-              <sl-checkbox-group @sl-change=${this.onFilterMembership}>
+              <sl-checkbox-group @sl-change=${this.#onFilterMembership}>
                 <sl-checkbox value="Regular">Regular</sl-checkbox>
                 <sl-checkbox value="Premium">Premium</sl-checkbox>
                 <sl-checkbox value="VIP">VIP</sl-checkbox>
@@ -146,52 +171,62 @@ export const SortingAndFiltering: Story = {
         `;
       }
 
-      onClear(): void {
-        this.dataSource.removeFilter('search');
-        this.dataSource.update();
+      #onClear(): void {
+        this.dataSource?.removeFilter('search');
+        this.dataSource?.update();
       }
 
-      onFilterProfession(event: SlChangeEvent<string[]>): void {
+      #onFilterMembership(event: SlChangeEvent<string[]>): void {
         const value = event.detail.filter(Boolean);
 
-        this.dataSource.removeFilter('profession');
+        this.dataSource?.removeFilter('membership');
 
         if (value.length) {
-          this.dataSource.addFilter('profession', ({ profession }) => value.includes(profession));
+          this.dataSource?.addFilter('membership', ({ membership }) => value.includes(membership));
         }
 
-        this.dataSource.update();
+        this.dataSource?.update();
       }
 
-      onFilterMembership(event: SlChangeEvent<string[]>): void {
+      #onFilterProfession(event: SlChangeEvent<string[]>): void {
         const value = event.detail.filter(Boolean);
 
-        this.dataSource.removeFilter('membership');
+        this.dataSource?.removeFilter('profession');
 
         if (value.length) {
-          this.dataSource.addFilter('membership', ({ membership }) => value.includes(membership));
+          this.dataSource?.addFilter('profession', ({ profession }) => value.includes(profession));
         }
 
-        this.dataSource.update();
+        this.dataSource?.update();
       }
 
-      onSearch(event: SlSearchEvent): void {
+      #onSearch(event: SlSearchEvent): void {
         const value = event.detail.trim() ?? '';
 
-        console.log('search', { value });
-
-        this.dataSource.removeFilter('search');
+        this.dataSource?.removeFilter('search');
 
         if (value) {
           const regex = new RegExp(value, 'i');
 
-          this.dataSource.addFilter('search', ({ firstName, lastName }) => {
+          this.dataSource?.addFilter('search', ({ firstName, lastName }) => {
             return regex.test(firstName) || regex.test(lastName);
           });
         }
 
-        this.dataSource.update();
+        this.dataSource?.update();
       }
+
+      #onSelectionChange(event: SlSelectionChangeEvent<Person>): void {
+        console.log(event.detail.selection);
+      }
+
+      #onUpdate = (): void => {
+        if (this.dataSource?.filteredItems.length !== this.dataSource?.items.length) {
+          this.filteredCount = this.dataSource?.filteredItems.length;
+        } else {
+          this.filteredCount = undefined;
+        }
+      };
     }
 
     try {

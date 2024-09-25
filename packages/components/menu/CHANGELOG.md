@@ -1,5 +1,11 @@
 # @sl-design-system/menu
 
+## 0.1.2
+
+### Patch Changes
+
+- [#1540](https://github.com/sl-design-system/components/pull/1540) [`d52af39`](https://github.com/sl-design-system/components/commit/d52af39c81ca5e8ed2e5b27a79dc3bf3ad162899) - Set initial aria-details and aria-expanded on the menu button
+
 ## 0.1.1
 
 ### Patch Changes

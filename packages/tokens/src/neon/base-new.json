@@ -7,7 +7,7 @@
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Open Sans",
+          "value": "Hind",
           "type": "fontFamilies"
         },
         "icon": {
@@ -119,13 +119,13 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.lg}",
+        "value": "{size.borderRadius.md}",
         "type": "borderRadius"
       }
     },
     "borderWidth": {
       "default": {
-        "value": "{size.010}",
+        "value": "{size.025}",
         "type": "borderWidth"
       }
     },

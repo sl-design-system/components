@@ -3,7 +3,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Montserrat",
+          "value": "Open Sans",
           "type": "fontFamilies"
         },
         "body": {
@@ -119,7 +119,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.lg}",
+        "value": "{size.borderRadius.md}",
         "type": "borderRadius"
       }
     },

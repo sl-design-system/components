@@ -56,6 +56,25 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
    */
   #observer = new ResizeObserver(() => this.#onResize());
 
+  #activePage = 1;
+
+  get activePage(): number {
+    return this.#activePage;
+  }
+
+  /** The component's locale. */
+  @property()
+  set activePage(value: number) {
+    // console.log('value in setter activePage', value);
+    // this.#activePage = value ?? 1;
+
+    const oldValue = this.#activePage;
+    this.#activePage = value ?? 1;
+    this.pageChangeEvent.emit(this.#activePage);
+    this.requestUpdate('activePage', oldValue);
+    console.log('value in setter activePage', value, this.#activePage);
+  }
+
   /** @internal Emits when the activePage has changed. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
@@ -99,7 +118,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   #pages: number = 1;
 
   /** @internal active */ // TODO: state maybe?
-  @state() activePage: number = 1; // TODO: should be possible to set manually!!!
+  // @state() activePage: number = 1; // TODO: should be possible to set manually!!! or maybe getter and setter?
 
   /** @internal currently visible items on the current page */ // TODO: state maybe?
   @state() currentlyVisibleItems: number = 1;
@@ -180,7 +199,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       const total = this.total ?? 0;
       const itemsPerPage = this.itemsPerPage ?? 10;
       this.#pages = Math.ceil(total / itemsPerPage) || 2;
-      if (this.activePage === this.#pages) {
+      if (this.activePage === this.#pages) { // TODO: this part probably needs to be moved to currentlyVisibleItems...
         const total = this.total ?? 0;
         const itemsPerPage = this.itemsPerPage ?? 10;
         console.log('last page is active');
@@ -188,6 +207,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       } else {
         this.currentlyVisibleItems = this.itemsPerPage!;
       }
+      // always go back to the first page when items per page has changed?
+    //  this.activePage = 1;
+
+      this.#onResize();
     }
 
     // if (changes.has('activePage')) {
@@ -466,7 +489,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   //   `;
   // }
 
-  #onResize(): void {
+  #onResize(): void { // TODO: rename to #onChange ???
     const pagesWrapper = this.renderRoot.querySelector('.pages-wrapper') as HTMLDivElement;
     const container = this.renderRoot.querySelector('.container');
     const buttonPrev = this.renderRoot.querySelector('sl-button.prev') as Button;
@@ -1022,6 +1045,8 @@ console.log('last page width', Array.from(pages)[lastPage-1].offsetWidth);
 
     // always go back to the first page when items per page has changed?
     this.activePage = 1;
+
+   // this.#onResize();
 
     // TODO: if links, links need to be updated as well, so we need more links or less
     // what about activePage with links? the page will rerender... maybe selected or active attribute like in tabs will be fine?

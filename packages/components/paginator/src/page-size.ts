@@ -13,9 +13,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
 
 declare global {
-  // interface GlobalEventHandlersEventMap {
-  //   'sl-page-change': SlPageChangeEvent; // SlTabChangeEvent
-  // }
+  interface GlobalEventHandlersEventMap {
+    'sl-page-size-change': SlPageSizeChangeEvent; // SlTabChangeEvent
+  }
 
   interface HTMLElementTagNameMap {
     'sl-page-size': PageSize;
@@ -24,7 +24,7 @@ declare global {
 
 Icon.register(faChevronLeft, faChevronRight);
 
-// export type SlPageChangeEvent = CustomEvent<number>;
+export type SlPageSizeChangeEvent = CustomEvent<number>;
 
 /**
  * A paginator component used when there are a lot of data that needs to be shown and cannot be shown at once, in one view/page.
@@ -56,9 +56,8 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
    */
   #observer = new ResizeObserver(() => this.#onResize());
 
-  /** @internal Emits when the page has been selected/changed. */
-  // @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>; // tabChangeEvent
-  // this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);
+  /** @internal Emits when the page size has been selected/changed. */
+  @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlPageSizeChangeEvent>;
 
   // TODO: how many pages? 'pages' prop? or state?
   // TODO: current page (state?)
@@ -1013,6 +1012,7 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
     this.itemsPerPage = (event.target as SelectOption).value as number;
 
     // TODO: emit event with items per page
+    this.pageSizeChangeEvent.emit(this.itemsPerPage);
 
 
     // always go back to the first page when items per page has changed?

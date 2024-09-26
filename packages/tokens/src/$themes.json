@@ -14009,7 +14009,8 @@
       "editorial-suite/light": "enabled",
       "editorial-suite/base-new": "enabled",
       "editorial-suite/light-new": "enabled",
-      "primitives": "source"
+      "primitives": "source",
+      "system": "source"
     }
   },
   {

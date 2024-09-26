@@ -184,11 +184,11 @@
         "type": "color"
       },
       "plain": {
-        "value": "{color.foundation.red.500}",
+        "value": "{color.foundation.red.600}",
         "type": "color"
       },
       "bold": {
-        "value": "{color.foundation.red.600}",
+        "value": "{color.foundation.red.700}",
         "type": "color"
       },
       "heavy": {
@@ -551,6 +551,10 @@
           "type": "color"
         },
         "hover": {
+          "value": "{color.danger.bold}",
+          "type": "color"
+        },
+        "active": {
           "value": "{color.danger.bold}",
           "type": "color"
         }

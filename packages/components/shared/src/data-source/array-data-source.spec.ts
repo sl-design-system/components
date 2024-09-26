@@ -166,5 +166,28 @@ describe('ArrayDataSource', () => {
 
   describe('grouping', () => {});
 
-  describe('sorting', () => {});
+  describe('sorting', () => {
+    beforeEach(() => {
+      ds = new ArrayDataSource(people);
+    });
+
+    it('should sort by path', () => {
+      ds.setSort('id', 'firstName', 'asc');
+      ds.update();
+
+      expect(ds.filteredItems.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
+    });
+
+    it('should reset the filtered items when removing a sort', () => {
+      ds.setSort('id', 'firstName', 'asc');
+      ds.update();
+
+      expect(ds.filteredItems.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
+
+      ds.removeSort();
+      ds.update();
+
+      expect(ds.filteredItems.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John', 'Jane', 'Ann', 'Bob']);
+    });
+  });
 });

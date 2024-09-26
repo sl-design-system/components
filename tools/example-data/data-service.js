@@ -4,7 +4,7 @@ const datasetCache = {};
 
 async function getDataset(fileName, count) {
   if (!datasetCache[fileName]) {
-    datasetCache[fileName] = (await import(`./data/${fileName.split('.')[0]}.json`, { with: { type: 'json' }})).default;
+    datasetCache[fileName] = (await import(`./data/${fileName.split('.')[0]}.json`)).default;
   }
 
   return datasetCache[fileName].slice(0, count).map(item => {
@@ -19,7 +19,7 @@ export async function getCountries(count = Infinity) {
 
 export async function getPeople(options) {
   if (!peopleImages) {
-    peopleImages = (await import('./data/people-images.json', { with: { type: 'json' } })).default;
+    peopleImages = (await import('./data/people-images.json')).default;
   }
 
   const allPeople = await getDataset('people.json');

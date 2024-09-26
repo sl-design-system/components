@@ -14,6 +14,7 @@ import styles from './group.scss.js';
 export type FilterOption = {
   label: string;
   value: string;
+  active?: boolean;
 };
 
 @localized()
@@ -44,6 +45,9 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
   /** The source of information for this component. */
   #dataSource?: DataSource<T>;
 
+  /** The filter options. */
+  #options: FilterOption[] = [];
+
   get dataSource() {
     return this.#dataSource;
   }
@@ -63,8 +67,16 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
   /** The label for this group. */
   @property() label?: string;
 
+  get options() {
+    return this.#options;
+  }
+
   /** The options that can be filtered. */
-  @property({ type: Array }) options?: string[] | FilterOption[];
+  @property({ type: Array })
+  set options(value: string[] | FilterOption[] | undefined) {
+    this.#options =
+      value?.map(option => (typeof option === 'string' ? { label: option, value: option } : option)) ?? [];
+  }
 
   /** The path to the property in the data model to filter on. */
   @property() path?: string;
@@ -76,26 +88,22 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
   }
 
   #renderOptions(): TemplateResult {
-    const options = this.options!.map(option =>
-      typeof option === 'string' ? { label: option, value: option } : option
-    );
-
-    if (this.options!.length > FilterGroup.threshold) {
+    if (this.#options.length > FilterGroup.threshold) {
       return html`
         <sl-combobox @sl-change=${this.#onComboboxChange} multiple .placeholder=${msg('Select 1 or more options')}>
           <sl-listbox>
-            ${options.map(option => html`<sl-option .value=${option.value}>${option.label}</sl-option>`)}
+            ${this.#options.map(option => html`<sl-option .value=${option.value}>${option.label}</sl-option>`)}
           </sl-listbox>
         </sl-combobox>
       `;
     } else {
       return html`
         <sl-checkbox-group>
-          ${options.map(
+          ${this.#options.map(
             option => html`
               <sl-checkbox
                 @sl-change=${(event: SlChangeEvent<string>) => this.#onCheckboxChange(event, option)}
-                .checked=${this.dataSource?.hasFilter(`${this.path}-${option.value}`)}
+                .checked=${option.active}
                 .value=${option.value}
               >
                 ${option.label}
@@ -136,6 +144,12 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdate = (): void => {
-    console.log('Data source updated');
+    const filters = this.dataSource!.filters;
+
+    this.#options = this.#options.map(option => {
+      return { ...option, active: filters.has(`${this.path}-${option.value}`) };
+    });
+
+    this.requestUpdate('options');
   };
 }

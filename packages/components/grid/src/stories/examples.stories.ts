@@ -65,7 +65,10 @@ export const ColumnReordering: Story = {
   }
 };
 
-export const SortingAndFiltering: Story = {
+export const Filtering: Story = {
+  parameters: {
+    layout: 'fullscreen'
+  },
   render: (_, { loaded: { people } }) => {
     class SortingAndFilteringExample extends LitElement {
       static override styles: CSSResultGroup = css`
@@ -77,6 +80,7 @@ export const SortingAndFiltering: Story = {
             'main sidebar';
           grid-template-columns: 1fr 200px;
           grid-template-rows: auto 1fr;
+          padding: 1rem;
         }
 
         .header {
@@ -92,10 +96,13 @@ export const SortingAndFiltering: Story = {
         }
 
         .sidebar {
+          align-self: start;
           display: flex;
           flex-direction: column;
           gap: 1rem;
           grid-area: sidebar;
+          inset-block-start: 1rem;
+          position: sticky;
 
           h2 {
             line-height: 2rem;

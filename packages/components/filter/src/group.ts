@@ -1,14 +1,12 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
-import { Combobox } from '@sl-design-system/combobox';
-import { FormField } from '@sl-design-system/form';
-import { Listbox, Option } from '@sl-design-system/listbox';
+import { FormField, Label } from '@sl-design-system/form';
 import { type DataSource } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { Tag, TagList } from '@sl-design-system/tag';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './group.scss.js';
 
 export type FilterOption = {
@@ -28,14 +26,11 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-checkbox': Checkbox,
       'sl-checkbox-group': CheckboxGroup,
-      'sl-combobox': Combobox,
       'sl-form-field': FormField,
-      'sl-listbox': Listbox,
-      'sl-option': Option,
-      'sl-tag': Tag,
-      'sl-tag-list': TagList
+      'sl-label': Label
     };
   }
 
@@ -81,25 +76,20 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
   /** The path to the property in the data model to filter on. */
   @property() path?: string;
 
-  override render(): TemplateResult {
-    return html`
-      <sl-form-field .label=${this.label}>${this.options?.length ? this.#renderOptions() : nothing}</sl-form-field>
-    `;
-  }
+  /** @internal Whether to show all options when the amount exceeds the threshold. */
+  @state() showMore?: boolean;
 
-  #renderOptions(): TemplateResult {
-    if (this.#options.length > FilterGroup.threshold) {
-      return html`
-        <sl-combobox @sl-change=${this.#onComboboxChange} multiple .placeholder=${msg('Select 1 or more options')}>
-          <sl-listbox>
-            ${this.#options.map(option => html`<sl-option .value=${option.value}>${option.label}</sl-option>`)}
-          </sl-listbox>
-        </sl-combobox>
-      `;
-    } else {
-      return html`
+  override render(): TemplateResult {
+    const exceedsThreshold = this.#options.length > FilterGroup.threshold,
+      options = this.#options.slice(0, this.showMore ? this.#options.length : FilterGroup.threshold);
+
+    return html`
+      <sl-form-field>
+        <sl-label>
+          ${this.label} ${exceedsThreshold ? html`<span part="count">(${this.#options.length})</span>` : nothing}
+        </sl-label>
         <sl-checkbox-group>
-          ${this.#options.map(
+          ${options.map(
             option => html`
               <sl-checkbox
                 @sl-change=${(event: SlChangeEvent<string>) => this.#onCheckboxChange(event, option)}
@@ -111,8 +101,15 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
             `
           )}
         </sl-checkbox-group>
-      `;
-    }
+        ${exceedsThreshold
+          ? html`
+              <sl-button @click=${this.#onClick} fill="link">
+                ${this.showMore ? msg('Show less') : msg('Show more')}
+              </sl-button>
+            `
+          : nothing}
+      </sl-form-field>
+    `;
   }
 
   #onCheckboxChange(event: SlChangeEvent<string>, option: FilterOption): void {
@@ -127,20 +124,8 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
-  #onComboboxChange(event: SlChangeEvent<string[]>): void {
-    const ids = event.detail.map(value => `${this.path}-${value}`);
-
-    for (const key of this.dataSource!.filters.keys()) {
-      if (key.startsWith(this.path!) && !ids.includes(key)) {
-        this.dataSource?.removeFilter(key);
-      }
-    }
-
-    event.detail.forEach(value => {
-      this.dataSource?.addFilter(`${this.path}-${value}`, this.path!, value);
-    });
-
-    this.dataSource?.update();
+  #onClick(): void {
+    this.showMore = !this.showMore;
   }
 
   #onUpdate = (): void => {

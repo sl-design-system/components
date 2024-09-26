@@ -1,3 +1,11 @@
 :host {
   display: block;
 }
+
+[part='count'] {
+  color: var(--sl-color-text-subtle);
+}
+
+sl-button {
+  align-self: start;
+}

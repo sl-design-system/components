@@ -20,7 +20,7 @@ Craft products that are not only enjoyable and user-friendly but also meet the n
 
 <section class="ds-explore">
 
-Explore {.ds-heading-1}
+## Explore {.ds-heading-1}
 
 <div class="ds-explore-wrapper">
 

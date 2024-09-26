@@ -196,13 +196,12 @@ $short-transition-timing: 200ms;
 
 .ds-top-navigation__logo {
   animation: append-animate-up $short-transition-timing linear;
-  background-image: var(--logo);
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: contain;
-  block-size: 3.2rem;
   inline-size: 100%;
   margin: auto;
+
+  img {
+    block-size: 3.2rem;
+  }
 
   &:focus-visible {
     border-radius: 0.6rem;
@@ -380,13 +379,12 @@ $short-transition-timing: 200ms;
 }
 
 .ds-sidebar-nav__logo {
-  background-image: var(--logo);
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: contain;
-  block-size: 3.2rem;
   inline-size: 100%;
   margin: auto 0.8rem;
+
+  svg {
+    block-size: 3.2rem;
+  }
 
   &:focus-visible {
     border-radius: 0.6rem;

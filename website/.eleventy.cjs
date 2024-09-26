@@ -96,6 +96,13 @@ module.exports = function(eleventyConfig) {
 
     return metadata.svg[0].buffer.toString();
   });
+  eleventyConfig.addNunjucksAsyncFilter("svgImageNjk", async function(src, callback) {
+    let metadata = await image(`./src/assets/images/${src}`, {
+      formats: ['svg'],
+      dryRun: true
+    });
+    callback(null, metadata.svg[0].buffer.toString());
+  });
 
   eleventyConfig.addCollection('content', collection => {
     return [...collection.getFilteredByGlob('./src/categories/**/*.md')];

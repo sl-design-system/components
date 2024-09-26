@@ -89,7 +89,7 @@
   --chevron-icon: url('../assets/icons/chevron-right.svg');
   --chevron-icon--active: url('../assets/icons/chevron-right-darker.svg');
   --contact-block-background: var(--ds-color-selago-blue);
-  --contact-block-link: var(--ds-color-blue);
+  --contact-block-link: var(--control-color-code-text-accent);
   --contact-block-link--hover: var(--ds-color-mariner);
   --close-icon: url('../assets/icons/close.svg');
   --component-card-background: var(--ds-color-light-concrete);
@@ -208,7 +208,7 @@
     --link-visited-color: var(--ds-color-baby-blue);
     --menu-button-hover: rgb(var(--ds-color-blue-rgb) 0.32);
     --menu-font-color: var(--ds-color-lotion);
-    --menu-second-color: #363739;
+    --menu-second-color: rgb(54 55 57);
     --picture-background: var(--ds-color-blck-olive);
     --search-color: var(--ds-color-faux-white);
     --search-icon: url('../assets/icons/search-light.svg');

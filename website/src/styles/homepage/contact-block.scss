@@ -4,6 +4,7 @@ $transition-timing: 200ms;
 
 .ds-contact-block {
   --_gap: 5rem;
+
   background-color: var(--contact-block-background);
   display: grid;
   gap: var(--_gap);
@@ -23,6 +24,7 @@ $transition-timing: 200ms;
 
   @media screen and (min-width: $xl-breakpoint) {
     --_gap: 20rem;
+
     padding: 7.4rem 11.4rem;
   }
 }
@@ -71,11 +73,10 @@ $transition-timing: 200ms;
   color: var(--contact-block-link);
   font-size: 1.6rem;
   gap: 0.8rem;
+  inline-size: fit-content;
   line-height: 2.4rem;
-  margin-top: 0.8rem;
-  text-decoration: none;
+  margin-block-start: 0.8rem;
   transition: color $transition-timing ease-in-out;
-  width: fit-content;
 
   path {
     fill: var(--contact-block-link);
@@ -99,8 +100,5 @@ $transition-timing: 200ms;
 
 .ds-contact-block__description-link {
   display: inline-flex;
-}
-
-.ds-contact-block__description-link {
-  margin-top: 0;
+  margin-block-start: 0;
 }

@@ -178,6 +178,13 @@ describe('ArrayDataSource', () => {
       expect(ds.filteredItems.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
     });
 
+    it('should sort in a descending direction', () => {
+      ds.setSort('id', 'firstName', 'desc');
+      ds.update();
+
+      expect(ds.filteredItems.map(({ firstName }) => firstName)).to.deep.equal(['John', 'Jane', 'Bob', 'Ann', 'Ann']);
+    });
+
     it('should reset the filtered items when removing a sort', () => {
       ds.setSort('id', 'firstName', 'asc');
       ds.update();

@@ -68,19 +68,19 @@
     },
     "accent": {
       "faint": {
-        "value": "{color.foundation.purple.050}",
-        "type": "color"
-      },
-      "muted": {
         "value": "{color.foundation.purple.100}",
         "type": "color"
       },
-      "subtle": {
+      "muted": {
         "value": "{color.foundation.purple.150}",
         "type": "color"
       },
+      "subtle": {
+        "value": "{color.foundation.purple.200}",
+        "type": "color"
+      },
       "plain": {
-        "value": "{color.foundation.purple.600}",
+        "value": "{color.foundation.purple.500}",
         "type": "color"
       },
       "bold": {
@@ -88,7 +88,7 @@
         "type": "color"
       },
       "heavy": {
-        "value": "{color.foundation.purple.800}",
+        "value": "{color.foundation.purple.700}",
         "type": "color"
       }
     },
@@ -429,47 +429,47 @@
       },
       "purple": {
         "100": {
-          "value": "#E2CEFE",
+          "value": "#f1e8ff",
           "type": "color"
         },
         "150": {
-          "value": "#D3B5FD",
+          "value": "#e5d4ff",
           "type": "color"
         },
         "200": {
-          "value": "#C49CFC",
+          "value": "#d1b2ff",
           "type": "color"
         },
         "300": {
-          "value": "#B582FC",
+          "value": "#b481ff",
           "type": "color"
         },
         "400": {
-          "value": "#A669FB",
+          "value": "#a669fb",
           "type": "color"
         },
         "500": {
-          "value": "#8A57D1",
+          "value": "#812fee",
           "type": "color"
         },
         "600": {
-          "value": "#6E46A6",
+          "value": "#6d1ed2",
           "type": "color"
         },
         "700": {
-          "value": "#52347C",
+          "value": "#5e1eab",
           "type": "color"
         },
         "800": {
-          "value": "#362252",
+          "value": "#4e1a89",
           "type": "color"
         },
         "900": {
-          "value": "#1A1027",
+          "value": "#320566",
           "type": "color"
         },
         "050": {
-          "value": "#F1E7FE",
+          "value": "#f9f5ff",
           "type": "color"
         }
       }

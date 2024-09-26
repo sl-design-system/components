@@ -124,11 +124,26 @@ export const ExampleWithCards: Story = {
     // setTimeout(() => {
       const total = 100;
       const pageSizes = [5, 10, 15];
-      const itemsPerPage = 15;
-      const activePage = 3;
+      let itemsPerPage = 10;
+      let activePage = 2;
       let items: TemplateResult[] = [];
       let start = 1;
       let end = 1;
+      let currentlyVisibleItems = 15;
+
+    const pages = Math.ceil(total / itemsPerPage) || 2;
+
+    if (activePage === pages) {
+      console.log('last page is active');
+      currentlyVisibleItems = total % itemsPerPage;
+    } else {
+      currentlyVisibleItems = itemsPerPage;
+    }
+
+    start = activePage === 1 ? 0 : ((activePage - 1) * itemsPerPage);
+    end = activePage === pages ? total : activePage * currentlyVisibleItems;
+
+    console.log('1in example start and end', start, end, Array.from({length: total}).slice(start, end).map((_, index) => index));
 
     items = Array.from({length: total}).map( // TODO: slice the array
       (_, index) => html`
@@ -138,6 +153,8 @@ export const ExampleWithCards: Story = {
           </sl-card>
         `
     );
+
+    // items.slice(start, end);
 
     requestAnimationFrame(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator;
@@ -161,6 +178,26 @@ export const ExampleWithCards: Story = {
 
 
       console.log('in example start and end', start, end);
+
+
+      paginator?.addEventListener('sl-page-change', event => {
+        console.log('sl-page-change event', event, event.detail);
+
+        start = event.detail === 1 ? 0 : ((event.detail - 1) * itemsPerPage);
+        end = event.detail === pages ? total : event.detail * currentlyVisibleItems;
+
+       const toRemove = document.querySelector('.results')?.children;
+
+        console.log('in example start and end on page change', start, end, items.slice(start, end), toRemove);
+
+       // toRemove?.remove();
+        // document drop and appendchild with new items?
+
+
+        // TODO: request update??
+
+
+      });
     });
 
 
@@ -188,16 +225,18 @@ export const ExampleWithCards: Story = {
           flex-direction: column;
           gap: 1rem;
         }
+
+        .results {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 12px;
+        }
       </style>
       <h2>Paginator with example content</h2>
-      ${items}
-      ${items.map(
-        size => html`
-                <td>
-                  <sl-avatar href="https://example.com">test ${size}</sl-avatar>
-                </td>
-              `
-      )}
+      <div class="results">
+       start: ${start} end: ${end}
+      ${items.slice(start, end)}
+      </div>
       <sl-card responsive padding>
         <h2>Captivating Nyhavn Moments</h2>
         <p slot="body">Example body text</p>

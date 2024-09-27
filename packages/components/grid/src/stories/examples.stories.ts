@@ -81,7 +81,7 @@ export const Filtering: Story = {
             'header sidebar'
             'main sidebar';
           grid-template-columns: auto 200px;
-          grid-template-rows: auto 1fr;
+          grid-template-rows: auto auto auto 1fr;
           padding: 1rem 1rem 0 1rem;
         }
 

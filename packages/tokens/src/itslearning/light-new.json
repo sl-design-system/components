@@ -551,7 +551,7 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.danger.heavy}",
+          "value": "{color.danger.plain}",
           "type": "color"
         },
         "active": {

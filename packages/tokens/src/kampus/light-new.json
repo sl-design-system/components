@@ -76,15 +76,15 @@
         "type": "color"
       },
       "subtle": {
-        "value": "{color.foundation.blue.400}",
+        "value": "{color.foundation.blue.200}",
         "type": "color"
       },
       "plain": {
-        "value": "{color.foundation.blue.600}",
+        "value": "{color.foundation.blue.700}",
         "type": "color"
       },
       "bold": {
-        "value": "{color.foundation.blue.700}",
+        "value": "{color.foundation.blue.800}",
         "type": "color"
       },
       "heavy": {
@@ -102,15 +102,15 @@
         "type": "color"
       },
       "subtle": {
-        "value": "{color.foundation.blue.400}",
+        "value": "{color.foundation.blue.200}",
         "type": "color"
       },
       "plain": {
-        "value": "{color.foundation.blue.600}",
+        "value": "{color.foundation.blue.700}",
         "type": "color"
       },
       "bold": {
-        "value": "{color.foundation.blue.700}",
+        "value": "{color.foundation.blue.800}",
         "type": "color"
       },
       "heavy": {
@@ -120,15 +120,15 @@
     },
     "success": {
       "faint": {
-        "value": "{color.foundation.green.150}",
+        "value": "{color.foundation.green.100}",
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.green.200}",
+        "value": "{color.foundation.green.150}",
         "type": "color"
       },
       "subtle": {
-        "value": "{color.foundation.green.300}",
+        "value": "{color.foundation.green.200}",
         "type": "color"
       },
       "plain": {
@@ -140,7 +140,7 @@
         "type": "color"
       },
       "heavy": {
-        "value": "{color.foundation.green.900}",
+        "value": "{color.foundation.green.800}",
         "type": "color"
       }
     },
@@ -154,7 +154,7 @@
         "type": "color"
       },
       "subtle": {
-        "value": "{color.foundation.orange.300}",
+        "value": "{color.foundation.orange.200}",
         "type": "color"
       },
       "plain": {
@@ -172,15 +172,15 @@
     },
     "danger": {
       "faint": {
-        "value": "{color.foundation.red.150}",
+        "value": "{color.foundation.red.100}",
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.red.200}",
+        "value": "{color.foundation.red.150}",
         "type": "color"
       },
       "subtle": {
-        "value": "{color.foundation.red.300}",
+        "value": "{color.foundation.red.200}",
         "type": "color"
       },
       "plain": {
@@ -245,47 +245,47 @@
       },
       "blue": {
         "100": {
-          "value": "#F0F4F6",
+          "value": "#DDEFFC",
           "type": "color"
         },
         "150": {
-          "value": "#C7D8F2",
+          "value": "#C3E3FA",
           "type": "color"
         },
         "200": {
-          "value": "#91BFF4",
+          "value": "#9AD2F6",
           "type": "color"
         },
         "300": {
-          "value": "#84A7E2",
+          "value": "#6ABAF0",
           "type": "color"
         },
         "400": {
-          "value": "#608ED9",
+          "value": "#479DEA",
           "type": "color"
         },
         "500": {
-          "value": "#3F76D1",
+          "value": "#3281DE",
           "type": "color"
         },
         "600": {
-          "value": "#2A5DB0",
+          "value": "#296CCC",
           "type": "color"
         },
         "700": {
-          "value": "#25519A",
+          "value": "#2A5DB0",
           "type": "color"
         },
         "800": {
-          "value": "#1E417C",
+          "value": "#254B83",
           "type": "color"
         },
         "900": {
-          "value": "#0C1C65",
+          "value": "#1B2F50",
           "type": "color"
         },
         "050": {
-          "value": "#FDFEFF",
+          "value": "F0F8FE",
           "type": "color"
         }
       },
@@ -551,7 +551,11 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.danger.heavy}",
+          "value": "{color.danger.plain}",
+          "type": "color"
+        },
+        "active": {
+          "value": "{color.danger.bold}",
           "type": "color"
         }
       },

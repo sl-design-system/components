@@ -132,29 +132,29 @@
         "type": "color"
       },
       "plain": {
-        "value": "{color.foundation.green.600}",
-        "type": "color"
-      },
-      "bold": {
         "value": "{color.foundation.green.700}",
         "type": "color"
       },
-      "heavy": {
+      "bold": {
         "value": "{color.foundation.green.800}",
+        "type": "color"
+      },
+      "heavy": {
+        "value": "{color.foundation.green.900}",
         "type": "color"
       }
     },
     "warning": {
       "faint": {
-        "value": "{color.foundation.orange.100}",
+        "value": "{color.foundation.orange.050}",
         "type": "color"
       },
       "muted": {
-        "value": "{color.foundation.orange.150}",
+        "value": "{color.foundation.orange.100}",
         "type": "color"
       },
       "subtle": {
-        "value": "{color.foundation.orange.200}",
+        "value": "{color.foundation.orange.150}",
         "type": "color"
       },
       "plain": {
@@ -184,11 +184,11 @@
         "type": "color"
       },
       "plain": {
-        "value": "{color.foundation.red.300}",
+        "value": "{color.foundation.red.500}",
         "type": "color"
       },
       "bold": {
-        "value": "{color.foundation.red.500}",
+        "value": "{color.foundation.red.600}",
         "type": "color"
       },
       "heavy": {
@@ -597,11 +597,11 @@
           "type": "color"
         },
         "hover": {
-          "value": "{color.danger.bold}",
+          "value": "{color.danger.plain}",
           "type": "color"
         },
         "active": {
-          "value": "{color.danger.heavy}",
+          "value": "{color.danger.bold}",
           "type": "color"
         }
       },

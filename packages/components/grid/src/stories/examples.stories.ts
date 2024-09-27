@@ -5,6 +5,7 @@ import '@sl-design-system/form/register.js';
 import { type SlSearchEvent } from '@sl-design-system/search-field';
 import '@sl-design-system/search-field/register.js';
 import { ArrayDataSource } from '@sl-design-system/shared';
+import '@sl-design-system/tabs/register.js';
 import { type StoryObj } from '@storybook/web-components';
 import { type CSSResultGroup, LitElement, type TemplateResult, css, html } from 'lit';
 import { state } from 'lit/decorators.js';
@@ -70,43 +71,78 @@ export const Filtering: Story = {
     layout: 'fullscreen'
   },
   render: (_, { loaded: { people } }) => {
-    class SortingAndFilteringExample extends LitElement {
+    class FilteringExample extends LitElement {
       static override styles: CSSResultGroup = css`
         :host {
           display: grid;
-          gap: 1rem;
           grid-template-areas:
+            'page-header page-header'
+            'tabs tabs'
             'header sidebar'
             'main sidebar';
-          grid-template-columns: 1fr 200px;
+          grid-template-columns: auto 200px;
           grid-template-rows: auto 1fr;
-          padding: 1rem;
+          padding: 1rem 1rem 0 1rem;
+        }
+
+        h1 {
+          grid-area: page-header;
+          margin-block: 0 1rem;
+        }
+
+        sl-tab-group {
+          grid-area: tabs;
         }
 
         .header {
+          background: white;
           grid-area: header;
           align-items: center;
           display: grid;
           grid-template-columns: 1fr auto;
           gap: 1rem;
+          padding-block: 1rem;
+          position: sticky;
+          inset-block-start: 0;
+          z-index: 1;
         }
 
         sl-grid {
           grid-area: main;
+          min-inline-size: 0;
+
+          &::part(table) {
+            margin-block-end: 1rem;
+          }
+
+          &::part(thead) {
+            position: sticky;
+            inset-block-start: 4rem;
+          }
         }
 
         .sidebar {
-          align-self: start;
           display: flex;
           flex-direction: column;
           gap: 1rem;
           grid-area: sidebar;
-          inset-block-start: 1rem;
+          margin-block-start: 1rem;
+          max-block-size: calc(100vh - 2rem);
           position: sticky;
+          inset-block-start: 1rem;
 
           h2 {
             line-height: 2rem;
-            margin-block: 0;
+            margin: 0 1rem;
+          }
+
+          .wrapper {
+            block-size: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-inline: 1rem;
+            overflow: auto;
           }
         }
       `;
@@ -115,6 +151,12 @@ export const Filtering: Story = {
 
       override render(): TemplateResult {
         return html`
+          <h1>Page header</h1>
+          <sl-tab-group>
+            <sl-tab selected>Overview</sl-tab>
+            <sl-tab>Other tab 1</sl-tab>
+            <sl-tab>Other tab 2</sl-tab>
+          </sl-tab-group>
           <div class="header">
             <sl-filter-status .dataSource=${this.dataSource}></sl-filter-status>
             <sl-search-field
@@ -127,6 +169,8 @@ export const Filtering: Story = {
           <sl-grid .dataSource=${this.dataSource}>
             <sl-grid-column path="firstName"></sl-grid-column>
             <sl-grid-column path="lastName"></sl-grid-column>
+            <sl-grid-column path="email"></sl-grid-column>
+            <sl-grid-column path="address.phone"></sl-grid-column>
             <sl-grid-column path="profession"></sl-grid-column>
             <sl-grid-column path="membership"></sl-grid-column>
           </sl-grid>
@@ -134,19 +178,28 @@ export const Filtering: Story = {
           <div class="sidebar">
             <h2>Filters</h2>
 
-            <sl-filter-group
-              .dataSource=${this.dataSource}
-              label="Profession"
-              .options=${Array.from(new Set((people as Person[]).map(person => person.profession))).sort()}
-              path="profession"
-            ></sl-filter-group>
+            <div class="wrapper">
+              <sl-filter-group
+                .dataSource=${this.dataSource}
+                label="Profession"
+                .options=${Array.from(new Set((people as Person[]).map(person => person.profession))).sort()}
+                path="profession"
+              ></sl-filter-group>
 
-            <sl-filter-group
-              .dataSource=${this.dataSource}
-              label="Membership"
-              .options=${['Regular', 'Premium', 'VIP']}
-              path="membership"
-            ></sl-filter-group>
+              <sl-filter-group
+                .dataSource=${this.dataSource}
+                label="Profession 2"
+                .options=${Array.from(new Set((people as Person[]).map(person => person.profession))).sort()}
+                path="profession"
+              ></sl-filter-group>
+
+              <sl-filter-group
+                .dataSource=${this.dataSource}
+                label="Membership"
+                .options=${['Regular', 'Premium', 'VIP']}
+                path="membership"
+              ></sl-filter-group>
+            </div>
           </div>
         `;
       }
@@ -174,11 +227,11 @@ export const Filtering: Story = {
     }
 
     try {
-      customElements.define('sorting-and-filtering-example', SortingAndFilteringExample);
+      customElements.define('filtering-example', FilteringExample);
     } catch {
       // empty
     }
 
-    return html`<sorting-and-filtering-example></sorting-and-filtering-example>`;
+    return html`<filtering-example></filtering-example>`;
   }
 };

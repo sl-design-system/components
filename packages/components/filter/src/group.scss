@@ -6,6 +6,14 @@
   color: var(--sl-color-text-subtle);
 }
 
+sl-label {
+  /* stylelint-disable-next-line color-no-hex */
+  background: #fff;
+  inset-block-start: 0;
+  position: sticky;
+  z-index: 1;
+}
+
 sl-button {
   align-self: start;
 }

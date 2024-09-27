@@ -39,9 +39,9 @@ export default {
       // paginator.itemsPerPage = pageSize.itemsPerPage;
       paginator?.addEventListener('sl-page-change', event => {
         console.log('sl-page-change event', event, event.detail);
-        pageSize.activePage = event.detail;
+        // pageSize.activePage = event.detail;
         visibleItems.activePage = event.detail;
-        // onTabChange();
+       // visibleItems.requestUpdate();
         //
         // selectedTabIndex = event.detail;
       });
@@ -49,15 +49,15 @@ export default {
         console.log('sl-page-size-change event', event, event.detail);
         paginator.itemsPerPage = event.detail;
         visibleItems.itemsPerPage = event.detail;
-        // onTabChange();
+        // paginator.requestUpdate();
         //
         // selectedTabIndex = event.detail;
       });
     }); // .itemsPerPage=${itemsPerPage}
     return html`
-      <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${activePage}></sl-paginator>
+      <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator>
       <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
-      <sl-visible-items .total=${total} .activePage=${activePage}></sl-visible-items>
+      <sl-visible-items .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-visible-items>
       `;
   }
 } satisfies Meta<Props>;
@@ -81,6 +81,34 @@ export const Overflow: Story = {
     total: 1000
   }
 };
+
+export const ItemsPerPage: Story = {
+  render: () => html`
+    <style>
+      #root-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    </style>
+    <h2>TODO...</h2>
+  `
+};
+
+
+export const VisibleItemsAmount: Story = {
+  render: () => html`
+    <style>
+      #root-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    </style>
+    <h2>TODO...</h2>
+  `
+};
+
 
 // export const Links: Story = {
 //   args: {

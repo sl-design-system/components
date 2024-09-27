@@ -147,6 +147,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   #mobileVariant: boolean = false;
 
+  // TODO: in the event maybe emit not only activePage but also pageSize / itemsPerPage ???
+
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
@@ -158,11 +160,21 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
     }
 
+    if (this.activePage < 1) {
+      this.activePage = 1;
+    }
+
     console.log('itemsperpage in connectedCallback', this.itemsPerPage, this.pageSizes);
 
     const total = this.total ?? 0;
     const itemsPerPage = this.itemsPerPage ?? 10;
-    this.#pages = Math.ceil(total / itemsPerPage) || 2;
+    this.#pages = Math.ceil(total / itemsPerPage) || 1;
+
+    if (this.activePage < 1) {
+      this.activePage = 1;
+    } else if (this.activePage > this.#pages) {
+      this.activePage = this.#pages;
+    }
 
     console.log('pages in connectedCallback', this.#pages, this.activePage, itemsPerPage, total % itemsPerPage);
 
@@ -208,16 +220,27 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         this.currentlyVisibleItems = this.itemsPerPage!;
       }
       // always go back to the first page when items per page has changed?
-    //  this.activePage = 1;
+      this.activePage = 1;
 
       this.#onResize();
     }
 
-    // if (changes.has('activePage')) {
+    if (changes.has('activePage')) {
+      if (this.activePage < 1) {
+        this.activePage = 1;
+      } else if (this.activePage > this.#pages) {
+        this.activePage = this.#pages;
+      }
     //   const pages = this.renderRoot.querySelectorAll('sl-button.page');
     //   const active = this.renderRoot.querySelector('sl-button[active]');
     //   active?.setAttribute('aria-current', 'page');
-    // }
+    }
+
+    if (changes.has('total')) {
+      this.#onResize();
+    }
+
+    // TODO: what if total has changed? right now the activepage is not working properly
   }
 
   override render(): TemplateResult {
@@ -659,6 +682,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // this.#mobileVariant ? (possiblyVisible.length <= 3) : false;
 
+    // TODO: when total amount of pages < 3 it should not change to mobile variant when there is enough space pages.length
     this.#mobileVariant = possiblyVisible.length <= 3; //4;
     if (this.#mobileVariant) {
       // hide pages when there should be mobile variant visible and dimensions are already checked
@@ -796,8 +820,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.renderRoot.removeChild(container2); // Clean up
       console.log('moreButton width after remove', moreButtonWidth, moreButton2, moreButton2.getBoundingClientRect());
     }*/
-
-
 
 
 

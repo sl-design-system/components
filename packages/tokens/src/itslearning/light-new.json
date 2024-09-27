@@ -24,7 +24,7 @@
         "type": "color"
       },
       "subtle": {
-        "value": "{color.foundation.grey.400}",
+        "value": "{color.foundation.grey.500}",
         "type": "color"
       },
       "plain": {

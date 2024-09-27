@@ -143,6 +143,8 @@ export const Filtering: Story = {
             gap: 1rem;
             padding-inline: 1rem;
             overflow: auto;
+            scrollbar-color: #ccc transparent;
+            scrollbar-width: thin;
           }
         }
       `;

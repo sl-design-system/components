@@ -1,3 +1,5 @@
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import '@sl-design-system/filter/register.js';
@@ -112,6 +114,7 @@ export const Filtering: Story = {
           min-inline-size: 0;
 
           &::part(table) {
+            anchor-name: --grid-anchor;
             margin-block-end: 1rem;
           }
 
@@ -119,6 +122,25 @@ export const Filtering: Story = {
             position: sticky;
             inset-block-start: 4rem;
           }
+        }
+
+        sl-button-bar {
+          background: #fff;
+          border: 1px solid #ccc;
+          border-radius: 0.5rem;
+          box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+          inset-block-start: calc(anchor(bottom) + 1rem);
+          justify-self: anchor-center;
+          padding: 0.5rem 1rem;
+          position: fixed;
+          position-anchor: --grid-anchor;
+          position-try: --viewport-block-end;
+        }
+
+        @position-try --viewport-block-end {
+          position-anchor: initial;
+          inset-block-start: auto;
+          inset-block-end: 1rem;
         }
 
         .sidebar {
@@ -169,6 +191,7 @@ export const Filtering: Story = {
           </div>
 
           <sl-grid .dataSource=${this.dataSource}>
+            <sl-grid-selection-column></sl-grid-selection-column>
             <sl-grid-column path="firstName"></sl-grid-column>
             <sl-grid-column path="lastName"></sl-grid-column>
             <sl-grid-column path="email"></sl-grid-column>
@@ -176,6 +199,12 @@ export const Filtering: Story = {
             <sl-grid-column path="profession"></sl-grid-column>
             <sl-grid-column path="membership"></sl-grid-column>
           </sl-grid>
+
+          <sl-button-bar>
+            <sl-button>Action 1</sl-button>
+            <sl-button>Action 2</sl-button>
+            <sl-button>Action 3</sl-button>
+          </sl-button-bar>
 
           <div class="sidebar">
             <h2>Filters</h2>

@@ -30,6 +30,11 @@ export default {
       table: { disable: true }
     }
   },
+  parameters: {
+    viewport: {
+      defaultViewport: 'reset'
+    }
+  },
   render: ({ activePage, itemsPerPage, pageSizes, total }) => { // itemsPerPage
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator;
@@ -79,6 +84,19 @@ export const Overflow: Story = {
   args: {
     ...Basic.args,
     total: 1000
+  }
+};
+
+// TODO: Mobile
+export const Mobile: Story = {
+  args: {
+    ...Basic.args,
+    total: 100
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphone5'
+    }
   }
 };
 

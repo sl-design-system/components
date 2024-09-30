@@ -18,6 +18,7 @@
   // display: grid;
   // grid-template-columns: 1fr auto 2fr;
   display: flex;
+  justify-content: center;
 }
 
 // :host([collapsible][collapsed]) {
@@ -30,26 +31,26 @@
 //   }
 // }
 
-[part='header'] {
-  align-items: start;
-  display: grid;
-  flex: 1;
-  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
-  justify-content: space-between;
+//[part='header'] {
+//  align-items: start;
+//  display: grid;
+//  flex: 1;
+//  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
+//  justify-content: space-between;
+//
+//  > * {
+//    // FIXME: This is a quick hack to vertically align the heading with any action buttons
+//    padding-block-start: 2px;
+//  }
+//}
 
-  > * {
-    // FIXME: This is a quick hack to vertically align the heading with any action buttons
-    padding-block-start: 2px;
-  }
-}
-
-[part='wrapper'] {
-  align-items: center;
-  display: flex;
-  gap: 0.5rem;
-  padding-block: var(--_padding-block);
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
-}
+//[part='wrapper'] {
+//  align-items: center;
+//  display: flex;
+//  gap: 0.5rem;
+//  padding-block: var(--_padding-block);
+//  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+//}
 
 button {
   appearance: none;
@@ -68,53 +69,20 @@ button {
   }
 }
 
-sl-icon {
-  rotate: 180deg;
-  transition: rotate 0.2s ease-in-out;
-}
+//sl-icon {
+//  rotate: 180deg;
+//  transition: rotate 0.2s ease-in-out;
+//}
 
-slot[name='heading'],
-slot[name='heading']::slotted(*) {
-  color: var(--sl-color-accordion-default-foreground);
-  font: var(--sl-text-accordion-title);
-}
-
-slot[name='heading'] {
-  display: block;
-}
-
-sl-tool-bar {
-  min-inline-size: 0;
-
-  &:not([empty]) {
-    padding-inline-end: var(--_padding-inline);
-  }
-}
-
-slot[name='actions']::slotted(:first-child) {
-  // FIXME: Since the `aside` slot always has content, gap on the header won't work as expected
-  // So we explicitly set a left margin on the first action
-  margin-inline-start: 1rem;
-}
-
-[part='body'] {
-  display: grid;
-  grid-template-rows: 1fr;
-  transition: grid-template-rows 0.2s ease-in-out;
-}
-
-[part='inner'] {
-  overflow: hidden;
-}
-
-[part='content'] {
-  padding-block-end: var(--_padding-block);
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
-}
 
 sl-button[active],
 .active { // TODO: maybe better use aria-current for links instead of active class
-  border: 1px solid #0d1a24;
+  background: var(--sl-color-button-default-ghost-selected-idle-background);
+  border: 1px solid var(--sl-color-button-default-ghost-selected-idle-border); //#0d1a24;
+  color: var(--sl-color-button-default-ghost-selected-idle-foreground);
+   // --_background: var(--sl-color-button-default-ghost-selected-idle-background);
+   // --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
+  //  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
 }
 
 // .active {
@@ -148,6 +116,10 @@ ul {
   padding: 0;
 }
 
+ul[mobile] {
+  grid-template-columns: auto;
+}
+
 li {
   list-style: none;
   min-inline-size: 0;
@@ -156,6 +128,7 @@ li {
 .select-wrapper {
   display: flex;
   gap: 16px;
-  width: max-content;
+  //width: max-content;
   align-items: center;
+  flex-wrap: wrap;
 }

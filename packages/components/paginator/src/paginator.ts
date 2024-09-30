@@ -1,4 +1,4 @@
-import { faChevronLeft, faChevronRight } from '@fortawesome/pro-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faCaretLeft, faCaretRight } from '@fortawesome/pro-solid-svg-icons';
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
@@ -22,7 +22,7 @@ declare global {
   }
 }
 
-Icon.register(faChevronLeft, faChevronRight);
+Icon.register(faChevronLeft, faChevronRight, faCaretLeft, faCaretRight);
 
 export type SlPageChangeEvent = CustomEvent<number>;
 
@@ -54,7 +54,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /**
    * Observe changes in size...
    */
-  #observer = new ResizeObserver(() => this.#onResize());
+  #observer = new ResizeObserver(() => {requestAnimationFrame(() => this.#onResize())});
 
   #activePage = 1;
 
@@ -138,10 +138,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /**  @internal The slotted links. */
  // @state() linkElements: HTMLLinkElement[] = []; // or add interface PaginatorItem with label in it, url and so on...
 
-  // #hiddenLeft: Element[] = []; // TODO: separated component for pageItem?
-
-  // #hiddenRight: Element[] = []; // TODO: separated component for pageItem?
-
   /** The width of the menu button; used for calculating the (in)visible pages. */
   #menuButtonWidth = 0;
 
@@ -192,6 +188,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
 
     this.#observer.observe(this);
+
+    // this.#mobileVariant = false;
   }
 
   override disconnectedCallback(): void {
@@ -223,6 +221,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.activePage = 1;
 
       this.#onResize();
+      this.requestUpdate();
+
+      // TODO: on resize is not working? still mobilevariant when it should not be?
     }
 
     if (changes.has('activePage')) {
@@ -258,11 +259,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     // TODO: next and previous should be wrapped by 'li' as well
 
     return html`
-      <div style="display: none;">${start} - ${end} of ${this.total} items</div>
       <nav class="container">
-        <ul>
+        <ul><!--?mobile=${this.#mobileVariant}-->
           <sl-button class="prev" aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
-            ><sl-icon name="fas-chevron-right" size="xs"></sl-icon></sl-button>
+            ><sl-icon name="fas-caret-left" size="xs"></sl-icon></sl-button>
               <div class="pages-wrapper">
                     ${Array.from({ length: pages }).map(
                       (_, index) => html`
@@ -294,7 +294,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       `
             : nothing}
           <sl-button class="next" aria-label="Go to the next page {page}" fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
-            ><sl-icon name="fas-chevron-left" size="xs"></sl-icon
+            ><sl-icon name="fas-caret-right" size="xs"></sl-icon
           ></sl-button>
         </ul>
       </nav>
@@ -493,25 +493,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   // TODO: use #renderMenuButton when it's necessary and use append to add it in the shadow DOM after first and before last page when it's necessary
 
-  /*  ${this.options?.map(
-    option => html`
-                    <sl-checkbox
-                      @sl-change=${(event: SlChangeEvent & { target: Checkbox }) => this.#onChange(event, option)}
-                      .checked=${this.value?.includes(option.value?.toString() ?? '')}
-                      .value=${option.value}
-                    >
-                      ${option.label}
-                    </sl-checkbox>
-                  `
-)}*/
-
-  // renderHeading(): TemplateResult {
-  //   return html`
-  //     ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing}
-  //     <slot name="heading">${this.heading}</slot>
-  //   `;
-  // }
-
   #onResize(): void { // TODO: rename to #onChange ???
     const pagesWrapper = this.renderRoot.querySelector('.pages-wrapper') as HTMLDivElement;
     const container = this.renderRoot.querySelector('.container');
@@ -522,18 +503,27 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     pagesWrapper.style.display = '';
     buttonPrev.style.display = '';
     buttonNext.style.display = '';
+    this.requestUpdate();
 
     console.log(
       'on RESIZE - pagesWrapper',
+      pagesWrapper && pagesWrapper.clientWidth - this.#menuButtonWidth < pagesWrapper.scrollWidth,
+      pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth,
+      pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth,
+      pagesWrapper.clientWidth < pagesWrapper.scrollWidth,
       pagesWrapper,
       pagesWrapper?.clientWidth,
       pagesWrapper?.scrollWidth,
+      pagesWrapper.scrollWidth - this.#menuButtonWidth,
       (pagesWrapper as HTMLDivElement)?.offsetWidth,
       'container',
       container,
       container?.clientWidth,
       container?.scrollWidth,
-      (container as HTMLElement)?.offsetWidth
+      (container as HTMLElement)?.offsetWidth,
+      'this.#menuButtonWidth',
+      this.#menuButtonWidth,
+      pagesWrapper.getBoundingClientRect()
     );
 
     const pages = this.renderRoot.querySelectorAll<Button>('sl-button.page'); // TODO: should work also for links, not only for buttons
@@ -569,40 +559,28 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       totalPagesWidth += page.offsetWidth; // + gap;
     });
 
-    const moreButton = /*document*/this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
+    const moreButton = this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
     console.log('moreButton', moreButton);
     moreButton.fill = 'ghost';
     moreButton.classList.add('more-button');
-    // moreButton.innerHTML = `<sl-icon slot="button" name="ellipsis"></sl-icon>
-    //         <sl-menu-item>1</sl-menu-item>
-    //         <sl-menu-item>2</sl-menu-item>
-    //         <sl-menu-item>...</sl-menu-item>`;// 'ellipsis';
     const icon = document.createElement('sl-icon') as Icon;
     icon.slot = 'button';
     icon.name = 'ellipsis';
     moreButton.appendChild(icon);
 
-    const moreButtonLeft = /*document*/this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
+    const moreButtonLeft = this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
     console.log('moreButtonLeft', moreButtonLeft);
     moreButtonLeft.fill = 'ghost';
     moreButtonLeft.classList.add('more-button');
-    // moreButton.innerHTML = `<sl-icon slot="button" name="ellipsis"></sl-icon>
-    //         <sl-menu-item>1</sl-menu-item>
-    //         <sl-menu-item>2</sl-menu-item>
-    //         <sl-menu-item>...</sl-menu-item>`;// 'ellipsis';
     const iconLeft = document.createElement('sl-icon') as Icon;
     iconLeft.slot = 'button';
     iconLeft.name = 'ellipsis';
     moreButtonLeft.appendChild(iconLeft);
 
-    const moreButtonRight = /*document*/this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
+    const moreButtonRight = this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
     console.log('moreButtonRight', moreButtonRight);
     moreButtonRight.fill = 'ghost';
     moreButtonRight.classList.add('more-button');
-    // moreButton.innerHTML = `<sl-icon slot="button" name="ellipsis"></sl-icon>
-    //         <sl-menu-item>1</sl-menu-item>
-    //         <sl-menu-item>2</sl-menu-item>
-    //         <sl-menu-item>...</sl-menu-item>`;// 'ellipsis';
     const iconRight = document.createElement('sl-icon') as Icon;
     iconRight.slot = 'button';
     iconRight.name = 'ellipsis';
@@ -611,6 +589,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     let menuItems: Node[] = [];
     let menuItemsLeft: Node[] = [];
     let menuItemsRight: Node[] = [];
+
+    // reset mobile variant
+    this.#mobileVariant = false; // or maybe getter/setter?
+    this.requestUpdate(); // TODO: is it necessary? perhaps yes?
 
   //   const menuItem = document.createElement('sl-menu-item') as MenuItem;
   //   menuItem.innerHTML = '1';
@@ -654,6 +636,36 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     let possiblyVisible: Button[] = [];
     let possiblyHidden: Button[] = [];
 
+    // reset display to check the width
+    pagesWrapper.style.display = '';
+    buttonPrev.style.display = '';
+    buttonNext.style.display = '';
+
+
+    const containerWidth = pagesWrapper.clientWidth;
+    let totalWidth1 = 0;
+    let visibleButtonCount = 0;
+
+    // (Array.from(pages)).forEach(button => {
+    //   const buttonWidth = button.offsetWidth;
+    //   if (totalWidth1 + buttonWidth <= containerWidth) {
+    //     totalWidth1 += buttonWidth;
+    //     visibleButtonCount++;
+    //   }
+    // });
+
+    // for (let i = 0; i < pages.length; i++) {
+    //   const buttonWidth = pages[i].offsetWidth;
+    //   if (totalWidth + buttonWidth <= containerWidth) {
+    //     totalWidth += buttonWidth;
+    //     visibleButtonCount++;
+    //   } else {
+    //     break;
+    //   }
+    // }
+
+     // console.log('visibleButtonCount', visibleButtonCount, pages);
+
     (Array.from(pages)).forEach(button => {
       button.style.display = '';
       totalAmountOfPagesWidth += button.offsetWidth;
@@ -663,10 +675,16 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       buttonPrev.style.display = '';
       buttonNext.style.display = '';
 
-      if (pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth - (2 * this.#menuButtonWidth) /*32*/ /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+      console.log('Comparison value:', pagesWrapper.clientWidth - (2 * this.#menuButtonWidth), totalAmountOfPagesWidth, 'pagesWrapper.clientWidth', pagesWrapper.clientWidth, pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth );
+
+
+      console.log('pagesWrapper in checking possiblyvisible and hidden', pagesWrapper, pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth);
+
+      if (pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth /*- (2 * this.#menuButtonWidth) *//*32*/ /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
         possiblyHidden.push(button);
         console.log('possiblyHidden in if', possiblyHidden, button, totalAmountOfPagesWidth, totalPagesWidth, 'pagesWrapper.clientWidth', pagesWrapper.clientWidth, pagesWrapper.clientWidth - (2 * this.#menuButtonWidth), pagesWrapper);
       } else {
+        possiblyHidden = [];
         // ...
       } // or maybe 2 x menuButtonWidth ??
     });
@@ -677,13 +695,16 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('possiblyVisible, possiblyHidden', possiblyVisible, possiblyHidden, totalPagesWidth, pagesWrapper?.clientWidth);
 
 
+
+    console.log('pagesWrapper in checking possiblyvisible and hidden AFTER', pagesWrapper, pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth);
+
     // TODO: make responsive variant when possiblyVisible <= 3 ???
     // TODO: variant with select containing [5] of 10 pages
 
     // this.#mobileVariant ? (possiblyVisible.length <= 3) : false;
 
     // TODO: when total amount of pages < 3 it should not change to mobile variant when there is enough space pages.length
-    this.#mobileVariant = possiblyVisible.length <= 3; //4;
+    this.#mobileVariant = possiblyVisible.length <= 3 /*&& pages.length >= 5*/; //4;
     if (this.#mobileVariant) {
       // hide pages when there should be mobile variant visible and dimensions are already checked
       pagesWrapper.style.display = 'none';
@@ -824,7 +845,21 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
 
     if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth /*moreButtonWidth*/ /*moreButton.offsetWidth*/ /*container && container.clientWidth < container.scrollWidth*/) {
-      console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container);
+      console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container, possiblyVisible.length);
+
+
+      // this.#mobileVariant = possiblyVisible.length <= 3; //4;
+      // if (this.#mobileVariant) {
+      //   // hide pages when there should be mobile variant visible and dimensions are already checked
+      //   pagesWrapper.style.display = 'none';
+      //   buttonPrev.style.display = 'none';
+      //   buttonNext.style.display = 'none';
+      //   this.requestUpdate();
+      //   return;
+      // }
+
+      console.log('mobileVariant after setting mobile', this.#mobileVariant, possiblyVisible.length, possiblyVisible.length <= 3, pages);
+
 
       // if activePage bigger than half
       if ((this.activePage - 1) > Math.floor(/*visibleButtons*/ possiblyVisible.length / 2) && (this.activePage - 1) < (lastPage - Math.floor(/*visibleButtons*/ possiblyVisible.length / 2))) { // TODO change to not only last page applicable but last few pages
@@ -901,7 +936,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
         // this.renderRoot.querySelector('sl-menu-button.more-button')?.remove();
         pages[lastPage - 1].before(moreButtonRight);
-
 
         // TODO: make below when activePage is somewhere in the middle --- possiblyVisible.length / 2
         // TODO: first page -> hidden pages on the left (one more button) -> shown pages on the left -> this.activepage -> shown pages on the right -> hidden pages on the right (one more button) -> last page

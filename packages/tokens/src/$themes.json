@@ -9051,7 +9051,10 @@
       "color.field-button.default.active.foreground": "S:81626dc7d5b0fb6d48cf8dba5cf4eb2be64d9645,",
       "color.field-button.default.disabled.background": "S:b7a07c0ccf3a20aaddb5cf81427acce301cb51e8,",
       "color.field-button.default.disabled.foreground": "S:ae45e21cacbb2c89a72bd8f8da9df9b8d749fa38,",
-      "color.text.danger.active": "S:be2ea45efdfe7523b550e15640c605a3d6b47684,"
+      "color.text.danger.active": "S:be2ea45efdfe7523b550e15640c605a3d6b47684,",
+      "color.text.subtle": "S:8c2c9faf8d03133e76519fe1914ea86d640a822d,",
+      "color.text.plain": "S:5a77b5c097f8d2b4dcbb410024a7f3dfd9db90bd,",
+      "color.text.disabled": "S:6536cf81c709a7da61b645be3f4b150dfafaf407,"
     }
   },
   {

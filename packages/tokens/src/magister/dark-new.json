@@ -481,11 +481,11 @@
     "elevation": {
       "surface": {
         "raised": {
-          "value": "{color.base.white}",
+          "value": "{color.base.black}",
           "type": "color"
         },
         "default": {
-          "value": "{color.base.white}",
+          "value": "{color.base.black}",
           "type": "color"
         }
       },
@@ -534,7 +534,7 @@
     },
     "text": {
       "default": {
-        "value": "{color.base.black}",
+        "value": "{color.base.white}",
         "type": "color"
       },
       "subtle": {

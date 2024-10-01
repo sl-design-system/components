@@ -87,8 +87,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   // TODO: data?
   // TODO: elements per page?
 
-  // TODO: total elements?
-
   // TODO: routing? with url change
   // TODO: emit event on page change
 
@@ -125,18 +123,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   @state() buttons: Button[] = []; // TODO: remove it?
-
-  /** When `navigation` is set, the paginator will have links instead of buttons and should be used as a navigation on the page. */
- // @property() navigation?: boolean; // TODO: links? array with links?
-
-  /** should be used together with `navigation` property. The array should have the same width as itemsPerPage and should have the right order ???? */
- // @property() links?: string[] = []; // or maybe a function used to rendering urls?
-
-  // /** @internal The slotted links. */
-  // @queryAssignedElements() linkElements?: HTMLLinkElement[];
-
-  /**  @internal The slotted links. */
- // @state() linkElements: HTMLLinkElement[] = []; // or add interface PaginatorItem with label in it, url and so on...
 
   /** The width of the menu button; used for calculating the (in)visible pages. */
   #menuButtonWidth = 0;
@@ -642,9 +628,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     buttonNext.style.display = '';
 
 
-    const containerWidth = pagesWrapper.clientWidth;
-    let totalWidth1 = 0;
-    let visibleButtonCount = 0;
+    // const containerWidth = pagesWrapper.clientWidth;
+    // let totalWidth1 = 0;
+    // let visibleButtonCount = 0;
 
     // (Array.from(pages)).forEach(button => {
     //   const buttonWidth = button.offsetWidth;
@@ -668,19 +654,21 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     (Array.from(pages)).forEach(button => {
       button.style.display = '';
-      totalAmountOfPagesWidth += button.offsetWidth;
+      totalAmountOfPagesWidth += button.getBoundingClientRect().width; //button.offsetWidth;
 
       // reset display to check the width
       pagesWrapper.style.display = '';
       buttonPrev.style.display = '';
       buttonNext.style.display = '';
 
-      console.log('Comparison value:', pagesWrapper.clientWidth - (2 * this.#menuButtonWidth), totalAmountOfPagesWidth, 'pagesWrapper.clientWidth', pagesWrapper.clientWidth, pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth );
+      this.requestUpdate();
+
+      console.log('Comparison value:', pagesWrapper.clientWidth - (2 * this.#menuButtonWidth), totalAmountOfPagesWidth, 'pagesWrapper.clientWidth', pagesWrapper.clientWidth, pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth, pagesWrapper.getBoundingClientRect().width, 'button.offsetWidth', button.getBoundingClientRect().width);
 
 
       console.log('pagesWrapper in checking possiblyvisible and hidden', pagesWrapper, pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth);
 
-      if (pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth /*- (2 * this.#menuButtonWidth) *//*32*/ /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
+      if (pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.getBoundingClientRect().width /*pagesWrapper.clientWidth*/ /*- (2 * this.#menuButtonWidth) *//*32*/ /*moreButtonWidth*/ /*moreButton.offsetWidth - 32*/ /*container && totalWidth > container.clientWidth*/) { // TODO: or pagesWrapper???
         possiblyHidden.push(button);
         console.log('possiblyHidden in if', possiblyHidden, button, totalAmountOfPagesWidth, totalPagesWidth, 'pagesWrapper.clientWidth', pagesWrapper.clientWidth, pagesWrapper.clientWidth - (2 * this.#menuButtonWidth), pagesWrapper);
       } else {
@@ -696,7 +684,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
 
 
-    console.log('pagesWrapper in checking possiblyvisible and hidden AFTER', pagesWrapper, pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth);
+    console.log('pagesWrapper in checking possiblyvisible and hidden AFTER', pagesWrapper, pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth, pagesWrapper.scrollWidth);
 
     // TODO: make responsive variant when possiblyVisible <= 3 ???
     // TODO: variant with select containing [5] of 10 pages
@@ -704,14 +692,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     // this.#mobileVariant ? (possiblyVisible.length <= 3) : false;
 
     // TODO: when total amount of pages < 3 it should not change to mobile variant when there is enough space pages.length
-    this.#mobileVariant = possiblyVisible.length <= 3 /*&& pages.length >= 5*/; //4;
-    if (this.#mobileVariant) {
-      // hide pages when there should be mobile variant visible and dimensions are already checked
-      pagesWrapper.style.display = 'none';
-      buttonPrev.style.display = 'none';
-      buttonNext.style.display = 'none';
-    }
-    this.requestUpdate();
+    // this.#mobileVariant = possiblyVisible.length <= 3; //3 /*&& pages.length >= 5*/; //4;
+    // if (this.#mobileVariant) {
+    //   // hide pages when there should be mobile variant visible and dimensions are already checked
+    //   pagesWrapper.style.display = 'none';
+    //   buttonPrev.style.display = 'none';
+    //   buttonNext.style.display = 'none';
+    // }
+    // this.requestUpdate(); // TODO: is this one necessary?
 
     // TODO: possiblyVisible is not working when we switch from mobile to bigger resolution and at the beginning
     // TODO: requestAnimationFrame is needed?
@@ -842,21 +830,27 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       console.log('moreButton width after remove', moreButtonWidth, moreButton2, moreButton2.getBoundingClientRect());
     }*/
 
+    console.log('should show ellipsis?',
+      pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth,
+      pagesWrapper && pagesWrapper.getBoundingClientRect().width < pagesWrapper.scrollWidth - this.#menuButtonWidth
+      )
 
 
+// TODO: maybe use getBoundingClientRect.width??? instead clientWidth like for checking possiblyVisible and possiblyHidden amount
     if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth /*moreButtonWidth*/ /*moreButton.offsetWidth*/ /*container && container.clientWidth < container.scrollWidth*/) {
-      console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container, possiblyVisible.length);
+      console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container, possiblyVisible.length, possiblyVisible.length <= 4);
 
 
-      // this.#mobileVariant = possiblyVisible.length <= 3; //4;
-      // if (this.#mobileVariant) {
-      //   // hide pages when there should be mobile variant visible and dimensions are already checked
-      //   pagesWrapper.style.display = 'none';
-      //   buttonPrev.style.display = 'none';
-      //   buttonNext.style.display = 'none';
-      //   this.requestUpdate();
-      //   return;
-      // }
+      this.#mobileVariant = possiblyVisible.length <= 4; //4;
+      if (this.#mobileVariant) {
+        // hide pages when there should be mobile variant visible and dimensions are already checked
+        pagesWrapper.style.display = 'none';
+        buttonPrev.style.display = 'none';
+        buttonNext.style.display = 'none';
+        // TODO: maybe select-wrapper display block?
+        this.requestUpdate();
+        return;
+      }
 
       console.log('mobileVariant after setting mobile', this.#mobileVariant, possiblyVisible.length, possiblyVisible.length <= 3, pages);
 

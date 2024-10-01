@@ -2,6 +2,7 @@
 import { localized } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { EllipsisText } from '@sl-design-system/ellipsis-text';
 import {
   ArrayDataSource,
   type DataSource,
@@ -96,7 +97,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-grid-group-header': GridGroupHeader
+      'sl-grid-group-header': GridGroupHeader,
+      'sl-ellipsis-text': EllipsisText
     };
   }
 
@@ -224,6 +226,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The table head element. */
   @query('thead') thead!: HTMLTableSectionElement;
+
+  /** This will truncate the text in the `<td>` elements and ellipsize them when set. */
+  @property({ type: Boolean, reflect: true, attribute: 'truncate-text' }) truncateText?: boolean;
 
   /** The model used for rendering the grid. */
   @property({ attribute: false }) view = new GridViewModel<T>(this);

@@ -43,6 +43,12 @@
   --_cell-background: var(--_striped-background);
 }
 
+:host([truncate-text]) td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 table {
   display: flex;
   flex-direction: column;

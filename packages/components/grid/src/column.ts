@@ -150,11 +150,18 @@ export class GridColumn<T = any> extends LitElement {
   renderData(item: T): TemplateResult {
     const parts = ['data', ...this.getParts(item)];
 
-    return html`
-      <td part=${parts.join(' ')}>
-        ${this.renderer ? this.renderer(item) : this.path ? getValueByPath(item, this.path) : 'No path set'}
-      </td>
-    `;
+    let data: unknown;
+    if (this.renderer) {
+      data = this.renderer(item);
+    } else if (this.path) {
+      data = getValueByPath(item, this.path);
+    }
+
+    if (this.grid?.truncateText && typeof data === 'string') {
+      return html`<td part=${parts.join(' ')}><sl-ellipsis-text>${data}</sl-ellipsis-text></td>`;
+    } else {
+      return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;
+    }
   }
 
   renderStyles(): CSSResult | void {}

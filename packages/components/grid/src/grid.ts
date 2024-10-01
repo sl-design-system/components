@@ -284,6 +284,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('scopedElements')) {
       this.#addScopedElements(this.scopedElements);
     }
+
+    if (changes.has('truncateText')) {
+      this.view.headerRows.at(-1)?.forEach(col => {
+        console.log({ col });
+
+        col.truncateText = this.truncateText;
+      });
+    }
   }
 
   override render(): TemplateResult {
@@ -695,6 +703,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (this.dataSource) {
         col.itemsChanged();
+      }
+
+      if (this.truncateText) {
+        col.truncateText = this.truncateText;
       }
 
       if (col instanceof GridFilterColumn) {

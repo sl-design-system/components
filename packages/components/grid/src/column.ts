@@ -103,6 +103,9 @@ export class GridColumn<T = any> extends LitElement {
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean, reflect: true }) sticky?: boolean;
 
+  /** This will truncate the text in the `<td>` elements and ellipsize them when set. */
+  @property({ type: Boolean, attribute: 'truncate-text' }) truncateText?: boolean;
+
   set width(value: number | undefined) {
     this.#width = value;
   }
@@ -157,7 +160,7 @@ export class GridColumn<T = any> extends LitElement {
       data = getValueByPath(item, this.path);
     }
 
-    if (this.grid?.truncateText && typeof data === 'string') {
+    if (this.truncateText && typeof data === 'string') {
       return html`<td part=${parts.join(' ')}><sl-ellipsis-text>${data}</sl-ellipsis-text></td>`;
     } else {
       return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;

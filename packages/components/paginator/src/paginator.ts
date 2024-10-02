@@ -173,9 +173,28 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('this.#menuButtonWidth', this.#menuButtonWidth);
 
 
-    this.#observer.observe(this);
+    requestAnimationFrame(() => {
+      this.#observer.observe(this);
 
-    // this.#mobileVariant = false;
+      // this.#mobileVariant = false;
+
+      const selectWrapper = this.renderRoot.querySelector<HTMLDivElement>('.select-wrapper');
+      console.log('selectWrapper', selectWrapper);
+
+      if (!this.#mobileVariant && selectWrapper) {
+        selectWrapper.style.display = 'none';
+      }
+    });
+    // this.#observer.observe(this);
+    //
+    // // this.#mobileVariant = false;
+    //
+    // const selectWrapper = this.renderRoot.querySelector<HTMLDivElement>('select-wrapper');
+    // console.log('selectWrapper', selectWrapper);
+    //
+    // if (!this.#mobileVariant && selectWrapper) {
+    //   selectWrapper.style.display = 'none';
+    // }
   }
 
   override disconnectedCallback(): void {
@@ -265,20 +284,16 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
               `
                     )}
               </div>
-          ${this.#mobileVariant ?
-            html`
-              <div class="select-wrapper">
-        <sl-select @change=${this.#setActive} .value=${this.activePage} style="inline-size: 100px;">
-            ${Array.from({ length: pages })?.map(
-              (_, index) => html`
+          <div class="select-wrapper">
+            <sl-select @change=${this.#setActive} .value=${this.activePage} style="inline-size: 100px;">
+              ${Array.from({ length: pages })?.map(
+                (_, index) => html`
                 <sl-select-option @click=${this.#setActive} .value=${index + 1}>${index + 1}</sl-select-option
               `
-            )}
-        </sl-select>
-                    of ${pages} pages [msg]
-                </div>
-      `
-            : nothing}
+              )}
+            </sl-select>
+            of ${pages} pages [msg]
+          </div>
           <sl-button class="next" aria-label="Go to the next page {page}" fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
             ><sl-icon name="fas-caret-right" size="xs"></sl-icon
           ></sl-button>
@@ -484,11 +499,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const container = this.renderRoot.querySelector('.container');
     const buttonPrev = this.renderRoot.querySelector('sl-button.prev') as Button;
     const buttonNext = this.renderRoot.querySelector('sl-button.next') as Button;
+    const selectWrapper = this.renderRoot.querySelector('.select-wrapper') as HTMLDivElement;
 
     // reset display to check the width
     pagesWrapper.style.display = '';
     buttonPrev.style.display = '';
     buttonNext.style.display = '';
+    selectWrapper.style.display = 'none';
     this.requestUpdate();
 
     console.log(
@@ -626,6 +643,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     pagesWrapper.style.display = '';
     buttonPrev.style.display = '';
     buttonNext.style.display = '';
+    selectWrapper.style.display = 'none';
 
 
     // const containerWidth = pagesWrapper.clientWidth;
@@ -660,6 +678,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       pagesWrapper.style.display = '';
       buttonPrev.style.display = '';
       buttonNext.style.display = '';
+      selectWrapper.style.display = 'none';
 
       this.requestUpdate();
 
@@ -676,11 +695,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         // ...
       } // or maybe 2 x menuButtonWidth ??
     });
-    console.log('1possiblyVisible, possiblyHidden', possiblyVisible, possiblyHidden, totalPagesWidth, pagesWrapper?.clientWidth);
+    console.log('1possiblyVisible, possiblyHidden', possiblyVisible, possiblyHidden, Array.from(pages), totalPagesWidth, pagesWrapper?.clientWidth);
 
     possiblyVisible = Array.from(pages).filter(page => !possiblyHidden.includes(page)); //pages.length - possiblyHidden.length;
 
-    console.log('possiblyVisible, possiblyHidden', possiblyVisible, possiblyHidden, totalPagesWidth, pagesWrapper?.clientWidth);
+    console.log('possiblyVisible, possiblyHidden', possiblyVisible, possiblyHidden, Array.from(pages), totalPagesWidth, pagesWrapper?.clientWidth);
 
 
 
@@ -832,21 +851,25 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     console.log('should show ellipsis?',
       pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth,
-      pagesWrapper && pagesWrapper.getBoundingClientRect().width < pagesWrapper.scrollWidth - this.#menuButtonWidth
+      pagesWrapper && pagesWrapper.getBoundingClientRect().width < pagesWrapper.scrollWidth - this.#menuButtonWidth,
+      'pagesWrapper.clientWidth', pagesWrapper.clientWidth,
+      'pagesWrapper.getBoundingClientRect().width', pagesWrapper.getBoundingClientRect().width,
+      'pagesWrapper.scrollWidth', pagesWrapper.scrollWidth
       )
 
 
 // TODO: maybe use getBoundingClientRect.width??? instead clientWidth like for checking possiblyVisible and possiblyHidden amount
-    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth /*moreButtonWidth*/ /*moreButton.offsetWidth*/ /*container && container.clientWidth < container.scrollWidth*/) {
+    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth /*- this.#menuButtonWidth*/ /*moreButtonWidth*/ /*moreButton.offsetWidth*/ /*container && container.clientWidth < container.scrollWidth*/) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container, possiblyVisible.length, possiblyVisible.length <= 4);
 
 
-      this.#mobileVariant = possiblyVisible.length <= 4; //4;
+      this.#mobileVariant = possiblyVisible.length <= 3; //4;
       if (this.#mobileVariant) {
         // hide pages when there should be mobile variant visible and dimensions are already checked
         pagesWrapper.style.display = 'none';
         buttonPrev.style.display = 'none';
         buttonNext.style.display = 'none';
+        selectWrapper.style.display = '';
         // TODO: maybe select-wrapper display block?
         this.requestUpdate();
         return;
@@ -856,7 +879,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
 
       // if activePage bigger than half
-      if ((this.activePage - 1) > Math.floor(/*visibleButtons*/ possiblyVisible.length / 2) && (this.activePage - 1) < (lastPage - Math.floor(/*visibleButtons*/ possiblyVisible.length / 2))) { // TODO change to not only last page applicable but last few pages
+      if ((this.activePage) > Math.floor(/*visibleButtons*/ possiblyVisible.length / 2) && (this.activePage) <= (lastPage - Math.floor(/*visibleButtons*/ possiblyVisible.length / 2))) { // TODO change to not only last page applicable but last few pages
         console.log('enters first');
         // TODO: hide on the left and on the right
         // items before and items after from 1..active and active ...10
@@ -933,7 +956,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
         // TODO: make below when activePage is somewhere in the middle --- possiblyVisible.length / 2
         // TODO: first page -> hidden pages on the left (one more button) -> shown pages on the left -> this.activepage -> shown pages on the right -> hidden pages on the right (one more button) -> last page
-      } else if (this.activePage === 1 || (this.activePage - 1) <= Math.floor(/*visibleButtons*/ possiblyVisible.length / 2)) {
+      } else if (this.activePage === 1 || (this.activePage) <= Math.floor(/*visibleButtons*/ possiblyVisible.length / 2)) {
         console.log('enters second');
         (Array.from(pages).slice(0, -1)).forEach(button => {
           // Ensure all pages are visible initially

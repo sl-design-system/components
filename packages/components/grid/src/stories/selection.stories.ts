@@ -94,7 +94,7 @@ export const SelectionColumnWithCustomHeader: Story = {
       <style>
         sl-grid::part(active-selection) {
           gap: 0.5rem;
-          padding-block: 0.125rem;
+          padding-block: var(--sl-space-150);
         }
       </style>
       <sl-grid .items=${people}>

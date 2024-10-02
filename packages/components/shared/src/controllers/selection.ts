@@ -20,7 +20,7 @@ export class SelectionController<T = any> {
    */
   #selection = new Set<T>();
 
-  //** The currently highlighted row */
+  /** The active item. There can only be one active item at a time.*/
   #active?: T | null;
 
   /** The total number of items in the selection. */

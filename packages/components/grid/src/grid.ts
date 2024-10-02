@@ -97,8 +97,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-grid-group-header': GridGroupHeader,
-      'sl-ellipsize-text': EllipsizeText
+      'sl-ellipsize-text': EllipsizeText,
+      'sl-grid-group-header': GridGroupHeader
     };
   }
 

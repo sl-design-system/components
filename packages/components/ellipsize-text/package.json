@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/ellipsis-text",
+  "name": "@sl-design-system/ellipsize-text",
   "version": "0.0.0",
-  "description": "Ellipsis text component for the SL Design System",
+  "description": "Utility component that ellipsizes text if it doesn't fit",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/ellipsis-text"
+    "directory": "packages/components/ellipsize-text"
   },
-  "homepage": "https://sanomalearning.design/components/ellipsis-text",
+  "homepage": "https://sanomalearning.design/components/ellipsize-text",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },

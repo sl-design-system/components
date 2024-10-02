@@ -1,13 +1,13 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
-import { type EllipsisText } from './ellipsis-text.js';
+import { type EllipsizeText } from './ellipsize-text.js';
 
-describe('sl-ellipsis-text', () => {
-  let el: EllipsisText;
+describe('sl-ellipsize-text', () => {
+  let el: EllipsizeText;
 
   beforeEach(async () => {
-    el = await fixture(html`<sl-ellipsis-text>This is a long text that should be truncated</sl-ellipsis-text>`);
+    el = await fixture(html`<sl-ellipsize-text>This is a long text that should be truncated</sl-ellipsize-text>`);
   });
 
   it('should render a slot with the text', () => {

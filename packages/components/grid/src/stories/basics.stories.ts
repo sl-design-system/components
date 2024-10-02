@@ -74,12 +74,24 @@ export const ColumnGroups: Story = {
   `
 };
 
-export const TruncateText: Story = {
+export const EllipsizeTextAllColumns: Story = {
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people} style="max-inline-size: 800px" truncate-text>
+    <sl-grid .items=${people} style="max-inline-size: 500px" ellipsize-text>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="address.street"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+      <sl-grid-column path="membership"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const EllipsizeTextSingleColumn: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} style="max-inline-size: 800px">
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="address.street" ellipsize-text></sl-grid-column>
       <sl-grid-column path="profession"></sl-grid-column>
       <sl-grid-column path="membership"></sl-grid-column>
     </sl-grid>

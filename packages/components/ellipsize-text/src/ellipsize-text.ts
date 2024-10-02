@@ -1,13 +1,19 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './ellipsis-text.scss.js';
+import styles from './ellipsize-text.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-ellipsize-text': EllipsizeText;
+  }
+}
 
 /**
  * Small utility component to add ellipsis to text that overflows
  * its container. It also adds a tooltip with the full text.
  */
-export class EllipsisText extends ScopedElementsMixin(LitElement) {
+export class EllipsizeText extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {

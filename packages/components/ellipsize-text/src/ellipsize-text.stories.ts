@@ -6,9 +6,9 @@ type Props = { text: string; width: number };
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Utilities/Ellipsis Text',
+  title: 'Utilities/Ellipsize Text',
   tags: ['draft'],
-  render: ({ text, width }) => html`<sl-ellipsis-text style="width: ${width}px">${text}</sl-ellipsis-text>`
+  render: ({ text, width }) => html`<sl-ellipsize-text style="width: ${width}px">${text}</sl-ellipsize-text>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {

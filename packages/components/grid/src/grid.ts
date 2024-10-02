@@ -2,7 +2,7 @@
 import { localized } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { EllipsisText } from '@sl-design-system/ellipsis-text';
+import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import {
   ArrayDataSource,
   type DataSource,
@@ -98,7 +98,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-grid-group-header': GridGroupHeader,
-      'sl-ellipsis-text': EllipsisText
+      'sl-ellipsize-text': EllipsizeText
     };
   }
 
@@ -193,6 +193,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Provides clarity when 'between-or-on-top' is the active draggableRows value. */
   @property({ reflect: true, attribute: 'drop-target-mode' }) dropTargetMode?: 'between' | 'on-grid' | 'on-top';
 
+  /** This will ellipsize the text in the `<td>` elements if it overflows. */
+  @property({ type: Boolean, reflect: true, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
   /** Custom renderer for group headers. */
   @property({ attribute: false }) groupHeaderRenderer?: GridGroupHeaderRenderer;
 
@@ -226,9 +229,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The table head element. */
   @query('thead') thead!: HTMLTableSectionElement;
-
-  /** This will truncate the text in the `<td>` elements and ellipsize them when set. */
-  @property({ type: Boolean, reflect: true, attribute: 'truncate-text' }) truncateText?: boolean;
 
   /** The model used for rendering the grid. */
   @property({ attribute: false }) view = new GridViewModel<T>(this);
@@ -285,12 +285,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#addScopedElements(this.scopedElements);
     }
 
-    if (changes.has('truncateText')) {
-      this.view.headerRows.at(-1)?.forEach(col => {
-        console.log({ col });
-
-        col.truncateText = this.truncateText;
-      });
+    if (changes.has('ellipsizeText')) {
+      this.view.headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
     }
   }
 
@@ -705,8 +701,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         col.itemsChanged();
       }
 
-      if (this.truncateText) {
-        col.truncateText = this.truncateText;
+      if (this.ellipsizeText) {
+        col.ellipsizeText = this.ellipsizeText;
       }
 
       if (col instanceof GridFilterColumn) {

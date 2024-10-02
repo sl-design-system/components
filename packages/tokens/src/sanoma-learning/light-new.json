@@ -540,6 +540,10 @@
       "zebra": {
         "value": "{color.neutral.faint}",
         "type": "color"
+      },
+      "group": {
+        "value": "{color.neutral.muted}",
+        "type": "color"
       }
     },
     "divider": {

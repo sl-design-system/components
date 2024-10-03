@@ -2,15 +2,8 @@
 import { localized } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import {
-  ArrayDataSource,
-  type DataSource,
-  type EventEmitter,
-  SelectionController,
-  event,
-  getValueByPath,
-  isSafari
-} from '@sl-design-system/shared';
+import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
+import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -770,7 +763,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
-      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction!);
+      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
       this.dataSource?.removeSort();
     }

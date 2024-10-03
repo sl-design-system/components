@@ -1,8 +1,8 @@
 import { Avatar } from '@sl-design-system/avatar';
+import { FetchDataSource, FetchDataSourceError } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
-import { FetchDataSource, FetchDataSourceError } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';

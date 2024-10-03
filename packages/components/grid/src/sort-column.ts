@@ -1,4 +1,5 @@
-import { type DataSourceSortDirection, type DataSourceSortFunction, getNameByPath } from '@sl-design-system/shared';
+import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
+import { getNameByPath } from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';

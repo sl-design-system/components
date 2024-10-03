@@ -1,4 +1,4 @@
-import { getStringByPath, getValueByPath } from '../path.js';
+import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import {
   DataSource,
   type DataSourceFilterByFunction,

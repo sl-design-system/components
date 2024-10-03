@@ -1,4 +1,5 @@
-import { type DataSource, getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { type DataSource } from '@sl-design-system/data-source';
+import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';

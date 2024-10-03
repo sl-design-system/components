@@ -3,6 +3,7 @@ import { localized } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
+import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -89,6 +90,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader
     };
   }
@@ -184,6 +186,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Provides clarity when 'between-or-on-top' is the active draggableRows value. */
   @property({ reflect: true, attribute: 'drop-target-mode' }) dropTargetMode?: 'between' | 'on-grid' | 'on-top';
 
+  /** This will ellipsize the text in the `<td>` elements if it overflows. */
+  @property({ type: Boolean, reflect: true, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
   /** Custom renderer for group headers. */
   @property({ attribute: false }) groupHeaderRenderer?: GridGroupHeaderRenderer;
 
@@ -271,6 +276,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('scopedElements')) {
       this.#addScopedElements(this.scopedElements);
+    }
+
+    if (changes.has('ellipsizeText')) {
+      this.view.headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
     }
   }
 
@@ -683,6 +692,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (this.dataSource) {
         col.itemsChanged();
+      }
+
+      if (this.ellipsizeText) {
+        col.ellipsizeText = this.ellipsizeText;
       }
 
       if (col instanceof GridFilterColumn) {

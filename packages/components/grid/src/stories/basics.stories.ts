@@ -17,11 +17,11 @@ export default {
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
-  }
+  },
+  loaders: [async () => ({ people: (await getPeople()).people })]
 };
 
 export const Simple: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
@@ -47,7 +47,6 @@ export const Few: Story = {
 };
 
 export const Small: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} style="width: 300px">
       <sl-grid-column path="firstName"></sl-grid-column>
@@ -57,7 +56,6 @@ export const Small: Story = {
 };
 
 export const ColumnGroups: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} striped>
       <sl-grid-column-group header="Name">
@@ -77,8 +75,31 @@ export const ColumnGroups: Story = {
   `
 };
 
+export const EllipsizeTextAllColumns: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} style="max-inline-size: 500px" ellipsize-text>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="address.street"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+      <sl-grid-column path="membership"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const EllipsizeTextSingleColumn: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} style="max-inline-size: 800px">
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="address.street" ellipsize-text></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+      <sl-grid-column path="membership"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
 export const CustomRenderers: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
       return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
@@ -122,7 +143,6 @@ export const CustomRenderers: Story = {
 };
 
 export const CustomHeader: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <style>
       sl-grid::part(first-name),

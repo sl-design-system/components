@@ -288,7 +288,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
         ?required=${this.required}
-        placeholder=${ifDefined(this.placeholder)}
+        placeholder=${ifDefined(this.multiple && this.currentSelection.length ? undefined : this.placeholder)}
         size=${ifDefined(this.size)}
       >
         ${this.multiple && this.currentSelection.length

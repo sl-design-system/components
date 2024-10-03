@@ -62,6 +62,9 @@ export class GridColumn<T = any> extends LitElement {
   /** @internal Emits when the column definition has changed. */
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
+  /** This will ellipsize the text in the `<td>` elements when it overflows. */
+  @property({ type: Boolean, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
   /** The parent grid instance. */
   @property({ attribute: false })
   set grid(value: Grid<T> | undefined) {
@@ -150,11 +153,18 @@ export class GridColumn<T = any> extends LitElement {
   renderData(item: T): TemplateResult {
     const parts = ['data', ...this.getParts(item)];
 
-    return html`
-      <td part=${parts.join(' ')}>
-        ${this.renderer ? this.renderer(item) : this.path ? getValueByPath(item, this.path) : 'No path set'}
-      </td>
-    `;
+    let data: unknown;
+    if (this.renderer) {
+      data = this.renderer(item);
+    } else if (this.path) {
+      data = getValueByPath(item, this.path);
+    }
+
+    if (this.ellipsizeText && typeof data === 'string') {
+      return html`<td part=${parts.join(' ')}><sl-ellipsize-text>${data}</sl-ellipsize-text></td>`;
+    } else {
+      return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;
+    }
   }
 
   renderStyles(): CSSResult | void {}

@@ -57,6 +57,33 @@ describe('sl-column', () => {
         'data age'
       ]);
     });
+
+    it('should not ellipsize the text in the cells', () => {
+      expect(el.renderRoot.querySelector('sl-ellipsize-text')).not.to.exist;
+    });
+
+    it('should ellipsize the text in the cells when set', async () => {
+      el.ellipsizeText = true;
+      await el.updateComplete;
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td')).map(
+          cell => cell.firstElementChild?.tagName === 'SL-ELLIPSIZE-TEXT'
+        )
+      ).to.deep.equal([true, true, false]);
+    });
+
+    it('should ellipsize the text in the cells when set on the column', async () => {
+      el.querySelector('sl-grid-column')!.ellipsizeText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td')).map(
+          cell => cell.firstElementChild?.tagName === 'SL-ELLIPSIZE-TEXT'
+        )
+      ).to.deep.equal([true, false, false]);
+    });
   });
 
   describe('custom renderer', () => {

@@ -1,3 +1,9 @@
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-data-source-update': DataSourceUpdateEvent;
+  }
+}
+
 export type DataSourceFilterFunction<T> = (item: T, index: number, array: T[]) => boolean;
 
 export type DataSourceFilterByFunction<T = unknown> = {
@@ -30,6 +36,9 @@ export type DataSourceSortByFunction<T = unknown> = {
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
   /** Map of all active filters. */
   #filters: Map<string, DataSourceFilter<T>> = new Map();
@@ -56,9 +65,6 @@ export abstract class DataSource<T = any> extends EventTarget {
   }
 
   /** The filtered & sorted array of items. */
-  abstract readonly filteredItems: T[];
-
-  /** The array of all items. */
   abstract items: T[];
 
   /** Total number of items in this data source. */

@@ -43,11 +43,11 @@ export class GridViewModel<T = any> {
 
   set dataSource(dataSource: DataSource<T> | undefined) {
     if (this.#dataSource) {
-      this.#dataSource.removeEventListener('sl-update', this.update);
+      this.#dataSource.removeEventListener('sl-data-source-update', this.update);
     }
 
     this.#dataSource = dataSource;
-    this.#dataSource?.addEventListener('sl-update', this.update);
+    this.#dataSource?.addEventListener('sl-data-source-update', this.update);
 
     this.update();
   }
@@ -72,7 +72,7 @@ export class GridViewModel<T = any> {
       const groupByPath = this.#dataSource.groupBy.path,
         groups: string[] = [];
 
-      this.#rows = this.#dataSource.filteredItems
+      this.#rows = this.#dataSource.items
         .map(item => {
           const value = getStringByPath(item, groupByPath);
 
@@ -97,7 +97,7 @@ export class GridViewModel<T = any> {
         }
       });
     } else {
-      this.#rows = this.#dataSource?.filteredItems ?? [];
+      this.#rows = this.#dataSource?.items ?? [];
     }
 
     this.#grid.requestUpdate('view');

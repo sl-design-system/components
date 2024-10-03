@@ -2,6 +2,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { FetchDataSource, FetchDataSourceError } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -172,4 +173,44 @@ export const CustomHeader: Story = {
       </sl-grid-column>
     </sl-grid>
   `
+};
+
+export const LazyLoad: Story = {
+  render: () => {
+    interface Quote {
+      id: string;
+      quote: string;
+      author: string;
+    }
+
+    interface QuotesResponse {
+      quotes: Quote[];
+      total: number;
+      skip: number;
+      limit: number;
+    }
+
+    const dataSource = new FetchDataSource<Quote>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const response = await fetch(`https://dummyjson.com/quotes?skip=${(page - 1) * pageSize}&limit=${pageSize}`);
+
+        if (response.ok) {
+          const { quotes, total } = (await response.json()) as QuotesResponse;
+
+          return { items: quotes, totalItems: total };
+        } else {
+          throw new FetchDataSourceError('Failed to fetch data', response);
+        }
+      }
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
+        <sl-grid-column path="quote" grow="3"></sl-grid-column>
+        <sl-grid-column path="author"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };

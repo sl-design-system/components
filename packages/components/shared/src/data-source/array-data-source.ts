@@ -11,12 +11,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
   #filteredItems: T[] = [];
   #items: T[];
 
-  get filteredItems(): T[] {
-    return this.#filteredItems;
-  }
-
   get items(): T[] {
-    return this.#items;
+    return this.#filteredItems;
   }
 
   set items(items: T[]) {
@@ -132,6 +128,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     }
 
     this.#filteredItems = items;
-    this.dispatchEvent(new CustomEvent<void>('sl-update'));
+    this.dispatchEvent(new CustomEvent('sl-data-source-update', { detail: { dataSource: this } }));
   }
 }

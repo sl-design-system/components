@@ -657,7 +657,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
-    const items = this.dataSource?.filteredItems ?? [],
+    const items = this.dataSource?.items ?? [],
       groupItems = items.filter(item => getValueByPath(item, group.path) === group.value);
 
     if (event.detail) {

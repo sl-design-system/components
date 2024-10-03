@@ -1,3 +1,4 @@
+import { FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { type EventEmitter, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -160,7 +161,13 @@ export class GridColumn<T = any> extends LitElement {
       data = getValueByPath(item, this.path);
     }
 
-    if (this.ellipsizeText && typeof data === 'string') {
+    if (item === FetchDataSourcePlaceholder) {
+      return html`
+        <td part=${parts.join(' ')} style="--_placeholder-inline-size: ${Math.max(Math.random() * 100, 30)}%">
+          <sl-skeleton></sl-skeleton>
+        </td>
+      `;
+    } else if (this.ellipsizeText && typeof data === 'string') {
       return html`<td part=${parts.join(' ')}><sl-ellipsize-text>${data}</sl-ellipsize-text></td>`;
     } else {
       return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;
@@ -175,8 +182,11 @@ export class GridColumn<T = any> extends LitElement {
     if (typeof this.parts === 'string') {
       parts = this.parts.split(' ');
     } else if (typeof this.parts === 'function' && item) {
-      // TODO: what does this do? How can parts ever be a function? According to the typing this should not be possible.
       parts = this.parts(item)?.split(' ') ?? [];
+    }
+
+    if (item === FetchDataSourcePlaceholder) {
+      parts.push('placeholder');
     }
 
     if (this.path) {

@@ -246,7 +246,8 @@ export const Skeleton: Story = {
         await new Promise(resolve => setTimeout(resolve, 5000));
 
         return { items: people, totalItems: total };
-      }
+      },
+      size: Math.floor(window.innerHeight / 30)
     });
 
     return html`

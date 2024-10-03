@@ -6,6 +6,7 @@ import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source'
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -91,7 +92,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-ellipsize-text': EllipsizeText,
-      'sl-grid-group-header': GridGroupHeader
+      'sl-grid-group-header': GridGroupHeader,
+      'sl-skeleton': Skeleton
     };
   }
 

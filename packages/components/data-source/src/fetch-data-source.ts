@@ -35,20 +35,13 @@ export const FetchDataSourceError = class extends Error {
   }
 };
 
+/** Symbol used as a placeholder for items that are being loaded. */
+export const FetchDataSourcePlaceholder = Symbol('FetchDataSourcePlaceholder');
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FetchDataSource<T = any> extends DataSource<T> {
   /** The default size of the item collection if not explicitly set. */
   static defaultSize = 10;
-
-  /**
-   * The placeholder id when an item is being loaded. You can customize this
-   * if you want to use it to render the cell contents differently in a custom
-   * `renderer` callback.
-   *
-   * This placeholder id is used to render an `<sl-skeleton>` when the item is
-   * being loaded.
-   */
-  static placeholderId = 'FetchDataSourcePlaceholderId';
 
   /** Array containing all the loaded items. */
   #items: T[] = [];
@@ -69,7 +62,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   pageSize: number;
 
   /** Returns placeholder data for items not yet loaded. */
-  placeholder: FetchDataSourcePlaceholder<T> = () => ({ id: FetchDataSource.placeholderId }) as T;
+  placeholder: FetchDataSourcePlaceholder<T> = () => FetchDataSourcePlaceholder as T;
 
   get items(): T[] {
     return this.#proxy;

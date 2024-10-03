@@ -1,5 +1,10 @@
 import { getStringByPath, getValueByPath } from '../path.js';
-import { DataSource, type DataSourceSortFunction } from './data-source.js';
+import {
+  DataSource,
+  type DataSourceFilterByFunction,
+  type DataSourceFilterByPath,
+  type DataSourceSortFunction
+} from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayDataSource<T = any> extends DataSource<T> {
@@ -33,22 +38,45 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     let items: T[] = [...this.#items];
 
     // Filter the items
-    for (const filter of this.filters.values()) {
-      if ('filter' in filter && filter.filter) {
-        items = items.filter(filter.filter);
-      } else if ('path' in filter && filter.path) {
-        const { path, value } = filter;
+    if (this.filters.size) {
+      const filters = Array.from(this.filters.values());
 
-        const regexes = (Array.isArray(value) ? value : [value])
-          .filter((v): v is string => typeof v === 'string')
-          .map(v => (v === '' ? /^\s*$/ : new RegExp(v, 'i')));
+      const pathFilters = filters
+        .filter((f): f is DataSourceFilterByPath => 'path' in f && !!f.path)
+        .reduce(
+          (acc, { path, value }) => {
+            if (!acc[path]) {
+              acc[path] = [];
+            }
 
-        items = items.filter(item => {
-          const v = getValueByPath(item, path);
+            if (Array.isArray(value)) {
+              acc[path].push(...value);
+            } else {
+              acc[path].push(value);
+            }
 
-          return regexes.some(regex => regex.test(v?.toString() ?? ''));
+            return acc;
+          },
+          {} as Record<string, string[]>
+        );
+
+      Object.entries(pathFilters).forEach(([path, values]) => {
+        /**
+         * Convert the value to a string and trim it, so we can match
+         * an empty string to:
+         * - ''
+         * - '   '
+         * - null
+         * - undefined
+         */
+        items = items.filter(item => values.includes(getValueByPath(item, path)?.toString()?.trim() ?? ''));
+      });
+
+      filters
+        .filter((f): f is DataSourceFilterByFunction<T> => 'filter' in f && !!f.filter)
+        .forEach(f => {
+          items = items.filter(f.filter);
         });
-      }
     }
 
     // Sort the items

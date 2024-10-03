@@ -214,3 +214,27 @@ export const LazyLoad: Story = {
     `;
   }
 };
+
+export const Skeleton: Story = {
+  render: () => {
+    const dataSource = new FetchDataSource<Person>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+
+        // Simulate a slow response
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        return { items: people, totalItems: total };
+      }
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="id"></sl-grid-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};

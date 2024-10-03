@@ -5,6 +5,7 @@ import { DataSource, type DataSourceSortFunction } from './data-source.js';
 export class ArrayDataSource<T = any> extends DataSource<T> {
   #filteredItems: T[] = [];
   #items: T[];
+  #paginatedItems: T[] = [];
 
   get filteredItems(): T[] {
     return this.#filteredItems;
@@ -19,6 +20,16 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     this.update();
   }
 
+  get paginatedItems(): T[] {
+    return this.#paginatedItems;
+  }
+
+  set paginatedItems(items: T[]) {
+    this.#paginatedItems = items;
+    console.log('test', this.#paginatedItems, items, this.items);
+    this.update();
+  }
+
   get size(): number {
     return this.#items.length;
   }
@@ -27,6 +38,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     super();
     this.#filteredItems = [...items];
     this.#items = [...items];
+    this.#paginatedItems = [...items];
   }
 
   update(): void {
@@ -103,7 +115,39 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       });
     }
 
-    this.#filteredItems = items;
+    // if (this.paginatedItems) {
+    //   items = this.paginatedItems;
+    // }
+
+    console.log('items before paginated, but should be filtered if filtered', items);
+
+    this.#paginatedItems = items;
+
+    if (this.paginateItems) {
+      console.log('this.paginateItems', this.paginateItems);
+      // const pagination = {pageNumber: pageNumber, pageSize: pageSize};
+      // console.log('pagination in paginate', pagination);
+
+      const startIndex = (this.paginateItems.pageNumber - 1) * this.paginateItems.pageSize;
+      const endIndex = startIndex + this.paginateItems.pageSize;
+      // Get the items for the current page
+      /*const paginatedItems*/items  = /*this.*/items.slice(startIndex, endIndex);
+     // console.log('paginated data', paginatedItems);
+      // Update this.items with the paginated items
+     // this.paginatedItems/*items*/ = paginatedItems;
+      console.log('updated items', this.items, this.paginatedItems, items);
+    }
+
+    // TODO: I need to have amount of all filtered data for total to show in the paginator...
+
+    console.log('paginateditems?', this.paginatedItems);
+    console.log('items in array data', items);
+
+    // TODO: pagination needs to work with filteredItems as well
+
+    // this.#paginatedItems = this.paginatedItems;
+
+    this.#filteredItems = items; // TODO: maybe needs to be before pagination?
     this.dispatchEvent(new CustomEvent<void>('sl-update'));
   }
 }

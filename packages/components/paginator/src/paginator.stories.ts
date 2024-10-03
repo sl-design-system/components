@@ -1,6 +1,8 @@
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/card/register.js';
 import '@sl-design-system/menu/register.js';
+import '@sl-design-system/paginator/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';

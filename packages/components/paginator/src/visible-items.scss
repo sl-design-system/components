@@ -1,5 +1,7 @@
 :host {
   display: block;
-  padding-block: 8px;
-  padding-inline: 0;
+  //padding-block: 8px;
+  //padding-inline: 0;
+  padding: 0;
+  text-wrap: nowrap;
 }

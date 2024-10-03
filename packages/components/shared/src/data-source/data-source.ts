@@ -29,6 +29,8 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
 
+export type DataSourcePagination = { pageNumber: number, pageSize: number };
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
   /** Map of all active filters. */
@@ -37,11 +39,15 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Order the items by grouping them on the given attributes. */
   #groupBy?: DataSourceGroupBy<T>;
 
+  #paginateItems?: DataSourcePagination;
+
   /**
    * The value and path/function to use for sorting. When setting this property,
    * it will cause the data to be automatically sorted.
    */
   #sort?: DataSourceSort<T>;
+
+  // #pagination
 
   get filters(): Map<string, DataSourceFilter<T>> {
     return this.#filters;
@@ -49,6 +55,10 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   get groupBy(): DataSourceGroupBy<T> | undefined {
     return this.#groupBy;
+  }
+
+  get paginateItems(): DataSourcePagination| undefined {
+    return this.#paginateItems;
   }
 
   get sort(): DataSourceSort<T> | undefined {
@@ -60,6 +70,9 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   /** The array of all items. */
   abstract items: T[];
+
+  /** The array of all items, used for pagination. */
+  abstract paginatedItems: T[];
 
   /** Total number of items in this data source. */
   abstract readonly size: number;
@@ -141,4 +154,38 @@ export abstract class DataSource<T = any> extends EventTarget {
 
     this.update();
   }
+
+  /**
+   * Use to get the paginated data for usage with the sl-paginator component.
+   * */
+  paginate(/*data: T[], */pageSize: number, pageNumber: number): void {
+   // // const items = /*data ? data :*/ this.items;
+   //  console.log('in paginate', this.items);
+   //  const startIndex = (pageNumber - 1) * pageSize;
+   //  console.log('paginated data', this.items.slice(startIndex, startIndex + pageSize), this.items);
+   //  console.log('in paginate2', this.items);
+   //  // Get the items for the current page
+   //  /*return*/ // items.slice(startIndex, startIndex + pageSize);
+   //  this.update();
+   // this.#allItems = this.items;
+
+   // console.log('all items in paginated data', this.#allItems);
+
+    this.#paginateItems = { pageNumber: pageNumber, pageSize: pageSize};
+
+    // const pagination = {pageNumber: pageNumber, pageSize: pageSize};
+    // console.log('pagination in paginate', pagination);
+    //
+    // const startIndex = (pageNumber - 1) * pageSize;
+    // const endIndex = startIndex + pageSize;
+    // // Get the items for the current page
+    // const paginatedItems = this.items.slice(startIndex, endIndex);
+    // console.log('paginated data', paginatedItems);
+    // // Update this.items with the paginated items
+    // this.paginatedItems/*items*/ = paginatedItems;
+    // console.log('updated items', this.items, this.paginatedItems);
+    this.update();
+  }
+
+  // TODO:  paginatedData
 }

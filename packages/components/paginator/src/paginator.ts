@@ -29,7 +29,6 @@ export type SlPageChangeEvent = CustomEvent<number>;
 /**
  * A paginator component used when there are a lot of data that needs to be shown and cannot be shown at once, in one view/page.
  *
- * @csspart header - The header of the panel.
  *
  * @slot default - ...
  */
@@ -79,8 +78,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   /** @internal Emits when the page has been selected/changed. */
-  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>; // tabChangeEvent
-  // this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);
+  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>;
 
   // TODO: how many pages? 'pages' prop? or state?
   // TODO: current page (state?)
@@ -237,9 +235,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       } else if (this.activePage > this.#pages) {
         this.activePage = this.#pages;
       }
-    //   const pages = this.renderRoot.querySelectorAll('sl-button.page');
-    //   const active = this.renderRoot.querySelector('sl-button[active]');
-    //   active?.setAttribute('aria-current', 'page');
     }
 
     if (changes.has('total')) {
@@ -258,14 +253,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems; //this.activePage === this.#pages ? undefined : Math.min(start + pageSize, total == null ? Infinity : total);
 
     console.log('start and end', start, end, this.renderRoot.querySelector<Select>('sl-select')?.value as number, itemsPerPage);
-   // console.log('links', this.links, this.links?.length);
-   // console.log('linkElements', this.linkElements, this.linkElements?.length);
 
     // TODO: next and previous should be wrapped by 'li' as well
 
     return html`
       <nav class="container">
-        <ul><!--?mobile=${this.#mobileVariant}-->
+        <ul>
           <sl-button class="prev" aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
             ><sl-icon name="fas-caret-left" size="xs"></sl-icon></sl-button>
               <div class="pages-wrapper">
@@ -299,63 +292,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           ></sl-button>
         </ul>
       </nav>
-      <div class="details" style="display: none;">
-        <div>Total elements: ${this.total}</div>
-        <div>Items per page: ${this.itemsPerPage}</div>
-        ${this.total && this.itemsPerPage
-          ? html`
-              <div>Pages: ${Math.ceil(this.total / this.itemsPerPage)}</div>
-              <div>Items left: ${this.total % this.itemsPerPage}</div>
-            `
-          : nothing}
-        <div>Active page: ${this.activePage}</div>
-        <div>Currently visible items ${this.currentlyVisibleItems}</div>
-        <div class="page-sizes">
-        Items per page:
-        ${this.pageSizes ?
-          html`
-        <sl-select @change=${this.#onValueChange} .value=${this.itemsPerPage} style="inline-size: 100px;">
-            ${this.pageSizes?.map(
-              (size) => html`
-                <sl-select-option @click=${this.#setValue} .value=${size}>${size}</sl-select-option
-              `
-            )}
-        </sl-select>
-        </div>
-      </div>
-      `
-    : nothing}
     `;
-  } // <slot></slot>
-
-  // with links:::::
-//   ${Array.isArray(this.links) && this.links.length > 0
-//     ? this.links.map(( url, index, array) => html`
-//                   <li>
-//                     <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)}
-//                        class=${classMap({ page: true, active: this.activePage == index + 1 })}
-//                        href=${url}>
-//                       ${index + 1}
-//                     </a>
-//                   </li>
-//                 `)
-// : html`
-//               <div class="pages-wrapper">
-//                 ${Array.from({ length: pages }).map(
-//   (_, index) => html`
-//                 <sl-button
-//                   fill="ghost"
-//                   size="md"
-//                   class="page"
-//                   ?active=${this.activePage == index + 1}
-//                   @click=${this.#setActive}
-//                 >
-//                   ${index + 1}
-//                 </sl-button>
-//               `
-// )}
-//               </div>
-//             `}
+  }
 
   // TODO: which items should be shown on current page? st. like between 16 and 30? or not necessary for data? or just im event emit activePage * visible items?
 
@@ -566,7 +504,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('moreButton', moreButton);
     moreButton.fill = 'ghost';
     moreButton.classList.add('more-button');
-    const icon = document.createElement('sl-icon') as Icon;
+    const icon = this.shadowRoot?.createElement('sl-icon') as Icon;
     icon.slot = 'button';
     icon.name = 'ellipsis';
     moreButton.appendChild(icon);
@@ -575,7 +513,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('moreButtonLeft', moreButtonLeft);
     moreButtonLeft.fill = 'ghost';
     moreButtonLeft.classList.add('more-button');
-    const iconLeft = document.createElement('sl-icon') as Icon;
+    const iconLeft = this.shadowRoot?.createElement('sl-icon') as Icon;
     iconLeft.slot = 'button';
     iconLeft.name = 'ellipsis';
     moreButtonLeft.appendChild(iconLeft);
@@ -584,7 +522,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     console.log('moreButtonRight', moreButtonRight);
     moreButtonRight.fill = 'ghost';
     moreButtonRight.classList.add('more-button');
-    const iconRight = document.createElement('sl-icon') as Icon;
+    const iconRight = this.shadowRoot?.createElement('sl-icon') as Icon;
     iconRight.slot = 'button';
     iconRight.name = 'ellipsis';
     moreButtonRight.appendChild(iconRight);
@@ -619,8 +557,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       const itemsPerRow = Math.floor(container?.clientWidth / pages[0].clientWidth);
       console.log('itemsPerRow', itemsPerRow, container?.clientWidth, pages[0].clientWidth);
     }
-
-    // const moreButton = this.renderMenu();
 
     // TODO: how many pages can be visible (check with buttons ellipsis) - always the same amount
 
@@ -1120,23 +1056,6 @@ console.log('last page width', Array.from(pages)[lastPage-1].offsetWidth);
     this.activePage = 1;
 
    // this.#onResize();
-
-    // TODO: if links, links need to be updated as well, so we need more links or less
-    // what about activePage with links? the page will rerender... maybe selected or active attribute like in tabs will be fine?
-    // TODO: maybe slot for links? and separately prev and nex link?
-  }
-
-  renderMenu(): TemplateResult {
-    // const parts = ['header', 'filter', ...this.getParts()];
-
-    return html`
-      <sl-menu-button fill="ghost" aria-label="TODO...">
-            <sl-icon slot="button" name="ellipsis"></sl-icon>
-            <sl-menu-item>1</sl-menu-item>
-            <sl-menu-item>2</sl-menu-item>
-            <sl-menu-item>...</sl-menu-item>
-          </sl-menu-button>
-    `;
   }
 
   /** This returns the width of the menu button. */
@@ -1172,8 +1091,6 @@ console.log('last page width', Array.from(pages)[lastPage-1].offsetWidth);
     return width;
   }
 }
-
-// TODO: compact version on mobile?
 
 // TODO: nav -> ul -> li -> a href? or button - depending whether it is a navigation or not?
 

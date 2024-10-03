@@ -21,10 +21,12 @@ export type GridColumnAlignment = 'start' | 'center' | 'end';
 export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
 
 /** Custom renderer type for column cells. */
-export type GridColumnDataRenderer<T> = (model: T) => string | undefined | TemplateResult;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined | TemplateResult;
 
 /** Custom type for providing parts to a cell. */
-export type GridColumnParts<T> = (model: T) => string | undefined;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnParts<T = any> = (model: T) => string | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
@@ -157,17 +159,13 @@ export class GridColumn<T = any> extends LitElement {
     let data: unknown;
     if (this.renderer) {
       data = this.renderer(item);
+    } else if (item === FetchDataSourcePlaceholder) {
+      data = html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
     } else if (this.path) {
       data = getValueByPath(item, this.path);
     }
 
-    if (item === FetchDataSourcePlaceholder) {
-      return html`
-        <td part=${parts.join(' ')} style="--_placeholder-inline-size: ${Math.max(Math.random() * 100, 30)}%">
-          <sl-skeleton></sl-skeleton>
-        </td>
-      `;
-    } else if (this.ellipsizeText && typeof data === 'string') {
+    if (this.ellipsizeText && typeof data === 'string') {
       return html`<td part=${parts.join(' ')}><sl-ellipsize-text>${data}</sl-ellipsize-text></td>`;
     } else {
       return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;

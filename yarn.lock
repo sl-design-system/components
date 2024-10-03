@@ -4694,6 +4694,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/ellipsize-text@npm:^0.0.0, @sl-design-system/ellipsize-text@workspace:packages/components/ellipsize-text":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/ellipsize-text@workspace:packages/components/ellipsize-text"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/tooltip": "npm:^1.1.0"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/emoji@workspace:packages/components/emoji":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/emoji@workspace:packages/components/emoji"
@@ -4773,6 +4784,7 @@ __metadata:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/checkbox": "npm:^2.0.0"
+    "@sl-design-system/ellipsize-text": "npm:^0.0.0"
     "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/popover": "npm:^1.1.0"
     "@sl-design-system/select": "npm:^1.1.1"

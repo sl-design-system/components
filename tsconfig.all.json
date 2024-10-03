@@ -29,6 +29,7 @@
     { "path": "./packages/components/dialog" },
     { "path": "./packages/components/drawer" },
     { "path": "./packages/components/editor" },
+    { "path": "./packages/components/ellipsize-text" },
     { "path": "./packages/components/emoji" },
     { "path": "./packages/components/form" },
     { "path": "./packages/components/format-date" },

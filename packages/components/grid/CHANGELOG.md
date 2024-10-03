@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.1.15
+
+### Patch Changes
+
+- [#1547](https://github.com/sl-design-system/components/pull/1547) [`89e8cbc`](https://github.com/sl-design-system/components/commit/89e8cbceeb1b2a9e1f498a26e251a956e04bb246) - Fix error in code when flattening column groups
+
 ## 0.1.14
 
 ### Patch Changes

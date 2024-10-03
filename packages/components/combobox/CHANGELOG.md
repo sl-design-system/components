@@ -1,5 +1,11 @@
 # @sl-design-system/combobox
 
+## 0.0.2
+
+### Patch Changes
+
+- [#1539](https://github.com/sl-design-system/components/pull/1539) [`48cd7d6`](https://github.com/sl-design-system/components/commit/48cd7d60f994fb9517b89c3c4d2d674c5491aa30) - Show a message when there are no filter matches
+
 ## 0.0.1
 
 ### Patch Changes

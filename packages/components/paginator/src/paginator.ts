@@ -438,12 +438,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const buttonPrev = this.renderRoot.querySelector('sl-button.prev') as Button;
     const buttonNext = this.renderRoot.querySelector('sl-button.next') as Button;
     const selectWrapper = this.renderRoot.querySelector('.select-wrapper') as HTMLDivElement;
+    const ulElement = this.renderRoot.querySelector('ul') as HTMLUListElement;
 
     // reset display to check the width
     pagesWrapper.style.display = '';
     buttonPrev.style.display = '';
     buttonNext.style.display = '';
     selectWrapper.style.display = 'none';
+    ulElement.removeAttribute('mobile');
     this.requestUpdate();
 
     console.log(
@@ -580,6 +582,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     buttonPrev.style.display = '';
     buttonNext.style.display = '';
     selectWrapper.style.display = 'none';
+    ulElement.removeAttribute('mobile');
 
 
     // const containerWidth = pagesWrapper.clientWidth;
@@ -615,6 +618,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       buttonPrev.style.display = '';
       buttonNext.style.display = '';
       selectWrapper.style.display = 'none';
+      ulElement.removeAttribute('mobile');
 
       this.requestUpdate();
 
@@ -806,6 +810,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         buttonPrev.style.display = 'none';
         buttonNext.style.display = 'none';
         selectWrapper.style.display = '';
+        ulElement.setAttribute('mobile', '');
         // TODO: maybe select-wrapper display block?
         this.requestUpdate();
         return;

@@ -77,7 +77,7 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Total number of items in this data source. */
   abstract readonly size: number;
 
-  /** Updates the list of items using filter and sorting if available. */
+  /** Updates the list of items using filter, sorting and pagination if available. */
   abstract update(): void;
 
   addFilter<U extends string | DataSourceFilterFunction<T>>(
@@ -85,12 +85,13 @@ export abstract class DataSource<T = any> extends EventTarget {
     pathOrFilter: U,
     value?: string | string[]
   ): void {
+    console.log('value in addFilter', value);
     if (typeof pathOrFilter === 'string') {
       this.#filters.set(id, { path: pathOrFilter, value: value ?? '' });
     } else {
       this.#filters.set(id, { filter: pathOrFilter, value });
     }
-  }
+  } // TODO: maybe here emit an event?
 
   removeFilter(id: string): void {
     this.#filters.delete(id);
@@ -158,32 +159,9 @@ export abstract class DataSource<T = any> extends EventTarget {
   /**
    * Use to get the paginated data for usage with the sl-paginator component.
    * */
-  paginate(/*data: T[], */pageSize: number, pageNumber: number): void {
-   // // const items = /*data ? data :*/ this.items;
-   //  console.log('in paginate', this.items);
-   //  const startIndex = (pageNumber - 1) * pageSize;
-   //  console.log('paginated data', this.items.slice(startIndex, startIndex + pageSize), this.items);
-   //  console.log('in paginate2', this.items);
-   //  // Get the items for the current page
-   //  /*return*/ // items.slice(startIndex, startIndex + pageSize);
-   //  this.update();
-   // this.#allItems = this.items;
-
-   // console.log('all items in paginated data', this.#allItems);
-
+  paginate(pageNumber: number, pageSize: number): void {
     this.#paginateItems = { pageNumber: pageNumber, pageSize: pageSize};
 
-    // const pagination = {pageNumber: pageNumber, pageSize: pageSize};
-    // console.log('pagination in paginate', pagination);
-    //
-    // const startIndex = (pageNumber - 1) * pageSize;
-    // const endIndex = startIndex + pageSize;
-    // // Get the items for the current page
-    // const paginatedItems = this.items.slice(startIndex, endIndex);
-    // console.log('paginated data', paginatedItems);
-    // // Update this.items with the paginated items
-    // this.paginatedItems/*items*/ = paginatedItems;
-    // console.log('updated items', this.items, this.paginatedItems);
     this.update();
   }
 

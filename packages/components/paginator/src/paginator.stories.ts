@@ -104,7 +104,23 @@ export const Mobile: Story = {
 };
 
 export const ItemsPerPage: Story = {
-  render: () => html`
+  args: {
+    ...Basic.args,
+    total: 100
+  },
+  render: ({pageSizes, itemsPerPage}) => {
+    let pageSize = document.querySelector('sl-page-size') as PageSize;
+    setTimeout(() => {
+      pageSize = document.querySelector('sl-page-size') as PageSize;
+
+      pageSize?.addEventListener('sl-page-size-change', event => {
+        console.log('sl-page-size-change event', event, event.detail);
+        itemsPerPage = event.detail;
+        const pEl = document.querySelector('p.info');
+        console.log('pEl', pEl);
+      });
+    })
+    return html`
     <style>
       #root-inner {
         display: flex;
@@ -113,7 +129,9 @@ export const ItemsPerPage: Story = {
       }
     </style>
     <h2>TODO...</h2>
-  `
+    <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
+    <p class="info">There will be shown ${itemsPerPage} items per page. ${pageSize?.itemsPerPage}</p>
+  `}
 };
 
 

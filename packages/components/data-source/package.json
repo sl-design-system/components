@@ -19,7 +19,6 @@
   "main": "./index.js",
   "module": "./index.js",
   "types": "./index.d.ts",
-  "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
     "./package.json": "./package.json"

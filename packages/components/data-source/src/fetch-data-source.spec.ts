@@ -1,7 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
 import { type Person, people } from './data-source.spec.js';
-import { FetchDataSource, FetchDataSourcePlaceholder } from './fetch-data-source.js';
+import {
+  FetchDataSource,
+  type FetchDataSourceCallbackOptions,
+  FetchDataSourcePlaceholder
+} from './fetch-data-source.js';
 
 describe('FetchDataSource', () => {
   let ds: FetchDataSource<Person>;
@@ -88,14 +92,54 @@ describe('FetchDataSource', () => {
       expect(ds.size).to.equal(people.length);
     });
 
-    it('should provide all the options when fetching a page', () => {
+    it('should provide the page and page size when fetching a page', () => {
+      spy(ds, 'fetchPage');
+
+      ds.items.at(0);
+
+      expect(ds.fetchPage).to.have.been.calledOnce;
+      expect(ds.fetchPage).to.have.been.calledWithMatch({ page: 1, pageSize: 2 });
+    });
+
+    it('should provide any custom options when fetching a page', () => {
       spy(ds, 'fetchPage');
 
       ds.getFetchOptions = (page, pageSize) => ({ page, pageSize, foo: 'bar' });
       ds.items.at(0);
 
       expect(ds.fetchPage).to.have.been.calledOnce;
-      expect(ds.fetchPage).to.have.been.calledWithMatch({ page: 1, pageSize: 2, foo: 'bar' });
+      expect(ds.fetchPage).to.have.been.calledWithMatch({ foo: 'bar' });
+    });
+
+    it('should provide filter options when fetching a page', () => {
+      let options: FetchDataSourceCallbackOptions | undefined;
+
+      ds.fetchPage = _options => {
+        options = _options;
+
+        return Promise.resolve({ items: [...people], totalItems: people.length });
+      };
+
+      ds.addFilter('membership', 'membership', 'Regular');
+      ds.addFilter('profession', 'profession', 'Gastroenterologist');
+      ds.items.at(0);
+
+      expect(options).to.not.be.undefined;
+      expect(options?.filters).to.have.length(2);
+      expect(options?.filters).to.deep.equal([
+        { path: 'membership', value: 'Regular' },
+        { path: 'profession', value: 'Gastroenterologist' }
+      ]);
+    });
+
+    it('should provide sort options when fetching a page', () => {
+      spy(ds, 'fetchPage');
+
+      ds.setSort('id', 'firstName', 'desc');
+      ds.items.at(0);
+
+      expect(ds.fetchPage).to.have.been.calledOnce;
+      expect(ds.fetchPage).to.have.been.calledWithMatch({ sort: { id: 'id', path: 'firstName', direction: 'desc' } });
     });
 
     it('should emit an update event after fetching a page', async () => {

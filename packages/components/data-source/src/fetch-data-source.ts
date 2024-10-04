@@ -1,8 +1,10 @@
-import { DataSource } from './data-source.js';
+import { DataSource, type DataSourceSort } from './data-source.js';
 
-export interface FetchDataSourceCallbackOptions {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface FetchDataSourceCallbackOptions<T = any> {
   page: number;
   pageSize: number;
+  sort?: DataSourceSort<T>;
   [key: string]: unknown;
 }
 
@@ -95,7 +97,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
    * provide any additional options you may need when `fetchPage` is called.
    */
   getFetchOptions(page: number, pageSize: number): FetchDataSourceCallbackOptions {
-    return { page, pageSize };
+    return { filters: Array.from(this.filters.values()), page, pageSize, sort: this.sort };
   }
 
   #createProxy(items: T[]): T[] {

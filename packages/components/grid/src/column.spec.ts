@@ -2,6 +2,7 @@ import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer
 import { expect, fixture } from '@open-wc/testing';
 import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/avatar/register.js';
+import { FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { html } from 'lit';
 import { Person } from 'tools/example-data/index.js';
 import '../register.js';
@@ -126,6 +127,31 @@ describe('sl-column', () => {
 
     it('should have the right parts, including one set on the column', () => {
       expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal(['data', 'data number age']);
+    });
+  });
+
+  describe('skeleton', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [FetchDataSourcePlaceholder];
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+    });
+
+    it('should render skeleton cells', () => {
+      const skeletons = Array.from(el.renderRoot.querySelectorAll('td > *')).map(el => el.tagName);
+
+      expect(skeletons).to.deep.equal(['SL-SKELETON', 'SL-SKELETON']);
     });
   });
 });

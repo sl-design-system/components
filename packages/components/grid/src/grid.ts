@@ -125,6 +125,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // We convert the min-height to a CSS variable so we can use it in the styles and
     // add the border-width to the eventual min-height value.
     this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
+    // console.log(this.tbody.style.minHeight);
     this.tbody.style.minHeight = '';
 
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
@@ -763,6 +764,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       const id = f.column.id,
         empty = (Array.isArray(f.value) && f.value.length === 0) || !f.value;
 
+      console.log(id, empty);
       if (!empty && (f.path || f.filter)) {
         this.dataSource?.addFilter(id, f.path! || f.filter!, f.value);
       } else {
@@ -772,7 +774,25 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (update) {
       // Update the data source in the next frame to avoid multiple Lit update cycles
-      requestAnimationFrame(() => this.dataSource?.update());
+      requestAnimationFrame(() => {
+        this.dataSource?.update();
+        console.log(update);
+
+        // @ts-expect-error This is a hack
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        this.#virtualizer?._measureChildren();
+      });
+
+      setTimeout(() => {
+        // @ts-expect-error This is a hack
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        this.#virtualizer?._measureChildren();
+
+        // @ts-expect-error This is a hack
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        this.#virtualizer?._layout?._metricsCache?.clear();
+        console.log('clear cache');
+      }, 100);
 
       this.stateChangeEvent.emit({ grid: this });
     }

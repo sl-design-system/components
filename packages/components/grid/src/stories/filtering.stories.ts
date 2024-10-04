@@ -39,9 +39,9 @@ export const Filtered: Story = {
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-filter-column mode="text" path="profession" value="Endo"></sl-grid-filter-column>
-      <sl-grid-filter-column path="status" value="Available"></sl-grid-filter-column>
-      <sl-grid-filter-column path="membership" value="Regular,Premium"></sl-grid-filter-column>
+      <sl-grid-filter-column mode="text" path="profession" value="Gast"></sl-grid-filter-column>
+      <sl-grid-filter-column path="status"></sl-grid-filter-column>
+      <sl-grid-filter-column path="membership" value="Regular"></sl-grid-filter-column>
     </sl-grid>
   `
 };

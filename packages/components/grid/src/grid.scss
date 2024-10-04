@@ -190,7 +190,7 @@ td[part~='group-header'] {
 
 td[part~='placeholder'] sl-skeleton {
   block-size: 1lh;
-  inline-size: var(--_placeholder-inline-size);
+  inline-size: 100%;
 }
 
 td[part~='select'],

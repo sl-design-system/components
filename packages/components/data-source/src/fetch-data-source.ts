@@ -94,7 +94,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
    * Override this function if you are extending the `FetchDataSource` class to
    * provide any additional options you may need when `fetchPage` is called.
    */
-  protected getFetchOptions(page: number, pageSize: number): FetchDataSourceCallbackOptions {
+  getFetchOptions(page: number, pageSize: number): FetchDataSourceCallbackOptions {
     return { page, pageSize };
   }
 
@@ -106,12 +106,25 @@ export class FetchDataSource<T = any> extends DataSource<T> {
       get: function (target, property) {
         if (property === 'length') {
           return that.size;
+        } else if (property === 'at') {
+          return (n: number) => {
+            let index = n;
+            if (n < 0) {
+              index = that.size + n;
+            } else if (n >= that.size) {
+              index = n % that.size;
+            }
+
+            return target[index] ?? that.#requestFetch(index);
+          };
+        } else {
+          const n = Number(property);
+          if (!isNaN(n) && Math.round(n) === n) {
+            return target[n] ?? that.#requestFetch(n);
+          }
+
+          return target[property as keyof T[]];
         }
-        const n = Number(property);
-        if (!isNaN(n) && Math.round(n) === n) {
-          return target[n] || that.#requestFetch(n);
-        }
-        return target[property as keyof T[]];
       }
     });
   }
@@ -134,7 +147,6 @@ export class FetchDataSource<T = any> extends DataSource<T> {
         }
 
         this.dispatchEvent(new CustomEvent('sl-data-source-update', { detail: { dataSource: this } }));
-        // this.dispatchEvent(new CustomEvent<FetchDataSourceCallbackOptions>('data', { detail: options }));
       })();
     }
 

@@ -33,7 +33,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
   update(): void {
     let items: T[] = [...this.#items];
 
-    // Filter the items
     if (this.filters.size) {
       const filters = Array.from(this.filters.values());
 
@@ -75,7 +74,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         });
     }
 
-    // Sort the items
     if (this.sort) {
       const ascending = this.sort.direction === 'asc';
 

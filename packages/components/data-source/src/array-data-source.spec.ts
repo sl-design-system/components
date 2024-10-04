@@ -1,56 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
 import { ArrayDataSource } from './array-data-source.js';
-
-const people = [
-  {
-    id: 1,
-    firstName: 'Ann',
-    lastName: 'Smith',
-    pictureUrl: '',
-    profession: 'Endocrinologist',
-    status: 'Available',
-    membership: 'Regular'
-  },
-  {
-    id: 2,
-    firstName: 'John',
-    lastName: 'Doe',
-    pictureUrl: null,
-    profession: 'Nephrologist',
-    status: 'Busy',
-    membership: 'Premium'
-  },
-  {
-    id: 3,
-    firstName: 'Jane',
-    lastName: 'Doe',
-    pictureUrl: '  ',
-    profession: 'Ophthalmologist',
-    status: 'Available',
-    membership: 'Regular'
-  },
-  {
-    id: 4,
-    firstName: 'Ann',
-    lastName: 'Johnson',
-    profession: 'Gastroenterologist',
-    status: 'Busy',
-    membership: 'VIP'
-  },
-  {
-    id: 5,
-    firstName: 'Bob',
-    lastName: 'Smith',
-    pictureUrl: 'https://example.com',
-    profession: 'Gastroenterologist',
-    status: 'Busy',
-    membership: 'Premium'
-  }
-];
+import { type Person, people } from './data-source.spec.js';
 
 describe('ArrayDataSource', () => {
-  let ds: ArrayDataSource<(typeof people)[0]>;
+  let ds: ArrayDataSource<Person>;
 
   describe('basics', () => {
     beforeEach(() => {
@@ -84,7 +38,7 @@ describe('ArrayDataSource', () => {
     it('should emit an sl-update event when calling update()', () => {
       const onUpdate = spy();
 
-      ds.addEventListener('sl-update', onUpdate);
+      ds.addEventListener('sl-data-source-update', onUpdate);
       ds.update();
 
       expect(onUpdate).to.have.been.calledOnce;

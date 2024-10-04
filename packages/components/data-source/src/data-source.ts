@@ -18,7 +18,7 @@ export type DataSourceFilter<T> = DataSourceFilterByFunction<T> | DataSourceFilt
 export type DataSourceGroupBy<T> = {
   path: string;
   sorter?: DataSourceSortFunction<T>;
-  direction: DataSourceSortDirection;
+  direction?: DataSourceSortDirection;
 };
 
 export type DataSourceSortDirection = 'asc' | 'desc';
@@ -100,7 +100,7 @@ export abstract class DataSource<T = any> extends EventTarget {
    * @param direction Optional sort direction.
    */
   setGroupBy(path: string, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
-    this.#groupBy = { path, sorter, direction: direction ?? 'asc' };
+    this.#groupBy = { path, sorter, direction };
   }
 
   /**

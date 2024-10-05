@@ -116,7 +116,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /**
    * Override this method to customize the header of the dialog. If you only
    * want to customize the title, you can use the `title` and `subtitle` arguments
-   * and call `super.renderHeader(My title', 'My subtitle')` to render the default
+   * and call `super.renderHeader('My title', 'My subtitle')` to render the default
    * header.
    *
    * Beware when customizing the header: the `<dialog>` element is labelled by

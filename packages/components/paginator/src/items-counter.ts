@@ -1,11 +1,11 @@
 import { localized } from '@lit/localize';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, type PropertyValues} from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './visible-items.scss.js';
+import styles from './items-counter.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-visible-items': VisibleItems;
+    'sl-items-counter': ItemsCounter;
   }
 }
 
@@ -14,11 +14,13 @@ declare global {
  * and total amount of items.
  */
 @localized()
-export class VisibleItems extends LitElement {
+export class ItemsCounter extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // TODO: accessibility
+
+  // TODO: unit tests
 
   // TODO:  data - how to connect with data? make an example / story
 
@@ -67,7 +69,7 @@ export class VisibleItems extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('changes in updated in VisibleItems', changes);
+    console.log('changes in updated in ItemsCounter', changes);
 
     if (changes.has('itemsPerPage')) {
       const total = this.total ?? 0;

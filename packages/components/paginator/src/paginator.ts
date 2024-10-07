@@ -11,6 +11,7 @@ import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, typ
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
+import { Page } from './page.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -42,6 +43,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       'sl-menu-button': MenuButton,
       'sl-menu': Menu,
       'sl-menu-item': MenuItem,
+      'sl-page': Page,
       'sl-select': Select,
       'sl-select-option': SelectOption
     }; // TODO: update dependencies
@@ -132,10 +134,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    // if (!this.hasAttribute('tabindex')) {
-    //   this.setAttribute('tabindex', '0');
-    // }
-
     if (!this.itemsPerPage) {
       this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
     }
@@ -183,6 +181,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         selectWrapper.style.display = 'none';
       }
     });
+
+
     // this.#observer.observe(this);
     //
     // // this.#mobileVariant = false;
@@ -259,21 +259,21 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     return html`
       <nav class="container">
         <ul>
-          <sl-button class="prev" aria-label="Go to the previous page {page}" fill="ghost" size="md" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
+          <sl-button class="prev" aria-label="Go to the previous page {page}" fill="ghost" size="lg" ?disabled=${this.activePage === 1} @click=${this.#onClickPrevButton}
             ><sl-icon name="fas-caret-left" size="xs"></sl-icon></sl-button>
               <div class="pages-wrapper">
                     ${Array.from({ length: pages }).map(
                       (_, index) => html`
-                <sl-button
+                <sl-page
                   fill="ghost"
-                  size="md"
+                  size="lg"
                   class="page"
                   ?active=${this.activePage == index + 1}
                   aria-current=${ifDefined(this.activePage == index + 1 ? 'page' : undefined)}
                   @click=${this.#setActive}
                 >
                   ${index + 1}
-                </sl-button>
+                </sl-page>
               `
                     )}
               </div>
@@ -287,7 +287,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
             </sl-select>
             of ${pages} pages [msg]
           </div>
-          <sl-button class="next" aria-label="Go to the next page {page}" fill="ghost" size="md" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
+          <sl-button class="next" aria-label="Go to the next page {page}" fill="ghost" size="lg" ?disabled=${this.activePage === this.#pages} @click=${this.#onClickNextButton}
             ><sl-icon name="fas-caret-right" size="xs"></sl-icon
           ></sl-button>
         </ul>
@@ -300,8 +300,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   // TODO: sl icon for arrows?
 
   // TODO: select for items per page?
-
-  // " 1–40 of 103 items" item visible on the current page from...
 
   /**
    * Handles `click` event on the previous button.
@@ -378,7 +376,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     // TODO: set active attribute here?
 
-    const pages = this.renderRoot.querySelectorAll('sl-button.page');
+    const pages = this.renderRoot.querySelectorAll('sl-page.page'); //this.renderRoot.querySelectorAll('sl-button.page');
 
     console.log('event', event, event.target, event.target instanceof Button, Array.prototype.indexOf.call(pages, event.target) + 1);
     console.log('buttons', this.buttons, pages, Array.prototype.indexOf.call(pages, event.target));
@@ -450,6 +448,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     console.log(
       'on RESIZE - pagesWrapper',
+      pagesWrapper.getBoundingClientRect().width,
       pagesWrapper && pagesWrapper.clientWidth - this.#menuButtonWidth < pagesWrapper.scrollWidth,
       pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth,
       pagesWrapper.clientWidth < pagesWrapper.scrollWidth - this.#menuButtonWidth,
@@ -469,7 +468,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       pagesWrapper.getBoundingClientRect()
     );
 
-    const pages = this.renderRoot.querySelectorAll<Button>('sl-button.page'); // TODO: should work also for links, not only for buttons
+    const pages = this.renderRoot.querySelectorAll<Page>('sl-page.page'); //this.renderRoot.querySelectorAll<Button>('sl-button.page'); // TODO: should work also for links, not only for buttons
 
     /**
      * First variant, when 1 is active and not enough space - last one -1 should get ellipsis - or even more
@@ -493,9 +492,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const lastPage = pages.length;
 
     let totalWidth = 0;
-    let hiddenButtons: Button[] = [];
-    let hiddenButtonsLeft: Button[] = [];
-    let hiddenButtonsRight: Button[] = [];
+    let hiddenButtons: Page[] = [];
+    let hiddenButtonsLeft: Page[] = [];
+    let hiddenButtonsRight: Page[] = [];
 
     pages.forEach(page => {
       page.style.display = '';
@@ -505,28 +504,31 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const moreButton = this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
     console.log('moreButton', moreButton);
     moreButton.fill = 'ghost';
+    moreButton.size = 'lg';
     moreButton.classList.add('more-button');
     const icon = this.shadowRoot?.createElement('sl-icon') as Icon;
     icon.slot = 'button';
-    icon.name = 'ellipsis';
+    icon.name = 'ellipsis-down';
     moreButton.appendChild(icon);
 
     const moreButtonLeft = this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
     console.log('moreButtonLeft', moreButtonLeft);
     moreButtonLeft.fill = 'ghost';
+    moreButtonLeft.size = 'lg';
     moreButtonLeft.classList.add('more-button');
     const iconLeft = this.shadowRoot?.createElement('sl-icon') as Icon;
     iconLeft.slot = 'button';
-    iconLeft.name = 'ellipsis';
+    iconLeft.name = 'ellipsis-down';
     moreButtonLeft.appendChild(iconLeft);
 
     const moreButtonRight = this.shadowRoot?.createElement('sl-menu-button') as MenuButton;
     console.log('moreButtonRight', moreButtonRight);
     moreButtonRight.fill = 'ghost';
+    moreButtonRight.size = 'lg';
     moreButtonRight.classList.add('more-button');
     const iconRight = this.shadowRoot?.createElement('sl-icon') as Icon;
     iconRight.slot = 'button';
-    iconRight.name = 'ellipsis';
+    iconRight.name = 'ellipsis-down';
     moreButtonRight.appendChild(iconRight);
 
     let menuItems: Node[] = [];
@@ -574,8 +576,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     console.log('pages slice', Array.from(pages).slice(0, -1)); // or -1 instead of length -1 /*pages.length -1)*/
 
-    let possiblyVisible: Button[] = [];
-    let possiblyHidden: Button[] = [];
+    let possiblyVisible: Page[] = [];
+    let possiblyHidden: Page[] = [];
 
     // reset display to check the width
     pagesWrapper.style.display = '';
@@ -583,6 +585,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     buttonNext.style.display = '';
     selectWrapper.style.display = 'none';
     ulElement.removeAttribute('mobile');
+
+    this.requestUpdate();
 
 
     // const containerWidth = pagesWrapper.clientWidth;
@@ -610,9 +614,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
      // console.log('visibleButtonCount', visibleButtonCount, pages);
 
     (Array.from(pages)).forEach(button => {
-      button.style.display = '';
-      totalAmountOfPagesWidth += button.getBoundingClientRect().width; //button.offsetWidth;
-
       // reset display to check the width
       pagesWrapper.style.display = '';
       buttonPrev.style.display = '';
@@ -620,7 +621,21 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       selectWrapper.style.display = 'none';
       ulElement.removeAttribute('mobile');
 
+      // this.requestUpdate();
+      button.style.display = '';
+
       this.requestUpdate();
+
+      totalAmountOfPagesWidth += button.getBoundingClientRect().width; //button.offsetWidth;
+
+      // // reset display to check the width
+      // pagesWrapper.style.display = '';
+      // buttonPrev.style.display = '';
+      // buttonNext.style.display = '';
+      // selectWrapper.style.display = 'none';
+      // ulElement.removeAttribute('mobile');
+      //
+      // this.requestUpdate();
 
       console.log('Comparison value:', pagesWrapper.clientWidth - (2 * this.#menuButtonWidth), totalAmountOfPagesWidth, 'pagesWrapper.clientWidth', pagesWrapper.clientWidth, pagesWrapper && totalAmountOfPagesWidth /*+ this.#menuButtonWidth*/ /*32*/ /*moreButtonWidth*/ > pagesWrapper.clientWidth, pagesWrapper.getBoundingClientRect().width, 'button.offsetWidth', button.getBoundingClientRect().width);
 
@@ -803,7 +818,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       console.log('on RESIZE ---- container ----- not enpough space, should show ellipsis', container, possiblyVisible.length, possiblyVisible.length <= 4);
 
 
-      this.#mobileVariant = possiblyVisible.length <= 3; //4;
+      this.#mobileVariant = possiblyVisible.length <= 6; //3; //4;
       if (this.#mobileVariant) {
         // hide pages when there should be mobile variant visible and dimensions are already checked
         pagesWrapper.style.display = 'none';
@@ -824,19 +839,20 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         console.log('enters first');
         // TODO: hide on the left and on the right
         // items before and items after from 1..active and active ...10
-        let pagesToShow: Button[] = [];
-        pagesToShow = possiblyVisible.filter((_, index) => index !== 0 /*&& index !== (this.activePage - 1)*/ && index !== (possiblyVisible.length - 1));
-        const toShowAmount = Math.floor(pagesToShow.length / 2); // ceil?
+        let pagesToShow: number; //: Page[] = [];
+        pagesToShow = possiblyVisible.length - 3; // TODO: 3 because minus first, activepage and last page, //possiblyVisible.filter((_, index) => index !== 0 && index !== (this.activePage - 1) && index !== (possiblyVisible.length - 1));
+        const evenAmount = /*pagesToShow*/possiblyVisible.length % 2 === 0;
+        const toShowAmount = Math.floor(pagesToShow/*.length *// 2); // ceil?
 
-        console.log('toShowAmount and possiblyVisible', toShowAmount, possiblyVisible);
+        console.log('toShowAmount and possiblyVisible', toShowAmount, possiblyVisible, evenAmount);
 
-        console.log('pages to show', pagesToShow, Math.floor(pagesToShow.length / 2), this.activePage - 2, pages.length - this.activePage -1);
-        console.log('to hide on the left', (this.activePage - 2) - Math.floor(pagesToShow.length / 2), 'to hide on the right', (pages.length - this.activePage -1) - Math.floor(pagesToShow.length / 2));
-        console.log('hidden pages on the left and right', '...', Array.from(pages).slice(1, (this.activePage - 2) - Math.floor(pagesToShow.length / 2) + 1),
-          'hide on the right', Array.from(pages).slice(this.activePage, this.activePage + ((pages.length - this.activePage -1) - Math.floor(pagesToShow.length / 2))),
+        console.log('pages to show', pagesToShow, Math.floor(pagesToShow/*.length*/ / 2), this.activePage - 2, pages.length - this.activePage -1);
+        console.log('to hide on the left', (this.activePage - 2) - Math.floor(pagesToShow/*.length*/ / 2), 'to hide on the right', (pages.length - this.activePage -1) - Math.floor(pagesToShow/*.length*/ / 2));
+        console.log('hidden pages on the left and right', '...', Array.from(pages).slice(1, (this.activePage - 2) - Math.floor(pagesToShow/*.length*/ / 2) + 1),
+          'hide on the right', Array.from(pages).slice(this.activePage, this.activePage + ((pages.length - this.activePage -1) - Math.floor(pagesToShow/*.length*/ / 2))),
           Array.from(pages).slice(this.activePage + (toShowAmount), -1),
           'amount', this.activePage + (toShowAmount));
-        console.log('to show on the left and right',Math.floor(pagesToShow.length / 2), toShowAmount, this.activePage - toShowAmount,
+        console.log('to show on the left and right',Math.floor(pagesToShow/*.length*/ / 2), toShowAmount, this.activePage - toShowAmount,
           'element to show on the left plus first one, including activePage', Array.from(pages).slice(this.activePage - 1 - toShowAmount, this.activePage),
           'element to show on the right plus first one', Array.from(pages).slice(this.activePage, this.activePage + toShowAmount));
         console.log('to hide on the left', (Array.from(pages).slice(1, this.activePage)), 'possiblyVisible', possiblyVisible.length);
@@ -846,7 +862,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         // TODO: minus first and last page?
 
         // hide on the left
-        hiddenButtonsLeft = Array.from(pages).slice(1, (this.activePage) - Math.floor(pagesToShow.length / 2));//.push(button);
+        hiddenButtonsLeft = Array.from(pages).slice(1, (this.activePage) - Math.floor(pagesToShow/*.length*/ / 2));//.push(button);
         menuItemsLeft = hiddenButtonsLeft.map(
           (button) => {
             const newItem = /*document*/this.shadowRoot?.createElement('sl-menu-item') as MenuItem;
@@ -858,6 +874,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
             return newItem;
           }
         ) ?? [];
+        // moreButtonLeft.size = 'lg';
+        // moreButtonLeft.setAttribute('size', 'lg');
         console.log('menuItemsLeft', hiddenButtonsLeft, menuItemsLeft);
         console.log('menuItemsLeft and moreButton', menuItemsLeft, moreButtonLeft);
 
@@ -873,7 +891,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         hiddenButtonsLeft.forEach(button => button.style.display = 'none');
 
         // hide on the right
-        hiddenButtonsRight = Array.from(pages).slice(this.activePage + (toShowAmount - 1), -1); //Array.from(pages).slice(this.activePage, this.activePage + ((pages.length - this.activePage -1) - Math.floor(pagesToShow.length / 2)));//.push(button);
+        hiddenButtonsRight = Array.from(pages).slice(this.activePage + (toShowAmount - (evenAmount ? 0 : 1) /*1*/), -1); //Array.from(pages).slice(this.activePage, this.activePage + ((pages.length - this.activePage -1) - Math.floor(pagesToShow.length / 2)));//.push(button);
         menuItemsRight = hiddenButtonsRight.map(
           (button) => {
             const newItem = /*document*/this.shadowRoot?.createElement('sl-menu-item') as MenuItem;
@@ -1069,6 +1087,7 @@ console.log('last page width', Array.from(pages)[lastPage-1].offsetWidth);
     console.log('moreButton', moreButton);
     moreButton.classList.add('initial');
     moreButton.fill = 'ghost';
+    moreButton.size = 'lg';
     moreButton.classList.add('more-button');
     // moreButton.innerHTML = `<sl-icon slot="button" name="ellipsis"></sl-icon>
     //         <sl-menu-item>1</sl-menu-item>
@@ -1076,7 +1095,7 @@ console.log('last page width', Array.from(pages)[lastPage-1].offsetWidth);
     //         <sl-menu-item>...</sl-menu-item>`;// 'ellipsis';
     const icon = this.shadowRoot?.createElement('sl-icon') as Icon;
     icon.slot = 'button';
-    icon.name = 'ellipsis';
+    icon.name = 'ellipsis-down';
     moreButton.appendChild(icon);
     await new Promise(resolve => requestAnimationFrame(resolve));
     this.shadowRoot?.appendChild(moreButton);
@@ -1122,3 +1141,5 @@ console.log('last page width', Array.from(pages)[lastPage-1].offsetWidth);
  * */
 
 // TODO: paginator with links will be made in a later stage
+
+// TODO: take into account in the calculation the padding added to the pages-wrapper - due to the clipping focus-ring added

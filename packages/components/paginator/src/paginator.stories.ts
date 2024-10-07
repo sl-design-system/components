@@ -8,7 +8,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 import { type PageSize } from './page-size.js';
-import {VisibleItems} from "./visible-items";
+import {ItemsCounter} from "./items-counter";
 
 type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total'> & {
   actions?(): string | TemplateResult;
@@ -42,7 +42,7 @@ export default {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator;
       const pageSize = document.querySelector('sl-page-size') as PageSize;
-      const visibleItems = document.querySelector('sl-visible-items') as VisibleItems;
+      const visibleItems = document.querySelector('sl-items-counter') as ItemsCounter;
       console.log('paginator story', paginator, 'pageSize', pageSize, pageSize.itemsPerPage);
       // paginator.itemsPerPage = pageSize.itemsPerPage;
       paginator?.addEventListener('sl-page-change', event => {
@@ -65,7 +65,7 @@ export default {
     return html`
       <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator>
       <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
-      <sl-visible-items .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-visible-items>
+      <sl-items-counter .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-items-counter>
       `;
   }
 } satisfies Meta<Props>;

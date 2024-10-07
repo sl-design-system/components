@@ -1,0 +1,87 @@
+:host {
+  //inline-size: 40px; // TODO: use tokens
+  //padding-block: 7px;
+  --_background: var(--sl-color-button-default-ghost-idle-background);
+
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  //--_focus-space: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
+  --_transition-duration: var(--sl-animation-button-duration);
+  --_transition-easing: var(--sl-animation-button-easing);
+
+
+  //border: var(--sl-border-width-button-ghost) solid var(--sl-color-button-default-ghost-idle-border);
+  //border-radius: var(--_border-radius);
+}
+
+button:focus-visible {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+  z-index: 1;
+}
+
+//button:focus-visible::before {
+//  background: var(--_indicator-color);
+//  border-radius: var(--_indicator-listbox-border-radius);
+//  content: '';
+//  inline-size: var(--_indicator-size);
+//  inset: 0 auto 0 0;
+//  position: absolute;
+//}
+
+button:where(:active, :hover) {
+  transition-duration: var(--_transition-duration);
+  transition-property: background, border-color, color, outline-color;
+  transition-timing-function: var(--_transition-easing);
+}
+
+button {
+  position: relative;
+  min-inline-size: 40px; // TODO: use tokens
+  padding-block: 7px;
+  padding-inline: 0;
+  display: inline-flex;
+  justify-content: center;
+  background: var(--_background);
+  border: var(--sl-border-width-button-ghost) solid var(--sl-color-button-default-ghost-idle-border);
+  border-radius: var(--sl-border-radius-button-lg);
+  cursor: pointer;
+  font: var(--sl-text-button-text-lg);
+}
+
+:host(:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-ghost-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-hover-border);
+  --_color: var(--sl-color-button-default-ghost-hover-foreground);
+  --_transform: var(--sl-transform-button-default-ghost-hover);
+}
+
+:host(:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-ghost-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-active-border);
+  --_color: var(--sl-color-button-default-ghost-active-foreground);
+  --_transform: var(--sl-transform-button-default-ghost-active);
+}
+
+:host([active]) { // TODO: maybe better use aria-current for links instead of active class
+  --_background: var(--sl-color-button-default-ghost-selected-idle-background);
+  //border: 1px solid var(--sl-color-button-default-ghost-selected-idle-border); //#0d1a24;
+  //color: var(--sl-color-button-default-ghost-selected-idle-foreground);
+  // --_background: var(--sl-color-button-default-ghost-selected-idle-background);
+  // --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
+  //  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
+}
+
+:host([active]:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-ghost-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-hover-border);
+  --_color: var(--sl-color-button-default-ghost-hover-foreground);
+  --_transform: var(--sl-transform-button-default-ghost-hover);
+}
+
+:host([active]:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-ghost-selected-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-active-border);
+  --_color: var(--sl-color-button-default-ghost-active-foreground);
+  --_transform: var(--sl-transform-button-default-ghost-active);
+}

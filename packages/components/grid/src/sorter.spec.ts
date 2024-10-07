@@ -1,7 +1,7 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { ArrayDataSource, DataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { ArrayDataSource, DataSource } from '@sl-design-system/shared';
 import { html } from 'lit';
 import '../register.js';
 import { GridSortColumn } from './sort-column.js';

@@ -1,3 +1,9 @@
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-update': DataSourceUpdateEvent;
+  }
+}
+
 export type DataSourceFilterFunction<T> = (item: T, index: number, array: T[]) => boolean;
 
 export type DataSourceFilterByFunction<T = unknown> = {
@@ -12,7 +18,7 @@ export type DataSourceFilter<T> = DataSourceFilterByFunction<T> | DataSourceFilt
 export type DataSourceGroupBy<T> = {
   path: string;
   sorter?: DataSourceSortFunction<T>;
-  direction: DataSourceSortDirection;
+  direction?: DataSourceSortDirection;
 };
 
 export type DataSourceSortDirection = 'asc' | 'desc';
@@ -28,6 +34,9 @@ export type DataSourceSortByFunction<T = unknown> = {
 };
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
@@ -56,9 +65,6 @@ export abstract class DataSource<T = any> extends EventTarget {
   }
 
   /** The filtered & sorted array of items. */
-  abstract readonly filteredItems: T[];
-
-  /** The array of all items. */
   abstract items: T[];
 
   /** Total number of items in this data source. */
@@ -94,7 +100,7 @@ export abstract class DataSource<T = any> extends EventTarget {
    * @param direction Optional sort direction.
    */
   setGroupBy(path: string, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
-    this.#groupBy = { path, sorter, direction: direction ?? 'asc' };
+    this.#groupBy = { path, sorter, direction };
   }
 
   /**

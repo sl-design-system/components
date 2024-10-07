@@ -671,8 +671,9 @@
     "paginator": {
       "pageButton": {
         "minWidth": {
-          "value": "{size.500}",
-          "type": "sizing"
+          "value": "40px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
         }
       }
     }

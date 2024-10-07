@@ -667,6 +667,14 @@
         "value": "{size.2xl}",
         "type": "sizing"
       }
+    },
+    "paginator": {
+      "pageButton": {
+        "minWidth": {
+          "value": "{size.500}",
+          "type": "sizing"
+        }
+      }
     }
   },
   "space": {

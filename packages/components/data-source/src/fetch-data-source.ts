@@ -89,7 +89,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
     this.#items = new Array<T>(this.size);
     this.#pages = {};
     this.#proxy = this.#createProxy(this.#items);
-    this.dispatchEvent(new CustomEvent('sl-data-source-update', { detail: { dataSource: this } }));
+    this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 
   /**
@@ -148,7 +148,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
           this.#items[pageSize * (page - 1) + i] = res.items[i];
         }
 
-        this.dispatchEvent(new CustomEvent('sl-data-source-update', { detail: { dataSource: this } }));
+        this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
       })();
     }
 

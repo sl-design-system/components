@@ -44,11 +44,11 @@ export class GridViewModel<T = any> {
 
   set dataSource(dataSource: DataSource<T> | undefined) {
     if (this.#dataSource) {
-      this.#dataSource.removeEventListener('sl-data-source-update', this.update);
+      this.#dataSource.removeEventListener('sl-update', this.update);
     }
 
     this.#dataSource = dataSource;
-    this.#dataSource?.addEventListener('sl-data-source-update', this.update);
+    this.#dataSource?.addEventListener('sl-update', this.update);
 
     this.update();
   }

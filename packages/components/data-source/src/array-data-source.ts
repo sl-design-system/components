@@ -126,6 +126,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     }
 
     this.#filteredItems = items;
-    this.dispatchEvent(new CustomEvent('sl-data-source-update', { detail: { dataSource: this } }));
+    this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 }

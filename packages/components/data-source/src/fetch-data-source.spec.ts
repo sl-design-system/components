@@ -36,7 +36,7 @@ describe('FetchDataSource', () => {
   it('should emit an update event when calling update()', () => {
     const onUpdate = spy();
 
-    ds.addEventListener('sl-data-source-update', onUpdate);
+    ds.addEventListener('sl-update', onUpdate);
     ds.update();
 
     expect(onUpdate).to.have.been.calledOnce;
@@ -146,7 +146,7 @@ describe('FetchDataSource', () => {
       const onUpdate = spy();
 
       ds.update();
-      ds.addEventListener('sl-data-source-update', onUpdate);
+      ds.addEventListener('sl-update', onUpdate);
       ds.items.at(0);
 
       expect(onUpdate).not.to.have.been.called;

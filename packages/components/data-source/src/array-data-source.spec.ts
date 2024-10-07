@@ -38,7 +38,7 @@ describe('ArrayDataSource', () => {
     it('should emit an sl-update event when calling update()', () => {
       const onUpdate = spy();
 
-      ds.addEventListener('sl-data-source-update', onUpdate);
+      ds.addEventListener('sl-update', onUpdate);
       ds.update();
 
       expect(onUpdate).to.have.been.calledOnce;
@@ -138,7 +138,7 @@ describe('ArrayDataSource', () => {
       expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['John', 'Jane', 'Bob', 'Ann', 'Ann']);
     });
 
-    it('should reset the filtered items when removing a sort', () => {
+    it('should reset the original order when removing a sort', () => {
       ds.setSort('id', 'firstName', 'asc');
       ds.update();
 

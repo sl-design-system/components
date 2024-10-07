@@ -1,6 +1,6 @@
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-data-source-update': DataSourceUpdateEvent;
+    'sl-update': DataSourceUpdateEvent;
   }
 }
 

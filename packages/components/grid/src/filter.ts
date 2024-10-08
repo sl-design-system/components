@@ -7,7 +7,7 @@ import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { type DataSourceFilterFunction } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
-import { type EventEmitter, event, getNameByPath } from '@sl-design-system/shared';
+import { type EventEmitter, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
@@ -106,6 +106,18 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    if (this.mode === 'text' && !this.filter) {
+      this.filter = item => {
+        const itemValue = getValueByPath(item, this.column.path);
+
+        if (typeof itemValue !== 'string') {
+          return false;
+        }
+
+        return itemValue.toLowerCase().includes((this.value?.toString() ?? '').toLowerCase());
+      };
+    }
 
     this.filterChangeEvent.emit('added');
   }

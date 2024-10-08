@@ -10,8 +10,8 @@ declare global {
 }
 
 /**
- * A component that can be used with paginator. Contains information about currently visible items on the page
- * and total amount of items.
+ * A component that can be used with the paginator component.
+ * Contains information about currently visible items on the page and total amount of items.
  */
 @localized()
 export class ItemsCounter extends LitElement {
@@ -21,8 +21,6 @@ export class ItemsCounter extends LitElement {
   // TODO: accessibility
 
   // TODO: unit tests
-
-  // TODO:  data - how to connect with data? make an example / story
 
   /** Total amount of items. */
   @property() total?: number;
@@ -34,19 +32,17 @@ export class ItemsCounter extends LitElement {
   #pages: number = 1;
 
   /** @internal active */ // TODO: state maybe?
-  @state() activePage: number = 1; // TODO: should be possible to set manually!!!
+  @property() activePage: number = 1; // TODO: should be possible to set manually!!!
 
-  /** @internal currently visible items on the current page */ // TODO: state maybe?
+  /** @internal currently visible items on the current page */
   @state() currentlyVisibleItems: number = 1;
-
- // #mobileVariant: boolean = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     const total = this.total ?? 0;
-    const itemsPerPage = this.itemsPerPage ?? 10;
-    this.#pages = Math.ceil(total / itemsPerPage) || 1;
+    this.itemsPerPage = this.itemsPerPage ?? 10;
+    this.#pages = Math.ceil(total / this.itemsPerPage) || 1;
 
     if (this.activePage < 1) {
       this.activePage = 1;
@@ -54,35 +50,20 @@ export class ItemsCounter extends LitElement {
       this.activePage = this.#pages;
     }
 
-    console.log('pages in connectedCallback', this.#pages, this.activePage, itemsPerPage, total % itemsPerPage);
-
-    if (this.activePage === this.#pages) {
-      console.log('last page is active');
-      this.currentlyVisibleItems = total % itemsPerPage;
-    } else {
-      this.currentlyVisibleItems = itemsPerPage;
-    }
+    this.#setCurrentlyVisibleItems();
   }
-
-  // TODO: updated when total or itemsperpage has changed
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     console.log('changes in updated in ItemsCounter', changes);
 
-    if (changes.has('itemsPerPage')) {
+    if (changes.has('itemsPerPage') || changes.has('total')) {
       const total = this.total ?? 0;
       const itemsPerPage = this.itemsPerPage ?? 10;
       this.#pages = Math.ceil(total / itemsPerPage) || 2;
-      if (this.activePage === this.#pages) { // TODO: this part probably needs to be moved to currentlyVisibleItems...
-        const total = this.total ?? 0;
-        const itemsPerPage = this.itemsPerPage ?? 10;
-        console.log('last page is active');
-        this.currentlyVisibleItems = total % itemsPerPage;
-      } else {
-        this.currentlyVisibleItems = this.itemsPerPage!;
-      }
+      this.itemsPerPage = this.itemsPerPage ?? 10;
+      this.#setCurrentlyVisibleItems();
     }
 
     if (changes.has('activePage')) {
@@ -91,6 +72,12 @@ export class ItemsCounter extends LitElement {
       } else if (this.activePage > this.#pages) {
         this.activePage = this.#pages;
       }
+
+      const total = this.total ?? 0;
+      const itemsPerPage = this.itemsPerPage ?? 10;
+      this.#pages = Math.ceil(total / itemsPerPage) || 2;
+      this.itemsPerPage = this.itemsPerPage ?? 10;
+      this.#setCurrentlyVisibleItems();
     }
   }
 
@@ -104,7 +91,21 @@ export class ItemsCounter extends LitElement {
       ${start} - ${end} of ${this.total} items
     `;
   } // TODO: add msg localize str
-}
 
-// TODO: what to do when we have less pages than in the select selected? so always show all when there are less when the smaller value in select?
+  #setCurrentlyVisibleItems(): void {
+    if (!this.itemsPerPage || !this.#pages) {
+      return;
+    }
+
+    if (this.activePage === this.#pages) {
+      const total = this.total ?? 0;
+      // const itemsPerPage = this.itemsPerPage ?? 10;
+      console.log('last page is active');
+      const itemsOnLastPage = total % this.itemsPerPage;
+      this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.itemsPerPage : itemsOnLastPage;
+    } else {
+      this.currentlyVisibleItems = this.itemsPerPage!;
+    }
+  }
+}
 

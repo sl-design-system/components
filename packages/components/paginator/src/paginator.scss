@@ -22,36 +22,6 @@
   justify-content: center;
 }
 
-//[part='header'] {
-//  align-items: start;
-//  display: grid;
-//  flex: 1;
-//  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
-//  justify-content: space-between;
-//
-//  > * {
-//    // FIXME: This is a quick hack to vertically align the heading with any action buttons
-//    padding-block-start: 2px;
-//  }
-//}
-
-button {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  border-radius: var(--sl-border-radius-button-md);
-  cursor: pointer;
-  flex: 1;
-  outline: 0;
-  padding: 0;
-  text-align: start;
-
-  &:focus-visible {
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
-  }
-}
-
 .pages-wrapper {
   display: flex;
   overflow-x: hidden;
@@ -85,4 +55,5 @@ li {
   //width: max-content;
   align-items: center;
   flex-wrap: wrap;
+  padding: var(--_focus-space); //4px; // TODO: to make focus-ring visible with overflow hidden
 }

@@ -1,13 +1,13 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/paginator/register.js';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ArrayDataSource } from '@sl-design-system/shared';
+import { ArrayDataSource } from '@sl-design-system/data-source';
+import {PageSize, Paginator, ItemsCounter} from "@sl-design-system/paginator";
+import '@sl-design-system/paginator/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import {PageSize, Paginator, ItemsCounter} from "@sl-design-system/paginator";
 import { Grid } from '../grid.js';
 
 type Story = StoryObj;

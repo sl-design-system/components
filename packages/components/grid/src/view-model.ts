@@ -1,4 +1,5 @@
-import { type DataSource, getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { type DataSource } from '@sl-design-system/data-source';
+import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
@@ -72,7 +73,7 @@ export class GridViewModel<T = any> {
       const groupByPath = this.#dataSource.groupBy.path,
         groups: string[] = [];
 
-      this.#rows = this.#dataSource.filteredItems
+      this.#rows = this.#dataSource.items
         .map(item => {
           const value = getStringByPath(item, groupByPath);
 
@@ -97,7 +98,7 @@ export class GridViewModel<T = any> {
         }
       });
     } else {
-      this.#rows = this.#dataSource?.filteredItems ?? [];
+      this.#rows = this.#dataSource?.items ?? [];
     }
 
     this.#grid.requestUpdate('view');

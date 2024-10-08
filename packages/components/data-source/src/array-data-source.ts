@@ -1,5 +1,10 @@
-import { getStringByPath, getValueByPath } from '../path.js';
-import { DataSource, type DataSourceSortFunction } from './data-source.js';
+import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import {
+  DataSource,
+  type DataSourceFilterByFunction,
+  type DataSourceFilterByPath,
+  type DataSourceSortFunction
+} from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayDataSource<T = any> extends DataSource<T> {
@@ -7,12 +12,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
   #items: T[];
   #paginatedItems: T[] = [];
 
-  get filteredItems(): T[] {
-    return this.#filteredItems;
-  }
-
   get items(): T[] {
-    return this.#items;
+    return this.#filteredItems;
   }
 
   set items(items: T[]) {
@@ -44,27 +45,47 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
   update(): void {
     let items: T[] = [...this.#items];
 
-    // Filter the items
-    for (const filter of this.filters.values()) {
-      console.log('in filters update', filter, this.filteredItems);
-      if ('filter' in filter && filter.filter) {
-        items = items.filter(filter.filter);
-      } else if ('path' in filter && filter.path) {
-        const { path, value } = filter;
+    if (this.filters.size) {
+      const filters = Array.from(this.filters.values());
 
-        const regexes = (Array.isArray(value) ? value : [value])
-          .filter((v): v is string => typeof v === 'string')
-          .map(v => (v === '' ? /^\s*$/ : new RegExp(v, 'i')));
+      const pathFilters = filters
+        .filter((f): f is DataSourceFilterByPath => 'path' in f && !!f.path)
+        .reduce(
+          (acc, { path, value }) => {
+            if (!acc[path]) {
+              acc[path] = [];
+            }
 
-        items = items.filter(item => {
-          const v = getValueByPath(item, path);
+            if (Array.isArray(value)) {
+              acc[path].push(...value);
+            } else {
+              acc[path].push(value);
+            }
 
-          return regexes.some(regex => regex.test(v?.toString() ?? ''));
+            return acc;
+          },
+          {} as Record<string, string[]>
+        );
+
+      Object.entries(pathFilters).forEach(([path, values]) => {
+        /**
+         * Convert the value to a string and trim it, so we can match
+         * an empty string to:
+         * - ''
+         * - '   '
+         * - null
+         * - undefined
+         */
+        items = items.filter(item => values.includes(getValueByPath(item, path)?.toString()?.trim() ?? ''));
+      });
+
+      filters
+        .filter((f): f is DataSourceFilterByFunction<T> => 'filter' in f && !!f.filter)
+        .forEach(f => {
+          items = items.filter(f.filter);
         });
-      }
     }
 
-    // Sort the items
     if (this.sort) {
       const ascending = this.sort.direction === 'asc';
 
@@ -116,12 +137,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       });
     }
 
-   // const previouslyFilteredItems1 = items;
-
-    // if (this.paginatedItems) {
-    //   items = this.paginatedItems;
-    // }
-
     console.log('items before paginated, but should be filtered if filtered', items, this.filters, this.filters.size > 0, this.filters.values());
 
     this.#paginatedItems = items;
@@ -133,19 +148,19 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       // console.log('pagination in paginate', pagination);
 
       // const pageNumber = /*filtersChanged /!*this.filters.size > 0*!/ ? 1 :*/ this.paginateItems.pageNumber;
-     // this.paginateItems.pageNumber = pageNumber;
-    //  this.paginate(10, pageNumber);
-    //   this.paginateItems.pageNumber = pageNumber;
+      // this.paginateItems.pageNumber = pageNumber;
+      //  this.paginate(10, pageNumber);
+      //   this.paginateItems.pageNumber = pageNumber;
 
       const startIndex = (this.paginateItems.pageNumber /*pageNumber*/ - 1) * this.paginateItems.pageSize;
       const endIndex = startIndex + this.paginateItems.pageSize;
       // console.log('pageNumber in array data source', pageNumber, filtersChanged, startIndex);
       // Get the items for the current page
       /*const paginatedItems*/items  = /*this.*/items.slice(startIndex, endIndex);
-     // console.log('paginated data', paginatedItems);
+      // console.log('paginated data', paginatedItems);
       // Update this.items with the paginated items
-     // this.paginatedItems/*items*/ = paginatedItems;
-     //  console.log('updated items', this.items, this.paginatedItems, items);
+      // this.paginatedItems/*items*/ = paginatedItems;
+      //  console.log('updated items', this.items, this.paginatedItems, items);
     }
 
     // TODO: I need to have amount of all filtered data for total to show in the paginator...
@@ -153,16 +168,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     console.log('paginateditems?', this.paginatedItems);
     console.log('items in array data', items);
 
-    // TODO: pagination needs to work with filteredItems as well
-
-    // TODO: detect whether filter values have changed and then activePage = 1 in the paginator?
-
-    // this.#paginatedItems = this.paginatedItems;
-
-   // console.log('filtereditems1', this.#filteredItems);
-  //  const previouslyFilteredItems = this.#filteredItems;
-
-    this.#filteredItems = items; // TODO: maybe needs to be before pagination?
-    this.dispatchEvent(new CustomEvent<void>('sl-update'));
+    this.#filteredItems = items;
+    this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 }

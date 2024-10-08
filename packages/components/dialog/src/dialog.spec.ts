@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';
 import '../register.js';
 import { Dialog } from './dialog.js';
@@ -319,6 +319,91 @@ describe('sl-dialog', () => {
       el.close();
 
       expect(dialog.close).not.to.have.been.called;
+    });
+  });
+
+  describe('inheritance', () => {
+    beforeEach(() => {
+      try {
+        customElements.define('inherited-dialog', class extends Dialog {});
+      } catch {
+        // empty
+      }
+    });
+
+    it('should call renderHeader during render', async () => {
+      const renderHeader = spy(Dialog.prototype, 'renderHeader');
+
+      await fixture(html`<inherited-dialog></inherited-dialog>`);
+
+      expect(renderHeader).to.have.been.calledOnce;
+    });
+
+    it('should render the given title and subtitle passed to renderHeader()', async () => {
+      customElements.define(
+        'inherited-dialog-with-custom-title',
+        class extends Dialog {
+          override renderHeader(): TemplateResult {
+            return super.renderHeader('Title', 'Subtitle');
+          }
+        }
+      );
+
+      const el: LitElement = await fixture(
+        html`<inherited-dialog-with-custom-title></inherited-dialog-with-custom-title>`
+      );
+
+      const title = el.renderRoot.querySelector('slot[name="title"]');
+      expect(title).to.exist;
+      expect(title).to.have.text('Title');
+
+      const subtitle = el.renderRoot.querySelector('slot[name="subtitle"]');
+      expect(subtitle).to.exist;
+      expect(subtitle).to.have.text('Subtitle');
+    });
+
+    it('should call renderBody during render', async () => {
+      const renderBody = spy(Dialog.prototype, 'renderBody');
+
+      await fixture(html`<inherited-dialog></inherited-dialog>`);
+
+      expect(renderBody).to.have.been.calledOnce;
+    });
+
+    it('should call renderFooter during render', async () => {
+      const renderFooter = spy(Dialog.prototype, 'renderFooter');
+
+      await fixture(html`<inherited-dialog></inherited-dialog>`);
+
+      expect(renderFooter).to.have.been.calledOnce;
+    });
+
+    it('should call renderActions during render', async () => {
+      const renderActions = spy(Dialog.prototype, 'renderActions');
+
+      await fixture(html`<inherited-dialog></inherited-dialog>`);
+
+      expect(renderActions).to.have.been.calledOnce;
+    });
+
+    it('should render the actions into the actions slot', async () => {
+      customElements.define(
+        'inherited-dialog-with-custom-actions',
+        class extends Dialog {
+          override renderActions(): TemplateResult {
+            return html`<sl-button>Custom action</sl-button>`;
+          }
+        }
+      );
+
+      const el: LitElement = await fixture(
+        html`<inherited-dialog-with-custom-actions></inherited-dialog-with-custom-actions>`
+      );
+
+      const button = el.renderRoot.querySelector('sl-button');
+      expect(button).to.exist;
+      expect(button).to.have.text('Custom action');
+      expect(button?.parentElement).to.match('slot[name="actions"]');
     });
   });
 });

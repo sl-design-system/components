@@ -4632,6 +4632,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/data-source@npm:^0.0.0, @sl-design-system/data-source@workspace:packages/components/data-source":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/data-source@workspace:packages/components/data-source"
+  dependencies:
+    "@sl-design-system/shared": "npm:^0.3.2"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/dialog@npm:^1.0.3, @sl-design-system/dialog@workspace:packages/components/dialog":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/dialog@workspace:packages/components/dialog"
@@ -4784,11 +4792,13 @@ __metadata:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/checkbox": "npm:^2.0.0"
+    "@sl-design-system/data-source": "npm:^0.0.0"
     "@sl-design-system/ellipsize-text": "npm:^0.0.0"
     "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/popover": "npm:^1.1.0"
     "@sl-design-system/select": "npm:^1.1.1"
     "@sl-design-system/shared": "npm:^0.3.2"
+    "@sl-design-system/skeleton": "npm:^1.0.0"
     "@sl-design-system/text-field": "npm:^1.4.0"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.12

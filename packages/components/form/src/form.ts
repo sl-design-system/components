@@ -1,4 +1,4 @@
-import { EventsController } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
@@ -11,6 +11,9 @@ declare global {
     'sl-form': Form;
   }
 }
+
+export type SlResetEvent = CustomEvent<void> & { target: Form };
+export type SlSubmitEvent = CustomEvent<void> & { target: Form };
 
 /**
  * This component is a wrapper for the form controls.
@@ -41,7 +44,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
    */
   #value: T | undefined;
 
-  /** Value when the form is initialised, used when the form is reset. */
+  /** Value when the form is initialized, used when the form is reset. */
   #initialValue: T | undefined;
 
   /** The controls in the form; not necessarily the same amount as the fields. */
@@ -52,7 +55,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** A form is marked dirty when the user has modified a form control. */
   get dirty(): boolean {
-    return this.controls.map(c => c.dirty).some(Boolean);
+    return this.controls.some(c => c.dirty);
   }
 
   /** Will disable the entire form when true. */
@@ -68,24 +71,30 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return !this.dirty;
   }
 
+  /** @internals Emits when the form has been reset. */
+  @event({ name: 'sl-reset' }) resetEvent!: EventEmitter<SlResetEvent>;
+
   /** Indicates whether to show validity state. */
   get showValidity(): boolean {
     return this.#showValidity;
   }
 
+  /** @internal Emits when the form is to be submitted. */
+  @event({ name: 'sl-submit' }) submitEvent!: EventEmitter<SlSubmitEvent>;
+
   /** A form is marked touched once the user has triggered a blur event on a form control. */
   get touched(): boolean {
-    return this.controls.map(c => c.touched).some(Boolean);
-  }
-
-  /** Whether the form is valid. */
-  get valid(): boolean {
-    return this.controls.map(c => c.valid).every(Boolean);
+    return this.controls.some(c => c.touched);
   }
 
   /** A form is marked untouched as long as the user hasn't trigger a blur event on a form control. */
   get untouched(): boolean {
     return !this.touched;
+  }
+
+  /** Whether the form is valid. */
+  get valid(): boolean {
+    return this.controls.every(c => c.valid);
   }
 
   /** The aggregated value of all form controls. */
@@ -117,6 +126,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
+
     this.#initialValue = this.#value;
   }
 
@@ -132,11 +142,19 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return html`<slot></slot>`;
   }
 
-  /** Calls `reportValidity()` on all form controls. */
+  /** Calls `reportValidity()` on all form controls and returns if they are all valid. */
   reportValidity(): boolean {
     this.#showValidity = true;
 
+    // First .map(), then .every() to ensure all reportValidity() calls are made
     return this.controls.map(c => c.reportValidity()).every(Boolean);
+  }
+
+  /** If the form is valid, it will emit an `sl-submit` event. */
+  requestSubmit(): void {
+    if (this.reportValidity()) {
+      this.submitEvent.emit();
+    }
   }
 
   /** Puts all the initial values of the form controls back and updates the validity of all fields. */
@@ -147,10 +165,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
       }
     });
 
-    // without waiting for the update after the reset to be complete the validity report uses the old values
-    requestAnimationFrame(() => {
-      this.reportValidity();
-    });
+    this.resetEvent.emit();
   }
 
   #onFormControl(event: SlFormControlEvent): void {

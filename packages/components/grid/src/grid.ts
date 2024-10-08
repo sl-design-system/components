@@ -758,8 +758,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       const id = f.column.id,
         empty = (Array.isArray(f.value) && f.value.length === 0) || !f.value;
 
-      if (!empty && (f.path || f.filter)) {
-        this.dataSource?.addFilter(id, f.path! || f.filter!, f.value);
+      if (!empty && (f.filter || f.path)) {
+        this.dataSource?.addFilter(id, f.filter! || f.path!, f.value);
       } else {
         this.dataSource?.removeFilter(id);
       }

@@ -1,5 +1,5 @@
 import { arrow, flip, offset, shift, size } from '@floating-ui/core';
-import { autoUpdate, computePosition } from '@floating-ui/dom';
+import { type Elements, autoUpdate, computePosition } from '@floating-ui/dom';
 
 type Alignment = 'start' | 'end';
 type Side = 'top' | 'right' | 'bottom' | 'left';
@@ -51,24 +51,35 @@ export const positionPopover = (
       flip(),
       options.viewportMargin !== undefined ? shift({ padding: options.viewportMargin }) : undefined,
       size({
-        // With popover, we no longer need to worry about any clipping ancestors
-        boundary: document.documentElement,
+        // With popover, we no longer need to
         padding: options.viewportMargin,
-        apply: ({ availableWidth, availableHeight }) => {
+        apply: ({ availableWidth, availableHeight, elements }) => {
           // Make sure that the overlay is contained by the visible page.
-          const maxBlockSize =
-              Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight)) - (options.viewportMargin ?? 0),
-            maxInlineSize = options.maxWidth ?? Math.floor(availableWidth);
-
           const style = getComputedStyle(element),
-            currentMaxBlockSize = parseInt(style.maxBlockSize) ?? 0,
-            currentMaxInlineSize = parseInt(style.maxInlineSize) ?? 0;
+            maxBlock = style.getPropertyValue('--sl-popover-max-block-size'),
+            currentMaxBlockSize = !isNaN(parseInt(maxBlock)) ? parseInt(maxBlock) : 0,
+            minBlock = style.getPropertyValue('--sl-popover-min-block-size'),
+            currentMinBlockSize = !isNaN(parseInt(minBlock)) ? parseInt(minBlock) : 0,
+            maxInline = style.getPropertyValue('--sl-popover-max-inline-size'),
+            currentMaxInlineSize = !isNaN(parseInt(maxInline)) ? parseInt(maxInline) : 0;
 
           // If the element already has a max inline or block size that is smaller
           // than the available space, don't override it.
-          Object.assign(element.style, {
-            maxInlineSize: maxInlineSize > currentMaxInlineSize ? '' : `${maxInlineSize}px`,
-            maxBlockSize: maxBlockSize > currentMaxBlockSize ? '' : `${maxBlockSize}px`
+          const maxBlockSize =
+              currentMaxBlockSize > 0
+                ? Math.min(currentMaxBlockSize, Math.floor(availableHeight))
+                : Math.floor(availableHeight),
+            minBlockSize = Math.max(currentMinBlockSize, MIN_OVERLAY_HEIGHT);
+          let maxInlineSize =
+            currentMaxInlineSize > 0
+              ? Math.min(currentMaxInlineSize, Math.floor(availableWidth))
+              : Math.floor(availableWidth);
+          maxInlineSize = options.maxWidth ? Math.min(options.maxWidth, maxInlineSize) : maxInlineSize;
+
+          Object.assign((elements as Elements).floating.style, {
+            maxInlineSize: `${maxInlineSize}px`,
+            maxBlockSize: `${maxBlockSize}px`,
+            minBlockSize: `${minBlockSize}px`
           });
         }
       })
@@ -91,7 +102,8 @@ export const positionPopover = (
       middleware
     }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
       Object.assign(element.style, {
-        translate: `${roundByDPR(x)}px ${roundByDPR(y)}px`
+        insetInlineStart: `${roundByDPR(x)}px`,
+        insetBlockStart: `${roundByDPR(y)}px`
       });
       element.setAttribute('actual-placement', actualPlacement);
 

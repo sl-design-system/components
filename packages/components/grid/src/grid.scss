@@ -1,3 +1,4 @@
+// stylelint-disable color-no-hex
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: #eee;
@@ -38,7 +39,7 @@
   --_cell-border: none;
 }
 
-:host([striped]) tr[part~='odd'] {
+:host([striped]) tr[part~='even'] {
   --_cell-background: var(--_striped-background);
 }
 
@@ -172,6 +173,7 @@ th[part~='filter'] {
 
 td {
   border-block-end: var(--_cell-border);
+  justify-content: start;
 }
 
 td[part~='drag-handle']:not([part~='fixed']) {
@@ -183,6 +185,11 @@ td[part~='group-header'] {
   --_cell-padding-block: 0;
   --_cell-padding-inline: 0;
 
+  inline-size: 100%;
+}
+
+td[part~='placeholder'] sl-skeleton {
+  block-size: 1lh;
   inline-size: 100%;
 }
 

@@ -20,12 +20,12 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 
 Icon.register(faSchool);
 
 export default {
-  title: 'Components/Avatar',
+  title: 'Media/Avatar',
   tags: ['stable'],
   args: {
     displayName: 'Rose Nylund',
@@ -91,7 +91,9 @@ export const Basic: Story = {};
 
 export const Badge: Story = {
   args: {
-    badge: html`<sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">1</sl-badge>`,
+    badge: html`<sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning" size="lg"
+      >1</sl-badge
+    >`,
     size: 'xl'
   }
 };
@@ -140,7 +142,7 @@ export const CustomInitials: Story = {
 export const Overflow: Story = {
   args: {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
-    maxWidth: '175px',
+    maxWidth: '300px',
     subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'
   }
 };
@@ -166,15 +168,15 @@ export const All: StoryObj = {
     const users: Array<{ name: string; picture?: string }> = [
       {
         name: 'Yousef van der Schaaf',
-        picture: 'https://randomuser.me/api/portraits/thumb/mendfgdfgdfdfg/81.jpg'
+        picture: 'https://randomuser.me/api/portraits/mendfgdfgdfdfg/81.jpg'
       },
       {
         name: 'Chester Reid',
-        picture: 'https://randomuser.me/api/portraits/thumb/men/19.jpg'
+        picture: 'https://randomuser.me/api/portraits/men/19.jpg'
       },
       {
         name: 'Emma Henderson - Van Deursen',
-        picture: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
+        picture: 'https://randomuser.me/api/portraits/women/19.jpg'
       },
       {
         name: 'Johnni Sullivan'
@@ -184,7 +186,7 @@ export const All: StoryObj = {
       },
       {
         name: 'Rose Nylund',
-        picture: 'https://randomuser.me/api/portraits/thumb/women/10.jpg'
+        picture: 'https://randomuser.me/api/portraits/women/10.jpg'
       }
     ];
 
@@ -316,6 +318,13 @@ export const All: StoryObj = {
               <sl-avatar .displayName=${users[3].name} size="3xl" image-only>
                 <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
                   <sl-icon name="check"></sl-icon>1
+                </sl-badge>
+              </sl-avatar>
+            </td>
+            <td>
+              <sl-avatar .displayName=${users[3].name} size="4xl" image-only>
+                <sl-badge aria-label="1 unread message" emphasis="bold" size="lg" slot="badge" variant="danger">
+                  12
                 </sl-badge>
               </sl-avatar>
             </td>

@@ -1,5 +1,22 @@
 # @sl-design-system/form
 
+## 1.0.4
+
+### Patch Changes
+
+- [#1500](https://github.com/sl-design-system/components/pull/1500) [`000723a`](https://github.com/sl-design-system/components/commit/000723a8e42cb468383fa0b968eb31a672b95e80) - Added `reset()` function to sl-form and FormController
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d)]:
+  - @sl-design-system/shared@0.3.2
+
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/shared@0.3.0
+  - @sl-design-system/inline-message@1.0.1
+
 ## 1.0.2
 
 ### Patch Changes

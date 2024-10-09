@@ -35,7 +35,7 @@ const sizeName = (size: string): string => {
 };
 
 export default {
-  title: 'Components/Spinner',
+  title: 'Feedback & status/Spinner',
   tags: ['stable'],
   args: {
     size: 'md'

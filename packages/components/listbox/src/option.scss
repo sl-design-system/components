@@ -1,0 +1,35 @@
+:host {
+  color: var(--sl-color-text-default);
+  user-select: none;
+}
+
+:host(:where(:hover, [aria-current])) [part='container'] {
+  background: var(--sl-color-action-background-accent-subtle-hover);
+}
+
+:host(:where([aria-selected='true'], [selected])) sl-icon {
+  visibility: visible;
+}
+
+:host(:active) [part='container'] {
+  background: var(--sl-color-action-background-accent-subtle-active);
+}
+
+:host([disabled]) {
+  color: var(--sl-color-text-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+[part='container'] {
+  align-items: center;
+  border-radius: var(--sl-size-border-radius-default);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-space-new-md);
+  padding: var(--sl-space-new-sm) var(--sl-space-new-md);
+}
+
+sl-icon {
+  visibility: hidden;
+}

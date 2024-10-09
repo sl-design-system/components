@@ -1,6 +1,6 @@
 import { Button } from '@sl-design-system/button';
+import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ArrayDataSource } from '@sl-design-system/shared';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../../register.js';
@@ -8,7 +8,8 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Sorting',
+  title: 'Grid/Sorting',
+  tags: ['draft'],
   loaders: [async () => ({ people: (await getPeople()).people })],
   parameters: {
     // Disables Chromatic's snapshotting on a story level

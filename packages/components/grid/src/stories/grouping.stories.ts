@@ -1,7 +1,7 @@
+import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
-import { ArrayDataSource } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -11,7 +11,8 @@ import { type GridViewModelGroup } from '../view-model.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Grouping',
+  title: 'Grid/Grouping',
+  tags: ['draft'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }

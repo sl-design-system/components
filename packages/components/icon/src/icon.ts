@@ -37,7 +37,7 @@ const isIconDefinition = (icon: IconDefinition | IconLibrary): icon is IconDefin
  * @cssprop --sl-icon-size - The size of the svg element, defaults to md
  */
 export class Icon extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   private iconNotDef =
@@ -124,18 +124,18 @@ export class Icon extends LitElement {
     return this.sldsLibrary.icons[this.name] ? this.sldsLibrary.icons[this.name].svg : this.iconNotDef;
   }
 
-  /** @private */
-  @state()
-  iconHTML?: string = this.iconLoading;
+  /** @internal */
+  @state() iconHTML?: string = this.iconLoading;
 
-  /** @private */
-  @state()
-  sldsLibrary?: { icons: IconLibrary };
+  /** @internal */
+  @state() sldsLibrary?: { icons: IconLibrary };
 
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    await this.#waitForWindowProperty(this.name);
+    if (this.name) {
+      await this.#waitForWindowProperty(this.name);
+    }
     this.sldsLibrary = window.SLDS;
     this.iconHTML = this.#getIconHTML();
   }

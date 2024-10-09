@@ -1,34 +1,32 @@
 import { Dialog as DialogElement } from '@sl-design-system/dialog';
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
-import {
-  AccordionComponent,
-  AccordionItemComponent,
-  AvatarComponent,
-  BadgeComponent,
-  BreadcrumbsComponent,
-  ButtonBarComponent,
-  ButtonComponent,
-  CardComponent,
-  CheckboxComponent,
-  CheckboxGroupComponent,
-  DialogComponent,
-  IconComponent,
-  InlineMessageComponent,
-  PopoverComponent,
-  RadioComponent,
-  RadioGroupComponent,
-  SelectComponent,
-  SelectOptionComponent,
-  SkeletonComponent,
-  SpinnerComponent,
-  SwitchComponent,
-  TabComponent,
-  TabGroupComponent,
-  TabPanelComponent,
-  TextAreaComponent,
-  TextFieldComponent,
-  TooltipComponent
-} from '../src/wrappers/index';
+import { AccordionItemComponent } from '../src/accordion/accordion-item.component';
+import { AccordionComponent } from '../src/accordion/accordion.component';
+import { AvatarComponent } from '../src/avatar/avatar.component';
+import { BadgeComponent } from '../src/badge/badge.component';
+import { BreadcrumbsComponent } from '../src/breadcrumbs/breadcrumbs.component';
+import { ButtonComponent } from '../src/button/button.component';
+import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
+import { CardComponent } from '../src/card/card.component';
+import { CheckboxGroupComponent } from '../src/checkbox/checkbox-group.component';
+import { CheckboxComponent } from '../src/checkbox/checkbox.component';
+import { DialogComponent } from '../src/dialog/dialog.component';
+import { IconComponent } from '../src/icon/icon.component';
+import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
+import { PopoverComponent } from '../src/popover/popover.component';
+import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
+import { RadioComponent } from '../src/radio-group/radio.component';
+import { SelectOptionComponent } from '../src/select/select-option.component';
+import { SelectComponent } from '../src/select/select.component';
+import { SkeletonComponent } from '../src/skeleton/skeleton.component';
+import { SpinnerComponent } from '../src/spinner/spinner.component';
+import { SwitchComponent } from '../src/switch/switch.component';
+import { TabGroupComponent } from '../src/tabs/tab-group.component';
+import { TabPanelComponent } from '../src/tabs/tab-panel.component';
+import { TabComponent } from '../src/tabs/tab.component';
+import { TextAreaComponent } from '../src/text-area/text-area.component';
+import { TextFieldComponent } from '../src/text-field/text-field.component';
+import { TooltipComponent } from '../src/tooltip/tooltip.component';
 
 export default {
   title: 'Wrappers',

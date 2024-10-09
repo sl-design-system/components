@@ -34,17 +34,18 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  */
 @localized()
 export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
   #events = new EventsController(this, {
+    click: this.#onClick,
     focusin: this.#onFocusin,
     focusout: this.#onFocusout
   });
@@ -183,6 +184,12 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   override focus(): void {
     this.#rovingTabindexController.focus();
+  }
+
+  #onClick(event: Event): void {
+    if (event.target === this) {
+      this.#rovingTabindexController.focus();
+    }
   }
 
   #onFocusin(): void {

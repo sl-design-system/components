@@ -1,5 +1,26 @@
 # @sl-design-system/tabs
 
+## 1.0.0
+
+### Major Changes
+
+- [#1535](https://github.com/sl-design-system/components/pull/1535) [`a11f679`](https://github.com/sl-design-system/components/commit/a11f679fc6ce89efccd852c69935494749199523) - Stable version release
+
+### Patch Changes
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`563dccc`](https://github.com/sl-design-system/components/commit/563dccce29fc961ef46147c41a8f9f82bd2db384)]:
+  - @sl-design-system/shared@0.3.2
+  - @sl-design-system/menu@0.1.1
+
+## 0.1.13
+
+### Patch Changes
+
+- Updated dependencies [[`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56), [`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb), [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/menu@0.1.0
+  - @sl-design-system/icon@1.0.2
+  - @sl-design-system/shared@0.3.0
+
 ## 0.1.12
 
 ### Patch Changes

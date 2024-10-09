@@ -11,8 +11,8 @@
   <target>Type hier om te filteren</target>
 </trans-unit>
 <trans-unit id="s58bfb494feb8eb02">
-  <source><x id="0" equiv-text="${count}"/> selected</source>
-  <target><x id="0" equiv-text="${count}"/> geselecteerd</target>
+  <source><x id="0" equiv-text="${this.getSelectedCount()}"/> selected</source>
+  <target><x id="0" equiv-text="${this.getSelectedCount()}"/> geselecteerd</target>
 </trans-unit>
 <trans-unit id="s629576c6b305d539">
   <source>optional</source>
@@ -117,6 +117,62 @@
 <trans-unit id="sbf1de7bf2881bae1">
   <source>Frequently Used</source>
   <target>Vaak gebruikt</target>
+</trans-unit>
+<trans-unit id="see63aaad45b1b116">
+  <source>state</source>
+  <target>status</target>
+</trans-unit>
+<trans-unit id="s6580790b036f0c6f">
+  <source>active</source>
+  <target>actief</target>
+</trans-unit>
+<trans-unit id="s19fe06e3408e53d0">
+  <source>success</source>
+  <target>succes</target>
+</trans-unit>
+<trans-unit id="s129fac0ae1df7c8f">
+  <source>warning</source>
+  <target>waarschuwing</target>
+</trans-unit>
+<trans-unit id="s9f7452dd75d54d31">
+  <source>error</source>
+  <target>fout</target>
+</trans-unit>
+<trans-unit id="sf75c5ddbac2b60f9">
+  <source>Showing <x id="0" equiv-text="${total - this.stackSize}"/> out of <x id="1" equiv-text="${total}"/> items</source>
+  <target><x id="0" equiv-text="${total - this.stackSize}"/> van <x id="1" equiv-text="${this.tags.length}"/> items zichtbaar</target>
+</trans-unit>
+<trans-unit id="sebd54694b2f83547">
+  <source>Remove '<x id="0" equiv-text="${this.label}"/>'</source>
+  <target>verwijder '<x id="0" equiv-text="${this.label}"/>'</target>
+</trans-unit>
+<trans-unit id="s9cd91b99a108a45f">
+  <source>List of hidden elements</source>
+  <target>Lijst met verborgen elementen</target>
+</trans-unit>
+<trans-unit id="s606beeef09212e6c">
+  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
+  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
+</trans-unit>
+<trans-unit id="s8c1f47dc13ead0c3">
+  <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
+  <target>Maak "<x id="0" equiv-text="${this.value}"/>" aan</target>
+</trans-unit>
+<trans-unit id="s00a84204340a1db4">
+  <source>Selected</source>
+  <target>Geselecteerd</target>
+</trans-unit>
+<trans-unit id="s602a5722e101c0d2">
+  <source>All options</source>
+  <target>Alle opties</target>
+</trans-unit>
+<trans-unit id="se412fe8953013d92">
+  <source>Please select at least one option.</source>
+  <target>Selecteer tenminste één optie.</target>
+</trans-unit>
+<trans-unit id="s2362b49263f76ec8">
+  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
+  <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
 </trans-unit>
 </body>
 </file>

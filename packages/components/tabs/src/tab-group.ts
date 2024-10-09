@@ -371,7 +371,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       });
 
       this.selectedTab = selectedTab;
-      this.tabChangeEvent.emit(selectedTab ? this.tabs?.indexOf(selectedTab) ?? 0 : -1);
+      this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);
       this.#updateSelectionIndicator();
     }
 

@@ -1,5 +1,30 @@
 # @sl-design-system/text-field
 
+## 1.4.0
+
+### Minor Changes
+
+- [#1492](https://github.com/sl-design-system/components/pull/1492) [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d) - Change the `autocomplete` property to be more flexible when inheriting
+
+### Patch Changes
+
+- [#1492](https://github.com/sl-design-system/components/pull/1492) [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d) - Various bug fixes:
+  - Fix selector for field button not matching when not slotted
+  - Fix nested slotted `<input>` logic not working correctly
+  - Rename private `#syncInput` to public `updateInputElement` method that can be overridden
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`000723a`](https://github.com/sl-design-system/components/commit/000723a8e42cb468383fa0b968eb31a672b95e80)]:
+  - @sl-design-system/shared@0.3.2
+  - @sl-design-system/form@1.0.4
+
+## 1.3.5
+
+### Patch Changes
+
+- Updated dependencies [[`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb), [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/icon@1.0.2
+  - @sl-design-system/shared@0.3.0
+  - @sl-design-system/form@1.0.3
+
 ## 1.3.4
 
 ### Patch Changes

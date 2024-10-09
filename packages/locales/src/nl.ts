@@ -4,8 +4,12 @@
 import { str } from '@lit/localize';
 
 export const templates = {
+  s00a84204340a1db4: 'Geselecteerd',
   s091d3d07b5b3076f: 'Ok',
+  s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',
+  s19fe06e3408e53d0: 'succes',
+  s2362b49263f76ec8: str`Geen opties gevonden die beginnen met "${0}".`,
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
@@ -14,11 +18,17 @@ export const templates = {
   s5d929ff1619ac0c9: 'Zoeken',
   s5e10d00d437e2e21: 'Leeg',
   s5e8250fb85d64c23: 'Sluiten',
+  s602a5722e101c0d2: 'Alle opties',
+  s606beeef09212e6c: str`${0} de opties`,
   s629576c6b305d539: 'optioneel',
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
+  s6580790b036f0c6f: 'actief',
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
+  s8c1f47dc13ead0c3: str`Maak "${0}" aan`,
+  s9cd91b99a108a45f: 'Lijst met verborgen elementen',
+  s9f7452dd75d54d31: 'fout',
   sa447e2f801a7eb2d: 'Kies een optie.',
   sa996297f6a208e98: 'Kruimelpad',
   sb85774dc5d18ff0f: 'Bevestig',
@@ -31,6 +41,10 @@ export const templates = {
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
   sd711c88b851db6c9: 'De volgende velden zijn incorrect:',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
+  se412fe8953013d92: 'Selecteer tenminste één optie.',
+  sebd54694b2f83547: str`verwijder '${0}'`,
+  see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
-  sf677da98fa27f9b6: 'Meer links'
+  sf677da98fa27f9b6: 'Meer links',
+  sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`
 };

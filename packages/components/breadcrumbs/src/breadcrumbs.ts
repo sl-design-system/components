@@ -23,7 +23,7 @@ declare global {
 export interface Breadcrumb {
   collapsed?: boolean;
   label: string;
-  tooltip?: boolean | Tooltip;
+  tooltip?: Tooltip | (() => void);
   url?: string;
 }
 
@@ -114,9 +114,18 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
     this.#observer.disconnect();
+
+    this.breadcrumbs.forEach(breadcrumb => {
+      if (breadcrumb.tooltip instanceof Tooltip) {
+        breadcrumb.tooltip.remove();
+      } else if (breadcrumb.tooltip) {
+        breadcrumb.tooltip();
+      }
+    });
+    this.breadcrumbs = [];
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -196,10 +205,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelectorAll<HTMLAnchorElement>('li:not(.home) > a').forEach(link => {
       const breadcrumb = this.breadcrumbs.find(el => el.label === link.textContent?.trim())!;
 
-      if (!breadcrumb.tooltip && link.offsetWidth < link.scrollWidth) {
-        breadcrumb.tooltip = true;
-
-        Tooltip.lazy(
+      if (link.offsetWidth < link.scrollWidth) {
+        breadcrumb.tooltip ||= Tooltip.lazy(
           link,
           tooltip => {
             breadcrumb.tooltip = tooltip;
@@ -208,13 +215,14 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           },
           { context: this.shadowRoot! }
         );
-      } else if (breadcrumb.tooltip && link.offsetWidth >= link.scrollWidth) {
+      } else if (breadcrumb.tooltip instanceof Tooltip) {
         link.removeAttribute('aria-describedby');
 
-        if (typeof breadcrumb.tooltip != 'boolean') {
-          breadcrumb.tooltip.remove();
-          breadcrumb.tooltip = undefined;
-        }
+        breadcrumb.tooltip.remove();
+        breadcrumb.tooltip = undefined;
+      } else if (breadcrumb.tooltip) {
+        breadcrumb.tooltip();
+        breadcrumb.tooltip = undefined;
       }
     });
   }

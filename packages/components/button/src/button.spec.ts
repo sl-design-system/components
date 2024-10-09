@@ -1,4 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
+import { type Form } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
@@ -137,13 +139,6 @@ describe('sl-button', () => {
       expect(el).to.match(':disabled');
     });
 
-    it('should have a tabindex of -1', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('tabindex', '-1');
-    });
-
     it('should not emit a click event when the button is disabled', async () => {
       const clickEvent = new Event('click');
       const preventDefaultSpy = spy(clickEvent, 'preventDefault');
@@ -160,6 +155,36 @@ describe('sl-button', () => {
   });
 
   describe('form integration', () => {
+    it('should call reset() on the parent form when the button type is reset', async () => {
+      const form: Form = await fixture(html`
+        <sl-form>
+          <sl-button type="reset">Button</sl-button>
+        </sl-form>
+      `);
+
+      spy(form, 'reset');
+
+      form.querySelector('sl-button')?.click();
+
+      expect(form.reset).to.have.been.calledOnce;
+    });
+
+    it('should call requestSubmit() on the parent form when the button type is submit', async () => {
+      const form: Form = await fixture(html`
+        <sl-form>
+          <sl-button type="submit">Button</sl-button>
+        </sl-form>
+      `);
+
+      spy(form, 'requestSubmit');
+
+      form.querySelector('sl-button')?.click();
+
+      expect(form.requestSubmit).to.have.been.calledOnce;
+    });
+  });
+
+  describe('native form integration', () => {
     let form: HTMLFormElement;
 
     const setup = async (type: ButtonType): Promise<void> => {

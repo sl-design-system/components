@@ -1,6 +1,7 @@
-import { type DataSource, getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { type DataSource } from '@sl-design-system/data-source';
+import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
-import { type GridColumn } from './column.js';
+import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
 import { type Grid } from './grid.js';
 
@@ -66,13 +67,13 @@ export class GridViewModel<T = any> {
 
   update = (): void => {
     this.#columns = this.#columnDefinitions.filter(col => !col.hidden);
-    this.#headerRows = this.#getHeaderRows(this.#columnDefinitions);
+    this.#headerRows = this.#flattenColumnGroups(this.#columnDefinitions);
 
     if (this.#dataSource?.groupBy) {
       const groupByPath = this.#dataSource.groupBy.path,
         groups: string[] = [];
 
-      this.#rows = this.#dataSource.filteredItems
+      this.#rows = this.#dataSource.items
         .map(item => {
           const value = getStringByPath(item, groupByPath);
 
@@ -97,7 +98,7 @@ export class GridViewModel<T = any> {
         }
       });
     } else {
-      this.#rows = this.#dataSource?.filteredItems ?? [];
+      this.#rows = this.#dataSource?.items ?? [];
     }
 
     this.#grid.requestUpdate('view');
@@ -147,7 +148,7 @@ export class GridViewModel<T = any> {
 
   /** Returns true if the group is expanded, false if collapsed. */
   getGroupState(value?: string): boolean {
-    return value ? this.#groups.get(value) ?? true : true;
+    return value ? (this.#groups.get(value) ?? true) : true;
   }
 
   getItemAtIndex(index: number): T {
@@ -192,13 +193,32 @@ export class GridViewModel<T = any> {
     this.#rows = [...rows];
   }
 
-  #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
-    const children = columns
-      .filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup)
-      .reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
-        return [...acc, ...this.#getHeaderRows(cur.columns)];
-      }, []);
+  /**
+   * Flattens the column groups.
+   *
+   * So the following column definitions:
+   * - group 1
+   *   - column 1
+   *   - column 2
+   * - group 2
+   *   - column 3
+   *   - column 4
+   * - group 3
+   *   - column 5
+   *
+   * Will be flattened to:
+   * [
+   *  [ group 1, group 2, group 3 ],
+   *  [ column 1, column 2, column 3, column 4, column 5 ]
+   * ]
+   */
+  #flattenColumnGroups(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
+    const groups = columns.filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup);
 
-    return children.length ? [[...columns], children.flat(2)] : [[...columns]];
+    if (groups.length) {
+      return [groups, groups.flatMap(group => this.#flattenColumnGroups(group.columns)).flat()];
+    } else {
+      return [columns];
+    }
   }
 }

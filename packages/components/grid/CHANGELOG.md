@@ -1,5 +1,36 @@
 # @sl-design-system/grid
 
+## 0.1.15
+
+### Patch Changes
+
+- [#1547](https://github.com/sl-design-system/components/pull/1547) [`89e8cbc`](https://github.com/sl-design-system/components/commit/89e8cbceeb1b2a9e1f498a26e251a956e04bb246) - Fix error in code when flattening column groups
+
+## 0.1.14
+
+### Patch Changes
+
+- [#1523](https://github.com/sl-design-system/components/pull/1523) [`31e3c16`](https://github.com/sl-design-system/components/commit/31e3c16b49056e2a90764ebd9e05d02bf0ccfb44) - Fix bug where reordering columns could cause events from the parent grid to no longer be received
+
+- [#1523](https://github.com/sl-design-system/components/pull/1523) [`31e3c16`](https://github.com/sl-design-system/components/commit/31e3c16b49056e2a90764ebd9e05d02bf0ccfb44) - Fix a bug where reordering filter columns wouldn't always update the checkbox group inside the filter popover
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`d79c397`](https://github.com/sl-design-system/components/commit/d79c3977b15cf55c8a83db94fc4ab98a1fe7e328), [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d)]:
+  - @sl-design-system/shared@0.3.2
+  - @sl-design-system/text-field@1.4.0
+  - @sl-design-system/select@1.1.1
+
+## 0.1.13
+
+### Patch Changes
+
+- Updated dependencies [[`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb), [`07b4c26`](https://github.com/sl-design-system/components/commit/07b4c2697c0a8221f808927b0c52f4a0c46567e9), [`5679f25`](https://github.com/sl-design-system/components/commit/5679f25338d5d5e356c6d5c0052bb7bf4a066f50), [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/icon@1.0.2
+  - @sl-design-system/checkbox@2.0.0
+  - @sl-design-system/popover@1.1.0
+  - @sl-design-system/select@1.1.0
+  - @sl-design-system/shared@0.3.0
+  - @sl-design-system/text-field@1.3.5
+
 ## 0.1.12
 
 ### Patch Changes

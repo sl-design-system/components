@@ -13,7 +13,7 @@ export type SkeletonEffect = 'none' | 'shimmer' | 'pulse' | 'sheen';
 export type SkeletonVariant = 'circle' | 'default';
 
 export class Skeleton extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /**

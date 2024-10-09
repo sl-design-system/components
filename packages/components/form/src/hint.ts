@@ -16,7 +16,7 @@ export type HintSize = 'sm' | 'md' | 'lg';
  * @slot hint-text - The hint to display.
  */
 export class Hint extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The light DOM slot. */

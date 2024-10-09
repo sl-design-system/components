@@ -7,27 +7,32 @@ import '@sl-design-system/tooltip/register.js';
   standalone: true
 })
 export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
-  private tooltip?: Tooltip;
+  private tooltip?: Tooltip | (() => void);
 
   @Input() slTooltip = '';
 
   constructor(private elRef: ElementRef<HTMLElement>) {}
 
   ngOnChanges(): void {
-    if (this.tooltip) {
+    if (this.tooltip instanceof Tooltip) {
       this.tooltip.textContent = this.slTooltip;
     }
   }
 
   ngAfterViewInit(): void {
-    Tooltip.lazy(this.elRef.nativeElement, tooltip => {
+    this.tooltip = Tooltip.lazy(this.elRef.nativeElement, tooltip => {
       this.tooltip = tooltip;
       tooltip.textContent = this.slTooltip;
     });
   }
 
   ngOnDestroy(): void {
-    this.tooltip?.remove();
-    this.tooltip = undefined;
+    if (this.tooltip instanceof Tooltip) {
+      this.tooltip?.remove();
+      this.tooltip = undefined;
+    } else if (this.tooltip) {
+      this.tooltip();
+      this.tooltip = undefined;
+    }
   }
 }

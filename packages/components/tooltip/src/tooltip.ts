@@ -17,9 +17,8 @@ declare global {
 export interface TooltipOptions {
   /**
    * This determines the context that is used to create the `<sl-tooltip>` element. If
-   * not provided, the tooltip will be created on the document. But that assumes that
-   * the tooltip web component is already defined in the document. Otherwise you can
-   * specify a shadow root that has the tooltip defined in it.
+   * not provided, the tooltip will be created on the target element if it has a `shadowRoot`,
+   * or the root node of the target element.
    */
   context?: Document | ShadowRoot;
 
@@ -39,42 +38,62 @@ let nextUniqueId = 0;
  * @slot default - The slot for the tooltip content.
  */
 export class Tooltip extends LitElement {
-  /** The default padding of the arrow. */
+  /** @internal The default padding of the arrow. */
   static arrowPadding = 16;
 
-  /** The default offset of the tooltip to its anchor. */
+  /** @internal The default offset of the tooltip to its anchor. */
   static offset = 12;
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The default margin between the tooltip and the viewport. */
+  /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
-  static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): void {
+  static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
     const createTooltip = (): void => {
-      const tooltip = (options.context ?? document).createElement('sl-tooltip') as Tooltip;
-      tooltip.id = `sl-tooltip-${nextUniqueId++}`;
-
-      callback(tooltip);
+      const context = options.context || target.shadowRoot || (target.getRootNode() as Document),
+        tooltip = context.createElement('sl-tooltip') as Tooltip;
 
       if (options.parentNode) {
         options.parentNode.appendChild(tooltip);
       } else {
-        target.parentNode?.insertBefore(tooltip, target.nextSibling);
+        target.parentNode!.insertBefore(tooltip, target.nextSibling);
       }
 
+      // If the tooltip has no popover property, then the sl-tooltip custom element
+      // is not defined in either the `options.context` or the document.
+      if (tooltip.popover === null) {
+        console.warn(
+          `The sl-tooltip custom element is not defined in the ${context !== document ? `${(context as ShadowRoot).host.tagName} element` : 'document'}. Please make sure to register the sl-tooltip custom element in your application.`
+        );
+
+        tooltip.remove();
+        cleanup();
+
+        return;
+      }
+
+      tooltip.id = `sl-tooltip-${nextUniqueId++}`;
       target.setAttribute('aria-describedby', tooltip.id);
+
+      callback(tooltip);
 
       tooltip.anchorElement = target as HTMLElement;
       tooltip.showPopover();
 
       // We only need to create the tooltip once, so ignore all future events.
+      cleanup();
+    };
+
+    const cleanup = () => {
       ['focusin', 'pointerover'].forEach(eventName => target.removeEventListener(eventName, createTooltip));
     };
 
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
+
+    return cleanup;
   }
 
   /** Controller for managing anchoring. */

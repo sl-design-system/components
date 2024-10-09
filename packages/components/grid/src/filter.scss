@@ -27,7 +27,7 @@ sl-popover {
 
 header {
   align-items: center;
-  border-block-end: 1px solid #ccc;
+  border-block-end: 1px solid var(--sl-color-elevation-border-raised);
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;

@@ -1,10 +1,6 @@
 import { localized, msg } from '@lit/localize';
-import {
-  type DataSource,
-  type DataSourceFilterFunction,
-  getNameByPath,
-  getValueByPath
-} from '@sl-design-system/shared';
+import { type DataSource, type DataSourceFilterFunction } from '@sl-design-system/data-source';
+import { getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
@@ -91,6 +87,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
     super.stateChanged();
 
     const filter = this.grid?.dataSource?.filters.get(this.id);
+
     this.value = filter ? filter.value : undefined;
   }
 

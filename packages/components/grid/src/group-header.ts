@@ -15,7 +15,7 @@ declare global {
 }
 
 export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -24,7 +24,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Whether the group is expanded or collapsed. */

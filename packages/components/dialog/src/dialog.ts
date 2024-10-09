@@ -51,7 +51,6 @@ export type SlCloseEvent = CustomEvent<void>;
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
  */
-
 @localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -66,21 +65,21 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  /** @internal */
-  @query('dialog') dialog?: HTMLDialogElement;
-
   /**
-   * Emits when the cancel has been cancelled. This happens when the user closes
+   * Emits when the dialog has been cancelled. This happens when the user closes
    * the dialog using the escape key or clicks on the backdrop.
    * @internal
    */
   @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
+  /** Determines whether a close button should be shown in the top right corner. */
+  @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
+
   /** @internal Emits when the dialog has been closed. */
   @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
 
-  /** Determines whether a close button should be shown in the top right corner. */
-  @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
+  /** @internal */
+  @query('dialog') dialog?: HTMLDialogElement;
 
   /** The role for the dialog element. */
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
@@ -107,38 +106,82 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
         part="dialog"
       >
-        <div part="header">
-          <slot name="header">
-            <div part="titles">
-              <slot name="title" id="title"></slot>
-              <slot name="subtitle"></slot>
-            </div>
-            <slot name="header-actions">
-              <sl-button-bar part="header-bar">
-                <slot name="header-buttons"></slot>
-                ${this.closeButton
-                  ? html`
-                      <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
-                        <sl-icon name="xmark"></sl-icon>
-                      </sl-button>
-                    `
-                  : nothing}
-              </sl-button-bar>
-            </slot>
-          </slot>
-        </div>
-        <div part="body">
-          <slot></slot>
-        </div>
-        <div part="footer">
-          <slot name="footer">
-            <sl-button-bar part="footer-bar">
-              <slot name="actions"></slot>
-            </sl-button-bar>
-          </slot>
-        </div>
+        <div part="header">${this.renderHeader()}</div>
+        <div part="body">${this.renderBody()}</div>
+        <div part="footer">${this.renderFooter()}</div>
       </dialog>
     `;
+  }
+
+  /**
+   * Override this method to customize the header of the dialog. If you only
+   * want to customize the title, you can use the `title` and `subtitle` arguments
+   * and call `super.renderHeader('My title', 'My subtitle')` to render the default
+   * header.
+   *
+   * Beware when customizing the header: the `<dialog>` element is labelled by
+   * the element with ID `title`. If you override this method, make sure to include
+   * an element with ID `title` in the header.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderHeader(title = '', subtitle = ''): TemplateResult {
+    return html`
+      <slot name="header">
+        <div part="titles">
+          <slot name="title" id="title">${title}</slot>
+          <slot name="subtitle">${subtitle}</slot>
+        </div>
+        <slot name="header-actions">
+          <sl-button-bar part="header-bar">
+            <slot name="header-buttons"></slot>
+            ${this.closeButton
+              ? html`
+                  <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
+                    <sl-icon name="xmark"></sl-icon>
+                  </sl-button>
+                `
+              : nothing}
+          </sl-button-bar>
+        </slot>
+      </slot>
+    `;
+  }
+
+  /**
+   * Override this method to customize the body of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderBody(): TemplateResult {
+    return html`<slot></slot>`;
+  }
+
+  /**
+   * Override this method to customize the footer of the dialog. If you only
+   * want to add action buttons, see the `renderActions` method.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderFooter(): TemplateResult {
+    return html`
+      <slot name="footer">
+        <sl-button-bar part="footer-bar"><slot name="actions">${this.renderActions()}</slot></sl-button-bar>
+      </slot>
+    `;
+  }
+
+  /**
+   * Override this method to customize the actions in the footer of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderActions(): TemplateResult | typeof nothing {
+    return nothing;
   }
 
   /** Show the dialog as a modal, in the top layer, with a backdrop. */

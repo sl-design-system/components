@@ -58,7 +58,7 @@ addons.setConfig({
     renderLabel: (item: HashEntry, api: API) => {
       if (item.depth !== 1 || item.type === 'docs') return item.name;
 
-      const tags = findComponentTags(item.children?.map(id => api.getData(id)).filter(({ type }) => type === 'story'));
+      const tags = findComponentTags(item.children?.map(id => api.getData(id)).filter(child => child?.type === 'story'));
       if (tags.length) {
         const tag = tags[0];
 

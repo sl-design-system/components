@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, closestElementComposed, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -46,8 +46,11 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   /** The value of the text field. */
   #value: T | undefined = '' as unknown as T;
 
-  /** Specifies which type of data the browser can use to pre-fill the input. */
-  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
+  /**
+   * Specifies which type of data the browser can use to pre-fill the input.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+   */
+  @property() autocomplete?: string;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -122,7 +125,6 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
-      this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
         this.append(this.input);
@@ -149,7 +151,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     ];
 
     if (props.some(prop => changes.has(prop))) {
-      this.#syncInput(this.input);
+      this.updateInputElement(this.input);
     }
 
     if (changes.has('disabled')) {
@@ -229,14 +231,20 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   }
 
   #onBlur(): void {
-    this.hasFocusRing = false;
-    this.blurEvent.emit();
-    this.updateState({ touched: true });
+    // Only emit the event if we have focus
+    if (this.hasFocusRing) {
+      this.hasFocusRing = false;
+      this.blurEvent.emit();
+      this.updateState({ touched: true });
+    }
   }
 
   #onFocus(): void {
-    this.hasFocusRing = true;
-    this.focusEvent.emit();
+    // Only emit the event if we don't have focus
+    if (!this.hasFocusRing) {
+      this.hasFocusRing = true;
+      this.focusEvent.emit();
+    }
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
@@ -257,33 +265,45 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   #onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
-      this.form?.requestSubmit();
+      if (this.form) {
+        this.form.requestSubmit();
+      } else {
+        closestElementComposed(this, 'sl-form')?.requestSubmit();
+      }
     }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
+      inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 
-    // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    if (input) {
-      this.input = input;
-      this.input.addEventListener('blur', () => this.#onBlur());
-      this.input.addEventListener('focus', () => this.#onFocus());
-      this.#syncInput(this.input);
-
-      this.setFormControlElement(this.input);
+    // If an input has been slotted after `connectedCallback`, that input takes precedence
+    if (this.input && this.input !== inputs.at(0)) {
+      this.input.remove();
     }
+
+    this.input = inputs.at(0)!;
+    this.input.addEventListener('blur', () => this.#onBlur());
+    this.input.addEventListener('focus', () => this.#onFocus());
+    this.updateInputElement(this.input);
+    this.setFormControlElement(this.input);
   }
 
-  #syncInput(input: HTMLInputElement): void {
-    input.autocomplete = this.autocomplete || 'off';
+  /** @internal Synchronize the input element with the component properties. */
+  updateInputElement(input: HTMLInputElement): void {
+    if (!input) {
+      return;
+    }
+
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-text-field-${nextUniqueId++}`;
     input.placeholder = this.placeholder ?? '';
     input.readOnly = !!this.readonly;
     input.required = !!this.required;
+
+    // Use `setAttribute` to avoid typing coercion
+    input.setAttribute('autocomplete', this.autocomplete || 'off');
 
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {

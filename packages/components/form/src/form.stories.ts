@@ -1,7 +1,9 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
@@ -157,15 +159,42 @@ export const All: Story = {
   args: {
     fields: () => html`
       <sl-form-field hint="Hint text" label="Text field">
-        <sl-text-field name="input" placeholder="Placeholder" required></sl-text-field>
+        <sl-text-field name="textField" placeholder="Placeholder" required></sl-text-field>
       </sl-form-field>
 
-      <sl-form-field hint="Hint text" label="Textarea">
-        <sl-text-area name="textarea" placeholder="Placeholder" required></sl-text-area>
+      <sl-form-field hint="Hint text" label="Text area">
+        <sl-text-area name="textArea" placeholder="Placeholder" required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Checkbox">
         <sl-checkbox name="checkbox" required value="checked">Checkbox</sl-checkbox>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Checkbox group">
+        <sl-checkbox-group name="checkboxGroup" required>
+          <sl-checkbox value="0">Check me</sl-checkbox>
+          <sl-checkbox value="1">No me</sl-checkbox>
+          <sl-checkbox value="2">I was here first</sl-checkbox>
+        </sl-checkbox-group>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Combobox">
+        <sl-combobox name="combobox" required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+            <sl-option>Option 4</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Radio group">
+        <sl-radio-group name="radioGroup" required>
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Select">
@@ -178,22 +207,6 @@ export const All: Story = {
 
       <sl-form-field hint="Hint text" label="Switch">
         <sl-switch name="switch" reverse value="toggled">Toggle me</sl-switch>
-      </sl-form-field>
-
-      <sl-form-field hint="Hint text" label="Checkbox group">
-        <sl-checkbox-group name="checkboxGroup" required>
-          <sl-checkbox value="0">Check me</sl-checkbox>
-          <sl-checkbox value="1">No me</sl-checkbox>
-          <sl-checkbox value="2">I was here first</sl-checkbox>
-        </sl-checkbox-group>
-      </sl-form-field>
-
-      <sl-form-field hint="Hint text" label="Radio group">
-        <sl-radio-group name="radioGroup" required>
-          <sl-radio value="1">One</sl-radio>
-          <sl-radio value="2">Two</sl-radio>
-          <sl-radio value="3">Three</sl-radio>
-        </sl-radio-group>
       </sl-form-field>
     `
   }
@@ -212,13 +225,14 @@ export const AllValid: Story = {
     reportValidity: true,
     reset: true,
     value: {
-      input: 'Textfield',
-      textarea: 'Textarea',
+      textField: 'Text field',
+      textArea: 'Text area',
       checkbox: 'checked',
-      select: '2',
-      switch: 'toggled',
       checkboxGroup: ['1'],
-      radioGroup: '2'
+      combobox: 'Option 2',
+      radioGroup: '2',
+      select: '2',
+      switch: 'toggled'
     }
   }
 };

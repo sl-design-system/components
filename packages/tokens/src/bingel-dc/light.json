@@ -320,7 +320,7 @@
           "selected": {
             "idle": {
               "background": {
-                "value": "{color.palette.neutral.100}",
+                "value": "{color.palette.accent.50}",
                 "type": "color",
                 "description": "color.button.default.outline.idle.background"
               },
@@ -337,7 +337,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.neutral.100}",
+                "value": "{color.palette.accent.100}",
                 "type": "color",
                 "description": "color.button.default.outline.hover.background"
               },
@@ -354,7 +354,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.accent.150}",
                 "type": "color",
                 "description": "color.button.default.outline.active.background"
               },
@@ -530,7 +530,7 @@
           "selected": {
             "idle": {
               "background": {
-                "value": "{color.palette.neutral.100}",
+                "value": "{color.palette.accent.50}",
                 "type": "color",
                 "description": "color.button.default.outline.idle.background"
               },
@@ -547,7 +547,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.neutral.100}",
+                "value": "{color.palette.accent.100}",
                 "type": "color",
                 "description": "color.button.default.outline.hover.background"
               },
@@ -564,7 +564,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.accent.150}",
                 "type": "color",
                 "description": "color.button.default.outline.active.background"
               },

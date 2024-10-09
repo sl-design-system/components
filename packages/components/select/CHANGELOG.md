@@ -1,5 +1,17 @@
 # @sl-design-system/select
 
+## 1.1.1
+
+### Patch Changes
+
+- [#1536](https://github.com/sl-design-system/components/pull/1536) [`d79c397`](https://github.com/sl-design-system/components/commit/d79c3977b15cf55c8a83db94fc4ab98a1fe7e328) - Fix combobox, radio-group and select not focusing the form control when clicking the label
+
+- [#1492](https://github.com/sl-design-system/components/pull/1492) [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d) - Fix `.focus()` not working properly on the select component.
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`000723a`](https://github.com/sl-design-system/components/commit/000723a8e42cb468383fa0b968eb31a672b95e80)]:
+  - @sl-design-system/shared@0.3.2
+  - @sl-design-system/form@1.0.4
+
 ## 1.1.0
 
 ### Minor Changes

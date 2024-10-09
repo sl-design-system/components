@@ -2,19 +2,15 @@
 import { localized } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import {
-  ArrayDataSource,
-  type DataSource,
-  type EventEmitter,
-  SelectionController,
-  event,
-  getValueByPath,
-  isSafari
-} from '@sl-design-system/shared';
+import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
+import { EllipsizeText } from '@sl-design-system/ellipsize-text';
+import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
 import { GridColumnGroup } from './column-group.js';
@@ -95,7 +91,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-grid-group-header': GridGroupHeader
+      'sl-ellipsize-text': EllipsizeText,
+      'sl-grid-group-header': GridGroupHeader,
+      'sl-skeleton': Skeleton
     };
   }
 
@@ -190,6 +188,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Provides clarity when 'between-or-on-top' is the active draggableRows value. */
   @property({ reflect: true, attribute: 'drop-target-mode' }) dropTargetMode?: 'between' | 'on-grid' | 'on-top';
 
+  /** This will ellipsize the text in the `<td>` elements if it overflows. */
+  @property({ type: Boolean, reflect: true, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
   /** Custom renderer for group headers. */
   @property({ attribute: false }) groupHeaderRenderer?: GridGroupHeaderRenderer;
 
@@ -278,6 +279,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('scopedElements')) {
       this.#addScopedElements(this.scopedElements);
     }
+
+    if (changes.has('ellipsizeText')) {
+      this.view.headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
+    }
   }
 
   override render(): TemplateResult {
@@ -356,7 +361,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ${rows.slice(0, -1).map(
         row => html`
           <tr>
-            ${row.map(col => col.renderHeader())}
+            ${repeat(
+              row,
+              col => col.path,
+              col => col.renderHeader()
+            )}
           </tr>
         `
       )}
@@ -368,7 +377,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <tr style=${styleMap({ display: showSelectionHeader ? 'none' : '' })}>
-        ${rows.at(-1)?.map(col => col.renderHeader())}
+        ${repeat(
+          rows.at(-1) ?? [],
+          col => col.path,
+          col => col.renderHeader()
+        )}
       </tr>
     `;
   }
@@ -648,7 +661,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
-    const items = this.dataSource?.filteredItems ?? [],
+    const items = this.dataSource?.items ?? [],
       groupItems = items.filter(item => getValueByPath(item, group.path) === group.value);
 
     if (event.detail) {
@@ -681,6 +694,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (this.dataSource) {
         col.itemsChanged();
+      }
+
+      if (this.ellipsizeText) {
+        col.ellipsizeText = this.ellipsizeText;
       }
 
       if (col instanceof GridFilterColumn) {
@@ -741,8 +758,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       const id = f.column.id,
         empty = (Array.isArray(f.value) && f.value.length === 0) || !f.value;
 
-      if (!empty && (f.path || f.filter)) {
-        this.dataSource?.addFilter(id, f.path! || f.filter!, f.value);
+      if (!empty && (f.filter || f.path)) {
+        this.dataSource?.addFilter(id, f.filter! || f.path!, f.value);
       } else {
         this.dataSource?.removeFilter(id);
       }
@@ -761,7 +778,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
-      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction!);
+      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
       this.dataSource?.removeSort();
     }

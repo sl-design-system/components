@@ -2,6 +2,7 @@ import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer
 import { expect, fixture } from '@open-wc/testing';
 import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/avatar/register.js';
+import { FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { html } from 'lit';
 import { Person } from 'tools/example-data/index.js';
 import '../register.js';
@@ -57,6 +58,33 @@ describe('sl-column', () => {
         'data age'
       ]);
     });
+
+    it('should not ellipsize the text in the cells', () => {
+      expect(el.renderRoot.querySelector('sl-ellipsize-text')).not.to.exist;
+    });
+
+    it('should ellipsize the text in the cells when set', async () => {
+      el.ellipsizeText = true;
+      await el.updateComplete;
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td')).map(
+          cell => cell.firstElementChild?.tagName === 'SL-ELLIPSIZE-TEXT'
+        )
+      ).to.deep.equal([true, true, false]);
+    });
+
+    it('should ellipsize the text in the cells when set on the column', async () => {
+      el.querySelector('sl-grid-column')!.ellipsizeText = true;
+      el.requestUpdate();
+      await el.updateComplete;
+
+      expect(
+        Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td')).map(
+          cell => cell.firstElementChild?.tagName === 'SL-ELLIPSIZE-TEXT'
+        )
+      ).to.deep.equal([true, false, false]);
+    });
   });
 
   describe('custom renderer', () => {
@@ -99,6 +127,31 @@ describe('sl-column', () => {
 
     it('should have the right parts, including one set on the column', () => {
       expect(cells.map(cell => cell.getAttribute('part'))).to.deep.equal(['data', 'data number age']);
+    });
+  });
+
+  describe('skeleton', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [FetchDataSourcePlaceholder];
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+
+      cells = Array.from(el.renderRoot.querySelectorAll('tbody tr:first-of-type td'));
+    });
+
+    it('should render skeleton cells', () => {
+      const skeletons = Array.from(el.renderRoot.querySelectorAll('td > *')).map(el => el.tagName);
+
+      expect(skeletons).to.deep.equal(['SL-SKELETON', 'SL-SKELETON']);
     });
   });
 });

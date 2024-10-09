@@ -113,7 +113,7 @@ describe('sl-tag', () => {
       expect(tag).to.have.trimmed.text('7');
 
       el.querySelector('sl-tag:last-child')?.remove();
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(tag).to.have.trimmed.text('6');
     });

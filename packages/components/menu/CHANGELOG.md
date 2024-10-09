@@ -1,5 +1,24 @@
 # @sl-design-system/menu
 
+## 0.1.2
+
+### Patch Changes
+
+- [#1540](https://github.com/sl-design-system/components/pull/1540) [`d52af39`](https://github.com/sl-design-system/components/commit/d52af39c81ca5e8ed2e5b27a79dc3bf3ad162899) - Set initial aria-details and aria-expanded on the menu button
+
+## 0.1.1
+
+### Patch Changes
+
+- [#1510](https://github.com/sl-design-system/components/pull/1510) [`563dccc`](https://github.com/sl-design-system/components/commit/563dccce29fc961ef46147c41a8f9f82bd2db384) - Do not transform token parts to kebab case, only add '-' in between
+
+  This change is only for the new contextual tokens. Previously any snakeCase
+  tokens would be transformed into kebab-case. This is not the desired behavior
+  for the new contextual tokens.
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d)]:
+  - @sl-design-system/shared@0.3.2
+
 ## 0.1.0
 
 ### Minor Changes

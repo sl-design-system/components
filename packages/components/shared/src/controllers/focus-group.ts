@@ -1,3 +1,4 @@
+import { RangeChangedEvent } from '@lit-labs/virtualizer';
 import { type ReactiveController, type ReactiveElement } from 'lit';
 
 type DirectionTypes = 'horizontal' | 'vertical' | 'both' | 'grid';
@@ -5,6 +6,7 @@ type DirectionTypes = 'horizontal' | 'vertical' | 'both' | 'grid';
 export type FocusGroupConfig<T> = {
   focusInIndex?(elements: T[]): number;
   direction?: DirectionTypes | (() => DirectionTypes);
+  directionLength?: number;
   elementEnterAction?(el: T): void;
   elements(): T[];
   isFocusableElement?(el: T): boolean;
@@ -14,6 +16,7 @@ export type FocusGroupConfig<T> = {
 export class FocusGroupController<T extends HTMLElement> implements ReactiveController {
   #currentIndex = -1;
   #direction = (): DirectionTypes => 'both';
+  #directionLength = (): number => 1;
   #elements: () => T[];
   #focused = false;
   #focusInIndex = (_elements: T[]): number => 0;
@@ -26,11 +29,15 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       this.#currentIndex = this.focusInIndex;
     }
 
-    return this.#currentIndex - this.offset;
+    return this.#currentIndex - this.offset * this.#directionLength();
   }
 
   set currentIndex(currentIndex) {
-    this.#currentIndex = currentIndex + this.offset;
+    this.#currentIndex = currentIndex + this.offset * this.#directionLength();
+  }
+
+  set directionLength(directionLength: number) {
+    this.#directionLength = () => directionLength;
   }
 
   get direction(): DirectionTypes {
@@ -66,8 +73,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     return this.#focusInIndex(this.elements);
   }
 
-  directionLength = 5;
-
   host: ReactiveElement;
 
   isFocusableElement = (_el: T): boolean => true;
@@ -84,6 +89,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     host: ReactiveElement,
     {
       direction,
+      directionLength,
       elementEnterAction,
       elements,
       focusInIndex,
@@ -98,6 +104,12 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       this.#direction = () => direction;
     } else if (typeof direction === 'function') {
       this.#direction = direction;
+    }
+
+    if (typeof directionLength === 'number') {
+      this.#directionLength = () => directionLength;
+    } else if (typeof directionLength === 'function') {
+      this.#directionLength = directionLength;
     }
 
     this.#elements = elements;
@@ -129,12 +141,21 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   update({ elements }: FocusGroupConfig<T> = { elements: () => [] }): void {
     this.unmanage();
     this.#elements = elements;
+
     this.clearElementCache();
+    this.manage();
+  }
+
+  updateWithVirtualizer({ elements }: FocusGroupConfig<T> = { elements: () => [] }, event: RangeChangedEvent): void {
+    this.unmanage();
+    this.#elements = elements;
+    this.clearElementCache(event.first);
     this.manage();
   }
 
   focus(options?: FocusOptions): void {
     let focusElement = this.elements[this.currentIndex];
+    console.log(focusElement);
     if (!focusElement || !this.isFocusableElement(focusElement)) {
       this.setCurrentIndexCircularly(1);
       focusElement = this.elements[this.currentIndex];
@@ -169,7 +190,8 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       nextIndex = (length + nextIndex + diff) % length;
       steps -= 1;
     }
-    this.currentIndex = nextIndex;
+    // this.currentIndex = nextIndex;
+    this.focusToElement(nextIndex);
   }
 
   hostContainsFocus(): void {
@@ -236,13 +258,13 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
         diff += 1;
         break;
       case 'ArrowDown':
-        diff += this.direction === 'grid' ? this.directionLength : 1;
+        diff += this.direction === 'grid' ? this.#directionLength() : 1;
         break;
       case 'ArrowLeft':
         diff -= 1;
         break;
       case 'ArrowUp':
-        diff -= this.direction === 'grid' ? this.directionLength : 1;
+        diff -= this.direction === 'grid' ? this.#directionLength() : 1;
         break;
       case 'End':
         this.currentIndex = 0;
@@ -254,21 +276,39 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
         break;
     }
     event.preventDefault();
+    //TODO: the first rows that are out of view have not yet been removed from the 'elements' list, but the index already takes the offset into account.
+    // console.log({
+    //   current: this.currentIndex + ' - row: ' + this.currentIndex / this.#directionLength(),
+    //   next:
+    //     this.currentIndex +
+    //     diff +
+    //     ' - row: ' +
+    //     (this.currentIndex + diff - this.offset * this.#directionLength()) / this.#directionLength(),
+    //   offset: this.offset,
+    //   totalNumberOfElements: this.elements[0].textContent
+    // });
+
+    //todo take offset into account
     if (this.direction === 'grid' && this.currentIndex + diff < 0) {
-      this.currentIndex = 0;
+      // this.currentIndex = 0;
+      this.focusToElement(0);
     } else if (this.direction === 'grid' && this.currentIndex + diff > this.elements.length - 1) {
-      this.currentIndex = this.elements.length - 1;
+      // this.currentIndex = ;
+      this.focusToElement(this.elements.length - 1);
     } else {
       this.setCurrentIndexCircularly(diff);
     }
     // To allow the `focusInIndex` to be calculated with the "after" state of the keyboard interaction
     // do `elementEnterAction` _before_ focusing the next element.
-    this.elementEnterAction(this.elements[this.currentIndex]);
-    this.focus();
+    // this.elementEnterAction(this.elements[this.currentIndex + this.offset * this.#directionLength()]);
+    // this.focus();
   };
 
   manage(): void {
     this.addEventListeners();
+    if (this.focused) {
+      this.hostContainsFocus();
+    }
   }
 
   unmanage(): void {

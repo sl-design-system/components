@@ -14,6 +14,9 @@
   --_dragging-opacity: 0.8;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_font: var(--sl-text-body-md-normal);
   --_group-background: #eee;
   --_header-background: #f9f9f9;
@@ -146,6 +149,14 @@ td {
     --_cell-padding-inline: 0.5rem;
 
     inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
+  }
+
+  &:focus-visible,
+  :focus-visible {
+    border-radius: var(--_focus-radius);
+    outline: var(--_focus-outline);
+    outline-offset: calc(var(--_focus-outline-offset) * -1);
+    z-index: 1;
   }
 }
 

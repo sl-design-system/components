@@ -1,6 +1,6 @@
 import { type EventEmitter, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { type Grid } from './grid.js';
 
 declare global {
@@ -106,6 +106,8 @@ export class GridColumn<T = any> extends LitElement {
   /** Whether this column is sticky when the user scrolls horizontally. */
   @property({ type: Boolean, reflect: true }) sticky?: boolean;
 
+  @state() selected?: boolean;
+
   set width(value: number | undefined) {
     this.#width = value;
   }
@@ -163,7 +165,7 @@ export class GridColumn<T = any> extends LitElement {
     if (this.ellipsizeText && typeof data === 'string') {
       return html`<td part=${parts.join(' ')}><sl-ellipsize-text>${data}</sl-ellipsize-text></td>`;
     } else {
-      return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;
+      return html`<td part=${parts.join(' ')} .tabIndex=${this.selected ? 0 : -1}>${data || 'No path set'}</td>`;
     }
   }
 

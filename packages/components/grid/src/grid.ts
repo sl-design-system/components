@@ -1,5 +1,6 @@
 /* eslint-disable lit/prefer-static-styles */
 import { localized } from '@lit/localize';
+import { RangeChangedEvent, VisibilityChangedEvent } from '@lit-labs/virtualizer';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
@@ -7,6 +8,7 @@ import {
   ArrayDataSource,
   type DataSource,
   type EventEmitter,
+  RovingTabindexController,
   SelectionController,
   event,
   getValueByPath,
@@ -130,6 +132,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
   });
 
+  /** Manage keyboard navigation between cells. */
+  #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
+    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => el.hasAttribute('selected')),
+    direction: 'grid',
+    directionLength: 5,
+    elements: () => this.cells || [],
+    isFocusableElement: (el: HTMLElement) => !el.hasAttribute('disabled')
+  });
+
   /** We need to know when the user drags items outside of the grid. */
   #onWindowDragOver = (event: DragEvent) => {
     const grid = event.composedPath().find(el => el instanceof Grid);
@@ -155,8 +166,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: Virtualizer;
 
+  // First visible element
+  _first = 0;
+  _last = 0;
+
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
+
+  @state() cells: HTMLElement[] = [];
 
   /** The active item in the grid. */
   @state() activeItem?: T;
@@ -306,7 +323,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
+        <tbody @visibilityChanged=${this.#onVisibilityChanged} @rangeChanged=${this.#onRangeChanged} part="tbody">
           ${virtualize({
             items: this.view.rows,
             renderItem: (item, index) => this.renderItem(item, index)
@@ -419,7 +436,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         part=${parts.join(' ')}
         index=${index}
       >
-        ${rows[rows.length - 1].map(col => col.renderData(item))}
+        ${index} ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
   }
@@ -723,6 +740,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
     this.view.columnDefinitions = columns;
+    const bodyColumns = this.view.headerRows[this.view.headerRows.length - 1];
+    this.#rovingTabindexController.directionLength = bodyColumns.length;
+    this.#rovingTabindexController.clearElementCache();
   }
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
@@ -740,7 +760,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters(true);
   }
 
-  #onVisibilityChanged(): void {
+  #onRangeChanged(event: RangeChangedEvent): void {
+    setTimeout(() => {
+      this.cells = Array.from(this.renderRoot.querySelectorAll('[part~=row] td'));
+      this.#rovingTabindexController.updateWithVirtualizer({ elements: () => this.cells || [] }, event);
+    }, 100);
+  }
+
+  #onVisibilityChanged(event: VisibilityChangedEvent): void {
+    this._first = event.first;
+    this._last = event.last;
+
     if (!this.#initialColumnWidthsCalculated) {
       this.#initialColumnWidthsCalculated = true;
 
@@ -804,6 +834,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters();
 
     dataSource?.update();
+
+    this.cells = Array.from(this.renderRoot.querySelectorAll('td'));
+    this.#rovingTabindexController.clearElementCache();
     this.stateChangeEvent.emit({ grid: this });
   }
 }

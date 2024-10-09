@@ -9,3 +9,7 @@
   gap: 8px;
   text-wrap: nowrap;
 }
+
+sl-select {
+  min-inline-size: var(--sl-size-paginator-select-min-width);
+}

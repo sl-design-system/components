@@ -20,15 +20,6 @@ button:focus-visible {
   z-index: 1;
 }
 
-//button:focus-visible::before {
-//  background: var(--_indicator-color);
-//  border-radius: var(--_indicator-listbox-border-radius);
-//  content: '';
-//  inline-size: var(--_indicator-size);
-//  inset: 0 auto 0 0;
-//  position: absolute;
-//}
-
 button:where(:active, :hover) {
   transition-duration: var(--_transition-duration);
   transition-property: background, border-color, color, outline-color;
@@ -37,8 +28,8 @@ button:where(:active, :hover) {
 
 button {
   position: relative;
-  min-inline-size: 40px; // TODO: use tokens
-  padding-block: 7px;
+  min-inline-size: var(--sl-size-paginator-page-button-min-width); //40px; // TODO: use tokens
+  padding-block: 7px; // TODO: use a token
   padding-inline: 0;
   display: inline-flex;
   justify-content: center;

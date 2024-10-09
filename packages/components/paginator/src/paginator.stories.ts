@@ -94,12 +94,18 @@ export const Overflow: Story = {
 export const Mobile: Story = {
   args: {
     ...Basic.args,
-    total: 100
+    activePage: 5,
+    total: 150
   },
   parameters: {
     viewport: {
       defaultViewport: 'iphone5'
     }
+  },
+  render: ({activePage, itemsPerPage, pageSizes, total}) => {
+    return html`
+    <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator>
+    `
   }
 };
 

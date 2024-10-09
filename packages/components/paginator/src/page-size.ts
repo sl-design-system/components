@@ -64,7 +64,7 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
         Items per page:
         ${this.pageSizes ?
       html`
-        <sl-select .value=${this.itemsPerPage} style="min-inline-size: 60px;">
+        <sl-select size="lg" .value=${this.itemsPerPage}>
             ${this.pageSizes?.map(
         (size) => html`
                 <sl-select-option @click=${this.#setValue} .value=${size}>${size}</sl-select-option
@@ -87,4 +87,4 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
 
 // TODO: accessibility
 
-// TODO: translationg with msg
+// TODO: translation with msg

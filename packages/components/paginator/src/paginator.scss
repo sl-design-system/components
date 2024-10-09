@@ -6,33 +6,28 @@
   --_padding-inline: var(--sl-space-sm);
   --_wrapper-padding-inline: var(--sl-space-sm);
 
-  //border: 1px solid var(--sl-color-palette-neutral-200);
-  //border-radius: var(--sl-border-radius-2xs);
-  // display: flex;
-  // justify-content: space-between;;
-  // flex-direction: column;
-  //padding-block: 8px;
-  //padding-inline: 0;
-//  padding-inline: 4px;
-  // align-items: center;
-  // gap: 16px;
-  // display: grid;
-  // grid-template-columns: 1fr auto 2fr;
+  --_gap: var(--sl-space-paginator-gap); //8px; // TODO: use a token, variable name used in the calculation in the component
+
   display: flex;
   justify-content: center;
+}
+
+.container {
+ // flex-grow: 1;
 }
 
 .pages-wrapper {
   display: flex;
   overflow-x: hidden;
   align-items: center;
+  gap: var(--_gap); //8px; // TODO: use a token
   padding: var(--_focus-space); //4px; // TODO: to make focus-ring visible with overflow hidden
 }
 
 ul {
   // display: flex;
   align-items: center;
- // gap: 8px;
+  gap: var(--_gap); //8px; // TODO: use a token
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   padding: 0;
@@ -41,7 +36,9 @@ ul {
 }
 
 ul[mobile] {
-  grid-template-columns: auto;
+  //grid-template-columns: auto;
+  display: block;
+  margin: var(--_focus-space); // TODO: to align with changes for focus ring
 }
 
 li {
@@ -51,9 +48,12 @@ li {
 
 .select-wrapper {
   display: flex;
-  gap: 16px;
-  //width: max-content;
+  gap: var(--_gap);
   align-items: center;
   flex-wrap: wrap;
-  padding: var(--_focus-space); //4px; // TODO: to make focus-ring visible with overflow hidden
+  //padding: var(--_focus-space); //4px; // TODO: to make focus-ring visible with overflow hidden
+
+  sl-select {
+    min-inline-size: var(--sl-size-paginator-select-min-width); //80px;
+  }
 }

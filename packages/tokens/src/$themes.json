@@ -5,8 +5,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-dc/base": "enabled",
-      "bingel-dc/light": "enabled",
-      "token-test/light": "disabled"
+      "bingel-dc/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:d862768937bd0d35b24f98a85118629fc7b35cb2,",
@@ -680,10 +679,10 @@
       "color.palette.danger.base": "S:d02b96e3185b2422483fff804f27f8da2e1a21e7,",
       "color.palette.black.base": "S:d1a4413bf3259721f46ca227d34422b55535a64e,",
       "color.palette.white.base": "S:25bbc9b027914a502bec2d480f59c323483ff0e9,",
-      "color.palette.transparent.base": "S:61df98911e65b09ae42cecb9ae0876eedaffdc28,",
       "{color.palette.neutral.500}": "S:1e51566e1c0e915f972f311cc3b949b3befc6854,",
       "color.input.textField.default.active.border": "S:2c807485fed410e561f4fea5491b9a771fd440c8,",
-      "color.input.textField.default.focus.border": "S:2ed4fae7c062a23a7ae769ca694b02413b8cba37,"
+      "color.input.textField.default.focus.border": "S:2ed4fae7c062a23a7ae769ca694b02413b8cba37,",
+      "color.palette.transparent": "S:61df98911e65b09ae42cecb9ae0876eedaffdc28,"
     }
   },
   {
@@ -692,8 +691,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-int/base": "enabled",
-      "bingel-int/light": "enabled",
-      "token-test/light": "disabled"
+      "bingel-int/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -703,8 +701,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "clickedu/base": "enabled",
-      "clickedu/light": "enabled",
-      "token-test/light": "disabled"
+      "clickedu/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:3b0db99b398be113b810c4d06983807c3508ac71,",
@@ -1564,7 +1561,6 @@
       "color.palette.danger.base": "S:7de9c84d8072fb69ce586513fab0b29b34d032d8,",
       "color.palette.black.base": "S:15181b3b0ece070731db4b124f93d0baa255b8d0,",
       "color.palette.white.base": "S:4c208a93df05d2d310dbf73e6624ef63f0844982,",
-      "color.palette.transparent.base": "S:9d37d9c931d6203bc082c2bb454e100ed97ae6ea,",
       "text.heading.0": "S:e9253662bdda7e9453cc2cf977928bc3280d8a79,",
       "text.heading.1": "S:437972ff23941f6d597de3968d8d3e3dc221709e,",
       "text.heading.2": "S:ff64ae55369b883e9b19671f26fb69a418eb5bea,",
@@ -1800,7 +1796,8 @@
       "text.input.fieldLabel.tag.md": "S:5dbf098beb1a175078fe066b14c2dcfceee2143e,",
       "text.input.fieldLabel.tag.lg": "S:ae73e36775c8776362b841b2b9f6c7a9a840d135,",
       "text.tag.close.md": "S:c206c5cd6526891a93e7b372490d5647107b6767,",
-      "text.tag.close.lg": "S:aa61c9d3c5c087a75a73a48fc1b6ac04900c2580,"
+      "text.tag.close.lg": "S:aa61c9d3c5c087a75a73a48fc1b6ac04900c2580,",
+      "color.palette.transparent": "S:9d37d9c931d6203bc082c2bb454e100ed97ae6ea,"
     }
   },
   {
@@ -1809,8 +1806,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "itslearning/base": "enabled",
-      "itslearning/light": "enabled",
-      "token-test/light": "disabled"
+      "itslearning/light": "enabled"
     },
     "$figmaStyleReferences": {
       "color.palette.primary.50": "S:81f94c85600eb5a455519aebf2265c864fd0e529,",
@@ -1899,7 +1895,6 @@
       "color.palette.danger.base": "S:b82f7bb83a474298cf03c665ee49faa2a3e772f4,",
       "color.palette.black.base": "S:ce7a6ce4b1b078bdeb4fffbd15af95f830fa148c,",
       "color.palette.white.base": "S:d79947119e97d1947d19fd682bbb843e2c06edee,",
-      "color.palette.transparent.base": "S:4e10dc7de5a09c4fcac0b4a8defd75b14619e4ef,",
       "body.background": "S:a5ec74b2d911de59e831a05b1a58c39298e4ce92,",
       "body.foreground": "S:3020e81bf23a89c84797dd8a66c97867f6390eff,",
       "color.avatar.background": "S:b452b4d9d421425d8e462182252a5c1d8c566791,",
@@ -2751,7 +2746,8 @@
       "color.tag.bold.close.active.background": "S:fd5d26f21372a95cf6d5a8220d66f027ea5882bc,",
       "color.tag.bold.close.active.foreground": "S:79c01c85b13236ae48985b5e38f0dac6dc77b280,",
       "color.tag.bold.close.active.border": "S:baeb19cf72d0fab0e2abbb2df169062422028b4d,",
-      "color.focusring.inversed-copy": "S:1833cc3057105fd16b1347cc5f9807042c1661eb,"
+      "color.focusring.inversed-copy": "S:1833cc3057105fd16b1347cc5f9807042c1661eb,",
+      "color.palette.transparent": "S:4e10dc7de5a09c4fcac0b4a8defd75b14619e4ef,"
     }
   },
   {
@@ -2760,8 +2756,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "kampus/base": "enabled",
-      "kampus/light": "enabled",
-      "token-test/light": "disabled"
+      "kampus/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:7cb020135af0657671582951d6d62d40e24b3b79,",
@@ -3335,7 +3330,6 @@
       "color.palette.danger.base": "S:5b4fa15e08f085aa25d3dc1c72ff285cffa272a5,",
       "color.palette.black.base": "S:6991343456af96ecf2aaa7ecb03b70a653e3325a,",
       "color.palette.white.base": "S:5554cc843636c38af877d75203c59b680de7fdc6,",
-      "color.palette.transparent.base": "S:b4f8e1912130add86cc372270fe06c587998c0fd,",
       "text.heading.0": "S:6b72bd3dbbbf3b83c3c598c785b3ed248b599d59,",
       "text.heading.1": "S:8d7695bf2bbcdeb143bf97b5802027f80b654ac2,",
       "text.heading.2": "S:284b29553c0bf6241cdcbf6c1c5f8ede615edd23,",
@@ -3953,7 +3947,8 @@
       "color.tag.bold.close.active.background": "S:fbf7a3dd6c78547c19889b3f2e5ec93d6c7f6b7f,",
       "color.tag.bold.close.active.foreground": "S:d1723e5f459941b053bd17d2953aaa9f7591fe27,",
       "color.tag.bold.close.active.border": "S:769b9c8d46304dcc899e90dbad5fefce84a68a4f,",
-      "color.focusring.inversed-copy": "S:32b602680c93b51e7b376bae268eaa02203d987e,"
+      "color.focusring.inversed-copy": "S:32b602680c93b51e7b376bae268eaa02203d987e,",
+      "color.palette.transparent": "S:b4f8e1912130add86cc372270fe06c587998c0fd,"
     }
   },
   {
@@ -3962,8 +3957,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/light": "enabled",
-      "token-test/light": "disabled"
+      "magister/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:82656f62deb7a1ab8ab83d1dea04aa3b9e2958e5,",
@@ -4874,7 +4868,6 @@
       "color.palette.danger.base": "S:dfa7ea48361ca2f37426b10cb7dffac0015d7671,",
       "color.palette.black.base": "S:8aac963f8f9e5562552be284acae39c1b12b3f8e,",
       "color.palette.white.base": "S:baed9193b89497d40d33488f23ba5284035c388c,",
-      "color.palette.transparent.base": "S:09166d5c1c6d5c3c64daa93b543129011a8d3cf8,",
       "text.heading.0": "S:f118d2df61802710915e8be1ba6fe3a75b5f29fa,",
       "text.heading.1": "S:bedd1d2124ad111848d29f39ec13c07576ca9449,",
       "text.heading.2": "S:e5d30d58e3316d8a40e375301b3bb5c97b38b4f4,",
@@ -5104,7 +5097,8 @@
       "color.tag.bold.close.active.background": "S:79cf81160fb4daf548d214939aabc1353f8fbde9,",
       "color.tag.bold.close.active.foreground": "S:acfe0cd54ef444c955de00c1d8980fbbe5637bf0,",
       "color.tag.bold.close.active.border": "S:2326b3085dd12f2a71743dc0c0d4f2f5760f372a,",
-      "color.focusring.inversed-copy": "S:1a4c9f2a229ab1e8e3cf20919239155172f0b269,"
+      "color.focusring.inversed-copy": "S:1a4c9f2a229ab1e8e3cf20919239155172f0b269,",
+      "color.palette.transparent": "S:09166d5c1c6d5c3c64daa93b543129011a8d3cf8,"
     }
   },
   {
@@ -5113,8 +5107,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "max/base": "enabled",
-      "max/light": "enabled",
-      "token-test/light": "disabled"
+      "max/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:61d892acbfb0957e4286e168a9878f3f663f438d,",
@@ -5864,7 +5857,6 @@
       "color.palette.danger.base": "S:fa2d2b7ff37dc2bf215fb51196dcb6c78725f2f9,",
       "color.palette.black.base": "S:b545bb5de0aa9cdc211a3f87055178326a973f8d,",
       "color.palette.white.base": "S:8ce96d6b6e073c158f55535dcb76d0fb76648b0a,",
-      "color.palette.transparent.base": "S:40530682c50361836db25810107f928e1a0ed5e6,",
       "text.heading.0": "S:c0d03f041d30cc25b627837cc0abc55c86b2fe5b,",
       "text.heading.1": "S:de9db0dd9f31fd881b0b8df8bf4f439ccbc504d6,",
       "text.heading.2": "S:4b9b04d1db8d50d421e405b7688b21aadfdba32b,",
@@ -5963,7 +5955,8 @@
       "text.badge.text.xl": "S:f0c7863dea981d5d6f04b84c0fe24b05128b97a1,",
       "text.tag.sm": "S:52718f3248ab720322f60b8e5d46f72814efc2af,",
       "text.tag.label.md": "S:7a82f0c76b877d63146ad6e22de2481f0b90d87e,",
-      "text.tag.label.lg": "S:6a5fd54a4c0b78cc061e6fbc44670c2df3268dd8,"
+      "text.tag.label.lg": "S:6a5fd54a4c0b78cc061e6fbc44670c2df3268dd8,",
+      "color.palette.transparent": "S:40530682c50361836db25810107f928e1a0ed5e6,"
     }
   },
   {
@@ -5972,8 +5965,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/light": "enabled",
-      "token-test/light": "disabled"
+      "neon/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e99a01cb7c691ea3724529a5ed35448899c014a7,",
@@ -6529,7 +6521,6 @@
       "color.palette.danger.base": "S:13ae033dcdac0a40ea0217f5d63e0dff1bff36c2,",
       "color.palette.black.base": "S:7f1745f5081936e796e1be50788d92805c0a3903,",
       "color.palette.white.base": "S:302e6e04faddf3a6ca9fe9cfba67d83096ed9064,",
-      "color.palette.transparent.base": "S:e1c41f7046527d09ac7f02141b98238732f73a24,",
       "color.input.textField.invalid.active.border": "S:caa279f89bcf487d8c3bbec0a6de4d0ef3967a9d,",
       "color.button.default.link.active.background{color.palette.transparent.base}": "S:aa2158e14df45e7efd464da95cecc10aa67bdb39,",
       "color.button.default.solid.idle.background": "S:6869b47e441a12f9fa9129d69c2e0770d8be9c0b,",
@@ -7073,7 +7064,8 @@
       "color.tag.bold.close.active.background": "S:fbd2280fa95bba33b316c752b011375dfb38c3ac,",
       "color.tag.bold.close.active.foreground": "S:a3a904bc6c9c5d6462a8709997a264a5b2a223aa,",
       "color.tag.bold.close.active.border": "S:897a15144bce8fe4d30fec5c5e0d7a1543d78a74,",
-      "color.focusring.inversed-copy": "S:7cc88021d9d417662669d3bd2ac16724d0091168,"
+      "color.focusring.inversed-copy": "S:7cc88021d9d417662669d3bd2ac16724d0091168,",
+      "color.palette.transparent": "S:e1c41f7046527d09ac7f02141b98238732f73a24,"
     }
   },
   {
@@ -7086,8 +7078,7 @@
       "primitives": "source",
       "system": "source",
       "sanoma-learning/light-new": "enabled",
-      "sanoma-learning/base-new": "enabled",
-      "token-test/light": "disabled"
+      "sanoma-learning/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:9d741285dde5790b1e99f1f9a902df7e67409616,",
@@ -8416,7 +8407,6 @@
       "color.select.listbox.border": "S:00bfe208c998434f524e2214cec3a67873752242,",
       "color.select.listbox.background": "S:e051655e1de4eeea06727b66dbb648ae120daf01,",
       "color.focusring.default": "S:338844f5e10c7515f586432c452d54fb4f47c83a,",
-      "color.palette.transparent.base": "S:84adec0c999b555a87f3eac062cfe05163daf700,",
       "{color.palette.neutral.500}": "S:637e49ad197a7473c71157aaf72bd51f6ed1a456,",
       "color.input.textField.default.active.border": "S:967ea7b2dc2d281de4cb3ca5da3ab511747d2634,",
       "color.input.textField.default.focus.border": "S:d99c6c923ccdd73ae2d9e7c2153b1c52e21f959e,",
@@ -8758,7 +8748,8 @@
       "color.tag.bold.close.hover.border": "S:897c59279a8fc6edeb6153fc7549b65d8964014f,",
       "color.tag.bold.close.active.background": "S:7db8d1c754838751963b9f2ce3a6e6acf62918a5,",
       "color.tag.bold.close.active.foreground": "S:0c722b5cb5c5a70d63f5b83c08b090ec5ffc3fb4,",
-      "color.tag.bold.close.active.border": "S:50d07464a24a4f0f5d437a9e59596083624e05ba,"
+      "color.tag.bold.close.active.border": "S:50d07464a24a4f0f5d437a9e59596083624e05ba,",
+      "color.palette.transparent": "S:84adec0c999b555a87f3eac062cfe05163daf700,"
     }
   },
   {
@@ -8771,8 +8762,7 @@
       "primitives": "source",
       "system": "source",
       "sanoma-learning/base-new": "enabled",
-      "sanoma-learning/dark-new": "enabled",
-      "token-test/light": "disabled"
+      "sanoma-learning/dark-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",
@@ -9740,7 +9730,6 @@
       "color.input.fieldLabel.icon.disabled": "S:abd0f00345db47dafebb88185f8478701320802f,",
       "color.input.fieldLabel.icon.invalid": "S:81ee693d23a2cd360d37f716536320d3732de427,",
       "color.focusring.default": "S:acc44cab76cea7a66a73bfebddce063799c201cb,",
-      "color.palette.transparent.base": "S:61a0ef16e50567badb6f6386823b8db8f92a747d,",
       "{color.palette.neutral.500}": "S:d8d4fef1e8840a4ff60ceca6ca21bea9b571a93a,",
       "color.input.textField.default.active.border": "S:be2f5febee8d6eb9f496b31682005be68277509c,",
       "color.input.textField.default.focus.border": "S:cd4e16efafb12bd81a9bbeb7aee0e601b92463a6,",
@@ -10266,7 +10255,8 @@
       "color.text.danger.hover": "S:c31f80220226ae71a0a2032851bb12adf0d5f906,",
       "color.text.inverted": "S:8ea9d8f113ffab9330a88b19ae7cbe5f8032cd84,",
       "color.input.background": "S:63db5f9132fd6ced7d7048fc346dba8b52247757,",
-      "color.input.border": "S:c6646d9cb2b6e5905c906dcab0c22e0cd781af63,"
+      "color.input.border": "S:c6646d9cb2b6e5905c906dcab0c22e0cd781af63,",
+      "color.palette.transparent": "S:61a0ef16e50567badb6f6386823b8db8f92a747d,"
     }
   },
   {
@@ -10275,8 +10265,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/dark": "enabled",
-      "token-test/light": "disabled"
+      "neon/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:5cf7b392afc2f205a80bd6a89cbca492a5117ec1,",
@@ -10875,7 +10864,6 @@
       "color.palette.danger.base": "S:b1f6c14dbe465b040a68307695ee7a3274698032,",
       "color.palette.black.base": "S:e2b11c1aca5b8d5568d1d65d352f0de048e1c9d4,",
       "color.palette.white.base": "S:c3cccf67c8696ed1e6f3868cc7a59c904ee5ab10,",
-      "color.palette.transparent.base": "S:e82a582a37e41a8bff39abcec91406cd3ead8bcd,",
       "{color.palette.neutral.500}": "S:ddee82d734f517ebfe0c9132b1c16da7e856f69e,",
       "color.input.textField.default.active.border": "S:921ab535e07e4dd3b9d709507e2694e4b5b31b8e,",
       "color.input.textField.default.focus.border": "S:334bd28684d7b0fb0ec8e061b988bb4c3fb3e07f,",
@@ -11338,7 +11326,8 @@
       "text.badge.text.xl": "S:6578674ae9da5a8e9e776be438b42d875fbcf496,",
       "text.tag.sm": "S:1d383400740e7f4ff656eef9c183e97319ffc1f0,",
       "text.tag.label.md": "S:b43b13a837e3667d3aed285d74548fe0259e1f6a,",
-      "text.tag.label.lg": "S:70115dc240cbbd70b52fefbb478529d394160d03,"
+      "text.tag.label.lg": "S:70115dc240cbbd70b52fefbb478529d394160d03,",
+      "color.palette.transparent": "S:e82a582a37e41a8bff39abcec91406cd3ead8bcd,"
     }
   },
   {
@@ -11347,8 +11336,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "teas/base": "enabled",
-      "teas/light": "enabled",
-      "token-test/light": "disabled"
+      "teas/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:a18cd22854d1f77c00da09d143ce5cb088117cd8,",
@@ -12473,7 +12461,6 @@
       "color.href.hover.foreground": "S:bada0ab55d5b8fc94b50f1770ba4b9db2bf9169e,",
       "color.href.active.foreground": "S:cd722c157592300ef088990039f87dccaba1ed96,",
       "color.href.disabled.foreground": "S:3aa6163bf95a8d807a649fc2156dd93a577f1d98,",
-      "color.palette.transparent.base": "S:a8300bd8053990a9e7b09daf7b4d00aaaf3b161c,",
       "text.avatar.initials.sm": "S:1b2acb726d161a151f1e14ad7e45a815fe3ca246,",
       "text.avatar.initials.md": "S:67192bb05e8e77acdb7a78a32ac9a9cadc5a429f,",
       "text.avatar.initials.lg": "S:b1d112455d64249fcfd077627052489286df650f,",
@@ -12677,7 +12664,8 @@
       "color.tag.bold.close.active.background": "S:7455f74c7844e1ef3dc6200684ec84936c06dc19,",
       "color.tag.bold.close.active.foreground": "S:7ec502a5afff7f4d52093b4f82bffaa15944db74,",
       "color.tag.bold.close.active.border": "S:7e3c2b9d30c17d8d0cf0995fb0d309007407890b,",
-      "color.focusring.inversed-copy": "S:0c0ea0221bb36ef9e04de512d5599d32cafde9b1,"
+      "color.focusring.inversed-copy": "S:0c0ea0221bb36ef9e04de512d5599d32cafde9b1,",
+      "color.palette.transparent": "S:a8300bd8053990a9e7b09daf7b4d00aaaf3b161c,"
     }
   },
   {
@@ -12686,8 +12674,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/dark": "enabled",
-      "token-test/light": "disabled"
+      "magister/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e490577a117b657a4f6379ec6fb83921546a29b0,",
@@ -13129,7 +13116,6 @@
       "color.palette.danger.base": "S:0db26f16da4c42a1b90768e917f0ae7689a01264,",
       "color.palette.black.base": "S:2f60033d70eaf180d8893060c7ca724611103f60,",
       "color.palette.white.base": "S:dffa03579e4ecbb5a150e44ce83b23c21ade1b1c,",
-      "color.palette.transparent.base": "S:e76a67316ec944a7ac87ef1e43c5a4eae42e16d9,",
       "text.heading.0": "S:76227caf9f31ae91042858d44407704e1843a44d,",
       "text.heading.1": "S:6bdc4a3bb6789ec1adfc57368a940a7cf0695257,",
       "text.heading.2": "S:e89e1cffb0958eb8b4e83fe30d34a3312888cbd0,",
@@ -13793,7 +13779,8 @@
       "body.surface.100": "S:cd979722dcaf501fffccdb639cac73b61c6d17d3,",
       "body.surface.200": "S:c5e737f62c9e4b895780bb4143dc613fecf852b6,",
       "body.surface.overlay": "S:94149617a695c8a55cd7082e9ae81858d11a5906,",
-      "color.palette.primary.25": "S:5949bcbaa16285fa54f6d22054a4339cac25bea8,"
+      "color.palette.primary.25": "S:5949bcbaa16285fa54f6d22054a4339cac25bea8,",
+      "color.palette.transparent": "S:e76a67316ec944a7ac87ef1e43c5a4eae42e16d9,"
     }
   },
   {
@@ -14682,7 +14669,6 @@
       "color.palette.danger.base": "S:bff131cf2671cb2c14bd1b1f082e06fc1363bdab,",
       "color.palette.black.base": "S:cba8026d6cf5a6844ac5ee3ca5bf6532b34b7b2e,",
       "color.palette.white.base": "S:80a0cf0839615ddef76754b89f64eb053d2ba079,",
-      "color.palette.transparent.base": "S:46b57da0d819890aeb0ef4166920e9d994767b1f,",
       "text.heading.0": "S:8d7574b2c16b96c8f81b57aa7dc7f289c746aee1,",
       "text.heading.1": "S:c79a82fcd61d874db68ad7e792d175c052258b9b,",
       "text.heading.2": "S:7f2e5be542d848bf5d4a19ebfbae1b3db97c8df6,",
@@ -14816,13 +14802,13 @@
       "text.badge.text.xl": "S:7da463af80db77f51b35320fe67ce3bb76fb0db8,",
       "text.tag.sm": "S:fc9ed136cff294c3b1bf453d4adbe01517e22bac,",
       "text.tag.label.md": "S:7764794d472821d22937c3b02a6456e142f9e99e,",
-      "text.tag.label.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,"
+      "text.tag.label.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,",
+      "color.palette.transparent": "S:46b57da0d819890aeb0ef4166920e9d994767b1f,"
     },
     "selectedTokenSets": {
       "core": "enabled",
       "myvanin_onhold/base": "enabled",
-      "myvanin_onhold/light": "enabled",
-      "token-test/light": "disabled"
+      "myvanin_onhold/light": "enabled"
     }
   },
   {
@@ -15601,7 +15587,6 @@
       "color.palette.danger.base": "S:5abe43772913c274f65ebbbbcd76d0c551844c78,",
       "color.palette.black.base": "S:bd4519ffe268dbb9e91ca9109b8fe18b9e00e48d,",
       "color.palette.white.base": "S:7d521e6f0bf9670b3ae15e50d1473350ec9aba1c,",
-      "color.palette.transparent.base": "S:389d9a0bc3f04d916bef5c1c72b2662b5af1b072,",
       "text.avatar.initials.sm": "S:8ca39766e89b03f2f58a9cc7c1ed4099057774cf,",
       "text.avatar.initials.md": "S:c918a73606c7724a4611295869841d913f2dbae5,",
       "text.avatar.initials.lg": "S:84d4eda0a829f860b8fbf60b9b89f0646b8e6619,",
@@ -15941,13 +15926,13 @@
       "color.tag.bold.close.active.background": "S:6ea476da2b421ee653d6d2322727bfbed84cf110,",
       "color.tag.bold.close.active.foreground": "S:94f80c1d1d5ad6f0f399880a65e589a5fb7ec14c,",
       "color.tag.bold.close.active.border": "S:44e90ba5ac36b8e5070d0b5618dab37e784b10c6,",
-      "color.focusring.inversed-copy": "S:6a18802aecdd84c81476f8c1761a55df52a96fa2,"
+      "color.focusring.inversed-copy": "S:6a18802aecdd84c81476f8c1761a55df52a96fa2,",
+      "color.palette.transparent": "S:389d9a0bc3f04d916bef5c1c72b2662b5af1b072,"
     },
     "selectedTokenSets": {
       "core": "enabled",
       "editorial-suite/base": "enabled",
-      "editorial-suite/light": "enabled",
-      "token-test/light": "disabled"
+      "editorial-suite/light": "enabled"
     }
   },
   {
@@ -16040,7 +16025,6 @@
       "color.palette.danger.base": "S:44477349feb0bd7adb7a9b446d72d46216d0f4f8,",
       "color.palette.black.base": "S:cb3e586bdb7f6c4262ef072d436b2de48516366e,",
       "color.palette.white.base": "S:c1f4ba4a277bbbae02fd0d036d97ce225f9f3163,",
-      "color.palette.transparent.base": "S:eeecbefeaff1b4181451540fa6c5da3160e67330,",
       "body.background": "S:bf4de5cb12c1c9e068fc47c56645b0ad2599fdbb,",
       "body.foreground": "S:e1cbe8582fcd3839f2fa8936d86792e3d9aaa4c0,",
       "color.avatar.background": "S:f8bf511a0ae959158cfe5b1c6cab7c83868f1bf0,",
@@ -16917,13 +16901,13 @@
       "color.select.disabled.foreground": "S:2ab9c4d2c6d4aef2a82d083eac17a5fb1520505f,",
       "color.select.disabled.border": "S:2e9aeceec7128793238a43c46b8b96740810bd72,",
       "color.select.panel.bacground": "S:47a785c973248b3e22d8b13abfbceaae3094d84b,",
-      "color.select.panel.bacground-copy": "S:f2cf76ddc1ca5bcaffe6cb1211e9d9d99a9e212a,"
+      "color.select.panel.bacground-copy": "S:f2cf76ddc1ca5bcaffe6cb1211e9d9d99a9e212a,",
+      "color.palette.transparent": "S:eeecbefeaff1b4181451540fa6c5da3160e67330,"
     },
     "selectedTokenSets": {
       "core": "enabled",
       "my-digital-book/base": "enabled",
-      "my-digital-book/light": "enabled",
-      "token-test/light": "disabled"
+      "my-digital-book/light": "enabled"
     }
   },
   {
@@ -17812,7 +17796,6 @@
       "color.palette.danger.base": "S:08ba26d6f28d2e10fd34f434a5094b9e9b2742bb,",
       "color.palette.black.base": "S:4bf4a9f4d4321d3f6db31382c552d28849455af5,",
       "color.palette.white.base": "S:2ee07b373505ca113647a832765abdca92ceda56,",
-      "color.palette.transparent.base": "S:cfa55b98ac4cf9160d499a5f3e361d4da5917481,",
       "text.heading.0": "S:4e7d1fc670f066bb4882a00eb258abf6d4d542ee,",
       "text.heading.1": "S:f24c9e3aa7381b842558700c5d8b1791b0ae23da,",
       "text.heading.2": "S:f08d8ebde559a2e700417cf4d6742afa4b419573,",
@@ -17946,13 +17929,13 @@
       "text.badge.text.xl": "S:1c79b3737e3f0ab0e3683f9d173b849363731f5d,",
       "text.tag.sm": "S:81609ddd881876fcb574ad4d5bb69e61fea64cac,",
       "text.tag.label.md": "S:88f4efc7f6514a3220e0be32882d7d0344e3666e,",
-      "text.tag.label.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,"
+      "text.tag.label.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,",
+      "color.palette.transparent": "S:cfa55b98ac4cf9160d499a5f3e361d4da5917481,"
     },
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-utbildning_onhold/base": "enabled",
-      "sanoma-utbildning_onhold/light": "enabled",
-      "token-test/light": "disabled"
+      "sanoma-utbildning_onhold/light": "enabled"
     }
   },
   {
@@ -18055,7 +18038,6 @@
       "color.palette.danger.base": "b404af95254d6740d536a48b30644707d46be9e6",
       "color.palette.black.base": "5af383b759475399312aadbd20ff131cc917a659",
       "color.palette.white.base": "b801e9954830651d2f789044fd4b362a27c29824",
-      "color.palette.transparent.base": "ad03feb43afe725395bb4999f79fc2694c296b50",
       "body.background": "0804a4cbf40607efd0b705204b942283f1056d14",
       "body.foreground": "7bcc6bd90be37a476372f6af7299ceb19265b079",
       "color.avatar.background": "f0877579dd971088078a984b86ea1707a00841c0",
@@ -19000,7 +18982,8 @@
       "color.text.inverted": "cde8071a3576bdd145edefd29976e5d4f3ba2746",
       "color.input.background": "7ba4edfd6675079fd0ec10364111b5922211e40d",
       "color.input.border": "6c0a8840549c6cd233e5b173c335e48675fa0e4c",
-      "color.tab.indicator": "8a07e4426fbd630ee425802d5b84877424d90dac"
+      "color.tab.indicator": "8a07e4426fbd630ee425802d5b84877424d90dac",
+      "color.palette.transparent": "ad03feb43afe725395bb4999f79fc2694c296b50"
     }
   }
 ]

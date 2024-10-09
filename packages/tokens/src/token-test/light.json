@@ -1,7 +1,7 @@
 {
   "color": {
     "palette": {
-      "blue ribbon": {
+      "blue": {
         "100": {
           "value": "#d9e5ff",
           "type": "color"
@@ -47,7 +47,7 @@
           "type": "color"
         }
       },
-      "emerald": {
+      "green": {
         "100": {
           "value": "#d3f8de",
           "type": "color"
@@ -93,239 +93,281 @@
           "type": "color"
         }
       },
-      "shark": {
+      "grey": {
         "100": {
-          "value": "#D7F5E1",
+          "value": "#e7e7e7",
           "type": "color"
         },
         "150": {
-          "value": "#AEEBC4",
+          "value": "#d1d1d1",
           "type": "color"
         },
         "200": {
-          "value": "#70E09D",
+          "value": "#b0b0b0",
           "type": "color"
         },
         "300": {
-          "value": "#45CC80",
+          "value": "#888888",
           "type": "color"
         },
         "400": {
-          "value": "#39B26C",
+          "value": "#6d6d6d",
           "type": "color"
         },
         "500": {
-          "value": "#28854E",
+          "value": "#5d5d5d",
           "type": "color"
         },
         "600": {
-          "value": "#1B6137",
+          "value": "#4f4f4f",
           "type": "color"
         },
         "700": {
-          "value": "#114224",
+          "value": "#454545",
           "type": "color"
         },
         "800": {
-          "value": "#0B331A",
+          "value": "#3d3d3d",
           "type": "color"
         },
         "900": {
-          "value": "#082613",
+          "value": "#222222",
           "type": "color"
         },
         "050": {
-          "value": "#EBF5EE",
+          "value": "#f6f6f6",
+          "type": "color"
+        },
+        "000": {
+          "value": "#ffffff",
           "type": "color"
         }
       },
-      "sun": {
+      "yellow": {
         "100": {
-          "value": "#FFEAE0",
+          "value": "#fff7c5",
           "type": "color"
         },
         "150": {
-          "value": "#FFD5C2",
+          "value": "#fff085",
           "type": "color"
         },
         "200": {
-          "value": "#FFB796",
+          "value": "#ffe146",
           "type": "color"
         },
         "300": {
-          "value": "#FF9667",
+          "value": "#ffcf1b",
           "type": "color"
         },
         "400": {
-          "value": "#FF6D2C",
+          "value": "#ffae00",
           "type": "color"
         },
         "500": {
-          "value": "#F04A00",
+          "value": "#e28400",
           "type": "color"
         },
         "600": {
-          "value": "#CF4000",
+          "value": "#bb5c02",
           "type": "color"
         },
         "700": {
-          "value": "#B03600",
+          "value": "#984708",
           "type": "color"
         },
         "800": {
-          "value": "#942E00",
+          "value": "#7c3a0b",
           "type": "color"
         },
         "900": {
-          "value": "#6F2200",
+          "value": "#481d00",
           "type": "color"
         },
         "050": {
-          "value": "#FFFDFD",
+          "value": "#fffdea",
           "type": "color"
         }
       },
-      "carnation": {
+      "red": {
         "100": {
-          "value": "#FFD6D1",
+          "value": "#ffe1e2",
           "type": "color"
         },
         "150": {
-          "value": "#FFBCB8",
+          "value": "#ffc7c9",
           "type": "color"
         },
         "200": {
-          "value": "#FF8E8A",
+          "value": "#ffa0a3",
           "type": "color"
         },
         "300": {
-          "value": "#FF575C",
+          "value": "#ff575c",
           "type": "color"
         },
         "400": {
-          "value": "#E5454A",
+          "value": "#f83b41",
           "type": "color"
         },
         "500": {
-          "value": "#C73434",
+          "value": "#e51d23",
           "type": "color"
         },
         "600": {
-          "value": "#992224",
+          "value": "#c11419",
           "type": "color"
         },
         "700": {
-          "value": "#6B1313",
+          "value": "#a01418",
           "type": "color"
         },
         "800": {
-          "value": "#470D0D",
+          "value": "#84181b",
           "type": "color"
         },
         "900": {
-          "value": "#260808",
+          "value": "#480709",
           "type": "color"
         },
         "050": {
-          "value": "#FFEDEB",
-          "type": "color"
-        }
-      }
-    },
-    "elevation": {
-      "surface": {
-        "raised": {
-          "value": "{color.base.white}",
-          "type": "color"
-        },
-        "default": {
-          "value": "{color.base.white}",
+          "value": "#fff1f1",
           "type": "color"
         }
       },
-      "border": {
-        "raised": {
-          "value": "{color.neutral.subtle}",
-          "type": "color"
-        }
-      }
-    },
-    "action": {
-      "background": {
-        "accent": {
-          "subtle": {
-            "idle": {
-              "value": "{color.base.transparent}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{color.accent.faint}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{color.accent.muted}",
-              "type": "color"
-            }
-          }
-        },
-        "danger": {
-          "subtle": {
-            "idle": {
-              "value": "{color.base.transparent}",
-              "type": "color"
-            },
-            "hover": {
-              "value": "{color.danger.faint}",
-              "type": "color"
-            },
-            "active": {
-              "value": "{color.danger.muted}",
-              "type": "color"
-            }
-          }
-        }
+      "transparent": {
+        "value": "#00000000",
+        "type": "color",
+        "description": "color.palette.transparent.base"
       }
     },
     "text": {
-      "default": {
-        "value": "{color.base.black}",
-        "type": "color"
+      "plain": {
+        "value": "{color.palette.grey.900}",
+        "type": "color",
+        "description": "Use for body copy, headers and, menu items on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
       },
       "subtle": {
-        "value": "{color.neutral.subtle}",
-        "type": "color"
+        "value": "{color.palette.grey.700}",
+        "type": "color",
+        "description": "Use for labels and subheadings on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
       },
-      "plain": {
-        "value": "{color.neutral.plain}",
-        "type": "color"
-      },
-      "disabled": {
-        "value": "{color.neutral.subtle}",
-        "type": "color"
-      },
-      "danger": {
-        "idle": {
-          "value": "{color.danger.plain}",
-          "type": "color"
-        },
-        "hover": {
-          "value": "{color.danger.bold}",
-          "type": "color"
-        }
+      "muted": {
+        "value": "{color.palette.grey.400}",
+        "type": "color",
+        "description": "Use for placeholders and hints on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
       },
       "inverted": {
-        "value": "{color.base.white}",
-        "type": "color"
-      }
-    },
-    "input": {
-      "background": {
-        "value": "{color.base.white}",
-        "type": "color"
+        "value": "{color.palette.grey.000}",
+        "type": "color",
+        "description": "Use for text on bold backgrounds."
       },
-      "border": {
-        "value": "{color.neutral.subtle}",
-        "type": "color"
+      "disabled": {
+        "value": "{color.palette.grey.300}",
+        "type": "color",
+        "description": "Use for text in a disabled state on 'color.background.disabled.muted' and 'color.background.disabled.subtle'."
+      },
+      "selected": {
+        "value": "{color.text.accent.blue.strong}",
+        "type": "color",
+        "description": "Use for text in selected or resting states (e.g., tabs or menu items) on 'color.background.selected.subtle'."
+      },
+      "brand": {
+        "value": "{color.text.accent.blue.plain}",
+        "type": "color",
+        "description": "Use for non-interactive brand-reinforcing text on 'color.elevation.surface' and 'color.elevation.surface.overlay' backgrounds."
+      },
+      "primary": {
+        "value": "{color.text.accent.blue.strong}",
+        "type": "color",
+        "description": "Use for primary actions on 'color.background.primary.muted'."
+      },
+      "secondary": {
+        "value": "{color.text.accent.grey.strong}",
+        "type": "color",
+        "description": "Use for secondary actions on 'color.background.secondary.muted'."
+      },
+      "info": {
+        "value": "{color.text.accent.blue.strong}",
+        "type": "color",
+        "description": "Used for an informative message and for actions related to the informative message on 'color.background.info.subtle' and 'color.background.info.muted'."
+      },
+      "success": {
+        "value": "{color.text.accent.green.strong}",
+        "type": "color",
+        "description": "Use to communicate a favorable outcome, on 'color.background.success.subtle' and 'color.background.success.muted'."
+      },
+      "warning": {
+        "value": "{color.text.accent.yellow.strong}",
+        "type": "color",
+        "description": "Use for text that communicates caution to prevent a mistake or error from occurring on 'color.background.warning.subtle' and 'color.background.warning.muted'."
+      },
+      "danger": {
+        "value": "{color.text.accent.red.strong}",
+        "type": "color",
+        "description": "Use for text that communicates danger or serious error states on 'color.background.danger.subtle' and 'color.background.danger.muted'."
+      },
+      "accent": {
+        "blue": {
+          "plain": {
+            "value": "{color.palette.blue.400}",
+            "type": "color",
+            "description": "Use for blue text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+          },
+          "strong": {
+            "value": "{color.palette.blue.600}",
+            "type": "color",
+            "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle' when the color has no specific meaning."
+          }
+        },
+        "green": {
+          "plain": {
+            "value": "{color.palette.green.400}",
+            "type": "color",
+            "description": "Use for green text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+          },
+          "strong": {
+            "value": "{color.palette.green.600}",
+            "type": "color",
+            "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle' when the color has no specific meaning."
+          }
+        },
+        "grey": {
+          "plain": {
+            "value": "{color.palette.grey.400}",
+            "type": "color",
+            "description": "Use for grey text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+          },
+          "strong": {
+            "value": "{color.palette.grey.600}",
+            "type": "color",
+            "description": "Use for grey text on 'color.background.accent.grey.muted' or 'color.background.accent.grey.subtle' when the color has no specific meaning."
+          }
+        },
+        "yellow": {
+          "plain": {
+            "value": "{color.palette.yellow.400}",
+            "type": "color",
+            "description": "Use for yellow text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+          },
+          "strong": {
+            "value": "{color.palette.yellow.600}",
+            "type": "color",
+            "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle' when the color has no specific meaning."
+          }
+        },
+        "red": {
+          "plain": {
+            "value": "{color.palette.red.400}",
+            "type": "color",
+            "description": "Use for red text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+          },
+          "strong": {
+            "value": "{color.palette.red.600}",
+            "type": "color",
+            "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle' when the color has no specific meaning."
+          }
+        }
       }
     }
   }

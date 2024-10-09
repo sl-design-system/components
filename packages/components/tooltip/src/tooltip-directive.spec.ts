@@ -15,7 +15,7 @@ describe('tooltip()', () => {
     expect(Tooltip.lazy).to.have.been.calledWith(el);
   });
 
-  it('should log a warning if the custom element is not defined', async () => {
+  it('should log a warning if the custom element is not defined on the document', async () => {
     const consoleWarnStub = stub(console, 'warn');
 
     const el: HTMLElement = await fixture(html`<div ${tooltip('content')} tabindex="0">Host</div>`);
@@ -31,8 +31,37 @@ describe('tooltip()', () => {
     consoleWarnStub.restore();
   });
 
+  it('should log a warning if the custom element is not defined on the target shadow root', async () => {
+    class TooltipNotDefined extends LitElement {
+      override render(): TemplateResult {
+        return html`<div ${tooltip('content')} tabindex="0">Host</div>`;
+      }
+    }
+
+    try {
+      customElements.define('tooltip-not-defined', TooltipNotDefined);
+    } catch {
+      // empty
+    }
+
+    const consoleWarnStub = stub(console, 'warn');
+
+    const el: LitElement = await fixture(html`<tooltip-not-defined></tooltip-not-defined>`),
+      hostEl = el.renderRoot.querySelector('div');
+
+    // Trigger the lazy tooltip creation
+    hostEl?.focus();
+
+    expect(console.warn).to.have.been.calledOnce;
+    expect(console.warn).to.have.been.calledWith(
+      'The sl-tooltip custom element is not defined in the TOOLTIP-NOT-DEFINED element. Please make sure to register the sl-tooltip custom element in your application.'
+    );
+
+    consoleWarnStub.restore();
+  });
+
   it('should use the parent shadow root to create the tooltip custom element', async () => {
-    class TooltipContextExample extends ScopedElementsMixin(LitElement) {
+    class TooltipDefined extends ScopedElementsMixin(LitElement) {
       static get scopedElements(): ScopedElementsMap {
         return {
           'sl-tooltip': Tooltip
@@ -45,12 +74,12 @@ describe('tooltip()', () => {
     }
 
     try {
-      customElements.define('tooltip-context-example', TooltipContextExample);
+      customElements.define('tooltip-defined', TooltipDefined);
     } catch {
       // empty
     }
 
-    const el: LitElement = await fixture(html`<tooltip-context-example></tooltip-context-example>`),
+    const el: LitElement = await fixture(html`<tooltip-defined></tooltip-defined>`),
       hostEl = el.renderRoot.querySelector('div');
 
     // Append the host element to the document body

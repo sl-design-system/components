@@ -335,7 +335,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     reset(value: unknown): void {
+      this.dirty = false;
       this.formValue = value;
+      this.report = false;
+      this.showValidity = undefined;
+      this.touched = false;
+
+      this.updateValidity();
     }
 
     /**

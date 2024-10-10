@@ -20,13 +20,12 @@ eleventyNavigation:
 <div class="ds-subpage-section__wrapper">
 <section>
   
-## New Components Bug fixes
+## New Components, Bug fixes, and enhancements
 <small>September 2024</small>
 
 ### Update in Figma
 To simplify things, we’ve created a new Formfield component that includes a label, description, validation message, and a slot for the form control itself. This makes it easier for the Design System team to manage everything, while you only need to use one component for all your form controls!
 
-#### What’s Changed in Figma
 - Older Components: The old form controls (Label, Hint/Helper, Checkbox, Radio Button, Switch, Text Input, Text Area) are now marked as "[DEPRECATED]" and hidden from the library. These should no longer be used in new designs.
 - New Components: We’ve introduced new versions of these form controls with improved functionality, labeled with "-NEW" at the end for easy identification.
 - Formfield Component: We’ve added a new Formfield component that wraps the updated controls for more consistency. This should now be your go-to component for forms.

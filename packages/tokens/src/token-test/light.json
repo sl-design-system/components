@@ -239,38 +239,53 @@
         "value": "#00000000",
         "type": "color",
         "description": "color.palette.transparent.base"
+      },
+      "black": {
+        "value": "#222222",
+        "type": "color",
+        "description": "color.palette.transparent.base"
+      },
+      "white": {
+        "value": "#ffffff",
+        "type": "color",
+        "description": "color.palette.transparent.base"
       }
     },
     "text": {
-      "plain": {
-        "value": "{color.palette.grey.900}",
+      "bold": {
+        "value": "{color.text.accent.grey.bold}",
         "type": "color",
-        "description": "Use for body copy, headers and, menu items on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
+        "description": "Use for headers on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
+      },
+      "plain": {
+        "value": "{color.text.accent.grey.plain}",
+        "type": "color",
+        "description": "Use for body copy and menu items on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
       },
       "subtle": {
-        "value": "{color.palette.grey.700}",
+        "value": "{color.text.accent.grey.subtle}",
         "type": "color",
         "description": "Use for labels and subheadings on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
       },
       "muted": {
-        "value": "{color.palette.grey.400}",
+        "value": "{color.text.accent.grey.muted}",
         "type": "color",
         "description": "Use for placeholders and hints on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
       },
       "inverted": {
-        "value": "{color.palette.grey.000}",
+        "value": "{color.palette.white}",
         "type": "color",
         "description": "Use for text on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.palette.grey.300}",
+        "value": "{color.text.accent.grey.faint}",
         "type": "color",
         "description": "Use for text in a disabled state on 'color.background.disabled.muted' and 'color.background.disabled.subtle'."
       },
       "selected": {
-        "value": "{color.text.accent.blue.strong}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
-        "description": "Use for text in selected or resting states (e.g., tabs or menu items) on 'color.background.selected.subtle'."
+        "description": "Use for text in selected states (e.g., tabs or menu items) on 'color.background.selected.subtle'."
       },
       "brand": {
         "value": "{color.text.accent.blue.plain}",
@@ -278,95 +293,440 @@
         "description": "Use for non-interactive brand-reinforcing text on 'color.elevation.surface' and 'color.elevation.surface.overlay' backgrounds."
       },
       "primary": {
-        "value": "{color.text.accent.blue.strong}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for primary actions on 'color.background.primary.muted'."
       },
       "secondary": {
-        "value": "{color.text.accent.grey.strong}",
+        "value": "{color.text.accent.grey.bold}",
         "type": "color",
         "description": "Use for secondary actions on 'color.background.secondary.muted'."
       },
       "info": {
-        "value": "{color.text.accent.blue.strong}",
-        "type": "color",
-        "description": "Used for an informative message and for actions related to the informative message on 'color.background.info.subtle' and 'color.background.info.muted'."
+        "plain": {
+          "value": "{color.text.accent.blue.plain}",
+          "type": "color",
+          "description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds, such as 'color.elevation.surface' and 'color.elevation.surface.overlay'."
+        },
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.subtle' and 'color.background.info.muted'."
+        }
       },
-      "success": {
-        "value": "{color.text.accent.green.strong}",
-        "type": "color",
-        "description": "Use to communicate a favorable outcome, on 'color.background.success.subtle' and 'color.background.success.muted'."
+      "positive": {
+        "plain": {
+          "value": "{color.text.accent.green.plain}",
+          "type": "color",
+          "description": "Use for text that communicates a favorable outcome on neutral backgrounds, such as 'color.elevation.surface' and, 'color.elevation.surface.overlay'"
+        },
+        "bolder": {
+          "value": "{color.text.accent.green.bold}",
+          "type": "color",
+          "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.subtle', and 'color.background.positive.muted'."
+        }
       },
-      "warning": {
-        "value": "{color.text.accent.yellow.strong}",
-        "type": "color",
-        "description": "Use for text that communicates caution to prevent a mistake or error from occurring on 'color.background.warning.subtle' and 'color.background.warning.muted'."
+      "caution": {
+        "plain": {
+          "value": "{color.text.accent.yellow.plain}",
+          "type": "color",
+          "description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds, such as 'color.elevation.surface', and 'color.elevation.surface.overlay'."
+        },
+        "bold": {
+          "value": "{color.text.accent.yellow.bold}",
+          "type": "color",
+          "description": "Use for text that communicates caution to prevent mistakes or errors on muted and subtle caution backgrounds, such as 'color.background.caution.subtle', and 'color.background.caution.muted'."
+        },
+        "inverted": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for text that communicates caution to prevent mistakes or errors on the bold caution backgrounds 'color.background.caution.bold'."
+        }
       },
-      "danger": {
-        "value": "{color.text.accent.red.strong}",
-        "type": "color",
-        "description": "Use for text that communicates danger or serious error states on 'color.background.danger.subtle' and 'color.background.danger.muted'."
+      "negative": {
+        "plain": {
+          "value": "{color.text.accent.red.plain}",
+          "type": "color",
+          "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds, such as 'color.elevation.surface', and 'color.elevation.surface.overlay'."
+        },
+        "bold": {
+          "value": "{color.text.accent.red.bold}",
+          "type": "color",
+          "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on negative backgrounds, such as 'color.background.negative.subtle', and 'color.background.negative.muted'."
+        }
       },
       "accent": {
         "blue": {
           "plain": {
             "value": "{color.palette.blue.400}",
             "type": "color",
-            "description": "Use for blue text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+            "description": "Use for blue text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
-          "strong": {
+          "bold": {
             "value": "{color.palette.blue.600}",
             "type": "color",
-            "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle' when the color has no specific meaning."
+            "description": "Use for blue text on muted and subtle blue backgrounds, such as 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "green": {
           "plain": {
-            "value": "{color.palette.green.400}",
-            "type": "color",
-            "description": "Use for green text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
-          },
-          "strong": {
             "value": "{color.palette.green.600}",
             "type": "color",
-            "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle' when the color has no specific meaning."
+            "description": "Use for green text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.green.600}",
+            "type": "color",
+            "description": "Use for green text on muted and subtle green backgrounds, such as 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "grey": {
-          "plain": {
-            "value": "{color.palette.grey.400}",
-            "type": "color",
-            "description": "Use for grey text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+          "bold": {
+            "value": "{color.palette.grey.900}",
+            "description": "Use for bold grey text on muted and subtle grey backgrounds, such as 'color.background.accent.grey.muted' or 'color.background.accent.grey.subtle', when used purely for stylistic purposes without specific meaning.",
+            "type": "color"
           },
-          "strong": {
+          "plain": {
+            "value": "{color.palette.grey.800}",
+            "type": "color",
+            "description": "Use for plain grey text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "subtle": {
             "value": "{color.palette.grey.600}",
             "type": "color",
-            "description": "Use for grey text on 'color.background.accent.grey.muted' or 'color.background.accent.grey.subtle' when the color has no specific meaning."
+            "description": "Use for subtle grey text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "muted": {
+            "value": "{color.palette.grey.400}",
+            "type": "color",
+            "description": "Use for muted grey text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "faint": {
+            "value": "{color.palette.grey.300}",
+            "type": "color",
+            "description": "Use for text in disabled state."
           }
         },
         "yellow": {
           "plain": {
-            "value": "{color.palette.yellow.400}",
-            "type": "color",
-            "description": "Use for yellow text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
-          },
-          "strong": {
             "value": "{color.palette.yellow.600}",
             "type": "color",
-            "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle' when the color has no specific meaning."
+            "description": "Use for yellow text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.yellow.700}",
+            "type": "color",
+            "description": "Use for yellow text on muted and subtle yellow backgrounds, such as 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "red": {
           "plain": {
-            "value": "{color.palette.red.400}",
+            "value": "{color.palette.red.500}",
             "type": "color",
-            "description": "Use for red text on 'color.elevation.surface' or 'color.elevation.surface.overlay' backgrounds when there is no meaning tied to the color."
+            "description": "Use for red text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
-          "strong": {
-            "value": "{color.palette.red.600}",
+          "bold": {
+            "value": "{color.palette.red.700}",
             "type": "color",
-            "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle' when the color has no specific meaning."
+            "description": "Use for red text on muted and subtle red backgrounds, such as 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
           }
+        }
+      }
+    },
+    "link": {
+      "plain": {
+        "value": "{color.text.accent.blue.plain}",
+        "type": "color",
+        "description": "Use for links in their default or hovered state. Underline links when hovered. This style is applied on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay'."
+      },
+      "active": {
+        "value": "{color.text.accent.blue.bold}",
+        "type": "color",
+        "description": "Use for links in the active state, applied to neutral backgrounds such as 'color.elevation.surface' or 'color.elevation.surface.overlay'."
+      },
+      "visited": {
+        "value": "{color.text.accent.blue.plain}",
+        "type": "color",
+        "description": "Use for links in a visited state. This style is applied on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay'."
+      }
+    },
+    "icon": {
+      "bold": {
+        "value": "{color.icon.accent.grey.plain}",
+        "type": "color",
+        "description": "Use for icons paired with 'color.text.bold'."
+      },
+      "plain": {
+        "value": "{color.icon.accent.grey.plain}",
+        "type": "color",
+        "description": "Use for icons paired with 'color.text.plain'."
+      },
+      "subtle": {
+        "value": "{color.icon.accent.grey.subtle}",
+        "type": "color",
+        "description": "Use for icons paired with 'color.text.subtle'."
+      },
+      "muted": {
+        "value": "{color.icon.accent.grey.muted}",
+        "type": "color",
+        "description": "Use for icons paired with 'color.text.muted'."
+      },
+      "inverted": {
+        "value": "{color.palette.white}",
+        "type": "color",
+        "description": "Use for icons on bold backgrounds."
+      },
+      "disabled": {
+        "value": "{color.icon.accent.grey.faint}",
+        "type": "color",
+        "description": "Use for icons in a disabled state paired with 'color.text.disabled'."
+      },
+      "selected": {
+        "value": "{color.icon.accent.blue.bold}",
+        "type": "color",
+        "description": "Use for icons in selected states (e.g., tabs or menu items) paired with 'color.text.selected'."
+      },
+      "brand": {
+        "value": "{color.text.accent.blue.plain}",
+        "type": "color",
+        "description": "Use for non-interactive brand-reinforcing icons paired with 'color.text.brand'."
+      },
+      "primary": {
+        "value": "{color.text.accent.blue.bold}",
+        "type": "color",
+        "description": "Use for icons in primary actions paired with a 'color.background.primary.muted' background."
+      },
+      "secondary": {
+        "value": "{color.text.accent.grey.bold}",
+        "type": "color",
+        "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
+      },
+      "info": {
+        "plain": {
+          "value": "{color.text.accent.blue.plain}",
+          "type": "color",
+          "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on neutral backgrounds like 'color.elevation.surface' and 'color.elevation.surface.overlay'."
+        },
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on info backgrounds like 'color.background.info.subtle' and 'color.background.info.muted'."
+        }
+      },
+      "positive": {
+        "plain": {
+          "value": "{color.text.accent.green.plain}",
+          "type": "color",
+          "description": "Icons that serve as visual cues for messages communicating a favorable outcome, applied on neutral backgrounds such as 'color.elevation.surface' and 'color.elevation.surface.overlay'."
+        },
+        "bolder": {
+          "value": "{color.text.accent.green.bold}",
+          "type": "color",
+          "description": "Icons that serve as visual cues for messages communicating a favorable outcome on positive backgrounds, applied on'color.background.positive.subtle', and 'color.background.positive.muted'."
+        }
+      },
+      "caution": {
+        "plain": {
+          "value": "{color.text.accent.yellow.plain}",
+          "type": "color",
+          "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on neutral backgrounds such as 'color.elevation.surface' and 'color.elevation.surface.overlay'."
+        },
+        "bold": {
+          "value": "{color.text.accent.yellow.bold}",
+          "type": "color",
+          "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on caution backgrounds like 'color.background.caution.subtle' and 'color.background.caution.muted'."
+        },
+        "inverted": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.bold'."
+        }
+      },
+      "negative": {
+        "plain": {
+          "value": "{color.text.accent.red.plain}",
+          "type": "color",
+          "description": "Use for icons that serve as visual cues for messages communicating negative or serious error states (e.g., validation errors or irreversible actions), applied on neutral backgrounds such as 'color.elevation.surface' and 'color.elevation.surface.overlay'."
+        },
+        "bold": {
+          "value": "{color.text.accent.red.bold}",
+          "type": "color",
+          "description": "Use for icons that serve as visual cues for messages communicating negative or serious error states (e.g., validation errors or irreversible actions), applied on negative backgrounds such as 'color.background.negative.subtle' and 'color.background.negative.muted'."
+        }
+      },
+      "accent": {
+        "blue": {
+          "plain": {
+            "value": "{color.palette.blue.400}",
+            "type": "color",
+            "description": "Use for blue icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.blue.600}",
+            "type": "color",
+            "description": "Use for blue icons on muted and subtle blue backgrounds, such as 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "green": {
+          "plain": {
+            "value": "{color.palette.green.600}",
+            "type": "color",
+            "description": "Use for green icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.green.600}",
+            "type": "color",
+            "description": "Use for green icons on muted and subtle green backgrounds, such as 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "grey": {
+          "bold": {
+            "value": "{color.palette.grey.900}",
+            "description": "Use for bold grey icons on muted and subtle grey backgrounds, such as 'color.background.accent.grey.muted' or 'color.background.accent.grey.subtle', when used purely for stylistic purposes without specific meaning.",
+            "type": "color"
+          },
+          "plain": {
+            "value": "{color.palette.grey.800}",
+            "type": "color",
+            "description": "Use for plain grey icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "subtle": {
+            "value": "{color.palette.grey.600}",
+            "type": "color",
+            "description": "Use for subtle grey icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "muted": {
+            "value": "{color.palette.grey.400}",
+            "type": "color",
+            "description": "Use for muted grey icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "faint": {
+            "value": "{color.palette.grey.300}",
+            "type": "color",
+            "description": "Use for icons in disabled state."
+          }
+        },
+        "yellow": {
+          "plain": {
+            "value": "{color.palette.yellow.600}",
+            "type": "color",
+            "description": "Use for yellow icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.yellow.700}",
+            "type": "color",
+            "description": "Use for yellow icons on muted and subtle yellow backgrounds, such as 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "red": {
+          "plain": {
+            "value": "{color.palette.red.500}",
+            "type": "color",
+            "description": "Use for red icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.red.700}",
+            "type": "color",
+            "description": "Use for red icons on muted and subtle red backgrounds, such as 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        }
+      }
+    },
+    "border": {
+      "plain": {
+        "value": "{color.border.accent.grey.plain}",
+        "type": "color",
+        "description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
+      },
+      "bold": {
+        "value": "{color.border.accent.grey.bold}",
+        "type": "color",
+        "description": "A neutral border option that passes min 3:1 contrast ratios."
+      },
+      "inverted": {
+        "value": "{color.palette.white}",
+        "type": "color",
+        "description": "Use for borders on bold backgrounds."
+      },
+      "disabled": {
+        "value": "{color.border.accent.grey.faint}",
+        "type": "color",
+        "description": "Use for borders of elements in a disabled state."
+      },
+      "focused": {
+        "value": "{color.border.accent.blue}",
+        "type": "color",
+        "description": "Use for focus rings of elements in a focus state."
+      },
+      "selected": {
+        "value": "{color.border.accent.blue}",
+        "type": "color",
+        "description": ""
+      },
+      "primary": {
+        "value": "{color.border.accent.blue}",
+        "type": "color",
+        "description": ""
+      },
+      "secondary": {
+        "value": "{color.border.accent.grey.bold}",
+        "type": "color"
+      },
+      "info": {
+        "value": "{color.border.accent.blue}",
+        "type": "color",
+        "description": ""
+      },
+      "positive": {
+        "value": "{color.border.accent.green}",
+        "type": "color",
+        "description": ""
+      },
+      "caution": {
+        "value": "{color.border.accent.yellow}",
+        "type": "color"
+      },
+      "negative": {
+        "value": "{color.border.accent.red}",
+        "type": "color"
+      },
+      "accent": {
+        "blue": {
+          "value": "{color.palette.blue.400}",
+          "type": "color",
+          "description": "Use for blue borders, for purely stylistic purposes with no specific meaning."
+        },
+        "green": {
+          "value": "{color.palette.green.600}",
+          "type": "color",
+          "description": "Use for green borders, for purely stylistic purposes with no specific meaning."
+        },
+        "grey": {
+          "bold": {
+            "value": "{color.palette.grey.300}",
+            "type": "color",
+            "description": "Use for grey borders, for purely stylistic purposes with no specific meaning."
+          },
+          "plain": {
+            "value": "{color.palette.grey.150}",
+            "type": "color",
+            "description": "Use for grey borders, for purely stylistic purposes with no specific meaning."
+          },
+          "faint": {
+            "value": "{color.palette.grey.100}",
+            "type": "color",
+            "description": "Use for grey borders, for purely stylistic purposes with no specific meaning."
+          }
+        },
+        "yellow": {
+          "value": "{color.palette.yellow.600}",
+          "type": "color",
+          "description": "Use for yellow borders, for purely stylistic purposes with no specific meaning."
+        },
+        "red": {
+          "value": "{color.palette.red.500}",
+          "type": "color",
+          "description": "Use for red borders, for purely stylistic purposes with no specific meaning."
         }
       }
     }

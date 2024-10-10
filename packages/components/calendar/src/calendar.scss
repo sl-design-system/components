@@ -23,6 +23,7 @@
 }
 
 [part~='scroller'] {
+  align-items: start;
   display: flex;
   flex-grow: 1;
   max-inline-size: calc(7 * 2rem);

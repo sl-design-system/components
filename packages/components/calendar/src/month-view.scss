@@ -19,15 +19,16 @@ button {
   cursor: pointer;
   font: inherit;
   padding: 0;
-  transition: 0.2s ease-in-out;
   transition-property: background, border, color, outline;
 
   &:hover {
     background: var(--sl-color-action-background-accent-subtle-hover);
+    transition: 0.2s ease-in-out;
   }
 
   &:active {
     background: var(--sl-color-action-background-accent-subtle-active);
+    transition: 0.2s ease-in-out;
   }
 
   &:focus-visible {

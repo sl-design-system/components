@@ -9,7 +9,7 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-  Find out what's happening in the world of Sanoma Learning Design System.
+  Find out what's happening in the world of Sanoma Learning's Design System.
   </p>
 </div>
 </header>

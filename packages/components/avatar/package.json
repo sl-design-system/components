@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/avatar",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Avatar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@sl-design-system/badge": "^1.0.0",
-    "@sl-design-system/shared": "^0.3.0",
-    "@sl-design-system/tooltip": "^1.1.0"
+    "@sl-design-system/shared": "^0.4.0",
+    "@sl-design-system/tooltip": "^1.1.1"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

@@ -44,7 +44,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div class="header">
-        <span class="current-range">2019-2030</span>
+        <span class="current-range">${this.years.at(0)}-${this.years.at(-1)}</span>
         <sl-button @click=${this.#onPrevious} aria-label=${msg('Go back')} fill="ghost" variant="primary">
           <sl-icon name="far-chevron-left"></sl-icon>
         </sl-button>

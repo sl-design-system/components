@@ -1,3 +1,28 @@
 :host {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.header {
+  align-items: center;
   display: flex;
+}
+
+.current-year {
+  font-size: 16px;
+  font-weight: 600;
+  margin-inline-end: auto;
+}
+
+ol {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
 }

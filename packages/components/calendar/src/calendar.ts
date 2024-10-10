@@ -2,6 +2,7 @@ import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { LocaleMixin } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
@@ -56,7 +57,11 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         [
           'month',
           () => html`
-            <sl-select-month @sl-select=${this.#onSelectMonth} locale=${ifDefined(this.locale)}></sl-select-month>
+            <sl-select-month
+              @sl-select=${this.#onSelectMonth}
+              .month=${this.month}
+              locale=${ifDefined(this.locale)}
+            ></sl-select-month>
           `
         ],
         [
@@ -69,12 +74,14 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
-  #onSelectMonth(): void {
-    console.log('Month selected');
+  #onSelectMonth(event: SlSelectEvent<number>): void {
+    this.month = new Date(this.month.getFullYear(), event.detail - 1, this.month.getDate());
+    this.mode = 'day';
   }
 
-  #onSelectYear(): void {
-    console.log('Year selected');
+  #onSelectYear(event: SlSelectEvent<number>): void {
+    this.month = new Date(event.detail, this.month.getMonth() - 1, this.month.getDate());
+    this.mode = 'month';
   }
 
   #onToggleMonthYear(): void {

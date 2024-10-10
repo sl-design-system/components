@@ -6,6 +6,12 @@ import { property, state } from 'lit/decorators.js';
 import styles from './month-view.scss.js';
 import { type Calendar, type Day, createCalendar, getWeekdayNames } from './utils.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-month-view': MonthView;
+  }
+}
+
 @localized()
 export class MonthView extends LocaleMixin(LitElement) {
   /** @internal */

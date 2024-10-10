@@ -1,49 +1,10 @@
 :host {
   display: inline-flex;
-  flex-direction: column;
+  inline-size: calc(7 * 2rem);
 }
 
-[part='header'] {
-  align-items: center;
-  display: flex;
-}
-
-[part='current-month-year'] {
-  font-size: 16px;
-  font-weight: 600;
-  margin-inline-end: auto;
-}
-
-[part~='days-of-week'] {
-  color: var(--sl-color-neutral-subtle);
-  display: grid;
-  font-weight: normal;
-  grid-template-columns: repeat(7, 2rem);
-  text-transform: uppercase;
-}
-
-[part~='scroller'] {
-  align-items: start;
-  display: flex;
-  flex-grow: 1;
-  max-inline-size: calc(7 * 2rem);
-  outline: none;
-  overflow: scroll hidden;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-sl-button {
-  user-select: none;
-}
-
-sl-month-view {
-  flex-shrink: 0;
+sl-select-day,
+sl-select-month,
+sl-select-year {
   inline-size: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-
-  &::part(header) {
-    display: none;
-  }
 }

@@ -9,7 +9,7 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-  Find out what's happening in the world of Sanoma Learning Design System.
+  Find out what's happening in the world of Sanoma Learning's Design System.
   </p>
 </div>
 </header>
@@ -18,7 +18,39 @@ eleventyNavigation:
 <section class="ds-subpage-section">
 
 <div class="ds-subpage-section__wrapper">
+<section>
   
+## New Components, Bug fixes, and enhancements
+<small>September 2024</small>
+
+### Update in Figma
+To simplify things, we’ve created a new Formfield component that includes a label, description, validation message, and a slot for the form control itself. This makes it easier for the Design System team to manage everything, while you only need to use one component for all your form controls!
+
+- Older Components: The old form controls (Label, Hint/Helper, Checkbox, Radio Button, Switch, Text Input, Text Area) are now marked as "[DEPRECATED]" and hidden from the library. These should no longer be used in new designs.
+- New Components: We’ve introduced new versions of these form controls with improved functionality, labeled with "-NEW" at the end for easy identification.
+- Formfield Component: We’ve added a new Formfield component that wraps the updated controls for more consistency. This should now be your go-to component for forms.
+You can find these updates in the Formfield folder in the assets panel.
+
+### New components and status changes
+- [Combo box](https://storybook.sanomalearning.design/?path=/story/form-combobox--all) <ds-status status="draft"></ds-status>
+- [Tag](https://storybook.sanomalearning.design/?path=/story/navigation-tab-group--basic) <ds-status status="preview"></ds-status>
+- [Made toggle group available in all themes](https://storybook.sanomalearning.design/?path=/story/actions-toggle-group--all) <ds-status status="draft"></ds-status>
+- [Tab group](https://storybook.sanomalearning.design/?path=/story/navigation-tab-group--basic) <ds-status status="stable"></ds-status>
+- [Toggle group](https://storybook.sanomalearning.design/?path=/story/navigation-tab-group--basic) <ds-status status="draft"></ds-status>
+- [Toggle button](https://storybook.sanomalearning.design/?path=/story/actions-toggle-group--all) <ds-status status="preview"></ds-status>
+
+### Solved Bug reports
+- [Various grid fixes](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md)
+- [Clicking a label doesn't always focus the form control](https://github.com/sl-design-system/components/pull/1536)
+- [Slow Font Awesome icon load](https://github.com/sl-design-system/components/pull/1483)
+
+### Enhancements
+- [Added reset for forms](https://github.com/sl-design-system/components/pull/1500)
+- [Added 4XL Avatar size](https://storybook.sanomalearning.design/?path=/story/media-avatar--all)
+- [Various menu improvements](https://github.com/sl-design-system/components/pull/1474)
+
+</section>
+
 <section>
   
 ## New Components and Key Bugfixes Rolled Out, Including Tool-Bar, Checkbox Group, and Enhanced Styling

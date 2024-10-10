@@ -1,11 +1,9 @@
-import { faChevronLeft, faChevronRight } from '@fortawesome/pro-solid-svg-icons';
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Icon } from '@sl-design-system/icon';
 import { Select, SelectOption } from '@sl-design-system/select';
 import {type EventEmitter, event} from '@sl-design-system/shared';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import styles from './page-size.scss.js';
 
 declare global {
@@ -18,13 +16,11 @@ declare global {
   }
 }
 
-Icon.register(faChevronLeft, faChevronRight);
-
 export type SlPageSizeChangeEvent = CustomEvent<number>;
 
 /**
- * A component that can be used with paginator. Add possibility to select/change the amount of items
- * that would be visible per page.
+ * A component that can be used with paginator.
+ * The component adds a possibility to select/change the amount of items that would be visible per page.
  */
 @localized()
 export class PageSize extends ScopedElementsMixin(LitElement) {
@@ -33,7 +29,7 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
     return {
       'sl-select': Select,
       'sl-select-option': SelectOption
-    }; // TODO: update dependencies
+    };
   }
 
   /** @internal */
@@ -41,8 +37,6 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the page size has been selected/changed. */
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlPageSizeChangeEvent>;
-
-  // data - how to connect with data? make an example / story
 
   /** Page sizes - array of possible page sizes e.g. [5, 10, 15] */
   @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
@@ -60,31 +54,42 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-        <div class="page-sizes">
-        Items per page:
+        <span>${msg('Items per page')}:</span>
         ${this.pageSizes ?
       html`
-        <sl-select size="lg" .value=${this.itemsPerPage}>
-            ${this.pageSizes?.map(
+        <sl-select aria-label=${`${this.itemsPerPage} ${msg('Items per page')}`} size="lg" value=${this.itemsPerPage}>
+            ${this.pageSizes.map(
         (size) => html`
-                <sl-select-option @click=${this.#setValue} .value=${size}>${size}</sl-select-option
+                <sl-select-option aria-label=${`${size} ${msg('Items per page')}`} @click=${this.#setValue} @keydown=${this.#onKeydown} .value=${size}>
+                  ${size}
+                </sl-select-option
               `
       )}
         </sl-select>
-        </div>
       `
       : nothing}
+        <!-- We want this to be read every time the active page changes. -->
+        <span id="live" aria-live="polite" aria-atomic="true">Currently selected amount of items: ${this.itemsPerPage}</span>
     `;
   }
 
   #setValue(event: Event & { target: SelectOption }): void {
+    console.log('event', event);
     this.itemsPerPage = Number(event.target.value);
 
     /** Emits amount of selected items per page */
     this.pageSizeChangeEvent.emit(this.itemsPerPage);
   }
+
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('event222', event);
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.click();
+
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
 }
 
 // TODO: accessibility
-
-// TODO: translation with msg

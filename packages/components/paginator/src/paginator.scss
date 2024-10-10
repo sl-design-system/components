@@ -2,48 +2,64 @@
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-space: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
+  // variable name used in the calculation in the component:
+  --_gap: var(--sl-space-paginator-gap);
   --_padding-block: var(--sl-space-sm);
   --_padding-inline: var(--sl-space-sm);
+  --_select-min-inline-size: var(--sl-size-paginator-select-min-width);
   --_wrapper-padding-inline: var(--sl-space-sm);
-
-  --_gap: var(--sl-space-paginator-gap); //8px; // TODO: use a token, variable name used in the calculation in the component
 
   display: flex;
   justify-content: center;
-}
-
-.container {
- // flex-grow: 1;
 }
 
 .pages-wrapper {
   display: flex;
   overflow-x: hidden;
   align-items: center;
-  gap: var(--_gap); //8px; // TODO: use a token
-  padding: var(--_focus-space); //4px; // TODO: to make focus-ring visible with overflow hidden
+  gap: var(--_gap);
+  // to make focus-ring visible with overflow hidden:
+  padding: var(--_focus-space);
+  margin: 0;
 }
 
-ul {
-  // display: flex;
+.container {
   align-items: center;
-  gap: var(--_gap); //8px; // TODO: use a token
+  gap: var(--_gap);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   padding: 0;
-  //margin: 0;
-  margin: calc(var(--_focus-space) * -1); //-4px; // TODO: to make focus-ring visible with overflow hidden
+  // to make focus-ring visible with overflow hidden:
+  margin: calc(var(--_focus-space) * -1);
 }
 
-ul[mobile] {
-  //grid-template-columns: auto;
+//ul {
+//  align-items: center;
+//  gap: var(--_gap);
+//  display: grid;
+//  grid-template-columns: 1fr auto 1fr;
+//  padding: 0;
+//  // to make focus-ring visible with overflow hidden:
+//  margin: calc(var(--_focus-space) * -1);
+//}
+
+//ul[mobile],
+.container[mobile] {
   display: block;
-  margin: var(--_focus-space); // TODO: to align with changes for focus ring
+  // to align with changes made for focus ring visibility with overflow hidden:
+  margin: var(--_focus-space);
 }
 
 li {
   list-style: none;
-  min-inline-size: 0;
+  //min-inline-size: 0;
+
+  display: flex;
+  box-sizing: border-box;
+  -webkit-box-align: start;
+  align-items: start;
+  flex-direction: row;
+  margin-block-start: var(--ds-space-0, 0px);
 }
 
 .select-wrapper {
@@ -51,9 +67,16 @@ li {
   gap: var(--_gap);
   align-items: center;
   flex-wrap: wrap;
-  //padding: var(--_focus-space); //4px; // TODO: to make focus-ring visible with overflow hidden
+  justify-content: center;
 
   sl-select {
-    min-inline-size: var(--sl-size-paginator-select-min-width); //80px;
+    min-inline-size: var(--_select-min-inline-size);
   }
+}
+
+/** Hiding the aria-live element for the UI, but not for the screen readers. */
+#live {
+  block-size: 0;
+  inline-size: 0;
+  overflow: hidden;
 }

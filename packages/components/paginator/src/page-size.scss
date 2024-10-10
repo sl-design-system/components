@@ -1,15 +1,26 @@
 :host {
-  display: block;
-  padding: 0;
-}
+  --_color: var(--sl-color-text-default);
+  --_font: var(--sl-text-new-body-md);
+  --_font-weight: var(--sl-text-typeset-font-weight-icon-regular);
 
-.page-sizes {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
   text-wrap: nowrap;
+  padding: 0;
+  color: var(--_color);
+  font: var(--_font);
+  font-weight: var(--_font-weight);
 }
 
 sl-select {
   min-inline-size: var(--sl-size-paginator-select-min-width);
 }
+
+/** Hiding the aria-live element for the UI, but not for the screen readers. */
+//#live {
+//  block-size: 0;
+//  inline-size: 0;
+//  overflow: hidden;
+//}

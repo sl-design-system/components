@@ -1,5 +1,12 @@
 :host {
+  --_color: var(--sl-color-text-default);
+  --_font: var(--sl-text-new-body-md);
+  --_font-weight: var(--sl-text-typeset-font-weight-icon-regular);
+
   display: block;
   padding: 0;
   text-wrap: nowrap;
+  color: var(--_color);
+  font: var(--_font);
+  font-weight: var(--_font-weight);
 }

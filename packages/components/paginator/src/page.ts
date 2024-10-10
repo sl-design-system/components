@@ -24,6 +24,9 @@ export class Page extends LitElement {
   // /** @internal Emits when the page has been selected/changed. */
   // @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>;
 
+  /** @internal page number used for the aria-label */
+  #pageNumber = '';
+
 
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
@@ -33,6 +36,22 @@ export class Page extends LitElement {
     // }
 
     // TODO: any arias needed here?
+
+    this.#pageNumber = Array.from(this.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join('');
+
+    console.log('this.childNodes', this.childNodes, /*(this.childNodes as Node[]).filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join('')*/
+      Array.from(this.childNodes).filter(node => {
+        return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
+      }),
+      Array.from(this.childNodes)
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .map(node => node.textContent?.trim())
+        .join(''));
 
   }
 
@@ -44,9 +63,29 @@ export class Page extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <button>
-        <slot></slot>
+      <button aria-label=${this.#pageNumber + ', page'}>
+        <slot @slotchange=${this.#onSlotChange}></slot>
       </button>
     `;
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const hasText = !!event.target
+      .assignedNodes({ flatten: true })
+      .filter(node => node.textContent && node.textContent.trim().length > 0).length;
+    this.#pageNumber = event.target
+      .assignedNodes({ flatten: true })
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join('');
+
+    console.log('hasText in page', hasText, !!event.target
+      .assignedNodes({ flatten: true }).filter(node => node.textContent), Array.from(event.target.assignedElements({ flatten: true })), event.target,
+       event.target
+        .assignedNodes({ flatten: true })
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .map(node => node.textContent?.trim())
+        .join(''));
+    console.log('pageNumber', this.#pageNumber);
   }
 }

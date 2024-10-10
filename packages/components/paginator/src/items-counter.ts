@@ -1,4 +1,4 @@
-import { localized } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import {type CSSResultGroup, LitElement, type TemplateResult, html, type PropertyValues} from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './items-counter.scss.js';
@@ -28,11 +28,11 @@ export class ItemsCounter extends LitElement {
   /** Items per page, if not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
 
-  /** @internal pages amount */ // TODO: state maybe?
+  /** @internal pages amount */
   #pages: number = 1;
 
-  /** @internal active */ // TODO: state maybe?
-  @property() activePage: number = 1; // TODO: should be possible to set manually!!!
+  /** @internal active */
+  @property() activePage: number = 1;
 
   /** @internal currently visible items on the current page */
   @state() currentlyVisibleItems: number = 1;
@@ -55,8 +55,6 @@ export class ItemsCounter extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('changes in updated in ItemsCounter', changes);
 
     if (changes.has('itemsPerPage') || changes.has('total')) {
       const total = this.total ?? 0;
@@ -88,9 +86,9 @@ export class ItemsCounter extends LitElement {
     const end = this.activePage === this.#pages ? total : this.activePage * this.currentlyVisibleItems;
 
     return html`
-      ${start} - ${end} of ${this.total} items
+      ${msg(str`${start} - ${end} of ${this.total} items`)}
     `;
-  } // TODO: add msg localize str
+  }
 
   #setCurrentlyVisibleItems(): void {
     if (!this.itemsPerPage || !this.#pages) {
@@ -99,8 +97,6 @@ export class ItemsCounter extends LitElement {
 
     if (this.activePage === this.#pages) {
       const total = this.total ?? 0;
-      // const itemsPerPage = this.itemsPerPage ?? 10;
-      console.log('last page is active');
       const itemsOnLastPage = total % this.itemsPerPage;
       this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.itemsPerPage : itemsOnLastPage;
     } else {

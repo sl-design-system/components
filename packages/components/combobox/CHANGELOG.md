@@ -1,5 +1,19 @@
 # @sl-design-system/combobox
 
+## 0.0.3
+
+### Patch Changes
+
+- [#1551](https://github.com/sl-design-system/components/pull/1551) [`99d6174`](https://github.com/sl-design-system/components/commit/99d6174945e6189125271d30a79028134c4ebeae) - Hide the placeholder when there is a selection in multiple mode
+
+- [#1563](https://github.com/sl-design-system/components/pull/1563) [`ae44384`](https://github.com/sl-design-system/components/commit/ae44384129f1a787a82fd35262f3f24e0883df58) - Fix missing types in NPM package
+
+- Updated dependencies [[`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`ae44384`](https://github.com/sl-design-system/components/commit/ae44384129f1a787a82fd35262f3f24e0883df58)]:
+  - @sl-design-system/text-field@1.5.0
+  - @sl-design-system/form@1.1.0
+  - @sl-design-system/listbox@0.0.2
+  - @sl-design-system/tag@0.0.4
+
 ## 0.0.2
 
 ### Patch Changes

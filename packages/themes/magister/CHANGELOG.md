@@ -1,5 +1,11 @@
 # @sanomalearning/slds-magister
 
+## 0.1.18
+
+### Patch Changes
+
+- [#1587](https://github.com/sl-design-system/components/pull/1587) [`79261ab`](https://github.com/sl-design-system/components/commit/79261abc96b1bf92653face858436d6d051e454d) - updated background color with primary.25
+
 ## 0.1.17
 
 ### Patch Changes

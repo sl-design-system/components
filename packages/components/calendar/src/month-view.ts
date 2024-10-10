@@ -27,7 +27,7 @@ export class MonthView extends LocaleMixin(LitElement) {
   @property({ type: Boolean, attribute: 'hide-days-other-months' }) hideDaysOtherMonths?: boolean;
 
   /** The current month to display. */
-  @property({ converter: dateConverter }) month: Date = new Date();
+  @property({ converter: dateConverter }) month?: Date;
 
   /** Will not use buttons for the days of the month if true. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
@@ -51,7 +51,7 @@ export class MonthView extends LocaleMixin(LitElement) {
     }
 
     if (changes.has('month')) {
-      this.calendar = createCalendar(this.month, { firstDayOfWeek: this.firstDayOfWeek });
+      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek: this.firstDayOfWeek });
     }
   }
 

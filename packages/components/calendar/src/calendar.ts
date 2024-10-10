@@ -75,12 +75,14 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onSelectMonth(event: SlSelectEvent<number>): void {
-    this.month = new Date(this.month.getFullYear(), event.detail - 1, this.month.getDate());
+    this.month = new Date(this.month);
+    this.month.setMonth(event.detail);
     this.mode = 'day';
   }
 
   #onSelectYear(event: SlSelectEvent<number>): void {
-    this.month = new Date(event.detail, this.month.getMonth() - 1, this.month.getDate());
+    this.month = new Date(this.month);
+    this.month.setFullYear(event.detail);
     this.mode = 'month';
   }
 

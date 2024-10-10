@@ -9,9 +9,10 @@ import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { MonthView } from './month-view.js';
 import styles from './select-day.scss.js';
-import { getWeekdayNames } from './utils.js';
+import { getWeekdayNames, normalizeDateTime } from './utils.js';
 
 declare global {
   // These are too new to be in every TypeScript version yet
@@ -40,14 +41,17 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Ignore snap events before initialized. */
+  #initialized = false;
+
   /** @internal The month/year that will be displayed in the header. */
   @state() displayMonth?: Date;
 
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
-  /** The month that the calendar opens on. */
-  @property({ converter: dateConverter }) month = new Date();
+  /** The month that is shown. */
+  @property({ converter: dateConverter }) month?: Date;
 
   /** @internal The next month in the calendar. */
   @state() nextMonth?: Date;
@@ -81,7 +85,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.weekDays = longDays.map((day, i) => ({ long: day, short: shortDays[i] }));
     }
 
-    if (changes.has('month')) {
+    if (changes.has('month') && this.month) {
       this.displayMonth = this.month;
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
       this.previousMonth = new Date(this.month.getFullYear(), this.month.getMonth() - 1);
@@ -105,13 +109,24 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
       </div>
       <div
+        @scrollend=${this.#onScrollEnd}
         @scrollsnapchange=${this.#onScrollSnapChange}
         @scrollsnapchanging=${this.#onScrollSnapChanging}
         class="scroller"
       >
-        <sl-month-view aria-hidden="true" inert .locale=${this.locale} .month=${this.previousMonth}></sl-month-view>
-        <sl-month-view .locale=${this.locale} .month=${this.month}></sl-month-view>
-        <sl-month-view aria-hidden="true" inert .locale=${this.locale} .month=${this.nextMonth}></sl-month-view>
+        <sl-month-view
+          .month=${this.previousMonth}
+          aria-hidden="true"
+          inert
+          locale=${ifDefined(this.locale)}
+        ></sl-month-view>
+        <sl-month-view .month=${this.month} locale=${ifDefined(this.locale)}></sl-month-view>
+        <sl-month-view
+          .month=${this.nextMonth}
+          aria-hidden="true"
+          inert
+          locale=${ifDefined(this.locale)}
+        ></sl-month-view>
       </div>
     `;
   }
@@ -124,13 +139,21 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.#scrollToMonth(1, true);
   }
 
+  #onScrollEnd(): void {
+    this.#initialized = true;
+  }
+
   #onScrollSnapChange(event: Event): void {
-    this.month = (event.snapTargetInline as MonthView).month;
+    if (!this.#initialized) return;
+
+    this.month = normalizeDateTime((event.snapTargetInline as MonthView).month!);
     this.#scrollToMonth(0);
   }
 
   #onScrollSnapChanging(event: Event): void {
-    this.displayMonth = (event.snapTargetInline as MonthView).month;
+    if (!this.#initialized) return;
+
+    this.displayMonth = normalizeDateTime((event.snapTargetInline as MonthView).month!);
   }
 
   #onToggleMonthYear(): void {

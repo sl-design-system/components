@@ -1,8 +1,8 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Select, SelectOption } from '@sl-design-system/select';
-import {type EventEmitter, event} from '@sl-design-system/shared';
-import {type CSSResultGroup, LitElement, type TemplateResult, html, nothing, type PropertyValues} from 'lit';
+import { event, type EventEmitter } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './page-size.scss.js';
 
@@ -54,15 +54,15 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-        <span>${msg('Items per page')}:</span>
-        ${this.pageSizes ?
+      <span>${msg('Items per page')}:</span>
+      ${this.pageSizes ?
       html`
         <sl-select aria-label=${`${this.itemsPerPage} ${msg('Items per page')}`} size="lg" value=${this.itemsPerPage}>
             ${this.pageSizes.map(
-        (size) => html`
+              (size) => html`
                 <sl-select-option aria-label=${`${size} ${msg('Items per page')}`} @click=${this.#setValue} @keydown=${this.#onKeydown} .value=${size}>
                   ${size}
-                </sl-select-option
+                </sl-select-option>
               `
       )}
         </sl-select>

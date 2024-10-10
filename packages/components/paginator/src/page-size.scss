@@ -3,15 +3,15 @@
   --_font: var(--sl-text-new-body-md);
   --_font-weight: var(--sl-text-typeset-font-weight-icon-regular);
 
-  display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  text-wrap: nowrap;
-  padding: 0;
   color: var(--_color);
+  display: flex;
+  flex-wrap: wrap;
   font: var(--_font);
   font-weight: var(--_font-weight);
+  gap: 8px;
+  padding: 0;
+  text-wrap: nowrap;
 }
 
 sl-select {
@@ -19,8 +19,8 @@ sl-select {
 }
 
 /** Hiding the aria-live element for the UI, but not for the screen readers. */
-//#live {
+// #live {
 //  block-size: 0;
 //  inline-size: 0;
 //  overflow: hidden;
-//}
+// }

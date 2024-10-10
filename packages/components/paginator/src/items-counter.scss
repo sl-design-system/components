@@ -3,10 +3,10 @@
   --_font: var(--sl-text-new-body-md);
   --_font-weight: var(--sl-text-typeset-font-weight-icon-regular);
 
-  display: block;
-  padding: 0;
-  text-wrap: nowrap;
   color: var(--_color);
+  display: block;
   font: var(--_font);
   font-weight: var(--_font-weight);
+  padding: 0;
+  text-wrap: nowrap;
 }

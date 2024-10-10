@@ -4,9 +4,9 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Select, SelectOption } from '@sl-design-system/select';
-import {Menu, MenuButton, MenuItem} from '@sl-design-system/menu';
-import {type EventEmitter, event} from '@sl-design-system/shared';
-import {type CSSResultGroup, LitElement, type TemplateResult, html, type PropertyValues} from 'lit';
+import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, type PropertyValues } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './paginator.scss.js';
@@ -227,7 +227,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
             <sl-select size="lg" @change=${this.#setActive} .value=${this.activePage}>
               ${Array.from({ length: pages })?.map(
                 (_, index) => html`
-                <sl-select-option @click=${this.#setActive} .value=${index + 1}>${index + 1}</sl-select-option
+                <sl-select-option @click=${this.#setActive} .value=${index + 1}>${index + 1}</sl-select-option>
               `
               )}
             </sl-select>
@@ -287,14 +287,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   #update(): void {
     const buttonPrev = this.renderRoot.querySelector('sl-button.prev') as Button,
-     buttonNext = this.renderRoot.querySelector('sl-button.next') as Button,
-     gap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0'),
-     pages = this.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-     pagesWrapper = this.renderRoot.querySelector('.pages-wrapper') as HTMLElement,
-     selectWrapper = this.renderRoot.querySelector('.select-wrapper') as HTMLDivElement,
-     ulElement = this.renderRoot.querySelector('.container') as HTMLDivElement, //this.renderRoot.querySelector('ul') as HTMLUListElement, // TODO:  change name
-     lastPage = pages.length,
-    pagesWrapperPadding = parseInt(getComputedStyle(pagesWrapper).getPropertyValue('padding-left')) + parseInt(getComputedStyle(pagesWrapper).getPropertyValue('padding-right'));
+      buttonNext = this.renderRoot.querySelector('sl-button.next') as Button,
+      gap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0'),
+      pages = this.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
+      pagesWrapper = this.renderRoot.querySelector('.pages-wrapper') as HTMLElement,
+      selectWrapper = this.renderRoot.querySelector('.select-wrapper') as HTMLDivElement,
+      ulElement = this.renderRoot.querySelector('.container') as HTMLDivElement, //this.renderRoot.querySelector('ul') as HTMLUListElement, // TODO:  change name
+      lastPage = pages.length,
+      pagesWrapperPadding = parseInt(getComputedStyle(pagesWrapper).getPropertyValue('padding-left')) + parseInt(getComputedStyle(pagesWrapper).getPropertyValue('padding-right'));
 
     console.log('pagesWrapperPadding', pagesWrapperPadding);
 
@@ -321,7 +321,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.#mobileVariant = false;
     this.requestUpdate(); // TODO: is it necessary? perhaps yes?
 
-    (Array.from(pages)).forEach(button => {
+    Array.from(pages).forEach(button => {
       /** reset display to check the width */
       button.style.display = '';
       this.requestUpdate();
@@ -361,11 +361,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       }
 
       /** if activePage is bigger than half of possibly visible pages and smaller than last pages,
-      *   pages before and pages after active page, from 1..active and active ...10
+      *   pages before and pages after active page, from 1...active and active ...10
       *   first page -> hidden pages on the left (one more button) -> shown pages on the left -> active page -> shown pages on the right -> hidden pages on the right (one more button) -> last page
       *   e.g.  1 ... 7 [8] 9 10 ... 20
       */
-      if ((this.activePage) > Math.floor(possiblyVisible.length / 2) && (this.activePage) <= (lastPage - Math.floor(possiblyVisible.length / 2))) {
+      if (this.activePage > Math.floor(possiblyVisible.length / 2) && this.activePage <= (lastPage - Math.floor(possiblyVisible.length / 2))) {
         let pagesToShow: number;
         /** possibly visible pages minus 3 - minus first, active page and last page */
         pagesToShow = possiblyVisible.length - 3;
@@ -495,7 +495,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       (button) => {
         const newItem = this.shadowRoot?.createElement('sl-menu-item') as MenuItem;
         newItem.innerText = button.innerText.trim();
-        newItem.setAttribute('aria-label', `${button.innerText.trim() + ', page'}` );
+        newItem.setAttribute('aria-label', `${button.innerText.trim() + ', page'}`);
         newItem.addEventListener('click', (event) => this.#setActive(event));
         return newItem;
       }
@@ -504,4 +504,3 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 }
 
 // TODO: nav -> ul -> li -> a href? or button - depending whether it is a navigation or not?
-

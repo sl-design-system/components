@@ -1,5 +1,5 @@
 import { localized, msg, str } from '@lit/localize';
-import {type CSSResultGroup, LitElement, type TemplateResult, html, type PropertyValues} from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './items-counter.scss.js';
 
@@ -22,6 +22,9 @@ export class ItemsCounter extends LitElement {
 
   // TODO: unit tests
 
+  /** Currently active page. */
+  @property({ type: Number, attribute: 'active-page' }) activePage: number = 1;
+
   /** Total amount of items. */
   @property() total?: number;
 
@@ -30,9 +33,6 @@ export class ItemsCounter extends LitElement {
 
   /** @internal pages amount */
   #pages: number = 1;
-
-  /** @internal active */
-  @property() activePage: number = 1;
 
   /** @internal currently visible items on the current page */
   @state() currentlyVisibleItems: number = 1;
@@ -82,12 +82,10 @@ export class ItemsCounter extends LitElement {
   override render(): TemplateResult {
     const total = this.total ?? 0;
     const itemsPerPage = this.itemsPerPage ?? 10;
-    const start = this.activePage === 1 ? 1 : ((this.activePage - 1) * itemsPerPage) + 1;
+    const start = this.activePage === 1 ? 1 : (this.activePage - 1) * itemsPerPage + 1;
     const end = this.activePage === this.#pages ? total : this.activePage * this.currentlyVisibleItems;
 
-    return html`
-      ${msg(str`${start} - ${end} of ${this.total} items`)}
-    `;
+    return html`${msg(str`${start} - ${end} of ${this.total} items`)}`;
   }
 
   #setCurrentlyVisibleItems(): void {
@@ -104,4 +102,3 @@ export class ItemsCounter extends LitElement {
     }
   }
 }
-

@@ -1,14 +1,14 @@
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/icon/register.js';
 import '@sl-design-system/card/register.js';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
 import '@sl-design-system/paginator/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type Paginator } from './paginator.js';
 import { type PageSize } from './page-size.js';
-import {ItemsCounter} from "./items-counter";
+import { type Paginator } from './paginator.js';
+import { ItemsCounter } from './items-counter';
 
 type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total'> & {
   actions?(): string | TemplateResult;
@@ -23,7 +23,7 @@ export default {
     total: 52,
     itemsPerPage: 15,
     pageSizes: [5, 10, 15],
-    activePage: 2,
+    activePage: 2
   },
   argTypes: {
     actions: {
@@ -102,7 +102,7 @@ export const Mobile: Story = {
       defaultViewport: 'iphone5'
     }
   },
-  render: ({activePage, itemsPerPage, pageSizes, total}) => {
+  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
     return html`
     <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator>
     `
@@ -114,7 +114,7 @@ export const ItemsPerPage: Story = {
     ...Basic.args,
     total: 100
   },
-  render: ({pageSizes, itemsPerPage}) => {
+  render: ({ pageSizes, itemsPerPage }) => {
     let pageSize = document.querySelector('sl-page-size') as PageSize;
     setTimeout(() => {
       pageSize = document.querySelector('sl-page-size') as PageSize;
@@ -213,7 +213,7 @@ export const ExampleWithCards: Story = {
       currentlyVisibleItems = itemsPerPage;
     }
 
-    start = activePage === 1 ? 0 : ((activePage - 1) * itemsPerPage);
+    start = activePage === 1 ? 0 : (activePage - 1) * itemsPerPage;
     end = activePage === pages ? total : activePage * currentlyVisibleItems;
 
     console.log('1in example start and end', start, end, Array.from({length: total}).slice(start, end).map((_, index) => index));
@@ -272,7 +272,6 @@ export const ExampleWithCards: Story = {
 
       });
     });
-
 
       // TODO: use paginator activePage and so on
       // const start = this.activePage === 1 ? 1 : ((this.activePage - 1) * itemsPerPage) + 1;

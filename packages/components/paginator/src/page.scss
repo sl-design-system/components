@@ -25,17 +25,17 @@ button:where(:active, :hover) {
 }
 
 button {
-  position: relative;
-  min-inline-size: var(--_min-width);
-  padding-block: var(--_padding-block);
-  padding-inline: 0;
-  display: inline-flex;
-  justify-content: center;
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--sl-border-radius-button-lg);
   cursor: pointer;
+  display: inline-flex;
   font: var(--_font);
+  justify-content: center;
+  min-inline-size: var(--_min-width);
+  padding-block: var(--_padding-block);
+  padding-inline: 0;
+  position: relative;
 }
 
 :host(:not([disabled]):hover) {

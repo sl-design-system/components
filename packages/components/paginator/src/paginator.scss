@@ -2,6 +2,7 @@
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-space: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
+
   // variable name used in the calculation in the component:
   --_gap: var(--sl-space-paginator-gap);
   --_padding-block: var(--sl-space-sm);
@@ -14,59 +15,47 @@
 }
 
 .pages-wrapper {
-  display: flex;
-  overflow-x: hidden;
   align-items: center;
+  display: flex;
   gap: var(--_gap);
+  margin: 0;
+  overflow-x: hidden;
+
   // to make focus-ring visible with overflow hidden:
   padding: var(--_focus-space);
-  margin: 0;
 }
 
 .container {
   align-items: center;
-  gap: var(--_gap);
   display: grid;
+  gap: var(--_gap);
   grid-template-columns: 1fr auto 1fr;
-  padding: 0;
+
   // to make focus-ring visible with overflow hidden:
   margin: calc(var(--_focus-space) * -1);
+  padding: 0;
 }
 
-//ul {
-//  align-items: center;
-//  gap: var(--_gap);
-//  display: grid;
-//  grid-template-columns: 1fr auto 1fr;
-//  padding: 0;
-//  // to make focus-ring visible with overflow hidden:
-//  margin: calc(var(--_focus-space) * -1);
-//}
-
-//ul[mobile],
 .container[mobile] {
   display: block;
+
   // to align with changes made for focus ring visibility with overflow hidden:
   margin: var(--_focus-space);
 }
 
 li {
-  list-style: none;
-  //min-inline-size: 0;
-
-  display: flex;
-  box-sizing: border-box;
-  -webkit-box-align: start;
   align-items: start;
+  box-sizing: border-box;
+  display: flex;
   flex-direction: row;
-  margin-block-start: var(--ds-space-0, 0px);
+  list-style: none;
 }
 
 .select-wrapper {
-  display: flex;
-  gap: var(--_gap);
   align-items: center;
+  display: flex;
   flex-wrap: wrap;
+  gap: var(--_gap);
   justify-content: center;
 
   sl-select {

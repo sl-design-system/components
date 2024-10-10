@@ -14,6 +14,10 @@
   margin-inline-end: auto;
 }
 
+sl-button {
+  user-select: none;
+}
+
 sl-month-view::part(header) {
   display: none;
 }

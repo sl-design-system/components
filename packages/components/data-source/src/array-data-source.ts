@@ -10,6 +10,7 @@ import {
 export class ArrayDataSource<T = any> extends DataSource<T> {
   #filteredItems: T[] = [];
   #items: T[];
+  #paginatedItems: T[] = [];
 
   get items(): T[] {
     return this.#filteredItems;
@@ -17,6 +18,16 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
   set items(items: T[]) {
     this.#items = items;
+    this.update();
+  }
+
+  get paginatedItems(): T[] {
+    return this.#paginatedItems;
+  }
+
+  set paginatedItems(items: T[]) {
+    this.#paginatedItems = items;
+    console.log('test', this.#paginatedItems, items, this.items);
     this.update();
   }
 
@@ -28,6 +39,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     super();
     this.#filteredItems = [...items];
     this.#items = [...items];
+    this.#paginatedItems = [...items];
   }
 
   update(): void {
@@ -124,6 +136,37 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         return ascending ? result : -result;
       });
     }
+
+    console.log('items before paginated, but should be filtered if filtered', items, this.filters, this.filters.size > 0, this.filters.values());
+
+    this.#paginatedItems = items;
+
+    // paginate items
+    if (this.paginateItems) {
+      console.log('this.paginateItems', this.paginateItems);
+      // const pagination = {pageNumber: pageNumber, pageSize: pageSize};
+      // console.log('pagination in paginate', pagination);
+
+      // const pageNumber = /*filtersChanged /!*this.filters.size > 0*!/ ? 1 :*/ this.paginateItems.pageNumber;
+      // this.paginateItems.pageNumber = pageNumber;
+      //  this.paginate(10, pageNumber);
+      //   this.paginateItems.pageNumber = pageNumber;
+
+      const startIndex = (this.paginateItems.pageNumber /*pageNumber*/ - 1) * this.paginateItems.pageSize;
+      const endIndex = startIndex + this.paginateItems.pageSize;
+      // console.log('pageNumber in array data source', pageNumber, filtersChanged, startIndex);
+      // Get the items for the current page
+      /*const paginatedItems*/items  = /*this.*/items.slice(startIndex, endIndex);
+      // console.log('paginated data', paginatedItems);
+      // Update this.items with the paginated items
+      // this.paginatedItems/*items*/ = paginatedItems;
+      //  console.log('updated items', this.items, this.paginatedItems, items);
+    }
+
+    // TODO: I need to have amount of all filtered data for total to show in the paginator...
+
+    console.log('paginateditems?', this.paginatedItems);
+    console.log('items in array data', items);
 
     this.#filteredItems = items;
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));

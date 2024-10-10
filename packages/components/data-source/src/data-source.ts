@@ -35,6 +35,8 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
 
+export type DataSourcePagination = { pageNumber: number, pageSize: number };
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
 
@@ -46,11 +48,15 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Order the items by grouping them on the given attributes. */
   #groupBy?: DataSourceGroupBy<T>;
 
+  #paginateItems?: DataSourcePagination;
+
   /**
    * The value and path/function to use for sorting. When setting this property,
    * it will cause the data to be automatically sorted.
    */
   #sort?: DataSourceSort<T>;
+
+  // #pagination
 
   get filters(): Map<string, DataSourceFilter<T>> {
     return this.#filters;
@@ -60,6 +66,10 @@ export abstract class DataSource<T = any> extends EventTarget {
     return this.#groupBy;
   }
 
+  get paginateItems(): DataSourcePagination| undefined {
+    return this.#paginateItems;
+  }
+
   get sort(): DataSourceSort<T> | undefined {
     return this.#sort;
   }
@@ -67,10 +77,13 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** The filtered & sorted array of items. */
   abstract items: T[];
 
+  /** The array of all items, used for pagination. */
+ // abstract paginatedItems?: T[];
+
   /** Total number of items in this data source. */
   abstract readonly size: number;
 
-  /** Updates the list of items using filter and sorting if available. */
+  /** Updates the list of items using filter, sorting and pagination if available. */
   abstract update(): void;
 
   addFilter<U extends string | DataSourceFilterFunction<T>>(
@@ -78,12 +91,13 @@ export abstract class DataSource<T = any> extends EventTarget {
     pathOrFilter: U,
     value?: string | string[]
   ): void {
+    console.log('value in addFilter', value);
     if (typeof pathOrFilter === 'string') {
       this.#filters.set(id, { path: pathOrFilter, value: value ?? '' });
     } else {
       this.#filters.set(id, { filter: pathOrFilter, value });
     }
-  }
+  } // TODO: maybe here emit an event?
 
   removeFilter(id: string): void {
     this.#filters.delete(id);
@@ -147,4 +161,15 @@ export abstract class DataSource<T = any> extends EventTarget {
 
     this.update();
   }
+
+  /**
+   * Use to get the paginated data for usage with the sl-paginator component.
+   * */
+  paginate(pageNumber: number, pageSize: number): void {
+    this.#paginateItems = { pageNumber: pageNumber, pageSize: pageSize};
+
+    this.update();
+  }
+
+  // TODO:  paginatedData
 }

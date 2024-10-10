@@ -221,4 +221,6 @@ export class GridViewModel<T = any> {
       return [columns];
     }
   }
+
+  // TODO: get Paginated data ? or in the data-source maybe?
 }

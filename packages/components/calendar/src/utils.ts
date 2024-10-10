@@ -111,18 +111,38 @@ export function getWeekNumber(d: Date, firstDayOfWeek: number): number {
   return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
 }
 
-export function createCalendar(
-  date: Date,
-  { end, firstDayOfWeek = 0 }: { end?: Date; firstDayOfWeek?: number } = {}
-): Calendar {
+export function isSameDate(day1?: Date, day2?: Date): boolean {
+  return (
+    day1 instanceof Date &&
+    day2 instanceof Date &&
+    day1.getDate() === day2.getDate() &&
+    day1.getMonth() === day2.getMonth() &&
+    day1.getFullYear() === day2.getFullYear()
+  );
+}
+
+export function normalizeDateTime(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+export interface CreateCalendarOptions {
+  end?: Date;
+  firstDayOfWeek?: number;
+}
+
+export function createCalendar(date: Date, { end, firstDayOfWeek = 0 }: CreateCalendarOptions): Calendar {
   const weekOptions = { firstDayOfWeek };
 
   return end ? createPeriod(date, end, weekOptions) : createMonth(date, weekOptions);
 }
 
-export function createPeriod(start: Date, end: Date, { firstDayOfWeek = 0 } = {}): Calendar {
+export interface CreatePeriodOptions {
+  firstDayOfWeek: number;
+}
+
+export function createPeriod(start: Date, end: Date, { firstDayOfWeek = 0 }: CreatePeriodOptions): Calendar {
   const calendar: Calendar = { weeks: [] },
-    weekOptions = { firstDayOfWeek };
+    weekOptions = { firstDayOfWeek, relativeMonth: start };
 
   let nextWeek = createWeek(start, weekOptions);
   do {
@@ -135,11 +155,15 @@ export function createPeriod(start: Date, end: Date, { firstDayOfWeek = 0 } = {}
   return calendar;
 }
 
-export function createMonth(date: Date, { firstDayOfWeek = 0 } = {}): Calendar {
+export interface CreateMonthOptions {
+  firstDayOfWeek: number;
+}
+
+export function createMonth(date: Date, { firstDayOfWeek = 0 }: CreateMonthOptions): Calendar {
   const firstDayOfMonth = new Date(date);
   firstDayOfMonth.setDate(1);
   const monthNumber = firstDayOfMonth.getMonth();
-  const weekOptions = { firstDayOfWeek };
+  const weekOptions = { firstDayOfWeek, relativeMonth: firstDayOfMonth };
 
   const month: Calendar = { weeks: [] };
 
@@ -154,7 +178,12 @@ export function createMonth(date: Date, { firstDayOfWeek = 0 } = {}): Calendar {
   return month;
 }
 
-export function createWeek(date: Date, { firstDayOfWeek = 0 } = {}): Week {
+export interface CreateWeekOptions {
+  firstDayOfWeek: number;
+  relativeMonth: Date;
+}
+
+export function createWeek(date: Date, { firstDayOfWeek = 0, relativeMonth }: CreateWeekOptions): Week {
   let weekStartDate = new Date(date);
 
   const tmpDate = new Date(date);
@@ -171,6 +200,7 @@ export function createWeek(date: Date, { firstDayOfWeek = 0 } = {}): Week {
 
     week.days.push(
       createDay(new Date(weekStartDate), {
+        relativeMonth,
         weekOrder: i,
         startOfWeek: i === 0
       })
@@ -179,37 +209,28 @@ export function createWeek(date: Date, { firstDayOfWeek = 0 } = {}): Week {
   return week;
 }
 
-export function createDay(
-  date = new Date(),
-  {
-    central = false,
-    currentMonth = false,
-    disabled = false,
-    future = false,
-    nextMonth = false,
-    past = false,
-    previousMonth = false,
-    selected = false,
-    startOfWeek = false,
-    today = false,
-    weekOrder = 0
-  } = {}
-): Day {
+export interface CreateDayOptions {
+  relativeMonth: Date;
+  startOfWeek: boolean;
+  weekOrder: number;
+}
+
+export function createDay(date: Date, { relativeMonth, startOfWeek = false, weekOrder = 0 }: CreateDayOptions): Day {
+  const today = normalizeDateTime(new Date()),
+    currentMonth = relativeMonth.getMonth(),
+    isToday = isSameDate(date, today);
+
   return {
-    ariaCurrent: undefined,
-    ariaPressed: 'false',
-    central,
-    currentMonth,
+    ariaCurrent: isToday ? 'date' : undefined,
+    currentMonth: date.getMonth() === currentMonth,
     date,
-    disabled,
-    future,
-    nextMonth,
-    past,
-    previousMonth,
-    selected,
+    future: date > today,
+    nextMonth: date.getMonth() > currentMonth,
+    past: date < today,
+    previousMonth: date.getMonth() < currentMonth,
     startOfWeek,
     tabindex: '-1',
-    today,
+    today: isToday,
     weekOrder
   };
 }

@@ -4,14 +4,15 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type MonthView } from './month-view.js';
 
-type Props = Pick<MonthView, 'firstDayOfWeek' | 'locale' | 'month' | 'showWeekNumbers'>;
+type Props = Pick<MonthView, 'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'showWeekNumbers'>;
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Month view',
+  title: 'Calendar/Month view',
   tags: ['draft'],
   args: {
     month: new Date(),
+    readonly: false,
     showWeekNumbers: false
   },
   argTypes: {
@@ -26,8 +27,9 @@ export default {
       control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, month, locale, showWeekNumbers }) => html`
+  render: ({ firstDayOfWeek, month, locale, readonly, showWeekNumbers }) => html`
     <sl-month-view
+      ?readonly=${readonly}
       ?show-week-numbers=${showWeekNumbers}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
       locale=${ifDefined(locale)}
@@ -37,6 +39,12 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Readonly: Story = {
+  args: {
+    readonly: true
+  }
+};
 
 export const WeekNumbers: Story = {
   args: {

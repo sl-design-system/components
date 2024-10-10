@@ -24,6 +24,7 @@
     { "path": "./packages/components/button" },
     { "path": "./packages/components/button-bar" },
     { "path": "./packages/components/card" },
+    { "path": "./packages/components/calendar" },
     { "path": "./packages/components/checkbox" },
     { "path": "./packages/components/combobox" },
     { "path": "./packages/components/dialog" },

@@ -4,7 +4,7 @@ import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './month-view.scss.js';
-import { type Calendar, createCalendar, getWeekdayNames } from './utils.js';
+import { type Calendar, type Day, createCalendar, getWeekdayNames } from './utils.js';
 
 @localized()
 export class MonthView extends LocaleMixin(LitElement) {
@@ -22,6 +22,12 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** The current month to display. */
   @property({ converter: dateConverter }) month: Date = new Date();
+
+  /** Will not use buttons for the days of the month if true. */
+  @property({ type: Boolean, reflect: true }) readonly?: boolean;
+
+  /** You can customize how a day is rendered by setting this property.  */
+  @property({ attribute: false }) renderer?: (day: Day) => TemplateResult;
 
   /** Will render a column with the week numbers when true. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
@@ -52,7 +58,7 @@ export class MonthView extends LocaleMixin(LitElement) {
             week => html`
               <tr>
                 ${this.showWeekNumbers ? html`<td part="week-number">${week.number}</td>` : nothing}
-                ${week.days.map(day => html`<td>${day.date.getDate()}</td>`)}
+                ${week.days.map(day => this.renderDay(day))}
               </tr>
             `
           )}
@@ -63,12 +69,37 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   renderHeader(): TemplateResult {
     return html`
-      <thead>
+      <thead part="header">
         <tr>
           ${this.showWeekNumbers ? html`<th part="week-number">${msg('wk')}</th>` : nothing}
           ${this.weekDays.map(day => html`<th aria-label=${day.long} part="week-day">${day.short}</th>`)}
         </tr>
       </thead>
     `;
+  }
+
+  renderDay(day: Day): TemplateResult {
+    let template: TemplateResult | undefined;
+
+    if (this.renderer) {
+      template = this.renderer(day);
+    } else {
+      const parts = ['day', ...this.#getParts(day)].join(' ');
+
+      template = this.readonly
+        ? html`<span .part=${parts}>${day.date.getDate()}</span>`
+        : html`<button .part=${parts}>${day.date.getDate()}</button>`;
+    }
+
+    return html`<td>${template}</td>`;
+  }
+
+  #getParts(day: Day): string[] {
+    return [
+      day.nextMonth ? 'next-month' : '',
+      day.previousMonth ? 'previous-month' : '',
+      day.selected ? 'selected' : '',
+      day.today ? 'today' : ''
+    ].filter(part => part !== '');
   }
 }

@@ -1,3 +1,68 @@
 :host {
   display: flex;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  transition: 0.2s ease-in-out;
+  transition-property: background, border, color, outline;
+
+  &:hover {
+    background: var(--sl-color-action-background-accent-subtle-hover);
+  }
+
+  &:active {
+    background: var(--sl-color-action-background-accent-subtle-active);
+  }
+
+  &:focus-visible {
+    outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+    outline-offset: var(--sl-border-width-focusring-offset);
+  }
+}
+
+[part~='day'] {
+  align-items: center;
+  aspect-ratio: 1;
+  color: var(--sl-color-text-default);
+  display: inline-flex;
+  inline-size: 2rem;
+  justify-content: center;
+}
+
+[part~='previous-month'],
+[part~='next-month'] {
+  color: var(--sl-color-neutral-muted);
+}
+
+[part~='today'] {
+  color: var(--sl-color-info-bold);
+}
+
+[part~='week-day'],
+[part~='week-number'] {
+  color: var(--sl-color-neutral-subtle);
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+[part~='week-number'] {
+  border-inline-end: 1px solid var(--sl-color-neutral-muted);
+  inline-size: calc(2rem - 1px);
+  text-align: center;
+}

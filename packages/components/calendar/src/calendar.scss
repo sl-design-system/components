@@ -1,0 +1,19 @@
+:host {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+[part='header'] {
+  align-items: center;
+  display: flex;
+}
+
+[part='current-month-year'] {
+  font-size: 16px;
+  font-weight: 600;
+  margin-inline-end: auto;
+}
+
+sl-month-view::part(header) {
+  display: none;
+}

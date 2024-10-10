@@ -155,7 +155,11 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
 
   focus(options?: FocusOptions): void {
     let focusElement = this.elements[this.currentIndex];
-    console.log(focusElement);
+    if (focusElement.matches('[part~=delegate-focus]')) {
+      console.log(focusElement.querySelector('*'));
+      //TODO: Make this query more specific:
+      focusElement = focusElement.querySelector('*') ?? focusElement;
+    }
     if (!focusElement || !this.isFocusableElement(focusElement)) {
       this.setCurrentIndexCircularly(1);
       focusElement = this.elements[this.currentIndex];
@@ -276,19 +280,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
         break;
     }
     event.preventDefault();
-    //TODO: the first rows that are out of view have not yet been removed from the 'elements' list, but the index already takes the offset into account.
-    // console.log({
-    //   current: this.currentIndex + ' - row: ' + this.currentIndex / this.#directionLength(),
-    //   next:
-    //     this.currentIndex +
-    //     diff +
-    //     ' - row: ' +
-    //     (this.currentIndex + diff - this.offset * this.#directionLength()) / this.#directionLength(),
-    //   offset: this.offset,
-    //   totalNumberOfElements: this.elements[0].textContent
-    // });
 
-    //todo take offset into account
     if (this.direction === 'grid' && this.currentIndex + diff < 0) {
       // this.currentIndex = 0;
       this.focusToElement(0);

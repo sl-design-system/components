@@ -75,7 +75,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     const checked = this.grid?.selection.isSelected(item);
 
     return html`
-      <td part="data selection">
+      <td part="data selection delegate-focus">
         <sl-checkbox
           @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelect(item, detail)}
           .checked=${checked}

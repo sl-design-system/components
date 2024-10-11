@@ -1,7 +1,7 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Select, SelectOption } from '@sl-design-system/select';
-import { event, type EventEmitter } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './page-size.scss.js';
@@ -25,14 +25,6 @@ export type SlPageSizeChangeEvent = CustomEvent<number>;
 @localized()
 export class PageSize extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-select': Select,
-      'sl-select-option': SelectOption
-    };
-  }
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal Emits when the page size has been selected/changed. */
@@ -43,6 +35,14 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
 
   /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
+
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-select': Select,
+      'sl-select-option': SelectOption
+    };
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -55,21 +55,32 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <span>${msg('Items per page')}:</span>
-      ${this.pageSizes ?
-      html`
-        <sl-select aria-label=${`${this.itemsPerPage} ${msg('Items per page')}`} size="lg" value=${this.itemsPerPage}>
-            ${this.pageSizes.map(
-              (size) => html`
-                <sl-select-option aria-label=${`${size} ${msg('Items per page')}`} @click=${this.#setValue} @keydown=${this.#onKeydown} .value=${size}>
-                  ${size}
-                </sl-select-option>
-              `
-      )}
-        </sl-select>
-      `
-      : nothing}
-        <!-- We want this to be read every time the active page changes. -->
-        <span id="live" aria-live="polite" aria-atomic="true">Currently selected amount of items: ${this.itemsPerPage}</span>
+      ${this.pageSizes
+        ? html`
+            <sl-select
+              aria-label=${`${this.itemsPerPage} ${msg('Items per page')}`}
+              size="lg"
+              value=${this.itemsPerPage}
+            >
+              ${this.pageSizes.map(
+                size => html`
+                  <sl-select-option
+                    aria-label=${`${size} ${msg('Items per page')}`}
+                    @click=${this.#setValue}
+                    @keydown=${this.#onKeydown}
+                    .value=${size}
+                  >
+                    ${size}
+                  </sl-select-option>
+                `
+              )}
+            </sl-select>
+          `
+        : nothing}
+      <!-- We want this to be read every time the active page changes. -->
+      <span id="live" aria-live="polite" aria-atomic="true">
+        Currently selected amount of items: ${this.itemsPerPage}
+      </span>
     `;
   }
 

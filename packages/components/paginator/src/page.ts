@@ -1,4 +1,4 @@
-import { type CSSResultGroup, html, LitElement, type PropertyValues, type TemplateResult } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import styles from './page.scss.js';
 
 declare global {

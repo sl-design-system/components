@@ -201,13 +201,13 @@ export const VisibleItemsAmount: Story = {
 //   `
 // };
 
-export const ExampleWithCards: Story = {
+/*export const ExampleWithCards: Story = {
   render: () => {
     // setTimeout(() => {
     const total = 100;
     const pageSizes = [5, 10, 15];
     const itemsPerPage = 10;
-    const activePage = 2;
+    let activePage = 2;
     let items: TemplateResult[] = [];
     let start = 1;
     let end = 1;
@@ -222,7 +222,7 @@ export const ExampleWithCards: Story = {
       currentlyVisibleItems = itemsPerPage;
     }
 
-    start = activePage === 1 ? 0 : (activePage - 1) * itemsPerPage;
+    start = (activePage === 1) ? 0 : (activePage - 1) * itemsPerPage;
     end = activePage === pages ? total : activePage * currentlyVisibleItems;
 
     console.log(
@@ -290,7 +290,7 @@ export const ExampleWithCards: Story = {
     // const start = this.activePage === 1 ? 1 : ((this.activePage - 1) * itemsPerPage) + 1;
     // const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems;
 
-    /*      // TODO: use itemsPerPage and activePage
+    /!*      // TODO: use itemsPerPage and activePage
       const items = Array.from({length: total}).map( // TODO: slice the array
         (_, index) => html`
           <sl-card responsive padding>
@@ -298,7 +298,7 @@ export const ExampleWithCards: Story = {
             <p slot="body">Example body text</p>
           </sl-card>
         `
-      );*/
+      );*!/
     // });
 
     console.log('items and sliced', items, items.slice(start, end));
@@ -326,7 +326,7 @@ export const ExampleWithCards: Story = {
       <sl-paginator .activePage=${activePage} .total=${total} .pageSizes=${pageSizes}></sl-paginator>
     `;
   }
-};
+};*/
 
 export const All: Story = {
   render: () => html`

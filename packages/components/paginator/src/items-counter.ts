@@ -25,17 +25,17 @@ export class ItemsCounter extends LitElement {
   /** Currently active page. */
   @property({ type: Number, attribute: 'active-page' }) activePage: number = 1;
 
-  /** Total amount of items. */
-  @property() total?: number;
-
   /** Items per page, if not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
+
+  /** @internal currently visible items on the current page */
+  @state() currentlyVisibleItems: number = 1;
 
   /** @internal pages amount */
   #pages: number = 1;
 
-  /** @internal currently visible items on the current page */
-  @state() currentlyVisibleItems: number = 1;
+  /** Total amount of items. */
+  @property() total?: number;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -85,7 +85,13 @@ export class ItemsCounter extends LitElement {
     const start = this.activePage === 1 ? 1 : (this.activePage - 1) * itemsPerPage + 1;
     const end = this.activePage === this.#pages ? total : this.activePage * this.currentlyVisibleItems;
 
-    return html`${msg(str`${start} - ${end} of ${this.total} items`)}`;
+    return html`
+      ${msg(str`${start} - ${end} of ${this.total} items`)}
+      <!-- We want this to be read every time the active page changes. -->
+      <span id="live" aria-live="polite" aria-atomic="true">
+        ${msg(str`Currently shown from ${start} to ${end} of ${this.total} items`)}
+      </span>
+    `;
   }
 
   #setCurrentlyVisibleItems(): void {

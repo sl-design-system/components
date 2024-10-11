@@ -1,4 +1,4 @@
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import styles from './page.scss.js';
 
 declare global {
@@ -21,18 +21,10 @@ export class Page extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // TODO: any arias needed here?
-
     this.#pageNumber = Array.from(this.childNodes)
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent?.trim())
       .join('');
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    console.log('changes in updated', changes);
   }
 
   override render(): TemplateResult {

@@ -137,8 +137,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       });
     }
 
-    console.log('items before paginated, but should be filtered if filtered', items, this.filters, this.filters.size > 0, this.filters.values());
-
     this.#paginatedItems = items;
 
     // paginate items
@@ -156,7 +154,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       const endIndex = startIndex + this.paginateItems.pageSize;
       // console.log('pageNumber in array data source', pageNumber, filtersChanged, startIndex);
       // Get the items for the current page
-      /*const paginatedItems*/items  = /*this.*/items.slice(startIndex, endIndex);
+      /*const paginatedItems*/
+      items = items.slice(startIndex, endIndex);
       // console.log('paginated data', paginatedItems);
       // Update this.items with the paginated items
       // this.paginatedItems/*items*/ = paginatedItems;

@@ -1,8 +1,8 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { type Person, getPeople } from '@sl-design-system/example-data';
 import { ArrayDataSource } from '@sl-design-system/data-source';
-import {PageSize, Paginator, ItemsCounter} from "@sl-design-system/paginator";
+import { type Person, getPeople } from '@sl-design-system/example-data';
+import { ItemsCounter, PageSize, Paginator } from '@sl-design-system/paginator';
 import '@sl-design-system/paginator/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -15,7 +15,7 @@ type Story = StoryObj;
 export default {
   title: 'Grid/Pagination',
   tags: ['draft'],
-  loaders: [async () => ({ people: (await getPeople()).people })],
+  loaders: [async () => ({ people: (await getPeople()).people as unknown[] })],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
@@ -24,24 +24,25 @@ export default {
 
 export const Basic: Story = {
   render: (_, { loaded: { people } }) => {
+    const people2 = people as unknown[];
     const pageSizes = [5, 10, 15];
     let activePage = 1,
-     itemsPerPage = pageSizes[1],
-     startIndex = (activePage - 1) * itemsPerPage,
-     endIndex = startIndex + itemsPerPage;
+      itemsPerPage = pageSizes[1],
+      startIndex = (activePage - 1) * itemsPerPage,
+      endIndex = startIndex + itemsPerPage;
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-       pageSize = document.querySelector('sl-page-size') as PageSize,
-       visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
-       grid = document.querySelector('sl-grid') as Grid;
+        pageSize = document.querySelector('sl-page-size') as PageSize,
+        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
+        grid = document.querySelector('sl-grid') as Grid;
 
       paginator?.addEventListener('sl-page-change', event => {
         visibleItems.activePage = event.detail;
         activePage = event.detail;
         startIndex = (event.detail - 1) * itemsPerPage;
         endIndex = startIndex + itemsPerPage;
-        grid.items = people.slice(startIndex, endIndex);
+        grid.items = people2.slice(startIndex, endIndex);
       });
 
       pageSize?.addEventListener('sl-page-size-change', event => {
@@ -65,7 +66,7 @@ export const Basic: Story = {
           flex: 1;
         }
       </style>
-      <sl-grid .items=${people.slice(startIndex, endIndex)}>
+      <sl-grid .items=${people2.slice(startIndex, endIndex)}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
@@ -73,28 +74,36 @@ export const Basic: Story = {
         <sl-grid-column path="membership"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
-        <sl-items-counter .total=${people.length} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-items-counter>
-        <sl-paginator .total=${people.length} .pageSizes=${pageSizes} .activePage=${activePage}
-                      .itemsPerPage=${itemsPerPage}></sl-paginator>
+        <sl-items-counter
+          .total=${people2.length}
+          .activePage=${activePage}
+          .itemsPerPage=${itemsPerPage}
+        ></sl-items-counter>
+        <sl-paginator
+          .total=${people2.length}
+          .pageSizes=${pageSizes}
+          .activePage=${activePage}
+          .itemsPerPage=${itemsPerPage}
+        ></sl-paginator>
         <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
       </div>
-    `
+    `;
   }
 };
 
 export const PaginatedDataSourceWithFilter: Story = {
   render: (_, { loaded: { people } }) => {
     const pageSizes = [5, 10, 15, 20],
-     dataSource = new ArrayDataSource(people as Person[]);
+      dataSource = new ArrayDataSource(people as Person[]);
 
-    let total = dataSource.paginatedItems.length;
+    const total = dataSource.paginatedItems.length;
     dataSource.paginate(1, 10);
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-       pageSize = document.querySelector('sl-page-size') as PageSize,
-       visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
-       grid = document.querySelector('sl-grid') as Grid;
+        pageSize = document.querySelector('sl-page-size') as PageSize,
+        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
+        grid = document.querySelector('sl-grid') as Grid;
 
       paginator?.addEventListener('sl-page-change', event => {
         dataSource.paginate(event.detail, paginator.itemsPerPage ?? pageSizes[0]);
@@ -164,14 +173,14 @@ export const PaginatedDataSourceWithSorter: Story = {
     dataSource.setSort('custom', sorter, 'asc');
 
     const pageSizes = [10, 15, 20];
-    let total = dataSource.paginatedItems.length;
+    const total = dataSource.paginatedItems.length;
     dataSource.paginate(1, 10);
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-       pageSize = document.querySelector('sl-page-size') as PageSize,
-       visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
-       grid = document.querySelector('sl-grid') as Grid;
+        pageSize = document.querySelector('sl-page-size') as PageSize,
+        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
+        grid = document.querySelector('sl-grid') as Grid;
 
       paginator?.addEventListener('sl-page-change', event => {
         dataSource.paginate(event.detail, paginator.itemsPerPage ?? pageSizes[0]);
@@ -196,7 +205,7 @@ export const PaginatedDataSourceWithSorter: Story = {
     });
 
     return html`
-          <style>
+      <style>
         .pagination {
           display: flex;
           gap: 1rem;
@@ -223,5 +232,3 @@ export const PaginatedDataSourceWithSorter: Story = {
     `;
   }
 };
-
-

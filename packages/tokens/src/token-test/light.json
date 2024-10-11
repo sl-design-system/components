@@ -907,6 +907,49 @@
           }
         }
       },
+      "positive": {
+        "muted": {
+          "idle": {
+            "value": "{color.background.accent.green.muted.idle}",
+            "type": "color",
+            "description": "Use for the background of actions related to messages that communicate a favorable outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
+          },
+          "hover": {
+            "value": "{color.background.accent.green.muted.hover}",
+            "type": "color",
+            "description": "Use as background while hovering actions related to messages that communicate a favorable outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
+          },
+          "active": {
+            "value": "{color.background.accent.green.muted.active}",
+            "type": "color",
+            "description": "Use as background while pressing actions related to messages that communicate a favorable outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
+          }
+        },
+        "subtle": {
+          "idle": {
+            "value": "{color.background.accent.green.subtle.idle}",
+            "type": "color",
+            "description": "Use for the background of messages that communicate a favorable outcome."
+          }
+        },
+        "bold": {
+          "idle": {
+            "value": "{color.background.accent.green.bold.idle}",
+            "type": "color",
+            "description": "Use for the background of actions with bold emphasis related to messages that communicate a favorable outcome."
+          },
+          "hover": {
+            "value": "{color.background.accent.green.bold.hover}",
+            "type": "color",
+            "description": "Use as the background for actions with bold emphasis during hover states, related to messages that communicate a favorable outcome."
+          },
+          "active": {
+            "value": "{color.background.accent.green.bold.active}",
+            "type": "color",
+            "description": "Use as the background for actions with bold emphasis during active states, related to messages that communicate a favorable outcome."
+          }
+        }
+      },
       "accent": {
         "blue": {
           "muted": {

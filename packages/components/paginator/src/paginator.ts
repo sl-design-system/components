@@ -228,7 +228,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           )}
         </ul>
         <div class="select-wrapper">
-          <sl-select size="lg" @change=${this.#setActive} .value=${this.activePage}>
+          <sl-select size="lg" @sl-change=${this.#setActive} value=${this.activePage}>
             ${Array.from({ length: pages })?.map(
               (_, index) => html`
                 <sl-select-option @click=${this.#setActive} .value=${index + 1}>${index + 1}</sl-select-option>
@@ -280,8 +280,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   #setActive(event: Event) {
-    const target = event.target as HTMLElement;
-    this.activePage = Number(target.innerText?.trim());
+    console.log('eventttt', event, Number((event.target as SelectOption).value));
+    const target = event.target as Select | Page;
+
+    if (target instanceof Select) {
+      this.activePage = Number(target.value);
+    } else {
+      this.activePage = Number(target.innerText?.trim());
+    }
 
     this.pageChangeEvent.emit(this.activePage);
 
@@ -523,5 +529,3 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     );
   }
 }
-
-// TODO: nav -> ul -> li -> a href? or button - depending whether it is a navigation or not?

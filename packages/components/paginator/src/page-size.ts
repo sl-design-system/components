@@ -2,7 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './page-size.scss.js';
 
@@ -52,6 +52,14 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.renderRoot.querySelector<Select>('sl-select')?.addEventListener('sl-change', event => {
+      this.#setValue(event);
+    });
+  }
+
   override render(): TemplateResult {
     return html`
       <span>${msg('Items per page')}:</span>
@@ -67,8 +75,7 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
                   <sl-select-option
                     aria-label=${`${size} ${msg('Items per page')}`}
                     @click=${this.#setValue}
-                    @keydown=${this.#onKeydown}
-                    .value=${size}
+                    value=${size}
                   >
                     ${size}
                   </sl-select-option>
@@ -84,23 +91,10 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #setValue(event: Event & { target: SelectOption }): void {
-    console.log('event', event);
-    this.itemsPerPage = Number(event.target.value);
+  #setValue(event: Event): void {
+    this.itemsPerPage = Number((event.target as SelectOption).value);
 
     /** Emits amount of selected items per page */
     this.pageSizeChangeEvent.emit(this.itemsPerPage);
   }
-
-  #onKeydown(event: KeyboardEvent): void {
-    console.log('event222', event);
-    if (event.key === 'Enter' || event.key === ' ') {
-      this.click();
-
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  }
 }
-
-// TODO: accessibility

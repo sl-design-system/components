@@ -119,7 +119,7 @@ export const Mobile: Story = {
   }
 };
 
-export const ItemsPerPage: Story = {
+export const PageSizeComponent: Story = {
   args: {
     ...Basic.args,
     total: 100

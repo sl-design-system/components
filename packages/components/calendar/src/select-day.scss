@@ -8,10 +8,18 @@
   display: flex;
 }
 
-.current-month-year {
+.current-month,
+.current-year {
   font-size: 16px;
   font-weight: 600;
-  margin-inline-end: auto;
+
+  sl-icon {
+    color: var(--sl-color-neutral-muted);
+  }
+}
+
+.current-year {
+  margin-inline: 0.25rem auto;
 }
 
 .days-of-week {

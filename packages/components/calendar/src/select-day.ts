@@ -1,4 +1,5 @@
 import { faChevronLeft } from '@fortawesome/pro-regular-svg-icons';
+import { faCaretDown } from '@fortawesome/pro-solid-svg-icons';
 import { msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
@@ -26,7 +27,7 @@ declare global {
   }
 }
 
-Icon.register(faChevronLeft);
+Icon.register(faCaretDown, faChevronLeft);
 
 export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   static get scopedElements(): ScopedElementsMap {
@@ -63,7 +64,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @query('.scroller') scroller?: HTMLElement;
 
   /** @internal Emits when the user clicks the month/year button. */
-  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<void>>;
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<'month' | 'year'>>;
 
   /** @internal The translated days of the week. */
   @state() weekDays: Array<{ long: string; short: string }> = [];
@@ -95,8 +96,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <div class="header">
-        <sl-button @click=${this.#onToggleMonthYear} class="current-month-year" fill="link">
-          <sl-format-date .date=${this.displayMonth} month="long" year="numeric"></sl-format-date>
+        <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link">
+          <sl-format-date .date=${this.displayMonth} month="long"></sl-format-date>
+          <sl-icon name="fas-caret-down" size="xs"></sl-icon>
+        </sl-button>
+        <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link">
+          <sl-format-date .date=${this.displayMonth} year="numeric"></sl-format-date>
+          <sl-icon name="fas-caret-down" size="xs"></sl-icon>
         </sl-button>
         <sl-button @click=${this.#onPrevious} aria-label=${msg('Previous month')} fill="ghost" variant="primary">
           <sl-icon name="far-chevron-left"></sl-icon>
@@ -156,8 +162,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     this.displayMonth = normalizeDateTime((event.snapTargetInline as MonthView).month!);
   }
 
-  #onToggleMonthYear(): void {
-    this.toggleEvent.emit();
+  #onToggleMonthSelect(): void {
+    this.toggleEvent.emit('month');
+  }
+
+  #onToggleYearSelect(): void {
+    this.toggleEvent.emit('year');
   }
 
   #scrollToMonth(month: -1 | 0 | 1, smooth = false): void {

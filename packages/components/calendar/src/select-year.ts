@@ -27,7 +27,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** @internal Emits when the user selects a year. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<number>>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
   /** The current year. */
   @property({ type: Number }) year = new Date().getFullYear();
@@ -71,7 +71,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(year: number): void {
-    this.selectEvent.emit(year);
+    this.selectEvent.emit(new Date(year, 0));
   }
 
   #onPrevious(): void {

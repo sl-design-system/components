@@ -33,7 +33,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @state() months: Array<{ short: string; long: string; value: number }> = [];
 
   /** @internal Emits when the user selects a month. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<number>>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -87,7 +87,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onClick(month: number): void {
-    this.selectEvent.emit(month);
+    this.selectEvent.emit(new Date(this.month.getFullYear(), month));
   }
 
   #onNext(): void {

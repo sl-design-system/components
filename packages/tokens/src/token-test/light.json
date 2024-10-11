@@ -295,7 +295,7 @@
       "primary": {
         "value": "{color.text.accent.blue.bold}",
         "type": "color",
-        "description": "Use for primary actions on 'color.background.primary.muted'."
+        "description": "Use for primary actions on 'color.background.secondary.muted'."
       },
       "secondary": {
         "value": "{color.text.accent.grey.bold}",
@@ -661,34 +661,37 @@
       "selected": {
         "value": "{color.border.accent.blue}",
         "type": "color",
-        "description": ""
+        "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
       "primary": {
         "value": "{color.border.accent.blue}",
         "type": "color",
-        "description": ""
+        "description": "Use for borders that highlight primary actions."
       },
       "secondary": {
         "value": "{color.border.accent.grey.bold}",
-        "type": "color"
+        "type": "color",
+        "description": "Use for borders that highlight secondary actions."
       },
       "info": {
         "value": "{color.border.accent.blue}",
         "type": "color",
-        "description": ""
+        "description": "Use for borders that highlight informative messages the user needs to be aware of."
       },
       "positive": {
         "value": "{color.border.accent.green}",
         "type": "color",
-        "description": ""
+        "description": "Use for borders that highlight a favorable outcome."
       },
       "caution": {
         "value": "{color.border.accent.yellow}",
-        "type": "color"
+        "type": "color",
+        "description": "Use for borders that highlight caution to help prevent mistakes or errors."
       },
       "negative": {
         "value": "{color.border.accent.red}",
-        "type": "color"
+        "type": "color",
+        "description": "Use for borders that highlight negative or serious error states, such as validation errors or irreversible actions."
       },
       "accent": {
         "blue": {
@@ -727,6 +730,66 @@
           "value": "{color.palette.red.500}",
           "type": "color",
           "description": "Use for red borders, for purely stylistic purposes with no specific meaning."
+        }
+      }
+    },
+    "background": {
+      "disabled": {
+        "value": "{color.text.plain}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in disabled state."
+      },
+      "input": {
+        "idle": {
+          "value": "{color.text.plain}",
+          "type": "color",
+          "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
+        },
+        "hover": {
+          "value": "{color.text.plain}",
+          "type": "color",
+          "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons in a hovered state."
+        },
+        "active": {
+          "value": "{color.text.plain}",
+          "type": "color",
+          "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons in an active state."
+        }
+      },
+      "selected": {
+        "subtle": {
+          "idle": {
+            "value": "{color.text.plain}",
+            "type": "color",
+            "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
+          },
+          "hover": {
+            "value": "{color.text.plain}",
+            "type": "color",
+            "description": "Use for backgrounds of selected elements in hover state state with subtle emphasis, such as in opened dropdowns."
+          },
+          "active": {
+            "value": "{color.text.plain}",
+            "type": "color",
+            "description": "Use for backgrounds of selected elements in pressed state with subtle emphasis, such as in opened dropdowns."
+          }
+        },
+        "bold": {
+          "idle": {
+            "value": "{color.text.plain}",
+            "type": "color",
+            "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
+          },
+          "hover": {
+            "value": "{color.text.plain}",
+            "type": "color",
+            "description": "Use for backgrounds of selected elements in hover state state with bold emphasis, such as in opened dropdowns."
+          },
+          "active": {
+            "value": "{color.text.plain}",
+            "type": "color",
+            "description": "Use for backgrounds of selected elements in pressed state with bold emphasis, such as in opened dropdowns."
+          }
         }
       }
     }

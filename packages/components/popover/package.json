@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/popover",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Popover component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,6 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.3.0"
+    "@sl-design-system/shared": "^0.4.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/panel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Panel component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "^1.0.2",
-    "@sl-design-system/shared": "^0.3.2",
-    "@sl-design-system/tool-bar": "^0.0.3"
+    "@sl-design-system/shared": "^0.4.0",
+    "@sl-design-system/tool-bar": "^0.0.4"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/toggle-group",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Toggle group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.3.2",
-    "@sl-design-system/toggle-button": "^0.0.3"
+    "@sl-design-system/shared": "^0.4.0",
+    "@sl-design-system/toggle-button": "^0.0.4"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",

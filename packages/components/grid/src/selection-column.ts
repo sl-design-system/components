@@ -1,11 +1,9 @@
 import { msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
-import { EventsController } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
-import { type SlActiveItemChangeEvent } from './grid.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -15,8 +13,6 @@ declare global {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
-  #events = new EventsController(this);
-
   /** When true, the active rows get selected automatically. */
   @property({ type: Boolean, attribute: 'auto-select' }) autoSelect?: boolean;
 
@@ -34,8 +30,6 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     super.willUpdate(changes);
 
     if (changes.has('grid') && this.grid) {
-      this.#events.listen(this.grid, 'sl-active-item-change', this.#onActiveItemChange);
-
       this.grid.selection.multiple = true;
 
       if (this.selectAll) {
@@ -100,17 +94,6 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     }
 
     return result;
-  }
-
-  #onActiveItemChange({ detail: { item, relatedEvent } }: SlActiveItemChangeEvent<T>): void {
-    const isCheckbox = (relatedEvent?.target as HTMLElement)?.tagName.toLowerCase() === 'sl-checkbox';
-
-    if (!this.autoSelect || !item || isCheckbox) {
-      return;
-    }
-
-    this.selectAll = false;
-    this.grid?.selection.toggle(item);
   }
 
   #onToggleSelect(item: T, checked: boolean): void {

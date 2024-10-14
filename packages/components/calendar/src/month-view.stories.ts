@@ -21,7 +21,7 @@ export default {
     },
     locale: {
       control: 'inline-radio',
-      options: ['de', 'en-GB', 'es', 'fi', 'it', 'nl', 'no', 'pl', 'sv']
+      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
     },
     month: {
       control: 'date'
@@ -39,6 +39,12 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const FirstDayOfWeek: Story = {
+  args: {
+    firstDayOfWeek: 0
+  }
+};
 
 export const Readonly: Story = {
   args: {

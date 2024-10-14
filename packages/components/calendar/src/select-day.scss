@@ -3,6 +3,16 @@
   flex-direction: column;
 }
 
+:host([show-week-numbers]) {
+  .days-of-week {
+    grid-template-columns: repeat(8, 2rem);
+  }
+
+  .scroller {
+    max-inline-size: calc(8 * 2rem);
+  }
+}
+
 .header {
   align-items: center;
   display: flex;
@@ -30,8 +40,14 @@
   text-transform: uppercase;
 }
 
-.day-of-week {
+.day-of-week,
+.week-number {
   text-align: center;
+}
+
+.week-number {
+  border-inline-end: 1px solid var(--sl-color-neutral-muted);
+  inline-size: calc(2rem - 1px);
 }
 
 .scroller {

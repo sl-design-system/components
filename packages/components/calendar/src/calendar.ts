@@ -1,8 +1,7 @@
-import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { LocaleMixin } from '@sl-design-system/shared';
+import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
@@ -18,7 +17,9 @@ declare global {
   }
 }
 
-@localized()
+/**
+ * A calendar component for displaying and selecting dates.
+ */
 export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -31,14 +32,23 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** @internal Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
+
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
-  @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
+  @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
 
   /** @internal The mode the calendar currently is in. */
   @state() mode: 'day' | 'month' | 'year' = 'day';
 
   /** The month that the calendar opens on. */
   @property({ converter: dateConverter }) month = new Date();
+
+  /** Will disable the ability to select a date when set. */
+  @property({ type: Boolean }) readonly?: boolean;
+
+  /** Shows the week numbers. */
+  @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
   override render(): TemplateResult {
     return html`
@@ -48,8 +58,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           () => html`
             <sl-select-day
               @sl-toggle=${this.#onToggleMonthYear}
-              .firstDayOfWeek=${this.firstDayOfWeek}
+              ?readonly=${this.readonly}
+              ?show-week-numbers=${this.showWeekNumbers}
               .month=${this.month}
+              first-day-of-week=${ifDefined(this.firstDayOfWeek)}
               locale=${ifDefined(this.locale)}
             ></sl-select-day>
           `

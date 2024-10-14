@@ -1,5 +1,7 @@
 import { localized, msg } from '@lit/localize';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
+import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -34,6 +36,9 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** You can customize how a day is rendered by setting this property.  */
   @property({ attribute: false }) renderer?: (day: Day) => TemplateResult;
+
+  /** @internal Emits when the user selects a day. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
   /** Will render a column with the week numbers when true. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
@@ -94,10 +99,14 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       template = this.readonly
         ? html`<span .part=${parts}>${day.date.getDate()}</span>`
-        : html`<button .part=${parts}>${day.date.getDate()}</button>`;
+        : html`<button @click=${() => this.#onClick(day)} .part=${parts}>${day.date.getDate()}</button>`;
     }
 
     return html`<td>${template}</td>`;
+  }
+
+  #onClick(day: Day): void {
+    this.selectEvent.emit(day.date);
   }
 
   #getParts(day: Day): string[] {

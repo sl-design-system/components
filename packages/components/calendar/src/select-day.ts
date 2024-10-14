@@ -7,8 +7,8 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import { SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { MonthView } from './month-view.js';
@@ -60,8 +60,17 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The previous month in the calendar. */
   @state() previousMonth?: Date;
 
+  /** Will disable selecting a date when set. */
+  @property({ type: Boolean }) readonly?: boolean;
+
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
+
+  /** @internal Emits when the user selects a day. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
+
+  /** Shows the week numbers. */
+  @property({ type: Boolean, reflect: true, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
   /** @internal Emits when the user clicks the month/year button. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<'month' | 'year'>>;
@@ -97,11 +106,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return html`
       <div class="header">
         <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link">
-          <sl-format-date .date=${this.displayMonth} month="long"></sl-format-date>
+          <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} month="long"></sl-format-date>
           <sl-icon name="fas-caret-down" size="xs"></sl-icon>
         </sl-button>
         <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link">
-          <sl-format-date .date=${this.displayMonth} year="numeric"></sl-format-date>
+          <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
           <sl-icon name="fas-caret-down" size="xs"></sl-icon>
         </sl-button>
         <sl-button @click=${this.#onPrevious} aria-label=${msg('Previous month')} fill="ghost" variant="primary">
@@ -112,6 +121,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         </sl-button>
       </div>
       <div class="days-of-week">
+        ${this.showWeekNumbers
+          ? html`<span class="week-number" aria-label=${msg('Week')}>${msg('wk')}</span>`
+          : nothing}
         ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
       </div>
       <div
@@ -121,13 +133,26 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         class="scroller"
       >
         <sl-month-view
+          ?readonly=${this.readonly}
+          ?show-week-numbers=${this.showWeekNumbers}
+          .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.previousMonth}
           aria-hidden="true"
           inert
           locale=${ifDefined(this.locale)}
         ></sl-month-view>
-        <sl-month-view .month=${this.month} locale=${ifDefined(this.locale)}></sl-month-view>
         <sl-month-view
+          @sl-select=${this.#onSelect}
+          ?readonly=${this.readonly}
+          ?show-week-numbers=${this.showWeekNumbers}
+          .firstDayOfWeek=${this.firstDayOfWeek}
+          .month=${this.month}
+          locale=${ifDefined(this.locale)}
+        ></sl-month-view>
+        <sl-month-view
+          ?readonly=${this.readonly}
+          ?show-week-numbers=${this.showWeekNumbers}
+          .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.nextMonth}
           aria-hidden="true"
           inert
@@ -160,6 +185,13 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     if (!this.#initialized) return;
 
     this.displayMonth = normalizeDateTime((event.snapTargetInline as MonthView).month!);
+  }
+
+  #onSelect(event: SlSelectEvent<Date>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log('select', event.detail);
   }
 
   #onToggleMonthSelect(): void {

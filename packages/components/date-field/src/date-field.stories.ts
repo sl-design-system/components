@@ -3,7 +3,7 @@ import { html } from 'lit';
 import '../register.js';
 import { type DateField } from './date-field.js';
 
-type Props = Pick<DateField, 'disabled' | 'placeholder' | 'selectOnly'>;
+type Props = Pick<DateField, 'disabled' | 'placeholder' | 'selectOnly' | 'showWeekNumbers'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -12,12 +12,14 @@ export default {
   args: {
     disabled: false,
     placeholder: 'Pick a date',
-    selectOnly: false
+    selectOnly: false,
+    showWeekNumbers: false
   },
-  render: ({ disabled, placeholder, selectOnly }) => html`
+  render: ({ disabled, placeholder, selectOnly, showWeekNumbers }) => html`
     <sl-date-field
       ?disabled=${disabled}
       ?select-only=${selectOnly}
+      ?show-week-numbers=${showWeekNumbers}
       .placeholder=${placeholder}
       style="width: fit-content"
     ></sl-date-field>
@@ -35,5 +37,11 @@ export const Disabled: Story = {
 export const SelectOnly: Story = {
   args: {
     selectOnly: true
+  }
+};
+
+export const ShowWeekNumbers: Story = {
+  args: {
+    showWeekNumbers: true
   }
 };

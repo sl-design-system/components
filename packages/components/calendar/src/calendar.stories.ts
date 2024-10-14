@@ -4,15 +4,57 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Calendar } from './calendar.js';
 
-type Props = Pick<Calendar, 'locale' | 'month'>;
+type Props = Pick<Calendar, 'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'showWeekNumbers'>;
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Calendar/Calendar',
   tags: ['draft'],
-  render: ({ locale, month }) => {
-    return html`<sl-calendar locale=${ifDefined(locale)} month=${ifDefined(month?.toISOString())}></sl-calendar>`;
+  args: {
+    readonly: false,
+    showWeekNumbers: false
+  },
+  argTypes: {
+    firstDayOfWeek: {
+      control: 'number'
+    },
+    locale: {
+      control: 'inline-radio',
+      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
+    },
+    month: {
+      control: 'date'
+    }
+  },
+  render: ({ firstDayOfWeek, locale, month, readonly, showWeekNumbers }) => {
+    return html`
+      <sl-calendar
+        ?readonly=${readonly}
+        ?show-week-numbers=${showWeekNumbers}
+        first-day-of-week=${ifDefined(firstDayOfWeek)}
+        locale=${ifDefined(locale)}
+        month=${ifDefined(month?.toISOString())}
+      ></sl-calendar>
+    `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const FirstDayOfWeek: Story = {
+  args: {
+    firstDayOfWeek: 0
+  }
+};
+
+export const Readonly: Story = {
+  args: {
+    readonly: true
+  }
+};
+
+export const WeekNumbers: Story = {
+  args: {
+    showWeekNumbers: true
+  }
+};

@@ -5,10 +5,16 @@ import { Calendar } from '@sl-design-system/calendar';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, anchor, event } from '@sl-design-system/shared';
-import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
+import {
+  type SlBlurEvent,
+  type SlChangeEvent,
+  type SlFocusEvent,
+  type SlSelectEvent
+} from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
 
 Icon.register(faCalendar);
@@ -42,6 +48,9 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
+  /** The first day of the week; 0 for Sunday, 1 for Monday. */
+  @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
+
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
@@ -53,6 +62,9 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
    * but you can still pick a date via de popover.
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
+
+  /** Shows the week numbers. */
+  @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
   /** @internal The wrapper element that is also the popover. */
   @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
@@ -91,13 +103,24 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
         popover
         tabindex="-1"
       >
-        <sl-calendar></sl-calendar>
+        <sl-calendar
+          @sl-change=${this.#onChange}
+          ?show-week-numbers=${this.showWeekNumbers}
+          first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+        ></sl-calendar>
       </slot>
     `;
   }
 
   #onButtonClick(): void {
     this.wrapper?.showPopover();
+  }
+
+  #onChange(event: SlSelectEvent<Date>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log('change', event.detail);
   }
 
   #onInput(event: InputEvent): void {

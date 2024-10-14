@@ -262,7 +262,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
-    console.log('changes in willChange', changes);
     if (changes.has('dataSource')) {
       this.#updateDataSource(this.dataSource);
     }
@@ -287,7 +286,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log('in grid render', this.items, this.dataSource);
     return html`
       <slot @sl-column-update=${this.#onColumnUpdate} @slotchange=${this.#onSlotChange} style="display:none"></slot>
       <style>

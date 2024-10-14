@@ -1328,6 +1328,66 @@
           }
         }
       }
+    },
+    "blanket": {
+      "plain": {
+        "value": "rgba( {color.palette.grey.500} , {opacity.900})",
+        "type": "color",
+        "description": "Use for screen overlay that appears with dialogs or drawers."
+      }
+    },
+    "skeleton": {
+      "plain": {
+        "value": "{color.palette.grey.150}",
+        "type": "color",
+        "description": "Use for skeleton loading states."
+      },
+      "subtle": {
+        "value": "{color.palette.grey.050}",
+        "type": "color",
+        "description": "Use for the pulse or shimmer effect in skeleton loading states."
+      }
+    }
+  },
+  "elevation": {
+    "surface": {
+      "idle": {
+        "value": "{color.palette.white}",
+        "type": "color",
+        "description": "Use as the default background for the UI."
+      },
+      "hover": {
+        "value": "{color.background.accent.blue.muted.hover}",
+        "type": "color",
+        "description": "Use as the default background for the UI while hovering."
+      },
+      "active": {
+        "value": "{color.background.accent.blue.muted.active}",
+        "type": "color",
+        "description": "Use as the default background for the UI while pressing."
+      },
+      "raised": {
+        "idle": {
+          "value": "{color.palette.white}",
+          "type": "color",
+          "description": "Use as the default background for elements on top of 'elevation.surface'."
+        },
+        "hover": {
+          "value": "{color.background.accent.blue.muted.hover}",
+          "type": "color",
+          "description": "Use as the default background while hovering elements on top of 'elevation.surface'."
+        },
+        "active": {
+          "value": "{color.background.accent.blue.muted.active}",
+          "type": "color",
+          "description": "Use as the default background while pressing elements on top of 'elevation.surface'."
+        }
+      },
+      "sunken": {
+        "value": "{color.background.accent.grey.subtle.idle}",
+        "type": "color",
+        "description": "A secondary background used across the UI for grouping related items or applying zebra striping within grids, enhancing visual distinction between rows or sections."
+      }
     }
   }
 }

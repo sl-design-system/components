@@ -21,7 +21,7 @@ export default {
   tags: ['draft'],
   args: {
     total: 100,
-    itemsPerPage: 15,
+    itemsPerPage: 10,
     pageSizes: [5, 10, 15],
     activePage: 2
   },
@@ -39,30 +39,6 @@ export default {
     }
   },
   render: ({ activePage, itemsPerPage, pageSizes, total }) => {
-    // itemsPerPage
-    setTimeout(() => {
-      const paginator = document.querySelector('sl-paginator') as Paginator;
-      const pageSize = document.querySelector('sl-page-size') as PageSize;
-      const visibleItems = document.querySelector('sl-items-counter') as ItemsCounter;
-      console.log('paginator story', paginator, 'pageSize', pageSize, pageSize.itemsPerPage);
-      // paginator.itemsPerPage = pageSize.itemsPerPage;
-      paginator?.addEventListener('sl-page-change', event => {
-        console.log('sl-page-change event', event, event.detail);
-        // pageSize.activePage = event.detail;
-        visibleItems.activePage = event.detail;
-        // visibleItems.requestUpdate();
-        //
-        // selectedTabIndex = event.detail;
-      });
-      pageSize?.addEventListener('sl-page-size-change', event => {
-        console.log('sl-page-size-change event', event, event.detail);
-        paginator.itemsPerPage = event.detail;
-        visibleItems.itemsPerPage = event.detail;
-        // paginator.requestUpdate();
-        //
-        // selectedTabIndex = event.detail;
-      });
-    }); // .itemsPerPage=${itemsPerPage}
     return html`
       <sl-paginator
         .total=${total}
@@ -70,32 +46,19 @@ export default {
         .activePage=${activePage}
         .itemsPerPage=${itemsPerPage}
       ></sl-paginator>
-      <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
-      <sl-items-counter .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-items-counter>
     `;
   }
 } satisfies Meta<Props>;
 
-// TODO: is slot necessary?
-
-// <h2>With links</h2>
-// <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes} .links=${['javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)', 'javascript:void(0)']}></sl-paginator>
-
-export const Basic: Story = {
-  args: {
-    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
-    content: () => html`<p>Panel content</p>`
-  }
-};
+export const Basic: Story = {};
 
 export const Overflow: Story = {
   args: {
     ...Basic.args,
-    total: 1000
+    total: 900
   }
 };
 
-// TODO: Mobile
 export const Mobile: Story = {
   args: {
     ...Basic.args,
@@ -121,119 +84,47 @@ export const Mobile: Story = {
 
 export const PageSizeComponent: Story = {
   args: {
-    ...Basic.args,
-    total: 100
+    ...Basic.args
   },
   render: ({ pageSizes, itemsPerPage }) => {
-    let pageSize = document.querySelector('sl-page-size') as PageSize;
+    return html`<sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>`;
+  }
+};
+
+export const ItemsCounterComponent: Story = {
+  args: {
+    ...Basic.args
+  },
+  render: ({ activePage, itemsPerPage, total }) => html`
+    <sl-items-counter .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-items-counter>
+  `
+};
+
+export const All: Story = {
+  args: {
+    ...Basic.args,
+    total: 200
+  },
+  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
     setTimeout(() => {
-      pageSize = document.querySelector('sl-page-size') as PageSize;
+      const paginator = document.querySelector('sl-paginator') as Paginator,
+        pageSize = document.querySelector('sl-page-size') as PageSize,
+        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter;
+
+      paginator?.addEventListener('sl-page-change', event => {
+        visibleItems.activePage = event.detail;
+      });
 
       pageSize?.addEventListener('sl-page-size-change', event => {
-        console.log('sl-page-size-change event', event, event.detail);
-        itemsPerPage = event.detail;
-        const pEl = document.querySelector('p.info');
-        console.log('pEl', pEl);
+        paginator.itemsPerPage = event.detail;
+        visibleItems.itemsPerPage = event.detail;
       });
     });
     return html`
       <style>
-        #root-inner {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-      </style>
-      <h2>TODO...</h2>
-      <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
-      <p class="info">There will be shown ${itemsPerPage} items per page. ${pageSize?.itemsPerPage}</p>
-    `;
-  }
-};
-
-export const VisibleItemsAmount: Story = {
-  render: () => html`
-    <style>
-      #root-inner {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-    </style>
-    <h2>TODO...</h2>
-  `
-};
-
-// export const Links: Story = {
-//   args: {
-//     ...Basic.args,
-//     total: 100
-//   }
-// };
-
-// export const LinksSlotted: Story = {
-//   args: {
-//     total: 52,
-//     itemsPerPage: 15,
-//     pageSizes: [5, 10, 15]
-//   },
-//   argTypes: {
-//     actions: {
-//       table: { disable: true }
-//     },
-//     content: {
-//       table: { disable: true }
-//     }
-//   },
-//   render: ({total, itemsPerPage, pageSizes}) => html`
-//     <style>
-//       #root-inner {
-//         display: flex;
-//         flex-direction: column;
-//         gap: 1rem;
-//       }
-//     </style>
-//     <sl-paginator .total=${total} .itemsPerPage=${itemsPerPage} .pageSizes=${pageSizes}>
-//       <a href="javascript:void(0)">1</a>
-//       <a href="javascript:void(0)" class="active">2</a>
-//       <a href="javascript:void(0)">3</a>
-//     </sl-paginator>
-//   `
-// };
-
-export const All: Story = {
-  args: {
-    ...Basic.args
-  },
-  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
-    // itemsPerPage
-    setTimeout(() => {
-      const paginator = document.querySelector('sl-paginator') as Paginator;
-      const pageSize = document.querySelector('sl-page-size') as PageSize;
-      const visibleItems = document.querySelector('sl-items-counter') as ItemsCounter;
-      console.log('paginator story', paginator, 'pageSize', pageSize, pageSize.itemsPerPage);
-      // paginator.itemsPerPage = pageSize.itemsPerPage;
-      paginator?.addEventListener('sl-page-change', event => {
-        console.log('sl-page-change event', event, event.detail);
-        // pageSize.activePage = event.detail;
-        visibleItems.activePage = event.detail;
-        // visibleItems.requestUpdate();
-        //
-        // selectedTabIndex = event.detail;
-      });
-      pageSize?.addEventListener('sl-page-size-change', event => {
-        console.log('sl-page-size-change event', event, event.detail);
-        paginator.itemsPerPage = event.detail;
-        visibleItems.itemsPerPage = event.detail;
-        // paginator.requestUpdate();
-        //
-        // selectedTabIndex = event.detail;
-      });
-    }); // .itemsPerPage=${itemsPerPage}
-    return html`
-      <style>
         .pagination {
-          display: flex;
+          display: grid;
+          grid-template-columns: 20% 50% 20%;
           align-items: center;
           justify-content: space-between;
           gap: 16px;
@@ -241,6 +132,10 @@ export const All: Story = {
 
         sl-paginator {
           flex: 1;
+        }
+
+        sl-page-size {
+          justify-content: end;
         }
       </style>
       <div class="pagination">
@@ -256,7 +151,3 @@ export const All: Story = {
     `;
   }
 };
-
-// TODO: example with cards
-
-// TODO: example with grid and dataSource

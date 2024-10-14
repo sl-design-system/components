@@ -2,6 +2,7 @@
   --_color: var(--sl-color-text-default);
   --_font: var(--sl-text-new-body-md);
   --_font-weight: var(--sl-text-typeset-font-weight-icon-regular);
+  --_gap: var(--sl-space-paginator-gap);
 
   align-items: center;
   color: var(--_color);
@@ -9,7 +10,7 @@
   flex-wrap: wrap;
   font: var(--_font);
   font-weight: var(--_font-weight);
-  gap: 8px;
+  gap: var(--_gap);
   padding: 0;
   text-wrap: nowrap;
 }

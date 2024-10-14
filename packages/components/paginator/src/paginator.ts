@@ -35,6 +35,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Active page. */
+  #activePage = 1;
+
   get activePage(): number {
     return this.#activePage;
   }
@@ -44,42 +47,36 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   set activePage(value: number) {
     this.#activePage = value;
     this.pageChangeEvent.emit(this.#activePage);
-    // TODO: aria live announced here on activepage change???
   }
 
-  /** @internal currently visible items on the current page */
+  /** @internal currently visible items on the current page. */
   @state() currentlyVisibleItems: number = 1;
-
-  /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
-  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
-
-  /** Page sizes - array of possible page sizes e.g. [5, 10, 15] */
-  @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
-
-  /** Total amount of items */
-  @property() total?: number;
-
-  /**
-   * Observe changes in size of the container.
-   */
-  #observer = new ResizeObserver(() => {
-    requestAnimationFrame(() => this.#update());
-  });
-
-  /** @internal Emits when the page has been selected/changed. */
-  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>;
-
-  /** Active page. */
-  #activePage = 1;
 
   /** @internal To check whether it's a first update. */
   #firstUpdate = true;
 
+  /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
+  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
+
   /** @internal Whether there is a mobile variant with `sl-select` instead of `pages` visible or not. */
   #mobileVariant: boolean = false;
 
-  /** @internal pages amount */
+  /** @internal Emits when the page has been selected/changed. */
+  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>;
+
+  /** @internal pages amount. */
   #pages: number = 1;
+
+  /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
+  @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
+
+  /** Observe changes in size of the container. */
+  #observer = new ResizeObserver(() => {
+    requestAnimationFrame(() => this.#update());
+  });
+
+  /** Total amount of items. */
+  @property() total?: number;
 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -92,7 +89,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       'sl-page': Page,
       'sl-select': Select,
       'sl-select-option': SelectOption
-    }; // TODO: update dependencies
+    };
   }
 
   override connectedCallback(): void {
@@ -184,10 +181,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const total = this.total ?? 0;
-    const itemsPerPage = this.itemsPerPage ?? 10;
-    const pages = Math.ceil(total / itemsPerPage) || 2;
-
     return html`
       <nav class="container">
         <sl-button
@@ -201,7 +194,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           <sl-icon name="fas-caret-left"></sl-icon>
         </sl-button>
         <ul class="pages-wrapper" aria-live="polite" aria-atomic="true">
-          ${Array.from({ length: pages }).map(
+          ${Array.from({ length: this.#pages }).map(
             (_, index) => html`
               <li class="page">
                 <sl-page
@@ -225,7 +218,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
             value=${this.activePage}
             aria-label=${`${this.activePage} ${msg('Items per page')}`}
           >
-            ${Array.from({ length: pages })?.map(
+            ${Array.from({ length: this.#pages })?.map(
               (_, index) => html`
                 <sl-select-option
                   @click=${this.#setActive}
@@ -237,7 +230,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
               `
             )}
           </sl-select>
-          <span>of ${pages} pages [msg]</span>
+          <span>of ${this.#pages} pages</span>
         </div>
         <sl-button
           class="next"
@@ -262,11 +255,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
    */
   #onClickPrevButton() {
     this.activePage--;
-
-    this.pageChangeEvent.emit(this.activePage); // TODO: maybe in the setter is enough
-
     this.#setCurrentlyVisibleItems();
-
     this.#update();
   }
 
@@ -275,12 +264,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
    */
   #onClickNextButton() {
     this.activePage++;
-
-    this.pageChangeEvent.emit(this.activePage);
-
     this.#setCurrentlyVisibleItems();
-
-    this.#update(); // TODO: maybe move to activePage setter?
+    this.#update();
   }
 
   #setActive(event: Event) {
@@ -292,10 +277,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.activePage = Number(target.innerText?.trim());
     }
 
-    this.pageChangeEvent.emit(this.activePage);
-
     this.#setCurrentlyVisibleItems();
-
     this.#update();
   }
 
@@ -332,10 +314,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.requestUpdate();
 
     Array.from(pages).forEach(button => {
-      /** reset display to check the width */
-      button.style.display = '';
-      this.requestUpdate();
-
       totalAmountOfPagesWidth += button.getBoundingClientRect().width + gap;
 
       if (pagesWrapper && totalAmountOfPagesWidth > pagesWrapper.getBoundingClientRect().width - 2 * gap) {
@@ -349,9 +327,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     console.log('possiblyVisible, possiblyHidden', possiblyVisible, possiblyHidden);
 
-    /** overflow variant */
+    /** Overflow variant */
     if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
-      /** mobile (compact) version with sl-select instead of pages,
+      /** Mobile (compact) version with sl-select instead of pages,
        * when possibly visible pages amount is smaller than 6 (when possibly visible pages > 6 it works fine with basic variant with pages, also with the overflow version).
        * */
       this.#mobileVariant = possiblyVisible.length <= 6;
@@ -366,8 +344,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         return;
       }
 
-      /** if activePage is bigger than half of possibly visible pages and smaller than last pages,
-       *   pages before and pages after active page, from 1...active and active ...10
+      /** A variant when activePage is bigger than half of possibly visible pages and smaller than last pages;
+       *   pages before and pages after active page, from 1...active and active ... 10
        *   first page -> hidden pages on the left (one more button) -> shown pages on the left -> active page -> shown pages on the right -> hidden pages on the right (one more button) -> last page
        *   e.g.  1 ... 7 [8] 9 10 ... 20
        */
@@ -418,7 +396,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         pages[lastPage - 1].before(moreButton);
         hiddenButtons.forEach(button => (button.style.display = 'none'));
       } else {
-        /** a variant with last pages, e.g. 1... 15 16 17 18 19 [20] */
+        /** A variant with last pages, e.g. 1... 15 16 17 18 19 [20] */
         const toShowAmount = possiblyVisible.length - 2;
         /** minus first page and space for menu button */
         hiddenButtons = Array.from(pages).reverse().slice(toShowAmount, -1);

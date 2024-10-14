@@ -48,6 +48,7 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Order the items by grouping them on the given attributes. */
   #groupBy?: DataSourceGroupBy<T>;
 
+  /** Parameters for pagination, contains page number and page size. */
   #paginateItems?: DataSourcePagination;
 
   /**
@@ -55,8 +56,6 @@ export abstract class DataSource<T = any> extends EventTarget {
    * it will cause the data to be automatically sorted.
    */
   #sort?: DataSourceSort<T>;
-
-  // #pagination
 
   get filters(): Map<string, DataSourceFilter<T>> {
     return this.#filters;
@@ -77,9 +76,6 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** The filtered & sorted array of items. */
   abstract items: T[];
 
-  /** The array of all items, used for pagination. */
-  // abstract paginatedItems?: T[];
-
   /** Total number of items in this data source. */
   abstract readonly size: number;
 
@@ -91,13 +87,12 @@ export abstract class DataSource<T = any> extends EventTarget {
     pathOrFilter: U,
     value?: string | string[]
   ): void {
-    console.log('value in addFilter', value);
     if (typeof pathOrFilter === 'string') {
       this.#filters.set(id, { path: pathOrFilter, value: value ?? '' });
     } else {
       this.#filters.set(id, { filter: pathOrFilter, value });
     }
-  } // TODO: maybe here emit an event?
+  }
 
   removeFilter(id: string): void {
     this.#filters.delete(id);
@@ -170,6 +165,4 @@ export abstract class DataSource<T = any> extends EventTarget {
 
     this.update();
   }
-
-  // TODO:  paginatedData
 }

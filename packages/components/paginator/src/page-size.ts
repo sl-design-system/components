@@ -19,7 +19,7 @@ declare global {
 export type SlPageSizeChangeEvent = CustomEvent<number>;
 
 /**
- * A component that can be used with paginator.
+ * A component that can be used with the paginator.
  * The component adds a possibility to select/change the amount of items that would be visible per page.
  */
 @localized()
@@ -98,5 +98,3 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
     this.pageSizeChangeEvent.emit(this.itemsPerPage);
   }
 }
-
-// TODO: translations everywhere!!

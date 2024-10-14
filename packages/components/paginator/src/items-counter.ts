@@ -18,18 +18,14 @@ export class ItemsCounter extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // TODO: accessibility
-
-  // TODO: unit tests
-
   /** Currently active page. */
   @property({ type: Number, attribute: 'active-page' }) activePage: number = 1;
 
-  /** Items per page, if not set - default to 10. */
-  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
-
   /** @internal currently visible items on the current page */
   @state() currentlyVisibleItems: number = 1;
+
+  /** Items per page, if not set - default to 10. */
+  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
 
   /** @internal pages amount */
   #pages: number = 1;

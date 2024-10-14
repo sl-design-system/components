@@ -429,9 +429,11 @@ describe('sl-text-field', () => {
 
       override render(): TemplateResult {
         return html`
-          <sl-form-field label="Label">
-            <sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>
-          </sl-form-field>
+          <sl-form>
+            <sl-form-field label="Label">
+              <sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>
+            </sl-form-field>
+          </sl-form>
         `;
       }
     }
@@ -458,6 +460,17 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot!.activeElement).to.equal(input);
+    });
+
+    it('should call requestSubmit after pressing Enter in the text-field', async () => {
+      const form = el.renderRoot.querySelector('sl-form')!;
+
+      spy(form, 'requestSubmit');
+
+      el.renderRoot.querySelector('input')?.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(form.requestSubmit).to.have.been.calledOnce;
     });
   });
 

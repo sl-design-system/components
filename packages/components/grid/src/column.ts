@@ -1,3 +1,4 @@
+import { FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { type EventEmitter, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -20,10 +21,12 @@ export type GridColumnAlignment = 'start' | 'center' | 'end';
 export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
 
 /** Custom renderer type for column cells. */
-export type GridColumnDataRenderer<T> = (model: T) => string | undefined | TemplateResult;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined | TemplateResult;
 
 /** Custom type for providing parts to a cell. */
-export type GridColumnParts<T> = (model: T) => string | undefined;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnParts<T = any> = (model: T) => string | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
@@ -158,6 +161,8 @@ export class GridColumn<T = any> extends LitElement {
     let data: unknown;
     if (this.renderer) {
       data = this.renderer(item);
+    } else if (item === FetchDataSourcePlaceholder) {
+      data = html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
     } else if (this.path) {
       data = getValueByPath(item, this.path);
     }
@@ -177,8 +182,11 @@ export class GridColumn<T = any> extends LitElement {
     if (typeof this.parts === 'string') {
       parts = this.parts.split(' ');
     } else if (typeof this.parts === 'function' && item) {
-      // TODO: what does this do? How can parts ever be a function? According to the typing this should not be possible.
       parts = this.parts(item)?.split(' ') ?? [];
+    }
+
+    if (item === FetchDataSourcePlaceholder) {
+      parts.push('placeholder');
     }
 
     if (this.path) {

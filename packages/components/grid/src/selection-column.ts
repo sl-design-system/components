@@ -88,7 +88,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
   getSelectedCount(): number {
     const { selection } = this.grid!,
-      size = this.grid?.dataSource?.filteredItems.length ?? 0;
+      size = this.grid?.dataSource?.items.length ?? 0;
 
     let result = 0;
     if (selection.areAllSelected()) {

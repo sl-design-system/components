@@ -6,7 +6,14 @@ import { type MonthView } from './month-view.js';
 
 type Props = Pick<
   MonthView,
-  'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'selected' | 'showToday' | 'showWeekNumbers'
+  | 'firstDayOfWeek'
+  | 'hideDaysOtherMonths'
+  | 'locale'
+  | 'month'
+  | 'readonly'
+  | 'selected'
+  | 'showToday'
+  | 'showWeekNumbers'
 >;
 type Story = StoryObj<Props>;
 
@@ -14,6 +21,7 @@ export default {
   title: 'Calendar/Month view',
   tags: ['draft'],
   args: {
+    hideDaysOtherMonths: false,
     month: new Date(),
     readonly: false,
     showToday: false,
@@ -34,8 +42,18 @@ export default {
       control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, month, locale, readonly, selected, showToday, showWeekNumbers }) => html`
+  render: ({
+    firstDayOfWeek,
+    hideDaysOtherMonths,
+    month,
+    locale,
+    readonly,
+    selected,
+    showToday,
+    showWeekNumbers
+  }) => html`
     <sl-month-view
+      ?hide-days-other-months=${hideDaysOtherMonths}
       ?readonly=${readonly}
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
@@ -52,6 +70,12 @@ export const Basic: Story = {};
 export const FirstDayOfWeek: Story = {
   args: {
     firstDayOfWeek: 0
+  }
+};
+
+export const HideDaysOtherMonths: Story = {
+  args: {
+    hideDaysOtherMonths: true
   }
 };
 

@@ -6,7 +6,7 @@ import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './month-view.scss.js';
-import { type Calendar, type Day, createCalendar, getWeekdayNames } from './utils.js';
+import { type Calendar, type Day, createCalendar, getWeekdayNames, isSameDate } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -62,9 +62,9 @@ export class MonthView extends LocaleMixin(LitElement) {
     }
 
     if (changes.has('month')) {
-      const { firstDayOfWeek, selected, showToday } = this;
+      const { firstDayOfWeek, showToday } = this;
 
-      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, selected, showToday });
+      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, showToday });
     }
   }
 
@@ -100,7 +100,9 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
-    if (this.renderer) {
+    if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
+      return html`<td></td>`;
+    } else if (this.renderer) {
       template = this.renderer(day);
     } else {
       const parts = ['day', ...this.#getParts(day)].join(' ');
@@ -121,8 +123,8 @@ export class MonthView extends LocaleMixin(LitElement) {
     return [
       day.nextMonth ? 'next-month' : '',
       day.previousMonth ? 'previous-month' : '',
-      day.selected ? 'selected' : '',
-      day.today ? 'today' : ''
+      day.today ? 'today' : '',
+      this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
   }
 }

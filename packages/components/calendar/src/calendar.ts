@@ -100,11 +100,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('event.detail', event.detail);
-
     if (this.selected && !isSameDate(this.selected, event.detail)) {
-      this.selected = event.detail;
-      this.changeEvent.emit(event.detail);
+      this.selected = new Date(event.detail);
+      this.changeEvent.emit(this.selected);
     }
   }
 

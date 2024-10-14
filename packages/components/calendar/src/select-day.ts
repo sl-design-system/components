@@ -66,6 +66,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal The scroller element. */
   @query('.scroller') scroller?: HTMLElement;
 
+  /** The selected date. */
+  @property({ converter: dateConverter }) selected?: Date;
+
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
@@ -141,6 +144,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.previousMonth}
+          .selected=${this.selected}
           aria-hidden="true"
           inert
           locale=${ifDefined(this.locale)}
@@ -152,6 +156,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.month}
+          .selected=${this.selected}
           locale=${ifDefined(this.locale)}
         ></sl-month-view>
         <sl-month-view
@@ -160,6 +165,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           ?show-week-numbers=${this.showWeekNumbers}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.nextMonth}
+          .selected=${this.selected}
           aria-hidden="true"
           inert
           locale=${ifDefined(this.locale)}
@@ -197,7 +203,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('select', event.detail);
+    this.selectEvent.emit(event.detail);
   }
 
   #onToggleMonthSelect(): void {

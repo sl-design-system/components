@@ -10,6 +10,7 @@ import styles from './calendar.scss.js';
 import { SelectDay } from './select-day.js';
 import { SelectMonth } from './select-month.js';
 import { SelectYear } from './select-year.js';
+import { isSameDate } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -47,6 +48,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Will disable the ability to select a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
 
+  /** The selected date. */
+  @property({ converter: dateConverter }) selected?: Date;
+
   /** Highlights today's date when set. */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
@@ -60,11 +64,13 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           'day',
           () => html`
             <sl-select-day
+              @sl-select=${this.#onSelect}
               @sl-toggle=${this.#onToggleMonthYear}
               ?readonly=${this.readonly}
               ?show-today=${this.showToday}
               ?show-week-numbers=${this.showWeekNumbers}
               .month=${this.month}
+              .selected=${this.selected}
               first-day-of-week=${ifDefined(this.firstDayOfWeek)}
               locale=${ifDefined(this.locale)}
             ></sl-select-day>
@@ -90,17 +96,38 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     `;
   }
 
+  #onSelect(event: SlSelectEvent<Date>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log('event.detail', event.detail);
+
+    if (this.selected && !isSameDate(this.selected, event.detail)) {
+      this.selected = event.detail;
+      this.changeEvent.emit(event.detail);
+    }
+  }
+
   #onSelectMonth(event: SlSelectEvent<Date>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
     this.month = new Date(event.detail.getFullYear(), event.detail.getMonth(), this.month.getDate());
     this.mode = 'day';
   }
 
   #onSelectYear(event: SlSelectEvent<Date>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
     this.month = new Date(event.detail.getFullYear(), this.month.getMonth(), this.month.getDate());
     this.mode = 'day';
   }
 
   #onToggleMonthYear(event: SlToggleEvent<'month' | 'year'>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
     this.mode = event.detail;
   }
 }

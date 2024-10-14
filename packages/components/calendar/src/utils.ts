@@ -128,26 +128,32 @@ export function normalizeDateTime(date: Date): Date {
 export interface CreateCalendarOptions {
   end?: Date;
   firstDayOfWeek?: number;
+  selected?: Date;
   showToday?: boolean;
 }
 
 export function createCalendar(
   date: Date,
-  { end, firstDayOfWeek = 0, showToday = false }: CreateCalendarOptions
+  { end, firstDayOfWeek = 0, selected, showToday = false }: CreateCalendarOptions
 ): Calendar {
-  const weekOptions = { firstDayOfWeek, showToday };
+  const weekOptions = { firstDayOfWeek, selected, showToday };
 
   return end ? createPeriod(date, end, weekOptions) : createMonth(date, weekOptions);
 }
 
 export interface CreatePeriodOptions {
   firstDayOfWeek: number;
+  selected?: Date;
   showToday: boolean;
 }
 
-export function createPeriod(start: Date, end: Date, { firstDayOfWeek, showToday }: CreatePeriodOptions): Calendar {
+export function createPeriod(
+  start: Date,
+  end: Date,
+  { firstDayOfWeek, selected, showToday }: CreatePeriodOptions
+): Calendar {
   const calendar: Calendar = { weeks: [] },
-    weekOptions = { firstDayOfWeek, relativeMonth: start, showToday };
+    weekOptions = { firstDayOfWeek, relativeMonth: start, selected, showToday };
 
   let nextWeek = createWeek(start, weekOptions);
   do {
@@ -162,14 +168,15 @@ export function createPeriod(start: Date, end: Date, { firstDayOfWeek, showToday
 
 export interface CreateMonthOptions {
   firstDayOfWeek: number;
+  selected?: Date;
   showToday: boolean;
 }
 
-export function createMonth(date: Date, { firstDayOfWeek, showToday }: CreateMonthOptions): Calendar {
+export function createMonth(date: Date, { firstDayOfWeek, selected, showToday }: CreateMonthOptions): Calendar {
   const firstDayOfMonth = new Date(date);
   firstDayOfMonth.setDate(1);
   const monthNumber = firstDayOfMonth.getMonth();
-  const weekOptions = { firstDayOfWeek, relativeMonth: firstDayOfMonth, showToday };
+  const weekOptions = { firstDayOfWeek, relativeMonth: firstDayOfMonth, selected, showToday };
 
   const month: Calendar = { weeks: [] };
 
@@ -187,10 +194,14 @@ export function createMonth(date: Date, { firstDayOfWeek, showToday }: CreateMon
 export interface CreateWeekOptions {
   firstDayOfWeek: number;
   relativeMonth: Date;
+  selected?: Date;
   showToday: boolean;
 }
 
-export function createWeek(date: Date, { firstDayOfWeek, relativeMonth, showToday }: CreateWeekOptions): Week {
+export function createWeek(
+  date: Date,
+  { firstDayOfWeek, relativeMonth, selected, showToday }: CreateWeekOptions
+): Week {
   let weekStartDate = new Date(date);
 
   const tmpDate = new Date(date);
@@ -209,6 +220,7 @@ export function createWeek(date: Date, { firstDayOfWeek, relativeMonth, showToda
       createDay(new Date(weekStartDate), {
         relativeMonth,
         weekOrder: i,
+        selected,
         showToday,
         startOfWeek: i === 0
       })
@@ -219,15 +231,21 @@ export function createWeek(date: Date, { firstDayOfWeek, relativeMonth, showToda
 
 export interface CreateDayOptions {
   relativeMonth: Date;
+  selected?: Date;
   showToday: boolean;
   startOfWeek: boolean;
   weekOrder: number;
 }
 
-export function createDay(date: Date, { relativeMonth, showToday, startOfWeek, weekOrder }: CreateDayOptions): Day {
+export function createDay(
+  date: Date,
+  { relativeMonth, selected, showToday, startOfWeek, weekOrder }: CreateDayOptions
+): Day {
   const today = normalizeDateTime(new Date()),
     currentMonth = relativeMonth.getMonth(),
     isToday = showToday && isSameDate(date, today);
+
+  console.log({ selected });
 
   return {
     ariaCurrent: isToday ? 'date' : undefined,
@@ -237,6 +255,7 @@ export function createDay(date: Date, { relativeMonth, showToday, startOfWeek, w
     nextMonth: date.getMonth() > currentMonth,
     past: date < today,
     previousMonth: date.getMonth() < currentMonth,
+    selected: selected && isSameDate(date, selected),
     startOfWeek,
     tabindex: '-1',
     today: isToday,

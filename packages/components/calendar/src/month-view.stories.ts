@@ -4,7 +4,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type MonthView } from './month-view.js';
 
-type Props = Pick<MonthView, 'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'showToday' | 'showWeekNumbers'>;
+type Props = Pick<
+  MonthView,
+  'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'selected' | 'showToday' | 'showWeekNumbers'
+>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -26,16 +29,20 @@ export default {
     },
     month: {
       control: 'date'
+    },
+    selected: {
+      control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, month, locale, readonly, showToday, showWeekNumbers }) => html`
+  render: ({ firstDayOfWeek, month, locale, readonly, selected, showToday, showWeekNumbers }) => html`
     <sl-month-view
       ?readonly=${readonly}
       ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
       locale=${ifDefined(locale)}
-      month=${ifDefined(month ? month.toISOString() : undefined)}
+      month=${ifDefined(month?.toISOString())}
+      selected=${ifDefined(selected?.toISOString())}
     ></sl-month-view>
   `
 } satisfies Meta<Props>;
@@ -51,6 +58,13 @@ export const FirstDayOfWeek: Story = {
 export const Readonly: Story = {
   args: {
     readonly: true
+  }
+};
+
+export const Selected: Story = {
+  args: {
+    month: new Date(2024, 11, 10),
+    selected: new Date(2024, 11, 4)
   }
 };
 

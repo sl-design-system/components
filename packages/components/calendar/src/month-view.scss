@@ -40,6 +40,7 @@ button {
 [part~='day'] {
   align-items: center;
   aspect-ratio: 1;
+  border-radius: 50%;
   color: var(--sl-color-text-default);
   display: inline-flex;
   inline-size: 2rem;
@@ -49,6 +50,19 @@ button {
 [part~='previous-month'],
 [part~='next-month'] {
   color: var(--sl-color-neutral-muted);
+}
+
+[part~='selected'] {
+  background: var(--sl-color-info-plain);
+  color: var(--sl-color-text-inverted);
+
+  &:hover {
+    background: var(--sl-color-info-bold);
+  }
+
+  &:active {
+    background: var(--sl-color-info-heavy);
+  }
 }
 
 [part~='today'] {

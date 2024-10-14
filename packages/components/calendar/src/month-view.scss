@@ -19,10 +19,11 @@ button {
   cursor: pointer;
   font: inherit;
   padding: 0;
-  transition-property: background, border, color, outline;
+  transition-property: background, border, border-radius, color, outline;
 
   &:hover {
     background: var(--sl-color-action-background-accent-subtle-hover);
+    border-radius: var(--sl-size-borderRadius-default);
     transition: 0.2s ease-in-out;
   }
 
@@ -40,7 +41,6 @@ button {
 [part~='day'] {
   align-items: center;
   aspect-ratio: 1;
-  border-radius: 50%;
   color: var(--sl-color-text-default);
   display: inline-flex;
   inline-size: 2rem;
@@ -52,8 +52,15 @@ button {
   color: var(--sl-color-neutral-muted);
 }
 
+[part~='today'] {
+  border: 1px solid var(--sl-color-info-subtle);
+  border-radius: 50%;
+  color: var(--sl-color-info-plain);
+}
+
 [part~='selected'] {
   background: var(--sl-color-info-plain);
+  border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-text-inverted);
 
   &:hover {
@@ -63,10 +70,6 @@ button {
   &:active {
     background: var(--sl-color-info-heavy);
   }
-}
-
-[part~='today'] {
-  color: var(--sl-color-info-bold);
 }
 
 [part~='week-day'],

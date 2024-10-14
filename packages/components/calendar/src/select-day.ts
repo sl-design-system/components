@@ -69,6 +69,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
+  /** Highlights today's date when set. */
+  @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
+
   /** Shows the week numbers. */
   @property({ type: Boolean, reflect: true, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
@@ -134,6 +137,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       >
         <sl-month-view
           ?readonly=${this.readonly}
+          ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.previousMonth}
@@ -144,6 +148,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         <sl-month-view
           @sl-select=${this.#onSelect}
           ?readonly=${this.readonly}
+          ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.month}
@@ -151,6 +156,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ></sl-month-view>
         <sl-month-view
           ?readonly=${this.readonly}
+          ?show-today=${this.showToday}
           ?show-week-numbers=${this.showWeekNumbers}
           .firstDayOfWeek=${this.firstDayOfWeek}
           .month=${this.nextMonth}

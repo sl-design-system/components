@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type MonthView } from './month-view.js';
 
-type Props = Pick<MonthView, 'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'showWeekNumbers'>;
+type Props = Pick<MonthView, 'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'showToday' | 'showWeekNumbers'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -13,6 +13,7 @@ export default {
   args: {
     month: new Date(),
     readonly: false,
+    showToday: false,
     showWeekNumbers: false
   },
   argTypes: {
@@ -27,9 +28,10 @@ export default {
       control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, month, locale, readonly, showWeekNumbers }) => html`
+  render: ({ firstDayOfWeek, month, locale, readonly, showToday, showWeekNumbers }) => html`
     <sl-month-view
       ?readonly=${readonly}
+      ?show-today=${showToday}
       ?show-week-numbers=${showWeekNumbers}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
       locale=${ifDefined(locale)}
@@ -49,6 +51,12 @@ export const FirstDayOfWeek: Story = {
 export const Readonly: Story = {
   args: {
     readonly: true
+  }
+};
+
+export const Today: Story = {
+  args: {
+    showToday: true
   }
 };
 

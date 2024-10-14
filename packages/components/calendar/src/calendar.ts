@@ -47,6 +47,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** Will disable the ability to select a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
 
+  /** Highlights today's date when set. */
+  @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
+
   /** Shows the week numbers. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
@@ -59,6 +62,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
             <sl-select-day
               @sl-toggle=${this.#onToggleMonthYear}
               ?readonly=${this.readonly}
+              ?show-today=${this.showToday}
               ?show-week-numbers=${this.showWeekNumbers}
               .month=${this.month}
               first-day-of-week=${ifDefined(this.firstDayOfWeek)}

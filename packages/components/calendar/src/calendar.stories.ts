@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Calendar } from './calendar.js';
 
-type Props = Pick<Calendar, 'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'showWeekNumbers'>;
+type Props = Pick<Calendar, 'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'showToday' | 'showWeekNumbers'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -12,6 +12,7 @@ export default {
   tags: ['draft'],
   args: {
     readonly: false,
+    showToday: false,
     showWeekNumbers: false
   },
   argTypes: {
@@ -26,10 +27,11 @@ export default {
       control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, locale, month, readonly, showWeekNumbers }) => {
+  render: ({ firstDayOfWeek, locale, month, readonly, showToday, showWeekNumbers }) => {
     return html`
       <sl-calendar
         ?readonly=${readonly}
+        ?show-today=${showToday}
         ?show-week-numbers=${showWeekNumbers}
         first-day-of-week=${ifDefined(firstDayOfWeek)}
         locale=${ifDefined(locale)}
@@ -50,6 +52,12 @@ export const FirstDayOfWeek: Story = {
 export const Readonly: Story = {
   args: {
     readonly: true
+  }
+};
+
+export const Today: Story = {
+  args: {
+    showToday: true
   }
 };
 

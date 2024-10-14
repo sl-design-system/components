@@ -40,6 +40,9 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
+  /** Highlights today's date when set. */
+  @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
+
   /** Will render a column with the week numbers when true. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
@@ -56,7 +59,9 @@ export class MonthView extends LocaleMixin(LitElement) {
     }
 
     if (changes.has('month')) {
-      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek: this.firstDayOfWeek });
+      const { firstDayOfWeek, showToday } = this;
+
+      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, showToday });
     }
   }
 

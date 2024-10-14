@@ -52,6 +52,20 @@ button {
   color: var(--sl-color-neutral-muted);
 }
 
+[part~='highlight'] {
+  background: var(--sl-color-info-subtle);
+  border-radius: 50%;
+  color: var(--sl-color-text-inverted);
+
+  &:hover {
+    background: var(--sl-color-info-plain);
+  }
+
+  &:active {
+    background: var(--sl-color-info-bold);
+  }
+}
+
 [part~='today'] {
   border: 1px solid var(--sl-color-info-subtle);
   border-radius: 50%;

@@ -14,6 +14,11 @@ declare global {
   }
 }
 
+export type MonthViewRenderer = (day: Day, monthView: MonthView) => TemplateResult;
+
+/**
+ * Component that renders a single month of a calendar.
+ */
 @localized()
 export class MonthView extends LocaleMixin(LitElement) {
   /** @internal */
@@ -35,7 +40,7 @@ export class MonthView extends LocaleMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
   /** You can customize how a day is rendered by setting this property.  */
-  @property({ attribute: false }) renderer?: (day: Day) => TemplateResult;
+  @property({ attribute: false }) renderer?: MonthViewRenderer;
 
   /** @internal Emits when the user selects a day. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
@@ -100,31 +105,36 @@ export class MonthView extends LocaleMixin(LitElement) {
   renderDay(day: Day): TemplateResult {
     let template: TemplateResult | undefined;
 
-    if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
+    if (this.renderer) {
+      template = this.renderer(day, this);
+    } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
       return html`<td></td>`;
-    } else if (this.renderer) {
-      template = this.renderer(day);
     } else {
-      const parts = ['day', ...this.#getParts(day)].join(' ');
+      const parts = this.getDayParts(day).join(' ');
 
-      template = this.readonly
-        ? html`<span .part=${parts}>${day.date.getDate()}</span>`
-        : html`<button @click=${() => this.#onClick(day)} .part=${parts}>${day.date.getDate()}</button>`;
+      template =
+        this.readonly || !day.currentMonth
+          ? html`<span .part=${parts}>${day.date.getDate()}</span>`
+          : html`<button .part=${parts}>${day.date.getDate()}</button>`;
     }
 
-    return html`<td>${template}</td>`;
+    return html`<td @click=${(event: Event) => this.#onClick(event, day)}>${template}</td>`;
   }
 
-  #onClick(day: Day): void {
-    this.selectEvent.emit(day.date);
-  }
-
-  #getParts(day: Day): string[] {
+  /** Returns an array of part names for a day. */
+  getDayParts = (day: Day): string[] => {
     return [
+      'day',
       day.nextMonth ? 'next-month' : '',
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
+  };
+
+  #onClick(event: Event, day: Day): void {
+    if (event.target instanceof HTMLButtonElement && !event.target.disabled) {
+      this.selectEvent.emit(day.date);
+    }
   }
 }

@@ -18,7 +18,7 @@ type Props = Pick<
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Calendar/Month view',
+  title: 'Date & Time/Month view',
   tags: ['draft'],
   args: {
     hideDaysOtherMonths: false,

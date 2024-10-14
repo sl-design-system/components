@@ -1,5 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type FormatDate } from './format-date.js';
 
@@ -25,7 +26,7 @@ type Props = Pick<
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Calendar/Format date',
+  title: 'Date & Time/Format date',
   tags: ['draft'],
   args: {
     fallback: 'invalid date',
@@ -33,14 +34,14 @@ export default {
     timeStyle: 'medium'
   },
   argTypes: {
-    locale: {
-      control: 'inline-radio',
-      options: ['de-DE', 'en-GB', 'es-ES', 'fi-FI', 'it-IT', 'nl-NL', 'no-NO', 'pl-PL', 'sv-FI']
-    },
     date: { control: 'date' },
     dateStyle: {
       control: 'inline-radio',
       options: ['full', 'long', 'medium', 'short', undefined]
+    },
+    locale: {
+      control: 'inline-radio',
+      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
     },
     timeStyle: {
       control: 'inline-radio',
@@ -112,7 +113,6 @@ export default {
   }) => html`
     <sl-format-date
       .date=${date}
-      .locale=${locale}
       .dateStyle=${dateStyle}
       .timeStyle=${timeStyle}
       .weekday=${weekday}
@@ -127,6 +127,7 @@ export default {
       .timeZoneName=${timeZoneName}
       .timeZone=${timeZone}
       .hour12=${hour12}
+      locale=${ifDefined(locale)}
     >
       ${fallback}
     </sl-format-date>
@@ -135,12 +136,13 @@ export default {
 
 export const Basic: Story = {
   args: {
-    fallback: 'This is not a valid date'
+    date: new Date()
   }
 };
 
 export const Fallback: Story = {
   args: {
-    fallback: 'This date is not valid and it cannot be rendered.'
+    fallback:
+      'You can use the fallback slot to provide a message when the date is not valid (this includes when a date is not set). This can be useful if you want to show a placeholder or an error message.'
   }
 };

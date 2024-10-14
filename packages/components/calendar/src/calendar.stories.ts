@@ -11,7 +11,7 @@ type Props = Pick<
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Calendar/Calendar',
+  title: 'Date & Time/Calendar',
   tags: ['draft'],
   args: {
     readonly: false,

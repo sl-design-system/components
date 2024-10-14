@@ -4554,7 +4554,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/calendar@workspace:packages/components/calendar":
+"@sl-design-system/calendar@npm:^0.0.0, @sl-design-system/calendar@workspace:packages/components/calendar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/calendar@workspace:packages/components/calendar"
   dependencies:
@@ -4654,6 +4654,22 @@ __metadata:
   resolution: "@sl-design-system/data-source@workspace:packages/components/data-source"
   dependencies:
     "@sl-design-system/shared": "npm:^0.3.2"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/date-field@workspace:packages/components/date-field":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/date-field@workspace:packages/components/date-field"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/calendar": "npm:^0.0.0"
+    "@sl-design-system/form": "npm:^1.0.4"
+    "@sl-design-system/icon": "npm:^1.0.2"
+    "@sl-design-system/text-field": "npm:^1.4.0"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

@@ -183,6 +183,15 @@
 <trans-unit id="s46d6587089bd0356">
   <source>Next month</source>
 </trans-unit>
+<trans-unit id="s575e795c45e2d97e">
+  <source>Go back</source>
+</trans-unit>
+<trans-unit id="sc831e57f94e6d73e">
+  <source>Go forward</source>
+</trans-unit>
+<trans-unit id="s138a3b1a1217f2ca">
+  <source>Show calendar</source>
+</trans-unit>
 </body>
 </file>
 </xliff>

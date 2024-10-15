@@ -193,7 +193,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         >
           <sl-icon name="fas-caret-left"></sl-icon>
         </sl-button>
-        <ul class="pages-wrapper" aria-live="polite" aria-atomic="true">
+        <ul class="pages-wrapper">
           ${Array.from({ length: this.#pages }).map(
             (_, index) => html`
               <li class="page">

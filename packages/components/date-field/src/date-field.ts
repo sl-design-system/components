@@ -4,7 +4,8 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Calendar } from '@sl-design-system/calendar';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, anchor, event } from '@sl-design-system/shared';
+import { type EventEmitter, LocaleMixin, anchor, event } from '@sl-design-system/shared';
+import { dateConverter } from '@sl-design-system/shared/converters.js';
 import {
   type SlBlurEvent,
   type SlChangeEvent,
@@ -12,7 +13,7 @@ import {
   type SlSelectEvent
 } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
@@ -23,7 +24,7 @@ Icon.register(faCalendar);
  * A form component that allows the user to pick a date from a calendar.
  */
 @localized()
-export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
   /** @internal The default offset of the popover to the text-field. */
   static offset = 6;
 
@@ -42,17 +43,31 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
+  /** Formatter for displaying the value in the input. */
+  #formatter?: Intl.DateTimeFormat;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
+  /**
+   * Date and time format that will be used for formatting the date in the input.
+   * This support the `Intl.DateTimeFormatOptions` format.
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+   */
+  @property({ type: Object, attribute: 'date-time-format' })
+  dateTimeFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
+
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
+
+  /** @internal The input element in the light DOM. */
+  input!: HTMLInputElement;
 
   /** The placeholder for the text field. */
   @property() placeholder?: string;
@@ -66,8 +81,40 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Shows the week numbers. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
+  /** The selected date in the calendar. */
+  @property({ converter: dateConverter }) override value?: Date;
+
   /** @internal The wrapper element that is also the popover. */
   @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (!this.input) {
+      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.autocomplete = 'off';
+      this.input.slot = 'input';
+
+      if (!this.input.parentElement) {
+        this.append(this.input);
+      }
+    }
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('dateTimeFormat') && changes.has('locale')) {
+      this.#formatter = new Intl.DateTimeFormat(this.locale, this.dateTimeFormat);
+    }
+
+    if (changes.has('value')) {
+      console.log('value', this.value);
+      console.log('input', this.input);
+
+      this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
+    }
+  }
 
   override render(): TemplateResult {
     return html`
@@ -80,8 +127,10 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
         @sl-form-control=${this.#onTextFieldFormControl}
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
+        ?readonly=${this.selectOnly}
         .placeholder=${this.placeholder}
       >
+        <slot name="input" slot="input"></slot>
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
@@ -99,15 +148,21 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
           position: 'bottom-start',
           viewportMargin: DateField.viewportMargin
         })}
+        @toggle=${this.#onToggle}
         part="wrapper"
         popover
         tabindex="-1"
       >
-        <sl-calendar
-          @sl-change=${this.#onChange}
-          ?show-week-numbers=${this.showWeekNumbers}
-          first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-        ></sl-calendar>
+        ${this.wrapper?.matches(':popover-open')
+          ? html`
+              <sl-calendar
+                @sl-change=${this.#onChange}
+                ?show-week-numbers=${this.showWeekNumbers}
+                first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                show-today
+              ></sl-calendar>
+            `
+          : nothing}
       </slot>
     `;
   }
@@ -120,7 +175,13 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
     event.preventDefault();
     event.stopPropagation();
 
-    console.log('change', event.detail);
+    this.value = event.detail;
+    this.changeEvent.emit(this.value);
+
+    setTimeout(() => {
+      this.wrapper?.hidePopover();
+      this.input.focus();
+    }, 500);
   }
 
   #onInput(event: InputEvent): void {
@@ -161,5 +222,9 @@ export class DateField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onTextFieldUpdateState(event: SlUpdateStateEvent): void {
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  #onToggle(): void {
+    this.requestUpdate();
   }
 }

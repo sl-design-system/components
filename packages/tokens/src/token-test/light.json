@@ -235,7 +235,7 @@
           "type": "color"
         }
       },
-      "transparentGey": {
+      "transparentGrey": {
         "100": {
           "value": "rgba( {color.palette.black} , 11%)",
           "type": "color"
@@ -286,7 +286,7 @@
         }
       },
       "transparent": {
-        "value": "{color.palette.transparentGey.000}",
+        "value": "{color.palette.transparentGrey.000}",
         "type": "color",
         "description": "color.palette.transparent.base"
       },
@@ -723,7 +723,7 @@
         "description": "Use for borders that highlight primary actions."
       },
       "secondary": {
-        "value": "{color.border.accent.grey.bold}",
+        "value": "{color.border.accent.grey.heavy}",
         "type": "color",
         "description": "Use for borders that highlight secondary actions."
       },
@@ -759,8 +759,12 @@
           "description": "Use for green borders, for purely stylistic purposes with no specific meaning."
         },
         "grey": {
-          "bold": {
+          "heavy": {
             "value": "{color.palette.grey.900}",
+            "type": "color"
+          },
+          "bold": {
+            "value": "{color.palette.transparentGrey.300}",
             "type": "color",
             "description": "Use for grey borders, for purely stylistic purposes with no specific meaning."
           },
@@ -1160,7 +1164,7 @@
           "active": {
             "value": "{color.background.accent.red.bold.active}",
             "type": "color",
-            "description": "negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons in a pressed state."
+            "description": "A vibrant background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons in an active state."
           }
         }
       },
@@ -1434,7 +1438,7 @@
     },
     "blanket": {
       "plain": {
-        "value": "rgba( {color.palette.grey.500} , {opacity.900})",
+        "value": "{color.palette.transparentGrey.500}",
         "type": "color",
         "description": "Use for screen overlay that appears with dialogs or drawers."
       }
@@ -1493,7 +1497,7 @@
         },
         "alternative": {
           "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
+            "value": "{color.palette.transparentGrey.050}",
             "type": "color",
             "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
@@ -1549,9 +1553,9 @@
         "value": {
           "x": "0",
           "y": "0",
-          "blur": "20",
+          "blur": "15",
           "spread": "0",
-          "color": "#5d5d5d33",
+          "color": "{color.palette.transparentGrey.150}",
           "type": "dropShadow"
         },
         "type": "boxShadow",

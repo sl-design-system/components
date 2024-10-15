@@ -235,18 +235,67 @@
           "type": "color"
         }
       },
+      "transparentGey": {
+        "100": {
+          "value": "rgba( {color.palette.black} , 11%)",
+          "type": "color"
+        },
+        "150": {
+          "value": "rgba( {color.palette.black} , 21%)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba( {color.palette.black} , 36%)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba( {color.palette.black} , 54%)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba( {color.palette.black} , 66%)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba( {color.palette.black} , 73%)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba( {color.palette.black} , 79%)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba( {color.palette.black} , 84%)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba( {color.palette.black} , 88%)",
+          "type": "color"
+        },
+        "900": {
+          "value": "{color.palette.black}",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba( {color.palette.black} , 5%)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba( {color.palette.black} , 0%)",
+          "type": "color"
+        }
+      },
       "transparent": {
-        "value": "#00000000",
+        "value": "{color.palette.transparentGrey.000}",
         "type": "color",
         "description": "color.palette.transparent.base"
       },
       "black": {
-        "value": "#222222",
-        "type": "color",
-        "description": "color.palette.transparent.base"
+        "value": "{color.palette.grey.900}",
+        "type": "color"
       },
       "white": {
-        "value": "#ffffff",
+        "value": "{color.palette.grey.000}",
         "type": "color",
         "description": "color.palette.transparent.base"
       }
@@ -815,6 +864,23 @@
             "description": "Use for the background while pressing of primary actions that appear to have no background in idle state. such as outline and ghost buttons."
           }
         },
+        "subtle": {
+          "idle": {
+            "value": "{color.background.accent.blue.subtle.idle}",
+            "type": "color",
+            "description": "A subtle background variant in the primary color."
+          },
+          "hover": {
+            "value": "{color.background.accent.blue.subtle.hover}",
+            "type": "color",
+            "description": "A subtle background variant in the primary color for hover states."
+          },
+          "active": {
+            "value": "{color.background.accent.blue.subtle.active}",
+            "type": "color",
+            "description": "A subtle background variant in the primary color for active states."
+          }
+        },
         "bold": {
           "idle": {
             "value": "{color.background.accent.blue.bold.idle}",
@@ -851,6 +917,23 @@
             "description": "Use for the background while pressing of secondary actions that appear to have no background in idle state. such as outline and ghost buttons."
           }
         },
+        "subtle": {
+          "idle": {
+            "value": "{color.background.accent.grey.subtle.idle}",
+            "type": "color",
+            "description": "A subtle background variant in the secondary color."
+          },
+          "hover": {
+            "value": "{color.background.accent.grey.subtle.hover}",
+            "type": "color",
+            "description": "A subtle background variant in the secondary color for hover states."
+          },
+          "active": {
+            "value": "{color.background.accent.grey.subtle.active}",
+            "type": "color",
+            "description": "A subtle background variant in the secondary color for active states."
+          }
+        },
         "bold": {
           "idle": {
             "value": "{color.background.accent.grey.bold.idle}",
@@ -874,24 +957,34 @@
           "idle": {
             "value": "{color.background.accent.blue.muted.idle}",
             "type": "color",
-            "description": "Use for the background of actions related to informative messages that the user needs to be aware of, which appear to have no background in their idle state, such as outline and ghost buttons."
+            "description": "Background for informative actions, with no background in the idle state, used on outline and ghost buttons."
           },
           "hover": {
             "value": "{color.background.accent.blue.muted.hover}",
             "type": "color",
-            "description": "Use for the background while hovering actions related to informative messages that the user needs to be aware of, which appear to have no background in their idle state, such as outline and ghost buttons."
+            "description": "Background for informative actions in hovered state, with no background in the idle state, used on outline and ghost buttons."
           },
           "active": {
             "value": "{color.background.accent.blue.muted.active}",
             "type": "color",
-            "description": "Use for the background while pressing actions related to informative messages that the user needs to be aware of, which appear to have no background in their idle state, such as outline and ghost buttons."
+            "description": "Background for informative actions in pressed state, with no background in the idle state, used on outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
             "value": "{color.background.accent.blue.subtle.idle}",
             "type": "color",
-            "description": "Use for the background of informative messages that the user needs to be aware of."
+            "description": "A subtle background variant for informative messages requiring user attention."
+          },
+          "hover": {
+            "value": "{color.background.accent.blue.subtle.hover}",
+            "type": "color",
+            "description": "A subtle background variant in the hover state for informative messages requiring user attention."
+          },
+          "active": {
+            "value": "{color.background.accent.blue.subtle.active}",
+            "type": "color",
+            "description": "A subtle background variant in the active state for informative messages requiring user attention."
           }
         },
         "bold": {
@@ -917,41 +1010,51 @@
           "idle": {
             "value": "{color.background.accent.green.muted.idle}",
             "type": "color",
-            "description": "Use for the background of actions related to messages that communicate a favorable outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
+            "description": "Use for the background of actions related to messages that communicate a positive outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
           },
           "hover": {
             "value": "{color.background.accent.green.muted.hover}",
             "type": "color",
-            "description": "Use as background while hovering actions related to messages that communicate a favorable outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
+            "description": "Use as background while hovering actions related to messages that communicate a positive outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
           },
           "active": {
             "value": "{color.background.accent.green.muted.active}",
             "type": "color",
-            "description": "Use as background while pressing actions related to messages that communicate a favorable outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
+            "description": "Use as background while pressing actions related to messages that communicate a positive outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
             "value": "{color.background.accent.green.subtle.idle}",
             "type": "color",
-            "description": "Use for the background of messages that communicate a favorable outcome."
+            "description": "A subtle background option for communicating a positive outcome."
+          },
+          "hover": {
+            "value": "{color.background.accent.green.subtle.hover}",
+            "type": "color",
+            "description": "A subtle background option in the hover state for communicating a positive outcome."
+          },
+          "active": {
+            "value": "{color.background.accent.green.subtle.active}",
+            "type": "color",
+            "description": "A subtle background option in the active state for communicating a positive outcome."
           }
         },
         "bold": {
           "idle": {
             "value": "{color.background.accent.green.bold.idle}",
             "type": "color",
-            "description": "Use for the background of actions with bold emphasis related to messages that communicate a favorable outcome."
+            "description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
           },
           "hover": {
             "value": "{color.background.accent.green.bold.hover}",
             "type": "color",
-            "description": "Use as the background for actions with bold emphasis during hover states, related to messages that communicate a favorable outcome."
+            "description": "Use as the background for actions with bold emphasis during hover states, related to messages that communicate a positive outcome."
           },
           "active": {
             "value": "{color.background.accent.green.bold.active}",
             "type": "color",
-            "description": "Use as the background for actions with bold emphasis during active states, related to messages that communicate a favorable outcome."
+            "description": "Use as the background for actions with bold emphasis during active states, related to messages that communicate a positive outcome."
           }
         }
       },
@@ -1351,42 +1454,101 @@
   },
   "elevation": {
     "surface": {
-      "idle": {
-        "value": "{color.palette.white}",
-        "type": "color",
-        "description": "Use as the default background for the UI."
-      },
-      "hover": {
-        "value": "{color.background.accent.blue.muted.hover}",
-        "type": "color",
-        "description": "Use as the default background for the UI while hovering."
-      },
-      "active": {
-        "value": "{color.background.accent.blue.muted.active}",
-        "type": "color",
-        "description": "Use as the default background for the UI while pressing."
+      "default": {
+        "base": {
+          "idle": {
+            "value": "{color.palette.white}",
+            "type": "color",
+            "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
+          },
+          "hover": {
+            "value": "{color.background.accent.blue.muted.hover}",
+            "type": "color",
+            "description": "The default, flat surface level in hover state. Used for primary content backgrounds."
+          },
+          "active": {
+            "value": "{color.background.accent.blue.muted.active}",
+            "type": "color",
+            "description": "Use as the default background for the UI while pressing."
+          }
+        }
       },
       "raised": {
-        "idle": {
-          "value": "{color.palette.white}",
-          "type": "color",
-          "description": "Use as the default background for elements on top of 'elevation.surface'."
+        "default": {
+          "idle": {
+            "value": "{color.palette.white}",
+            "type": "color",
+            "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          },
+          "hover": {
+            "value": "{color.background.accent.blue.muted.hover}",
+            "type": "color",
+            "description": "Background of elevated components in hovered state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          },
+          "active": {
+            "value": "{color.background.accent.blue.muted.active}",
+            "type": "color",
+            "description": "Background of elevated components in active state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          }
         },
-        "hover": {
-          "value": "{color.background.accent.blue.muted.hover}",
-          "type": "color",
-          "description": "Use as the default background while hovering elements on top of 'elevation.surface'."
-        },
-        "active": {
-          "value": "{color.background.accent.blue.muted.active}",
-          "type": "color",
-          "description": "Use as the default background while pressing elements on top of 'elevation.surface'."
+        "alternative": {
+          "idle": {
+            "value": "{color.background.accent.grey.subtle.idle}",
+            "type": "color",
+            "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+          },
+          "hover": {
+            "value": "{color.background.accent.blue.subtle.hover}",
+            "type": "color",
+            "description": "An alternate surface color in hover state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+          },
+          "active": {
+            "value": "{color.background.accent.blue.subtle.active}",
+            "type": "color",
+            "description": "An alternate surface color in active state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+          }
         }
       },
       "sunken": {
         "value": "{color.background.accent.grey.subtle.idle}",
         "type": "color",
         "description": "A secondary background used across the UI for grouping related items or applying zebra striping within grids, enhancing visual distinction between rows or sections."
+      },
+      "overlay": {
+        "default": {
+          "idle": {
+            "value": "{color.palette.white}",
+            "type": "color",
+            "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          },
+          "hover": {
+            "value": "{color.background.accent.blue.muted.hover}",
+            "type": "color",
+            "description": "Background of elevated components in hovered state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          },
+          "active": {
+            "value": "{color.background.accent.blue.muted.active}",
+            "type": "color",
+            "description": "Background of elevated components in active state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+          }
+        },
+        "alternative": {
+          "idle": {
+            "value": "{color.background.accent.grey.subtle.idle}",
+            "type": "color",
+            "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+          },
+          "hover": {
+            "value": "{color.background.accent.blue.subtle.hover}",
+            "type": "color",
+            "description": "An alternate surface color in hover state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+          },
+          "active": {
+            "value": "{color.background.accent.blue.subtle.active}",
+            "type": "color",
+            "description": "An alternate surface color in active state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+          }
+        }
       }
     },
     "shadow": {

@@ -286,7 +286,7 @@
         }
       },
       "transparent": {
-        "value": "{color.palette.transparentGrey.000}",
+        "value": "{color.palette.transparentGey.000}",
         "type": "color",
         "description": "color.palette.transparent.base"
       },
@@ -501,7 +501,7 @@
     },
     "icon": {
       "bold": {
-        "value": "{color.icon.accent.grey.plain}",
+        "value": "{color.icon.accent.grey.bold}",
         "type": "color",
         "description": "Use for icons paired with 'color.text.bold'."
       },
@@ -1454,8 +1454,8 @@
   },
   "elevation": {
     "surface": {
-      "default": {
-        "base": {
+      "base": {
+        "default": {
           "idle": {
             "value": "{color.palette.white}",
             "type": "color",
@@ -1509,45 +1509,38 @@
           }
         }
       },
-      "sunken": {
-        "value": "{color.background.accent.grey.subtle.idle}",
-        "type": "color",
-        "description": "A secondary background used across the UI for grouping related items or applying zebra striping within grids, enhancing visual distinction between rows or sections."
-      },
       "overlay": {
-        "default": {
-          "idle": {
-            "value": "{color.palette.white}",
-            "type": "color",
-            "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
-            "type": "color",
-            "description": "Background of elevated components in hovered state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.muted.active}",
-            "type": "color",
-            "description": "Background of elevated components in active state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          }
+        "idle": {
+          "value": "{color.palette.white}",
+          "type": "color",
+          "description": "For overlays like modals, drawers, or menus."
         },
-        "alternative": {
-          "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
-            "type": "color",
-            "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "An alternate surface color in hover state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "An alternate surface color in active state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          }
+        "hover": {
+          "value": "{color.background.accent.blue.muted.hover}",
+          "type": "color",
+          "description": "For overlays like modals, drawers, or menus in hover state."
+        },
+        "active": {
+          "value": "{color.background.accent.blue.muted.active}",
+          "type": "color",
+          "description": "For overlays like modals, drawers, or menus in active state."
+        }
+      },
+      "sunken": {
+        "idle": {
+          "value": "{color.background.accent.grey.subtle.idle}",
+          "type": "color",
+          "description": "Background for components that create a sunken effect, typically used for grouping related items. This elevation style visually distinguishes grouped elements from 'elevation.surface.raised' and 'elevation.surface.overlay'."
+        },
+        "hover": {
+          "value": "{color.background.accent.blue.subtle.hover}",
+          "type": "color",
+          "description": "Background for components in hover state that create a sunken effect, typically used for grouping related items. This elevation style visually distinguishes grouped elements from 'elevation.surface.raised' and 'elevation.surface.overlay."
+        },
+        "active": {
+          "value": "{color.background.accent.blue.subtle.active}",
+          "type": "color",
+          "description": "Background for components in active state that create a sunken effect, typically used for grouping related items. This elevation style visually distinguishes grouped elements from 'elevation.surface.raised' and 'elevation.surface.overlay."
         }
       }
     },

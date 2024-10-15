@@ -2,7 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -43,7 +43,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   @state() mode: 'day' | 'month' | 'year' = 'day';
 
   /** The month that the calendar opens on. */
-  @property({ converter: dateConverter }) month = new Date();
+  @property({ converter: dateConverter }) month?: Date;
 
   /** Will disable the ability to select a date when set. */
   @property({ type: Boolean }) readonly?: boolean;
@@ -56,6 +56,19 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** Shows the week numbers. */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('selected') && this.selected) {
+      // If only the `selected` property is set, make sure the `month` property is set
+      // to the same date, so the selected day is visible in the calendar.
+      this.month ??= new Date(this.selected);
+    } else {
+      // Otherwise default to the current month.
+      this.month ??= new Date();
+    }
+  }
 
   override render(): TemplateResult {
     return html`
@@ -89,7 +102,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         [
           'year',
           () => html`
-            <sl-select-year @sl-select=${this.#onSelectYear} .year=${this.month.getFullYear()}></sl-select-year>
+            <sl-select-year @sl-select=${this.#onSelectYear} .year=${this.month!.getFullYear()}></sl-select-year>
           `
         ]
       ])}
@@ -110,7 +123,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(event.detail.getFullYear(), event.detail.getMonth(), this.month.getDate());
+    this.month = new Date(event.detail.getFullYear(), event.detail.getMonth(), this.month!.getDate());
     this.mode = 'day';
   }
 
@@ -118,7 +131,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.month = new Date(event.detail.getFullYear(), this.month.getMonth(), this.month.getDate());
+    this.month = new Date(event.detail.getFullYear(), this.month!.getMonth(), this.month!.getDate());
     this.mode = 'day';
   }
 

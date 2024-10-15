@@ -64,8 +64,7 @@ export const Readonly: Story = {
 
 export const Selected: Story = {
   args: {
-    month: new Date(2024, 10, 1),
-    selected: new Date(2024, 10, 15)
+    selected: new Date(2024, 8, 15)
   }
 };
 

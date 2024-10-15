@@ -72,6 +72,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** The placeholder for the text field. */
   @property() placeholder?: string;
 
+  /** Whether the text field is a required field. */
+  @property({ type: Boolean, reflect: true }) override required?: boolean;
+
   /**
    * Whether the component is select only. This means you cannot type in the text field,
    * but you can still pick a date via de popover.
@@ -99,6 +102,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         this.append(this.input);
       }
     }
+
+    this.setFormControlElement(this.input);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -110,7 +115,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     if (changes.has('value')) {
       console.log('value', this.value);
-      console.log('input', this.input);
 
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
     }
@@ -157,6 +161,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           ? html`
               <sl-calendar
                 @sl-change=${this.#onChange}
+                .selected=${this.value}
                 ?show-week-numbers=${this.showWeekNumbers}
                 first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                 show-today

@@ -2,6 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/combobox/register.js';
+import '@sl-design-system/date-field/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/radio-group/register.js';
@@ -162,6 +163,10 @@ export const All: Story = {
         <sl-text-field name="textField" placeholder="Placeholder" required></sl-text-field>
       </sl-form-field>
 
+      <sl-form-field hint="Hint text" label="Date field">
+        <sl-date-field name="dateField" placeholder="Placeholder" required></sl-date-field>
+      </sl-form-field>
+
       <sl-form-field hint="Hint text" label="Text area">
         <sl-text-area name="textArea" placeholder="Placeholder" required></sl-text-area>
       </sl-form-field>
@@ -225,14 +230,15 @@ export const AllValid: Story = {
     reportValidity: true,
     reset: true,
     value: {
-      textField: 'Text field',
-      textArea: 'Text area',
       checkbox: 'checked',
       checkboxGroup: ['1'],
       combobox: 'Option 2',
+      dateField: new Date(),
       radioGroup: '2',
       select: '2',
-      switch: 'toggled'
+      switch: 'toggled',
+      textArea: 'Text area',
+      textField: 'Text field'
     }
   }
 };

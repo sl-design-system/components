@@ -131,7 +131,7 @@ export class Button extends LitElement {
 
     filteredNodes.forEach(node => {
       const el = node as HTMLElement;
-      if (el.nodeName === 'SL-ICON') {
+      if (el.nodeName === 'SL-ICON' && !el.hasAttribute('size')) {
         el.setAttribute('size', this.size);
       } else if (this.#hasOnlyIconAsChild(el)) {
         (el.children[0] as HTMLElement).setAttribute('size', this.size);

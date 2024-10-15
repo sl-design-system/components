@@ -50,7 +50,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** @internal */
   static formAssociated = true;
 
-  /** @internal The default offset of the popover to the input. */
+  /** @internal The default offset of the popover to the text-field. */
   static offset = 6;
 
   /** @internal */

@@ -46,5 +46,11 @@ export const templates = {
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`
+  sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`,
+  s08cb5d07b56d33a7: 'wk',
+  s62931b2a50168976: 'Previous month',
+  s46d6587089bd0356: 'Next month',
+  s575e795c45e2d97e: 'Go back',
+  sc831e57f94e6d73e: 'Go forward',
+  s138a3b1a1217f2ca: 'Show calendar'
 };

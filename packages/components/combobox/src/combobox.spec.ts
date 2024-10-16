@@ -110,7 +110,7 @@ describe('sl-combobox', () => {
 
     it('should not be required', () => {
       expect(el.required).not.to.be.true;
-      expect(el.internals.ariaRequired).not.to.equal('true');
+      expect(input).not.to.have.attribute('required');
     });
 
     it('should be required when set', async () => {
@@ -118,7 +118,7 @@ describe('sl-combobox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('required');
-      expect(el.internals.ariaRequired).to.equal('true');
+      expect(input).to.have.attribute('required');
     });
 
     it('should be pristine', () => {

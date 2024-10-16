@@ -1,4 +1,4 @@
-import { LOCALE_STATUS_EVENT, localized, msg, str } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -47,9 +47,6 @@ let nextUniqueId = 0;
  */
 @localized()
 export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
-  /** @internal */
-  static formAssociated = true;
-
   /** @internal The default offset of the popover to the input. */
   static offset = 6;
 
@@ -145,9 +142,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
-  /** @internal Element internals. */
-  readonly internals = this.attachInternals();
-
   /** @internal The listbox containing the options. */
   @state() listbox?: Element;
 
@@ -209,10 +203,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     this.#observer.observe(this, { childList: true, subtree: true });
 
-    this.setFormControlElement(this);
-
-    // Listen for i18n updates and update the validation message
-    this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValidity);
+    this.setFormControlElement(this.input);
   }
 
   override disconnectedCallback(): void {
@@ -269,9 +260,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     }
 
     if (changes.has('required')) {
-      this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.input.required = !!this.required;
 
-      this.#updateValidity();
+      this.updateValidity();
     }
   }
 
@@ -347,6 +338,14 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   override focus(options?: FocusOptions): void {
     this.input?.focus(options);
+  }
+
+  override getLocalizedValidationMessage(): string {
+    if (this.validity.valueMissing) {
+      return this.multiple ? msg('Please select at least one option.') : msg('Please select an option.');
+    } else {
+      return super.getLocalizedValidationMessage();
+    }
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
@@ -815,19 +814,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     }
   }
 
-  #updateValidity(): void {
-    if (this.multiple) {
-      this.internals.setValidity(
-        { valueMissing: this.required && !!(this.value as T[]).length },
-        msg('Please select at least one option.')
-      );
-    } else {
-      this.internals.setValidity({ valueMissing: this.required && !this.value }, msg('Please select an option.'));
-    }
-
-    this.updateValidity();
-  }
-
   /** Updates the value based on the current selection. */
   #updateValue(): void {
     if (this.multiple) {
@@ -838,6 +824,6 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
     this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
-    this.#updateValidity();
+    this.updateValidity();
   }
 }

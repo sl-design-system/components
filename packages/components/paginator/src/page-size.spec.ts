@@ -13,8 +13,8 @@ describe('sl-page-size', () => {
     beforeEach(async () => {
       el = await fixture(html` <sl-page-size></sl-page-size> `);
 
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // // Give the resize observer time to do its thing
+      // await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have items per page with value of 10 when it is not set', () => {
@@ -39,8 +39,8 @@ describe('sl-page-size', () => {
     beforeEach(async () => {
       el = await fixture(html` <sl-page-size .pageSizes=${[5, 10, 20]}></sl-page-size> `);
 
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 200));
+      // // Give the resize observer time to do its thing
+      // await new Promise(resolve => setTimeout(resolve, 200));
     });
 
     it('should have a select inside when pageSizes is set', async () => {
@@ -48,8 +48,6 @@ describe('sl-page-size', () => {
       await el.updateComplete;
 
       const slSelect = el.renderRoot.querySelector('sl-select');
-
-      console.log('slSelect', slSelect);
 
       expect(slSelect).to.exist;
     });
@@ -72,8 +70,8 @@ describe('sl-page-size', () => {
     beforeEach(async () => {
       el = await fixture(html` <sl-page-size .pageSizes=${[5, 10, 20]}></sl-page-size> `);
 
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // // Give the resize observer time to do its thing
+      // await new Promise(resolve => setTimeout(resolve, 300));
     });
 
     it('should set first value of page sizes when there is no itemsPerPage value', () => {

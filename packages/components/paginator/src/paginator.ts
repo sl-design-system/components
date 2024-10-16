@@ -50,7 +50,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal currently visible items on the current page. */
-  @state() currentlyVisibleItems: number = 1;
+  @state() currentlyVisibleItems = 1;
 
   /** @internal To check whether it's a first update. */
   #firstUpdate = true;
@@ -59,13 +59,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
 
   /** @internal Whether there is a mobile variant with `sl-select` instead of `pages` visible or not. */
-  #mobileVariant: boolean = false;
+  #mobileVariant = false;
 
   /** @internal Emits when the page has been selected/changed. */
   @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>;
 
   /** @internal pages amount. */
-  #pages: number = 1;
+  #pages = 1;
 
   /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
   @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
@@ -76,7 +76,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   });
 
   /** Total amount of items. */
-  @property() total?: number;
+  @property() total = 1;
 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -99,9 +99,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
     }
 
-    const total = this.total ?? 0;
     const itemsPerPage = this.itemsPerPage ?? 10;
-    this.#pages = Math.ceil(total / itemsPerPage) || 1;
+    this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
 
     if (this.activePage < 1) {
       this.activePage = 1;
@@ -132,9 +131,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('itemsPerPage')) {
-      const total = this.total ?? 0;
       const itemsPerPage = this.itemsPerPage ?? 10;
-      this.#pages = Math.ceil(total / itemsPerPage) || 1;
+      this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
 
       this.#setCurrentlyVisibleItems();
 
@@ -163,9 +161,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('total')) {
-      const total = this.total ?? 0;
       const itemsPerPage = this.itemsPerPage ?? 10;
-      this.#pages = Math.ceil(total / itemsPerPage) || 1;
+      this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
 
       if (!this.#firstUpdate) {
         /** always go back to the first page when the total amount of items has changed, but not for the first time */
@@ -422,8 +419,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     }
 
     if (this.activePage === this.#pages) {
-      const total = this.total ?? 0;
-      const itemsOnLastPage = total % this.itemsPerPage;
+      const itemsOnLastPage = this.total % this.itemsPerPage;
       this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.itemsPerPage : itemsOnLastPage;
     } else {
       this.currentlyVisibleItems = this.itemsPerPage!;

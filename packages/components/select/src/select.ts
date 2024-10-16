@@ -365,7 +365,6 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   }
 
   #setSelectedOption(option?: SelectOption<T>, emitEvent = true): void {
-    console.log('in setSelectedOption', option, emitEvent);
     if (this.selectedOption) {
       this.selectedOption.selected = false;
     }
@@ -379,7 +378,6 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     this.value = this.selectedOption?.value;
 
     if (emitEvent) {
-      console.log('in setSelectedOption in emitEvent', this.value, emitEvent);
       this.changeEvent.emit(this.value);
       this.updateState({ dirty: true });
     }

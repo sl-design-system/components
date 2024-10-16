@@ -1,4 +1,4 @@
-import { ItemsCounter } from './src/items-counter';
+import { ItemsCounter } from './src/items-counter.js';
 import { PageSize } from './src/page-size.js';
 import { Paginator } from './src/paginator.js';
 

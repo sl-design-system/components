@@ -18,27 +18,25 @@ export class ItemsCounter extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Currently active page. */
-  @property({ type: Number, attribute: 'active-page' }) activePage: number = 1;
+  /** Currently active page, if not set - default to 1. */
+  @property({ type: Number, attribute: 'active-page' }) activePage = 1;
 
-  /** @internal currently visible items on the current page */
-  @state() currentlyVisibleItems: number = 1;
+  /** @internal currently visible items on the current page. */
+  @state() currentlyVisibleItems = 1;
 
   /** Items per page, if not set - default to 10. */
-  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
+  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage = 10;
 
-  /** @internal pages amount */
-  #pages: number = 1;
+  /** @internal pages amount. */
+  #pages = 1;
 
-  /** Total amount of items. */
-  @property() total?: number;
+  /** Total amount of items, if not set - default to 1. */
+  @property() total = 1;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    const total = this.total ?? 0;
-    this.itemsPerPage = this.itemsPerPage ?? 10;
-    this.#pages = Math.ceil(total / this.itemsPerPage) || 1;
+    this.#pages = Math.ceil(this.total / this.itemsPerPage);
 
     if (this.activePage < 1) {
       this.activePage = 1;
@@ -53,10 +51,7 @@ export class ItemsCounter extends LitElement {
     super.updated(changes);
 
     if (changes.has('itemsPerPage') || changes.has('total')) {
-      const total = this.total ?? 0;
-      const itemsPerPage = this.itemsPerPage ?? 10;
-      this.#pages = Math.ceil(total / itemsPerPage) || 2;
-      this.itemsPerPage = this.itemsPerPage ?? 10;
+      this.#pages = Math.ceil(this.total / this.itemsPerPage);
       this.#setCurrentlyVisibleItems();
     }
 
@@ -67,19 +62,14 @@ export class ItemsCounter extends LitElement {
         this.activePage = this.#pages;
       }
 
-      const total = this.total ?? 0;
-      const itemsPerPage = this.itemsPerPage ?? 10;
-      this.#pages = Math.ceil(total / itemsPerPage) || 2;
-      this.itemsPerPage = this.itemsPerPage ?? 10;
+      this.#pages = Math.ceil(this.total / this.itemsPerPage);
       this.#setCurrentlyVisibleItems();
     }
   }
 
   override render(): TemplateResult {
-    const total = this.total ?? 0;
-    const itemsPerPage = this.itemsPerPage ?? 10;
-    const start = this.activePage === 1 ? 1 : (this.activePage - 1) * itemsPerPage + 1;
-    const end = this.activePage === this.#pages ? total : this.activePage * this.currentlyVisibleItems;
+    const start = this.activePage === 1 ? 1 : (this.activePage - 1) * this.itemsPerPage + 1;
+    const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems;
 
     return html`
       ${msg(str`${start} - ${end} of ${this.total} items`)}
@@ -96,8 +86,7 @@ export class ItemsCounter extends LitElement {
     }
 
     if (this.activePage === this.#pages) {
-      const total = this.total ?? 0;
-      const itemsOnLastPage = total % this.itemsPerPage;
+      const itemsOnLastPage = this.total % this.itemsPerPage;
       this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.itemsPerPage : itemsOnLastPage;
     } else {
       this.currentlyVisibleItems = this.itemsPerPage!;

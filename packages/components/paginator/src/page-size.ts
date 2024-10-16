@@ -50,14 +50,10 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
     if (!this.itemsPerPage) {
       this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
     }
-
-    console.log('this.itemsPerPage in connected', this.itemsPerPage, this.pageSizes);
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
-
-    console.log('this.itemsPerPage in first updated', this.itemsPerPage, this.pageSizes);
 
     this.renderRoot.querySelector<Select>('sl-select')?.addEventListener('sl-change', event => {
       this.#setValue(event);

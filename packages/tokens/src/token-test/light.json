@@ -235,69 +235,55 @@
           "type": "color"
         }
       },
-      "transparentGrey": {
+      "transparent": {
         "100": {
-          "value": "rgba( {color.palette.black} , 11%)",
+          "value": "rgba( {color.palette.grey.900} , 11%)",
           "type": "color"
         },
         "150": {
-          "value": "rgba( {color.palette.black} , 21%)",
+          "value": "rgba( {color.palette.grey.900} , 21%)",
           "type": "color"
         },
         "200": {
-          "value": "rgba( {color.palette.black} , 36%)",
+          "value": "rgba( {color.palette.grey.900} , 36%)",
           "type": "color"
         },
         "300": {
-          "value": "rgba( {color.palette.black} , 54%)",
+          "value": "rgba( {color.palette.grey.900} , 54%)",
           "type": "color"
         },
         "400": {
-          "value": "rgba( {color.palette.black} , 66%)",
+          "value": "rgba( {color.palette.grey.900} , 66%)",
           "type": "color"
         },
         "500": {
-          "value": "rgba( {color.palette.black} , 73%)",
+          "value": "rgba( {color.palette.grey.900} , 73%)",
           "type": "color"
         },
         "600": {
-          "value": "rgba( {color.palette.black} , 79%)",
+          "value": "rgba( {color.palette.grey.900} , 79%)",
           "type": "color"
         },
         "700": {
-          "value": "rgba( {color.palette.black} , 84%)",
+          "value": "rgba( {color.palette.grey.900} , 84%)",
           "type": "color"
         },
         "800": {
-          "value": "rgba( {color.palette.black} , 88%)",
+          "value": "rgba( {color.palette.grey.900} , 88%)",
           "type": "color"
         },
         "900": {
-          "value": "{color.palette.black}",
+          "value": "{color.palette.grey.900}",
           "type": "color"
         },
         "050": {
-          "value": "rgba( {color.palette.black} , 5%)",
+          "value": "rgba( {color.palette.grey.900} , 5%)",
           "type": "color"
         },
         "000": {
-          "value": "rgba( {color.palette.black} , 0%)",
+          "value": "rgba( {color.palette.grey.900} , 0%)",
           "type": "color"
         }
-      },
-      "transparent": {
-        "value": "{color.palette.transparentGrey.000}",
-        "type": "color",
-        "description": "color.palette.transparent.base"
-      },
-      "black": {
-        "value": "{color.palette.grey.900}",
-        "type": "color"
-      },
-      "white": {
-        "value": "{color.palette.grey.000}",
-        "type": "color",
-        "description": "color.palette.transparent.base"
       }
     },
     "text": {
@@ -322,7 +308,7 @@
         "description": "Use for placeholders and hints on 'color.elevation.surface' or 'color.elevation.surface.overlay'."
       },
       "inverted": {
-        "value": "{color.palette.white}",
+        "value": "{color.palette.grey.000}",
         "type": "color",
         "description": "Use for text on bold backgrounds."
       },
@@ -521,7 +507,7 @@
         "description": "Use for icons paired with 'color.text.muted'."
       },
       "inverted": {
-        "value": "{color.palette.white}",
+        "value": "{color.palette.grey.000}",
         "type": "color",
         "description": "Use for icons on bold backgrounds."
       },
@@ -693,7 +679,7 @@
         "description": "A neutral border option that passes min 3:1 contrast ratios."
       },
       "inverted": {
-        "value": "{color.palette.white}",
+        "value": "{color.palette.grey.000}",
         "type": "color",
         "description": "Use for borders on bold backgrounds."
       },
@@ -764,7 +750,7 @@
             "type": "color"
           },
           "bold": {
-            "value": "{color.palette.transparentGrey.300}",
+            "value": "{color.palette.transparent.300}",
             "type": "color",
             "description": "Use for grey borders, for purely stylistic purposes with no specific meaning."
           },
@@ -799,7 +785,7 @@
       },
       "input": {
         "idle": {
-          "value": "{color.palette.white}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
@@ -809,7 +795,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons in a hovered state."
         },
         "active": {
-          "value": "{color.palette.white}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons in an active state."
         }
@@ -1172,7 +1158,7 @@
         "blue": {
           "muted": {
             "idle": {
-              "value": "{color.palette.transparent}",
+              "value": "{color.palette.transparent.000}",
               "type": "color",
               "description": "Used for muted blue backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1225,7 +1211,7 @@
         "green": {
           "muted": {
             "idle": {
-              "value": "{color.palette.transparent}",
+              "value": "{color.palette.transparent.000}",
               "type": "color",
               "description": "Used for muted green backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1278,7 +1264,7 @@
         "grey": {
           "muted": {
             "idle": {
-              "value": "{color.palette.transparent}",
+              "value": "{color.palette.transparent.000}",
               "type": "color",
               "description": "Used for muted grey backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1331,7 +1317,7 @@
         "yellow": {
           "muted": {
             "idle": {
-              "value": "{color.palette.transparent}",
+              "value": "{color.palette.transparent.000}",
               "type": "color",
               "description": "Used for muted yellow backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1384,7 +1370,7 @@
         "red": {
           "muted": {
             "idle": {
-              "value": "{color.palette.transparent}",
+              "value": "{color.palette.transparent.000}",
               "type": "color",
               "description": "Used for muted red backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1438,7 +1424,7 @@
     },
     "blanket": {
       "plain": {
-        "value": "{color.palette.transparentGrey.500}",
+        "value": "{color.palette.transparent.500}",
         "type": "color",
         "description": "Use for screen overlay that appears with dialogs or drawers."
       }
@@ -1461,7 +1447,7 @@
       "base": {
         "default": {
           "idle": {
-            "value": "{color.palette.white}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
           },
@@ -1480,7 +1466,7 @@
       "raised": {
         "default": {
           "idle": {
-            "value": "{color.palette.white}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
           },
@@ -1497,7 +1483,7 @@
         },
         "alternative": {
           "idle": {
-            "value": "{color.palette.transparentGrey.050}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
@@ -1515,7 +1501,7 @@
       },
       "overlay": {
         "idle": {
-          "value": "{color.palette.white}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "For overlays like modals, drawers, or menus."
         },
@@ -1555,7 +1541,7 @@
           "y": "0",
           "blur": "15",
           "spread": "0",
-          "color": "{color.palette.transparentGrey.150}",
+          "color": "{color.palette.transparent.150}",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1567,7 +1553,7 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "#5d5d5d33",
+          "color": "{color.palette.transparent.150}",
           "type": "dropShadow"
         },
         "type": "boxShadow",

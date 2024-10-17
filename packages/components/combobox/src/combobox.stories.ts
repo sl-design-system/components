@@ -134,7 +134,7 @@ export default {
             .name=${name}
             .placeholder=${placeholder}
             .value=${value}
-            style=${`max-width: ${maxWidth ?? 'auto'}`}
+            style=${`max-width: ${maxWidth ?? 'none'}`}
           >
             ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
           </sl-combobox>

@@ -83,7 +83,7 @@ describe('sl-tag', () => {
         tooltip = el.renderRoot.querySelector('sl-tooltip');
 
       expect(tooltip).to.exist;
-      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-describedby'));
+      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-labelledby'));
 
       const tagContent = tooltip!.textContent?.trim();
 

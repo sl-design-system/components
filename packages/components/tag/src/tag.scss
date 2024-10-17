@@ -85,12 +85,6 @@
   outline-offset: var(--_focus-outline-offset);
 }
 
-.wrapper {
-  border-radius: var(--_border-radius);
-  display: flex;
-  overflow: hidden;
-}
-
 slot {
   background: var(--_background);
   color: var(--_color);

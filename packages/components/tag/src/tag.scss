@@ -80,7 +80,7 @@
   --_padding-inline: var(--sl-space-tag-inline-lg);
 }
 
-:host(:focus-visible) {
+:host(:focus) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 }

@@ -18232,7 +18232,19 @@
       "color.palette.transparentNeutral.800": "S:1e55642449e99815961742d2c07e55d910c8489c,",
       "color.palette.transparentNeutral.900": "S:70d9bd522e2e84e89e596f627eaa9e5d6b611a1d,",
       "color.palette.transparentNeutral.050": "S:f5bbe314a74f5891b599c78fc61935384479bae8,",
-      "color.palette.transparentNeutral.000": "S:36badbd7ab6272bff9b32c53be341b4d2b31cd98,"
+      "color.palette.transparentNeutral.000": "S:36badbd7ab6272bff9b32c53be341b4d2b31cd98,",
+      "color.utility.transparent.100": "S:0f4fb3bb99de301862079ae85a6a05a47a6eb285,",
+      "color.utility.transparent.150": "S:a867402536505cdde9b5073dd23da3cdd2f08c70,",
+      "color.utility.transparent.200": "S:a0090b311a5d9422a74f14b5641e5c1c538cf535,",
+      "color.utility.transparent.300": "S:0f1759ac7515992c398aac158609063e7c8bcbe6,",
+      "color.utility.transparent.400": "S:03ee11f85803c8e36cf53cb2b564601aabf4f0c9,",
+      "color.utility.transparent.500": "S:1276ecf4cddb2f89945f0e20b9740550fdb5b5ca,",
+      "color.utility.transparent.600": "S:1517256978a8464884aadf8b5f707b697d733043,",
+      "color.utility.transparent.700": "S:f1a1068d8d9bb139840bff92cab9c069cb70acc3,",
+      "color.utility.transparent.800": "S:b2350f5da864e872cc3d9732b3db47af58779f94,",
+      "color.utility.transparent.900": "S:88dae4f5d6dc74cd9d58de410931e84c59ca44ed,",
+      "color.utility.transparent.050": "S:23324b63efb5b67c6fff6bf4109f6137539bcd10,",
+      "color.utility.transparent.000": "S:0b2a4bdf588de45a1f4b9de44f44f516f09630a5,"
     },
     "selectedTokenSets": {
       "core": "source",

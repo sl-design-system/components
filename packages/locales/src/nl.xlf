@@ -170,6 +170,10 @@
   <source>Selected options</source>
   <target>Geselecteerde opties</target>
 </trans-unit>
+<trans-unit id="s2b9e3569e4924cd0">
+  <source>Press the delete or backspace key to remove this tag</source>
+  <target>Druk op de delete of backspace toets om deze tag te verwijderen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

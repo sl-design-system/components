@@ -26,6 +26,7 @@ export const templates = {
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
+  s886db4d476f66522: 'Geselecteerde opties',
   s8c1f47dc13ead0c3: str`Maak "${0}" aan`,
   s9cd91b99a108a45f: 'Lijst met verborgen elementen',
   s9f7452dd75d54d31: 'fout',
@@ -42,9 +43,7 @@ export const templates = {
   sd711c88b851db6c9: 'De volgende velden zijn incorrect:',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
   se412fe8953013d92: 'Selecteer tenminste één optie.',
-  sebd54694b2f83547: str`verwijder '${0}'`,
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
-  sf677da98fa27f9b6: 'Meer links',
-  sf75c5ddbac2b60f9: str`${0} van ${1} items zichtbaar`
+  sf677da98fa27f9b6: 'Meer links'
 };

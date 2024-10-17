@@ -1,7 +1,7 @@
-import { localized, msg, str } from '@lit/localize';
+import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { EventEmitter, event } from '@sl-design-system/shared';
+import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -42,10 +42,10 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /**
    * Observe changes in size, so we can check whether we need to show tooltips
@@ -104,25 +104,33 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     if (changes.has('disabled')) {
       this.setAttribute('tabindex', this.disabled ? '-1' : '0');
     }
+
+    if (changes.has('removable')) {
+      if (this.removable) {
+        this.setAttribute('aria-description', 'Press the delete or backspace key to remove this tag');
+      } else {
+        this.removeAttribute('aria-description');
+      }
+    }
   }
 
   override render(): TemplateResult {
     return html`
-      <div class="wrapper" .tabIndex=${this.disabled ? -1 : 0}>
-        <slot @slotchange=${this.#onSlotChange}></slot>
-        ${this.removable
-          ? html`
-              <button
-                @click=${this.#onRemove}
-                aria-label=${msg(str`Remove '${this.label}'`)}
-                ?disabled=${this.disabled}
-              >
-                <sl-icon name="xmark"></sl-icon>
-              </button>
-            `
-          : nothing}
-      </div>
+      <slot @slotchange=${this.#onSlotChange}></slot>
+      ${this.removable
+        ? html`
+            <button @click=${this.#onRemove} aria-hidden="true" ?disabled=${this.disabled}>
+              <sl-icon name="xmark"></sl-icon>
+            </button>
+          `
+        : nothing}
     `;
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (this.removable && (event.key === 'Backspace' || event.key === 'Delete')) {
+      this.#onRemove(event);
+    }
   }
 
   #onRemove(event: Event): void {

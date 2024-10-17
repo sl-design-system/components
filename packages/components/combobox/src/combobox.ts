@@ -259,6 +259,14 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
       this.input.disabled = !!this.disabled;
     }
 
+    if (changes.has('multiple')) {
+      if (this.multiple) {
+        this.listbox?.setAttribute('aria-multiselectable', 'true');
+      } else {
+        this.listbox?.removeAttribute('aria-multiselectable');
+      }
+    }
+
     if (changes.has('required')) {
       this.input.required = !!this.required;
 
@@ -617,12 +625,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     if (option.element) {
       option.element.selected = selected;
       option.element.style.display = this.groupSelected && selected ? 'none' : '';
-
-      if (selected) {
-        option.element.setAttribute('aria-selected', 'true');
-      } else {
-        option.element.removeAttribute('aria-selected');
-      }
+      option.element.setAttribute('aria-selected', Boolean(selected).toString());
     }
   }
 
@@ -711,11 +714,21 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
       this.input.setAttribute('aria-controls', this.listbox.id);
 
+      if (this.multiple) {
+        this.listbox.setAttribute('aria-multiselectable', 'true');
+      } else {
+        this.listbox.removeAttribute('aria-multiselectable');
+      }
+
       this.options = Array.from(this.listbox.children)
         .flatMap(el => this.#flattenOptions(el))
         .filter(el => !(el instanceof CreateCustomOption))
         .map(el => {
           el.id ||= `sl-combobox-option-${nextUniqueId++}`;
+
+          if (!el.hasAttribute('aria-selected')) {
+            el.setAttribute('aria-selected', 'false');
+          }
 
           return {
             id: el.id,

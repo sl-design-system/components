@@ -1,4 +1,4 @@
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventEmitter, EventsController, event } from '@sl-design-system/shared';
@@ -107,7 +107,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('removable')) {
       if (this.removable) {
-        this.setAttribute('aria-description', 'Press the delete or backspace key to remove this tag');
+        this.setAttribute('aria-description', msg('Press the delete or backspace key to remove this tag'));
       } else {
         this.removeAttribute('aria-description');
       }

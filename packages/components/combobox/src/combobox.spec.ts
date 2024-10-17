@@ -618,7 +618,7 @@ describe('sl-combobox', () => {
         el.value = ['Lorem', 'Ipsum'];
         await el.updateComplete;
 
-        expect(options.map(o => o.hasAttribute('aria-selected'))).to.deep.equal([true, true, false]);
+        expect(options.map(o => o.getAttribute('aria-selected') === 'true')).to.deep.equal([true, true, false]);
 
         options.at(0)?.click();
         await el.updateComplete;
@@ -717,14 +717,14 @@ describe('sl-combobox', () => {
         input.click();
 
         // Verify the first option is selected
-        expect(el.querySelector('sl-option')).to.have.attribute('aria-selected');
+        expect(el.querySelector('sl-option')).to.have.attribute('aria-selected', 'true');
 
         // Click the remove button in the tag
         el.renderRoot.querySelector('sl-tag')?.renderRoot.querySelector('button')?.click();
         await el.updateComplete;
 
         // Verify the option is no longer selected
-        expect(el.querySelector('sl-option')).not.to.have.attribute('aria-selected');
+        expect(el.querySelector('sl-option')).to.have.attribute('aria-selected', 'false');
 
         // Verify the tag was removed
         expect(el.value).to.deep.equal([]);

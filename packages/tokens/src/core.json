@@ -667,6 +667,22 @@
         "value": "{size.2xl}",
         "type": "sizing"
       }
+    },
+    "paginator": {
+      "pageButton": {
+        "minWidth": {
+          "value": "40px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      },
+      "Select": {
+        "minWidth": {
+          "value": "80px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      }
     }
   },
   "space": {
@@ -2063,6 +2079,12 @@
     "focus": {
       "gap": {
         "value": "{border.width.focusring.default} + {border.width.focusring.offset}",
+        "type": "spacing"
+      }
+    },
+    "paginator": {
+      "gap": {
+        "value": "{space.sm}",
         "type": "spacing"
       }
     }

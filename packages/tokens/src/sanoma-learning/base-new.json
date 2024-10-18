@@ -7,7 +7,7 @@
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Roboto",
           "type": "fontFamilies"
         },
         "icon": {
@@ -119,7 +119,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.sm}",
+        "value": "6px",
         "type": "borderRadius"
       }
     },

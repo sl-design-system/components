@@ -400,7 +400,7 @@
             "description": "Use for blue text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.700}",
+            "value": "{color.palette.blue.600}",
             "type": "color",
             "description": "Use for blue text on muted and subtle blue backgrounds, such as 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -412,7 +412,7 @@
             "description": "Use for green text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.700}",
+            "value": "{color.palette.green.600}",
             "type": "color",
             "description": "Use for green text on muted and subtle green backgrounds, such as 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -463,7 +463,7 @@
             "description": "Use for red text on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.800}",
+            "value": "{color.palette.red.700}",
             "type": "color",
             "description": "Use for red text on muted and subtle red backgrounds, such as 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -524,69 +524,69 @@
         "description": "Use for icons in selected states (e.g., tabs or menu items) paired with 'color.text.selected'."
       },
       "brand": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.icon.accent.blue.plain}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing icons paired with 'color.text.brand'."
       },
       "primary": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.icon.accent.blue.bold}",
         "type": "color",
         "description": "Use for icons in primary actions paired with a 'color.background.primary.muted' background."
       },
       "secondary": {
-        "value": "{color.text.accent.grey.bold}",
+        "value": "{color.icon.accent.grey.bold}",
         "type": "color",
         "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
       },
       "info": {
         "plain": {
-          "value": "{color.text.accent.blue.plain}",
+          "value": "{color.icon.accent.blue.plain}",
           "type": "color",
           "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on neutral backgrounds like 'color.elevation.surface' and 'color.elevation.surface.overlay'."
         },
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.icon.accent.blue.bold}",
           "type": "color",
           "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on info backgrounds like 'color.background.info.subtle' and 'color.background.info.muted'."
         }
       },
       "positive": {
         "plain": {
-          "value": "{color.text.accent.green.plain}",
+          "value": "{color.icon.accent.green.plain}",
           "type": "color",
           "description": "Icons that serve as visual cues for messages communicating a favorable outcome, applied on neutral backgrounds such as 'color.elevation.surface' and 'color.elevation.surface.overlay'."
         },
         "bolder": {
-          "value": "{color.text.accent.green.bold}",
+          "value": "{color.icon.accent.green.bold}",
           "type": "color",
           "description": "Icons that serve as visual cues for messages communicating a favorable outcome on positive backgrounds, applied on'color.background.positive.subtle', and 'color.background.positive.muted'."
         }
       },
       "caution": {
         "plain": {
-          "value": "{color.text.accent.yellow.plain}",
+          "value": "{color.icon.accent.yellow.plain}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on neutral backgrounds such as 'color.elevation.surface' and 'color.elevation.surface.overlay'."
         },
         "bold": {
-          "value": "{color.text.accent.yellow.bold}",
+          "value": "{color.icon.accent.yellow.bold}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on caution backgrounds like 'color.background.caution.subtle' and 'color.background.caution.muted'."
         },
         "inverted": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.icon.accent.grey.bold}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.bold'."
         }
       },
       "negative": {
         "plain": {
-          "value": "{color.text.accent.red.plain}",
+          "value": "{color.icon.accent.red.plain}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating negative or serious error states (e.g., validation errors or irreversible actions), applied on neutral backgrounds such as 'color.elevation.surface' and 'color.elevation.surface.overlay'."
         },
         "bold": {
-          "value": "{color.text.accent.red.bold}",
+          "value": "{color.icon.accent.red.bold}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating negative or serious error states (e.g., validation errors or irreversible actions), applied on negative backgrounds such as 'color.background.negative.subtle' and 'color.background.negative.muted'."
         }
@@ -599,19 +599,19 @@
             "description": "Use for blue icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.600}",
+            "value": "{color.palette.blue.400}",
             "type": "color",
             "description": "Use for blue icons on muted and subtle blue backgrounds, such as 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "green": {
           "plain": {
-            "value": "{color.palette.green.600}",
+            "value": "{color.palette.green.500}",
             "type": "color",
             "description": "Use for green icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.600}",
+            "value": "{color.palette.green.500}",
             "type": "color",
             "description": "Use for green icons on muted and subtle green backgrounds, such as 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -650,7 +650,7 @@
             "description": "Use for yellow icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.yellow.700}",
+            "value": "{color.palette.yellow.600}",
             "type": "color",
             "description": "Use for yellow icons on muted and subtle yellow backgrounds, such as 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -662,7 +662,7 @@
             "description": "Use for red icons on neutral backgrounds, such as 'color.elevation.surface' or 'color.elevation.surface.overlay', for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.700}",
+            "value": "{color.palette.red.500}",
             "type": "color",
             "description": "Use for red icons on muted and subtle red backgrounds, such as 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -1165,29 +1165,29 @@
               "description": "Used for muted blue backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.150}",
+              "value": "{color.palette.blue.100}",
               "type": "color",
               "description": "Used for muted blue backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.blue.200}",
+              "value": "{color.palette.blue.150}",
               "type": "color",
               "description": "Used for muted blue backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{color.palette.blue.100}",
+              "value": "{color.palette.blue.050}",
               "type": "color",
               "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.150}",
+              "value": "{color.palette.blue.100}",
               "type": "color",
               "description": "A subtle blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.blue.200}",
+              "value": "{color.palette.blue.150}",
               "type": "color",
               "description": "A subtle blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1218,29 +1218,29 @@
               "description": "Used for muted green backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.green.150}",
+              "value": "{color.palette.green.100}",
               "type": "color",
               "description": "Used for muted green backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.green.200}",
+              "value": "{color.palette.green.150}",
               "type": "color",
               "description": "Used for muted green backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{color.palette.green.100}",
+              "value": "{color.palette.green.050}",
               "type": "color",
               "description": "A subtle green background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.green.150}",
+              "value": "{color.palette.green.100}",
               "type": "color",
               "description": "A subtle green background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.green.200}",
+              "value": "{color.palette.green.150}",
               "type": "color",
               "description": "A subtle green background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1271,29 +1271,29 @@
               "description": "Used for muted grey backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.grey.150}",
+              "value": "{color.palette.grey.100}",
               "type": "color",
               "description": "Used for muted grey backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.grey.200}",
+              "value": "{color.palette.grey.150}",
               "type": "color",
               "description": "Used for muted grey backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{color.palette.grey.100}",
+              "value": "{color.palette.grey.050}",
               "type": "color",
               "description": "A subtle grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.grey.150}",
+              "value": "{color.palette.grey.100}",
               "type": "color",
               "description": "A subtle grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.grey.200}",
+              "value": "{color.palette.grey.150}",
               "type": "color",
               "description": "A subtle grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1324,29 +1324,29 @@
               "description": "Used for muted yellow backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.yellow.150}",
+              "value": "{color.palette.yellow.100}",
               "type": "color",
               "description": "Used for muted yellow backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.yellow.200}",
+              "value": "{color.palette.yellow.150}",
               "type": "color",
               "description": "Used for muted yellow backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{color.palette.yellow.100}",
+              "value": "{color.palette.yellow.050}",
               "type": "color",
               "description": "A subtle yellow background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.yellow.150}",
+              "value": "{color.palette.yellow.100}",
               "type": "color",
               "description": "A subtle yellow background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.yellow.200}",
+              "value": "{color.palette.yellow.150}",
               "type": "color",
               "description": "A subtle yellow background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1377,29 +1377,29 @@
               "description": "Used for muted red backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.red.150}",
+              "value": "{color.palette.red.100}",
               "type": "color",
               "description": "Used for muted red backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.red.200}",
+              "value": "{color.palette.red.150}",
               "type": "color",
               "description": "Used for muted red backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{color.palette.red.100}",
+              "value": "{color.palette.red.050}",
               "type": "color",
               "description": "A subtle red background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.red.150}",
+              "value": "{color.palette.red.100}",
               "type": "color",
               "description": "A subtle red background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.red.200}",
+              "value": "{color.palette.red.150}",
               "type": "color",
               "description": "A subtle red background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }

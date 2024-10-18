@@ -89,13 +89,13 @@ describe('sl-page-size', () => {
 
     it('should emit an sl-page-size-change event when the value of the items per page has changed', async () => {
       const onPageSizeChange = spy();
-
       el.addEventListener('sl-page-size-change', onPageSizeChange);
-
       const slSelect = el.renderRoot.querySelector('sl-select');
+
       expect(slSelect).to.exist;
 
       const options = el.renderRoot.querySelectorAll('sl-select-option');
+
       expect(options).to.exist;
 
       options[1].click();

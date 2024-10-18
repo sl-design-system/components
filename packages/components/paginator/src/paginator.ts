@@ -28,7 +28,7 @@ export type SlPageChangeEvent = CustomEvent<number>;
 
 /**
  * A paginator component used when there are a lot of data that needs to be shown and cannot be shown at once, in one view/page.
- *
+ * Can be used separately or together with page size component and/or items counter component.
  */
 @localized()
 export class Paginator extends ScopedElementsMixin(LitElement) {
@@ -58,7 +58,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
 
-  /** @internal Whether there is a mobile variant with `sl-select` instead of `pages` visible or not. */
+  /** @internal Whether there is a mobile (compact) variant with `sl-select` instead of `pages` visible or not. */
   #mobileVariant = false;
 
   /** @internal Emits when the page has been selected/changed. */

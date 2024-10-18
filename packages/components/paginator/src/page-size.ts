@@ -33,7 +33,7 @@ export class PageSize extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the page size has been selected/changed. */
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlPageSizeChangeEvent>;
 
-  /** Page sizes - array of possible page sizes e.g. [5, 10, 15] */
+  /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
   @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
 
   /** @internal */

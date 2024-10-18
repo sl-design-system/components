@@ -49,7 +49,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.pageChangeEvent.emit(this.#activePage);
   }
 
-  /** @internal currently visible items on the current page. */
+  /** @internal Currently visible items on the current page. */
   @state() currentlyVisibleItems = 1;
 
   /** @internal To check whether it's a first update. */
@@ -64,7 +64,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the page has been selected/changed. */
   @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>;
 
-  /** @internal pages amount. */
+  /** @internal Pages amount. */
   #pages = 1;
 
   /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
@@ -137,7 +137,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.#setCurrentlyVisibleItems();
 
       if (!this.#firstUpdate) {
-        /**  always go back to the first page when items per page has changed, but not for the first time */
+        /** Always go back to the first page when items per page has changed, but not for the first time. */
         this.activePage = 1;
       }
 
@@ -165,7 +165,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
 
       if (!this.#firstUpdate) {
-        /** always go back to the first page when the total amount of items has changed, but not for the first time */
+        /** Always go back to the first page when the total amount of items has changed, but not for the first time. */
         this.activePage = 1;
       }
 
@@ -291,7 +291,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     const [moreButton, moreButtonLeft, moreButtonRight] = Array.from({ length: 3 }, () => this.#createMenuButton());
 
-    /** reset display to check the width */
+    /** Reset display to check the width. */
     pagesWrapper.style.display = '';
     buttonPrev.style.display = '';
     buttonNext.style.display = '';
@@ -302,7 +302,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       page.style.display = '';
     });
 
-    /** reset mobile variant */
+    /** Reset mobile variant. */
     this.#mobileVariant = false;
     this.requestUpdate();
 
@@ -318,45 +318,47 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     possiblyVisible = Array.from(pages).filter(page => !possiblyHidden.includes(page));
 
-    /** Overflow variant */
+    /** Overflow variant. */
     if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
       /** Mobile (compact) version with sl-select instead of sl-pages,
-       * when possibly visible pages amount is smaller than 6 (when possibly visible pages > 6 it works fine with basic variant with pages, also with the overflow version).
+       * when possibly visible pages amount is smaller than 6
+       * (when possibly visible pages > 6 it works fine with basic variant with pages, also with the overflow version).
        * */
       this.#mobileVariant = possiblyVisible.length <= 6;
       if (this.#mobileVariant) {
-        /** hide pages when there should be a mobile (compact) variant visible and dimensions are already checked */
+        /** Hide pages when there should be a mobile (compact) variant visible and dimensions are already checked. */
         this.#setCompactVariant();
         return;
       }
 
-      /** A variant when activePage is bigger than half of possibly visible pages and smaller than last pages;
+      /**  A variant when activePage is bigger than half of possibly visible pages and smaller than last pages;
        *   pages before and pages after active page, from 1...active and active ... 10
-       *   first page -> hidden pages on the left (one more button) -> shown pages on the left -> active page -> shown pages on the right -> hidden pages on the right (one more button) -> last page
+       *   first page -> hidden pages on the left (one more button) -> shown pages on the left -> active page
+       *   -> shown pages on the right -> hidden pages on the right (one more button) -> last page
        *   e.g.  1 ... 7 [8] 9 10 ... 20
        */
       if (
         this.activePage > Math.floor(possiblyVisible.length / 2) &&
         this.activePage <= lastPage - Math.floor(possiblyVisible.length / 2)
       ) {
-        /** possibly visible pages minus 3 - minus first, active page and last page */
+        /** Possibly visible pages minus 3 - minus first, active page and last page. */
         const pagesToShow = possiblyVisible.length - 3,
           evenAmount = possiblyVisible.length % 2 === 0,
           toShowAmount = Math.floor(pagesToShow / 2);
 
-        /** hide pages on the left side of the active page, between first page and active page */
+        /** Hide pages on the left side of the active page, between first page and active page. */
         hiddenButtonsLeft = Array.from(pages).slice(1, this.activePage - toShowAmount);
         menuItemsLeft = this.#createMenuItems(hiddenButtonsLeft);
         menuItemsLeft.forEach(item => moreButtonLeft.querySelector('sl-menu-button')?.appendChild(item));
 
-        /** remove unnecessary, existing menu buttons */
+        /** Remove unnecessary, existing menu buttons. */
         this.renderRoot.querySelectorAll('li.more-button')?.forEach(moreButton => moreButton.remove());
 
         moreButtonLeft.setAttribute('aria-label', `${msg('Select page number')}`);
         pages[0].after(moreButtonLeft);
         hiddenButtonsLeft.forEach(button => (button.style.display = 'none'));
 
-        /** hide pages on the right side of the active page, between active page and last page */
+        /** Hide pages on the right side of the active page, between active page and last page. */
         hiddenButtonsRight = Array.from(pages).slice(this.activePage + (toShowAmount - (evenAmount ? 0 : 1)), -1);
         menuItemsRight = this.#createMenuItems(hiddenButtonsRight);
         menuItemsRight.forEach(item => moreButtonRight.querySelector('sl-menu-button')?.appendChild(item));
@@ -364,7 +366,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         hiddenButtonsRight.forEach(button => (button.style.display = 'none'));
         pages[lastPage - 1].before(moreButtonRight);
       } else if (this.activePage <= Math.floor(possiblyVisible.length / 2)) {
-        /**  A variant when the first page is active or the active page is smaller than the half of possibly visible pages
+        /**  A variant when the first page is active or the active page is smaller than the half of possibly visible pages;
          *   e.g. [1] 2 3 4 5 6...20
          *   */
         const toShowAmount = possiblyVisible.length - 2;
@@ -381,20 +383,20 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       } else {
         /** A variant with last pages set as active page, e.g. 1... 15 16 17 18 19 [20] */
         const toShowAmount = possiblyVisible.length - 2;
-        /** minus first page and space for menu button */
+        /** Minus first page and space for menu button. */
         hiddenButtons = Array.from(pages).reverse().slice(toShowAmount, -1);
         menuItems = this.#createMenuItems(hiddenButtons);
         menuItems.reverse().forEach(item => moreButton.querySelector('sl-menu-button')?.appendChild(item));
         moreButton.setAttribute('aria-label', `${msg('Select page number')}`);
 
-        /** remove unnecessary, existing menu buttons */
+        /** Remove unnecessary, existing menu buttons. */
         this.renderRoot.querySelectorAll('li.more-button')?.forEach(moreButton => moreButton.remove());
         pages[0].after(moreButton);
         hiddenButtons.forEach(button => (button.style.display = 'none'));
       }
     } else {
       pages.forEach(page => (page.style.background = ''));
-      /** remove unnecessary, existing menu buttons */
+      /** Remove unnecessary, existing menu buttons. */
       this.renderRoot.querySelectorAll('li.more-button')?.forEach(moreButton => moreButton.remove());
     }
   }

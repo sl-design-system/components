@@ -21,13 +21,13 @@ export class ItemsCounter extends LitElement {
   /** Currently active page, if not set - default to 1. */
   @property({ type: Number, attribute: 'active-page' }) activePage = 1;
 
-  /** @internal currently visible items on the current page. */
+  /** @internal Currently visible items on the current page. */
   @state() currentlyVisibleItems = 1;
 
   /** Items per page, if not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage = 10;
 
-  /** @internal pages amount. */
+  /** @internal Pages amount. */
   #pages = 1;
 
   /** Total amount of items, if not set - default to 1. */

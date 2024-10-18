@@ -15,7 +15,7 @@ export class Page extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal page number used for the aria-label */
+  /** @internal Page number used for the aria-label. */
   #pageNumber = '';
 
   override connectedCallback(): void {

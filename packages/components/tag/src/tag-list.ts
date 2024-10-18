@@ -140,8 +140,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.#rovingTabindexController.clearElementCache();
-
     this.tags = Array.from(event.target.assignedElements({ flatten: true })).filter(
       (el): el is Tag => el instanceof Tag
     );
@@ -200,6 +198,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
+
+    // Now that we updated the visibility of the tags, we need to clear the element cache
+    this.#rovingTabindexController.clearElementCache();
   }
 
   /** This returns the max inline size of the stack (so with a stack size of > 99). */

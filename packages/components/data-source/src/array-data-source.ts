@@ -10,6 +10,7 @@ import {
 export class ArrayDataSource<T = any> extends DataSource<T> {
   #filteredItems: T[] = [];
   #items: T[];
+  #paginatedItems: T[] = [];
 
   get items(): T[] {
     return this.#filteredItems;
@@ -17,6 +18,15 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
   set items(items: T[]) {
     this.#items = items;
+    this.update();
+  }
+
+  get paginatedItems(): T[] {
+    return this.#paginatedItems;
+  }
+
+  set paginatedItems(items: T[]) {
+    this.#paginatedItems = items;
     this.update();
   }
 
@@ -28,6 +38,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     super();
     this.#filteredItems = [...items];
     this.#items = [...items];
+    this.#paginatedItems = [...items];
   }
 
   update(): void {
@@ -123,6 +134,16 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
         return ascending ? result : -result;
       });
+    }
+
+    this.#paginatedItems = items;
+
+    // paginate items
+    if (this.paginateItems) {
+      const startIndex = (this.paginateItems.pageNumber - 1) * this.paginateItems.pageSize,
+        endIndex = startIndex + this.paginateItems.pageSize;
+
+      items = items.slice(startIndex, endIndex);
     }
 
     this.#filteredItems = items;

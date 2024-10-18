@@ -35,6 +35,8 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
 
+export type DataSourcePagination = { pageNumber: number; pageSize: number };
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
 
@@ -45,6 +47,9 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   /** Order the items by grouping them on the given attributes. */
   #groupBy?: DataSourceGroupBy<T>;
+
+  /** Parameters for pagination, contains page number and page size. */
+  #paginateItems?: DataSourcePagination;
 
   /**
    * The value and path/function to use for sorting. When setting this property,
@@ -60,6 +65,10 @@ export abstract class DataSource<T = any> extends EventTarget {
     return this.#groupBy;
   }
 
+  get paginateItems(): DataSourcePagination | undefined {
+    return this.#paginateItems;
+  }
+
   get sort(): DataSourceSort<T> | undefined {
     return this.#sort;
   }
@@ -70,7 +79,7 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Total number of items in this data source. */
   abstract readonly size: number;
 
-  /** Updates the list of items using filter and sorting if available. */
+  /** Updates the list of items using filter, sorting and pagination if available. */
   abstract update(): void;
 
   addFilter<U extends string | DataSourceFilterFunction<T>>(
@@ -144,6 +153,15 @@ export abstract class DataSource<T = any> extends EventTarget {
 
     items.splice(from, 1);
     items.splice(to + (from < to ? -1 : 0), 0, item);
+
+    this.update();
+  }
+
+  /**
+   * Use to get the paginated data for usage with the sl-paginator component.
+   * */
+  paginate(pageNumber: number, pageSize: number): void {
+    this.#paginateItems = { pageNumber: pageNumber, pageSize: pageSize };
 
     this.update();
   }

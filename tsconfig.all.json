@@ -39,6 +39,7 @@
     { "path": "./packages/components/listbox" },
     { "path": "./packages/components/menu" },
     { "path": "./packages/components/message-dialog" },
+    { "path": "./packages/components/paginator" },
     { "path": "./packages/components/panel" },
     { "path": "./packages/components/popover" },
     { "path": "./packages/components/progress-bar" },

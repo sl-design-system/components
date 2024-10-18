@@ -1431,6 +1431,18 @@
         "description": "Use for screen overlay that appears with dialogs or drawers."
       }
     },
+    "interaction": {
+      "hover": {
+        "value": "{color.utility.transparent.150}",
+        "type": "color",
+        "description": "Use as a background overlay for elements in a hover state when their background color remains unchanged, such as avatars."
+      },
+      "active": {
+        "value": "{color.utility.transparent.200}",
+        "type": "color",
+        "description": "Use as a background overlay for elements in an active state when their background color remains unchanged, such as avatars."
+      }
+    },
     "skeleton": {
       "plain": {
         "value": "{color.palette.grey.150}",

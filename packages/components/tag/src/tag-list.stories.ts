@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type TagList } from './tag-list.js';
@@ -8,6 +8,7 @@ type Props = Pick<TagList, 'emphasis' | 'size' | 'stacked'> & {
   count: number;
   disabled?: boolean;
   removable?: boolean;
+  tags?: TemplateResult[];
 };
 type Story = StoryObj<Props>;
 
@@ -29,8 +30,8 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ count, disabled, emphasis, removable, size, stacked }) => {
-    const tags = Array.from({ length: count }).map(
+  render: ({ count, disabled, emphasis, removable, size, stacked, tags }) => {
+    tags ??= Array.from({ length: count }).map(
       (_, index) => html`<sl-tag ?disabled=${disabled} ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
     );
 
@@ -63,6 +64,14 @@ export const Large: Story = {
 export const Removable: Story = {
   args: {
     removable: true
+  }
+};
+
+export const Mixed: Story = {
+  args: {
+    tags: Array.from({ length: 10 }).map(
+      (_, index) => html`<sl-tag ?removable=${index % 2 === 0}>${`Tag ${index + 1}`}</sl-tag>`
+    )
   }
 };
 

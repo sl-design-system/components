@@ -108,7 +108,11 @@ export class Tooltip extends LitElement {
   #events = new EventsController(this);
 
   #matchesAnchor = (element: Element): boolean => {
-    return !!this.id && element.nodeType === Node.ELEMENT_NODE && this.id === element.getAttribute('aria-describedby');
+    return (
+      !!this.id &&
+      element.nodeType === Node.ELEMENT_NODE &&
+      (this.id === element.getAttribute('aria-describedby') || this.id === element.getAttribute('aria-labelledby'))
+    );
   };
 
   #onHide = ({ target }: Event): void => {

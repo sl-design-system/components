@@ -107,7 +107,6 @@ describe('sl-items-counter', () => {
 
       el.activePage = 10;
       await el.updateComplete;
-
       await new Promise(resolve => setTimeout(resolve, 100));
 
       itemsCounterLabel = el.renderRoot.textContent?.trim();
@@ -129,7 +128,6 @@ describe('sl-items-counter', () => {
 
       el.activePage = -1;
       await el.updateComplete;
-
       await new Promise(resolve => setTimeout(resolve, 100));
 
       itemsCounterLabel = el.renderRoot.textContent?.trim();
@@ -152,7 +150,6 @@ describe('sl-items-counter', () => {
       expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
 
       el.activePage = 100;
-
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
@@ -184,7 +181,6 @@ describe('sl-items-counter', () => {
 
       el.itemsPerPage = 5;
       await el.updateComplete;
-
       await new Promise(resolve => setTimeout(resolve, 100));
 
       itemsCounterLabel = el.renderRoot.textContent?.trim();
@@ -214,7 +210,6 @@ describe('sl-items-counter', () => {
 
       el.total = 508;
       await el.updateComplete;
-
       await new Promise(resolve => setTimeout(resolve, 100));
 
       itemsCounterLabel = el.renderRoot.textContent?.trim();

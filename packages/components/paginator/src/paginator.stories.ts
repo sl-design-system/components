@@ -62,8 +62,7 @@ export const Overflow: Story = {
 export const Mobile: Story = {
   args: {
     ...Basic.args,
-    activePage: 5,
-    total: 150
+    activePage: 5
   },
   parameters: {
     viewport: {

@@ -12,9 +12,6 @@ describe('sl-page-size', () => {
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html` <sl-page-size></sl-page-size> `);
-
-      // // Give the resize observer time to do its thing
-      // await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have items per page with value of 10 when it is not set', () => {
@@ -38,9 +35,6 @@ describe('sl-page-size', () => {
   describe('page sizes', () => {
     beforeEach(async () => {
       el = await fixture(html` <sl-page-size .pageSizes=${[5, 10, 20]}></sl-page-size> `);
-
-      // // Give the resize observer time to do its thing
-      // await new Promise(resolve => setTimeout(resolve, 200));
     });
 
     it('should have a select inside when pageSizes is set', async () => {
@@ -69,9 +63,6 @@ describe('sl-page-size', () => {
   describe('items per page', () => {
     beforeEach(async () => {
       el = await fixture(html` <sl-page-size .pageSizes=${[5, 10, 20]}></sl-page-size> `);
-
-      // // Give the resize observer time to do its thing
-      // await new Promise(resolve => setTimeout(resolve, 300));
     });
 
     it('should set first value of page sizes when there is no itemsPerPage value', () => {
@@ -83,9 +74,11 @@ describe('sl-page-size', () => {
 
     it('should set a proper items per page amount when the value has changed', async () => {
       const slSelect = el.renderRoot.querySelector('sl-select');
+
       expect(slSelect).to.exist;
 
       const options = el.renderRoot.querySelectorAll('sl-select-option');
+
       expect(options).to.exist;
 
       options[1].click();

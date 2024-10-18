@@ -50,7 +50,7 @@ describe('sl-tag', () => {
     });
 
     it('should have an ARIA description indicating how to remove the tag', () => {
-      expect(el).to.have.attribute('aria-description', 'Press the delete or backspace key to remove this tag');
+      expect(el).to.have.attribute('aria-description', 'Press the delete or backspace key to remove this item');
     });
 
     it('should have a button', () => {

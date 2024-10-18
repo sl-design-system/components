@@ -107,7 +107,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('removable')) {
       if (this.removable) {
-        this.setAttribute('aria-description', msg('Press the delete or backspace key to remove this tag'));
+        this.setAttribute('aria-description', msg('Press the delete or backspace key to remove this item'));
       } else {
         this.removeAttribute('aria-description');
       }
@@ -119,12 +119,26 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       <slot @slotchange=${this.#onSlotChange}></slot>
       ${this.removable
         ? html`
-            <button @click=${this.#onRemove} aria-hidden="true" ?disabled=${this.disabled}>
+            <button
+              @blur=${this.#onBlur}
+              @click=${this.#onRemove}
+              @focus=${this.#onFocus}
+              aria-hidden="true"
+              ?disabled=${this.disabled}
+            >
               <sl-icon name="xmark"></sl-icon>
             </button>
           `
         : nothing}
     `;
+  }
+
+  #onBlur(): void {
+    this.removeAttribute('focus-within');
+  }
+
+  #onFocus(): void {
+    this.setAttribute('focus-within', '');
   }
 
   #onKeydown(event: KeyboardEvent): void {

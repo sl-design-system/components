@@ -80,7 +80,7 @@
   --_padding-inline: var(--sl-space-tag-inline-lg);
 }
 
-:host(:focus) {
+:host(:focus:not([focus-within])) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 }
@@ -119,6 +119,7 @@ button {
   flex-shrink: 0;
   inline-size: var(--_button-size);
   justify-content: center;
+  padding: 0;
   transition: 200ms linear;
   transition-property: background, border-color;
 

@@ -40,6 +40,8 @@
     "myvanin_onhold/base",
     "myvanin_onhold/light",
     "sanoma-utbildning_onhold/base",
-    "sanoma-utbildning_onhold/light"
+    "sanoma-utbildning_onhold/light",
+    "token-test/base",
+    "token-test/light"
   ]
 }

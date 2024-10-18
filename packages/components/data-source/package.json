@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/data-source",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Data source classes for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -32,6 +32,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "^0.3.2"
+    "@sl-design-system/shared": "^0.4.0"
   }
 }

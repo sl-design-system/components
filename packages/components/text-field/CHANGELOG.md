@@ -1,5 +1,19 @@
 # @sl-design-system/text-field
 
+## 1.5.0
+
+### Minor Changes
+
+- [#1580](https://github.com/sl-design-system/components/pull/1580) [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6) - Improve implicit form submit behavior
+
+  Previously when you pressed enter in a text field, it would call `requestSubmit()` on the associated `<form>` element. This mimics the behavior of the native `<input>` element. With this change, the behavior now also works if there is only a parent `<sl-form>` element. If both `<form>` and `<sl-form>` elements are present, then the `<form>` element will take precedence. This makes it a minor change.
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+  - @sl-design-system/form@1.1.0
+
 ## 1.4.0
 
 ### Minor Changes

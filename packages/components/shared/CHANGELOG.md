@@ -1,5 +1,22 @@
 # @sl-design-system/shared
 
+## 0.4.0
+
+### Minor Changes
+
+- [#1575](https://github.com/sl-design-system/components/pull/1575) [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9) - Migrate `DataSource` and `ArrayDataSource` to dedicated `@sl-design-system/data-source` package.
+
+  Since these are only used in the grid component, and that component is still in draft, migrating
+  this code into its own package is not considered a breaking change.
+
+- [#1580](https://github.com/sl-design-system/components/pull/1580) [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6) - Add new `closestElementComposed` DOM utility method
+
+  This new utility method is a wrapper around `HTMLElement.prototype.closest` that also considers the composed tree. This makes it easier to find the closest ancestor that matches a given selector, even if the element is in a shadow tree.
+
+### Patch Changes
+
+- [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Fix `RovingTabindexController` to correctly navigate between light & shadow DOM elements
+
 ## 0.3.2
 
 ### Patch Changes

@@ -1,5 +1,44 @@
 # @sl-design-system/grid
 
+## 0.2.0
+
+### Minor Changes
+
+- [#1575](https://github.com/sl-design-system/components/pull/1575) [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9) - Migrate `DataSource` and `ArrayDataSource` to dedicated `@sl-design-system/data-source` package.
+
+  Since these are only used in the grid component, and that component is still in draft, migrating
+  this code into its own package is not considered a breaking change.
+
+### Patch Changes
+
+- [#1567](https://github.com/sl-design-system/components/pull/1567) [`f8c6b86`](https://github.com/sl-design-system/components/commit/f8c6b8609ed138033cb76a475a9301c1a523a85a) - Add `ellipsizeText` property to grid and column
+
+  When set on either `<sl-grid>` or `<sl-grid-column>` (or any of their variants), the `ellipsizeText` property
+  will render the table data using the `<sl-ellipsize-text>` component, which truncates text with an ellipsis when it
+  overflows its container. This is useful for tables with long text that would otherwise cause row height to grow.
+  The component also automatically adds a tooltip to the truncated text so that it can still be viewed.
+
+- [#1575](https://github.com/sl-design-system/components/pull/1575) [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9) - Automatically render an `<sl-skeleton>` component in each `<td>` element
+
+  When an item to be rendered equals `FetchDataSourcePlaceholder`, the column will render a
+  skeleton component instead of the item itself. This will help users understand that the
+  data is being fetched and will be displayed soon.
+
+  You have the option to customize the skeleton component by passing custom `renderer` function
+  to the column component. See Storybook for an example.
+
+  You will automatically get this behavior if you use the `FetchDataSource` (from the
+  `@sl-design-system/data-source` package) with the grid.
+
+- Updated dependencies [[`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`f8c6b86`](https://github.com/sl-design-system/components/commit/f8c6b8609ed138033cb76a475a9301c1a523a85a)]:
+  - @sl-design-system/text-field@1.5.0
+  - @sl-design-system/shared@0.4.0
+  - @sl-design-system/data-source@0.0.1
+  - @sl-design-system/checkbox@2.0.1
+  - @sl-design-system/ellipsize-text@0.0.1
+  - @sl-design-system/popover@1.1.1
+  - @sl-design-system/select@1.1.2
+
 ## 0.1.15
 
 ### Patch Changes

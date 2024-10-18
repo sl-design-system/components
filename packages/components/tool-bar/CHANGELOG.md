@@ -1,5 +1,17 @@
 # @sl-design-system/tool-bar
 
+## 0.0.4
+
+### Patch Changes
+
+- [#1563](https://github.com/sl-design-system/components/pull/1563) [`ae44384`](https://github.com/sl-design-system/components/commit/ae44384129f1a787a82fd35262f3f24e0883df58) - Fix missing types in NPM package
+
+- Updated dependencies [[`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/button@1.1.0
+  - @sl-design-system/menu@0.1.3
+  - @sl-design-system/toggle-button@0.0.4
+  - @sl-design-system/toggle-group@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

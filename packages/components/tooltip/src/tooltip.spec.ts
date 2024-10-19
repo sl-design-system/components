@@ -90,4 +90,24 @@ describe('sl-tooltip', () => {
       expect(getComputedStyle(tooltip).maxInlineSize).to.equal('150px');
     });
   });
+
+  describe('linked via aria-labelledby', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <div style="display: block; width: 400px; height: 400px;">
+          <sl-button aria-labelledby="tooltip" fill="outline" style="margin-top: 100px">Button element</sl-button>
+          <sl-tooltip id="tooltip">Message with lots of long text, that exceeds 150px easily</sl-tooltip>
+        </div>
+      `);
+      button = el.querySelector('sl-button') as Button;
+      tooltip = el.querySelector('sl-tooltip') as Tooltip;
+    });
+
+    it('should show the tooltip on pointerover', async () => {
+      button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      await tooltip.updateComplete;
+
+      expect(tooltip.matches(':popover-open')).to.be.true;
+    });
+  });
 });

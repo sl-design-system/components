@@ -1,4 +1,4 @@
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -113,16 +113,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     if (changes.has('stacked') && !this.stacked) {
       this.tags.forEach(tag => (tag.style.display = ''));
     }
-
-    if (changes.has('stacked') || changes.has('stackSize') || changes.has('tags')) {
-      if (this.stacked) {
-        const total = this.tags.length;
-
-        this.setAttribute('aria-label', `${msg(str`Showing ${total - this.stackSize} out of ${total} items`)}`);
-      } else {
-        this.removeAttribute('aria-label');
-      }
-    }
   }
 
   override render(): TemplateResult {
@@ -130,7 +120,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       ${this.stacked && this.stackSize > 0
         ? html`
             <div class=${classMap({ stack: true, double: this.stackSize === 2, triple: this.stackSize >= 3 })}>
-              <sl-tag aria-describedby="tooltip" emphasis=${ifDefined(this.emphasis)} size=${ifDefined(this.size)}>
+              <sl-tag aria-labelledby="tooltip" emphasis=${ifDefined(this.emphasis)} size=${ifDefined(this.size)}>
                 ${this.stackSize > 99 ? '+99' : this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
@@ -150,8 +140,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.#rovingTabindexController.clearElementCache();
-
     this.tags = Array.from(event.target.assignedElements({ flatten: true })).filter(
       (el): el is Tag => el instanceof Tag
     );
@@ -210,6 +198,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
+
+    // Now that we updated the visibility of the tags, we need to clear the element cache
+    this.#rovingTabindexController.clearElementCache();
   }
 
   /** This returns the max inline size of the stack (so with a stack size of > 99). */

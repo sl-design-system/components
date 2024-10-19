@@ -138,14 +138,6 @@
   <source>error</source>
   <target>fout</target>
 </trans-unit>
-<trans-unit id="sf75c5ddbac2b60f9">
-  <source>Showing <x id="0" equiv-text="${total - this.stackSize}"/> out of <x id="1" equiv-text="${total}"/> items</source>
-  <target><x id="0" equiv-text="${total - this.stackSize}"/> van <x id="1" equiv-text="${this.tags.length}"/> items zichtbaar</target>
-</trans-unit>
-<trans-unit id="sebd54694b2f83547">
-  <source>Remove '<x id="0" equiv-text="${this.label}"/>'</source>
-  <target>verwijder '<x id="0" equiv-text="${this.label}"/>'</target>
-</trans-unit>
 <trans-unit id="s9cd91b99a108a45f">
   <source>List of hidden elements</source>
   <target>Lijst met verborgen elementen</target>
@@ -176,12 +168,15 @@
 </trans-unit>
 <trans-unit id="s08cb5d07b56d33a7">
   <source>wk</source>
+  <target>wk</target>
 </trans-unit>
 <trans-unit id="s62931b2a50168976">
   <source>Previous month</source>
+  <target>Vorige maand</target>
 </trans-unit>
 <trans-unit id="s46d6587089bd0356">
   <source>Next month</source>
+  <target>Volgende maand</target>
 </trans-unit>
 <trans-unit id="s575e795c45e2d97e">
   <source>Go back</source>
@@ -191,6 +186,19 @@
 </trans-unit>
 <trans-unit id="s138a3b1a1217f2ca">
   <source>Show calendar</source>
+  <target>Toon kalender</target>
+</trans-unit>
+<trans-unit id="s886db4d476f66522">
+  <source>Selected options</source>
+  <target>Geselecteerde opties</target>
+</trans-unit>
+<trans-unit id="sde3919a1e53d2cff">
+  <source>Press the delete or backspace key to remove this item</source>
+  <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
+</trans-unit>
+<trans-unit id="s680f01021b5e339d">
+  <source>Week</source>
+  <target>Week</target>
 </trans-unit>
 </body>
 </file>

@@ -12,3 +12,24 @@ export const getScrollParent = (element: Element): Element => {
     return element;
   }
 };
+
+export function closestElementComposed<K extends keyof HTMLElementTagNameMap>(
+  element: Node,
+  selector: K
+): HTMLElementTagNameMap[K] | null;
+
+export function closestElementComposed<E extends Element = Element>(element: Node, selector: string): E | null;
+
+/**
+ * Returns the closest element that matches the selector, across all
+ * parent shadow roots.
+ */
+export function closestElementComposed(element: Node, selector: string): Element | null {
+  if (element instanceof HTMLElement) {
+    const found = element.closest(selector);
+
+    return found ?? closestElementComposed(element.getRootNode({ composed: true }), selector);
+  } else {
+    return null;
+  }
+}

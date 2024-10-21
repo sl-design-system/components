@@ -45,6 +45,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
+    direction: 'vertical',
     focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
     elements: () => this.boxes || [],
     isFocusableElement: (el: Checkbox) => !el.disabled

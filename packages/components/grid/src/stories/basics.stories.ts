@@ -1,4 +1,5 @@
 import { Avatar } from '@sl-design-system/avatar';
+import { FetchDataSource, FetchDataSourceError, FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -192,4 +193,108 @@ export const CustomHeader: Story = {
       </sl-grid-column>
     </sl-grid>
   `
+};
+
+export const LazyLoad: Story = {
+  render: () => {
+    interface Quote {
+      id: string;
+      quote: string;
+      author: string;
+    }
+
+    interface QuotesResponse {
+      quotes: Quote[];
+      total: number;
+      skip: number;
+      limit: number;
+    }
+
+    const dataSource = new FetchDataSource<Quote>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const response = await fetch(`https://dummyjson.com/quotes?skip=${(page - 1) * pageSize}&limit=${pageSize}`);
+
+        if (response.ok) {
+          const { quotes, total } = (await response.json()) as QuotesResponse;
+
+          return { items: quotes, totalItems: total };
+        } else {
+          throw new FetchDataSourceError('Failed to fetch data', response);
+        }
+      }
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
+        <sl-grid-column path="quote" grow="3"></sl-grid-column>
+        <sl-grid-column path="author"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const Skeleton: Story = {
+  render: () => {
+    const dataSource = new FetchDataSource<Person>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+
+        // Simulate a slow response
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        return { items: people, totalItems: total };
+      },
+      size: Math.floor(window.innerHeight / 30)
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="id"></sl-grid-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const CustomSkeleton: Story = {
+  render: () => {
+    const avatarRenderer: GridColumnDataRenderer<Person> = item => {
+      if (typeof item === 'symbol' && item === FetchDataSourcePlaceholder) {
+        return html`
+          <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
+            <sl-skeleton style="aspect-ratio: 1; block-size: var(--sl-size-avatar-sm)" variant="circle"></sl-skeleton>
+            <sl-skeleton style="block-size: 18px; inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>
+          </div>
+        `;
+      } else {
+        const { firstName, lastName } = item;
+
+        return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
+      }
+    };
+
+    const dataSource = new FetchDataSource<Person>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+
+        // Simulate a slow response
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        return { items: people, totalItems: total };
+      },
+      size: Math.floor(window.innerHeight / 30)
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource} .scopedElements=${{ 'sl-avatar': Avatar }}>
+        <sl-grid-column grow="0" path="id" width="50"></sl-grid-column>
+        <sl-grid-column header="Student" .renderer=${avatarRenderer}></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };

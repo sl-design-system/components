@@ -2,17 +2,11 @@
 import { localized } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
-import {
-  ArrayDataSource,
-  type DataSource,
-  type EventEmitter,
-  SelectionController,
-  event,
-  getValueByPath,
-  isSafari
-} from '@sl-design-system/shared';
+import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -98,7 +92,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-ellipsize-text': EllipsizeText,
-      'sl-grid-group-header': GridGroupHeader
+      'sl-grid-group-header': GridGroupHeader,
+      'sl-skeleton': Skeleton
     };
   }
 
@@ -666,7 +661,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
-    const items = this.dataSource?.filteredItems ?? [],
+    const items = this.dataSource?.items ?? [],
       groupItems = items.filter(item => getValueByPath(item, group.path) === group.value);
 
     if (event.detail) {
@@ -763,8 +758,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       const id = f.column.id,
         empty = (Array.isArray(f.value) && f.value.length === 0) || !f.value;
 
-      if (!empty && (f.path || f.filter)) {
-        this.dataSource?.addFilter(id, f.path! || f.filter!, f.value);
+      if (!empty && (f.filter || f.path)) {
+        this.dataSource?.addFilter(id, f.filter! || f.path!, f.value);
       } else {
         this.dataSource?.removeFilter(id);
       }
@@ -783,7 +778,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
-      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction!);
+      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
       this.dataSource?.removeSort();
     }

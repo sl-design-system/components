@@ -14,11 +14,13 @@
   --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
 
   align-items: center;
+  border-radius: var(--_border-radius);
   cursor: var(--_cursor);
   display: inline-flex;
   font: var(--_font);
   max-inline-size: 100%;
   outline: 0;
+  overflow: hidden;
   vertical-align: middle;
 }
 
@@ -78,15 +80,9 @@
   --_padding-inline: var(--sl-space-tag-inline-lg);
 }
 
-.wrapper {
-  border-radius: var(--_border-radius);
-  display: flex;
-  overflow: hidden;
-
-  &:focus {
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
-  }
+:host(:focus:not([focus-within])) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
 slot {
@@ -123,6 +119,7 @@ button {
   flex-shrink: 0;
   inline-size: var(--_button-size);
   justify-content: center;
+  padding: 0;
   transition: 200ms linear;
   transition-property: background, border-color;
 

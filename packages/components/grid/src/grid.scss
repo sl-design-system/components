@@ -209,6 +209,11 @@ td[part~='group-header'] {
   inline-size: 100%;
 }
 
+td[part~='placeholder'] sl-skeleton {
+  block-size: 1lh;
+  inline-size: 100%;
+}
+
 td[part~='select'],
 td[part~='text-field'] {
   --_cell-padding-block: 6px;

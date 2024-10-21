@@ -1,7 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ArrayDataSource } from '@sl-design-system/shared';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';

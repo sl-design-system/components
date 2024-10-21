@@ -173,6 +173,22 @@ describe('sl-form', () => {
       expect(el.touched).to.be.true;
       expect(el.untouched).to.be.false;
     });
+
+    it('should emit an sl-submit event when requestSubmit() is called and the form is valid', async () => {
+      const onSubmit = spy();
+
+      el.addEventListener('sl-submit', onSubmit);
+      el.requestSubmit();
+
+      expect(onSubmit).to.not.have.been.calledOnce;
+
+      el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
+      await sendKeys({ type: 'asdf' });
+
+      el.requestSubmit();
+
+      expect(onSubmit).to.have.been.calledOnce;
+    });
   });
 
   describe('reset', () => {
@@ -209,6 +225,15 @@ describe('sl-form', () => {
       el.reset();
 
       expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
+    });
+
+    it('should emit an sl-reset event when reset() is called', () => {
+      const onReset = spy();
+
+      el.addEventListener('sl-reset', onReset);
+      el.reset();
+
+      expect(onReset).to.have.been.calledOnce;
     });
   });
 

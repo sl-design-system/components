@@ -90,15 +90,21 @@ dialog[open]:not([closing]) {
   gap: var(--_heading-gap);
 }
 
-slot[name='title']::slotted(*) {
+slot[name='title'] {
   font: var(--_title-font);
-  margin: 0;
-  text-wrap: balance;
+
+  &::slotted(*) {
+    margin: 0;
+    text-wrap: balance;
+  }
 }
 
-slot[name='subtitle']::slotted(*) {
+slot[name='subtitle'] {
   font: var(--_subtitle-font);
-  margin: 0;
+
+  &::slotted(*) {
+    margin: 0;
+  }
 }
 
 slot[name='header-actions'] sl-button-bar {

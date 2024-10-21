@@ -1,4 +1,4 @@
-import { EventsController } from '@sl-design-system/shared';
+import { EventsController, closestElementComposed } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
@@ -86,9 +86,19 @@ export class Button extends LitElement {
       event.preventDefault();
       event.stopPropagation();
     } else if (this.type === 'reset') {
-      this.internals.form?.reset();
+      if (this.internals.form) {
+        this.internals.form.reset();
+      } else {
+        // Workaround for not wanting a dependency on the `@sl-design-system/form` package
+        (closestElementComposed(this, 'sl-form') as unknown as { reset(): void })?.reset();
+      }
     } else if (this.type === 'submit') {
-      this.internals.form?.requestSubmit();
+      if (this.internals.form) {
+        this.internals.form?.requestSubmit();
+      } else {
+        // Workaround for not wanting a dependency on the `@sl-design-system/form` package
+        (closestElementComposed(this, 'sl-form') as unknown as { requestSubmit(): void })?.requestSubmit();
+      }
     }
   }
 

@@ -1,12 +1,7 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type DataSourceSortDirection,
-  type DataSourceSortFunction,
-  type EventEmitter,
-  EventsController,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';

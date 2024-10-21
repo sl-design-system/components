@@ -1,5 +1,6 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { type TextField } from '@sl-design-system/text-field';
 import { html } from 'lit';
 import '../register.js';
 import { type Grid } from './grid.js';
@@ -269,7 +270,7 @@ describe('sl-grid-filter-column', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid .items=${ITEMS}>
-          <sl-grid-filter-column mode="text" path="profession" value="Endocrinologist"></sl-grid-filter-column>
+          <sl-grid-filter-column mode="text" path="profession" value="Endo"></sl-grid-filter-column>
           <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
           <sl-grid-filter-column mode="text" path="membership"></sl-grid-filter-column>
         </sl-grid>
@@ -282,15 +283,28 @@ describe('sl-grid-filter-column', () => {
     });
 
     it('should have text field', () => {
-      const filters = el.renderRoot.querySelectorAll('sl-grid-filter'),
-        popovers = Array.from(filters).map(o => o.renderRoot.querySelector('sl-popover'));
-
-      expect(popovers).to.exist;
-
-      const textFields = Array.from(popovers).map(o => o!.querySelector('sl-text-field'));
+      const textFields = Array.from(el.renderRoot.querySelectorAll('sl-grid-filter')).map(f =>
+        f.renderRoot.querySelector('sl-popover sl-text-field')
+      ) as TextField[];
 
       expect(textFields).to.exist;
       expect(textFields).to.have.length(3);
+    });
+
+    it('should have proper value in the text field', () => {
+      const textFields = Array.from(el.renderRoot.querySelectorAll('sl-grid-filter')).map(f =>
+        f.renderRoot.querySelector('sl-popover sl-text-field')
+      ) as TextField[];
+
+      expect(textFields).to.exist;
+      expect(textFields.map(t => t.value)).to.deep.equal(['Endo', '', '']);
+    });
+
+    it('should partially match the value in the text field', () => {
+      const rows = Array.from(el.renderRoot.querySelectorAll('tbody td[part~="profession"]'));
+
+      expect(rows).to.have.length(1);
+      expect(rows.map(r => r.textContent)).to.deep.equal(['Endocrinologist']);
     });
   });
 });

@@ -3,7 +3,7 @@ let peopleImages;
 const datasetCache = {};
 
 async function getDataset(fileName, count) {
-  if (!datasetCache[fileName]) {    
+  if (!datasetCache[fileName]) {
     datasetCache[fileName] = (await import(`./data/${fileName.split('.')[0]}.json`)).default;
   }
   return datasetCache[fileName].slice(0, count).map(item => {
@@ -44,6 +44,7 @@ export async function getPeople(options) {
 
   return {
     people,
-    hierarchyLevelSize
+    hierarchyLevelSize,
+    total: allPeople.length
   };
 }

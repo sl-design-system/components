@@ -156,7 +156,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   focus(options?: FocusOptions): void {
     let focusElement = this.elements[this.currentIndex];
     if (focusElement.matches('[part~=delegate-focus]')) {
-      console.log(focusElement.querySelector('*'));
       //TODO: Make this query more specific:
       focusElement = focusElement.querySelector('*') ?? focusElement;
     }
@@ -165,6 +164,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       focusElement = this.elements[this.currentIndex];
     }
     if (focusElement && this.isFocusableElement(focusElement)) {
+      console.log(focusElement, this.isFocusableElement(focusElement), options);
       focusElement.focus(options);
     }
   }
@@ -194,7 +194,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       nextIndex = (length + nextIndex + diff) % length;
       steps -= 1;
     }
-    // this.currentIndex = nextIndex;
     this.focusToElement(nextIndex);
   }
 
@@ -229,6 +228,9 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       return targetIndex !== -1;
     });
     this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
+
+    console.log(this.currentIndex);
+    this.focusToElement(this.currentIndex);
   };
 
   handleFocusout = (event: FocusEvent): void => {

@@ -19,10 +19,11 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
 
   override renderData(item: T): TemplateResult {
     return html`
-      <td part="data text-field">
+      <td part="data text-field delegate-focus">
         <sl-text-field
           @sl-change=${(event: CustomEvent<string>) => this.#onChange(event, item)}
           .value=${getValueByPath(item, this.path)}
+          tabindex="-1"
         ></sl-text-field>
       </td>
     `;

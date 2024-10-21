@@ -152,7 +152,7 @@ td {
   }
 
   &:focus-visible,
-  :focus-visible {
+  & > :focus-visible {
     border-radius: var(--_focus-radius);
     outline: var(--_focus-outline);
     outline-offset: calc(var(--_focus-outline-offset) * -1);

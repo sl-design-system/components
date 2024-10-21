@@ -3,15 +3,19 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
   faArrowUpRightFromSquare,
+  faBadgeCheck as FarBadgeCheck,
+  faBellExclamation as farBellExclamation,
   faBold as farBold,
   faBug,
   faCode,
   faCopy,
   faFileEdit,
   faFloppyDisk,
+  faGrid as farGrid,
   faGear,
   faGear as farGear,
   faItalic as farItalic,
+  faListUl as farListUl,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
@@ -21,11 +25,15 @@ import {
   faXmark
 } from '@fortawesome/pro-regular-svg-icons';
 import {
+  faBadgeCheck as FasBadgeCheck,
+  faBellExclamation as fasBellExclamation,
   faBold as fasBold,
   faEnvelope,
+  faGrid as fasGrid,
   faGear as fasGear,
   faHandBackPointUp,
   faItalic as fasItalic,
+  faListUl as fasListUl,
   faSchool,
   faScreenUsers,
   faUnderline as fasUnderline
@@ -89,13 +97,21 @@ Icon.register(
   faTrash,
   faTruckFast,
   faXmark,
+  FarBadgeCheck,
+  farBellExclamation,
   farBold,
+  farGrid,
   farGear,
   farItalic,
+  farListUl,
   farUnderline,
+  FasBadgeCheck,
+  fasBellExclamation,
   fasBold,
+  fasGrid,
   fasGear,
   fasItalic,
+  fasListUl,
   fasUnderline
 );
 

@@ -14,7 +14,7 @@ describe('sl-page-size', () => {
       el = await fixture(html` <sl-page-size></sl-page-size> `);
     });
 
-    it('should have items per page with value of 10 when it is not set', () => {
+    it('should have items per page with value of 10 by default', () => {
       expect(el.itemsPerPage).to.equal(10);
     });
 

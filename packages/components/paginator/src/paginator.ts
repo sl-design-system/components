@@ -1,4 +1,3 @@
-import { faCaretLeft, faCaretRight } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
@@ -22,16 +21,28 @@ declare global {
   }
 }
 
-Icon.register(faCaretLeft, faCaretRight);
-
 export type SlPageChangeEvent = CustomEvent<number>;
 
 /**
- * A paginator component used when there are a lot of data that needs to be shown and cannot be shown at once, in one view/page.
+ * A paginator component used when there is a lot of data that needs to be shown and cannot be shown at once, in one view/page.
  * Can be used separately or together with page size component and/or items counter component.
  */
 @localized()
 export class Paginator extends ScopedElementsMixin(LitElement) {
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-button': Button,
+      'sl-icon': Icon,
+      'sl-menu-button': MenuButton,
+      'sl-menu': Menu,
+      'sl-menu-item': MenuItem,
+      'sl-page': Page,
+      'sl-select': Select,
+      'sl-select-option': SelectOption
+    };
+  }
+
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -77,20 +88,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** Total amount of items. */
   @property() total = 1;
-
-  /** @internal */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-button': Button,
-      'sl-icon': Icon,
-      'sl-menu-button': MenuButton,
-      'sl-menu': Menu,
-      'sl-menu-item': MenuItem,
-      'sl-page': Page,
-      'sl-select': Select,
-      'sl-select-option': SelectOption
-    };
-  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -182,13 +179,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       <nav class="container">
         <sl-button
           class="prev"
-          aria-label=${msg(str`Go to the previous page ${this.activePage - 1}`)}
+          aria-label=${msg(str`Go to the previous page (${this.activePage - 1})`)}
           fill="ghost"
           size="lg"
           ?disabled=${this.activePage === 1}
-          @click=${this.#onClickPrevButton}
+          @click=${this.#onPrevious}
         >
-          <sl-icon name="fas-caret-left"></sl-icon>
+          <sl-icon name="caret-left-solid"></sl-icon>
         </sl-button>
         <ul class="pages-wrapper">
           ${Array.from({ length: this.#pages }).map(
@@ -231,13 +228,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         </div>
         <sl-button
           class="next"
-          aria-label=${msg(str`Go to the next page ${this.activePage + 1}`)}
+          aria-label=${msg(str`Go to the next page (${this.activePage + 1})`)}
           fill="ghost"
           size="lg"
           ?disabled=${this.activePage === this.#pages}
-          @click=${this.#onClickNextButton}
+          @click=${this.#onNext}
         >
-          <sl-icon name="fas-caret-right"></sl-icon>
+          <sl-icon name="caret-right-solid"></sl-icon>
         </sl-button>
       </nav>
       <!-- We want this to be read every time the active page changes. -->
@@ -248,14 +245,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   /** Handles `click` event on the previous button. */
-  #onClickPrevButton() {
+  #onPrevious() {
     this.activePage--;
     this.#setCurrentlyVisibleItems();
     this.#update();
   }
 
   /** Handles `click` event on the next button. */
-  #onClickNextButton() {
+  #onNext() {
     this.activePage++;
     this.#setCurrentlyVisibleItems();
     this.#update();

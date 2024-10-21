@@ -127,8 +127,8 @@ describe('sl-paginator', () => {
       const prevAriaLabel = prev.ariaLabel,
         nextAriaLabel = next.ariaLabel;
 
-      expect(prevAriaLabel).to.equal('Go to the previous page 1');
-      expect(nextAriaLabel).to.equal('Go to the next page 3');
+      expect(prevAriaLabel).to.equal('Go to the previous page (1)');
+      expect(nextAriaLabel).to.equal('Go to the next page (3)');
     });
 
     it('should emit an sl-page-change event when the active page has changed', async () => {
@@ -195,7 +195,7 @@ describe('sl-paginator', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
     });
 
-    it('should have a valid active page when set smaller than 1', () => {
+    it('should be on the last page when the set page is larger than the number of pages', () => {
       expect(el.activePage).to.equal(10);
     });
   });

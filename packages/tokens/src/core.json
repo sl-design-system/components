@@ -2511,6 +2511,16 @@
         "value": "magnifying-glass",
         "type": "Icons",
         "description": "icon.core.search"
+      },
+      "caret-left-solid": {
+        "value": "caret-left",
+        "type": "Icons",
+        "description": "icon.core.caret-left-solid"
+      },
+      "caret-right-solid": {
+        "value": "caret-right",
+        "type": "Icons",
+        "description": "icon.core.caret-right-solid"
       }
     },
     "typeset": {

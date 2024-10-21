@@ -11,6 +11,18 @@ export const icons = {
     description: 'icon.core.breadcrumb-separator',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M308.1 3.3c11.4 6.7 15.3 21.4 8.6 32.8l-272 464c-6.7 11.4-21.4 15.3-32.8 8.6S-3.4 487.3 3.3 475.9l272-464C282 .4 296.7-3.4 308.1 3.3z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
+  'caret-left-solid': {
+    value: 'caret-left',
+    type: 'Icons',
+    description: 'icon.core.caret-left-solid',
+    svg: '<svg viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'caret-right-solid': {
+    value: 'caret-right',
+    type: 'Icons',
+    description: 'icon.core.caret-right-solid',
+    svg: '<svg viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   check: {
     value: 'check',
     type: 'Icons',

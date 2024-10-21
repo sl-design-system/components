@@ -31,7 +31,7 @@ export class ItemsCounter extends LitElement {
   #pages = 1;
 
   /** Total amount of items, if not set - default to 1. */
-  @property() total = 1;
+  @property({ type: Number }) total = 1;
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -8,8 +8,7 @@ declare global {
 }
 
 /**
- * A page component that can be used as part of the paginator, representing pages in the paginator.
- *
+ * A page internal component, that is used as part of the paginator, representing pages in the paginator.
  */
 export class Page extends LitElement {
   /** @internal */

@@ -178,8 +178,19 @@ export const All: Story = {
         </sl-checkbox-group>
       </sl-form-field>
 
-      <sl-form-field hint="Hint text" label="Combobox">
-        <sl-combobox name="combobox" required>
+      <sl-form-field hint="Hint text" label="Combobox single">
+        <sl-combobox name="comboboxSingle" placeholder="Single select" required>
+          <sl-listbox>
+            <sl-option>Option 1</sl-option>
+            <sl-option>Option 2</sl-option>
+            <sl-option>Option 3</sl-option>
+            <sl-option>Option 4</sl-option>
+          </sl-listbox>
+        </sl-combobox>
+      </sl-form-field>
+
+      <sl-form-field hint="Hint text" label="Combobox multiple">
+        <sl-combobox name="comboboxMultiple" multiple placeholder="Multiple select" required>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>

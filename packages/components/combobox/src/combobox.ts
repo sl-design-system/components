@@ -47,7 +47,7 @@ let nextUniqueId = 0;
  */
 @localized()
 export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
-  /** @internal The default offset of the popover to the input. */
+  /** @internal The default offset of the popover to the text-field. */
   static offset = 6;
 
   /** @internal */

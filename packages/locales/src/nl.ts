@@ -5,14 +5,17 @@ import { str } from '@lit/localize';
 
 export const templates = {
   s00a84204340a1db4: 'Geselecteerd',
+  s08cb5d07b56d33a7: 'wk',
   s091d3d07b5b3076f: 'Ok',
   s129fac0ae1df7c8f: 'waarschuwing',
+  s138a3b1a1217f2ca: 'Toon kalender',
   s13fdff160ffad275: 'Wis tekst',
   s19fe06e3408e53d0: 'succes',
   s2362b49263f76ec8: str`Geen opties gevonden die beginnen met "${0}".`,
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
+  s46d6587089bd0356: 'Volgende maand',
   s4f6434b4c6326f21: 'Alle velden zijn correct.',
   s58bfb494feb8eb02: str`${0} geselecteerd`,
   s5d929ff1619ac0c9: 'Zoeken',
@@ -20,9 +23,11 @@ export const templates = {
   s5e8250fb85d64c23: 'Sluiten',
   s602a5722e101c0d2: 'Alle opties',
   s606beeef09212e6c: str`${0} de opties`,
+  s62931b2a50168976: 'Vorige maand',
   s629576c6b305d539: 'optioneel',
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
   s6580790b036f0c6f: 'actief',
+  s680f01021b5e339d: 'Week',
   s6abb1cd87fe0114e: 'Home',
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
@@ -46,5 +51,7 @@ export const templates = {
   se412fe8953013d92: 'Selecteer tenminste één optie.',
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
-  sf677da98fa27f9b6: 'Meer links'
+  sf677da98fa27f9b6: 'Meer links',
+  s575e795c45e2d97e: 'Go back',
+  sc831e57f94e6d73e: 'Go forward'
 };

@@ -75,7 +75,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
 
   host: ReactiveElement;
 
-  isFocusableElement = (_el: T): boolean => true;
+  isFocusableElement = (el: T): boolean => !el.hasAttribute('disabled');
 
   isEventWithinListenerScope(event: Event): boolean {
     if (this.#listenerScope() === this.host) return true;
@@ -211,14 +211,21 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     this.focused = false;
   }
 
-  isRelatedTargetAnElement(event: FocusEvent): boolean {
+  isFocusMovingOutOfScope(event: FocusEvent): boolean {
     const relatedTarget = event.relatedTarget as null | Element;
-    return !this.elements.includes(relatedTarget as T);
+
+    if (event.type === 'focusin') {
+      return false;
+    } else if (event.type === 'focusout' && relatedTarget === null) {
+      return true;
+    } else {
+      return !this.elements.includes(relatedTarget as T) || !this.elements.includes(event.composedPath()[0] as T);
+    }
   }
 
   handleFocusin = (event: FocusEvent): void => {
     if (!this.isEventWithinListenerScope(event)) return;
-    if (this.isRelatedTargetAnElement(event)) {
+    if (!this.isFocusMovingOutOfScope(event)) {
       this.hostContainsFocus();
     }
     const path = event.composedPath() as T[];
@@ -234,7 +241,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   };
 
   handleFocusout = (event: FocusEvent): void => {
-    if (this.isRelatedTargetAnElement(event)) {
+    if (this.isFocusMovingOutOfScope(event)) {
       this.hostNoLongerContainsFocus();
     }
   };
@@ -258,6 +265,7 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     if (!this.acceptsEventCode(event.code) || event.defaultPrevented) {
       return;
     }
+
     let diff = 0;
     switch (event.code) {
       case 'ArrowRight':

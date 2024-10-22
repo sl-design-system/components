@@ -49,12 +49,16 @@ describe('sl-tag', () => {
       el = await fixture(html`<sl-tag removable>My label</sl-tag>`);
     });
 
+    it('should have an ARIA description indicating how to remove the tag', () => {
+      expect(el).to.have.attribute('aria-description', 'Press the delete or backspace key to remove this item');
+    });
+
     it('should have a button', () => {
       expect(el.renderRoot.querySelector('button')).to.exist;
     });
 
-    it('should label the button', () => {
-      expect(el.renderRoot.querySelector('button')).to.have.attribute('aria-label', "Remove 'My label'");
+    it('should hide the button for ARIA', () => {
+      expect(el.renderRoot.querySelector('button')).to.have.attribute('aria-hidden', 'true');
     });
 
     it('should not be be removed when it is disabled and remove button is clicked', async () => {
@@ -72,6 +76,24 @@ describe('sl-tag', () => {
 
       el.renderRoot.querySelector('button')?.focus();
       await sendKeys({ press: 'Enter' });
+
+      expect(onRemove).to.have.been.calledOnce;
+    });
+
+    it('should be removed when the backspace key is pressed', async () => {
+      const onRemove = spy(el, 'remove');
+
+      el.focus();
+      await sendKeys({ press: 'Backspace' });
+
+      expect(onRemove).to.have.been.calledOnce;
+    });
+
+    it('should be removed when the delete key is pressed', async () => {
+      const onRemove = spy(el, 'remove');
+
+      el.focus();
+      await sendKeys({ press: 'Delete' });
 
       expect(onRemove).to.have.been.calledOnce;
     });

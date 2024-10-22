@@ -4,7 +4,7 @@ import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './page-size.scss.js';
+import styles from './paginator-size.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -12,7 +12,7 @@ declare global {
   }
 
   interface HTMLElementTagNameMap {
-    'sl-page-size': PageSize;
+    'sl-paginator-size': PaginatorSize;
   }
 }
 
@@ -23,7 +23,7 @@ export type SlPageSizeChangeEvent = CustomEvent<number>;
  * The component adds a possibility to select/change the amount of items that would be visible per page.
  */
 @localized()
-export class PageSize extends ScopedElementsMixin(LitElement) {
+export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 

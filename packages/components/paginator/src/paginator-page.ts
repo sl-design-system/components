@@ -1,16 +1,16 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import styles from './page.scss.js';
+import styles from './paginator-page.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-page': Page;
+    'sl-paginator-page': PaginatorPage;
   }
 }
 
 /**
  * A page internal component, that is used as part of the paginator, representing pages in the paginator.
  */
-export class Page extends LitElement {
+export class PaginatorPage extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 

@@ -3,15 +3,15 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import '../register.js';
-import { Page } from './page.js';
+import { PaginatorPage } from './paginator-page.js';
 
-describe('sl-page', () => {
-  let el: Page;
+describe('sl-paginator-page', () => {
+  let el: PaginatorPage;
 
   describe('defaults', () => {
     beforeEach(async () => {
       try {
-        customElements.define('sl-page', Page);
+        customElements.define('sl-paginator-page', PaginatorPage);
       } catch {
         // empty
       }

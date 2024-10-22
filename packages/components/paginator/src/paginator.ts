@@ -5,15 +5,16 @@ import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { Page } from './page.js';
+import { PaginatorPage } from './paginator-page.js';
 import styles from './paginator.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-page-change': SlPageChangeEvent;
+    'sl-page-change': SlChangeEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -21,7 +22,7 @@ declare global {
   }
 }
 
-export type SlPageChangeEvent = CustomEvent<number>;
+// export type SlPageChangeEvent = CustomEvent<number>;
 
 /**
  * A paginator component used when there is a lot of data that needs to be shown and cannot be shown at once, in one view/page.
@@ -37,7 +38,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       'sl-menu-button': MenuButton,
       'sl-menu': Menu,
       'sl-menu-item': MenuItem,
-      'sl-page': Page,
+      'sl-paginator-page': PaginatorPage,
       'sl-select': Select,
       'sl-select-option': SelectOption
     };
@@ -73,7 +74,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   #mobileVariant = false;
 
   /** @internal Emits when the page has been selected/changed. */
-  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlPageChangeEvent>;
+  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlChangeEvent<number>>; //EventEmitter<SlPageChangeEvent>; //EventEmitter<SlChangeEvent<number>>;
 
   /** @internal Pages amount. */
   #pages = 1;
@@ -96,8 +97,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
     }
 
-    const itemsPerPage = this.itemsPerPage ?? 10;
-    this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
+    // const itemsPerPage = this.itemsPerPage ?? 10;
+    this.#pages = Math.ceil(this.total / this.itemsPerPage);
 
     if (this.activePage < 1) {
       this.activePage = 1;
@@ -191,7 +192,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           ${Array.from({ length: this.#pages }).map(
             (_, index) => html`
               <li class="page">
-                <sl-page
+                <sl-paginator-page
                   fill="ghost"
                   size="lg"
                   class="page"
@@ -200,7 +201,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
                   @click=${this.#setActive}
                 >
                   ${index + 1}
-                </sl-page>
+                </sl-paginator-page>
               </li>
             `
           )}
@@ -259,7 +260,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   #setActive(event: Event) {
-    const target = event.target as Select | Page;
+    const target = event.target as Select | PaginatorPage;
 
     if (target instanceof Select) {
       this.activePage = Number(target.value);
@@ -317,7 +318,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     /** Overflow variant. */
     if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
-      /** Mobile (compact) version with sl-select instead of sl-pages,
+      /** Mobile (compact) version with sl-select instead of sl-paginator-pages,
        * when possibly visible pages amount is smaller than 6
        * (when possibly visible pages > 6 it works fine with basic variant with pages, also with the overflow version).
        * */

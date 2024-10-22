@@ -6,7 +6,7 @@ import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { Page } from './page.js';
+import { PaginatorPage } from './paginator-page.js';
 import { Paginator } from './paginator.js';
 
 describe('sl-paginator', () => {
@@ -87,7 +87,7 @@ describe('sl-paginator', () => {
     });
 
     it('should set the right active page on page click', async () => {
-      const pages = el.renderRoot.querySelectorAll('sl-page');
+      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
 
       pages[3].click();
       await el.updateComplete;
@@ -221,7 +221,7 @@ describe('sl-paginator', () => {
 
       expect(visibleElements.length).to.equal(13);
 
-      const visiblePages = Array.from(visibleElements).map(page => page.querySelector<Page>('sl-page'));
+      const visiblePages = Array.from(visibleElements).map(page => page.querySelector<PaginatorPage>('sl-page'));
 
       expect(visiblePages).to.exist;
       expect(visiblePages.length).to.equal(13);
@@ -237,7 +237,7 @@ describe('sl-paginator', () => {
 
       expect(hiddenElements.length).to.equal(7);
 
-      const hiddenPages = Array.from(hiddenElements).map(page => page.querySelector<Page>('sl-page'));
+      const hiddenPages = Array.from(hiddenElements).map(page => page.querySelector<PaginatorPage>('sl-page'));
 
       expect(hiddenPages).to.exist;
       expect(hiddenPages.length).to.equal(7);

@@ -3,14 +3,14 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import '../register.js';
-import { ItemsCounter } from './items-counter.js';
+import { PaginatorStatus } from './paginator-status';
 
-describe('sl-items-counter', () => {
-  let el: ItemsCounter;
+describe('sl-paginator-status', () => {
+  let el: PaginatorStatus;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-items-counter></sl-items-counter> `);
+      el = await fixture(html` <sl-paginator-status></sl-paginator-status> `);
     });
 
     it('should have a rendered text with information about items', () => {
@@ -30,7 +30,7 @@ describe('sl-items-counter', () => {
 
   describe('first active page', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-items-counter .total=${100} .itemsPerPage=${15}></sl-items-counter> `);
+      el = await fixture(html` <sl-paginator-status .total=${100} .itemsPerPage=${15}></sl-paginator-status> `);
     });
 
     it('should have a rendered proper text with information about visible items on the first page', () => {
@@ -51,7 +51,7 @@ describe('sl-items-counter', () => {
   describe('last active page', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-items-counter .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-items-counter>
+        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
       `);
     });
 
@@ -73,7 +73,7 @@ describe('sl-items-counter', () => {
   describe('invalid active page', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-items-counter .total=${209} .activePage=${-1} .itemsPerPage=${15}></sl-items-counter>
+        <sl-paginator-status .total=${209} .activePage=${-1} .itemsPerPage=${15}></sl-paginator-status>
       `);
     });
 
@@ -95,7 +95,7 @@ describe('sl-items-counter', () => {
   describe('active page change', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-items-counter .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-items-counter>
+        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
       `);
     });
 
@@ -169,7 +169,7 @@ describe('sl-items-counter', () => {
   describe('items per page change', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-items-counter .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-items-counter>
+        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
       `);
     });
 
@@ -198,7 +198,7 @@ describe('sl-items-counter', () => {
   describe('total amount of items change', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-items-counter .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-items-counter>
+        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
       `);
     });
 

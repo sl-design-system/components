@@ -3,11 +3,12 @@ import '@sl-design-system/card/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
 import '@sl-design-system/paginator/register.js';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { ItemsCounter } from './items-counter';
-import { type PageSize } from './page-size.js';
+import { type PaginatorSize } from './paginator-size';
+import { PaginatorStatus } from './paginator-status';
 import { type Paginator } from './paginator.js';
 
 type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total'> & {
@@ -86,7 +87,7 @@ export const PageSizeComponent: Story = {
     ...Basic.args
   },
   render: ({ pageSizes, itemsPerPage }) => {
-    return html`<sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>`;
+    return html`<sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>`;
   }
 };
 
@@ -95,7 +96,7 @@ export const ItemsCounterComponent: Story = {
     ...Basic.args
   },
   render: ({ activePage, itemsPerPage, total }) => html`
-    <sl-items-counter .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-items-counter>
+    <sl-paginator-status .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator-status>
   `
 };
 
@@ -107,12 +108,18 @@ export const All: Story = {
   render: ({ activePage, itemsPerPage, pageSizes, total }) => {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-        pageSize = document.querySelector('sl-page-size') as PageSize,
-        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter;
+        pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+        visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
 
-      paginator?.addEventListener('sl-page-change', event => {
-        visibleItems.activePage = event.detail;
+      paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+        console.log('event', event);
+        visibleItems.activePage = event.detail as number;
       });
+
+      // paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+      //   // onChange(event.detail);
+      //   visibleItems.activePage = event.detail as number;
+      // });
 
       pageSize?.addEventListener('sl-page-size-change', event => {
         paginator.itemsPerPage = event.detail;
@@ -133,19 +140,23 @@ export const All: Story = {
           flex: 1;
         }
 
-        sl-page-size {
+        sl-paginator-size {
           justify-content: end;
         }
       </style>
       <div class="pagination">
-        <sl-items-counter .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-items-counter>
+        <sl-paginator-status
+          .total=${total}
+          .activePage=${activePage}
+          .itemsPerPage=${itemsPerPage}
+        ></sl-paginator-status>
         <sl-paginator
           .total=${total}
           .pageSizes=${pageSizes}
           .activePage=${activePage}
           .itemsPerPage=${itemsPerPage}
         ></sl-paginator>
-        <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
+        <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>
       </div>
     `;
   }

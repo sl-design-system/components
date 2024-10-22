@@ -1,11 +1,11 @@
 import { localized, msg, str } from '@lit/localize';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './items-counter.scss.js';
+import styles from './paginator-status.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-items-counter': ItemsCounter;
+    'sl-paginator-status': PaginatorStatus;
   }
 }
 
@@ -14,7 +14,7 @@ declare global {
  * Contains information about currently visible items on the page and total amount of items.
  */
 @localized()
-export class ItemsCounter extends LitElement {
+export class PaginatorStatus extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 

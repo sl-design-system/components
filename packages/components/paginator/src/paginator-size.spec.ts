@@ -4,14 +4,14 @@ import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { PageSize } from './page-size.js';
+import { PaginatorSize } from './paginator-size';
 
-describe('sl-page-size', () => {
-  let el: PageSize;
+describe('sl-paginator-size', () => {
+  let el: PaginatorSize;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-page-size></sl-page-size> `);
+      el = await fixture(html` <sl-paginator-size></sl-paginator-size> `);
     });
 
     it('should have items per page with value of 10 by default', () => {
@@ -34,7 +34,7 @@ describe('sl-page-size', () => {
 
   describe('page sizes', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-page-size .pageSizes=${[5, 10, 20]}></sl-page-size> `);
+      el = await fixture(html` <sl-paginator-size .pageSizes=${[5, 10, 20]}></sl-paginator-size> `);
     });
 
     it('should have a select inside when pageSizes is set', async () => {
@@ -62,7 +62,7 @@ describe('sl-page-size', () => {
 
   describe('items per page', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-page-size .pageSizes=${[5, 10, 20]}></sl-page-size> `);
+      el = await fixture(html` <sl-paginator-size .pageSizes=${[5, 10, 20]}></sl-paginator-size> `);
     });
 
     it('should set first value of page sizes when there is no itemsPerPage value', () => {
@@ -87,7 +87,7 @@ describe('sl-page-size', () => {
       expect(slSelect?.value).to.equal(10);
     });
 
-    it('should emit an sl-page-size-change event when the value of the items per page has changed', async () => {
+    it('should emit an sl-paginator-size-change event when the value of the items per page has changed', async () => {
       const onPageSizeChange = spy();
       el.addEventListener('sl-page-size-change', onPageSizeChange);
       const slSelect = el.renderRoot.querySelector('sl-select');

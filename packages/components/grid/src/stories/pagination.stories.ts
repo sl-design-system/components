@@ -2,8 +2,9 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ItemsCounter, PageSize, Paginator } from '@sl-design-system/paginator';
+import { Paginator, PaginatorSize, PaginatorStatus } from '@sl-design-system/paginator';
 import '@sl-design-system/paginator/register.js';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -33,14 +34,15 @@ export const Basic: Story = {
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-        pageSize = document.querySelector('sl-page-size') as PageSize,
-        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
+        pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+        visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus,
         grid = document.querySelector('sl-grid') as Grid;
 
-      paginator?.addEventListener('sl-page-change', event => {
-        visibleItems.activePage = event.detail;
-        activePage = event.detail;
-        startIndex = (event.detail - 1) * itemsPerPage;
+      paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        visibleItems.activePage = detail;
+        activePage = detail;
+        startIndex = (detail - 1) * itemsPerPage;
         endIndex = startIndex + itemsPerPage;
         grid.items = people2.slice(startIndex, endIndex);
       });
@@ -74,18 +76,18 @@ export const Basic: Story = {
         <sl-grid-column path="membership"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
-        <sl-items-counter
+        <sl-paginator-status
           .total=${people2.length}
           .activePage=${activePage}
           .itemsPerPage=${itemsPerPage}
-        ></sl-items-counter>
+        ></sl-paginator-status>
         <sl-paginator
           .total=${people2.length}
           .pageSizes=${pageSizes}
           .activePage=${activePage}
           .itemsPerPage=${itemsPerPage}
         ></sl-paginator>
-        <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-page-size>
+        <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>
       </div>
     `;
   }
@@ -101,13 +103,14 @@ export const PaginatedDataSourceWithFilter: Story = {
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-        pageSize = document.querySelector('sl-page-size') as PageSize,
-        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
+        pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+        visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus,
         grid = document.querySelector('sl-grid') as Grid;
 
-      paginator?.addEventListener('sl-page-change', event => {
-        dataSource.paginate(event.detail, paginator.itemsPerPage ?? pageSizes[0]);
-        visibleItems.activePage = event.detail;
+      paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
+        visibleItems.activePage = detail;
       });
 
       pageSize?.addEventListener('sl-page-size-change', event => {
@@ -149,9 +152,9 @@ export const PaginatedDataSourceWithFilter: Story = {
         <sl-grid-filter-column id="filter-membership" path="membership"></sl-grid-filter-column>
       </sl-grid>
       <div class="pagination">
-        <sl-items-counter .total=${total} .activePage=${1} .itemsPerPage=${10}></sl-items-counter>
+        <sl-paginator-status .total=${total} .activePage=${1} .itemsPerPage=${10}></sl-paginator-status>
         <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${1} .itemsPerPage=${10}></sl-paginator>
-        <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${10}></sl-page-size>
+        <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${10}></sl-paginator-size>
       </div>
     `;
   }
@@ -178,13 +181,14 @@ export const PaginatedDataSourceWithSorter: Story = {
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-        pageSize = document.querySelector('sl-page-size') as PageSize,
-        visibleItems = document.querySelector('sl-items-counter') as ItemsCounter,
+        pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+        visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus,
         grid = document.querySelector('sl-grid') as Grid;
 
-      paginator?.addEventListener('sl-page-change', event => {
-        dataSource.paginate(event.detail, paginator.itemsPerPage ?? pageSizes[0]);
-        visibleItems.activePage = event.detail;
+      paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
+        visibleItems.activePage = detail;
       });
 
       pageSize?.addEventListener('sl-page-size-change', event => {
@@ -225,9 +229,9 @@ export const PaginatedDataSourceWithSorter: Story = {
         <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
-        <sl-items-counter .total=${total} .activePage=${1} .itemsPerPage=${10}></sl-items-counter>
+        <sl-paginator-status .total=${total} .activePage=${1} .itemsPerPage=${10}></sl-paginator-status>
         <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${1} .itemsPerPage=${10}></sl-paginator>
-        <sl-page-size .pageSizes=${pageSizes} .itemsPerPage=${10}></sl-page-size>
+        <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${10}></sl-paginator-size>
       </div>
     `;
   }

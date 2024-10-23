@@ -21,7 +21,7 @@
   margin-inline: var(--sl-space-new-md);
 }
 
-::slotted(sl-option-group:not(:first-child)) {
+::slotted(sl-option-group:not(:first-of-type)) {
   border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
   margin-block-start: var(--sl-space-new-sm);
   padding-block-start: var(--sl-space-new-md);

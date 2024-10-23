@@ -47,10 +47,11 @@ export const Basic: Story = {
         grid.items = people2.slice(startIndex, endIndex);
       });
 
-      pageSize?.addEventListener('sl-page-size-change', event => {
-        paginator.itemsPerPage = event.detail;
-        visibleItems.itemsPerPage = event.detail;
-        itemsPerPage = event.detail;
+      pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        paginator.itemsPerPage = detail;
+        visibleItems.itemsPerPage = detail;
+        itemsPerPage = detail;
       });
     });
 
@@ -113,10 +114,11 @@ export const PaginatedDataSourceWithFilter: Story = {
         visibleItems.activePage = detail;
       });
 
-      pageSize?.addEventListener('sl-page-size-change', event => {
-        paginator.itemsPerPage = event.detail;
-        visibleItems.itemsPerPage = event.detail;
-        dataSource.paginate(paginator.activePage, event.detail);
+      pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        paginator.itemsPerPage = detail;
+        visibleItems.itemsPerPage = detail;
+        dataSource.paginate(paginator.activePage, detail);
       });
 
       dataSource?.addEventListener('sl-update', () => {
@@ -191,10 +193,11 @@ export const PaginatedDataSourceWithSorter: Story = {
         visibleItems.activePage = detail;
       });
 
-      pageSize?.addEventListener('sl-page-size-change', event => {
-        paginator.itemsPerPage = event.detail;
-        visibleItems.itemsPerPage = event.detail;
-        dataSource.paginate(paginator.activePage, event.detail);
+      pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        paginator.itemsPerPage = detail;
+        visibleItems.itemsPerPage = detail;
+        dataSource.paginate(paginator.activePage, detail);
       });
 
       dataSource?.addEventListener('sl-update', () => {

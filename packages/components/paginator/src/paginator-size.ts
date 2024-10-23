@@ -2,13 +2,14 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './paginator-size.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-page-size-change': SlPageSizeChangeEvent;
+    'sl-page-size-change': SlChangeEvent; //SlPageSizeChangeEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -16,7 +17,7 @@ declare global {
   }
 }
 
-export type SlPageSizeChangeEvent = CustomEvent<number>;
+// export type SlPageSizeChangeEvent = CustomEvent<number>;
 
 /**
  * A component that can be used with the paginator.
@@ -31,7 +32,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
 
   /** @internal Emits when the page size has been selected/changed. */
-  @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlPageSizeChangeEvent>;
+  @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>; //EventEmitter<SlPageSizeChangeEvent>;
 
   /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
   @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];

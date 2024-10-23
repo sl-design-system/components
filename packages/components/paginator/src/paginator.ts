@@ -24,6 +24,8 @@ declare global {
 
 // export type SlPageChangeEvent = CustomEvent<number>;
 
+export type VisiblePagesSize2 = 'xs' | 'sm' | 'md' | 'lg';
+
 /**
  * A paginator component used when there is a lot of data that needs to be shown and cannot be shown at once, in one view/page.
  * Can be used separately or together with page size component and/or items counter component.
@@ -89,6 +91,25 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** Total amount of items. */
   @property() total = 1;
+
+  /** Amount of possibly visible pages in the paginator at once. */
+  @property() size?: VisiblePagesSize2;
+
+  /** @internal The value of visible pages amount, depending on the size. */
+  get visiblePageAmount(): number {
+    switch (this.size) {
+      case 'xs':
+        return 6;
+      case 'sm':
+        return 7;
+      case 'md':
+        return 9;
+      case 'lg':
+        return 11;
+      default:
+        return 11;
+    }
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -160,6 +181,20 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       });
     }
 
+    if (changes.has('size')) {
+      // if (this.activePage < 1) {
+      //   this.activePage = 1;
+      // } else if (this.activePage > this.#pages) {
+      //   this.activePage = this.#pages;
+      // }
+      //
+      // this.#setCurrentlyVisibleItems();
+
+      requestAnimationFrame(() => {
+        this.#update();
+      });
+    }
+
     if (changes.has('total')) {
       const itemsPerPage = this.itemsPerPage ?? 10;
       this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
@@ -178,6 +213,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('visiblePageSize', this.size);
     return html`
       <nav class="container">
         <sl-button
@@ -302,6 +338,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     buttonNext.style.display = '';
     selectWrapper.style.display = 'none';
     container.removeAttribute('mobile');
+    this.removeAttribute('mobile');
 
     pages.forEach(page => {
       page.style.display = '';
@@ -323,8 +360,19 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     possiblyVisible = Array.from(pages).filter(page => !possiblyHidden.includes(page));
 
+    console.log('1-possiblyvisible, possiblyhidden', possiblyVisible, possiblyHidden);
+
+    if (possiblyVisible.length > this.visiblePageAmount /*11*/) {
+      possiblyVisible = Array.from(possiblyVisible).slice(0, this.visiblePageAmount /*11*/);
+    }
+
+    console.log('2-possiblyvisible, possiblyhidden', possiblyVisible, possiblyHidden, this.#pages);
+
     /** Overflow variant. */
-    if (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) {
+    if (
+      (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) ||
+      this.#pages > this.visiblePageAmount /*11*/
+    ) {
       /** Mobile (compact) version with sl-select instead of sl-paginator-pages,
        * when possibly visible pages amount is smaller than 6
        * (when possibly visible pages > 6 it works fine with basic variant with pages, also with the overflow version).
@@ -460,6 +508,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     buttonNext.style.display = 'none';
     selectWrapper.style.display = '';
     container.setAttribute('mobile', '');
+    this.setAttribute('mobile', '');
     this.requestUpdate();
   }
 }

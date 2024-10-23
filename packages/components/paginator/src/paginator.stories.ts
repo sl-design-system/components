@@ -9,13 +9,15 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type PaginatorSize } from './paginator-size';
 import { PaginatorStatus } from './paginator-status';
-import { type Paginator } from './paginator.js';
+import { type Paginator, VisiblePagesSize2 } from './paginator.js';
 
-type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total'> & {
+type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total' | 'size'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
 type Story = StoryObj<Props>;
+
+const sizes: VisiblePagesSize2[] = ['xs', 'sm', 'md', 'lg'];
 
 export default {
   title: 'Navigation/Paginator',
@@ -29,23 +31,29 @@ export default {
     total: 100,
     itemsPerPage: 10,
     pageSizes: [5, 10, 15],
-    activePage: 2
+    activePage: 2,
+    size: 'lg'
   },
   argTypes: {
-    actions: {
-      table: { disable: true }
-    },
-    content: {
-      table: { disable: true }
-    }
-  },
-  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
+    size: {
+      control: 'radio',
+      options: sizes
+    } //,
+    // actions: {
+    //   table: { disable: true }
+    // },
+    // content: {
+    //   table: { disable: true }
+    // }
+  }, // TODO: undefined option for size as well?
+  render: ({ activePage, itemsPerPage, pageSizes, total, size }) => {
     return html`
       <sl-paginator
         .total=${total}
         .pageSizes=${pageSizes}
         .activePage=${activePage}
         .itemsPerPage=${itemsPerPage}
+        .size=${size}
       ></sl-paginator>
     `;
   }
@@ -96,32 +104,26 @@ export const All: Story = {
   args: {
     total: 200
   },
-  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
+  render: ({ activePage, itemsPerPage, pageSizes, size, total }) => {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
         pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
         visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
 
       paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
-        console.log('event', event);
         visibleItems.activePage = event.detail as number;
       });
 
-      // paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
-      //   // onChange(event.detail);
-      //   visibleItems.activePage = event.detail as number;
-      // });
-
-      pageSize?.addEventListener('sl-page-size-change', event => {
-        paginator.itemsPerPage = event.detail;
-        visibleItems.itemsPerPage = event.detail;
+      pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        paginator.itemsPerPage = detail;
+        visibleItems.itemsPerPage = detail;
       });
     });
     return html`
       <style>
         .pagination {
-          display: grid;
-          grid-template-columns: 20% 50% 20%;
+          display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 16px;
@@ -146,6 +148,7 @@ export const All: Story = {
           .pageSizes=${pageSizes}
           .activePage=${activePage}
           .itemsPerPage=${itemsPerPage}
+          .size=${size}
         ></sl-paginator>
         <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>
       </div>

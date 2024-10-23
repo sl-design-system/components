@@ -61,7 +61,7 @@ button {
   min-inline-size: var(--_min-width);
   padding: var(--_padding-block) 0;
   position: relative;
-  transition: background var(--_transition-duration) var(--_transition-easing);
+  transition: var(--_transition-duration) var(--_transition-easing);
 }
 
 button:focus-visible {

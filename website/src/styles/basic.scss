@@ -1,6 +1,6 @@
 @import 'breakpoints';
 
-*:focus-visible:not(input, sl-button, sl-text-area, sl-tab) {
+*:focus-visible:not(input, sl-button, sl-text-area, sl-tab, sl-toggle-button) {
   border-radius: 0.6rem;
   box-shadow: var(--focus-box-shadow);
   outline: none;

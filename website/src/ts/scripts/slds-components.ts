@@ -3,26 +3,40 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
   faArrowUpRightFromSquare,
+  faBadgeCheck as FarBadgeCheck,
+  faBellExclamation as farBellExclamation,
+  faBold as farBold,
   faBug,
   faCode,
   faCopy,
   faFileEdit,
   faFloppyDisk,
+  faGrid as farGrid,
   faGear,
+  faGear as farGear,
+  faItalic as farItalic,
+  faListUl as farListUl,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
   faTrash,
   faTruckFast,
-  faXmark,
-  faGear as farGear
+  faUnderline as farUnderline,
+  faXmark
 } from '@fortawesome/pro-regular-svg-icons';
 import {
+  faBadgeCheck as FasBadgeCheck,
+  faBellExclamation as fasBellExclamation,
+  faBold as fasBold,
   faEnvelope,
+  faGrid as fasGrid,
+  faGear as fasGear,
   faHandBackPointUp,
+  faItalic as fasItalic,
+  faListUl as fasListUl,
   faSchool,
   faScreenUsers,
-  faGear as fasGear
+  faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@oddbird/popover-polyfill';
 import '@sl-design-system/accordion/register.js';
@@ -58,6 +72,7 @@ import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/toggle-button/register.js';
+import '@sl-design-system/toggle-group/register.js';
 import '@sl-design-system/tooltip/register.js';
 
 setup();
@@ -82,8 +97,22 @@ Icon.register(
   faTrash,
   faTruckFast,
   faXmark,
+  FarBadgeCheck,
+  farBellExclamation,
+  farBold,
+  farGrid,
   farGear,
-  fasGear
+  farItalic,
+  farListUl,
+  farUnderline,
+  FasBadgeCheck,
+  fasBellExclamation,
+  fasBold,
+  fasGrid,
+  fasGear,
+  fasItalic,
+  fasListUl,
+  fasUnderline
 );
 
 declare global {

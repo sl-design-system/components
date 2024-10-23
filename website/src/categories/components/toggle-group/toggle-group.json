@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "toggle-group",
+  "componentStatus": "preview",
+  "componentTagName": [
+    {
+      "name": "Toggle group",
+      "selector": "sl-toggle-group"
+    }
+  ]
+}

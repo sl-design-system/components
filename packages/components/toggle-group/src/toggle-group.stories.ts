@@ -52,7 +52,7 @@ Icon.register(
 
 export default {
   title: 'Actions/Toggle group',
-  tags: ['draft'],
+  tags: ['preview'],
   args: {
     disabled: false,
     multiple: false

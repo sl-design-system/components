@@ -93,9 +93,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.itemsPerPage) {
-      this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
-    }
+    // if (!this.itemsPerPage) {
+    //   this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
+    // }
+
+    this.itemsPerPage ||= this.pageSizes?.[0] || 10;
 
     // const itemsPerPage = this.itemsPerPage ?? 10;
     this.#pages = Math.ceil(this.total / this.itemsPerPage);
@@ -130,7 +132,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('itemsPerPage')) {
       const itemsPerPage = this.itemsPerPage ?? 10;
-      this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
+      this.#pages = Math.ceil(this.total / itemsPerPage);
 
       this.#setCurrentlyVisibleItems();
 

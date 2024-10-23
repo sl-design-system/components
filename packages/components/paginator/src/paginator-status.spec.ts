@@ -143,7 +143,7 @@ describe('sl-paginator-status', () => {
       expect(ariaLive).to.have.rendered.text('Currently shown from 1 to 15 of 209 items');
     });
 
-    it('should have a proper active page when set bigger than the last one', async () => {
+    it('should have set active page to the last one when the number set is bigger than the total number of pages', async () => {
       let itemsCounterLabel = el.renderRoot.textContent?.trim();
 
       expect(itemsCounterLabel).to.exist;

@@ -12,16 +12,42 @@
   --_transition-easing: var(--sl-animation-button-easing);
 }
 
-button:focus-visible {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-  z-index: 1;
+:host(:hover) {
+  --_background: var(--sl-color-button-default-ghost-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-hover-border);
+  --_color: var(--sl-color-button-default-ghost-hover-foreground);
 }
 
-button:where(:active, :hover) {
-  transition-duration: var(--_transition-duration);
-  transition-property: background, border-color, color, outline-color;
-  transition-timing-function: var(--_transition-easing);
+:host(:active) {
+  --_background: var(--sl-color-button-default-ghost-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-active-border);
+  --_color: var(--sl-color-button-default-ghost-active-foreground);
+}
+
+:host([active]) {
+  --_background: var(--sl-color-button-default-ghost-selected-idle-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
+  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
+}
+
+:host([active]:hover) {
+  --_background: var(--sl-color-button-default-ghost-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-hover-border);
+  --_color: var(--sl-color-button-default-ghost-hover-foreground);
+}
+
+:host([active]:active) {
+  --_background: var(--sl-color-button-default-ghost-selected-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-active-border);
+  --_color: var(--sl-color-button-default-ghost-active-foreground);
+}
+
+:host([disabled]) {
+  --_background: var(--sl-color-button-default-ghost-disabled-background);
+  --_color: var(--sl-color-button-default-ghost-disabled-foreground);
+
+  cursor: default;
+  pointer-events: none;
 }
 
 button {
@@ -33,41 +59,19 @@ button {
   font: var(--_font);
   justify-content: center;
   min-inline-size: var(--_min-width);
-  padding-block: var(--_padding-block);
-  padding-inline: 0;
+  padding: var(--_padding-block) 0;
   position: relative;
+  transition: background var(--_transition-duration) var(--_transition-easing);
 }
 
-:host(:not([disabled]):hover) {
-  --_background: var(--sl-color-button-default-ghost-hover-background);
-  --_border-color: var(--sl-color-button-default-ghost-hover-border);
-  --_color: var(--sl-color-button-default-ghost-hover-foreground);
-  --_transform: var(--sl-transform-button-default-ghost-hover);
+button:focus-visible {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+  z-index: 1;
 }
 
-:host(:not([disabled]):active) {
-  --_background: var(--sl-color-button-default-ghost-active-background);
-  --_border-color: var(--sl-color-button-default-ghost-active-border);
-  --_color: var(--sl-color-button-default-ghost-active-foreground);
-  --_transform: var(--sl-transform-button-default-ghost-active);
-}
-
-:host([active]) {
-  --_background: var(--sl-color-button-default-ghost-selected-idle-background);
-  --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
-  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
-}
-
-:host([active]:not([disabled]):hover) {
-  --_background: var(--sl-color-button-default-ghost-selected-hover-background);
-  --_border-color: var(--sl-color-button-default-ghost-selected-hover-border);
-  --_color: var(--sl-color-button-default-ghost-hover-foreground);
-  --_transform: var(--sl-transform-button-default-ghost-hover);
-}
-
-:host([active]:not([disabled]):active) {
-  --_background: var(--sl-color-button-default-ghost-selected-active-background);
-  --_border-color: var(--sl-color-button-default-ghost-selected-active-border);
-  --_color: var(--sl-color-button-default-ghost-active-foreground);
-  --_transform: var(--sl-transform-button-default-ghost-active);
+button:where(:active, :hover) {
+  transition-duration: var(--_transition-duration);
+  transition-property: background, border-color, color, outline-color;
+  transition-timing-function: var(--_transition-easing);
 }

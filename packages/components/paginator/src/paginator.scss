@@ -27,17 +27,17 @@
 
 .container {
   align-items: center;
-  display: grid;
+  display: flex;
   gap: var(--_gap);
-  grid-template-columns: 1fr auto 1fr;
 
   // to make focus-ring visible with overflow hidden:
   margin: calc(var(--_focus-space) * -1);
+  min-inline-size: 0;
   padding: 0;
 }
 
 .container[mobile] {
-  display: block;
+  // display: block;
 
   // to align with changes made for focus ring visibility with overflow hidden:
   margin: var(--_focus-space);

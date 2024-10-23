@@ -72,14 +72,14 @@ describe('sl-paginator', () => {
       await new Promise(resolve => setTimeout(resolve, 100));
     });
 
-    it('should have a proper active page when set smaller than 1', async () => {
+    it('should go to page 1 when set page is smaller than 1', async () => {
       el.activePage = -1;
       await el.updateComplete;
 
       expect(el.activePage).to.equal(1);
     });
 
-    it('should have a proper active page when set bigger than the last one', async () => {
+    it('should have set active page to the last one when the number set is bigger than the total number of pages', async () => {
       el.activePage = 100;
       await el.updateComplete;
 

@@ -20,6 +20,11 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Navigation/Paginator',
   tags: ['draft'],
+  parameters: {
+    viewport: {
+      defaultViewport: 'reset'
+    }
+  },
   args: {
     total: 100,
     itemsPerPage: 10,
@@ -32,11 +37,6 @@ export default {
     },
     content: {
       table: { disable: true }
-    }
-  },
-  parameters: {
-    viewport: {
-      defaultViewport: 'reset'
     }
   },
   render: ({ activePage, itemsPerPage, pageSizes, total }) => {
@@ -55,20 +55,18 @@ export const Basic: Story = {};
 
 export const Overflow: Story = {
   args: {
-    ...Basic.args,
     total: 900
   }
 };
 
 export const Mobile: Story = {
-  args: {
-    ...Basic.args,
-    activePage: 5
-  },
   parameters: {
     viewport: {
       defaultViewport: 'iphone5'
     }
+  },
+  args: {
+    activePage: 5
   },
   render: ({ activePage, itemsPerPage, pageSizes, total }) => {
     return html`
@@ -83,18 +81,12 @@ export const Mobile: Story = {
 };
 
 export const PageSizeComponent: Story = {
-  args: {
-    ...Basic.args
-  },
   render: ({ pageSizes, itemsPerPage }) => {
     return html`<sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>`;
   }
 };
 
 export const ItemsCounterComponent: Story = {
-  args: {
-    ...Basic.args
-  },
   render: ({ activePage, itemsPerPage, total }) => html`
     <sl-paginator-status .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator-status>
   `
@@ -102,7 +94,6 @@ export const ItemsCounterComponent: Story = {
 
 export const All: Story = {
   args: {
-    ...Basic.args,
     total: 200
   },
   render: ({ activePage, itemsPerPage, pageSizes, total }) => {

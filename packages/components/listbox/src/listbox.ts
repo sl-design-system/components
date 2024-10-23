@@ -35,12 +35,14 @@ export class Listbox extends LitElement {
           min-block-size: auto;
           padding: var(--sl-space-new-sm) var(--sl-space-new-md);
           user-select: none;
+          white-space: normal;
         }
         sl-listbox option::before {
           aspect-ratio: 1;
           background-color: currentColor;
           content: '';
           display: inline-flex;
+          flex-shrink: 0;
           inline-size: 14px;
           mask-image: url("data:image/svg+xml,${encodeURIComponent(check.svg)}");
           mask-position: center;

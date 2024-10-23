@@ -51,11 +51,13 @@
   "devDependencies": {
     "@lit-labs/virtualizer": "^2.0.13",
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.5"
+    "@open-wc/scoped-elements": "^3.0.5",
+    "lit": "^3.1.4"
   },
   "peerDependencies": {
     "@lit-labs/virtualizer": "^2.0.12",
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.5"
+    "@open-wc/scoped-elements": "^3.0.5",
+    "lit": "^3.1.4"
   }
 }

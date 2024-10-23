@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/monorepo",
-  "packageManager": "yarn@4.4.1",
+  "packageManager": "yarn@4.5.1",
   "private": true,
   "repository": {
     "type": "git",

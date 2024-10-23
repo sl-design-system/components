@@ -5,8 +5,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-dc/base": "enabled",
-      "bingel-dc/light": "enabled",
-      "token-test/base": "disabled"
+      "bingel-dc/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:d862768937bd0d35b24f98a85118629fc7b35cb2,",
@@ -692,8 +691,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "bingel-int/base": "enabled",
-      "bingel-int/light": "enabled",
-      "token-test/base": "disabled"
+      "bingel-int/light": "enabled"
     },
     "$figmaStyleReferences": {}
   },
@@ -703,8 +701,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "clickedu/base": "enabled",
-      "clickedu/light": "enabled",
-      "token-test/base": "disabled"
+      "clickedu/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:3b0db99b398be113b810c4d06983807c3508ac71,",
@@ -1809,8 +1806,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "itslearning/base": "enabled",
-      "itslearning/light": "enabled",
-      "token-test/base": "disabled"
+      "itslearning/light": "enabled"
     },
     "$figmaStyleReferences": {
       "color.palette.primary.50": "S:81f94c85600eb5a455519aebf2265c864fd0e529,",
@@ -2760,8 +2756,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "kampus/base": "enabled",
-      "kampus/light": "enabled",
-      "token-test/base": "disabled"
+      "kampus/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:7cb020135af0657671582951d6d62d40e24b3b79,",
@@ -3962,8 +3957,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/light": "enabled",
-      "token-test/base": "disabled"
+      "magister/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:82656f62deb7a1ab8ab83d1dea04aa3b9e2958e5,",
@@ -5113,8 +5107,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "max/base": "enabled",
-      "max/light": "enabled",
-      "token-test/base": "disabled"
+      "max/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:61d892acbfb0957e4286e168a9878f3f663f438d,",
@@ -5972,8 +5965,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/light": "enabled",
-      "token-test/base": "disabled"
+      "neon/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e99a01cb7c691ea3724529a5ed35448899c014a7,",
@@ -7086,8 +7078,7 @@
       "primitives": "source",
       "system": "source",
       "sanoma-learning/light-new": "enabled",
-      "sanoma-learning/base-new": "enabled",
-      "token-test/base": "disabled"
+      "sanoma-learning/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:9d741285dde5790b1e99f1f9a902df7e67409616,",
@@ -8771,8 +8762,7 @@
       "primitives": "source",
       "system": "source",
       "sanoma-learning/base-new": "enabled",
-      "sanoma-learning/dark-new": "enabled",
-      "token-test/base": "disabled"
+      "sanoma-learning/dark-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e436f1f9f05abf7e76d0f3753b0a9e05e7ad0753,",
@@ -10275,8 +10265,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "neon/base": "enabled",
-      "neon/dark": "enabled",
-      "token-test/base": "disabled"
+      "neon/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:5cf7b392afc2f205a80bd6a89cbca492a5117ec1,",
@@ -11347,8 +11336,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "teas/base": "enabled",
-      "teas/light": "enabled",
-      "token-test/base": "disabled"
+      "teas/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:a18cd22854d1f77c00da09d143ce5cb088117cd8,",
@@ -12686,8 +12674,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "magister/base": "enabled",
-      "magister/dark": "enabled",
-      "token-test/base": "disabled"
+      "magister/dark": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e490577a117b657a4f6379ec6fb83921546a29b0,",
@@ -14821,8 +14808,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "myvanin_onhold/base": "enabled",
-      "myvanin_onhold/light": "enabled",
-      "token-test/base": "disabled"
+      "myvanin_onhold/light": "enabled"
     }
   },
   {
@@ -15946,8 +15932,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "editorial-suite/base": "enabled",
-      "editorial-suite/light": "enabled",
-      "token-test/base": "disabled"
+      "editorial-suite/light": "enabled"
     }
   },
   {
@@ -16922,8 +16907,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "my-digital-book/base": "enabled",
-      "my-digital-book/light": "enabled",
-      "token-test/base": "disabled"
+      "my-digital-book/light": "enabled"
     }
   },
   {
@@ -17951,8 +17935,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-utbildning_onhold/base": "enabled",
-      "sanoma-utbildning_onhold/light": "enabled",
-      "token-test/base": "disabled"
+      "sanoma-utbildning_onhold/light": "enabled"
     }
   },
   {

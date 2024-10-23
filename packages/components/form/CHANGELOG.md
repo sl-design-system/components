@@ -1,5 +1,20 @@
 # @sl-design-system/form
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1580](https://github.com/sl-design-system/components/pull/1580) [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6) - Improve reset and submit behavior:
+  - Add new `requestSubmit()` method on `<sl-form>`
+  - Add `sl-reset` and `sl-submit` events on `<sl-form>`
+  - Fix bug where resetting a form did not clear the validation messages
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+  - @sl-design-system/inline-message@1.0.2
+
 ## 1.0.4
 
 ### Patch Changes

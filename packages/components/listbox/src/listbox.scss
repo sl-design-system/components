@@ -1,4 +1,6 @@
 :host {
+  align-items: stretch;
+  contain: layout paint style;
   display: flex;
   flex-direction: column;
   gap: var(--sl-space-new-2xs);
@@ -8,7 +10,14 @@
   scrollbar-width: thin;
 }
 
+::slotted(*) {
+  flex: 1;
+}
+
+::slotted(option),
 ::slotted(sl-option) {
+  contain: layout paint style;
+  content-visibility: auto;
   margin-inline: var(--sl-space-new-md);
 }
 

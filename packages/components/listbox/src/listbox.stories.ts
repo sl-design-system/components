@@ -1,3 +1,4 @@
+import '@sl-design-system/badge/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -14,16 +15,25 @@ export default {
     }
   },
   render: ({ options }) => {
-    return html`<sl-listbox>${options?.()}</sl-listbox>`;
+    return html`
+      <style>
+        sl-listbox {
+          border: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+          border-radius: var(--sl-size-borderRadius-default);
+          padding: var(--sl-space-new-md) 0;
+        }
+      </style>
+      <sl-listbox>${options?.()}</sl-listbox>
+    `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
   args: {
     options: () => html`
-      <sl-option>Option 1</sl-option>
-      <sl-option>Option 2</sl-option>
-      <sl-option>Option 3</sl-option>
+      <option>Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
     `
   }
 };
@@ -31,9 +41,9 @@ export const Basic: Story = {
 export const Disabled: Story = {
   args: {
     options: () => html`
-      <sl-option disabled>Option 1</sl-option>
-      <sl-option>Option 2</sl-option>
-      <sl-option>Option 3</sl-option>
+      <option disabled>Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
     `
   }
 };
@@ -41,10 +51,10 @@ export const Disabled: Story = {
 export const Divider: Story = {
   args: {
     options: () => html`
-      <sl-option>Option 1</sl-option>
-      <sl-option>Option 2</sl-option>
+      <option>Option 1</option>
+      <option>Option 2</option>
       <hr />
-      <sl-option>Option 3</sl-option>
+      <option>Option 3</option>
     `
   }
 };
@@ -52,14 +62,24 @@ export const Divider: Story = {
 export const Grouped: Story = {
   args: {
     options: () => html`
-      <sl-option-group label="Group 1">
-        <sl-option>Option 1</sl-option>
-        <sl-option>Option 2</sl-option>
-      </sl-option-group>
-      <sl-option-group label="Group 2">
-        <sl-option>Option 3</sl-option>
-        <sl-option>Option 4</sl-option>
-      </sl-option-group>
+      <optgroup label="Group 1">
+        <option>Option 1</option>
+        <option>Option 2</option>
+      </optgroup>
+      <optgroup label="Group 2">
+        <option>Option 3</option>
+        <option>Option 4</option>
+      </optgroup>
+    `
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    options: () => html`
+      <option></option>
+      <option>Exercitation laborum elit.</option>
+      <option>Aliqua sunt.</option>
     `
   }
 };
@@ -67,14 +87,29 @@ export const Grouped: Story = {
 export const Selected: Story = {
   args: {
     options: () => html`
-      <sl-option>Option 1</sl-option>
-      <sl-option selected>Option 2</sl-option>
-      <sl-option>Option 3</sl-option>
+      <option>Option 1</option>
+      <option selected>Option 2</option>
+      <option>Option 3</option>
     `
   }
 };
 
-export const Overflow: Story = {
+export const RichContent: Story = {
+  args: {
+    options: () => html`
+      <style>
+        sl-badge {
+          margin-inline-start: auto;
+        }
+      </style>
+      <sl-option>Chapter 1 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+      <sl-option>Chapter 2 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+      <sl-option>Chapter 3 <sl-badge emphasis="bold">Draft</sl-badge></sl-option>
+    `
+  }
+};
+
+export const Scrolling: Story = {
   parameters: {
     layout: 'fullscreen'
   },
@@ -84,8 +119,6 @@ export const Overflow: Story = {
         max-block-size: calc(100dvh - 1rem);
       }
     </style>
-    <sl-listbox>
-      ${Array.from({ length: 100 }).map((_, i) => html`<sl-option>Option ${i + 1}</sl-option>`)}
-    </sl-listbox>
+    <sl-listbox>${Array.from({ length: 100 }).map((_, i) => html`<option>Option ${i + 1}</option>`)}</sl-listbox>
   `
 };

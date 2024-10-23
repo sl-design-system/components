@@ -18,7 +18,8 @@ export const setup = (): void => {
     avatar: {
       shape: 'circle',
       badgeGapWidth: 2
-    }
+    },
+    icons
   };
 
   Icon.register(icons as IconLibrary);

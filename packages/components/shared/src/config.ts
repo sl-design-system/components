@@ -6,7 +6,14 @@ declare global {
   }
 }
 
-export type ConfigSettings = object;
+export type ConfigSettings = {
+  icons?: {
+    [key: string]: {
+      svg: string;
+    };
+  };
+  [key: string]: unknown;
+};
 
 const defaultConfig: ConfigSettings = {};
 

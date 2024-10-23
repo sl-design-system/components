@@ -27,7 +27,12 @@
   cursor: pointer;
   display: flex;
   gap: var(--sl-space-new-md);
+  inline-size: 100%;
   padding: var(--sl-space-new-sm) var(--sl-space-new-md);
+}
+
+[part='wrapper'] {
+  flex: 1;
 }
 
 sl-icon {

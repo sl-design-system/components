@@ -25,7 +25,7 @@ declare global {
 
 export type ComboboxOption = {
   id: string;
-  element?: Option;
+  element?: Option | HTMLOptionElement;
   content: string;
   current?: boolean;
   custom?: boolean;
@@ -492,7 +492,9 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   }
 
   #onOptionsClick(event: Event): void {
-    const optionElement = event.composedPath().find((el): el is Option => el instanceof Option);
+    const optionElement = event
+      .composedPath()
+      .find((el): el is Option | HTMLOptionElement => el instanceof Option || el instanceof HTMLOptionElement);
 
     if (optionElement instanceof CreateCustomOption) {
       this.#addCustomOption(optionElement.value as string);
@@ -602,10 +604,10 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
     option.element?.remove();
   }
 
-  #flattenOptions(el: Element): Option[] {
-    if (el instanceof Option) {
+  #flattenOptions(el: Element): Array<Option | HTMLOptionElement> {
+    if (el instanceof Option || el instanceof HTMLOptionElement) {
       return [el];
-    } else if (el instanceof OptionGroup) {
+    } else if (el instanceof OptionGroup || el instanceof HTMLOptGroupElement) {
       return Array.from(el.children).flatMap(child => this.#flattenOptions(child));
     } else if (el instanceof HTMLSlotElement) {
       return Array.from(el.assignedElements({ flatten: true })).flatMap(child => this.#flattenOptions(child));
@@ -728,7 +730,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
           el.id ||= `sl-combobox-option-${nextUniqueId++}`;
 
           if (!el.hasAttribute('aria-selected')) {
-            el.setAttribute('aria-selected', 'false');
+            el.setAttribute('aria-selected', el.selected?.toString() ?? 'false');
           }
 
           return {

@@ -18,7 +18,7 @@ export class FormInDialog extends Dialog {
   }
 
   /** @internal */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [Dialog.styles, styles];
 
   /** Controller for managing form state. */
   #form = new FormController(this);

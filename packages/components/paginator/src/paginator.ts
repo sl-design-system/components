@@ -50,6 +50,20 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** Active page. */
   #activePage = 1;
 
+  /** @internal To check whether it's a first update. */
+  #firstUpdate = true;
+
+  /** @internal Whether there is a mobile (compact) variant with `sl-select` instead of `pages` visible or not. */
+  #mobileVariant = false;
+
+  /** @internal Pages amount. */
+  #pages = 1;
+
+  /** Observe changes in size of the container. */
+  #observer = new ResizeObserver(() => {
+    requestAnimationFrame(() => this.#update());
+  });
+
   get activePage(): number {
     return this.#activePage;
   }
@@ -64,28 +78,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal Currently visible items on the current page. */
   @state() currentlyVisibleItems = 1;
 
-  /** @internal To check whether it's a first update. */
-  #firstUpdate = true;
-
   /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
-
-  /** @internal Whether there is a mobile (compact) variant with `sl-select` instead of `pages` visible or not. */
-  #mobileVariant = false;
 
   /** @internal Emits when the page has been selected/changed. */
   @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlChangeEvent<number>>; //EventEmitter<SlPageChangeEvent>; //EventEmitter<SlChangeEvent<number>>;
 
-  /** @internal Pages amount. */
-  #pages = 1;
-
   /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
   @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
-
-  /** Observe changes in size of the container. */
-  #observer = new ResizeObserver(() => {
-    requestAnimationFrame(() => this.#update());
-  });
 
   /** Total amount of items. */
   @property() total = 1;
@@ -277,12 +277,17 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   #update(): void {
     const buttonPrev = this.renderRoot.querySelector('sl-button.prev') as Button,
       buttonNext = this.renderRoot.querySelector('sl-button.next') as Button,
-      gap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0'),
+      gap = parseInt(getComputedStyle(this).getPropertyValue('--sl-space-paginator-gap') || '0'),
       pages = this.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
       pagesWrapper = this.renderRoot.querySelector('.pages-wrapper') as HTMLElement,
       selectWrapper = this.renderRoot.querySelector('.select-wrapper') as HTMLDivElement,
       container = this.renderRoot.querySelector('.container') as HTMLDivElement,
       lastPage = pages.length;
+
+    // --sl-space-paginator-gap
+    // parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0')
+
+    console.log('gap', gap);
 
     let totalAmountOfPagesWidth = 0,
       [hiddenButtons, hiddenButtonsLeft, hiddenButtonsRight, possiblyVisible, possiblyHidden]: HTMLLIElement[][] =

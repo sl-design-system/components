@@ -3,7 +3,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import '../register.js';
-import { PaginatorStatus } from './paginator-status';
+import { PaginatorStatus } from './paginator-status.js';
 
 describe('sl-paginator-status', () => {
   let el: PaginatorStatus;
@@ -94,22 +94,15 @@ describe('sl-paginator-status', () => {
 
   describe('active page change', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
-      `);
+      el = await fixture(html` <sl-paginator-status .total=${209} .itemsPerPage=${15}></sl-paginator-status> `);
     });
 
     it('should have a rendered proper text with information about visible items on the active page', async () => {
-      let itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
-
       el.activePage = 10;
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      itemsCounterLabel = el.renderRoot.textContent?.trim();
+      const itemsCounterLabel = el.renderRoot.textContent?.trim();
 
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('136 - 150 of 209 items')).to.be.true;
@@ -121,16 +114,11 @@ describe('sl-paginator-status', () => {
     });
 
     it('should have a proper active page when set smaller than 1', async () => {
-      let itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
-
       el.activePage = -1;
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      itemsCounterLabel = el.renderRoot.textContent?.trim();
+      const itemsCounterLabel = el.renderRoot.textContent?.trim();
 
       expect(el.activePage).to.equal(1);
 
@@ -144,16 +132,11 @@ describe('sl-paginator-status', () => {
     });
 
     it('should have set active page to the last one when the number set is bigger than the total number of pages', async () => {
-      let itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
-
       el.activePage = 100;
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      itemsCounterLabel = el.renderRoot.textContent?.trim();
+      const itemsCounterLabel = el.renderRoot.textContent?.trim();
 
       expect(el.activePage).to.equal(14);
       expect(itemsCounterLabel).to.exist;

@@ -16,7 +16,7 @@ describe('sl-paginator-page', () => {
         // empty
       }
 
-      el = await fixture(html` <sl-page>1</sl-page> `);
+      el = await fixture(html` <sl-paginator-page>1</sl-paginator-page> `);
     });
 
     it('should have a button', () => {

@@ -86,7 +86,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
         : nothing}
       <!-- We want this to be read every time the active page changes. -->
       <span id="live" aria-live="polite" aria-atomic="true">
-        ${msg(str`Currently selected amount of items per page: ${this.itemsPerPage}`)}
+        ${msg(str`Amount of items per page: ${this.itemsPerPage}`)}
       </span>
     `;
   }

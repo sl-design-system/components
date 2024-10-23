@@ -1,23 +1,15 @@
 :host {
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-space: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
-
-  // variable name used in the calculation in the component:
-  --_gap: var(--sl-space-paginator-gap);
-  --_padding-block: var(--sl-space-sm);
-  --_padding-inline: var(--sl-space-sm);
-  --_select-min-inline-size: var(--sl-size-paginator-select-min-width);
-  --_wrapper-padding-inline: var(--sl-space-sm);
 
   display: flex;
   justify-content: center;
+  min-inline-size: 0;
 }
 
 .pages-wrapper {
   align-items: center;
   display: flex;
-  gap: var(--_gap);
+  gap: var(--sl-space-paginator-gap);
   margin: 0;
   overflow-x: hidden;
 
@@ -28,7 +20,7 @@
 .container {
   align-items: center;
   display: flex;
-  gap: var(--_gap);
+  gap: var(--sl-space-paginator-gap);
 
   // to make focus-ring visible with overflow hidden:
   margin: calc(var(--_focus-space) * -1);
@@ -37,8 +29,6 @@
 }
 
 .container[mobile] {
-  // display: block;
-
   // to align with changes made for focus ring visibility with overflow hidden:
   margin: var(--_focus-space);
 }
@@ -55,11 +45,11 @@ li {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--_gap);
+  gap: var(--sl-space-paginator-gap);
   justify-content: center;
 
   sl-select {
-    min-inline-size: var(--_select-min-inline-size);
+    min-inline-size: var(--sl-size-paginator-select-min-width);
   }
 }
 

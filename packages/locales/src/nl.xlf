@@ -194,10 +194,6 @@
   <source><x id="0" equiv-text="${this.activePage}"/>, page</source>
   <target><x id="0" equiv-text="${button.innerText.trim()}"/>, pagina</target>
 </trans-unit>
-<trans-unit id="s0c98b8a16142b9f1">
-  <source>Currently selected amount of items per page: <x id="0" equiv-text="${this.itemsPerPage}"/></source>
-  <target>Momenteel geselecteerd aantal items per pagina: <x id="0" equiv-text="${this.itemsPerPage}"/></target>
-</trans-unit>
 <trans-unit id="saf8b0c7c5cb54094">
   <source>Currently shown from <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.total}"/> items</source>
   <target>Momenteel weergegeven van <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> items</target>
@@ -209,6 +205,10 @@
 <trans-unit id="sa477d2feda7d475e">
   <source>Go to the next page (<x id="0" equiv-text="${this.activePage + 1}"/>)</source>
   <target>Ga naar de volgende pagina <x id="0" equiv-text="${this.activePage + 1}"/></target>
+</trans-unit>
+<trans-unit id="s6ef3b70aa370dba4">
+  <source>Amount of items per page: <x id="0" equiv-text="${this.itemsPerPage}"/></source>
+  <target>Aantal items per pagina: <x id="0" equiv-text="${this.itemsPerPage}"/></target>
 </trans-unit>
 </body>
 </file>

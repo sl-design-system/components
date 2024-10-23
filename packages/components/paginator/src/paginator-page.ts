@@ -1,4 +1,5 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { state } from 'lit/decorators.js';
 import styles from './paginator-page.scss.js';
 
 declare global {
@@ -15,27 +16,18 @@ export class PaginatorPage extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** @internal Page number used for the aria-label. */
-  #pageNumber = '';
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.#pageNumber = Array.from(this.childNodes)
-      .filter(node => node.nodeType === Node.TEXT_NODE)
-      .map(node => node.textContent?.trim())
-      .join('');
-  }
+  @state() pageNumber?: string;
 
   override render(): TemplateResult {
     return html`
-      <button aria-label=${this.#pageNumber + ', page'}>
+      <button aria-label=${this.pageNumber + ', page'}>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </button>
     `;
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.#pageNumber = event.target
+    this.pageNumber = event.target
       .assignedNodes({ flatten: true })
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent?.trim())

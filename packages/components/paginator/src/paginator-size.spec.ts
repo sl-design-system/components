@@ -22,7 +22,7 @@ describe('sl-paginator-size', () => {
       const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
 
       expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently selected amount of items per page: 10');
+      expect(ariaLive).to.have.rendered.text('Amount of items per page: 10');
     });
 
     it('should not have a select inside when pageSizes is not set', () => {

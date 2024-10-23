@@ -6,7 +6,6 @@ import { str } from '@lit/localize';
 export const templates = {
   s00a84204340a1db4: 'Geselecteerd',
   s091d3d07b5b3076f: 'Ok',
-  s0c98b8a16142b9f1: str`Momenteel geselecteerd aantal items per pagina: ${0}`,
   s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',
   s19fe06e3408e53d0: 'succes',
@@ -27,6 +26,7 @@ export const templates = {
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
   s6580790b036f0c6f: 'actief',
   s6abb1cd87fe0114e: 'Home',
+  s6ef3b70aa370dba4: str`Aantal items per pagina: ${0}`,
   s708f844ea6d35edd: str`Momenteel actief pagina ${0} van ${1} pagina's`,
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',

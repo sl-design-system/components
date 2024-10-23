@@ -18,6 +18,9 @@ export class PaginatorStatus extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** @internal Pages amount. */
+  #pages = 1;
+
   /** Currently active page, if not set - default to 1. */
   @property({ type: Number, attribute: 'active-page' }) activePage = 1;
 
@@ -26,9 +29,6 @@ export class PaginatorStatus extends LitElement {
 
   /** Items per page, if not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage = 10;
-
-  /** @internal Pages amount. */
-  #pages = 1;
 
   /** Total amount of items, if not set - default to 1. */
   @property({ type: Number }) total = 1;

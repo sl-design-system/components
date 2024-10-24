@@ -1,5 +1,28 @@
 # @sl-design-system/dialog
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1576](https://github.com/sl-design-system/components/pull/1576) [`b3619c7`](https://github.com/sl-design-system/components/commit/b3619c75d92f72d1db06146c93b98a3a5f86c035) - Improve ability to `extends Dialog`
+
+  This change improves the ability to extend the Dialog component by splitting the `render()` method into smaller methods. This makes it easier to override specific parts of the Dialog component:
+
+  - `renderHeader(title: string, subtitle: string)`
+  - `renderBody()`
+  - `renderFooter()`
+  - `renderActions()`
+
+  The `renderHeader` method is slightly different. If all you want to do is add a title or subtitle to the header, you can override the method and call `return super.renderHeader('My title', 'My subtitle')`.
+
+  To be clear: the above API is only meant to be used when you are _extending_ the `Dialog` class. If you are using the `<sl-dialog>` element in your HTML, than you can still use the `header`, `body`, and `footer` slots as before.
+
+### Patch Changes
+
+- Updated dependencies [[`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/button@1.1.0
+  - @sl-design-system/shared@0.4.0
+
 ## 1.0.4
 
 ### Patch Changes

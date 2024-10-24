@@ -1,5 +1,11 @@
 # @sanomalearning/slds-sanoma-learning
 
+## 0.3.13
+
+### Patch Changes
+
+- [#1609](https://github.com/sl-design-system/components/pull/1609) [`515e2fb`](https://github.com/sl-design-system/components/commit/515e2fbbda7ecee92392b8ddf9f98c335fe32cf6) - Added tokens for grid
+
 ## 0.3.12
 
 ### Patch Changes

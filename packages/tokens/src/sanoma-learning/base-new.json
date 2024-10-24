@@ -123,15 +123,10 @@
         "type": "borderRadius",
         "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
       },
-      "pill": {
-        "value": "50%",
+      "full": {
+        "value": "50rem",
         "type": "borderRadius",
-        "description": "For pill-shaped elements like badges, applying rounding to both ends."
-      },
-      "circle": {
-        "value": "100%",
-        "type": "borderRadius",
-        "description": "Use for circular components with equal width and height, like icon buttons and avatars."
+        "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
       }
     },
     "borderWidth": {

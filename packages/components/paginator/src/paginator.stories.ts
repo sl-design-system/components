@@ -9,7 +9,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type PaginatorSize } from './paginator-size';
 import { PaginatorStatus } from './paginator-status';
-import { type Paginator, VisiblePagesSize2 } from './paginator.js';
+import { type Paginator, VisiblePagesSize } from './paginator.js';
 
 type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total' | 'size'> & {
   actions?(): string | TemplateResult;
@@ -17,7 +17,7 @@ type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'tota
 };
 type Story = StoryObj<Props>;
 
-const sizes: VisiblePagesSize2[] = ['xs', 'sm', 'md', 'lg'];
+const sizes: VisiblePagesSize[] = ['xs', 'sm', 'md', 'lg'];
 
 export default {
   title: 'Navigation/Paginator',

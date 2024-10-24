@@ -6,6 +6,34 @@
   min-inline-size: 0;
 }
 
+:host([mobile]) {
+  sl-button.prev,
+  sl-button.next {
+    display: none;
+  }
+
+  .container {
+    // to align with changes made for focus ring visibility with overflow hidden:
+    margin: var(--_focus-space);
+  }
+
+  .pages-wrapper {
+    display: none;
+  }
+
+  .select-wrapper {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sl-space-paginator-gap);
+    justify-content: center;
+
+    sl-select {
+      min-inline-size: var(--sl-size-paginator-select-min-width);
+    }
+  }
+}
+
 .pages-wrapper {
   align-items: center;
   display: flex;
@@ -15,6 +43,10 @@
 
   // to make focus-ring visible with overflow hidden:
   padding: var(--_focus-space);
+}
+
+.select-wrapper {
+  display: none;
 }
 
 .container {
@@ -28,29 +60,12 @@
   padding: 0;
 }
 
-.container[mobile] {
-  // to align with changes made for focus ring visibility with overflow hidden:
-  margin: var(--_focus-space);
-}
-
 li {
   align-items: start;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   list-style: none;
-}
-
-.select-wrapper {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sl-space-paginator-gap);
-  justify-content: center;
-
-  sl-select {
-    min-inline-size: var(--sl-size-paginator-select-min-width);
-  }
 }
 
 /** Hiding the aria-live element for the UI, but not for the screen readers. */

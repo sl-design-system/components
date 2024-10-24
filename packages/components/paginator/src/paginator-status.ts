@@ -44,7 +44,10 @@ export class PaginatorStatus extends LitElement {
       this.activePage = this.#pages;
     }
 
-    this.#setCurrentlyVisibleItems();
+    requestAnimationFrame(() => {
+      this.#setCurrentlyVisibleItems();
+    });
+    // this.#setCurrentlyVisibleItems();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -63,13 +66,17 @@ export class PaginatorStatus extends LitElement {
       }
 
       this.#pages = Math.ceil(this.total / this.itemsPerPage);
-      this.#setCurrentlyVisibleItems();
+      requestAnimationFrame(() => {
+        this.#setCurrentlyVisibleItems();
+      });
+      // this.#setCurrentlyVisibleItems();
     }
   }
 
   override render(): TemplateResult {
     const start = this.activePage === 1 ? 1 : (this.activePage - 1) * this.itemsPerPage + 1;
     const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems;
+    // console.log('start - end', start, end);
 
     return html`
       ${msg(str`${start} - ${end} of ${this.total} items`)}

@@ -436,8 +436,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         class=${classMap({ selected })}
         part=${parts.join(' ')}
         index=${index}
+        aria-rowindex=${index}
       >
-        ${index} ${rows[rows.length - 1].map(col => col.renderData(item))}
+        ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
   }

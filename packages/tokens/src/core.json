@@ -667,6 +667,22 @@
         "value": "{size.2xl}",
         "type": "sizing"
       }
+    },
+    "paginator": {
+      "pageButton": {
+        "minWidth": {
+          "value": "40px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      },
+      "Select": {
+        "minWidth": {
+          "value": "80px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      }
     }
   },
   "space": {
@@ -2065,6 +2081,12 @@
         "value": "{border.width.focusring.default} + {border.width.focusring.offset}",
         "type": "spacing"
       }
+    },
+    "paginator": {
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      }
     }
   },
   "text": {
@@ -2489,6 +2511,16 @@
         "value": "magnifying-glass",
         "type": "Icons",
         "description": "icon.core.search"
+      },
+      "caret-left-solid": {
+        "value": "caret-left",
+        "type": "Icons",
+        "description": "icon.core.caret-left-solid"
+      },
+      "caret-right-solid": {
+        "value": "caret-right",
+        "type": "Icons",
+        "description": "icon.core.caret-right-solid"
       }
     },
     "typeset": {

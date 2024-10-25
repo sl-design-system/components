@@ -569,7 +569,11 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
   }
 
   #onToggle(event: ToggleEvent): void {
-    if (event.newState === 'closed') {
+    if (event.newState === 'open') {
+      if (!this.multiple && this.currentSelection?.length) {
+        this.currentSelection[0].element?.scrollIntoView({ block: 'nearest' });
+      }
+    } else {
       this.#popoverJustClosed = false;
     }
   }

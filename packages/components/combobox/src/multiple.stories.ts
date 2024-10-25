@@ -6,6 +6,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import { type Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
+import { type Story } from './single.stories.js';
 
 type Props = Pick<
   Combobox,
@@ -14,7 +15,6 @@ type Props = Pick<
   | 'disabled'
   | 'filterResults'
   | 'groupSelected'
-  | 'multiple'
   | 'name'
   | 'placeholder'
   | 'required'
@@ -38,7 +38,6 @@ export default {
     disabled: false,
     filterResults: false,
     label: 'Label',
-    multiple: true,
     name: 'combobox',
     placeholder: 'Choose a component',
     required: false,
@@ -59,7 +58,6 @@ export default {
     hint,
     label,
     maxWidth,
-    multiple,
     name,
     options,
     placeholder,
@@ -87,13 +85,13 @@ export default {
             ?disabled=${disabled}
             ?filter-results=${filterResults}
             ?group-selected=${groupSelected}
-            ?multiple=${multiple}
             ?required=${required}
             ?select-only=${selectOnly}
             .autocomplete=${autocomplete}
             .name=${name}
             .placeholder=${placeholder}
             .value=${value}
+            multiple
             style=${`max-width: ${maxWidth ?? 'auto'}`}
           >
             ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
@@ -169,6 +167,40 @@ export const GroupSelected: Story = {
     ...Grouped.args,
     groupSelected: true,
     value: ['Button bar', 'Checkbox']
+  }
+};
+
+export const Required: Story = {
+  args: {
+    hint: 'The component is required. This means you must select an option in order for the field to be valid.',
+    reportValidity: true,
+    required: true
+  }
+};
+
+export const RichContent: Story = {
+  args: {
+    options: () => html`
+      <style>
+        sl-option::part(wrapper) {
+          gap: 0.5rem;
+        }
+        sl-badge {
+          flex-shrink: 0;
+          margin-inline-start: auto;
+        }
+      </style>
+      <sl-listbox>
+        <sl-option value="chapter-1">Chapter 1 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+        <sl-option value="chapter-2">Chapter 2 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+        <sl-option value="chapter-3">
+          Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod irure ut
+          anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum et eu
+          nisi id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem.
+          Lorem quis sint et et. <sl-badge emphasis="bold">Draft</sl-badge>
+        </sl-option>
+      </sl-listbox>
+    `
   }
 };
 

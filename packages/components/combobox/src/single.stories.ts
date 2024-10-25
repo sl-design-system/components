@@ -29,7 +29,7 @@ type Props = Pick<
   options?(): TemplateResult;
   reportValidity?: boolean;
 };
-type Story = StoryObj<Props>;
+export type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Combobox/Single',

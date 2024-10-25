@@ -167,9 +167,15 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 Let's explore the behavior of the toggle group:
 
 ### Focusable area
-When you reach the toogle group the first toogle control is focused, and you can move with the arrows.
+When you reach the toggle group, the first control is focused, and you can move with the left and right arrows between the controls. 
 
 ### Validation
-When you selecte an option within the label variant, you will get a checkmark to improve the succesfull feedback.
+To enhance usability, the toggle group provides clear visual cues for selected and unselected states. In Icon + Label and Icon Only variants, unselected toggles show a line icon, while selected toggles use a solid icon, making active states easy to spot. For Label Only toggles, a check mark appears on selection, ensuring consistent, intuitive feedback across all variants.
+
+### Default Selection
+When a toggle control is pre-selected by default, it either reflects a recommended choice or a selection the user made in the past. This approach minimizes decision-making by presenting users with a familiar or suggested option while allowing easy adjustments if needed.
+
+### Exclusive & Multiple Selections
+The toggle group can support both exclusive and multiple selections, adapting to different needs. In exclusive mode, only one toggle can be active, ideal for mutually exclusive options. In multiple-selection mode, users can activate several toggles simultaneously, enabling flexible, combined choices for more complex actions.
 
 </section>

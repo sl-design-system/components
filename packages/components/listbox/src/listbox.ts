@@ -1,4 +1,4 @@
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import styles from './listbox.scss.js';
 
 declare global {
@@ -41,11 +41,12 @@ export class Listbox extends LitElement {
           content: '';
           display: inline-flex;
           flex-shrink: 0;
-          inline-size: 14px;
+          inline-size: calc(var(--sl-size-icon-md) - 2px);
           mask-image: url("data:image/svg+xml,${encodeURIComponent(check.svg)}");
           mask-position: center;
           mask-repeat: no-repeat;
-          mask-size: 14px;
+          mask-size: calc(var(--sl-size-icon-md) - 2px);
+          padding-inline: 1px;
           visibility: hidden;
         }
         sl-listbox option:where(:hover, [aria-current]) {
@@ -84,6 +85,10 @@ export class Listbox extends LitElement {
       `;
       this.appendChild(this.#lightStyles);
     }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
   }
 
   override render(): TemplateResult {

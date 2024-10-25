@@ -1,5 +1,3 @@
-import { type IconLibrary } from '@sl-design-system/icon';
-import { Config } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import styles from './listbox.scss.js';
 
@@ -15,13 +13,13 @@ export class Listbox extends LitElement {
 
   #lightStyles?: HTMLStyleElement;
 
-  override async connectedCallback(): Promise<void> {
+  override connectedCallback(): void {
     super.connectedCallback();
 
     this.setAttribute('role', 'listbox');
 
     if (!this.#lightStyles) {
-      const { check } = await Config.getConfigSetting<IconLibrary>('icons');
+      const { check } = window.SLDS.icons;
 
       this.#lightStyles = document.createElement('style');
       this.#lightStyles.textContent = `

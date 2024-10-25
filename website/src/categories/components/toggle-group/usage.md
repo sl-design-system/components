@@ -61,7 +61,7 @@ eleventyNavigation:
 <section>
 
 ## When to use
-Radio buttons are best used in situations where users need to make a single selection from multiple options within a defined group. Here are two common scenarios:
+Toggle group are best used in situations where users need to make a single selection from multiple options within a defined group. Here are two common scenarios:
 
 ### Related Exclusive Choices
 Use a toggle group when offering a set of options where only one can be active at a time. This is ideal for scenarios like mode selection, where choosing one option automatically deselects others (e.g., light vs. dark mode). The toggle group ensures clear feedback, allowing users to easily understand which option is currently active.
@@ -80,7 +80,7 @@ Grouping these toggles visually conveys that the buttons are connected and provi
 
 ## When not to use
 
-While radio buttons are a valuable UI element in many situations, there are instances when it's best to avoid using them:
+While toggle group are a valuable UI element in many situations, there are instances when it's best to avoid using them:
 
 ### Unrelated Actions
 Avoid using a toggle group when the actions or options are unrelated and do not influence each other. If each option serves a completely different purpose or affects different parts of the interface, placing them in a toggle group may confuse users into thinking they are interconnected. In such cases, it's better to present them as separate controls to make their independence clearer.

@@ -17,4 +17,11 @@ declare global {
 export class CustomOption extends Option {
   /** @internal */
   static override styles: CSSResultGroup = [Option.styles, styles];
+
+  override get textContent(): string | null {
+    return Array.from(this.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent)
+      .join('');
+  }
 }

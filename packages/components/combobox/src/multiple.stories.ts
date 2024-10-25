@@ -6,7 +6,6 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import { type Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
-import { type Story } from './single.stories.js';
 
 type Props = Pick<
   Combobox,

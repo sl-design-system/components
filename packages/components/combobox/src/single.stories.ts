@@ -1,10 +1,12 @@
+import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
-import { type Combobox } from './combobox.js';
+import '../register.js';
+import { Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
 
 type Props = Pick<
@@ -14,7 +16,6 @@ type Props = Pick<
   | 'disabled'
   | 'filterResults'
   | 'groupSelected'
-  | 'multiple'
   | 'name'
   | 'placeholder'
   | 'required'
@@ -31,14 +32,13 @@ type Props = Pick<
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Form/Combobox/Multiple',
+  title: 'Form/Combobox/Single',
   args: {
     allowCustomValues: false,
     autocomplete: 'both',
     disabled: false,
     filterResults: false,
     label: 'Label',
-    multiple: true,
     name: 'combobox',
     placeholder: 'Choose a component',
     required: false,
@@ -48,6 +48,9 @@ export default {
     autocomplete: {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
+    },
+    options: {
+      table: { disable: true }
     }
   },
   render: ({
@@ -59,7 +62,6 @@ export default {
     hint,
     label,
     maxWidth,
-    multiple,
     name,
     options,
     placeholder,
@@ -87,16 +89,15 @@ export default {
             ?disabled=${disabled}
             ?filter-results=${filterResults}
             ?group-selected=${groupSelected}
-            ?multiple=${multiple}
             ?required=${required}
             ?select-only=${selectOnly}
             .autocomplete=${autocomplete}
             .name=${name}
             .placeholder=${placeholder}
             .value=${value}
-            style=${`max-width: ${maxWidth ?? 'auto'}`}
+            style=${`max-width: ${maxWidth ?? 'none'}`}
           >
-            ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
+            ${options?.() ?? html`<sl-listbox>${components.map(c => html`<option>${c}</option>`)}</sl-listbox>`}
           </sl-combobox>
         </sl-form-field>
         ${reportValidity
@@ -112,11 +113,7 @@ export default {
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {
-  args: {
-    hint: 'The multiple property is true, which means you can select more than 1 option at a time. This will render the selected options as tags.'
-  }
-};
+export const Basic: Story = {};
 
 export const AllowCustomValues: Story = {
   args: {
@@ -126,8 +123,7 @@ export const AllowCustomValues: Story = {
 
 export const Disabled: Story = {
   args: {
-    disabled: true,
-    value: ['Button bar', 'Checkbox']
+    disabled: true
   }
 };
 
@@ -164,17 +160,43 @@ export const Grouped: Story = {
   }
 };
 
-export const GroupSelected: Story = {
+export const Required: Story = {
   args: {
-    ...Grouped.args,
-    groupSelected: true,
-    value: ['Button bar', 'Checkbox']
+    hint: 'The component is required. This means you must select an option in order for the field to be valid.',
+    reportValidity: true,
+    required: true
+  }
+};
+
+export const RichContent: Story = {
+  args: {
+    options: () => html`
+      <style>
+        sl-option::part(wrapper) {
+          gap: 0.5rem;
+        }
+        sl-badge {
+          flex-shrink: 0;
+          margin-inline-start: auto;
+        }
+      </style>
+      <sl-listbox>
+        <sl-option value="chapter-1">Chapter 1 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+        <sl-option value="chapter-2">Chapter 2 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+        <sl-option value="chapter-3">
+          Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod irure ut
+          anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum et eu
+          nisi id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem.
+          Lorem quis sint et et. <sl-badge emphasis="bold">Draft</sl-badge>
+        </sl-option>
+      </sl-listbox>
+    `
   }
 };
 
 export const Selected: Story = {
   args: {
-    value: ['Button bar', 'Checkbox']
+    value: 'Button bar'
   }
 };
 
@@ -182,13 +204,5 @@ export const SelectOnly: Story = {
   args: {
     hint: 'The component is select only. This means you cannot type in the text field, but you can still select options.',
     selectOnly: true
-  }
-};
-
-export const Stacked: Story = {
-  args: {
-    hint: 'When there is not enough space to display all tags, they will be stacked.',
-    maxWidth: '700px',
-    value: ['Switch', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Button bar']
   }
 };

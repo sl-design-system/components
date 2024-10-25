@@ -43,6 +43,11 @@ const config = {
       <body>
         <script src="/node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
         <script type="module" src="${testFramework}"></script>
+        <script type="module">
+          const { setup } = await import('@sl-design-system/sanoma-learning');
+
+          setup();
+        </script>
         <style>${styles}</style>
       </body>
     </html>

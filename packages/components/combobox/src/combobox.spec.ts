@@ -96,6 +96,26 @@ describe('sl-combobox', () => {
       expect(input).to.have.attribute('placeholder', 'Placeholder');
     });
 
+    it('should have a button', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.exist;
+      expect(button).to.contain('sl-icon[name="chevron-down"]');
+    });
+
+    it('should toggle the popover when clicking the button', () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]'),
+        wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+
+      expect(wrapper?.matches(':popover-open')).to.be.false;
+
+      button?.click();
+      expect(wrapper?.matches(':popover-open')).to.be.true;
+
+      button?.click();
+      expect(wrapper?.matches(':popover-open')).to.be.false;
+    });
+
     it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });

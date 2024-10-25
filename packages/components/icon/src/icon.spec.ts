@@ -65,9 +65,16 @@ describe('sl-icon', () => {
   };
 
   describe('without icons registered', () => {
+    let originalIcons: typeof window.SLDS.icons;
+
     beforeEach(async () => {
+      originalIcons = { ...window.SLDS.icons };
+      window.SLDS.icons = {};
+
       el = await fixture(html`<sl-icon></sl-icon>`);
     });
+
+    afterEach(() => (window.SLDS.icons = originalIcons));
 
     it('should render correctly', () => {
       expect(el).shadowDom.to.equalSnapshot();

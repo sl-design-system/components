@@ -369,12 +369,15 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   #onButtonClick(): void {
     if (!this.#popoverJustClosed) {
-      this.wrapper?.showPopover();
+      this.wrapper?.togglePopover();
     }
   }
 
   #onClick(event: Event): void {
-    if (event.target === this) {
+    if (event.composedPath().find(el => el instanceof HTMLElement && el.matches('button[slot="suffix"]'))) {
+      // If the user clicked the button, do nothing. The button click handler will handle it.
+      return;
+    } else if (event.target === this) {
       this.input.focus();
     }
   }

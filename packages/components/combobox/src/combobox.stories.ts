@@ -1,3 +1,4 @@
+import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
@@ -88,6 +89,9 @@ export default {
     autocomplete: {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
+    },
+    options: {
+      table: { disable: true }
     }
   },
   render: ({
@@ -207,6 +211,32 @@ export const Required: Story = {
   }
 };
 
+export const RichContent: Story = {
+  args: {
+    options: () => html`
+      <style>
+        sl-option::part(wrapper) {
+          gap: 0.5rem;
+        }
+        sl-badge {
+          flex-shrink: 0;
+          margin-inline-start: auto;
+        }
+      </style>
+      <sl-listbox>
+        <sl-option value="chapter-1">Chapter 1 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+        <sl-option value="chapter-2">Chapter 2 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+        <sl-option value="chapter-3">
+          Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod irure ut
+          anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum et eu
+          nisi id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem.
+          Lorem quis sint et et. <sl-badge emphasis="bold">Draft</sl-badge>
+        </sl-option>
+      </sl-listbox>
+    `
+  }
+};
+
 export const Selected: Story = {
   args: {
     value: 'Button bar'
@@ -221,15 +251,11 @@ export const SelectOnly: Story = {
 };
 
 export const StressTest: Story = {
-  args: {
-    options: () => {
-      console.log('rendering options');
-
-      return html`
-        <sl-listbox>${Array.from({ length: 5000 }).map((_, i) => html`<option>Option ${i}</option>`)}</sl-listbox>
-      `;
-    }
-  }
+  render: () => html`
+    <sl-combobox>
+      <sl-listbox>${Array.from({ length: 5000 }).map((_, i) => html`<option>Option ${i}</option>`)}</sl-listbox>
+    </sl-combobox>
+  `
 };
 
 export const All: Story = {

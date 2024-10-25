@@ -5,7 +5,7 @@ import { type DataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select, SelectOption } from '@sl-design-system/select';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -48,6 +48,15 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // #events = new EventsController(this, {
+  //   // 'sl-form-control': this.#onFormControl,
+  //   // 'sl-form-field': this.#onFormField
+  //
+  //   'sl-page-size-change': this.#onPageSizeChange
+  // });
+
+  #events = new EventsController(this);
+
   /** Active page. */
   #activePage = 1;
 
@@ -73,6 +82,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'active-page' })
   set activePage(value: number) {
     this.#activePage = value;
+    // if (this.dataSource) {
+    //   this.dataSource.setPage(this.#activePage, this.itemsPerPage!);
+    //   // dataSource.setPage(<number>)
+    // }
     this.pageChangeEvent.emit(this.#activePage);
   }
 
@@ -125,6 +138,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.itemsPerPage ||= this.pageSizes?.[0] || 10;
 
     this.#pages = Math.ceil(this.total / this.itemsPerPage);
+
+    this.#events.listen(this, 'sl-page-size-change', this.#onPageSizeChange);
 
     this.#setCurrentlyVisibleItems();
 
@@ -346,6 +361,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.activePage = Number(target.innerText?.trim());
     }
 
+    console.log(this.dataSource);
+
+    if (this.dataSource) {
+      this.dataSource.setPage(this.activePage, this.itemsPerPage!);
+      // dataSource.setPage(<number>)
+    }
+
     this.#setCurrentlyVisibleItems();
     this.#updateVisibility();
   }
@@ -463,5 +485,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     } else {
       this.currentlyVisibleItems = this.itemsPerPage;
     }
+  }
+
+  #onPageSizeChange(event: SlChangeEvent): void {
+    console.log('event in paginator', event);
+    const detail = event.detail as number;
+    this.itemsPerPage = detail;
   }
 }

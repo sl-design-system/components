@@ -157,6 +157,27 @@ export abstract class DataSource<T = any> extends EventTarget {
     this.update();
   }
 
+  setPage(pageNumber: number, pageSize: number): void {
+    console.log(pageNumber);
+
+    this.paginate(pageNumber, pageSize);
+
+    // this.addEventListener('sl-filter-value-change', () => {
+    //   // go back to the first page on filter change
+    //   // paginator.activePage = 1;
+    //   this.paginate(1, pageSize);
+    // });
+  }
+
+  setPageSize(pageSize: number): void {
+    if (this.#paginateItems) {
+      this.#paginateItems.pageSize = pageSize;
+
+      this.update();
+    }
+    console.log('pageSize?', pageSize, this.#paginateItems);
+  }
+
   /**
    * Use to get the paginated data for usage with the sl-paginator component.
    * */

@@ -83,6 +83,22 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         .forEach(f => {
           items = items.filter(f.filter);
         });
+
+      // if (this.paginateItems) {
+      //   // go back to the first page on filter change
+      //   // paginator.activePage = 1;
+      //   // this.paginate(1, this.paginateItems.pageSize);
+      //   this.paginateItems.pageNumber = 1;
+      // }
+
+      this.addEventListener('sl-filter-value-change', () => {
+        // go back to the first page on filter change
+        // paginator.activePage = 1;
+        // this.paginate(1, pageSize);
+        if (this.paginateItems) {
+          // this.paginateItems.pageNumber = 1;
+        }
+      });
     }
 
     if (this.sort) {

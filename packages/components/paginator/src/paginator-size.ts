@@ -1,5 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type DataSource } from '@sl-design-system/data-source';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
@@ -27,6 +28,9 @@ declare global {
 export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Provided data source. */
+  @property({ attribute: false }) dataSource?: DataSource;
 
   /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
@@ -97,5 +101,13 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
 
     /** Emits amount of selected items per page */
     this.pageSizeChangeEvent.emit(this.itemsPerPage);
+
+    console.log('this.itemsPerPage', this.itemsPerPage);
+
+    // dataSource.setPageSize(<number>)
+    if (this.dataSource) {
+      this.dataSource.setPageSize(this.itemsPerPage);
+      // dataSource.setPage(<number>)
+    }
   }
 }

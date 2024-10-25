@@ -162,6 +162,80 @@ export const PaginatedDataSourceWithFilter: Story = {
   }
 };
 
+export const PaginatedDataSourceWithFilterNew: Story = {
+  render: (_, { loaded: { people } }) => {
+    const pageSizes = [5, 10, 15, 20],
+      dataSource = new ArrayDataSource(people as Person[]);
+
+    const total = dataSource.paginatedItems.length;
+    dataSource.paginate(1, 10);
+
+    setTimeout(() => {
+      const paginator = document.querySelector('sl-paginator') as Paginator,
+        // pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+        visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
+      // grid = document.querySelector('sl-grid') as Grid;
+
+      paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+        const detail = event.detail as number;
+        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
+        visibleItems.activePage = detail;
+      });
+
+      // pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+      //   const detail = event.detail as number;
+      //   paginator.itemsPerPage = detail;
+      //   visibleItems.itemsPerPage = detail;
+      //   dataSource.paginate(paginator.activePage, detail);
+      // });
+
+      dataSource?.addEventListener('sl-update', () => {
+        paginator.total = dataSource.paginatedItems.length;
+        visibleItems.total = dataSource.paginatedItems.length;
+      });
+
+      // grid?.addEventListener('sl-filter-value-change', () => {
+      //   // go back to the first page on filter change
+      //   paginator.activePage = 1;
+      // });
+    });
+
+    return html`
+      <style>
+        .pagination {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          margin-block: 1rem;
+          justify-content: space-between;
+        }
+
+        sl-paginator {
+          flex: 1;
+        }
+      </style>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-filter-column id="filter-profession" mode="text" path="profession"></sl-grid-filter-column>
+        <sl-grid-filter-column id="filter-status" path="status"></sl-grid-filter-column>
+        <sl-grid-filter-column id="filter-membership" path="membership"></sl-grid-filter-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .total=${total} .activePage=${1} .itemsPerPage=${10}></sl-paginator-status>
+        <sl-paginator
+          .dataSource=${dataSource}
+          .total=${total}
+          .pageSizes=${pageSizes}
+          .activePage=${1}
+          .itemsPerPage=${10}
+        ></sl-paginator>
+        <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes} .itemsPerPage=${10}></sl-paginator-size>
+      </div>
+    `;
+  }
+};
+
 export const PaginatedDataSourceWithSorter: Story = {
   render: (_, { loaded: { people } }) => {
     const sorter = (a: Person, b: Person): number => {

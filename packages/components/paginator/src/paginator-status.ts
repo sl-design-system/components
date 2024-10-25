@@ -53,6 +53,8 @@ export class PaginatorStatus extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    console.log('changes', changes);
+
     if (changes.has('itemsPerPage') || changes.has('total')) {
       this.#pages = Math.ceil(this.total / this.itemsPerPage);
       this.#setCurrentlyVisibleItems();

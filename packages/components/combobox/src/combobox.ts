@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { Option, OptionGroup } from '@sl-design-system/listbox';
+import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, anchor, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { Tag, TagList } from '@sl-design-system/tag';
@@ -712,7 +712,7 @@ export class Combobox<T = unknown> extends FormControlMixin(ScopedElementsMixin(
 
   /** Updates the list of options and the listbox link with the text input. */
   #updateOptions(): void {
-    this.listbox = this.wrapper?.assignedElements({ flatten: true })?.at(0);
+    this.listbox = this.wrapper?.assignedElements({ flatten: true })?.find(el => el instanceof Listbox);
 
     if (this.listbox) {
       this.listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;

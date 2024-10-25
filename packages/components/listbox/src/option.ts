@@ -32,6 +32,10 @@ export class Option extends ScopedElementsMixin(LitElement) {
   /** Whether this option is selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
 
+  override get textContent(): string | null {
+    return this.#getSlottedTextContent();
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @property() value?: any;
 
@@ -50,5 +54,16 @@ export class Option extends ScopedElementsMixin(LitElement) {
         </div>
       </div>
     `;
+  }
+
+  #getSlottedTextContent(): string | null {
+    return (
+      this.renderRoot
+        .querySelector('slot')
+        ?.assignedNodes({ flatten: true })
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .map(node => node.textContent)
+        .join('') ?? null
+    );
   }
 }

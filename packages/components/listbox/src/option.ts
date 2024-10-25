@@ -57,13 +57,12 @@ export class Option extends ScopedElementsMixin(LitElement) {
   }
 
   #getSlottedTextContent(): string | null {
-    return (
-      this.renderRoot
-        .querySelector('slot')
-        ?.assignedNodes({ flatten: true })
-        .filter(node => node.nodeType === Node.TEXT_NODE)
-        .map(node => node.textContent)
-        .join('') ?? null
-    );
+    const nodes =
+      this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ?? Array.from(this.childNodes);
+
+    return nodes
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent)
+      .join('');
   }
 }

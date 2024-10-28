@@ -1,3 +1,5 @@
+// import { SlChangeEvent, type SlChangeEvent } from '@sl-design-system/shared/events.js';
+
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-update': DataSourceUpdateEvent;
@@ -173,7 +175,23 @@ export abstract class DataSource<T = any> extends EventTarget {
     if (this.#paginateItems) {
       this.#paginateItems.pageSize = pageSize;
 
+      // 'sl-page-size-change'
+
       this.update();
+
+      // this.dispatchEvent(new SlChangeEvent('sl-page-size-change', { detail: pageSize }));
+
+      // TODO: or keep here items per page and observe it in the paginator? so pageSize?
+
+      this.addEventListener('sl-page-size-change', () => {
+        // go back to the first page on filter change
+        // paginator.activePage = 1;
+        // const detail = event.detail as number;
+        // this.itemsPerPage = detail;
+        if (this.#paginateItems) {
+          this.paginate(/*this.#paginateItems.pageNumber*/ 1, this.#paginateItems.pageSize);
+        }
+      });
     }
     console.log('pageSize?', pageSize, this.#paginateItems);
   }
@@ -183,6 +201,7 @@ export abstract class DataSource<T = any> extends EventTarget {
    * */
   paginate(pageNumber: number, pageSize: number): void {
     this.#paginateItems = { pageNumber: pageNumber, pageSize: pageSize };
+    console.log('this.#paginateItems in paginate event', this.#paginateItems);
 
     this.update();
   }

@@ -12,6 +12,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
   #items: T[];
   #paginatedItems: T[] = [];
 
+  // TODO page, pagesize?
+
   get items(): T[] {
     return this.#filteredItems;
   }

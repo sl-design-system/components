@@ -63,6 +63,27 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     this.renderRoot.querySelector<Select>('sl-select')?.addEventListener('sl-change', event => {
       this.#setValue(event);
     });
+
+    if (this.dataSource) {
+      console.log('this.dataSource in paginator size', this.dataSource);
+      this.dataSource.addEventListener('sl-update', () => {
+        console.log('on datasource event', this.dataSource, this.dataSource?.paginateItems?.pageSize);
+        // this.itemsPerPage = event.detail.paginateItems?.pageSize;
+        this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
+        this.requestUpdate();
+      });
+      //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
+
+      // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+      //   const detail = event.detail as number;
+      //   this.itemsPerPage = detail;
+      //     // paginator.itemsPerPage = detail;
+      //     // visibleItems.itemsPerPage = detail;
+      //   if (this.dataSource) {
+      //     this.dataSource.paginate(1, detail);
+      //   }
+      //   });
+    }
   }
 
   override render(): TemplateResult {
@@ -109,5 +130,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
       this.dataSource.setPageSize(this.itemsPerPage);
       // dataSource.setPage(<number>)
     }
+
+    //this.requestUpdate();
   }
 }

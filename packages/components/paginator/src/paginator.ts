@@ -5,7 +5,7 @@ import { type DataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select, SelectOption } from '@sl-design-system/select';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -55,7 +55,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   //   'sl-page-size-change': this.#onPageSizeChange
   // });
 
-  #events = new EventsController(this);
+  // #events = new EventsController(this);
 
   /** Active page. */
   #activePage = 1;
@@ -139,12 +139,31 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     this.#pages = Math.ceil(this.total / this.itemsPerPage);
 
-    this.#events.listen(this, 'sl-page-size-change', this.#onPageSizeChange);
+    //  this.#events.listen(this, 'sl-page-size-change', this.#onPageSizeChange);
 
     this.#setCurrentlyVisibleItems();
 
     requestAnimationFrame(() => {
       this.#observer.observe(this);
+
+      // this.addEventListener('sl-page-size-change', this.#onPageSizeChange);
+      if (this.dataSource) {
+        console.log('this.dataSource in paginator', this.dataSource);
+        this.dataSource.addEventListener('sl-update', event => {
+          console.log('on datasource event', event);
+        });
+        //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
+
+        // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+        //   const detail = event.detail as number;
+        //   this.itemsPerPage = detail;
+        //     // paginator.itemsPerPage = detail;
+        //     // visibleItems.itemsPerPage = detail;
+        //   if (this.dataSource) {
+        //     this.dataSource.paginate(1, detail);
+        //   }
+        //   });
+      }
     });
   }
 
@@ -156,6 +175,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    console.log('changes in updated', changes);
 
     if (changes.has('itemsPerPage')) {
       const itemsPerPage = this.itemsPerPage ?? 10;
@@ -487,9 +508,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onPageSizeChange(event: SlChangeEvent): void {
-    console.log('event in paginator', event);
-    const detail = event.detail as number;
-    this.itemsPerPage = detail;
-  }
+  // #onPageSizeChange(event: SlChangeEvent<number>): void {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  //   console.log('event in paginator', event);
+  //   const detail = event.detail as number;
+  //   this.itemsPerPage = detail;
+  // }
 }

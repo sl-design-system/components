@@ -222,7 +222,12 @@ export const PaginatedDataSourceWithFilterNew: Story = {
         <sl-grid-filter-column id="filter-membership" path="membership"></sl-grid-filter-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status .total=${total} .activePage=${1} .itemsPerPage=${10}></sl-paginator-status>
+        <sl-paginator-status
+          .dataSource=${dataSource}
+          .total=${total}
+          .activePage=${1}
+          .itemsPerPage=${10}
+        ></sl-paginator-status>
         <sl-paginator
           .dataSource=${dataSource}
           .total=${total}
@@ -253,7 +258,7 @@ export const PaginatedDataSourceWithSorter: Story = {
 
     const pageSizes = [10, 15, 20];
     const total = dataSource.paginatedItems.length;
-    dataSource.paginate(1, 10);
+    dataSource.paginate(3, 10);
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
@@ -307,7 +312,7 @@ export const PaginatedDataSourceWithSorter: Story = {
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status .total=${total} .activePage=${1} .itemsPerPage=${10}></sl-paginator-status>
-        <sl-paginator .total=${total} .pageSizes=${pageSizes} .activePage=${1} .itemsPerPage=${10}></sl-paginator>
+        <sl-paginator .total=${total} .pageSizes=${pageSizes}></sl-paginator>
         <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${10}></sl-paginator-size>
       </div>
     `;

@@ -1,4 +1,5 @@
 import { localized, msg, str } from '@lit/localize';
+import { type DataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './paginator-status.scss.js';
@@ -26,6 +27,9 @@ export class PaginatorStatus extends LitElement {
 
   /** @internal Currently visible items on the current page. */
   @state() currentlyVisibleItems = 1;
+
+  /** Provided data source. */
+  @property({ attribute: false }) dataSource?: DataSource;
 
   /** Items per page, if not set - default to 10. */
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage = 10;

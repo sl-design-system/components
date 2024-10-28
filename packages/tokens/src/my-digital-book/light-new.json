@@ -3,47 +3,47 @@
     "palette": {
       "blue": {
         "100": {
-          "value": "#0B385C",
+          "value": "#B3D1F3",
           "type": "color"
         },
         "150": {
-          "value": "#04579A",
+          "value": "#A3C3E7",
           "type": "color"
         },
         "200": {
-          "value": "#056DC2",
+          "value": "#82ADDE",
           "type": "color"
         },
         "300": {
-          "value": "#0683EA",
+          "value": "#528ED3",
           "type": "color"
         },
         "400": {
-          "value": "#1f97f9",
+          "value": "#2878D2",
           "type": "color"
         },
         "500": {
-          "value": "#6FBCFB",
+          "value": "#1E68BC",
           "type": "color"
         },
         "600": {
-          "value": "#97CFFC",
+          "value": "#174F90",
           "type": "color"
         },
         "700": {
-          "value": "#B7DEFD",
+          "value": "#103764",
           "type": "color"
         },
         "800": {
-          "value": "#DDEFFE",
+          "value": "#002044",
           "type": "color"
         },
         "900": {
-          "value": "#F0F8FF",
+          "value": "#091F38",
           "type": "color"
         },
         "050": {
-          "value": "#233243",
+          "value": "#E8F3FF",
           "type": "color"
         }
       },
@@ -1462,7 +1462,7 @@
       "base": {
         "default": {
           "idle": {
-            "value": "{color.palette.blue.050}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
           },
@@ -1481,7 +1481,7 @@
       "raised": {
         "default": {
           "idle": {
-            "value": "{color.palette.blue.050}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
           },
@@ -1498,7 +1498,7 @@
         },
         "alternative": {
           "idle": {
-            "value": "{color.palette.grey.900}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
@@ -1515,7 +1515,7 @@
         },
         "sunken": {
           "idle": {
-            "value": "{color.palette.blue.100}",
+            "value": "{color.background.accent.grey.subtle.idle}",
             "type": "color",
             "description": "Background for components that create a sunken effect, typically used for grouping related items."
           },

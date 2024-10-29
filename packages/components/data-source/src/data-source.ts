@@ -37,7 +37,7 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
 
-export type DataSourcePagination = { pageNumber: number; pageSize: number };
+export type DataSourcePagination = { pageNumber: number; pageSize: number, total: number };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
@@ -77,6 +77,9 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   /** The filtered & sorted array of items. */
   abstract items: T[];
+
+  /** The paginated array of items (filtered and sorted). */
+ // abstract readonly paginatedItems: T[];
 
   /** Total number of items in this data source. */
   abstract readonly size: number;
@@ -159,39 +162,45 @@ export abstract class DataSource<T = any> extends EventTarget {
     this.update();
   }
 
-  setPage(pageNumber: number, pageSize: number): void {
+  setPage(pageNumber: number/*, pageSize: number, total: number*/): void {
     console.log(pageNumber);
 
-    this.paginate(pageNumber, pageSize);
+    // this.paginate(pageNumber, pageSize, total);
 
-    // this.addEventListener('sl-filter-value-change', () => {
-    //   // go back to the first page on filter change
-    //   // paginator.activePage = 1;
-    //   this.paginate(1, pageSize);
-    // });
+    if (this.#paginateItems) {
+      this.paginate(pageNumber, this.#paginateItems.pageSize, this.#paginateItems.total);
+    }
+
+    this.addEventListener('sl-filter-value-change', (event) => {
+      console.log('event on sl-filter-value-change', event);
+      // go back to the first page on filter change
+      // paginator.activePage = 1;
+      // this.paginate(1, pageSize);
+    });
   }
 
   setPageSize(pageSize: number): void {
     if (this.#paginateItems) {
-      this.#paginateItems.pageSize = pageSize;
+      // this.#paginateItems.pageSize = pageSize;
+      this.paginate(/*this.#paginateItems.pageNumber*/ 1, pageSize /*this.#paginateItems.pageSize*/, this.#paginateItems.total);
 
       // 'sl-page-size-change'
 
-      this.update();
+      // this.update();
 
       // this.dispatchEvent(new SlChangeEvent('sl-page-size-change', { detail: pageSize }));
 
       // TODO: or keep here items per page and observe it in the paginator? so pageSize?
 
-      this.addEventListener('sl-page-size-change', () => {
-        // go back to the first page on filter change
-        // paginator.activePage = 1;
-        // const detail = event.detail as number;
-        // this.itemsPerPage = detail;
-        if (this.#paginateItems) {
-          this.paginate(/*this.#paginateItems.pageNumber*/ 1, this.#paginateItems.pageSize);
-        }
-      });
+      // this.addEventListener('sl-page-size-change', () => {
+      //   // go back to the first page on filter change
+      //   // paginator.activePage = 1;
+      //   // const detail = event.detail as number;
+      //   // this.itemsPerPage = detail;
+      //   if (this.#paginateItems) {
+      //     this.paginate(/*this.#paginateItems.pageNumber*/ 1, this.#paginateItems.pageSize, this.#paginateItems.total);
+      //   }
+      // });
     }
     console.log('pageSize?', pageSize, this.#paginateItems);
   }
@@ -199,8 +208,8 @@ export abstract class DataSource<T = any> extends EventTarget {
   /**
    * Use to get the paginated data for usage with the sl-paginator component.
    * */
-  paginate(pageNumber: number, pageSize: number): void {
-    this.#paginateItems = { pageNumber: pageNumber, pageSize: pageSize };
+  paginate(pageNumber: number, pageSize: number, total: number): void {
+    this.#paginateItems = { pageNumber: pageNumber, pageSize: pageSize, total: total };
     console.log('this.#paginateItems in paginate event', this.#paginateItems);
 
     this.update();

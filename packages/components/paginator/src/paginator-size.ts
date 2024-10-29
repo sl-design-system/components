@@ -69,8 +69,8 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
       this.dataSource.addEventListener('sl-update', () => {
         console.log('on datasource event', this.dataSource, this.dataSource?.paginateItems?.pageSize);
         // this.itemsPerPage = event.detail.paginateItems?.pageSize;
-        this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
-        this.requestUpdate();
+         this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
+        // this.requestUpdate();
       });
       //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
 
@@ -84,7 +84,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
       //   }
       //   });
     }
-  }
+  } // TODO: disconnectedCallback with removeEventListener
 
   override render(): TemplateResult {
     return html`

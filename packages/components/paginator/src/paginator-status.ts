@@ -52,7 +52,29 @@ export class PaginatorStatus extends LitElement {
       this.#setCurrentlyVisibleItems();
     });
     // this.#setCurrentlyVisibleItems();
-  }
+
+    if (this.dataSource) {
+      console.log('this.dataSource in paginator', this.dataSource);
+      this.dataSource.addEventListener('sl-update', event => {
+        console.log('on datasource event', event);
+        this.itemsPerPage = this.dataSource?.paginateItems?.pageSize as number;
+        this.activePage = this.dataSource?.paginateItems?.pageNumber as number;
+        this.total = this.dataSource?.paginateItems?.total as number;
+        this.requestUpdate();
+      });
+      //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
+
+      // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+      //   const detail = event.detail as number;
+      //   this.itemsPerPage = detail;
+      //     // paginator.itemsPerPage = detail;
+      //     // visibleItems.itemsPerPage = detail;
+      //   if (this.dataSource) {
+      //     this.dataSource.paginate(1, detail);
+      //   }
+      //   });
+    }
+  } // TODO: disconnectedCallback with removeEventListener
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);

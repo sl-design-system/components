@@ -100,7 +100,7 @@ export const PaginatedDataSourceWithFilter: Story = {
       dataSource = new ArrayDataSource(people as Person[]);
 
     const total = dataSource.paginatedItems.length;
-    dataSource.paginate(1, 10);
+    dataSource.paginate(1, 10, total);
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
@@ -110,7 +110,7 @@ export const PaginatedDataSourceWithFilter: Story = {
 
       paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
         const detail = event.detail as number;
-        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
+        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0], total);
         visibleItems.activePage = detail;
       });
 
@@ -118,7 +118,7 @@ export const PaginatedDataSourceWithFilter: Story = {
         const detail = event.detail as number;
         paginator.itemsPerPage = detail;
         visibleItems.itemsPerPage = detail;
-        dataSource.paginate(paginator.activePage, detail);
+        dataSource.paginate(paginator.activePage, detail, total);
       });
 
       dataSource?.addEventListener('sl-update', () => {
@@ -168,19 +168,19 @@ export const PaginatedDataSourceWithFilterNew: Story = {
       dataSource = new ArrayDataSource(people as Person[]);
 
     const total = dataSource.paginatedItems.length;
-    dataSource.paginate(1, 10);
+    dataSource.paginate(2, 15, total);
 
     setTimeout(() => {
-      const paginator = document.querySelector('sl-paginator') as Paginator,
-        // pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
-        visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
-      // grid = document.querySelector('sl-grid') as Grid;
+      // const paginator = document.querySelector('sl-paginator') as Paginator,
+      //   // pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+      //   visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
+      const grid = document.querySelector('sl-grid') as Grid;
 
-      paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
-        const detail = event.detail as number;
-        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
-        visibleItems.activePage = detail;
-      });
+      // paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+      //   const detail = event.detail as number;
+      //   dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
+      //   visibleItems.activePage = detail;
+      // });
 
       // pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
       //   const detail = event.detail as number;
@@ -189,15 +189,16 @@ export const PaginatedDataSourceWithFilterNew: Story = {
       //   dataSource.paginate(paginator.activePage, detail);
       // });
 
-      dataSource?.addEventListener('sl-update', () => {
-        paginator.total = dataSource.paginatedItems.length;
-        visibleItems.total = dataSource.paginatedItems.length;
-      });
-
-      // grid?.addEventListener('sl-filter-value-change', () => {
-      //   // go back to the first page on filter change
-      //   paginator.activePage = 1;
+      // dataSource?.addEventListener('sl-update', () => {
+      //   paginator.total = dataSource.paginatedItems.length;
+      //   visibleItems.total = dataSource.paginatedItems.length;
       // });
+
+      grid?.addEventListener('sl-filter-value-change', () => {
+        // go back to the first page on filter change
+        // paginator.activePage = 1;
+        dataSource.setPage(1); // TODO: how to add it to data source in a different way?
+      });
     });
 
     return html`
@@ -224,18 +225,12 @@ export const PaginatedDataSourceWithFilterNew: Story = {
       <div class="pagination">
         <sl-paginator-status
           .dataSource=${dataSource}
-          .total=${total}
-          .activePage=${1}
-          .itemsPerPage=${10}
         ></sl-paginator-status>
         <sl-paginator
           .dataSource=${dataSource}
-          .total=${total}
           .pageSizes=${pageSizes}
-          .activePage=${1}
-          .itemsPerPage=${10}
         ></sl-paginator>
-        <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes} .itemsPerPage=${10}></sl-paginator-size>
+        <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>
       </div>
     `;
   }
@@ -258,7 +253,7 @@ export const PaginatedDataSourceWithSorter: Story = {
 
     const pageSizes = [10, 15, 20];
     const total = dataSource.paginatedItems.length;
-    dataSource.paginate(3, 10);
+    dataSource.paginate(3, 10, total);
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
@@ -268,7 +263,7 @@ export const PaginatedDataSourceWithSorter: Story = {
 
       paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
         const detail = event.detail as number;
-        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
+        dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0], total);
         visibleItems.activePage = detail;
       });
 
@@ -276,7 +271,7 @@ export const PaginatedDataSourceWithSorter: Story = {
         const detail = event.detail as number;
         paginator.itemsPerPage = detail;
         visibleItems.itemsPerPage = detail;
-        dataSource.paginate(paginator.activePage, detail);
+        dataSource.paginate(paginator.activePage, detail, total);
       });
 
       dataSource?.addEventListener('sl-update', () => {

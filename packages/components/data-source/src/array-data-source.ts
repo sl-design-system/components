@@ -95,7 +95,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       //   this.paginateItems.pageNumber = 1;
       // }
 
-      this.addEventListener('sl-filter-value-change', (event) => {
+      this.addEventListener('sl-filter-value-change', event => {
         console.log('event on sl-filter-value-change', event);
         // go back to the first page on filter change
         // paginator.activePage = 1;
@@ -104,6 +104,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
           // this.paginateItems.pageNumber = 1;
         }
       });
+
+      console.log('1-filters in array data dource', items, this.#items, this.#filteredItems, pathFilters);
     }
 
     if (this.sort) {

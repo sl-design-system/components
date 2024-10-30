@@ -94,6 +94,8 @@ export const Basic: Story = {
   }
 };
 
+// TODO: with datasource story
+
 export const PaginatedDataSourceWithFilter: Story = {
   render: (_, { loaded: { people } }) => {
     const pageSizes = [5, 10, 15, 20],
@@ -169,36 +171,33 @@ export const PaginatedDataSourceWithFilterNew: Story = {
 
     const total = dataSource.paginatedItems.length;
     dataSource.paginate(2, 15, total);
+    // dataSource.setPage(2);
 
     setTimeout(() => {
       // const paginator = document.querySelector('sl-paginator') as Paginator,
       //   // pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
       //   visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
-      const grid = document.querySelector('sl-grid') as Grid;
-
+      // const grid = document.querySelector('sl-grid') as Grid;
       // paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
       //   const detail = event.detail as number;
       //   dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0]);
       //   visibleItems.activePage = detail;
       // });
-
       // pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
       //   const detail = event.detail as number;
       //   paginator.itemsPerPage = detail;
       //   visibleItems.itemsPerPage = detail;
       //   dataSource.paginate(paginator.activePage, detail);
       // });
-
       // dataSource?.addEventListener('sl-update', () => {
       //   paginator.total = dataSource.paginatedItems.length;
       //   visibleItems.total = dataSource.paginatedItems.length;
       // });
-
-      grid?.addEventListener('sl-filter-value-change', () => {
-        // go back to the first page on filter change
-        // paginator.activePage = 1;
-        dataSource.setPage(1); // TODO: how to add it to data source in a different way?
-      });
+      // grid?.addEventListener('sl-filter-value-change', () => {
+      //   // go back to the first page on filter change
+      //   // paginator.activePage = 1;
+      //   dataSource.setPage(1); // TODO: how to add it to data source in a different way?
+      // });
     });
 
     return html`
@@ -223,13 +222,86 @@ export const PaginatedDataSourceWithFilterNew: Story = {
         <sl-grid-filter-column id="filter-membership" path="membership"></sl-grid-filter-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status
-          .dataSource=${dataSource}
-        ></sl-paginator-status>
-        <sl-paginator
-          .dataSource=${dataSource}
-          .pageSizes=${pageSizes}
-        ></sl-paginator>
+        <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
+        <sl-paginator .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator>
+        <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>
+      </div>
+    `;
+  }
+};
+
+export const PaginatedDataSourceWithSorterNew: Story = {
+  render: (_, { loaded: { people } }) => {
+    const sorter = (a: Person, b: Person): number => {
+      const lastNameCmp = a.lastName.localeCompare(b.lastName);
+
+      if (lastNameCmp === 0) {
+        return a.firstName.localeCompare(b.firstName);
+      } else {
+        return lastNameCmp;
+      }
+    };
+
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setSort('custom', sorter, 'asc');
+
+    const pageSizes = [10, 15, 20];
+    const total = dataSource.paginatedItems.length;
+    dataSource.paginate(3, 10, total);
+
+    // setTimeout(() => {
+    //   const paginator = document.querySelector('sl-paginator') as Paginator,
+    //     pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+    //     visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus,
+    //     grid = document.querySelector('sl-grid') as Grid;
+    //
+    //   paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
+    //     const detail = event.detail as number;
+    //     dataSource.paginate(detail, paginator.itemsPerPage ?? pageSizes[0], total);
+    //     visibleItems.activePage = detail;
+    //   });
+    //
+    //   pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
+    //     const detail = event.detail as number;
+    //     paginator.itemsPerPage = detail;
+    //     visibleItems.itemsPerPage = detail;
+    //     dataSource.paginate(paginator.activePage, detail, total);
+    //   });
+    //
+    //   dataSource?.addEventListener('sl-update', () => {
+    //     paginator.total = dataSource.paginatedItems.length;
+    //     visibleItems.total = dataSource.paginatedItems.length;
+    //   });
+    //
+    //   grid?.addEventListener('sl-sort-direction-change', () => {
+    //     // go back to the first page on filter change
+    //     paginator.activePage = 1;
+    //   });
+    // });
+
+    return html`
+      <style>
+        .pagination {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          margin-block: 1rem;
+          justify-content: space-between;
+        }
+
+        sl-paginator {
+          flex: 1;
+        }
+      </style>
+      <p>This grid sorts people by last name, then first name, via a custom sorter on the data directly.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
+        <sl-paginator .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator>
         <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>
       </div>
     `;

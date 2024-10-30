@@ -721,6 +721,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
+    console.log('sort direction has changed???', this.#sorters);
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
     this.#applySorters(true);
   }

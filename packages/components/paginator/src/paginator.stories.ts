@@ -1,17 +1,16 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/card/register.js';
+import { ArrayDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
 import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { LitElement, type TemplateResult, css, html } from 'lit';
 import '../register.js';
 import { type PaginatorSize } from './paginator-size';
 import { PaginatorStatus } from './paginator-status';
 import { type Paginator, VisiblePagesSize } from './paginator.js';
-import {ArrayDataSource} from "@sl-design-system/data-source";
-import type {Person} from "@sl-design-system/example-data";
 
 type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total' | 'size'> & {
   actions?(): string | TemplateResult;
@@ -158,192 +157,235 @@ export const All: Story = {
   }
 };
 
+// TODO: focus active page from keyboard
+
+// export const WithDataSource: Story = {
+//   args: {
+//     total: 200
+//   },
+//   render: ({ }) => {
+//     // const total = dataSource.paginatedItems.length;
+//     const items = [
+//       {nr: 1, title: 'test 1'},
+//       {nr: 2, title: 'test 2'},
+//       {nr: 3, title: 'test 3'},
+//       {nr: 4, title: 'test 4'},
+//       {nr: 5, title: 'test 5'},
+//       {nr: 6, title: 'test 6'},
+//       {nr: 7, title: 'test 7'},
+//       {nr: 8, title: 'test 8'},
+//       {nr: 9, title: 'test 9'},
+//       {nr: 10, title: 'test 10'}
+//     ];
+//     const pageSizes = [5, 10, 15, 20],
+//       dataSource = new ArrayDataSource(items);
+//
+//     const total = dataSource.paginatedItems.length;
+//     dataSource.paginate(2, 10, total);
+//
+//     console.log(`dataSource`, dataSource, dataSource.paginatedItems.length);
+//
+//     // const onUpdate = (event: SlChangeEvent) => {
+//     //   const cardscontainer = document.querySelector('.cards-container');
+//     //   cardscontainer?.innerHTML = '';
+//     //   // dataSource.update();
+//     //   const newCards = dataSource.items.map(
+//     //     item => html`
+//     //         <div>${item.nr}</div>
+//     //     `
+//     //   );
+//     //   // const divs = dataSource.items.forEach(document.createElement('div'));
+//     //   // divs.forEach(el => el.innerHTML = 'test');
+//     //   // const newCards = dataSource.paginatedItems
+//     //   //   .map(
+//     //   //   item => html`
+//     //   //       ${item}
+//     //   //   `
+//     //   // );
+//     //  // cardscontainer.innerHTML = newCards;
+//     //   console.log('cardscontainer', cardscontainer, event, newCards);
+//     //    cardscontainer?.append(newCards);
+//     // }
+//     //
+//     //  dataSource.addEventListener('sl-update', onUpdate);
+//
+//     return html`
+//       <style>
+//         #root-inner {
+//           display: flex;
+//           flex-direction: column;
+//           gap: 2rem;
+//         }
+//
+//         .pagination {
+//           display: flex;
+//           align-items: center;
+//           justify-content: space-between;
+//           gap: 16px;
+//         }
+//
+//         sl-paginator {
+//           flex: 1;
+//         }
+//
+//         sl-paginator-size {
+//           justify-content: end;
+//         }
+//       </style>
+//       <div class="cards-container">
+//       ${dataSource.items.map(
+//         item => html`
+//             <div>${item.nr}</div>
+//         `
+//       )}
+//         <sl-card responsive padding>
+//           <h2>Card number </h2>
+//           <p slot="body">Example body text</p>
+//         </sl-card>
+//       </div>
+//       <div class="pagination">
+//         <sl-paginator-status
+//           .dataSource=${dataSource}
+//         ></sl-paginator-status>
+//         <sl-paginator
+//           .dataSource=${dataSource}
+//           .pageSizes=${pageSizes}
+//         ></sl-paginator>
+//         <sl-paginator-size .pageSizes=${pageSizes} .dataSource=${dataSource}></sl-paginator-size>
+//       </div>
+//     `; //  @sl-update=${onUpdate}
+//   }
+//   // TODO: sth like in accordion story example:
+//   // try {
+//   //   customElements.define(
+//   //     'accordion-toggle-example',
+// };
+
 export const WithDataSource: Story = {
-  args: {
-    total: 200
-  },
-  render: ({ }) => {
-    // const total = dataSource.paginatedItems.length;
-    const items = [
-      {nr: 1, title: 'test 1'},
-      {nr: 2, title: 'test 2'},
-      {nr: 3, title: 'test 3'},
-      {nr: 4, title: 'test 4'},
-      {nr: 5, title: 'test 5'},
-      {nr: 6, title: 'test 6'},
-      {nr: 7, title: 'test 7'},
-      {nr: 8, title: 'test 8'},
-      {nr: 9, title: 'test 9'},
-      {nr: 10, title: 'test 10'}
-    ];
-    const pageSizes = [5, 10, 15, 20],
-      dataSource = new ArrayDataSource(items);
-
-    const total = dataSource.paginatedItems.length;
-    dataSource.paginate(2, 10, total);
-
-    console.log(`dataSource`, dataSource, dataSource.paginatedItems.length);
-
-    // const onUpdate = (event: SlChangeEvent) => {
-    //   const cardscontainer = document.querySelector('.cards-container');
-    //   cardscontainer?.innerHTML = '';
-    //   // dataSource.update();
-    //   const newCards = dataSource.items.map(
-    //     item => html`
-    //         <div>${item.nr}</div>
-    //     `
-    //   );
-    //   // const divs = dataSource.items.forEach(document.createElement('div'));
-    //   // divs.forEach(el => el.innerHTML = 'test');
-    //   // const newCards = dataSource.paginatedItems
-    //   //   .map(
-    //   //   item => html`
-    //   //       ${item}
-    //   //   `
-    //   // );
-    //  // cardscontainer.innerHTML = newCards;
-    //   console.log('cardscontainer', cardscontainer, event, newCards);
-    //    cardscontainer?.append(newCards);
-    // }
-    //
-    //  dataSource.addEventListener('sl-update', onUpdate);
-
-    return html`
-      <style>
-        #root-inner {
-          display: flex;
-          flex-direction: column;
-          gap: 2rem;
-        }
-
-        .pagination {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-        }
-
-        sl-paginator {
-          flex: 1;
-        }
-
-        sl-paginator-size {
-          justify-content: end;
-        }
-      </style>
-      <div class="cards-container">
-      ${dataSource.items.map(
-        item => html`
-            <div>${item.nr}</div>
-        `
-      )}
-        <sl-card responsive padding>
-          <h2>Card number </h2>
-          <p slot="body">Example body text</p>
-        </sl-card>
-      </div>
-      <div class="pagination">
-        <sl-paginator-status
-          .dataSource=${dataSource}
-        ></sl-paginator-status>
-        <sl-paginator
-          .dataSource=${dataSource}
-          .pageSizes=${pageSizes}
-        ></sl-paginator>
-        <sl-paginator-size .pageSizes=${pageSizes} .dataSource=${dataSource}></sl-paginator-size>
-      </div>
-    `; //  @sl-update=${onUpdate}
-  }
-  // TODO: sth like in accordion story example:
-  // try {
-  //   customElements.define(
-  //     'accordion-toggle-example',
-};
-
-export const ExampleWithCards: Story = {
   render: () => {
-    // setTimeout(() => {
-    const total = 100;
-    const pageSizes = [5, 10, 15];
-    const itemsPerPage = 15;
-    const activePage = 3;
-    let items: TemplateResult[] = [];
-    let start = 1;
-    let end = 1;
+    try {
+      customElements.define(
+        'paginated-cards-example',
+        class extends LitElement {
+          static override styles = css`
+          <style>
+          :host {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+          }
 
-    items = Array.from({length: total}).map( // TODO: slice the array
-      (_, index) => html`
-          <sl-card responsive padding>
-            <h2>Card number ${index + 1}</h2>
-            <p slot="body">Example body text</p>
-          </sl-card>
-        `
-    );
+            .cards-container {
+              display: flex;
+              flex-direction: column;
+              gap: 2rem;
+            }
 
-    requestAnimationFrame(() => {
-      const paginator = document.querySelector('sl-paginator') as Paginator;
-      console.log('paginator in example cards', paginator, paginator?.activePage);
+            .pagination {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 16px;
+              margin-block-end: 1rem;
+            }
 
-      // TODO: use itemsPerPage and activePage
-      items = Array.from({length: total}).map( // TODO: slice the array
-        (_, index) => html`
-          <sl-card responsive padding>
-            <h2>Card number ${index + 1}</h2>
-            <p slot="body">Example body text</p>
-          </sl-card>
-        `
-      );
+            sl-paginator {
+              margin-block: 2rem;
+            }
 
-      const pages = Math.ceil(total / itemsPerPage) || 2;
+            sl-paginator-size {
+              justify-content: end;
+            }
+          </style>
+          `;
 
-      // TODO: use paginator activePage and so on
-      start = paginator.activePage === 1 ? 1 : ((paginator.activePage - 1) * itemsPerPage) + 1;
-      end = paginator.activePage === pages ? total : paginator.activePage * paginator.currentlyVisibleItems;
+          items = Array.from({ length: 14 }, (_, index) => ({
+            nr: index + 1,
+            title: `Title of card number ${index + 1}`
+          }));
 
+          pageSizes = [5, 10, 15, 20];
 
-      console.log('in example start and end', start, end);
-    });
+          dataSource = new ArrayDataSource(this.items);
 
+          total: number = 1;
 
-    // TODO: use paginator activePage and so on
-    // const start = this.activePage === 1 ? 1 : ((this.activePage - 1) * itemsPerPage) + 1;
-    // const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems;
+          override connectedCallback(): void {
+            super.connectedCallback();
 
-    /*      // TODO: use itemsPerPage and activePage
-          const items = Array.from({length: total}).map( // TODO: slice the array
-            (_, index) => html`
-              <sl-card responsive padding>
-                <h2>Card number ${index + 1}</h2>
-                <p slot="body">Example body text</p>
-              </sl-card>
-            `
-          );*/
-    // });
+            this.dataSource = new ArrayDataSource(this.items);
 
-    console.log('items and sliced', items, items.slice(start, end));
+            requestAnimationFrame(() => {
+              this.total = this.dataSource?.paginatedItems.length;
+              // this.dataSource.paginate(2, 5, this.total);
+              // this.dataSource.update();
+              console.log('dataSource', this.dataSource, this.dataSource?.paginatedItems.length);
 
-    return html`
-      <style>
-        #root-inner {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
+              // this.dataSource.setPage(2);
+
+              this.dataSource.addEventListener(
+                'sl-update',
+                this.#onUpdate /*() => {
+                console.log('sl-ipdate', this.dataSource);
+                this.requestUpdate();
+              }*/
+              );
+
+              this.dataSource.paginate(2, 5, this.total);
+              this.dataSource.update();
+            });
+          } // TODO: remove event listener
+
+          override disconnectedCallback(): void {
+            this.dataSource.removeEventListener('sl-update', this.#onUpdate);
+
+            super.disconnectedCallback();
+          }
+
+          // override updated(changes: PropertyValues<this>): void {
+          //   super.updated(changes);
+          //
+          //   console.log('changes in updated in example', changes);
+          //
+          // //  this.dataSource.setPage(2);
+          // }
+          //
+          // override firstUpdated(changes: PropertyValues<this>): void {
+          //   super.firstUpdated(changes);
+          //
+          //   console.log('data source in firstupdated example', this.dataSource);
+          // }
+
+          override render(): TemplateResult {
+            console.log('in render', this.dataSource);
+            return html`
+              <div class="pagination">
+                <sl-paginator-status .dataSource=${this.dataSource}></sl-paginator-status>
+                <sl-paginator-size .pageSizes=${this.pageSizes} .dataSource=${this.dataSource}></sl-paginator-size>
+              </div>
+              <div class="cards-container">
+                ${this.dataSource?.items.map(
+                  item => html`
+                    <sl-card responsive padding>
+                      <h2>Card ${item.nr}</h2>
+                    </sl-card>
+                  `
+                )}
+              </div>
+              <sl-paginator .dataSource=${this.dataSource} .pageSizes=${this.pageSizes}></sl-paginator>
+            `;
+          }
+
+          #onUpdate = () => {
+            console.log('sl-ipdate', this.dataSource);
+            this.requestUpdate();
+          };
         }
-      </style>
-      <h2>Paginator with example content</h2>
-      ${items}
-      ${items.map(
-      size => html`
-                <td>
-                  <sl-avatar href="https://example.com">test ${size}</sl-avatar>
-                </td>
-              `
-    )}
-      <sl-card responsive padding>
-        <h2>Captivating Nyhavn Moments</h2>
-        <p slot="body">Example body text</p>
-      </sl-card>
-      <sl-paginator .activePage=${activePage} .total=${total} .pageSizes=${pageSizes}></sl-paginator>
-    `
+      );
+    } catch {
+      /* empty */
+    }
+
+    return html`<paginated-cards-example></paginated-cards-example>`;
   }
 };

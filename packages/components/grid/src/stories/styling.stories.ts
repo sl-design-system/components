@@ -46,6 +46,19 @@ export const Striped: Story = {
   `
 };
 
+export const ColumnDivider: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} column-divider>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="address.phone"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
 export const Parts: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {

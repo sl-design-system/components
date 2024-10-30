@@ -235,52 +235,6 @@
           "type": "color"
         }
       },
-      "yellow": {
-        "100": {
-          "value": "#fff7c5",
-          "type": "color"
-        },
-        "150": {
-          "value": "#fff085",
-          "type": "color"
-        },
-        "200": {
-          "value": "#ffe146",
-          "type": "color"
-        },
-        "300": {
-          "value": "#ffcf1b",
-          "type": "color"
-        },
-        "400": {
-          "value": "#ffae00",
-          "type": "color"
-        },
-        "500": {
-          "value": "#e28400",
-          "type": "color"
-        },
-        "600": {
-          "value": "#bb5c02",
-          "type": "color"
-        },
-        "700": {
-          "value": "#984708",
-          "type": "color"
-        },
-        "800": {
-          "value": "#7c3a0b",
-          "type": "color"
-        },
-        "900": {
-          "value": "#481d00",
-          "type": "color"
-        },
-        "050": {
-          "value": "#fffdea",
-          "type": "color"
-        }
-      },
       "red": {
         "100": {
           "value": "#ffe1e2",
@@ -324,6 +278,52 @@
         },
         "050": {
           "value": "#fff1f1",
+          "type": "color"
+        }
+      },
+      "yellow": {
+        "100": {
+          "value": "#fff7c5",
+          "type": "color"
+        },
+        "150": {
+          "value": "#fff085",
+          "type": "color"
+        },
+        "200": {
+          "value": "#ffe146",
+          "type": "color"
+        },
+        "300": {
+          "value": "#ffcf1b",
+          "type": "color"
+        },
+        "400": {
+          "value": "#ffae00",
+          "type": "color"
+        },
+        "500": {
+          "value": "#e28400",
+          "type": "color"
+        },
+        "600": {
+          "value": "#bb5c02",
+          "type": "color"
+        },
+        "700": {
+          "value": "#984708",
+          "type": "color"
+        },
+        "800": {
+          "value": "#7c3a0b",
+          "type": "color"
+        },
+        "900": {
+          "value": "#481d00",
+          "type": "color"
+        },
+        "050": {
+          "value": "#fffdea",
           "type": "color"
         }
       }

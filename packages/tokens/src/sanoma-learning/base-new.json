@@ -7,7 +7,7 @@
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Roboto",
           "type": "fontFamilies"
         }
       },
@@ -130,7 +130,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.sm}",
+        "value": "{size.borderRadius.md}",
         "type": "borderRadius",
         "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
       },

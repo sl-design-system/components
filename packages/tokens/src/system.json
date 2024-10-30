@@ -3,16 +3,12 @@
     "typeset": {
       "fontFamily": {
         "classic": {
-          "value": {
-            "fontFamily": "Font Awesome 6 Pro"
-          },
-          "type": "typography"
+          "value": "Font Awesome 6 Pro",
+          "type": "fontFamilies"
         },
         "sharp": {
-          "value": {
-            "fontFamily": "Font Awesome 6 Sharp"
-          },
-          "type": "typography"
+          "value": "Font Awesome 6 Sharp",
+          "type": "fontFamilies"
         }
       },
       "fontWeight": {
@@ -32,6 +28,12 @@
           "value": "Solid",
           "type": "fontWeights"
         }
+      }
+    },
+    "system": {
+      "warning": {
+        "value": "diamond-exclamation",
+        "type": "other"
       }
     }
   },

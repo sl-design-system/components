@@ -9,11 +9,6 @@
         "body": {
           "value": "Source Sans Pro",
           "type": "fontFamilies"
-        },
-        "icon": {
-          "value": "{icon.typeset.fontFamily.classic}",
-          "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.fontIcon"
         }
       },
       "fontWeight": {
@@ -72,6 +67,22 @@
           "fontFamily": "{text.typeset.fontFamily.body}",
           "fontSize": "{size.text.body.md}",
           "lineHeight": "{size.lineHeight.400}"
+        },
+        "type": "typography"
+      }
+    },
+    "icon": {
+      "outline": {
+        "value": {
+          "fontFamily": "{icon.fontFamily.classic}",
+          "fontWeight": "{icon.typeset.fontWeight.icon-regular}"
+        },
+        "type": "typography"
+      },
+      "solid": {
+        "value": {
+          "fontFamily": "{icon.fontFamily.classic}",
+          "fontWeight": "{icon.typeset.fontWeight.icon-solid}"
         },
         "type": "typography"
       }

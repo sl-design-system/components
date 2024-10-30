@@ -46,7 +46,7 @@ export class ToggleGroup extends LitElement {
    * By default, only a single toggle button inside the group can be active.
    * This means that the group will automatically deactivate the other buttons when one is toggled.
    *
-   * If you toggle this property, then multiple buttons can be active at the same time.
+   * When set to true, then multiple buttons can be active at the same time.
    * In this case the group does nothing when a button is toggled.
    * Use this mode if you want to handle the toggling of buttons yourself.
    */

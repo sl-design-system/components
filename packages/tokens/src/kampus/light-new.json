@@ -377,51 +377,51 @@
     "utility": {
       "transparent": {
         "100": {
-          "value": "rgba( {color.palette.grey.900} , 11%)",
+          "value": "rgba( {color.palette.purple.900} , 11%)",
           "type": "color"
         },
         "150": {
-          "value": "rgba( {color.palette.grey.900} , 21%)",
+          "value": "rgba( {color.palette.purple.900} , 21%)",
           "type": "color"
         },
         "200": {
-          "value": "rgba( {color.palette.grey.900} , 36%)",
+          "value": "rgba( {color.palette.purple.900} , 36%)",
           "type": "color"
         },
         "300": {
-          "value": "rgba( {color.palette.grey.900} , 54%)",
+          "value": "rgba( {color.palette.purple.900} , 54%)",
           "type": "color"
         },
         "400": {
-          "value": "rgba( {color.palette.grey.900} , 66%)",
+          "value": "rgba( {color.palette.purple.900} , 66%)",
           "type": "color"
         },
         "500": {
-          "value": "rgba( {color.palette.grey.900} , 73%)",
+          "value": "rgba( {color.palette.purple.900} , 73%)",
           "type": "color"
         },
         "600": {
-          "value": "rgba( {color.palette.grey.900} , 79%)",
+          "value": "rgba( {color.palette.purple.900} , 79%)",
           "type": "color"
         },
         "700": {
-          "value": "rgba( {color.palette.grey.900} , 84%)",
+          "value": "rgba( {color.palette.purple.900} , 84%)",
           "type": "color"
         },
         "800": {
-          "value": "rgba( {color.palette.grey.900} , 88%)",
+          "value": "rgba( {color.palette.purple.900} , 88%)",
           "type": "color"
         },
         "900": {
-          "value": "rgba( {color.palette.grey.900} , 100%)",
+          "value": "rgba( {color.palette.purple.900} , 100%)",
           "type": "color"
         },
         "050": {
-          "value": "rgba( {color.palette.grey.900} , 5%)",
+          "value": "rgba( {color.palette.purple.900} , 5%)",
           "type": "color"
         },
         "000": {
-          "value": "rgba( {color.palette.grey.900} , 0%)",
+          "value": "rgba( {color.palette.purple.900} , 0%)",
           "type": "color"
         }
       }

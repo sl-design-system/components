@@ -1,7 +1,7 @@
 ---
 title: Toggle group code
 tags: code
-APIdescription: Component is a kind of wrapper for toggle-buttons with some additional features. Toggle group should be used together with toggle buttons inside.
+APIdescription: Component is a wrapper for toggle-buttons to add additional features that makes the separate toggle buttons look and act as one component.
   More information about toggle buttons can be found in <a href="/categories/components/toggle-button/usage/" target="_blank">the toggle button documentation</a>.
 eleventyNavigation:
   parent: Toggle group

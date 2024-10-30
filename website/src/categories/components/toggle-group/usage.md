@@ -69,7 +69,7 @@ Use a toggle group when offering a set of options where only one can be active a
 ### Multiple of Related Actions
 A toggle group is useful when presenting a series of actions that are related but independent, where users can activate one, some, or all options at once. This pattern works well for scenarios like turning on different filters or settings, where multiple combinations of active toggles are allowed. The visual grouping helps users understand the relationship between these actions.
 
-### Requirer Immediate Feedback
+### Require Immediate Feedback
 When the selected state of each button should immediately reflect changes in the interface, such as activating a real-time filter or adjusting a visual layout. For example, a toggle group might be used for applying different text formatting styles (e.g., bold, italic, underline), where users can combine styles or toggle them off individually without confusion.
 
 Grouping these toggles visually conveys that the buttons are connected and provide immediate, on-screen feedback, enhancing usability in real-time decision-making scenarios.
@@ -109,7 +109,7 @@ If the user selections need to persist across different interactions or sessions
 
 ## Sizing
 
-Toggle Group come in two sizes, to match diferents scenarios:
+Toggle Group come in two sizes, to match different scenarios:
 
 - **Medium:** The medium-sized toggle group function as the default option across our user interfaces. It achieves a balanced blend of size and clarity, establishing itself as the standard and user-friendly choice for single-choice.
 
@@ -121,7 +121,7 @@ Toggle Group come in two sizes, to match diferents scenarios:
 
 ## Status
 
-Toggle Group come in two sizes, to match diferents scenarios:
+Buttons in a toggle group have 3 different states, to match different scenarios:
 
 - **Default:** This is the initial state of the toggle when it is inactive but available for user interaction. It visually indicates that no action has been applied yet, but the toggle is ready to be selected.
 
@@ -149,12 +149,12 @@ Toggle Group come in various versions, each suited for specific situations:
 
 ## Figma options
 
-With these options, you can tweak the appearance of the radio in Figma. They are available in the Design Panel so you can compose the toggle group to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the toggle group in Figma. They are available in the Design Panel so you can compose the toggle group to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|
 |-|-|-|
 |Size|`'md', 'lg'`|The button is available in three sizes. If not specified the default value is `md` .|
-|Segments|`'5'` to `'2'`|The toggle group offers the possibility to display fron 5 to 2 controls|
+|Segments|`'5'` to `'2'`|The toggle group offers the possibility to display from 5 to 2 controls|
 |Configuration|`'icon + label', 'label', 'icon only'`.|There are three toggle group types to choose from so you can use, depending of the scenario. |
 
 {.ds-table .ds-table-align-top}

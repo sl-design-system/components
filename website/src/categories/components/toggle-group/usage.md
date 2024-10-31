@@ -152,7 +152,7 @@ With these options, you can tweak the appearance of the toggle group in Figma. T
 |Item|Options|Description|
 |-|-|-|
 |Size|`'md', 'lg'`|The button is available in three sizes. If not specified the default value is `md` .|
-|Segments|`'2' to '5'`|The toggle group offers the possibility to display from 5 to 2 controls|
+|Segments|`'2' to '5'`|The toggle group offers the possibility to display from 2 to 5 controls|
 |Configuration|`'icon + label', 'label', 'icon only'`.|There are three toggle group types to choose from so you can use, depending of the scenario. |
 
 {.ds-table .ds-table-align-top}

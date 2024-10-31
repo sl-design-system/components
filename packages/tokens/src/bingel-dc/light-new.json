@@ -473,7 +473,7 @@
         "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
       },
       "secondary": {
-        "value": "{color.text.accent.grey.bold}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
       },

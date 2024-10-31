@@ -96,10 +96,8 @@ If the user selections need to persist across different interactions or sessions
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Toogle Button |Description |Yes|
-|2|Container |Description |Yes|
-|3|Icons |Description |No|
-|3|Label |Description |No|
+|1|Toogle Button |These are the control button, for more information check the **toggle group**. |Yes|
+|2|Container | HTML toggle group element |Yes|
 
 {.ds-table}
 
@@ -154,7 +152,7 @@ With these options, you can tweak the appearance of the toggle group in Figma. T
 |Item|Options|Description|
 |-|-|-|
 |Size|`'md', 'lg'`|The button is available in three sizes. If not specified the default value is `md` .|
-|Segments|`'5' to '2'`|The toggle group offers the possibility to display from 5 to 2 controls|
+|Segments|`'2' to '5'`|The toggle group offers the possibility to display from 5 to 2 controls|
 |Configuration|`'icon + label', 'label', 'icon only'`.|There are three toggle group types to choose from so you can use, depending of the scenario. |
 
 {.ds-table .ds-table-align-top}

@@ -64,7 +64,7 @@ eleventyNavigation:
 Toggle group are best used in situations where users need to make a single selection from multiple options within a defined group. Here are two common scenarios:
 
 ### Related Exclusive Choices
-Use a toggle group when offering a set of options where only one can be active at a time. This is ideal for scenarios like mode selection, where choosing one option automatically deselects others (e.g., light vs. dark mode). The toggle group ensures clear feedback, allowing users to easily understand which option is currently active.
+Use a toggle group when you need to present a set of related options where only one can be active at a time. This approach improves usability by wrapping options and providing clear feedback on the active selection, helping users make quick adjustments without confusion. A toggle group can be applied to a specific interface part to allow users to change how data is visually displayed, such as switching between list, table or chart views. Another scenario is activating an exclusive control from the group, like adjusting text alignment in a text editor.
 
 ### Multiple of Related Actions
 A toggle group is useful when presenting a series of actions that are related but independent, where users can activate one, some, or all options at once. This pattern works well for scenarios like turning on different filters or settings, where multiple combinations of active toggles are allowed. The visual grouping helps users understand the relationship between these actions.
@@ -154,7 +154,7 @@ With these options, you can tweak the appearance of the toggle group in Figma. T
 |Item|Options|Description|
 |-|-|-|
 |Size|`'md', 'lg'`|The button is available in three sizes. If not specified the default value is `md` .|
-|Segments|`'5'` to `'2'`|The toggle group offers the possibility to display from 5 to 2 controls|
+|Segments|`'5' to '2'`|The toggle group offers the possibility to display from 5 to 2 controls|
 |Configuration|`'icon + label', 'label', 'icon only'`.|There are three toggle group types to choose from so you can use, depending of the scenario. |
 
 {.ds-table .ds-table-align-top}

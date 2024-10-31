@@ -119,7 +119,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.sm}",
+        "value": "{size.borderRadius.lg}",
         "type": "borderRadius"
       }
     },
@@ -162,20 +162,6 @@
         "4xl": {
           "value": "{size-new.icon.4xl}",
           "type": "fontSizes"
-        }
-      }
-    }
-  },
-  "icon": {
-    "typeset": {
-      "fontWeight": {
-        "regular": {
-          "value": "{icon.typeset.fontWeight.icon-regular}",
-          "type": "fontWeights"
-        },
-        "solid": {
-          "value": "{icon.typeset.fontWeight.icon-solid}",
-          "type": "fontWeights"
         }
       }
     }

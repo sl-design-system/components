@@ -10,15 +10,13 @@ import styles from './paginator-size.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-page-size-change': SlChangeEvent; //SlPageSizeChangeEvent;
+    'sl-page-size-change': SlChangeEvent;
   }
 
   interface HTMLElementTagNameMap {
     'sl-paginator-size': PaginatorSize;
   }
 }
-
-// export type SlPageSizeChangeEvent = CustomEvent<number>;
 
 /**
  * A component that can be used with the paginator.
@@ -57,6 +55,12 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  override disconnectedCallback(): void {
+    this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
+
+    super.disconnectedCallback();
+  }
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
@@ -65,26 +69,9 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     });
 
     if (this.dataSource) {
-      console.log('this.dataSource in paginator size', this.dataSource);
-      this.dataSource.addEventListener('sl-update', () => {
-        console.log('on datasource event', this.dataSource, this.dataSource?.paginateItems?.pageSize);
-        // this.itemsPerPage = event.detail.paginateItems?.pageSize;
-         this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
-        // this.requestUpdate();
-      });
-      //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
-
-      // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-      //   const detail = event.detail as number;
-      //   this.itemsPerPage = detail;
-      //     // paginator.itemsPerPage = detail;
-      //     // visibleItems.itemsPerPage = detail;
-      //   if (this.dataSource) {
-      //     this.dataSource.paginate(1, detail);
-      //   }
-      //   });
+      this.dataSource.addEventListener('sl-update', this.#onUpdate);
     }
-  } // TODO: disconnectedCallback with removeEventListener
+  }
 
   override render(): TemplateResult {
     return html`
@@ -123,14 +110,12 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     /** Emits amount of selected items per page */
     this.pageSizeChangeEvent.emit(this.itemsPerPage);
 
-    console.log('this.itemsPerPage', this.itemsPerPage);
-
-    // dataSource.setPageSize(<number>)
     if (this.dataSource) {
       this.dataSource.setPageSize(this.itemsPerPage);
-      // dataSource.setPage(<number>)
     }
-
-    //this.requestUpdate();
   }
+
+  #onUpdate = () => {
+    this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
+  };
 }

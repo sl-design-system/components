@@ -48,15 +48,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // #events = new EventsController(this, {
-  //   // 'sl-form-control': this.#onFormControl,
-  //   // 'sl-form-field': this.#onFormField
-  //
-  //   'sl-page-size-change': this.#onPageSizeChange
-  // });
-
-  // #events = new EventsController(this);
-
   /** Active page. */
   #activePage = 1;
 
@@ -82,15 +73,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'active-page' })
   set activePage(value: number) {
     this.#activePage = value;
-    // if (this.dataSource) {
-    //   this.dataSource.setPage(this.#activePage, this.itemsPerPage!);
-    //   // dataSource.setPage(<number>)
-    // }
-
-    // if (this.dataSource) {
-    //   this.dataSource.setPage(this.activePage, this.itemsPerPage!, this.total);
-    //   // dataSource.setPage(<number>)
-    // }
 
     this.pageChangeEvent.emit(this.#activePage);
   }
@@ -111,7 +93,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
 
   /** @internal Emits when the page has been selected/changed. */
-  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlChangeEvent<number>>; //EventEmitter<SlPageChangeEvent>; //EventEmitter<SlChangeEvent<number>>;
+  @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlChangeEvent<number>>;
 
   /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
   @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
@@ -145,43 +127,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     this.#pages = Math.ceil(this.total / this.itemsPerPage);
 
-    //  this.#events.listen(this, 'sl-page-size-change', this.#onPageSizeChange);
-
     this.#setCurrentlyVisibleItems();
 
     requestAnimationFrame(() => {
       this.#observer.observe(this);
-
-      // // this.addEventListener('sl-page-size-change', this.#onPageSizeChange);
-      // if (this.dataSource) {
-      //   console.log('this.dataSource in paginator', this.dataSource);
-      //   this.dataSource.addEventListener('sl-update', event => {
-      //     console.log('on datasource event', event, this.dataSource?.paginateItems);
-      //     this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
-      //     this.activePage = this.dataSource?.paginateItems?.pageNumber as number;
-      //   //  this.total = this.dataSource?.items.length as number;
-      //     this.total = this.dataSource?.paginateItems?.total as number;
-      //     console.log('on datasource event--2', event, this.dataSource?.paginateItems, this.activePage);
-      //     this.requestUpdate();
-      //   });
-      //
-      //   // TODO: data are not being refreshed after filtering and total has changed and click other active page...
-      //   // TODO: jak sie przefiltruje to zostaje na tej samej stronie i sie dane nie odswiezaja z tego active page ktore bylo wczesniej aktywne
-      //
-      //   //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
-      //
-      //   // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-      //   //   const detail = event.detail as number;
-      //   //   this.itemsPerPage = detail;
-      //   //     // paginator.itemsPerPage = detail;
-      //   //     // visibleItems.itemsPerPage = detail;
-      //   //   if (this.dataSource) {
-      //   //     this.dataSource.paginate(1, detail);
-      //   //   }
-      //   //   });
-      // }
     });
-  } // TODO: activePage from datasource
+  }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
@@ -191,74 +142,16 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
-
-    console.log(
-      'changes in willUpdate',
-      changes,
-      this.activePage,
-      this.#activePage,
-      this.#initialLoad,
-      "changes.has('activePage')",
-      changes.has('activePage')
-    );
-
-    if (changes.has('activePage') && !this.#initialLoad) {
-      console.log('total amount', this.total, this.dataSource?.paginateItems?.total);
-      if (this.dataSource) {
-        // this.dataSource.setPage(this.activePage, this.itemsPerPage!, this.total);
-        // this.dataSource.setPage(this.activePage, this.dataSource.paginateItems!.pageSize, this.dataSource.paginateItems!.total);
-        // this.dataSource.setPage(this.activePage);
-        // dataSource.setPage(<number>)
-      }
-    }
-  }
-
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    console.log('data source in firstupdated', this.dataSource);
-
-    // this.addEventListener('sl-page-size-change', this.#onPageSizeChange);
     if (this.dataSource) {
-      // this.activePage = this.dataSource?.paginateItems?.pageNumber as number;
-
-      console.log('this.dataSource in paginator', this.dataSource);
-      this.dataSource.addEventListener(
-        'sl-update',
-        this.#onUpdate /*event => {
-        console.log('on datasource event', event, this.dataSource?.paginateItems);
-        this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
-        this.activePage = this.dataSource?.paginateItems?.pageNumber as number;
-        //  this.total = this.dataSource?.items.length as number;
-        this.total = this.dataSource?.paginateItems?.total as number;
-        console.log('on datasource event--2', event, this.dataSource?.paginateItems, this.activePage);
-       // this.requestUpdate();
-      }*/
-      );
-
-      // TODO: data are not being refreshed after filtering and total has changed and click other active page...
-      // TODO: jak sie przefiltruje to zostaje na tej samej stronie i sie dane nie odswiezaja z tego active page ktore bylo wczesniej aktywne
-
-      //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
-
-      // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-      //   const detail = event.detail as number;
-      //   this.itemsPerPage = detail;
-      //     // paginator.itemsPerPage = detail;
-      //     // visibleItems.itemsPerPage = detail;
-      //   if (this.dataSource) {
-      //     this.dataSource.paginate(1, detail);
-      //   }
-      //   });
+      this.dataSource.addEventListener('sl-update', this.#onUpdate);
     }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('changes in updated', changes);
 
     if (changes.has('itemsPerPage')) {
       const itemsPerPage = this.itemsPerPage ?? 10;
@@ -277,7 +170,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('activePage')) {
-      console.log('activepage in changes-1', this.activePage);
       if (this.activePage < 1) {
         this.activePage = 1;
       } else if (this.activePage > this.#pages) {
@@ -286,14 +178,9 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
       this.#setCurrentlyVisibleItems();
 
-      console.log('activepage in changes-2', this.activePage, this.#initialLoad);
-
       if (!this.#initialLoad) {
         if (this.dataSource) {
-          // this.dataSource.setPage(this.activePage, this.itemsPerPage!, this.total);
-          //   this.dataSource.setPage(this.activePage, this.dataSource.paginateItems!.pageSize, this.dataSource.paginateItems!.total);
           this.dataSource.setPage(this.activePage);
-          // dataSource.setPage(<number>)
         }
       }
 
@@ -326,7 +213,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log('buttons pages', Array.from({ length: this.#pages }).slice(1, this.#pages - 1), this.#pages);
     return html`
       <nav class="container">
         <sl-button
@@ -389,7 +275,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           ${this.hiddenPagesRight.length
             ? html`
                 <li class="more-button">
-                  <sl-menu-button fill="ghost" size="lg" aria-label=${msg('Select page number')}>
+                  <sl-menu-button
+                    id=${Math.random().toString(36).substring(2, 12)}
+                    fill="ghost"
+                    size="lg"
+                    aria-label=${msg('Select page number')}
+                  >
                     <sl-icon name="ellipsis-down" slot="button"></sl-icon>
 
                     ${this.hiddenPagesRight.map(
@@ -463,9 +354,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.activePage--;
 
     if (this.dataSource) {
-      // this.dataSource.setPage(this.activePage, this.itemsPerPage!, this.total);
       this.dataSource.setPage(this.activePage);
-      // dataSource.setPage(<number>)
     }
 
     this.#setCurrentlyVisibleItems();
@@ -477,9 +366,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.activePage++;
 
     if (this.dataSource) {
-      // this.dataSource.setPage(this.activePage, this.itemsPerPage!, this.total);
       this.dataSource.setPage(this.activePage);
-      // dataSource.setPage(<number>)
     }
 
     this.#setCurrentlyVisibleItems();
@@ -495,16 +382,18 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.activePage = Number(target.innerText?.trim());
     }
 
-    console.log(this.dataSource);
-
     if (this.dataSource) {
-      // this.dataSource.setPage(this.activePage, this.itemsPerPage!, this.total);
       this.dataSource.setPage(this.activePage);
-      // dataSource.setPage(<number>)
     }
 
     this.#setCurrentlyVisibleItems();
     this.#updateVisibility();
+
+    requestAnimationFrame(() => {
+      const activePageElement = this.renderRoot.querySelector('[active]') as PaginatorPage;
+      const activeButton = activePageElement?.renderRoot.querySelector('button');
+      activeButton?.focus();
+    });
   }
 
   #updateVisibility(): void {
@@ -622,67 +511,17 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  // #onPageSizeChange(event: SlChangeEvent<number>): void {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //   console.log('event in paginator', event);
-  //   const detail = event.detail as number;
-  //   this.itemsPerPage = detail;
-  // }
-
-  // TODO: this.itemsPerPage should albo have getter and setter like activePage?
-
   #onUpdate = () => {
     requestAnimationFrame(() => {
-      if (!this.dataSource) {
+      if (!this.dataSource || !this.dataSource.paginateItems) {
         return;
       }
-      // this.dataSource.addEventListener('sl-update', event => {
-      console.log(
-        'on datasource event paginator.ts',
-        /*event,*/ this.dataSource,
-        this.dataSource?.paginateItems,
-        'active',
-        this.activePage,
-        this.dataSource.paginateItems?.pageNumber,
-        this.total
-      );
-      // if (this.activePage !== this.dataSource.paginateItems?.pageNumber) {
-      //   this.dataSource.setPage(this.activePage, this.dataSource.paginateItems!.pageSize, this.dataSource.paginateItems!.total);
-      //   return;
-      // }
-      this.itemsPerPage = this.dataSource.paginateItems?.pageSize;
-      if (this.total === (this.dataSource.paginateItems?.total as number)) {
-        this.activePage = this.dataSource.paginateItems?.pageNumber as number;
+
+      this.itemsPerPage = this.dataSource.paginateItems.pageSize;
+      if (this.total === this.dataSource.paginateItems.total) {
+        this.activePage = this.dataSource.paginateItems.pageNumber;
       }
-      //  this.total = this.dataSource?.items.length as number;
-      this.total = this.dataSource.paginateItems?.total as number;
-      console.log(
-        'on datasource event--2 paginator.ts',
-        /*event,*/ this.dataSource,
-        this.dataSource.paginateItems,
-        'active',
-        this.activePage,
-        this.dataSource.paginateItems?.pageNumber,
-        this.total
-      );
-      // this.requestUpdate();
-      // });
-
-      // TODO: data are not being refreshed after filtering and total has changed and click other active page...
-      // TODO: jak sie przefiltruje to zostaje na tej samej stronie i sie dane nie odswiezaja z tego active page ktore bylo wczesniej aktywne
-
-      //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
-
-      // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-      //   const detail = event.detail as number;
-      //   this.itemsPerPage = detail;
-      //     // paginator.itemsPerPage = detail;
-      //     // visibleItems.itemsPerPage = detail;
-      //   if (this.dataSource) {
-      //     this.dataSource.paginate(1, detail);
-      //   }
-      //   });
+      this.total = this.dataSource.paginateItems.total;
     });
   };
 }

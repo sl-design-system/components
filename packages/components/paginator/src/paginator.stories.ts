@@ -101,7 +101,7 @@ export const ItemsCounterComponent: Story = {
   `
 };
 
-export const All: Story = {
+export const WithEvents: Story = {
   args: {
     total: 200
   },
@@ -159,108 +159,6 @@ export const All: Story = {
 
 // TODO: focus active page from keyboard
 
-// export const WithDataSource: Story = {
-//   args: {
-//     total: 200
-//   },
-//   render: ({ }) => {
-//     // const total = dataSource.paginatedItems.length;
-//     const items = [
-//       {nr: 1, title: 'test 1'},
-//       {nr: 2, title: 'test 2'},
-//       {nr: 3, title: 'test 3'},
-//       {nr: 4, title: 'test 4'},
-//       {nr: 5, title: 'test 5'},
-//       {nr: 6, title: 'test 6'},
-//       {nr: 7, title: 'test 7'},
-//       {nr: 8, title: 'test 8'},
-//       {nr: 9, title: 'test 9'},
-//       {nr: 10, title: 'test 10'}
-//     ];
-//     const pageSizes = [5, 10, 15, 20],
-//       dataSource = new ArrayDataSource(items);
-//
-//     const total = dataSource.paginatedItems.length;
-//     dataSource.paginate(2, 10, total);
-//
-//     console.log(`dataSource`, dataSource, dataSource.paginatedItems.length);
-//
-//     // const onUpdate = (event: SlChangeEvent) => {
-//     //   const cardscontainer = document.querySelector('.cards-container');
-//     //   cardscontainer?.innerHTML = '';
-//     //   // dataSource.update();
-//     //   const newCards = dataSource.items.map(
-//     //     item => html`
-//     //         <div>${item.nr}</div>
-//     //     `
-//     //   );
-//     //   // const divs = dataSource.items.forEach(document.createElement('div'));
-//     //   // divs.forEach(el => el.innerHTML = 'test');
-//     //   // const newCards = dataSource.paginatedItems
-//     //   //   .map(
-//     //   //   item => html`
-//     //   //       ${item}
-//     //   //   `
-//     //   // );
-//     //  // cardscontainer.innerHTML = newCards;
-//     //   console.log('cardscontainer', cardscontainer, event, newCards);
-//     //    cardscontainer?.append(newCards);
-//     // }
-//     //
-//     //  dataSource.addEventListener('sl-update', onUpdate);
-//
-//     return html`
-//       <style>
-//         #root-inner {
-//           display: flex;
-//           flex-direction: column;
-//           gap: 2rem;
-//         }
-//
-//         .pagination {
-//           display: flex;
-//           align-items: center;
-//           justify-content: space-between;
-//           gap: 16px;
-//         }
-//
-//         sl-paginator {
-//           flex: 1;
-//         }
-//
-//         sl-paginator-size {
-//           justify-content: end;
-//         }
-//       </style>
-//       <div class="cards-container">
-//       ${dataSource.items.map(
-//         item => html`
-//             <div>${item.nr}</div>
-//         `
-//       )}
-//         <sl-card responsive padding>
-//           <h2>Card number </h2>
-//           <p slot="body">Example body text</p>
-//         </sl-card>
-//       </div>
-//       <div class="pagination">
-//         <sl-paginator-status
-//           .dataSource=${dataSource}
-//         ></sl-paginator-status>
-//         <sl-paginator
-//           .dataSource=${dataSource}
-//           .pageSizes=${pageSizes}
-//         ></sl-paginator>
-//         <sl-paginator-size .pageSizes=${pageSizes} .dataSource=${dataSource}></sl-paginator-size>
-//       </div>
-//     `; //  @sl-update=${onUpdate}
-//   }
-//   // TODO: sth like in accordion story example:
-//   // try {
-//   //   customElements.define(
-//   //     'accordion-toggle-example',
-// };
-
 export const WithDataSource: Story = {
   render: () => {
     try {
@@ -299,7 +197,7 @@ export const WithDataSource: Story = {
           </style>
           `;
 
-          items = Array.from({ length: 14 }, (_, index) => ({
+          items = Array.from({ length: 80 }, (_, index) => ({
             nr: index + 1,
             title: `Title of card number ${index + 1}`
           }));
@@ -317,44 +215,19 @@ export const WithDataSource: Story = {
 
             requestAnimationFrame(() => {
               this.total = this.dataSource?.paginatedItems.length;
-              // this.dataSource.paginate(2, 5, this.total);
-              // this.dataSource.update();
-              console.log('dataSource', this.dataSource, this.dataSource?.paginatedItems.length);
 
-              // this.dataSource.setPage(2);
-
-              this.dataSource.addEventListener(
-                'sl-update',
-                this.#onUpdate /*() => {
-                console.log('sl-ipdate', this.dataSource);
-                this.requestUpdate();
-              }*/
-              );
+              this.dataSource.addEventListener('sl-update', this.#onUpdate);
 
               this.dataSource.paginate(2, 5, this.total);
               this.dataSource.update();
             });
-          } // TODO: remove event listener
+          }
 
           override disconnectedCallback(): void {
             this.dataSource.removeEventListener('sl-update', this.#onUpdate);
 
             super.disconnectedCallback();
           }
-
-          // override updated(changes: PropertyValues<this>): void {
-          //   super.updated(changes);
-          //
-          //   console.log('changes in updated in example', changes);
-          //
-          // //  this.dataSource.setPage(2);
-          // }
-          //
-          // override firstUpdated(changes: PropertyValues<this>): void {
-          //   super.firstUpdated(changes);
-          //
-          //   console.log('data source in firstupdated example', this.dataSource);
-          // }
 
           override render(): TemplateResult {
             console.log('in render', this.dataSource);
@@ -387,5 +260,39 @@ export const WithDataSource: Story = {
     }
 
     return html`<paginated-cards-example></paginated-cards-example>`;
+  }
+};
+
+export const All: Story = {
+  args: {
+    total: 200
+  },
+  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
+    return html`
+      <style>
+        .pagination {
+          display: block;
+          text-align: center;
+        }
+
+        sl-paginator-size {
+          justify-content: end;
+        }
+      </style>
+      <div class="pagination">
+        ${sizes.map(
+          size => html`
+            <h3>Size: ${size}</h3>
+            <sl-paginator
+              .total=${total}
+              .pageSizes=${pageSizes}
+              .activePage=${activePage}
+              .itemsPerPage=${itemsPerPage}
+              .size=${size}
+            ></sl-paginator>
+          `
+        )}
+      </div>
+    `;
   }
 };

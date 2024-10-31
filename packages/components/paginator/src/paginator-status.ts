@@ -42,44 +42,35 @@ export class PaginatorStatus extends LitElement {
 
     this.#pages = Math.ceil(this.total / this.itemsPerPage);
 
-    if (this.activePage < 1) {
-      this.activePage = 1;
-    } else if (this.activePage > this.#pages) {
-      this.activePage = this.#pages;
-    }
+    // if (this.activePage < 1) {
+    //   this.activePage = 1;
+    // } else if (this.activePage > this.#pages) {
+    //   this.activePage = this.#pages;
+    // }
 
-    requestAnimationFrame(() => {
-      this.#setCurrentlyVisibleItems();
-    });
-    // this.#setCurrentlyVisibleItems();
+    // requestAnimationFrame(() => {
+    //   this.#setCurrentlyVisibleItems();
+    // });
+  }
+
+  override disconnectedCallback(): void {
+    this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
+
+    super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.#setCurrentlyVisibleItems();
 
     if (this.dataSource) {
-      console.log('this.dataSource in paginator', this.dataSource);
-      this.dataSource.addEventListener('sl-update', event => {
-        console.log('on datasource event', event);
-        this.itemsPerPage = this.dataSource?.paginateItems?.pageSize as number;
-        this.activePage = this.dataSource?.paginateItems?.pageNumber as number;
-        this.total = this.dataSource?.paginateItems?.total as number;
-        this.requestUpdate();
-      });
-      //   this.dataSource.addEventListener('sl-page-size-change', this.#onPageSizeChange);
-
-      // this.dataSource?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-      //   const detail = event.detail as number;
-      //   this.itemsPerPage = detail;
-      //     // paginator.itemsPerPage = detail;
-      //     // visibleItems.itemsPerPage = detail;
-      //   if (this.dataSource) {
-      //     this.dataSource.paginate(1, detail);
-      //   }
-      //   });
+      this.dataSource.addEventListener('sl-update', this.#onUpdate);
     }
-  } // TODO: disconnectedCallback with removeEventListener
+  }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('changes', changes);
 
     if (changes.has('itemsPerPage') || changes.has('total')) {
       this.#pages = Math.ceil(this.total / this.itemsPerPage);
@@ -97,14 +88,12 @@ export class PaginatorStatus extends LitElement {
       requestAnimationFrame(() => {
         this.#setCurrentlyVisibleItems();
       });
-      // this.#setCurrentlyVisibleItems();
     }
   }
 
   override render(): TemplateResult {
     const start = this.activePage === 1 ? 1 : (this.activePage - 1) * this.itemsPerPage + 1;
     const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems;
-    // console.log('start - end', start, end);
 
     return html`
       ${msg(str`${start} - ${end} of ${this.total} items`)}
@@ -127,4 +116,14 @@ export class PaginatorStatus extends LitElement {
       this.currentlyVisibleItems = this.itemsPerPage!;
     }
   }
+
+  #onUpdate = () => {
+    if (!this.dataSource || !this.dataSource.paginateItems) {
+      return;
+    }
+
+    this.itemsPerPage = this.dataSource.paginateItems.pageSize;
+    this.activePage = this.dataSource.paginateItems.pageNumber;
+    this.total = this.dataSource.paginateItems.total;
+  };
 }

@@ -1,18 +1,11 @@
 /* eslint-disable lit/prefer-static-styles */
 import { localized } from '@lit/localize';
-import { RangeChangedEvent, VisibilityChangedEvent } from '@lit-labs/virtualizer';
+import { VisibilityChangedEvent } from '@lit-labs/virtualizer';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
-import {
-  type EventEmitter,
-  RovingTabindexController,
-  SelectionController,
-  event,
-  getValueByPath,
-  isSafari
-} from '@sl-design-system/shared';
+import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -133,15 +126,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
   });
 
-  /** Manage keyboard navigation between cells. */
-  #rovingTabindexController = new RovingTabindexController<HTMLElement>(this, {
-    focusInIndex: (elements: HTMLElement[]) => elements.findIndex(el => el.hasAttribute('selected')),
-    direction: 'grid',
-    directionLength: 5,
-    elements: () => this.cells || [],
-    isFocusableElement: (el: HTMLElement) => !el.hasAttribute('disabled')
-  });
-
   /** We need to know when the user drags items outside of the grid. */
   #onWindowDragOver = (event: DragEvent) => {
     const grid = event.composedPath().find(el => el instanceof Grid);
@@ -173,8 +157,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
-
-  @state() cells: HTMLElement[] = [];
 
   /** The active item in the grid. */
   @state() activeItem?: T;
@@ -327,7 +309,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @visibilityChanged=${this.#onVisibilityChanged} @rangeChanged=${this.#onRangeChanged} part="tbody">
+        <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
             items: this.view.rows,
             renderItem: (item, index) => this.renderItem(item, index)
@@ -749,9 +731,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
     this.view.columnDefinitions = columns;
-    const bodyColumns = this.view.headerRows[this.view.headerRows.length - 1];
-    this.#rovingTabindexController.directionLength = bodyColumns.length;
-    this.#rovingTabindexController.clearElementCache();
   }
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
@@ -767,13 +746,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     this.#applySorters(true);
-  }
-
-  #onRangeChanged(event: RangeChangedEvent): void {
-    setTimeout(() => {
-      this.cells = Array.from(this.renderRoot.querySelectorAll('[part~=row] td'));
-      this.#rovingTabindexController.updateWithVirtualizer({ elements: () => this.cells || [] }, event);
-    }, 100);
   }
 
   #onVisibilityChanged(event: VisibilityChangedEvent): void {
@@ -844,8 +816,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     dataSource?.update();
 
-    this.cells = Array.from(this.renderRoot.querySelectorAll('td'));
-    this.#rovingTabindexController.clearElementCache();
     this.stateChangeEvent.emit({ grid: this });
   }
 }

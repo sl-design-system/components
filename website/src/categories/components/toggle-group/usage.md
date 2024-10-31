@@ -96,7 +96,7 @@ If the user selections need to persist across different interactions or sessions
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Toogle Button |These are the control button, for more information check the **toggle group**. |Yes|
+|1|Toggle Button |These are the control buttons, for more information check the <a href="/categories/components/toggle-button/" target="_blank">the toggle button documentation</a>. |Yes|
 |2|Container | HTML toggle group element |Yes|
 
 {.ds-table}

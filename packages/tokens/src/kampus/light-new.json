@@ -458,22 +458,22 @@
         "description": "Use for text in a disabled state."
       },
       "selected": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.text.accent.purple.bold}",
         "type": "color",
         "description": "Use for text in selected states (e.g., tabs or menu items)."
       },
       "brand": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.text.accent.purple.plain}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing text."
       },
       "primary": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.text.accent.purple.bold}",
         "type": "color",
         "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
       },
       "secondary": {
-        "value": "{color.text.accent.grey.bold}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
       },
@@ -503,12 +503,12 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.text.accent.yellow.plain}",
+          "value": "{color.text.accent.orange.plain}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.yellow.bold}",
+          "value": "{color.text.accent.orange.bold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
         },
@@ -533,12 +533,12 @@
       "accent": {
         "blue": {
           "plain": {
-            "value": "{color.palette.blue.400}",
+            "value": "{color.palette.blue.600}",
             "type": "color",
             "description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.600}",
+            "value": "{color.palette.blue.700}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -557,7 +557,7 @@
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.300}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
@@ -582,16 +582,28 @@
             "type": "color"
           }
         },
-        "yellow": {
+        "orange": {
           "plain": {
-            "value": "{color.palette.yellow.600}",
+            "value": "{color.palette.orange.600}",
             "type": "color",
-            "description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            "description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.yellow.700}",
+            "value": "{color.palette.orange.700}",
             "type": "color",
-            "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+            "description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "purple": {
+          "plain": {
+            "value": "{color.palette.purple.600}",
+            "type": "color",
+            "description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.purple.600}",
+            "type": "color",
+            "description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "red": {
@@ -604,6 +616,30 @@
             "value": "{color.palette.red.700}",
             "type": "color",
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "teal": {
+          "plain": {
+            "value": "{color.palette.teal.600}",
+            "type": "color",
+            "description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.teal.700}",
+            "type": "color",
+            "description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "yellow": {
+          "plain": {
+            "value": "{color.palette.yellow.600}",
+            "type": "color",
+            "description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.yellow.700}",
+            "type": "color",
+            "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           }
         }
       }

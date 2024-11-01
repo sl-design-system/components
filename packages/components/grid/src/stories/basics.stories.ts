@@ -99,6 +99,20 @@ export const EllipsizeTextSingleColumn: Story = {
   `
 };
 
+export const SkipLinks: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <h1>Some data for your information:</h1>
+    <sl-grid .items=${people}>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="address.phone"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+    </sl-grid>
+    <p>A paragraph that follows the table</p>
+  `
+};
+
 export const CustomRenderers: Story = {
   render: (_, { loaded: { people } }) => {
     const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {

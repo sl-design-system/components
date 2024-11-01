@@ -299,6 +299,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
+      <div id="table-start" tabindex="-1"></div>
+      <a href="#table-end" id="table-start" @click=${this.#onSkipToEnd}>Skip to end of table</a>
       <table part="table">
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -316,6 +318,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           })}
         </tbody>
       </table>
+
+      <a href="#table-start" @click=${this.#onSkipToStart}>Skip to start of table</a>
+      <div id="table-end" tabindex="-1"></div>
     `;
   }
 
@@ -694,6 +699,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // @ts-expect-error This is a hack
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     this.#virtualizer?._layout?._metricsCache?.clear();
+  }
+
+  #onSkipToEnd(event: Event & { target: HTMLSlotElement }): void {
+    event.preventDefault();
+    (this.renderRoot.querySelector('#table-end') as HTMLLinkElement).focus();
+    // console.log(this.nextElementSibling);
+    // if (this.nextElementSibling) {
+    //   (this.nextElementSibling as HTMLElement).focus();
+    // }
+  }
+
+  #onSkipToStart(event: Event & { target: HTMLSlotElement }): void {
+    event.preventDefault();
+    (this.renderRoot.querySelector('#table-start') as HTMLLinkElement).focus();
   }
 
   async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {

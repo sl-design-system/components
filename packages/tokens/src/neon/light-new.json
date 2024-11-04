@@ -693,7 +693,7 @@
         "description": "Use for icons in a disabled state."
       },
       "selected": {
-        "value": "{color.icon.accent.blue.bold}",
+        "value": "{color.icon.accent.teal.bold}",
         "type": "color",
         "description": "Use for icons in selected state (e.g., tabs or menu items)."
       },
@@ -708,18 +708,18 @@
         "description": "Use for icons in primary actions paired with a 'color.background.primary.muted' background."
       },
       "secondary": {
-        "value": "{color.icon.accent.grey.bold}",
+        "value": "{color.icon.accent.blue.bold}",
         "type": "color",
         "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
       },
       "info": {
         "plain": {
-          "value": "{color.icon.accent.blue.plain}",
+          "value": "{color.icon.accent.teal.plain}",
           "type": "color",
           "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.icon.accent.blue.bold}",
+          "value": "{color.icon.accent.teal.bold}",
           "type": "color",
           "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on 'color.background.info.muted' or 'color.background.info.subtle'."
         }
@@ -730,7 +730,7 @@
           "type": "color",
           "description": "Icons that serve as visual cues for messages communicating a favorable outcome, applied on neutral backgrounds."
         },
-        "bolder": {
+        "bold": {
           "value": "{color.icon.accent.green.bold}",
           "type": "color",
           "description": "Icons that serve as visual cues for messages communicating a favorable outcome on'color.background.positive.muted' or 'color.background.positive.subtle'."
@@ -738,12 +738,12 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.icon.accent.yellow.plain}",
+          "value": "{color.icon.accent.orange.plain}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.icon.accent.yellow.bold}",
+          "value": "{color.icon.accent.orange.bold}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.muted' or 'color.background.caution.subtle'."
         },
@@ -768,77 +768,113 @@
       "accent": {
         "blue": {
           "plain": {
-            "value": "{color.palette.blue.400}",
+            "value": "{color.text.accent.blue.plain}",
             "type": "color",
             "description": "Use for blue icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.400}",
+            "value": "{color.text.accent.blue.bold}",
             "type": "color",
             "description": "Use for blue icons on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "green": {
           "plain": {
-            "value": "{color.palette.green.500}",
+            "value": "{color.text.accent.green.plain}",
             "type": "color",
             "description": "Use for green icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.500}",
+            "value": "{color.text.accent.green.bold}",
             "type": "color",
             "description": "Use for green icons on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "grey": {
-          "bold": {
-            "value": "{color.palette.grey.900}",
-            "description": "Use for bold grey icons for purely stylistic purposes with no specific meaning.",
-            "type": "color"
-          },
-          "plain": {
-            "value": "{color.palette.grey.800}",
+          "faint": {
+            "value": "{color.text.accent.grey.faint}",
             "type": "color",
-            "description": "Use for plain grey icons for purely stylistic purposes with no specific meaning."
-          },
-          "subtle": {
-            "value": "{color.palette.grey.600}",
-            "type": "color",
-            "description": "Use for subtle grey icons for purely stylistic purposes with no specific meaning."
+            "description": "Use for faint icons on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
           "muted": {
-            "value": "{color.palette.grey.400}",
+            "value": "{color.text.accent.grey.muted}",
             "type": "color",
             "description": "Use for muted grey icons for purely stylistic purposes with no specific meaning."
           },
-          "faint": {
-            "value": "{color.palette.grey.300}",
+          "subtle": {
+            "value": "{color.text.accent.grey.subtle}",
             "type": "color",
-            "description": "Use for faint grey icons for purely stylistic purposes with no specific meaning."
-          }
-        },
-        "yellow": {
+            "description": "Use for subtle grey icons for purely stylistic purposes with no specific meaning."
+          },
           "plain": {
-            "value": "{color.palette.yellow.600}",
+            "value": "{color.text.accent.grey.plain}",
             "type": "color",
-            "description": "Use for yellow icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            "description": "Use for plain grey icons for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.yellow.600}",
+            "value": "{color.text.accent.grey.bold}",
+            "description": "Use for bold grey icons for purely stylistic purposes with no specific meaning.",
+            "type": "color"
+          }
+        },
+        "orange": {
+          "plain": {
+            "value": "{color.text.accent.orange.plain}",
             "type": "color",
-            "description": "Use for yellow icons on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+            "description": "Use for orange icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.orange.bold}",
+            "type": "color",
+            "description": "Use for orange icons on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "purple": {
+          "plain": {
+            "value": "{color.text.accent.purple.plain}",
+            "type": "color",
+            "description": "Use for purple icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.purple.bold}",
+            "type": "color",
+            "description": "Use for purple icons on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "red": {
           "plain": {
-            "value": "{color.palette.red.500}",
+            "value": "{color.text.accent.red.plain}",
             "type": "color",
             "description": "Use for red icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.500}",
+            "value": "{color.text.accent.red.bold}",
             "type": "color",
             "description": "Use for red icons on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "teal": {
+          "plain": {
+            "value": "{color.text.accent.teal.plain}",
+            "type": "color",
+            "description": "Use for teal icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.teal.bold}",
+            "type": "color",
+            "description": "Use for teal icons on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+          }
+        },
+        "yellow": {
+          "plain": {
+            "value": "{color.text.accent.yellow.plain}",
+            "type": "color",
+            "description": "Use for yellow icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.yellow.bold}",
+            "type": "color",
+            "description": "Use for yellow icons on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           }
         }
       }

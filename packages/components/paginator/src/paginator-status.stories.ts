@@ -45,7 +45,6 @@ export const Basic: Story = {};
 
 export const WithDataSource: Story = {
   render: () => {
-    // const total = dataSource.paginatedItems.length;
     const items = [
       { nr: 1, title: 'test 1' },
       { nr: 2, title: 'test 2' },

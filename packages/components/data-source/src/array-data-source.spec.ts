@@ -150,4 +150,31 @@ describe('ArrayDataSource', () => {
       expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John', 'Jane', 'Ann', 'Bob']);
     });
   });
+
+  describe('pagination', () => {
+    beforeEach(() => {
+      ds = new ArrayDataSource(people);
+
+      ds.paginate(2, 3, people.length);
+      ds.update();
+    });
+
+    it('should paginate people', () => {
+      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Bob']);
+    });
+
+    it('should set the page', () => {
+      ds.setPage(1);
+      ds.update();
+
+      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John', 'Jane']);
+    });
+
+    it('should set page size', () => {
+      ds.setPageSize(2);
+      ds.update();
+
+      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John']);
+    });
+  });
 });

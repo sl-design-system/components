@@ -27,7 +27,7 @@ export type VisiblePagesSize = 'xs' | 'sm' | 'md' | 'lg';
 
 /**
  * A paginator component used when there is a lot of data that needs to be shown and cannot be shown at once, in one view/page.
- * Can be used separately or together with page size component and/or items counter component.
+ * Can be used separately or together with paginator page size component and/or paginator status component.
  */
 @localized()
 export class Paginator extends ScopedElementsMixin(LitElement) {
@@ -344,7 +344,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       </nav>
       <!-- We want this to be read every time the active page changes. -->
       <span id="live" aria-live="polite" aria-atomic="true">
-        ${msg(str`Currently active page ${this.activePage} of ${this.#pages} pages`)}
+        ${msg(str`Page ${this.activePage} of ${this.#pages}`)}
       </span>
     `;
   }

@@ -12,8 +12,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
   #items: T[];
   #paginatedItems: T[] = [];
 
-  // TODO page, pagesize?
-
   get items(): T[] {
     return this.#filteredItems;
   }
@@ -85,27 +83,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         .forEach(f => {
           items = items.filter(f.filter);
         });
-
-      console.log('filters in array', filters, filters.length, Object.entries(pathFilters));
-
-      // if (this.paginateItems) {
-      //   // go back to the first page on filter change
-      //   // paginator.activePage = 1;
-      //   // this.paginate(1, this.paginateItems.pageSize);
-      //   this.paginateItems.pageNumber = 1;
-      // }
-
-      this.addEventListener('sl-filter-value-change', event => {
-        console.log('event on sl-filter-value-change', event);
-        // go back to the first page on filter change
-        // paginator.activePage = 1;
-        // this.paginate(1, pageSize);
-        if (this.paginateItems) {
-          // this.paginateItems.pageNumber = 1;
-        }
-      });
-
-      console.log('1-filters in array data dource', items, this.#items, this.#filteredItems, pathFilters);
     }
 
     if (this.sort) {
@@ -168,13 +145,9 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
       items = items.slice(startIndex, endIndex);
       this.paginateItems.total = this.#paginatedItems.length;
-      console.log('startIndex, endIndex', startIndex, endIndex, items);
     }
 
-    console.log('this.paginateItems in array data source', this.paginateItems);
-
     this.#filteredItems = items;
-    console.log('this.#filteredItems', this.#filteredItems);
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 }

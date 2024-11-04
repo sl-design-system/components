@@ -39,14 +39,8 @@ export default {
     size: {
       control: 'radio',
       options: sizes
-    } //,
-    // actions: {
-    //   table: { disable: true }
-    // },
-    // content: {
-    //   table: { disable: true }
-    // }
-  }, // TODO: undefined option for size as well?
+    }
+  },
   render: ({ activePage, itemsPerPage, pageSizes, total, size }) => {
     return html`
       <sl-paginator
@@ -157,8 +151,6 @@ export const WithEvents: Story = {
   }
 };
 
-// TODO: focus active page from keyboard
-
 export const WithDataSource: Story = {
   render: () => {
     try {
@@ -230,7 +222,6 @@ export const WithDataSource: Story = {
           }
 
           override render(): TemplateResult {
-            console.log('in render', this.dataSource);
             return html`
               <div class="pagination">
                 <sl-paginator-status .dataSource=${this.dataSource}></sl-paginator-status>
@@ -250,7 +241,6 @@ export const WithDataSource: Story = {
           }
 
           #onUpdate = () => {
-            console.log('sl-ipdate', this.dataSource);
             this.requestUpdate();
           };
         }

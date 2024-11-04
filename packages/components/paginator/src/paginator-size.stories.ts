@@ -28,7 +28,7 @@ export default {
   args: {
     itemsPerPage: 10,
     pageSizes: [5, 10, 15]
-  }, // TODO: undefined option for size as well?
+  },
   render: ({ itemsPerPage, pageSizes }) => {
     return html` <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size> `;
   }

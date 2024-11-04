@@ -37,22 +37,6 @@ export class PaginatorStatus extends LitElement {
   /** Total amount of items, if not set - default to 1. */
   @property({ type: Number }) total = 1;
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.#pages = Math.ceil(this.total / this.itemsPerPage);
-
-    // if (this.activePage < 1) {
-    //   this.activePage = 1;
-    // } else if (this.activePage > this.#pages) {
-    //   this.activePage = this.#pages;
-    // }
-
-    // requestAnimationFrame(() => {
-    //   this.#setCurrentlyVisibleItems();
-    // });
-  }
-
   override disconnectedCallback(): void {
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
@@ -61,6 +45,8 @@ export class PaginatorStatus extends LitElement {
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
+
+    this.#pages = Math.ceil(this.total / this.itemsPerPage);
 
     this.#setCurrentlyVisibleItems();
 
@@ -85,9 +71,7 @@ export class PaginatorStatus extends LitElement {
       }
 
       this.#pages = Math.ceil(this.total / this.itemsPerPage);
-      requestAnimationFrame(() => {
-        this.#setCurrentlyVisibleItems();
-      });
+      this.#setCurrentlyVisibleItems();
     }
   }
 
@@ -99,7 +83,7 @@ export class PaginatorStatus extends LitElement {
       ${msg(str`${start} - ${end} of ${this.total} items`)}
       <!-- We want this to be read every time the active page changes. -->
       <span id="live" aria-live="polite" aria-atomic="true">
-        ${msg(str`Currently shown from ${start} to ${end} of ${this.total} items`)}
+        ${msg(str`Currently showing ${start} to ${end} of ${this.total} items`)}
       </span>
     `;
   }

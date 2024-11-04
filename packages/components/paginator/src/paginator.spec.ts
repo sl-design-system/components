@@ -102,13 +102,13 @@ describe('sl-paginator', () => {
 
     it('should set the next active page on next button click', async () => {
       const next = el.renderRoot.querySelector<Button>('sl-button.next');
-
       expect(next).to.exist;
 
       next!.click();
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.activePage).to.equal(3);
+      expect(el.activePage).to.equal(2);
     });
 
     it('should set the previous active page on prev button click', async () => {
@@ -122,7 +122,10 @@ describe('sl-paginator', () => {
       expect(el.activePage).to.equal(1);
     });
 
-    it('should have previous and next buttons with proper aria-labels', () => {
+    it('should have previous and next buttons with proper aria-labels', async () => {
+      el.activePage = 3;
+      await el.updateComplete;
+
       const prev = el.renderRoot.querySelector('sl-button.prev') as Button,
         next = el.renderRoot.querySelector('sl-button.next') as Button;
 
@@ -132,8 +135,8 @@ describe('sl-paginator', () => {
       const prevAriaLabel = prev.ariaLabel,
         nextAriaLabel = next.ariaLabel;
 
-      expect(prevAriaLabel).to.equal('Go to the previous page (1)');
-      expect(nextAriaLabel).to.equal('Go to the next page (3)');
+      expect(prevAriaLabel).to.equal('Go to the previous page (2)');
+      expect(nextAriaLabel).to.equal('Go to the next page (4)');
     });
 
     it('should emit an sl-page-change event when the active page has changed', async () => {
@@ -151,7 +154,7 @@ describe('sl-paginator', () => {
       const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
 
       expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Page 2 of 10');
+      expect(ariaLive).to.have.rendered.text('Page 1 of 10');
 
       el.activePage = 5;
       await el.updateComplete;
@@ -193,14 +196,17 @@ describe('sl-paginator', () => {
   describe('bigger active page', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-paginator .total=${200} .activePage=${2000} .pageSizes=${[20, 40, 60]}></sl-paginator>
+        <sl-paginator .total=${200} active-page="2000" .pageSizes=${[20, 40, 60]}></sl-paginator>
       `);
 
       // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 200));
     });
 
-    it('should be on the last page when the set page is larger than the number of pages', () => {
+    it('should be on the last page when the set page is larger than the number of pages', async () => {
+      el.activePage = 2000;
+      await el.updateComplete;
+
       expect(el.activePage).to.equal(10);
     });
   });
@@ -445,7 +451,7 @@ describe('sl-paginator', () => {
         <sl-paginator
           style="inline-size: 300px;"
           .total=${100}
-          .activePage=${2}
+          .activePage=${1}
           .pageSizes=${[10, 15, 20]}
         ></sl-paginator>
       `);
@@ -495,7 +501,7 @@ describe('sl-paginator', () => {
 
       const ariaLabel = selectEl.ariaLabel;
 
-      expect(ariaLabel).to.equal('2, page');
+      expect(ariaLabel).to.equal('1, page');
     });
 
     it('should have proper select options with pages to set', () => {

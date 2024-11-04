@@ -47,14 +47,6 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    if (!this.itemsPerPage) {
-      this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
-    }
-  }
-
   override disconnectedCallback(): void {
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
@@ -64,9 +56,9 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.renderRoot.querySelector<Select>('sl-select')?.addEventListener('sl-change', event => {
-      this.#setValue(event);
-    });
+    if (!this.itemsPerPage) {
+      this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
+    }
 
     if (this.dataSource) {
       this.dataSource.addEventListener('sl-update', this.#onUpdate);
@@ -105,17 +97,23 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   }
 
   #setValue(event: Event): void {
-    this.itemsPerPage = Number((event.target as SelectOption).value);
+    const newValue = Number((event.target as SelectOption).value);
+    if (this.itemsPerPage !== newValue) {
+      this.itemsPerPage = newValue;
 
-    /** Emits amount of selected items per page */
-    this.pageSizeChangeEvent.emit(this.itemsPerPage);
+      /** Emits amount of selected items per page */
+      this.pageSizeChangeEvent.emit(newValue);
 
-    if (this.dataSource) {
-      this.dataSource.setPageSize(this.itemsPerPage);
+      if (this.dataSource) {
+        this.dataSource?.setPageSize(newValue);
+      }
     }
   }
 
   #onUpdate = () => {
-    this.itemsPerPage = this.dataSource?.paginateItems?.pageSize;
+    const newPageSize = this.dataSource?.paginateItems?.pageSize;
+    if (this.itemsPerPage !== newPageSize) {
+      this.itemsPerPage = newPageSize;
+    }
   };
 }

@@ -123,12 +123,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.itemsPerPage ||= this.pageSizes?.[0] || 10;
-
-    this.#pages = Math.ceil(this.total / this.itemsPerPage);
-
-    this.#setCurrentlyVisibleItems();
-
     requestAnimationFrame(() => {
       this.#observer.observe(this);
     });
@@ -144,6 +138,18 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
+
+    this.itemsPerPage ||= this.pageSizes?.[0] || 10;
+
+    this.#pages = Math.ceil(this.total / this.itemsPerPage);
+
+    if (this.activePage < 1) {
+      this.activePage = 1;
+    } else if (this.activePage > this.#pages) {
+      this.activePage = this.#pages;
+    }
+
+    this.#setCurrentlyVisibleItems();
 
     if (this.dataSource) {
       this.dataSource.addEventListener('sl-update', this.#onUpdate);

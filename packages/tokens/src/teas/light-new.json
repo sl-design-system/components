@@ -625,7 +625,7 @@
             "description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.teal.700}",
+            "value": "{color.palette.teal.800}",
             "type": "color",
             "description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -646,17 +646,17 @@
     },
     "link": {
       "plain": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.text.accent.teal.plain}",
         "type": "color",
         "description": "Use for links in their default or hovered state. Underline links when hovered."
       },
       "active": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.text.accent.teal.bold}",
         "type": "color",
         "description": "Use for links in the active state."
       },
       "visited": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.text.accent.teal.plain}",
         "type": "color",
         "description": "Use for links in a visited state."
       }

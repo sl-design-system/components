@@ -646,17 +646,17 @@
     },
     "link": {
       "plain": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.text.accent.purple.plain}",
         "type": "color",
         "description": "Use for links in their default or hovered state. Underline links when hovered."
       },
       "active": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.text.accent.purple.bold}",
         "type": "color",
         "description": "Use for links in the active state."
       },
       "visited": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.text.accent.purple.plain}",
         "type": "color",
         "description": "Use for links in a visited state."
       }

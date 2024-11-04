@@ -52,7 +52,7 @@ export default {
 export const PerformanceTest: Story = {
   render: () => html`
     <sl-combobox>
-      <sl-listbox>${Array.from({ length: 5000 }).map((_, i) => html`<option>Option ${i}</option>`)}</sl-listbox>
+      <sl-listbox .items=${Array.from({ length: 10000 }).map((_, i) => `Option ${i}`)}></sl-listbox>
     </sl-combobox>
   `
 };
@@ -76,101 +76,101 @@ export const All: Story = {
       <span>lg</span>
       <sl-combobox placeholder="Empty">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
       <sl-combobox placeholder="Empty" size="lg">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
 
       <sl-combobox placeholder="Selected" value="Option 2">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
       <sl-combobox placeholder="Selected" size="lg" value="Option 2">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
 
       <sl-combobox select-only placeholder="Select only">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
       <sl-combobox select-only placeholder="Select only" size="lg">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
 
       <sl-combobox disabled placeholder="Disabled">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
       <sl-combobox disabled placeholder="Disabled" size="lg">
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
 
       <sl-combobox disabled multiple placeholder="Multiple, disabled" .value=${['Option 1', 'Option 2']}>
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
       <sl-combobox disabled multiple placeholder="Multiple, disabled" size="lg" .value=${['Option 1', 'Option 2']}>
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
 
       <sl-combobox multiple placeholder="Multiple" .value=${['Option 1', 'Option 2']}>
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
       <sl-combobox multiple placeholder="Multiple" size="lg" .value=${['Option 1', 'Option 2']}>
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
         </sl-listbox>
       </sl-combobox>
 
       <sl-combobox multiple placeholder="Multiple, stacked" .value=${['Option 1', 'Option 2', 'Option 3', 'Option 4']}>
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
-          <option>Option 4</option>
-          <option>Option 5</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+          <sl-option>Option 4</sl-option>
+          <sl-option>Option 5</sl-option>
         </sl-listbox>
       </sl-combobox>
       <sl-combobox
@@ -180,11 +180,11 @@ export const All: Story = {
         .value=${['Option 1', 'Option 2', 'Option 3', 'Option 4']}
       >
         <sl-listbox>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
-          <option>Option 4</option>
-          <option>Option 5</option>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+          <sl-option>Option 4</sl-option>
+          <sl-option>Option 5</sl-option>
         </sl-listbox>
       </sl-combobox>
     </div>

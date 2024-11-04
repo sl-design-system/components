@@ -1,5 +1,8 @@
 :host {
   color: var(--sl-color-text-default);
+  display: block;
+  inline-size: calc(100% - var(--sl-space-new-md) * 2);
+  margin-inline: var(--sl-space-new-md);
   user-select: none;
 }
 
@@ -9,6 +12,10 @@
 
 :host(:where([aria-selected='true'], [selected])) sl-icon {
   visibility: visible;
+}
+
+:host(:not(:first-of-type)) {
+  margin-block-start: var(--sl-space-new-2xs);
 }
 
 :host(:active) [part='container'] {

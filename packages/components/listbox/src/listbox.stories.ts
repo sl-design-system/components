@@ -15,25 +15,16 @@ export default {
     }
   },
   render: ({ options }) => {
-    return html`
-      <style>
-        sl-listbox {
-          border: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-          border-radius: var(--sl-size-borderRadius-default);
-          padding: var(--sl-space-new-md) 0;
-        }
-      </style>
-      <sl-listbox>${options?.()}</sl-listbox>
-    `;
+    return html`<sl-listbox>${options?.()}</sl-listbox>`;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
   args: {
     options: () => html`
-      <option>Option 1</option>
-      <option selected>Option 2</option>
-      <option>Option 3</option>
+      <sl-option>Option 1</sl-option>
+      <sl-option selected>Option 2</sl-option>
+      <sl-option>Option 3</sl-option>
     `
   }
 };
@@ -41,9 +32,9 @@ export const Basic: Story = {
 export const Disabled: Story = {
   args: {
     options: () => html`
-      <option disabled>Option 1</option>
-      <option>Option 2</option>
-      <option>Option 3</option>
+      <sl-option disabled>Option 1</sl-option>
+      <sl-option>Option 2</sl-option>
+      <sl-option>Option 3</sl-option>
     `
   }
 };
@@ -51,10 +42,10 @@ export const Disabled: Story = {
 export const Divider: Story = {
   args: {
     options: () => html`
-      <option>Option 1</option>
-      <option>Option 2</option>
+      <sl-option>Option 1</sl-option>
+      <sl-option>Option 2</sl-option>
       <hr />
-      <option>Option 3</option>
+      <sl-option>Option 3</sl-option>
     `
   }
 };
@@ -62,14 +53,14 @@ export const Divider: Story = {
 export const Grouped: Story = {
   args: {
     options: () => html`
-      <optgroup label="Group 1">
-        <option>Option 1</option>
-        <option>Option 2</option>
-      </optgroup>
-      <optgroup label="Group 2">
-        <option>Option 3</option>
-        <option>Option 4</option>
-      </optgroup>
+      <sl-option-group label="Group 1">
+        <sl-option>Option 1</sl-option>
+        <sl-option>Option 2</sl-option>
+      </sl-option-group>
+      <sl-option-group label="Group 2">
+        <sl-option>Option 3</sl-option>
+        <sl-option>Option 4</sl-option>
+      </sl-option-group>
     `
   }
 };
@@ -77,24 +68,24 @@ export const Grouped: Story = {
 export const Overflow: Story = {
   args: {
     options: () => html`
-      <option>
+      <sl-option>
         Magna ea amet aute est ullamco elit. Culpa fugiat commodo exercitation nulla sunt et ea eiusmod et duis sit.
         Labore ad laborum esse mollit nulla amet fugiat incididunt. Velit aliquip amet nostrud aliquip labore velit
         consectetur sint aute. Nostrud aliquip dolore minim commodo ea. Ut veniam dolor laborum sunt voluptate voluptate
         adipisicing.
-      </option>
-      <option selected>
+      </sl-option>
+      <sl-option selected>
         Excepteur nisi tempor nisi sint. Deserunt esse eiusmod tempor aliqua. Adipisicing est est nostrud pariatur eu
         dolore veniam exercitation. Anim labore et ea non sunt irure excepteur ad. Ex duis aliqua et esse. Adipisicing
         id laboris cupidatat ullamco fugiat in. Sunt deserunt sint veniam labore reprehenderit magna mollit commodo id
         irure ut excepteur.
-      </option>
-      <option>
+      </sl-option>
+      <sl-option>
         Nisi ut cupidatat do qui dolore aliquip reprehenderit ad proident laboris pariatur in nostrud laborum. Mollit
         esse occaecat ex duis dolore officia laboris quis. Duis eiusmod sint exercitation enim consequat eu occaecat eu
         magna dolore nulla ut proident non. Anim Lorem reprehenderit consectetur duis quis exercitation cupidatat
         laboris cupidatat fugiat consectetur culpa.
-      </option>
+      </sl-option>
     `
   }
 };
@@ -137,6 +128,20 @@ export const Scrolling: Story = {
         max-block-size: calc(100dvh - 1rem);
       }
     </style>
-    <sl-listbox>${Array.from({ length: 100 }).map((_, i) => html`<option>Option ${i + 1}</option>`)}</sl-listbox>
+    <sl-listbox>${Array.from({ length: 100 }).map((_, i) => html`<sl-option>Option ${i + 1}</sl-option>`)}</sl-listbox>
+  `
+};
+
+export const VirtualList: Story = {
+  parameters: {
+    layout: 'fullscreen'
+  },
+  render: () => html`
+    <style>
+      sl-listbox {
+        max-block-size: calc(100dvh - 1rem);
+      }
+    </style>
+    <sl-listbox .items=${Array.from({ length: 10000 }).map((_, i) => `Option ${i + 1}`)}></sl-listbox>
   `
 };

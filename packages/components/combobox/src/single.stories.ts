@@ -97,7 +97,7 @@ export default {
             .value=${value}
             style=${`max-width: ${maxWidth ?? 'none'}`}
           >
-            ${options?.() ?? html`<sl-listbox>${components.map(c => html`<option>${c}</option>`)}</sl-listbox>`}
+            ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
           </sl-combobox>
         </sl-form-field>
         ${reportValidity
@@ -138,23 +138,23 @@ export const Grouped: Story = {
   args: {
     options: () => html`
       <sl-listbox>
-        <optgroup label="Actions">
-          <option>Button</option>
-          <option>Button bar</option>
-          <option>Menu button</option>
-          <option>Toggle button</option>
-          <option>Toggle group</option>
-        </optgroup>
-        <optgroup label="Form">
-          <option>Checkbox</option>
-          <option>Checkbox group</option>
-          <option>Combobox</option>
-          <option>Radio group</option>
-          <option>Select</option>
-          <option>Switch</option>
-          <option>Text area</option>
-          <option>Text field</option>
-        </optgroup>
+        <sl-option-group label="Actions">
+          <sl-option>Button</sl-option>
+          <sl-option>Button bar</sl-option>
+          <sl-option>Menu button</sl-option>
+          <sl-option>Toggle button</sl-option>
+          <sl-option>Toggle group</sl-option>
+        </sl-option-group>
+        <sl-option-group label="Form">
+          <sl-option>Checkbox</sl-option>
+          <sl-option>Checkbox group</sl-option>
+          <sl-option>Combobox</sl-option>
+          <sl-option>Radio group</sl-option>
+          <sl-option>Select</sl-option>
+          <sl-option>Switch</sl-option>
+          <sl-option>Text area</sl-option>
+          <sl-option>Text field</sl-option>
+        </sl-option-group>
       </sl-listbox>
     `
   }
@@ -204,5 +204,12 @@ export const SelectOnly: Story = {
   args: {
     hint: 'The component is select only. This means you cannot type in the text field, but you can still select options.',
     selectOnly: true
+  }
+};
+
+export const VirtualList: Story = {
+  args: {
+    options: () =>
+      html`<sl-listbox .items=${Array.from({ length: 10000 }).map((_, i) => `Option ${i + 1}`)}></sl-listbox>`
   }
 };

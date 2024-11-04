@@ -6,6 +6,16 @@
   pointer-events: none;
 }
 
+::slotted(sl-listbox) {
+  contain: layout paint style;
+  flex: 1;
+  max-block-size: var(--sl-combobox-listbox-maxBlockSize, 20rem);
+  overflow: auto;
+  padding: var(--sl-space-new-md) 0;
+  scroll-padding-block: var(--sl-space-new-md);
+  scrollbar-width: thin;
+}
+
 sl-text-field {
   flex: 1;
   max-inline-size: 100%;
@@ -48,9 +58,4 @@ sl-icon {
     display: flex;
     opacity: 1;
   }
-}
-
-::slotted(sl-listbox) {
-  flex: 1;
-  max-block-size: var(--sl-combobox-listbox-maxBlockSize, 20rem);
 }

@@ -1,4 +1,4 @@
-:host {
+sl-listbox {
   align-items: stretch;
   contain: layout paint style;
   display: flex;
@@ -8,28 +8,28 @@
   padding: var(--sl-space-new-md) 0;
   scroll-padding-block: var(--sl-space-new-md);
   scrollbar-width: thin;
-}
 
-::slotted(*) {
-  flex: 1;
-}
+  hr {
+    border: 0;
+    border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+    margin: var(--sl-space-new-sm) 0;
+    padding: 0;
+  }
 
-::slotted(option),
-::slotted(sl-option) {
-  contain: layout paint style;
-  content-visibility: auto;
-  margin-inline: var(--sl-space-new-md);
-}
+  sl-option,
+  sl-option-group {
+    flex: 1;
+  }
 
-::slotted(sl-option-group:not(:first-of-type)) {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin-block-start: var(--sl-space-new-sm);
-  padding-block-start: var(--sl-space-new-md);
-}
+  sl-option {
+    contain: layout paint style;
+    content-visibility: auto;
+    margin-inline: var(--sl-space-new-md);
+  }
 
-::slotted(hr) {
-  border: 0;
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin: var(--sl-space-new-sm) 0;
-  padding: 0;
+  sl-option-group:not(:first-of-type) {
+    border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+    margin-block-start: var(--sl-space-new-sm);
+    padding-block-start: var(--sl-space-new-md);
+  }
 }

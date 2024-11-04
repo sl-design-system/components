@@ -15,7 +15,8 @@ declare global {
  * A component for visually grouping toggle buttons together. By default, this component ensures that only one button
  * in the group is active at a time. This behavior can be disabled by setting the `multiple` property.
  *
- * @slot default - The default slot.
+ * @slot default - The default slot for toggle buttons.
+ * For toggle group there is a possibility to use toggle buttons with text only.
  */
 export class ToggleGroup extends LitElement {
   /** @internal */
@@ -42,12 +43,12 @@ export class ToggleGroup extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
-   * By default, only a single toggle button inside the group can be active. This means
-   * that the group will automatically deactivate the other buttons when one is toggled.
+   * By default, only a single toggle button inside the group can be active.
+   * This means that the group will automatically deactivate the other buttons when one is toggled.
    *
-   * If you toggle this property, then multiple buttons can be active at the same time.
-   * In this case the group does nothing when a button is toggled. Use this mode if you want to
-   * handle the toggling of buttons yourself.
+   * When set to true multiple buttons can be active at the same time.
+   * In this case the group does nothing when a button is toggled.
+   * Use this mode if you want to handle the toggling of buttons yourself.
    */
   @property({ type: Boolean }) multiple?: boolean;
 

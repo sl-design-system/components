@@ -28,7 +28,6 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
         <sl-select
           @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item)}
           .value=${getValueByPath(item, this.path)}
-          tabindex="-1"
         >
           ${this.options?.map(option =>
             typeof option === 'string'

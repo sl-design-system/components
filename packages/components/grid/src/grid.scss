@@ -151,7 +151,8 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: content-box 0;
+  overflow-clip-margin: content-box
+    calc(var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default));
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
   &:first-of-type:not([part~='drag-handle']) {

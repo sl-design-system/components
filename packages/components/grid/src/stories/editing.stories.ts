@@ -20,7 +20,7 @@ export const TextField: Story = {
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-text-field-column path="address.zip" part="delegate-focus"></sl-grid-text-field-column>
+      <sl-grid-text-field-column path="address.zip"></sl-grid-text-field-column>
     </sl-grid>
   `
 };

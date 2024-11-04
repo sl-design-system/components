@@ -77,7 +77,7 @@ export const ColumnGroups: Story = {
 
 export const EllipsizeTextAllColumns: Story = {
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people} style="max-inline-size: 500px" ellipsize-text>
+    <sl-grid .items=${people} style="max-inline-size: 500px" ellipsize-text column-divider>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="address.street"></sl-grid-column>
@@ -89,7 +89,7 @@ export const EllipsizeTextAllColumns: Story = {
 
 export const EllipsizeTextSingleColumn: Story = {
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people} style="max-inline-size: 800px">
+    <sl-grid .items=${people} style="max-inline-size: 800px" column-divider>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="address.street" ellipsize-text></sl-grid-column>
@@ -100,17 +100,50 @@ export const EllipsizeTextSingleColumn: Story = {
 };
 
 export const SkipLinks: Story = {
-  render: (_, { loaded: { people } }) => html`
-    <h1>Some data for your information:</h1>
-    <sl-grid .items=${people}>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-column path="email"></sl-grid-column>
-      <sl-grid-column path="address.phone"></sl-grid-column>
-      <sl-grid-column path="profession"></sl-grid-column>
-    </sl-grid>
-    <p>A paragraph that follows the table</p>
-  `
+  render: (_, { loaded: { people } }) => {
+    const linkRenderer: GridColumnDataRenderer<Person> = ({ email }) => {
+      return html`<a href="mailto:${email}">${email}</a>`;
+    };
+
+    const menuButtonRenderer: GridColumnDataRenderer<Person> = person => {
+      const onClick = () => {
+        console.log('Menu item for person clicked', person);
+      };
+
+      return html`
+        <sl-menu-button fill="ghost">
+          <sl-icon slot="button" name="ellipsis"></sl-icon>
+          <sl-menu-item @click=${onClick}>Do something with this person</sl-menu-item>
+          <sl-menu-item @click=${onClick}>Something else</sl-menu-item>
+          <hr />
+          <sl-menu-item @click=${onClick}>Delete person</sl-menu-item>
+        </sl-menu-button>
+      `;
+    };
+    return html`
+      <h1>Some data for your information:</h1>
+      <sl-grid .items=${people} column-divider>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email" .renderer=${linkRenderer}></sl-grid-column>
+        <sl-grid-column path="address.city"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+        <sl-grid-column
+          header=""
+          .renderer=${menuButtonRenderer}
+          grow="0"
+          width="64"
+          .scopedElements=${{
+            'sl-icon': Icon,
+            'sl-menu-button': MenuButton,
+            'sl-menu-item': MenuItem
+          }}
+        ></sl-grid-column>
+      </sl-grid>
+      <p>A paragraph that follows the table, with a <a href="http://home.com">link</a> in it.</p>
+    `;
+  }
 };
 
 export const CustomRenderers: Story = {

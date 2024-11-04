@@ -8916,7 +8916,6 @@
       "color.icon.info.plain": "S:9d68c5f9a5f03f812c8b0c23f3b78e2e8c8cfe46,",
       "color.icon.info.bold": "S:720f5ea96a264c90ffeef84858b4a241d02a3b9b,",
       "color.icon.positive.plain": "S:f05a05d9f22d3ed9b19278de0bd22347a4777aee,",
-      "color.icon.positive.bolder": "S:2b3dfec98c39beeec58268c5b335506d18fede32,",
       "color.icon.caution.plain": "S:8e0092c866fbd13e7aed8ac2f47a89bd4e6afe58,",
       "color.icon.caution.bold": "S:2cee2587aa9fa9c690453465f3cdf3d756aab246,",
       "color.icon.caution.inverted": "S:f5165ef635fddf81737c76a0082adce4093decb7,",
@@ -9081,7 +9080,8 @@
       "elevation.surface.raised.alternative.active": "S:76c4bce0e7aca5edd2be889cba47218bddf2594e,",
       "elevation.surface.raised.sunken.idle": "S:be227abe359c9003ff4f0750bdb0e4f9761d4de0,",
       "elevation.surface.raised.sunken.hover": "S:da79a32636aa11a45b9d8a6bd059264a2d46c628,",
-      "elevation.surface.raised.sunken.active": "S:f470ac2fd149702ab33333f942556e7623b510c2,"
+      "elevation.surface.raised.sunken.active": "S:f470ac2fd149702ab33333f942556e7623b510c2,",
+      "color.icon.positive.bold": "S:2b3dfec98c39beeec58268c5b335506d18fede32,"
     }
   },
   {
@@ -10704,7 +10704,6 @@
       "color.icon.info.plain": "S:9d68c5f9a5f03f812c8b0c23f3b78e2e8c8cfe46,",
       "color.icon.info.bold": "S:720f5ea96a264c90ffeef84858b4a241d02a3b9b,",
       "color.icon.positive.plain": "S:f05a05d9f22d3ed9b19278de0bd22347a4777aee,",
-      "color.icon.positive.bolder": "S:2b3dfec98c39beeec58268c5b335506d18fede32,",
       "color.icon.caution.plain": "S:8e0092c866fbd13e7aed8ac2f47a89bd4e6afe58,",
       "color.icon.caution.bold": "S:2cee2587aa9fa9c690453465f3cdf3d756aab246,",
       "color.icon.caution.inverted": "S:f5165ef635fddf81737c76a0082adce4093decb7,",
@@ -10869,7 +10868,8 @@
       "elevation.surface.raised.alternative.active": "S:76c4bce0e7aca5edd2be889cba47218bddf2594e,",
       "elevation.surface.raised.sunken.idle": "S:be227abe359c9003ff4f0750bdb0e4f9761d4de0,",
       "elevation.surface.raised.sunken.hover": "S:da79a32636aa11a45b9d8a6bd059264a2d46c628,",
-      "elevation.surface.raised.sunken.active": "S:f470ac2fd149702ab33333f942556e7623b510c2,"
+      "elevation.surface.raised.sunken.active": "S:f470ac2fd149702ab33333f942556e7623b510c2,",
+      "color.icon.positive.bold": "S:2b3dfec98c39beeec58268c5b335506d18fede32,"
     }
   },
   {

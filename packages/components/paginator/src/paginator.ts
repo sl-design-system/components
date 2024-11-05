@@ -417,7 +417,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     });
 
     this.#mobileVariant = false;
-    this.requestUpdate();
 
     Array.from(pages).forEach(button => {
       totalAmountOfPagesWidth += button.getBoundingClientRect().width + gap;
@@ -459,7 +458,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.#mobileVariant = possiblyVisible.length <= 6;
     if (this.#mobileVariant) {
       this.setAttribute('mobile', '');
-      this.requestUpdate();
       return;
     }
 

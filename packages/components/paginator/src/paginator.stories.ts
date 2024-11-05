@@ -83,18 +83,6 @@ export const Mobile: Story = {
   }
 };
 
-export const PageSizeComponent: Story = {
-  render: ({ pageSizes, itemsPerPage }) => {
-    return html`<sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>`;
-  }
-};
-
-export const ItemsCounterComponent: Story = {
-  render: ({ activePage, itemsPerPage, total }) => html`
-    <sl-paginator-status .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator-status>
-  `
-};
-
 export const WithEvents: Story = {
   args: {
     total: 200

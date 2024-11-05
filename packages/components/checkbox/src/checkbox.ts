@@ -114,7 +114,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       this.append(style);
     }
 
-    this.setAttribute('role', 'checkbox');
+    // this.setAttribute('role', 'checkbox');
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
@@ -251,6 +251,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
     input.toggleAttribute('checked', !!this.checked);
     input.toggleAttribute('indeterminate', !!this.indeterminate);
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    // this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    // input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
   }
 }

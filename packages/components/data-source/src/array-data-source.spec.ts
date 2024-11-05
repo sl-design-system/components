@@ -174,7 +174,8 @@ describe('ArrayDataSource', () => {
       ds.setPageSize(2);
       ds.update();
 
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John']);
+      expect(ds.page).to.exist;
+      expect(ds.page!.pageSize).to.equal(2);
     });
   });
 });

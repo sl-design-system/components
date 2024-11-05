@@ -190,7 +190,7 @@ export const WithDataSource: Story = {
             this.dataSource = new ArrayDataSource(this.items);
 
             requestAnimationFrame(() => {
-              this.totalItems = this.dataSource?.paginatedItems.length;
+              this.totalItems = this.dataSource?.items.length;
 
               this.dataSource.addEventListener('sl-update', this.#onUpdate);
 

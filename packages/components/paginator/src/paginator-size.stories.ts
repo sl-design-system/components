@@ -47,7 +47,7 @@ export const WithDataSource: Story = {
     const dataSource = new ArrayDataSource(items);
 
     requestAnimationFrame(() => {
-      const totalItems = dataSource.paginatedItems.length;
+      const totalItems = dataSource.items.length;
       dataSource.paginate(2, 5, totalItems);
       dataSource.update();
     });

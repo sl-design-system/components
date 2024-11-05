@@ -555,7 +555,7 @@ describe('sl-paginator', () => {
     }));
 
     const dataSource = new ArrayDataSource(items);
-    const totalItems = dataSource.paginatedItems.length;
+    const totalItems = dataSource.items.length;
 
     beforeEach(async () => {
       el = await fixture(html` <sl-paginator .dataSource=${dataSource} .pageSizes=${[10, 15, 20]}></sl-paginator> `);

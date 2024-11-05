@@ -95,7 +95,7 @@ export const PaginatedDataSourceWithFilter: Story = {
     const pageSizes = [5, 10, 15, 20],
       dataSource = new ArrayDataSource(people as Person[]);
 
-    const total = dataSource.paginatedItems.length;
+    const total = dataSource.items.length;
     dataSource.paginate(2, 15, total);
     dataSource.update();
 
@@ -145,7 +145,7 @@ export const PaginatedDataSourceWithSorter: Story = {
     dataSource.setSort('custom', sorter, 'asc');
 
     const pageSizes = [10, 15, 20];
-    const total = dataSource.paginatedItems.length;
+    const total = dataSource.items.length;
     dataSource.paginate(3, 10, total);
     dataSource.update();
 

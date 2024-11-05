@@ -177,6 +177,12 @@ export abstract class DataSource<T = any> extends EventTarget {
     }
   }
 
+  setTotalItems(totalItems: number): void {
+    if (this.#page) {
+      this.paginate(this.#page.page, this.#page.pageSize, totalItems);
+    }
+  }
+
   /**
    * Use to get the paginated data for usage with the sl-paginator component.
    * */

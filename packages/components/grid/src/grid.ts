@@ -299,8 +299,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      <div id="table-start" tabindex="-1"></div>
-      <a href="#table-end" id="table-start" @click=${this.#onSkipToEnd}>Skip to end of table</a>
+      <div id="table-start" @blur=${this.removeTabindex}></div>
+      <a href="#table-end" @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+        >Skip to end of table</a
+      >
       <table part="table">
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -319,9 +321,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </tbody>
       </table>
 
-      <a href="#table-start" @click=${this.#onSkipToStart}>Skip to start of table</a>
-      <div id="table-end" tabindex="-1"></div>
+      <a href="#table-start" @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+        >Skip to start of table</a
+      >
+      <div id="table-end" @blur=${this.removeTabindex}></div>
     `;
+  }
+  removeTabindex(event: Event & { target: HTMLSlotElement }): void {
+    event.target.removeAttribute('tabindex');
   }
 
   renderStyles(): TemplateResult {
@@ -701,18 +708,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#virtualizer?._layout?._metricsCache?.clear();
   }
 
-  #onSkipToEnd(event: Event & { target: HTMLSlotElement }): void {
+  #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
     event.preventDefault();
-    (this.renderRoot.querySelector('#table-end') as HTMLLinkElement).focus();
-    // console.log(this.nextElementSibling);
-    // if (this.nextElementSibling) {
-    //   (this.nextElementSibling as HTMLElement).focus();
-    // }
-  }
-
-  #onSkipToStart(event: Event & { target: HTMLSlotElement }): void {
-    event.preventDefault();
-    (this.renderRoot.querySelector('#table-start') as HTMLLinkElement).focus();
+    (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).setAttribute('tabindex', '0');
+    (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
   }
 
   async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {

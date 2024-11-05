@@ -10,9 +10,7 @@ describe('sl-paginator-status', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator-status></sl-paginator-status> `);
-
-      await new Promise(resolve => setTimeout(resolve, 100));
+      el = await fixture(html`<sl-paginator-status></sl-paginator-status>`);
     });
 
     it('should have a rendered text with information about items', () => {
@@ -30,11 +28,9 @@ describe('sl-paginator-status', () => {
     });
   });
 
-  describe('first active page', () => {
+  describe('first page', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator-status .total=${100} .itemsPerPage=${15}></sl-paginator-status> `);
-
-      await new Promise(resolve => setTimeout(resolve, 100));
+      el = await fixture(html`<sl-paginator-status .totalItems=${100} .pageSize=${15}></sl-paginator-status>`);
     });
 
     it('should have a rendered proper text with information about visible items on the first page', () => {
@@ -52,11 +48,11 @@ describe('sl-paginator-status', () => {
     });
   });
 
-  describe('last active page', () => {
+  describe('last page', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
-      `);
+      el = await fixture(
+        html`<sl-paginator-status .totalItems=${209} .page=${14} .pageSize=${15}></sl-paginator-status>`
+      );
     });
 
     it('should have a rendered proper text with information about visible items on the first page', () => {
@@ -74,11 +70,11 @@ describe('sl-paginator-status', () => {
     });
   });
 
-  describe('invalid active page', () => {
+  describe('invalid page', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator-status .total=${209} .activePage=${-1} .itemsPerPage=${15}></sl-paginator-status>
-      `);
+      el = await fixture(
+        html`<sl-paginator-status .totalItems=${209} .page=${-1} .pageSize=${15}></sl-paginator-status>`
+      );
     });
 
     it('should have a rendered proper text with information about visible items on the first page', () => {
@@ -96,17 +92,15 @@ describe('sl-paginator-status', () => {
     });
   });
 
-  describe('active page change', () => {
+  describe('page change', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator-status .total=${209} .activePage=${2} .itemsPerPage=${15}></sl-paginator-status>
-      `);
-
-      await new Promise(resolve => setTimeout(resolve, 100));
+      el = await fixture(
+        html`<sl-paginator-status .totalItems=${209} .page=${2} .pageSize=${15}></sl-paginator-status>`
+      );
     });
 
-    it('should have a rendered proper text with information about visible items on the active page', async () => {
-      el.activePage = 10;
+    it('should have a rendered proper text with information about visible items on the page', async () => {
+      el.page = 10;
       await el.updateComplete;
 
       const itemsCounterLabel = el.renderRoot.textContent?.trim();
@@ -120,13 +114,13 @@ describe('sl-paginator-status', () => {
       expect(ariaLive).to.have.rendered.text('Currently showing 136 to 150 of 209 items');
     });
 
-    it('should have a proper active page when set smaller than 1', async () => {
-      el.activePage = -1;
+    it('should have a proper page when set smaller than 1', async () => {
+      el.page = -1;
       await new Promise(resolve => setTimeout(resolve, 100));
 
       const itemsCounterLabel = el.renderRoot.textContent?.trim();
 
-      expect(el.activePage).to.equal(1);
+      expect(el.page).to.equal(1);
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('1 - 15 of 209 items')).to.be.true;
 
@@ -136,14 +130,13 @@ describe('sl-paginator-status', () => {
       expect(ariaLive).to.have.rendered.text('Currently showing 1 to 15 of 209 items');
     });
 
-    it('should have set active page to the last one when the number set is bigger than the total number of pages', async () => {
-      el.activePage = 100;
-      await el.updateComplete;
+    it('should have set page to the last one when the number set is bigger than the total number of pages', async () => {
+      el.page = 100;
       await new Promise(resolve => setTimeout(resolve, 100));
 
       const itemsCounterLabel = el.renderRoot.textContent?.trim();
 
-      expect(el.activePage).to.equal(14);
+      expect(el.page).to.equal(14);
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
 
@@ -156,11 +149,9 @@ describe('sl-paginator-status', () => {
 
   describe('items per page change', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
-
-        await new Promise(resolve => setTimeout(resolve, 100));
-      `);
+      el = await fixture(
+        html`<sl-paginator-status .totalItems=${209} .page=${14} .pageSize=${15}></sl-paginator-status>`
+      );
     });
 
     it('should have a rendered proper text with information about visible items', async () => {
@@ -169,8 +160,7 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
 
-      el.itemsPerPage = 5;
-      await el.updateComplete;
+      el.pageSize = 5;
       await new Promise(resolve => setTimeout(resolve, 100));
 
       itemsCounterLabel = el.renderRoot.textContent?.trim();
@@ -187,11 +177,9 @@ describe('sl-paginator-status', () => {
 
   describe('total amount of items change', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator-status .total=${209} .activePage=${14} .itemsPerPage=${15}></sl-paginator-status>
-
-        await new Promise(resolve => setTimeout(resolve, 100));
-      `);
+      el = await fixture(
+        html`<sl-paginator-status .totalItems=${209} .page=${14} .pageSize=${15}></sl-paginator-status>`
+      );
     });
 
     it('should have a rendered proper text with information about visible items', async () => {
@@ -200,8 +188,7 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
 
-      el.total = 508;
-      await el.updateComplete;
+      el.totalItems = 508;
       await new Promise(resolve => setTimeout(resolve, 100));
 
       itemsCounterLabel = el.renderRoot.textContent?.trim();

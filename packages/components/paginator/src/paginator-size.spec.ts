@@ -15,7 +15,7 @@ describe('sl-paginator-size', () => {
     });
 
     it('should have items per page with value of 10 by default', () => {
-      expect(el.itemsPerPage).to.equal(10);
+      expect(el.pageSize).to.equal(10);
     });
 
     it('should have aria-live by default', () => {
@@ -65,7 +65,7 @@ describe('sl-paginator-size', () => {
       el = await fixture(html` <sl-paginator-size .pageSizes=${[5, 10, 20]}></sl-paginator-size> `);
     });
 
-    it('should set first value of page sizes when there is no itemsPerPage value', () => {
+    it('should set first value of page sizes when there is no pageSize value', () => {
       const slSelect = el.renderRoot.querySelector('sl-select');
 
       expect(slSelect).to.exist;

@@ -16,18 +16,18 @@ export class PaginatorPage extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** @internal Page number used for the aria-label. */
-  @state() pageNumber?: string;
+  @state() page?: string;
 
   override render(): TemplateResult {
     return html`
-      <button aria-label=${this.pageNumber + ', page'}>
+      <button aria-label=${this.page + ', page'}>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </button>
     `;
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.pageNumber = event.target
+    this.page = event.target
       .assignedNodes({ flatten: true })
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent?.trim())

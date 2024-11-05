@@ -139,12 +139,12 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     this.#paginatedItems = items;
 
     // paginate items
-    if (this.paginateItems) {
-      const startIndex = (this.paginateItems.pageNumber - 1) * this.paginateItems.pageSize,
-        endIndex = startIndex + this.paginateItems.pageSize;
+    if (this.page) {
+      const startIndex = (this.page.page - 1) * this.page.pageSize,
+        endIndex = startIndex + this.page.pageSize;
 
       items = items.slice(startIndex, endIndex);
-      this.paginateItems.total = this.#paginatedItems.length;
+      this.page.totalItems = this.#paginatedItems.length;
     }
 
     this.#filteredItems = items;

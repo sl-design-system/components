@@ -49,7 +49,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Active page. */
-  #activePage = 1;
+  #page = 1;
 
   /** @internal To check whether it's a first update. */
   #initialLoad = true;
@@ -65,16 +65,16 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => this.#updateVisibility());
   });
 
-  get activePage(): number {
-    return this.#activePage;
+  get page(): number {
+    return this.#page;
   }
 
   /** Currently active page. */
-  @property({ attribute: 'active-page' })
-  set activePage(value: number) {
-    this.#activePage = value;
+  @property()
+  set page(value: number) {
+    this.#page = value;
 
-    this.pageChangeEvent.emit(this.#activePage);
+    this.pageChangeEvent.emit(this.#page);
   }
 
   /** @internal Currently visible items on the current page. */
@@ -90,7 +90,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @state() hiddenPagesRight: HTMLLIElement[] = [];
 
   /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
-  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
+  @property({ type: Number, attribute: 'page-size' }) pageSize?: number;
 
   /** @internal Emits when the page has been selected/changed. */
   @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlChangeEvent<number>>;
@@ -99,7 +99,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
 
   /** Total amount of items. */
-  @property() total = 1;
+  @property({ type: Number, attribute: 'total-items' }) totalItems = 1;
 
   /** Amount of possibly visible pages in the paginator at once. */
   @property() size?: VisiblePagesSize;
@@ -139,35 +139,35 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.itemsPerPage ||= this.pageSizes?.[0] || 10;
+    this.pageSize ||= this.pageSizes?.[0] || 10;
 
-    this.#pages = Math.ceil(this.total / this.itemsPerPage);
+    this.#pages = Math.ceil(this.totalItems / this.pageSize);
 
-    if (this.activePage < 1) {
-      this.activePage = 1;
-    } else if (this.activePage > this.#pages) {
-      this.activePage = this.#pages;
+    if (this.page < 1) {
+      this.page = 1;
+    } else if (this.page > this.#pages) {
+      this.page = this.#pages;
     }
 
     this.#setCurrentlyVisibleItems();
-
-    if (this.dataSource) {
-      this.dataSource.addEventListener('sl-update', this.#onUpdate);
-    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('itemsPerPage')) {
-      const itemsPerPage = this.itemsPerPage ?? 10;
-      this.#pages = Math.ceil(this.total / itemsPerPage);
+    if (changes.has('dataSource')) {
+      this.dataSource?.addEventListener('sl-update', this.#onUpdate);
+    }
+
+    if (changes.has('pageSize')) {
+      const pageSize = this.pageSize ?? 10;
+      this.#pages = Math.ceil(this.totalItems / pageSize);
 
       this.#setCurrentlyVisibleItems();
 
       if (!this.#initialLoad) {
         /** Always go back to the first page when items per page has changed, but not for the first time. */
-        this.activePage = 1;
+        this.page = 1;
       }
 
       requestAnimationFrame(() => {
@@ -175,18 +175,19 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       });
     }
 
-    if (changes.has('activePage')) {
-      if (this.activePage < 1) {
-        this.activePage = 1;
-      } else if (this.activePage > this.#pages) {
-        this.activePage = this.#pages;
+    if (changes.has('page')) {
+      if (this.page < 1) {
+        this.page = 1;
+      } else if (this.page > this.#pages) {
+        this.page = this.#pages;
       }
 
       this.#setCurrentlyVisibleItems();
 
       if (!this.#initialLoad) {
         if (this.dataSource) {
-          this.dataSource.setPage(this.activePage);
+          this.dataSource.setPage(this.page);
+          this.dataSource.update();
         }
       }
 
@@ -201,13 +202,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       });
     }
 
-    if (changes.has('total')) {
-      const itemsPerPage = this.itemsPerPage ?? 10;
-      this.#pages = Math.ceil(this.total / itemsPerPage) || 1;
+    if (changes.has('totalItems')) {
+      const pageSize = this.pageSize ?? 10;
+      this.#pages = Math.ceil(this.totalItems / pageSize) || 1;
 
       if (!this.#initialLoad) {
         /** Always go back to the first page when the total amount of items has changed, but not for the first time. */
-        this.activePage = 1;
+        this.page = 1;
       }
 
       requestAnimationFrame(() => {
@@ -223,10 +224,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       <nav class="container">
         <sl-button
           class="prev"
-          aria-label=${msg(str`Go to the previous page (${this.activePage - 1})`)}
+          aria-label=${msg(str`Go to the previous page (${this.page - 1})`)}
           fill="ghost"
           size="lg"
-          ?disabled=${this.activePage === 1}
+          ?disabled=${this.page === 1}
           @click=${this.#onPrevious}
         >
           <sl-icon name="caret-left-solid"></sl-icon>
@@ -237,8 +238,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
               fill="ghost"
               size="lg"
               class="page"
-              ?active=${this.activePage == 1}
-              aria-current=${ifDefined(this.activePage == 1 ? 'page' : undefined)}
+              ?active=${this.page == 1}
+              aria-current=${ifDefined(this.page == 1 ? 'page' : undefined)}
               @click=${this.#setActive}
               >1</sl-paginator-page
             >
@@ -269,8 +270,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
                     fill="ghost"
                     size="lg"
                     class="page"
-                    ?active=${this.activePage == index + 2}
-                    aria-current=${ifDefined(this.activePage == index + 2 ? 'page' : undefined)}
+                    ?active=${this.page == index + 2}
+                    aria-current=${ifDefined(this.page == index + 2 ? 'page' : undefined)}
                     @click=${this.#setActive}
                   >
                     ${index + 2}
@@ -307,8 +308,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
                     fill="ghost"
                     size="lg"
                     class="page"
-                    ?active=${this.activePage == this.#pages}
-                    aria-current=${ifDefined(this.activePage == this.#pages ? 'page' : undefined)}
+                    ?active=${this.page == this.#pages}
+                    aria-current=${ifDefined(this.page == this.#pages ? 'page' : undefined)}
                     @click=${this.#setActive}
                     >${this.#pages}</sl-paginator-page
                   >
@@ -320,8 +321,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           <sl-select
             size="lg"
             @sl-change=${this.#setActive}
-            value=${this.activePage}
-            aria-label=${`${msg(str`${this.activePage}, page`)}`}
+            value=${this.page}
+            aria-label=${`${msg(str`${this.page}, page`)}`}
           >
             ${Array.from({ length: this.#pages })?.map(
               (_, index) => html`
@@ -339,28 +340,27 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         </div>
         <sl-button
           class="next"
-          aria-label=${msg(str`Go to the next page (${this.activePage + 1})`)}
+          aria-label=${msg(str`Go to the next page (${this.page + 1})`)}
           fill="ghost"
           size="lg"
-          ?disabled=${this.activePage === this.#pages}
+          ?disabled=${this.page === this.#pages}
           @click=${this.#onNext}
         >
           <sl-icon name="caret-right-solid"></sl-icon>
         </sl-button>
       </nav>
       <!-- We want this to be read every time the active page changes. -->
-      <span id="live" aria-live="polite" aria-atomic="true">
-        ${msg(str`Page ${this.activePage} of ${this.#pages}`)}
-      </span>
+      <div id="live" aria-live="polite" aria-atomic="true">${msg(str`Page ${this.page} of ${this.#pages}`)}</div>
     `;
   }
 
   /** Handles `click` event on the previous button. */
   #onPrevious() {
-    this.activePage--;
+    this.page--;
 
     if (this.dataSource) {
-      this.dataSource.setPage(this.activePage);
+      this.dataSource.setPage(this.page);
+      this.dataSource.update();
     }
 
     this.#setCurrentlyVisibleItems();
@@ -369,10 +369,11 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   /** Handles `click` event on the next button. */
   #onNext() {
-    this.activePage++;
+    this.page++;
 
     if (this.dataSource) {
-      this.dataSource.setPage(this.activePage);
+      this.dataSource.setPage(this.page);
+      this.dataSource.update();
     }
 
     this.#setCurrentlyVisibleItems();
@@ -383,13 +384,14 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     const target = event.target as Select | PaginatorPage;
 
     if (target instanceof Select) {
-      this.activePage = Number(target.value);
+      this.page = Number(target.value);
     } else {
-      this.activePage = Number(target.innerText?.trim());
+      this.page = Number(target.innerText?.trim());
     }
 
     if (this.dataSource) {
-      this.dataSource.setPage(this.activePage);
+      this.dataSource.setPage(this.page);
+      this.dataSource.update();
     }
 
     this.#setCurrentlyVisibleItems();
@@ -458,18 +460,19 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     this.#mobileVariant = possiblyVisible.length <= 6;
     if (this.#mobileVariant) {
       this.setAttribute('mobile', '');
+      this.requestUpdate();
       return;
     }
 
-    /**  A variant when activePage is bigger than half of possibly visible pages and smaller than last pages;
+    /**  A variant when page is bigger than half of possibly visible pages and smaller than last pages;
      *   pages before and pages after active page, from 1...active and active ... 10
      *   first page -> hidden pages on the left (one more button) -> shown pages on the left -> active page
      *   -> shown pages on the right -> hidden pages on the right (one more button) -> last page
      *   e.g.  1 ... 7 [8] 9 10 ... 20
      */
     if (
-      this.activePage > Math.floor(possiblyVisible.length / 2) &&
-      this.activePage <= lastPage - Math.floor(possiblyVisible.length / 2)
+      this.page > Math.floor(possiblyVisible.length / 2) &&
+      this.page <= lastPage - Math.floor(possiblyVisible.length / 2)
     ) {
       /** Possibly visible pages minus 3 - minus first, active page and last page. */
       const pagesToShow = possiblyVisible.length - 3,
@@ -477,13 +480,13 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         toShowAmount = Math.floor(pagesToShow / 2);
 
       /** Hide pages on the left side of the active page, between first page and active page. */
-      this.hiddenPagesLeft = Array.from(pages).slice(1, this.activePage - toShowAmount);
+      this.hiddenPagesLeft = Array.from(pages).slice(1, this.page - toShowAmount);
       this.hiddenPagesLeft.forEach(page => (page.style.display = 'none'));
 
       /** Hide pages on the right side of the active page, between active page and last page. */
-      this.hiddenPagesRight = Array.from(pages).slice(this.activePage + (toShowAmount - (evenAmount ? 0 : 1)), -1);
+      this.hiddenPagesRight = Array.from(pages).slice(this.page + (toShowAmount - (evenAmount ? 0 : 1)), -1);
       this.hiddenPagesRight.forEach(page => (page.style.display = 'none'));
-    } else if (this.activePage <= Math.floor(possiblyVisible.length / 2)) {
+    } else if (this.page <= Math.floor(possiblyVisible.length / 2)) {
       /**  A variant when the first page is active or the active page is smaller than the half of possibly visible pages;
        *   e.g. [1] 2 3 4 5 6...20
        *   */
@@ -503,29 +506,29 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   }
 
   #setCurrentlyVisibleItems(): void {
-    if (!this.itemsPerPage || !this.#pages) {
+    if (!this.pageSize || !this.#pages) {
       return;
     }
 
-    if (this.activePage === this.#pages) {
-      const itemsOnLastPage = this.total % this.itemsPerPage;
-      this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.itemsPerPage : itemsOnLastPage;
+    if (this.page === this.#pages) {
+      const itemsOnLastPage = this.totalItems % this.pageSize;
+      this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.pageSize : itemsOnLastPage;
     } else {
-      this.currentlyVisibleItems = this.itemsPerPage;
+      this.currentlyVisibleItems = this.pageSize;
     }
   }
 
   #onUpdate = () => {
-    requestAnimationFrame(() => {
-      if (!this.dataSource || !this.dataSource.paginateItems) {
-        return;
-      }
+    if (!this.dataSource || !this.dataSource.page) {
+      return;
+    }
 
-      this.itemsPerPage = this.dataSource.paginateItems.pageSize;
-      if (this.total === this.dataSource.paginateItems.total) {
-        this.activePage = this.dataSource.paginateItems.pageNumber;
-      }
-      this.total = this.dataSource.paginateItems.total;
-    });
+    this.pageSize = this.dataSource.page.pageSize;
+    if (this.totalItems === this.dataSource.page.totalItems) {
+      this.page = this.dataSource.page.page;
+    }
+    this.totalItems = this.dataSource.page.totalItems;
+
+    requestAnimationFrame(() => this.#updateVisibility());
   };
 }

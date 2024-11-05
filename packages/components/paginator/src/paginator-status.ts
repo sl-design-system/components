@@ -23,7 +23,7 @@ export class PaginatorStatus extends LitElement {
   #pages = 1;
 
   /** Currently active page, if not set - default to 1. */
-  @property({ type: Number, attribute: 'active-page' }) activePage = 1;
+  @property({ type: Number }) page = 1;
 
   /** @internal Currently visible items on the current page. */
   @state() currentlyVisibleItems = 1;
@@ -32,10 +32,10 @@ export class PaginatorStatus extends LitElement {
   @property({ attribute: false }) dataSource?: DataSource;
 
   /** Items per page, if not set - default to 10. */
-  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage = 10;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = 10;
 
   /** Total amount of items, if not set - default to 1. */
-  @property({ type: Number }) total = 1;
+  @property({ type: Number, attribute: 'total-items' }) totalItems = 1;
 
   override disconnectedCallback(): void {
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
@@ -46,68 +46,68 @@ export class PaginatorStatus extends LitElement {
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.#pages = Math.ceil(this.total / this.itemsPerPage);
+    this.#pages = Math.ceil(this.totalItems / this.pageSize);
 
     this.#setCurrentlyVisibleItems();
-
-    if (this.dataSource) {
-      this.dataSource.addEventListener('sl-update', this.#onUpdate);
-    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('itemsPerPage') || changes.has('total')) {
-      this.#pages = Math.ceil(this.total / this.itemsPerPage);
+    if (changes.has('dataSource')) {
+      this.dataSource?.addEventListener('sl-update', this.#onUpdate);
+    }
+
+    if (changes.has('pageSize') || changes.has('totalItems')) {
+      this.#pages = Math.ceil(this.totalItems / this.pageSize);
       this.#setCurrentlyVisibleItems();
     }
 
-    if (changes.has('activePage')) {
-      if (this.activePage < 1) {
-        this.activePage = 1;
-      } else if (this.activePage > this.#pages) {
-        this.activePage = this.#pages;
+    if (changes.has('page')) {
+      if (this.page < 1) {
+        this.page = 1;
+      } else if (this.page > this.#pages) {
+        this.page = this.#pages;
       }
 
-      this.#pages = Math.ceil(this.total / this.itemsPerPage);
+      this.#pages = Math.ceil(this.totalItems / this.pageSize);
       this.#setCurrentlyVisibleItems();
     }
   }
 
   override render(): TemplateResult {
-    const start = this.activePage === 1 ? 1 : (this.activePage - 1) * this.itemsPerPage + 1;
-    const end = this.activePage === this.#pages ? this.total : this.activePage * this.currentlyVisibleItems;
+    const start = this.page === 1 ? 1 : (this.page - 1) * this.pageSize + 1;
+    const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
 
     return html`
-      ${msg(str`${start} - ${end} of ${this.total} items`)}
+      ${msg(str`${start} - ${end} of ${this.totalItems} items`)}
       <!-- We want this to be read every time the active page changes. -->
-      <span id="live" aria-live="polite" aria-atomic="true">
-        ${msg(str`Currently showing ${start} to ${end} of ${this.total} items`)}
-      </span>
+      <div id="live" aria-live="polite" aria-atomic="true">
+        ${msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`)}
+      </div>
     `;
   }
 
   #setCurrentlyVisibleItems(): void {
-    if (!this.itemsPerPage || !this.#pages) {
+    if (!this.pageSize || !this.#pages) {
       return;
     }
 
-    if (this.activePage === this.#pages) {
-      const itemsOnLastPage = this.total % this.itemsPerPage;
-      this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.itemsPerPage : itemsOnLastPage;
+    if (this.page === this.#pages) {
+      const itemsOnLastPage = this.totalItems % this.pageSize;
+      this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.pageSize : itemsOnLastPage;
     } else {
-      this.currentlyVisibleItems = this.itemsPerPage!;
+      this.currentlyVisibleItems = this.pageSize!;
     }
   }
 
   #onUpdate = () => {
-    if (!this.dataSource || !this.dataSource.paginateItems) {
+    if (!this.dataSource || !this.dataSource.page) {
       return;
     }
 
-    this.itemsPerPage = this.dataSource.paginateItems.pageSize;
-    this.activePage = this.dataSource.paginateItems.pageNumber;
-    this.total = this.dataSource.paginateItems.total;
+    this.pageSize = this.dataSource.page.pageSize;
+    this.page = this.dataSource.page.page;
+    this.totalItems = this.dataSource.page.totalItems;
   };
 }

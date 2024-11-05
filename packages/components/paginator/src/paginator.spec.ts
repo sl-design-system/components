@@ -15,18 +15,18 @@ describe('sl-paginator', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator .total=${200} .pageSizes=${[20, 40, 60]}></sl-paginator> `);
+      el = await fixture(html` <sl-paginator .totalItems=${200} .pageSizes=${[20, 40, 60]}></sl-paginator> `);
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have active page with value of 1 when it is not explicitly set', () => {
-      expect(el.activePage).to.equal(1);
+      expect(el.page).to.equal(1);
     });
 
     it('should have a proper value of items per page when it is not explicitly set', () => {
-      expect(el.itemsPerPage).to.equal(20);
+      expect(el.pageSize).to.equal(20);
     });
 
     it('should have no mobile attribute', () => {
@@ -67,10 +67,10 @@ describe('sl-paginator', () => {
     });
   });
 
-  describe('active page', () => {
+  describe('page', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-paginator .total=${200} .activePage=${2} .pageSizes=${[20, 40, 60]}></sl-paginator>
+        <sl-paginator .totalItems=${200} .page=${2} .pageSizes=${[20, 40, 60]}></sl-paginator>
       `);
 
       // Give the resize observer time to do its thing
@@ -78,29 +78,29 @@ describe('sl-paginator', () => {
     });
 
     it('should go to page 1 when set page is smaller than 1', async () => {
-      el.activePage = -1;
+      el.page = -1;
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(1);
+      expect(el.page).to.equal(1);
     });
 
-    it('should have set active page to the last one when the number set is bigger than the total number of pages', async () => {
-      el.activePage = 100;
+    it('should have set page to the last one when the number set is bigger than the total number of pages', async () => {
+      el.page = 100;
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(10);
+      expect(el.page).to.equal(10);
     });
 
-    it('should set the right active page on page click', async () => {
+    it('should set the right page on page click', async () => {
       const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
 
       pages[3].click();
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(4);
+      expect(el.page).to.equal(4);
     });
 
-    it('should set the next active page on next button click', async () => {
+    it('should set the next page on next button click', async () => {
       const next = el.renderRoot.querySelector<Button>('sl-button.next');
       expect(next).to.exist;
 
@@ -108,10 +108,10 @@ describe('sl-paginator', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.activePage).to.equal(2);
+      expect(el.page).to.equal(2);
     });
 
-    it('should set the previous active page on prev button click', async () => {
+    it('should set the previous page on prev button click', async () => {
       const prev = el.renderRoot.querySelector<Button>('sl-button.prev');
 
       expect(prev).to.exist;
@@ -119,11 +119,11 @@ describe('sl-paginator', () => {
       prev!.click();
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(1);
+      expect(el.page).to.equal(1);
     });
 
     it('should have previous and next buttons with proper aria-labels', async () => {
-      el.activePage = 3;
+      el.page = 3;
       await el.updateComplete;
 
       const prev = el.renderRoot.querySelector('sl-button.prev') as Button,
@@ -139,49 +139,49 @@ describe('sl-paginator', () => {
       expect(nextAriaLabel).to.equal('Go to the next page (4)');
     });
 
-    it('should emit an sl-page-change event when the active page has changed', async () => {
+    it('should emit an sl-page-change event when the page has changed', async () => {
       const onPageChange = spy();
 
       el.addEventListener('sl-page-change', onPageChange);
 
-      el.activePage = 5;
+      el.page = 5;
       await el.updateComplete;
 
       expect(onPageChange).to.have.been.called;
     });
 
-    it('should have a proper aria-live when the active page has changed', async () => {
+    it('should have a proper aria-live when the page has changed', async () => {
       const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
 
       expect(ariaLive).to.have.attribute('aria-live', 'polite');
       expect(ariaLive).to.have.rendered.text('Page 1 of 10');
 
-      el.activePage = 5;
+      el.page = 5;
       await el.updateComplete;
 
       expect(ariaLive).to.have.attribute('aria-live', 'polite');
       expect(ariaLive).to.have.rendered.text('Page 5 of 10');
     });
 
-    it('should set the first page active when items per page amount has changed', async () => {
-      el.itemsPerPage = 10;
+    it('should set the first page when items per page amount has changed', async () => {
+      el.pageSize = 10;
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(1);
+      expect(el.page).to.equal(1);
     });
 
-    it('should set the first page active when items total amount of items has changed', async () => {
-      el.total = 800;
+    it('should set the first page when items total amount of items has changed', async () => {
+      el.totalItems = 800;
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(1);
+      expect(el.page).to.equal(1);
     });
   });
 
-  describe('smaller active page', () => {
+  describe('smaller page', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-paginator .total=${200} .activePage=${-2} .pageSizes=${[20, 40, 60]}></sl-paginator>
+        <sl-paginator .totalItems=${200} .page=${-2} .pageSizes=${[20, 40, 60]}></sl-paginator>
       `);
 
       // Give the resize observer time to do its thing
@@ -189,14 +189,14 @@ describe('sl-paginator', () => {
     });
 
     it('should have a valid active page when set smaller than 1', () => {
-      expect(el.activePage).to.equal(1);
+      expect(el.page).to.equal(1);
     });
   });
 
-  describe('bigger active page', () => {
+  describe('bigger page', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-paginator .total=${200} active-page="2000" .pageSizes=${[20, 40, 60]}></sl-paginator>
+        <sl-paginator .totalItems=${200} page="2000" .pageSizes=${[20, 40, 60]}></sl-paginator>
       `);
 
       // Give the resize observer time to do its thing
@@ -204,10 +204,10 @@ describe('sl-paginator', () => {
     });
 
     it('should be on the last page when the set page is larger than the number of pages', async () => {
-      el.activePage = 2000;
+      el.page = 2000;
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(10);
+      expect(el.page).to.equal(10);
     });
   });
 
@@ -216,8 +216,8 @@ describe('sl-paginator', () => {
       el = await fixture(html`
         <sl-paginator
           style="inline-size: 800px;"
-          .total=${200}
-          .activePage=${2}
+          .totalItems=${200}
+          .page=${2}
           .pageSizes=${[10, 15, 20]}
         ></sl-paginator>
       `);
@@ -282,7 +282,7 @@ describe('sl-paginator', () => {
     });
 
     it('should have one menu button with hidden pages after the first page', async () => {
-      el.activePage = 20;
+      el.page = 20;
       await el.updateComplete;
 
       // Give the resize observer time to do its thing
@@ -307,7 +307,7 @@ describe('sl-paginator', () => {
     });
 
     it('should have two menu buttons with hidden pages, one after the first page and before the last page', async () => {
-      el.activePage = 10;
+      el.page = 10;
       await el.updateComplete;
 
       // Give the resize observer time to do its thing
@@ -342,7 +342,7 @@ describe('sl-paginator', () => {
   describe('Size', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-paginator .total=${200} activePage="1" .pageSizes=${[10, 15, 20]} size="sm"></sl-paginator>
+        <sl-paginator .totalItems=${200} page="1" .pageSizes=${[10, 15, 20]} size="sm"></sl-paginator>
       `);
 
       // Give the resize observer time to do its thing
@@ -450,8 +450,8 @@ describe('sl-paginator', () => {
       el = await fixture(html`
         <sl-paginator
           style="inline-size: 300px;"
-          .total=${100}
-          .activePage=${1}
+          .totalItems=${100}
+          .page=${1}
           .pageSizes=${[10, 15, 20]}
         ></sl-paginator>
       `);
@@ -537,7 +537,7 @@ describe('sl-paginator', () => {
       ]);
     });
 
-    it('should set the right active page on option click', async () => {
+    it('should set the right page on option click', async () => {
       const selectOptions = el.renderRoot.querySelectorAll('sl-select-option');
 
       expect(selectOptions).to.exist;
@@ -545,7 +545,7 @@ describe('sl-paginator', () => {
       selectOptions[4].click();
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(5);
+      expect(el.page).to.equal(5);
     });
   });
 
@@ -555,12 +555,12 @@ describe('sl-paginator', () => {
     }));
 
     const dataSource = new ArrayDataSource(items);
-    const total = dataSource.paginatedItems.length;
+    const totalItems = dataSource.paginatedItems.length;
 
     beforeEach(async () => {
       el = await fixture(html` <sl-paginator .dataSource=${dataSource} .pageSizes=${[10, 15, 20]}></sl-paginator> `);
 
-      dataSource.paginate(2, 10, total);
+      dataSource.paginate(2, 10, totalItems);
       dataSource.update();
 
       // Give the resize observer time to do its thing
@@ -579,20 +579,20 @@ describe('sl-paginator', () => {
     });
 
     it('should have a proper active page', () => {
-      expect(el.activePage).to.equal(2);
+      expect(el.page).to.equal(2);
     });
 
-    it('should set the right active page on page click', async () => {
+    it('should set the right page on page click', async () => {
       const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
 
       pages[3].click();
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(4);
-      expect(el.dataSource?.paginateItems?.pageNumber).to.equal(4);
+      expect(el.page).to.equal(4);
+      expect(el.dataSource?.page?.page).to.equal(4);
     });
 
-    it('should set the next active page on next button click', async () => {
+    it('should set the next page on next button click', async () => {
       const next = el.renderRoot.querySelector<Button>('sl-button.next');
 
       expect(next).to.exist;
@@ -600,11 +600,11 @@ describe('sl-paginator', () => {
       next!.click();
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(3);
-      expect(el.dataSource?.paginateItems?.pageNumber).to.equal(3);
+      expect(el.page).to.equal(3);
+      expect(el.dataSource?.page?.page).to.equal(3);
     });
 
-    it('should set the previous active page on prev button click', async () => {
+    it('should set the previous page on prev button click', async () => {
       const prev = el.renderRoot.querySelector<Button>('sl-button.prev');
 
       expect(prev).to.exist;
@@ -612,8 +612,8 @@ describe('sl-paginator', () => {
       prev!.click();
       await el.updateComplete;
 
-      expect(el.activePage).to.equal(1);
-      expect(el.dataSource?.paginateItems?.pageNumber).to.equal(1);
+      expect(el.page).to.equal(1);
+      expect(el.dataSource?.page?.page).to.equal(1);
     });
   });
 });

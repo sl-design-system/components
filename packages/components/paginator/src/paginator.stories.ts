@@ -12,7 +12,7 @@ import { type PaginatorSize } from './paginator-size';
 import { PaginatorStatus } from './paginator-status';
 import { type Paginator, VisiblePagesSize } from './paginator.js';
 
-type Props = Pick<Paginator, 'activePage' | 'itemsPerPage' | 'pageSizes' | 'total' | 'size'> & {
+type Props = Pick<Paginator, 'page' | 'pageSize' | 'pageSizes' | 'totalItems' | 'size'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
@@ -29,10 +29,10 @@ export default {
     }
   },
   args: {
-    total: 100,
-    itemsPerPage: 10,
+    totalItems: 100,
+    pageSize: 10,
     pageSizes: [5, 10, 15],
-    activePage: 2,
+    page: 2,
     size: 'lg'
   },
   argTypes: {
@@ -41,13 +41,13 @@ export default {
       options: sizes
     }
   },
-  render: ({ activePage, itemsPerPage, pageSizes, total, size }) => {
+  render: ({ page, pageSize, pageSizes, totalItems, size }) => {
     return html`
       <sl-paginator
-        .total=${total}
+        .totalItems=${totalItems}
         .pageSizes=${pageSizes}
-        .activePage=${activePage}
-        .itemsPerPage=${itemsPerPage}
+        .page=${page}
+        .pageSize=${pageSize}
         .size=${size}
       ></sl-paginator>
     `;
@@ -58,7 +58,7 @@ export const Basic: Story = {};
 
 export const Overflow: Story = {
   args: {
-    total: 900
+    totalItems: 900
   }
 };
 
@@ -69,15 +69,15 @@ export const Mobile: Story = {
     }
   },
   args: {
-    activePage: 5
+    page: 5
   },
-  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
+  render: ({ page, pageSize, pageSizes, totalItems }) => {
     return html`
       <sl-paginator
-        .total=${total}
+        .totalItems=${totalItems}
         .pageSizes=${pageSizes}
-        .activePage=${activePage}
-        .itemsPerPage=${itemsPerPage}
+        .page=${page}
+        .pageSize=${pageSize}
       ></sl-paginator>
     `;
   }
@@ -85,22 +85,22 @@ export const Mobile: Story = {
 
 export const WithEvents: Story = {
   args: {
-    total: 200
+    totalItems: 200
   },
-  render: ({ activePage, itemsPerPage, pageSizes, size, total }) => {
+  render: ({ page, pageSize, pageSizes, size, totalItems }) => {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
         pageSize = document.querySelector('sl-paginator-size') as PaginatorSize,
         visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
 
       paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
-        visibleItems.activePage = event.detail as number;
+        visibleItems.page = event.detail as number;
       });
 
       pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
         const detail = event.detail as number;
-        paginator.itemsPerPage = detail;
-        visibleItems.itemsPerPage = detail;
+        paginator.pageSize = detail;
+        visibleItems.pageSize = detail;
       });
     });
     return html`
@@ -121,19 +121,15 @@ export const WithEvents: Story = {
         }
       </style>
       <div class="pagination">
-        <sl-paginator-status
-          .total=${total}
-          .activePage=${activePage}
-          .itemsPerPage=${itemsPerPage}
-        ></sl-paginator-status>
+        <sl-paginator-status .totalItems=${totalItems} .page=${page} .pageSize=${pageSize}></sl-paginator-status>
         <sl-paginator
-          .total=${total}
+          .totalItems=${totalItems}
           .pageSizes=${pageSizes}
-          .activePage=${activePage}
-          .itemsPerPage=${itemsPerPage}
+          .page=${page}
+          .pageSize=${pageSize}
           .size=${size}
         ></sl-paginator>
-        <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>
+        <sl-paginator-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-size>
       </div>
     `;
   }
@@ -186,7 +182,7 @@ export const WithDataSource: Story = {
 
           dataSource = new ArrayDataSource(this.items);
 
-          total: number = 1;
+          totalItems: number = 1;
 
           override connectedCallback(): void {
             super.connectedCallback();
@@ -194,11 +190,11 @@ export const WithDataSource: Story = {
             this.dataSource = new ArrayDataSource(this.items);
 
             requestAnimationFrame(() => {
-              this.total = this.dataSource?.paginatedItems.length;
+              this.totalItems = this.dataSource?.paginatedItems.length;
 
               this.dataSource.addEventListener('sl-update', this.#onUpdate);
 
-              this.dataSource.paginate(2, 5, this.total);
+              this.dataSource.paginate(2, 5, this.totalItems);
               this.dataSource.update();
             });
           }
@@ -243,9 +239,9 @@ export const WithDataSource: Story = {
 
 export const All: Story = {
   args: {
-    total: 200
+    totalItems: 200
   },
-  render: ({ activePage, itemsPerPage, pageSizes, total }) => {
+  render: ({ page, pageSize, pageSizes, totalItems }) => {
     return html`
       <style>
         .pagination {
@@ -262,10 +258,10 @@ export const All: Story = {
           size => html`
             <h3>Size: ${size}</h3>
             <sl-paginator
-              .total=${total}
+              .totalItems=${totalItems}
               .pageSizes=${pageSizes}
-              .activePage=${activePage}
-              .itemsPerPage=${itemsPerPage}
+              .page=${page}
+              .pageSize=${pageSize}
               .size=${size}
             ></sl-paginator>
           `

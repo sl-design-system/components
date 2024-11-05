@@ -11,7 +11,7 @@ import '../register.js';
 import { PaginatorStatus } from './paginator-status';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<PaginatorStatus, 'activePage' | 'itemsPerPage' | 'total'> & {
+type Props = Pick<PaginatorStatus, 'pageSize' | 'page' | 'totalItems'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
@@ -26,17 +26,13 @@ export default {
     }
   },
   args: {
-    total: 100,
-    itemsPerPage: 10,
-    activePage: 5
+    totalItems: 100,
+    pageSize: 10,
+    page: 5
   },
-  render: ({ activePage, itemsPerPage, total }) => {
+  render: ({ pageSize, page, totalItems }) => {
     return html`
-      <sl-paginator-status
-        .total=${total}
-        .activePage=${activePage}
-        .itemsPerPage=${itemsPerPage}
-      ></sl-paginator-status>
+      <sl-paginator-status .totalItems=${totalItems} .page=${page} .pageSize=${pageSize}></sl-paginator-status>
     `;
   }
 } satisfies Meta<Props>;
@@ -61,8 +57,9 @@ export const WithDataSource: Story = {
     const dataSource = new ArrayDataSource(items);
 
     requestAnimationFrame(() => {
-      const total = dataSource.paginatedItems.length;
-      dataSource.paginate(2, 5, total);
+      const totalItems = dataSource.paginatedItems.length;
+      dataSource.paginate(2, 5, totalItems);
+      dataSource.update();
     });
 
     return html` <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status> `;
@@ -71,16 +68,16 @@ export const WithDataSource: Story = {
 
 export const WithPaginator: Story = {
   args: {
-    activePage: 3,
-    total: 200
+    page: 3,
+    totalItems: 200
   },
-  render: ({ activePage, itemsPerPage, total }) => {
+  render: ({ page, pageSize, totalItems }) => {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
         visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus;
 
       paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
-        visibleItems.activePage = event.detail as number;
+        visibleItems.page = event.detail as number;
       });
     });
     return html`
@@ -97,12 +94,8 @@ export const WithPaginator: Story = {
         }
       </style>
       <div class="pagination">
-        <sl-paginator-status
-          .total=${total}
-          .activePage=${activePage}
-          .itemsPerPage=${itemsPerPage}
-        ></sl-paginator-status>
-        <sl-paginator .total=${total} .activePage=${activePage} .itemsPerPage=${itemsPerPage}></sl-paginator>
+        <sl-paginator-status .totalItems=${totalItems} .page=${page} .pageSize=${pageSize}></sl-paginator-status>
+        <sl-paginator .totalItems=${totalItems} .page=${page} .pageSize=${pageSize}></sl-paginator>
       </div>
     `;
   }

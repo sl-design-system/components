@@ -11,7 +11,7 @@ import '../register.js';
 import { type PaginatorSize } from './paginator-size';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<PaginatorSize, 'itemsPerPage' | 'pageSizes'> & {
+type Props = Pick<PaginatorSize, 'pageSize' | 'pageSizes'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
@@ -26,11 +26,11 @@ export default {
     }
   },
   args: {
-    itemsPerPage: 10,
+    pageSize: 10,
     pageSizes: [5, 10, 15]
   },
-  render: ({ itemsPerPage, pageSizes }) => {
-    return html` <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size> `;
+  render: ({ pageSize, pageSizes }) => {
+    return html` <sl-paginator-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-size> `;
   }
 } satisfies Meta<Props>;
 
@@ -47,8 +47,9 @@ export const WithDataSource: Story = {
     const dataSource = new ArrayDataSource(items);
 
     requestAnimationFrame(() => {
-      const total = dataSource.paginatedItems.length;
-      dataSource.paginate(2, 5, total);
+      const totalItems = dataSource.paginatedItems.length;
+      dataSource.paginate(2, 5, totalItems);
+      dataSource.update();
     });
 
     return html` <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>`;
@@ -57,17 +58,17 @@ export const WithDataSource: Story = {
 
 export const WithPaginator: Story = {
   args: {
-    itemsPerPage: 30,
+    pageSize: 30,
     pageSizes: [5, 15, 30, 45]
   },
-  render: ({ itemsPerPage, pageSizes }) => {
+  render: ({ pageSize, pageSizes }) => {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
         pageSize = document.querySelector('sl-paginator-size') as PaginatorSize;
 
       pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
         const detail = event.detail as number;
-        paginator.itemsPerPage = detail;
+        paginator.pageSize = detail;
       });
     });
     return html`
@@ -84,8 +85,8 @@ export const WithPaginator: Story = {
         }
       </style>
       <div class="pagination">
-        <sl-paginator total="120" .itemsPerPage=${itemsPerPage}></sl-paginator>
-        <sl-paginator-size .pageSizes=${pageSizes} .itemsPerPage=${itemsPerPage}></sl-paginator-size>
+        <sl-paginator totalItems="120" .pageSize=${pageSize}></sl-paginator>
+        <sl-paginator-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-size>
       </div>
     `;
   }

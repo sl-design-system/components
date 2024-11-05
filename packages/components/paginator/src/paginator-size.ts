@@ -25,21 +25,6 @@ declare global {
 @localized()
 export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   /** @internal */
-  static override styles: CSSResultGroup = styles;
-
-  /** Provided data source. */
-  @property({ attribute: false }) dataSource?: DataSource;
-
-  /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
-  @property({ type: Number, attribute: 'items-per-page' }) itemsPerPage?: number;
-
-  /** @internal Emits when the page size has been selected/changed. */
-  @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>; //EventEmitter<SlPageSizeChangeEvent>;
-
-  /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
-  @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
-
-  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-select': Select,
@@ -47,21 +32,37 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     };
   }
 
+  /** @internal */
+  static override styles: CSSResultGroup = styles;
+
+  /** Provided data source. */
+  @property({ attribute: false }) dataSource?: DataSource;
+
+  /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
+  @property({ type: Number, attribute: 'page-size' }) pageSize?: number;
+
+  /** @internal Emits when the page size has been selected/changed. */
+  @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>;
+
+  /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
+  @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
+
   override disconnectedCallback(): void {
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
     super.disconnectedCallback();
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    if (!this.itemsPerPage) {
-      this.itemsPerPage = this.pageSizes ? this.pageSizes[0] : 10;
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+    if (changes.has('pageSize')) {
+      if (!this.pageSize) {
+        this.pageSize = this.pageSizes ? this.pageSizes[0] : 10;
+      }
     }
 
-    if (this.dataSource) {
-      this.dataSource.addEventListener('sl-update', this.#onUpdate);
+    if (changes.has('dataSource')) {
+      this.dataSource?.addEventListener('sl-update', this.#onUpdate);
     }
   }
 
@@ -70,17 +71,13 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
       <span>${msg('Items per page')}:</span>
       ${this.pageSizes
         ? html`
-            <sl-select
-              aria-label=${`${this.itemsPerPage} ${msg('Items per page')}`}
-              size="lg"
-              value=${this.itemsPerPage}
-            >
+            <sl-select aria-label=${`${this.pageSize} ${msg('Items per page')}`} size="lg" value=${this.pageSize}>
               ${this.pageSizes.map(
                 size => html`
                   <sl-select-option
                     aria-label=${`${size} ${msg('Items per page')}`}
                     @click=${this.#setValue}
-                    value=${size}
+                    .value=${size}
                   >
                     ${size}
                   </sl-select-option>
@@ -90,30 +87,27 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <!-- We want this to be read every time the active page changes. -->
-      <span id="live" aria-live="polite" aria-atomic="true">
-        ${msg(str`Amount of items per page: ${this.itemsPerPage}`)}
-      </span>
+      <div id="live" aria-live="polite" aria-atomic="true">${msg(str`Amount of items per page: ${this.pageSize}`)}</div>
     `;
   }
 
   #setValue(event: Event): void {
     const newValue = Number((event.target as SelectOption).value);
-    if (this.itemsPerPage !== newValue) {
-      this.itemsPerPage = newValue;
+    if (this.pageSize !== newValue) {
+      this.pageSize = newValue;
 
       /** Emits amount of selected items per page */
       this.pageSizeChangeEvent.emit(newValue);
 
-      if (this.dataSource) {
-        this.dataSource?.setPageSize(newValue);
-      }
+      this.dataSource?.setPageSize(newValue);
+      this.dataSource?.update();
     }
   }
 
   #onUpdate = () => {
-    const newPageSize = this.dataSource?.paginateItems?.pageSize;
-    if (this.itemsPerPage !== newPageSize) {
-      this.itemsPerPage = newPageSize;
+    const newPageSize = this.dataSource?.page?.pageSize;
+    if (this.pageSize !== newPageSize) {
+      this.pageSize = newPageSize;
     }
   };
 }

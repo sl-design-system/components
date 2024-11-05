@@ -10,7 +10,6 @@
 /** Hiding the aria-live element for the UI, but not for the screen readers. */
 #live {
   block-size: 0;
-  display: block;
   inline-size: 0;
   overflow: hidden;
 }

@@ -139,15 +139,27 @@ describe('ArrayDataSource', () => {
     });
 
     it('should reset the original order when removing a sort', () => {
-      ds.setSort('id', 'firstName', 'asc');
+      ds.setSort('id', 'profession', 'asc');
       ds.update();
 
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
+      expect(ds.items.map(({ profession }) => profession)).to.deep.equal([
+        'Endocrinologist',
+        'Gastroenterologist',
+        'Gastroenterologist',
+        'Nephrologist',
+        'Ophthalmologist'
+      ]);
 
       ds.removeSort();
       ds.update();
 
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John', 'Jane', 'Ann', 'Bob']);
+      expect(ds.items.map(({ profession }) => profession)).to.deep.equal([
+        'Endocrinologist',
+        'Nephrologist',
+        'Ophthalmologist',
+        'Gastroenterologist',
+        'Gastroenterologist'
+      ]);
     });
   });
 
@@ -168,6 +180,11 @@ describe('ArrayDataSource', () => {
       ds.update();
 
       expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John', 'Jane']);
+
+      ds.setPage(2);
+      ds.update();
+
+      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Bob']);
     });
 
     it('should set page size', () => {

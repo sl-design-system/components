@@ -14,6 +14,10 @@ sl-select {
   min-inline-size: var(--sl-size-paginator-select-min-width);
 }
 
+sl-label label {
+  font: inherit;
+}
+
 /** Hiding the aria-live element for the UI, but not for the screen readers. */
 #live {
   block-size: 0;

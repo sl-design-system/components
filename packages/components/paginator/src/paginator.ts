@@ -113,8 +113,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
         return 7;
       case 'md':
         return 9;
-      case 'lg':
-        return 11;
       default:
         return 11;
     }

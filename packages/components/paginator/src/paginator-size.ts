@@ -1,6 +1,7 @@
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type DataSource } from '@sl-design-system/data-source';
+import { Label } from '@sl-design-system/form';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
@@ -27,6 +28,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-label': Label,
       'sl-select': Select,
       'sl-select-option': SelectOption
     };
@@ -68,17 +70,13 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <span>${msg('Items per page')}:</span>
+      <sl-label for="select">${msg('Items per page')}:</sl-label>
       ${this.pageSizes
         ? html`
-            <sl-select aria-label=${`${this.pageSize} ${msg('Items per page')}`} size="lg" value=${this.pageSize}>
+            <sl-select id="select" size="lg" value=${this.pageSize} @sl-change=${this.#onChange}>
               ${this.pageSizes.map(
                 size => html`
-                  <sl-select-option
-                    aria-label=${`${size} ${msg('Items per page')}`}
-                    @click=${this.#setValue}
-                    .value=${size}
-                  >
+                  <sl-select-option aria-label=${`${size} ${msg('Items per page')}`} .value=${size}>
                     ${size}
                   </sl-select-option>
                 `
@@ -91,7 +89,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #setValue(event: Event): void {
+  #onChange(event: Event): void {
     const newValue = Number((event.target as SelectOption).value);
     if (this.pageSize !== newValue) {
       this.pageSize = newValue;

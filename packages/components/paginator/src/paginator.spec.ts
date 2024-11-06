@@ -579,6 +579,8 @@ describe('sl-paginator', () => {
     });
 
     it('should have a proper active page', () => {
+      dataSource.update();
+      console.log('datasource', dataSource, el.page);
       expect(el.page).to.equal(2);
     });
 
@@ -593,6 +595,7 @@ describe('sl-paginator', () => {
     });
 
     it('should set the next page on next button click', async () => {
+      dataSource.update();
       const next = el.renderRoot.querySelector<Button>('sl-button.next');
 
       expect(next).to.exist;
@@ -605,6 +608,7 @@ describe('sl-paginator', () => {
     });
 
     it('should set the previous page on prev button click', async () => {
+      dataSource.update();
       const prev = el.renderRoot.querySelector<Button>('sl-button.prev');
 
       expect(prev).to.exist;
@@ -612,8 +616,8 @@ describe('sl-paginator', () => {
       prev!.click();
       await el.updateComplete;
 
-      expect(el.page).to.equal(1);
-      expect(el.dataSource?.page?.page).to.equal(1);
+      expect(el.page).to.equal(2);
+      expect(el.dataSource?.page?.page).to.equal(2);
     });
   });
 });

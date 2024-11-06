@@ -107,6 +107,8 @@ describe('FetchDataSource', () => {
       ds.getFetchOptions = (page, pageSize) => ({ page, pageSize, foo: 'bar' });
       ds.items.at(0);
 
+      console.log('ds in fetch data', ds, ds.getFetchOptions, ds.items);
+
       expect(ds.fetchPage).to.have.been.calledOnce;
       expect(ds.fetchPage).to.have.been.calledWithMatch({ foo: 'bar' });
     });

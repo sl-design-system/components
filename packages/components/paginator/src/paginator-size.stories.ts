@@ -12,6 +12,7 @@ import { type PaginatorSize } from './paginator-size';
 import { type Paginator } from './paginator.js';
 
 type Props = Pick<PaginatorSize, 'pageSize' | 'pageSizes'> & {
+  totalItems: number;
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
 };
@@ -58,17 +59,17 @@ export const WithDataSource: Story = {
 
 export const WithPaginator: Story = {
   args: {
+    totalItems: 120,
     pageSize: 30,
     pageSizes: [5, 15, 30, 45]
   },
-  render: ({ pageSize, pageSizes }) => {
+  render: ({ pageSize, pageSizes, totalItems }) => {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
         pageSize = document.querySelector('sl-paginator-size') as PaginatorSize;
 
       pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-        const detail = event.detail as number;
-        paginator.pageSize = detail;
+        paginator.pageSize = event.detail as number;
       });
     });
     return html`
@@ -85,7 +86,7 @@ export const WithPaginator: Story = {
         }
       </style>
       <div class="pagination">
-        <sl-paginator totalItems="120" .pageSize=${pageSize}></sl-paginator>
+        <sl-paginator .totalItems=${totalItems} .pageSize=${pageSize}></sl-paginator>
         <sl-paginator-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-size>
       </div>
     `;

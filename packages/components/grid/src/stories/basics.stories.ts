@@ -260,6 +260,102 @@ export const Skeleton: Story = {
   }
 };
 
+export const SkeletonWithPagination: Story = {
+  render: () => {
+    interface Quote {
+      id: string;
+      quote: string;
+      author: string;
+    }
+
+    interface QuotesResponse {
+      quotes: Quote[];
+      total: number;
+      skip: number;
+      limit: number;
+    }
+
+    const page1 = 3;
+
+    const dataSource = new FetchDataSource<Quote>({
+      pageSize: 10,
+      /*      fetchPage: async ({ page, pageSize }) => {
+        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+
+        // Simulate a slow response
+      //  await new Promise(resolve => setTimeout(resolve, 500));
+
+        console.log('datasource in fetch - fetch Page people and total', people, total, (page - 1) * pageSize, 'pageee', page);
+
+        return { items: people, totalItems: people.length };
+      },
+      size: Math.floor(window.innerHeight / 10)//,*/
+      // page: {page: 0, pageSize: 10, totalItems: Math.floor(window.innerHeight / 30)}
+      fetchPage: async ({ page, pageSize }) => {
+        page = page1;
+        // const response = await fetch(`https://dummyjson.com/quotes?limit=3&skip=${(page - 1) * pageSize}&limit=${pageSize}`);
+
+        const response = await fetch(`https://dummyjson.com/quotes?limit=10&skip=${(page - 1) * pageSize}`);
+        // const response2 = fetch('https://dummyjson.com/quotes?limit=3&skip=10')
+        //   .then(res => res.json())
+        //   .then(console.log);
+
+        if (response.ok) {
+          const { quotes, total, skip, limit } = (await response.json()) as QuotesResponse;
+
+          console.log('quotes, total', quotes, total, page, 'skip limit', skip, limit);
+
+          return { items: quotes, totalItems: /*quotes.length*/ total };
+        } else {
+          throw new FetchDataSourceError('Failed to fetch data', response);
+        }
+      }
+      // size: 1000
+      // pagination: ({page: 3, pageSize: 10, totalItems: 1000})
+    });
+
+    // const page = 3;
+    const pageSize = 10;
+
+    // dataSource.getFetchOptions(page, pageSize);
+
+    console.log('dataSource in fetch', dataSource);
+
+    // dataSource.fetchPage(3);
+
+    setTimeout(() => {
+      console.log('dataSource.pageSize', dataSource.pageSize);
+
+      // dataSource.fetchPage({ page: 1, pageSize: 2});
+
+      //   dataSource.paginate(3, dataSource.pageSize, 200);
+      // dataSource.fetchPage({ page: 4, pageSize: dataSource.page!.pageSize});
+      dataSource.paginate(page1, pageSize, 1000);
+      // dataSource.fetchPage({ page: 4, pageSize: 10});
+      dataSource.update();
+      // this.requestUpdate();
+      // dataSource.items.at(1);
+    }, 50);
+
+    const pageSizes = [10, 15, 20];
+
+    console.log('datasource in example', dataSource);
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
+        <sl-grid-column path="quote" grow="3"></sl-grid-column>
+        <sl-grid-column path="author"></sl-grid-column>
+      </sl-grid>
+      <div class="pagination">
+        <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
+        <sl-paginator .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator>
+        <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>
+      </div>
+    `;
+  }
+};
+
 export const CustomSkeleton: Story = {
   render: () => {
     const avatarRenderer: GridColumnDataRenderer<Person> = item => {

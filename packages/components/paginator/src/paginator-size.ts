@@ -68,6 +68,14 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    if (!this.pageSize) {
+      this.pageSize = this.pageSizes ? this.pageSizes[0] : 10;
+    }
+  }
+
   override render(): TemplateResult {
     return html`
       <sl-label for="select">${msg('Items per page')}:</sl-label>

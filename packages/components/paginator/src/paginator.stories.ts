@@ -6,7 +6,7 @@ import '@sl-design-system/menu/register.js';
 import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { LitElement, type TemplateResult, css, html } from 'lit';
+import { LitElement, type PropertyValues, type TemplateResult, css, html } from 'lit';
 import '../register.js';
 import { type PaginatorSize } from './paginator-size';
 import { PaginatorStatus } from './paginator-status';
@@ -189,14 +189,27 @@ export const WithDataSource: Story = {
 
             this.dataSource = new ArrayDataSource(this.items);
 
+            this.totalItems = this.dataSource?.items.length;
+
             requestAnimationFrame(() => {
-              this.totalItems = this.dataSource?.items.length;
-
-              this.dataSource.addEventListener('sl-update', this.#onUpdate);
-
               this.dataSource.paginate(2, 5, this.totalItems);
               this.dataSource.update();
             });
+          }
+
+          override firstUpdated(changes: PropertyValues<this>): void {
+            super.firstUpdated(changes);
+
+            requestAnimationFrame(() => {
+              this.dataSource.paginate(2, 5, this.totalItems);
+              this.dataSource.update();
+            });
+          }
+
+          override willUpdate(changes: PropertyValues<this>): void {
+            super.willUpdate(changes);
+
+            this.dataSource.addEventListener('sl-update', this.#onUpdate);
           }
 
           override disconnectedCallback(): void {
@@ -206,6 +219,7 @@ export const WithDataSource: Story = {
           }
 
           override render(): TemplateResult {
+            console.log('datasource in example', this.dataSource);
             return html`
               <div class="pagination">
                 <sl-paginator-status .dataSource=${this.dataSource}></sl-paginator-status>

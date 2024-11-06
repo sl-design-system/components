@@ -46,6 +46,9 @@ export const HorizontalScrollbar: Story = {
   render: (_, { loaded: { people } }) => {
     return html`
       <style>
+        body {
+          padding-block-end: 0;
+        }
         .scroller {
           block-size: calc(100dvh - 1rem);
           overflow: auto;

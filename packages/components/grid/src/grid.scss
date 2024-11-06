@@ -168,14 +168,6 @@ td {
 
     inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
   }
-
-  &:focus-visible,
-  & > :focus-visible {
-    border-radius: var(--_focus-radius);
-    outline: var(--_focus-outline);
-    outline-offset: calc(var(--_focus-outline-offset) * -1);
-    z-index: 1;
-  }
 }
 
 th {

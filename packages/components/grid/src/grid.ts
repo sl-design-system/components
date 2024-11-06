@@ -1,6 +1,5 @@
 /* eslint-disable lit/prefer-static-styles */
 import { localized } from '@lit/localize';
-import { VisibilityChangedEvent } from '@lit-labs/virtualizer';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
@@ -151,10 +150,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: Virtualizer;
 
-  // First visible element
-  _first = 0;
-  _last = 0;
-
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
 
@@ -299,14 +294,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      <div id="table-start" @blur=${this.removeTabindex}></div>
       <a
         href="#table-end"
         class="skip-link-start"
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
         >Skip to end of table</a
       >
-      <table part="table">
+      <div id="table-start" @blur=${this.removeTabindex}></div>
+      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <thead
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
@@ -772,10 +767,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters(true);
   }
 
-  #onVisibilityChanged(event: VisibilityChangedEvent): void {
-    this._first = event.first;
-    this._last = event.last;
-
+  #onVisibilityChanged(): void {
     if (!this.#initialColumnWidthsCalculated) {
       this.#initialColumnWidthsCalculated = true;
 

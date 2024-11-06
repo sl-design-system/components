@@ -88,8 +88,13 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   update(): void {
     this.#items = new Array<T>(this.size);
     this.#pages = {};
+    // this.#proxy = this.#createProxy(this.#items);
+    if (this.page) {
+      console.log('this.page in update', this.page);
+      this.paginate(this.page.page, this.pageSize, this.page.totalItems);
+    }
     this.#proxy = this.#createProxy(this.#items);
-    // console.log('proxy in update', this.#proxy);
+    console.log('proxy in update', this.#proxy, this.items, this.#items, this.#pages);
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 
@@ -107,7 +112,13 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
     return new Proxy(items, {
       get: function (target, property) {
-        // console.log('111target, property in proxy', target, property, that);
+        // if (that.page) {
+        //   // page = this.page.page;
+        //   property = 'at';
+        // }
+
+        console.log('111target, property in proxy', target, property, that);
+        console.log('property page???', property === 'page', property);
         if (property === 'length') {
           return that.size;
         } else if (property === 'at') {
@@ -136,21 +147,28 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   }
 
   #requestFetch(n: number): T {
-    const { pageSize } = this,
-      page = Math.ceil((n + 1) / pageSize);
+    const { pageSize } = this;
 
-    // console.log('n in requestFetch22', n, pageSize, page, this.#pages, this.#pages[page]);
+    let page = Math.ceil((n + 1) / pageSize);
 
-    if (!this.#pages[page]) {
+    console.log('n in requestFetch22', n, pageSize, page, this.#pages, this.#pages[page], this.page);
+
+    if (this.page) {
+      page = this.page.page;
+
       this.#pages[page] = (async () => {
         const options = this.getFetchOptions(page, pageSize),
           res = await this.fetchPage(options);
 
-        // console.log('options,', options, res, 'nnn', n);
+        console.log('options,', options, res, 'nnn', n, options.pagination);
 
         if (res.totalItems !== undefined) {
           this.#size = Number(res.totalItems);
         }
+
+        // if (res.pagination) {
+        //   page = res.pagination.page;
+        // }
 
         // console.log('res.totalItems', res.totalItems, this.#size, res.items.length);
 
@@ -160,6 +178,33 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
         this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
       })();
+
+      console.log('this.#pages11', this.#pages);
+    } else if (!this.#pages[page]) {
+      this.#pages[page] = (async () => {
+        const options = this.getFetchOptions(page, pageSize),
+          res = await this.fetchPage(options);
+
+        console.log('options,', options, res, 'nnn', n, options.pagination);
+
+        if (res.totalItems !== undefined) {
+          this.#size = Number(res.totalItems);
+        }
+
+        // if (res.pagination) {
+        //   page = res.pagination.page;
+        // }
+
+        // console.log('res.totalItems', res.totalItems, this.#size, res.items.length);
+
+        for (let i = 0; i < res.items.length; i++) {
+          this.#items[pageSize * (page - 1) + i] = res.items[i];
+        }
+
+        this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
+      })();
+
+      console.log('this.#pages22', this.#pages);
     }
 
     return (this.#items[n] = this.placeholder(n));

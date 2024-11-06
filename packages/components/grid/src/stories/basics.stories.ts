@@ -314,7 +314,7 @@ export const SkeletonWithPagination: Story = {
 
           console.log('quotes, total', quotes, total, page, 'skip limit', skip, limit);
 
-          totalItems = total;
+          // totalItems = total;
 
           dataSource.paginate(page, pageSize, total);
           dataSource.update();

@@ -25,7 +25,7 @@ type ObjectPathImpl<T, Key extends string> = Key extends `${infer K}.${infer Res
     ? NonNullable<T[Key]>
     : never;
 
-export type PathImpl<T, Key extends string> = ArrayPathImpl<T, Key> | ObjectPathImpl<T, Key>;
+type PathImpl<T, Key extends string> = ArrayPathImpl<T, Key> | ObjectPathImpl<T, Key>;
 
 export type PathKeys<T> = T extends object
   ? { [K in keyof T]: K extends string ? `${K}.${PathKeys<T[K]>}` | K : never }[keyof T]

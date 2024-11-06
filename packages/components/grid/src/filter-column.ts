@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type DataSource, type DataSourceFilterFunction } from '@sl-design-system/data-source';
-import { type PathImpl, type PathKeys, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import { type Path, type PathKeys, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
@@ -70,7 +70,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
 
           if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
             label = msg('Blank');
-            value = '' as PathImpl<T, PathKeys<T>>;
+            value = '' as Path<T, PathKeys<T>>;
           }
 
           if (value !== null && !acc.some(option => option.value === value)) {

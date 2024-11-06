@@ -1,7 +1,7 @@
 import {
   type EventEmitter,
   EventsController,
-  type PathImpl,
+  type Path,
   type PathKeys,
   event,
   getValueByPath,
@@ -108,7 +108,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   get value(): T {
     const value = this.controls.reduce((value, control) => {
       if (control.name) {
-        setValueByPath(value as T, control.name as PathKeys<T>, control.formValue as PathImpl<T, PathKeys<T>>);
+        setValueByPath(value as T, control.name as PathKeys<T>, control.formValue as Path<T, PathKeys<T>>);
       }
       return value;
     }, {}) as T;

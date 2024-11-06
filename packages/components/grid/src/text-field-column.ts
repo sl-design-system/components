@@ -1,4 +1,4 @@
-import { type PathImpl, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
+import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type TemplateResult, html } from 'lit';
@@ -30,6 +30,6 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
   }
 
   #onChange(event: SlChangeEvent<string>, item: T): void {
-    setValueByPath(item, this.path!, event.detail as PathImpl<T, PathKeys<T>>);
+    setValueByPath(item, this.path!, event.detail as Path<T, PathKeys<T>>);
   }
 }

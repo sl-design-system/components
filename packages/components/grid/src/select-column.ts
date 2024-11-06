@@ -1,5 +1,5 @@
 import { Select, SelectOption } from '@sl-design-system/select';
-import { type PathImpl, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
+import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -40,6 +40,6 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
   }
 
   #onChange(event: SlChangeEvent, item: T): void {
-    setValueByPath(item, this.path!, event.detail as PathImpl<T, PathKeys<T>>);
+    setValueByPath(item, this.path!, event.detail as Path<T, PathKeys<T>>);
   }
 }

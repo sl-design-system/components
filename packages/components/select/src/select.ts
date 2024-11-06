@@ -15,6 +15,14 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-select': Select;
   }
+
+  interface ShadowRoot {
+    // Workaround for missing type in @open-wc/scoped-elements
+    createElement<K extends keyof HTMLElementTagNameMap>(
+      tagName: K,
+      options?: ElementCreationOptions
+    ): HTMLElementTagNameMap[K];
+  }
 }
 
 export type SelectSize = 'md' | 'lg';
@@ -129,7 +137,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     // Safari at the time of writing. By putting the button in the light DOM, we can use
     // the aria-activedescendant attribute on the button itself.
     if (!this.button) {
-      this.button = this.shadowRoot?.createElement('sl-select-button') as SelectButton;
+      this.button = this.shadowRoot!.createElement('sl-select-button');
       this.button.addEventListener('click', () => this.#onButtonClick());
       this.button.addEventListener('keydown', (event: KeyboardEvent) => this.#onKeydown(event));
       this.button.disabled = !!this.disabled;

@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type DataSource, type DataSourceFilterFunction } from '@sl-design-system/data-source';
-import { getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import { type PathImpl, type PathKeys, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
@@ -65,12 +65,12 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
       // No options were provided, so we'll create a list of options based on the column's values
       this.internalOptions = dataSource?.items
         ?.reduce((acc, item) => {
-          let value = getValueByPath(item, this.path),
+          let value = getValueByPath(item, this.path!),
             label = value?.toString() ?? '';
 
           if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
             label = msg('Blank');
-            value = '';
+            value = '' as PathImpl<T, PathKeys<T>>;
           }
 
           if (value !== null && !acc.some(option => option.value === value)) {

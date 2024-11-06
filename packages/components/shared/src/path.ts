@@ -1,6 +1,31 @@
+/* eslint-disable no-useless-escape */
 import { humanize } from './string.js';
 
-export const getNameByPath = (path?: string): string => {
+export type PathImpl<T, Key extends string> = Key extends `${infer K}.${infer Rest}`
+  ? K extends keyof T
+    ? Rest extends PathKeys<T[K]>
+      ? PathImpl<T[K], Rest>
+      : never
+    : never
+  : Key extends `${infer K}[${infer I}]`
+    ? K extends keyof T
+      ? T[K] extends Array<infer U>
+        ? I extends `${number}`
+          ? U
+          : never
+        : never
+      : never
+    : Key extends keyof T
+      ? T[Key]
+      : never;
+
+export type PathKeys<T> = T extends object
+  ? { [K in keyof T]: K extends string ? `${K}.${PathKeys<T[K]>}` | K : never }[keyof T]
+  : '';
+
+export type Path<T, Key extends PathKeys<T>> = PathImpl<T, Key>;
+
+export function getNameByPath(path?: string): string {
   if (!path) {
     return 'No path set';
   } else {
@@ -8,66 +33,42 @@ export const getNameByPath = (path?: string): string => {
 
     return humanize(parts[parts.length - 1]);
   }
-};
+}
 
-export const getStringByPath = (object: unknown, path = ''): string => {
-  const value = getValueByPath(object, path);
+export function getStringByPath<T, P extends PathKeys<T>>(obj: T, path: P): string {
+  const value = getValueByPath(obj, path);
 
-  if (value) {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    return value.toString();
-  } else {
-    return '';
-  }
-};
+  return typeof value === 'string' ? value : (value?.toString() ?? '');
+}
 
-export const getValueByPath = (object: unknown, path = ''): unknown => {
-  const parts = path?.split('.');
+export function getValueByPath<T, P extends PathKeys<T>>(obj: T, path: P): Path<T, P> {
+  const keys = path.split(/[\.\[\]]/).filter(Boolean);
+  let result: unknown = obj;
 
-  let result = object;
-  for (const part of parts) {
-    if (!result) {
-      break;
+  for (const key of keys) {
+    if (result === undefined || result === null) {
+      return undefined as Path<T, P>;
     }
-
-    const [_, prop, index] = part.match(/(.+)\[(\d+)\]/) ?? [];
-    if (prop) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      result = (result as any)[prop];
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      result = (result as any[])?.at(parseInt(index));
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      result = (result as any)[part];
-    }
+    result = (result as Record<string, unknown>)[key];
   }
 
-  return result;
-};
+  return result as Path<T, P>;
+}
 
-export const setValueByPath = (object: unknown, path = '', value: unknown): void => {
-  const parts = path?.split('.');
+export function setValueByPath<T, P extends PathKeys<T>>(obj: T, path: P, value: Path<T, P>): void {
+  const keys = path.split(/[\.\[\]]/).filter(Boolean);
+  let result: unknown = obj;
 
-  let result = object;
-  for (const part of parts.slice(0, -1)) {
-    if (!result) {
-      break;
+  for (let i = 0; i < keys.length - 1; i++) {
+    const key = keys[i];
+    if (typeof result === 'object' && result !== null && !(key in result)) {
+      (result as Record<string, unknown>)[key] = {};
     }
-
-    const [_, prop, index] = part.match(/(.+)\[(\d+)\]/) ?? [];
-    if (prop) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      result = (result as any)[prop];
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      result = (result as any[])?.at(parseInt(index));
-    } else {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
-      result = (result as any)[part];
-    }
+    result = (result as Record<string, unknown>)[key];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
-  (result as any)[parts.at(-1) ?? ''] = value;
-};
+  const lastKey = keys[keys.length - 1];
+  if (typeof result === 'object' && result !== null) {
+    (result as Record<string, unknown>)[lastKey] = value;
+  }
+}

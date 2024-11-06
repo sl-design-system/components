@@ -1,4 +1,5 @@
-import { getValueByPath, setValueByPath } from '@sl-design-system/shared';
+import { type PathImpl, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type TemplateResult, html } from 'lit';
 import { GridColumn } from './column.js';
@@ -21,14 +22,14 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
     return html`
       <td part="data text-field">
         <sl-text-field
-          @sl-change=${(event: CustomEvent<string>) => this.#onChange(event, item)}
-          .value=${getValueByPath(item, this.path)}
+          @sl-change=${(event: SlChangeEvent<string>) => this.#onChange(event, item)}
+          .value=${getValueByPath(item, this.path!)}
         ></sl-text-field>
       </td>
     `;
   }
 
-  #onChange(event: CustomEvent<string>, item: T): void {
-    setValueByPath(item, this.path, event.detail);
+  #onChange(event: SlChangeEvent<string>, item: T): void {
+    setValueByPath(item, this.path!, event.detail as PathImpl<T, PathKeys<T>>);
   }
 }

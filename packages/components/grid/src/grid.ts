@@ -300,7 +300,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ${this.renderStyles()}
       </style>
       <div id="table-start" @blur=${this.removeTabindex}></div>
-      <a href="#table-end" @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+      <a
+        href="#table-end"
+        class="skip-link-start"
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
         >Skip to end of table</a
       >
       <table part="table">
@@ -321,7 +324,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </tbody>
       </table>
 
-      <a href="#table-start" @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+      <a
+        href="#table-start"
+        class="skip-link-end"
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
         >Skip to start of table</a
       >
       <div id="table-end" @blur=${this.removeTabindex}></div>

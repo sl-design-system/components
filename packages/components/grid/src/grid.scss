@@ -4,7 +4,7 @@
   --_border-color: var(--sl-color-grid-border);
   --_border-width: var(--sl-size-borderWidth-default);
   --_border-radius: var(--sl-size-borderRadius-default);
-  --_cell-background: var(--sl-color-grid-default);
+  --_cell-background: #fff; // var(--sl-color-grid-default);
   --_cell-border: var(--_border-width) solid var(--_border-color);
   --_cell-padding-block: var(--sl-space-175);
   --_cell-padding-inline: var(--sl-space-200);
@@ -29,6 +29,7 @@
 
   display: block;
   font: var(--_font);
+  position: relative;
 }
 
 :host([items-group-by]) {
@@ -68,6 +69,8 @@ table {
   flex-direction: column;
   inline-size: fit-content;
   min-inline-size: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 thead,
@@ -276,4 +279,38 @@ td[part~='text-field'] {
   inset-block-start: 0;
   position: absolute;
   z-index: 1;
+}
+
+/* Set some base styles, so it is easy to see */
+a[class^='skip-link'] {
+  background-color: var(--_header-background);
+  display: inline-block;
+  inset-inline-start: var(--sl-border-width-focusring-default);
+  padding: 0.375rem 0.75rem;
+  position: absolute;
+  transition: transform 250ms ease-in;
+  z-index: 0;
+
+  &:focus {
+    outline: var(--_focus-outline);
+    outline-offset: 0;
+  }
+}
+
+.skip-link-start {
+  inset-block-start: 0;
+  transform: translateY(0);
+}
+
+.skip-link-start:focus {
+  transform: translateY(-2rem);
+}
+
+.skip-link-end {
+  inset-block-end: 0;
+  transform: translateY(0);
+}
+
+.skip-link-end:focus {
+  transform: translateY(2rem);
 }

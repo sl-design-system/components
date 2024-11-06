@@ -532,31 +532,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     }
     this.totalItems = this.dataSource.page.totalItems;
 
-    // this.requestUpdate();
-
     requestAnimationFrame(() => this.#updateVisibility());
-
-    // requestAnimationFrame(() => {
-    //   if (!this.dataSource || !this.dataSource.page) {
-    //     return;
-    //   }
-    //
-    //   this.pageSize = this.dataSource.page.pageSize;
-    //   // if (this.totalItems === this.dataSource.page.totalItems) {
-    //     this.page = this.dataSource.page.page;
-    //   // }
-    //   this.totalItems = this.dataSource.page.totalItems;
-    //
-    //   console.log('onUpdate event2', this.page, this.dataSource.page.page, this.totalItems, this.dataSource.page.totalItems, this.dataSource.page);
-    // });
-
-    console.log(
-      'onUpdate event2',
-      this.page,
-      this.dataSource.page.page,
-      this.totalItems,
-      this.dataSource.page.totalItems,
-      this.dataSource.page
-    );
   };
 }

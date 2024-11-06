@@ -275,7 +275,15 @@ export const SkeletonWithPagination: Story = {
       limit: number;
     }
 
-    const page1 = 3;
+    // const page1 = 3;
+
+    const pageSizes = [10, 15, 20];
+
+    // const pageSize = 10;
+
+    // let totalItems: number;
+
+    // let page: number;
 
     const dataSource = new FetchDataSource<Quote>({
       pageSize: 10,
@@ -292,7 +300,8 @@ export const SkeletonWithPagination: Story = {
       size: Math.floor(window.innerHeight / 10)//,*/
       // page: {page: 0, pageSize: 10, totalItems: Math.floor(window.innerHeight / 30)}
       fetchPage: async ({ page, pageSize }) => {
-        page = page1;
+        console.log('page in fetchPage', page);
+        page = page || 1;
         // const response = await fetch(`https://dummyjson.com/quotes?limit=3&skip=${(page - 1) * pageSize}&limit=${pageSize}`);
 
         const response = await fetch(`https://dummyjson.com/quotes?limit=10&skip=${(page - 1) * pageSize}`);
@@ -305,7 +314,12 @@ export const SkeletonWithPagination: Story = {
 
           console.log('quotes, total', quotes, total, page, 'skip limit', skip, limit);
 
-          return { items: quotes, totalItems: /*quotes.length*/ total };
+          totalItems = total;
+
+          dataSource.paginate(page, pageSize, total);
+          dataSource.update();
+
+          return { items: quotes, totalItems: quotes.length /*total*/ };
         } else {
           throw new FetchDataSourceError('Failed to fetch data', response);
         }
@@ -315,7 +329,10 @@ export const SkeletonWithPagination: Story = {
     });
 
     // const page = 3;
-    const pageSize = 10;
+    // const pageSize = 10;
+
+    // dataSource.paginate(page, pageSize, totalItems);
+    dataSource.update();
 
     // dataSource.getFetchOptions(page, pageSize);
 
@@ -323,25 +340,43 @@ export const SkeletonWithPagination: Story = {
 
     // dataSource.fetchPage(3);
 
-    setTimeout(() => {
-      console.log('dataSource.pageSize', dataSource.pageSize);
+    // setTimeout(() => {
+    //   console.log('dataSource.pageSize', dataSource.pageSize);
+    //
+    //   // dataSource.fetchPage({ page: 1, pageSize: 2});
+    //
+    //   //   dataSource.paginate(3, dataSource.pageSize, 200);
+    //   // dataSource.fetchPage({ page: 4, pageSize: dataSource.page!.pageSize});
+    //   // dataSource.paginate(page1, pageSize, 1000);
+    //   // dataSource.fetchPage({ page: 4, pageSize: 10});
+    //   dataSource.update();
+    //   // this.requestUpdate();
+    //   // dataSource.items.at(1);
+    // }, 50);
 
-      // dataSource.fetchPage({ page: 1, pageSize: 2});
+    dataSource.update();
 
-      //   dataSource.paginate(3, dataSource.pageSize, 200);
-      // dataSource.fetchPage({ page: 4, pageSize: dataSource.page!.pageSize});
-      dataSource.paginate(page1, pageSize, 1000);
-      // dataSource.fetchPage({ page: 4, pageSize: 10});
-      dataSource.update();
-      // this.requestUpdate();
-      // dataSource.items.at(1);
-    }, 50);
-
-    const pageSizes = [10, 15, 20];
+    dataSource?.addEventListener('sl-update', () => {
+      console.log('on sl-update', event);
+      // dataSource.update();
+    });
 
     console.log('datasource in example', dataSource);
 
     return html`
+      <style>
+        .pagination {
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          margin-block: 1rem;
+          justify-content: space-between;
+        }
+
+        sl-paginator {
+          flex: 1;
+        }
+      </style>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
         <sl-grid-column path="quote" grow="3"></sl-grid-column>

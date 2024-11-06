@@ -89,7 +89,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
     this.#items = new Array<T>(this.size);
     this.#pages = {};
     this.#proxy = this.#createProxy(this.#items);
-    console.log('proxy in update', this.#proxy);
+    // console.log('proxy in update', this.#proxy);
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 
@@ -107,7 +107,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
     return new Proxy(items, {
       get: function (target, property) {
-        console.log('111target, property in proxy', target, property, that);
+        // console.log('111target, property in proxy', target, property, that);
         if (property === 'length') {
           return that.size;
         } else if (property === 'at') {
@@ -139,20 +139,20 @@ export class FetchDataSource<T = any> extends DataSource<T> {
     const { pageSize } = this,
       page = Math.ceil((n + 1) / pageSize);
 
-    console.log('n in requestFetch22', n, pageSize, page, this.#pages, this.#pages[page]);
+    // console.log('n in requestFetch22', n, pageSize, page, this.#pages, this.#pages[page]);
 
     if (!this.#pages[page]) {
       this.#pages[page] = (async () => {
         const options = this.getFetchOptions(page, pageSize),
           res = await this.fetchPage(options);
 
-        console.log('options,', options, res, 'nnn', n);
+        // console.log('options,', options, res, 'nnn', n);
 
         if (res.totalItems !== undefined) {
           this.#size = Number(res.totalItems);
         }
 
-        console.log('res.totalItems', res.totalItems, this.#size, res.items.length);
+        // console.log('res.totalItems', res.totalItems, this.#size, res.items.length);
 
         for (let i = 0; i < res.items.length; i++) {
           this.#items[pageSize * (page - 1) + i] = res.items[i];

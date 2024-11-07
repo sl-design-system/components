@@ -19,7 +19,10 @@ declare global {
 
   interface ShadowRoot {
     // Workaround for missing type in @open-wc/scoped-elements
-    createElement(tagName: string): HTMLElement;
+    createElement<K extends keyof HTMLElementTagNameMap>(
+      tagName: K,
+      options?: ElementCreationOptions
+    ): HTMLElementTagNameMap[K];
   }
 }
 

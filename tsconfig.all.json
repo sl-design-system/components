@@ -26,7 +26,6 @@
     { "path": "./packages/components/card" },
     { "path": "./packages/components/checkbox" },
     { "path": "./packages/components/combobox" },
-    { "path": "./packages/components/data-source" },
     { "path": "./packages/components/dialog" },
     { "path": "./packages/components/drawer" },
     { "path": "./packages/components/editor" },

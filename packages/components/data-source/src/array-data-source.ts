@@ -131,6 +131,15 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       });
     }
 
+    // paginate items
+    if (this.page) {
+      const startIndex = (this.page.page - 1) * this.page.pageSize,
+        endIndex = startIndex + this.page.pageSize;
+
+      this.page.totalItems = items.length;
+      items = items.slice(startIndex, endIndex);
+    }
+
     this.#filteredItems = items;
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }

@@ -153,8 +153,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('updated changes', changes);
-
     if (changes.has('pageSize')) {
       const pageSize = this.pageSize ?? 10;
       this.#pages = Math.ceil(this.totalItems / pageSize);
@@ -212,15 +210,12 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       });
     }
 
-    // if (changes.has('dataSource')) {
     this.dataSource?.addEventListener('sl-update', this.#onUpdate);
-    // }
 
     this.#initialLoad = false;
   }
 
   override render(): TemplateResult {
-    console.log('page and dataSource', this.page, this.dataSource);
     return html`
       <nav class="container">
         <sl-button
@@ -523,8 +518,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
     if (!this.dataSource || !this.dataSource.page) {
       return;
     }
-
-    console.log('onUpdate event', this.page, this.totalItems, this.dataSource.page.totalItems, this.dataSource.page);
 
     this.pageSize = this.dataSource.page.pageSize;
     if (this.totalItems === this.dataSource.page.totalItems) {

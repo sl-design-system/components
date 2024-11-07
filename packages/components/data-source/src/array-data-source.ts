@@ -127,7 +127,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
     // paginate items
     if (this.page) {
-      console.log('this.page in array data source', this.page);
       const startIndex = (this.page.page - 1) * this.page.pageSize,
         endIndex = startIndex + this.page.pageSize;
 

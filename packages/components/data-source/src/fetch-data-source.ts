@@ -88,13 +88,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   update(): void {
     this.#items = new Array<T>(this.size);
     this.#pages = {};
-    // this.#proxy = this.#createProxy(this.#items);
-    if (this.page) {
-      console.log('this.page in update', this.page);
-      this.paginate(this.page.page, this.pageSize, this.page.totalItems);
-    }
     this.#proxy = this.#createProxy(this.#items);
-    console.log('proxy in update', this.#proxy, this.items, this.#items, this.#pages, this.#proxy.length);
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 
@@ -103,7 +97,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
    * provide any additional options you may need when `fetchPage` is called.
    */
   getFetchOptions(page: number, pageSize: number): FetchDataSourceCallbackOptions {
-    return { filters: Array.from(this.filters.values()), page, pageSize, sort: this.sort, pagination: this.page };
+    return { filters: Array.from(this.filters.values()), page, pageSize, sort: this.sort };
   }
 
   #createProxy(items: T[]): T[] {
@@ -112,14 +106,6 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
     return new Proxy(items, {
       get: function (target, property) {
-        // if (that.page) {
-        //   // page = this.page.page;
-        //   property = 'at';
-        // }
-
-        console.log('items in proxy', items);
-
-        console.log('111target, property in proxy', target, property, that);
         if (property === 'length') {
           return that.size;
         } else if (property === 'at') {
@@ -141,69 +127,22 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
           return target[property as keyof T[]];
         }
-
-        // console.log('target, property in proxy', target, property);
       }
     });
   }
 
   #requestFetch(n: number): T {
-    const { pageSize } = this;
+    const { pageSize } = this,
+      page = Math.ceil((n + 1) / pageSize);
 
-    let page = Math.ceil((n + 1) / pageSize);
-
-    console.log('n in requestFetch22', n, pageSize, page, this.#pages, this.#pages[page], this.page);
-
-    if (this.page) {
-      page = this.page.page;
-
+    if (!this.#pages[page]) {
       this.#pages[page] = (async () => {
         const options = this.getFetchOptions(page, pageSize),
           res = await this.fetchPage(options);
 
-        console.log('options,', options, res, 'nnn', n, options.pagination, res.items.length);
-
         if (res.totalItems !== undefined) {
           this.#size = Number(res.totalItems);
         }
-
-        // if (res.pagination) {
-        //   page = res.pagination.page;
-        // }
-
-        // console.log('res.totalItems', res.totalItems, this.#size, res.items.length);
-
-        for (let i = 0; i < res.items.length; i++) {
-          this.#items[pageSize * (page - 1) + i] = res.items[i];
-          console.log(
-            'in if request fetch',
-            (this.#items[pageSize * (page - 1) + i] = res.items[i]),
-            page,
-            i,
-            this.#items
-          );
-        }
-
-        this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
-      })();
-
-      console.log('this.#pages11', this.#pages);
-    } else if (!this.#pages[page]) {
-      this.#pages[page] = (async () => {
-        const options = this.getFetchOptions(page, pageSize),
-          res = await this.fetchPage(options);
-
-        console.log('options,', options, res, 'nnn', n, options.pagination);
-
-        if (res.totalItems !== undefined) {
-          this.#size = Number(res.totalItems);
-        }
-
-        // if (res.pagination) {
-        //   page = res.pagination.page;
-        // }
-
-        // console.log('res.totalItems', res.totalItems, this.#size, res.items.length);
 
         for (let i = 0; i < res.items.length; i++) {
           this.#items[pageSize * (page - 1) + i] = res.items[i];

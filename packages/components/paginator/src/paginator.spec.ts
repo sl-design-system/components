@@ -580,7 +580,6 @@ describe('sl-paginator', () => {
 
     it('should have a proper active page', () => {
       dataSource.update();
-      console.log('datasource', dataSource, el.page);
       expect(el.page).to.equal(2);
     });
 

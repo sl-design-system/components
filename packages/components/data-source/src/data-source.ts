@@ -187,7 +187,6 @@ export abstract class DataSource<T = any> extends EventTarget {
    * Use to get the paginated data for usage with the sl-paginator component.
    * */
   paginate(page: number, pageSize: number, totalItems: number): void {
-    console.log('paginate', page, pageSize, totalItems);
     this.#page = { page: page, pageSize: pageSize, totalItems: totalItems };
   }
 }

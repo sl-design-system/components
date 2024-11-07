@@ -8,9 +8,12 @@ declare global {
     'sl-tooltip': Tooltip;
   }
 
-  // Workaround for missing type in @open-wc/scoped-elements
   interface ShadowRoot {
-    createElement(tagName: string): HTMLElement;
+    // Workaround for missing type in @open-wc/scoped-elements
+    createElement<K extends keyof HTMLElementTagNameMap>(
+      tagName: K,
+      options?: ElementCreationOptions
+    ): HTMLElementTagNameMap[K];
   }
 }
 
@@ -54,7 +57,7 @@ export class Tooltip extends LitElement {
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): () => void {
     const createTooltip = (): void => {
       const context = options.context || target.shadowRoot || (target.getRootNode() as Document),
-        tooltip = context.createElement('sl-tooltip') as Tooltip;
+        tooltip = context.createElement('sl-tooltip');
 
       if (options.parentNode) {
         options.parentNode.appendChild(tooltip);

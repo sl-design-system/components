@@ -4800,10 +4800,12 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.4.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
     "@sl-design-system/text-field": "npm:^1.5.0"
+    lit: "npm:^3.1.4"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.12
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4989,6 +4991,23 @@ __metadata:
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
   dependencies:
     "@sl-design-system/icon": "npm:1.0.2"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/paginator@workspace:packages/components/paginator":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/paginator@workspace:packages/components/paginator"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:^1.0.3"
+    "@sl-design-system/icon": "npm:^1.0.2"
+    "@sl-design-system/menu": "npm:^0.1.3"
+    "@sl-design-system/select": "npm:^1.1.2"
+    "@sl-design-system/shared": "npm:^0.4.0"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 

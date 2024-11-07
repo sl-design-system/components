@@ -1,10 +1,17 @@
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  type Path,
+  type PathKeys,
+  event,
+  getValueByPath,
+  setValueByPath
+} from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
-import { getValueByPath, setValueByPath } from './path.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -101,7 +108,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   get value(): T {
     const value = this.controls.reduce((value, control) => {
       if (control.name) {
-        setValueByPath(value, control.name, control.formValue);
+        setValueByPath(value as T, control.name as PathKeys<T>, control.formValue as Path<T, PathKeys<T>>);
       }
       return value;
     }, {}) as T;
@@ -118,7 +125,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#value = value;
 
     if (value) {
-      this.controls.filter(c => c.name).forEach(c => (c.formValue = getValueByPath(value, c.name!)));
+      this.controls.filter(c => c.name).forEach(c => (c.formValue = getValueByPath(value, c.name! as PathKeys<T>)));
     } else {
       this.controls.forEach(c => (c.formValue = undefined));
     }
@@ -184,7 +191,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     // Wait for the next frame change the control's properties
     requestAnimationFrame(() => {
       if (control.name && this.#value) {
-        control.formValue = getValueByPath(this.#value, control.name);
+        control.formValue = getValueByPath(this.#value, control.name as PathKeys<T>);
       }
 
       if (this.disabled) {

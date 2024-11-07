@@ -1,4 +1,4 @@
-import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import {
   DataSource,
   type DataSourceFilterByFunction,
@@ -37,7 +37,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       const filters = Array.from(this.filters.values());
 
       const pathFilters = filters
-        .filter((f): f is DataSourceFilterByPath => 'path' in f && !!f.path)
+        .filter((f): f is DataSourceFilterByPath<T> => 'path' in f && !!f.path)
         .reduce(
           (acc, { path, value }) => {
             if (!acc[path]) {
@@ -52,10 +52,10 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
             return acc;
           },
-          {} as Record<string, string[]>
+          {} as Record<PathKeys<T>, string[]>
         );
 
-      Object.entries(pathFilters).forEach(([path, values]) => {
+      for (const [path, values] of Object.entries<string[]>(pathFilters)) {
         /**
          * Convert the value to a string and trim it, so we can match
          * an empty string to:
@@ -64,8 +64,14 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
          * - null
          * - undefined
          */
-        items = items.filter(item => values.includes(getValueByPath(item, path)?.toString()?.trim() ?? ''));
-      });
+        items = items.filter(item =>
+          values.includes(
+            getValueByPath(item, path as PathKeys<T>)
+              ?.toString()
+              ?.trim() ?? ''
+          )
+        );
+      }
 
       filters
         .filter((f): f is DataSourceFilterByFunction<T> => 'filter' in f && !!f.filter)
@@ -123,6 +129,15 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
         return ascending ? result : -result;
       });
+    }
+
+    // paginate items
+    if (this.page) {
+      const startIndex = (this.page.page - 1) * this.page.pageSize,
+        endIndex = startIndex + this.page.pageSize;
+
+      this.page.totalItems = items.length;
+      items = items.slice(startIndex, endIndex);
     }
 
     this.#filteredItems = items;

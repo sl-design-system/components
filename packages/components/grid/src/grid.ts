@@ -1,5 +1,5 @@
 /* eslint-disable lit/prefer-static-styles */
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
@@ -299,7 +299,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         href="#table-end"
         class="skip-link-start"
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
-        >Skip to end of table</a
+      >
+        ${msg('Skip to end of table')}</a
       >
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <thead
@@ -324,7 +325,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         href="#table-start"
         class="skip-link-end"
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
-        >Skip to start of table</a
+        >${msg('Skip to start of table')}</a
       >
     `;
   }

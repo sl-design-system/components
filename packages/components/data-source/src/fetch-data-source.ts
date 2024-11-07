@@ -94,7 +94,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
       this.paginate(this.page.page, this.pageSize, this.page.totalItems);
     }
     this.#proxy = this.#createProxy(this.#items);
-    console.log('proxy in update', this.#proxy, this.items, this.#items, this.#pages);
+    console.log('proxy in update', this.#proxy, this.items, this.#items, this.#pages, this.#proxy.length);
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 
@@ -117,8 +117,9 @@ export class FetchDataSource<T = any> extends DataSource<T> {
         //   property = 'at';
         // }
 
+        console.log('items in proxy', items);
+
         console.log('111target, property in proxy', target, property, that);
-        console.log('property page???', property === 'page', property);
         if (property === 'length') {
           return that.size;
         } else if (property === 'at') {
@@ -160,7 +161,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
         const options = this.getFetchOptions(page, pageSize),
           res = await this.fetchPage(options);
 
-        console.log('options,', options, res, 'nnn', n, options.pagination);
+        console.log('options,', options, res, 'nnn', n, options.pagination, res.items.length);
 
         if (res.totalItems !== undefined) {
           this.#size = Number(res.totalItems);
@@ -174,6 +175,13 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
         for (let i = 0; i < res.items.length; i++) {
           this.#items[pageSize * (page - 1) + i] = res.items[i];
+          console.log(
+            'in if request fetch',
+            (this.#items[pageSize * (page - 1) + i] = res.items[i]),
+            page,
+            i,
+            this.#items
+          );
         }
 
         this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
@@ -203,8 +211,6 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
         this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
       })();
-
-      console.log('this.#pages22', this.#pages);
     }
 
     return (this.#items[n] = this.placeholder(n));

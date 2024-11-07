@@ -275,15 +275,13 @@ export const SkeletonWithPagination: Story = {
       limit: number;
     }
 
-    // const page1 = 3;
-
     const pageSizes = [10, 15, 20];
 
     // const pageSize = 10;
 
     // let totalItems: number;
-
-    // let page: number;
+    //
+    //  let page: number;
 
     const dataSource = new FetchDataSource<Quote>({
       pageSize: 10,
@@ -304,7 +302,7 @@ export const SkeletonWithPagination: Story = {
         page = page || 1;
         // const response = await fetch(`https://dummyjson.com/quotes?limit=3&skip=${(page - 1) * pageSize}&limit=${pageSize}`);
 
-        const response = await fetch(`https://dummyjson.com/quotes?limit=10&skip=${(page - 1) * pageSize}`);
+        const response = await fetch(`https://dummyjson.com/quotes?limit=${pageSize}&skip=${(page - 1) * pageSize}`);
         // const response2 = fetch('https://dummyjson.com/quotes?limit=3&skip=10')
         //   .then(res => res.json())
         //   .then(console.log);
@@ -328,15 +326,18 @@ export const SkeletonWithPagination: Story = {
       // pagination: ({page: 3, pageSize: 10, totalItems: 1000})
     });
 
+    // dataSource?.paginate(page, dataSource.pageSize, totalItems);
+    // dataSource?.update();
+
     // const page = 3;
     // const pageSize = 10;
 
     // dataSource.paginate(page, pageSize, totalItems);
-    dataSource.update();
+    // dataSource.update();
 
     // dataSource.getFetchOptions(page, pageSize);
 
-    console.log('dataSource in fetch', dataSource);
+    console.log('dataSource in fetch basics', dataSource, FetchDataSourcePlaceholder);
 
     // dataSource.fetchPage(3);
 
@@ -354,12 +355,7 @@ export const SkeletonWithPagination: Story = {
     //   // dataSource.items.at(1);
     // }, 50);
 
-    dataSource.update();
-
-    dataSource?.addEventListener('sl-update', () => {
-      console.log('on sl-update', event);
-      // dataSource.update();
-    });
+    // dataSource.update();
 
     console.log('datasource in example', dataSource);
 

@@ -100,6 +100,17 @@ export class Listbox<T = any> extends ScopedElementsMixin(LitElement) {
         this.#virtualizer = undefined;
       }
     }
+
+    if (
+      (changes.has('itemLabelPath') ||
+        changes.has('itemSelectedPath') ||
+        changes.has('itemValuePath') ||
+        changes.has('renderer')) &&
+      this.#virtualizer
+    ) {
+      this.#virtualizer.renderItem = (item: unknown, index: number) =>
+        this.renderer(item as T, index) as TemplateResult;
+    }
   }
 
   override render(): TemplateResult {

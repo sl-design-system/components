@@ -15,7 +15,8 @@ declare global {
  *
  * @slot default - The option's label.
  */
-export class Option extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -40,8 +41,11 @@ export class Option extends ScopedElementsMixin(LitElement) {
     super.textContent = value;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @property() value?: any;
+  /**
+   * The value for this option. If not explicitly set,
+   * it will use the text content as the value.
+   */
+  @property() value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();

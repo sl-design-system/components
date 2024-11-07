@@ -14,6 +14,10 @@ describe('sl-option', () => {
     expect(el).to.have.attribute('role', 'option');
   });
 
+  it('should not have a value by default', () => {
+    expect(el.value).to.be.undefined;
+  });
+
   it('should not be disabled by default', () => {
     expect(el).not.to.have.attribute('disabled');
     expect(el.disabled).not.to.be.true;

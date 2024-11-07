@@ -16,7 +16,7 @@ describe('path utils', () => {
   describe('getStringByPath', () => {
     const person = { address: { street: 'Main Street' } };
 
-    it('should return the string representation of person', () => {
+    it('should return the string representation of the object', () => {
       expect(getStringByPath(person, '' as PathKeys<typeof person>)).to.equal('[object Object]');
     });
 

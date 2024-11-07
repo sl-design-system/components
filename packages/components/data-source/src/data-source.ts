@@ -1,3 +1,5 @@
+import { type PathKeys } from '@sl-design-system/shared';
+
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-update': DataSourceUpdateEvent;
@@ -11,12 +13,12 @@ export type DataSourceFilterByFunction<T = unknown> = {
   value?: string | string[];
 };
 
-export type DataSourceFilterByPath = { path: string; value: string | string[] };
+export type DataSourceFilterByPath<T> = { path: PathKeys<T>; value: string | string[] };
 
-export type DataSourceFilter<T> = DataSourceFilterByFunction<T> | DataSourceFilterByPath;
+export type DataSourceFilter<T> = DataSourceFilterByFunction<T> | DataSourceFilterByPath<T>;
 
 export type DataSourceGroupBy<T> = {
-  path: string;
+  path: PathKeys<T>;
   sorter?: DataSourceSortFunction<T>;
   direction?: DataSourceSortDirection;
 };
@@ -25,7 +27,7 @@ export type DataSourceSortDirection = 'asc' | 'desc';
 
 export type DataSourceSortFunction<T = unknown> = (a: T, b: T) => number;
 
-export type DataSourceSortByPath = { id?: string; path: string; direction: DataSourceSortDirection };
+export type DataSourceSortByPath<T> = { id?: string; path: PathKeys<T>; direction: DataSourceSortDirection };
 
 export type DataSourceSortByFunction<T = unknown> = {
   id?: string;
@@ -33,7 +35,7 @@ export type DataSourceSortByFunction<T = unknown> = {
   direction: DataSourceSortDirection;
 };
 
-export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
+export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath<T>;
 
 export type DataSourcePagination = { page: number; pageSize: number; totalItems: number };
 
@@ -82,13 +84,13 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Updates the list of items using filter, sorting and pagination if available. */
   abstract update(): void;
 
-  addFilter<U extends string | DataSourceFilterFunction<T>>(
+  addFilter<U extends PathKeys<T> | DataSourceFilterFunction<T>>(
     id: string,
     pathOrFilter: U,
     value?: string | string[]
   ): void {
     if (typeof pathOrFilter === 'string') {
-      this.#filters.set(id, { path: pathOrFilter, value: value ?? '' });
+      this.#filters.set(id, { path: pathOrFilter as PathKeys<T>, value: value ?? '' });
     } else {
       this.#filters.set(id, { filter: pathOrFilter, value });
     }
@@ -108,7 +110,7 @@ export abstract class DataSource<T = any> extends EventTarget {
    * @param sorter Optional sorter function.
    * @param direction Optional sort direction.
    */
-  setGroupBy(path: string, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
+  setGroupBy(path: PathKeys<T>, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
     this.#groupBy = { path, sorter, direction };
   }
 
@@ -119,13 +121,13 @@ export abstract class DataSource<T = any> extends EventTarget {
     this.#groupBy = undefined;
   }
 
-  setSort<U extends string | DataSourceSortFunction<T>>(
+  setSort<U extends PathKeys<T> | DataSourceSortFunction<T>>(
     id: string,
     pathOrSorter: U,
     direction: DataSourceSortDirection
   ): void {
     if (typeof pathOrSorter === 'string') {
-      this.#sort = { id, path: pathOrSorter, direction };
+      this.#sort = { id, path: pathOrSorter as PathKeys<T>, direction };
     } else {
       this.#sort = { id, sorter: pathOrSorter, direction };
     }

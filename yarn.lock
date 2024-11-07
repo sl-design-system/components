@@ -4800,10 +4800,12 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.4.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
     "@sl-design-system/text-field": "npm:^1.5.0"
+    lit: "npm:^3.1.4"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.12
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

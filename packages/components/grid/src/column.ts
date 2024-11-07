@@ -1,5 +1,12 @@
 import { FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
-import { type EventEmitter, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  type PathKeys,
+  dasherize,
+  event,
+  getNameByPath,
+  getValueByPath
+} from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type Grid } from './grid.js';
@@ -92,7 +99,7 @@ export class GridColumn<T = any> extends LitElement {
   @property() header?: string | GridColumnHeaderRenderer;
 
   /** The path to the value for this column. */
-  @property() path?: string;
+  @property() path?: PathKeys<T>;
 
   /** Custom parts to be set on the `<td>` so it can be styled externally. */
   @property() parts?: string | GridColumnParts<T>;

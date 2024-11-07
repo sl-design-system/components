@@ -3764,7 +3764,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/virtualizer@npm:^2.0.12, @lit-labs/virtualizer@npm:^2.0.13":
+"@lit-labs/virtualizer@npm:^2.0.13":
   version: 2.0.14
   resolution: "@lit-labs/virtualizer@npm:2.0.14"
   dependencies:
@@ -4802,7 +4802,7 @@ __metadata:
     "@sl-design-system/text-field": "npm:^1.5.0"
     lit: "npm:^3.1.4"
   peerDependencies:
-    "@lit-labs/virtualizer": ^2.0.12
+    "@lit-labs/virtualizer": ^2.0.13
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
     lit: ^3.1.4
@@ -4854,12 +4854,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/listbox@workspace:packages/components/listbox"
   dependencies:
-    "@lit-labs/virtualizer": "npm:^2.0.12"
+    "@lit-labs/virtualizer": "npm:^2.0.13"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.0.2"
     lit: "npm:^3.1.4"
   peerDependencies:
-    "@lit-labs/virtualizer": ^2.0.12
+    "@lit-labs/virtualizer": ^2.0.13
     "@open-wc/scoped-elements": ^3.0.5
     lit: ^3.1.4
   languageName: unknown

@@ -21,7 +21,7 @@ declare global {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ListboxRenderer<T = any> = (item: T, index: number) => Element | TemplateResult;
+export type ListboxRenderer<T = any> = (option: T, index: number) => Element | TemplateResult;
 
 /**
  * Container for a list of selectable options.
@@ -39,49 +39,49 @@ export class Listbox<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The virtualizer instance when the `items` property is set. */
+  /** The virtualizer instance when the `options` property is set. */
   #virtualizer?: LitVirtualizer;
 
   /**
-   * Use this property to set an array of items to render. When you set this
-   * property, the component will render the items using a virtualizer. This means
-   * that it only renders the items that are visible in the viewport, which allows
-   * it to handle a large number of items efficiently.
+   * Use this property to set an array of options to render. When you set this
+   * property, the component will render the options using a virtualizer. This means
+   * that it only renders the options that are visible in the viewport, which allows
+   * it to handle a large number of options efficiently.
    *
    * If you don't need virtualization, you can omit this property and render the
-   * items declaratively using the default slot and `<sl-option>` and `<sl-option-group>`.
+   * options declaratively using the default slot and `<sl-option>` and `<sl-option-group>`.
    */
-  @property({ type: Array }) items?: T[];
+  @property({ type: Array }) options?: T[];
 
   /** The path to the property to use for the label. */
-  @property({ attribute: 'item-label-path' }) itemLabelPath?: PathKeys<T>;
+  @property({ attribute: 'option-label-path' }) optionLabelPath?: PathKeys<T>;
 
   /** The path to the property to use for the selected state. */
-  @property({ attribute: 'item-selected-path' }) itemSelectedPath?: PathKeys<T>;
+  @property({ attribute: 'option-selected-path' }) optionSelectedPath?: PathKeys<T>;
 
   /** The path to the property to use for the value. */
-  @property({ attribute: 'item-value-path' }) itemValuePath?: PathKeys<T>;
+  @property({ attribute: 'option-value-path' }) optionValuePath?: PathKeys<T>;
 
   /**
-   * By setting this property, you can customize how an item in the `items` array is rendered.
-   * By default, this will render the item as an `<sl-option>`.
+   * By setting this property, you can customize how an option in the `options` array is rendered.
+   * By default, this will render the option as an `<sl-option>`.
    */
-  @property({ attribute: false }) renderer: ListboxRenderer<T> = (item: T) => {
-    const option = this.shadowRoot!.createElement('sl-option'),
-      itemString = typeof item === 'string' ? item : JSON.stringify(item);
+  @property({ attribute: false }) renderer: ListboxRenderer<T> = (option: T) => {
+    const element = this.shadowRoot!.createElement('sl-option'),
+      itemString = typeof option === 'string' ? option : JSON.stringify(option);
 
-    if (this.itemLabelPath) {
-      const label = getValueByPath(item, this.itemLabelPath);
+    if (this.optionLabelPath) {
+      const label = getValueByPath(option, this.optionLabelPath);
 
-      option.selected = this.itemSelectedPath ? !!getValueByPath(item, this.itemSelectedPath) : false;
-      option.textContent = typeof label === 'string' ? label : (label?.toString() ?? itemString);
-      option.value = this.itemValuePath ? getValueByPath(item, this.itemValuePath) : item;
+      element.selected = this.optionSelectedPath ? !!getValueByPath(option, this.optionSelectedPath) : false;
+      element.textContent = typeof label === 'string' ? label : (label?.toString() ?? itemString);
+      element.value = this.optionValuePath ? getValueByPath(option, this.optionValuePath) : option;
     } else {
-      option.textContent = itemString;
-      option.value = item;
+      element.textContent = itemString;
+      element.value = option;
     }
 
-    return option;
+    return element;
   };
 
   override connectedCallback(): void {
@@ -91,10 +91,10 @@ export class Listbox<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override updated(changes: PropertyValues<this>): void {
-    if (changes.has('items')) {
-      if (this.items !== undefined) {
+    if (changes.has('options')) {
+      if (this.options !== undefined) {
         this.#virtualizer ||= this.#createVirtualizer();
-        this.#virtualizer.items = this.items;
+        this.#virtualizer.items = this.options;
       } else {
         this.#virtualizer?.remove();
         this.#virtualizer = undefined;
@@ -102,11 +102,11 @@ export class Listbox<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (
-      (changes.has('itemLabelPath') ||
-        changes.has('itemSelectedPath') ||
-        changes.has('itemValuePath') ||
-        changes.has('renderer')) &&
-      this.#virtualizer
+      this.#virtualizer &&
+      (changes.has('optionLabelPath') ||
+        changes.has('optionSelectedPath') ||
+        changes.has('optionValuePath') ||
+        changes.has('renderer'))
     ) {
       this.#virtualizer.renderItem = (item: unknown, index: number) =>
         this.renderer(item as T, index) as TemplateResult;

@@ -4,8 +4,8 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Listbox } from './listbox.js';
 
-type Props = Pick<Listbox, 'items' | 'itemLabelPath' | 'itemSelectedPath' | 'itemValuePath'> & {
-  options?(): TemplateResult;
+type Props = Pick<Listbox, 'options' | 'optionLabelPath' | 'optionSelectedPath' | 'optionValuePath'> & {
+  slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 
@@ -13,14 +13,14 @@ export default {
   title: 'Utilities/Listbox',
   tags: ['draft'],
   argTypes: {
-    items: {
+    options: {
       table: { disable: true }
     },
-    options: {
+    slot: {
       table: { disable: true }
     }
   },
-  render: ({ items, itemLabelPath, itemSelectedPath, itemValuePath, options }) => {
+  render: ({ options, optionLabelPath, optionSelectedPath, optionValuePath, slot }) => {
     return html`
       <style>
         sl-listbox {
@@ -30,12 +30,12 @@ export default {
         }
       </style>
       <sl-listbox
-        .items=${items}
-        .itemLabelPath=${itemLabelPath}
-        .itemSelectedPath=${itemSelectedPath}
-        .itemValuePath=${itemValuePath}
+        .options=${options}
+        .optionLabelPath=${optionLabelPath}
+        .optionSelectedPath=${optionSelectedPath}
+        .optionValuePath=${optionValuePath}
       >
-        ${options?.()}
+        ${slot?.()}
       </sl-listbox>
     `;
   }
@@ -43,7 +43,7 @@ export default {
 
 export const Basic: Story = {
   args: {
-    options: () => html`
+    slot: () => html`
       <sl-option>Option 1</sl-option>
       <sl-option selected>Option 2</sl-option>
       <sl-option>Option 3</sl-option>
@@ -53,7 +53,7 @@ export const Basic: Story = {
 
 export const Disabled: Story = {
   args: {
-    options: () => html`
+    slot: () => html`
       <sl-option disabled>Option 1</sl-option>
       <sl-option>Option 2</sl-option>
       <sl-option>Option 3</sl-option>
@@ -63,7 +63,7 @@ export const Disabled: Story = {
 
 export const Divider: Story = {
   args: {
-    options: () => html`
+    slot: () => html`
       <sl-option>Option 1</sl-option>
       <sl-option>Option 2</sl-option>
       <hr />
@@ -74,7 +74,7 @@ export const Divider: Story = {
 
 export const Grouped: Story = {
   args: {
-    options: () => html`
+    slot: () => html`
       <sl-option-group label="Group 1">
         <sl-option>Option 1</sl-option>
         <sl-option>Option 2</sl-option>
@@ -89,7 +89,7 @@ export const Grouped: Story = {
 
 export const Overflow: Story = {
   args: {
-    options: () => html`
+    slot: () => html`
       <sl-option>
         Magna ea amet aute est ullamco elit. Culpa fugiat commodo exercitation nulla sunt et ea eiusmod et duis sit.
         Labore ad laborum esse mollit nulla amet fugiat incididunt. Velit aliquip amet nostrud aliquip labore velit
@@ -114,7 +114,7 @@ export const Overflow: Story = {
 
 export const RichContent: Story = {
   args: {
-    options: () => html`
+    slot: () => html`
       <style>
         sl-option::part(wrapper) {
           gap: 0.5rem;
@@ -142,9 +142,13 @@ export const RichContent: Story = {
 
 export const VirtualList: Story = {
   args: {
-    itemLabelPath: 'label',
-    itemSelectedPath: 'selected',
-    itemValuePath: 'value',
-    items: Array.from({ length: 10000 }).map((_, i) => ({ label: `Option ${i + 1}`, selected: i % 2 === 0, value: i }))
+    optionLabelPath: 'label',
+    optionSelectedPath: 'selected',
+    optionValuePath: 'value',
+    options: Array.from({ length: 10000 }).map((_, i) => ({
+      label: `Option ${i + 1}`,
+      selected: i % 2 === 0,
+      value: i
+    }))
   }
 };

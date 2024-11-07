@@ -7,6 +7,12 @@ import styles from './select-button.scss.js';
 import { type SelectOption } from './select-option.js';
 import { type SelectSize } from './select.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-select-button': SelectButton;
+  }
+}
+
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {

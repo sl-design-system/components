@@ -137,7 +137,7 @@ export class GridViewModel<T = any> {
       return 'none';
     } else {
       const groupByPath = this.#dataSource?.groupBy?.path,
-        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
+        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath!) === value);
 
       const some = items?.some(item => this.#grid.selection.isSelected(item)),
         all = items?.every(item => this.#grid.selection.isSelected(item));
@@ -153,7 +153,7 @@ export class GridViewModel<T = any> {
       return 'none';
     } else {
       const groupByPath = this.#dataSource?.groupBy?.path,
-        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
+        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath!) === value);
 
       const some = items?.some(item => this.#grid.selection.isSelected(item)),
         all = items?.every(item => this.#grid.selection.isSelected(item));

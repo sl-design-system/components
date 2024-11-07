@@ -97,6 +97,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
       this.input.type = 'checkbox';
+      this.input.addEventListener('blur', () => this.#onFocusout());
+      this.input.addEventListener('focus', () => this.#onFocusin());
       this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
@@ -126,6 +128,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     const props: Array<keyof Checkbox> = ['checked', 'disabled', 'indeterminate', 'required'];
 
     if (props.some(prop => changes.has(prop))) {
+      this.input.addEventListener('blur', () => this.#onFocusout());
+      this.input.addEventListener('focus', () => this.#onFocusin());
       this.#syncInput(this.input);
     }
 
@@ -190,6 +194,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   }
 
   #onFocusin(): void {
+    // this.input.focus();
+    console.log(document.activeElement);
     this.focusEvent.emit();
   }
 
@@ -199,6 +205,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    console.log('event onkeydown on input checkbox', event);
     if (['Enter', ' '].includes(event.key)) {
       this.#onClick(event);
     }
@@ -211,6 +218,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
       this.input = input;
+      this.input.addEventListener('blur', () => this.#onFocusout());
+      this.input.addEventListener('focus', () => this.#onFocusin());
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);
@@ -249,7 +258,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.id ||= `sl-checkbox-${nextUniqueId++}`;
     input.required = !!this.required;
 
-    input.toggleAttribute('checked', !!this.checked);
+    // input.toggleAttribute('checked', !!this.checked);
     input.toggleAttribute('indeterminate', !!this.indeterminate);
     // this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
     // input.setAttribute('aria-checked', this.checked ? 'true' : 'false');

@@ -295,12 +295,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ${this.renderStyles()}
       </style>
       <a
+        id="table-start"
         href="#table-end"
         class="skip-link-start"
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
         >Skip to end of table</a
       >
-      <div id="table-start" @blur=${this.removeTabindex}></div>
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <thead
           @sl-filter-change=${this.#onFilterChange}
@@ -320,16 +320,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       </table>
 
       <a
+        id="table-end"
         href="#table-start"
         class="skip-link-end"
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
         >Skip to start of table</a
       >
-      <div id="table-end" @blur=${this.removeTabindex}></div>
     `;
-  }
-  removeTabindex(event: Event & { target: HTMLSlotElement }): void {
-    event.target.removeAttribute('tabindex');
   }
 
   renderStyles(): TemplateResult {
@@ -711,7 +708,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
     event.preventDefault();
-    (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).setAttribute('tabindex', '0');
     (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
   }
 

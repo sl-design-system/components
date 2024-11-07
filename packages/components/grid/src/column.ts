@@ -170,7 +170,7 @@ export class GridColumn<T = any> extends LitElement {
     if (this.ellipsizeText && typeof data === 'string') {
       return html`<td part=${parts.join(' ')}><sl-ellipsize-text>${data}</sl-ellipsize-text></td>`;
     } else {
-      return html`<td part=${parts.join(' ')} .tabIndex=${this.selected ? 0 : -1}>${data || 'No path set'}</td>`;
+      return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;
     }
   }
 

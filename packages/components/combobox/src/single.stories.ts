@@ -1,10 +1,12 @@
+import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
-import { type Combobox } from './combobox.js';
+import '../register.js';
+import { Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
 
 type Props = Pick<
@@ -15,6 +17,7 @@ type Props = Pick<
   | 'filterResults'
   | 'groupSelected'
   | 'name'
+  | 'options'
   | 'placeholder'
   | 'required'
   | 'selectOnly'
@@ -23,14 +26,16 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
+  listbox?(): TemplateResult;
   maxWidth?: string;
-  options?(): TemplateResult;
+  optionLabelPath?: string;
+  optionValuePath?: string;
   reportValidity?: boolean;
 };
-type Story = StoryObj<Props>;
+export type Story = StoryObj<Props>;
 
 export default {
-  title: 'Form/Combobox/Multiple',
+  title: 'Form/Combobox/Single',
   args: {
     allowCustomValues: false,
     autocomplete: 'both',
@@ -46,6 +51,12 @@ export default {
     autocomplete: {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
+    },
+    listbox: {
+      table: { disable: true }
+    },
+    options: {
+      table: { disable: true }
     }
   },
   render: ({
@@ -56,8 +67,11 @@ export default {
     groupSelected,
     hint,
     label,
+    listbox,
     maxWidth,
     name,
+    optionLabelPath,
+    optionValuePath,
     options,
     placeholder,
     reportValidity,
@@ -88,12 +102,14 @@ export default {
             ?select-only=${selectOnly}
             .autocomplete=${autocomplete}
             .name=${name}
+            .optionLabelPath=${optionLabelPath}
+            .optionValuePath=${optionValuePath}
+            .options=${options}
             .placeholder=${placeholder}
             .value=${value}
-            multiple
-            style=${`max-width: ${maxWidth ?? 'auto'}`}
+            style=${`max-width: ${maxWidth ?? 'none'}`}
           >
-            ${options?.() ?? html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`}
+            ${listbox?.()}
           </sl-combobox>
         </sl-form-field>
         ${reportValidity
@@ -111,25 +127,27 @@ export default {
 
 export const Basic: Story = {
   args: {
-    hint: 'The multiple property is true, which means you can select more than 1 option at a time. This will render the selected options as tags.'
+    listbox: () => html`<sl-listbox>${components.map(c => html`<sl-option>${c}</sl-option>`)}</sl-listbox>`
   }
 };
 
 export const AllowCustomValues: Story = {
   args: {
+    ...Basic.args,
     allowCustomValues: true
   }
 };
 
 export const Disabled: Story = {
   args: {
-    disabled: true,
-    value: ['Button bar', 'Checkbox']
+    ...Basic.args,
+    disabled: true
   }
 };
 
 export const FilterResults: Story = {
   args: {
+    ...Basic.args,
     hint: 'The filterResults property is true, which means the list of options will be filtered based on user input.',
     filterResults: true
   }
@@ -137,7 +155,7 @@ export const FilterResults: Story = {
 
 export const Grouped: Story = {
   args: {
-    options: () => html`
+    listbox: () => html`
       <sl-listbox>
         <sl-option-group label="Actions">
           <sl-option>Button</sl-option>
@@ -161,16 +179,9 @@ export const Grouped: Story = {
   }
 };
 
-export const GroupSelected: Story = {
-  args: {
-    ...Grouped.args,
-    groupSelected: true,
-    value: ['Button bar', 'Checkbox']
-  }
-};
-
 export const Required: Story = {
   args: {
+    ...Basic.args,
     hint: 'The component is required. This means you must select an option in order for the field to be valid.',
     reportValidity: true,
     required: true
@@ -179,7 +190,7 @@ export const Required: Story = {
 
 export const RichContent: Story = {
   args: {
-    options: () => html`
+    listbox: () => html`
       <style>
         sl-option::part(wrapper) {
           gap: 0.5rem;
@@ -205,28 +216,23 @@ export const RichContent: Story = {
 
 export const Selected: Story = {
   args: {
-    value: ['Button bar', 'Checkbox']
+    ...Basic.args,
+    value: 'Button bar'
   }
 };
 
 export const SelectOnly: Story = {
   args: {
+    ...Basic.args,
     hint: 'The component is select only. This means you cannot type in the text field, but you can still select options.',
     selectOnly: true
   }
 };
 
-export const Stacked: Story = {
-  args: {
-    hint: 'When there is not enough space to display all tags, they will be stacked.',
-    maxWidth: '700px',
-    value: ['Switch', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Button bar']
-  }
-};
-
 export const VirtualList: Story = {
   args: {
-    options: () =>
-      html`<sl-listbox .items=${Array.from({ length: 10000 }).map((_, i) => `Option ${i + 1}`)}></sl-listbox>`
+    optionLabelPath: 'label',
+    optionValuePath: 'value',
+    options: Array.from({ length: 10000 }).map((_, i) => ({ label: `Option ${i + 1}`, value: i }))
   }
 };

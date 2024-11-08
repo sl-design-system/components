@@ -3,6 +3,7 @@
   display: block;
   inline-size: calc(100% - var(--sl-space-new-md) * 2);
   margin-inline: var(--sl-space-new-md);
+  scroll-margin-block: var(--sl-space-new-md);
   user-select: none;
 }
 

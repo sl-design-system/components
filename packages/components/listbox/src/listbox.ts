@@ -117,6 +117,14 @@ export class Listbox<T = any> extends ScopedElementsMixin(LitElement) {
     return html`<slot></slot>`;
   }
 
+  scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
+    if (this.#virtualizer) {
+      this.#virtualizer.element(index)?.scrollIntoView(options);
+    } else {
+      this.children.item(index)?.scrollIntoView(options);
+    }
+  }
+
   #createVirtualizer(): LitVirtualizer {
     const virtualizer = this.shadowRoot!.createElement('lit-virtualizer');
     virtualizer.renderItem = (item: unknown, index: number) => this.renderer(item as T, index) as TemplateResult;

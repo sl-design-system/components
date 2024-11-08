@@ -6,6 +6,12 @@
   pointer-events: none;
 }
 
+::slotted(sl-listbox) {
+  block-size: 100%;
+  flex: 1;
+  overflow: visible;
+}
+
 sl-text-field {
   flex: 1;
   max-inline-size: 100%;
@@ -37,6 +43,8 @@ sl-icon {
   box-sizing: border-box;
   display: none;
   margin: 0;
+  max-block-size: var(--sl-combobox-listbox-maxBlockSize, 20rem);
+  overflow: auto;
   padding: 0;
 
   &:popover-open {
@@ -48,9 +56,4 @@ sl-icon {
     display: flex;
     opacity: 1;
   }
-}
-
-::slotted(sl-listbox) {
-  flex: 1;
-  max-block-size: var(--sl-combobox-listbox-maxBlockSize, 20rem);
 }

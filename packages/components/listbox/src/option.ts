@@ -33,11 +33,11 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** Whether this option is selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
 
-  override get textContent(): string | null {
+  override get textContent(): string {
     return this.#getSlottedTextContent();
   }
 
-  override set textContent(value: string | null) {
+  override set textContent(value: string) {
     super.textContent = value;
   }
 
@@ -64,7 +64,7 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #getSlottedTextContent(): string | null {
+  #getSlottedTextContent(): string {
     const nodes =
       this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ?? Array.from(this.childNodes);
 

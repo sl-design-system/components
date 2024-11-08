@@ -901,7 +901,7 @@
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.palette.teal.400}",
+        "value": "{color.border.accent.teal}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },
@@ -926,7 +926,7 @@
         "description": "Use for borders that highlight secondary actions."
       },
       "info": {
-        "value": "{color.palette.blue.700}",
+        "value": "{color.border.accent.blue}",
         "type": "color",
         "description": "Use for borders that highlight informative messages the user needs to be aware of."
       },

@@ -121,7 +121,7 @@ export class Listbox<T = any> extends ScopedElementsMixin(LitElement) {
     if (this.#virtualizer) {
       this.#virtualizer.element(index)?.scrollIntoView(options);
     } else {
-      this.children.item(index)?.scrollIntoView(options);
+      this.querySelectorAll('sl-option').item(index)?.scrollIntoView(options);
     }
   }
 

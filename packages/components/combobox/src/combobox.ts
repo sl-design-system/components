@@ -648,6 +648,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         const option = Array.from(this.#selection.selection.values())[0],
           index = this.options.indexOf(option);
 
+        console.log({ index }, this.listbox);
+
         this.listbox?.scrollToIndex(index, { block: 'nearest' });
       }
     } else {

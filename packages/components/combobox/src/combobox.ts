@@ -155,9 +155,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal The current highlighted option in the listbox. */
   @state() currentOption?: T;
 
-  /** @internal The current selected options. */
-  @state() currentSelection: T[] = [];
-
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
@@ -294,12 +291,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
     }
 
-    if (
-      changes.has('currentOption') ||
-      changes.has('currentSelection') ||
-      changes.has('groupSelected') ||
-      changes.has('listbox')
-    ) {
+    if (changes.has('currentOption') || changes.has('groupSelected') || changes.has('listbox')) {
       // if (this.groupSelected && this.currentSelection.length) {
       //   if (!this.#selectedGroup) {
       //     this.#selectedGroup = this.shadowRoot!.createElement('sl-combobox-selected-group');
@@ -352,10 +344,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
         ?required=${this.required}
-        placeholder=${ifDefined(this.multiple && this.currentSelection.length ? undefined : this.placeholder)}
+        placeholder=${ifDefined(this.multiple && this.#selection.selection.size ? undefined : this.placeholder)}
         size=${ifDefined(this.size)}
       >
-        ${this.multiple && this.currentSelection.length
+        ${this.multiple && this.#selection.selection.size
           ? html`
               <sl-tag-list
                 aria-label=${msg('Selected options')}
@@ -365,7 +357,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                 .emphasis=${this.disabled ? 'bold' : 'subtle'}
               >
                 ${repeat(
-                  this.currentSelection,
+                  this.#selection.selection,
                   option => option,
                   option => html`
                     <sl-tag
@@ -614,6 +606,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.#toggleSelected(option, false);
       }
     }
+
+    if (!this.multiple) {
+      this.#updateTextFieldValue();
+    }
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {
@@ -648,8 +644,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   #onToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
-      if (!this.multiple && this.currentSelection?.length) {
-        const index = this.options.indexOf(this.currentSelection[0]);
+      if (!this.multiple && this.#selection.selection.size) {
+        const option = Array.from(this.#selection.selection.values())[0],
+          index = this.options.indexOf(option);
 
         this.listbox?.scrollToIndex(index, { block: 'nearest' });
       }
@@ -904,19 +901,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
             }
 
             return option;
-
-            // return {
-            //   id: el.id,
-            //   element: el,
-            //   content: el.textContent?.trim() || '',
-            //   current: el.getAttribute('aria-current') === 'true',
-            //   custom: el instanceof CustomOption,
-            //   group: el.closest('sl-option-group')?.getAttribute('label') || undefined,
-            //   selected: el.getAttribute('aria-selected') === 'true',
-            //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            //   value: el.value || el.textContent?.trim() || ''
-            // };
           });
+
+        // Since we are internally updating the options array, request an update on it
+        this.requestUpdate('options');
       }
     } else {
       this.#options = [];
@@ -924,31 +912,25 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
   }
 
-  /** Updates the state of the options to reflect the current value. */
+  /** Updates the selection based on the options & value. */
   #updateSelected(): void {
-    // if (this.multiple) {
-    //   const selected = this.options.filter(o => o.selected).map(o => o.value),
-    //     values = Array.isArray(this.value) ? this.value : [this.value];
-    //   this.options.forEach(o => {
-    //     if (values.includes(o.value as T)) {
-    //       this.#toggleSelected(o, true);
-    //     } else if (selected.includes(o.value as T)) {
-    //       this.#toggleSelected(o, false);
-    //     }
-    //   });
-    // } else {
-    //   const option = this.options.find(o => o.value === this.value);
-    //   if (option) {
-    //     this.options.filter(o => o !== option && o.selected).forEach(o => this.#toggleSelected(o, false));
-    //     this.#toggleSelected(option, true);
-    //     if (!this.currentOption) {
-    //       this.#updateCurrent(option);
-    //     }
-    //     this.#updateTextFieldValue();
-    //   }
-    // }
-    // // Remove any custom options that are not selected
-    // this.options.filter(o => o.custom && !o.selected).forEach(o => this.#removeCustomOption(o));
+    if (!this.options) {
+      return;
+    }
+
+    this.#selection.selection.clear();
+
+    for (const option of this.options) {
+      if (this.multiple && (this.value as U[])?.includes(getValueByPath(option, this.optionValuePath!) as U)) {
+        this.#toggleSelected(option, true);
+      } else if (getValueByPath(option, this.optionValuePath!) === this.value) {
+        this.#toggleSelected(option, true);
+      }
+    }
+
+    if (!this.multiple) {
+      this.#updateTextFieldValue();
+    }
   }
 
   /** Update the value in the text field. */
@@ -958,8 +940,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     } else if (this.createCustomOption) {
       this.input.value = this.createCustomOption.content;
       this.input.setSelectionRange(-1, -1);
-    } else if (this.currentSelection.length) {
-      this.input.value = getStringByPath(this.currentSelection[0], this.optionLabelPath!);
+    } else if (this.#selection.selection.size) {
+      const option = Array.from(this.#selection.selection.values())[0];
+
+      this.input.value = getStringByPath(option, this.optionLabelPath!);
       this.input.setSelectionRange(-1, -1);
     } else {
       this.input.value = '';
@@ -968,7 +952,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Updates the value based on the current selection. */
   #updateValue(): void {
-    const values = this.currentSelection.map(o => getValueByPath(o, this.optionValuePath!) as U);
+    const values = Array.from(this.#selection.selection.values()).map(
+      o => getValueByPath(o, this.optionValuePath!) as U
+    );
 
     if (this.multiple) {
       this.value = values;

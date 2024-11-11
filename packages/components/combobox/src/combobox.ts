@@ -648,7 +648,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         const option = Array.from(this.#selection.selection.values())[0],
           index = this.options.indexOf(option);
 
-        this.listbox?.scrollToIndex(index, { block: 'nearest' });
+        this.listbox?.scrollToIndex(index);
       }
     } else {
       this.#popoverJustClosed = false;
@@ -848,9 +848,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         noMatch = false;
       }
 
-      // if (option.element) {
-      //   option.element.style.display = match ? '' : 'none';
-      // }
+      const element = this.querySelector<HTMLElement>(`#${this.#optionElements.get(option)}`);
+      if (element) {
+        element.style.display = match ? '' : 'none';
+      }
     });
 
     if (noMatch && value) {

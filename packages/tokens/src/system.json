@@ -194,7 +194,7 @@
             "y": "4",
             "blur": "6",
             "spread": "-1",
-            "color": "rgba( {color.palette.black.base} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.light.050})",
             "type": "dropShadow"
           },
           {
@@ -202,7 +202,7 @@
             "y": "2",
             "blur": "4",
             "spread": "-1",
-            "color": "rgba( {color.palette.black.base} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.light.050})",
             "type": "dropShadow"
           }
         ],
@@ -215,7 +215,7 @@
             "y": "8",
             "blur": "15",
             "spread": "-3",
-            "color": "rgba( {color.palette.black.base} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.light.050})",
             "type": "dropShadow"
           },
           {
@@ -223,7 +223,7 @@
             "y": "6",
             "blur": "4",
             "spread": "-2",
-            "color": "rgba( {color.palette.black.base} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.light.050})",
             "type": "dropShadow"
           }
         ],
@@ -236,7 +236,7 @@
             "y": "20",
             "blur": "25",
             "spread": "-5",
-            "color": "rgba( {color.palette.black.base} , {opacity.100})",
+            "color": "rgba( {color.palette.black.base} , {opacity.light.100})",
             "type": "dropShadow"
           },
           {
@@ -244,7 +244,7 @@
             "y": "10",
             "blur": "10",
             "spread": "-5",
-            "color": "rgba( {color.palette.black.base} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.light.050})",
             "type": "dropShadow"
           }
         ],
@@ -257,7 +257,7 @@
             "y": "20",
             "blur": "25",
             "spread": "-5",
-            "color": "rgba( {color.palette.black.base} , {opacity.100})",
+            "color": "rgba( {color.palette.black.base} , {opacity.light.100})",
             "type": "dropShadow"
           }
         ],
@@ -315,6 +315,17 @@
       "horizontal": {
         "value": "{space-new.md} - {size.borderWidth.default}",
         "type": "spacing"
+      }
+    }
+  },
+  "text": {
+    "typeset": {
+      "textDecoration": {
+        "underline": {
+          "value": "underline",
+          "type": "textDecoration",
+          "description": "text.typeset.textDecoration.underline"
+        }
       }
     }
   }

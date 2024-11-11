@@ -1112,7 +1112,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({body.background},{opacity.100})",
+              "value": "rgba({body.background},{opacity.light.100})",
               "type": "color",
               "description": "color.button.default.outline.hover.background"
             },
@@ -1958,7 +1958,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({body.background},{opacity.100})",
+              "value": "rgba({body.background},{opacity.light.100})",
               "type": "color",
               "description": "color.button.default.outline.hover.background"
             },
@@ -3594,7 +3594,7 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({body.background} , {opacity.100})",
+            "value": "rgba({body.background} , {opacity.light.100})",
             "type": "color"
           },
           "foreground": {
@@ -4665,7 +4665,7 @@
         "y": "0",
         "blur": "0",
         "spread": "3px",
-        "color": "rgba({color.palette.info.500},{opacity.700})",
+        "color": "rgba({color.palette.info.500},{opacity.light.700})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

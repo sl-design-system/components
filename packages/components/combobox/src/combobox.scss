@@ -46,6 +46,7 @@ sl-icon {
   max-block-size: var(--sl-combobox-listbox-maxBlockSize, 20rem);
   overflow: auto;
   padding: 0;
+  scrollbar-width: thin;
 
   &:popover-open {
     @starting-style {

@@ -99,6 +99,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
   });
 
+  /** Keep a list of the original options, for when we need to `filterResults`. */
+  #originalOptions: T[] = [];
+
   /** The options to choose from. */
   #options: T[] = [];
 
@@ -194,8 +197,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
    * This options property is used to provide options when using the first method.
    */
   @property({ type: Array })
-  set options(options: T[]) {
-    this.#options = options;
+  set options(options: T[] | undefined) {
+    this.#options = options ? [...options] : [];
+    this.#originalOptions = options ? [...options] : [];
     this.#useVirtualList = !!options;
   }
 
@@ -311,6 +315,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     if (changes.has('disabled')) {
       this.input.disabled = !!this.disabled;
+    }
+
+    if (changes.has('filterResults') && !this.filterResults) {
+      this.#options = this.#originalOptions;
+
+      if (this.#useVirtualList) {
+        this.listbox!.options = this.#options;
+      }
     }
 
     if (changes.has('multiple')) {
@@ -460,19 +472,17 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       (this.autocomplete === 'inline' || this.autocomplete === 'both')
     ) {
       currentOption = this.options.find(option => {
-        const label = getStringByPath(option, this.optionLabelPath!);
-
-        return label.toString().toLowerCase().startsWith(value.toLowerCase());
+        return this.#getOptionLabel(option).toString().toLowerCase().startsWith(value.toLowerCase());
       });
 
       if (currentOption) {
-        const label = getStringByPath(currentOption, this.optionLabelPath!);
+        const label = this.#getOptionLabel(currentOption);
 
         this.input.value = label;
         this.input.setSelectionRange(value.length, label.length);
       }
     } else {
-      currentOption = this.options.find(option => getValueByPath(option, this.optionValuePath!) === value);
+      currentOption = this.options.find(option => this.#getOptionValue(option) === value);
     }
 
     // if (this.allowCustomValues && !currentOption) {
@@ -699,6 +709,26 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     return [];
   }
 
+  #getOptionLabel(option: T): string {
+    if (this.#useVirtualList && this.optionLabelPath) {
+      return getStringByPath(option, this.optionLabelPath);
+    } else {
+      const element = this.querySelector<Option>(`#${this.#optionElements.get(option)}`);
+
+      return element?.textContent?.trim() ?? '';
+    }
+  }
+
+  #getOptionValue(option: T): U {
+    if (this.#useVirtualList && this.optionValuePath) {
+      return getValueByPath(option, this.optionValuePath) as U;
+    } else {
+      const element = this.querySelector<Option>(`#${this.#optionElements.get(option)}`);
+
+      return (element?.value ?? element?.textContent?.trim()) as U;
+    }
+  }
+
   #isSameOption(option: T, element?: Option<T>): boolean {
     if (!element) {
       return false;
@@ -706,7 +736,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     const value = element.value ?? element.textContent.trim();
 
-    return getValueByPath(option, this.optionValuePath!) === value;
+    return this.#getOptionValue(option) === value;
   }
 
   #renderListbox(): Listbox<T> {
@@ -834,25 +864,48 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #updateFilteredOptions(value?: string): void {
+    if (!this.filterResults) {
+      return;
+    }
+
     let noMatch = true;
 
-    this.options.forEach(option => {
-      let match = !this.filterResults || !value;
-      if (!match) {
-        const label = getValueByPath(option, this.optionLabelPath!)?.toString() ?? '';
+    if (this.#useVirtualList) {
+      this.#options = this.#originalOptions.filter(option => {
+        let match = !value;
+        if (!match) {
+          const label = this.#getOptionLabel(option);
 
-        match = label.toLowerCase().startsWith(value!.toLowerCase());
-      }
+          match = label.toLowerCase().startsWith(value!.toLowerCase());
+        }
 
-      if (noMatch && match) {
-        noMatch = false;
-      }
+        if (noMatch && match) {
+          noMatch = false;
+        }
 
-      const element = this.querySelector<HTMLElement>(`#${this.#optionElements.get(option)}`);
-      if (element) {
-        element.style.display = match ? '' : 'none';
-      }
-    });
+        return match;
+      });
+
+      this.listbox!.options = this.#options;
+    } else {
+      this.options.forEach(option => {
+        let match = !value;
+        if (!match) {
+          const label = this.#getOptionLabel(option);
+
+          match = label.toLowerCase().startsWith(value!.toLowerCase());
+        }
+
+        if (noMatch && match) {
+          noMatch = false;
+        }
+
+        const element = this.querySelector<HTMLElement>(`#${this.#optionElements.get(option)}`);
+        if (element) {
+          element.style.display = match ? '' : 'none';
+        }
+      });
+    }
 
     if (noMatch && value) {
       this.#noMatch ||= this.shadowRoot!.createElement('sl-combobox-no-match');
@@ -922,9 +975,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     this.#selection.selection.clear();
 
     for (const option of this.options) {
-      if (this.multiple && (this.value as U[])?.includes(getValueByPath(option, this.optionValuePath!) as U)) {
+      const value = this.optionValuePath ? getValueByPath(option, this.optionValuePath) : option;
+
+      if (this.multiple && (this.value as U[])?.includes(value as U)) {
         this.#toggleSelected(option, true);
-      } else if (getValueByPath(option, this.optionValuePath!) === this.value) {
+      } else if (value === this.value) {
         this.#toggleSelected(option, true);
       }
     }
@@ -944,7 +999,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     } else if (this.#selection.selection.size) {
       const option = Array.from(this.#selection.selection.values())[0];
 
-      this.input.value = getStringByPath(option, this.optionLabelPath!);
+      this.input.value = this.#getOptionLabel(option);
       this.input.setSelectionRange(-1, -1);
     } else {
       this.input.value = '';
@@ -953,9 +1008,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Updates the value based on the current selection. */
   #updateValue(): void {
-    const values = Array.from(this.#selection.selection.values()).map(
-      o => getValueByPath(o, this.optionValuePath!) as U
-    );
+    const values = Array.from(this.#selection.selection.values()).map(o => this.#getOptionValue(o));
 
     if (this.multiple) {
       this.value = values;

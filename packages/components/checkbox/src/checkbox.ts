@@ -97,8 +97,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
       this.input.type = 'checkbox';
-      this.input.addEventListener('blur', () => this.#onFocusout());
-      this.input.addEventListener('focus', () => this.#onFocusin());
       this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
@@ -127,8 +125,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     const props: Array<keyof Checkbox> = ['checked', 'disabled', 'indeterminate', 'required'];
 
     if (props.some(prop => changes.has(prop))) {
-      this.input.addEventListener('blur', () => this.#onFocusout());
-      this.input.addEventListener('focus', () => this.#onFocusin());
       this.#syncInput(this.input);
     }
 
@@ -220,8 +216,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
       this.input = input;
-      this.input.addEventListener('blur', () => this.#onFocusout());
-      this.input.addEventListener('focus', () => this.#onFocusin());
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);

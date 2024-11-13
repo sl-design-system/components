@@ -29,7 +29,7 @@ describe('sl-checkbox', () => {
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
-      expect(input.getAttribute('aria-checked')).to.equal('false');
+      expect(input).to.have.attribute('aria-checked', 'false');
       expect(input).not.to.match(':checked');
       expect(input.checked).to.be.false;
     });

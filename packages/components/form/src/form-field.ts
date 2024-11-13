@@ -264,6 +264,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.#label.for = this.#label.mark = undefined;
       }
     }
+
+    console.log('control', this.control);
   }
 
   #onUpdateValidity(event: SlUpdateValidityEvent): void {

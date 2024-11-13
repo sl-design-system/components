@@ -173,6 +173,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** @internal */
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {
+        console.log('this.#formControlElement', this.#formControlElement);
         return this.#formControlElement;
       } else {
         throw new Error('A formControlElement must be set for the FormControlMixin to work');
@@ -193,6 +194,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @type {`NodeListOf<HTMLLabelElement>` | null}
      */
     get labels(): NodeListOf<HTMLLabelElement> | null {
+      console.log('this.formControlElement', this.formControlElement, isNative(this.formControlElement));
       if (isNative(this.formControlElement)) {
         return this.formControlElement.labels;
       } else {

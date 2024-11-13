@@ -99,7 +99,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'switch';
+    // this.internals.role = 'switch';
 
     this.setFormControlElement(this);
 
@@ -132,24 +132,37 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       this.internals.ariaChecked = this.checked ? 'true' : 'false';
     }
 
-    if (changes.has('disabled')) {
-      this.tabIndex = this.disabled ? -1 : 0;
-    }
+    // if (changes.has('disabled')) {
+    //   this.tabIndex = this.disabled ? -1 : 0;
+    // }
   }
 
   override render(): TemplateResult {
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
       size = this.size === 'md' ? 'xs' : 'md';
 
+    console.log('switch', this, this.getAttribute('aria-describedby'), this.hasAttribute('aria-describedby'));
+
+    // if (this.hasAttribute('aria-describedby')) {
+    //   this.internals.ariaDescription =  this.getAttribute('aria-describedby');
+    // }
+
     return html`
-      <slot></slot>
+      <slot id="label"></slot>
       <div class="toggle">
-        <div class="track" .tabIndex=${this.disabled ? -1 : 0}>
+        <div
+          class="track"
+          role="switch"
+          .tabIndex=${this.disabled ? -1 : 0}
+          aria-checked=${this.checked ? 'true' : 'false'}
+          aria-labelledby="label"
+          aria-describedby=${this.getAttribute('aria-describedby')}
+        >
           <div>${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}</div>
         </div>
       </div>
     `;
-  }
+  } // TODO: aria-disabled aria-required...
 
   #onClick(event: Event): void {
     if (this.disabled) {
@@ -187,3 +200,6 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     this.updateValidity();
   }
 }
+
+// TODO: what about aria-label added by a user?
+// not working with aria-describedby yet

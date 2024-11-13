@@ -29,8 +29,8 @@ describe('sl-checkbox', () => {
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
-      expect(input?.getAttribute('aria-checked')).to.equal('false');
-      expect(input?.matches(':checked')).to.be.false;
+      expect(input.getAttribute('aria-checked')).to.equal('false');
+      expect(input).not.to.match(':checked');
       expect(input.checked).to.be.false;
     });
 
@@ -39,8 +39,8 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('checked');
-      expect(input?.getAttribute('aria-checked')).to.equal('true');
-      expect(input?.matches(':checked')).to.be.true;
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
 
@@ -60,7 +60,7 @@ describe('sl-checkbox', () => {
     it('should not be indeterminate', () => {
       expect(el).not.to.have.attribute('indeterminate');
       expect(el.indeterminate).not.to.be.true;
-      expect(input?.matches(':indeterminate')).to.be.false;
+      expect(input).not.to.match(':indeterminate');
       expect(input.indeterminate).to.be.false;
     });
 
@@ -69,8 +69,8 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('indeterminate');
-      expect(input?.getAttribute('aria-checked')).to.equal('mixed');
-      expect(input?.matches(':indeterminate')).to.be.true;
+      expect(input).to.have.attribute('aria-checked', 'mixed');
+      expect(input).to.match(':indeterminate');
       expect(input.indeterminate).to.be.true;
     });
 
@@ -148,8 +148,8 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input?.getAttribute('aria-checked')).to.equal('true');
-      expect(input?.matches(':checked')).to.be.true;
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
 
       el.click();
@@ -157,8 +157,8 @@ describe('sl-checkbox', () => {
 
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).to.be.false;
-      expect(input?.getAttribute('aria-checked')).to.equal('false');
-      expect(input?.matches(':checked')).to.be.false;
+      expect(input).to.have.attribute('aria-checked', 'false');
+      expect(input).not.to.match(':checked');
       expect(input.checked).to.be.false;
     });
 
@@ -169,8 +169,8 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input?.getAttribute('aria-checked')).to.equal('true');
-      expect(input?.matches(':checked')).to.be.true;
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
 
@@ -181,8 +181,8 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input?.getAttribute('aria-checked')).to.equal('true');
-      expect(input?.matches(':checked')).to.be.true;
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
 

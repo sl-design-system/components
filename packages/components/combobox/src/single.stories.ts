@@ -21,7 +21,6 @@ type Props = Pick<
   | 'selectOnly'
   | 'value'
 > & {
-  listbox?(): TemplateResult;
   maxWidth?: string;
   options?: unknown[] | TemplateResult;
   optionLabelPath?: string;
@@ -45,9 +44,6 @@ export default {
     autocomplete: {
       control: 'inline-radio',
       options: ['off', 'inline', 'list', 'both']
-    },
-    listbox: {
-      table: { disable: true }
     },
     options: {
       table: { disable: true }

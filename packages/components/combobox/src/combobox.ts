@@ -377,7 +377,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
                     >
-                      ${option}
+                      ${this.#getOptionLabel(option)}
                     </sl-tag>
                   `
                 )}
@@ -440,6 +440,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
       this.wrapper?.togglePopover();
+      this.input.focus();
     }
   }
 

@@ -116,7 +116,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       this.append(style);
     }
 
-    // this.setAttribute('role', 'checkbox');
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
@@ -149,7 +148,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
         <div part="inner">
           <svg
             aria-hidden="true"
-            class=${classMap({ checked: this.input.checked, indeterminate: !!this.indeterminate })}
+            class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
             part="svg"
             version="1.1"
             viewBox="0 0 24 24"
@@ -184,28 +183,20 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       return;
     }
 
-    console.log('event on click', event, event.target instanceof HTMLLabelElement);
-
     if (event.target instanceof HTMLLabelElement) {
       this.input.click();
     }
-    // this.input.click();
 
-    // event.preventDefault();
     event.stopPropagation();
 
     this.checked = !this.checked;
     this.input.checked = this.checked;
-    // this.input.checked = !this.input.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
     this.updateValidity();
-    // event.preventDefault();
   }
 
   #onFocusin(): void {
-    //  this.input.focus();
-    console.log(document.activeElement);
     this.focusEvent.emit();
   }
 
@@ -215,7 +206,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('event onkeydown on input checkbox', event);
     if (['Enter', ' '].includes(event.key)) {
       event.preventDefault();
       event.stopPropagation();
@@ -247,8 +237,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
           !(node instanceof HTMLStyleElement))
     );
 
-    console.log('nodes in labelslotchange', nodes);
-
     if (!nodes.length && this.#label) {
       // Prevent an infinite loop
       return;
@@ -257,34 +245,23 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     const label = nodes.map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node)).join(' ');
     if (label.length > 0) {
       this.#label ||= document.createElement('label');
-      // if (this.input && this.input.parentNode) {
-      //   this.input.parentNode.insertBefore(this.#label, this.input);
-      // }
-      // this.#label.appendChild(this.input);
       this.#label.htmlFor = this.input.id;
       this.#label.slot = 'label';
       this.#label.append(...nodes);
       this.append(this.#label);
-      //
-      // this.input!.parentNode.insertBefore(this.#label, this.input);
-      // this.#label.appendChild(this.input);
     }
 
     this.toggleAttribute('no-label', label.length === 0);
   }
 
   #syncInput(input: HTMLInputElement): void {
-    console.log('sync input', input);
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-checkbox-${nextUniqueId++}`;
     input.required = !!this.required;
-    input.classList.add('test');
-    //  input.addEventListener('input', this.#onClick);
 
-    input.toggleAttribute('checked', !!this.checked);
-    input.toggleAttribute('indeterminate', !!this.indeterminate);
-    // this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
-    input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    input.checked = !!this.checked;
+    input.indeterminate = !!this.indeterminate;
+    input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
   }
 }

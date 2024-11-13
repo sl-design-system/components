@@ -112,8 +112,7 @@ $variants: default, valid, invalid;
   }
 }
 
-::slotted(input),
-input {
+::slotted(input) {
   block-size: 1px;
   inline-size: 1px;
   opacity: 0;
@@ -146,14 +145,6 @@ input {
 [part='label'] {
   line-height: var(--_line-height);
   margin-block-start: calc((var(--_size) + var(--_padding-block) * 2 - var(--_line-height)) / 2);
-
-  input {
-    margin: 0;
-    opacity: 0;
-    padding: 0;
-    pointer-events: none;
-    position: absolute;
-  }
 }
 
 svg {
@@ -176,13 +167,3 @@ path {
   stroke-width: 3px;
   transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
 }
-
-// input:checked
-
-// .test {
-//  position: absolute;
-//  opacity: 0;
-//  padding: 0;
-//  margin: 0;
-//  pointer-events: none;
-// }

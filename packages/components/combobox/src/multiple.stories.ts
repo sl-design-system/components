@@ -201,7 +201,7 @@ export const VirtualList: Story = {
     optionLabelPath: 'label',
     optionValuePath: 'value',
     options: Array.from({ length: 10000 }).map((_, i) => ({ label: `Option ${i + 1}`, value: i })),
-    value: 3000,
+    value: [3000],
     virtualList: true
   }
 };

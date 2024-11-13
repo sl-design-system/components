@@ -327,7 +327,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     if (changes.has('multiple')) {
       this.#selection.multiple = !!this.multiple;
-      this.#selection.selection.clear();
 
       if (this.multiple) {
         this.listbox?.setAttribute('aria-multiselectable', 'true');

@@ -322,6 +322,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     if (changes.has('filterResults') && !this.filterResults) {
       this.#options = this.#options.map(o => ({ ...o, visible: true }));
+      this.listbox!.options = this.#options;
     }
 
     if (changes.has('multiple')) {
@@ -517,6 +518,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       event.preventDefault();
       event.stopPropagation();
 
+      // Limit navigation to the visible options
+      const options = this.#options.filter(o => o.visible);
+
       let delta = 0,
         index = -1;
 
@@ -527,7 +531,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       //   }
       // } else
       if (this.currentOption) {
-        index = this.#options.indexOf(this.currentOption);
+        index = options.indexOf(this.currentOption);
       }
 
       switch (event.key) {
@@ -541,13 +545,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           index = 0;
           break;
         case 'End':
-          index = this.#options.length - 1;
+          index = options.length - 1;
           break;
       }
 
-      index = (index + delta + this.#options.length) % this.#options.length;
+      index = (index + delta + options.length) % options.length;
 
-      const option = this.#options[index];
+      const option = options[index];
 
       // if (this.groupSelected) {
       //   option =
@@ -737,7 +741,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     return listbox;
   }
 
-  #renderOption(option: ComboboxOption<T, U>): HTMLElement {
+  #renderOption(option: ComboboxOption<T, U>): HTMLElement | typeof nothing {
     const element = this.shadowRoot!.createElement(option.tagName) as Option;
     element.id = option.id;
     element.selected = this.#selection.isSelected(option);
@@ -867,29 +871,31 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       return;
     }
 
-    const noMatch = true;
+    let noMatch = true;
 
-    // if (this.#useVirtualList) {
-    //   this.listbox!.options = this.#options;
-    // } else {
-    //   this.options.forEach(option => {
-    //     let match = !value;
-    //     if (!match) {
-    //       const label = this.#getOptionLabel(option);
+    this.#options.forEach(option => {
+      let match = !value;
+      if (!match) {
+        match = option.label.toLowerCase().startsWith(value!.toLowerCase());
+      }
 
-    //       match = label.toLowerCase().startsWith(value!.toLowerCase());
-    //     }
+      if (noMatch && match) {
+        noMatch = false;
+      }
 
-    //     if (noMatch && match) {
-    //       noMatch = false;
-    //     }
+      option.visible = match;
 
-    //     const element = this.querySelector<HTMLElement>(`#${this.#optionElements.get(option)}`);
-    //     if (element) {
-    //       element.style.display = match ? '' : 'none';
-    //     }
-    //   });
-    // }
+      if (!this.#useVirtualList) {
+        option.element!.style.display = match ? '' : 'none';
+      }
+    });
+
+    if (this.#useVirtualList) {
+      this.listbox!.options = this.#options.filter(o => o.visible);
+    }
+
+    // Scroll the first item into view. Workaround for https://github.com/lit/lit/issues/4833
+    this.listbox?.scrollToIndex(0);
 
     if (noMatch && value) {
       this.#noMatch ||= this.shadowRoot!.createElement('sl-combobox-no-match');

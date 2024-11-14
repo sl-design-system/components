@@ -49,14 +49,6 @@ export default {
   excludeStories: ['components']
 };
 
-export const PerformanceTest: Story = {
-  render: () => html`
-    <sl-combobox>
-      <sl-listbox .items=${Array.from({ length: 10000 }).map((_, i) => `Option ${i}`)}></sl-listbox>
-    </sl-combobox>
-  `
-};
-
 export const All: Story = {
   render: () => html`
     <style>

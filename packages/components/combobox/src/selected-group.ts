@@ -56,7 +56,7 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
               .id=${option.id}
               .value=${option.value}
             >
-              ${option.content} ${this.hasGroups ? html`<span class="group">${option.group}</span>` : nothing}
+              ${option.label} ${this.hasGroups ? html`<span class="group">${option.group}</span>` : nothing}
             </sl-option>
           `
         )}

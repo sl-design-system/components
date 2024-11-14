@@ -320,7 +320,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.disabled = !!this.disabled;
     }
 
-    if (changes.has('filterResults') && !this.filterResults) {
+    if (changes.has('filterResults') && changes.get('filterResults') && !this.filterResults && this.#useVirtualList) {
       this.#options = this.#options.map(o => ({ ...o, visible: true }));
       this.listbox!.options = this.#options;
     }
@@ -652,7 +652,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       if (!this.multiple && this.#selection.selection.size) {
         const option = Array.from(this.#selection.selection.values())[0];
 
-        this.listbox?.scrollToIndex(this.#options.indexOf(option));
+        this.listbox?.scrollToIndex(this.#options.indexOf(option), { block: 'nearest' });
       }
     } else {
       this.#popoverJustClosed = false;
@@ -926,16 +926,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       if (this.#useVirtualList) {
         this.listbox.options = this.#options;
       } else {
+        let hasSelected = false;
+
+        this.#selection.selection.clear();
+
         this.#options = Array.from(this.listbox.children)
           .flatMap(el => this.#flattenOptions(el))
           .filter(el => !(el instanceof CreateCustomOption))
           .map(el => {
             el.id ||= `sl-combobox-option-${nextUniqueId++}`;
-
-            // Ensure the option has an aria-selected attribute
-            if (!el.hasAttribute('aria-selected')) {
-              el.setAttribute('aria-selected', Boolean(el.selected).toString());
-            }
 
             this.optionLabelPath ??= 'label' as PathKeys<T>;
             this.optionValuePath ??= 'value' as PathKeys<T>;
@@ -943,7 +942,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
             const label = el.textContent?.trim(),
               value = (el.value ?? label) as U;
 
-            return {
+            const option: ComboboxOption<T, U> = {
               id: el.id,
               element: el,
               label,
@@ -955,7 +954,28 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
               value,
               visible: true
             };
+
+            if (el.selected) {
+              hasSelected = true;
+              this.#selection.select(option);
+            }
+
+            // Ensure the option has an aria-selected attribute
+            if (!el.hasAttribute('aria-selected')) {
+              el.setAttribute('aria-selected', Boolean(el.selected).toString());
+            }
+
+            return option;
           });
+
+        // The selected option can be set either via:
+        // - The `value` property -> call `#updateSelected`
+        // - The `selected` attribute on the option -> call `#updateValue`
+        if (hasSelected) {
+          this.#updateValue();
+        } else {
+          this.#updateSelected();
+        }
       }
     } else {
       this.#options = [];
@@ -965,10 +985,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Updates the selection based on the options & value. */
   #updateSelected(): void {
-    if (!this.options) {
-      return;
-    }
-
     this.#selection.selection.clear();
 
     for (const option of this.#options) {

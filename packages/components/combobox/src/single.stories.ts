@@ -166,6 +166,16 @@ export const RichContent: Story = {
   }
 };
 
+export const Selected: Story = {
+  args: {
+    options: html`
+      <sl-option>Lorem</sl-option>
+      <sl-option>Ipsum</sl-option>
+      <sl-option selected>Dolar</sl-option>
+    `
+  }
+};
+
 export const SelectOnly: Story = {
   args: {
     ...Basic.args,
@@ -176,7 +186,7 @@ export const SelectOnly: Story = {
 export const Value: Story = {
   args: {
     ...Basic.args,
-    value: 'Button bar'
+    value: 'Tooltip'
   }
 };
 

@@ -15,6 +15,8 @@ declare global {
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
 
+let nextUniqueId = 0;
+
 /**
  * A toggle switch.
  *
@@ -22,7 +24,8 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *   <sl-switch>Foo</sl-switch>
  * ```
  *
- * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
+ * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
+ * @slot input - The slot for the input element
  */
 export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
@@ -51,6 +54,30 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** The initial state of the switch. */
   #initialState = false;
+
+  /** The label instance in the light DOM. */
+  #label?: HTMLLabelElement;
+
+  /** Observe aria-label, aria-labelledby... */
+  #observer = new MutationObserver(mutations => {
+    // const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+    //
+    // this.#observer.disconnect();
+    // this.#setSelectedOption(target as Radio<T>);
+    // this.#observer.observe(this, OBSERVER_OPTIONS);
+    console.log('mutations', mutations);
+
+    for (const mutation of mutations) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'aria-label') {
+        const ariaLabel = this.getAttribute('aria-label');
+        const input = this.shadowRoot?.querySelector('input');
+        console.log('ariaLabel in mutation observer', ariaLabel, input, this.input);
+        if (input && ariaLabel) {
+          input.setAttribute('aria-label', ariaLabel);
+        }
+      }
+    }
+  });
 
   /** @internals Element internals. */
   readonly internals = this.attachInternals();
@@ -88,6 +115,9 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
    */
   @property() override value?: T;
 
+  /** The input element in the light DOM. */
+  input!: HTMLInputElement;
+
   override get formValue(): T | null {
     return this.checked ? ((this.value ?? true) as T) : null;
   }
@@ -101,11 +131,42 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     // this.internals.role = 'switch';
 
-    this.setFormControlElement(this);
+    if (!this.input) {
+      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.slot = 'input';
+      this.input.type = 'checkbox';
+      this.input.role = 'switch';
+      this.#syncInput(this.input);
 
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = this.disabled ? -1 : 0;
+      if (!this.input.parentElement) {
+        this.append(this.input);
+      }
+
+      // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
+      const style = document.createElement('style');
+      style.innerHTML = `
+        sl-switch:has(input:focus-visible)::part(track) {
+          outline: var(--_focus-outline);
+          transition: var(--_transition);
+          transition-property: background, border-color, color, filter, outline-color;        }
+      `;
+      this.append(style);
     }
+
+    this.setFormControlElement(this.input /*this*/); // TODO: this.input instead of this?
+
+    // if (!this.hasAttribute('tabindex')) {
+    //   this.tabIndex = this.disabled ? -1 : 0;
+    // }
+
+    this.#onLabelSlotChange();
+
+    this.#observer.observe(this, { attributes: true, subtree: true }); // , attributeFilter: ['aria-label']
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+    super.disconnectedCallback();
   }
 
   /** @ignore Stores the initial state of the switch */
@@ -128,8 +189,22 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('checked')) {
-      this.internals.ariaChecked = this.checked ? 'true' : 'false';
+    // if (changes.has('checked')) {
+    //   this.internals.ariaChecked = this.checked ? 'true' : 'false';
+    // }
+
+    const props: Array<keyof Switch> = ['checked', 'disabled']; // required???
+
+    if (props.some(prop => changes.has(prop))) {
+      this.#syncInput(this.input);
+    }
+
+    if (changes.has('disabled')) {
+      this.updateValidity();
+    }
+
+    if (changes.has('value') && this.value !== this.input.value) {
+      this.input.value = this.value?.toString() || '';
     }
 
     // if (changes.has('disabled')) {
@@ -148,31 +223,35 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     // }
 
     return html`
-      <slot id="label"></slot>
+      <slot></slot>
+      <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
+      <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
       <div class="toggle">
-        <div
-          class="track"
-          role="switch"
-          .tabIndex=${this.disabled ? -1 : 0}
-          aria-checked=${this.checked ? 'true' : 'false'}
-          aria-labelledby="label"
-          aria-describedby=${this.getAttribute('aria-describedby')}
-        >
+        <div part="track" aria-checked=${this.checked ? 'true' : 'false'}>
           <div>${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}</div>
         </div>
       </div>
     `;
   } // TODO: aria-disabled aria-required...
 
+  override focus(): void {
+    this.input.focus();
+  }
+
   #onClick(event: Event): void {
     if (this.disabled) {
       return;
     }
 
-    event.preventDefault();
+    if (event.target instanceof HTMLLabelElement) {
+      this.input.click();
+    }
+
+    // event.preventDefault();
     event.stopPropagation();
 
     this.checked = !this.checked;
+    this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
 
@@ -190,6 +269,8 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
       this.#onClick(event);
     }
   }
@@ -199,7 +280,66 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     this.updateValidity();
   }
+
+  #onInputSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true }),
+      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
+
+    // Handle the scenario where a custom input is being slotted after `connectedCallback`
+    if (input) {
+      this.input = input;
+      this.#syncInput(this.input);
+
+      this.setFormControlElement(this.input);
+    }
+  }
+
+  #onLabelSlotChange(): void {
+    const nodes = Array.from(this.childNodes).filter(
+      node =>
+        node.nodeType === Node.TEXT_NODE ||
+        (node.nodeType === Node.ELEMENT_NODE &&
+          !(node as Element).hasAttribute('slot') &&
+          !(node instanceof HTMLStyleElement))
+    );
+
+    console.log('nodes and label', nodes, this.#label);
+
+    if (!nodes.length && this.#label) {
+      // Prevent an infinite loop
+      return;
+    }
+
+    const label = nodes.map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node)).join(' ');
+    if (label.length > 0) {
+      this.#label ||= document.createElement('label');
+      this.#label.htmlFor = this.input.id;
+      this.#label.slot = '';
+      this.#label.append(...nodes);
+      this.append(this.#label);
+    }
+
+    console.log('this.#label', this.#label, label);
+
+    //  this.toggleAttribute('no-label', label.length === 0);
+  }
+
+  #syncInput(input: HTMLInputElement): void {
+    input.autofocus = this.autofocus;
+    input.disabled = !!this.disabled;
+    input.id ||= `sl-switch-${nextUniqueId++}`;
+    /** input type checkbox with role switch:  https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/ */
+    input.role = 'switch';
+    // input.required = !!this.required;
+
+    input.checked = !!this.checked;
+    // input.indeterminate = !!this.indeterminate;
+    // input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
+  }
 }
 
 // TODO: what about aria-label added by a user?
 // not working with aria-describedby yet
+
+// TODO: improve aria-describedby when should be double id inserted
+// TODO: unit testing

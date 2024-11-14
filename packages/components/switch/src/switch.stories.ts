@@ -57,7 +57,19 @@ export const Disabled: Story = {
 export const Empty: Story = {
   args: {
     text: ''
-  }
+  },
+  render: ({ checked, disabled, reverse, size, text, value }) => html`
+    <sl-switch
+      aria-label="test"
+      ?checked=${checked}
+      ?disabled=${disabled}
+      ?reverse=${reverse}
+      .size=${size}
+      .value=${value}
+    >
+      ${text}
+    </sl-switch>
+  `
 };
 
 export const Overflow: Story = {

@@ -1021,12 +1021,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   #updateValue(): void {
     const values = Array.from(this.#selection.selection.values()).map(o => o.value);
 
-    if (this.multiple) {
-      this.value = values;
-    } else {
-      this.value = values.at(0);
-    }
-
+    this.value = this.multiple ? values : values.at(0);
     this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();

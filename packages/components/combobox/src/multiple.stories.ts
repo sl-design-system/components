@@ -181,6 +181,16 @@ export const SelectOnly: Story = {
   }
 };
 
+export const Selected: Story = {
+  args: {
+    options: html`
+      <sl-option>Lorem</sl-option>
+      <sl-option selected>Ipsum</sl-option>
+      <sl-option selected>Dolar</sl-option>
+    `
+  }
+};
+
 export const Stacked: Story = {
   args: {
     ...Basic.args,

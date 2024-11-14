@@ -499,6 +499,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && this.allowCustomValues && this.currentOption === this.createCustomOption) {
       this.#addCustomOption(this.input.value);
+    } else if (event.key === 'Enter' && this.currentOption?.tagName === 'sl-combobox-custom-option') {
+      this.#removeCustomOption(this.currentOption);
+      this.#updateTextFieldValue();
     } else if (event.key === 'Enter' && this.currentOption) {
       this.#toggleSelected(this.currentOption);
       this.#updateFilteredOptions();
@@ -563,7 +566,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (optionElement instanceof CreateCustomOption) {
       this.#addCustomOption(optionElement.value as string);
     } else if (optionElement instanceof CustomOption) {
-      // this.#removeCustomOption(this.options.find(o => o.id === optionElement.id));
+      this.#removeCustomOption(this.#options.find(o => o.id === optionElement.id));
       this.#updateTextFieldValue();
     } else if (optionElement?.id) {
       const option = this.#options.find(o => o.id === optionElement.id);
@@ -643,10 +646,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   #onToggle(event: ToggleEvent): void {
     if (event.newState === 'open') {
       if (!this.multiple && this.#selection.selection.size) {
-        const option = Array.from(this.#selection.selection.values())[0],
-          index = this.#options.indexOf(option);
+        const option = Array.from(this.#selection.selection.values())[0];
 
-        this.listbox?.scrollToIndex(index);
+        this.listbox?.scrollToIndex(this.#options.indexOf(option));
       }
     } else {
       this.#popoverJustClosed = false;
@@ -654,30 +656,64 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #addCustomOption(value: string): void {
-    // const option = {} as T;
-    // setValueByPath(option, this.optionLabelPath!, value as Path<T, PathKeys<T>>);
-    // setValueByPath(option, this.optionValuePath!, value as Path<T, PathKeys<T>>);
+    let model: T | undefined = undefined;
+    if (this.optionLabelPath) {
+      model = {} as T;
+      setValueByPath(model, this.optionLabelPath, value as Path<T, PathKeys<T>>);
 
-    const element = this.shadowRoot!.createElement('sl-combobox-custom-option');
-    element.id = `sl-combobox-custom-option-${nextUniqueId++}`;
-    element.selected = true;
-    element.textContent = value;
-    element.value = value;
-    this.listbox?.prepend(element);
+      if (this.optionValuePath) {
+        setValueByPath(model, this.optionValuePath, value as Path<T, PathKeys<T>>);
+      }
+    } else {
+      model = value as unknown as T;
+    }
+
+    const option: ComboboxOption<T, U> = {
+      id: `sl-combobox-custom-option-${nextUniqueId++}`,
+      label: value,
+      option: model,
+      tagName: 'sl-combobox-custom-option',
+      value: value as U,
+      visible: true
+    };
+
+    this.#selection.select(option);
+    this.#options = [option, ...this.#options];
+
+    if (this.#useVirtualList) {
+      this.listbox!.options = this.#options;
+    } else {
+      option.element ||= this.shadowRoot!.createElement('sl-combobox-custom-option');
+      option.element.id = option.id;
+      option.element.selected = true;
+      option.element.textContent = value;
+      option.element.value = value;
+
+      if (!option.element.parentElement) {
+        this.listbox?.prepend(option.element);
+      }
+    }
 
     this.#updateCreateCustomOption();
-    // this.#updateCurrent(currentOption);
+    this.#updateCurrent(option);
     this.#updateTextFieldValue();
     this.#updateValue();
   }
 
-  // #removeCustomOption(option?: ComboboxOption): void {
-  //   if (!option) {
-  //     return;
-  //   }
+  #removeCustomOption(option?: ComboboxOption): void {
+    if (!option) {
+      return;
+    }
 
-  //   option.element?.remove();
-  // }
+    this.#options = this.#options.filter(o => o !== option);
+    this.#selection.deselect(option);
+
+    if (this.#useVirtualList) {
+      this.listbox!.options = this.#options;
+    } else {
+      option.element?.remove();
+    }
+  }
 
   #flattenOptions(el: Element): Array<Option<T>> {
     if (el instanceof Option) {

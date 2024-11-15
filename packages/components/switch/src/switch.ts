@@ -32,6 +32,13 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   static formAssociated = true;
 
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-label', 'aria-labelledby'];
+  }
+
+  //static override observedAttributes = [...(super.observedAttributes || []), 'slot'];
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
@@ -58,26 +65,27 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
 
-  /** Observe aria-label, aria-labelledby... */
-  #observer = new MutationObserver(mutations => {
-    // const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
-    //
-    // this.#observer.disconnect();
-    // this.#setSelectedOption(target as Radio<T>);
-    // this.#observer.observe(this, OBSERVER_OPTIONS);
-    console.log('mutations', mutations);
-
-    for (const mutation of mutations) {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'aria-label') {
-        const ariaLabel = this.getAttribute('aria-label');
-        const input = this.shadowRoot?.querySelector('input');
-        console.log('ariaLabel in mutation observer', ariaLabel, input, this.input);
-        if (input && ariaLabel) {
-          input.setAttribute('aria-label', ariaLabel);
-        }
-      }
-    }
-  });
+  // /** Observe aria-label, aria-labelledby... */
+  // #observer = new MutationObserver(mutations => {
+  //   // const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+  //   //
+  //   // this.#observer.disconnect();
+  //   // this.#setSelectedOption(target as Radio<T>);
+  //   // this.#observer.observe(this, OBSERVER_OPTIONS);
+  //   console.log('mutations', mutations);
+  //
+  //   for (const mutation of mutations) {
+  //     console.log('mutation', mutation, mutation.target, (mutation.target as HTMLElement).ariaLabel);
+  //     if (mutation.type === 'attributes' && mutation.attributeName === 'aria-label') {
+  //       const ariaLabel = this.getAttribute('aria-label');
+  //       const input = this.shadowRoot?.querySelector('input');
+  //       console.log('ariaLabel in mutation observer', ariaLabel, input, this.input);
+  //       if (input && ariaLabel) {
+  //         input.setAttribute('aria-label', ariaLabel);
+  //       }
+  //     }
+  //   }
+  // });
 
   /** @internals Element internals. */
   readonly internals = this.attachInternals();
@@ -126,6 +134,93 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     this.checked = value === true || value === this.value;
   }
 
+  // static override get observedAttributes() {
+  //   return ['aria-label', 'aria-labelledby'];
+  // }
+  //
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.log(
+      'pre super attr changed',
+      name,
+      oldValue,
+      newValue,
+      this.input,
+      this.shadowRoot?.querySelector('input'),
+      this.renderRoot?.querySelector('input')
+    );
+    super.attributeChangedCallback(name, oldValue, newValue);
+    console.log(
+      'attr changed',
+      name,
+      oldValue,
+      newValue,
+      this.input,
+      this.shadowRoot?.querySelector('input'),
+      this.renderRoot?.querySelector('input'),
+      this.shadowRoot
+    );
+
+    requestAnimationFrame(() => {
+      console.log(
+        'RAF attr changed',
+        name,
+        oldValue,
+        newValue,
+        this.input,
+        this.shadowRoot?.querySelector('input'),
+        this.renderRoot?.querySelector('input'),
+        this.shadowRoot
+      );
+      // if (this.input) {
+      //   if (name === 'aria-label') {
+      //     this.input.setAttribute('aria-label', newValue || '');
+      //     // this.removeAttribute('aria-label');
+      //   } else if (name === 'aria-labelledby') {
+      //     this.input.setAttribute('aria-labelledby', newValue || '');
+      //     // this.removeAttribute('aria-labelledby');
+      //   }
+      // }
+
+      if (this.input && (name === 'aria-label' || name === 'aria-labelledby')) {
+        this.#updateAriaAttributes();
+      }
+    });
+
+    // const input = this.shadowRoot.querySelector('input');
+    // if (input) {
+    //   if (name === 'aria-label') {
+    //     input.setAttribute('aria-label', newValue);
+    //   } else if (name === 'aria-labelledby') {
+    //     input.setAttribute('aria-labelledby', newValue);
+    //   }
+    // }
+
+    if (this.isConnected) {
+      //   // Guarding with `isConnected` can be used here, but we also
+      //   // need to synchronise this state in the `connectedCallback` as well.
+      //   // this.update();
+      //
+      console.log('attr changed connected', name, oldValue, newValue, this.input);
+    }
+  }
+
+  #updateAriaAttributes() {
+    const input = this.shadowRoot?.querySelector('input');
+    console.log('input in update', input, this.input);
+    if (this.input) {
+      const ariaLabel = this.getAttribute('aria-label');
+      const ariaLabelledby = this.getAttribute('aria-labelledby');
+      if (ariaLabel !== null) {
+        this.input.setAttribute('aria-label', ariaLabel);
+        this.removeAttribute('aria-label');
+      }
+      if (ariaLabelledby !== null) {
+        this.input.setAttribute('aria-labelledby', ariaLabelledby);
+        this.removeAttribute('aria-labelledby');
+      }
+    }
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -161,11 +256,11 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     this.#onLabelSlotChange();
 
-    this.#observer.observe(this, { attributes: true, subtree: true }); // , attributeFilter: ['aria-label']
+    // this.#observer.observe(this, { attributes: true, subtree: false }); // , attributeFilter: ['aria-label']
   }
 
   override disconnectedCallback(): void {
-    this.#observer.disconnect();
+    // this.#observer.disconnect();
     super.disconnectedCallback();
   }
 
@@ -330,11 +425,9 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     input.id ||= `sl-switch-${nextUniqueId++}`;
     /** input type checkbox with role switch:  https://www.w3.org/WAI/ARIA/apg/patterns/switch/examples/switch-checkbox/ */
     input.role = 'switch';
-    // input.required = !!this.required;
 
     input.checked = !!this.checked;
-    // input.indeterminate = !!this.indeterminate;
-    // input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
+    input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
   }
 }
 

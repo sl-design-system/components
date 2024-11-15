@@ -60,7 +60,7 @@ export const Empty: Story = {
   },
   render: ({ checked, disabled, reverse, size, text, value }) => html`
     <sl-switch
-      aria-label="test"
+      aria-label="Switch with no label"
       ?checked=${checked}
       ?disabled=${disabled}
       ?reverse=${reverse}

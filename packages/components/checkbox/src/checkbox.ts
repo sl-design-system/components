@@ -30,6 +30,11 @@ let nextUniqueId = 0;
 @localized()
 export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
+  }
+
+  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
@@ -117,6 +122,16 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      if (this.input && (name === 'aria-disabled' || name === 'aria-label' || name === 'aria-labelledby')) {
+        this.#updateArias();
+      }
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -257,5 +272,18 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.checked = !!this.checked;
     input.indeterminate = !!this.indeterminate;
     input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
+  }
+
+  #updateArias(): void {
+    if (this.input) {
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
+      attributes.forEach(attr => {
+        const value = this.getAttribute(attr);
+        if (value !== null) {
+          this.input.setAttribute(attr, value);
+          this.removeAttribute(attr);
+        }
+      });
+    }
   }
 }

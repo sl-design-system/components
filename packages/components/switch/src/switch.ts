@@ -33,10 +33,8 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** @internal */
   static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-label', 'aria-labelledby'];
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
   }
-
-  //static override observedAttributes = [...(super.observedAttributes || []), 'slot'];
 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -64,31 +62,6 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** The label instance in the light DOM. */
   #label?: HTMLLabelElement;
-
-  // /** Observe aria-label, aria-labelledby... */
-  // #observer = new MutationObserver(mutations => {
-  //   // const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
-  //   //
-  //   // this.#observer.disconnect();
-  //   // this.#setSelectedOption(target as Radio<T>);
-  //   // this.#observer.observe(this, OBSERVER_OPTIONS);
-  //   console.log('mutations', mutations);
-  //
-  //   for (const mutation of mutations) {
-  //     console.log('mutation', mutation, mutation.target, (mutation.target as HTMLElement).ariaLabel);
-  //     if (mutation.type === 'attributes' && mutation.attributeName === 'aria-label') {
-  //       const ariaLabel = this.getAttribute('aria-label');
-  //       const input = this.shadowRoot?.querySelector('input');
-  //       console.log('ariaLabel in mutation observer', ariaLabel, input, this.input);
-  //       if (input && ariaLabel) {
-  //         input.setAttribute('aria-label', ariaLabel);
-  //       }
-  //     }
-  //   }
-  // });
-
-  /** @internals Element internals. */
-  readonly internals = this.attachInternals();
 
   /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -134,97 +107,8 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     this.checked = value === true || value === this.value;
   }
 
-  // static override get observedAttributes() {
-  //   return ['aria-label', 'aria-labelledby'];
-  // }
-  //
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.log(
-      'pre super attr changed',
-      name,
-      oldValue,
-      newValue,
-      this.input,
-      this.shadowRoot?.querySelector('input'),
-      this.renderRoot?.querySelector('input')
-    );
-    super.attributeChangedCallback(name, oldValue, newValue);
-    console.log(
-      'attr changed',
-      name,
-      oldValue,
-      newValue,
-      this.input,
-      this.shadowRoot?.querySelector('input'),
-      this.renderRoot?.querySelector('input'),
-      this.shadowRoot
-    );
-
-    requestAnimationFrame(() => {
-      console.log(
-        'RAF attr changed',
-        name,
-        oldValue,
-        newValue,
-        this.input,
-        this.shadowRoot?.querySelector('input'),
-        this.renderRoot?.querySelector('input'),
-        this.shadowRoot
-      );
-      // if (this.input) {
-      //   if (name === 'aria-label') {
-      //     this.input.setAttribute('aria-label', newValue || '');
-      //     // this.removeAttribute('aria-label');
-      //   } else if (name === 'aria-labelledby') {
-      //     this.input.setAttribute('aria-labelledby', newValue || '');
-      //     // this.removeAttribute('aria-labelledby');
-      //   }
-      // }
-
-      if (this.input && (name === 'aria-label' || name === 'aria-labelledby')) {
-        this.#updateAriaAttributes();
-      }
-    });
-
-    // const input = this.shadowRoot.querySelector('input');
-    // if (input) {
-    //   if (name === 'aria-label') {
-    //     input.setAttribute('aria-label', newValue);
-    //   } else if (name === 'aria-labelledby') {
-    //     input.setAttribute('aria-labelledby', newValue);
-    //   }
-    // }
-
-    if (this.isConnected) {
-      //   // Guarding with `isConnected` can be used here, but we also
-      //   // need to synchronise this state in the `connectedCallback` as well.
-      //   // this.update();
-      //
-      console.log('attr changed connected', name, oldValue, newValue, this.input);
-    }
-  }
-
-  #updateAriaAttributes() {
-    const input = this.shadowRoot?.querySelector('input');
-    console.log('input in update', input, this.input);
-    if (this.input) {
-      const ariaLabel = this.getAttribute('aria-label');
-      const ariaLabelledby = this.getAttribute('aria-labelledby');
-      if (ariaLabel !== null) {
-        this.input.setAttribute('aria-label', ariaLabel);
-        this.removeAttribute('aria-label');
-      }
-      if (ariaLabelledby !== null) {
-        this.input.setAttribute('aria-labelledby', ariaLabelledby);
-        this.removeAttribute('aria-labelledby');
-      }
-    }
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
-
-    // this.internals.role = 'switch';
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
@@ -248,20 +132,19 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       this.append(style);
     }
 
-    this.setFormControlElement(this.input /*this*/); // TODO: this.input instead of this?
-
-    // if (!this.hasAttribute('tabindex')) {
-    //   this.tabIndex = this.disabled ? -1 : 0;
-    // }
+    this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
-
-    // this.#observer.observe(this, { attributes: true, subtree: false }); // , attributeFilter: ['aria-label']
   }
 
-  override disconnectedCallback(): void {
-    // this.#observer.disconnect();
-    super.disconnectedCallback();
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      if (this.input && (name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-disabled')) {
+        this.#updateArias();
+      }
+    });
   }
 
   /** @ignore Stores the initial state of the switch */
@@ -278,15 +161,11 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.#updateValue();
+    this.updateValidity();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    // if (changes.has('checked')) {
-    //   this.internals.ariaChecked = this.checked ? 'true' : 'false';
-    // }
 
     const props: Array<keyof Switch> = ['checked', 'disabled']; // required???
 
@@ -301,21 +180,11 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     if (changes.has('value') && this.value !== this.input.value) {
       this.input.value = this.value?.toString() || '';
     }
-
-    // if (changes.has('disabled')) {
-    //   this.tabIndex = this.disabled ? -1 : 0;
-    // }
   }
 
   override render(): TemplateResult {
     const icon = this.checked ? this.iconOn || 'check' : this.iconOff || 'xmark',
       size = this.size === 'md' ? 'xs' : 'md';
-
-    console.log('switch', this, this.getAttribute('aria-describedby'), this.hasAttribute('aria-describedby'));
-
-    // if (this.hasAttribute('aria-describedby')) {
-    //   this.internals.ariaDescription =  this.getAttribute('aria-describedby');
-    // }
 
     return html`
       <slot></slot>
@@ -327,7 +196,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
         </div>
       </div>
     `;
-  } // TODO: aria-disabled aria-required...
+  }
 
   override focus(): void {
     this.input.focus();
@@ -342,15 +211,13 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       this.input.click();
     }
 
-    // event.preventDefault();
     event.stopPropagation();
 
     this.checked = !this.checked;
     this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
-
-    this.#updateValue();
+    this.updateValidity();
   }
 
   #onFocusin(): void {
@@ -368,12 +235,6 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       event.stopPropagation();
       this.#onClick(event);
     }
-  }
-
-  #updateValue(): void {
-    this.internals.setFormValue(this.nativeFormValue);
-
-    this.updateValidity();
   }
 
   #onInputSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -398,14 +259,15 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
           !(node instanceof HTMLStyleElement))
     );
 
-    console.log('nodes and label', nodes, this.#label);
-
     if (!nodes.length && this.#label) {
       // Prevent an infinite loop
       return;
     }
 
-    const label = nodes.map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node)).join(' ');
+    const label = nodes
+      .map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node))
+      .join(' ')
+      .trim();
     if (label.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
@@ -414,9 +276,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       this.append(this.#label);
     }
 
-    console.log('this.#label', this.#label, label);
-
-    //  this.toggleAttribute('no-label', label.length === 0);
+    this.toggleAttribute('no-label', label.length === 0);
   }
 
   #syncInput(input: HTMLInputElement): void {
@@ -429,10 +289,20 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     input.checked = !!this.checked;
     input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
   }
+
+  #updateArias(): void {
+    if (this.input) {
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
+      attributes.forEach(attr => {
+        const value = this.getAttribute(attr);
+        if (value !== null) {
+          this.input.setAttribute(attr, value);
+          this.removeAttribute(attr);
+        }
+      });
+    }
+  }
 }
 
-// TODO: what about aria-label added by a user?
-// not working with aria-describedby yet
-
-// TODO: improve aria-describedby when should be double id inserted
 // TODO: unit testing
+// TODO: aria-label, aria-labelledby, aria-required and aria-disabled for textarea and text field

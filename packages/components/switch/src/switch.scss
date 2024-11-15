@@ -80,10 +80,14 @@ $sizes: sm, md, lg;
   order: -1;
 }
 
+:host([no-label]) {
+  .label {
+    display: none;
+  }
+}
+
 [part='track']:focus-visible {
   outline: var(--_focus-outline);
-
-  // outline-offset: var(--_focus-outline-offset);
 }
 
 ::slotted(input) {

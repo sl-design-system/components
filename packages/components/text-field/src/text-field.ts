@@ -31,6 +31,11 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   ScopedElementsMixin(LitElement)
 ) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+  }
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
@@ -132,6 +137,19 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     }
 
     this.setFormControlElement(this.input);
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      if (
+        this.input &&
+        (name === 'aria-disabled' || name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-required')
+      ) {
+        this.#updateArias();
+      }
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -287,6 +305,19 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     this.input.addEventListener('focus', () => this.#onFocus());
     this.updateInputElement(this.input);
     this.setFormControlElement(this.input);
+  }
+
+  #updateArias(): void {
+    if (this.input) {
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+      attributes.forEach(attr => {
+        const value = this.getAttribute(attr);
+        if (value !== null) {
+          this.input.setAttribute(attr, value);
+          this.removeAttribute(attr);
+        }
+      });
+    }
   }
 
   /** @internal Synchronize the input element with the component properties. */

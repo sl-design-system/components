@@ -194,7 +194,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @type {`NodeListOf<HTMLLabelElement>` | null}
      */
     get labels(): NodeListOf<HTMLLabelElement> | null {
-      console.log('this.formControlElement', this.formControlElement, isNative(this.formControlElement));
       if (isNative(this.formControlElement)) {
         return this.formControlElement.labels;
       } else {

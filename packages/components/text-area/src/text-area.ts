@@ -31,6 +31,11 @@ let nextUniqueId = 0;
 @localized()
 export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+  }
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
@@ -130,6 +135,19 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     this.#observer.disconnect();
 
     super.disconnectedCallback();
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      if (
+        this.textarea &&
+        (name === 'aria-disabled' || name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-required')
+      ) {
+        this.#updateArias();
+      }
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -243,6 +261,19 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
       textarea.setAttribute('minlength', this.minLength.toString());
     } else {
       textarea.removeAttribute('minlength');
+    }
+  }
+
+  #updateArias(): void {
+    if (this.textarea) {
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+      attributes.forEach(attr => {
+        const value = this.getAttribute(attr);
+        if (value !== null) {
+          this.textarea.setAttribute(attr, value);
+          this.removeAttribute(attr);
+        }
+      });
     }
   }
 }

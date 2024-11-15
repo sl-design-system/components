@@ -104,7 +104,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   }
 
   override set formValue(value: T | null) {
-    this.checked = value === true || value === this.value;
+    this.checked = value === this.value || (this.value === undefined && value === true);
   }
 
   override connectedCallback(): void {
@@ -167,7 +167,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    const props: Array<keyof Switch> = ['checked', 'disabled']; // required???
+    const props: Array<keyof Switch> = ['checked', 'disabled'];
 
     if (props.some(prop => changes.has(prop))) {
       this.#syncInput(this.input);
@@ -303,6 +303,3 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     }
   }
 }
-
-// TODO: unit testing
-// TODO: aria-label, aria-labelledby, aria-required and aria-disabled for textarea and text field

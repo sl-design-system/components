@@ -15,7 +15,8 @@ declare global {
  *
  * @slot default - The option's label.
  */
-export class Option extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -32,8 +33,19 @@ export class Option extends ScopedElementsMixin(LitElement) {
   /** Whether this option is selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @property() value?: any;
+  override get textContent(): string | null {
+    return this.#getSlottedTextContent();
+  }
+
+  override set textContent(value: string | null) {
+    super.textContent = value;
+  }
+
+  /**
+   * The value for this option. If not explicitly set,
+   * it will use the text content as the value.
+   */
+  @property() value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -50,5 +62,15 @@ export class Option extends ScopedElementsMixin(LitElement) {
         </div>
       </div>
     `;
+  }
+
+  #getSlottedTextContent(): string | null {
+    const nodes =
+      this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ?? Array.from(this.childNodes);
+
+    return nodes
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent)
+      .join('');
   }
 }

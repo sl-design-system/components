@@ -142,9 +142,17 @@ export const Grouped: Story = {
   }
 };
 
-export const GroupSelected: Story = {
+export const GroupedWithGroupSelected: Story = {
   args: {
     ...Grouped.args,
+    groupSelected: true,
+    value: ['Button bar', 'Checkbox']
+  }
+};
+
+export const GroupSelected: Story = {
+  args: {
+    ...Basic.args,
     groupSelected: true,
     value: ['Button bar', 'Checkbox']
   }

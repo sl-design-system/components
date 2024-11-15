@@ -122,7 +122,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   #popoverJustClosed = false;
 
   /** The group that contains all the selected options when `groupSelected` is set. */
-  // #selectedGroup?: SelectedGroup;
+  #selectedGroup?: SelectedGroup;
 
   /** Manage the selected state of the options. */
   #selection = new SelectionController<ComboboxOption<T, U>>(this);
@@ -298,11 +298,18 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.readOnly = this.selectOnly ?? this.autocomplete === 'off';
     }
 
-    if (changes.has('currentOption') || changes.has('groupSelected') || changes.has('listbox')) {
+    if (changes.has('groupSelected')) {
+      if (this.#selectedGroup) {
+        this.#selectedGroup.remove();
+        this.#selectedGroup = undefined;
+      } else {
+        this.#selectedGroup = this.shadowRoot!.createElement('sl-combobox-selected-group');
+        this.#selectedGroup.addEventListener('click', this.#onOptionsClick);
+        this.listbox?.prepend(this.#selectedGroup);
+      }
+
       // if (this.groupSelected && this.currentSelection.length) {
       //   if (!this.#selectedGroup) {
-      //     this.#selectedGroup = this.shadowRoot!.createElement('sl-combobox-selected-group');
-      //     this.#selectedGroup.addEventListener('click', this.#onOptionsClick);
       //   }
       //   this.#selectedGroup.currentOption = this.currentOption;
       //   this.#selectedGroup.hasGroups = !!this.listbox?.querySelector('sl-option-group');
@@ -610,6 +617,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       if (!this.#selection.isSelected(option)) {
         this.#toggleSelected(option, false);
       }
+    }
+
+    if (this.#selectedGroup) {
+      this.#selectedGroup.options = Array.from(this.#selection.selection.values());
     }
 
     if (!this.multiple) {
@@ -940,11 +951,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
             this.optionValuePath ??= 'value' as PathKeys<T>;
 
             const label = el.textContent?.trim(),
-              value = (el.value ?? label) as U;
+              value = (el.value ?? label) as U,
+              group = el.closest('sl-option-group')?.label || undefined;
 
             const option: ComboboxOption<T, U> = {
               id: el.id,
               element: el,
+              group,
               label,
               option: {
                 [this.optionLabelPath || 'label']: label,
@@ -975,6 +988,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           this.#updateValue();
         } else {
           this.#updateSelected();
+        }
+
+        if (this.#selectedGroup) {
+          if (!this.#selectedGroup?.parentElement) {
+            this.listbox?.prepend(this.#selectedGroup);
+          }
+
+          this.#selectedGroup.hasGroups = !!this.listbox.querySelector('sl-option-group');
+          this.#selectedGroup.options = Array.from(this.#selection.selection.values());
         }
       }
     } else {

@@ -114,7 +114,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       this.append(style);
     }
 
-    this.setAttribute('role', 'checkbox');
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
@@ -180,10 +179,14 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       return;
     }
 
-    event.preventDefault();
+    if (event.target instanceof HTMLLabelElement) {
+      this.input.click();
+    }
+
     event.stopPropagation();
 
     this.checked = !this.checked;
+    this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
     this.updateValidity();
@@ -200,6 +203,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
       this.#onClick(event);
     }
   }
@@ -249,8 +254,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.id ||= `sl-checkbox-${nextUniqueId++}`;
     input.required = !!this.required;
 
-    input.toggleAttribute('checked', !!this.checked);
-    input.toggleAttribute('indeterminate', !!this.indeterminate);
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    input.checked = !!this.checked;
+    input.indeterminate = !!this.indeterminate;
+    input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
   }
 }

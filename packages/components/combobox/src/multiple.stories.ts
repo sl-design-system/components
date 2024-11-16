@@ -118,7 +118,15 @@ export const FilterResults: Story = {
   }
 };
 
-export const Grouped: Story = {
+export const GroupSelected: Story = {
+  args: {
+    ...Basic.args,
+    groupSelected: true,
+    value: ['Button bar', 'Checkbox']
+  }
+};
+
+export const Groups: Story = {
   args: {
     options: html`
       <sl-option-group label="Actions">
@@ -142,17 +150,9 @@ export const Grouped: Story = {
   }
 };
 
-export const GroupedWithGroupSelected: Story = {
+export const GroupsWithGroupSelected: Story = {
   args: {
-    ...Grouped.args,
-    groupSelected: true,
-    value: ['Button bar', 'Checkbox']
-  }
-};
-
-export const GroupSelected: Story = {
-  args: {
-    ...Basic.args,
+    ...Groups.args,
     groupSelected: true,
     value: ['Button bar', 'Checkbox']
   }

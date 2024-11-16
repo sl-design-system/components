@@ -19,7 +19,7 @@
   background: var(--sl-color-action-background-accent-subtle-active);
 }
 
-:host(:not(:first-of-type)) {
+:host(:not(:first-child)) {
   margin-block-start: var(--sl-space-new-2xs);
 }
 

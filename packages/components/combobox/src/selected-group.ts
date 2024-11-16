@@ -4,7 +4,7 @@ import { Option, OptionGroup } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { type ComboboxOption } from './combobox';
+import { type ComboboxItem } from './combobox';
 import styles from './selected-group.scss.js';
 
 declare global {
@@ -19,8 +19,9 @@ declare global {
 @localized()
 export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
   /** @internal */
-  static get scopedElements(): ScopedElementsMap {
+  static override get scopedElements(): ScopedElementsMap {
     return {
+      ...super.scopedElements,
       'sl-option': Option
     };
   }
@@ -29,13 +30,13 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
   static override styles: CSSResultGroup = [OptionGroup.styles, styles];
 
   /** The current option. */
-  @property({ attribute: false }) currentOption?: ComboboxOption;
+  @property({ attribute: false }) currentOption?: ComboboxItem;
 
   /** Indicates whether the options are grouped. */
   @property({ type: Boolean, reflect: true, attribute: 'has-groups' }) hasGroups?: boolean;
 
   /** The selected options to be displayed. */
-  @property({ attribute: false }) options: ComboboxOption[] = [];
+  @property({ attribute: false }) options: ComboboxItem[] = [];
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -52,13 +52,20 @@ export class Tab extends LitElement {
 
     this.setAttribute('role', 'tab');
     this.slot ||= 'tabs';
+
+    // if (!this.hasAttribute('tabindex')) {
+    //    this.setAttribute('tabindex', '0');
+    // }
   }
 
   override render(): TemplateResult {
     return this.href
       ? html`<a href=${this.href}>${this.renderContent()}</a>`
       : html`<div .tabIndex=${this.selected ? 0 : -1} class="wrapper">${this.renderContent()}</div>`;
-  }
+  } // .tabIndex=${this.selected ? 0 : -1}
+
+  // TODO: test with links as well!!
+  // TODO: role tab to the wrapper div should be added? --- to a focusable element...
 
   /** @ignore */
   renderContent(): TemplateResult {
@@ -79,6 +86,7 @@ export class Tab extends LitElement {
 
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+      //this.setAttribute('tabindex', this.selected ? '0' : '-1');
     }
   }
 
@@ -102,6 +110,8 @@ export class Tab extends LitElement {
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const nodes = event.target.assignedNodes({ flatten: true }),
       hasTitle = nodes.some(node => !!node.textContent?.trim());
+
+    console.log('nodes tag', nodes);
 
     this.toggleAttribute('has-title', hasTitle);
   }

@@ -123,7 +123,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<Tab>(this, {
-    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
+    // focusInIndex: ((elements: Tab[]) => elements.findIndex(el => el.selected) )|| 0,
+    focusInIndex: (elements: Tab[]) => {
+      const index = elements.findIndex(el => el.selected);
+      return index === -1 ? 0 : index;
+    },
+    // focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected) ?? 0,
     elements: () => this.tabs || [],
     isFocusableElement: (el: Tab) => !el.disabled
   });
@@ -201,7 +206,15 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  // TODO: role tablist should be added to the different place?
+
   override render(): TemplateResult {
+    console.log(
+      'rovingTabindexController',
+      this.#rovingTabindexController,
+      this.#rovingTabindexController.focusInIndex,
+      this.selectedTab
+    );
     return html`
       <div part="container">
         <div part="wrapper">
@@ -291,6 +304,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     });
 
     this.selectedTab = this.tabs.find(tab => tab.selected);
+
+    if (!this.selectedTab) {
+      console.log('no selected', this.selectedTab, this.tabs[0]);
+      this.tabs[0].setAttribute('tabindex', '0');
+    }
+
+    console.log('selected??', this.selectedTab, this.tabs[0]);
 
     this.#rovingTabindexController.clearElementCache();
     this.#linkTabsWithPanels();

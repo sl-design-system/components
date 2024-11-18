@@ -284,6 +284,23 @@ describe('sl-text-field', () => {
     });
   });
 
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      input = el.querySelector('input')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(input).to.have.attribute('aria-label', 'my label');
+      expect(input).to.have.attribute('aria-disabled', 'true');
+    });
+  });
+
   describe('invalid', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-field required></sl-text-field>`);

@@ -31,6 +31,11 @@ let nextUniqueId = 0;
 @localized()
 export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+  }
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
@@ -78,7 +83,7 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
-  /** Placeholder text in the input. */
+  /** Placeholder text in the textarea. */
   @property() placeholder?: string;
 
   /** Whether you can interact with the textarea or if it is just a static, readonly display. */
@@ -130,6 +135,23 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     this.#observer.disconnect();
 
     super.disconnectedCallback();
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+      if (this.textarea && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.textarea.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
+      }
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {

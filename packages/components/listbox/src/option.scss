@@ -1,5 +1,8 @@
 :host {
   color: var(--sl-color-text-default);
+  display: block;
+  inline-size: calc(100% - var(--sl-space-new-md) * 2);
+  margin-inline: var(--sl-space-new-md);
   user-select: none;
 }
 
@@ -15,6 +18,18 @@
   background: var(--sl-color-action-background-accent-subtle-active);
 }
 
+:host(:not(:first-of-type)) {
+  margin-block-start: var(--sl-space-new-2xs);
+}
+
+:host([first]) {
+  margin-block-start: var(--sl-space-new-md);
+}
+
+:host([last]) {
+  margin-block-end: var(--sl-space-new-md);
+}
+
 :host([disabled]) {
   color: var(--sl-color-text-disabled);
   cursor: default;
@@ -28,6 +43,12 @@
   display: flex;
   gap: var(--sl-space-new-md);
   padding: var(--sl-space-new-sm) var(--sl-space-new-md);
+}
+
+[part='wrapper'] {
+  align-items: center;
+  display: flex;
+  flex: 1;
 }
 
 sl-icon {

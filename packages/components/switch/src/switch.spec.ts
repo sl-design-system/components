@@ -108,7 +108,7 @@ describe('sl-switch', () => {
 
     it('should be touched after losing focus', () => {
       el.focus();
-      input.blur();
+      el.blur();
 
       expect(el.touched).to.be.true;
     });
@@ -118,7 +118,7 @@ describe('sl-switch', () => {
 
       el.addEventListener('sl-update-state', onUpdateState);
       el.focus();
-      input.blur();
+      el.blur();
 
       await el.updateComplete;
 
@@ -170,7 +170,7 @@ describe('sl-switch', () => {
 
       el.addEventListener('sl-blur', onBlur);
       el.focus();
-      input.blur();
+      el.blur();
 
       expect(onBlur).to.have.been.calledOnce;
     });
@@ -395,7 +395,7 @@ describe('sl-switch', () => {
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-            <sl-switch checked value="toggled"></sl-switch>
+            <sl-switch checked></sl-switch>
           </form>
         `);
 

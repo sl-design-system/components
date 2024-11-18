@@ -123,7 +123,7 @@ describe('sl-checkbox', () => {
 
     it('should be touched after losing focus', async () => {
       el.focus();
-      input.blur();
+      el.blur();
 
       await new Promise(resolve => setTimeout(resolve));
 
@@ -135,7 +135,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-update-state', onUpdateState);
       el.focus();
-      input.blur();
+      el.blur();
 
       await new Promise(resolve => setTimeout(resolve));
 
@@ -231,7 +231,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-blur', onBlur);
       el.focus();
-      input.blur();
+      el.blur();
 
       expect(onBlur).to.have.been.calledOnce;
     });

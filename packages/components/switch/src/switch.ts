@@ -141,8 +141,15 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     super.attributeChangedCallback(name, oldValue, newValue);
 
     requestAnimationFrame(() => {
-      if (this.input && (name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-disabled')) {
-        this.#updateArias();
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
+      if (this.input && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.input.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
       }
     });
   }
@@ -200,6 +207,10 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   override focus(): void {
     this.input.focus();
+  }
+
+  override blur(): void {
+    this.input.blur();
   }
 
   #onClick(event: Event): void {
@@ -288,18 +299,5 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     input.checked = !!this.checked;
     input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
-  }
-
-  #updateArias(): void {
-    if (this.input) {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
-      attributes.forEach(attr => {
-        const value = this.getAttribute(attr);
-        if (value !== null) {
-          this.input.setAttribute(attr, value);
-          this.removeAttribute(attr);
-        }
-      });
-    }
   }
 }

@@ -128,8 +128,15 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     super.attributeChangedCallback(name, oldValue, newValue);
 
     requestAnimationFrame(() => {
-      if (this.input && (name === 'aria-disabled' || name === 'aria-label' || name === 'aria-labelledby')) {
-        this.#updateArias();
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
+      if (this.input && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.input.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
       }
     });
   }
@@ -179,6 +186,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   override focus(): void {
     this.input.focus();
+  }
+
+  override blur(): void {
+    this.input.blur();
   }
 
   override getLocalizedValidationMessage(): string {
@@ -272,18 +283,5 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.checked = !!this.checked;
     input.indeterminate = !!this.indeterminate;
     input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
-  }
-
-  #updateArias(): void {
-    if (this.input) {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
-      attributes.forEach(attr => {
-        const value = this.getAttribute(attr);
-        if (value !== null) {
-          this.input.setAttribute(attr, value);
-          this.removeAttribute(attr);
-        }
-      });
-    }
   }
 }

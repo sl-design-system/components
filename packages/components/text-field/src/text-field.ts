@@ -143,11 +143,15 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     super.attributeChangedCallback(name, oldValue, newValue);
 
     requestAnimationFrame(() => {
-      if (
-        this.input &&
-        (name === 'aria-disabled' || name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-required')
-      ) {
-        this.#updateArias();
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+      if (this.input && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.input.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
       }
     });
   }
@@ -305,19 +309,6 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     this.input.addEventListener('focus', () => this.#onFocus());
     this.updateInputElement(this.input);
     this.setFormControlElement(this.input);
-  }
-
-  #updateArias(): void {
-    if (this.input) {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
-      attributes.forEach(attr => {
-        const value = this.getAttribute(attr);
-        if (value !== null) {
-          this.input.setAttribute(attr, value);
-          this.removeAttribute(attr);
-        }
-      });
-    }
   }
 
   /** @internal Synchronize the input element with the component properties. */

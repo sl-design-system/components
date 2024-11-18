@@ -83,7 +83,7 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
-  /** Placeholder text in the input. */
+  /** Placeholder text in the textarea. */
   @property() placeholder?: string;
 
   /** Whether you can interact with the textarea or if it is just a static, readonly display. */
@@ -141,11 +141,15 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     super.attributeChangedCallback(name, oldValue, newValue);
 
     requestAnimationFrame(() => {
-      if (
-        this.textarea &&
-        (name === 'aria-disabled' || name === 'aria-label' || name === 'aria-labelledby' || name === 'aria-required')
-      ) {
-        this.#updateArias();
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+      if (this.textarea && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.textarea.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
       }
     });
   }
@@ -261,19 +265,6 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
       textarea.setAttribute('minlength', this.minLength.toString());
     } else {
       textarea.removeAttribute('minlength');
-    }
-  }
-
-  #updateArias(): void {
-    if (this.textarea) {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
-      attributes.forEach(attr => {
-        const value = this.getAttribute(attr);
-        if (value !== null) {
-          this.textarea.setAttribute(attr, value);
-          this.removeAttribute(attr);
-        }
-      });
     }
   }
 }

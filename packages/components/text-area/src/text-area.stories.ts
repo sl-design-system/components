@@ -255,7 +255,12 @@ export const All: StoryObj = {
             ></sl-text-area>
           </div>
           <div class="wrapper">
-            <sl-text-area aria-label="label" show-validity="valid" size=${size} value="I am md valid"></sl-text-area>
+            <sl-text-area
+              aria-label="label"
+              show-validity="valid"
+              size=${size}
+              value="I am ${size} valid"
+            ></sl-text-area>
             <sl-text-area
               aria-label="label"
               disabled

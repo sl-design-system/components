@@ -73,6 +73,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // #events = new EventsController(this);
+
   /** Unique prefix ID for each component in the light DOM. */
   #idPrefix = `sl-tab-group-${nextUniqueId++}`;
 
@@ -128,6 +130,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       const index = elements.findIndex(el => el.selected);
       return index === -1 ? 0 : index;
     },
+    // focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
     // focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected) ?? 0,
     elements: () => this.tabs || [],
     isFocusableElement: (el: Tab) => !el.disabled
@@ -174,6 +177,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // changes size for example when fonts are loaded. The
       // other elements do not change size while the tablist does.
       this.#resizeObserver.observe(tablist);
+
+      //  this.#events.listen(this, 'keydown', this.#onKeydown);
     });
   }
 
@@ -216,13 +221,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.selectedTab
     );
     return html`
-      <div part="container">
+      <div part="container" @keydown=${this.#onKeydown}>
         <div part="wrapper">
           <div class="fade-container">
             <div class="fade fade-start"></div>
             <div class="fade fade-end"></div>
             <div @scroll=${this.#onScroll} part="scroller">
-              <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
+              <div @click=${this.#onClick} part="tablist" role="tablist">
                 <span class="indicator" role="presentation"></span>
                 <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
@@ -251,6 +256,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  // override focus(): void {
+  //   this.#rovingTabindexController.focus();
+  // }
+
   #onClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
 
@@ -264,6 +273,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
+
+    console.log('keydown, tab', event, event.target, tab);
+
+    console.log('keydown activeElement', event.key, document.activeElement);
 
     if (tab && ['Enter', ' '].includes(event.key)) {
       this.#updateSelectedTab(tab);

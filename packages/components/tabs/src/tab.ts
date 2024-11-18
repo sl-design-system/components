@@ -28,7 +28,7 @@ declare global {
  */
 export class Tab extends LitElement {
   /** @internal */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+  // static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -54,14 +54,14 @@ export class Tab extends LitElement {
     this.slot ||= 'tabs';
 
     // if (!this.hasAttribute('tabindex')) {
-    //    this.setAttribute('tabindex', '0');
+    //   this.setAttribute('tabindex', '0');
     // }
   }
 
   override render(): TemplateResult {
     return this.href
       ? html`<a href=${this.href}>${this.renderContent()}</a>`
-      : html`<div .tabIndex=${this.selected ? 0 : -1} class="wrapper">${this.renderContent()}</div>`;
+      : html`<div class="wrapper">${this.renderContent()}</div>`;
   } // .tabIndex=${this.selected ? 0 : -1}
 
   // TODO: test with links as well!!

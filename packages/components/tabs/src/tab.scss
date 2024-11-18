@@ -81,12 +81,12 @@ a,
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
 
-  &:focus-visible {
-    border-radius: var(--_focus-radius);
-    outline: var(--_focus-outline);
-    outline-offset: calc(var(--_focus-outline-offset) * -1);
-    z-index: 1;
-  }
+  // &:focus-visible {
+  //  border-radius: var(--_focus-radius);
+  //  outline: var(--_focus-outline);
+  //  outline-offset: calc(var(--_focus-outline-offset) * -1);
+  //  z-index: 1;
+  // }
 }
 
 a {

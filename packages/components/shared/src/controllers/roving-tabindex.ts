@@ -9,6 +9,7 @@ interface UpdateTabIndexes {
 
 export class RovingTabindexController<T extends HTMLElement> extends FocusGroupController<T> {
   protected override set focused(focused: boolean) {
+    console.log('this.focused', this.focused);
     if (focused === this.focused) return;
     super.focused = focused;
     this.manageTabindexes();
@@ -44,10 +45,12 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
   }
 
   updateTabindexes(getTabIndex: (el: HTMLElement) => UpdateTabIndexes): void {
+    console.log('this.elements', this.elements);
     this.elements.forEach(el => {
       const { tabIndex, removeTabIndex } = getTabIndex(el);
       if (!removeTabIndex) {
         el.tabIndex = tabIndex;
+        console.log('eeel !removeTabIndex', el);
         return;
       }
       el.removeAttribute('tabindex');
@@ -55,6 +58,7 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
         requestUpdate?(): void;
       };
       if (updatable.requestUpdate) updatable.requestUpdate();
+      console.log('eeel removeTabIndex', el);
     });
   }
 

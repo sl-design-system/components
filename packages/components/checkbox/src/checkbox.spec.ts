@@ -123,7 +123,7 @@ describe('sl-checkbox', () => {
 
     it('should be touched after losing focus', async () => {
       el.focus();
-      input.blur();
+      el.blur();
 
       await new Promise(resolve => setTimeout(resolve));
 
@@ -135,7 +135,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-update-state', onUpdateState);
       el.focus();
-      input.blur();
+      el.blur();
 
       await new Promise(resolve => setTimeout(resolve));
 
@@ -231,7 +231,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-blur', onBlur);
       el.focus();
-      input.blur();
+      el.blur();
 
       expect(onBlur).to.have.been.calledOnce;
     });
@@ -292,6 +292,23 @@ describe('sl-checkbox', () => {
 
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
+    });
+  });
+
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-checkbox aria-label="my checkbox label" aria-disabled="true"></sl-checkbox>`);
+      input = el.querySelector('input')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my checkbox label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(input).to.have.attribute('aria-label', 'my checkbox label');
+      expect(input).to.have.attribute('aria-disabled', 'true');
     });
   });
 

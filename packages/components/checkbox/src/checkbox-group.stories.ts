@@ -114,6 +114,18 @@ export const WithoutValues: Story = {
   }
 };
 
+export const NoLabel: Story = {
+  render: () => {
+    return html`
+      <sl-checkbox-group aria-label="Choose at least one option">
+        <sl-checkbox value="1">One</sl-checkbox>
+        <sl-checkbox value="2">Two</sl-checkbox>
+        <sl-checkbox value="3">Three</sl-checkbox>
+      </sl-checkbox-group>
+    `;
+  }
+};
+
 export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',

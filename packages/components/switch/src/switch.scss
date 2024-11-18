@@ -80,9 +80,27 @@ $sizes: sm, md, lg;
   order: -1;
 }
 
-:host(:focus-within) .track:focus-visible {
+:host([no-label]) {
+  .label {
+    display: none;
+  }
+}
+
+[part='track']:focus-visible {
   outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+}
+
+::slotted(input) {
+  block-size: 1px;
+  inline-size: 1px;
+  opacity: 0;
+  outline: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+::slotted(label) {
+  cursor: pointer;
 }
 
 slot {
@@ -98,7 +116,7 @@ slot {
   padding: var(--_toggle-container-padding);
 }
 
-.track {
+[part='track'] {
   background-color: var(--_main-background-color);
   border-radius: var(--_track-radius);
   box-shadow: var(--_box-shadow);
@@ -106,6 +124,7 @@ slot {
   inline-size: var(--_toggle-width);
   outline: none;
   outline-color: transparent;
+  outline-offset: var(--_focus-outline-offset);
   padding: var(--_toggle-padding);
 
   @media (prefers-reduced-motion: no-preference) {
@@ -114,7 +133,7 @@ slot {
   }
 }
 
-.track div {
+[part='track'] div {
   background-color: var(--_handle-color);
   block-size: var(--_handle-size);
   border-radius: calc(var(--_handle-size) / 2);

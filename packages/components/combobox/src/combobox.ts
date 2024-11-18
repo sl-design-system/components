@@ -8,8 +8,6 @@ import {
   EventsController,
   type Path,
   type PathKeys,
-  SelectionController,
-  type SlSelectionChangeEvent,
   anchor,
   event,
   getStringByPath,
@@ -88,10 +86,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   static viewportMargin = 8;
 
   /** Event controller. */
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    'sl-selection-change': this.#onSelectionChange
-  });
+  #events = new EventsController(this, { click: this.#onClick });
 
   /** Message element for when filtering results did not yield any results. */
   #noMatch?: NoMatch;
@@ -120,9 +115,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** The group that contains all the selected options when `groupSelected` is set. */
   #selectedGroup?: SelectedGroup;
-
-  /** Manage the selected state of the options. */
-  #selection = new SelectionController<ComboboxItem<T, U>>(this);
 
   /** Flag to indicate when to use lit-virtualizer. */
   #useVirtualList = false;
@@ -210,6 +202,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** Whether the text field is a required field. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
+  /** @internal The selected items. */
+  @state() selectedItems: Array<ComboboxItem<T, U>> = [];
+
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
@@ -261,6 +256,16 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('multiple')) {
+      if (this.multiple) {
+        this.listbox?.setAttribute('aria-multiselectable', 'true');
+      } else {
+        this.listbox?.removeAttribute('aria-multiselectable');
+      }
+
+      this.#updateSelected();
+    }
 
     if (
       changes.has('options') ||
@@ -320,16 +325,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.listbox!.items = this.items;
     }
 
-    if (changes.has('multiple')) {
-      this.#selection.multiple = !!this.multiple;
-
-      if (this.multiple) {
-        this.listbox?.setAttribute('aria-multiselectable', 'true');
-      } else {
-        this.listbox?.removeAttribute('aria-multiselectable');
-      }
-    }
-
     if (changes.has('required')) {
       this.input.required = !!this.required;
 
@@ -350,10 +345,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
         ?required=${this.required}
-        placeholder=${ifDefined(this.multiple && this.#selection.selection.size ? undefined : this.placeholder)}
+        placeholder=${ifDefined(this.multiple && this.selectedItems.length ? undefined : this.placeholder)}
         size=${ifDefined(this.size)}
       >
-        ${this.multiple && this.#selection.selection.size
+        ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
                 aria-label=${msg('Selected options')}
@@ -363,15 +358,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                 .emphasis=${this.disabled ? 'bold' : 'subtle'}
               >
                 ${repeat(
-                  this.#selection.selection,
-                  option => option,
-                  option => html`
+                  this.selectedItems,
+                  item => item,
+                  item => html`
                     <sl-tag
-                      @sl-remove=${() => this.#onRemove(option)}
+                      @sl-remove=${() => this.#onRemove(item)}
                       ?disabled=${this.disabled}
                       ?removable=${!this.disabled}
                     >
-                      ${option.label}
+                      ${item.label}
                     </sl-tag>
                   `
                 )}
@@ -566,6 +561,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.#addCustomOption(element.value as string);
     } else if (element instanceof CustomOption) {
       this.#removeCustomOption(this.items.find(i => i.id === element.id));
+      this.#updateSelected();
       this.#updateTextFieldValue();
     } else if (element?.id) {
       const item = this.items.find(i => i.id === element.id);
@@ -589,30 +585,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     this.#pointerDown = false;
   }
 
-  #onRemove(option: ComboboxItem<T, U>): void {
-    this.#toggleSelected(option, false);
+  #onRemove(item: ComboboxItem<T, U>): void {
+    this.#toggleSelected(item, false);
     this.#updateValue();
 
     if (this.#popoverJustClosed) {
       this.wrapper?.showPopover();
-    }
-  }
-
-  #onSelectionChange(event: SlSelectionChangeEvent<ComboboxItem<T, U>>): void {
-    const selection = event.detail.old;
-
-    for (const option of selection) {
-      if (!this.#selection.isSelected(option)) {
-        this.#toggleSelected(option, false);
-      }
-    }
-
-    if (this.#selectedGroup) {
-      this.#selectedGroup.options = Array.from(this.#selection.selection.values());
-    }
-
-    if (!this.multiple) {
-      this.#updateTextFieldValue();
     }
   }
 
@@ -636,6 +614,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.listbox.items = this.items;
       } else {
         let hasSelected = false;
+
+        this.selectedItems = [];
 
         this.items = Array.from(this.listbox.children)
           .flatMap(el => this.#flattenOptions(el))
@@ -666,6 +646,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
             if (el.selected) {
               hasSelected = true;
+
+              this.selectedItems = [...this.selectedItems, item];
             }
 
             // Ensure the option has an aria-selected attribute
@@ -691,7 +673,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           }
 
           this.#selectedGroup.hasGroups = !!this.listbox.querySelector('sl-option-group');
-          this.#selectedGroup.options = Array.from(this.#selection.selection.values());
+          this.#selectedGroup.options = this.selectedItems;
         }
       }
     } else {
@@ -767,8 +749,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       visible: true
     };
 
-    this.#selection.select(item);
     this.items = [item, ...this.items];
+    this.selectedItems = [...this.selectedItems, item];
 
     if (this.#useVirtualList) {
       this.listbox!.items = this.items;
@@ -902,8 +884,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     if (selected) {
       if (!this.multiple) {
-        this.items
-          .filter(i => i.selected && i !== item)
+        this.selectedItems
+          .filter(i => i !== item)
           .forEach(i => {
             i.selected = false;
 
@@ -914,11 +896,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
               i.element.setAttribute('aria-selected', 'false');
             }
           });
+
+        this.selectedItems = [];
       }
 
       item.selected = true;
+      this.selectedItems = [...this.selectedItems, item];
     } else {
       item.selected = false;
+      this.selectedItems = this.selectedItems.filter(i => i !== item);
     }
 
     item.visible = this.groupSelected && selected ? false : true;
@@ -1045,7 +1031,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Updates the selection based on the options & value. */
   #updateSelected(): void {
-    this.#selection.selection.clear();
+    this.selectedItems = [];
 
     for (const item of this.items) {
       if (this.multiple && (this.value as U[])?.includes(item.value!)) {
@@ -1068,7 +1054,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.value = this.createCustomOption.value as string;
       this.input.setSelectionRange(-1, -1);
     } else {
-      const item = this.items.find(i => i.selected);
+      const item = this.selectedItems.at(0);
 
       if (item) {
         this.input.value = item.label;
@@ -1081,7 +1067,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Updates the value based on the current selection. */
   #updateValue(): void {
-    const values = this.items.filter(i => i.selected).map(i => i.value!);
+    const values = this.selectedItems.map(i => i.value!);
 
     this.value = this.multiple ? values : values.at(0);
     this.changeEvent.emit(this.value);

@@ -303,6 +303,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (changes.has('options') || changes.has('value')) {
       this.#updateSelectedItems();
     }
+
+    if (changes.has('selectedItems')) {
+      this.#updateTextFieldValue();
+      this.#updateValue();
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -492,12 +497,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.#addCustomOption(this.input.value);
     } else if (event.key === 'Enter' && this.currentItem?.custom && this.currentItem?.option) {
       this.#removeCustomOption(this.currentItem);
-      this.#updateTextFieldValue();
     } else if (event.key === 'Enter' && this.currentItem) {
       this.#toggleSelectedOption(this.currentItem);
       this.#updateFilteredOptions();
-      this.#updateTextFieldValue();
-      this.#updateValue();
 
       if (!this.multiple) {
         this.wrapper?.hidePopover();
@@ -509,17 +511,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       event.stopPropagation();
 
       // Limit navigation to the visible options
-      const items = this.items.filter(i => i.option && i.visible);
+      const items = this.items.filter(i => i.type === 'option' && i.visible);
 
       let delta = 0,
         index = -1;
 
-      // if (this.groupSelected && this.currentOption) {
-      //   index = this.currentSelection.indexOf(this.currentOption);
-      //   if (index === -1) {
-      //     index = this.options.filter(o => !o.selected).indexOf(this.currentOption) + this.currentSelection.length;
-      //   }
-      // } else
       if (this.currentItem) {
         index = items.indexOf(this.currentItem);
       }
@@ -541,16 +537,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
       index = (index + delta + items.length) % items.length;
 
-      const item = items[index];
-
-      // if (this.groupSelected) {
-      //   option =
-      //     index < this.currentSelection.length
-      //       ? this.currentSelection[index]
-      //       : this.options.filter(o => !o.selected)[index - this.currentSelection.length];
-      // }
-
-      this.#updateCurrent(item);
+      this.#updateCurrent(items[index]);
     }
   }
 
@@ -559,20 +546,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     if (element instanceof CreateCustomOption) {
       this.#addCustomOption(element.value as string);
-    } else if (element instanceof CustomOption) {
-      this.#removeCustomOption(this.items.find(i => i.id === element.id));
-      this.#updateSelectedItems();
-      this.#updateTextFieldValue();
     } else if (element?.id) {
       const item = this.items.find(i => i.id === element.id && i.visible);
-
-      console.log('option click', item);
 
       this.#toggleSelectedOption(item);
       this.#updateCurrent();
       this.#updateFilteredOptions();
-      this.#updateTextFieldValue();
-      this.#updateValue();
 
       if (this.multiple) {
         this.input.focus();
@@ -591,8 +570,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #onRemove(item: ComboboxItem<T, U>): void {
-    this.#toggleSelectedOption(item, false);
-    this.#updateValue();
+    this.#removeSelectedOption(item);
 
     if (this.#popoverJustClosed) {
       this.wrapper?.showPopover();
@@ -766,8 +744,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.#updateCreateCustomOption();
     this.#updateCurrent(item);
-    this.#updateTextFieldValue();
-    this.#updateValue();
   }
 
   #removeCustomOption(item?: ComboboxItem<T, U>): void {
@@ -776,6 +752,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
 
     this.items = this.items.filter(i => i !== item);
+    this.selectedItems = this.selectedItems.filter(i => i !== item);
 
     if (this.#useVirtualList) {
       this.listbox!.items = this.items;
@@ -890,8 +867,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #addSelectedOption(item: ComboboxItem<T, U>): void {
-    console.log('add selected', item);
-
     if (this.multiple) {
       if (this.groupSelected) {
         item.visible = false;
@@ -917,8 +892,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #removeSelectedOption(item: ComboboxItem<T, U>): void {
-    console.log('remove selected', item);
-
     if (this.groupSelected) {
       this.#removeGroupedOption(item);
     } else {
@@ -1003,7 +976,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   #renderItem(item: ComboboxItem<T, U>, index: number): Element {
     if ('option' in item) {
-      const el = this.shadowRoot!.createElement(item.custom ? 'sl-combobox-custom-option' : 'sl-option');
+      const el = (item.element = this.shadowRoot!.createElement(
+        item.custom ? 'sl-combobox-custom-option' : 'sl-option'
+      ));
       el.id = item.id;
       el.innerText = item.label;
       el.selected = !!item.selected;
@@ -1014,11 +989,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         el.setAttribute('aria-current', 'true');
       }
 
-      item.element = el;
-
       return el;
     } else if (item.custom) {
-      const el = this.shadowRoot!.createElement('sl-combobox-create-custom-option');
+      const el = (item.element = this.shadowRoot!.createElement('sl-combobox-create-custom-option'));
       el.id = item.id;
       el.value = item.label;
 
@@ -1026,15 +999,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         el.setAttribute('aria-current', 'true');
       }
 
-      item.element = el;
-
       return el;
     } else {
-      const el = this.shadowRoot!.createElement('sl-option-group-header');
+      const el = (item.element = this.shadowRoot!.createElement('sl-option-group-header'));
       el.divider = index !== 0;
       el.innerText = item.label;
-
-      item.element = el;
 
       return el;
     }
@@ -1107,13 +1076,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       } else {
         this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });
       }
-
-      // Scroll to the selected group or the current option
-      // if (this.groupSelected && this.currentSelection.includes(this.currentOption)) {
-      //   this.#selectedGroup!.scrollIntoView({ block: 'nearest' });
-      // } else {
-      // this.currentOption.scrollIntoView({ block: 'nearest' });
-      // }
     }
   }
 
@@ -1193,11 +1155,22 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Updates the value based on the current selection. */
   #updateValue(): void {
-    const values = this.selectedItems.map(i => i.value!),
-      value = this.multiple ? values : values.at(0);
+    const values = this.selectedItems.map(i => i.value!);
 
-    this.value = value;
-    this.changeEvent.emit(value);
+    // Do nothing if the value hasn't changed
+    if (
+      this.multiple &&
+      Array.isArray(this.value) &&
+      this.value.length === values.length &&
+      values.every(v => (this.value as U[]).includes(v))
+    ) {
+      return;
+    } else if (this.value === values[0]) {
+      return;
+    }
+
+    this.value = this.multiple ? values : values[0];
+    this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();
   }

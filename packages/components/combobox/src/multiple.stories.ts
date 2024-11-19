@@ -21,6 +21,7 @@ type Props = Pick<
 > & {
   maxWidth?: string;
   options?: unknown[] | TemplateResult;
+  optionGroupPath?: string;
   optionLabelPath?: string;
   optionValuePath?: string;
   virtualList?: boolean;
@@ -54,6 +55,7 @@ export default {
     filterResults,
     groupSelected,
     maxWidth,
+    optionGroupPath,
     optionLabelPath,
     optionValuePath,
     options,
@@ -73,6 +75,7 @@ export default {
         .value=${value}
         multiple
         autocomplete=${ifDefined(autocomplete)}
+        option-group-path=${ifDefined(optionGroupPath)}
         option-label-path=${ifDefined(optionLabelPath)}
         option-value-path=${ifDefined(optionValuePath)}
         placeholder=${ifDefined(placeholder)}
@@ -219,6 +222,21 @@ export const VirtualList: Story = {
     optionLabelPath: 'label',
     optionValuePath: 'value',
     options: Array.from({ length: 10000 }).map((_, i) => ({ label: `Option ${i + 1}`, value: i })),
+    value: [3000],
+    virtualList: true
+  }
+};
+
+export const VirtualListWithGroups: Story = {
+  args: {
+    optionGroupPath: 'group',
+    optionLabelPath: 'label',
+    optionValuePath: 'value',
+    options: Array.from({ length: 10000 }).map((_, i) => ({
+      group: `Options ${Math.floor((i + 1) / 100) * 100}..${Math.floor((i + 1) / 100) * 100 + 99}`,
+      label: `Option ${i + 1}`,
+      value: i
+    })),
     value: [3000],
     virtualList: true
   }

@@ -567,11 +567,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       const item = this.items.find(i => i.id === element.id);
 
       this.#toggleSelected(item);
+      this.#updateCurrent();
       this.#updateFilteredOptions();
       this.#updateTextFieldValue();
       this.#updateValue();
 
-      if (!this.multiple) {
+      if (this.multiple) {
+        this.input.focus();
+      } else {
         this.wrapper?.hidePopover();
       }
     }
@@ -918,14 +921,18 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   #updateCreateCustomOption(labelAndValue?: string): void {
     if (labelAndValue) {
-      this.createCustomOption ||= {
-        id: `sl-combobox-create-custom-option-${nextUniqueId++}`,
-        label: labelAndValue,
-        value: labelAndValue as U,
-        visible: true
-      };
+      if (this.createCustomOption) {
+        this.createCustomOption.label = labelAndValue;
+        this.createCustomOption.value = labelAndValue as U;
+      } else {
+        this.createCustomOption = {
+          id: `sl-combobox-create-custom-option-${nextUniqueId++}`,
+          custom: true,
+          label: labelAndValue,
+          value: labelAndValue as U,
+          visible: true
+        };
 
-      if (this.items.at(0) !== this.createCustomOption) {
         this.items = [this.createCustomOption, ...this.items];
       }
 

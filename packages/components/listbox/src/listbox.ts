@@ -216,7 +216,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       const element = this.shadowRoot!.createElement('sl-option');
       element.id = item.id;
       element.selected = item.selected;
-      element.textContent = item.label;
+      element.innerText = item.label;
       element.value = item.value;
 
       return element;
@@ -224,7 +224,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
       const element = this.shadowRoot!.createElement('sl-option-group-header');
       element.divider = index !== 0;
       element.id = item.id;
-      element.textContent = item.label;
+      element.innerText = item.label;
 
       return element;
     }

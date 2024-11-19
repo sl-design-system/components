@@ -3,7 +3,6 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Option, OptionGroup } from '@sl-design-system/listbox';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { type ComboboxItem } from './combobox';
 import styles from './selected-group.scss.js';
 
@@ -48,21 +47,10 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        <div class="label">${msg('Selected')}</div>
-        ${this.options.map(
-          option => html`
-            <sl-option
-              aria-current=${ifDefined(option === this.currentOption ? 'true' : undefined)}
-              selected
-              .id=${option.id}
-              .value=${option.value}
-            >
-              ${option.label} ${this.hasGroups ? html`<span class="group">${option.group}</span>` : nothing}
-            </sl-option>
-          `
-        )}
+        <sl-option-group-header>${msg('Selected')}</sl-option-group-header>
+        <slot></slot>
       </div>
-      <div class="label other">${msg('All options')}</div>
+      ${this.hasGroups ? nothing : html`<sl-option-group-header divider>${msg('All options')}</sl-option-group-header>`}
     `;
   }
 }

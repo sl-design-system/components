@@ -37,10 +37,6 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
     return this.#getSlottedTextContent();
   }
 
-  override set textContent(value: string) {
-    super.textContent = value;
-  }
-
   /**
    * The value for this option. If not explicitly set,
    * it will use the text content as the value.

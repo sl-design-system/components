@@ -219,6 +219,7 @@ export const Value: Story = {
 
 export const VirtualList: Story = {
   args: {
+    groupSelected: true,
     optionLabelPath: 'label',
     optionValuePath: 'value',
     options: Array.from({ length: 10000 }).map((_, i) => ({ label: `Option ${i + 1}`, value: i })),
@@ -229,6 +230,7 @@ export const VirtualList: Story = {
 
 export const VirtualListWithGroups: Story = {
   args: {
+    groupSelected: true,
     optionGroupPath: 'group',
     optionLabelPath: 'label',
     optionValuePath: 'value',

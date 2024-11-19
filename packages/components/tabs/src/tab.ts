@@ -111,7 +111,7 @@ export class Tab extends LitElement {
     const nodes = event.target.assignedNodes({ flatten: true }),
       hasTitle = nodes.some(node => !!node.textContent?.trim());
 
-    console.log('nodes tag', nodes);
+    console.log('nodes tag', nodes, hasTitle);
 
     this.toggleAttribute('has-title', hasTitle);
   }

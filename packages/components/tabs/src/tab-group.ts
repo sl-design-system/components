@@ -1,10 +1,16 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { MenuButton, MenuItem } from '@sl-design-system/menu';
-import { type EventEmitter, RovingTabindexController, event, getScrollParent } from '@sl-design-system/shared';
+import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
+import {
+  type EventEmitter,
+  RovingTabindexController,
+  event,
+  getScrollParent,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
@@ -132,7 +138,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     },
     // focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
     // focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected) ?? 0,
-    elements: () => this.tabs || [],
+    //  elements: () => (this.menuItems ? this.menuItems?.map(item => {return item.tab}) : this.tabs )|| [],
+    elements: () =>
+      (isPopoverOpen(this.#menu)
+        ? this.menuItems?.map(item => {
+            return item.tab;
+          })
+        : this.tabs) || [],
+    // elements: () => (isPopoverOpen(this.renderRoot.querySelector('sl-menu-button')!.renderRoot.querySelector('sl-menu')!) ? this.menuItems : this.tabs) || [],
     isFocusableElement: (el: Tab) => !el.disabled
   });
 
@@ -162,6 +175,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
+
+  /** The listbox element with all tabs list. */
+  @query('[popover]') listbox!: HTMLElement;
+
+  #menu: Menu | undefined;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -212,6 +230,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   // TODO: role tablist should be added to the different place?
+  // TODO: role tablist to slot???
 
   override render(): TemplateResult {
     console.log(
@@ -221,19 +240,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.selectedTab
     );
     return html`
-      <div part="container" @keydown=${this.#onKeydown}>
+      <div part="container">
         <div part="wrapper">
           <div class="fade-container">
             <div class="fade fade-start"></div>
             <div class="fade fade-end"></div>
             <div @scroll=${this.#onScroll} part="scroller">
-              <div @click=${this.#onClick} part="tablist" role="tablist">
+              <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
                 <span class="indicator" role="presentation"></span>
                 <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
             </div>
           </div>
-
           ${this.showMenu
             ? html`
                 <sl-menu-button aria-label=${msg('Show all')} fill="ghost">
@@ -254,7 +272,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
       </div>
     `;
-  }
+  } // TODO: menu button aria label not working with NVDA...
 
   // override focus(): void {
   //   this.#rovingTabindexController.focus();
@@ -272,14 +290,33 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    const tab = event.target.closest('sl-tab');
+    console.log(
+      'listbox',
+      this.listbox,
+      this.renderRoot.querySelector('sl-menu-button'),
+      this.renderRoot,
+      this.showMenu
+    );
 
-    console.log('keydown, tab', event, event.target, tab);
+    const menuBtn = this.renderRoot.querySelector('sl-menu-button'),
+      menu = menuBtn?.renderRoot.querySelector('sl-menu');
+
+    console.log('menus', menuBtn, menu, isPopoverOpen(menu!), '......', this.#menu && isPopoverOpen(this.#menu));
+
+    if (this.#menu && isPopoverOpen(this.#menu)) {
+      this.#rovingTabindexController.clearElementCache();
+      this.#rovingTabindexController.hostContainsFocus();
+    }
+
+    // const tab = event.target.closest('sl-tab');
+    //
+    console.log('keydown, tab', event, event.target /*, tab*/, this.menuItems);
 
     console.log('keydown activeElement', event.key, document.activeElement);
 
-    if (tab && ['Enter', ' '].includes(event.key)) {
-      this.#updateSelectedTab(tab);
+    if (/*tab &&*/ ['Enter', ' '].includes(event.key)) {
+      // this.#updateSelectedTab(tab);
+      this.#updateSelectedTab(<Tab>event.target);
       this.#scrollToTabPanelStart();
     }
   }
@@ -456,7 +493,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       ? tablist.scrollHeight > scroller.offsetHeight
       : tablist.scrollWidth > scroller.offsetWidth;
 
+    // const menuBtn = this.renderRoot.querySelector('sl-menu-button');
+    //
+    //   this.menu = menuBtn?.renderRoot.querySelector('sl-menu');
+
     if (this.showMenu) {
+      const menuBtn = this.renderRoot.querySelector('sl-menu-button');
+
+      this.#menu = menuBtn!.renderRoot.querySelector('sl-menu') as Menu;
+
+      this.#rovingTabindexController.clearElementCache();
+
       this.menuItems = this.tabs?.map(tab => {
         const title = Array.from(tab.childNodes)
           .filter(node => node instanceof Text || (node instanceof Element && !node.slot))

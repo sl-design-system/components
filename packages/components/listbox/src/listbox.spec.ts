@@ -34,7 +34,15 @@ describe('sl-listbox', () => {
     }));
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-listbox .options=${options} style="height: 200px"></sl-listbox>`);
+      el = await fixture(html`
+        <sl-listbox
+          .options=${options}
+          option-label-path="label"
+          option-selected-path="selected"
+          option-value-path="value"
+          style="height: 200px"
+        ></sl-listbox>
+      `);
 
       // Give the virtualizer time to render
       await new Promise(resolve => setTimeout(resolve, 10));
@@ -50,12 +58,15 @@ describe('sl-listbox', () => {
       expect(renderedOptions.length).to.be.greaterThan(0);
       expect(renderedOptions.length).to.be.lessThan(options.length);
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
-        options.slice(0, renderedOptions.length).map(i => JSON.stringify(i))
+        options.slice(0, renderedOptions.length).map(i => i.label)
       );
     });
 
     it('should update the options when the options changed', async () => {
       el.options = options.map(o => o.label);
+      el.optionLabelPath = undefined;
+      el.optionSelectedPath = undefined;
+      el.optionValuePath = undefined;
       await new Promise(resolve => setTimeout(resolve, 10));
 
       const renderedOptions = Array.from(el.querySelectorAll('sl-option'));

@@ -24,6 +24,7 @@ declare global {
 export type ListboxOption<T, U = T> = {
   id: string;
   label: string;
+  group?: string;
   option: T;
   selected?: boolean;
   value: U;
@@ -187,7 +188,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
               id: `sl-listbox-option-group-${nextUniqueId++}`,
               label: group
             },
-            ...groups[group]!.map(option => this.#prepareOption(option))
+            ...groups[group]!.map(option => this.#prepareOption(option, group))
           ];
         },
         [] as Array<ListboxItem<T, U>>
@@ -197,12 +198,13 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #prepareOption(option: T): ListboxOption<T, U> {
+  #prepareOption(option: T, group?: string): ListboxOption<T, U> {
     const label = this.optionLabelPath
       ? getStringByPath(option, this.optionLabelPath)
       : (option as unknown as { toString(): string }).toString();
 
     return {
+      group,
       id: `sl-listbox-option-${nextUniqueId++}`,
       label,
       option,

@@ -800,7 +800,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     this.items = this.items.filter(i => i !== item);
     this.selectedItems = this.selectedItems.filter(i => i !== item);
 
-    if (!this.#useVirtualList) {
+    if (this.#useVirtualList) {
+      this.listbox!.items = this.items.filter(i => i.visible);
+    } else {
       item.element?.remove();
       item.element = undefined;
     }
@@ -860,6 +862,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       if (this.items[0].label === msg('All options') && this.items[0].type === 'group') {
         this.items = this.items.slice(1);
       }
+
+      this.listbox!.items = this.items;
     } else {
       this.#selectedGroup?.remove();
       this.#selectedGroup = undefined;
@@ -948,7 +952,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
               type: 'group',
               visible: true
             },
-            ...groups[group]!.map(option => this.#prepareOption(option))
+            ...groups[group]!.map(option => this.#prepareOption(option, group))
           ];
         },
         [] as Array<ComboboxItem<T, U>>
@@ -958,12 +962,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
   }
 
-  #prepareOption(option: T): ComboboxItem<T, U> {
+  #prepareOption(option: T, group?: string): ComboboxItem<T, U> {
     const label = this.optionLabelPath
       ? getStringByPath(option, this.optionLabelPath)
       : (option as unknown as { toString(): string }).toString();
 
     return {
+      group,
       id: `sl-combobox-option-${nextUniqueId++}`,
       label,
       option,
@@ -976,14 +981,23 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   #renderItem(item: ComboboxItem<T, U>, index: number): Element {
     if ('option' in item) {
-      const el = (item.element = this.shadowRoot!.createElement(
-        item.custom ? 'sl-combobox-custom-option' : 'sl-option'
-      ));
+      let tagName: 'sl-option' | 'sl-combobox-custom-option' | 'sl-combobox-grouped-option' = 'sl-option';
+      if (item.custom) {
+        tagName = 'sl-combobox-custom-option';
+      } else if (this.groupSelected && item.selected) {
+        tagName = 'sl-combobox-grouped-option';
+      }
+
+      const el = (item.element = this.shadowRoot!.createElement(tagName));
       el.id = item.id;
       el.innerText = item.label;
       el.selected = !!item.selected;
       el.value = item.value;
       el.setAttribute('aria-selected', item.selected ? 'true' : 'false');
+
+      if (el instanceof GroupedOption) {
+        el.group = item.group;
+      }
 
       if (item.current) {
         el.setAttribute('aria-current', 'true');

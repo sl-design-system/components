@@ -34,7 +34,7 @@
     "**/*.xlf"
   ],
   "devDependencies": {
-    "@lit/localize": "^0.12.1"
+    "@lit/localize": "^0.12.2"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1"

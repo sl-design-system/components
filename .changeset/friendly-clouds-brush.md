@@ -26,5 +26,7 @@ You can customize the rendering of each option by using:
 - `optionLabelPath` to specify the path to the label in each option object
 - `optionValuePath` to specify the path to the value in each option object
 
+You can also group the options by using `optionGroupPath`. This will group the options by the value of the property specified in `optionGroupPath`. The value is also used as the label for the group.
+
 There is no difference how the options are rendered in the DOM. You can customize
-the options in both scenarios by using `sl-option { ... }` CSS.
+the options in both scenarios by using the `sl-option { ... }` selector.

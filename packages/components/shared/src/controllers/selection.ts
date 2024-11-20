@@ -1,18 +1,11 @@
 import { type ReactiveControllerHost } from 'lit';
 
-declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-selection-change': SlSelectionChangeEvent;
-  }
-}
-
 export interface SelectionControllerOptions {
   multiple: boolean;
 }
 
 /** Emits when the selection changes. */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlSelectionChangeEvent<T = any> = CustomEvent<{ selection: SelectionController<T>; old: Set<T> }>;
+export type SlSelectionChangeEvent<T> = CustomEvent<{ selection: SelectionController<T> }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SelectionController<T = any> {
@@ -55,8 +48,6 @@ export class SelectionController<T = any> {
   }
 
   select(item: T): void {
-    const old = new Set(this.#selection);
-
     if (this.#selectAll) {
       this.#selection.delete(item);
     } else {
@@ -67,7 +58,7 @@ export class SelectionController<T = any> {
       this.#selection.add(item);
     }
 
-    this.#updateHost(old);
+    this.#updateHost();
   }
 
   selectAll(): void {
@@ -77,15 +68,13 @@ export class SelectionController<T = any> {
   }
 
   deselect(item: T): void {
-    const old = new Set(this.#selection);
-
     if (this.#selectAll) {
       this.#selection.add(item);
     } else {
       this.#selection.delete(item);
     }
 
-    this.#updateHost(old);
+    this.#updateHost();
   }
 
   deselectAll(): void {
@@ -136,10 +125,8 @@ export class SelectionController<T = any> {
     return this.#selectAll;
   }
 
-  #updateHost(old?: Set<T>): void {
-    this.#host.dispatchEvent(
-      new CustomEvent('sl-selection-change', { bubbles: true, composed: true, detail: { selection: this, old } })
-    );
+  #updateHost(): void {
+    this.#host.dispatchEvent(new CustomEvent('sl-selection-change', { bubbles: true, composed: true, detail: this }));
     this.#host.requestUpdate();
   }
 }

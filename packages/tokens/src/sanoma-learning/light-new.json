@@ -1951,28 +1951,28 @@
     },
     "grid": {
       "border": {
-        "value": "{color.divider}",
+        "value": "{color.border.plain}",
         "type": "color"
       },
       "header": {
-        "value": "{color.neutral.faint}",
+        "value": "{elevation.surface.base}",
         "type": "color"
       },
       "default": {
-        "value": "{color.base.transparent}",
+        "value": "{elevation.surface.raised.default}",
         "type": "color"
       },
       "zebra": {
-        "value": "{color.neutral.faint}",
+        "value": "{elevation.surface.raised.alternative}",
         "type": "color"
       },
       "group": {
-        "value": "{color.neutral.muted}",
+        "value": "{elevation.surface.raised.sunken}",
         "type": "color"
       }
     },
     "divider": {
-      "value": "{color.neutral.subtle}",
+      "value": "{color.border.plain}",
       "type": "color"
     }
   }

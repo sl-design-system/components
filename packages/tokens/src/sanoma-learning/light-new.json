@@ -1814,6 +1814,122 @@
             }
           }
         }
+      },
+      "inverted": {
+        "muted": {
+          "idle": {
+            "value": "{color.background.accent.blue.muted.idle}",
+            "type": "color",
+            "description": "Use for the background of actions that appear to have a dark background in idle state. Such as inverted outline and ghost buttons."
+          },
+          "hover": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "{opacity.dark.300}",
+                  "space": "lch"
+                }
+              }
+            },
+            "description": "Use for the background while hovering of primary actions that appear to have no background in idle state. Such as outline and ghost buttons."
+          },
+          "active": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "{opacity.dark.500}",
+                  "space": "lch"
+                }
+              }
+            },
+            "description": "Use for the background while pressing of primary actions that appear to have no background in idle state. such as outline and ghost buttons."
+          }
+        },
+        "subtle": {
+          "idle": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "{opacity.dark.300}",
+                  "space": "lch"
+                }
+              }
+            },
+            "description": "A subtle background variant in the primary color."
+          },
+          "hover": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "{opacity.dark.500}",
+                  "space": "lch"
+                }
+              }
+            },
+            "description": "A subtle background variant in the primary color for hover states."
+          },
+          "active": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "0{opacity.dark.700}",
+                  "space": "lch"
+                }
+              }
+            },
+            "description": "A subtle background variant in the primary color for active states."
+          }
+        },
+        "bold": {
+          "idle": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "description": "Use for the background of primary actions with bold emphasis."
+          },
+          "hover": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "{opacity.dark.700}",
+                  "space": "lch"
+                }
+              }
+            },
+            "description": "Use for the background of primary actions with bold emphasis during hover states."
+          },
+          "active": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "alpha",
+                  "value": "{opacity.dark.600}",
+                  "space": "lch"
+                }
+              }
+            },
+            "description": "Use for the background of primary actions with bold emphasis during pressed states"
+          }
+        }
       }
     },
     "blanket": {

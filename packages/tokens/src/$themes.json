@@ -15775,9 +15775,9 @@
       "text.tag.label.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,"
     },
     "selectedTokenSets": {
-      "core": "enabled",
-      "myvanin_onhold/base": "enabled",
-      "myvanin_onhold/light": "enabled"
+      "core": "disabled",
+      "myvanin_onhold/base": "disabled",
+      "myvanin_onhold/light": "disabled"
     }
   },
   {
@@ -18908,9 +18908,9 @@
       "text.tag.label.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,"
     },
     "selectedTokenSets": {
-      "core": "enabled",
-      "sanoma-utbildning_onhold/base": "enabled",
-      "sanoma-utbildning_onhold/light": "enabled"
+      "core": "disabled",
+      "sanoma-utbildning_onhold/base": "disabled",
+      "sanoma-utbildning_onhold/light": "disabled"
     }
   }
 ]

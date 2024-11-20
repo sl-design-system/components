@@ -171,5 +171,19 @@
         }
       }
     }
+  },
+  "icon": {
+    "typeset": {
+      "fontWeight": {
+        "regular": {
+          "value": "{icon.typeset.fontWeight.icon-regular}",
+          "type": "fontWeights"
+        },
+        "solid": {
+          "value": "{icon.typeset.fontWeight.icon-solid}",
+          "type": "fontWeights"
+        }
+      }
+    }
   }
 }

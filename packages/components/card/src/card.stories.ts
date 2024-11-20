@@ -73,7 +73,7 @@ export default {
     cardIcon
   }) => html`
     <sl-card .orientation=${orientation}>
-      ${media && imageUrl ? html`<img slot="media" src=${imageUrl} />` : nothing}
+      ${media && imageUrl ? html`<img slot="media" src=${imageUrl} alt="Picture of ${title}" />` : nothing}
       ${cardIcon ? html`<sl-icon .name=${cardIcon} slot="icon"></sl-icon>` : nothing}
       <h2>${title}</h2>
       ${subheaderContent

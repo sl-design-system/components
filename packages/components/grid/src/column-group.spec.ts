@@ -1,5 +1,6 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { type Grid } from './grid.js';
@@ -25,6 +26,7 @@ describe('sl-column-group', () => {
           </sl-grid-column-group>
         </sl-grid>
       `);
+      await setViewport({ width: 1024, height: 1024 });
       el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
       await el.updateComplete;
 
@@ -51,23 +53,9 @@ describe('sl-column-group', () => {
     it('should have the correct width', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        300, 481, 151, 148, 128, 120, 128, 103
+        369, 636, 185, 183, 169, 157, 166, 144
       ]);
     });
-
-    // it('should emit an sl-column-update event after clicking the checkbox', async () => {
-    //   const columnUpdateEvent = spy();
-    //   const columnGoup = el.querySelector('sl-grid-column-group:first-of-type') as GridColumnGroup;
-    //   columnGoup?.addEventListener('sl-column-update', columnUpdateEvent);
-
-    //   const newColumn = document.createElement('sl-grid-column');
-    //   await new Promise(resolve => setTimeout(resolve, 100));
-
-    //   columnGoup?.appendChild(newColumn);
-
-    //   // expect(columnUpdateEvent).to.have.been.called;
-    //   expect(columnGoup?.columns).to.equal(3);
-    // });
   });
 
   describe('explicit width', () => {
@@ -85,6 +73,7 @@ describe('sl-column-group', () => {
           </sl-grid-column-group>
         </sl-grid>
       `);
+      await setViewport({ width: 1024, height: 1024 });
 
       el.items = [{ firstName: 'John', lastName: 'Doe', grades: { biology: 'A', maths: 'B', english: 'B+' } }];
       await el.updateComplete;
@@ -97,7 +86,7 @@ describe('sl-column-group', () => {
     it('should have the correct width when one is set explicitly', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        209, 600, 177, 175, 155, 147, 155
+        281, 724, 214, 212, 197, 186, 195
       ]);
     });
   });

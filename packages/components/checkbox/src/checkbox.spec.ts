@@ -29,7 +29,9 @@ describe('sl-checkbox', () => {
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
-      expect(input).not.to.have.attribute('checked');
+      expect(input).to.have.attribute('aria-checked', 'false');
+      expect(input).not.to.match(':checked');
+      expect(input.checked).to.be.false;
     });
 
     it('should be checked when set', async () => {
@@ -37,7 +39,8 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('checked');
-      expect(input).to.have.attribute('checked');
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
 
@@ -57,7 +60,8 @@ describe('sl-checkbox', () => {
     it('should not be indeterminate', () => {
       expect(el).not.to.have.attribute('indeterminate');
       expect(el.indeterminate).not.to.be.true;
-      expect(input).not.to.have.attribute('indeterminate');
+      expect(input).not.to.match(':indeterminate');
+      expect(input.indeterminate).to.be.false;
     });
 
     it('should be indeterminate when set', async () => {
@@ -65,7 +69,9 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('indeterminate');
-      expect(input).to.have.attribute('indeterminate');
+      expect(input).to.have.attribute('aria-checked', 'mixed');
+      expect(input).to.match(':indeterminate');
+      expect(input.indeterminate).to.be.true;
     });
 
     it('should not be required', () => {
@@ -117,7 +123,7 @@ describe('sl-checkbox', () => {
 
     it('should be touched after losing focus', async () => {
       el.focus();
-      input.blur();
+      el.blur();
 
       await new Promise(resolve => setTimeout(resolve));
 
@@ -129,7 +135,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-update-state', onUpdateState);
       el.focus();
-      input.blur();
+      el.blur();
 
       await new Promise(resolve => setTimeout(resolve));
 
@@ -142,7 +148,8 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.have.attribute('checked');
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
 
       el.click();
@@ -150,8 +157,9 @@ describe('sl-checkbox', () => {
 
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).to.be.false;
-      expect(input).not.to.have.attribute('checked');
-      expect(input.checked).not.to.be.true;
+      expect(input).to.have.attribute('aria-checked', 'false');
+      expect(input).not.to.match(':checked');
+      expect(input.checked).to.be.false;
     });
 
     it('should change the state to checked on when pressing enter', async () => {
@@ -161,7 +169,8 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.have.attribute('checked');
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
 
@@ -172,7 +181,8 @@ describe('sl-checkbox', () => {
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
-      expect(input).to.have.attribute('checked');
+      expect(input).to.have.attribute('aria-checked', 'true');
+      expect(input).to.match(':checked');
       expect(input.checked).to.be.true;
     });
 
@@ -221,7 +231,7 @@ describe('sl-checkbox', () => {
 
       el.addEventListener('sl-blur', onBlur);
       el.focus();
-      input.blur();
+      el.blur();
 
       expect(onBlur).to.have.been.calledOnce;
     });
@@ -282,6 +292,23 @@ describe('sl-checkbox', () => {
 
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;
+    });
+  });
+
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-checkbox aria-label="my checkbox label" aria-disabled="true"></sl-checkbox>`);
+      input = el.querySelector('input')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my checkbox label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(input).to.have.attribute('aria-label', 'my checkbox label');
+      expect(input).to.have.attribute('aria-disabled', 'true');
     });
   });
 

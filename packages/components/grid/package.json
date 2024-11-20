@@ -49,13 +49,15 @@
     "@sl-design-system/text-field": "^1.5.0"
   },
   "devDependencies": {
-    "@lit-labs/virtualizer": "^2.0.13",
-    "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.5"
+    "@lit-labs/virtualizer": "^2.0.14",
+    "@lit/localize": "^0.12.2",
+    "@open-wc/scoped-elements": "^3.0.5",
+    "lit": "^3.2.1"
   },
   "peerDependencies": {
-    "@lit-labs/virtualizer": "^2.0.12",
+    "@lit-labs/virtualizer": "^2.0.13",
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.5"
+    "@open-wc/scoped-elements": "^3.0.5",
+    "lit": "^3.1.4"
   }
 }

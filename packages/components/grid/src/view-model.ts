@@ -137,7 +137,23 @@ export class GridViewModel<T = any> {
       return 'none';
     } else {
       const groupByPath = this.#dataSource?.groupBy?.path,
-        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
+        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath!) === value);
+
+      const some = items?.some(item => this.#grid.selection.isSelected(item)),
+        all = items?.every(item => this.#grid.selection.isSelected(item));
+
+      return all ? 'all' : some ? 'some' : 'none';
+    }
+  }
+
+  getActiveRow(value?: string): 'all' | 'some' | 'none' {
+    if (this.#grid.selection.areAllSelected()) {
+      return 'all';
+    } else if (this.#grid.selection.size === 0) {
+      return 'none';
+    } else {
+      const groupByPath = this.#dataSource?.groupBy?.path,
+        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath!) === value);
 
       const some = items?.some(item => this.#grid.selection.isSelected(item)),
         all = items?.every(item => this.#grid.selection.isSelected(item));

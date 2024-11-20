@@ -3,6 +3,10 @@
 }
 
 :host([has-groups]) {
+  border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  margin-block-end: var(--sl-space-new-sm);
+  padding-block-end: var(--sl-space-new-md);
+
   .other {
     display: none;
   }
@@ -20,7 +24,11 @@
 
 .other {
   border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin-block-start: var(--sl-space-new-sm);
-  padding-block-start: var(--sl-space-new-lg);
-  padding-inline-start: calc(var(--sl-space-new-2xl) + var(--sl-space-new-md));
+  margin-block: var(--sl-space-new-sm) var(--sl-space-new-2xs);
+  padding-block-start: calc(var(--sl-space-new-md) + var(--sl-space-new-sm));
+  padding-inline-start: var(--sl-space-new-xl);
+}
+
+sl-option:first-of-type {
+  margin-block-start: var(--sl-space-new-2xs);
 }

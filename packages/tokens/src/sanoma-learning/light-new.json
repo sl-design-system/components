@@ -1948,6 +1948,32 @@
         "type": "boxShadow",
         "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
       }
+    },
+    "grid": {
+      "border": {
+        "value": "{color.divider}",
+        "type": "color"
+      },
+      "header": {
+        "value": "{color.neutral.faint}",
+        "type": "color"
+      },
+      "default": {
+        "value": "{color.base.transparent}",
+        "type": "color"
+      },
+      "zebra": {
+        "value": "{color.neutral.faint}",
+        "type": "color"
+      },
+      "group": {
+        "value": "{color.neutral.muted}",
+        "type": "color"
+      }
+    },
+    "divider": {
+      "value": "{color.neutral.subtle}",
+      "type": "color"
     }
   }
 }

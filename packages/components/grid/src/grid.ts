@@ -66,7 +66,7 @@ export type GridGroupHeaderRenderer = (
 ) => TemplateResult;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlActiveItemChangeEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T; relatedEvent?: Event }>;
+export type SlActiveItemChangeEvent<T = any> = CustomEvent<{ grid: Grid<T>; item?: T; relatedEvent?: Event }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
@@ -176,6 +176,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when an item has been dropped. */
   @event({ name: 'sl-grid-drop', cancelable: true }) dropEvent!: EventEmitter<SlDropEvent<T>>;
+
+  /** Whether a row can be set active by clicking anywhere in the row. */
+  @property({ type: Boolean, reflect: true, attribute: 'clickable-row' }) clickableRow?: boolean;
 
   /**
    * Determines if or what kind of drop target the given item is:
@@ -352,7 +355,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   renderHeader(): TemplateResult {
     const rows = this.view.headerRows,
-      selectionColumn = rows.at(-1)?.find((col): col is GridSelectionColumn => col instanceof GridSelectionColumn),
+      selectionColumn = rows.at(-1)?.find((col): col is GridSelectionColumn<T> => col instanceof GridSelectionColumn),
       showSelectionHeader =
         selectionColumn &&
         this.selection.size > 0 &&
@@ -392,11 +395,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   renderItemRow(item: T, index: number): TemplateResult {
     const rows = this.view.headerRows,
-      selected = this.selection.isSelected(item),
+      active = this.selection.isActive(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
-        ...(selected ? ['selected'] : []),
+        ...(active ? ['active'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item)?.split(' ') || []),
         ...(this.view.isFixedItem(item) ? ['fixed'] : [])
@@ -410,7 +413,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
-        class=${classMap({ selected })}
+        class=${classMap({ active })}
         part=${parts.join(' ')}
         index=${index}
       >
@@ -422,7 +425,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   renderGroupRow(group: GridViewModelGroup, index: number): TemplateResult {
     const expanded = this.view.getGroupState(group.value),
       selectable = !!this.view.columns.find(col => col instanceof GridSelectionColumn),
-      selected = this.view.getGroupSelection(group.value);
+      selected = this.view.getGroupSelection(group.value),
+      active = this.view.getActiveRow(group.value);
 
     return html`
       <tr part="group" index=${index}>
@@ -433,6 +437,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             .expanded=${expanded}
             .selectable=${selectable}
             .selected=${selected}
+            .active=${active}
           >
             ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.value}</span>`}
           </sl-grid-group-header>
@@ -475,8 +480,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onClickRow(event: Event, item: T): void {
-    this.activeItem = item;
-    this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
+    if (this.clickableRow) {
+      this.activeItem = this.selection.toggleActive(item);
+      this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
+    }
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {

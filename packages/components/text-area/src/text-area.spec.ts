@@ -325,6 +325,23 @@ describe('sl-text-area', () => {
     });
   });
 
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-area aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      textArea = el.querySelector('textarea')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(textArea).to.have.attribute('aria-label', 'my label');
+      expect(textArea).to.have.attribute('aria-disabled', 'true');
+    });
+  });
+
   describe('maxlength', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-area maxlength="3"></sl-text-area>`);

@@ -265,44 +265,44 @@
   },
   "space-new": {
     "none": {
-      "value": "{size.none}",
+      "value": "{space.none}",
       "type": "spacing"
     },
     "2xs": {
-      "value": "{size.025}",
+      "value": "{space.025}",
       "type": "spacing"
     },
     "xs": {
-      "value": "{size.050}",
+      "value": "{space.050}",
       "type": "spacing"
     },
     "sm": {
-      "value": "{size.075}",
+      "value": "{space.075}",
       "type": "spacing",
       "description": "Use when components are 'besties'"
     },
     "md": {
-      "value": "{size.100}",
+      "value": "{space.100}",
       "type": "spacing",
       "description": "Use when components are 'family'"
     },
     "lg": {
-      "value": "{size.200}",
+      "value": "{space.200}",
       "type": "spacing",
       "description": "Use when components are 'casual friends'"
     },
     "xl": {
-      "value": "{size.300}",
+      "value": "{space.300}",
       "type": "spacing",
       "description": "Use when components are 'acquaintances'"
     },
     "2xl": {
-      "value": "{size.400}",
+      "value": "{space.400}",
       "type": "spacing",
       "description": "Use when components are 'strangers'"
     },
     "3xl": {
-      "value": "{size.800}",
+      "value": "{space.800}",
       "type": "spacing"
     },
     "input": {
@@ -312,6 +312,16 @@
       },
       "horizontal": {
         "value": "{space-new.md} - {size.borderWidth.default}",
+        "type": "spacing"
+      }
+    },
+    "grid": {
+      "vertical": {
+        "value": "{space.175}",
+        "type": "spacing"
+      },
+      "horizontal": {
+        "value": "{space.200}",
         "type": "spacing"
       }
     }

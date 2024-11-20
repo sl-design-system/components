@@ -473,13 +473,25 @@
         "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
       },
       "secondary": {
-        "value": "{color.text.accent.grey.bold}",
-        "type": "color",
-        "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'.",
-        "inverted": {
-          "value": "{color.text.accent.blue.bold}",
+        "bold": {
+          "value": "{color.text.accent.grey.bold}",
           "type": "color",
-          "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          "inverted": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          },
+          "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
+        },
+        "inverted": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "inverted": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          },
+          "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         }
       },
       "info": {

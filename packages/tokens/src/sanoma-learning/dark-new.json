@@ -475,7 +475,12 @@
       "secondary": {
         "value": "{color.text.accent.grey.bold}",
         "type": "color",
-        "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
+        "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'.",
+        "inverted": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for secondary actions on 'color.background.secondary.bold'."
+        }
       },
       "info": {
         "plain": {

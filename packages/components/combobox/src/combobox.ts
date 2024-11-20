@@ -300,11 +300,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     }
 
-    if (changes.has('options') || changes.has('value')) {
+    if ((changes.has('options') || changes.has('value')) && this.items.length) {
       this.#updateSelectedItems();
     }
 
-    if (changes.has('selectedItems')) {
+    if (changes.has('selectedItems') && this.items.length) {
       this.#updateTextFieldValue();
       this.#updateValue();
     }
@@ -726,7 +726,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     };
 
     this.items = [item, ...this.items];
-    this.selectedItems = [...this.selectedItems, item];
 
     if (this.#useVirtualList) {
       this.listbox!.items = this.items;
@@ -736,12 +735,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       el.innerText = value;
       el.selected = true;
       el.value = value;
+      el.setAttribute('aria-selected', 'true');
 
       if (!el.parentElement) {
         this.listbox?.prepend(el);
       }
     }
 
+    this.#addSelectedOption(item);
     this.#updateCreateCustomOption();
     this.#updateCurrent(item);
   }

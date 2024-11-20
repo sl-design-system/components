@@ -30,6 +30,11 @@ let nextUniqueId = 0;
 @localized()
 export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
+  }
+
+  /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @internal */
@@ -119,6 +124,23 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     this.#onLabelSlotChange();
   }
 
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
+      if (this.input && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.input.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
+      }
+    });
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -164,6 +186,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   override focus(): void {
     this.input.focus();
+  }
+
+  override blur(): void {
+    this.input.blur();
   }
 
   override getLocalizedValidationMessage(): string {

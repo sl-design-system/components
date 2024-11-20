@@ -6,6 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Switch, type SwitchSize } from './switch.js';
 
@@ -57,7 +58,19 @@ export const Disabled: Story = {
 export const Empty: Story = {
   args: {
     text: ''
-  }
+  },
+  render: ({ checked, disabled, reverse, size, text, value }) => html`
+    <sl-switch
+      aria-label="Switch with no label"
+      ?checked=${checked}
+      ?disabled=${disabled}
+      ?reverse=${reverse}
+      size=${ifDefined(size)}
+      .value=${value}
+    >
+      ${text}
+    </sl-switch>
+  `
 };
 
 export const Overflow: Story = {

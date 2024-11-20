@@ -219,7 +219,6 @@ export const WithDataSource: Story = {
           }
 
           override render(): TemplateResult {
-            console.log('datasource in example', this.dataSource);
             return html`
               <div class="pagination">
                 <sl-paginator-status .dataSource=${this.dataSource}></sl-paginator-status>

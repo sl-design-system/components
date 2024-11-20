@@ -31,6 +31,11 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   ScopedElementsMixin(LitElement)
 ) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+  }
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
@@ -132,6 +137,23 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     }
 
     this.setFormControlElement(this.input);
+  }
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+      if (this.input && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.input.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
+      }
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {

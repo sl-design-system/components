@@ -215,17 +215,39 @@ export const All: StoryObj = {
         <h2>Size: ${size}</h2>
         <div class="content-wrapper">
           <div class="wrapper">
-            <sl-text-area size=${size} placeholder="Placeholder ${size}"></sl-text-area>
-            <sl-text-area size=${size} value="I am ${size}"></sl-text-area>
-            <sl-text-area readonly size=${size} value="${size} readonly"></sl-text-area>
-            <sl-text-area disabled size=${size} value="${size} disabled"></sl-text-area>
-            <sl-text-area disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-text-area>
+            <sl-text-area aria-label="label" size=${size} placeholder="Placeholder ${size}"></sl-text-area>
+            <sl-text-area aria-label="label" size=${size} value="I am ${size}"></sl-text-area>
+            <sl-text-area aria-label="label" readonly size=${size} value="${size} readonly"></sl-text-area>
+            <sl-text-area aria-label="label" disabled size=${size} value="${size} disabled"></sl-text-area>
+            <sl-text-area
+              aria-label="label"
+              disabled
+              size=${size}
+              placeholder="Placeholder ${size} disabled"
+            ></sl-text-area>
           </div>
           <div class="wrapper">
-            <sl-text-area show-validity="invalid" size=${size} value="${size} invalid"></sl-text-area>
-            <sl-text-area placeholder="Placeholder ${size} invalid" show-validity="invalid" size=${size}></sl-text-area>
-            <sl-text-area disabled show-validity="invalid" size=${size} value="${size} invalid disabled"></sl-text-area>
             <sl-text-area
+              aria-label="label"
+              show-validity="invalid"
+              size=${size}
+              value="${size} invalid"
+            ></sl-text-area>
+            <sl-text-area
+              aria-label="label"
+              placeholder="Placeholder ${size} invalid"
+              show-validity="invalid"
+              size=${size}
+            ></sl-text-area>
+            <sl-text-area
+              aria-label="label"
+              disabled
+              show-validity="invalid"
+              size=${size}
+              value="${size} invalid disabled"
+            ></sl-text-area>
+            <sl-text-area
+              aria-label="label"
               disabled
               placeholder="Placeholder ${size} disabled invalid"
               size=${size}
@@ -233,8 +255,19 @@ export const All: StoryObj = {
             ></sl-text-area>
           </div>
           <div class="wrapper">
-            <sl-text-area show-validity="valid" size=${size} value="I am md valid"></sl-text-area>
-            <sl-text-area disabled show-validity="valid" size=${size} value="${size} valid disabled"></sl-text-area>
+            <sl-text-area
+              aria-label="label"
+              show-validity="valid"
+              size=${size}
+              value="I am ${size} valid"
+            ></sl-text-area>
+            <sl-text-area
+              aria-label="label"
+              disabled
+              show-validity="valid"
+              size=${size}
+              value="${size} valid disabled"
+            ></sl-text-area>
           </div>
         </div>
       `

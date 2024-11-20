@@ -96,6 +96,26 @@ describe('sl-combobox', () => {
       expect(input).to.have.attribute('placeholder', 'Placeholder');
     });
 
+    it('should have a button', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.exist;
+      expect(button).to.contain('sl-icon[name="chevron-down"]');
+    });
+
+    it('should toggle the popover when clicking the button', () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]'),
+        wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+
+      expect(wrapper?.matches(':popover-open')).to.be.false;
+
+      button?.click();
+      expect(wrapper?.matches(':popover-open')).to.be.true;
+
+      button?.click();
+      expect(wrapper?.matches(':popover-open')).to.be.false;
+    });
+
     it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });
@@ -191,31 +211,34 @@ describe('sl-combobox', () => {
       expect(onBlur).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-change event when selecting an option', () => {
+    it('should emit an sl-change event when selecting an option', async () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
       input.click();
       el.querySelector('sl-option')?.click();
+      await el.updateComplete;
 
       expect(onChange).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-validate event when calling reportValidity', () => {
+    it('should emit an sl-validate event when calling reportValidity', async () => {
       const onValidate = spy();
 
       el.addEventListener('sl-validate', onValidate);
       el.reportValidity();
+      await el.updateComplete;
 
       expect(onValidate).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-validate event when selecting an option', () => {
+    it('should emit an sl-validate event when selecting an option', async () => {
       const onValidate = spy();
 
       el.addEventListener('sl-validate', onValidate);
       input.click();
       el.querySelector('sl-option')?.click();
+      await el.updateComplete;
 
       expect(onValidate).to.have.been.calledOnce;
     });
@@ -888,15 +911,16 @@ describe('sl-combobox', () => {
         expect(selectedGroup).to.exist;
         expect(selectedGroup).to.have.attribute('aria-label', 'Selected');
 
-        const options = Array.from(selectedGroup.renderRoot.querySelectorAll('sl-option')).map(o => o.value as string);
+        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option')).map(o => o.innerText);
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
       });
 
-      it('should have a label for all the unselected options', () => {
-        const otherLabel = selectedGroup.renderRoot.querySelector('.other');
+      it('should have group headers for both the selected and unselected options', () => {
+        const headers = selectedGroup.renderRoot.querySelectorAll('sl-option-group-header');
 
-        expect(otherLabel).to.exist;
-        expect(otherLabel).to.have.trimmed.text('All options');
+        expect(headers).to.have.lengthOf(2);
+        expect(headers.item(0)).to.have.trimmed.text('Selected');
+        expect(headers.item(1)).to.have.trimmed.text('All options');
       });
     });
   });

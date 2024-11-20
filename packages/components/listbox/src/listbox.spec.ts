@@ -2,7 +2,7 @@ import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
-import { type Listbox } from './listbox.js';
+import { type Listbox, type ListboxItem } from './listbox.js';
 import { type Option } from './option.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
@@ -21,14 +21,28 @@ describe('sl-listbox', () => {
   });
 
   describe('virtual list', () => {
-    const options = Array.from({ length: 1000 }).map((_, i) => ({
+    type TestOption = {
+      label: string;
+      selected: boolean;
+      value: number;
+    };
+
+    const options: TestOption[] = Array.from({ length: 1000 }).map((_, i) => ({
       label: `Item ${i + 1}`,
       selected: i % 2 === 0,
       value: i
     }));
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-listbox .options=${options} style="height: 200px"></sl-listbox>`);
+      el = await fixture(html`
+        <sl-listbox
+          .options=${options}
+          option-label-path="label"
+          option-selected-path="selected"
+          option-value-path="value"
+          style="height: 200px"
+        ></sl-listbox>
+      `);
 
       // Give the virtualizer time to render
       await new Promise(resolve => setTimeout(resolve, 10));
@@ -44,12 +58,15 @@ describe('sl-listbox', () => {
       expect(renderedOptions.length).to.be.greaterThan(0);
       expect(renderedOptions.length).to.be.lessThan(options.length);
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
-        options.slice(0, renderedOptions.length).map(i => JSON.stringify(i))
+        options.slice(0, renderedOptions.length).map(i => i.label)
       );
     });
 
     it('should update the options when the options changed', async () => {
       el.options = options.map(o => o.label);
+      el.optionLabelPath = undefined;
+      el.optionSelectedPath = undefined;
+      el.optionValuePath = undefined;
       await new Promise(resolve => setTimeout(resolve, 10));
 
       const renderedOptions = Array.from(el.querySelectorAll('sl-option'));
@@ -63,7 +80,7 @@ describe('sl-listbox', () => {
       el.optionValuePath = 'value';
       await el.updateComplete;
 
-      const renderedOptions = Array.from<Option<(typeof options)[0]>>(el.querySelectorAll('sl-option'));
+      const renderedOptions = Array.from<Option<TestOption>>(el.querySelectorAll('sl-option'));
 
       expect(renderedOptions.map(o => o.textContent)).to.deep.equal(
         options.slice(0, renderedOptions.length).map(i => i.label)
@@ -77,10 +94,10 @@ describe('sl-listbox', () => {
     });
 
     it('should support a custom renderer', async () => {
-      el.renderer = (option: (typeof options)[0]) => {
+      el.renderer = (item: ListboxItem<TestOption>) => {
         const div = document.createElement('div');
         div.setAttribute('role', 'option');
-        div.textContent = option.label;
+        div.textContent = item.label;
 
         return div;
       };

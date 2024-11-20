@@ -1,8 +1,9 @@
 :host {
   border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  inline-size: 100%;
   margin-block-end: var(--sl-space-new-sm);
+  margin-inline: 0;
   padding-block-end: var(--sl-space-new-md);
-  user-select: none;
 }
 
 :host([aria-current]) .container {

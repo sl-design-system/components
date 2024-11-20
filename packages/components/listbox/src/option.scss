@@ -3,6 +3,7 @@
   display: block;
   inline-size: calc(100% - var(--sl-space-new-md) * 2);
   margin-inline: var(--sl-space-new-md);
+  scroll-margin-block: var(--sl-space-new-md);
   user-select: none;
 }
 
@@ -18,7 +19,7 @@
   background: var(--sl-color-action-background-accent-subtle-active);
 }
 
-:host(:not(:first-of-type)) {
+:host(:not(:first-child)) {
   margin-block-start: var(--sl-space-new-2xs);
 }
 

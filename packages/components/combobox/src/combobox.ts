@@ -12,6 +12,7 @@ import {
   event,
   getStringByPath,
   getValueByPath,
+  isPopoverOpen,
   setValueByPath
 } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
@@ -96,7 +97,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** Update the width of the popover while open. */
   #observer = new ResizeObserver(entries => {
-    if (this.wrapper?.matches(':popover-open')) {
+    if (this.wrapper && isPopoverOpen(this.wrapper)) {
       this.wrapper.style.inlineSize = `${entries[0].contentRect.width}px`;
     }
   });
@@ -142,7 +143,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<U | U[] | undefined>>;
 
-  /** @internal The create custom option option (used when `allowCustomValues` is set). */
+  /** @internal The create custom option element (used when `allowCustomValues` is set). */
   @state() createCustomOption?: ComboboxItem<T, U>;
 
   /** @internal The currently highlighted option in the listbox. */
@@ -261,11 +262,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     super.willUpdate(changes);
 
     if (changes.has('multiple')) {
-      if (this.multiple) {
-        this.listbox?.setAttribute('aria-multiselectable', 'true');
-      } else {
-        this.listbox?.removeAttribute('aria-multiselectable');
-      }
+      this.listbox?.setAttribute('aria-multiselectable', Boolean(this.multiple).toString());
 
       this.#updateSelectedItems();
     }

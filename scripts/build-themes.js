@@ -114,7 +114,10 @@ const build = async (production = false) => {
 
   const configs = Object
     .entries(permutateThemes($themes))
+    .filter(([name]) => !name.includes('_onhold'))
     .map(([name, tokensets]) => {
+      console.log(`Building theme ${name}`);
+
       const [theme, variant] = name.split('/');
 
       const files = [
@@ -174,7 +177,7 @@ const build = async (production = false) => {
 
       return {
         log: {
-          verbosity: 'verbose',
+          // verbosity: 'verbose',
           warnings: 'disabled'
         },
         source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),
@@ -200,7 +203,7 @@ const build = async (production = false) => {
       };
     });
 
-  for (const cfg of [configs[8]]) {
+  for (const cfg of configs) {
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();

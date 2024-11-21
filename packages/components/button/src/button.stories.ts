@@ -15,7 +15,7 @@ interface Props extends Pick<Button, 'disabled' | 'fill' | 'size' | 'variant'> {
 type Story = StoryObj<Props>;
 
 const fills: ButtonFill[] = ['solid', 'outline', 'link', 'ghost'];
-const variants: ButtonVariant[] = ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger'];
+const variants: ButtonVariant[] = ['primary', 'secondary', 'success', 'info', 'warning', 'danger'];
 const disabledStates = [false, true];
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
@@ -27,9 +27,6 @@ export default {
   args: {
     text: 'Button',
     icon: 'none',
-    size: 'md',
-    fill: 'solid',
-    variant: 'default',
     disabled: false
   },
   argTypes: {
@@ -148,8 +145,8 @@ export const All: Story = {
             to right,
             var(--sl-color-background-accent-grey-bold-idle),
             var(--sl-color-background-accent-grey-bold-idle) 50%,
-            var(--sl-color-palette-blue-700) 50%,
-            var(--sl-color-palette-blue-700) 100%
+            var(--sl-color-background-accent-blue-bold-idle) 50%,
+            var(--sl-color-background-accent-blue-bold-idle) 100%
           );
           grid-column: 8 / 9;
           grid-row: 1 / 6;
@@ -166,32 +163,32 @@ export const All: Story = {
         <span>Pill icon</span>
 
         <span>Small</span>
-        <sl-button fill="outline" size="sm" variant="primary">Button</sl-button>
-        <sl-button fill="outline" size="sm" variant="primary">
+        <sl-button fill="outline" size="sm">Button</sl-button>
+        <sl-button fill="outline" size="sm">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
-        <sl-button fill="outline" shape="pill" size="sm" variant="primary">Button</sl-button>
-        <sl-button fill="outline" shape="pill" size="sm" variant="primary">
+        <sl-button fill="outline" shape="pill" size="sm">Button</sl-button>
+        <sl-button fill="outline" shape="pill" size="sm">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
 
         <span>Medium</span>
-        <sl-button fill="outline" variant="primary">Button</sl-button>
-        <sl-button fill="outline" variant="primary">
+        <sl-button fill="outline">Button</sl-button>
+        <sl-button fill="outline">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
-        <sl-button fill="outline" shape="pill" variant="primary">Button</sl-button>
-        <sl-button fill="outline" shape="pill" variant="primary">
+        <sl-button fill="outline" shape="pill">Button</sl-button>
+        <sl-button fill="outline" shape="pill">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
 
         <span>Large</span>
-        <sl-button fill="outline" size="lg" variant="primary">Button</sl-button>
-        <sl-button fill="outline" size="lg" variant="primary">
+        <sl-button fill="outline" size="lg">Button</sl-button>
+        <sl-button fill="outline" size="lg">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
-        <sl-button fill="outline" shape="pill" size="lg" variant="primary">Button</sl-button>
-        <sl-button fill="outline" shape="pill" size="lg" variant="primary">
+        <sl-button fill="outline" shape="pill" size="lg">Button</sl-button>
+        <sl-button fill="outline" shape="pill" size="lg">
           <sl-icon name="far-universal-access"></sl-icon>
         </sl-button>
       </section>

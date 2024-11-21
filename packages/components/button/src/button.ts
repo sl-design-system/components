@@ -1,5 +1,5 @@
 import { EventsController, closestElementComposed } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
 
@@ -17,7 +17,7 @@ export type ButtonShape = 'square' | 'pill';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
-export type ButtonVariant = 'default' | 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger';
 
 /**
  * A single, simple button, with optionally an icon.
@@ -54,16 +54,16 @@ export class Button extends LitElement {
   @property({ reflect: true }) fill?: ButtonFill;
 
   /**
-   * The size of the button.
-   * @default md
-   */
-  @property({ reflect: true }) size?: ButtonSize;
-
-  /**
    * The shape of the button.
    * @default square
    */
   @property({ reflect: true }) shape?: ButtonShape;
+
+  /**
+   * The size of the button.
+   * @default md
+   */
+  @property({ reflect: true }) size?: ButtonSize;
 
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
@@ -73,7 +73,7 @@ export class Button extends LitElement {
 
   /**
    * The variant of the button.
-   * @default default
+   * @default secondary
    */
   @property({ reflect: true }) variant?: ButtonVariant;
 
@@ -84,6 +84,14 @@ export class Button extends LitElement {
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
     }
   }
 

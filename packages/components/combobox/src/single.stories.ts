@@ -1,3 +1,4 @@
+import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
@@ -5,7 +6,8 @@ import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { type Combobox } from './combobox.js';
+import '../register.js';
+import { Combobox } from './combobox.js';
 import { components } from './combobox.stories.js';
 
 type Props = Pick<
@@ -26,10 +28,10 @@ type Props = Pick<
   optionValuePath?: string;
   virtualList?: boolean;
 };
-type Story = StoryObj<Props>;
+export type Story = StoryObj<Props>;
 
 export default {
-  title: 'Form/Combobox/Multiple',
+  title: 'Form/Combobox/Single',
   args: {
     allowCustomValues: false,
     autocomplete: 'both',
@@ -73,7 +75,6 @@ export default {
         ?select-only=${selectOnly}
         .options=${virtualList ? options : undefined}
         .value=${value}
-        multiple
         autocomplete=${ifDefined(autocomplete)}
         option-group-path=${ifDefined(optionGroupPath)}
         option-label-path=${ifDefined(optionLabelPath)}
@@ -109,8 +110,7 @@ export const AllowCustomValues: Story = {
 export const Disabled: Story = {
   args: {
     ...Basic.args,
-    disabled: true,
-    value: ['Button bar', 'Checkbox']
+    disabled: true
   }
 };
 
@@ -118,14 +118,6 @@ export const FilterResults: Story = {
   args: {
     ...Basic.args,
     filterResults: true
-  }
-};
-
-export const GroupSelected: Story = {
-  args: {
-    ...Basic.args,
-    groupSelected: true,
-    value: ['Button bar', 'Checkbox']
   }
 };
 
@@ -153,14 +145,6 @@ export const Groups: Story = {
   }
 };
 
-export const GroupsWithGroupSelected: Story = {
-  args: {
-    ...Groups.args,
-    groupSelected: true,
-    value: ['Button bar', 'Checkbox']
-  }
-};
-
 export const RichContent: Story = {
   args: {
     options: html`
@@ -185,6 +169,16 @@ export const RichContent: Story = {
   }
 };
 
+export const Selected: Story = {
+  args: {
+    options: html`
+      <sl-option>Lorem</sl-option>
+      <sl-option>Ipsum</sl-option>
+      <sl-option selected>Dolar</sl-option>
+    `
+  }
+};
+
 export const SelectOnly: Story = {
   args: {
     ...Basic.args,
@@ -192,45 +186,25 @@ export const SelectOnly: Story = {
   }
 };
 
-export const Selected: Story = {
-  args: {
-    options: html`
-      <sl-option>Lorem</sl-option>
-      <sl-option selected>Ipsum</sl-option>
-      <sl-option selected>Dolar</sl-option>
-    `
-  }
-};
-
-export const Stacked: Story = {
-  args: {
-    ...Basic.args,
-    maxWidth: '700px',
-    value: ['Switch', 'Card', 'Checkbox', 'Inline message', 'Menu', 'Panel', 'Spinner', 'Button bar']
-  }
-};
-
 export const Value: Story = {
   args: {
     ...Basic.args,
-    value: ['Button bar', 'Checkbox']
+    value: 'Tooltip'
   }
 };
 
 export const VirtualList: Story = {
   args: {
-    groupSelected: true,
     optionLabelPath: 'label',
     optionValuePath: 'value',
     options: Array.from({ length: 10000 }).map((_, i) => ({ label: `Option ${i + 1}`, value: i })),
-    value: [3000],
+    value: 3000,
     virtualList: true
   }
 };
 
 export const VirtualListWithGroups: Story = {
   args: {
-    groupSelected: true,
     optionGroupPath: 'group',
     optionLabelPath: 'label',
     optionValuePath: 'value',
@@ -239,7 +213,7 @@ export const VirtualListWithGroups: Story = {
       label: `Option ${i + 1}`,
       value: i
     })),
-    value: [3000],
+    value: 3000,
     virtualList: true
   }
 };

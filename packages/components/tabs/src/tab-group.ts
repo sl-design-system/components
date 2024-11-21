@@ -10,7 +10,7 @@ import {
   isPopoverOpen
 } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, query, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
@@ -79,8 +79,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // #events = new EventsController(this);
-
   /** Unique prefix ID for each component in the light DOM. */
   #idPrefix = `sl-tab-group-${nextUniqueId++}`;
 
@@ -131,23 +129,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<Tab | MenuItem>(this, {
-    // focusInIndex: ((elements: Tab[]) => elements.findIndex(el => el.selected) )|| 0,
     focusInIndex: (elements: Tab[]) => {
       const index = elements.findIndex(el => el.selected);
       return index === -1 ? 0 : index;
     },
-    // focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
-    // focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected) ?? 0,
-    //  elements: () => (this.menuItems ? this.menuItems?.map(item => {return item.tab}) : this.tabs )|| [],
-    elements: () =>
-      (this.#menu && isPopoverOpen(this.#menu)
-        ? /*this.menuItems?.map(item => {
-            return item.tab;
-          })*/ this.#menuItems
-        : this.tabs) || [],
-    // elements: () => (isPopoverOpen(this.renderRoot.querySelector('sl-menu-button')!.renderRoot.querySelector('sl-menu')!) ? this.menuItems : this.tabs) || [],
+    elements: () => (this.#menu && isPopoverOpen(this.#menu) ? this.#menuItems : this.tabs) || [],
     isFocusableElement: (el: Tab) => !el.disabled
   });
+
+  /** Menu element, is shown when the tabs are overflowing. */
+  #menu: Menu | undefined;
+
+  /** Menu items, are shown in the menu when the tabs are overflowing. */
+  #menuItems: MenuItem[] = [];
 
   /** Determines whether the active tab indicator should animate. */
   #shouldAnimate = false;
@@ -176,13 +170,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
-  /** The listbox element with all tabs list. */
-  @query('[popover]') listbox!: HTMLElement;
-
-  #menu: Menu | undefined;
-
-  #menuItems: MenuItem[] = [];
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -197,8 +184,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // changes size for example when fonts are loaded. The
       // other elements do not change size while the tablist does.
       this.#resizeObserver.observe(tablist);
-
-      //  this.#events.listen(this, 'keydown', this.#onKeydown);
     });
   }
 
@@ -230,53 +215,20 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    // this.#shouldAnimate = false;
-    // this.#updateSize();
-    // this.#shouldAnimate = true;
-
     if (changes.has('menuItems')) {
       const menuBtn = this.renderRoot.querySelector('sl-menu-button') as MenuButton;
 
       if (menuBtn) {
-        this.#menuItems = Array.from(menuBtn.querySelectorAll<MenuItem>('sl-menu-item')); // TODO: sth wrong here?
+        this.#menuItems = Array.from(menuBtn.querySelectorAll<MenuItem>('sl-menu-item'));
       } else if (this.tabs) {
         this.tabs[0].setAttribute('tabindex', '0');
       }
 
       this.#rovingTabindexController.clearElementCache();
-      // this.#rovingTabindexController.hostContainsFocus();
     }
-
-    console.log(
-      'changes in updated',
-      changes,
-      this.showMenu,
-      this.#menu,
-      this.#menuItems,
-      "changes.has('menuItems')",
-      changes.has('menuItems')
-    );
   }
 
-  // TODO: role tablist should be added to the different place?
-  // TODO: role tablist to slot???
-
   override render(): TemplateResult {
-    console.log(
-      'rovingTabindexController',
-      this.#rovingTabindexController,
-      this.#rovingTabindexController.focusInIndex,
-      this.selectedTab
-    );
-    const menuBtn = this.renderRoot.querySelector('sl-menu-button');
-    console.log(
-      'menuitems3',
-      this.menuItems,
-      menuBtn?.querySelectorAll('sl-menu-item'),
-      menuBtn,
-      menuBtn?.renderRoot.querySelectorAll('sl-menu-item')
-    );
-    console.log('items1', this.#menuItems);
     return html`
       <div part="container">
         <div part="wrapper">
@@ -292,15 +244,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           </div>
           ${this.showMenu
             ? html`
-                <sl-menu-button aria-label=${msg('Show all')} fill="ghost">
+                <sl-menu-button aria-label=${msg('Show all')} fill="ghost" @keydown=${this.#onKeydown}>
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
                   ${this.menuItems?.map(
                     menuItem => html`
-                      <sl-menu-item
-                        @keydown=${this.#onKeydown}
-                        @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                        ?disabled=${menuItem.disabled}
-                      >
+                      <sl-menu-item @click=${() => this.#onMenuItemClick(menuItem.tab)} ?disabled=${menuItem.disabled}>
                         ${menuItem.title}
                       </sl-menu-item>
                     `
@@ -314,11 +262,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
       </div>
     `;
-  } // TODO: menu button aria label not working with NVDA...
-
-  // override focus(): void {
-  //   this.#rovingTabindexController.focus();
-  // }
+  }
 
   #onClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
@@ -332,37 +276,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    console.log(
-      'listbox',
-      this.listbox,
-      this.renderRoot.querySelector('sl-menu-button'),
-      this.renderRoot,
-      this.showMenu
-    );
-
-    const menuBtn = this.renderRoot.querySelector('sl-menu-button'),
-      menu = menuBtn?.renderRoot.querySelector('sl-menu');
-
     if (this.#menu && isPopoverOpen(this.#menu)) {
       this.#rovingTabindexController.clearElementCache();
       this.#rovingTabindexController.hostContainsFocus();
     }
 
-    console.log('menus', menuBtn, menu, isPopoverOpen(menu!), '......', this.#menu && isPopoverOpen(this.#menu));
-
-    // if (this.#menu && isPopoverOpen(this.#menu)) {
-    //   this.#rovingTabindexController.clearElementCache();
-    //   this.#rovingTabindexController.hostContainsFocus();
-    // }
-
-    // const tab = event.target.closest('sl-tab');
-    //
-    console.log('keydown, tab', event, event.target /*, tab*/, this.menuItems);
-
-    console.log('keydown activeElement', event.key, document.activeElement);
-
-    if (/*tab &&*/ ['Enter', ' '].includes(event.key)) {
-      // this.#updateSelectedTab(tab);
+    if (['Enter', ' '].includes(event.key)) {
       this.#updateSelectedTab(<Tab>event.target);
       this.#scrollToTabPanelStart();
     }
@@ -406,13 +325,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.selectedTab = this.tabs.find(tab => tab.selected);
 
     if (!this.selectedTab) {
-      console.log('no selected', this.selectedTab, this.tabs[0]);
       this.tabs[0].setAttribute('tabindex', '0');
     }
 
-    console.log('selected??', this.selectedTab, this.tabs[0]);
-
-    // this.#rovingTabindexController.clearElementCache();
     this.#linkTabsWithPanels();
   }
 
@@ -538,8 +453,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #updateSize(): void {
     this.#rovingTabindexController.clearElementCache();
 
-    // TODO: on resize and no menubutton I cannon focus then just tabs itself (without overflow and overflow before)
-
     const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
       tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
 
@@ -547,21 +460,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       ? tablist.scrollHeight > scroller.offsetHeight
       : tablist.scrollWidth > scroller.offsetWidth;
 
-    const menuBtn = this.renderRoot.querySelector('sl-menu-button');
-    //
-    //   this.menu = menuBtn?.renderRoot.querySelector('sl-menu');
-
     if (this.showMenu) {
       const menuBtn = this.renderRoot.querySelector('sl-menu-button');
 
       this.#menu = menuBtn?.renderRoot?.querySelector('sl-menu') as Menu;
 
-      this.#menu?.addEventListener('toggle', event => {
-        console.log('event on menu toggle', event);
+      this.#menu?.addEventListener('toggle', () => {
         this.#rovingTabindexController.clearElementCache();
       });
-
-      // this.#rovingTabindexController.clearElementCache();
 
       this.menuItems = this.tabs?.map(tab => {
         const title = Array.from(tab.childNodes)
@@ -574,32 +480,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
         return { tab, disabled: tab.disabled, title, subtitle };
       });
-
-      console.log('menuitems', this.menuItems, menuBtn?.querySelectorAll('sl-menu-item'), menuBtn);
     } else {
-      console.log('tabs in not show menu resize', this.tabs);
-      // this.#rovingTabindexController.clearElementCache();
       this.menuItems = undefined;
-      // if (this.tabs) {
-      //   this.tabs[0].setAttribute('tabindex', '0');
-      // }
     }
 
     this.selectedTab?.scrollIntoView(false);
 
     this.#updateSelectionIndicator();
-
-    console.log(
-      'menuitems2',
-      this.menuItems,
-      menuBtn?.querySelectorAll('sl-menu-item'),
-      menuBtn,
-      menuBtn?.renderRoot.querySelectorAll('sl-menu-item')
-    );
-
-    // if (menuBtn) {
-    //   this.#menuItems = Array.from(menuBtn.querySelectorAll<MenuItem>('sl-menu-item'));
-    //   this.#rovingTabindexController.clearElementCache();
-    // }
   }
 }

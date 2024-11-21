@@ -28,6 +28,11 @@ declare global {
 @localized()
 export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
+  }
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -62,6 +67,23 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
 
   /** The variant of the button. */
   @property() variant: ButtonVariant = 'default';
+
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    super.attributeChangedCallback(name, oldValue, newValue);
+
+    requestAnimationFrame(() => {
+      const attributes = ['aria-disabled', 'aria-label'];
+      if (this.button && attributes.includes(name)) {
+        attributes.forEach(attr => {
+          const value = this.getAttribute(attr);
+          if (value !== null) {
+            this.button.setAttribute(attr, value);
+            this.removeAttribute(attr);
+          }
+        });
+      }
+    });
+  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);

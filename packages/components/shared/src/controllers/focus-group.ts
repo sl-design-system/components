@@ -199,7 +199,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   }
 
   handleFocusin = (event: FocusEvent): void => {
-    console.log('this.isFocusMovingOutOfScope(event)', this.isFocusMovingOutOfScope(event), event);
     if (!this.isEventWithinListenerScope(event)) return;
     if (!this.isFocusMovingOutOfScope(event)) {
       this.hostContainsFocus();

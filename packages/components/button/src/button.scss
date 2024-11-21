@@ -12,14 +12,14 @@
   outline-color: transparent;
   padding: calc(var(--sl-space-075) - var(--sl-size-borderWidth-default)) var(--sl-space-300);
   vertical-align: middle;
+}
 
-  &:hover {
-    background: var(--sl-color-background-secondary-subtle-hover);
-  }
+:host(:hover) {
+  background: var(--sl-color-background-secondary-subtle-hover);
+}
 
-  &:active {
-    background: var(--sl-color-background-secondary-subtle-active);
-  }
+:host(:active) {
+  background: var(--sl-color-background-secondary-subtle-active);
 }
 
 :host(:where(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {

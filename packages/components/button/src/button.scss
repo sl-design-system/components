@@ -395,10 +395,12 @@
   outline-offset: var(--sl-space-new-offset-focused, var(--sl-border-width-focusring-offset));
 }
 
-:host(:where(:active, :focus-visible, :hover)) {
-  transition-duration: var(--sl-animation-button-duration);
-  transition-property: background, border-color, color, outline-color;
-  transition-timing-function: var(--sl-animation-button-easing);
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:active, :focus-visible, :hover)) {
+    transition-duration: var(--sl-animation-button-duration);
+    transition-property: background, border-color, color, outline-color;
+    transition-timing-function: var(--sl-animation-button-easing);
+  }
 }
 
 ::slotted(*) {

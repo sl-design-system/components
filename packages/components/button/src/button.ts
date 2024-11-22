@@ -9,11 +9,11 @@ declare global {
   }
 }
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
-
 export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
 
 export type ButtonShape = 'square' | 'pill';
+
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
@@ -80,7 +80,7 @@ export class Button extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'button';
+    this.setAttribute('role', 'button');
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;

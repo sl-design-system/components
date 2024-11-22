@@ -1644,12 +1644,12 @@
               "description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.purple.600}",
+              "value": "{color.palette.purple.700}",
               "type": "color",
               "description": "A vibrant purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.purple.700}",
+              "value": "{color.palette.purple.800}",
               "type": "color",
               "description": "A vibrant purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }

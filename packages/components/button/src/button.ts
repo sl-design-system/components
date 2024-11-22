@@ -17,7 +17,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'inverted';
 
 /**
  * A single, simple button, with optionally an icon.

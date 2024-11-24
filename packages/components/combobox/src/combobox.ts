@@ -998,7 +998,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
 
       if (item.current) {
-        el.setAttribute('aria-current', 'true');
+        el.setAttribute('current', '');
       }
 
       return el;
@@ -1008,7 +1008,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       el.value = item.label;
 
       if (item.current) {
-        el.setAttribute('aria-current', 'true');
+        el.setAttribute('current', '');
       }
 
       return el;
@@ -1072,7 +1072,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
-      this.listbox?.querySelector('[aria-current]')?.removeAttribute('aria-current');
+      this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 
     this.currentItem = option;
@@ -1083,7 +1083,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
       if (this.currentItem.element) {
-        this.currentItem.element.setAttribute('aria-current', 'true');
+        this.currentItem.element.setAttribute('current', '');
         this.currentItem.element.scrollIntoView({ block: 'nearest' });
       } else {
         this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });

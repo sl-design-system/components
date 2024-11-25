@@ -138,7 +138,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   });
 
   /** Menu element, is shown when the tabs are overflowing. */
-  #menu: Menu | undefined;
+  #menu?: Menu;
 
   /** Menu items, are shown in the menu when the tabs are overflowing. */
   #menuItems: MenuItem[] = [];
@@ -244,7 +244,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           </div>
           ${this.showMenu
             ? html`
-                <sl-menu-button aria-label=${msg('Show all')} fill="ghost" @keydown=${this.#onKeydown}>
+                <sl-menu-button @keydown=${this.#onKeydown} aria-label=${msg('Show all')} fill="ghost">
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
                   ${this.menuItems?.map(
                     menuItem => html`

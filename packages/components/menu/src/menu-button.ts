@@ -3,6 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type PopoverPosition } from '@sl-design-system/shared';
+import { ObserveAttributesMixin, ObserveAttributesMixinInterface } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -26,7 +27,10 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ScopedElementsMixin(LitElement) {
+export class MenuButton
+  extends ObserveAttributesMixin(ScopedElementsMixin(LitElement))
+  implements ObserveAttributesMixinInterface
+{
   /** @internal */
   static override get observedAttributes(): string[] {
     return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
@@ -68,29 +72,50 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** The variant of the button. */
   @property() variant: ButtonVariant = 'default';
 
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    super.attributeChangedCallback(name, oldValue, newValue);
+  // override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+  //   super.attributeChangedCallback(name, oldValue, newValue);
+  //
+  //   // requestAnimationFrame(() => {
+  //   //   const attributes = ['aria-disabled', 'aria-label'];
+  //   //   if (this.button && attributes.includes(name)) {
+  //   //     attributes.forEach(attr => {
+  //   //       const value = this.getAttribute(attr);
+  //   //       if (value !== null) {
+  //   //         this.button.setAttribute(attr, value);
+  //   //         this.removeAttribute(attr);
+  //   //       }
+  //   //     });
+  //   //   }
+  //   // });
+  // }
 
-    requestAnimationFrame(() => {
-      const attributes = ['aria-disabled', 'aria-label'];
-      if (this.button && attributes.includes(name)) {
-        attributes.forEach(attr => {
-          const value = this.getAttribute(attr);
-          if (value !== null) {
-            this.button.setAttribute(attr, value);
-            this.removeAttribute(attr);
-          }
-        });
-      }
-    });
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setObservedAttributes(['aria-disabled', 'aria-label']); // TODO: this one is necessary?
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
+    this.setTargetElement(this.button);
+    // this.setObservedAttributes(['aria-disabled', 'aria-label']);
+
     this.button.setAttribute('aria-details', this.menu.id);
     this.menu.anchorElement = this.button;
+    // this.setTargetElement(this.button);
+    // this.setObservedAttributes(['aria-disabled', 'aria-label']);
   }
+
+  // setTargetElement(element: HTMLElement): void {
+  //   // this._targetElement = element;
+  //   super.setTargetElement(element);
+  // }
+  //
+  // setObservedAttributes(attributes: string[]): void {
+  //   // this._targetElement = element;
+  //   super.setTargetElement(attributes);
+  // }
 
   override render(): TemplateResult {
     // Check if the button only contains an icon; we have to look in the light DOM for this,

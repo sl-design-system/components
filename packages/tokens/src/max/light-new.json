@@ -663,17 +663,17 @@
     },
     "link": {
       "plain": {
-        "value": "{color.text.accent.teal.plain}",
+        "value": "{color.text.accent.blue.plain}",
         "type": "color",
         "description": "Use for links in their default or hovered state. Underline links when hovered."
       },
       "active": {
-        "value": "{color.text.accent.teal.bold}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for links in the active state."
       },
       "visited": {
-        "value": "{color.text.accent.teal.plain}",
+        "value": "{color.text.accent.blue.plain}",
         "type": "color",
         "description": "Use for links in a visited state."
       }
@@ -913,17 +913,17 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.text.accent.grey.faint}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.border.accent.teal}",
+        "value": "{color.text.accent.teal.bold}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.accent.teal}",
+        "value": "{color.text.accent.teal.bold}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -938,7 +938,7 @@
         "description": "Use for borders that highlight primary actions."
       },
       "secondary": {
-        "value": "{color.border.accent.grey.heavy}",
+        "value": "{color.border.accent.grey.plain}",
         "type": "color",
         "description": "Use for borders that highlight secondary actions."
       },
@@ -964,18 +964,18 @@
       },
       "accent": {
         "blue": {
-          "value": "{color.palette.blue.400}",
+          "value": "{color.text.accent.blue.bold}",
           "type": "color",
           "description": "Use for blue borders for purely stylistic purposes with no specific meaning."
         },
         "green": {
-          "value": "{color.palette.green.600}",
+          "value": "{color.text.accent.green.bold}",
           "type": "color",
           "description": "Use for green borders for purely stylistic purposes with no specific meaning."
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.100}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -995,15 +995,30 @@
             "description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
           }
         },
-        "yellow": {
-          "value": "{color.palette.yellow.600}",
+        "orange": {
+          "value": "{color.text.accent.orange.bold}",
           "type": "color",
-          "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
+          "description": "Use for orange borders for purely stylistic purposes with no specific meaning."
+        },
+        "purple": {
+          "value": "{color.text.accent.purple.bold}",
+          "type": "color",
+          "description": "Use for purple borders for purely stylistic purposes with no specific meaning."
         },
         "red": {
-          "value": "{color.palette.red.500}",
+          "value": "{color.text.accent.red.bold}",
           "type": "color",
           "description": "Use for red borders for purely stylistic purposes with no specific meaning."
+        },
+        "teal": {
+          "value": "{color.text.accent.teal.bold}",
+          "type": "color",
+          "description": "Use for teal borders for purely stylistic purposes with no specific meaning."
+        },
+        "yellow": {
+          "value": "{color.text.accent.yellow.bold}",
+          "type": "color",
+          "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
         }
       }
     },
@@ -1156,17 +1171,17 @@
         },
         "bold": {
           "idle": {
-            "value": "{color.palette.grey.100}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis."
           },
           "hover": {
-            "value": "{color.palette.grey.150}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during hover states."
           },
           "active": {
-            "value": "{color.palette.grey.200}",
+            "value": "{color.palette.grey.300}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during pressed states"
           }

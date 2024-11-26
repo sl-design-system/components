@@ -507,7 +507,12 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     } else if (!this.wrapper?.matches(':popover-open') && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
       this.wrapper?.showPopover();
-    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
+    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key) && this.input.selectionStart === 0) {
+      if (this.focusedTag) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
       let index = this.focusedTag ? this.selectedItems.indexOf(this.focusedTag) : this.selectedItems.length;
       index += event.key === 'ArrowLeft' ? -1 : 1;
       index = Math.max(0, index);

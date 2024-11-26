@@ -33,7 +33,7 @@ export class MenuButton
 {
   /** @internal */
   static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
+    return ['aria-disabled', 'aria-label']; //[...super.observedAttributes]; //  [...ObserveAttributesMixin.observedAttributes]; //[...super.observedAttributes/*, 'aria-disabled', 'aria-label'*/];
   }
 
   /** @internal */
@@ -47,6 +47,8 @@ export class MenuButton
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  // #attributesToObserve: string[] = ['aria-disabled', 'aria-label'];
 
   /** The state of the menu popover. */
   #popoverState?: string;
@@ -89,11 +91,24 @@ export class MenuButton
   //   // });
   // }
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.setObservedAttributes(['aria-disabled', 'aria-label']); // TODO: this one is necessary?
+  constructor() {
+    super();
+    // this.buttonElement = this.shadowRoot?.querySelector('button');
+    // this.targetElement = this.button;
+    // this.setTargetElement(this.button);
+    // console.log(MenuButton.observedAttributes);
+    this.setObservedAttributes(
+      MenuButton.observedAttributes /*this.#attributesToObserve*/ /*['aria-disabled', 'aria-label']*/
+    );
+    // super.observedAttributes = ['aria-disabled', 'aria-label', 'role'];
+    // this.observedAttributes = ['aria-disabled', 'aria-label', 'role'];
   }
+
+  // override connectedCallback(): void {
+  //   super.connectedCallback();
+  //
+  //  // this.setObservedAttributes(['aria-disabled', 'aria-label']); // TODO: this one is necessary?
+  // }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);

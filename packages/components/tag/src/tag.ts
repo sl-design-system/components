@@ -77,9 +77,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
-    }
+    // if (!this.hasAttribute('tabindex')) {
+    //   this.setAttribute('tabindex', '0');
+    // }
 
     this.#observer.observe(this);
   }
@@ -101,9 +101,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled')) {
-      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-    }
+    // if (changes.has('disabled')) {
+    //   this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+    // }
 
     if (changes.has('removable')) {
       if (this.removable) {
@@ -123,8 +123,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               @blur=${this.#onBlur}
               @click=${this.#onRemove}
               @focus=${this.#onFocus}
-              aria-hidden="true"
               ?disabled=${this.disabled}
+              aria-hidden="true"
+              tabindex="-1"
             >
               <sl-icon name="xmark"></sl-icon>
             </button>

@@ -155,6 +155,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
+  /** @internal The currently (fake) focused tag. */
+  @state() focusedTag?: ComboboxItem<T, U>;
+
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
@@ -366,6 +369,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                     <sl-tag
                       @sl-remove=${() => this.#onRemove(item)}
                       ?disabled=${this.disabled}
+                      ?focused=${this.focusedTag === item}
                       ?removable=${!this.disabled}
                     >
                       ${item.label}
@@ -503,6 +507,17 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     } else if (!this.wrapper?.matches(':popover-open') && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
       this.wrapper?.showPopover();
+    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      let index = this.focusedTag ? this.selectedItems.indexOf(this.focusedTag) : this.selectedItems.length;
+      index += event.key === 'ArrowLeft' ? -1 : 1;
+      index = Math.max(0, index);
+      index = Math.min(this.selectedItems.length, index);
+
+      if (index === this.selectedItems.length) {
+        this.focusedTag = undefined;
+      } else {
+        this.focusedTag = this.selectedItems[index];
+      }
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
       event.stopPropagation();
@@ -583,6 +598,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (this.listbox) {
       this.listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
       this.input.setAttribute('aria-controls', this.listbox.id);
+      this.input.setAttribute('aria-owns', this.listbox.id);
 
       if (this.multiple) {
         this.listbox.setAttribute('aria-multiselectable', 'true');
@@ -650,6 +666,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     } else {
       this.input.removeAttribute('aria-controls');
+      this.input.removeAttribute('aria-owns');
       this.items = [];
     }
   }

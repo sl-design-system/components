@@ -514,9 +514,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         event.stopPropagation();
       }
 
+      // Limit navigation to the visible tags
+      const min =
+        this.selectedItems.length -
+        Array.from(this.renderRoot.querySelectorAll('sl-tag')).filter(tag => tag.style.display !== 'none').length;
+
       let index = this.focusedTag ? this.selectedItems.indexOf(this.focusedTag) : this.selectedItems.length;
       index += event.key === 'ArrowLeft' ? -1 : 1;
-      index = Math.max(0, index);
+      index = Math.max(min, index);
       index = Math.min(this.selectedItems.length, index);
 
       if (index === this.selectedItems.length) {

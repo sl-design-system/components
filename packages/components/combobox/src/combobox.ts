@@ -524,6 +524,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       } else {
         this.focusedTag = this.selectedItems[index];
       }
+    } else if (event.key === 'Backspace' && this.focusedTag && this.input.selectionStart === 0) {
+      this.#onRemove(this.focusedTag);
+      this.focusedTag = undefined;
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
       event.stopPropagation();

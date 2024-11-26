@@ -1,7 +1,9 @@
 import { localized } from '@lit/localize';
+import { ScopedElementsMap } from '@open-wc/scoped-elements/html-element.js';
 import { EventEmitter, EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { state } from 'lit/decorators.js';
+// import { state } from 'lit/decorators.js';
+import { NotificationMessage } from './notification-message.js';
 import styles from './notification.scss.js';
 
 declare global {
@@ -31,27 +33,33 @@ export class Notification extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-notification-message': NotificationMessage
+    };
+  }
+
   /** @ignore */
   static notify(message: string, urgency?: 'polite' | 'assertive'): void {
     const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
     liveEvent.emit({ message, urgency });
   }
 
-  @state() assertive: string[] = [];
-  @state() polite: string[] = [];
-
   #events = new EventsController(this, {});
 
   override connectedCallback(): void {
     super.connectedCallback();
     this.#events.listen(window, 'sl-live-event', this.#onLiveEvent);
+    const statusElement = this.renderRoot.querySelector('[aria-live="polite"]');
+    if (statusElement) {
+      statusElement.innerHTML = ' ';
+    }
   }
   override render(): TemplateResult {
     return html`
-      <div role="status">${this.polite?.map(message => html`${message}`)}</div>
-      <div role="alert" aria-atomic="false" aria-relevant="additions">
-        ${this.assertive?.map(message => html`${message}`)}
-      </div>
+      <div aria-live="polite" aria-atomic="false"></div>
+      <div aria-live="assertive" aria-atomic="false"></div>
     `;
   }
 
@@ -64,12 +72,15 @@ export class Notification extends LitElement {
   }
 
   #assertiveNotification(message: string) {
-    this.assertive = [...this.assertive, message];
+    const messageNode = document.createElement('sl-notification-message');
+    messageNode.innerText = message;
+    this.renderRoot.querySelector('[aria-live="assertive"]')?.appendChild(messageNode);
   }
 
   #politeNotification(message: string) {
-    this.polite = [...this.polite, message];
-  }
+    const messageNode = document.createElement('sl-notification-message');
+    messageNode.innerText = message;
 
-  // TODO: fix that it reads things multiple times in NVDA; when something is added it reads the entire contents, not only the just added text
+    this.renderRoot.querySelector('[aria-live="polite"]')?.appendChild(messageNode);
+  }
 }

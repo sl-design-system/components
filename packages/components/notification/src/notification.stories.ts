@@ -20,7 +20,7 @@ export default {
       liveEvent.emit({ message: `This is sent with an event ${counter++}` });
     };
     const sendWithFunction = (): void => {
-      Notification.notify('This is sent with the API-function', 'assertive');
+      Notification.notify(`This is sent with the API-function ${counter++}`, 'assertive');
     };
     return html` <sl-button @click=${sendWithEvent}>Event, polite</sl-button>
       <sl-button @click=${sendWithFunction}>Function, assertive</sl-button>

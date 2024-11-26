@@ -336,6 +336,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
       this.updateValidity();
     }
+
+    if (changes.has('multiple') || changes.has('selectedItems')) {
+      if (this.multiple && this.selectedItems.length > 0) {
+        this.input.setAttribute('aria-placeholder', this.selectedItems.map(i => i.label).join(', '));
+      } else {
+        this.input.removeAttribute('aria-placeholder');
+      }
+    }
   }
 
   override render(): TemplateResult {
@@ -357,7 +365,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
-                aria-label=${msg('Selected options')}
+                aria-hidden="true"
                 size=${ifDefined(this.size)}
                 slot="prefix"
                 stacked
@@ -372,6 +380,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                       ?disabled=${this.disabled}
                       ?focused=${this.focusedTag === item}
                       ?removable=${!this.disabled}
+                      aria-hidden="true"
                     >
                       ${item.label}
                     </sl-tag>
@@ -909,6 +918,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         item.selected = true;
 
         this.selectedItems = [...this.selectedItems, item];
+
+        if (this.selectedItems.length === 1) {
+          this.input.blur();
+          setTimeout(() => {
+            this.input.focus();
+          }, 10);
+        }
       }
     } else {
       item.selected = true;
@@ -931,6 +947,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       item.selected = false;
 
       this.selectedItems = this.selectedItems.filter(i => i !== item);
+
+      if (this.selectedItems.length === 0) {
+        this.input.blur();
+        setTimeout(() => {
+          this.input.focus();
+        }, 10);
+      }
 
       if (item.custom) {
         this.#removeCustomOption(item);

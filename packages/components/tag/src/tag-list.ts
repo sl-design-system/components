@@ -1,6 +1,5 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { RovingTabindexController } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -51,15 +50,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #resizeObserver = new ResizeObserver(() => this.#updateVisibility());
 
   /** Manage keyboard navigation between tags. */
-  #rovingTabindexController = new RovingTabindexController<Tag>(this, {
-    direction: 'horizontal',
-    focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
-    elements: () => [
-      ...(this.stackTag ? [this.stackTag] : []),
-      ...(this.tags ?? []).filter(t => t.style.display !== 'none')
-    ],
-    isFocusableElement: (el: Tag) => !el.disabled
-  });
+  // #rovingTabindexController = new RovingTabindexController<Tag>(this, {
+  //   direction: 'horizontal',
+  //   focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
+  //   elements: () => [
+  //     ...(this.stackTag ? [this.stackTag] : []),
+  //     ...(this.tags ?? []).filter(t => t.style.display !== 'none')
+  //   ],
+  //   isFocusableElement: (el: Tag) => !el.disabled
+  // });
 
   /** The emphasis of the tag-list and tags inside. Defaults to 'subtle'. */
   @property({ reflect: true }) emphasis?: TagEmphasis;
@@ -85,7 +84,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    this.setAttribute('role', 'list');
+    // this.setAttribute('role', 'list');
 
     // Calculate the max inline size of the stack *before* we start the observer
     this.#maxStackInlineSize = await this.#getMaxStackInlineSize();
@@ -147,7 +146,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.tags.forEach(tag => {
       tag.emphasis = this.emphasis;
       tag.size = this.size;
-      tag.setAttribute('role', 'listitem');
+      // tag.setAttribute('role', 'listitem');
     });
 
     requestAnimationFrame(() => this.#updateVisibility());
@@ -200,7 +199,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
-    this.#rovingTabindexController.clearElementCache();
+    // this.#rovingTabindexController.clearElementCache();
   }
 
   /** This returns the max inline size of the stack (so with a stack size of > 99). */

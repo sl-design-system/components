@@ -41,6 +41,7 @@ export type ComboboxItem<T = any, U = T> = ListboxItem<T, U> & {
   current?: boolean;
   custom?: boolean;
   group?: string;
+  index?: number;
   option?: T;
   selected?: boolean;
   type: 'option' | 'group';
@@ -972,17 +973,17 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
               type: 'group',
               visible: true
             },
-            ...groups[group]!.map(option => this.#prepareOption(option, group))
+            ...groups[group]!.map(option => this.#prepareOption(option, options.indexOf(option), group))
           ];
         },
         [] as Array<ComboboxItem<T, U>>
       );
     } else {
-      return options.map(option => this.#prepareOption(option));
+      return options.map((option, index) => this.#prepareOption(option, index));
     }
   }
 
-  #prepareOption(option: T, group?: string): ComboboxItem<T, U> {
+  #prepareOption(option: T, index: number, group?: string): ComboboxItem<T, U> {
     const label = this.optionLabelPath
       ? getStringByPath(option, this.optionLabelPath)
       : (option as unknown as { toString(): string }).toString();
@@ -990,6 +991,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     return {
       group,
       id: `sl-combobox-option-${nextUniqueId++}`,
+      index,
       label,
       option,
       selected: this.optionSelectedPath ? !!getValueByPath(option, this.optionSelectedPath) : false,
@@ -1014,6 +1016,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       el.selected = !!item.selected;
       el.value = item.value;
       el.setAttribute('aria-selected', item.selected ? 'true' : 'false');
+
+      if (typeof item.index === 'number') {
+        el.setAttribute('aria-posinset', (item.index + 1).toString());
+      }
+
+      if (this.options) {
+        el.setAttribute('aria-setsize', this.options.length.toString());
+      }
 
       if (el instanceof GroupedOption) {
         el.group = item.group;

@@ -40,7 +40,14 @@ export class Notification extends LitElement {
     };
   }
 
-  /** @ignore */
+  /** Sends a notification to the live aria.
+   * Please be aware that sending messages too soon after each other can cause the screenreader
+   * to stop reading the earlier messages, or even skip them, when a new message is sent.
+   * If you want to send multiple messages in a row, consider using a single message with all the information.
+   *
+   * @param message - The message to send to the live aria.
+   * @param urgency - The urgency of the message. Default is 'polite'.
+   */
   static notify(message: string, urgency?: 'polite' | 'assertive'): void {
     const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
     liveEvent.emit({ message, urgency });

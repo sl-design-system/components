@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -28,7 +28,7 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  */
 @localized()
-export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
+export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMixin(LitElement)) {
   /** @internal */
   static override get observedAttributes(): string[] {
     return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
@@ -98,6 +98,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.setObservedAttributes(['aria-disabled', 'aria-label', 'aria-labelledby']);
+
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
@@ -122,23 +124,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
-  }
-
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    requestAnimationFrame(() => {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
-      if (this.input && attributes.includes(name)) {
-        attributes.forEach(attr => {
-          const value = this.getAttribute(attr);
-          if (value !== null) {
-            this.input.setAttribute(attr, value);
-            this.removeAttribute(attr);
-          }
-        });
-      }
-    });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -283,5 +268,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.checked = !!this.checked;
     input.indeterminate = !!this.indeterminate;
     input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
+
+    this.setTargetElement(input);
   }
 }

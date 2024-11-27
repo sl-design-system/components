@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -29,7 +29,7 @@ let nextUniqueId = 0;
  * @slot textarea - The slot for the textarea element
  */
 @localized()
-export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
   /** @internal */
   static override get observedAttributes(): string[] {
     return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
@@ -116,6 +116,8 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.setObservedAttributes(['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']);
+
     if (!this.textarea) {
       this.textarea =
         this.querySelector<HTMLTextAreaElement>('textarea[slot="textarea"]') || document.createElement('textarea');
@@ -135,23 +137,6 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     this.#observer.disconnect();
 
     super.disconnectedCallback();
-  }
-
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    requestAnimationFrame(() => {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
-      if (this.textarea && attributes.includes(name)) {
-        attributes.forEach(attr => {
-          const value = this.getAttribute(attr);
-          if (value !== null) {
-            this.textarea.setAttribute(attr, value);
-            this.removeAttribute(attr);
-          }
-        });
-      }
-    });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -254,6 +239,8 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     textarea.required = !!this.required;
     textarea.rows = this.rows ?? 2;
     textarea.wrap = this.wrap ?? 'soft';
+
+    this.setTargetElement(textarea);
 
     if (typeof this.maxLength === 'number') {
       textarea.setAttribute('maxlength', this.maxLength.toString());

@@ -15,7 +15,7 @@ export function ObserveAttributesMixin<T extends Constructor<LitElement>>(
   class ObserveAttributesImpl extends constructor {
     static #observedAttributes: string[] = [];
 
-    #targetElement: HTMLElement | null = null;
+    #targetElement?: HTMLElement;
 
     setTargetElement(target: HTMLElement): void {
       this.#targetElement = target;

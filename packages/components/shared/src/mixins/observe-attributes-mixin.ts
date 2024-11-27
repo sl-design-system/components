@@ -6,6 +6,9 @@ export interface ObserveAttributesMixinInterface {
   setObservedAttributes(attributes: string[]): void;
 }
 
+/**
+ * Mixin that is used to rewrite aria attributes in the component (based on the observedAttributes) to the focusable target element.
+ */
 export function ObserveAttributesMixin<T extends Constructor<LitElement>>(
   constructor: T
 ): T & Constructor<ObserveAttributesMixinInterface> {

@@ -41,6 +41,33 @@ export const VerticalPage: Story = {
   `
 };
 
+export const Horizontal: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    const nameRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
+      return html`${firstName} ${lastName}`;
+    };
+
+    return html`
+      <style>
+        sl-grid::part(thead) {
+          inset-block-start: 17px;
+        }
+      </style>
+      <sl-grid .items=${people}>
+        <sl-grid-column header="Name" .renderer=${nameRenderer}></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="address.street"></sl-grid-column>
+        <sl-grid-column path="address.city"></sl-grid-column>
+        <sl-grid-column path="address.zip"></sl-grid-column>
+        <sl-grid-column path="address.state"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const HorizontalScrollbar: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
@@ -93,9 +120,6 @@ export const HorizontalSticky: Story = {
         sl-grid::part(thead) {
           inset-block-start: 17px;
         }
-        sl-grid::part(email) {
-          border-right: 1px solid #eee;
-        }
       </style>
       <sl-grid .items=${people}>
         <sl-grid-column header="Name" .renderer=${nameRenderer} sticky></sl-grid-column>
@@ -105,7 +129,7 @@ export const HorizontalSticky: Story = {
         <sl-grid-column path="address.street"></sl-grid-column>
         <sl-grid-column path="address.city"></sl-grid-column>
         <sl-grid-column path="address.zip"></sl-grid-column>
-        <sl-grid-column path="address.state"></sl-grid-column>
+        <sl-grid-column path="address.state" sticky></sl-grid-column>
       </sl-grid>
     `;
   }

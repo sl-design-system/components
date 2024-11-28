@@ -142,6 +142,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     } = entries[0];
 
     this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
+
+    // Update the scroll state
+    this.#onScroll();
   });
 
   /** The sorters for this grid. */
@@ -247,13 +250,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   override async firstUpdated(): Promise<void> {
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
-    this.tbody.addEventListener(
-      'scroll',
-      () => {
-        this.thead.scrollLeft = this.tbody.scrollLeft;
-      },
-      { passive: true }
-    );
+    this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
@@ -325,7 +322,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             thead tr:nth-child(${rowIndex + 1}) th:nth-child(${colIndex + 1}) {
               flex-grow: ${Math.max((col as GridColumnGroup<T>).columns.length, 1)};
               inline-size: ${col.width || '100'}px;
-              justify-content: ${col.align};
+              justify-content: ${col.align ?? 'start'};
               ${col.renderStyles()?.toString() ?? ''}
             }
             `
@@ -337,14 +334,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           :where(td, thead tr:last-of-type th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
-            justify-content: ${col.align};
+            justify-content: ${col.align ?? 'start'};
+            ${col.sticky ? 'position: sticky;' : ''}
             ${
-              col.sticky
-                ? `
-              inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;
-              position: sticky;
-              `
-                : ''
+              col.stickyPosition === 'start'
+                ? `inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;`
+                : `inset-inline-end: ${this.view.getStickyColumnOffset(index)}px;`
             }
             ${col.renderStyles()?.toString() ?? ''}
           }
@@ -690,11 +685,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#virtualizer?._layout?._metricsCache?.clear();
   }
 
+  #onScroll(): void {
+    const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
+
+    this.thead.scrollLeft = scrollLeft;
+
+    this.toggleAttribute('scrollable', scrollWidth > offsetWidth);
+    this.toggleAttribute('scrollable-start', scrollLeft > 0);
+    this.toggleAttribute('scrollable-end', scrollLeft < scrollWidth - offsetWidth);
+  }
+
   async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    columns.forEach(col => {
+    columns.forEach((col, index) => {
       this.#addScopedElements(col.scopedElements);
 
       col.grid = this;
@@ -705,6 +710,25 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (this.ellipsizeText) {
         col.ellipsizeText = this.ellipsizeText;
+      }
+
+      if (col.sticky) {
+        if (index === 0) {
+          col.stickyOrder = 'first';
+          col.stickyPosition = 'start';
+        } else if (index === columns.length - 1) {
+          col.stickyOrder = columns.at(index - 1)?.sticky ? 'last' : 'first';
+          col.stickyPosition = 'end';
+        } else if (columns.at(index - 1)?.sticky) {
+          col.stickyPosition = columns.at(index - 1)!.stickyPosition;
+
+          if (!columns.at(index + 1)?.sticky) {
+            col.stickyOrder = 'last';
+          }
+        } else {
+          col.stickyOrder = 'first';
+          col.stickyPosition = 'end';
+        }
       }
 
       if (col instanceof GridFilterColumn) {

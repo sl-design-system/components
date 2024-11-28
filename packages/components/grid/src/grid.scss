@@ -56,6 +56,68 @@
   }
 }
 
+:host([scrollable]) :is(td, th).sticky-start-last {
+  border-inline-end: 1px solid var(--sl-color-grid-border);
+
+  + th {
+    --_vertical-border: none;
+  }
+}
+
+:host([scrollable]) :is(td, th).sticky-end-first {
+  --_vertical-border: none;
+
+  border-inline-start: 1px solid var(--sl-color-grid-border);
+}
+
+:host([scrollable-start]) {
+  table:not(:has(.sticky-start-last))::before {
+    background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
+    content: '';
+    inline-size: 1rem;
+    inset: 0 auto 0 0;
+    position: absolute;
+    z-index: 2; // Make sure we are above the <thead> element
+  }
+
+  :is(td, th).sticky-start-last {
+    overflow: visible clip;
+
+    &::after {
+      background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
+      content: '';
+      inline-size: 1rem;
+      inset: 0 -1rem 0 auto;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+}
+
+:host([scrollable-end]) {
+  table:not(:has(.sticky-end-first))::after {
+    background: linear-gradient(to right, transparent, rgb(79 79 79 / 10%));
+    content: '';
+    inline-size: 1rem;
+    inset: 0 0 0 auto;
+    position: absolute;
+    z-index: 1;
+  }
+
+  :is(td, th).sticky-end-first {
+    overflow: visible clip;
+
+    &::after {
+      background: linear-gradient(to right, transparent, rgb(79 79 79 / 10%));
+      content: '';
+      inline-size: 1rem;
+      inset: 0 0 0 -1rem;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+}
+
 :host([striped]) tr[part~='even'] {
   --_cell-background: var(--_striped-background);
 }
@@ -65,6 +127,7 @@ table {
   flex-direction: column;
   inline-size: fit-content;
   min-inline-size: 100%;
+  position: relative;
 }
 
 thead,

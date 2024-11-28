@@ -27,7 +27,11 @@ let nextUniqueId = 0;
  * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
  */
-export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
+export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static formAssociated = true;
 
@@ -109,8 +113,6 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    this.setObservedAttributes(['aria-disabled', 'aria-label', 'aria-labelledby']);
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');

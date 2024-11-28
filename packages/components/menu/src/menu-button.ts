@@ -27,7 +27,10 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement)) {
+export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
+  'aria-disabled',
+  'aria-label'
+]) {
   /** @internal */
   static override get observedAttributes(): string[] {
     return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
@@ -68,12 +71,6 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /** The variant of the button. */
   @property() variant: ButtonVariant = 'default';
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.setObservedAttributes(['aria-disabled', 'aria-label']);
-  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);

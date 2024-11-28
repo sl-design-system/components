@@ -34,7 +34,12 @@ let nextUniqueId = 0;
  */
 @localized()
 export class TextField<T extends { toString(): string } = string>
-  extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)))
+  extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+    'aria-disabled',
+    'aria-label',
+    'aria-labelledby',
+    'aria-required'
+  ])
   implements ObserveAttributesMixinInterface
 {
   /** @internal */
@@ -133,8 +138,6 @@ export class TextField<T extends { toString(): string } = string>
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    this.setObservedAttributes(['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']);
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');

@@ -29,7 +29,12 @@ let nextUniqueId = 0;
  * @slot textarea - The slot for the textarea element
  */
 @localized()
-export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement))) {
+export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby',
+  'aria-required'
+]) {
   /** @internal */
   static override get observedAttributes(): string[] {
     return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
@@ -115,8 +120,6 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    this.setObservedAttributes(['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required']);
 
     if (!this.textarea) {
       this.textarea =

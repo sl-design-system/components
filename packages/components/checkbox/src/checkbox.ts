@@ -28,7 +28,11 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  */
 @localized()
-export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMixin(LitElement)) {
+export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static override get observedAttributes(): string[] {
     return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
@@ -97,8 +101,6 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    this.setObservedAttributes(['aria-disabled', 'aria-label', 'aria-labelledby']);
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');

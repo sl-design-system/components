@@ -469,5 +469,8 @@
     "typescript": "^5.4.5",
     "vite": "^5.4.11",
     "wireit": "^0.14.9"
+  },
+  "dependencies": {
+    "focus-trap": "^7.6.2"
   }
 }

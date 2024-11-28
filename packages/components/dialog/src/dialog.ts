@@ -4,6 +4,7 @@ import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
+import { FocusTrap, createFocusTrap } from 'focus-trap';
 import {
   type CSSResult,
   type CSSResultGroup,
@@ -64,6 +65,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
+
+  #focusTrap: FocusTrap | null = null;
 
   /**
    * Emits when the dialog has been cancelled. This happens when the user closes
@@ -221,7 +224,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         focusable.focus();
       }
 
-      this.#trapFocus();
+      this.activateFocusTrap();
+
+      // this.#trapFocus();
     });
   }
 
@@ -229,6 +234,27 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
+      this.deactivateFocusTrap();
+    }
+  }
+
+  activateFocusTrap(): void {
+    if (!this.#focusTrap) {
+      this.#focusTrap = createFocusTrap(this.shadowRoot!.querySelector('dialog')!, {
+        escapeDeactivates: true,
+        allowOutsideClick: true,
+        fallbackFocus: this.shadowRoot!.querySelector('dialog')!,
+        tabbableOptions: {
+          getShadowRoot: true
+        }
+      });
+    }
+    this.#focusTrap.activate();
+  }
+
+  deactivateFocusTrap(): void {
+    if (this.#focusTrap) {
+      this.#focusTrap.deactivate();
     }
   }
 
@@ -299,103 +325,104 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
   }
 
-  #getFocusableElements(root: ShadowRoot | HTMLElement | null /*HTMLElement | null*/): HTMLElement[] {
-    if (!root) {
-      return [];
-    }
-
-    const focusableSelectors = [
-      'a[href]',
-      'button',
-      'textarea',
-      'input[type="text"]',
-      'input[type="radio"]',
-      'input[type="checkbox"]',
-      'select',
-      '[tabindex]:not([tabindex="-1"])'
-    ];
-    let focusableElements = Array.from(root.querySelectorAll(focusableSelectors.join(', ')));
-
-    // Traverse shadow DOMs
-    // const shadowRoots = Array.from(root.querySelectorAll('*')).filter(el => el.renderRoot);
-    // shadowRoots?.forEach(shadowRoot => {
-    //   if (shadowRoot.renderRoot) {
-    //     focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.renderRoot));
-    //     console.log('focusableElements in loop', focusableElements);
-    //   }
-    // });
-
-    const shadowRoots = Array.from(root.querySelectorAll('*')).filter(
-      (el): el is HTMLElement => el.shadowRoot !== null
-    );
-    console.log('shadowRoots', shadowRoots);
-    shadowRoots.forEach(shadowRoot => {
-      focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.shadowRoot));
-    });
-
-    return focusableElements as HTMLElement[];
-  }
-
-  #trapFocus() {
-    if (!this.dialog) {
-      return;
-    }
-
-    const focusableElements = this.#getFocusableElements(this.dialog);
-    if (focusableElements.length) {
-      focusableElements[0].focus();
-    }
-  }
+  // #getFocusableElements(root: ShadowRoot | HTMLElement | null /*HTMLElement | null*/): HTMLElement[] {
+  //   if (!root) {
+  //     return [];
+  //   }
+  //
+  //   const focusableSelectors = [
+  //     'a[href]',
+  //     'button',
+  //     'textarea',
+  //     'input[type="text"]',
+  //     'input[type="radio"]',
+  //     'input[type="checkbox"]',
+  //     'select',
+  //     '[tabindex]:not([tabindex="-1"])'
+  //   ];
+  //   let focusableElements = Array.from(root.querySelectorAll(focusableSelectors.join(', ')));
+  //
+  //   // Traverse shadow DOMs
+  //   // const shadowRoots = Array.from(root.querySelectorAll('*')).filter(el => el.renderRoot);
+  //   // shadowRoots?.forEach(shadowRoot => {
+  //   //   if (shadowRoot.renderRoot) {
+  //   //     focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.renderRoot));
+  //   //     console.log('focusableElements in loop', focusableElements);
+  //   //   }
+  //   // });
+  //
+  //   const shadowRoots = Array.from(root.querySelectorAll('*')).filter(
+  //     (el): el is HTMLElement => el.shadowRoot !== null
+  //   );
+  //   console.log('shadowRoots', shadowRoots);
+  //   shadowRoots.forEach(shadowRoot => {
+  //     focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.shadowRoot));
+  //   });
+  //
+  //   return focusableElements as HTMLElement[];
+  // }
+  //
+  // #trapFocus() {
+  //   if (!this.dialog) {
+  //     return;
+  //   }
+  //
+  //   const focusableElements = this.#getFocusableElements(this.dialog);
+  //   if (focusableElements.length) {
+  //     focusableElements[0].focus();
+  //   }
+  // }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (!this.dialog) {
-      return;
-    }
-
-    // TODO: check https://nolanlawson.com/2021/02/13/managing-focus-in-the-shadow-dom/
-
-    const focusableElements = Array.from(this.#getFocusableElements(this.dialog));
-
-    // const focusableElements = Array.from(this.dialog.querySelectorAll(
-    //   'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
-    // )); // TODO: will not work
-
-    if (!focusableElements.length) {
-      return;
-    }
-
-    console.log('focusableElements', focusableElements);
-
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    if (!firstElement || !lastElement) {
-      return;
-    }
-
-    // const shadowRoots = Array.from(root.querySelectorAll('*')).filter(el => el.shadowRoot);
-    // shadowRoots?.forEach(shadowRoot => {
-    //   focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.shadowRoot));
-    // });
-
-    if (event.key === 'Tab') {
-      console.log('event key', event.key, document.activeElement, firstElement, lastElement);
-      if (event.shiftKey) {
-        // Shift + Tab
-        if (document.activeElement === firstElement) {
-          event.preventDefault();
-          lastElement.focus();
-        }
-      } else {
-        // Tab
-        if (document.activeElement === lastElement) {
-          event.preventDefault();
-          firstElement.focus();
-        }
-      }
-    }
-    // if (event.key === 'Enter') {
-    //  // event.preventDefault();
+    console.log('event on keydown', event);
+    // if (!this.dialog) {
+    //   return;
     // }
+    //
+    // // TODO: check https://nolanlawson.com/2021/02/13/managing-focus-in-the-shadow-dom/
+    //
+    // const focusableElements = Array.from(this.#getFocusableElements(this.dialog));
+    //
+    // // const focusableElements = Array.from(this.dialog.querySelectorAll(
+    // //   'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
+    // // )); // TODO: will not work
+    //
+    // if (!focusableElements.length) {
+    //   return;
+    // }
+    //
+    // console.log('focusableElements', focusableElements);
+    //
+    // const firstElement = focusableElements[0];
+    // const lastElement = focusableElements[focusableElements.length - 1];
+    //
+    // if (!firstElement || !lastElement) {
+    //   return;
+    // }
+    //
+    // // const shadowRoots = Array.from(root.querySelectorAll('*')).filter(el => el.shadowRoot);
+    // // shadowRoots?.forEach(shadowRoot => {
+    // //   focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.shadowRoot));
+    // // });
+    //
+    // if (event.key === 'Tab') {
+    //   console.log('event key', event.key, document.activeElement, firstElement, lastElement);
+    //   if (event.shiftKey) {
+    //     // Shift + Tab
+    //     if (document.activeElement === firstElement) {
+    //       event.preventDefault();
+    //       lastElement.focus();
+    //     }
+    //   } else {
+    //     // Tab
+    //     if (document.activeElement === lastElement) {
+    //       event.preventDefault();
+    //       firstElement.focus();
+    //     }
+    //   }
+    // }
+    // // if (event.key === 'Enter') {
+    // //  // event.preventDefault();
+    // // }
   }
 }

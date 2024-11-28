@@ -78,7 +78,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.setTargetElement(this.button);
+    this.setAttributesTarget(this.button);
 
     this.button.setAttribute('aria-details', this.menu.id);
     this.menu.anchorElement = this.button;

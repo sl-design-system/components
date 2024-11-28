@@ -269,6 +269,6 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
     input.indeterminate = !!this.indeterminate;
     input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
 
-    this.setTargetElement(input);
+    this.setAttributesTarget(input);
   }
 }

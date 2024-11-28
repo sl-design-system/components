@@ -285,6 +285,6 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     input.checked = !!this.checked;
     input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
 
-    this.setTargetElement(input);
+    this.setAttributesTarget(input);
   }
 }

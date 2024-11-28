@@ -316,7 +316,7 @@ export class TextField<T extends { toString(): string } = string>
     input.readOnly = !!this.readonly;
     input.required = !!this.required;
 
-    this.setTargetElement(input);
+    this.setAttributesTarget(input);
 
     // Use `setAttribute` to avoid typing coercion
     input.setAttribute('autocomplete', this.autocomplete || 'off');

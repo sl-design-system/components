@@ -2,7 +2,7 @@ import { LitElement } from 'lit';
 import { Constructor } from '../types.js';
 
 export interface ObserveAttributesMixinInterface {
-  setTargetElement(target: HTMLElement): void;
+  setAttributesTarget(target: HTMLElement): void;
   setObservedAttributes(attributes: string[]): void;
 }
 
@@ -17,7 +17,7 @@ export function ObserveAttributesMixin<T extends Constructor<LitElement>>(
 
     #targetElement?: HTMLElement;
 
-    setTargetElement(target: HTMLElement): void {
+    setAttributesTarget(target: HTMLElement): void {
       this.#targetElement = target;
     }
 

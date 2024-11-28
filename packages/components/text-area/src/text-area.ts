@@ -240,7 +240,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
     textarea.rows = this.rows ?? 2;
     textarea.wrap = this.wrap ?? 'soft';
 
-    this.setTargetElement(textarea);
+    this.setAttributesTarget(textarea);
 
     if (typeof this.maxLength === 'number') {
       textarea.setAttribute('maxlength', this.maxLength.toString());

@@ -333,7 +333,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.shadowRoot));
     });
 
-    return focusableElements;
+    return focusableElements as HTMLElement[];
   }
 
   #trapFocus() {

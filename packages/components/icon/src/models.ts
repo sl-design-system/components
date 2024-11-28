@@ -24,7 +24,13 @@ export type IconPrefix =
   | 'fat'
   | 'fast'
   | 'fad'
+  | 'fadr'
+  | 'fadl'
+  | 'fadt'
   | 'fasds'
+  | 'fasdr'
+  | 'fasdl'
+  | 'fasdt'
   | 'fab'
   | 'fak'
   | 'fakd';

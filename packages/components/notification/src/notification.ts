@@ -20,6 +20,20 @@ declare global {
 
 export type SlLiveEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'assertive' }>;
 
+/** Sends a notification to the live aria.
+ * Please be aware that sending messages too soon after each other can cause the screenreader
+ * to stop reading the earlier messages, or even skip them, when a new message is sent.
+ * If you want to send multiple messages in a row, consider using a single message with all the information.
+ *
+ * @param message - The message to send to the live aria.
+ * @param urgency - The urgency of the message. Default is 'polite'.
+ */
+export function sendToLiveAria(message: string, urgency?: 'polite' | 'assertive'): void {
+  console.log('notify', message, urgency);
+  const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
+  liveEvent.emit({ message, urgency });
+}
+
 /**
  * Utility that serves as a receipient for all live-aria notifications and supplies them for screenreaders
  * from a central place in your application.
@@ -40,32 +54,15 @@ export class Notification extends LitElement {
     };
   }
 
-  /** Sends a notification to the live aria.
-   * Please be aware that sending messages too soon after each other can cause the screenreader
-   * to stop reading the earlier messages, or even skip them, when a new message is sent.
-   * If you want to send multiple messages in a row, consider using a single message with all the information.
-   *
-   * @param message - The message to send to the live aria.
-   * @param urgency - The urgency of the message. Default is 'polite'.
-   */
-  static notify(message: string, urgency?: 'polite' | 'assertive'): void {
-    const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
-    liveEvent.emit({ message, urgency });
-  }
-
   #events = new EventsController(this, {});
 
   override connectedCallback(): void {
     super.connectedCallback();
     this.#events.listen(window, 'sl-live-event', this.#onLiveEvent);
-    const statusElement = this.renderRoot.querySelector('[aria-live="polite"]');
-    if (statusElement) {
-      statusElement.innerHTML = ' ';
-    }
   }
   override render(): TemplateResult {
     return html`
-      <div aria-live="polite" aria-atomic="false"></div>
+      <div aria-live="polite" aria-atomic="true"></div>
       <div aria-live="assertive" aria-atomic="false"></div>
     `;
   }
@@ -76,6 +73,10 @@ export class Notification extends LitElement {
     } else {
       this.#politeNotification(event.detail.message);
     }
+  }
+
+  polite(message: string) {
+    this.#politeNotification(message);
   }
 
   #assertiveNotification(message: string) {
@@ -89,5 +90,9 @@ export class Notification extends LitElement {
     messageNode.innerText = message;
 
     this.renderRoot.querySelector('[aria-live="polite"]')?.appendChild(messageNode);
+    // const container = this.renderRoot.querySelector('[aria-live="polite"]');
+    // if (container) {
+    //   container.innerHTML = message;
+    // }
   }
 }

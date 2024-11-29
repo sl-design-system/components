@@ -26,6 +26,7 @@
 
   display: block;
   font: var(--_font);
+  position: relative;
 }
 
 :host([items-group-by]) {
@@ -327,4 +328,16 @@ td[part~='text-field'] {
   inset-block-start: 0;
   position: absolute;
   z-index: 1;
+}
+
+.scrollbar {
+  inset-inline: var(--sl-size-borderWidth-default);
+  position: absolute;
+  z-index: 1;
+}
+
+sl-scrollbar {
+  inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+  inset-block-end: 0;
+  position: fixed;
 }

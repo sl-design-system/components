@@ -303,13 +303,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
+        <tbody @visibilityChanged=${this.#onVisibilityChanged} id="tbody" part="tbody">
           ${virtualize({
             items: this.view.rows,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
       </table>
+      <div class="scrollbar">
+        <sl-scrollbar scroller="tbody"></sl-scrollbar>
+      </div>
     `;
   }
 

@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Icon } from '@sl-design-system/icon';
 import { sendToLiveAria } from '@sl-design-system/notification';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import styles from './progress-bar.scss.js';
@@ -53,7 +53,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;
 
-  @state() shouldSendToLiveAria = true;
+  private shouldSendToLiveAria = true;
 
   /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {

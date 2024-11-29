@@ -117,10 +117,21 @@ export const HorizontalSticky: Story = {
 
     return html`
       <style>
+        body {
+          padding-block-start: 0 !important;
+        }
+        .cover {
+          background: white;
+          block-size: 1rem;
+          position: sticky;
+          inset-block-start: 0;
+          z-index: 1;
+        }
         sl-grid::part(thead) {
-          inset-block-start: 17px;
+          inset-block-start: 1rem;
         }
       </style>
+      <div class="cover"></div>
       <sl-grid .items=${people}>
         <sl-grid-column header="Name" .renderer=${nameRenderer} sticky></sl-grid-column>
         <sl-grid-column path="email" sticky></sl-grid-column>

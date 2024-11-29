@@ -29,7 +29,6 @@ export type SlLiveEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'a
  * @param urgency - The urgency of the message. Default is 'polite'.
  */
 export function sendToLiveAria(message: string, urgency?: 'polite' | 'assertive'): void {
-  console.log('notify', message, urgency);
   const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
   liveEvent.emit({ message, urgency });
 }
@@ -62,7 +61,7 @@ export class Notification extends LitElement {
   }
   override render(): TemplateResult {
     return html`
-      <div aria-live="polite" aria-atomic="true"></div>
+      <div aria-live="polite" aria-atomic="false"></div>
       <div aria-live="assertive" aria-atomic="false"></div>
     `;
   }
@@ -90,9 +89,5 @@ export class Notification extends LitElement {
     messageNode.innerText = message;
 
     this.renderRoot.querySelector('[aria-live="polite"]')?.appendChild(messageNode);
-    // const container = this.renderRoot.querySelector('[aria-live="polite"]');
-    // if (container) {
-    //   container.innerHTML = message;
-    // }
   }
 }

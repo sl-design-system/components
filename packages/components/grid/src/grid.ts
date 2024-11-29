@@ -4,6 +4,7 @@ import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-la
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
+import { Scrollbar } from '@sl-design-system/scrollbar';
 import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
@@ -93,7 +94,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return {
       'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader,
-      'sl-skeleton': Skeleton
+      'sl-skeleton': Skeleton,
+      'sl-scrollbar': Scrollbar
     };
   }
 

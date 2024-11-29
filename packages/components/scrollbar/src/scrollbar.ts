@@ -2,6 +2,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './scrollbar.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-scrollbar': Scrollbar;
+  }
+}
+
 export class Scrollbar extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -86,12 +92,13 @@ export class Scrollbar extends LitElement {
     event.target.setPointerCapture(event.pointerId);
     event.target.addEventListener('pointermove', this.#onPointerMove, false);
 
-    const thumbRect = event.target.getBoundingClientRect(),
-      trackRect = this.renderRoot.querySelector('[part="track"]')!.getBoundingClientRect();
+    const thumbStart = event.target.getBoundingClientRect()[this.vertical ? 'top' : 'left'],
+      trackStart = this.renderRoot.querySelector('[part="track"]')!.getBoundingClientRect()[
+        this.vertical ? 'top' : 'left'
+      ];
 
     this.#start = this.vertical ? event.clientY : event.clientX;
-    this.#offset = thumbRect[this.vertical ? 'top' : 'left'] - trackRect[this.vertical ? 'top' : 'left'];
-    this.#max = this.#trackSize! - this.#offset - this.#thumbSize!;
+    this.#offset = thumbStart - trackStart;
   }
 
   #onPointerMove = (event: PointerEvent) => {
@@ -114,7 +121,8 @@ export class Scrollbar extends LitElement {
     this.#scrollerSize = entry.contentRect[this.vertical ? 'height' : 'width'];
     this.#scrollerContentSize = entry.target[this.vertical ? 'scrollHeight' : 'scrollWidth'];
     this.#trackSize = track.getBoundingClientRect()[this.vertical ? 'height' : 'width'];
-    this.#thumbSize = this.#trackSize * (this.#scrollerSize / this.#scrollerContentSize);
+    this.#thumbSize = Math.round(this.#trackSize * (this.#scrollerSize / this.#scrollerContentSize));
+    this.#max = this.#trackSize - this.#thumbSize;
 
     this.style.setProperty('--sl-thumb-size', this.#thumbSize + 'px');
 
@@ -125,6 +133,6 @@ export class Scrollbar extends LitElement {
   #onScroll = () => {
     const amount = this.#scroller!.scrollLeft / (this.#scrollerContentSize - this.#scrollerSize);
 
-    this.style.setProperty('--sl-thumb-translate', `${amount * (this.#trackSize! - this.#thumbSize!)}px`);
+    this.style.setProperty('--sl-thumb-translate', `${amount * this.#max}px`);
   };
 }

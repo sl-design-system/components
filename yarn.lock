@@ -4710,6 +4710,7 @@ __metadata:
     "@sl-design-system/ellipsize-text": "npm:^0.0.1"
     "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/popover": "npm:^1.1.1"
+    "@sl-design-system/scrollbar": "npm:^0.0.0"
     "@sl-design-system/select": "npm:^1.1.2"
     "@sl-design-system/shared": "npm:^0.4.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
@@ -5020,7 +5021,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/scrollbar@workspace:packages/components/scrollbar":
+"@sl-design-system/scrollbar@npm:^0.0.0, @sl-design-system/scrollbar@workspace:packages/components/scrollbar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/scrollbar@workspace:packages/components/scrollbar"
   dependencies:

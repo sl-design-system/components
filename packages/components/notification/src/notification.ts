@@ -61,7 +61,7 @@ export class Notification extends LitElement {
   }
   override render(): TemplateResult {
     return html`
-      <div aria-live="polite" aria-atomic="false"></div>
+      <div aria-live="polite" aria-atomic="true"></div>
       <div aria-live="assertive" aria-atomic="false"></div>
     `;
   }

@@ -74,10 +74,10 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('value')) {
       if (this.value === 100) {
-        sendToLiveAria(`${msg('success')}`);
+        sendToLiveAria('100%');
       }
       if (this.shouldSendToLiveAria) {
-        sendToLiveAria(`${this.value}%`);
+        sendToLiveAria(`${this.value}%`, 'assertive');
         this.shouldSendToLiveAria = false;
         setTimeout(() => {
           this.shouldSendToLiveAria = true;
@@ -112,7 +112,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       <div id="helper" class="helper">
         <slot></slot>
         <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
-          ${msg('state')} ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`} ${this.value}%
+          ${msg('state')}: ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`}
         </span>
         ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
       </div>

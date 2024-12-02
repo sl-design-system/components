@@ -353,9 +353,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             justify-content: ${col.align ?? 'start'};
             ${col.sticky ? 'position: sticky;' : ''}
             ${
-              col.stickyPosition === 'start'
-                ? `inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;`
-                : `inset-inline-end: ${this.view.getStickyColumnOffset(index)}px;`
+              col.sticky
+                ? col.stickyPosition === 'start'
+                  ? `inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;`
+                  : `inset-inline-end: ${this.view.getStickyColumnOffset(index)}px;`
+                : ''
             }
             ${col.renderStyles()?.toString() ?? ''}
           }

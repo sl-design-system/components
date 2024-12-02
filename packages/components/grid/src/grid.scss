@@ -19,7 +19,9 @@
   --_header-background: var(--sl-color-grid-header);
   --_header-padding-block: var(--sl-space-175);
   --_header-padding-inline: var(--sl-space-200);
-  --_vertical-border: none;
+  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+    no-repeat;
   --_vertical-border-offset: var(--sl-space-new-md);
   --_selected-background: var(--sl-color-action-background-accent-subtle-active);
   --_striped-background: var(--sl-color-grid-zebra);
@@ -43,35 +45,23 @@
 
 :host([column-divider]) {
   // this is needed because we need to set the vertical-border-offset separately for the th,
-  // when this is set on a highter level than the `--_vertical-border-offset` var it can't "reach" it.
+  // when this is set on a higher level than the `--_vertical-border-offset` var it can't "reach" it.
   td,
   th {
     --_vertical-border-offset: 0px;
-    --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
-      calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
-      no-repeat;
+
+    background: var(--_vertical-border), var(--_cell-background);
 
     &:first-of-type {
-      --_vertical-border: none;
+      background: var(--_cell-background);
     }
   }
 }
 
-:host([scrollable]) :is(td, th).sticky-start-last {
-  border-inline-end: 1px solid var(--sl-color-grid-border);
-
-  + th {
-    --_vertical-border: none;
-  }
-}
-
-:host([scrollable]) :is(td, th).sticky-end-first {
-  --_vertical-border: none;
-
-  border-inline-start: 1px solid var(--sl-color-grid-border);
-}
-
 :host([scrollable-start]) {
+  --_vertical-border-end: linear-gradient(var(--_border-color), var(--_border-color)) 100% 100% / var(--_border-width)
+    100% no-repeat;
+
   table:not(:has(.sticky-start-last))::before {
     background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
     content: '';
@@ -82,6 +72,7 @@
   }
 
   :is(td, th).sticky-start-last {
+    background: var(--_vertical-border-end), var(--_cell-background);
     overflow: visible clip;
 
     &::after {
@@ -92,6 +83,22 @@
       position: absolute;
       z-index: 1;
     }
+  }
+
+  th.sticky-start-last {
+    background: var(--_vertical-border), var(--_vertical-border-end), var(--_cell-background);
+
+    + th {
+      background: var(--_cell-background);
+    }
+  }
+
+  sl-scrollbar::before {
+    background: var(--sl-color-grid-border);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-default);
+    inset: 0 auto 0 calc(var(--sl-size-borderWidth-default) * -1);
+    position: absolute;
   }
 }
 
@@ -106,6 +113,12 @@
   }
 
   :is(td, th).sticky-end-first {
+    --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+      calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+      no-repeat;
+    --_vertical-border-offset: 0px;
+
+    background: var(--_vertical-border), var(--_cell-background);
     overflow: visible clip;
 
     &::after {
@@ -116,6 +129,14 @@
       position: absolute;
       z-index: 1;
     }
+  }
+
+  sl-scrollbar::after {
+    background: var(--sl-color-grid-border);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-default);
+    inset: 0 calc(var(--sl-size-borderWidth-default) * -1) 0 auto;
+    position: absolute;
   }
 }
 
@@ -207,7 +228,9 @@ tr {
 th,
 td {
   align-items: center;
-  background: var(--_vertical-border), var(--_cell-background);
+
+  // background: var(--_vertical-border), var(--_cell-background);
+  background: var(--_cell-background);
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
@@ -231,10 +254,8 @@ th {
   --_cell-background: var(--_header-background);
   --_cell-padding-block: var(--_header-padding-block);
   --_cell-padding-inline: var(--_header-padding-inline);
-  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
-    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
-    no-repeat;
 
+  background: var(--_vertical-border), var(--_cell-background);
   font-weight: var(--_header-font-weight);
   text-align: start;
 
@@ -345,40 +366,8 @@ tfoot {
 
   sl-scrollbar {
     flex: 1;
+    inline-size: var(--sl-grid-scrollbar-inline-size);
+    margin-inline: var(--sl-grid-scrollbar-margin-inline);
+    position: relative;
   }
 }
-
-// .scrollbar {
-//   inset-block-end: 0;
-//   inset-inline: var(--sl-size-borderWidth-default);
-//   position: sticky;
-//   z-index: 1;
-
-//   .wrapper {
-//     inset-inline: var(--sl-grid-scrollbar-inset-inline);
-//     position: absolute;
-//   }
-// }
-
-sl-scrollbar {
-  // inline-size: var(--sl-grid-scrollbar-inline-size);
-  // inset-block-end: 0;
-  // position: fixed;
-}
-
-// .scrollbar {
-//   inset-inline: var(--sl-size-borderWidth-default);
-//   position: absolute;
-//   z-index: 1;
-
-//   .wrapper {
-//     inset-inline: var(--sl-grid-scrollbar-inset-inline);
-//     position: absolute;
-//   }
-// }
-
-// sl-scrollbar {
-//   inline-size: var(--sl-grid-scrollbar-inline-size);
-//   inset-block-end: 0;
-//   position: fixed;
-// }

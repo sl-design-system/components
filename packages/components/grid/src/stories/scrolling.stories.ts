@@ -110,7 +110,7 @@ export const HorizontalSticky: Story = {
       <div class="cover"></div>
       <sl-grid .items=${people}>
         <sl-grid-column header="Name" .renderer=${nameRenderer} sticky></sl-grid-column>
-        <sl-grid-column path="email" sticky></sl-grid-column>
+        <sl-grid-column path="email" ellipsize-text sticky></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
         <sl-grid-column path="address.phone"></sl-grid-column>
         <sl-grid-column path="address.street"></sl-grid-column>

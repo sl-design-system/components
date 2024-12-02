@@ -66,7 +66,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  #focusTrap: FocusTrap | null = null;
+  #focusTrap?: FocusTrap;
+
+  // #triggerElement?: HTMLElement;
 
   /**
    * Emits when the dialog has been cancelled. This happens when the user closes
@@ -194,6 +196,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    // this.#triggerElement = document.activeElement as HTMLElement;
+
     /**
      * Workaround for the backdrop background: the backdrop doesn't inherit
      * from the :root, so we cannot use tokens for the background-color.
@@ -224,7 +228,30 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         focusable.focus();
       }
 
-      this.activateFocusTrap();
+      console.log('focusable', focusable, this.shadowRoot?.activeElement);
+
+      if (!this.#focusTrap) {
+        this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
+          escapeDeactivates: true,
+          allowOutsideClick: !this.disableCancel,
+          fallbackFocus: this.dialog, // this.shadowRoot!.querySelector('dialog')!,
+          returnFocusOnDeactivate: true,
+          // checkCanFocusTrap: (containers) => {
+          //   return new Promise((resolve) => {
+          //     console.log('containers', containers);
+          //     setTimeout(resolve, 600);
+          //   });
+          // },
+          tabbableOptions: {
+            getShadowRoot: true
+          }
+        });
+      }
+
+      console.log('this.#focusTrap', this.#focusTrap, this.dialog);
+      this.#focusTrap.activate();
+
+      // this.activateFocusTrap();
 
       // this.#trapFocus();
     });
@@ -235,26 +262,37 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
       this.deactivateFocusTrap();
+
+      // console.log('this.#triggerElement on close', this.#triggerElement);
+
+      // if (this.#triggerElement) {
+      //   this.#triggerElement.focus();
+      //   this.#triggerElement = undefined; //null;
+      // }
     }
   }
 
-  activateFocusTrap(): void {
-    if (!this.#focusTrap) {
-      this.#focusTrap = createFocusTrap(this.shadowRoot!.querySelector('dialog')!, {
-        escapeDeactivates: true,
-        allowOutsideClick: true,
-        fallbackFocus: this.shadowRoot!.querySelector('dialog')!,
-        tabbableOptions: {
-          getShadowRoot: true
-        }
-      });
-    }
-    this.#focusTrap.activate();
-  }
+  // activateFocusTrap(): void {
+  //   if (!this.#focusTrap) {
+  //     this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
+  //       escapeDeactivates: true,
+  //       allowOutsideClick: true,
+  //      // fallbackFocus: this.shadowRoot!.querySelector('dialog')!,
+  //      //  returnFocusOnDeactivate: true,
+  //       tabbableOptions: {
+  //         getShadowRoot: true
+  //       }
+  //     });
+  //   }
+  //
+  //   console.log('this.#focusTrap', this.#focusTrap, this.dialog);
+  //   this.#focusTrap.activate();
+  // }
 
   deactivateFocusTrap(): void {
     if (this.#focusTrap) {
       this.#focusTrap.deactivate();
+      console.log('focus trap should be deactivated', this.#focusTrap);
     }
   }
 
@@ -264,6 +302,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     if (!this.disableCancel) {
       this.#closeDialogOnAnimationend(event.target, true);
     }
+
+    this.deactivateFocusTrap();
+
+    //  console.log('this.#triggerElement on close', this.#triggerElement);
+
+    // if (this.#triggerElement) {
+    //   this.#triggerElement.focus();
+    //   this.#triggerElement = undefined; //null;
+    // }
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -288,6 +335,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = true;
     this.closeEvent.emit();
+
+    this.deactivateFocusTrap();
+
+    // console.log('this.#triggerElement on close', this.#triggerElement);
+
+    // if (this.#triggerElement) {
+    //   this.#triggerElement.focus();
+    //   this.#triggerElement = undefined; //null;
+    // }
   }
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -295,6 +351,15 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
+
+    this.deactivateFocusTrap();
+
+    // console.log('this.#triggerElement on close', this.#triggerElement);
+
+    // if (this.#triggerElement) {
+    //   this.#triggerElement.focus();
+    //   this.#triggerElement = undefined; //null;
+    // }
   }
 
   #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
@@ -312,9 +377,27 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         } else {
           this.dialog?.close();
         }
+
+        // this.deactivateFocusTrap();
+        //
+        // console.log('this.#triggerElement on close', this.#triggerElement);
+        //
+        // if (this.#triggerElement) {
+        //   this.#triggerElement.focus();
+        //   this.#triggerElement = undefined; //null;
+        // }
       },
       { once: true }
     );
+
+    this.deactivateFocusTrap();
+
+    //  console.log('this.#triggerElement on close', this.#triggerElement);
+
+    // if (this.#triggerElement) {
+    //   this.#triggerElement.focus();
+    //   this.#triggerElement = undefined; //null;
+    // }
 
     /**
      * Set the closing attribute, this triggers the closing animation.
@@ -375,6 +458,22 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     console.log('event on keydown', event);
+
+    if (event.key === 'Escape' && !this.disableCancel) {
+      event.preventDefault();
+
+      console.log('escape...');
+
+      this.close();
+    }
+
+    // TODO: should not work on disableCancel, but right now it's working with disableCancel, why? check...
+
+    // TODO: add some information to the documentation about focus trap usage in the dialog
+    // TODO: make changes to the message dialog as well
+
+    // TODO: dependencies!!!
+
     // if (!this.dialog) {
     //   return;
     // }

@@ -4,6 +4,7 @@
   box-sizing: border-box;
   display: flex;
   padding: calc((var(--sl-size-150) - var(--sl-size-075)) / 2) var(--sl-space-050);
+  user-select: none;
 }
 
 :host([vertical]) {

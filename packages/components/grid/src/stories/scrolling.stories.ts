@@ -79,44 +79,9 @@ export const Horizontal: Story = {
   }
 };
 
-export const HorizontalScrollbar: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
-  render: (_, { loaded: { people } }) => {
-    return html`
-      <style>
-        body {
-          padding-block-end: 0 !important;
-        }
-        .scroller {
-          block-size: calc(100dvh - 1rem);
-          overflow: auto;
-        }
-        sl-grid {
-          inline-size: fit-content;
-          margin-block-end: 1rem;
-
-          &::part(tbody) {
-            min-width: var(--sl-grid-row-width) !important;
-            overflow: visible;
-          }
-        }
-      </style>
-      <div class="scroller">
-        <sl-grid .items=${people}>
-          <sl-grid-selection-column></sl-grid-selection-column>
-          <sl-grid-column path="firstName"></sl-grid-column>
-          <sl-grid-column path="lastName"></sl-grid-column>
-          <sl-grid-column path="email"></sl-grid-column>
-          <sl-grid-column path="profession"></sl-grid-column>
-          <sl-grid-column path="address.phone"></sl-grid-column>
-          <sl-grid-column path="address.street"></sl-grid-column>
-          <sl-grid-column path="address.city"></sl-grid-column>
-          <sl-grid-column path="address.zip"></sl-grid-column>
-          <sl-grid-column path="address.state"></sl-grid-column>
-        </sl-grid>
-      </div>
-    `;
-  }
+export const HorizontalOnly: Story = {
+  ...Horizontal,
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })]
 };
 
 export const HorizontalSticky: Story = {

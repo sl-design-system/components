@@ -221,6 +221,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
+  /** @internal Will render a custom horizontal scrollbar when set. */
+  @state() scrollbar?: boolean;
+
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
 
@@ -243,8 +246,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
-    this.#resizeObserver?.disconnect();
     this.#mutationObserver?.disconnect();
+    this.#resizeObserver?.disconnect();
 
     super.disconnectedCallback();
   }
@@ -309,12 +312,18 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
+        ${this.scrollbar
+          ? html`
+              <tfoot>
+                <tr class="scrollbar">
+                  <td>
+                    <sl-scrollbar scroller="tbody"></sl-scrollbar>
+                  </td>
+                </tr>
+              </tfoot>
+            `
+          : nothing}
       </table>
-      <div class="scrollbar">
-        <div class="wrapper">
-          <sl-scrollbar scroller="tbody"></sl-scrollbar>
-        </div>
-      </div>
     `;
   }
 
@@ -338,7 +347,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(td, thead tr:last-of-type th):nth-child(${index + 1}) {
+          :where(tbody td, thead tr:last-of-type th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
             justify-content: ${col.align ?? 'start'};
@@ -459,7 +468,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
         const index = this.view.headerRows[this.view.headerRows.length - 1].indexOf(col),
-          cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(td, th):nth-child(${index + 1})`);
+          cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(tbody td, thead th):nth-child(${index + 1})`);
         col.width = Array.from(cells).reduce((acc, cur) => {
           cur.style.flexGrow = '0';
           cur.style.width = 'auto';
@@ -713,11 +722,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #onScroll(): void {
     const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
 
+    this.scrollbar = scrollWidth > offsetWidth;
     this.thead.scrollLeft = scrollLeft;
 
-    this.toggleAttribute('scrollable', scrollWidth > offsetWidth);
-    this.toggleAttribute('scrollable-start', scrollLeft > 0);
-    this.toggleAttribute('scrollable-end', scrollLeft < scrollWidth - offsetWidth);
+    this.toggleAttribute('scrollable', this.scrollbar);
+    this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
+    this.toggleAttribute('scrollable-end', this.scrollbar && scrollLeft < scrollWidth - offsetWidth);
   }
 
   async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {
@@ -792,7 +802,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onVisibilityChanged(): void {
-    if (!this.#initialColumnWidthsCalculated) {
+    // Only recalculate the column widths if the grid has been rendered for the first time
+    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
       this.#initialColumnWidthsCalculated = true;
 
       void this.recalculateColumnWidths();

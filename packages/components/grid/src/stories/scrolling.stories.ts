@@ -15,10 +15,10 @@ export default {
   }
 };
 
-export const VerticalOverflow: Story = {
+export const Vertical: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people} style="height: 300px; overflow: auto">
+    <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
@@ -28,10 +28,10 @@ export const VerticalOverflow: Story = {
   `
 };
 
-export const VerticalPage: Story = {
+export const VerticalOverflow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people}>
+    <sl-grid .items=${people} style="block-size: 300px; overflow: auto">
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
@@ -54,7 +54,7 @@ export const Horizontal: Story = {
           padding-block-start: 0 !important;
         }
         .cover {
-          background: white;
+          background: var(--sl-color-elevation-surface-default);
           block-size: 1rem;
           position: sticky;
           inset-block-start: 0;
@@ -97,7 +97,7 @@ export const HorizontalSticky: Story = {
           padding-block-start: 0 !important;
         }
         .cover {
-          background: white;
+          background: var(--sl-color-elevation-surface-default);
           block-size: 1rem;
           position: sticky;
           inset-block-start: 0;

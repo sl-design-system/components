@@ -310,7 +310,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           })}
         </tbody>
       </table>
-      <div class="shadow"></div>
       <div class="scrollbar">
         <div class="wrapper">
           <sl-scrollbar scroller="tbody"></sl-scrollbar>

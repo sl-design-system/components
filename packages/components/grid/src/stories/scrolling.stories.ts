@@ -58,7 +58,7 @@ export const Horizontal: Story = {
           block-size: 1rem;
           position: sticky;
           inset-block-start: 0;
-          z-index: 2;
+          z-index: 3;
         }
         sl-grid::part(thead) {
           inset-block-start: 1rem;
@@ -136,7 +136,7 @@ export const HorizontalSticky: Story = {
           block-size: 1rem;
           position: sticky;
           inset-block-start: 0;
-          z-index: 2;
+          z-index: 3;
         }
         sl-grid::part(thead) {
           inset-block-start: 1rem;

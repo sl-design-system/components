@@ -82,13 +82,26 @@ export class Scrollbar extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div part="track">
+      <div @mousedown=${this.#onMouseDown} part="track">
         <div @pointerdown=${this.#onPointerDown} @pointerup=${this.#onPointerUp} part="thumb"></div>
       </div>
     `;
   }
 
+  #onMouseDown(event: PointerEvent & { target: HTMLElement }): void {
+    const trackStart = event.target.getBoundingClientRect()[this.vertical ? 'top' : 'left'];
+
+    this.#start = trackStart;
+    this.#offset = this.#thumbSize! / -2;
+
+    this.#onPointerMove(event);
+  }
+
   #onPointerDown(event: PointerEvent & { target: HTMLElement }) {
+    // Prevent this from bubbling up to the mousedown event handler on the track
+    event.preventDefault();
+    event.stopPropagation();
+
     event.target.setPointerCapture(event.pointerId);
     event.target.addEventListener('pointermove', this.#onPointerMove, false);
 

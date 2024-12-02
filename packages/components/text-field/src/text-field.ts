@@ -2,7 +2,13 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, closestElementComposed, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  ObserveAttributesMixin,
+  ObserveAttributesMixinInterface,
+  closestElementComposed,
+  event
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -27,9 +33,15 @@ let nextUniqueId = 0;
  * @slot suffix - Content shown after the input
  */
 @localized()
-export class TextField<T extends { toString(): string } = string> extends FormControlMixin(
-  ScopedElementsMixin(LitElement)
-) {
+export class TextField<T extends { toString(): string } = string>
+  extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+    'aria-disabled',
+    'aria-label',
+    'aria-labelledby',
+    'aria-required'
+  ])
+  implements ObserveAttributesMixinInterface
+{
   /** @internal */
   static override get observedAttributes(): string[] {
     return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
@@ -137,23 +149,6 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     }
 
     this.setFormControlElement(this.input);
-  }
-
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    requestAnimationFrame(() => {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
-      if (this.input && attributes.includes(name)) {
-        attributes.forEach(attr => {
-          const value = this.getAttribute(attr);
-          if (value !== null) {
-            this.input.setAttribute(attr, value);
-            this.removeAttribute(attr);
-          }
-        });
-      }
-    });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -323,6 +318,8 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     input.placeholder = this.placeholder ?? '';
     input.readOnly = !!this.readonly;
     input.required = !!this.required;
+
+    this.setAttributesTarget(input);
 
     // Use `setAttribute` to avoid typing coercion
     input.setAttribute('autocomplete', this.autocomplete || 'off');

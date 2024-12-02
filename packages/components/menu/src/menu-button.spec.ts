@@ -267,4 +267,30 @@ describe('sl-menu-button', () => {
       expect(button.querySelector('.selected')).not.to.exist;
     });
   });
+
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-menu-button aria-label="my label" aria-disabled="true">
+          <span slot="button">Button</span>
+
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+      `);
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+      menu = el.renderRoot.querySelector('sl-menu') as Menu;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have a button with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(button).to.have.attribute('aria-label', 'my label');
+      expect(button).to.have.attribute('aria-disabled', 'true');
+    });
+  });
 });

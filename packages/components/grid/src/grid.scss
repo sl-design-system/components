@@ -139,6 +139,7 @@ tbody {
 }
 
 thead {
+  anchor-name: --thead;
   border-end-end-radius: 0;
   border-end-start-radius: 0;
   inset-block-start: 0;
@@ -148,6 +149,16 @@ thead {
   z-index: 1;
 }
 
+// .shadow {
+//   background: linear-gradient(rgb(79 79 79 / 10%), transparent);
+//   block-size: 0.25rem;
+//   inline-size: var(--sl-grid-width);
+//   position: absolute;
+//   position-anchor: --thead;
+//   position-area: bottom span-all;
+//   z-index: 1;
+// }
+
 tbody {
   border-block-start: 0;
   border-start-end-radius: 0;
@@ -155,6 +166,7 @@ tbody {
   max-inline-size: var(--sl-grid-width);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow: auto clip;
+  scrollbar-width: none;
 
   &.drop-target {
     position: relative;
@@ -334,10 +346,15 @@ td[part~='text-field'] {
   inset-inline: var(--sl-size-borderWidth-default);
   position: absolute;
   z-index: 1;
+
+  .wrapper {
+    inset-inline: var(--sl-grid-scrollbar-inset-inline);
+    position: absolute;
+  }
 }
 
 sl-scrollbar {
-  inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+  inline-size: var(--sl-grid-scrollbar-inline-size);
   inset-block-end: 0;
   position: fixed;
 }

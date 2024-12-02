@@ -310,8 +310,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           })}
         </tbody>
       </table>
+      <div class="shadow"></div>
       <div class="scrollbar">
-        <sl-scrollbar scroller="tbody"></sl-scrollbar>
+        <div class="wrapper">
+          <sl-scrollbar scroller="tbody"></sl-scrollbar>
+        </div>
       </div>
     `;
   }
@@ -475,6 +478,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // will not be sticky when you scroll horizontally.
     const rowWidth = this.view.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
+
+    const scrollbarInsetInlineStart = this.view.columns
+      .filter(col => col.stickyPosition === 'start')
+      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+
+    const scrollbarInsetInlineEnd = this.view.columns
+      .filter(col => col.stickyPosition === 'end')
+      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+
+    this.style.setProperty(
+      '--sl-grid-scrollbar-inset-inline',
+      `${scrollbarInsetInlineStart}px ${scrollbarInsetInlineEnd}px`
+    );
+
+    this.style.setProperty(
+      '--sl-grid-scrollbar-inline-size',
+      `calc(var(--sl-grid-width) - ${scrollbarInsetInlineStart + scrollbarInsetInlineEnd + 2}px)`
+    );
 
     this.requestUpdate();
   }

@@ -4,7 +4,7 @@
   --_border-color: var(--sl-color-grid-border);
   --_border-width: var(--sl-size-borderWidth-default);
   --_border-radius: var(--sl-size-borderRadius-default);
-  --_cell-background: var(--sl-color-grid-default);
+  --_cell-background: #fff; // var(--sl-color-grid-default);
   --_cell-border: var(--_border-width) solid var(--_border-color);
   --_cell-padding-block: var(--sl-space-175);
   --_cell-padding-inline: var(--sl-space-200);
@@ -14,6 +14,9 @@
   --_dragging-opacity: 0.8;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_font: var(--sl-text-body-md-normal);
   --_group-background: var(--sl-color-grid-group);
   --_header-background: var(--sl-color-grid-header);
@@ -153,6 +156,12 @@ table {
   inline-size: fit-content;
   min-inline-size: 100%;
   position: relative;
+  z-index: 1;
+}
+
+thead,
+tbody {
+  box-sizing: border-box;
 }
 
 thead {
@@ -233,7 +242,8 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: content-box 0;
+  overflow-clip-margin: content-box
+    calc(var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default));
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
   &:first-of-type:not([part~='drag-handle']) {
@@ -347,6 +357,40 @@ td[part~='text-field'] {
   inset-block-start: 0;
   position: absolute;
   z-index: 1;
+}
+
+/* Set some base styles, so it is easy to see */
+a[class^='skip-link'] {
+  background-color: var(--_header-background);
+  display: inline-block;
+  inset-inline-start: var(--sl-border-width-focusring-default);
+  padding: 0.375rem 0.75rem;
+  position: absolute;
+  transition: transform 250ms ease-in;
+  z-index: 0;
+
+  &:focus {
+    outline: var(--_focus-outline);
+    outline-offset: 0;
+  }
+}
+
+.skip-link-start {
+  inset-block-start: 0;
+  transform: translateY(0);
+}
+
+.skip-link-start:focus {
+  transform: translateY(-2rem);
+}
+
+.skip-link-end {
+  inset-block-end: 0;
+  transform: translateY(0);
+}
+
+.skip-link-end:focus {
+  transform: translateY(2rem);
 }
 
 tfoot {

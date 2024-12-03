@@ -172,5 +172,21 @@ const options = [
 
 </section>
 
+<section>
+
+## Selected
+
+There are two ways you can set the selected options for the combobox:
+1. By using the `value` property on the `sl-combobox` element
+2. By using the `selected` property on the `sl-option` elements
+
+It is sometimes easier to set the `selected` property since you are already rendering the options yourself. If you are not rendering the options yourself, you can specify the `group-selected-path` property instead.
+
+In both cases you could also use the `value` property on the `sl-combobox` element to set the selected options.
+
+Do not use both methods at the same time.
+
+</section>
+
 <ds-install-info link-in-navigation package="combobox"></ds-install-info>
 {% include "../component-table.njk" %}

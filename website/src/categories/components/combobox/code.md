@@ -2,8 +2,7 @@
 title: Combobox code
 tags: code
 APIdescription: {
-  sl-menu: "DESCRIPTION",
-  sl-menu-item: "DESCRIPTION"
+  sl-combobox: "DESCRIPTION"
 }
 eleventyNavigation:
   parent: Combobox
@@ -14,44 +13,32 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<form id="checkboxes-example" class="ds-example__code-wrapper">
-  <sl-checkbox value="yes">Checkbox</sl-checkbox>
-  <sl-checkbox disabled value="yes">Disabled</sl-checkbox>
-  <sl-checkbox checked disabled value="yes" >Disabled checked</sl-checkbox>
-  <sl-checkbox show-validity="valid" checked valid value="yes">Valid</sl-checkbox>
-  <sl-checkbox show-validity="invalid" checked invalid required value="yes">Invalid</sl-checkbox>
-</form>
+<sl-combobox multiple value='["0","1"]'>
+  <sl-listbox>
+    <sl-option value="0">Mathematics</sl-option>
+    <sl-option value="1">Geography</sl-option>
+    <sl-option value="2">Physics</sl-option>
+    <sl-option value="3">History</sl-option>
+  </sl-listbox>
+</sl-combobox>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <form>
-    <sl-checkbox value="yes">
-      Checkbox
-    </sl-checkbox>
-    <sl-checkbox disabled value="yes" >
-      Disabled
-    </sl-checkbox>
-    <sl-checkbox checked disabled value="yes">
-      Disabled checked
-    </sl-checkbox>
-    <sl-checkbox show-validity="valid" checked valid value="yes">
-      Valid
-    </sl-checkbox>
-    <sl-checkbox show-validity="invalid" checked invalid required value="yes">
-      Invalid
-    </sl-checkbox>
-  </form>
+  <sl-combobox multiple value='["0","1"]'>
+    <sl-listbox>
+      <sl-option value="0">Mathematics</sl-option>
+      <sl-option value="1">Geography</sl-option>
+      <sl-option value="2">Physics</sl-option>
+      <sl-option value="3">History</sl-option>
+    </sl-listbox>
+  </sl-combobox>
   ```
 
 </div>
 
 </section>
-<ds-install-info link-in-navigation package="checkbox"></ds-install-info>
+<ds-install-info link-in-navigation package="combobox"></ds-install-info>
 {% include "../component-table.njk" %}
-
-<script>
-  setTimeout(() => document.querySelector('#checkboxes-example')?.reportValidity(), 100);
-</script>

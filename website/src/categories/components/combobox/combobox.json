@@ -1,15 +1,11 @@
 {
   "layout": "categories/components/components.njk",
-  "tags": "checkbox",
-  "componentStatus": "stable",
+  "tags": "combobox",
+  "componentStatus": "draft",
   "componentTagName": [
     {
-      "name": "Checkbox",
-      "selector": "sl-checkbox"
-    },
-    {
-      "name": "Checkbox group",
-      "selector": "sl-checkbox-group"
+      "name": "Combobox",
+      "selector": "sl-combobox"
     }
   ]
 }

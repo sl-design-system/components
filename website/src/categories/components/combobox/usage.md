@@ -10,28 +10,28 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-form-field label="Subjects">
-<sl-checkbox-group value='["0","2"]'>
-  <sl-checkbox value="0">Mathematics</sl-checkbox>
-  <sl-checkbox value="1">Geography</sl-checkbox>
-  <sl-checkbox value="2">Physics</sl-checkbox>
-  <sl-checkbox value="3" disabled>History</sl-checkbox>
-</sl-checkbox-group>
-</sl-form-field>
+<sl-combobox multiple value='["0","1"]'>
+  <sl-listbox>
+    <sl-option value="0">Mathematics</sl-option>
+    <sl-option value="1">Geography</sl-option>
+    <sl-option value="2">Physics</sl-option>
+    <sl-option value="3">History</sl-option>
+  </sl-listbox>
+</sl-combobox>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-form-field label="Subjects">
-    <sl-checkbox-group value='["0","2"]'>
-      <sl-checkbox value="0">Mathematics</sl-checkbox>
-      <sl-checkbox value="1">Geography</sl-checkbox>
-      <sl-checkbox value="2">Physics</sl-checkbox>
-      <sl-checkbox value="3" disabled>History</sl-checkbox>
-    </sl-checkbox-group>
-  </sl-form-field>
+  <sl-combobox multiple value='["0","1"]'>
+    <sl-listbox>
+      <sl-option value="0">Mathematics</sl-option>
+      <sl-option value="1">Geography</sl-option>
+      <sl-option value="2">Physics</sl-option>
+      <sl-option value="3">History</sl-option>
+    </sl-listbox>
+  </sl-combobox>
   ```
 
 </div>
@@ -70,7 +70,7 @@ For list of options small than 15 choices, use checkboxes or radio buttons inste
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Imput Field |Acts as the primary area for user interaction. Users can type to search, or view the selected options in this field. |no|
+|1|Input Field |Acts as the primary area for user interaction. Users can type to search, or view the selected options in this field. |no|
 |2|Indicator |A visual indicator showing the current state of the dropdown (expanded or collapsed) and guiding users to interact with the Combobox.0 |no|
 |2|Tag List |Displays the chosen options within the input field or as separate tags, ensuring clarity about the current selection. |Yes|
 |3|Menu |Displays available options dynamically. These can be split in groups to make navigation through long lists easier, and the choices will be display at the top. |no|
@@ -102,7 +102,7 @@ FIGMA_OPTIONS_INTRODUCTION
 ### Combobox Input
 |Item|Options|Description|
 |-|-|-|
-|Open|`'md', 'lg'` |Toogle to display the dropdown list. |
+|Open|`'md', 'lg'` |Toggle to display the dropdown list. |
 |Size|`'on', 'of'` |DESCRIPTION_TEXT |
 |Show Placeholder|`'on', 'of'`| DESCRIPTION_TEXT |
 |Show Tags|`'on', 'of'` |DESCRIPTION_TEXT |
@@ -127,7 +127,7 @@ FIGMA_OPTIONS_INTRODUCTION
 
 <section>
 
-## Behaviours  
+## Behaviors
 Let's explore the behavior of the Combobox
 
 ### Grouping Choices

@@ -1,5 +1,47 @@
 # @sl-design-system/combobox
 
+## 0.0.4
+
+### Patch Changes
+
+- [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Toggle the listbox when clicking the chevron button
+
+- [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Add the ability to render the options using a virtual list:
+
+  You can already render the options yourself by doing
+
+  ```html
+  <sl-combobox>
+    <sl-listbox>
+      <sl-option>Option 1</sl-option>
+      <sl-option>Option 2</sl-option>
+      <sl-option>Option 3</sl-option>
+    </sl-listbox>
+  </sl-combobox>
+  ```
+
+  But for large numbers of options, this can be slow. You can now use the `options` property to have the combobox render the options for you:
+
+  ```html
+  <sl-combobox .options=${['Option 1', 'Option 2', 'Option 3', ...]}></sl-combobox>
+  ```
+
+  You can customize the rendering of each option by using:
+
+  - `optionLabelPath` to specify the path to the label in each option object
+  - `optionValuePath` to specify the path to the value in each option object
+
+  You can also group the options by using `optionGroupPath`. This will group the options by the value of the property specified in `optionGroupPath`. The value is also used as the label for the group.
+
+  There is no difference how the options are rendered in the DOM. You can customize
+  the options in both scenarios by using the `sl-option { ... }` selector.
+
+- Updated dependencies [[`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`99482e3`](https://github.com/sl-design-system/components/commit/99482e31dfee77fb99bf74a4fe325c3ccc08f6e6), [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd)]:
+  - @sl-design-system/form@1.1.1
+  - @sl-design-system/listbox@0.0.3
+  - @sl-design-system/icon@1.0.3
+  - @sl-design-system/text-field@1.5.1
+
 ## 0.0.3
 
 ### Patch Changes

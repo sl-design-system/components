@@ -174,7 +174,7 @@
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
-    "@oddbird/popover-polyfill": "^0.5.1",
+    "@oddbird/popover-polyfill": "^0.5.2",
     "@types/markdown-it": "^14.1.2",
     "@web/dev-server": "^0.4.6",
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",

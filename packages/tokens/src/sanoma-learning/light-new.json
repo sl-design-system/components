@@ -534,7 +534,7 @@
         "type": "color"
       },
       "default": {
-        "value": "{color.base.transparent}",
+        "value": "{color.base.white}",
         "type": "color"
       },
       "zebra": {

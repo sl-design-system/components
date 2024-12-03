@@ -30,6 +30,7 @@ export type SlLiveEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'a
  */
 export function sendToLiveAria(message: string, urgency?: 'polite' | 'assertive'): void {
   const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
+  console.log('sendToLiveAria', message, urgency);
   liveEvent.emit({ message, urgency });
 }
 

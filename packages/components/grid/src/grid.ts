@@ -470,7 +470,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
         const index = this.view.headerRows[this.view.headerRows.length - 1].indexOf(col),
-          cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(tbody td, thead th):nth-child(${index + 1})`);
+          cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(tbody td, th):nth-child(${index + 1})`);
         col.width = Array.from(cells).reduce((acc, cur) => {
           cur.style.flexGrow = '0';
           cur.style.width = 'auto';

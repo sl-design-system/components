@@ -122,17 +122,24 @@ describe('sl-tab-group', () => {
       const tabs = el.querySelectorAll('sl-tab');
 
       tabs[0].focus();
+
       expect(document.activeElement).to.equal(tabs[0]);
 
       await sendKeys({ press: 'ArrowRight' });
+      await el.updateComplete;
+
       expect(document.activeElement).to.equal(tabs[1]);
 
       // Third tab is disabled, so it should be skipped
       await sendKeys({ press: 'ArrowRight' });
+      await el.updateComplete;
+
       expect(document.activeElement).to.equal(tabs[0]);
 
       // Third tab is disabled, so it should be skipped
       await sendKeys({ press: 'ArrowLeft' });
+      await el.updateComplete;
+
       expect(document.activeElement).to.equal(tabs[1]);
     });
 

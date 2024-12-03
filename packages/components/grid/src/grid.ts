@@ -4,6 +4,7 @@ import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-la
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
+import { Scrollbar } from '@sl-design-system/scrollbar';
 import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
@@ -93,7 +94,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return {
       'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader,
-      'sl-skeleton': Skeleton
+      'sl-skeleton': Skeleton,
+      'sl-scrollbar': Scrollbar
     };
   }
 
@@ -142,6 +144,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     } = entries[0];
 
     this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
+
+    // Update the scroll state
+    this.#onScroll();
   });
 
   /** The sorters for this grid. */
@@ -216,6 +221,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
+  /** @internal Will render a custom horizontal scrollbar when set. */
+  @state() scrollbar?: boolean;
+
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
 
@@ -238,8 +246,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
-    this.#resizeObserver?.disconnect();
     this.#mutationObserver?.disconnect();
+    this.#resizeObserver?.disconnect();
 
     super.disconnectedCallback();
   }
@@ -247,13 +255,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   override async firstUpdated(): Promise<void> {
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
-    this.tbody.addEventListener(
-      'scroll',
-      () => {
-        this.thead.scrollLeft = this.tbody.scrollLeft;
-      },
-      { passive: true }
-    );
+    this.tbody.addEventListener('scroll', () => this.#onScroll(), { passive: true });
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
@@ -312,12 +314,23 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
+        <tbody @visibilityChanged=${this.#onVisibilityChanged} id="tbody" part="tbody">
           ${virtualize({
             items: this.view.rows,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
+        ${this.scrollbar
+          ? html`
+              <tfoot>
+                <tr class="scrollbar">
+                  <td>
+                    <sl-scrollbar scroller="tbody"></sl-scrollbar>
+                  </td>
+                </tr>
+              </tfoot>
+            `
+          : nothing}
       </table>
 
       <a
@@ -341,7 +354,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             thead tr:nth-child(${rowIndex + 1}) th:nth-child(${colIndex + 1}) {
               flex-grow: ${Math.max((col as GridColumnGroup<T>).columns.length, 1)};
               inline-size: ${col.width || '100'}px;
-              justify-content: ${col.align};
+              justify-content: ${col.align ?? 'start'};
               ${col.renderStyles()?.toString() ?? ''}
             }
             `
@@ -350,16 +363,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(td, thead tr:last-of-type th):nth-child(${index + 1}) {
+          :where(tbody td, thead tr:last-of-type th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
-            justify-content: ${col.align};
+            justify-content: ${col.align ?? 'start'};
+            ${col.sticky ? 'position: sticky;' : ''}
             ${
               col.sticky
-                ? `
-              inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;
-              position: sticky;
-              `
+                ? col.stickyPosition === 'start'
+                  ? `inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;`
+                  : `inset-inline-end: ${this.view.getStickyColumnOffset(index)}px;`
                 : ''
             }
             ${col.renderStyles()?.toString() ?? ''}
@@ -474,7 +487,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
         const index = this.view.headerRows[this.view.headerRows.length - 1].indexOf(col),
-          cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(td, th):nth-child(${index + 1})`);
+          cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(tbody td, th):nth-child(${index + 1})`);
         col.width = Array.from(cells).reduce((acc, cur) => {
           cur.style.flexGrow = '0';
           cur.style.width = 'auto';
@@ -492,6 +505,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // will not be sticky when you scroll horizontally.
     const rowWidth = this.view.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
+
+    const scrollbarMarginInlineStart = this.view.columns
+      .filter(col => col.stickyPosition === 'start')
+      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+
+    const scrollbarMarginInlineEnd = this.view.columns
+      .filter(col => col.stickyPosition === 'end')
+      .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+
+    this.style.setProperty(
+      '--sl-grid-scrollbar-margin-inline',
+      `${scrollbarMarginInlineStart}px ${scrollbarMarginInlineEnd}px`
+    );
+
+    this.style.setProperty(
+      '--sl-grid-scrollbar-inline-size',
+      `calc(var(--sl-grid-width) - ${scrollbarMarginInlineStart + scrollbarMarginInlineEnd + 2}px)`
+    );
 
     this.requestUpdate();
   }
@@ -712,11 +743,22 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
   }
 
+  #onScroll(): void {
+    const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
+
+    this.scrollbar = scrollWidth > offsetWidth;
+    this.thead.scrollLeft = scrollLeft;
+
+    this.toggleAttribute('scrollable', this.scrollbar);
+    this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
+    this.toggleAttribute('scrollable-end', this.scrollbar && scrollLeft < scrollWidth - offsetWidth);
+  }
+
   async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
-    columns.forEach(col => {
+    columns.forEach((col, index) => {
       this.#addScopedElements(col.scopedElements);
 
       col.grid = this;
@@ -727,6 +769,25 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (this.ellipsizeText) {
         col.ellipsizeText = this.ellipsizeText;
+      }
+
+      if (col.sticky) {
+        if (index === 0) {
+          col.stickyOrder = 'first';
+          col.stickyPosition = 'start';
+        } else if (index === columns.length - 1) {
+          col.stickyOrder = columns.at(index - 1)?.sticky ? 'last' : 'first';
+          col.stickyPosition = 'end';
+        } else if (columns.at(index - 1)?.sticky) {
+          col.stickyPosition = columns.at(index - 1)!.stickyPosition;
+
+          if (!columns.at(index + 1)?.sticky) {
+            col.stickyOrder = 'last';
+          }
+        } else {
+          col.stickyOrder = 'first';
+          col.stickyPosition = 'end';
+        }
       }
 
       if (col instanceof GridFilterColumn) {
@@ -765,7 +826,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onVisibilityChanged(): void {
-    if (!this.#initialColumnWidthsCalculated) {
+    // Only recalculate the column widths if the grid has been rendered for the first time
+    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
       this.#initialColumnWidthsCalculated = true;
 
       void this.recalculateColumnWidths();

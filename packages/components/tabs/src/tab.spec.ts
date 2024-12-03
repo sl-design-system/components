@@ -89,11 +89,21 @@ describe('sl-tab', () => {
   });
 
   describe('href', () => {
+    let tab: Tab;
     let link: HTMLAnchorElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-tab href="javascript:void(0)"></sl-tab>`);
-      link = el.renderRoot.querySelector('a')!;
+      el = await fixture(
+        html` <sl-tab-group>
+          <sl-tab href="javascript:void(0)"></sl-tab>
+        </sl-tab-group>`
+      );
+
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      tab = el.querySelector('sl-tab')!;
+      link = tab.renderRoot.querySelector('a')!;
     });
 
     it('should render a link', () => {
@@ -104,19 +114,19 @@ describe('sl-tab', () => {
     it('should activate the link when pressing Enter', async () => {
       const onClick = spy(link, 'click');
 
-      el.focus();
+      tab.focus();
       await sendKeys({ press: 'Enter' });
 
       expect(onClick).to.have.been.calledOnce;
     });
 
     it('should not activate the link when disabled and pressing Enter', async () => {
-      el.disabled = true;
+      tab.disabled = true;
       await el.updateComplete;
 
       const onClick = spy(link, 'click');
 
-      el.focus();
+      tab.focus();
       await sendKeys({ press: 'Enter' });
 
       expect(onClick).not.to.have.been.called;
@@ -125,7 +135,7 @@ describe('sl-tab', () => {
     it('should activate the link when pressing Space', async () => {
       const onClick = spy(link, 'click');
 
-      el.focus();
+      tab.focus();
       await sendKeys({ press: 'Space' });
 
       expect(onClick).to.have.been.calledOnce;
@@ -135,7 +145,7 @@ describe('sl-tab', () => {
       el.disabled = true;
       await el.updateComplete;
 
-      const onClick = spy(link, 'click');
+      const onClick = spy(el, 'click');
 
       el.focus();
       await sendKeys({ press: 'Space' });

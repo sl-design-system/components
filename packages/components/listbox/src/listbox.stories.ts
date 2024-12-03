@@ -4,7 +4,10 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Listbox } from './listbox.js';
 
-type Props = Pick<Listbox, 'options' | 'optionLabelPath' | 'optionSelectedPath' | 'optionValuePath'> & {
+type Props = Pick<
+  Listbox,
+  'options' | 'optionGroupPath' | 'optionLabelPath' | 'optionSelectedPath' | 'optionValuePath'
+> & {
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -20,7 +23,7 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ options, optionLabelPath, optionSelectedPath, optionValuePath, slot }) => {
+  render: ({ options, optionGroupPath, optionLabelPath, optionSelectedPath, optionValuePath, slot }) => {
     return html`
       <style>
         sl-listbox {
@@ -31,6 +34,7 @@ export default {
       </style>
       <sl-listbox
         .options=${options}
+        .optionGroupPath=${optionGroupPath}
         .optionLabelPath=${optionLabelPath}
         .optionSelectedPath=${optionSelectedPath}
         .optionValuePath=${optionValuePath}
@@ -72,7 +76,7 @@ export const Divider: Story = {
   }
 };
 
-export const Grouped: Story = {
+export const Groups: Story = {
   args: {
     slot: () => html`
       <sl-option-group label="Group 1">
@@ -146,6 +150,21 @@ export const VirtualList: Story = {
     optionSelectedPath: 'selected',
     optionValuePath: 'value',
     options: Array.from({ length: 10000 }).map((_, i) => ({
+      label: `Option ${i + 1}`,
+      selected: i % 2 === 0,
+      value: i
+    }))
+  }
+};
+
+export const VirtualListWithGroups: Story = {
+  args: {
+    optionGroupPath: 'group',
+    optionLabelPath: 'label',
+    optionSelectedPath: 'selected',
+    optionValuePath: 'value',
+    options: Array.from({ length: 10000 }).map((_, i) => ({
+      group: `Options ${Math.floor((i + 1) / 100) * 100}..${Math.floor((i + 1) / 100) * 100 + 99}`,
       label: `Option ${i + 1}`,
       selected: i % 2 === 0,
       value: i

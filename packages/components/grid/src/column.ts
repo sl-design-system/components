@@ -114,7 +114,13 @@ export class GridColumn<T = any> extends LitElement {
   @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
   /** Whether this column is sticky when the user scrolls horizontally. */
-  @property({ type: Boolean, reflect: true }) sticky?: boolean;
+  @property({ type: Boolean }) sticky?: boolean;
+
+  /** Whether this column is the first or last sticky column. */
+  @state() stickyOrder?: 'first' | 'last';
+
+  /** The position where the column should be sticky: at the start of the grid, or at the end. */
+  @state() stickyPosition?: 'start' | 'end';
 
   @state() selected?: boolean;
 
@@ -157,13 +163,15 @@ export class GridColumn<T = any> extends LitElement {
   stateChanged(): void {}
 
   renderHeader(): TemplateResult {
-    const parts = ['header', ...this.getParts()];
+    const classes = this.getClasses(),
+      parts = ['header', ...this.getParts()];
 
-    return html`<th part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
+    return html`<th class=${classes.join(' ')} part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
   }
 
   renderData(item: T): TemplateResult {
-    const parts = ['data', ...this.getParts(item)];
+    const classes = this.getClasses(item),
+      parts = ['data', ...this.getParts(item)];
 
     let data: unknown;
     if (this.renderer) {
@@ -175,13 +183,27 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     if (this.ellipsizeText && typeof data === 'string') {
-      return html`<td part=${parts.join(' ')}><sl-ellipsize-text>${data}</sl-ellipsize-text></td>`;
+      return html`
+        <td class=${classes.join(' ')} part=${parts.join(' ')}>
+          <sl-ellipsize-text>${data}</sl-ellipsize-text>
+        </td>
+      `;
     } else {
-      return html`<td part=${parts.join(' ')}>${data || 'No path set'}</td>`;
+      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data || 'No path set'}</td>`;
     }
   }
 
   renderStyles(): CSSResult | void {}
+
+  getClasses(_item?: T): string[] {
+    const classes: string[] = [];
+
+    if (this.sticky && this.stickyOrder && this.stickyPosition) {
+      classes.push(`sticky-${this.stickyPosition}-${this.stickyOrder}`);
+    }
+
+    return classes;
+  }
 
   getParts(item?: T): string[] {
     let parts: string[] = [];

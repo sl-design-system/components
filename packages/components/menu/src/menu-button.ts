@@ -3,6 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type PopoverPosition } from '@sl-design-system/shared';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -26,7 +27,15 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ScopedElementsMixin(LitElement) {
+export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
+  'aria-disabled',
+  'aria-label'
+]) {
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
+  }
+
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -65,6 +74,8 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
+
+    this.setAttributesTarget(this.button);
 
     this.button.setAttribute('aria-details', this.menu.id);
     this.menu.anchorElement = this.button;

@@ -28,9 +28,6 @@ declare global {
  */
 export class Tab extends LitElement {
   /** @internal */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -57,7 +54,7 @@ export class Tab extends LitElement {
   override render(): TemplateResult {
     return this.href
       ? html`<a href=${this.href}>${this.renderContent()}</a>`
-      : html`<div .tabIndex=${this.selected ? 0 : -1} class="wrapper">${this.renderContent()}</div>`;
+      : html`<div class="wrapper">${this.renderContent()}</div>`;
   }
 
   /** @ignore */

@@ -66,11 +66,17 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   /** The position of the menu relative to the button. */
   @property() position?: PopoverPosition;
 
-  /** The size of the button. */
-  @property() size: ButtonSize = 'md';
+  /**
+   * The size of the button.
+   * @default md
+   */
+  @property() size?: ButtonSize;
 
-  /** The variant of the button. */
-  @property() variant: ButtonVariant = 'default';
+  /**
+   * The variant of the button.
+   * @default secondary
+   */
+  @property() variant?: ButtonVariant;
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);

@@ -47,7 +47,7 @@ StyleDictionary.registerTransform({
     const [_, color, opacity] = token.original?.value?.match(/rgba\((\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
-      token.original.value = `color-mix(in srgb, ${color}  calc(${opacity} * 100%), transparent)`;
+      token.original.value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
     }
 
     return token.value;
@@ -114,7 +114,10 @@ const build = async (production = false) => {
 
   const configs = Object
     .entries(permutateThemes($themes))
+    .filter(([name]) => !name.includes('_onhold'))
     .map(([name, tokensets]) => {
+      console.log(`Building theme ${name}`);
+
       const [theme, variant] = name.split('/');
 
       const files = [
@@ -123,7 +126,8 @@ const build = async (production = false) => {
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
-            outputReferences: !production
+            // Do not output references due to a limitation of the `ts/color/modifiers` transform
+            outputReferences: false
           }
         }
       ];
@@ -183,6 +187,7 @@ const build = async (production = false) => {
             transformGroup: 'tokens-studio',
             transforms: [
               'name/kebabWithCamel',
+              'ts/color/modifiers',
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',

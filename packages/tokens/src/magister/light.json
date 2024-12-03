@@ -22,7 +22,7 @@
         "description": "body.surface.100"
       },
       "overlay": {
-        "value": "rgba({color.palette.primary.800} , {opacity.900})",
+        "value": "rgba({color.palette.primary.800} , {opacity.light.900})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -2257,7 +2257,7 @@
             },
             "focus": {
               "background": {
-                "value": "rgba({color.palette.primary.base} / {opacity.100})",
+                "value": "rgba({color.palette.primary.base} / {opacity.light.100})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2483,7 +2483,7 @@
             },
             "focus": {
               "background": {
-                "value": "rgba({color.palette.white.base} / {opacity.100})",
+                "value": "rgba({color.palette.white.base} / {opacity.light.100})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2709,7 +2709,7 @@
             },
             "focus": {
               "background": {
-                "value": "rgba({color.palette.white.base} / {opacity.100})",
+                "value": "rgba({color.palette.white.base} / {opacity.light.100})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3715,7 +3715,7 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({color.palette.white.base} , {opacity.100})",
+            "value": "rgba({color.palette.white.base} , {opacity.light.100})",
             "type": "color"
           },
           "foreground": {
@@ -4964,7 +4964,7 @@
         "y": "0",
         "blur": "0",
         "spread": "3px",
-        "color": "rgba({color.palette.info.base},{opacity.500})",
+        "color": "rgba({color.palette.info.base},{opacity.light.500})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

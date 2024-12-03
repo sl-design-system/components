@@ -176,6 +176,8 @@ const options = [
 
 ## Selected
 
+The combobox component is in single selection mode by default. If you want to enable multiple selection, you can set the `multiple` property on the `sl-combobox` element. The `value` property is, depending on the selection mode, either a single value or an array of values.
+
 There are two ways you can set the selected options for the combobox:
 1. By using the `value` property on the `sl-combobox` element
 2. By using the `selected` property on the `sl-option` elements

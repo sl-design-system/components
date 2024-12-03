@@ -228,11 +228,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         focusable.focus();
       }
 
-      console.log('focusable', focusable, this.shadowRoot?.activeElement);
+      //  console.log('focusable', focusable, this.shadowRoot?.activeElement);
 
       if (!this.#focusTrap) {
         this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
-          escapeDeactivates: true,
+          escapeDeactivates: !this.disableCancel, //false, //true,
           allowOutsideClick: !this.disableCancel,
           fallbackFocus: this.dialog, // this.shadowRoot!.querySelector('dialog')!,
           returnFocusOnDeactivate: true,
@@ -248,6 +248,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         });
       }
 
+      console.log('this.disableCancel', this.disableCancel);
+
       console.log('this.#focusTrap', this.#focusTrap, this.dialog);
       this.#focusTrap.activate();
 
@@ -261,7 +263,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
-      this.deactivateFocusTrap();
+      // this.deactivateFocusTrap();
 
       // console.log('this.#triggerElement on close', this.#triggerElement);
 
@@ -303,7 +305,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       this.#closeDialogOnAnimationend(event.target, true);
     }
 
-    this.deactivateFocusTrap();
+    //  this.deactivateFocusTrap();
 
     //  console.log('this.#triggerElement on close', this.#triggerElement);
 
@@ -352,7 +354,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
 
-    this.deactivateFocusTrap();
+    //  this.deactivateFocusTrap();
 
     // console.log('this.#triggerElement on close', this.#triggerElement);
 
@@ -459,12 +461,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #onKeydown(event: KeyboardEvent): void {
     console.log('event on keydown', event);
 
-    if (event.key === 'Escape' && !this.disableCancel) {
+    if (event.key === 'Escape' /*&& !this.disableCancel*/) {
       event.preventDefault();
 
       console.log('escape...');
 
-      this.close();
+      // this.close();
+
+      if (!this.disableCancel /*(&& this.#focusTrap?.options.escapeDeactivates !== false*/) {
+        this.close();
+      }
     }
 
     // TODO: should not work on disableCancel, but right now it's working with disableCancel, why? check...
@@ -484,7 +490,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     //
     // // const focusableElements = Array.from(this.dialog.querySelectorAll(
     // //   'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
-    // // )); // TODO: will not work
+    // // ));
     //
     // if (!focusableElements.length) {
     //   return;

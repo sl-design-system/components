@@ -2,6 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonVariant } from '@sl-design-system/button';
 import { Dialog } from '@sl-design-system/dialog';
+import { FocusTrap } from 'focus-trap';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './message-dialog.scss.js';
@@ -113,11 +114,15 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
     });
   }
 
+  #focusTrap?: FocusTrap;
+
   /** The configuration of the message dialog. */
   @property({ attribute: false }) config?: MessageDialogConfig<T>;
 
   override render(): TemplateResult {
     const { buttons, disableCancel, message, title, subtitle } = this.config ?? {};
+
+    console.log('#focusTrap', this.#focusTrap);
 
     return html`
       <sl-dialog .disableCancel=${disableCancel} dialog-role="alertdialog">
@@ -145,6 +150,8 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
   /** Show the message dialog as a modal, in the top layer, with a backdrop. */
   showModal(): void {
     this.renderRoot.querySelector<Dialog>('sl-dialog')?.showModal();
+
+    // TODO: implement focus trap here
   }
 
   /** Close the message dialog. */

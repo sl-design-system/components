@@ -5010,13 +5010,13 @@ __metadata:
     "@fortawesome/sharp-light-svg-icons": "npm:^6.7.0"
     "@fortawesome/sharp-regular-svg-icons": "npm:^6.7.0"
     "@fortawesome/sharp-solid-svg-icons": "npm:^6.7.0"
-    "@tokens-studio/sd-transforms": "npm:^1.2.4"
+    "@tokens-studio/sd-transforms": "npm:^1.2.8"
     cssnano: "npm:^7.0.6"
     esbuild: "npm:^0.24.0"
     fast-glob: "npm:^3.3.2"
     postcss: "npm:^8.4.49"
     sass: "npm:^1.81.0"
-    style-dictionary: "npm:^4.1.0"
+    style-dictionary: "npm:^4.2.0"
   languageName: unknown
   linkType: soft
 
@@ -5857,9 +5857,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokens-studio/sd-transforms@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "@tokens-studio/sd-transforms@npm:1.2.4"
+"@tokens-studio/sd-transforms@npm:^1.2.8":
+  version: 1.2.8
+  resolution: "@tokens-studio/sd-transforms@npm:1.2.8"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.1"
     "@bundled-es-modules/postcss-calc-ast-parser": "npm:^0.1.6"
@@ -5868,8 +5868,8 @@ __metadata:
     expr-eval-fork: "npm:^2.0.2"
     is-mergeable-object: "npm:^1.1.1"
   peerDependencies:
-    style-dictionary: ^4.0.1
-  checksum: 10c0/44fce747bb192b5dc6792a5d640746c09a24b0a8a5455108c70f424f1215380a0a3c4bb25ab27924ef3cd8332c45bc0576a3770488dc00fd0604b8c0df43f64a
+    style-dictionary: ^4.1.4
+  checksum: 10c0/f16b88881cf2e37f42eaea4f235b42fafbdc3bef2e46cf32b81c310ffffb97dc93481ac139a4e3113189e434d11ed9a5b7cd354694780b1c6264b5662da8009f
   languageName: node
   linkType: hard
 
@@ -20785,9 +20785,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-dictionary@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "style-dictionary@npm:4.1.0"
+"style-dictionary@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "style-dictionary@npm:4.2.0"
   dependencies:
     "@bundled-es-modules/deepmerge": "npm:^4.3.1"
     "@bundled-es-modules/glob": "npm:^10.4.2"
@@ -20801,9 +20801,11 @@ __metadata:
     patch-package: "npm:^8.0.0"
     path-unified: "npm:^0.1.0"
     tinycolor2: "npm:^1.6.0"
+  peerDependencies:
+    prettier: 3.x
   bin:
     style-dictionary: bin/style-dictionary.js
-  checksum: 10c0/4949e032bc13f1a28191fa83f0d64a1f86236660ba978781237df84e2e2dd93bcb1a1a87a619e2fbdfc80170321bbd4997e524d3fb5922e9ce60fb4d3b0e4e1f
+  checksum: 10c0/231a29a8c0631fbf7f8f4d92cee6c8c5da33284b355b7f84329e26bcb7d659a649fe6458fb508940b59757acb1c4baefa32711a3c41172e77c596763a8b7aea7
   languageName: node
   linkType: hard
 

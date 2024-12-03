@@ -64,6 +64,14 @@ const preview: Preview = {
     }
   },
   parameters: {
+    backgrounds: {
+      values: [
+        { name: 'Default', value: 'var(--sl-elevation-surface-base-default-idle)' },
+        { name: 'Raised', value: 'var(--sl-elevation-surface-raised-default-idle)' },
+        { name: 'Inverted', value: 'var(--sl-color-background-accent-grey-bold-idle)' },
+      ],
+      default: 'Default'
+    },
     options: {
       storySort: {
         method: 'alphabetical',

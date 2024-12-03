@@ -2632,7 +2632,7 @@
             "y": "2px",
             "blur": "4px",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.light.200})",
             "type": "dropShadow"
           }
         ],
@@ -2666,7 +2666,7 @@
             "y": "0",
             "blur": "4",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.light.100})",
             "type": "dropShadow"
           },
           {
@@ -2674,7 +2674,7 @@
             "y": "8",
             "blur": "16",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.light.200})",
             "type": "dropShadow"
           }
         ],

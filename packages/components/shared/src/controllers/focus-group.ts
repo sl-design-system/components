@@ -164,7 +164,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       focusElement = this.elements[this.currentIndex];
     }
     if (focusElement && this.isFocusableElement(focusElement)) {
-      console.log(focusElement, this.isFocusableElement(focusElement), options);
       focusElement.focus(options);
     }
   }
@@ -236,7 +235,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     });
     this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
 
-    console.log(this.currentIndex);
     this.focusToElement(this.currentIndex);
   };
 

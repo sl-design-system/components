@@ -1,5 +1,14 @@
 # @sanomalearning/slds-magister
 
+## 0.1.19
+
+### Patch Changes
+
+- [#1497](https://github.com/sl-design-system/components/pull/1497) [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f) - New paginator tokens, new `ellipsis-down` icon.
+
+- Updated dependencies [[`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee)]:
+  - @sl-design-system/icon@1.0.3
+
 ## 0.1.18
 
 ### Patch Changes

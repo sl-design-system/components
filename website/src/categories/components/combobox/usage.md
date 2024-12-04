@@ -42,7 +42,7 @@ eleventyNavigation:
 <section>
 
 ## When to Use
-INTRODUCTION
+Use a Combobox to help users easily search, filter, and select options from long list of options.
 
 ### **Large Datasets**
 Comboboxes are a better choice than checkbox or radio button groups when dealing with more than 15 options. Unlike static groups that can overwhelm users with lengthy lists, Comboboxes save space and simplify the interface by enabling search and filtering. This makes it easier and faster for users to find their desired option, especially in large datasets like cities, products, or categories, without scrolling through extensive lists.
@@ -56,10 +56,10 @@ Our comboboxes come with multi-selection capabilities provide a clear overview o
 <section>
 
 ## When Not to Use
-INTRODUCTION
+Avoid a Combobox when users benefit more from seeing all options at once for quick selection.
 
-### **Fewer Options**
-For list of options small than 15 choices, use checkboxes or radio buttons instead of a Combobox. These components present all options visible, making them quicker and more intuitive for users to scan and select without additional interactions.
+### Fewer Options**
+For list of options small than 15 choices, use [Checkbox](/categories/components/checkbox/usage) or [Radio Button](/categories/components/radio-button/usage) instead of a Combobox. These components present all options visible, making them quicker and more intuitive for users to scan and select without additional interactions.
 
 </section>
 
@@ -71,7 +71,7 @@ For list of options small than 15 choices, use checkboxes or radio buttons inste
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Input Field |Acts as the primary area for user interaction. Users can type to search, or view the selected options in this field. |no|
-|2|Indicator |A visual indicator showing the current state of the dropdown (expanded or collapsed) and guiding users to interact with the Combobox.0 |no|
+|2|Indicator |A visual indicator showing the current state of the dropdown (expanded or collapsed) and guiding users to interact with the Combobox. |no|
 |2|Tag List |Displays the chosen options within the input field or as separate tags, ensuring clarity about the current selection. |Yes|
 |3|Menu |Displays available options dynamically. These can be split in groups to make navigation through long lists easier, and the choices will be display at the top. |no|
 
@@ -97,28 +97,27 @@ Enables users to select more than one option, typically representing choices as 
 <section>
 
 ## Options
-FIGMA_OPTIONS_INTRODUCTION
+With these options you can tweak the appearance of the combobox in Figma. They are available in the Design Panel so you can compose the button to exactly fit the user experience need for the uses case you are working on.
 
 ### Combobox Input
 |Item|Options|Description|
 |-|-|-|
-|Open|`'md', 'lg'` |Toggle to display the dropdown list. |
-|Size|`'on', 'of'` |DESCRIPTION_TEXT |
-|Show Placeholder|`'on', 'of'`| DESCRIPTION_TEXT |
-|Show Tags|`'on', 'of'` |DESCRIPTION_TEXT |
-|Input Value|'input' |DESCRIPTION_TEXT |
-|Placeholder|'input' |DESCRIPTION_TEXT |
-|Show Focus Ring|`'on', 'of'` |DESCRIPTION_TEXT |
+|Open|`on` & `off` |Toggle to display the dropdown list. |
+|Size|`md` & `lg` |Defines the size of the Combobox, with medium and large, adjusting its height and padding. |
+|Show Placeholder|``on` & `off` | Toggles the visibility of placeholder text in the input field when no value is selected. |
+|Show Tags|`on` & `off`|Determines whether selected items are displayed as tags in the input field for multi-selection. |
+|Input Value|`input` |Represents the current text entered in the input field, allowing dynamic filtering or user-provided values. |
+|Placeholder|`input` |Sets the placeholder text displayed in the input field when it is empty, providing a hint or instruction. |
+|Show Focus Ring|`'on', 'of'` |Toggles the focus ring visibility around the Combobox, indicating when it is focused for accessibility. |
 
 {.ds-table .ds-table-align-top}
 
 ### Combobox Dropdown
 |Item|Options|Description|
 |-|-|-|
-|Size|`'md', 'lg'` |DESCRIPTION_TEXT |
-|Show Placeholder|'input' |DESCRIPTION_TEXT |
-|Emphasis|`'subtle', 'bold'`|DESCRIPTION_TEXT |
-|Items|'1 to 3' |DESCRIPTION_TEXT |
+|Size|`md` & `lg` |Defines the size of the Combobox, with medium and large, adjusting its height and padding. |
+|Emphasis|`subtle` & `bold'`|Adjusts the visual style of the dropdown selection, with `subtle` for minimal emphasis and `bold` for a stronger presence. |
+|Items|`1` to `3` |	Defines the number of visible items in the dropdown list at once. |
 
 {.ds-table .ds-table-align-top}
 
@@ -153,5 +152,6 @@ The Combobox provides real-time autocomplete suggestions as users type. This beh
 ## Related components
 
 - [Menu](/categories/components/menu/usage)
+- [Select](/categories/components/select/usage)
 
 </section>

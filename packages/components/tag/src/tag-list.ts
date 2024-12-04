@@ -51,7 +51,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   #resizeObserver = new ResizeObserver(() => this.#updateVisibility());
 
   /** Manage keyboard navigation between tags. */
-
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
@@ -86,7 +85,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    // this.setAttribute('role', 'list');
+    this.setAttribute('role', 'list');
 
     // Calculate the max inline size of the stack *before* we start the observer
     this.#maxStackInlineSize = await this.#getMaxStackInlineSize();

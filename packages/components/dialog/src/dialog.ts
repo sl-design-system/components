@@ -101,6 +101,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
   }
 
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    this.#deactivateFocusTrap();
+  }
+
   override render(): TemplateResult {
     return html`
       <dialog
@@ -196,8 +202,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // this.#triggerElement = document.activeElement as HTMLElement;
-
     /**
      * Workaround for the backdrop background: the backdrop doesn't inherit
      * from the :root, so we cannot use tokens for the background-color.
@@ -230,32 +234,30 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
       //  console.log('focusable', focusable, this.shadowRoot?.activeElement);
 
-      if (!this.#focusTrap) {
-        this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
-          escapeDeactivates: !this.disableCancel, //false, //true,
-          allowOutsideClick: !this.disableCancel,
-          fallbackFocus: this.dialog, // this.shadowRoot!.querySelector('dialog')!,
-          returnFocusOnDeactivate: true,
-          // checkCanFocusTrap: (containers) => {
-          //   return new Promise((resolve) => {
-          //     console.log('containers', containers);
-          //     setTimeout(resolve, 600);
-          //   });
-          // },
-          tabbableOptions: {
-            getShadowRoot: true
-          }
-        });
-      }
+      // if (!this.#focusTrap) {
+      //   this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
+      //     escapeDeactivates: !this.disableCancel, //false, //true,
+      //     allowOutsideClick: !this.disableCancel,
+      //     fallbackFocus: this.dialog, // this.shadowRoot!.querySelector('dialog')!,
+      //     returnFocusOnDeactivate: true,
+      //     // checkCanFocusTrap: (containers) => {
+      //     //   return new Promise((resolve) => {
+      //     //     console.log('containers', containers);
+      //     //     setTimeout(resolve, 600);
+      //     //   });
+      //     // },
+      //     tabbableOptions: {
+      //       getShadowRoot: true
+      //     }
+      //   });
+      // }
+      //
+      // console.log('this.disableCancel', this.disableCancel);
+      //
+      // console.log('this.#focusTrap', this.#focusTrap, this.dialog);
+      // this.#focusTrap.activate();
 
-      console.log('this.disableCancel', this.disableCancel);
-
-      console.log('this.#focusTrap', this.#focusTrap, this.dialog);
-      this.#focusTrap.activate();
-
-      // this.activateFocusTrap();
-
-      // this.#trapFocus();
+      this.#activateFocusTrap();
     });
   }
 
@@ -263,6 +265,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
+      // this.closeEvent.emit();
       // this.deactivateFocusTrap();
 
       // console.log('this.#triggerElement on close', this.#triggerElement);
@@ -274,24 +277,43 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  // activateFocusTrap(): void {
-  //   if (!this.#focusTrap) {
-  //     this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
-  //       escapeDeactivates: true,
-  //       allowOutsideClick: true,
-  //      // fallbackFocus: this.shadowRoot!.querySelector('dialog')!,
-  //      //  returnFocusOnDeactivate: true,
-  //       tabbableOptions: {
-  //         getShadowRoot: true
-  //       }
-  //     });
-  //   }
-  //
-  //   console.log('this.#focusTrap', this.#focusTrap, this.dialog);
-  //   this.#focusTrap.activate();
-  // }
+  #activateFocusTrap(): void {
+    //   if (!this.#focusTrap) {
+    //     this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
+    //       escapeDeactivates: true,
+    //       allowOutsideClick: true,
+    //      // fallbackFocus: this.shadowRoot!.querySelector('dialog')!,
+    //      //  returnFocusOnDeactivate: true,
+    //       tabbableOptions: {
+    //         getShadowRoot: true
+    //       }
+    //     });
+    //   }
+    //
+    //   console.log('this.#focusTrap', this.#focusTrap, this.dialog);
+    //   this.#focusTrap.activate();
 
-  deactivateFocusTrap(): void {
+    console.log('disableCancel', this.disableCancel);
+
+    if (!this.#focusTrap) {
+      this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
+        escapeDeactivates: !this.disableCancel, //false, //true,
+        allowOutsideClick: !this.disableCancel,
+        fallbackFocus: this.dialog, // this.shadowRoot!.querySelector('dialog')!,
+        returnFocusOnDeactivate: true,
+        tabbableOptions: {
+          getShadowRoot: true
+        }
+      });
+    }
+
+    console.log('this.disableCancel', this.disableCancel);
+
+    console.log('this.#focusTrap', this.#focusTrap, this.dialog);
+    this.#focusTrap.activate();
+  }
+
+  #deactivateFocusTrap(): void {
     if (this.#focusTrap) {
       this.#focusTrap.deactivate();
       console.log('focus trap should be deactivated', this.#focusTrap);
@@ -306,8 +328,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
 
     //  this.deactivateFocusTrap();
-
-    //  console.log('this.#triggerElement on close', this.#triggerElement);
 
     // if (this.#triggerElement) {
     //   this.#triggerElement.focus();
@@ -338,14 +358,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
     this.closeEvent.emit();
 
-    this.deactivateFocusTrap();
-
-    // console.log('this.#triggerElement on close', this.#triggerElement);
-
-    // if (this.#triggerElement) {
-    //   this.#triggerElement.focus();
-    //   this.#triggerElement = undefined; //null;
-    // }
+    this.#deactivateFocusTrap();
   }
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -353,15 +366,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
-
-    //  this.deactivateFocusTrap();
-
-    // console.log('this.#triggerElement on close', this.#triggerElement);
-
-    // if (this.#triggerElement) {
-    //   this.#triggerElement.focus();
-    //   this.#triggerElement = undefined; //null;
-    // }
   }
 
   #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
@@ -392,14 +396,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       { once: true }
     );
 
-    this.deactivateFocusTrap();
-
-    //  console.log('this.#triggerElement on close', this.#triggerElement);
-
-    // if (this.#triggerElement) {
-    //   this.#triggerElement.focus();
-    //   this.#triggerElement = undefined; //null;
-    // }
+    this.#deactivateFocusTrap();
 
     /**
      * Set the closing attribute, this triggers the closing animation.
@@ -410,124 +407,29 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
   }
 
-  // #getFocusableElements(root: ShadowRoot | HTMLElement | null /*HTMLElement | null*/): HTMLElement[] {
-  //   if (!root) {
-  //     return [];
-  //   }
-  //
-  //   const focusableSelectors = [
-  //     'a[href]',
-  //     'button',
-  //     'textarea',
-  //     'input[type="text"]',
-  //     'input[type="radio"]',
-  //     'input[type="checkbox"]',
-  //     'select',
-  //     '[tabindex]:not([tabindex="-1"])'
-  //   ];
-  //   let focusableElements = Array.from(root.querySelectorAll(focusableSelectors.join(', ')));
-  //
-  //   // Traverse shadow DOMs
-  //   // const shadowRoots = Array.from(root.querySelectorAll('*')).filter(el => el.renderRoot);
-  //   // shadowRoots?.forEach(shadowRoot => {
-  //   //   if (shadowRoot.renderRoot) {
-  //   //     focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.renderRoot));
-  //   //     console.log('focusableElements in loop', focusableElements);
-  //   //   }
-  //   // });
-  //
-  //   const shadowRoots = Array.from(root.querySelectorAll('*')).filter(
-  //     (el): el is HTMLElement => el.shadowRoot !== null
-  //   );
-  //   console.log('shadowRoots', shadowRoots);
-  //   shadowRoots.forEach(shadowRoot => {
-  //     focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.shadowRoot));
-  //   });
-  //
-  //   return focusableElements as HTMLElement[];
-  // }
-  //
-  // #trapFocus() {
-  //   if (!this.dialog) {
-  //     return;
-  //   }
-  //
-  //   const focusableElements = this.#getFocusableElements(this.dialog);
-  //   if (focusableElements.length) {
-  //     focusableElements[0].focus();
-  //   }
-  // }
-
   #onKeydown(event: KeyboardEvent): void {
     console.log('event on keydown', event);
 
     if (event.key === 'Escape' /*&& !this.disableCancel*/) {
       event.preventDefault();
 
-      console.log('escape...');
+      console.log('escape...', this.disableCancel);
 
       // this.close();
 
       if (!this.disableCancel /*(&& this.#focusTrap?.options.escapeDeactivates !== false*/) {
-        this.close();
+        // this.close();
+        // // this.dialog?.close();
+        // this.closeEvent.emit();
+        // this.dialog?.oncancel;
+        // this.#onCancel(event);
+
+        this.#closeDialogOnAnimationend(event.target as HTMLElement, true);
       }
     }
 
-    // TODO: should not work on disableCancel, but right now it's working with disableCancel, why? check...
-
-    // TODO: add some information to the documentation about focus trap usage in the dialog
     // TODO: make changes to the message dialog as well
 
-    // TODO: dependencies!!!
-
-    // if (!this.dialog) {
-    //   return;
-    // }
-    //
-    // // TODO: check https://nolanlawson.com/2021/02/13/managing-focus-in-the-shadow-dom/
-    //
-    // const focusableElements = Array.from(this.#getFocusableElements(this.dialog));
-    //
-    // // const focusableElements = Array.from(this.dialog.querySelectorAll(
-    // //   'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select, [tabindex]:not([tabindex="-1"])'
-    // // ));
-    //
-    // if (!focusableElements.length) {
-    //   return;
-    // }
-    //
-    // console.log('focusableElements', focusableElements);
-    //
-    // const firstElement = focusableElements[0];
-    // const lastElement = focusableElements[focusableElements.length - 1];
-    //
-    // if (!firstElement || !lastElement) {
-    //   return;
-    // }
-    //
-    // // const shadowRoots = Array.from(root.querySelectorAll('*')).filter(el => el.shadowRoot);
-    // // shadowRoots?.forEach(shadowRoot => {
-    // //   focusableElements = focusableElements.concat(this.#getFocusableElements(shadowRoot.shadowRoot));
-    // // });
-    //
-    // if (event.key === 'Tab') {
-    //   console.log('event key', event.key, document.activeElement, firstElement, lastElement);
-    //   if (event.shiftKey) {
-    //     // Shift + Tab
-    //     if (document.activeElement === firstElement) {
-    //       event.preventDefault();
-    //       lastElement.focus();
-    //     }
-    //   } else {
-    //     // Tab
-    //     if (document.activeElement === lastElement) {
-    //       event.preventDefault();
-    //       firstElement.focus();
-    //     }
-    //   }
-    // }
-    // // if (event.key === 'Enter') {
-    // //  // event.preventDefault();
-    // // }
+    // TODO: check https://nolanlawson.com/2021/02/13/managing-focus-in-the-shadow-dom/
   }
 }

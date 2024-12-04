@@ -4564,9 +4564,11 @@ __metadata:
     "@sl-design-system/button-bar": "npm:^1.1.0"
     "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/shared": "npm:^0.4.0"
+    focus-trap: "npm:^7.6.2"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
+    focus-trap: ^7.6.2
   languageName: unknown
   linkType: soft
 
@@ -4875,7 +4877,6 @@ __metadata:
     chai-as-promised: "npm:^8.0.1"
     chromatic: "npm:^11.19.0"
     eslint: "npm:^9.10.0"
-    focus-trap: "npm:^7.6.2"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^15.2.10"
     lit: "npm:^3.2.1"

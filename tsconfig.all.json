@@ -46,6 +46,7 @@
     { "path": "./packages/components/popover" },
     { "path": "./packages/components/progress-bar" },
     { "path": "./packages/components/radio-group" },
+    { "path": "./packages/components/scrollbar" },
     { "path": "./packages/components/search-field" },
     { "path": "./packages/components/select" },
     { "path": "./packages/components/shared" },

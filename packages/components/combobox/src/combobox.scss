@@ -7,8 +7,7 @@
 }
 
 ::slotted(sl-listbox) {
-  block-size: 100%;
-  flex: 1;
+  block-size: fit-content;
   overflow: visible;
 }
 
@@ -50,11 +49,11 @@ sl-icon {
 
   &:popover-open {
     @starting-style {
-      display: flex;
+      display: block;
       opacity: 0;
     }
 
-    display: flex;
+    display: block;
     opacity: 1;
   }
 }

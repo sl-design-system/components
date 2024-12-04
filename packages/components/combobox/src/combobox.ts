@@ -41,6 +41,7 @@ export type ComboboxItem<T = any, U = T> = ListboxItem<T, U> & {
   current?: boolean;
   custom?: boolean;
   group?: string;
+  index?: number;
   option?: T;
   selected?: boolean;
   type: 'option' | 'group';
@@ -154,6 +155,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
+
+  /** @internal The currently (fake) focused tag. */
+  @state() focusedTag?: ComboboxItem<T, U>;
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
@@ -332,6 +336,14 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
       this.updateValidity();
     }
+
+    if (changes.has('multiple') || changes.has('selectedItems')) {
+      if (this.multiple && this.selectedItems.length > 0) {
+        this.input.setAttribute('aria-placeholder', this.selectedItems.map(i => i.label).join(', '));
+      } else {
+        this.input.removeAttribute('aria-placeholder');
+      }
+    }
   }
 
   override render(): TemplateResult {
@@ -353,7 +365,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
-                aria-label=${msg('Selected options')}
+                aria-hidden="true"
                 size=${ifDefined(this.size)}
                 slot="prefix"
                 stacked
@@ -366,7 +378,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                     <sl-tag
                       @sl-remove=${() => this.#onRemove(item)}
                       ?disabled=${this.disabled}
+                      ?focused=${this.focusedTag === item}
                       ?removable=${!this.disabled}
+                      aria-hidden="true"
                     >
                       ${item.label}
                     </sl-tag>
@@ -503,6 +517,30 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     } else if (!this.wrapper?.matches(':popover-open') && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
       this.wrapper?.showPopover();
+    } else if (['ArrowLeft', 'ArrowRight'].includes(event.key) && this.input.selectionStart === 0) {
+      if (this.focusedTag) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      // Limit navigation to the visible tags
+      const min =
+        this.selectedItems.length -
+        Array.from(this.renderRoot.querySelectorAll('sl-tag')).filter(tag => tag.style.display !== 'none').length;
+
+      let index = this.focusedTag ? this.selectedItems.indexOf(this.focusedTag) : this.selectedItems.length;
+      index += event.key === 'ArrowLeft' ? -1 : 1;
+      index = Math.max(min, index);
+      index = Math.min(this.selectedItems.length, index);
+
+      if (index === this.selectedItems.length) {
+        this.focusedTag = undefined;
+      } else {
+        this.focusedTag = this.selectedItems[index];
+      }
+    } else if (event.key === 'Backspace' && this.focusedTag && this.input.selectionStart === 0) {
+      this.#onRemove(this.focusedTag);
+      this.focusedTag = undefined;
     } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
       event.preventDefault();
       event.stopPropagation();
@@ -583,6 +621,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (this.listbox) {
       this.listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
       this.input.setAttribute('aria-controls', this.listbox.id);
+      this.input.setAttribute('aria-owns', this.listbox.id);
 
       if (this.multiple) {
         this.listbox.setAttribute('aria-multiselectable', 'true');
@@ -650,6 +689,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       }
     } else {
       this.input.removeAttribute('aria-controls');
+      this.input.removeAttribute('aria-owns');
       this.items = [];
     }
   }
@@ -878,6 +918,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         item.selected = true;
 
         this.selectedItems = [...this.selectedItems, item];
+
+        // VoiceOver gets confused after you selected the first item
+        // This is a hack to make it work again
+        if (this.selectedItems.length === 1) {
+          this.input.blur();
+          setTimeout(() => this.input.focus(), 10);
+        }
       }
     } else {
       item.selected = true;
@@ -900,6 +947,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       item.selected = false;
 
       this.selectedItems = this.selectedItems.filter(i => i !== item);
+
+      // VoiceOver gets confused after you deselected the last selected item
+      // This is a hack to make it work again
+      if (this.selectedItems.length === 0) {
+        this.input.blur();
+        setTimeout(() => this.input.focus(), 10);
+      }
 
       if (item.custom) {
         this.#removeCustomOption(item);
@@ -950,17 +1004,17 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
               type: 'group',
               visible: true
             },
-            ...groups[group]!.map(option => this.#prepareOption(option, group))
+            ...groups[group]!.map(option => this.#prepareOption(option, options.indexOf(option), group))
           ];
         },
         [] as Array<ComboboxItem<T, U>>
       );
     } else {
-      return options.map(option => this.#prepareOption(option));
+      return options.map((option, index) => this.#prepareOption(option, index));
     }
   }
 
-  #prepareOption(option: T, group?: string): ComboboxItem<T, U> {
+  #prepareOption(option: T, index: number, group?: string): ComboboxItem<T, U> {
     const label = this.optionLabelPath
       ? getStringByPath(option, this.optionLabelPath)
       : (option as unknown as { toString(): string }).toString();
@@ -968,6 +1022,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     return {
       group,
       id: `sl-combobox-option-${nextUniqueId++}`,
+      index,
       label,
       option,
       selected: this.optionSelectedPath ? !!getValueByPath(option, this.optionSelectedPath) : false,
@@ -993,12 +1048,20 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       el.value = item.value;
       el.setAttribute('aria-selected', item.selected ? 'true' : 'false');
 
+      if (typeof item.index === 'number') {
+        el.setAttribute('aria-posinset', (item.index + 1).toString());
+      }
+
+      if (this.options) {
+        el.setAttribute('aria-setsize', this.options.length.toString());
+      }
+
       if (el instanceof GroupedOption) {
         el.group = item.group;
       }
 
       if (item.current) {
-        el.setAttribute('aria-current', 'true');
+        el.setAttribute('current', '');
       }
 
       return el;
@@ -1008,7 +1071,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       el.value = item.label;
 
       if (item.current) {
-        el.setAttribute('aria-current', 'true');
+        el.setAttribute('current', '');
       }
 
       return el;
@@ -1072,7 +1135,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (this.currentItem) {
       this.currentItem.current = false;
       this.input.removeAttribute('aria-activedescendant');
-      this.listbox?.querySelector('[aria-current]')?.removeAttribute('aria-current');
+      this.listbox?.querySelector('[current]')?.removeAttribute('current');
     }
 
     this.currentItem = option;
@@ -1083,7 +1146,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.setAttribute('aria-activedescendant', this.currentItem.id);
 
       if (this.currentItem.element) {
-        this.currentItem.element.setAttribute('aria-current', 'true');
+        this.currentItem.element.setAttribute('current', '');
         this.currentItem.element.scrollIntoView({ block: 'nearest' });
       } else {
         this.listbox?.scrollToIndex(this.items.indexOf(this.currentItem), { block: 'nearest' });

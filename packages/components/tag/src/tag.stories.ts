@@ -5,7 +5,10 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type Tag } from './tag.js';
 
-type Props = Pick<Tag, 'disabled' | 'emphasis' | 'label' | 'removable' | 'size'> & { maxWidth?: string };
+type Props = Pick<Tag, 'disabled' | 'emphasis' | 'label' | 'removable' | 'size'> & {
+  focused?: boolean;
+  maxWidth?: string;
+};
 type Story = StoryObj<Props>;
 
 export default {
@@ -14,6 +17,7 @@ export default {
   args: {
     disabled: false,
     emphasis: 'subtle',
+    focused: false,
     label: 'Tag label',
     removable: false,
     size: 'md'
@@ -28,9 +32,10 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ disabled, emphasis, label, maxWidth, removable, size }) => html`
+  render: ({ disabled, emphasis, focused, label, maxWidth, removable, size }) => html`
     <sl-tag
       ?disabled=${disabled}
+      ?focused=${focused}
       ?removable=${removable}
       emphasis=${ifDefined(emphasis)}
       size=${ifDefined(size)}
@@ -53,6 +58,13 @@ export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true
+  }
+};
+
+export const Focused: Story = {
+  args: {
+    ...Basic.args,
+    focused: true
   }
 };
 

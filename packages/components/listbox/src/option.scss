@@ -7,7 +7,7 @@
   user-select: none;
 }
 
-:host(:where(:hover, [aria-current])) [part='container'] {
+:host(:where(:hover, [current])) [part='container'] {
   background: var(--sl-color-action-background-accent-subtle-hover);
 }
 

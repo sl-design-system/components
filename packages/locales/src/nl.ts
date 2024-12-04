@@ -30,7 +30,6 @@ export const templates = {
   s7d09afc329d9995b: str`Pagina ${0} van ${1}`,
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
-  s886db4d476f66522: 'Geselecteerde opties',
   s88b887b46242ba96: str`Ga naar vorige pagina (${0})`,
   s8c1f47dc13ead0c3: str`Maak "${0}" aan`,
   s9ad43731ebd435aa: str`Momenteel worden ${0} tot ${1} van ${2} weergegeven`,

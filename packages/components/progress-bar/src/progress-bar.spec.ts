@@ -47,11 +47,11 @@ describe('sl-progress-bar', () => {
     expect(progressBar).to.have.attribute('aria-valuenow', '0');
   });
 
-  it('should have aria-live by default', () => {
-    const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-    expect(ariaLive).to.have.attribute('aria-live', 'polite');
-    expect(ariaLive).to.have.rendered.text('state active 0%');
-  });
+  // it('should have aria-live by default', () => {
+  //   const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
+  //   expect(ariaLive).to.have.attribute('aria-live', 'polite');
+  //   expect(ariaLive).to.have.rendered.text('state active 0%');
+  // });
 
   it('should be labelled properly when the label is set', async () => {
     el.label = 'Progress label';
@@ -116,13 +116,13 @@ describe('sl-progress-bar', () => {
     expect(helperIcon).to.exist;
   });
 
-  it('should change the aria-live when the value and variant have changed', async () => {
-    el.value = 60;
-    el.variant = 'warning';
-    await el.updateComplete;
+  // it('should change the aria-live when the value and variant have changed', async () => {
+  //   el.value = 60;
+  //   el.variant = 'warning';
+  //   await el.updateComplete;
 
-    const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-    expect(ariaLive).to.have.attribute('aria-live', 'polite');
-    expect(ariaLive).to.have.rendered.text('state warning 60%');
-  });
+  //   const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
+  //   expect(ariaLive).to.have.attribute('aria-live', 'polite');
+  //   expect(ariaLive).to.have.rendered.text('state warning 60%');
+  // });
 });

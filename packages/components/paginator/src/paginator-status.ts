@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
+import { sendToLiveAria } from '@sl-design-system/announcer';
 import { type DataSource } from '@sl-design-system/data-source';
-import { sendToLiveAria } from '@sl-design-system/notification';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './paginator-status.scss.js';
@@ -76,10 +76,6 @@ export class PaginatorStatus extends LitElement {
     }
   }
 
-  // <!-- We want this to be read every time the active page changes. -->
-  // <div id="live" aria-live="polite" aria-atomic="true">
-  //   ${msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`)}
-  // </div>
   override render(): TemplateResult {
     const start = this.page === 1 ? 1 : (this.page - 1) * this.pageSize + 1;
     const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
@@ -102,7 +98,7 @@ export class PaginatorStatus extends LitElement {
     const start = this.page === 1 ? 1 : (this.page - 1) * this.pageSize + 1;
     const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
 
-    sendToLiveAria(`Currently showing ${start} to ${end} of ${this.totalItems} items`);
+    sendToLiveAria(msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`));
   }
 
   #onUpdate = () => {

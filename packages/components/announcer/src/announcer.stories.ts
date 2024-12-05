@@ -3,20 +3,20 @@ import { EventEmitter } from '@sl-design-system/shared';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
-import { SlLiveEvent, sendToLiveAria } from './notification.js';
+import { Announcer, SlAnnounceEvent, sendToLiveAria } from './announcer.js';
 
-type Props = Notification;
+type Props = Announcer;
 type Story = StoryObj<Props>;
 
 let counter = 0;
 export default {
-  title: 'Utilities/Notification',
+  title: 'Utilities/Announcer',
   tags: ['draft'],
   args: {},
   argTypes: {},
   render: () => {
     const sendWithEvent = (): void => {
-      const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
+      const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce-event');
       liveEvent.emit({ message: `This is sent with an event ${counter++}` });
     };
     const sendWithFunction = (): void => {
@@ -24,7 +24,7 @@ export default {
     };
     return html`
       <p>
-        The &lt;sl-live-aria&gt;&lt;/sl-live-aria&gt; is not in this file, it is in the template so there is only one
+        The &lt;sl-announcer&gt;&lt;/sl-announcer&gt; is not in this file, it is in the template so there is only one
         instance of it that all components can use.
       </p>
       <sl-button @click=${sendWithEvent}>Event, polite</sl-button>

@@ -1,13 +1,13 @@
 import { CSSResultGroup, LitElement, html } from 'lit';
-import styles from './notification.scss.js';
+import styles from './announcer.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-notification-message': NotificationMessage;
+    'sl-announcement': Announcement;
   }
 }
 
-export class NotificationMessage extends LitElement {
+export class Announcement extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 

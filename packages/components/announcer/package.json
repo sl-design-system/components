@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/notification",
+  "name": "@sl-design-system/announcer",
   "version": "0.0.1",
-  "description": "Notification component for the SL Design System",
+  "description": "Announcer component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/notification"
+    "directory": "packages/components/announcer"
   },
-  "homepage": "https://sanomalearning.design/components/notification",
+  "homepage": "https://sanomalearning.design/components/announcer",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },

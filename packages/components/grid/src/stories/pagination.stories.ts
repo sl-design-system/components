@@ -1,3 +1,4 @@
+import '@sl-design-system/announcer/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';

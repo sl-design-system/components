@@ -1,6 +1,6 @@
+import '@sl-design-system/announcer/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
-import '@sl-design-system/notification/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';

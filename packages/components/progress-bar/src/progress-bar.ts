@@ -1,7 +1,7 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { sendToLiveAria } from '@sl-design-system/announcer';
 import { Icon } from '@sl-design-system/icon';
-import { sendToLiveAria } from '@sl-design-system/notification';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';

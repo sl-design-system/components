@@ -3,22 +3,22 @@ import { ScopedElementsMap } from '@open-wc/scoped-elements/html-element.js';
 import { EventEmitter, EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 // import { state } from 'lit/decorators.js';
-import { NotificationMessage } from './notification-message.js';
-import styles from './notification.scss.js';
+import { Announcement } from './announcement.js';
+import styles from './announcer.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-live-event': SlLiveEvent;
-    'sl-live-event-polite': SlLiveEvent;
-    'sl-live-event-assertive': SlLiveEvent;
+    'sl-announce-event': SlAnnounceEvent;
+    'sl-announce-event-polite': SlAnnounceEvent;
+    'sl-announce-event-assertive': SlAnnounceEvent;
   }
 
   interface HTMLElementTagNameMap {
-    'sl-live-aria': Notification;
+    'sl-announcer': Announcer;
   }
 }
 
-export type SlLiveEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'assertive' }>;
+export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'assertive' }>;
 
 /** Sends a notification to the live aria.
  * Please be aware that sending messages too soon after each other can cause the screenreader
@@ -29,8 +29,7 @@ export type SlLiveEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'a
  * @param urgency - The urgency of the message. Default is 'polite'.
  */
 export function sendToLiveAria(message: string, urgency?: 'polite' | 'assertive'): void {
-  const liveEvent = new EventEmitter<SlLiveEvent>(document.body, 'sl-live-event');
-  console.log('sendToLiveAria', message, urgency);
+  const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce-event');
   liveEvent.emit({ message, urgency });
 }
 
@@ -43,14 +42,14 @@ export function sendToLiveAria(message: string, urgency?: 'polite' | 'assertive'
  * ```
  */
 @localized()
-export class Notification extends LitElement {
+export class Announcer extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-notification-message': NotificationMessage
+      'sl-announcement': Announcement
     };
   }
 
@@ -58,7 +57,7 @@ export class Notification extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.#events.listen(window, 'sl-live-event', this.#onLiveEvent);
+    this.#events.listen(window, 'sl-announce-event', this.#onLiveEvent);
   }
   override render(): TemplateResult {
     return html`
@@ -67,7 +66,7 @@ export class Notification extends LitElement {
     `;
   }
 
-  #onLiveEvent(event: SlLiveEvent) {
+  #onLiveEvent(event: SlAnnounceEvent) {
     if (event.detail.urgency === 'assertive') {
       this.#assertiveNotification(event.detail.message);
     } else {
@@ -80,15 +79,14 @@ export class Notification extends LitElement {
   }
 
   #assertiveNotification(message: string) {
-    const messageNode = document.createElement('sl-notification-message');
+    const messageNode = document.createElement('sl-announcement');
     messageNode.innerText = message;
     this.renderRoot.querySelector('[aria-live="assertive"]')?.appendChild(messageNode);
   }
 
   #politeNotification(message: string) {
-    const messageNode = document.createElement('sl-notification-message');
+    const messageNode = document.createElement('sl-announcement');
     messageNode.innerText = message;
-
     this.renderRoot.querySelector('[aria-live="polite"]')?.appendChild(messageNode);
   }
 }

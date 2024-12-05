@@ -4392,6 +4392,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/announcer@workspace:packages/components/announcer":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/announcer@workspace:packages/components/announcer"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:^1.0.2"
+    "@sl-design-system/shared": "npm:^0.4.0"
+    "@sl-design-system/tooltip": "npm:^1.1.1"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/avatar@workspace:packages/components/avatar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/avatar@workspace:packages/components/avatar"
@@ -4908,23 +4925,6 @@ __metadata:
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
   dependencies:
     "@sl-design-system/icon": "npm:1.0.2"
-  languageName: unknown
-  linkType: soft
-
-"@sl-design-system/notification@workspace:packages/components/notification":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/notification@workspace:packages/components/notification"
-  dependencies:
-    "@lit/localize": "npm:^0.12.1"
-    "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/icon": "npm:^1.0.2"
-    "@sl-design-system/shared": "npm:^0.4.0"
-    "@sl-design-system/tooltip": "npm:^1.1.1"
-    lit: "npm:^3.1.4"
-  peerDependencies:
-    "@lit/localize": ^0.12.1
-    "@open-wc/scoped-elements": ^3.0.5
-    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

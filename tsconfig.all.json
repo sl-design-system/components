@@ -18,6 +18,7 @@
   "references": [
     { "path": "./packages/checklist" },
     { "path": "./packages/components/accordion" },
+    { "path": "./packages/components/announcer" },
     { "path": "./packages/components/avatar" },
     { "path": "./packages/components/badge" },
     { "path": "./packages/components/breadcrumbs" },
@@ -40,7 +41,6 @@
     { "path": "./packages/components/listbox" },
     { "path": "./packages/components/menu" },
     { "path": "./packages/components/message-dialog" },
-    { "path": "./packages/components/notification" },
     { "path": "./packages/components/paginator" },
     { "path": "./packages/components/panel" },
     { "path": "./packages/components/popover" },

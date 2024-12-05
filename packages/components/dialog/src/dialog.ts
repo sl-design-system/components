@@ -68,8 +68,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   #focusTrap?: FocusTrap;
 
-  // #triggerElement?: HTMLElement;
-
   /**
    * Emits when the dialog has been cancelled. This happens when the user closes
    * the dialog using the escape key or clicks on the backdrop.
@@ -232,31 +230,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         focusable.focus();
       }
 
-      //  console.log('focusable', focusable, this.shadowRoot?.activeElement);
-
-      // if (!this.#focusTrap) {
-      //   this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
-      //     escapeDeactivates: !this.disableCancel, //false, //true,
-      //     allowOutsideClick: !this.disableCancel,
-      //     fallbackFocus: this.dialog, // this.shadowRoot!.querySelector('dialog')!,
-      //     returnFocusOnDeactivate: true,
-      //     // checkCanFocusTrap: (containers) => {
-      //     //   return new Promise((resolve) => {
-      //     //     console.log('containers', containers);
-      //     //     setTimeout(resolve, 600);
-      //     //   });
-      //     // },
-      //     tabbableOptions: {
-      //       getShadowRoot: true
-      //     }
-      //   });
-      // }
-      //
-      // console.log('this.disableCancel', this.disableCancel);
-      //
-      // console.log('this.#focusTrap', this.#focusTrap, this.dialog);
-      // this.#focusTrap.activate();
-
       this.#activateFocusTrap();
     });
   }
@@ -265,41 +238,19 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
-      // this.closeEvent.emit();
-      // this.deactivateFocusTrap();
-
-      // console.log('this.#triggerElement on close', this.#triggerElement);
-
-      // if (this.#triggerElement) {
-      //   this.#triggerElement.focus();
-      //   this.#triggerElement = undefined; //null;
-      // }
     }
   }
 
   #activateFocusTrap(): void {
-    //   if (!this.#focusTrap) {
-    //     this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
-    //       escapeDeactivates: true,
-    //       allowOutsideClick: true,
-    //      // fallbackFocus: this.shadowRoot!.querySelector('dialog')!,
-    //      //  returnFocusOnDeactivate: true,
-    //       tabbableOptions: {
-    //         getShadowRoot: true
-    //       }
-    //     });
-    //   }
-    //
-    //   console.log('this.#focusTrap', this.#focusTrap, this.dialog);
-    //   this.#focusTrap.activate();
-
-    console.log('disableCancel', this.disableCancel);
+    if (!this.dialog) {
+      return;
+    }
 
     if (!this.#focusTrap) {
-      this.#focusTrap = createFocusTrap(/*this.shadowRoot!.querySelector('dialog')!*/ this.dialog!, {
-        escapeDeactivates: !this.disableCancel, //false, //true,
+      this.#focusTrap = createFocusTrap(this.dialog, {
+        escapeDeactivates: !this.disableCancel,
         allowOutsideClick: !this.disableCancel,
-        fallbackFocus: this.dialog, // this.shadowRoot!.querySelector('dialog')!,
+        fallbackFocus: this.dialog,
         returnFocusOnDeactivate: true,
         tabbableOptions: {
           getShadowRoot: true
@@ -307,16 +258,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       });
     }
 
-    console.log('this.disableCancel', this.disableCancel);
-
-    console.log('this.#focusTrap', this.#focusTrap, this.dialog);
     this.#focusTrap.activate();
   }
 
   #deactivateFocusTrap(): void {
     if (this.#focusTrap) {
       this.#focusTrap.deactivate();
-      console.log('focus trap should be deactivated', this.#focusTrap);
     }
   }
 
@@ -326,13 +273,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     if (!this.disableCancel) {
       this.#closeDialogOnAnimationend(event.target, true);
     }
-
-    //  this.deactivateFocusTrap();
-
-    // if (this.#triggerElement) {
-    //   this.#triggerElement.focus();
-    //   this.#triggerElement = undefined; //null;
-    // }
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -383,15 +323,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         } else {
           this.dialog?.close();
         }
-
-        // this.deactivateFocusTrap();
-        //
-        // console.log('this.#triggerElement on close', this.#triggerElement);
-        //
-        // if (this.#triggerElement) {
-        //   this.#triggerElement.focus();
-        //   this.#triggerElement = undefined; //null;
-        // }
       },
       { once: true }
     );
@@ -408,28 +339,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('event on keydown', event);
-
-    if (event.key === 'Escape' /*&& !this.disableCancel*/) {
+    if (event.key === 'Escape') {
       event.preventDefault();
 
-      console.log('escape...', this.disableCancel);
-
-      // this.close();
-
-      if (!this.disableCancel /*(&& this.#focusTrap?.options.escapeDeactivates !== false*/) {
-        // this.close();
-        // // this.dialog?.close();
-        // this.closeEvent.emit();
-        // this.dialog?.oncancel;
-        // this.#onCancel(event);
-
+      if (!this.disableCancel) {
         this.#closeDialogOnAnimationend(event.target as HTMLElement, true);
       }
     }
-
-    // TODO: make changes to the message dialog as well
-
-    // TODO: check https://nolanlawson.com/2021/02/13/managing-focus-in-the-shadow-dom/
   }
 }

@@ -113,37 +113,21 @@ describe('sl-dialog', () => {
       dialog = el.renderRoot.querySelector('dialog')!;
 
       el.showModal();
-
-      //  await new Promise(resolve => setTimeout(resolve, 400));
     });
 
     it('should emit an sl-cancel event when pressing the escape key', async () => {
       const onCancel = spy();
       el.addEventListener('sl-cancel', onCancel);
 
-      // console.log('el and dialog', el, dialog);
-
-      //  await el.updateComplete;
-      // await new Promise(resolve => setTimeout(resolve));
       expect(dialog).to.have.attribute('open');
 
-      console.log('el and dialog', el, dialog);
-
-      // await el.updateComplete;
-
       await sendKeys({ press: 'Escape' });
-
-      //  await el.updateComplete;
-      //  await new Promise(resolve => setTimeout(resolve));
 
       // Simulate the animationend event that is used in #closeDialogOnAnimationend
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
-      // await new Promise(resolve => setTimeout(resolve, 50));
       await new Promise(resolve => setTimeout(resolve));
-
-      console.log('el and dialog_2', el, dialog);
 
       expect(onCancel).to.have.been.calledOnce;
     });

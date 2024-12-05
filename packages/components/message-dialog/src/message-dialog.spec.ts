@@ -254,8 +254,6 @@ describe('sl-message-dialog', () => {
     it('should resolve the promise with "YES" when the danger button is clicked', async () => {
       const callback = spy();
 
-      console.log('messageDialog and dialog', document.querySelector('sl-message-dialog'), dialog);
-
       promise.then(callback);
 
       dialog.querySelector<HTMLElement>('sl-button[variant="danger"]')?.click();

@@ -1887,7 +1887,7 @@
       "base": {
         "default": {
           "idle": {
-            "value": "{color.palette.grey.000}",
+            "value": "{color.palette.blue.050}",
             "type": "color",
             "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
           },
@@ -1923,7 +1923,7 @@
         },
         "alternative": {
           "idle": {
-            "value": "{color.palette.grey.000}",
+            "value": "{color.background.accent.grey.subtle.idle}",
             "type": "color",
             "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
@@ -1940,7 +1940,7 @@
         },
         "sunken": {
           "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "Background for components that create a sunken effect, typically used for grouping related items."
           },
@@ -1982,6 +1982,32 @@
         "type": "boxShadow",
         "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
       }
+    },
+    "grid": {
+      "border": {
+        "value": "{color.border.plain}",
+        "type": "color"
+      },
+      "header": {
+        "value": "{elevation.surface.raised.alternative.idle}",
+        "type": "color"
+      },
+      "default": {
+        "value": "{elevation.surface.raised.default.idle}",
+        "type": "color"
+      },
+      "zebra": {
+        "value": "{elevation.surface.raised.alternative.idle}",
+        "type": "color"
+      },
+      "group": {
+        "value": "{elevation.surface.raised.sunken.idle}",
+        "type": "color"
+      }
+    },
+    "divider": {
+      "value": "{color.border.plain}",
+      "type": "color"
     }
   }
 }

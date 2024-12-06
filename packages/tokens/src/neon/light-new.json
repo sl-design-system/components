@@ -653,12 +653,12 @@
     },
     "link": {
       "plain": {
-        "value": "{color.text.blue.plain}",
+        "value": "{color.text.accent.blue.plain}",
         "type": "color",
         "description": "Use for links in their default or hovered state."
       },
       "hover": {
-        "value": "{color.text.blue.bold}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for links in hover state."
       },
@@ -669,12 +669,12 @@
       },
       "muted": {
         "plain": {
-          "value": "{color.text.grey.plain}",
+          "value": "{color.text.accent.grey.plain}",
           "type": "color",
           "description": "Use for muted links in idle state."
         },
         "hover": {
-          "value": "{color.text.grey.bold}",
+          "value": "{color.text.accent.grey.bold}",
           "type": "color",
           "description": "Use for muted links in hover state."
         },

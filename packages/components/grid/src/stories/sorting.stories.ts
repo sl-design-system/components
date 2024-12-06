@@ -21,12 +21,69 @@ export const Basic: Story = {
   render: (_, { loaded: { people } }) => {
     return html`
       <sl-grid .items=${people}>
+        <sl-grid-sort-column path="id"></sl-grid-sort-column>
         <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
         <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
       </sl-grid>
     `;
   }
+};
+
+export const CustomColumnSorter2: Story = {
+  render: (/*_, { loaded: { people } }*/) => {
+    // const renderer = ({ firstName, lastName }: Person): TemplateResult => {
+    //   return html`<sl-button>${firstName} ${lastName}</sl-button>`;
+    // };
+    //
+    // const sorter = (a: Person, b: Person): number => {
+    //   const lastNameCmp = a.lastName.localeCompare(b.lastName);
+    //
+    //   if (lastNameCmp === 0) {
+    //     return a.firstName.localeCompare(b.firstName);
+    //   } else {
+    //     return lastNameCmp;
+    //   }
+    // };
+
+    // console.log('custom sorter???', sorter);
+
+    interface Foo {
+      description: string;
+      code: string;
+    }
+
+    const items: Foo[] = [
+      { description: 'B', code: 'b' },
+      { description: 'a', code: 'A' },
+      { description: 'c', code: 'C' }
+    ];
+
+    // const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description, undefined, { sensitivity: 'accent' });
+
+    // const sort = (a: Foo, b: Foo) => a.description.toLocaleLowerCase() > b.description.toLocaleLowerCase() ? 1 : (a.description.toLocaleLowerCase() < b.description.toLocaleLowerCase() ? -1 : 0);
+
+    const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description, undefined, { caseFirst: 'upper' });
+
+    //  const sort = (a: Foo, b: Foo) => a.description.toLowerCase().localeCompare(b.description.toLowerCase());
+
+    //////  const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description);
+
+    // valueA.localeCompare(valueB)
+
+    // const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description, undefined, { sensitivity: 'base' });
+
+    // const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description);
+
+    // const sort = (a: Foo, b: Foo) => a.description.toLocaleLowerCase().localeCompare(b.description.toLocaleLowerCase());
+
+    return html`
+      <sl-grid .items=${items}>
+        <sl-grid-sort-column path="description" direction="asc" .sorter=${sort}></sl-grid-sort-column>
+        <sl-grid-sort-column path="code"></sl-grid-sort-column>
+      </sl-grid>
+    `;
+  } // .sorter=${sort}
 };
 
 export const CustomColumnSorter: Story = {
@@ -44,6 +101,8 @@ export const CustomColumnSorter: Story = {
         return lastNameCmp;
       }
     };
+
+    console.log('custom sorter???', sorter);
 
     return html`
       <sl-grid .items=${people}>
@@ -88,6 +147,7 @@ export const Grouped: Story = {
 
     return html`
       <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column path="id"></sl-grid-sort-column>
         <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
         <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>

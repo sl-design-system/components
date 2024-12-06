@@ -90,16 +90,32 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
         sortFn = (a: T, b: T): number => {
           const valueA = getStringByPath(a, path),
-            valueB = getStringByPath(b, path);
+            valueB = getStringByPath(b, path); // TODO: needs to sort numbers as well
+
+          console.log('valueA, valueB', valueA, valueB, valueA.localeCompare(valueB));
+
+          const numberA = parseFloat(valueA),
+            numberB = parseFloat(valueB);
+
+          if (!isNaN(numberA) && !isNaN(numberB)) {
+            console.log('!isNaN in sorting', numberA, numberB, valueA, valueB);
+            return numberA - numberB;
+          }
+
+          // return valueA.localeCompare(valueB);
 
           return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
         };
+        console.log('sortFn1', sortFn, path);
       } else if ('sorter' in this.sort && this.sort.sorter) {
         sortFn = this.sort.sorter;
+        console.log('sortFn2', sortFn);
       }
 
       items.sort((a, b) => {
         const result = sortFn(a, b);
+
+        console.log('sort result', result);
 
         return ascending ? result : -result;
       });
@@ -130,6 +146,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         return ascending ? result : -result;
       });
     }
+
+    console.log('sorted items?', items);
 
     // paginate items
     if (this.page) {

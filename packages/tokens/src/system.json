@@ -307,11 +307,11 @@
     },
     "input": {
       "vertical": {
-        "value": "{space-new.xs} - {size.borderWidth.default}",
+        "value": "{space-new.xs} - {size.010}",
         "type": "spacing"
       },
       "horizontal": {
-        "value": "{space-new.md} - {size.borderWidth.default}",
+        "value": "{space-new.md} - {size.010}",
         "type": "spacing"
       }
     },

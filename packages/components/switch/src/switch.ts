@@ -1,7 +1,7 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -27,7 +27,11 @@ let nextUniqueId = 0;
  * @slot default - Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc.
  * @slot input - The slot for the input element
  */
-export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static formAssociated = true;
 
@@ -135,23 +139,6 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
-  }
-
-  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    super.attributeChangedCallback(name, oldValue, newValue);
-
-    requestAnimationFrame(() => {
-      const attributes = ['aria-disabled', 'aria-label', 'aria-labelledby'];
-      if (this.input && attributes.includes(name)) {
-        attributes.forEach(attr => {
-          const value = this.getAttribute(attr);
-          if (value !== null) {
-            this.input.setAttribute(attr, value);
-            this.removeAttribute(attr);
-          }
-        });
-      }
-    });
   }
 
   /** @ignore Stores the initial state of the switch */
@@ -299,5 +286,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     input.checked = !!this.checked;
     input.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+
+    this.setAttributesTarget(input);
   }
 }

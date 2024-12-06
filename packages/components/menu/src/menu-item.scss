@@ -6,7 +6,7 @@
 }
 
 :host(:focus-visible) {
-  outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  outline: var(--sl-color-border-focused) solid var(--sl-border-width-focusring-default);
   outline-offset: var(--sl-border-width-focusring-offset);
   position: relative;
   z-index: 1;

@@ -9,7 +9,6 @@
   --_focus-color: var(--sl-color-focusring-default);
   --_focus-outline: var(--_focus-color) solid var(--sl-border-width-focusring-inside);
   --_focus-outline-offset: calc(var(--sl-border-width-focusring-inside) * -1);
-  --_font: var(--sl-text-tag-label-md);
   --_padding-block: var(--sl-space-tag-block-md) var(--sl-space-tag-block-md);
   --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
 
@@ -17,7 +16,7 @@
   border-radius: var(--_border-radius);
   cursor: var(--_cursor);
   display: inline-flex;
-  font: var(--_font);
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
   max-inline-size: 100%;
   outline: 0;
   overflow: hidden;

@@ -15,4 +15,4 @@
 
 Add new contextual tokens
 
-This add new contextual tokens for all themes. The old tokens are still here and are still in use. When the old tokens are no longer used throughout the design system, they will be removed. If you are starting something new, please use the new contextual tokens.
+This adds new contextual tokens for all themes. The old tokens are still here and are still in use. When the old tokens are no longer used throughout the design system, they will be removed. If you are starting something new, please use the new contextual tokens.

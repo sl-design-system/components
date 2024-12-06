@@ -1872,7 +1872,7 @@
       "base": {
         "default": {
           "idle": {
-            "value": "{color.palette.blue.050}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
           },

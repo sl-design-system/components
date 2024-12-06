@@ -54,7 +54,7 @@ export const Horizontal: Story = {
           padding-block-start: 0 !important;
         }
         .cover {
-          background: var(--sl-color-elevation-surface-default);
+          background: var(--sl-elevation-surface-base-default-idle);
           block-size: 1rem;
           position: sticky;
           inset-block-start: 0;
@@ -97,7 +97,7 @@ export const HorizontalSticky: Story = {
           padding-block-start: 0 !important;
         }
         .cover {
-          background: var(--sl-color-elevation-surface-default);
+          background: var(--sl-elevation-surface-base-default-idle);
           block-size: 1rem;
           position: sticky;
           inset-block-start: 0;

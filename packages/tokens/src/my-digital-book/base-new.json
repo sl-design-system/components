@@ -7,7 +7,7 @@
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Roboto",
+          "value": "Open Sans",
           "type": "fontFamilies"
         },
         "icon": {
@@ -22,7 +22,7 @@
           "type": "fontWeights"
         },
         "demibold": {
-          "value": "Medium",
+          "value": "SemiBold",
           "type": "fontWeights"
         }
       }
@@ -131,7 +131,7 @@
     },
     "borderWidth": {
       "default": {
-        "value": "{size.010}",
+        "value": "{size.025}",
         "type": "borderWidth"
       }
     },
@@ -168,20 +168,6 @@
         "4xl": {
           "value": "{size-new.icon.4xl}",
           "type": "fontSizes"
-        }
-      }
-    }
-  },
-  "icon": {
-    "typeset": {
-      "fontWeight": {
-        "regular": {
-          "value": "{icon.typeset.fontWeight.icon-regular}",
-          "type": "fontWeights"
-        },
-        "solid": {
-          "value": "{icon.typeset.fontWeight.icon-solid}",
-          "type": "fontWeights"
         }
       }
     }

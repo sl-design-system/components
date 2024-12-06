@@ -3,189 +3,189 @@
     "palette": {
       "blue": {
         "100": {
-          "value": "#19288f",
+          "value": "#16202A",
           "type": "color"
         },
         "150": {
-          "value": "#1727b6",
+          "value": "#1E2B38",
           "type": "color"
         },
         "200": {
-          "value": "#142fe1",
+          "value": "#253646",
           "type": "color"
         },
         "300": {
-          "value": "#1b43f5",
+          "value": "#3A546A",
           "type": "color"
         },
         "400": {
-          "value": "#3366ff",
+          "value": "#517695",
           "type": "color"
         },
         "500": {
-          "value": "#598eff",
+          "value": "#7E9EB9",
           "type": "color"
         },
         "600": {
-          "value": "#8eb6ff",
+          "value": "#94AFC5",
           "type": "color"
         },
         "700": {
-          "value": "#bcd2ff",
+          "value": "#AEC6DA",
           "type": "color"
         },
         "800": {
-          "value": "#d9e5ff",
+          "value": "#C5DEF2",
           "type": "color"
         },
         "900": {
-          "value": "#eef4ff",
+          "value": "#EFF8FF",
           "type": "color"
         },
         "050": {
-          "value": "#141a57",
+          "value": "#070B0E",
           "type": "color"
         }
       },
       "green": {
         "100": {
-          "value": "#0a4a2c",
+          "value": "#045044",
           "type": "color"
         },
         "150": {
-          "value": "#0b5a34",
+          "value": "#036251",
           "type": "color"
         },
         "200": {
-          "value": "#0b7140",
+          "value": "#007a64",
           "type": "color"
         },
         "300": {
-          "value": "#0d8e4c",
+          "value": "#009b7b",
           "type": "color"
         },
         "400": {
-          "value": "#1aaf60",
+          "value": "#0abf96",
           "type": "color"
         },
         "500": {
-          "value": "#45cc80",
+          "value": "#2fd8ac",
           "type": "color"
         },
         "600": {
-          "value": "#75e0a1",
+          "value": "#6aebc5",
           "type": "color"
         },
         "700": {
-          "value": "#abefc3",
+          "value": "#a4f6d9",
           "type": "color"
         },
         "800": {
-          "value": "#d3f8de",
+          "value": "#d0fbe9",
           "type": "color"
         },
         "900": {
-          "value": "#edfcf2",
+          "value": "#ebfef7",
           "type": "color"
         },
         "050": {
-          "value": "#042a19",
+          "value": "#012d28",
           "type": "color"
         }
       },
       "grey": {
         "100": {
-          "value": "#454545",
+          "value": "#42474D",
           "type": "color"
         },
         "150": {
-          "value": "#4f4f4f",
+          "value": "#585D65",
           "type": "color"
         },
         "200": {
-          "value": "#5d5d5d",
+          "value": "#6D747E",
           "type": "color"
         },
         "300": {
-          "value": "#6d6d6d",
+          "value": "#838B97",
           "type": "color"
         },
         "400": {
-          "value": "#888888",
+          "value": "#98A2B0",
           "type": "color"
         },
         "500": {
-          "value": "#b0b0b0",
+          "value": "#AEB6C1",
           "type": "color"
         },
         "600": {
-          "value": "#d1d1d1",
+          "value": "#C7CCD4",
           "type": "color"
         },
         "700": {
-          "value": "#e7e7e7",
+          "value": "#E6E6E6",
           "type": "color"
         },
         "800": {
-          "value": "#f6f6f6",
+          "value": "#F3F3F3",
           "type": "color"
         },
         "900": {
-          "value": "#ffffff",
+          "value": "#FFFFFF",
           "type": "color"
         },
         "050": {
-          "value": "#3d3d3d",
+          "value": "#2D3034",
           "type": "color"
         },
         "000": {
-          "value": "#222222",
+          "value": "#17191B",
           "type": "color"
         }
       },
       "orange": {
         "100": {
-          "value": "#7e3410",
+          "value": "#7e1c10",
           "type": "color"
         },
         "150": {
-          "value": "#9d3d0f",
+          "value": "#9d1f0f",
           "type": "color"
         },
         "200": {
-          "value": "#c64c08",
+          "value": "#c62408",
           "type": "color"
         },
         "300": {
-          "value": "#ef6707",
+          "value": "#ef3607",
           "type": "color"
         },
         "400": {
-          "value": "#fe8211",
+          "value": "#fe5011",
           "type": "color"
         },
         "500": {
-          "value": "#ff9d33",
+          "value": "#ff8650",
           "type": "color"
         },
         "600": {
-          "value": "#ffc471",
+          "value": "#ffa671",
           "type": "color"
         },
         "700": {
-          "value": "#ffdda8",
+          "value": "#ffcba8",
           "type": "color"
         },
         "800": {
-          "value": "#fff0d4",
+          "value": "#ffe7d4",
           "type": "color"
         },
         "900": {
-          "value": "#fff8ed",
+          "value": "#fff4ed",
           "type": "color"
         },
         "050": {
-          "value": "#441706",
+          "value": "#440a06",
           "type": "color"
         }
       },
@@ -237,139 +237,139 @@
       },
       "red": {
         "100": {
-          "value": "#84181b",
+          "value": "#7c1f37",
           "type": "color"
         },
         "150": {
-          "value": "#a01418",
+          "value": "#912039",
           "type": "color"
         },
         "200": {
-          "value": "#c11419",
+          "value": "#ac243e",
           "type": "color"
         },
         "300": {
-          "value": "#e51d23",
+          "value": "#cd314b",
           "type": "color"
         },
         "400": {
-          "value": "#f83b41",
+          "value": "#e14e60",
           "type": "color"
         },
         "500": {
-          "value": "#ff575c",
+          "value": "#ed7f8a",
           "type": "color"
         },
         "600": {
-          "value": "#ffa0a3",
+          "value": "#f4adb3",
           "type": "color"
         },
         "700": {
-          "value": "#ffc7c9",
+          "value": "#f9d2d5",
           "type": "color"
         },
         "800": {
-          "value": "#ffe1e2",
+          "value": "#fce7e7",
           "type": "color"
         },
         "900": {
-          "value": "#fff1f1",
+          "value": "#fef2f2",
           "type": "color"
         },
         "050": {
-          "value": "#480709",
+          "value": "#450c19",
           "type": "color"
         }
       },
       "teal": {
         "100": {
-          "value": "#0a5757",
+          "value": "#2a4850",
           "type": "color"
         },
         "150": {
-          "value": "#066769",
+          "value": "#2e545e",
           "type": "color"
         },
         "200": {
-          "value": "#008080",
+          "value": "#346470",
           "type": "color"
         },
         "300": {
-          "value": "#00a8a5",
+          "value": "#3f7c8a",
           "type": "color"
         },
         "400": {
-          "value": "#00d0c9",
+          "value": "#5297a5",
           "type": "color"
         },
         "500": {
-          "value": "#15ece2",
+          "value": "#73b1bd",
           "type": "color"
         },
         "600": {
-          "value": "#4afef0",
+          "value": "#9ec9d2",
           "type": "color"
         },
         "700": {
-          "value": "#8bfff5",
+          "value": "#cfe4e8",
           "type": "color"
         },
         "800": {
-          "value": "#c5fffa",
+          "value": "#e9f2f5",
           "type": "color"
         },
         "900": {
-          "value": "#eefffc",
+          "value": "#f5f9fa",
           "type": "color"
         },
         "050": {
-          "value": "#003235",
+          "value": "#1c2f35",
           "type": "color"
         }
       },
       "yellow": {
         "100": {
-          "value": "#7c3a0b",
+          "value": "#6b3118",
           "type": "color"
         },
         "150": {
-          "value": "#984708",
+          "value": "#7d3c16",
           "type": "color"
         },
         "200": {
-          "value": "#bb5c02",
+          "value": "#974a11",
           "type": "color"
         },
         "300": {
-          "value": "#e28400",
+          "value": "#bd6911",
           "type": "color"
         },
         "400": {
-          "value": "#ffae00",
+          "value": "#db8b17",
           "type": "color"
         },
         "500": {
-          "value": "#ffcf1b",
+          "value": "#eba224",
           "type": "color"
         },
         "600": {
-          "value": "#ffe146",
+          "value": "#efb63f",
           "type": "color"
         },
         "700": {
-          "value": "#fff085",
+          "value": "#f6da92",
           "type": "color"
         },
         "800": {
-          "value": "#fff7c5",
+          "value": "#faeec7",
           "type": "color"
         },
         "900": {
-          "value": "#fffdea",
+          "value": "#fdf8e9",
           "type": "color"
         },
         "050": {
-          "value": "#481d00",
+          "value": "#3e180a",
           "type": "color"
         }
       }
@@ -377,51 +377,51 @@
     "utility": {
       "transparent": {
         "100": {
-          "value": "rgba( {color.palette.grey.050} , 11%)",
+          "value": "rgba( {color.palette.blue.050} , 11%)",
           "type": "color"
         },
         "150": {
-          "value": "rgba( {color.palette.grey.050} , 21%)",
+          "value": "rgba( {color.palette.blue.050} , 21%)",
           "type": "color"
         },
         "200": {
-          "value": "rgba( {color.palette.grey.050} , 36%)",
+          "value": "rgba( {color.palette.blue.050} , 36%)",
           "type": "color"
         },
         "300": {
-          "value": "rgba( {color.palette.grey.050} , 54%)",
+          "value": "rgba( {color.palette.blue.050} , 54%)",
           "type": "color"
         },
         "400": {
-          "value": "rgba( {color.palette.grey.050} , 66%)",
+          "value": "rgba( {color.palette.blue.050} , 66%)",
           "type": "color"
         },
         "500": {
-          "value": "rgba( {color.palette.grey.050} , 73%)",
+          "value": "rgba( {color.palette.blue.050} , 73%)",
           "type": "color"
         },
         "600": {
-          "value": "rgba( {color.palette.grey.050} , 79%)",
+          "value": "rgba( {color.palette.blue.050} , 79%)",
           "type": "color"
         },
         "700": {
-          "value": "rgba( {color.palette.grey.050} , 84%)",
+          "value": "rgba( {color.palette.blue.050} , 84%)",
           "type": "color"
         },
         "800": {
-          "value": "rgba( {color.palette.grey.050} , 88%)",
+          "value": "rgba( {color.palette.blue.050} , 88%)",
           "type": "color"
         },
         "900": {
-          "value": "rgba( {color.palette.grey.050} , 100%)",
+          "value": "rgba( {color.palette.blue.050} , 100%)",
           "type": "color"
         },
         "050": {
-          "value": "rgba( {color.palette.grey.050} , 5%)",
+          "value": "rgba( {color.palette.blue.050} , 5%)",
           "type": "color"
         },
         "000": {
-          "value": "rgba( {color.palette.grey.050} , 0%)",
+          "value": "rgba( {color.palette.blue.050} , 0%)",
           "type": "color"
         }
       }
@@ -458,7 +458,7 @@
         "description": "Use for text in a disabled state."
       },
       "selected": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.text.accent.teal.bold}",
         "type": "color",
         "description": "Use for text in selected states (e.g., tabs or menu items)."
       },
@@ -474,34 +474,24 @@
       },
       "secondary": {
         "bold": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.text.accent.blue.bold}",
           "type": "color",
-          "inverted": {
-            "value": "{color.text.accent.blue.bold}",
-            "type": "color",
-            "description": "Use for secondary actions on 'color.background.secondary.bold'."
-          },
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
         "inverted": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.text.accent.blue.bold}",
           "type": "color",
-          "inverted": {
-            "value": "{color.text.accent.blue.bold}",
-            "type": "color",
-            "description": "Use for secondary actions on 'color.background.secondary.bold'."
-          },
-          "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
+          "description": "Use for secondary actions on 'color.background.secondary.bold'."
         }
       },
       "info": {
         "plain": {
-          "value": "{color.text.accent.blue.plain}",
+          "value": "{color.text.accent.teal.plain}",
           "type": "color",
           "description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.text.accent.teal.bold}",
           "type": "color",
           "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
         }
@@ -520,17 +510,17 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.text.accent.yellow.plain}",
+          "value": "{color.text.accent.orange.plain}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.yellow.bold}",
+          "value": "{color.text.accent.orange.bold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
         },
         "inverted": {
-          "value": "{color.text.inverted}",
+          "value": "{color.text.accent.grey.bold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
         }
@@ -567,14 +557,14 @@
             "description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.600}",
+            "value": "{color.palette.green.700}",
             "type": "color",
             "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.400}",
+            "value": "{color.palette.grey.300}",
             "type": "color",
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
@@ -584,12 +574,12 @@
             "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
           },
           "subtle": {
-            "value": "{color.palette.grey.700}",
+            "value": "{color.palette.grey.600}",
             "type": "color",
             "description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
           },
           "plain": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.700}",
             "type": "color",
             "description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
           },
@@ -601,7 +591,7 @@
         },
         "orange": {
           "plain": {
-            "value": "{color.palette.orange.400}",
+            "value": "{color.palette.orange.500}",
             "type": "color",
             "description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -630,14 +620,14 @@
             "description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.700}",
+            "value": "{color.palette.red.600}",
             "type": "color",
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
           }
         },
         "teal": {
           "plain": {
-            "value": "{color.palette.teal.300}",
+            "value": "{color.palette.teal.500}",
             "type": "color",
             "description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -649,7 +639,7 @@
         },
         "yellow": {
           "plain": {
-            "value": "{color.palette.yellow.300}",
+            "value": "{color.palette.yellow.400}",
             "type": "color",
             "description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -744,7 +734,7 @@
         "description": "Use for icons in a disabled state."
       },
       "selected": {
-        "value": "{color.icon.accent.blue.bold}",
+        "value": "{color.icon.accent.teal.bold}",
         "type": "color",
         "description": "Use for icons in selected state (e.g., tabs or menu items)."
       },
@@ -759,18 +749,18 @@
         "description": "Use for icons in primary actions paired with a 'color.background.primary.muted' background."
       },
       "secondary": {
-        "value": "{color.icon.accent.grey.bold}",
+        "value": "{color.icon.accent.blue.bold}",
         "type": "color",
         "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
       },
       "info": {
         "plain": {
-          "value": "{color.icon.accent.blue.plain}",
+          "value": "{color.icon.accent.teal.plain}",
           "type": "color",
           "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.icon.accent.blue.bold}",
+          "value": "{color.icon.accent.teal.bold}",
           "type": "color",
           "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on 'color.background.info.muted' or 'color.background.info.subtle'."
         }
@@ -789,12 +779,12 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.icon.accent.yellow.plain}",
+          "value": "{color.icon.accent.orange.plain}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.icon.accent.yellow.bold}",
+          "value": "{color.icon.accent.orange.bold}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.muted' or 'color.background.caution.subtle'."
         },
@@ -998,23 +988,23 @@
       },
       "accent": {
         "blue": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.palette.blue.400}",
           "type": "color",
           "description": "Use for blue borders for purely stylistic purposes with no specific meaning."
         },
         "green": {
-          "value": "{color.text.accent.green.bold}",
+          "value": "{color.palette.green.300}",
           "type": "color",
           "description": "Use for green borders for purely stylistic purposes with no specific meaning."
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.100}",
+            "value": "{color.palette.grey.050}",
             "type": "color",
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
           "plain": {
-            "value": "{color.palette.grey.200}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -1029,30 +1019,15 @@
             "description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
           }
         },
-        "orange": {
-          "value": "{color.text.accent.orange.bold}",
-          "type": "color",
-          "description": "Use for orange borders for purely stylistic purposes with no specific meaning."
-        },
-        "purple": {
-          "value": "{color.text.accent.purple.bold}",
-          "type": "color",
-          "description": "Use for purple borders for purely stylistic purposes with no specific meaning."
-        },
-        "red": {
-          "value": "{color.text.accent.red.bold}",
-          "type": "color",
-          "description": "Use for red borders for purely stylistic purposes with no specific meaning."
-        },
-        "teal": {
-          "value": "{color.text.accent.teal.bold}",
-          "type": "color",
-          "description": "Use for teal borders for purely stylistic purposes with no specific meaning."
-        },
         "yellow": {
-          "value": "{color.text.accent.yellow.bold}",
+          "value": "{color.palette.yellow.200}",
           "type": "color",
           "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
+        },
+        "red": {
+          "value": "{color.palette.red.300}",
+          "type": "color",
+          "description": "Use for red borders for purely stylistic purposes with no specific meaning."
         }
       }
     },
@@ -1171,51 +1146,51 @@
       "secondary": {
         "muted": {
           "idle": {
-            "value": "{color.background.accent.grey.muted.idle}",
+            "value": "{color.background.accent.blue.muted.idle}",
             "type": "color",
             "description": "Use for the background of secondary actions that appear to have no background in idle state. Such as outline and ghost buttons."
           },
           "hover": {
-            "value": "{color.background.accent.grey.muted.hover}",
+            "value": "{color.background.accent.blue.muted.hover}",
             "type": "color",
             "description": "Use for the background while hovering of secondary actions that appear to have no background in idle state. Such as outline and ghost buttons."
           },
           "active": {
-            "value": "{color.background.accent.grey.muted.active}",
+            "value": "{color.background.accent.blue.muted.active}",
             "type": "color",
             "description": "Use for the background while pressing of secondary actions that appear to have no background in idle state. such as outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
+            "value": "{color.background.accent.blue.subtle.idle}",
             "type": "color",
             "description": "A subtle background variant in the secondary color."
           },
           "hover": {
-            "value": "{color.background.accent.grey.subtle.hover}",
+            "value": "{color.background.accent.blue.subtle.hover}",
             "type": "color",
             "description": "A subtle background variant in the secondary color for hover states."
           },
           "active": {
-            "value": "{color.background.accent.grey.subtle.active}",
+            "value": "{color.background.accent.blue.subtle.active}",
             "type": "color",
             "description": "A subtle background variant in the secondary color for active states."
           }
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.grey.bold.idle}",
+            "value": "{color.palette.blue.100}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis."
           },
           "hover": {
-            "value": "{color.background.accent.grey.bold.hover}",
+            "value": "{color.palette.blue.150}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during hover states."
           },
           "active": {
-            "value": "{color.background.accent.grey.bold.active}",
+            "value": "{color.palette.blue.200}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during pressed states"
           }
@@ -1224,51 +1199,51 @@
       "info": {
         "muted": {
           "idle": {
-            "value": "{color.background.accent.blue.muted.idle}",
+            "value": "{color.background.accent.teal.muted.idle}",
             "type": "color",
             "description": "Background for informative actions, with no background in the idle state, used on outline and ghost buttons."
           },
           "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
+            "value": "{color.background.accent.teal.muted.hover}",
             "type": "color",
             "description": "Background for informative actions in hovered state, with no background in the idle state, used on outline and ghost buttons."
           },
           "active": {
-            "value": "{color.background.accent.blue.muted.active}",
+            "value": "{color.background.accent.teal.muted.active}",
             "type": "color",
             "description": "Background for informative actions in pressed state, with no background in the idle state, used on outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.blue.subtle.idle}",
+            "value": "{color.background.accent.teal.subtle.idle}",
             "type": "color",
             "description": "A subtle background variant for informative messages requiring user attention."
           },
           "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
+            "value": "{color.background.accent.teal.subtle.hover}",
             "type": "color",
             "description": "A subtle background variant in the hover state for informative messages requiring user attention."
           },
           "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
+            "value": "{color.background.accent.teal.subtle.active}",
             "type": "color",
             "description": "A subtle background variant in the active state for informative messages requiring user attention."
           }
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.blue.bold.idle}",
+            "value": "{color.background.accent.teal.bold.idle}",
             "type": "color",
             "description": "Use for the background of actions with bold emphasis related to informative messages that the user needs to be aware of."
           },
           "hover": {
-            "value": "{color.background.accent.blue.bold.hover}",
+            "value": "{color.background.accent.teal.bold.hover}",
             "type": "color",
             "description": "Use as the background for actions with bold emphasis during hover states, related to informative messages that the user needs to be aware of."
           },
           "active": {
-            "value": "{color.background.accent.blue.bold.active}",
+            "value": "{color.background.accent.teal.bold.active}",
             "type": "color",
             "description": "Use as the background for actions with bold emphasis during active states, related to informative messages that the user needs to be aware of."
           }
@@ -1330,51 +1305,51 @@
       "caution": {
         "muted": {
           "idle": {
-            "value": "{color.background.accent.yellow.muted.idle}",
+            "value": "{color.background.accent.orange.muted.idle}",
             "type": "color",
             "description": "Background for caution to prevent errors, with no background in the idle state, used on outline and ghost buttons."
           },
           "hover": {
-            "value": "{color.background.accent.yellow.muted.hover}",
+            "value": "{color.background.accent.orange.muted.hover}",
             "type": "color",
             "description": "Background for caution to prevent errors in the hovered state, with no background in the idle state, used on outline and ghost buttons."
           },
           "active": {
-            "value": "{color.background.accent.yellow.muted.active}",
+            "value": "{color.background.accent.orange.muted.active}",
             "type": "color",
             "description": "Background for caution to prevent errors in the pressed state, with no background in the idle state, used on outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.yellow.subtle.idle}",
+            "value": "{color.background.accent.orange.subtle.idle}",
             "type": "color",
             "description": "A subtle background option for communicating caution to prevent mistakes or errors, such as in inline messages."
           },
           "hover": {
-            "value": "{color.background.accent.yellow.subtle.hover}",
+            "value": "{color.background.accent.orange.subtle.hover}",
             "type": "color",
             "description": "A subtle background option for communicating caution to prevent mistakes or errors in a hovered state."
           },
           "active": {
-            "value": "{color.background.accent.yellow.subtle.active}",
+            "value": "{color.background.accent.orange.subtle.active}",
             "type": "color",
             "description": "A subtle background option for communicating caution to prevent mistakes or errors in a pressed state."
           }
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.yellow.bold.idle}",
+            "value": "{color.background.accent.orange.bold.idle}",
             "type": "color",
             "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons."
           },
           "hover": {
-            "value": "{color.background.accent.yellow.bold.hover}",
+            "value": "{color.background.accent.orange.bold.hover}",
             "type": "color",
             "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons in a hovered state."
           },
           "active": {
-            "value": "{color.background.accent.yellow.bold.active}",
+            "value": "{color.background.accent.orange.bold.active}",
             "type": "color",
             "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons in a pressed state."
           }
@@ -1471,12 +1446,12 @@
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.blue.400}",
+              "value": "{color.palette.blue.800}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.500}",
+              "value": "{color.palette.blue.700}",
               "type": "color",
               "description": "A vibrant blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1577,17 +1552,17 @@
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.grey.900}",
+              "value": "{color.palette.grey.150}",
               "type": "color",
               "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.grey.800}",
+              "value": "{color.palette.grey.200}",
               "type": "color",
               "description": "A vibrant grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.grey.600}",
+              "value": "{color.palette.grey.300}",
               "type": "color",
               "description": "A vibrant grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1630,17 +1605,17 @@
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.orange.500}",
+              "value": "{color.palette.orange.600}",
               "type": "color",
               "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.orange.600}",
+              "value": "{color.palette.orange.700}",
               "type": "color",
               "description": "A vibrant orange background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.orange.700}",
+              "value": "{color.palette.orange.800}",
               "type": "color",
               "description": "A vibrant orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1683,17 +1658,17 @@
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.purple.500}",
+              "value": "{color.palette.purple.600}",
               "type": "color",
               "description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.purple.600}",
+              "value": "{color.palette.purple.700}",
               "type": "color",
               "description": "A vibrant purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.purple.700}",
+              "value": "{color.palette.purple.800}",
               "type": "color",
               "description": "A vibrant purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }

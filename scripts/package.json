@@ -22,12 +22,13 @@
     "@fortawesome/sharp-light-svg-icons": "^6.7.1",
     "@fortawesome/sharp-regular-svg-icons": "^6.7.1",
     "@fortawesome/sharp-solid-svg-icons": "^6.7.1",
-    "@tokens-studio/sd-transforms": "^1.2.4",
+    "@tokens-studio/sd-transforms": "^1.2.9",
     "cssnano": "^7.0.6",
     "esbuild": "^0.24.0",
     "fast-glob": "^3.3.2",
     "postcss": "^8.4.49",
-    "sass": "^1.81.0",
-    "style-dictionary": "^4.1.0"
+    "prettier": "^3.4.2",
+    "sass": "^1.82.0",
+    "style-dictionary": "^4.2.0"
   }
 }

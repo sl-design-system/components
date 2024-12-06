@@ -6,7 +6,7 @@
 }
 
 :host(:focus-visible) {
-  outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  outline: var(--sl-color-border-focused) solid var(--sl-border-width-focusring-default);
   outline-offset: var(--sl-border-width-focusring-offset);
   position: relative;
   z-index: 1;
@@ -17,18 +17,17 @@
 }
 
 :host([variant='danger']) {
-  color: var(--sl-color-text-danger-idle);
+  color: var(--sl-color-text-negative-bold);
 
   [part='wrapper'] {
-    background: var(--sl-color-action-background-danger-subtle-idle);
+    background: var(--sl-color-background-negative-muted-idle);
 
     &:hover {
-      background: var(--sl-color-action-background-danger-subtle-hover);
-      color: var(--sl-color-text-danger-hover);
+      background: var(--sl-color-background-negative-muted-hover);
     }
 
     &:active {
-      background: var(--sl-color-action-background-danger-subtle-active);
+      background: var(--sl-color-background-negative-muted-active);
     }
   }
 }
@@ -57,13 +56,13 @@ sl-icon[name='chevron-right'] {
   position: fixed;
 
   &:hover + [part='wrapper'] {
-    background: var(--sl-color-action-background-accent-subtle-hover);
+    background: var(--sl-elevation-surface-raised-default-hover);
   }
 }
 
 [part='wrapper'] {
   align-items: center;
-  background: var(--sl-color-action-background-accent-subtle-idle);
+  background: var(--sl-elevation-surface-raised-default-idle);
   border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: flex;
@@ -74,11 +73,11 @@ sl-icon[name='chevron-right'] {
   );
 
   &:hover {
-    background: var(--sl-color-action-background-accent-subtle-hover);
+    background: var(--sl-elevation-surface-raised-default-hover);
   }
 
   &:active {
-    background: var(--sl-color-action-background-accent-subtle-active);
+    background: var(--sl-elevation-surface-raised-default-active);
   }
 }
 

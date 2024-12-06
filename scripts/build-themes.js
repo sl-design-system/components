@@ -173,7 +173,7 @@ const build = async (production = false) => {
 
       return {
         log: {
-          verbosity: 'verbose',
+          // verbosity: 'verbose',
           warnings: 'disabled'
         },
         source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),

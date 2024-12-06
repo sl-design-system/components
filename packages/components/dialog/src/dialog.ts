@@ -3,8 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
-import { FocusTrap, createFocusTrap } from 'focus-trap';
+import { type EventEmitter, FocusTrapController, breakpoints, event } from '@sl-design-system/shared';
 import {
   type CSSResult,
   type CSSResultGroup,
@@ -66,7 +65,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  #focusTrap?: FocusTrap;
+  // #focusTrap?: FocusTrap;
+
+  // TODO: `this.dialog` instead of `this` as a host for the controller?
+  #focusTrapController?: FocusTrapController; // = new FocusTrapController(this, { element: this.dialog, disableCancel: this.disableCancel });
 
   /**
    * Emits when the dialog has been cancelled. This happens when the user closes
@@ -97,12 +99,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
+
+    // if (this.dialog) {
+    //   this.focusTrapController = new FocusTrapController(this.dialog, { disableCancel: this.disableCancel });
+    // }
   }
 
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    this.#deactivateFocusTrap();
+    // this.#deactivateFocusTrap();
+    this.#focusTrapController?.deactivate(); // TODO: is it necessary?
   }
 
   override render(): TemplateResult {
@@ -200,6 +207,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    if (this.dialog) {
+      this.#focusTrapController = new FocusTrapController(this.dialog, { disableCancel: this.disableCancel });
+    }
+
+    //this.#focusTrapController.options.element = this.dialog; // TODO: maybe in willUpdate?
+
     /**
      * Workaround for the backdrop background: the backdrop doesn't inherit
      * from the :root, so we cannot use tokens for the background-color.
@@ -230,7 +243,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         focusable.focus();
       }
 
-      this.#activateFocusTrap();
+      // this.#activateFocusTrap();
+
+      this.#focusTrapController?.activate();
     });
   }
 
@@ -241,31 +256,31 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #activateFocusTrap(): void {
-    if (!this.dialog) {
-      return;
-    }
+  // #activateFocusTrap(): void {
+  //   if (!this.dialog) {
+  //     return;
+  //   }
+  //
+  //   // if (!this.#focusTrap) {
+  //   //   this.#focusTrap = createFocusTrap(this.dialog, {
+  //   //     escapeDeactivates: !this.disableCancel,
+  //   //     allowOutsideClick: !this.disableCancel,
+  //   //     fallbackFocus: this.dialog,
+  //   //     returnFocusOnDeactivate: true,
+  //   //     tabbableOptions: {
+  //   //       getShadowRoot: true
+  //   //     }
+  //   //   });
+  //   // }
+  //   //
+  //   // this.#focusTrap.activate();
+  // }
 
-    if (!this.#focusTrap) {
-      this.#focusTrap = createFocusTrap(this.dialog, {
-        escapeDeactivates: !this.disableCancel,
-        allowOutsideClick: !this.disableCancel,
-        fallbackFocus: this.dialog,
-        returnFocusOnDeactivate: true,
-        tabbableOptions: {
-          getShadowRoot: true
-        }
-      });
-    }
-
-    this.#focusTrap.activate();
-  }
-
-  #deactivateFocusTrap(): void {
-    if (this.#focusTrap) {
-      this.#focusTrap.deactivate();
-    }
-  }
+  // #deactivateFocusTrap(): void {
+  //   // if (this.#focusTrap) {
+  //   //   this.#focusTrap.deactivate();
+  //   // }
+  // }
 
   #onCancel(event: Event & { target: HTMLElement }): void {
     event.preventDefault();
@@ -298,7 +313,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
     this.closeEvent.emit();
 
-    this.#deactivateFocusTrap();
+    // this.#deactivateFocusTrap();
+    this.#focusTrapController?.deactivate();
   }
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -327,7 +343,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       { once: true }
     );
 
-    this.#deactivateFocusTrap();
+    // this.#deactivateFocusTrap();
+    this.#focusTrapController?.deactivate();
 
     /**
      * Set the closing attribute, this triggers the closing animation.

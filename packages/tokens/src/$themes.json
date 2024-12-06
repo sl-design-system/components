@@ -9448,7 +9448,8 @@
       "sanoma-learning/dark": "enabled",
       "primitives": "source",
       "system": "source",
-      "sanoma-learning/dark-new": "enabled"
+      "sanoma-learning/dark-new": "enabled",
+      "sanoma-learning/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:f2be7390d679f6cc122793ce786e3a7d91816e81,",

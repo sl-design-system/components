@@ -4,11 +4,7 @@
 
 :host([variant='inverted']) {
   a {
-    color: var(--sl-color-link-inverted);
-
-    &:visited {
-      color: var(--sl-color-link-inverted-visited);
-    }
+    color: var(--sl-color-link-inverted-plain);
 
     &:hover {
       color: var(--sl-color-link-inverted-hover);
@@ -19,7 +15,7 @@
     }
 
     &[aria-current='page'] {
-      color: var(--sl-color-text-inverted);
+      color: var(--sl-color-text-inverted-plain);
     }
   }
 
@@ -70,10 +66,6 @@ a {
   text-underline-offset: var(--sl-space-025);
   white-space: nowrap;
 
-  &:visited {
-    color: var(--sl-color-link-visited);
-  }
-
   &:hover {
     color: var(--sl-color-link-hover);
     text-decoration-thickness: var(--sl-size-borderWidth-bold);
@@ -85,8 +77,7 @@ a {
 
   &:focus-visible {
     border-radius: var(--sl-size-borderRadius-default);
-    outline: var(--sl-color-border-focused) solid
-      var(--sl-size-borderWidth-focused, var(--sl-border-width-focusring-default));
+    outline: var(--sl-color-border-focused) solid var(--sl-size-borderWidth-focusRing);
     outline-offset: var(--sl-space-new-offset-focused, var(--sl-border-width-focusring-offset));
   }
 

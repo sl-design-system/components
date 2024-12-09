@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.4.1
+
+### Patch Changes
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Refactor `getValueByPath` and related functions to properly infer type
+
+- [#1637](https://github.com/sl-design-system/components/pull/1637) [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6) - Add new `ObserveAttributesMixin` mixin that can be used to rewrite aria attributes to the right element.
+
 ## 0.4.0
 
 ### Minor Changes

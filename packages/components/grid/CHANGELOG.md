@@ -1,5 +1,36 @@
 # @sl-design-system/grid
 
+## 0.3.0
+
+### Minor Changes
+
+- [#1653](https://github.com/sl-design-system/components/pull/1653) [`f15d75c`](https://github.com/sl-design-system/components/commit/f15d75c6c3765b797f0bed57c5d1f2855cab4f7e) - Improve horizontal scrolling experience:
+
+  - Add shadows to the left and right of the grid when it is scrollable
+  - Add the new `<sl-scrollbar>` when the grid is horizontally scrollable
+  - Make sure the scrollbar is always visible (sticky at the bottom of the grid)
+  - Position the scrollbar relative to the sticky columns
+  - Add ability to use sticky columns at the end of the grid
+
+- [#1607](https://github.com/sl-design-system/components/pull/1607) [`e184512`](https://github.com/sl-design-system/components/commit/e1845127a49819b7ab8d5a0a6a246576195cbe81) - Refactor styling to use the new contextual tokens
+
+### Patch Changes
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Refactor `getValueByPath` and related functions to properly infer type
+
+- [#1609](https://github.com/sl-design-system/components/pull/1609) [`515e2fb`](https://github.com/sl-design-system/components/commit/515e2fbbda7ecee92392b8ddf9f98c335fe32cf6) - Added tokens for grid
+
+- [#1550](https://github.com/sl-design-system/components/pull/1550) [`ac23d84`](https://github.com/sl-design-system/components/commit/ac23d848177945256fd34f94045361485a79e80d) - Changed the way selection works; there are now 2 distinct functionalities; selecting one or more rows with checkboxes, for bulk actions for example and clicking and highlighting an entire row as a way of selecting it for a detailed view for example
+
+- Updated dependencies [[`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`7a62e08`](https://github.com/sl-design-system/components/commit/7a62e08afbcd5768277164a8075939c3d8c17667), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`f15d75c`](https://github.com/sl-design-system/components/commit/f15d75c6c3765b797f0bed57c5d1f2855cab4f7e), [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd), [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f)]:
+  - @sl-design-system/data-source@0.0.2
+  - @sl-design-system/shared@0.4.1
+  - @sl-design-system/checkbox@2.0.2
+  - @sl-design-system/icon@1.0.3
+  - @sl-design-system/scrollbar@0.0.1
+  - @sl-design-system/select@1.1.3
+  - @sl-design-system/text-field@1.5.1
+
 ## 0.2.0
 
 ### Minor Changes

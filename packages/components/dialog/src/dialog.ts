@@ -67,7 +67,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   // #focusTrap?: FocusTrap;
 
-  // TODO: `this.dialog` instead of `this` as a host for the controller?
+  /** The controller that manages the focus trap within the dialog. */
   #focusTrapController?: FocusTrapController; // = new FocusTrapController(this, { element: this.dialog, disableCancel: this.disableCancel });
 
   /**
@@ -103,6 +103,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // if (this.dialog) {
     //   this.focusTrapController = new FocusTrapController(this.dialog, { disableCancel: this.disableCancel });
     // }
+
+    this.#focusTrapController = new FocusTrapController(this, { disableCancel: this.disableCancel });
   }
 
   override disconnectedCallback(): void {
@@ -207,9 +209,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    if (this.dialog) {
-      this.#focusTrapController = new FocusTrapController(this.dialog, { disableCancel: this.disableCancel });
-    }
+    // if (this.dialog) {
+    //   this.#focusTrapController = new FocusTrapController(this.dialog, { disableCancel: this.disableCancel });
+    // }
 
     //this.#focusTrapController.options.element = this.dialog; // TODO: maybe in willUpdate?
 
@@ -245,7 +247,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
       // this.#activateFocusTrap();
 
-      this.#focusTrapController?.activate();
+      console.log('this.dialog', this.dialog);
+
+      if (this.dialog) {
+        this.#focusTrapController?.activate(this.dialog);
+      }
     });
   }
 

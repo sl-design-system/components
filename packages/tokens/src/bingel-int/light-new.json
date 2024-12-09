@@ -653,19 +653,53 @@
     },
     "link": {
       "plain": {
-        "value": "{color.palette.blue.500}",
+        "value": "{color.text.accent.blue.plain}",
         "type": "color",
-        "description": "Use for links in their default or hovered state. Underline links when hovered."
+        "description": "Use for links in their default or hovered state."
+      },
+      "hover": {
+        "value": "{color.text.accent.blue.bold}",
+        "type": "color",
+        "description": "Use for links in hover state."
       },
       "active": {
-        "value": "{color.palette.blue.600}",
+        "value": "{color.palette.blue.700}",
         "type": "color",
-        "description": "Use for links in the active state."
+        "description": "Use for links in active state."
       },
-      "visited": {
-        "value": "{color.palette.blue.500}",
-        "type": "color",
-        "description": "Use for links in a visited state."
+      "muted": {
+        "plain": {
+          "value": "{color.text.accent.grey.plain}",
+          "type": "color",
+          "description": "Use for muted links in idle state."
+        },
+        "hover": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for muted links in hover state."
+        },
+        "active": {
+          "value": "{color.palette.grey.900}",
+          "type": "color",
+          "description": "Use for muted links in active state."
+        }
+      },
+      "inverted": {
+        "plain": {
+          "value": "{color.text.inverted}",
+          "type": "color",
+          "description": "Use for inverted links in idle state."
+        },
+        "hover": {
+          "value": "{color.palette.blue.100}",
+          "type": "color",
+          "description": "Use for inverted links in hover state."
+        },
+        "active": {
+          "value": "{color.palette.blue.150}",
+          "type": "color",
+          "description": "Use for inverted links in active state."
+        }
       }
     },
     "icon": {

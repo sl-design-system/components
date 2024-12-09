@@ -17,7 +17,7 @@
           "type": "fontWeights"
         },
         "demibold": {
-          "value": "SemiBold",
+          "value": "Medium",
           "type": "fontWeights"
         }
       }
@@ -130,26 +130,14 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.md}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
       },
       "full": {
-        "value": "{size.full}",
+        "value": "50rem",
         "type": "borderRadius",
         "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
-      },
-      "focusRing": {
-        "outside": {
-          "value": "{size.borderRadius.default} + 2px",
-          "type": "borderRadius",
-          "description": "Use for focusring outside of component"
-        },
-        "inside": {
-          "value": "{size.borderRadius.default} - 1px",
-          "type": "borderRadius",
-          "description": "Use for focusring inside of component when outside focus ring is not possible"
-        }
       }
     },
     "borderWidth": {

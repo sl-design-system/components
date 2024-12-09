@@ -3,11 +3,11 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "The Message",
+          "value": "Proxima Nova",
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Proxima Nova",
           "type": "fontFamilies"
         },
         "icon": {
@@ -22,7 +22,7 @@
           "type": "fontWeights"
         },
         "demibold": {
-          "value": "SemiBold",
+          "value": "Semi Bold",
           "type": "fontWeights"
         }
       }

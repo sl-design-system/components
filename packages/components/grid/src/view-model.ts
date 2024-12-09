@@ -173,12 +173,15 @@ export class GridViewModel<T = any> {
 
   /** Returns the left offset, taking any sticky columns into account. */
   getStickyColumnOffset(index: number): number {
-    return this.#columnDefinitions
-      .slice(0, index)
-      .filter(col => !col.hidden)
-      .reduce((acc, { width = 0 }) => {
-        return acc + width;
-      }, 0);
+    let columns: Array<GridColumn<T>>;
+
+    if (this.#columns[index].stickyPosition === 'end') {
+      columns = this.#columnDefinitions.slice(index, this.#columnDefinitions.length - 1).reverse();
+    } else {
+      columns = this.#columnDefinitions.slice(0, index);
+    }
+
+    return columns.filter(col => !col.hidden).reduce((acc, { width = 0 }) => acc + width, 0);
   }
 
   /** Returns whether the item is fixed (not draggable). */

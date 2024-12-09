@@ -3,11 +3,11 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "The Message",
+          "value": "Open Sans",
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Open Sans",
           "type": "fontFamilies"
         },
         "icon": {
@@ -119,7 +119,7 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{border.radius.xs}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
       },
@@ -131,7 +131,7 @@
     },
     "borderWidth": {
       "default": {
-        "value": "{size.010}",
+        "value": "{size.025}",
         "type": "borderWidth"
       }
     },

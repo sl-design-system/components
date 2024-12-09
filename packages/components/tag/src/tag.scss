@@ -9,8 +9,8 @@
   --_focus-color: var(--sl-color-focusring-default);
   --_focus-outline: var(--_focus-color) solid var(--sl-border-width-focusring-inside);
   --_focus-outline-offset: calc(var(--sl-border-width-focusring-inside) * -1);
-  --_padding-block: var(--sl-space-tag-block-md) var(--sl-space-tag-block-md);
-  --_padding-inline: var(--sl-space-tag-inline-md) var(--sl-space-tag-inline-md);
+  --_padding-block: var(--sl-space-025);
+  --_padding-inline: var(--sl-space-100);
 
   align-items: center;
   border-radius: var(--_border-radius);
@@ -75,8 +75,8 @@
 
 :host([size='lg']) {
   --_button-size: var(--sl-size-tag-lg);
-  --_padding-block: var(--sl-space-tag-block-lg);
-  --_padding-inline: var(--sl-space-tag-inline-lg);
+  --_padding-block: var(--sl-space-075);
+  --_padding-inline: var(--sl-space-150);
 }
 
 :host(:focus:not([focus-within])) {

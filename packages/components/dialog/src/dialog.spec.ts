@@ -119,13 +119,15 @@ describe('sl-dialog', () => {
       const onCancel = spy();
       el.addEventListener('sl-cancel', onCancel);
 
+      expect(dialog).to.have.attribute('open');
+
       await sendKeys({ press: 'Escape' });
 
       // Simulate the animationend event that is used in #closeDialogOnAnimationend
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(onCancel).to.have.been.calledOnce;
     });

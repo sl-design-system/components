@@ -1,10 +1,10 @@
 // stylelint-disable color-no-hex
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
-  --_border-color: var(--sl-color-grid-border);
+  --_border-color: var(--sl-color-border-plain);
   --_border-width: var(--sl-size-borderWidth-default);
   --_border-radius: var(--sl-size-borderRadius-default);
-  --_cell-background: var(--sl-color-grid-default);
+  --_cell-background: var(--sl-elevation-surface-raised-default-idle);
   --_cell-border: var(--_border-width) solid var(--_border-color);
   --_cell-padding-block: var(--sl-space-175);
   --_cell-padding-inline: var(--sl-space-200);
@@ -15,17 +15,21 @@
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
   --_font: var(--sl-text-body-md-normal);
-  --_group-background: var(--sl-color-grid-group);
-  --_header-background: var(--sl-color-grid-header);
+  --_group-background: var(--sl-elevation-surface-raised-sunken-idle);
+  --_header-background: var(--sl-elevation-surface-raised-alternative-idle);
   --_header-padding-block: var(--sl-space-175);
   --_header-padding-inline: var(--sl-space-200);
-  --_vertical-border: none;
+  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+    no-repeat;
   --_vertical-border-offset: var(--sl-space-new-md);
-  --_selected-background: var(--sl-color-action-background-accent-subtle-active);
-  --_striped-background: var(--sl-color-grid-zebra);
+  --_selected-background: var(--sl-color-background-selected-subtle-idle);
+  --_striped-background: var(--sl-elevation-surface-raised-alternative-idle);
 
+  color: var(--sl-color-text-plain);
   display: block;
   font: var(--_font);
+  position: relative;
 }
 
 :host([items-group-by]) {
@@ -42,17 +46,98 @@
 
 :host([column-divider]) {
   // this is needed because we need to set the vertical-border-offset separately for the th,
-  // when this is set on a highter level than the `--_vertical-border-offset` var it can't "reach" it.
+  // when this is set on a higher level than the `--_vertical-border-offset` var it can't "reach" it.
   td,
   th {
     --_vertical-border-offset: 0px;
+
+    background: var(--_vertical-border), var(--_cell-background);
+
+    &:first-of-type {
+      background: var(--_cell-background);
+    }
+  }
+}
+
+:host([scrollable-start]) {
+  --_vertical-border-end: linear-gradient(var(--_border-color), var(--_border-color)) 100% 100% / var(--_border-width)
+    100% no-repeat;
+
+  table:not(:has(.sticky-start-last))::before {
+    background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
+    content: '';
+    inline-size: 1rem;
+    inset: 0 auto 0 0;
+    position: absolute;
+    z-index: 2; // Make sure we are above the <thead> element
+  }
+
+  :is(td, th).sticky-start-last {
+    background: var(--_vertical-border-end), var(--_cell-background);
+    overflow: visible clip;
+
+    &::after {
+      background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
+      content: '';
+      inline-size: 1rem;
+      inset: 0 -1rem 0 auto;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  th.sticky-start-last {
+    background: var(--_vertical-border), var(--_vertical-border-end), var(--_cell-background);
+
+    + th {
+      background: var(--_cell-background);
+    }
+  }
+
+  sl-scrollbar::before {
+    background: var(--sl-color-grid-border);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-default);
+    inset: 0 auto 0 calc(var(--sl-size-borderWidth-default) * -1);
+    position: absolute;
+  }
+}
+
+:host([scrollable-end]) {
+  table:not(:has(.sticky-end-first))::after {
+    background: linear-gradient(to right, transparent, rgb(79 79 79 / 10%));
+    content: '';
+    inline-size: 1rem;
+    inset: 0 0 0 auto;
+    position: absolute;
+    z-index: 1;
+  }
+
+  :is(td, th).sticky-end-first {
     --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
       calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
       no-repeat;
+    --_vertical-border-offset: 0px;
 
-    &:first-of-type {
-      --_vertical-border: none;
+    background: var(--_vertical-border), var(--_cell-background);
+    overflow: visible clip;
+
+    &::after {
+      background: linear-gradient(to right, transparent, rgb(79 79 79 / 10%));
+      content: '';
+      inline-size: 1rem;
+      inset: 0 0 0 -1rem;
+      position: absolute;
+      z-index: 1;
     }
+  }
+
+  sl-scrollbar::after {
+    background: var(--sl-color-grid-border);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-default);
+    inset: 0 calc(var(--sl-size-borderWidth-default) * -1) 0 auto;
+    position: absolute;
   }
 }
 
@@ -61,36 +146,37 @@
 }
 
 table {
+  border: var(--_border);
+  border-block-start: 0;
+  border-radius: var(--_border-radius);
   display: flex;
   flex-direction: column;
   inline-size: fit-content;
   min-inline-size: 100%;
-}
-
-thead,
-tbody {
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-sizing: border-box;
+  position: relative;
 }
 
 thead {
-  border-end-end-radius: 0;
-  border-end-start-radius: 0;
+  border-block: var(--_border);
+  border-start-end-radius: var(--_border-radius);
+  border-start-start-radius: var(--_border-radius);
   inset-block-start: 0;
-  max-inline-size: var(--sl-grid-width);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
   overflow-x: hidden;
   position: sticky;
   z-index: 1;
 }
 
 tbody {
-  border-block-start: 0;
-  border-start-end-radius: 0;
-  border-start-start-radius: 0;
-  max-inline-size: var(--sl-grid-width);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow: auto clip;
+  overscroll-behavior: contain auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &.drop-target {
     position: relative;
@@ -143,7 +229,7 @@ tr {
 th,
 td {
   align-items: center;
-  background: var(--_vertical-border), var(--_cell-background);
+  background: var(--_cell-background);
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
@@ -167,10 +253,8 @@ th {
   --_cell-background: var(--_header-background);
   --_cell-padding-block: var(--_header-padding-block);
   --_cell-padding-inline: var(--_header-padding-inline);
-  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
-    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
-    no-repeat;
 
+  background: var(--_vertical-border), var(--_cell-background);
   font-weight: var(--_header-font-weight);
   text-align: start;
 
@@ -264,4 +348,25 @@ td[part~='text-field'] {
   inset-block-start: 0;
   position: absolute;
   z-index: 1;
+}
+
+tfoot {
+  inset-block-end: 0;
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+  overflow: hidden;
+  position: sticky;
+
+  td {
+    display: flex;
+    flex: 1;
+    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+    padding: 0 !important;
+  }
+
+  sl-scrollbar {
+    flex: 1;
+    inline-size: var(--sl-grid-scrollbar-inline-size);
+    margin-inline: var(--sl-grid-scrollbar-margin-inline);
+    position: relative;
+  }
 }

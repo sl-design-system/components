@@ -8,9 +8,9 @@ import styles from './announcer.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-announce-event': SlAnnounceEvent;
-    'sl-announce-event-polite': SlAnnounceEvent;
-    'sl-announce-event-assertive': SlAnnounceEvent;
+    'sl-announce': SlAnnounceEvent;
+    'sl-announce-polite': SlAnnounceEvent;
+    'sl-announce-assertive': SlAnnounceEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -28,8 +28,8 @@ export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' 
  * @param message - The message to send to the live aria.
  * @param urgency - The urgency of the message. Default is 'polite'.
  */
-export function sendToLiveAria(message: string, urgency?: 'polite' | 'assertive'): void {
-  const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce-event');
+export function sendToAnnouncer(message: string, urgency?: 'polite' | 'assertive'): void {
+  const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce');
   liveEvent.emit({ message, urgency });
 }
 
@@ -57,7 +57,7 @@ export class Announcer extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.#events.listen(window, 'sl-announce-event', this.#onLiveEvent);
+    this.#events.listen(window, 'sl-announce', this.#onLiveEvent);
   }
   override render(): TemplateResult {
     return html`

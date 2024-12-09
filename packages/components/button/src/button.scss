@@ -153,7 +153,7 @@
 
 :host([fill='ghost'][variant='success']) {
   background: var(--sl-color-background-positive-muted-idle);
-  color: var(--sl-color-text-positive-plain);
+  color: var(--sl-color-text-positive-bold);
 }
 
 :host([fill='ghost'][variant='success']:hover) {
@@ -166,13 +166,13 @@
 
 :host([fill='link'][variant='success']) {
   background: var(--sl-color-background-positive-muted-idle);
-  color: var(--sl-color-text-positive);
+  color: var(--sl-color-text-positive-bold);
 }
 
 :host([fill='outline'][variant='success']) {
   background: var(--sl-color-background-positive-muted-idle);
   border-color: var(--sl-color-border-positive);
-  color: var(--sl-color-text-positive-plain);
+  color: var(--sl-color-text-positive-bold);
 }
 
 :host([fill='outline'][variant='success']:hover) {
@@ -198,7 +198,7 @@
 
 :host([fill='ghost'][variant='warning']) {
   background: var(--sl-color-background-caution-muted-idle);
-  color: var(--sl-color-text-caution-plain);
+  color: var(--sl-color-text-caution-bold);
 }
 
 :host([fill='ghost'][variant='warning']:hover) {
@@ -211,13 +211,13 @@
 
 :host([fill='link'][variant='warning']) {
   background: var(--sl-color-background-caution-muted-idle);
-  color: var(--sl-color-text-caution-plain);
+  color: var(--sl-color-text-caution-bold);
 }
 
 :host([fill='outline'][variant='warning']) {
   background: var(--sl-color-background-caution-muted-idle);
   border-color: var(--sl-color-border-caution);
-  color: var(--sl-color-text-caution-plain);
+  color: var(--sl-color-text-caution-bold);
 }
 
 :host([fill='outline'][variant='warning']:hover) {
@@ -243,7 +243,7 @@
 
 :host([fill='ghost'][variant='danger']) {
   background: var(--sl-color-background-negative-muted-idle);
-  color: var(--sl-color-text-negative-plain);
+  color: var(--sl-color-text-negative-bold);
 }
 
 :host([fill='ghost'][variant='danger']:hover) {
@@ -256,13 +256,13 @@
 
 :host([fill='link'][variant='danger']) {
   background: var(--sl-color-background-negative-muted-idle);
-  color: var(--sl-color-text-negative-plain);
+  color: var(--sl-color-text-negative-bold);
 }
 
 :host([fill='outline'][variant='danger']) {
   background: var(--sl-color-background-negative-muted-idle);
   border-color: var(--sl-color-border-negative);
-  color: var(--sl-color-text-negative-plain);
+  color: var(--sl-color-text-negative-bold);
 }
 
 :host([fill='outline'][variant='danger']:hover) {
@@ -288,7 +288,7 @@
 
 :host([fill='ghost'][variant='info']) {
   background: var(--sl-color-background-info-muted-idle);
-  color: var(--sl-color-text-info-plain);
+  color: var(--sl-color-text-info-bold);
 }
 
 :host([fill='ghost'][variant='info']:hover) {
@@ -301,13 +301,13 @@
 
 :host([fill='link'][variant='info']) {
   background: var(--sl-color-background-info-muted-idle);
-  color: var(--sl-color-text-info-plain);
+  color: var(--sl-color-text-info-bold);
 }
 
 :host([fill='outline'][variant='info']) {
   background: var(--sl-color-background-info-muted-idle);
   border-color: var(--sl-color-border-info);
-  color: var(--sl-color-text-info-plain);
+  color: var(--sl-color-text-info-bold);
 }
 
 :host([fill='outline'][variant='info']:hover) {

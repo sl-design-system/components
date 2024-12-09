@@ -1,5 +1,15 @@
 # @sl-design-system/breadcrumbs
 
+## 1.0.4
+
+### Patch Changes
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Fix `ShadowRoot.createElement` type definition to properly match `document.createElement`
+
+- Updated dependencies [[`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652)]:
+  - @sl-design-system/icon@1.0.3
+  - @sl-design-system/tooltip@1.1.2
+
 ## 1.0.3
 
 ### Patch Changes

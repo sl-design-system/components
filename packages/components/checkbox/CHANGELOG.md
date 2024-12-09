@@ -1,5 +1,17 @@
 # @sl-design-system/checkbox
 
+## 2.0.2
+
+### Patch Changes
+
+- [#1628](https://github.com/sl-design-system/components/pull/1628) [`7a62e08`](https://github.com/sl-design-system/components/commit/7a62e08afbcd5768277164a8075939c3d8c17667) - Fix NVDA accessibility issues, fix indeterminate state for screen readers.
+
+- [#1633](https://github.com/sl-design-system/components/pull/1633) [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd) - Fix NVDA accessibility issues: moving aria attributes to the right control.
+
+- Updated dependencies [[`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6)]:
+  - @sl-design-system/form@1.1.1
+  - @sl-design-system/shared@0.4.1
+
 ## 2.0.1
 
 ### Patch Changes

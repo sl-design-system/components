@@ -1,12 +1,19 @@
 import { expect, fixture } from '@open-wc/testing';
+import { SlAnnounceEvent } from '@sl-design-system/announcer';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/select/register.js';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 import { PaginatorStatus } from './paginator-status.js';
 
 describe('sl-paginator-status', () => {
   let el: PaginatorStatus;
+  const sendToAnnouncerSpy = spy();
+
+  beforeEach(() => {
+    window.addEventListener('sl-announce', sendToAnnouncerSpy);
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -18,13 +25,6 @@ describe('sl-paginator-status', () => {
 
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('1 - 1 of 1 items')).to.be.true;
-    });
-
-    it('should have aria-live by default', () => {
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 1 to 1 of 1 items');
     });
   });
 
@@ -38,13 +38,6 @@ describe('sl-paginator-status', () => {
 
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('1 - 15 of 100 items')).to.be.true;
-    });
-
-    it('should have a proper aria-live', () => {
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 1 to 15 of 100 items');
     });
   });
 
@@ -61,13 +54,6 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
     });
-
-    it('should have a proper aria-live', () => {
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 196 to 209 of 209 items');
-    });
   });
 
   describe('invalid page', () => {
@@ -82,13 +68,6 @@ describe('sl-paginator-status', () => {
 
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('1 - 15 of 209 items')).to.be.true;
-    });
-
-    it('should have a proper aria-live', () => {
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 1 to 15 of 209 items');
     });
   });
 
@@ -108,10 +87,10 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('136 - 150 of 209 items')).to.be.true;
 
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 136 to 150 of 209 items');
+      // Check if sendToAnnouncer was called
+      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
+        'Currently showing 136 to 150 of 209 items'
+      );
     });
 
     it('should have a proper page when set smaller than 1', async () => {
@@ -124,10 +103,9 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('1 - 15 of 209 items')).to.be.true;
 
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 1 to 15 of 209 items');
+      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
+        'Currently showing 1 to 15 of 209 items'
+      );
     });
 
     it('should have set page to the last one when the number set is bigger than the total number of pages', async () => {
@@ -140,10 +118,9 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
 
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 196 to 209 of 209 items');
+      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
+        'Currently showing 196 to 209 of 209 items'
+      );
     });
   });
 
@@ -168,10 +145,9 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('66 - 70 of 209 items')).to.be.true;
 
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 66 to 70 of 209 items');
+      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
+        'Currently showing 66 to 70 of 209 items'
+      );
     });
   });
 
@@ -196,10 +172,9 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('196 - 210 of 508 items')).to.be.true;
 
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Currently showing 196 to 210 of 508 items');
+      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
+        'Currently showing 196 to 210 of 508 items'
+      );
     });
   });
 });

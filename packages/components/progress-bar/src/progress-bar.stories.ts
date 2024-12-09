@@ -1,3 +1,4 @@
+import '@sl-design-system/announcer/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -154,7 +155,7 @@ export const Download: StoryObj = {
             return size;
           }
         }, 300);
-      }, 3000);
+      }, 6000);
     });
     return html` <style>
         #root-inner {

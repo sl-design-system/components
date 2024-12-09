@@ -1,4 +1,4 @@
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type DataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
@@ -92,8 +92,6 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
             </sl-select>
           `
         : nothing}
-      <!-- We want this to be read every time the active page changes. -->
-      <div id="live" aria-live="polite" aria-atomic="true">${msg(str`Amount of items per page: ${this.pageSize}`)}</div>
     `;
   }
 

@@ -8,7 +8,7 @@
 }
 
 :host(:where(:hover, [aria-current])) [part='container'] {
-  background: var(--sl-color-action-background-accent-subtle-hover);
+  background: var(--sl-elevation-surface-raised-default-hover);
 }
 
 :host(:where([aria-selected='true'], [selected])) sl-icon {
@@ -16,7 +16,7 @@
 }
 
 :host(:active) [part='container'] {
-  background: var(--sl-color-action-background-accent-subtle-active);
+  background: var(--sl-elevation-surface-raised-default-active);
 }
 
 :host(:not(:first-child)) {
@@ -39,7 +39,7 @@
 
 [part='container'] {
   align-items: center;
-  border-radius: var(--sl-size-border-radius-default);
+  border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: flex;
   gap: var(--sl-space-new-md);

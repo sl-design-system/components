@@ -1,10 +1,10 @@
 // stylelint-disable color-no-hex
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
-  --_border-color: var(--sl-color-grid-border);
+  --_border-color: var(--sl-color-border-plain);
   --_border-width: var(--sl-size-borderWidth-default);
   --_border-radius: var(--sl-size-borderRadius-default);
-  --_cell-background: var(--sl-color-grid-default);
+  --_cell-background: var(--sl-elevation-surface-raised-default-idle);
   --_cell-border: var(--_border-width) solid var(--_border-color);
   --_cell-padding-block: var(--sl-space-175);
   --_cell-padding-inline: var(--sl-space-200);
@@ -15,17 +15,18 @@
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
   --_font: var(--sl-text-body-md-normal);
-  --_group-background: var(--sl-color-grid-group);
-  --_header-background: var(--sl-color-grid-header);
+  --_group-background: var(--sl-elevation-surface-raised-sunken-idle);
+  --_header-background: var(--sl-elevation-surface-raised-alternative-idle);
   --_header-padding-block: var(--sl-space-175);
   --_header-padding-inline: var(--sl-space-200);
   --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
     calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
     no-repeat;
   --_vertical-border-offset: var(--sl-space-new-md);
-  --_selected-background: var(--sl-color-action-background-accent-subtle-active);
-  --_striped-background: var(--sl-color-grid-zebra);
+  --_selected-background: var(--sl-color-background-selected-subtle-idle);
+  --_striped-background: var(--sl-elevation-surface-raised-alternative-idle);
 
+  color: var(--sl-color-text-plain);
   display: block;
   font: var(--_font);
   position: relative;

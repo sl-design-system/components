@@ -2478,7 +2478,7 @@
   "opacity": {
     "spinner": {
       "shadow": {
-        "value": "{opacity.600}",
+        "value": "{opacity.light.600}",
         "type": "opacity"
       }
     }

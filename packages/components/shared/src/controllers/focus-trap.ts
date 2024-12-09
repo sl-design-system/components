@@ -161,15 +161,24 @@
 //import { ReactiveController, ReactiveElement } from 'lit';
 import { type FocusTrap, createFocusTrap } from 'focus-trap';
 
+export interface FocusTrapControllerOptions {
+  disableCancel: boolean;
+}
+
 export class FocusTrapController /*implements ReactiveController*/ {
   #host: HTMLElement /* ReactiveElement*/;
-  #focusTrap?: FocusTrap;
-  #options: unknown; // TODO: element and disableCancel ???
 
-  constructor(host: HTMLElement /*ReactiveElement*/, options: unknown = {}) {
+  #focusTrap?: FocusTrap;
+
+  // #options: FocusTrapControllerOptions; // TODO: element and disableCancel ???
+
+  #disableCancel = false;
+
+  constructor(host: HTMLElement /*ReactiveElement*/, options?: Partial<FocusTrapControllerOptions>) {
     this.#host = host;
     // this.#host.addController(this);
-    this.#options = options;
+    // this.#options = options;
+    this.#disableCancel = !!options?.disableCancel;
   }
 
   // hostConnected(): void {
@@ -181,11 +190,11 @@ export class FocusTrapController /*implements ReactiveController*/ {
   // }
 
   activate(): void {
-    console.log('host and options', this.#host, this.#options);
+    console.log('host and options', this.#host, this.#disableCancel /*this.#options*/);
     if (!this.#focusTrap) {
       this.#focusTrap = createFocusTrap(this.#host, {
-        escapeDeactivates: !this.#options.disableCancel,
-        allowOutsideClick: !this.#options.disableCancel,
+        escapeDeactivates: !this.#disableCancel, //!this.#options.disableCancel,
+        allowOutsideClick: !this.#disableCancel, //!this.#options.disableCancel, // TODO: sth is not working with disableCancel
         fallbackFocus: this.#host,
         returnFocusOnDeactivate: true,
         tabbableOptions: {

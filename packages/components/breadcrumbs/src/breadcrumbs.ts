@@ -23,6 +23,8 @@ declare global {
   }
 }
 
+export type BreadcrumbsVariant = 'default' | 'inverted';
+
 export interface Breadcrumb {
   collapsed?: boolean;
   label: string;
@@ -106,6 +108,12 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    * If you want to change the property of an already created instance, you need to change this property.
    */
   @property({ type: Boolean, attribute: 'no-home' }) noHome = Breadcrumbs.noHome;
+
+  /**
+   * The variant of the breadcrumbs.
+   * @default default
+   */
+  @property() variant?: BreadcrumbsVariant;
 
   override connectedCallback(): void {
     super.connectedCallback();

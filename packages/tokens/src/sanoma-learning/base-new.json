@@ -9,11 +9,6 @@
         "body": {
           "value": "Roboto",
           "type": "fontFamilies"
-        },
-        "icon": {
-          "value": "{icon.typeset.fontFamily.classic}",
-          "type": "fontFamilies",
-          "description": "text.typeset.fontFamily.fontIcon"
         }
       },
       "fontWeight": {
@@ -75,6 +70,22 @@
         },
         "type": "typography"
       }
+    },
+    "icon": {
+      "outline": {
+        "value": {
+          "fontFamily": "{icon.fontFamily.classic}",
+          "fontWeight": "{icon.typeset.fontWeight.icon-regular}"
+        },
+        "type": "typography"
+      },
+      "solid": {
+        "value": {
+          "fontFamily": "{icon.fontFamily.classic}",
+          "fontWeight": "{icon.typeset.fontWeight.icon-solid}"
+        },
+        "type": "typography"
+      }
     }
   },
   "size": {
@@ -132,6 +143,14 @@
     "borderWidth": {
       "default": {
         "value": "{size.010}",
+        "type": "borderWidth"
+      },
+      "bold": {
+        "value": "{size.025}",
+        "type": "borderWidth"
+      },
+      "focusRing": {
+        "value": "{size.borderWidth.bold}",
         "type": "borderWidth"
       }
     },

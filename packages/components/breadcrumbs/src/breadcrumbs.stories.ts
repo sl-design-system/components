@@ -2,10 +2,11 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/popover/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateResult };
+type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome' | 'variant'> & { breadcrumbs: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -20,6 +21,10 @@ export default {
       table: {
         disable: true
       }
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['default', 'inverted']
     }
   },
   parameters: {
@@ -27,8 +32,8 @@ export default {
       defaultViewport: 'reset'
     }
   },
-  render: ({ breadcrumbs, homeUrl, noHome }) => html`
-    <sl-breadcrumbs .homeUrl=${homeUrl} .noHome=${noHome}>${breadcrumbs}</sl-breadcrumbs>
+  render: ({ breadcrumbs, homeUrl, noHome, variant }) => html`
+    <sl-breadcrumbs .homeUrl=${homeUrl} ?no-home=${noHome} variant=${ifDefined(variant)}>${breadcrumbs}</sl-breadcrumbs>
   `
 } satisfies Meta<Props>;
 
@@ -60,6 +65,18 @@ export const HomeUrl: Story = {
   args: {
     ...Basic.args,
     homeUrl: 'https://example.com'
+  }
+};
+
+export const Inverted: Story = {
+  parameters: {
+    backgrounds: {
+      default: 'Inverted'
+    }
+  },
+  args: {
+    ...Basic.args,
+    variant: 'inverted'
   }
 };
 

@@ -45,12 +45,10 @@
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",
-    "@open-wc/scoped-elements": "^3.0.5",
-    "focus-trap": "^7.6.2"
+    "@open-wc/scoped-elements": "^3.0.5"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.5",
-    "focus-trap": "^7.6.2"
+    "@open-wc/scoped-elements": "^3.0.5"
   }
 }

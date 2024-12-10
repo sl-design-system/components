@@ -8,6 +8,7 @@ import {
   type CSSResult,
   type CSSResultGroup,
   LitElement,
+  PropertyValues,
   type TemplateResult,
   adoptStyles,
   html,
@@ -66,7 +67,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = [breakpoints, styles];
 
   /** The controller that manages the focus trap within the dialog. */
-  #focusTrapController?: FocusTrapController;
+  #focusTrapController = new FocusTrapController(this);
 
   /**
    * Emits when the dialog has been cancelled. This happens when the user closes
@@ -97,14 +98,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
-
-    this.#focusTrapController = new FocusTrapController(this, { disableCancel: this.disableCancel });
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
 
-    this.#focusTrapController?.deactivate();
+    if (changes.has('disableCancel')) {
+      this.#focusTrapController = new FocusTrapController(this, { disableCancel: this.disableCancel });
+    }
   }
 
   override render(): TemplateResult {

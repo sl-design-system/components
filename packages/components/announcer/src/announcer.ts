@@ -67,26 +67,13 @@ export class Announcer extends LitElement {
   }
 
   #onLiveEvent(event: SlAnnounceEvent) {
-    if (event.detail.urgency === 'assertive') {
-      this.#assertiveNotification(event.detail.message);
-    } else {
-      this.#politeNotification(event.detail.message);
+    const container = this.renderRoot.querySelector(`[aria-live="${event.detail.urgency || 'polite'}"]`);
+    const messageNode = document.createElement('sl-announcement');
+    messageNode.innerText = event.detail.message;
+
+    // make sure the message is not already in the container
+    if (container?.textContent?.indexOf(event.detail.message) === -1) {
+      container?.appendChild(messageNode);
     }
-  }
-
-  polite(message: string) {
-    this.#politeNotification(message);
-  }
-
-  #assertiveNotification(message: string) {
-    const messageNode = document.createElement('sl-announcement');
-    messageNode.innerText = message;
-    this.renderRoot.querySelector('[aria-live="assertive"]')?.appendChild(messageNode);
-  }
-
-  #politeNotification(message: string) {
-    const messageNode = document.createElement('sl-announcement');
-    messageNode.innerText = message;
-    this.renderRoot.querySelector('[aria-live="polite"]')?.appendChild(messageNode);
   }
 }

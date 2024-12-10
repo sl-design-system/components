@@ -32,6 +32,7 @@ export const templates = {
   s886db4d476f66522: 'Geselecteerde opties',
   s88b887b46242ba96: str`Ga naar vorige pagina (${0})`,
   s8c1f47dc13ead0c3: str`Maak "${0}" aan`,
+  s9ad43731ebd435aa: str`Momenteel worden ${0} tot ${1} van ${2} weergegeven`,
   s9cd91b99a108a45f: 'Lijst met verborgen elementen',
   s9f7452dd75d54d31: 'fout',
   sa447e2f801a7eb2d: 'Kies een optie.',

@@ -95,10 +95,7 @@ export class PaginatorStatus extends LitElement {
       this.currentlyVisibleItems = this.pageSize!;
     }
 
-    const start = this.page === 1 ? 1 : (this.page - 1) * this.pageSize + 1;
-    const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
-
-    sendToAnnouncer(msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`));
+    this.#announce();
   }
 
   #onUpdate = () => {
@@ -110,4 +107,16 @@ export class PaginatorStatus extends LitElement {
     this.page = this.dataSource.page.page;
     this.totalItems = this.dataSource.page.totalItems;
   };
+
+  #announce(): void {
+    // added timeout to prevent double announcement, otherwise the first announcement would be with old or invalid values
+    setTimeout(() => {
+      if (this.totalItems > 1) {
+        const start = this.page === 1 ? 1 : (this.page - 1) * this.pageSize + 1;
+        const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
+
+        sendToAnnouncer(msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`));
+      }
+    }, 100);
+  }
 }

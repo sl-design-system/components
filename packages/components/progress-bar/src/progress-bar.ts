@@ -18,8 +18,6 @@ export type ProgressVariant = 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component that can be used to communicate process status.
- * Hidden `aria-live` element makes the progress bar more accessible, so developers don’t need to worry about adding it manually.
- *
  *
  * ```html
  *  <sl-progress-bar label="Downloading file">

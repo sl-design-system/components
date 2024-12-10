@@ -5,13 +5,14 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateResult };
+type Props = Pick<Breadcrumbs, 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Breadcrumbs',
   tags: ['stable'],
   args: {
+    inverted: false,
     homeUrl: '/',
     noHome: false
   },
@@ -27,8 +28,8 @@ export default {
       defaultViewport: 'reset'
     }
   },
-  render: ({ breadcrumbs, homeUrl, noHome }) => html`
-    <sl-breadcrumbs .homeUrl=${homeUrl} .noHome=${noHome}>${breadcrumbs}</sl-breadcrumbs>
+  render: ({ breadcrumbs, inverted, homeUrl, noHome }) => html`
+    <sl-breadcrumbs .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}>${breadcrumbs}</sl-breadcrumbs>
   `
 } satisfies Meta<Props>;
 
@@ -60,6 +61,18 @@ export const HomeUrl: Story = {
   args: {
     ...Basic.args,
     homeUrl: 'https://example.com'
+  }
+};
+
+export const Inverted: Story = {
+  parameters: {
+    backgrounds: {
+      default: 'Inverted'
+    }
+  },
+  args: {
+    ...Basic.args,
+    inverted: true
   }
 };
 
@@ -95,6 +108,11 @@ export const Overflow: Story = {
 
 export const All: Story = {
   render: () => html`
+    <style>
+      sl-breadcrumbs[inverted] {
+        background: var(--sl-color-palette-grey-900);
+      }
+    </style>
     <sl-breadcrumbs>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
@@ -106,6 +124,17 @@ export const All: Story = {
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs inverted>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>

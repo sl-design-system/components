@@ -6,7 +6,7 @@
   color: var(--sl-color-text-secondary);
   cursor: pointer;
   display: inline-flex;
-  font-weight: 500; // FIXME
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
   gap: var(--sl-space-075);
   justify-content: center;
   outline-color: transparent;
@@ -390,9 +390,8 @@
 }
 
 :host(:focus-visible) {
-  outline: var(--sl-color-border-focused) solid
-    var(--sl-size-borderWidth-focused, var(--sl-border-width-focusring-default));
-  outline-offset: var(--sl-space-new-offset-focused, var(--sl-border-width-focusring-offset));
+  outline: var(--sl-size-borderWidth-focused) solid var(--sl-color-border-focused);
+  outline-offset: var(--sl-space-offset-focused);
 }
 
 @media (prefers-reduced-motion: no-preference) {

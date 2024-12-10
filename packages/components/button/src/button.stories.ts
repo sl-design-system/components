@@ -105,13 +105,7 @@ export const All: Story = {
           }
         }
         .inverted-background {
-          background: linear-gradient(
-            to right,
-            var(--sl-color-background-accent-grey-bold-idle),
-            var(--sl-color-background-accent-grey-bold-idle) 50%,
-            var(--sl-color-background-accent-blue-bold-idle) 50%,
-            var(--sl-color-background-accent-blue-bold-idle) 100%
-          );
+          background: var(--sl-color-palette-grey-900);
           grid-column: 8 / 9;
           grid-row: 1 / 6;
           inset: -1rem;

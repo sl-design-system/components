@@ -26,16 +26,16 @@ describe('sl-breadcrumbs', () => {
       expect(el).to.have.attribute('aria-label', 'Breadcrumb trail');
     });
 
-    it('should not have an explicit variant', () => {
-      expect(el).not.to.have.attribute('variant');
-      expect(el.variant).to.be.undefined;
+    it('should not be inverted', () => {
+      expect(el).not.to.have.attribute('inverted');
+      expect(el.inverted).to.be.undefined;
     });
 
-    it('should have a variant when set', async () => {
-      el.variant = 'inverted';
+    it('should be inverted when set', async () => {
+      el.inverted = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('variant', 'inverted');
+      expect(el).to.have.attribute('inverted');
     });
 
     it('should render a list of breadcrumbs', () => {

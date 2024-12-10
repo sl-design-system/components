@@ -65,10 +65,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  // #focusTrap?: FocusTrap;
-
   /** The controller that manages the focus trap within the dialog. */
-  #focusTrapController?: FocusTrapController; // = new FocusTrapController(this, { element: this.dialog, disableCancel: this.disableCancel });
+  #focusTrapController?: FocusTrapController;
 
   /**
    * Emits when the dialog has been cancelled. This happens when the user closes
@@ -100,18 +98,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = true;
 
-    // if (this.dialog) {
-    //   this.focusTrapController = new FocusTrapController(this.dialog, { disableCancel: this.disableCancel });
-    // }
-
     this.#focusTrapController = new FocusTrapController(this, { disableCancel: this.disableCancel });
   }
 
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    // this.#deactivateFocusTrap();
-    this.#focusTrapController?.deactivate(); // TODO: is it necessary?
+    this.#focusTrapController?.deactivate();
   }
 
   override render(): TemplateResult {
@@ -209,12 +202,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // if (this.dialog) {
-    //   this.#focusTrapController = new FocusTrapController(this.dialog, { disableCancel: this.disableCancel });
-    // }
-
-    //this.#focusTrapController.options.element = this.dialog; // TODO: maybe in willUpdate?
-
     /**
      * Workaround for the backdrop background: the backdrop doesn't inherit
      * from the :root, so we cannot use tokens for the background-color.
@@ -245,10 +232,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         focusable.focus();
       }
 
-      // this.#activateFocusTrap();
-
-      console.log('this.dialog', this.dialog);
-
       if (this.dialog) {
         this.#focusTrapController?.activate(this.dialog);
       }
@@ -261,32 +244,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       this.#closeDialogOnAnimationend();
     }
   }
-
-  // #activateFocusTrap(): void {
-  //   if (!this.dialog) {
-  //     return;
-  //   }
-  //
-  //   // if (!this.#focusTrap) {
-  //   //   this.#focusTrap = createFocusTrap(this.dialog, {
-  //   //     escapeDeactivates: !this.disableCancel,
-  //   //     allowOutsideClick: !this.disableCancel,
-  //   //     fallbackFocus: this.dialog,
-  //   //     returnFocusOnDeactivate: true,
-  //   //     tabbableOptions: {
-  //   //       getShadowRoot: true
-  //   //     }
-  //   //   });
-  //   // }
-  //   //
-  //   // this.#focusTrap.activate();
-  // }
-
-  // #deactivateFocusTrap(): void {
-  //   // if (this.#focusTrap) {
-  //   //   this.#focusTrap.deactivate();
-  //   // }
-  // }
 
   #onCancel(event: Event & { target: HTMLElement }): void {
     event.preventDefault();
@@ -319,7 +276,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
     this.closeEvent.emit();
 
-    // this.#deactivateFocusTrap();
     this.#focusTrapController?.deactivate();
   }
 
@@ -349,7 +305,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       { once: true }
     );
 
-    // this.#deactivateFocusTrap();
     this.#focusTrapController?.deactivate();
 
     /**

@@ -81,6 +81,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     }
 
     if (this.sort) {
+      console.log('this.sort in array-data-source', this.sort);
+
       const ascending = this.sort.direction === 'asc';
 
       let sortFn: DataSourceSortFunction<T>;
@@ -92,7 +94,13 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
           const valueA = getStringByPath(a, path),
             valueB = getStringByPath(b, path); // TODO: needs to sort numbers as well
 
-          console.log('valueA, valueB', valueA, valueB, valueA.localeCompare(valueB));
+          console.log(
+            'valueA, valueB',
+            valueA,
+            valueB,
+            valueA.localeCompare(valueB),
+            valueA === valueB ? 0 : valueA < valueB ? -1 : 1
+          );
 
           const numberA = parseFloat(valueA),
             numberB = parseFloat(valueB);
@@ -104,7 +112,14 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
 
           // return valueA.localeCompare(valueB);
 
-          return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
+          // return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
+
+          // return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
+          return valueA.toLowerCase() === valueB.toLowerCase()
+            ? 0
+            : valueA.toLowerCase() < valueB.toLowerCase()
+              ? -1
+              : 1;
         };
         console.log('sortFn1', sortFn, path);
       } else if ('sorter' in this.sort && this.sort.sorter) {

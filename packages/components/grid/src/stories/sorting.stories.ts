@@ -63,9 +63,13 @@ export const CustomColumnSorter2: Story = {
 
     // const sort = (a: Foo, b: Foo) => a.description.toLocaleLowerCase() > b.description.toLocaleLowerCase() ? 1 : (a.description.toLocaleLowerCase() < b.description.toLocaleLowerCase() ? -1 : 0);
 
-    const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description, undefined, { caseFirst: 'upper' });
+    //// const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description, undefined, { caseFirst: 'upper' });
 
     //  const sort = (a: Foo, b: Foo) => a.description.toLowerCase().localeCompare(b.description.toLowerCase());
+
+    //  const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description, 'en-US', {sensitivity: "case"});
+
+    // 'en-US-u-kf-lower'
 
     //////  const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description);
 
@@ -75,7 +79,7 @@ export const CustomColumnSorter2: Story = {
 
     // const sort = (a: Foo, b: Foo) => a.description.localeCompare(b.description);
 
-    // const sort = (a: Foo, b: Foo) => a.description.toLocaleLowerCase().localeCompare(b.description.toLocaleLowerCase());
+    const sort = (a: Foo, b: Foo) => a.description.toLocaleLowerCase().localeCompare(b.description.toLocaleLowerCase());
 
     return html`
       <sl-grid .items=${items}>

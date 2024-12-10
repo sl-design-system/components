@@ -1,41 +1,27 @@
-@use 'sass:map';
-
-$variants: danger, success, info, warning, accent, neutral, primary;
-
 :host {
   align-items: center;
+  background: var(--sl-color-background-secondary-subtle-idle);
   block-size: 1lh;
-  border-radius: var(--sl-border-radius-badge-full);
+  border-radius: var(--sl-size-borderRadius-full);
   box-sizing: border-box;
+  color: var(--sl-color-text-plain);
   display: inline-flex;
-  font: var(--sl-text-badge-text-md);
-  gap: var(--sl-space-badge-label-inline-md);
+  font-size: 0.857em;
+  gap: var(--sl-space-025);
+  line-height: 0.8lh;
   min-inline-size: 1lh;
-  padding-inline: var(--sl-space-badge-inline-md);
-  text-transform: var(--sl-text-case-badge-text-transform);
+  padding-inline: var(--sl-space-100);
+  text-transform: uppercase;
   vertical-align: middle;
 }
 
-@each $variant in $variants {
-  :host([variant='#{$variant}']) {
-    background: var(--sl-color-badge-subtle-#{$variant}-background);
-    color: var(--sl-color-badge-subtle-#{$variant}-foreground);
-  }
-
-  :host([variant='#{$variant}'][emphasis='bold']) {
-    background: var(--sl-color-badge-bold-#{$variant}-background);
-    color: var(--sl-color-badge-bold-#{$variant}-foreground);
-  }
-}
-
 :host([size='sm']) {
-  line-height: var(--sl-size-badge-sm);
+  line-height: var(--sl-space-100);
 }
 
 :host([size='lg']) {
-  font: var(--sl-text-badge-text-lg);
-  gap: var(--sl-space-badge-label-inline-lg);
-  padding-inline: var(--sl-space-badge-inline-lg);
+  font-size: 1em;
+  line-height: 1lh;
 
   ::slotted(sl-icon) {
     --sl-icon-container-size: var(--sl-size-icon-xs);
@@ -47,6 +33,56 @@ $variants: danger, success, info, warning, accent, neutral, primary;
 :host([round]) {
   justify-content: center;
   padding-inline: 0;
+}
+
+:host([variant='primary']) {
+  background: var(--sl-color-background-primary-subtle-idle);
+  color: var(--sl-color-text-primary-bold);
+}
+
+:host([variant='primary'][emphasis='bold']) {
+  background: var(--sl-color-background-primary-bold-idle);
+}
+
+:host([variant='info']) {
+  background: var(--sl-color-background-info-subtle-idle);
+  color: var(--sl-color-text-info-bold);
+}
+
+:host([variant='info'][emphasis='bold']) {
+  background: var(--sl-color-background-info-bold-idle);
+}
+
+:host([variant='danger']) {
+  background: var(--sl-color-background-negative-subtle-idle);
+  color: var(--sl-color-text-negative-bold);
+}
+
+:host([variant='danger'][emphasis='bold']) {
+  background: var(--sl-color-background-negative-bold-idle);
+}
+
+:host([variant='success']) {
+  background: var(--sl-color-background-positive-subtle-idle);
+  color: var(--sl-color-text-positive-bold);
+}
+
+:host([variant='success'][emphasis='bold']) {
+  background: var(--sl-color-background-positive-bold-idle);
+}
+
+:host([variant='warning']) {
+  background: var(--sl-color-background-caution-subtle-idle);
+  color: var(--sl-color-text-caution-bold);
+}
+
+:host([variant='warning'][emphasis='bold']) {
+  background: var(--sl-color-background-caution-bold-idle);
+}
+
+:host([emphasis='bold']) {
+  background: var(--sl-color-background-secondary-bold-idle);
+  color: var(--sl-color-text-inverted);
 }
 
 ::slotted(sl-icon) {

@@ -25,14 +25,23 @@ export class Badge extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The emphasis of the badge; defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis: BadgeEmphasis = 'subtle';
+  /**
+   * The emphasis of the badge.
+   * @default subtle
+   */
+  @property({ reflect: true }) emphasis?: BadgeEmphasis;
 
-  /** The size of the badge component. */
-  @property({ reflect: true }) size: BadgeSize = 'md';
+  /**
+   * The size of the badge component.
+   * @default md
+   */
+  @property({ reflect: true }) size?: BadgeSize;
 
-  /** The variant of the badge. */
-  @property({ reflect: true }) variant: BadgeVariant = 'neutral';
+  /**
+   * The variant of the badge.
+   * @default neutral
+   */
+  @property({ reflect: true }) variant?: BadgeVariant;
 
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotChange}></slot>`;

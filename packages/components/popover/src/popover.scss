@@ -1,31 +1,18 @@
 :host {
-  --_arrow-block-size: 6px;
-  --_arrow-inline-size: 16px;
-  --_background: var(--sl-color-popover-background);
-  --_border-color: var(--sl-color-popover-border);
-  --_border-radius: var(--sl-border-radius-popover-default);
-  --_border-width: 1px;
-  --_border: var(--_border-width) solid var(--_border-color);
-  --_box-shadow: var(--sl-elevation-shadow-md);
-  --_color: var(--sl-color-popover-foreground);
-  --_font: var(--sl-text-popover-text-text);
-  --_max-width: var(--sl-popover-max-inline-size, 80vw);
-  --_padding-block: var(--sl-space-popover-block);
-  --_padding-inline: var(--sl-space-popover-inline);
+  --_arrow-block-size: var(--sl-size-075);
+  --_arrow-inline-size: var(--sl-size-200);
 
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow);
+  background: var(--sl-elevation-surface-raised-default-idle);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;
-  color: var(--_color);
-  font: var(--_font);
+  color: var(--sl-color-text-plain);
   margin: 0;
-  max-inline-size: var(--_max-width);
+  max-inline-size: var(--sl-popover-max-inline-size, 80vw);
   opacity: 0;
   overflow: visible;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding: var(--sl-space-100) var(--sl-space-150);
 
   @media (prefers-reduced-motion: no-preference) {
     transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
@@ -39,13 +26,12 @@
    * This is only necessary for Firefox < 125 and older browsers that don't support popover
    */
   @supports not selector(:popover-open) {
-    background: var(--_background) !important;
-    border: var(--_border) !important;
-    color: var(--_color) !important;
+    background: var(--sl-elevation-surface-raised-default-idle) !important;
+    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain) !important;
+    color: var(--sl-color-text-plain) !important;
     margin: 0 !important;
     overflow: visible !important;
-    padding-block: var(--_padding-block) !important;
-    padding-inline: var(--_padding-inline) !important;
+    padding: var(--sl-space-100) var(--sl-space-150) !important;
     position: fixed;
   }
 }
@@ -93,7 +79,8 @@
 .arrow {
   block-size: var(--_arrow-block-size);
   display: inline-flex;
-  fill: var(--_background);
+  fill: var(--sl-elevation-surface-raised-default-idle);
   inline-size: var(--_arrow-inline-size);
   position: absolute;
+  stroke: var(--sl-color-border-plain);
 }

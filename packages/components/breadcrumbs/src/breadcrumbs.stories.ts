@@ -112,6 +112,11 @@ export const Overflow: Story = {
 
 export const All: Story = {
   render: () => html`
+    <style>
+      sl-breadcrumbs[variant='inverted'] {
+        background: var(--sl-color-palette-grey-900);
+      }
+    </style>
     <sl-breadcrumbs>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
@@ -123,6 +128,17 @@ export const All: Story = {
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
     <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs variant="inverted">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>

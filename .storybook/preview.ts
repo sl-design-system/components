@@ -68,7 +68,7 @@ const preview: Preview = {
       values: [
         { name: 'Default', value: 'var(--sl-elevation-surface-base-default-idle)' },
         { name: 'Raised', value: 'var(--sl-elevation-surface-raised-default-idle)' },
-        { name: 'Inverted', value: 'var(--sl-color-background-accent-grey-bold-idle)' },
+        { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' },
       ],
       default: 'Default'
     },

@@ -1,13 +1,13 @@
-import type { Preview } from '@storybook/web-components';
-import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import { updateTheme, themes } from '../../.storybook/themes';
 import { withThemeFromJSXProvider } from '@storybook/addon-themes';
+import { type Preview } from '@storybook/web-components';
+import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { html } from 'lit';
+import { themes, updateTheme } from '../../.storybook/themes';
 
 // Id's of components that only need to be rendered once, not in all mock states.
 const singleState = [
   'all--dialog',
-  'all--message-dialog', 
+  'all--message-dialog',
   'all--badge',
   'all--card',
   'all--icon',
@@ -20,7 +20,6 @@ const singleState = [
 
 const preview: Preview = {
   decorators: [
-
     (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
       updateTheme(theme, mode);
 
@@ -40,10 +39,9 @@ const preview: Preview = {
           padding: 16px;
         }
       </style>
-      ${
-        singleState.includes(data.id)
-          ?story()
-          :html`<h1>State: Default <small>(including "disabled")</small></h1>
+      ${singleState.includes(data.id)
+          ? story()
+          : html`<h1>State: Default <small>(including "disabled")</small></h1>
             ${story()}
             <h1>State: Hover</h1>
             <div class="sb-fake-hover">
@@ -57,7 +55,7 @@ const preview: Preview = {
             <div class="sb-fake-focus-visible">
               ${story()}
             </div>`
-      }`      
+        }`
     },
     (story) => {
       withThemeFromJSXProvider({
@@ -77,9 +75,10 @@ const preview: Preview = {
         },
         defaultTheme: 'sanoma-learning'
       });
+
       return story();
     },
-    
+
   ],
   parameters: {
     pseudo: {

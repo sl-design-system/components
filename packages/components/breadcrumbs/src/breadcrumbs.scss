@@ -2,7 +2,7 @@
   display: block;
 }
 
-:host([variant='inverted']) {
+:host([inverted]) {
   a {
     color: var(--sl-color-link-inverted-plain);
 
@@ -68,7 +68,7 @@ a {
 
   &:hover {
     color: var(--sl-color-link-muted-hover);
-    text-decoration-thickness: var(--sl-size-borderWidth-bold);
+    text-decoration-thickness: var(--sl-size-025);
   }
 
   &:active {

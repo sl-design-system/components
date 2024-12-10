@@ -55,16 +55,18 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
    * The url for the home link, defaults to the root url.
    *
-   * By changing this static property you can change the default value for all future instances of the component.
-   * Changing the static property won't affect already created instances.
+   * By changing this static property you can change the default value
+   * for all future instances of the component. Changing the static property
+   * won't affect already created instances.
    */
   static homeUrl = '/';
 
   /**
    * When true doesn't show a home link as the first breadcrumb.
    *
-   * By changing this static property you can change the default value for all future instances of the component.
-   * Changing the static property won't affect already created instances.
+   * By changing this static property you can change the default value
+   * for all future instances of the component. Changing the static property
+   * won't affect already created instances.
    */
   static noHome = false;
 
@@ -94,26 +96,28 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
 
   /**
+   * Set this to true to invert the color of the breadcrumbs. This should be used
+   * when the breadcrumbs are displayed on a dark background.
+   */
+  @property({ type: Boolean }) inverted?: boolean;
+
+  /**
    * The url for the home link, defaults to the root url.
    *
-   * If you want to change the default value for all future instances of the component, you can change the static property.
-   * If you want to change the property of an already created instance, you need to change this property.
+   * If you want to change the default value for all future instances of the
+   * component, you can change the static property. If you want to change the
+   * property of an already created instance, you need to change this property.
    */
   @property({ attribute: 'home-url' }) homeUrl = Breadcrumbs.homeUrl;
 
   /**
    * When true doesn't show a home link as the first breadcrumb.
    *
-   * If you want to change the default value for all future instances of the component, you can change the static property.
-   * If you want to change the property of an already created instance, you need to change this property.
+   * If you want to change the default value for all future instances of the
+   * component, you can change the static property. If you want to change the
+   * property of an already created instance, you need to change this property.
    */
   @property({ type: Boolean, attribute: 'no-home' }) noHome = Breadcrumbs.noHome;
-
-  /**
-   * The variant of the breadcrumbs.
-   * @default default
-   */
-  @property() variant?: BreadcrumbsVariant;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -158,14 +162,14 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                   aria-label=${msg('More breadcrumbs')}
                   fill="link"
                   id="button"
-                  variant=${ifDefined(this.variant === 'inverted' ? 'inverted' : undefined)}
+                  variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
                 >
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">
                   ${this.breadcrumbs
                     .slice(0, -this.collapseThreshold)
-                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : html`${label}`))}
+                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : label))}
                 </sl-popover>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>

@@ -2,17 +2,17 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/popover/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome' | 'variant'> & { breadcrumbs: TemplateResult };
+type Props = Pick<Breadcrumbs, 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Navigation/Breadcrumbs',
   tags: ['stable'],
   args: {
+    inverted: false,
     homeUrl: '/',
     noHome: false
   },
@@ -21,10 +21,6 @@ export default {
       table: {
         disable: true
       }
-    },
-    variant: {
-      control: 'inline-radio',
-      options: ['default', 'inverted']
     }
   },
   parameters: {
@@ -32,8 +28,8 @@ export default {
       defaultViewport: 'reset'
     }
   },
-  render: ({ breadcrumbs, homeUrl, noHome, variant }) => html`
-    <sl-breadcrumbs .homeUrl=${homeUrl} ?no-home=${noHome} variant=${ifDefined(variant)}>${breadcrumbs}</sl-breadcrumbs>
+  render: ({ breadcrumbs, inverted, homeUrl, noHome }) => html`
+    <sl-breadcrumbs .homeUrl=${homeUrl} ?inverted=${inverted} ?no-home=${noHome}>${breadcrumbs}</sl-breadcrumbs>
   `
 } satisfies Meta<Props>;
 
@@ -76,7 +72,7 @@ export const Inverted: Story = {
   },
   args: {
     ...Basic.args,
-    variant: 'inverted'
+    inverted: true
   }
 };
 
@@ -113,7 +109,7 @@ export const Overflow: Story = {
 export const All: Story = {
   render: () => html`
     <style>
-      sl-breadcrumbs[variant='inverted'] {
+      sl-breadcrumbs[inverted] {
         background: var(--sl-color-palette-grey-900);
       }
     </style>
@@ -138,7 +134,7 @@ export const All: Story = {
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
-    <sl-breadcrumbs variant="inverted">
+    <sl-breadcrumbs inverted>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>

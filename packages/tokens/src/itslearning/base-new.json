@@ -1,0 +1,175 @@
+{
+  "text": {
+    "typeset": {
+      "fontFamily": {
+        "heading": {
+          "value": "Lato",
+          "type": "fontFamilies"
+        },
+        "body": {
+          "value": "Lato",
+          "type": "fontFamilies"
+        },
+        "icon": {
+          "value": "{icon.typeset.fontFamily.classic}",
+          "type": "fontFamilies",
+          "description": "text.typeset.fontFamily.fontIcon"
+        }
+      },
+      "fontWeight": {
+        "regular": {
+          "value": "Regular",
+          "type": "fontWeights"
+        },
+        "demibold": {
+          "value": "SemiBold",
+          "type": "fontWeights"
+        }
+      }
+    }
+  },
+  "text-new": {
+    "body": {
+      "sm": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.sm}",
+          "lineHeight": "{size.lineHeight.200}",
+          "fontWeight": "{text.typeset.fontWeight.regular}"
+        },
+        "type": "typography"
+      },
+      "md": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.md}",
+          "lineHeight": "{size.lineHeight.250}",
+          "fontWeight": "{text.typeset.fontWeight.regular}"
+        },
+        "type": "typography"
+      },
+      "lg": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.lg}",
+          "lineHeight": "{size.lineHeight.300}",
+          "fontWeight": "{text.typeset.fontWeight.regular}"
+        },
+        "type": "typography"
+      }
+    },
+    "input": {
+      "md": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.md}",
+          "lineHeight": "{size.lineHeight.300}"
+        },
+        "type": "typography"
+      },
+      "lg": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.md}",
+          "lineHeight": "{size.lineHeight.400}"
+        },
+        "type": "typography"
+      }
+    }
+  },
+  "size": {
+    "text": {
+      "body": {
+        "sm": {
+          "value": "{size.font.150}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{size.font.175}",
+          "type": "fontSizes",
+          "description": "default text size for body"
+        },
+        "lg": {
+          "value": "{size.font.200}",
+          "type": "fontSizes"
+        }
+      },
+      "heading": {
+        "sm": {
+          "value": "{size.font.175}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{size.font.200}",
+          "type": "fontSizes"
+        },
+        "lg": {
+          "value": "{size.font.300}",
+          "type": "fontSizes"
+        },
+        "xl": {
+          "value": "{size.font.400}",
+          "type": "fontSizes"
+        },
+        "2xl": {
+          "value": "{size.font.600}",
+          "type": "fontSizes"
+        }
+      }
+    },
+    "borderRadius": {
+      "default": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius",
+        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+      },
+      "full": {
+        "value": "50rem",
+        "type": "borderRadius",
+        "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
+      }
+    },
+    "borderWidth": {
+      "default": {
+        "value": "{size.025}",
+        "type": "borderWidth"
+      }
+    },
+    "icon": {
+      "font": {
+        "xs": {
+          "value": "{size-new.icon.xs}",
+          "type": "fontSizes"
+        },
+        "sm": {
+          "value": "{size-new.icon.sm}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{size-new.icon.md}",
+          "type": "fontSizes"
+        },
+        "lg": {
+          "value": "{size-new.icon.lg}",
+          "type": "fontSizes"
+        },
+        "xl": {
+          "value": "{size-new.icon.xl}",
+          "type": "fontSizes"
+        },
+        "2xl": {
+          "value": "{size-new.icon.2xl}",
+          "type": "fontSizes"
+        },
+        "3xl": {
+          "value": "{size-new.icon.3xl}",
+          "type": "fontSizes"
+        },
+        "4xl": {
+          "value": "{size-new.icon.4xl}",
+          "type": "fontSizes"
+        }
+      }
+    }
+  }
+}

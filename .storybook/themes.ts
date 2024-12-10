@@ -167,7 +167,7 @@ export const themes: Theme[] = [
 
 const resources: { mode?: HTMLLinkElement, fonts?: HTMLLinkElement[] } = {};
 
-export const updateTheme = (themeId: string, mode: Mode): void => {
+export const updateTheme = async (themeId: string, mode: Mode = 'light'): Promise<void> => {
   const theme = themes.find(({ id }) => id === themeId);
   if (!theme) {
     return;
@@ -187,5 +187,9 @@ export const updateTheme = (themeId: string, mode: Mode): void => {
     });
   }
 
-  theme.setup();
+  await Promise.allSettled([
+    new Promise(resolve => resources.mode!.onload = resolve),
+    ...(resources.fonts?.map(font => new Promise(resolve => font.onload = resolve)) ?? []),
+    theme.setup()
+  ])
 };

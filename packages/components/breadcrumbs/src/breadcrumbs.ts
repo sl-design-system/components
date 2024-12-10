@@ -99,7 +99,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    * Set this to true to invert the color of the breadcrumbs. This should be used
    * when the breadcrumbs are displayed on a dark background.
    */
-  @property({ type: Boolean }) inverted?: boolean;
+  @property({ type: Boolean, reflect: true }) inverted?: boolean;
 
   /**
    * The url for the home link, defaults to the root url.

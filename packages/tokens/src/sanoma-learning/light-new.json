@@ -1105,6 +1105,42 @@
           }
         }
       },
+      "inverted": {
+        "muted": {
+          "idle": {
+            "type": "color",
+            "value": "{opacity.light.000}",
+            "description": "Use as inverted background of actions that appear to have no background in idle state. Such as inverted outline and ghost buttons."
+          },
+          "hover": {
+            "type": "color",
+            "value": "{opacity.light.300}",
+            "description": "Use as inverted background while hovering of actions that appear to have no background in idle state. Such as inverted outline and ghost buttons."
+          },
+          "active": {
+            "type": "color",
+            "value": "{opacity.light.500}",
+            "description": "Use as inverted background while pressing of actions that appear to have no background in idle state. such as inverted outline and ghost buttons."
+          }
+        },
+        "bold": {
+          "idle": {
+            "value": "{opacity.light.000}",
+            "type": "color",
+            "description": "Use as inverted background of actions with bold emphasis."
+          },
+          "hover": {
+            "type": "color",
+            "value": "{opacity.light.700}",
+            "description": "Use as inverted background of actions with bold emphasis during hover states."
+          },
+          "active": {
+            "type": "color",
+            "value": "{opacity.light.600}",
+            "description": "Use as inverted background of actions with bold emphasis during pressed states."
+          }
+        }
+      },
       "primary": {
         "muted": {
           "idle": {
@@ -2161,7 +2197,7 @@
         },
         "alternative": {
           "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
+            "value": "{color.background.accent.grey.subtlest.idle}",
             "type": "color",
             "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },

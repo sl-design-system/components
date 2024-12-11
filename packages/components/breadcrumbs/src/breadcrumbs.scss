@@ -102,7 +102,3 @@ sl-popover::part(container) {
   gap: var(--sl-space-100);
   padding: var(--sl-space-050) 0;
 }
-
-sl-tooltip {
-  max-inline-size: min(18rem, 50vw) !important;
-}

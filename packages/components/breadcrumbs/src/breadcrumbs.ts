@@ -23,8 +23,6 @@ declare global {
   }
 }
 
-export type BreadcrumbsVariant = 'default' | 'inverted';
-
 export interface Breadcrumb {
   collapsed?: boolean;
   label: string;
@@ -87,10 +85,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    */
   #observer = new ResizeObserver(() => this.#update());
 
-  /** The slotted breadcrumbs. */
+  /** @internal The slotted breadcrumbs. */
   @state() breadcrumbs: Breadcrumb[] = [];
 
-  /** The threshold for when breadcrumbs should be collapsed into a menu. */
+  /** @internal The threshold for when breadcrumbs should be collapsed into a menu. */
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
 
   /**

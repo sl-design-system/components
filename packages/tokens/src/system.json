@@ -325,5 +325,15 @@
         "type": "spacing"
       }
     }
+  },
+  "color": {
+    "black": {
+      "value": "#000000",
+      "type": "color"
+    },
+    "white": {
+      "value": "#ffffff",
+      "type": "color"
+    }
   }
 }

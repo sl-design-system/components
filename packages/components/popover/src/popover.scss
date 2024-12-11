@@ -3,7 +3,7 @@
   --_arrow-inline-size: var(--sl-size-200);
 
   background: var(--sl-elevation-surface-raised-default-idle);
-  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;
@@ -27,7 +27,7 @@
    */
   @supports not selector(:popover-open) {
     background: var(--sl-elevation-surface-raised-default-idle) !important;
-    border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain) !important;
+    border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain) !important;
     color: var(--sl-color-text-plain) !important;
     margin: 0 !important;
     overflow: visible !important;

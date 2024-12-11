@@ -143,7 +143,7 @@
       "heavy": {
         "value": "{size.050}",
         "type": "borderWidth",
-        "description": "A heavy border, used for impactful elements like alert messages and focused or active states in components like tabs, where heavy emphasis is necessary."
+        "description": "A heavy border, used for impactful elements like alert messages or active states in components like tabs, where heavy emphasis is necessary."
       }
     },
     "icon": {

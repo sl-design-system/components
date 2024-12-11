@@ -3,7 +3,7 @@ import {
   DataSource,
   type DataSourceFilterByFunction,
   type DataSourceFilterByPath,
-  type DataSourceSortFunction
+  DataSourceSortFunction
 } from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,13 +81,20 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     }
 
     if (this.sort) {
-      console.log('this.sort in array-data-source', this.sort);
+      // console.log('this.sort in array-data-source', this.sort, this.sort.sorter);
 
       const ascending = this.sort.direction === 'asc';
 
       let sortFn: DataSourceSortFunction<T>;
 
-      if ('path' in this.sort && this.sort.path) {
+      // console.log('this.sort in array-data-source', this.sort instanceof DataSourceSortByPath, this.sort instanceof DataSourceSortFunction, this.sort/*, this.sort?.sorter*/);
+
+      console.log('this.sort in array-data-source', 'path' in this.sort, 'sorter' in this.sort, this.sort);
+
+      if ('sorter' in this.sort && this.sort.sorter) {
+        sortFn = this.sort.sorter;
+        console.log('sortFn2', sortFn);
+      } else if ('path' in this.sort && this.sort.path) {
         const path = this.sort.path;
 
         sortFn = (a: T, b: T): number => {
@@ -122,10 +129,10 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
               : 1;
         };
         console.log('sortFn1', sortFn, path);
-      } else if ('sorter' in this.sort && this.sort.sorter) {
+      } /*else if ('sorter' in this.sort && this.sort.sorter) {
         sortFn = this.sort.sorter;
         console.log('sortFn2', sortFn);
-      }
+      }*/
 
       items.sort((a, b) => {
         const result = sortFn(a, b);

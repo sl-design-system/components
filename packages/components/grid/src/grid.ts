@@ -847,6 +847,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
+      console.log(
+        'grid sorter',
+        sorter,
+        sorter.column.id,
+        'path?',
+        sorter.path,
+        'sorter?',
+        sorter.sorter,
+        sorter.direction
+      );
       this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
       this.dataSource?.removeSort();

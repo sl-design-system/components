@@ -80,6 +80,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('this.sorter in sorter', this.sorter);
     return html`
       <slot></slot>
       <span aria-hidden="true" class="direction">

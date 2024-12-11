@@ -700,6 +700,23 @@
           "type": "color",
           "description": "Use for inverted links in active state."
         }
+      },
+      "focused": {
+        "idle": {
+          "value": "{color.palette.blue.700}",
+          "type": "color",
+          "description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
+        },
+        "hover": {
+          "value": "{color.palette.blue.800}",
+          "type": "color",
+          "description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
+        },
+        "active": {
+          "value": "{color.palette.blue.900}",
+          "type": "color",
+          "description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
+        }
       }
     },
     "icon": {
@@ -1104,6 +1121,10 @@
             "description": "Use for backgrounds of selected elements in pressed state with bold emphasis, such as in opened dropdowns."
           }
         }
+      },
+      "focused": {
+        "value": "{color.background.accent.yellow.bold.idle}",
+        "type": "color"
       },
       "inverted": {
         "muted": {

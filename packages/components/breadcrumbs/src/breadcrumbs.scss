@@ -4,7 +4,7 @@
 
 :host([inverted]) {
   a {
-    color: var(--sl-color-link-inverted-plain);
+    color: var(--sl-color-link-inverted-idle);
 
     &:hover {
       color: var(--sl-color-link-inverted-hover);
@@ -15,7 +15,7 @@
     }
 
     &[aria-current='page'] {
-      color: var(--sl-color-link-inverted-plain);
+      color: var(--sl-color-link-inverted-idle);
     }
   }
 
@@ -57,18 +57,19 @@ li {
 }
 
 a {
-  color: var(--sl-color-link-muted-plain);
+  color: var(--sl-color-link-muted-idle);
   display: block;
   overflow: clip visible;
   padding: var(--sl-space-100);
   text-decoration: underline;
+  text-decoration-thickness: var(--sl-size-borderWidth-subtle);
   text-overflow: ellipsis;
   text-underline-offset: var(--sl-space-025);
   white-space: nowrap;
 
   &:hover {
     color: var(--sl-color-link-muted-hover);
-    text-decoration-thickness: var(--sl-size-025);
+    text-decoration-thickness: var(--sl-size-borderWidth-bold);
   }
 
   &:active {
@@ -77,7 +78,7 @@ a {
 
   &:focus-visible {
     border-radius: var(--sl-size-borderRadius-default);
-    outline: var(--sl-size-borderWidth-focusRing) solid var(--sl-color-border-focused);
+    outline: var(--sl-size-outlineWidth-default) solid var(--sl-color-border-focused);
     outline-offset: var(--sl-space-offset-focused);
   }
 

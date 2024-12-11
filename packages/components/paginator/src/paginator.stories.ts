@@ -3,13 +3,13 @@ import '@sl-design-system/card/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
-import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { LitElement, type PropertyValues, type TemplateResult, css, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type PaginatorSize } from './paginator-size';
-import { PaginatorStatus } from './paginator-status';
+import { type PaginatorSize } from './paginator-size.js';
+import { PaginatorStatus } from './paginator-status.js';
 import { type Paginator, VisiblePagesSize } from './paginator.js';
 
 type Props = Pick<Paginator, 'page' | 'pageSize' | 'pageSizes' | 'totalItems' | 'size'> & {
@@ -29,11 +29,10 @@ export default {
     }
   },
   args: {
-    totalItems: 100,
+    page: 2,
     pageSize: 10,
     pageSizes: [5, 10, 15],
-    page: 2,
-    size: 'lg'
+    totalItems: 100
   },
   argTypes: {
     size: {
@@ -44,23 +43,17 @@ export default {
   render: ({ page, pageSize, pageSizes, totalItems, size }) => {
     return html`
       <sl-paginator
-        .totalItems=${totalItems}
-        .pageSizes=${pageSizes}
         .page=${page}
         .pageSize=${pageSize}
-        .size=${size}
+        .pageSizes=${pageSizes}
+        .totalItems=${totalItems}
+        size=${ifDefined(size)}
       ></sl-paginator>
     `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
-
-export const Overflow: Story = {
-  args: {
-    totalItems: 900
-  }
-};
 
 export const Mobile: Story = {
   parameters: {
@@ -70,16 +63,12 @@ export const Mobile: Story = {
   },
   args: {
     page: 5
-  },
-  render: ({ page, pageSize, pageSizes, totalItems }) => {
-    return html`
-      <sl-paginator
-        .totalItems=${totalItems}
-        .pageSizes=${pageSizes}
-        .page=${page}
-        .pageSize=${pageSize}
-      ></sl-paginator>
-    `;
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    totalItems: 900
   }
 };
 

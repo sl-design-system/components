@@ -16,7 +16,7 @@ export default {
   argTypes: {},
   render: () => {
     const sendWithEvent = (): void => {
-      const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce-event');
+      const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce');
       liveEvent.emit({ message: `This is sent with an event ${counter++}` });
     };
     const sendWithFunction = (): void => {

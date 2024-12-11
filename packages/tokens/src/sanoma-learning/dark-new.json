@@ -484,7 +484,7 @@
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
         "inverted": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "inverted": {
             "value": "{color.text.accent.blue.bold}",
@@ -555,7 +555,7 @@
             "description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.600}",
+            "value": "{color.palette.blue.500}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -567,7 +567,7 @@
             "description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.600}",
+            "value": "{color.palette.green.400}",
             "type": "color",
             "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -630,7 +630,7 @@
             "description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.700}",
+            "value": "{color.palette.red.500}",
             "type": "color",
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -654,7 +654,7 @@
             "description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.yellow.600}",
+            "value": "{color.palette.yellow.300}",
             "type": "color",
             "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -1471,19 +1471,36 @@
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.blue.400}",
+              "value": "{color.palette.blue.500}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.500}",
+              "value": "{color.palette.blue.600}",
               "type": "color",
               "description": "A vibrant blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.blue.600}",
+              "value": "{color.palette.blue.700}",
               "type": "color",
               "description": "A vibrant blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
+            }
+          },
+          "subtlest": {
+            "idle": {
+              "value": "{color.palette.blue.050}",
+              "type": "color",
+              "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "hover": {
+              "value": "{color.palette.blue.100}",
+              "type": "color",
+              "description": "A subtle blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
+            },
+            "active": {
+              "value": "{color.palette.blue.150}",
+              "type": "color",
+              "description": "A subtle blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           }
         },
@@ -1524,17 +1541,17 @@
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.green.600}",
+              "value": "{color.palette.green.400}",
               "type": "color",
               "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.green.700}",
+              "value": "{color.palette.green.500}",
               "type": "color",
               "description": "A vibrant green background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.green.800}",
+              "value": "{color.palette.green.600}",
               "type": "color",
               "description": "A vibrant green background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }

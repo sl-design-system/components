@@ -3,7 +3,7 @@
 }
 
 :host([inverted]) {
-  a {
+  li > a {
     color: var(--sl-color-link-inverted-idle);
 
     &:hover {

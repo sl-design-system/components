@@ -86,7 +86,7 @@ export const DisableCancel: Story = {
 
 export const Empty: Story = {
   args: {
-    body: 'This there are no elements inside the dialog that are focusable, the dialog itself should have focus.',
+    body: 'Since there are no elements inside the dialog that are focusable, the dialog itself should have focus.',
     closeButton: false,
     footerButtons: () => html`Nothing here`
   }

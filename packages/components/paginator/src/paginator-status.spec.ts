@@ -87,6 +87,8 @@ describe('sl-paginator-status', () => {
       expect(itemsCounterLabel).to.exist;
       expect(itemsCounterLabel!.includes('136 - 150 of 209 items')).to.be.true;
 
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       // Check if sendToAnnouncer was called
       expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
         'Currently showing 136 to 150 of 209 items'

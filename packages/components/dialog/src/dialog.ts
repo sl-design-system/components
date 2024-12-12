@@ -8,7 +8,6 @@ import {
   type CSSResult,
   type CSSResultGroup,
   LitElement,
-  PropertyValues,
   type TemplateResult,
   adoptStyles,
   html,
@@ -67,12 +66,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = [breakpoints, styles];
 
   /** The controller that manages the focus trap within the dialog. */
-  #focusTrapController = new FocusTrapController(this);
+  #focusTrap = new FocusTrapController(this);
 
   /**
-   * Emits when the dialog has been cancelled. This happens when the user closes
-   * the dialog using the escape key or clicks on the backdrop.
-   * @internal
+   * @internal Emits when the dialog has been cancelled. This happens when the
+   * user closes the dialog using the escape key or clicks on the backdrop.
    */
   @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
@@ -100,18 +98,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disableCancel')) {
-      this.#focusTrapController = new FocusTrapController(this, { disableCancel: this.disableCancel });
-    }
-  }
-
   override render(): TemplateResult {
     return html`
       <dialog
-        @cancel=${this.#onCancel}
         @click=${this.#onClick}
         @close=${this.#onClose}
         @keydown=${this.#onKeydown}
@@ -234,7 +223,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       }
 
       if (this.dialog) {
-        this.#focusTrapController?.activate(this.dialog);
+        this.#focusTrap.activate(this.dialog);
       }
     });
   }
@@ -243,14 +232,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
-    }
-  }
-
-  #onCancel(event: Event & { target: HTMLElement }): void {
-    event.preventDefault();
-
-    if (!this.disableCancel) {
-      this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 
@@ -274,10 +255,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // Reenable scrolling after the dialog has closed
     document.documentElement.style.overflow = '';
 
+    this.#focusTrap.deactivate();
+
     this.inert = true;
     this.closeEvent.emit();
-
-    this.#focusTrapController?.deactivate();
   }
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -285,6 +266,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
+  }
+
+  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+
+      if (!this.disableCancel) {
+        this.#closeDialogOnAnimationend(event.target, true);
+      }
+    }
   }
 
   #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
@@ -306,7 +297,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       { once: true }
     );
 
-    this.#focusTrapController?.deactivate();
+    this.#focusTrap.deactivate();
 
     /**
      * Set the closing attribute, this triggers the closing animation.
@@ -315,15 +306,5 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
      * browsers. See https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
      */
     requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-
-      if (!this.disableCancel) {
-        this.#closeDialogOnAnimationend(event.target as HTMLElement, true);
-      }
-    }
   }
 }

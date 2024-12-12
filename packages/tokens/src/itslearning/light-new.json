@@ -679,7 +679,7 @@
           "description": "Use for muted links in hover state."
         },
         "active": {
-          "value": "{color.palette.grey.bold}",
+          "value": "{color.text.accent.grey.bold}",
           "type": "color",
           "description": "Use for muted links in active state."
         }

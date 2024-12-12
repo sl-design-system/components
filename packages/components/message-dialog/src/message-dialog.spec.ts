@@ -246,7 +246,7 @@ describe('sl-message-dialog', () => {
       promise.then(callback);
 
       dialog.querySelector<HTMLElement>('sl-button')?.click();
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(callback).to.have.been.calledWith('NO');
     });
@@ -257,7 +257,7 @@ describe('sl-message-dialog', () => {
       promise.then(callback);
 
       dialog.querySelector<HTMLElement>('sl-button[variant="danger"]')?.click();
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(callback).to.have.been.calledWith('YES');
     });

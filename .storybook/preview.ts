@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/web-components';
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';

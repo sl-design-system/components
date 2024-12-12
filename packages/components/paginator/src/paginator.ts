@@ -1,5 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { type DataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
@@ -345,8 +346,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
           <sl-icon name="caret-right-solid"></sl-icon>
         </sl-button>
       </nav>
-      <!-- We want this to be read every time the active page changes. -->
-      <div id="live" aria-live="polite" aria-atomic="true">${msg(str`Page ${this.page} of ${this.#pages}`)}</div>
     `;
   }
 
@@ -444,6 +443,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.hiddenPagesLeft = [];
       this.hiddenPagesRight = [];
     }
+
+    this.#announce();
   }
 
   #setOverflow(possiblyVisible: HTMLLIElement[]) {
@@ -527,4 +528,10 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
     requestAnimationFrame(() => this.#updateVisibility());
   };
+
+  #announce(): void {
+    if (!this.#initialLoad) {
+      announce(msg(str`Page ${this.page} of ${this.#pages}`));
+    }
+  }
 }

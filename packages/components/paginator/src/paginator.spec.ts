@@ -1,4 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
+import { SlAnnounceEvent } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';
@@ -12,6 +13,11 @@ import { Paginator } from './paginator.js';
 
 describe('sl-paginator', () => {
   let el: Paginator;
+  const sendToAnnouncerSpy = spy();
+
+  beforeEach(() => {
+    document.body.addEventListener('sl-announce', sendToAnnouncerSpy);
+  });
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -57,13 +63,6 @@ describe('sl-paginator', () => {
 
       expect(selectWrapper).to.exist;
       expect(getComputedStyle(selectWrapper).display).to.equal('none');
-    });
-
-    it('should have aria-live by default', () => {
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Page 1 of 10');
     });
   });
 
@@ -150,17 +149,12 @@ describe('sl-paginator', () => {
       expect(onPageChange).to.have.been.called;
     });
 
-    it('should have a proper aria-live when the page has changed', async () => {
-      const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Page 1 of 10');
-
+    it('should send an announcement when the page has changed', async () => {
       el.page = 5;
       await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(ariaLive).to.have.attribute('aria-live', 'polite');
-      expect(ariaLive).to.have.rendered.text('Page 5 of 10');
+      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal('Page 5 of 10');
     });
 
     it('should set the first page when items per page amount has changed', async () => {

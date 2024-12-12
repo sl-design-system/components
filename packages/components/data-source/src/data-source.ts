@@ -72,7 +72,6 @@ export abstract class DataSource<T = any> extends EventTarget {
   }
 
   get sort(): DataSourceSort<T> | undefined {
-    console.log('this.#sort in get sort()', this.#sort);
     return this.#sort;
   }
 
@@ -127,23 +126,11 @@ export abstract class DataSource<T = any> extends EventTarget {
     pathOrSorter: U,
     direction: DataSourceSortDirection
   ): void {
-    console.log(
-      'pathOrSorter in setSort',
-      pathOrSorter,
-      direction,
-      pathOrSorter === 'string',
-      'function???',
-      pathOrSorter instanceof Function
-    );
     if (typeof pathOrSorter === 'string') {
-      console.log('pathOrSorter is a string:', pathOrSorter);
       this.#sort = { id, path: pathOrSorter as PathKeys<T>, direction };
     } else {
-      console.log('pathOrSorter is a function:', pathOrSorter);
       this.#sort = { id, sorter: pathOrSorter, direction };
     }
-
-    console.log('this.#sort in setSort()', this.#sort);
 
     if (this.#page) {
       this.setPage(0);

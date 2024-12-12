@@ -3,7 +3,7 @@ import {
   DataSource,
   type DataSourceFilterByFunction,
   type DataSourceFilterByPath,
-  DataSourceSortFunction
+  type DataSourceSortFunction
 } from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,63 +81,36 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     }
 
     if (this.sort) {
-      // console.log('this.sort in array-data-source', this.sort, this.sort.sorter);
-
       const ascending = this.sort.direction === 'asc';
 
       let sortFn: DataSourceSortFunction<T>;
 
-      // console.log('this.sort in array-data-source', this.sort instanceof DataSourceSortByPath, this.sort instanceof DataSourceSortFunction, this.sort/*, this.sort?.sorter*/);
-
-      console.log('this.sort in array-data-source', 'path' in this.sort, 'sorter' in this.sort, this.sort);
-
-      if ('sorter' in this.sort && this.sort.sorter) {
-        sortFn = this.sort.sorter;
-        console.log('sortFn2', sortFn);
-      } else if ('path' in this.sort && this.sort.path) {
+      if ('path' in this.sort && this.sort.path) {
         const path = this.sort.path;
 
         sortFn = (a: T, b: T): number => {
           const valueA = getStringByPath(a, path),
-            valueB = getStringByPath(b, path); // TODO: needs to sort numbers as well
-
-          console.log(
-            'valueA, valueB',
-            valueA,
-            valueB,
-            valueA.localeCompare(valueB),
-            valueA === valueB ? 0 : valueA < valueB ? -1 : 1
-          );
+            valueB = getStringByPath(b, path);
 
           const numberA = parseFloat(valueA),
             numberB = parseFloat(valueB);
 
           if (!isNaN(numberA) && !isNaN(numberB)) {
-            console.log('!isNaN in sorting', numberA, numberB, valueA, valueB);
             return numberA - numberB;
           }
 
-          // return valueA.localeCompare(valueB);
-
-          // return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
-
-          // return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
           return valueA.toLowerCase() === valueB.toLowerCase()
             ? 0
             : valueA.toLowerCase() < valueB.toLowerCase()
               ? -1
               : 1;
         };
-        console.log('sortFn1', sortFn, path);
-      } /*else if ('sorter' in this.sort && this.sort.sorter) {
+      } else if ('sorter' in this.sort && this.sort.sorter) {
         sortFn = this.sort.sorter;
-        console.log('sortFn2', sortFn);
-      }*/
+      }
 
       items.sort((a, b) => {
         const result = sortFn(a, b);
-
-        console.log('sort result', result);
 
         return ascending ? result : -result;
       });
@@ -168,8 +141,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         return ascending ? result : -result;
       });
     }
-
-    console.log('sorted items?', items);
 
     // paginate items
     if (this.page) {

@@ -52,8 +52,6 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   override renderHeader(): TemplateResult {
     const parts = ['header', 'sort', ...this.getParts()];
 
-    console.log('parts', parts, 'this.sorter in sort-column', this.sorter);
-
     return html`
       <th part=${parts.join(' ')} aria-sort=${ifDefined(this.ariaSorting)}>
         <sl-grid-sorter .column=${this} .direction=${this.direction} .path=${this.path} .sorter=${this.sorter}>

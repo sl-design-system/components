@@ -50,7 +50,7 @@ export class Popover extends LitElement {
   /**
    * When the contents of your popover is too long to be read inline this should be set to true so the user
    * can navigate to the popover content themselves. `aria-details` is always set, regardless of this property.
-   * Read more about this at https://sanomalearning.design/categories/components/popover/accessibility/.
+   * Read more about this in the [accessibility documentation](https://sanomalearning.design/categories/components/popover/accessibility/).
    */
   @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;
 

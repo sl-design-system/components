@@ -1,7 +1,9 @@
 :host {
+  --_borderWidth: var(--sl-size-borderWidth-bold);
+
   align-items: center;
   background: var(--sl-color-background-secondary-subtle-idle);
-  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-secondary);
+  border: var(--_borderWidth) solid var(--sl-color-border-secondary);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-text-secondary);
   cursor: pointer;
@@ -10,7 +12,7 @@
   gap: var(--sl-space-075);
   justify-content: center;
   outline-color: transparent;
-  padding: calc(var(--sl-space-075) - var(--sl-size-borderWidth-default)) var(--sl-space-300);
+  padding: calc(var(--sl-space-075) - var(--_borderWidth)) var(--sl-space-300);
   vertical-align: middle;
 }
 
@@ -23,9 +25,6 @@
 }
 
 :host(:where(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {
-  border-color: var(--sl-color-utility-transparent-000);
-
-  // FIXME: This is fix to make the button height correct
   border-color: transparent;
 }
 
@@ -44,7 +43,7 @@
 
 :host([fill='link']) {
   background: var(--sl-color-background-secondary-muted-idle);
-  padding-inline: var(--sl-space-new-none);
+  padding-inline: 0;
 }
 
 :host([fill='link']:hover) {
@@ -66,26 +65,28 @@
 
 :host([icon-only]) {
   aspect-ratio: 1;
-  block-size: calc(1lh + (var(--sl-space-075) - var(--sl-size-borderWidth-default)) * 2);
+  block-size: calc(1lh + (var(--sl-space-075) - var(--_borderWidth)) * 2);
   padding: 0;
 }
 
 :host([size='sm']) {
-  padding: calc(var(--sl-space-025) - var(--sl-size-borderWidth-default)) var(--sl-space-175);
+  --_borderWidth: var(--sl-size-borderWidth-subtle);
+
+  padding: calc(var(--sl-space-025) - var(--_borderWidth)) var(--sl-space-175);
 }
 
 :host([size='sm'][icon-only]) {
-  block-size: calc(1lh + (var(--sl-space-025) - var(--sl-size-borderWidth-default)) * 2);
+  block-size: calc(1lh + (var(--sl-space-025) - var(--_borderWidth)) * 2);
   padding: 0;
 }
 
 :host([size='lg']) {
   gap: var(--sl-space-100);
-  padding: calc(var(--sl-space-125) - var(--sl-size-borderWidth-default)) var(--sl-space-300);
+  padding: calc(var(--sl-space-125) - var(--_borderWidth)) var(--sl-space-300);
 }
 
 :host([size='lg'][icon-only]) {
-  block-size: calc(1lh + (var(--sl-space-125) - var(--sl-size-borderWidth-default)) * 2);
+  block-size: calc(1lh + (var(--sl-space-125) - var(--_borderWidth)) * 2);
   padding: 0;
 }
 

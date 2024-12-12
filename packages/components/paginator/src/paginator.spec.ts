@@ -13,11 +13,10 @@ import { Paginator } from './paginator.js';
 
 describe('sl-paginator', () => {
   let el: Paginator;
-
   const sendToAnnouncerSpy = spy();
 
   beforeEach(() => {
-    window.addEventListener('sl-announce', sendToAnnouncerSpy);
+    document.body.addEventListener('sl-announce', sendToAnnouncerSpy);
   });
 
   describe('defaults', () => {
@@ -155,9 +154,7 @@ describe('sl-paginator', () => {
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
-        'Currently showing 61 to 80 of 200 items'
-      );
+      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal('Page 5 of 10');
     });
 
     it('should set the first page when items per page amount has changed', async () => {

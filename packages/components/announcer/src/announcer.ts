@@ -1,16 +1,11 @@
 import { localized } from '@lit/localize';
-import { ScopedElementsMap } from '@open-wc/scoped-elements/html-element.js';
-import { EventEmitter, EventsController } from '@sl-design-system/shared';
+import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-// import { state } from 'lit/decorators.js';
-import { Announcement } from './announcement.js';
 import styles from './announcer.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-announce': SlAnnounceEvent;
-    'sl-announce-polite': SlAnnounceEvent;
-    'sl-announce-assertive': SlAnnounceEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -28,9 +23,8 @@ export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' 
  * @param message - The message to send to the live aria.
  * @param urgency - The urgency of the message. Default is 'polite'.
  */
-export function sendToAnnouncer(message: string, urgency?: 'polite' | 'assertive'): void {
-  const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce');
-  liveEvent.emit({ message, urgency });
+export function announce(message: string, urgency?: 'polite' | 'assertive'): void {
+  document.body.dispatchEvent(new CustomEvent('sl-announce', { detail: { message, urgency } }));
 }
 
 /**
@@ -46,34 +40,31 @@ export class Announcer extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-announcement': Announcement
-    };
-  }
-
   #events = new EventsController(this, {});
 
   override connectedCallback(): void {
     super.connectedCallback();
-    this.#events.listen(window, 'sl-announce', this.#onLiveEvent);
+    this.#events.listen(document.body, 'sl-announce', this.#onLiveEvent);
   }
   override render(): TemplateResult {
     return html`
-      <div aria-live="polite" aria-atomic="true"></div>
-      <div aria-live="assertive" aria-atomic="false"></div>
+      <ul aria-live="polite" aria-atomic="false"></ul>
+      <ul aria-live="assertive" aria-atomic="false"></ul>
     `;
   }
 
   #onLiveEvent(event: SlAnnounceEvent) {
     const container = this.renderRoot.querySelector(`[aria-live="${event.detail.urgency || 'polite'}"]`);
-    const messageNode = document.createElement('sl-announcement');
-    messageNode.innerText = event.detail.message;
 
     // make sure the message is not already in the container
     if (container?.textContent?.indexOf(event.detail.message) === -1) {
+      const messageNode = document.createElement('li');
+      messageNode.innerText = event.detail.message;
+
       container?.appendChild(messageNode);
+      setTimeout(() => {
+        messageNode.remove();
+      }, 500);
     }
   }
 }

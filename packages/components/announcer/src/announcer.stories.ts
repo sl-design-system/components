@@ -3,7 +3,7 @@ import { EventEmitter } from '@sl-design-system/shared';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
-import { Announcer, SlAnnounceEvent, sendToAnnouncer } from './announcer.js';
+import { Announcer, SlAnnounceEvent, announce } from './announcer.js';
 
 type Props = Announcer;
 type Story = StoryObj<Props>;
@@ -20,7 +20,7 @@ export default {
       liveEvent.emit({ message: `This is sent with an event ${counter++}` });
     };
     const sendWithFunction = (): void => {
-      sendToAnnouncer(`This is sent with the API-function ${counter++}`, 'assertive');
+      announce(`This is sent with the API-function ${counter++}`, 'assertive');
     };
     return html`
       <p>

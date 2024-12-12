@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { sendToAnnouncer } from '@sl-design-system/announcer';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { type DataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
@@ -396,7 +396,6 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       const activePageElement = this.renderRoot.querySelector('[active]') as PaginatorPage;
       const activeButton = activePageElement?.renderRoot.querySelector('button');
       activeButton?.focus();
-      this.#announce();
     });
   }
 
@@ -444,6 +443,8 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
       this.hiddenPagesLeft = [];
       this.hiddenPagesRight = [];
     }
+
+    this.#announce();
   }
 
   #setOverflow(possiblyVisible: HTMLLIElement[]) {
@@ -530,9 +531,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
 
   #announce(): void {
     if (!this.#initialLoad) {
-      const start = this.page === 1 ? 1 : (this.page - 1) * (this.pageSize || 0) + 1;
-      const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
-      sendToAnnouncer(msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`));
+      announce(msg(str`Page ${this.page} of ${this.#pages}`));
     }
   }
 }

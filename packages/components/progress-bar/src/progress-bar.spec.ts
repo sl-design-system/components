@@ -1,13 +1,17 @@
 import { expect, fixture } from '@open-wc/testing';
+import { SlAnnounceEvent } from '@sl-design-system/announcer';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
 
 describe('sl-progress-bar', () => {
   let el: ProgressBar;
   let progressBar: HTMLDivElement;
+  const sendToAnnouncerSpy = spy();
 
   beforeEach(async () => {
+    document.body.addEventListener('sl-announce', sendToAnnouncerSpy);
     el = await fixture(html`<sl-progress-bar> Downloaded 30% of 100% </sl-progress-bar>`);
 
     progressBar = el.renderRoot.querySelector('div.container') as HTMLDivElement;
@@ -46,12 +50,6 @@ describe('sl-progress-bar', () => {
     expect(progressBar).to.have.attribute('aria-valuemax', '100');
     expect(progressBar).to.have.attribute('aria-valuenow', '0');
   });
-
-  // it('should have aria-live by default', () => {
-  //   const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-  //   expect(ariaLive).to.have.attribute('aria-live', 'polite');
-  //   expect(ariaLive).to.have.rendered.text('state active 0%');
-  // });
 
   it('should be labelled properly when the label is set', async () => {
     el.label = 'Progress label';
@@ -116,13 +114,13 @@ describe('sl-progress-bar', () => {
     expect(helperIcon).to.exist;
   });
 
-  // it('should change the aria-live when the value and variant have changed', async () => {
-  //   el.value = 60;
-  //   el.variant = 'warning';
-  //   await el.updateComplete;
+  it('should send a message to the announcer with the current value', async () => {
+    // Give the resize observer time to do its thing
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    el.value = 60;
+    el.variant = 'warning';
+    await el.updateComplete;
 
-  //   const ariaLive = el.renderRoot.querySelector('#live') as HTMLElement;
-  //   expect(ariaLive).to.have.attribute('aria-live', 'polite');
-  //   expect(ariaLive).to.have.rendered.text('state warning 60%');
-  // });
+    expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal('60%');
+  });
 });

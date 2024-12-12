@@ -1,4 +1,3 @@
-import '@sl-design-system/announcer/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';

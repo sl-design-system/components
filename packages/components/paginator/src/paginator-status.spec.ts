@@ -12,7 +12,7 @@ describe('sl-paginator-status', () => {
   const sendToAnnouncerSpy = spy();
 
   beforeEach(() => {
-    window.addEventListener('sl-announce', sendToAnnouncerSpy);
+    document.body.addEventListener('sl-announce', sendToAnnouncerSpy);
   });
 
   describe('defaults', () => {

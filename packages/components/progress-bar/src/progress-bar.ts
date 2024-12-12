@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { sendToAnnouncer } from '@sl-design-system/announcer';
+import { announce } from '@sl-design-system/announcer';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -51,7 +51,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;
 
-  private shouldSendToAnnouncer = true;
+  private shouldAnnounce = true;
 
   /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {
@@ -72,13 +72,13 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('value')) {
       if (this.value === 100) {
-        sendToAnnouncer('100%');
+        announce(`100%, ${this.#getLocalizedVariant().strings[0]}`);
       }
-      if (this.shouldSendToAnnouncer) {
-        sendToAnnouncer(`${this.value}%`, 'assertive');
-        this.shouldSendToAnnouncer = false;
+      if (this.shouldAnnounce) {
+        announce(`${this.value}%`, 'assertive');
+        this.shouldAnnounce = false;
         setTimeout(() => {
-          this.shouldSendToAnnouncer = true;
+          this.shouldAnnounce = true;
         }, 1500);
       }
     }

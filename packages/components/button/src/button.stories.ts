@@ -1,4 +1,4 @@
-import { faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
+import { faPlus, faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -13,7 +13,7 @@ interface Props extends Pick<Button, 'disabled' | 'fill' | 'shape' | 'size' | 'v
 }
 type Story = StoryObj<Props>;
 
-Icon.register(faUniversalAccess);
+Icon.register(faPlus, faUniversalAccess);
 
 export default {
   title: 'Actions/Button',
@@ -123,31 +123,31 @@ export const All: Story = {
         <span>Small</span>
         <sl-button fill="outline" size="sm">Button</sl-button>
         <sl-button fill="outline" size="sm">
-          <sl-icon name="far-universal-access"></sl-icon>
+          <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill" size="sm">Button</sl-button>
         <sl-button fill="outline" shape="pill" size="sm">
-          <sl-icon name="far-universal-access"></sl-icon>
+          <sl-icon name="far-plus"></sl-icon>
         </sl-button>
 
         <span>Medium</span>
         <sl-button fill="outline">Button</sl-button>
         <sl-button fill="outline">
-          <sl-icon name="far-universal-access"></sl-icon>
+          <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill">Button</sl-button>
         <sl-button fill="outline" shape="pill">
-          <sl-icon name="far-universal-access"></sl-icon>
+          <sl-icon name="far-plus"></sl-icon>
         </sl-button>
 
         <span>Large</span>
         <sl-button fill="outline" size="lg">Button</sl-button>
         <sl-button fill="outline" size="lg">
-          <sl-icon name="far-universal-access"></sl-icon>
+          <sl-icon name="far-plus"></sl-icon>
         </sl-button>
         <sl-button fill="outline" shape="pill" size="lg">Button</sl-button>
         <sl-button fill="outline" shape="pill" size="lg">
-          <sl-icon name="far-universal-access"></sl-icon>
+          <sl-icon name="far-plus"></sl-icon>
         </sl-button>
       </section>
       <section class="variants">

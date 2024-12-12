@@ -113,15 +113,24 @@ export const All: Story = {
         background: var(--sl-color-palette-grey-900);
       }
     </style>
+    <sl-breadcrumbs no-home>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
     <sl-breadcrumbs>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
-    <sl-breadcrumbs no-home>
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <a href="javascript:void(0)">Dolar</a>
+    <sl-breadcrumbs>
+      <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
+      <a href="javascript:void(0)">
+        Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.
+      </a>
+      <a href="javascript:void(0)">
+        Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.
+      </a>
     </sl-breadcrumbs>
     <sl-breadcrumbs>
       <a href="javascript:void(0)">Lorem</a>

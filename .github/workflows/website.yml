@@ -43,12 +43,12 @@ jobs:
           cache: 'yarn'
       - run: yarn install --immutable
       - run: NODE_ENV=production yarn website
-      - uses: actions/configure-pages@v2
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: 'website/dist'
       - id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
 
   preview:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')

@@ -30,6 +30,7 @@ describe('sl-menu-button', () => {
     });
 
     it('should not be disabled', () => {
+      expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
     });
 
@@ -67,9 +68,9 @@ describe('sl-menu-button', () => {
         expect(el.disabled).to.be.true;
       });
 
-      it('should have a medium size', () => {
-        expect(button).to.have.attribute('size', 'md');
-        expect(button.size).to.equal('md');
+      it('should not have an explicit size', () => {
+        expect(button).not.to.have.attribute('size');
+        expect(button.size).to.be.undefined;
       });
 
       it('should have a different size when set', async () => {
@@ -93,9 +94,9 @@ describe('sl-menu-button', () => {
         expect(button.fill).to.equal('solid');
       });
 
-      it('should have a default variant', () => {
-        expect(button).to.have.attribute('variant', 'default');
-        expect(button.variant).to.equal('default');
+      it('should not have an explicit variant', () => {
+        expect(button).not.to.have.attribute('variant');
+        expect(button.variant).to.be.undefined;
       });
 
       it('should have a different variant when set', async () => {

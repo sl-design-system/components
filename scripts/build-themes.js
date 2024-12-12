@@ -44,7 +44,7 @@ StyleDictionary.registerTransform({
   transitive: true,
   filter: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
   transform: token => {
-    const [_, color, opacity] = token.original?.value?.match(/rgba\((\S+)\s*,\s*(\S+)\)/) ?? [];
+    const [_, color, opacity] = token.original?.value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
       if (opacity.endsWith('%')) {

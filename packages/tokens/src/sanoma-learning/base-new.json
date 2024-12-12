@@ -144,6 +144,16 @@
         "value": "{size.050}",
         "type": "borderWidth",
         "description": "A heavy border, used for impactful elements like alert messages or active states in components like tabs, where heavy emphasis is necessary."
+      },
+      "default": {
+        "value": "{size.borderWidth.subtle}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for UI elements."
+      },
+      "action": {
+        "value": "{size.borderWidth.subtle}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for action components."
       }
     },
     "icon": {

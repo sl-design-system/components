@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type Form } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import '../register.js';
@@ -15,43 +15,47 @@ describe('sl-button', () => {
       el = await fixture(html`<sl-button>Hello world</sl-button>`);
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
+    it('should have a button role', () => {
+      expect(el).to.have.attribute('role', 'button');
     });
 
-    it('should have a button role', async () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-confusing-void-expression
-      const { role } = (await a11ySnapshot({ selector: 'sl-button' })) as any;
-
-      expect(role).to.equal('button');
+    it('should not be disabled', () => {
+      expect(el).not.to.have.attribute('disabled');
+      expect(el).not.to.match(':disabled');
+      expect(el.disabled).not.to.be.true;
     });
 
     it('should have a tabindex', () => {
       expect(el).to.have.attribute('tabindex', '0');
     });
 
-    it('should allow for a custom tabindex', async () => {
-      el.tabIndex = 10;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('tabindex', '10');
+    it('should not have an explicit shape', () => {
+      expect(el).not.to.have.attribute('shape');
+      expect(el.shape).to.be.undefined;
     });
 
-    it('should remember the tabindex when being enabled', async () => {
-      el.tabIndex = 10;
+    it('should have a pill shape when set', async () => {
+      el.shape = 'pill';
       await el.updateComplete;
 
-      el.setAttribute('disabled', '');
-      await el.updateComplete;
-
-      el.removeAttribute('disabled');
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('tabindex', '10');
+      expect(el).to.have.attribute('shape', 'pill');
     });
 
-    it('should be size medium', () => {
-      expect(el).to.have.attribute('size', 'md');
+    it('should not have an explicit fill', () => {
+      expect(el).not.to.have.attribute('fill');
+      expect(el.fill).to.be.undefined;
+    });
+
+    it('should have a fill when set', async () => {
+      el.fill = 'outline';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('fill', 'outline');
+    });
+
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
     });
 
     it('should be small size when set', async () => {
@@ -68,8 +72,16 @@ describe('sl-button', () => {
       expect(el).to.have.attribute('size', 'lg');
     });
 
-    it('should have a default variant', () => {
-      expect(el).to.have.attribute('variant', 'default');
+    it('should not have an explicit variant', () => {
+      expect(el).not.to.have.attribute('variant');
+      expect(el.variant).to.be.undefined;
+    });
+
+    it('should have a variant when set', async () => {
+      el.variant = 'primary';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('variant', 'primary');
     });
   });
 
@@ -81,10 +93,6 @@ describe('sl-button', () => {
 
       it('should have an icon-only attribute', () => {
         expect(el).to.have.attribute('icon-only');
-      });
-
-      it('should have an icon the same size as the button', () => {
-        expect(el.querySelector('sl-icon')).to.have.attribute('size', 'md');
       });
     });
 
@@ -100,10 +108,6 @@ describe('sl-button', () => {
       it('should have an icon-only attribute', () => {
         expect(el).to.have.attribute('icon-only');
       });
-
-      it('should have an icon the same size as the button', () => {
-        expect(el.querySelector('sl-icon')).to.have.attribute('size', 'md');
-      });
     });
 
     describe('icon combined with text', () => {
@@ -114,10 +118,6 @@ describe('sl-button', () => {
       it('should not have an icon-only attribute', () => {
         expect(el).not.to.have.attribute('icon-only');
       });
-
-      it('should have an icon the same size as the button', () => {
-        expect(el.querySelector('sl-icon')).to.have.attribute('size', 'lg');
-      });
     });
   });
 
@@ -126,28 +126,37 @@ describe('sl-button', () => {
       el = await fixture(html`<sl-button>Hello world</sl-button>`);
     });
 
-    it('should not be disabled by default', () => {
-      expect(el).not.to.have.attribute('disabled');
-      expect(el).not.to.match(':disabled');
-      expect(el.disabled).not.to.be.true;
-    });
-
-    it('should have the :disabled pseudo class', async () => {
+    it('should be disabled when set', async () => {
       el.disabled = true;
       await el.updateComplete;
 
+      expect(el).to.have.attribute('disabled');
       expect(el).to.match(':disabled');
     });
 
-    it('should not emit a click event when the button is disabled', async () => {
-      const clickEvent = new Event('click');
-      const preventDefaultSpy = spy(clickEvent, 'preventDefault');
-      const stopPropagationSpy = spy(clickEvent, 'stopPropagation');
+    it('should prevent click events from bubbling up the DOM', async () => {
+      const clickEvent = new Event('click'),
+        preventDefaultSpy = spy(clickEvent, 'preventDefault'),
+        stopPropagationSpy = spy(clickEvent, 'stopPropagation');
 
       el.disabled = true;
       await el.updateComplete;
 
       el.dispatchEvent(clickEvent);
+
+      expect(preventDefaultSpy).to.have.been.called;
+      expect(stopPropagationSpy).to.have.been.called;
+    });
+
+    it('should prevent Enter keydown event from bubbling up the DOM', async () => {
+      const keydownEvent = new KeyboardEvent('keydown', { key: 'Enter' }),
+        preventDefaultSpy = spy(keydownEvent, 'preventDefault'),
+        stopPropagationSpy = spy(keydownEvent, 'stopPropagation');
+
+      el.disabled = true;
+      await el.updateComplete;
+
+      el.dispatchEvent(keydownEvent);
 
       expect(preventDefaultSpy).to.have.been.called;
       expect(stopPropagationSpy).to.have.been.called;

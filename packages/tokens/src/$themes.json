@@ -9254,7 +9254,6 @@
       "color.text.accent.yellow.bold": "S:b0947ab3d9ea41f9b92b7f4d6bd192eff20c31ab,",
       "color.text.accent.red.plain": "S:4a20368b62f19371c5e19d661ec81408547462a4,",
       "color.text.accent.red.bold": "S:38bc3a747ff4c09b4b1bb3bea283d6206ae96562,",
-      "color.link.plain": "S:9e84c4380684b46649d5624497fcbc93fa2ba20b,",
       "color.link.active": "S:773a693c031201705bbc277b3a766bc541b44ba5,",
       "color.link.visited": "S:31ed1be6eaa8887f8a166051df5cf14cf4302784,",
       "color.icon.bold": "S:ca3c1e128a1b720e4091c6250a8f20bb36dbfdfc,",
@@ -9436,7 +9435,8 @@
       "elevation.surface.raised.sunken.hover": "S:da79a32636aa11a45b9d8a6bd059264a2d46c628,",
       "elevation.surface.raised.sunken.active": "S:f470ac2fd149702ab33333f942556e7623b510c2,",
       "color.icon.positive.bold": "S:2b3dfec98c39beeec58268c5b335506d18fede32,",
-      "color.text.secondary.bold": "S:05269dfa8fa96498aeeb225e4f4aefae0698fdac,"
+      "color.text.secondary.bold": "S:05269dfa8fa96498aeeb225e4f4aefae0698fdac,",
+      "color.link.idle": "S:9e84c4380684b46649d5624497fcbc93fa2ba20b,"
     }
   },
   {
@@ -11042,7 +11042,6 @@
       "color.text.accent.yellow.bold": "S:b0947ab3d9ea41f9b92b7f4d6bd192eff20c31ab,",
       "color.text.accent.red.plain": "S:4a20368b62f19371c5e19d661ec81408547462a4,",
       "color.text.accent.red.bold": "S:38bc3a747ff4c09b4b1bb3bea283d6206ae96562,",
-      "color.link.plain": "S:9e84c4380684b46649d5624497fcbc93fa2ba20b,",
       "color.link.active": "S:773a693c031201705bbc277b3a766bc541b44ba5,",
       "color.link.visited": "S:31ed1be6eaa8887f8a166051df5cf14cf4302784,",
       "color.icon.bold": "S:ca3c1e128a1b720e4091c6250a8f20bb36dbfdfc,",
@@ -11224,7 +11223,8 @@
       "elevation.surface.raised.sunken.hover": "S:da79a32636aa11a45b9d8a6bd059264a2d46c628,",
       "elevation.surface.raised.sunken.active": "S:f470ac2fd149702ab33333f942556e7623b510c2,",
       "color.icon.positive.bold": "S:2b3dfec98c39beeec58268c5b335506d18fede32,",
-      "color.text.secondary.bold": "S:05269dfa8fa96498aeeb225e4f4aefae0698fdac,"
+      "color.text.secondary.bold": "S:05269dfa8fa96498aeeb225e4f4aefae0698fdac,",
+      "color.link.idle": "S:9e84c4380684b46649d5624497fcbc93fa2ba20b,"
     }
   },
   {

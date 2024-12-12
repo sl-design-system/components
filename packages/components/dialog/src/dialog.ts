@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
+import { type EventEmitter, FocusTrapController, breakpoints, event } from '@sl-design-system/shared';
 import {
   type CSSResult,
   type CSSResultGroup,
@@ -65,10 +65,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
+  /** The controller that manages the focus trap within the dialog. */
+  #focusTrap = new FocusTrapController(this);
+
   /**
-   * Emits when the dialog has been cancelled. This happens when the user closes
-   * the dialog using the escape key or clicks on the backdrop.
-   * @internal
+   * @internal Emits when the dialog has been cancelled. This happens when the
+   * user closes the dialog using the escape key or clicks on the backdrop.
    */
   @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
@@ -99,9 +101,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <dialog
-        @cancel=${this.#onCancel}
         @click=${this.#onClick}
         @close=${this.#onClose}
+        @keydown=${this.#onKeydown}
         aria-labelledby="title"
         role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
         part="dialog"
@@ -219,6 +221,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       if (focusable && this.shadowRoot?.activeElement !== focusable) {
         focusable.focus();
       }
+
+      if (this.dialog) {
+        this.#focusTrap.activate(this.dialog);
+      }
     });
   }
 
@@ -226,14 +232,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
-    }
-  }
-
-  #onCancel(event: Event & { target: HTMLElement }): void {
-    event.preventDefault();
-
-    if (!this.disableCancel) {
-      this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 
@@ -257,6 +255,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // Reenable scrolling after the dialog has closed
     document.documentElement.style.overflow = '';
 
+    this.#focusTrap.deactivate();
+
     this.inert = true;
     this.closeEvent.emit();
   }
@@ -266,6 +266,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
+  }
+
+  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+
+      if (!this.disableCancel) {
+        this.#closeDialogOnAnimationend(event.target, true);
+      }
+    }
   }
 
   #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
@@ -286,6 +296,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       },
       { once: true }
     );
+
+    this.#focusTrap.deactivate();
 
     /**
      * Set the closing attribute, this triggers the closing animation.

@@ -3,7 +3,7 @@
 }
 
 :host([has-groups]) {
-  border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
   margin-block-end: var(--sl-space-new-sm);
   padding-block-end: var(--sl-space-new-md);
 
@@ -23,7 +23,7 @@
 }
 
 .other {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
   margin-block: var(--sl-space-new-sm) var(--sl-space-new-2xs);
   padding-block-start: calc(var(--sl-space-new-md) + var(--sl-space-new-sm));
   padding-inline-start: var(--sl-space-new-xl);

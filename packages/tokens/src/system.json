@@ -328,15 +328,14 @@
       }
     }
   },
-  "text": {
-    "typeset": {
-      "textDecoration": {
-        "underline": {
-          "value": "underline",
-          "type": "textDecoration",
-          "description": "text.typeset.textDecoration.underline"
-        }
-      }
+  "color": {
+    "black": {
+      "value": "#000000",
+      "type": "color"
+    },
+    "white": {
+      "value": "#ffffff",
+      "type": "color"
     }
   }
 }

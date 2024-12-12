@@ -668,7 +668,7 @@
         "description": "Use for links in their default or hovered state."
       },
       "hover": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.palette.blue.600}",
         "type": "color",
         "description": "Use for links in hover state."
       },
@@ -679,17 +679,17 @@
       },
       "muted": {
         "idle": {
-          "value": "{color.text.accent.grey.plain}",
+          "value": "{color.text.accent.grey.muted}",
           "type": "color",
           "description": "Use for muted links in idle state."
         },
         "hover": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.link.hover}",
           "type": "color",
           "description": "Use for muted links in hover state."
         },
         "active": {
-          "value": "{color.palette.grey.900}",
+          "value": "{color.link.active}",
           "type": "color",
           "description": "Use for muted links in active state."
         }

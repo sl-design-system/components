@@ -653,33 +653,33 @@
     },
     "link": {
       "idle": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.text.accent.teal.plain}",
         "type": "color",
         "description": "Use for links in their default or hovered state."
       },
       "hover": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.text.accent.teal.bold}",
         "type": "color",
         "description": "Use for links in hover state."
       },
       "active": {
-        "value": "{color.palette.blue.700}",
+        "value": "{color.palette.teal.700}",
         "type": "color",
         "description": "Use for links in active state."
       },
       "muted": {
         "idle": {
-          "value": "{color.text.accent.grey.plain}",
+          "value": "{color.text.accent.grey.muted}",
           "type": "color",
           "description": "Use for muted links in idle state."
         },
         "hover": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.link.hover}",
           "type": "color",
           "description": "Use for muted links in hover state."
         },
         "active": {
-          "value": "{color.palette.grey.900}",
+          "value": "{color.link.active}",
           "type": "color",
           "description": "Use for muted links in active state."
         }
@@ -691,29 +691,29 @@
           "description": "Use for inverted links in idle state."
         },
         "hover": {
-          "value": "{color.palette.blue.100}",
+          "value": "{color.palette.teal.100}",
           "type": "color",
           "description": "Use for inverted links in hover state."
         },
         "active": {
-          "value": "{color.palette.blue.150}",
+          "value": "{color.palette.teal.150}",
           "type": "color",
           "description": "Use for inverted links in active state."
         }
       },
       "focused": {
         "idle": {
-          "value": "{color.palette.blue.700}",
+          "value": "{color.palette.teal.700}",
           "type": "color",
           "description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
         },
         "hover": {
-          "value": "{color.palette.blue.800}",
+          "value": "{color.palette.teal.800}",
           "type": "color",
           "description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
         },
         "active": {
-          "value": "{color.palette.blue.900}",
+          "value": "{color.palette.teal.900}",
           "type": "color",
           "description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
         }

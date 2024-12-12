@@ -669,17 +669,17 @@
       },
       "muted": {
         "idle": {
-          "value": "{color.text.accent.grey.subtle}",
+          "value": "{color.text.accent.grey.muted}",
           "type": "color",
           "description": "Use for muted links in idle state."
         },
         "hover": {
-          "value": "{color.text.accent.grey.plain}",
+          "value": "{color.link.hover}",
           "type": "color",
           "description": "Use for muted links in hover state."
         },
         "active": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.link.active}",
           "type": "color",
           "description": "Use for muted links in active state."
         }

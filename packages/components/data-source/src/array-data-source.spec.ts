@@ -138,6 +138,13 @@ describe('ArrayDataSource', () => {
       expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['John', 'Jane', 'Bob', 'Ann', 'Ann']);
     });
 
+    it('should sort numbers', () => {
+      ds.setSort('id', 'id', 'asc');
+      ds.update();
+
+      expect(ds.items.map(({ id }) => id)).to.deep.equal([1, 2, 3, 4, 5]);
+    });
+
     it('should reset the original order when removing a sort', () => {
       ds.setSort('id', 'profession', 'asc');
       ds.update();

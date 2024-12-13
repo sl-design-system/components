@@ -1,9 +1,15 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Spinner } from '@sl-design-system/spinner';
-import { type CSSResultGroup, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './spinner-button.scss.js';
+
+declare global {
+  interface Document {
+    startViewTransition(callback: () => void): void;
+  }
+}
 
 export class SpinnerButton extends ScopedElementsMixin(Button) {
   /** @internal */
@@ -17,7 +23,19 @@ export class SpinnerButton extends ScopedElementsMixin(Button) {
   static override styles: CSSResultGroup = [Button.styles, styles];
 
   /** Set this to switch to the "spinning" state. */
-  @property({ type: Boolean, reflect: true }) spinning?: boolean;
+  @property({ attribute: false }) spinning?: boolean;
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('spinning')) {
+      if (document.startViewTransition) {
+        document.startViewTransition(() => this.toggleAttribute('spinning', this.spinning));
+      } else {
+        this.toggleAttribute('spinning', this.spinning);
+      }
+    }
+  }
 
   override render(): TemplateResult {
     return html`

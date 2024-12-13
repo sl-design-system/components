@@ -2231,7 +2231,7 @@
         },
         "sunken": {
           "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
+            "value": "{color.background.accent.grey.subtlest.idle}",
             "type": "color",
             "description": "Background for components that create a sunken effect, typically used for grouping related items."
           },

@@ -4,6 +4,7 @@
 
 Button improvements:
 - Added a new `shape` property that defaults to `square` but also accepts `pill` for rounded corners
+- Added a new `inverted` variant, to be used on dark/light background (depending on light/dark mode)
 - Removed default values of `fill`, `size`, `type` and `variant` properties
 - Replaced `default` variant with `secondary` variant. `secondary` is also the new default variant
 - Only enable animations when `prefers-reduced-motion` is not set

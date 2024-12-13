@@ -1286,17 +1286,17 @@
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.grey.bold.idle}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis."
           },
           "hover": {
-            "value": "{color.background.accent.grey.bold.hover}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during hover states."
           },
           "active": {
-            "value": "{color.background.accent.grey.bold.active}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during pressed states"
           }
@@ -1760,17 +1760,17 @@
           },
           "subtle": {
             "idle": {
-              "value": "{color.palette.grey.150}",
+              "value": "{color.palette.grey.100}",
               "type": "color",
               "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.grey.100}",
+              "value": "{color.palette.grey.150}",
               "type": "color",
               "description": "A subtle grey background option in hover state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.grey.050}",
+              "value": "{color.palette.grey.200}",
               "type": "color",
               "description": "A subtle grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }

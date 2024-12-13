@@ -136,7 +136,7 @@
         "description": "Sets the standard border width for UI elements."
       },
       "action": {
-        "value": "{size.borderWidth.bold",
+        "value": "{size.borderWidth.bold}",
         "type": "borderWidth",
         "description": "Sets the standard border width for action components."
       }

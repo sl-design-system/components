@@ -51,6 +51,7 @@
     { "path": "./packages/components/shared" },
     { "path": "./packages/components/skeleton" },
     { "path": "./packages/components/spinner" },
+    { "path": "./packages/components/spinner-button" },
     { "path": "./packages/components/switch" },
     { "path": "./packages/components/tabs" },
     { "path": "./packages/components/tag" },

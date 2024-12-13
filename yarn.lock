@@ -5083,7 +5083,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/spinner@workspace:packages/components/spinner":
+"@sl-design-system/spinner-button@workspace:packages/components/spinner-button":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/spinner-button@workspace:packages/components/spinner-button"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:^1.1.0"
+    "@sl-design-system/spinner": "npm:^1.0.1"
+    lit: "npm:^3.2.1"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/spinner@npm:^1.0.1, @sl-design-system/spinner@workspace:packages/components/spinner":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/spinner@workspace:packages/components/spinner"
   dependencies:

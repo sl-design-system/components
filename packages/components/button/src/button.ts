@@ -96,7 +96,15 @@ export class Button extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
+    return html`<slot @slotchange=${this.#onSlotChange}>${this.renderContents()}</slot>`;
+  }
+
+  /**
+   * You can override this method if you are extending this component
+   * and want to customize the contents.
+   */
+  renderContents(): TemplateResult | undefined {
+    return undefined;
   }
 
   #onClick(event: Event): void {

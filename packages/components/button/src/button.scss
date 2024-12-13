@@ -1,9 +1,9 @@
 :host {
   align-items: center;
-  background: var(--sl-color-background-secondary-subtle-idle);
+  background: var(--sl-color-background-secondary-bold-idle);
   border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary);
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-secondary-bold);
+  color: var(--sl-color-text-secondary-inverted);
   cursor: pointer;
   display: inline-flex;
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
@@ -20,11 +20,11 @@
 }
 
 :host(:hover) {
-  background: var(--sl-color-background-secondary-subtle-hover);
+  background: var(--sl-color-background-secondary-bold-hover);
 }
 
 :host(:active) {
-  background: var(--sl-color-background-secondary-subtle-active);
+  background: var(--sl-color-background-secondary-bold-active);
 }
 
 :host(:where(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {
@@ -46,6 +46,7 @@
 
 :host([fill='link']) {
   background: var(--sl-color-background-secondary-muted-idle);
+  color: var(--sl-color-text-secondary-bold);
   padding-inline: 0;
 }
 
@@ -56,6 +57,7 @@
 :host([fill='outline']) {
   background: var(--sl-color-background-secondary-muted-idle);
   border-color: var(--sl-color-border-secondary);
+  color: var(--sl-color-text-secondary-bold);
 }
 
 :host([fill='outline']:hover) {

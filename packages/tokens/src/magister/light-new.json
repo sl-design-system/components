@@ -237,7 +237,7 @@
       },
       "red": {
         "100": {
-          "value": "#fff1f1",
+          "value": "#ffdfe0",
           "type": "color"
         },
         "150": {

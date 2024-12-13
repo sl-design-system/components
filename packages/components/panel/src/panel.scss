@@ -5,10 +5,14 @@
   --_padding-inline: var(--sl-space-sm);
   --_wrapper-padding-inline: var(--sl-space-sm);
 
-  border: 1px solid var(--sl-color-palette-neutral-200);
+  // border: 1px solid var(--sl-color-palette-neutral-200);
   border-radius: var(--sl-border-radius-2xs);
   display: flex;
   flex-direction: column;
+}
+
+:host([outline]) {
+  border: 1px solid var(--sl-color-palette-neutral-200);
 }
 
 :host([collapsible][collapsed]) {
@@ -22,7 +26,7 @@
 }
 
 [part='header'] {
-  align-items: start;
+  align-items: center; // start;
   display: grid;
   flex: 1;
   grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
@@ -59,6 +63,10 @@ button {
   }
 }
 
+.hidden {
+  display: none;
+}
+
 sl-icon {
   rotate: 180deg;
   transition: rotate 0.2s ease-in-out;
@@ -74,6 +82,11 @@ slot[name='heading'] {
   display: block;
 }
 
+slot[name='badge'] {
+  display: flex;
+  gap: 8px;
+}
+
 sl-tool-bar {
   min-inline-size: 0;
 
@@ -86,6 +99,13 @@ slot[name='actions']::slotted(:first-child) {
   // FIXME: Since the `aside` slot always has content, gap on the header won't work as expected
   // So we explicitly set a left margin on the first action
   margin-inline-start: 1rem;
+}
+
+[part='main'] {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 [part='body'] {

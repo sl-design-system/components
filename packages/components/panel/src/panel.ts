@@ -1,5 +1,6 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -14,6 +15,8 @@ declare global {
     'sl-panel': Panel;
   }
 }
+
+export type TogglePlacement = 'start' | 'end';
 
 /**
  * A container that can be collapsed and expanded.
@@ -34,6 +37,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon,
       'sl-tool-bar': ToolBar
     };
@@ -42,11 +46,16 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  #hasBadge = false;
+
   /** Indicates whether the panel is collapsed or expanded . */
   @property({ type: Boolean, reflect: true }) collapsed?: boolean;
 
   /** Indicates whether the panel can be collapsed. */
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
+
+  /** Indicates whether the panel has a border. */
+  @property({ type: Boolean, reflect: true }) outline?: boolean;
 
   /**
    * The heading shown in the header. Use this property if your heading is a string. If you need
@@ -54,22 +63,39 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   @property() heading?: string;
 
+  /**
+   * The heading shown in the header. Use this property if your subtitle is a string. If you need
+   * more flexibility, such as an icon or other elements, use the `subtitle` slot.
+   */
+  @property() subtitle?: string;
+
+  /** The placement of the toggle button when it's collapsible. */ // TODO: add @default...
+  @property({ reflect: true }) toggleplacement?: TogglePlacement; // togglePlacement
+
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+
+  // TODO: elevation: none, raised and sunken
+  // TODO: chevron on the left or on the right (toggle start / toggle end / none when not collapsible) toggle placement? (use TogglePlacement)
 
   override render(): TemplateResult {
     return html`
       <div part="header">
         ${this.collapsible
           ? html`
-              <button
-                @click=${() => this.toggle()}
-                aria-controls="body"
-                aria-expanded=${this.collapsed ? 'false' : 'true'}
-                part="wrapper"
-              >
-                ${this.renderHeading()}
-              </button>
+              <div part="wrapper">
+                <sl-button @click=${() => this.toggle()} fill="ghost">
+                  <sl-icon name="chevron-down"></sl-icon>
+                </sl-button>
+                <button
+                  @click=${() => this.toggle()}
+                  aria-controls="body"
+                  aria-expanded=${this.collapsed ? 'false' : 'true'}
+                  part="wrapper"
+                >
+                  ${this.renderHeading()}
+                </button>
+              </div>
             `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
@@ -91,7 +117,13 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   renderHeading(): TemplateResult {
     return html`
       ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing}
-      <slot name="heading">${this.heading}</slot>
+      <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
+      <div part="main">
+        <slot name="heading">${this.heading}</slot>
+        <slot name="subtitle">${this.subtitle}</slot>
+        <slot name="badge" @slotchange=${this.handleBadgeSlotChange}></slot>
+      </div>
+      <slot name="suffix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
     `;
   }
 
@@ -102,5 +134,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   toggle(force = !this.collapsed): void {
     this.collapsed = force;
     this.toggleEvent.emit(this.collapsed);
+  }
+
+  private handleBadgeSlotChange(): void {
+    const badgeSlot = this.shadowRoot?.querySelector('slot[name="badge"]') as HTMLSlotElement | null;
+    this.#hasBadge = (badgeSlot && badgeSlot.assignedNodes().length > 0) || false;
+
+    this.requestUpdate();
   }
 }

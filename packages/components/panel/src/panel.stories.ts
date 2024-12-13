@@ -4,9 +4,12 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Panel } from './panel.js';
 
-type Props = Pick<Panel, 'collapsed' | 'collapsible' | 'heading'> & {
+type Props = Pick<Panel, 'collapsed' | 'collapsible' | 'heading' | 'outline' | 'subtitle'> & {
   actions?(): string | TemplateResult;
+  badge?(): string | TemplateResult;
   content?(): string | TemplateResult;
+  prefix?(): string | TemplateResult;
+  suffix?(): string | TemplateResult;
 };
 type Story = StoryObj<Props>;
 
@@ -14,10 +17,14 @@ export default {
   title: 'Layout/Panel',
   tags: ['draft'],
   args: {
-    collapsible: false
+    collapsible: false,
+    outline: true
   },
   argTypes: {
     actions: {
+      table: { disable: true }
+    },
+    badge: {
       table: { disable: true }
     },
     collapsed: {
@@ -25,12 +32,24 @@ export default {
     },
     content: {
       table: { disable: true }
+    },
+    prefix: {
+      table: { disable: true }
+    },
+    suffix: {
+      table: { disable: true }
     }
   },
-  render: ({ actions, collapsed, collapsible, content, heading }) => {
+  render: ({ actions, badge, collapsed, collapsible, content, heading, outline, prefix, subtitle, suffix }) => {
     return html`
-      <sl-panel ?collapsed=${collapsible && collapsed} ?collapsible=${collapsible} .heading=${heading}>
-        ${actions?.()}${content?.()}
+      <sl-panel
+        ?collapsed=${collapsible && collapsed}
+        ?collapsible=${collapsible}
+        .heading=${heading}
+        .outline=${outline}
+        .subtitle=${subtitle}
+      >
+        ${actions?.()}${badge?.()}${content?.()}${prefix?.()}${suffix?.()}
       </sl-panel>
     `;
   }
@@ -39,8 +58,34 @@ export default {
 export const Basic: Story = {
   args: {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    badge: () =>
+      html`<sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">prefix</sl-badge
+        ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">prefix</sl-badge>`,
     content: () => html`<p>Panel content</p>`,
-    heading: 'Panel heading'
+    prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
+    suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
+    heading: 'Panel heading',
+    subtitle: 'Panel subtitle'
+  }
+};
+
+export const WithPrefix: Story = {
+  args: {
+    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    content: () => html`<p>Panel content</p>`,
+    prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
+    heading: 'Panel heading',
+    subtitle: 'Panel subtitle'
+  }
+};
+
+export const WithSuffix: Story = {
+  args: {
+    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    content: () => html`<p>Panel content</p>`,
+    suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
+    heading: 'Panel heading',
+    subtitle: 'Panel subtitle'
   }
 };
 

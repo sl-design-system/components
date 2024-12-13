@@ -30,7 +30,7 @@ export const Basic: Story = {
   }
 };
 
-export const CustomColumnSimpleSorter: Story = {
+export const CustomSorterFunction: Story = {
   render: () => {
     interface Foo {
       description: string;
@@ -55,22 +55,13 @@ export const CustomColumnSimpleSorter: Story = {
       }
     };
 
-    const renderer = ({ description }: Foo): TemplateResult => {
-      return html`${description}`;
-    };
-
     return html`
       <p>
         This grid sorts items by description using a custom sorter on the data directly (first lowercase and then
         uppercase).
       </p>
       <sl-grid .items=${items}>
-        <sl-grid-sort-column
-          header="Description"
-          direction="asc"
-          .renderer=${renderer}
-          .sorter=${sort}
-        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="description" direction="asc" .sorter=${sort}></sl-grid-sort-column>
         <sl-grid-sort-column path="code"></sl-grid-sort-column>
       </sl-grid>
     `;

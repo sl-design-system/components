@@ -9,9 +9,14 @@
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
   gap: var(--sl-space-075);
   justify-content: center;
-  outline-color: transparent;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-space-offset-focused);
   padding: calc(var(--sl-space-075) - var(--sl-size-borderWidth-action)) var(--sl-space-300);
   vertical-align: middle;
+}
+
+:host(:focus-visible) {
+  outline-color: var(--sl-color-border-focused);
 }
 
 :host(:hover) {
@@ -320,6 +325,10 @@
   color: var(--sl-color-text-bold);
 }
 
+:host([variant='inverted']:focus-visible) {
+  outline-color: var(--sl-color-border-inverted);
+}
+
 :host([variant='inverted']:hover) {
   background: var(--sl-color-background-inverted-bold-hover);
 }
@@ -384,11 +393,6 @@
 
 :host([disabled][fill='outline']) {
   border-color: var(--sl-color-border-disabled);
-}
-
-:host(:focus-visible) {
-  outline: var(--sl-size-borderWidth-focused) solid var(--sl-color-border-focused);
-  outline-offset: var(--sl-space-offset-focused);
 }
 
 @media (prefers-reduced-motion: no-preference) {

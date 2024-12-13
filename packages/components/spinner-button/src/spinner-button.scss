@@ -1,3 +1,19 @@
+:host([spinning]) {
+  .initial {
+    display: none;
+  }
+
+  .spinning {
+    display: inline-flex;
+  }
+}
+
+span {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--sl-space-075);
+}
+
 .spinning {
   display: none;
 }

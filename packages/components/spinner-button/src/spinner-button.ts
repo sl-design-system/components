@@ -17,9 +17,9 @@ export class SpinnerButton extends ScopedElementsMixin(Button) {
   static override styles: CSSResultGroup = [Button.styles, styles];
 
   /** Set this to switch to the "spinning" state. */
-  @property({ type: Boolean }) spinning?: boolean;
+  @property({ type: Boolean, reflect: true }) spinning?: boolean;
 
-  override renderContents(): TemplateResult {
+  override render(): TemplateResult {
     return html`
       <span class="initial"><slot name="initial"></slot></span>
       <span class="spinning">

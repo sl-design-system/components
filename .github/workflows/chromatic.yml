@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened, closed, ready_for_review]
   push:
     branches: [ "main" ]
-  
+
   workflow_dispatch:
 
 env:
@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Publish to Chromatic - Components
-        uses: chromaui/action@latest
+        uses: chromaui/action@v1
         with:
           autoAcceptChanges: main
           buildScriptName: chromatic-components

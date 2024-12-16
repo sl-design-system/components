@@ -37,13 +37,6 @@ export default {
     }
   },
   render: ({ align, buttons, reverse, size }) => html`
-    <style>
-      @media (max-width: 600px) {
-        sl-button-bar {
-          --sl-button-bar-vertical: var(--sl-ON);
-        }
-      }
-    </style>
     <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
       ${buttons ??
       html`
@@ -65,26 +58,6 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
-
-export const Alignment: Story = {
-  render: () => {
-    const buttons = html`
-      <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
-      <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-      <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
-    `;
-    return html`
-      <p>Start:</p>
-      <sl-button-bar style="--sl-button-bar-align: start;"> ${buttons} </sl-button-bar>
-      <p>End:</p>
-      <sl-button-bar style="--sl-button-bar-align: end;"> ${buttons} </sl-button-bar>
-      <p>Center:</p>
-      <sl-button-bar style="--sl-button-bar-align: center;"> ${buttons} </sl-button-bar>
-      <p>Space between:</p>
-      <sl-button-bar style="--sl-button-bar-align: space-between;"> ${buttons} </sl-button-bar>
-    `;
-  }
-};
 
 export const Groups: Story = {
   args: {

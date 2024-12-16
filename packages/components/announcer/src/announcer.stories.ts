@@ -3,7 +3,8 @@ import { EventEmitter } from '@sl-design-system/shared';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
-import { Announcer, SlAnnounceEvent, announce } from './announcer.js';
+import { announce } from './announce.js';
+import { Announcer, SlAnnounceEvent } from './announcer.js';
 
 type Props = Announcer;
 type Story = StoryObj<Props>;

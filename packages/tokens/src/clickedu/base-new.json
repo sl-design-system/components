@@ -131,8 +131,14 @@
     },
     "borderWidth": {
       "default": {
-        "value": "{size.025}",
-        "type": "borderWidth"
+        "value": "{size.borderWidth.bold}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for UI elements."
+      },
+      "action": {
+        "value": "{size.borderWidth.bold}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for action components."
       }
     },
     "icon": {

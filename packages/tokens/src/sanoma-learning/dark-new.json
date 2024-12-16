@@ -1556,51 +1556,51 @@
         "blue": {
           "muted": {
             "idle": {
-              "value": "{color.utility.transparent.000}",
+              "value": "{opacity.blue.000}",
               "type": "color",
               "description": "Used for muted blue backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.100}",
+              "value": "{opacity.blue.100}",
               "type": "color",
               "description": "Used for muted blue backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.blue.150}",
+              "value": "{opacity.blue.200}",
               "type": "color",
               "description": "Used for muted blue backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{color.palette.blue.050}",
+              "value": "{opacity.blue.050}",
               "type": "color",
               "description": "The subtlest blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.100}",
+              "value": "{opacity.blue.100}",
               "type": "color",
               "description": "The subtlest blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.blue.150}",
+              "value": "{opacity.blue.200}",
               "type": "color",
               "description": "The subtlest blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{color.palette.blue.150}",
+              "value": "{opacity.blue.200}",
               "type": "color",
               "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.100}",
+              "value": "{opacity.blue.100}",
               "type": "color",
               "description": "A subtle blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.blue.050}",
+              "value": "{opacity.blue.050}",
               "type": "color",
               "description": "A subtle blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }

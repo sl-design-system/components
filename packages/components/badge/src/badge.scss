@@ -1,10 +1,10 @@
 :host {
   align-items: center;
-  background: var(--sl-color-background-secondary-subtle-idle);
+  background: var(--sl-color-background-accent-grey-subtle-idle);
   block-size: 1lh;
   border-radius: var(--sl-size-borderRadius-full);
   box-sizing: border-box;
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-text-accent-grey-bold);
   display: inline-flex;
   font-size: 0.857em;
   gap: var(--sl-space-025);
@@ -13,6 +13,82 @@
   padding-inline: var(--sl-space-100);
   text-transform: uppercase;
   vertical-align: middle;
+}
+
+:host([color='blue']),
+:host([variant='info']),
+:host([variant='primary']) {
+  background: var(--sl-color-background-accent-blue-subtle-idle);
+  color: var(--sl-color-text-accent-blue-bold);
+}
+
+:host([color='blue'][emphasis='bold']),
+:host([color='info'][emphasis='bold']),
+:host([variant='primary'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-blue-bold-idle);
+  color: var(--sl-color-text-inverted);
+}
+
+:host([color='green']),
+:host([variant='success']) {
+  background: var(--sl-color-background-accent-green-subtle-idle);
+  color: var(--sl-color-text-accent-green-bold);
+}
+
+:host([color='green'][emphasis='bold']),
+:host([variant='success'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-green-bold-idle);
+}
+
+:host([color='orange']) {
+  background: var(--sl-color-background-accent-orange-subtle-idle);
+  color: var(--sl-color-text-accent-orange-bold);
+}
+
+:host([color='orange'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-orange-bold-idle);
+  color: var(--sl-color-text-accent-grey-bold);
+}
+
+:host([color='purple']) {
+  background: var(--sl-color-background-accent-purple-subtle-idle);
+  color: var(--sl-color-text-accent-purple-bold);
+}
+
+:host([color='purple'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-purple-bold-idle);
+}
+
+:host([color='red']),
+:host([variant='danger']) {
+  background: var(--sl-color-background-accent-red-subtle-idle);
+  color: var(--sl-color-text-accent-red-bold);
+}
+
+:host([color='red'][emphasis='bold']),
+:host([variant='danger'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-red-bold-idle);
+}
+
+:host([color='teal']) {
+  background: var(--sl-color-background-accent-teal-subtle-idle);
+  color: var(--sl-color-text-accent-teal-bold);
+}
+
+:host([color='teal'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-teal-bold-idle);
+}
+
+:host([color='yellow']),
+:host([variant='warning']) {
+  background: var(--sl-color-background-accent-yellow-subtle-idle);
+  color: var(--sl-color-text-accent-yellow-bold);
+}
+
+:host([color='yellow'][emphasis='bold']),
+:host([variant='warning'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-yellow-bold-idle);
+  color: var(--sl-color-text-accent-grey-bold);
 }
 
 :host([size='sm']) {
@@ -35,53 +111,8 @@
   padding-inline: 0;
 }
 
-:host([variant='primary']) {
-  background: var(--sl-color-background-primary-subtle-idle);
-  color: var(--sl-color-text-primary-bold);
-}
-
-:host([variant='primary'][emphasis='bold']) {
-  background: var(--sl-color-background-primary-bold-idle);
-}
-
-:host([variant='info']) {
-  background: var(--sl-color-background-info-subtle-idle);
-  color: var(--sl-color-text-info-bold);
-}
-
-:host([variant='info'][emphasis='bold']) {
-  background: var(--sl-color-background-info-bold-idle);
-}
-
-:host([variant='danger']) {
-  background: var(--sl-color-background-negative-subtle-idle);
-  color: var(--sl-color-text-negative-bold);
-}
-
-:host([variant='danger'][emphasis='bold']) {
-  background: var(--sl-color-background-negative-bold-idle);
-}
-
-:host([variant='success']) {
-  background: var(--sl-color-background-positive-subtle-idle);
-  color: var(--sl-color-text-positive-bold);
-}
-
-:host([variant='success'][emphasis='bold']) {
-  background: var(--sl-color-background-positive-bold-idle);
-}
-
-:host([variant='warning']) {
-  background: var(--sl-color-background-caution-subtle-idle);
-  color: var(--sl-color-text-caution-bold);
-}
-
-:host([variant='warning'][emphasis='bold']) {
-  background: var(--sl-color-background-caution-bold-idle);
-}
-
 :host([emphasis='bold']) {
-  background: var(--sl-color-background-secondary-bold-idle);
+  background: var(--sl-color-background-accent-grey-bold-idle);
   color: var(--sl-color-text-inverted);
 }
 

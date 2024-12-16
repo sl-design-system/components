@@ -8,6 +8,7 @@ declare global {
   }
 }
 
+export type BadgeColor = 'blue' | 'green' | 'grey' | 'orange' | 'purple' | 'red' | 'teal' | 'yellow';
 export type BadgeEmphasis = 'subtle' | 'bold';
 export type BadgeSize = 'sm' | 'md' | 'lg';
 export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent';
@@ -26,6 +27,12 @@ export class Badge extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /**
+   * The color of the badge.
+   * @default grey
+   */
+  @property({ reflect: true }) color?: BadgeColor;
+
+  /**
    * The emphasis of the badge.
    * @default subtle
    */
@@ -40,6 +47,7 @@ export class Badge extends LitElement {
   /**
    * The variant of the badge.
    * @default neutral
+   * @deprecated Use the color property instead.
    */
   @property({ reflect: true }) variant?: BadgeVariant;
 

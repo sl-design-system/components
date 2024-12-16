@@ -29,8 +29,17 @@ eleventyNavigation:
   ```
 
 </div>
+</section>
+
+<ds-install-info link-in-navigation package="button"></ds-install-info>
+
+<section>
+
+## Responsive behavior
+
+The button component has a responsive behavior that stacks the buttons vertically when the viewport is smaller than 600px. This behavior is enabled by default.
 
 </section>
-<ds-install-info link-in-navigation package="button"></ds-install-info>
+
 {% include "../component-table.njk" %}
 

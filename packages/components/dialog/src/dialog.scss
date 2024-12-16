@@ -21,7 +21,6 @@ $lg-breakpoint: 900px;
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
   --_subtitle-font: var(--sl-text-dialog-subheading);
   --_title-font: var(--sl-text-dialog-heading);
-  --sl-button-bar-vertical: var(--sl-ON);
 
   display: block;
 }
@@ -120,11 +119,6 @@ slot[name='header-actions'] sl-button-bar {
 [part='footer'] {
   padding-block-end: var(--_padding-block);
   padding-inline: var(--_padding-inline);
-
-  sl-button-bar {
-    --sl-button-bar-vertical: var(--sl-ON);
-    --sl-button-bar-direction-column: column-reverse;
-  }
 }
 
 // This is for the non-mobile styling. The default styling is for mobile.
@@ -141,11 +135,6 @@ slot[name='header-actions'] sl-button-bar {
     );
     --_padding-block: var(--sl-space-dialog-desktop-body-block);
     --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
-  }
-
-  [part='footer'] sl-button-bar {
-    --sl-button-bar-vertical: var(--sl-OFF);
-    --sl-button-bar-align: end;
   }
 
   dialog {

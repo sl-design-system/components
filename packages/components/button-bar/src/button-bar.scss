@@ -1,46 +1,36 @@
 :host {
-  // TODO: remove this "hack" when style queries are possible.
-  --sl-ON: initial; // property gets fallback value
-  --sl-OFF: var(--sl-button-bar-direction-row);
-  --sl-button-bar-vertical: var(--sl-OFF);
-  --sl-button-bar-direction-row: row;
-  --sl-button-bar-align: start;
-  --sl-button-bar-align-items: center;
-  --_align: var(--sl-button-bar-align-items);
-  --_direction: var(--sl-button-bar-direction-row, row);
-  --_block-gap: var(--sl-space-button-bar-gap-default-block);
-  --_inline-gap: var(--sl-space-button-bar-gap-default-inline);
-
-  align-items: var(--_align);
+  align-items: center;
   display: flex;
-  flex-flow: var(--_direction) wrap;
-  gap: var(--_block-gap) var(--_inline-gap);
-  justify-content: var(--sl-button-bar-align);
-}
+  flex-flow: row wrap;
+  gap: var(--sl-space-100);
+  justify-content: start;
 
-:host(:not([icon-only])) {
-  --_align: var(--sl-button-bar-vertical, stretch);
-  --_direction: var(--sl-button-bar-vertical, var(--sl-button-bar-direction-column, column));
+  @media (width <= 600px) {
+    align-items: stretch;
+    flex-direction: column;
+  }
 }
 
 :host([align='center']) {
-  --sl-button-bar-align: center;
+  justify-content: center;
 }
 
 :host([align='end']) {
-  --sl-button-bar-align: end;
+  justify-content: end;
 }
 
 :host([align='space-between']) {
-  --sl-button-bar-align: space-between;
+  justify-content: space-between;
 }
 
 :host([icon-only]) {
-  --_inline-gap: var(--sl-space-button-bar-gap-ghost-icon-inline);
-  --_block-gap: var(--sl-space-button-bar-gap-ghost-icon-block);
+  gap: var(--sl-space-050);
 }
 
 :host([reverse]) {
-  --sl-button-bar-direction-row: row-reverse;
-  --sl-button-bar-direction-column: column-reverse;
+  flex-direction: row-reverse;
+
+  @media (width <= 600px) {
+    flex-direction: column-reverse;
+  }
 }

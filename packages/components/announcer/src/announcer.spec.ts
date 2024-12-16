@@ -33,4 +33,16 @@ describe('sl-announcer', () => {
 
     expect(polite?.textContent).to.equal('This is sent with an event');
   });
+
+  it('should remove the announcement after 500 ms', async () => {
+    const liveEvent = new EventEmitter<SlAnnounceEvent>(document.body, 'sl-announce');
+    liveEvent.emit({ message: 'This is sent with an event' });
+
+    const polite = el.shadowRoot?.querySelector('[aria-live="polite"]');
+
+    expect(polite?.textContent).to.equal('This is sent with an event');
+
+    await new Promise(resolve => setTimeout(resolve, 600));
+    expect(polite?.textContent).to.equal('');
+  });
 });

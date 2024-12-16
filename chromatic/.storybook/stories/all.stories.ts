@@ -4,6 +4,7 @@ import { All as AllAvatar } from '../../../packages/components/avatar/src/avatar
 import { All as AllBadge } from '../../../packages/components/badge/src/badge.stories';
 import { All as AllBreadcrumbs } from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
 import { All as AllButton } from '../../../packages/components/button/src/button.stories';
+import { All as AllButtonBar } from '../../../packages/components/button-bar/src/button-bar.stories';
 import { All as AllCard } from '../../../packages/components/card/src/card.stories';
 import { All as AllCheckbox } from '../../../packages/components/checkbox/src/checkbox.stories';
 import { All as AllCombobox } from '../../../packages/components/combobox/src/combobox.stories';
@@ -65,6 +66,7 @@ export const Avatar = { render: AllAvatar.render };
 export const Badge = { render: AllBadge.render };
 export const Breadcrumbs = { render: AllBreadcrumbs.render };
 export const Button = { render: AllButton.render };
+export const ButtonBar = { render: AllButtonBar.render };
 export const Card = { render: AllCard.render };
 export const Checkbox = { render: AllCheckbox.render };
 export const Combobox = { render: AllCombobox.render };

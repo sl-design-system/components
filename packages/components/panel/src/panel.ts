@@ -18,6 +18,8 @@ declare global {
 
 export type TogglePlacement = 'start' | 'end';
 
+export type PanelElevation = 'none' | 'raised' | 'sunken';
+
 /**
  * A container that can be collapsed and expanded.
  *
@@ -57,6 +59,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** Indicates whether the panel has a border. */
   @property({ type: Boolean, reflect: true }) outline?: boolean;
 
+  @property({ reflect: true }) elevation?: PanelElevation; // TODO: none by default
+
   /**
    * The heading shown in the header. Use this property if your heading is a string. If you need
    * more flexibility, such as an icon or other elements, use the `heading` slot.
@@ -70,7 +74,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   @property() subtitle?: string;
 
   /** The placement of the toggle button when it's collapsible. */ // TODO: add @default...
-  @property({ reflect: true }) toggleplacement?: TogglePlacement; // togglePlacement
+  @property({ reflect: true, attribute: 'toggle-placement' }) togglePlacement?: TogglePlacement; // togglePlacement
 
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -78,15 +82,26 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   // TODO: elevation: none, raised and sunken
   // TODO: chevron on the left or on the right (toggle start / toggle end / none when not collapsible) toggle placement? (use TogglePlacement)
 
+  // TODO: padding, no padding
+  // TODO: outline, no outline
+
+  // TODO: placement of subtitle and badges (start / end / none)???
+
   override render(): TemplateResult {
+    console.log('togglePlacement', this.togglePlacement);
     return html`
       <div part="header">
-        ${this.collapsible
+        ${this.collapsible && this.togglePlacement !== 'end'
           ? html`
+              <sl-button
+                @click=${() => this.toggle()}
+                fill="ghost"
+                aria-controls="body"
+                aria-expanded=${this.collapsed ? 'false' : 'true'}
+              >
+                <sl-icon name="chevron-down"></sl-icon>
+              </sl-button>
               <div part="wrapper">
-                <sl-button @click=${() => this.toggle()} fill="ghost">
-                  <sl-icon name="chevron-down"></sl-icon>
-                </sl-button>
                 <button
                   @click=${() => this.toggle()}
                   aria-controls="body"
@@ -103,6 +118,16 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             <slot name="actions"></slot>
           </sl-tool-bar>
         </slot>
+        ${this.collapsible && this.togglePlacement === 'end'
+          ? html`<sl-button
+              @click=${() => this.toggle()}
+              fill="ghost"
+              aria-controls="body"
+              aria-expanded=${this.collapsed ? 'false' : 'true'}
+            >
+              <sl-icon name="chevron-down"></sl-icon>
+            </sl-button>`
+          : nothing}
       </div>
       <div id="body" part="body" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
         <div part="inner">
@@ -116,7 +141,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   renderHeading(): TemplateResult {
     return html`
-      ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing}
       <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
       <div part="main">
         <slot name="heading">${this.heading}</slot>
@@ -125,7 +149,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       </div>
       <slot name="suffix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
     `;
-  }
+  } // <!-- ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing} -->
 
   /**
    * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.

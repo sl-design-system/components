@@ -2,9 +2,12 @@ import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type Panel } from './panel.js';
+import { type Panel, PanelElevation, TogglePlacement } from './panel.js';
 
-type Props = Pick<Panel, 'collapsed' | 'collapsible' | 'heading' | 'outline' | 'subtitle'> & {
+type Props = Pick<
+  Panel,
+  'collapsed' | 'collapsible' | 'elevation' | 'heading' | 'outline' | 'subtitle' | 'togglePlacement'
+> & {
   actions?(): string | TemplateResult;
   badge?(): string | TemplateResult;
   content?(): string | TemplateResult;
@@ -13,12 +16,18 @@ type Props = Pick<Panel, 'collapsed' | 'collapsible' | 'heading' | 'outline' | '
 };
 type Story = StoryObj<Props>;
 
+const placements: TogglePlacement[] = ['start', 'end'];
+
+const elevations: PanelElevation[] = ['none', 'raised', 'sunken'];
+
 export default {
   title: 'Layout/Panel',
   tags: ['draft'],
   args: {
     collapsible: false,
-    outline: true
+    elevation: 'none',
+    outline: true,
+    togglePlacement: 'start'
   },
   argTypes: {
     actions: {
@@ -33,21 +42,44 @@ export default {
     content: {
       table: { disable: true }
     },
+    elevation: {
+      control: 'radio',
+      options: elevations
+    },
     prefix: {
       table: { disable: true }
     },
     suffix: {
       table: { disable: true }
+    },
+    togglePlacement: {
+      control: 'radio',
+      options: placements
     }
   },
-  render: ({ actions, badge, collapsed, collapsible, content, heading, outline, prefix, subtitle, suffix }) => {
+  render: ({
+    actions,
+    badge,
+    collapsed,
+    collapsible,
+    content,
+    elevation,
+    heading,
+    outline,
+    prefix,
+    subtitle,
+    suffix,
+    togglePlacement
+  }) => {
     return html`
       <sl-panel
         ?collapsed=${collapsible && collapsed}
         ?collapsible=${collapsible}
         .heading=${heading}
+        .elevation=${elevation}
         .outline=${outline}
         .subtitle=${subtitle}
+        .togglePlacement=${togglePlacement}
       >
         ${actions?.()}${badge?.()}${content?.()}${prefix?.()}${suffix?.()}
       </sl-panel>

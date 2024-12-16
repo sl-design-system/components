@@ -15,6 +15,14 @@
   border: 1px solid var(--sl-color-palette-neutral-200);
 }
 
+:host([elevation='raised']) {
+  background: var(--sl-elevation-surface-raised-alternative-idle);
+}
+
+:host([elevation='sunken']) {
+  background: var(--sl-elevation-surface-raised-sunken-idle);
+}
+
 :host([collapsible][collapsed]) {
   sl-icon {
     rotate: 0deg;
@@ -25,16 +33,30 @@
   }
 }
 
+:host([collapsible]) {
+  [part='header'] {
+    grid-template-columns: auto 1fr minmax(0, auto);
+  }
+}
+
+:host([collapsible][toggle-placement='end']) {
+  [part='header'] {
+    grid-template-columns: 1fr minmax(0, auto) auto;
+  }
+}
+
 [part='header'] {
   align-items: center; // start;
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
+  gap: 16px; // TODO: use tokens
+  grid-template-columns: 1fr minmax(0, auto); // minmax(min-content, max-content) minmax(min-content, max-content) minmax(0, auto); // minmax(min-content, max-content) minmax(0, auto);
   justify-content: space-between;
+  padding: 16px; // TODO: use tokens
 
   > * {
     // FIXME: This is a quick hack to vertically align the heading with any action buttons
-    padding-block-start: 2px;
+    // padding-block-start: 2px;
   }
 }
 
@@ -42,8 +64,9 @@
   align-items: center;
   display: flex;
   gap: 0.5rem;
-  padding-block: var(--_padding-block);
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+
+  // padding-block: var(--_padding-block);
+  // padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }
 
 button {
@@ -122,3 +145,8 @@ slot[name='actions']::slotted(:first-child) {
   padding-block-end: var(--_padding-block);
   padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 }
+
+// sl-button {
+//  padding-block: var(--_padding-block);
+//  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+// }

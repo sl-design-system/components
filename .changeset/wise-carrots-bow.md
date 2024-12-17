@@ -1,19 +1,18 @@
 ---
 '@sl-design-system/button-bar': minor
+'@sl-design-system/dialog': minor
 ---
 
 Refactor styling to use contextual tokens.
 
-This also adds responsive behavior to the button-bar: when the viewport is
-smaller than 600px, the buttons will stack vertically. Before, you could enable
-this behavior by adding the following CSS:
+This also removes the CSS custom properties for the responsive behavior. It now
+just sets the `flex-direction` and `align-items` directly from dialog.
 
 ```css
-@media (max-width: 600px) {
+@media (width <= 600px) {
   sl-button-bar {
-    --sl-button-bar-vertical: var(--sl-ON);
+    align-items: stretch;
+    flex-direction: column-reverse;
   }
 }
 ```
-
-This behavior is now enabled by default.

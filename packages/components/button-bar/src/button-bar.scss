@@ -4,11 +4,6 @@
   flex-flow: row wrap;
   gap: var(--sl-space-100);
   justify-content: start;
-
-  @media (width <= 600px) {
-    align-items: stretch;
-    flex-direction: column-reverse;
-  }
 }
 
 :host([align='center']) {

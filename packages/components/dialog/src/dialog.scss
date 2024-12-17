@@ -121,6 +121,13 @@ slot[name='header-actions'] sl-button-bar {
   padding-inline: var(--_padding-inline);
 }
 
+@media (width <= $md-breakpoint) {
+  sl-button-bar {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+}
+
 // This is for the non-mobile styling. The default styling is for mobile.
 @media (min-width: $md-breakpoint) {
   :host {

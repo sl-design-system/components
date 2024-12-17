@@ -74,15 +74,6 @@ export const Groups: Story = {
   }
 };
 
-export const Mobile: Story = {
-  ...Basic,
-  parameters: {
-    viewport: {
-      defaultViewport: 'iphone13'
-    }
-  }
-};
-
 export const Wrapping: Story = {
   args: {
     buttons: html`

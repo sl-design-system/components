@@ -426,6 +426,358 @@
         }
       }
     },
+    "opacity": {
+      "blue": {
+        "100": {
+          "value": "rgba({color.palette.blue.400}, 0.15)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba({color.palette.blue.400}, 0.20)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba({color.palette.blue.400}, 0.28)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba({color.palette.blue.400}, 0.40)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba({color.palette.blue.400}, 0.54)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba({color.palette.blue.400}, 0.65)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba({color.palette.blue.400}, 0.78)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba({color.palette.blue.400}, 0.90)",
+          "type": "color"
+        },
+        "900": {
+          "value": "rgba({color.palette.blue.400}, 0.95)",
+          "type": "color"
+        },
+        "1000": {
+          "value": "rgba({color.palette.blue.400}, 1)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba({color.palette.blue.400}, 0)",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba({color.palette.blue.400}, 0.08)",
+          "type": "color"
+        }
+      },
+      "green": {
+        "100": {
+          "value": "rgba({color.palette.green.400}, 0.15)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba({color.palette.green.400}, 0.20)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba({color.palette.green.400}, 0.28)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba({color.palette.green.400}, 0.40)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba({color.palette.green.400}, 0.54)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba({color.palette.green.400}, 0.65)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba({color.palette.green.400}, 0.78)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba({color.palette.green.400}, 0.90)",
+          "type": "color"
+        },
+        "900": {
+          "value": "rgba({color.palette.green.400}, 0.95)",
+          "type": "color"
+        },
+        "1000": {
+          "value": "rgba({color.palette.green.400}, 1)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba({color.palette.green.400}, 0)",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba({color.palette.green.400}, 0.08)",
+          "type": "color"
+        }
+      },
+      "orange": {
+        "100": {
+          "value": "rgba({color.palette.orange.400}, 0.15)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba({color.palette.orange.400}, 0.20)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba({color.palette.orange.400}, 0.28)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba({color.palette.orange.400}, 0.40)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba({color.palette.orange.400}, 0.54)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba({color.palette.orange.400}, 0.65)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba({color.palette.orange.400}, 0.78)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba({color.palette.orange.400}, 0.90)",
+          "type": "color"
+        },
+        "900": {
+          "value": "rgba({color.palette.orange.400}, 0.95)",
+          "type": "color"
+        },
+        "1000": {
+          "value": "rgba({color.palette.orange.400}, 1)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba({color.palette.orange.400}, 0)",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba({color.palette.orange.400}, 0.08)",
+          "type": "color"
+        }
+      },
+      "purple": {
+        "100": {
+          "value": "rgba({color.palette.purple.400}, 0.15)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba({color.palette.purple.400}, 0.20)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba({color.palette.purple.400}, 0.28)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba({color.palette.purple.400}, 0.40)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba({color.palette.purple.400}, 0.54)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba({color.palette.purple.400}, 0.65)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba({color.palette.purple.400}, 0.78)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba({color.palette.purple.400}, 0.90)",
+          "type": "color"
+        },
+        "900": {
+          "value": "rgba({color.palette.purple.400}, 0.95)",
+          "type": "color"
+        },
+        "1000": {
+          "value": "rgba({color.palette.purple.400}, 1)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba({color.palette.purple.400}, 0)",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba({color.palette.purple.400}, 0.08)",
+          "type": "color"
+        }
+      },
+      "red": {
+        "100": {
+          "value": "rgba({color.palette.red.400}, 0.09)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba({color.palette.red.400}, 0.13)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba({color.palette.red.400}, 0.28)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba({color.palette.red.400}, 0.40)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba({color.palette.red.400}, 0.54)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba({color.palette.red.400}, 0.65)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba({color.palette.red.400}, 0.78)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba({color.palette.red.400}, 0.90)",
+          "type": "color"
+        },
+        "900": {
+          "value": "rgba({color.palette.red.400}, 0.95)",
+          "type": "color"
+        },
+        "1000": {
+          "value": "rgba({color.palette.red.400}, 1)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba({color.palette.red.400}, 0)",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba({color.palette.red.400}, 0.05)",
+          "type": "color"
+        }
+      },
+      "teal": {
+        "100": {
+          "value": "rgba({color.palette.teal.400}, 0.15)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba({color.palette.teal.400}, 0.20)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba({color.palette.teal.400}, 0.28)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba({color.palette.teal.400}, 0.40)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba({color.palette.teal.400}, 0.54)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba({color.palette.teal.400}, 0.65)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba({color.palette.teal.400}, 0.78)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba({color.palette.teal.400}, 0.90)",
+          "type": "color"
+        },
+        "900": {
+          "value": "rgba({color.palette.teal.400}, 0.95)",
+          "type": "color"
+        },
+        "1000": {
+          "value": "rgba({color.palette.teal.400}, 1)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba({color.palette.teal.400}, 0)",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba({color.palette.teal.400}, 0.08)",
+          "type": "color"
+        }
+      },
+      "yellow": {
+        "100": {
+          "value": "rgba({color.palette.yellow.400}, 0.15)",
+          "type": "color"
+        },
+        "200": {
+          "value": "rgba({color.palette.yellow.400}, 0.20)",
+          "type": "color"
+        },
+        "300": {
+          "value": "rgba({color.palette.yellow.400}, 0.28)",
+          "type": "color"
+        },
+        "400": {
+          "value": "rgba({color.palette.yellow.400}, 0.40)",
+          "type": "color"
+        },
+        "500": {
+          "value": "rgba({color.palette.yellow.400}, 0.54)",
+          "type": "color"
+        },
+        "600": {
+          "value": "rgba({color.palette.yellow.400}, 0.65)",
+          "type": "color"
+        },
+        "700": {
+          "value": "rgba({color.palette.yellow.400}, 0.78)",
+          "type": "color"
+        },
+        "800": {
+          "value": "rgba({color.palette.yellow.400}, 0.90)",
+          "type": "color"
+        },
+        "900": {
+          "value": "rgba({color.palette.yellow.400}, 0.95)",
+          "type": "color"
+        },
+        "1000": {
+          "value": "rgba({color.palette.yellow.400}, 1)",
+          "type": "color"
+        },
+        "000": {
+          "value": "rgba({color.palette.yellow.400}, 0)",
+          "type": "color"
+        },
+        "050": {
+          "value": "rgba({color.palette.yellow.400}, 0.08)",
+          "type": "color"
+        }
+      }
+    },
     "text": {
       "bold": {
         "value": "{color.text.accent.grey.bold}",
@@ -448,7 +800,7 @@
         "description": "Use for placeholders and hints."
       },
       "inverted": {
-        "value": "{color.palette.grey.000}",
+        "value": "{color.text.accent.grey.bold}",
         "type": "color",
         "description": "Use for text on bold backgrounds."
       },
@@ -594,9 +946,9 @@
             "description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.900}",
-            "description": "Use for bold grey text for purely stylistic purposes with no specific meaning.",
-            "type": "color"
+            "value": "{opacity.light.800}",
+            "type": "color",
+            "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
           }
         },
         "orange": {
@@ -630,7 +982,7 @@
             "description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.600}",
+            "value": "{color.palette.red.500}",
             "type": "color",
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -1074,6 +1426,11 @@
       }
     },
     "background": {
+      "interaction": {
+        "value": "{color.white}",
+        "type": "color",
+        "description": "Use as a background overlay for elements in a hover and active state when their background color remains unchanged."
+      },
       "disabled": {
         "value": "{color.palette.grey.100}",
         "type": "color",
@@ -1556,68 +1913,68 @@
         "blue": {
           "muted": {
             "idle": {
-              "value": "{opacity.blue.000}",
+              "value": "{color.opacity.blue.000}",
               "type": "color",
               "description": "Used for muted blue backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.blue.200}",
+              "value": "{color.opacity.blue.200}",
               "type": "color",
               "description": "Used for muted blue backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.blue.300}",
+              "value": "{color.opacity.blue.300}",
               "type": "color",
               "description": "Used for muted blue backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.blue.100}",
+              "value": "{color.opacity.blue.100}",
               "type": "color",
               "description": "The subtlest blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.blue.200}",
+              "value": "{color.opacity.blue.200}",
               "type": "color",
               "description": "The subtlest blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.blue.300}",
+              "value": "{color.opacity.blue.300}",
               "type": "color",
               "description": "The subtlest blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.blue.300}",
+              "value": "{color.opacity.blue.300}",
               "type": "color",
               "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.blue.200}",
+              "value": "{color.opacity.blue.200}",
               "type": "color",
               "description": "A subtle blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.blue.100}",
+              "value": "{color.opacity.blue.100}",
               "type": "color",
               "description": "A subtle blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.blue.600}",
+              "value": "{color.palette.blue.150}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.blue.700}",
+              "value": "{color.palette.blue.200}",
               "type": "color",
               "description": "A vibrant blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.blue.800}",
+              "value": "{color.palette.blue.300}",
               "type": "color",
               "description": "A vibrant blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1626,68 +1983,68 @@
         "green": {
           "muted": {
             "idle": {
-              "value": "{opacity.green.000}",
+              "value": "{color.opacity.green.000}",
               "type": "color",
               "description": "Used for muted green backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.green.200}",
+              "value": "{color.opacity.green.200}",
               "type": "color",
               "description": "Used for muted green backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.green.300}",
+              "value": "{color.opacity.green.300}",
               "type": "color",
               "description": "Used for muted green backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.green.100}",
+              "value": "{color.opacity.green.100}",
               "type": "color",
               "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.green.200}",
+              "value": "{color.opacity.green.200}",
               "type": "color",
               "description": "The subtlest green background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.green.300}",
+              "value": "{color.opacity.green.300}",
               "type": "color",
               "description": "The subtlest green background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.green.300}",
+              "value": "{color.opacity.green.300}",
               "type": "color",
               "description": "A subtle green background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.green.200}",
+              "value": "{color.opacity.green.200}",
               "type": "color",
               "description": "A subtle green background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.green.100}",
+              "value": "{color.opacity.green.100}",
               "type": "color",
               "description": "A subtle green background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.green.600}",
+              "value": "{color.palette.green.100}",
               "type": "color",
               "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.green.500}",
+              "value": "{color.palette.green.150}",
               "type": "color",
               "description": "A vibrant green background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.green.400}",
+              "value": "{color.palette.green.200}",
               "type": "color",
               "description": "A vibrant green background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1696,68 +2053,68 @@
         "grey": {
           "muted": {
             "idle": {
-              "value": "{opacity.light.000}",
+              "value": "{color.opacity.light.000}",
               "type": "color",
               "description": "Used for muted grey backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.light.100}",
+              "value": "{color.opacity.light.100}",
               "type": "color",
               "description": "Used for muted grey backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.light.200}",
+              "value": "{color.opacity.light.200}",
               "type": "color",
               "description": "Used for muted grey backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.light.050}",
+              "value": "{color.opacity.light.050}",
               "type": "color",
               "description": "The subtlest grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.light.100}",
+              "value": "{color.opacity.light.100}",
               "type": "color",
               "description": "The subtlest grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.light.200}",
+              "value": "{color.opacity.light.200}",
               "type": "color",
               "description": "The subtlest grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.light.200}",
+              "value": "{color.opacity.light.200}",
               "type": "color",
               "description": "A subtle grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.light.100}",
+              "value": "{color.opacity.light.100}",
               "type": "color",
               "description": "A subtle grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.light.050}",
+              "value": "{color.opacity.light.050}",
               "type": "color",
               "description": "A subtle grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.grey.150}",
+              "value": "{color.palette.grey.050}",
               "type": "color",
               "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.grey.200}",
+              "value": "{color.palette.grey.100}",
               "type": "color",
               "description": "A vibrant grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.grey.300}",
+              "value": "{color.palette.grey.150}",
               "type": "color",
               "description": "A vibrant grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1766,51 +2123,51 @@
         "orange": {
           "muted": {
             "idle": {
-              "value": "{opacity.orange.000}",
+              "value": "{color.opacity.orange.000}",
               "type": "color",
               "description": "Used for muted orange backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.orange.200}",
+              "value": "{color.opacity.orange.200}",
               "type": "color",
               "description": "Used for muted orange backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.orange.300}",
+              "value": "{color.opacity.orange.300}",
               "type": "color",
               "description": "Used for muted orange backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.orange.100}",
+              "value": "{color.opacity.orange.100}",
               "type": "color",
               "description": "The subtlest orange background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.orange.200}",
+              "value": "{color.opacity.orange.200}",
               "type": "color",
               "description": "The subtlest orange background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.orange.300}",
+              "value": "{color.opacity.orange.300}",
               "type": "color",
               "description": "The subtlest orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.orange.300}",
+              "value": "{color.opacity.orange.300}",
               "type": "color",
               "description": "A subtle orange background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.orange.200}",
+              "value": "{color.opacity.orange.200}",
               "type": "color",
               "description": "A subtle orange background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.orange.100}",
+              "value": "{color.opacity.orange.100}",
               "type": "color",
               "description": "A subtle orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1836,51 +2193,51 @@
         "purple": {
           "muted": {
             "idle": {
-              "value": "{opacity.purple.000}",
+              "value": "{color.opacity.purple.000}",
               "type": "color",
               "description": "Used for muted purple backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.purple.200}",
+              "value": "{color.opacity.purple.200}",
               "type": "color",
               "description": "Used for muted purple backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.purple.300}",
+              "value": "{color.opacity.purple.300}",
               "type": "color",
               "description": "Used for muted purple backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.purple.100}",
+              "value": "{color.opacity.purple.100}",
               "type": "color",
               "description": "The subtlest purple background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.purple.200}",
+              "value": "{color.opacity.purple.200}",
               "type": "color",
               "description": "The subtlest purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.purple.300}",
+              "value": "{color.opacity.purple.300}",
               "type": "color",
               "description": "The subtlest purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.purple.300}",
+              "value": "{color.opacity.purple.300}",
               "type": "color",
               "description": "A subtle purple background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.purple.200}",
+              "value": "{color.opacity.purple.200}",
               "type": "color",
               "description": "A subtle purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.purple.100}",
+              "value": "{color.opacity.purple.100}",
               "type": "color",
               "description": "A subtle purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1906,68 +2263,68 @@
         "red": {
           "muted": {
             "idle": {
-              "value": "{opacity.red.000}",
+              "value": "{color.opacity.red.000}",
               "type": "color",
               "description": "Used for muted red backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.red.200}",
+              "value": "{color.opacity.red.100}",
               "type": "color",
               "description": "Used for muted red backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.red.300}",
+              "value": "{color.opacity.red.200}",
               "type": "color",
               "description": "Used for muted red backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.red.100}",
+              "value": "{color.opacity.red.050}",
               "type": "color",
               "description": "The subtlest red background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.red.200}",
+              "value": "{color.opacity.red.100}",
               "type": "color",
               "description": "The subtlest red background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.red.300}",
+              "value": "{color.opacity.red.200}",
               "type": "color",
               "description": "The subtlest red background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.red.300}",
+              "value": "{color.opacity.red.200}",
               "type": "color",
               "description": "A subtle red background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.red.200}",
+              "value": "{color.opacity.red.100}",
               "type": "color",
               "description": "A subtle red background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.red.100}",
+              "value": "{color.opacity.red.050}",
               "type": "color",
               "description": "A subtle red background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.red.500}",
+              "value": "{color.palette.red.100}",
               "type": "color",
               "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.palette.red.600}",
+              "value": "{color.palette.red.150}",
               "type": "color",
               "description": "A vibrant red background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.palette.red.700}",
+              "value": "{color.palette.red.200}",
               "type": "color",
               "description": "A vibrant red background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -1976,51 +2333,51 @@
         "teal": {
           "muted": {
             "idle": {
-              "value": "{opacity.teal.000}",
+              "value": "{color.opacity.teal.000}",
               "type": "color",
               "description": "Used for muted teal backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.teal.200}",
+              "value": "{color.opacity.teal.200}",
               "type": "color",
               "description": "Used for muted teal backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.teal.300}",
+              "value": "{color.opacity.teal.300}",
               "type": "color",
               "description": "Used for muted teal backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.teal.100}",
+              "value": "{color.opacity.teal.100}",
               "type": "color",
               "description": "The subtlest teal background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.teal.200}",
+              "value": "{color.opacity.teal.200}",
               "type": "color",
               "description": "The subtlest teal background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.teal.300}",
+              "value": "{color.opacity.teal.300}",
               "type": "color",
               "description": "The subtlest teal background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.teal.300}",
+              "value": "{color.opacity.teal.300}",
               "type": "color",
               "description": "A subtle teal background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.teal.200}",
+              "value": "{color.opacity.teal.200}",
               "type": "color",
               "description": "A subtle teal background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.teal.100}",
+              "value": "{color.opacity.teal.100}",
               "type": "color",
               "description": "A subtle teal background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -2046,51 +2403,51 @@
         "yellow": {
           "muted": {
             "idle": {
-              "value": "{opacity.yellow.000}",
+              "value": "{color.opacity.yellow.000}",
               "type": "color",
               "description": "Used for muted yellow backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.yellow.200}",
+              "value": "{color.opacity.yellow.200}",
               "type": "color",
               "description": "Used for muted yellow backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.yellow.300}",
+              "value": "{color.opacity.yellow.300}",
               "type": "color",
               "description": "Used for muted yellow backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{opacity.yellow.100}",
+              "value": "{color.opacity.yellow.100}",
               "type": "color",
               "description": "The subtlest yellow background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.yellow.200}",
+              "value": "{color.opacity.yellow.200}",
               "type": "color",
               "description": "The subtlest yellow background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.yellow.300}",
+              "value": "{color.opacity.yellow.300}",
               "type": "color",
               "description": "The subtlest yellow background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{opacity.yellow.300}",
+              "value": "{color.opacity.yellow.300}",
               "type": "color",
               "description": "A subtle yellow background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{opacity.yellow.200}",
+              "value": "{color.opacity.yellow.200}",
               "type": "color",
               "description": "A subtle yellow background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{opacity.yellow.100}",
+              "value": "{color.opacity.yellow.100}",
               "type": "color",
               "description": "A subtle yellow background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
@@ -2156,18 +2513,6 @@
         "value": "{color.utility.transparent.500}",
         "type": "color",
         "description": "Use for screen overlay that appears with dialogs or drawers."
-      }
-    },
-    "interaction": {
-      "hover": {
-        "value": "{color.utility.transparent.200}",
-        "type": "color",
-        "description": "Use as a background overlay for elements in a hover state when their background color remains unchanged, such as avatars."
-      },
-      "active": {
-        "value": "{color.utility.transparent.300}",
-        "type": "color",
-        "description": "Use as a background overlay for elements in an active state when their background color remains unchanged, such as avatars."
       }
     },
     "skeleton": {

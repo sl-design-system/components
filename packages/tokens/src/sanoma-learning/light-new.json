@@ -653,17 +653,17 @@
     },
     "link": {
       "idle": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for links in their default or hovered state."
       },
       "hover": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.palette.blue.700}",
         "type": "color",
         "description": "Use for links in hover state."
       },
       "active": {
-        "value": "{color.palette.blue.700}",
+        "value": "{color.palette.blue.800}",
         "type": "color",
         "description": "Use for links in active state."
       },

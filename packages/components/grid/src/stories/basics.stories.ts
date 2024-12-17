@@ -313,7 +313,10 @@ export const CustomSkeleton: Story = {
       if (typeof item === 'symbol' && item === FetchDataSourcePlaceholder) {
         return html`
           <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
-            <sl-skeleton style="aspect-ratio: 1; block-size: var(--sl-size-avatar-sm)" variant="circle"></sl-skeleton>
+            <sl-skeleton
+              style="aspect-ratio: 1; block-size: var(--sl-size-300); inline-size: auto"
+              variant="circle"
+            ></sl-skeleton>
             <sl-skeleton style="block-size: 18px; inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>
           </div>
         `;

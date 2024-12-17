@@ -171,7 +171,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   renderFooter(): TemplateResult {
     return html`
       <slot name="footer">
-        <sl-button-bar part="footer-bar"><slot name="actions">${this.renderActions()}</slot></sl-button-bar>
+        <sl-button-bar align="end" part="footer-bar"><slot name="actions">${this.renderActions()}</slot></sl-button-bar>
       </slot>
     `;
   }

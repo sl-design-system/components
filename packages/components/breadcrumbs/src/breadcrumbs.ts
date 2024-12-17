@@ -85,11 +85,17 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    */
   #observer = new ResizeObserver(() => this.#update());
 
-  /** The slotted breadcrumbs. */
+  /** @internal The slotted breadcrumbs. */
   @state() breadcrumbs: Breadcrumb[] = [];
 
-  /** The threshold for when breadcrumbs should be collapsed into a menu. */
+  /** @internal The threshold for when breadcrumbs should be collapsed into a menu. */
   @state() collapseThreshold = COLLAPSE_THRESHOLD;
+
+  /**
+   * Set this to true to invert the color of the breadcrumbs. This should be used
+   * when the breadcrumbs are displayed on a dark background.
+   */
+  @property({ type: Boolean, reflect: true }) inverted?: boolean;
 
   /**
    * The url for the home link, defaults to the root url.
@@ -145,13 +151,19 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         ${this.breadcrumbs.length > this.collapseThreshold
           ? html`
               <li class="more-menu">
-                <sl-button @click=${this.#onClick} aria-label=${msg('More breadcrumbs')} fill="link" id="button">
+                <sl-button
+                  @click=${this.#onClick}
+                  aria-label=${msg('More breadcrumbs')}
+                  fill="link"
+                  id="button"
+                  variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
+                >
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>
                 <sl-popover anchor="button">
                   ${this.breadcrumbs
                     .slice(0, -this.collapseThreshold)
-                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : html`${label}`))}
+                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : label))}
                 </sl-popover>
               </li>
               <sl-icon name="breadcrumb-separator"></sl-icon>

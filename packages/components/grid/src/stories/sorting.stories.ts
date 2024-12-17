@@ -21,6 +21,7 @@ export const Basic: Story = {
   render: (_, { loaded: { people } }) => {
     return html`
       <sl-grid .items=${people}>
+        <sl-grid-sort-column path="id"></sl-grid-sort-column>
         <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
         <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
         <sl-grid-sort-column path="email"></sl-grid-sort-column>
@@ -29,10 +30,48 @@ export const Basic: Story = {
   }
 };
 
+export const CustomSorterFunction: Story = {
+  render: () => {
+    interface Foo {
+      description: string;
+      code: string;
+    }
+
+    const items: Foo[] = [
+      { description: 'B', code: 'b' },
+      { description: 'a', code: 'A' },
+      { description: 'c', code: 'C' },
+      { description: 'D', code: 'd' }
+    ];
+
+    const sort = (a: Foo, b: Foo): number => {
+      const isLowerCase = (str: string) => str === str.toLowerCase(),
+        isUpperCase = (str: string) => str === str.toUpperCase();
+
+      if (isLowerCase(a.description) && isUpperCase(b.description)) {
+        return -1;
+      } else {
+        return a.description.localeCompare(b.description);
+      }
+    };
+
+    return html`
+      <p>
+        This grid sorts items by description using a custom sorter on the data directly (first lowercase and then
+        uppercase).
+      </p>
+      <sl-grid .items=${items}>
+        <sl-grid-sort-column path="description" direction="asc" .sorter=${sort}></sl-grid-sort-column>
+        <sl-grid-sort-column path="code"></sl-grid-sort-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const CustomColumnSorter: Story = {
   render: (_, { loaded: { people } }) => {
     const renderer = ({ firstName, lastName }: Person): TemplateResult => {
-      return html`<sl-button>${firstName} ${lastName}</sl-button>`;
+      return html`${firstName} ${lastName}`;
     };
 
     const sorter = (a: Person, b: Person): number => {
@@ -88,6 +127,7 @@ export const Grouped: Story = {
 
     return html`
       <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column path="id"></sl-grid-sort-column>
         <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
         <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>

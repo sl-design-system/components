@@ -12,7 +12,7 @@
 
 ::slotted(hr) {
   border: 0;
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
   margin: var(--sl-space-new-sm) 0;
   padding: 0;
 }

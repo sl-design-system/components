@@ -7,7 +7,7 @@
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Roboto",
           "type": "fontFamilies"
         },
         "icon": {
@@ -22,7 +22,7 @@
           "type": "fontWeights"
         },
         "demibold": {
-          "value": "SemiBold",
+          "value": "Medium",
           "type": "fontWeights"
         }
       }
@@ -119,14 +119,31 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.sm}",
-        "type": "borderRadius"
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius",
+        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+      },
+      "full": {
+        "value": "50rem",
+        "type": "borderRadius",
+        "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
       }
     },
     "borderWidth": {
-      "default": {
+      "subtle": {
         "value": "{size.010}",
-        "type": "borderWidth"
+        "type": "borderWidth",
+        "description": "A subtle border, applied to form controls, divider lines, and other UI elements where subtle emphasis is needed."
+      },
+      "bold": {
+        "value": "{size.025}",
+        "type": "borderWidth",
+        "description": "A bold border, often used for buttons or other interactive elements that need to stand out."
+      },
+      "heavy": {
+        "value": "{size.050}",
+        "type": "borderWidth",
+        "description": "A heavy border, used for impactful elements like alert messages or active states in components like tabs, where heavy emphasis is necessary."
       }
     },
     "icon": {
@@ -164,6 +181,13 @@
           "type": "fontSizes"
         }
       }
+    },
+    "outlineWidth": {
+      "default": {
+        "value": "{size.borderWidth.bold}",
+        "type": "borderWidth",
+        "description": "Sets the standard outline width for UI elements."
+      }
     }
   },
   "icon": {
@@ -177,6 +201,20 @@
           "value": "{icon.typeset.fontWeight.icon-solid}",
           "type": "fontWeights"
         }
+      }
+    }
+  },
+  "space": {
+    "offset": {
+      "focused": {
+        "value": "{space.025}",
+        "type": "spacing",
+        "description": "Defines the spacing applied when an element is focused."
+      },
+      "default": {
+        "value": "{space.075}",
+        "type": "spacing",
+        "description": "Defines the standard spacing offset."
       }
     }
   }

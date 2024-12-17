@@ -148,17 +148,105 @@
     }
   },
   "opacity": {
-    "100": {
-      "value": "0.1",
-      "type": "opacity"
+    "light": {
+      "100": {
+        "value": "rgba({color.white}, 0.10)",
+        "type": "opacity"
+      },
+      "200": {
+        "value": "rgba({color.white}, 0.22)",
+        "type": "opacity"
+      },
+      "300": {
+        "value": "rgba({color.white}, 0.35)",
+        "type": "opacity"
+      },
+      "400": {
+        "value": "rgba({color.white}, 0.46)",
+        "type": "opacity"
+      },
+      "500": {
+        "value": "rgba({color.white}, 0.60)",
+        "type": "opacity"
+      },
+      "600": {
+        "value": "rgba({color.white}, 0.72)",
+        "type": "opacity"
+      },
+      "700": {
+        "value": "rgba({color.white}, 0.80)",
+        "type": "opacity"
+      },
+      "800": {
+        "value": "rgba({color.white}, 0.85)",
+        "type": "opacity"
+      },
+      "900": {
+        "value": "rgba({color.white}, 0.92)",
+        "type": "opacity"
+      },
+      "1000": {
+        "value": "rgba({color.white}, 1)",
+        "type": "opacity"
+      },
+      "000": {
+        "value": "rgba({color.white}, 0)",
+        "type": "opacity"
+      },
+      "050": {
+        "value": "rgba({color.white}, 0.05)",
+        "type": "opacity"
+      }
     },
-    "250": {
-      "value": "0.25",
-      "type": "opacity"
-    },
-    "050": {
-      "value": "0.05",
-      "type": "opacity"
+    "dark": {
+      "100": {
+        "value": "rgba({color.black}, 0.15)",
+        "type": "opacity"
+      },
+      "200": {
+        "value": "rgba({color.black}, 0.20)",
+        "type": "opacity"
+      },
+      "300": {
+        "value": "rgba({color.black}, 0.28)",
+        "type": "opacity"
+      },
+      "400": {
+        "value": "rgba({color.black}, 0.40)",
+        "type": "opacity"
+      },
+      "500": {
+        "value": "rgba({color.black}, 0.54)",
+        "type": "opacity"
+      },
+      "600": {
+        "value": "rgba({color.black}, 0.65)",
+        "type": "opacity"
+      },
+      "700": {
+        "value": "rgba({color.black}, 0.78)",
+        "type": "opacity"
+      },
+      "800": {
+        "value": "rgba({color.black}, 0.90)",
+        "type": "opacity"
+      },
+      "900": {
+        "value": "rgba({color.black}, 0.95)",
+        "type": "opacity"
+      },
+      "1000": {
+        "value": "rgba({color.black}, 1)",
+        "type": "opacity"
+      },
+      "000": {
+        "value": "rgba({color.black}, 0)",
+        "type": "opacity"
+      },
+      "050": {
+        "value": "rgba({color.black}, 0.08)",
+        "type": "opacity"
+      }
     }
   }
 }

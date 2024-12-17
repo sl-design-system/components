@@ -18,6 +18,10 @@ declare global {
 
 export type TogglePlacement = 'start' | 'end';
 
+export type SubtitlePlacement = 'bottom' | 'top';
+
+export type BadgesPlacement = 'bottom' | 'top';
+
 export type PanelElevation = 'none' | 'raised' | 'sunken';
 
 /**
@@ -50,6 +54,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   #hasBadge = false;
 
+  @property({ reflect: true, attribute: 'badges-placement' }) badgesPlacement?: BadgesPlacement;
+
   /** Indicates whether the panel is collapsed or expanded . */
   @property({ type: Boolean, reflect: true }) collapsed?: boolean;
 
@@ -73,19 +79,18 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   @property() subtitle?: string;
 
+  @property({ reflect: true, attribute: 'subtitle-placement' }) subtitlePlacement?: SubtitlePlacement;
+
   /** The placement of the toggle button when it's collapsible. */ // TODO: add @default...
   @property({ reflect: true, attribute: 'toggle-placement' }) togglePlacement?: TogglePlacement; // togglePlacement
 
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  // TODO: elevation: none, raised and sunken
+  /** TODO: descriptions */
+  @property({ type: Boolean, reflect: true, attribute: 'no-padding' }) noPadding?: boolean;
+
   // TODO: chevron on the left or on the right (toggle start / toggle end / none when not collapsible) toggle placement? (use TogglePlacement)
-
-  // TODO: padding, no padding
-  // TODO: outline, no outline
-
-  // TODO: placement of subtitle and badges (start / end / none)???
 
   override render(): TemplateResult {
     console.log('togglePlacement', this.togglePlacement);
@@ -101,16 +106,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
               >
                 <sl-icon name="chevron-down"></sl-icon>
               </sl-button>
-              <div part="wrapper">
-                <button
-                  @click=${() => this.toggle()}
-                  aria-controls="body"
-                  aria-expanded=${this.collapsed ? 'false' : 'true'}
-                  part="wrapper"
-                >
-                  ${this.renderHeading()}
-                </button>
-              </div>
+              <div part="wrapper">${this.renderHeading()}</div>
             `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
@@ -139,12 +135,23 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  // <button
+  // @click=${() => this.toggle()}
+  // aria-controls="body"
+  // aria-expanded=${this.collapsed ? 'false' : 'true'}
+  // part="wrapper"
+  //   >
+  //   ${this.renderHeading()}
+  // </button>
+
   renderHeading(): TemplateResult {
     return html`
       <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
       <div part="main">
-        <slot name="heading">${this.heading}</slot>
-        <slot name="subtitle">${this.subtitle}</slot>
+        <div part="titles">
+          <slot name="heading">${this.heading}</slot>
+          <slot name="subtitle">${this.subtitle}</slot>
+        </div>
         <slot name="badge" @slotchange=${this.handleBadgeSlotChange}></slot>
       </div>
       <slot name="suffix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
@@ -163,6 +170,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   private handleBadgeSlotChange(): void {
     const badgeSlot = this.shadowRoot?.querySelector('slot[name="badge"]') as HTMLSlotElement | null;
     this.#hasBadge = (badgeSlot && badgeSlot.assignedNodes().length > 0) || false;
+
+    console.log('this.#hasBadge', this.#hasBadge);
+
+    // TODO: when prefix there should be no suffix?
 
     this.requestUpdate();
   }

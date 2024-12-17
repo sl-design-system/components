@@ -108,9 +108,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <div part="title">
           <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
         </div>
-        <div part="content">
-          <slot></slot>
-        </div>
         <div part="action">
           <slot @slotchange=${this.#onActionSlotChange} name="action"></slot>
         </div>
@@ -127,6 +124,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>
             `}
+        <div part="content">
+          <slot></slot>
+        </div>
       </div>
     `;
   }

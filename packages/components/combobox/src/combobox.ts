@@ -336,14 +336,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
       this.updateValidity();
     }
-
-    if (changes.has('multiple') || changes.has('selectedItems')) {
-      if (this.multiple && this.selectedItems.length > 0) {
-        this.input.setAttribute('aria-placeholder', this.selectedItems.map(i => i.label).join(', '));
-      } else {
-        this.input.removeAttribute('aria-placeholder');
-      }
-    }
   }
 
   override render(): TemplateResult {

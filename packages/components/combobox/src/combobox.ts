@@ -796,7 +796,16 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     const groupedItem = { ...item, selected: true, visible: true };
 
-    this.items = [this.items[0], groupedItem, ...this.items.slice(1)];
+    let index = 0;
+    if (this.items[0].type === 'group') {
+      index = this.items.findIndex(i => i !== this.items[0] && i.type === 'group');
+      index = Math.max(0, index);
+    } else {
+      index = this.items.findIndex(i => !(i.element instanceof GroupedOption));
+      index = Math.max(0, index);
+    }
+
+    this.items = [...this.items.slice(0, index), groupedItem, ...this.items.slice(index)];
     this.selectedItems = [...this.selectedItems, groupedItem];
 
     if (this.#useVirtualList) {

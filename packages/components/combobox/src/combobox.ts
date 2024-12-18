@@ -805,7 +805,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       index = Math.max(0, index);
     }
 
+    // Insert the new grouped option *after* any existing grouped options
     this.items = [...this.items.slice(0, index), groupedItem, ...this.items.slice(index)];
+
     this.selectedItems = [...this.selectedItems, groupedItem];
 
     if (this.#useVirtualList) {

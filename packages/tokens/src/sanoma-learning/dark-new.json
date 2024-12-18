@@ -2033,7 +2033,7 @@
           "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
         },
         "sunken": {
-          "value": "{color.background.accent.grey.subtlest",
+          "value": "{color.background.accent.grey.subtlest}",
           "type": "color",
           "description": "Background for components that create a sunken effect, typically used for grouping related items."
         }

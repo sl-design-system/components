@@ -1,5 +1,5 @@
 :host {
-  --_bg-color: var(--sl-color-background-secondary-bold-idle);
+  --_bg-color: var(--sl-color-background-secondary-bold);
   --_bg-opacity: var(--sl-opacity-interactive-idle);
 
   align-items: center;
@@ -39,13 +39,13 @@
 }
 
 :host([fill='ghost']) {
-  --_bg-color: var(--sl-color-background-secondary-muted-idle);
+  --_bg-color: var(--sl-color-background-secondary-muted);
 
   color: var(--sl-color-text-secondary-bold);
 }
 
 :host([fill='link']) {
-  --_bg-color: var(--sl-color-background-secondary-muted-idle);
+  --_bg-color: var(--sl-color-background-secondary-muted);
 
   color: var(--sl-color-text-secondary-bold);
   padding-inline: 0;
@@ -56,7 +56,7 @@
 }
 
 :host([fill='outline']) {
-  --_bg-color: var(--sl-color-background-secondary-muted-idle);
+  --_bg-color: var(--sl-color-background-secondary-muted);
 
   border-color: var(--sl-color-border-secondary);
   color: var(--sl-color-text-secondary-bold);
@@ -92,132 +92,132 @@
 }
 
 :host([variant='primary']) {
-  --_bg-color: var(--sl-color-background-primary-bold-idle);
+  --_bg-color: var(--sl-color-background-primary-bold);
 
   color: var(--sl-color-text-inverted);
 }
 
 :host([fill='ghost'][variant='primary']) {
-  --_bg-color: var(--sl-color-background-primary-muted-idle);
+  --_bg-color: var(--sl-color-background-primary-muted);
 
   color: var(--sl-color-text-primary);
 }
 
 :host([fill='link'][variant='primary']) {
-  --_bg-color: var(--sl-color-background-primary-muted-idle);
+  --_bg-color: var(--sl-color-background-primary-muted);
 
   color: var(--sl-color-text-primary);
 }
 
 :host([fill='outline'][variant='primary']) {
-  --_bg-color: var(--sl-color-background-primary-muted-idle);
+  --_bg-color: var(--sl-color-background-primary-muted);
 
   border-color: var(--sl-color-border-primary);
   color: var(--sl-color-text-primary);
 }
 
 :host([variant='success']) {
-  --_bg-color: var(--sl-color-background-positive-bold-idle);
+  --_bg-color: var(--sl-color-background-positive-bold);
 
   color: var(--sl-color-text-inverted);
 }
 
 :host([fill='ghost'][variant='success']) {
-  --_bg-color: var(--sl-color-background-positive-muted-idle);
+  --_bg-color: var(--sl-color-background-positive-muted);
 
   color: var(--sl-color-text-positive-bold);
 }
 
 :host([fill='link'][variant='success']) {
-  --_bg-color: var(--sl-color-background-positive-muted-idle);
+  --_bg-color: var(--sl-color-background-positive-muted);
 
   color: var(--sl-color-text-positive-bold);
 }
 
 :host([fill='outline'][variant='success']) {
-  --_bg-color: var(--sl-color-background-positive-muted-idle);
+  --_bg-color: var(--sl-color-background-positive-muted);
 
   border-color: var(--sl-color-border-positive);
   color: var(--sl-color-text-positive-bold);
 }
 
 :host([variant='warning']) {
-  --_bg-color: var(--sl-color-background-caution-bold-idle);
+  --_bg-color: var(--sl-color-background-caution-bold);
 
   color: var(--sl-color-text-caution-inverted);
 }
 
 :host([fill='ghost'][variant='warning']) {
-  --_bg-color: var(--sl-color-background-caution-muted-idle);
+  --_bg-color: var(--sl-color-background-caution-muted);
 
   color: var(--sl-color-text-caution-bold);
 }
 
 :host([fill='link'][variant='warning']) {
-  --_bg-color: var(--sl-color-background-caution-muted-idle);
+  --_bg-color: var(--sl-color-background-caution-muted);
 
   color: var(--sl-color-text-caution-bold);
 }
 
 :host([fill='outline'][variant='warning']) {
-  --_bg_color: var(--sl-color-background-caution-muted-idle);
+  --_bg_color: var(--sl-color-background-caution-muted);
 
   border-color: var(--sl-color-border-caution);
   color: var(--sl-color-text-caution-bold);
 }
 
 :host([variant='danger']) {
-  --_bg-color: var(--sl-color-background-negative-bold-idle);
+  --_bg-color: var(--sl-color-background-negative-bold);
 
   color: var(--sl-color-text-inverted);
 }
 
 :host([fill='ghost'][variant='danger']) {
-  --_bg-color: var(--sl-color-background-negative-muted-idle);
+  --_bg-color: var(--sl-color-background-negative-muted);
 
   color: var(--sl-color-text-negative-bold);
 }
 
 :host([fill='link'][variant='danger']) {
-  --_bg-color: var(--sl-color-background-negative-muted-idle);
+  --_bg-color: var(--sl-color-background-negative-muted);
 
   color: var(--sl-color-text-negative-bold);
 }
 
 :host([fill='outline'][variant='danger']) {
-  --_bg-color: var(--sl-color-background-negative-muted-idle);
+  --_bg-color: var(--sl-color-background-negative-muted);
 
   border-color: var(--sl-color-border-negative);
   color: var(--sl-color-text-negative-bold);
 }
 
 :host([variant='info']) {
-  --_bg-color: var(--sl-color-background-info-bold-idle);
+  --_bg-color: var(--sl-color-background-info-bold);
 
   color: var(--sl-color-text-inverted);
 }
 
 :host([fill='ghost'][variant='info']) {
-  --_bg-color: var(--sl-color-background-info-muted-idle);
+  --_bg-color: var(--sl-color-background-info-muted);
 
   color: var(--sl-color-text-info-bold);
 }
 
 :host([fill='link'][variant='info']) {
-  --_bg-color: var(--sl-color-background-info-muted-idle);
+  --_bg-color: var(--sl-color-background-info-muted);
 
   color: var(--sl-color-text-info-bold);
 }
 
 :host([fill='outline'][variant='info']) {
-  --_bg-color: var(--sl-color-background-info-muted-idle);
+  --_bg-color: var(--sl-color-background-info-muted);
 
   border-color: var(--sl-color-border-info);
   color: var(--sl-color-text-info-bold);
 }
 
 :host([variant='inverted']) {
-  --_bg-color: var(--sl-color-background-inverted-bold-idle);
+  --_bg-color: var(--sl-color-background-inverted-bold);
 
   color: var(--sl-color-text-bold);
 }
@@ -227,19 +227,19 @@
 }
 
 :host([fill='ghost'][variant='inverted']) {
-  --_bg-color: var(--sl-color-background-inverted-muted-idle);
+  --_bg-color: var(--sl-color-background-inverted-muted);
 
   color: var(--sl-color-text-inverted);
 }
 
 :host([fill='link'][variant='inverted']) {
-  --_bg-color: var(--sl-color-background-inverted-muted-idle);
+  --_bg-color: var(--sl-color-background-inverted-muted);
 
   color: var(--sl-color-text-inverted);
 }
 
 :host([fill='outline'][variant='inverted']) {
-  --_bg-color: var(--sl-color-background-inverted-muted-idle);
+  --_bg-color: var(--sl-color-background-inverted-muted);
 
   border-color: var(--sl-color-border-inverted);
   color: var(--sl-color-text-inverted);
@@ -256,7 +256,7 @@
 }
 
 :host([disabled]:where([fill='ghost'], [fill='link'], [fill='outline'])) {
-  --_bg-color: var(--sl-color-background-primary-muted-idle);
+  --_bg-color: var(--sl-color-background-primary-muted);
 }
 
 :host([disabled][fill='outline']) {

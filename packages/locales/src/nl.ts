@@ -26,8 +26,6 @@ export const templates = {
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
   s6580790b036f0c6f: 'actief',
   s6abb1cd87fe0114e: 'Home',
-  s6ef3b70aa370dba4: str`Aantal items per pagina: ${0}`,
-  s7d09afc329d9995b: str`Pagina ${0} van ${1}`,
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
   s886db4d476f66522: 'Geselecteerde opties',

@@ -2475,34 +2475,34 @@
         "muted": {
           "idle": {
             "type": "color",
-            "value": "{color.opacity.dark.000}",
+            "value": "{opacity.dark.000}",
             "description": "Use as inverted background of actions that appear to have no background in idle state. Such as inverted outline and ghost buttons."
           },
           "hover": {
             "type": "color",
-            "value": "{color.opacity.dark.100}",
+            "value": "{opacity.dark.100}",
             "description": "Use as inverted background while hovering of actions that appear to have no background in idle state. Such as inverted outline and ghost buttons."
           },
           "active": {
             "type": "color",
-            "value": "{color.opacity.dark.200}",
+            "value": "{opacity.dark.200}",
             "description": "Use as inverted background while pressing of actions that appear to have no background in idle state. such as inverted outline and ghost buttons."
           }
         },
         "bold": {
           "idle": {
-            "value": "{color.opacity.dark.1000}",
+            "value": "{opacity.dark.1000}",
             "type": "color",
             "description": "Use as inverted background of actions with bold emphasis."
           },
           "hover": {
             "type": "color",
-            "value": "{color.opacity.dark.800}",
+            "value": "{opacity.dark.800}",
             "description": "Use as inverted background of actions with bold emphasis during hover states."
           },
           "active": {
             "type": "color",
-            "value": "{color.opacity.dark.700}",
+            "value": "{opacity.dark.700}",
             "description": "Use as inverted background of actions with bold emphasis during pressed states."
           }
         }

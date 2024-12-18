@@ -723,10 +723,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
         if (index !== -1) {
           this.listbox?.scrollToIndex(index, { block: 'nearest' });
+        } else {
+          this.listbox?.scrollIntoView({ block: 'start' });
         }
       }
     } else {
       this.#popoverJustClosed = false;
+      this.#updateCurrent();
     }
   }
 

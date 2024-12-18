@@ -54,6 +54,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   #hasBadge = false;
 
+  #toggleClicked = false;
+
   @property({ reflect: true, attribute: 'badges-placement' }) badgesPlacement?: BadgesPlacement;
 
   /** Indicates whether the panel is collapsed or expanded . */
@@ -103,8 +105,14 @@ export class Panel extends ScopedElementsMixin(LitElement) {
                 fill="ghost"
                 aria-controls="body"
                 aria-expanded=${this.collapsed ? 'false' : 'true'}
+                class=${this.#toggleClicked ? 'clicked' : ''}
               >
-                <sl-icon name="chevron-down"></sl-icon>
+                <sl-icon
+                  class="icon ${this.#toggleClicked ? 'dash' : 'chevron'} ${!this.collapsed && !this.#toggleClicked
+                    ? 'upside-down'
+                    : ''}"
+                  name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+                ></sl-icon>
               </sl-button>
               <div part="wrapper">${this.renderHeading()}</div>
             `
@@ -135,6 +143,24 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /*<sl-button
+@click=${() => this.toggle()}
+fill="ghost"
+aria-controls="body"
+aria-expanded=${this.collapsed ? 'false' : 'true'}
+>
+<sl-icon name="chevron-down" class="chevron"></sl-icon>
+  <sl-icon name="dash-solid" class="dash"></sl-icon>
+  </sl-button>
+
+  <h2>toggleClicked ??? ${this.#toggleClicked}</h2>
+              <h2>${this.renderRoot.querySelector('sl-button')?.classList}</h2>*/
+
+  // <sl-icon name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+  // class=${classMap({ dash: this.#toggleClicked, chevron: this.collapsible, clicked: this.#toggleClicked })}></sl-icon>
+
+  // name=${this.#toggleClicked ? 'dash-solid' : this.collapsed ? 'chevron-down' : 'chevron-up'}
+
   // <button
   // @click=${() => this.toggle()}
   // aria-controls="body"
@@ -151,6 +177,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
         <div part="titles">
           <slot name="heading">${this.heading}</slot>
           <slot name="subtitle">${this.subtitle}</slot>
+          <sl-icon name="dash-solid"></sl-icon>
+          <sl-icon name="chevron-down"></sl-icon>
         </div>
         <slot name="badge" @slotchange=${this.handleBadgeSlotChange}></slot>
       </div>
@@ -163,8 +191,46 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    * @param force - Whether to force the panel to be collapsed or expanded.
    */
   toggle(force = !this.collapsed): void {
-    this.collapsed = force;
-    this.toggleEvent.emit(this.collapsed);
+    const button = this.renderRoot.querySelector('sl-button');
+    console.log('button', button);
+
+    // if (!button) {
+    //   return;
+    // }
+
+    // button?.classList.toggle('clicked'); // TODO: maybe attribute instead of class? and can be used in sl-icon
+    // this.#toggleClicked = true;
+    // setTimeout(() => {
+    //   button?.classList.toggle('clicked');
+    //   this.#toggleClicked = false;
+    // }, 100);
+
+    // this.#toggleClicked = !this.#toggleClicked;
+    /*    this.#toggleClicked = true;
+    setTimeout(() => {
+     // this.collapsed = !this.collapsed;
+      this.collapsed = force;
+      // this.#toggleClicked = !this.#toggleClicked;
+      this.#toggleClicked = false;
+      // this.toggleEvent.emit(this.collapsed);
+    }, 500);
+
+    // this.collapsed = force;
+    this.toggleEvent.emit(this.collapsed);*/
+
+    this.#toggleClicked = true;
+    this.requestUpdate();
+    setTimeout(() => {
+      this.collapsed = force;
+      this.#toggleClicked = false;
+      // this.requestUpdate();
+      this.toggleEvent.emit(this.collapsed);
+    }, 100);
+
+    // setTimeout(() => {
+    // this.collapsed = force;
+    // this.toggleEvent.emit(!!this.collapsed);
+    // }, 900);
   }
 
   private handleBadgeSlotChange(): void {

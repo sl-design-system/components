@@ -24,9 +24,10 @@
 }
 
 :host([collapsible][collapsed]) {
-  sl-icon {
-    rotate: 0deg;
-  }
+  // sl-icon {
+  //  //rotate: 0deg;
+  //  transform: scaleY(-1);
+  // }
 
   [part='body'] {
     grid-template-rows: 0fr;
@@ -115,8 +116,9 @@ button {
 }
 
 sl-icon {
-  rotate: 180deg;
-  transition: rotate 0.2s ease-in-out;
+  // rotate: 180deg;
+  // transition: rotate 0.2s ease-in-out;
+  transition: transform 0.3s ease;
 }
 
 slot[name='heading'],
@@ -177,3 +179,66 @@ slot[name='actions']::slotted(:first-child) {
 //  padding-block: var(--_padding-block);
 //  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
 // }
+
+// .dash {
+//  display: none;
+//  transition: opacity 0.3s ease;
+// }
+
+// sl-button.clicked .chevron {
+//  display: none;
+// }
+
+// sl-button.clicked .dash {
+//  display: inline-block;
+//  opacity: 1;
+// }
+
+// sl-button.clicked sl-icon {
+//  transform: scaleY(-1);
+//  transition: transform 0.3s ease; // TODO: need to be changed?
+// }
+
+// .icon {
+//  transition: transform 0.3s ease;
+// }
+
+// .icon.dash {
+//  display: none;
+// }
+
+// .icon.chevron {
+//  display: inline-block;
+// }
+
+// .icon.upside-down {
+//  transform: scaleY(-1);
+// }
+
+.icon {
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.icon.dash {
+  opacity: 0;
+
+  // position: absolute;
+}
+
+.icon.chevron {
+  opacity: 1;
+}
+
+.icon.upside-down {
+  transform: scaleY(-1);
+}
+
+sl-button.clicked .icon.chevron {
+  opacity: 0;
+}
+
+sl-button.clicked .icon.dash {
+  opacity: 1;
+}

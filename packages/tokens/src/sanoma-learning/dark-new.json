@@ -2034,7 +2034,7 @@
           },
           "bold": {
             "idle": {
-              "value": "{color.palette.green.200}",
+              "value": "{color.palette.green.150}",
               "type": "color",
               "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
             },
@@ -2053,51 +2053,51 @@
         "grey": {
           "muted": {
             "idle": {
-              "value": "{color.opacity.light.000}",
+              "value": "{opacity.light.000}",
               "type": "color",
               "description": "Used for muted grey backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.opacity.light.100}",
+              "value": "{opacity.light.100}",
               "type": "color",
               "description": "Used for muted grey backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.opacity.light.200}",
+              "value": "{opacity.light.200}",
               "type": "color",
               "description": "Used for muted grey backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtlest": {
             "idle": {
-              "value": "{color.opacity.light.050}",
+              "value": "{opacity.light.050}",
               "type": "color",
               "description": "The subtlest grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.opacity.light.100}",
+              "value": "{opacity.light.100}",
               "type": "color",
               "description": "The subtlest grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.opacity.light.200}",
+              "value": "{opacity.light.200}",
               "type": "color",
               "description": "The subtlest grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }
           },
           "subtle": {
             "idle": {
-              "value": "{color.opacity.light.200}",
+              "value": "{opacity.light.200}",
               "type": "color",
               "description": "A subtle grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "hover": {
-              "value": "{color.opacity.light.100}",
+              "value": "{opacity.light.100}",
               "type": "color",
               "description": "A subtle grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
             },
             "active": {
-              "value": "{color.opacity.light.050}",
+              "value": "{opacity.light.050}",
               "type": "color",
               "description": "A subtle grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
             }

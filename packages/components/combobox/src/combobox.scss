@@ -18,7 +18,7 @@ sl-text-field {
   padding-inline: var(--_padding-inline) 0;
 
   &:has(> sl-tag-list) {
-    padding-inline: calc(var(--sl-space-new-md) - var(--sl-size-borderWidth-subtle)) 0;
+    padding-inline: calc(var(--sl-space-100) - var(--sl-size-borderWidth-subtle)) 0;
   }
 }
 
@@ -38,7 +38,7 @@ sl-icon {
   background: var(--sl-elevation-surface-raised-default-idle);
   border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-subtle);
   border-radius: var(--sl-size-borderRadius-default);
-  box-shadow: var(--sl-elevation-shadow-md);
+  box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;
   display: none;
   margin: 0;

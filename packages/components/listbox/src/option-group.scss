@@ -6,12 +6,12 @@
 
 :host(:not(:first-of-type)) {
   border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
-  margin-block-start: var(--sl-space-new-sm);
-  padding-block-start: var(--sl-space-new-md);
+  margin-block-start: var(--sl-space-075);
+  padding-block-start: var(--sl-space-100);
 }
 
 ::slotted(sl-option:first-of-type) {
-  margin-block-start: var(--sl-space-new-2xs);
+  margin-block-start: var(--sl-space-025);
 }
 
 [part='wrapper'] {

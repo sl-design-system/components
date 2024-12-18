@@ -3,16 +3,16 @@
   contain: layout paint style;
   display: flex;
   flex-direction: column;
-  gap: var(--sl-space-new-2xs);
+  gap: var(--sl-space-025);
   overflow: auto;
-  padding: var(--sl-space-new-md) 0;
-  scroll-padding-block: var(--sl-space-new-md);
+  padding: var(--sl-space-100) 0;
+  scroll-padding-block: var(--sl-space-100);
   scrollbar-width: thin;
 }
 
 ::slotted(hr) {
   border: 0;
   border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
-  margin: var(--sl-space-new-sm) 0;
+  margin: var(--sl-space-075) 0;
   padding: 0;
 }

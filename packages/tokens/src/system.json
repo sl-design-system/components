@@ -467,11 +467,11 @@
         "type": "opacity"
       },
       "hover": {
-        "value": "5%",
+        "value": "8%",
         "type": "opacity"
       },
       "active": {
-        "value": "10%",
+        "value": "16%",
         "type": "opacity"
       }
     }

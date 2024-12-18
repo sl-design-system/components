@@ -206,6 +206,10 @@
   <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> weergegeven</target>
 </trans-unit>
+<trans-unit id="s886db4d476f66522">
+  <source>Selected options</source>
+  <target>Geselecteerde opties</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

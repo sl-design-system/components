@@ -365,7 +365,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         ${this.multiple && this.selectedItems.length
           ? html`
               <sl-tag-list
-                aria-hidden="true"
+                aria-label=${msg('Selected options')}
                 size=${ifDefined(this.size)}
                 slot="prefix"
                 stacked

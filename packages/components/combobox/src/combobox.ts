@@ -496,19 +496,19 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' && this.allowCustomValues && this.currentItem === this.createCustomOption) {
-      this.#addCustomOption(this.input.value);
-    } else if (event.key === 'Enter' && this.currentItem?.custom && this.currentItem?.option) {
-      this.#removeCustomOption(this.currentItem);
-    } else if (event.key === 'Enter' && this.currentItem) {
-      this.#toggleSelectedOption(this.currentItem);
-      this.#updateFilteredOptions();
+    if (event.key === 'Enter' && !this.focusedTag) {
+      if (this.allowCustomValues && this.currentItem === this.createCustomOption) {
+        this.#addCustomOption(this.input.value);
+      } else if (this.currentItem?.custom && this.currentItem?.option) {
+        this.#removeCustomOption(this.currentItem);
+      } else if (this.currentItem) {
+        this.#toggleSelectedOption(this.currentItem);
+        this.#updateFilteredOptions();
 
-      if (!this.multiple) {
-        this.wrapper?.hidePopover();
+        if (!this.multiple) {
+          this.wrapper?.hidePopover();
+        }
       }
-    } else if (!this.wrapper?.matches(':popover-open') && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
-      this.wrapper?.showPopover();
     } else if (['ArrowLeft', 'ArrowRight'].includes(event.key) && this.input.selectionStart === 0) {
       if (this.focusedTag) {
         event.preventDefault();
@@ -533,7 +533,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     } else if (event.key === 'Backspace' && this.focusedTag && this.input.selectionStart === 0) {
       this.#onRemove(this.focusedTag);
       this.focusedTag = undefined;
-    } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
+    } else if (!this.wrapper?.matches(':popover-open') && ['ArrowDown', 'ArrowUp'].includes(event.key)) {
+      this.wrapper?.showPopover();
+    } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key) && !this.focusedTag) {
       event.preventDefault();
       event.stopPropagation();
 

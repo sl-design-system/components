@@ -5,7 +5,7 @@
 }
 
 :host(:not(:first-of-type)) {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
+  border-block-start: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
   margin-block-start: var(--sl-space-075);
   padding-block-start: var(--sl-space-100);
 }

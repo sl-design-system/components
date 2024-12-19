@@ -1,5 +1,12 @@
 # @sanomalearning/sanoma-utbildning
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee)]:
+  - @sl-design-system/icon@1.0.3
+
 ## 0.0.11
 
 ### Patch Changes

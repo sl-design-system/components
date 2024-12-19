@@ -27,6 +27,7 @@ export const Basic: Story = {
 
     return html`
       <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>

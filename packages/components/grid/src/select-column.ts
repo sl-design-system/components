@@ -24,7 +24,7 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
 
   override renderData(item: T): TemplateResult {
     return html`
-      <td part="data select">
+      <td part="data select delegate-focus">
         <sl-select
           @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item)}
           .value=${getValueByPath(item, this.path!)}

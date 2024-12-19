@@ -53,7 +53,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     const parts = ['header', 'sort', ...this.getParts()];
 
     return html`
-      <th part=${parts.join(' ')} aria-sort=${ifDefined(this.ariaSorting)} role="columnheader">
+      <th part=${parts.join(' ')} aria-sort=${ifDefined(this.ariaSorting)} role="columnheader" scope="col">
         <sl-grid-sorter .column=${this} .direction=${this.direction} .path=${this.path} .sorter=${this.sorter}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>

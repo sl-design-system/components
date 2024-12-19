@@ -122,8 +122,6 @@ export class GridColumn<T = any> extends LitElement {
   /** The position where the column should be sticky: at the start of the grid, or at the end. */
   @state() stickyPosition?: 'start' | 'end';
 
-  @state() selected?: boolean;
-
   set width(value: number | undefined) {
     this.#width = value;
   }

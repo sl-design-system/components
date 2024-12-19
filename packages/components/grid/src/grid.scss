@@ -25,7 +25,7 @@
   --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
     calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
     no-repeat;
-  --_vertical-border-offset: var(--sl-space-new-md);
+  --_vertical-border-offset: var(--sl-space-100);
   --_selected-background: var(--sl-color-background-selected-subtle-idle);
   --_striped-background: var(--sl-elevation-surface-raised-alternative-idle);
 
@@ -334,7 +334,7 @@ td[part~='text-field'] {
     cursor: pointer;
 
     &:hover {
-      --_cell-background: var(--sl-color-action-background-accent-subtle-hover);
+      --_cell-background: var(--sl-elevation-surface-raised-default-hover);
     }
   }
 
@@ -366,8 +366,8 @@ a[class^='skip-link'] {
   background-color: var(--sl-color-background-focused);
   color: var(--sl-link-focused-idle);
   display: inline-block;
-  inset-inline-start: var(--sl-space-new-md);
-  padding: var(--sl-space-new-md) var(--sl-space-new-lg);
+  inset-inline-start: var(--sl-space-100);
+  padding: var(--sl-space-100) var(--sl-space-200);
   position: absolute;
   transition: transform 250ms ease-in;
   z-index: 0;
@@ -385,21 +385,21 @@ a[class^='skip-link'] {
 .skip-link-start {
   border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
   inset-block-start: 0;
-  transform: translateY(0);
+  translate: 0;
 }
 
 .skip-link-start:focus {
-  transform: translateY(calc(-1 * (1lh + 2 * var(--sl-space-new-md))));
+  translate: 0 calc(-1 * (1lh + 2 * var(--sl-space-100)));
 }
 
 .skip-link-end {
   border-radius: 0 0 var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default);
   inset-block-end: 0;
-  transform: translateY(0);
+  translate: 0;
 }
 
 .skip-link-end:focus {
-  transform: translateY(calc(1lh + 2 * var(--sl-space-new-md)));
+  translate: 0 calc(1lh + 2 * var(--sl-space-100));
 }
 
 tfoot {

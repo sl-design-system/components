@@ -156,7 +156,8 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   focus(options?: FocusOptions): void {
     let focusElement = this.elements[this.currentIndex];
     if (focusElement.matches('[part~=delegate-focus]')) {
-      //TODO: Make this query more specific:
+      //TODO: Make this query more specific, right now it just grabs the first focusable element,
+      // we might want to make it more specific so it can ignore certain elements.
       focusElement = focusElement.querySelector('*') ?? focusElement;
     }
     if (!focusElement || !this.isFocusableElement(focusElement)) {
@@ -290,18 +291,12 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     event.preventDefault();
 
     if (this.direction === 'grid' && this.currentIndex + diff < 0) {
-      // this.currentIndex = 0;
       this.focusToElement(0);
     } else if (this.direction === 'grid' && this.currentIndex + diff > this.elements.length - 1) {
-      // this.currentIndex = ;
       this.focusToElement(this.elements.length - 1);
     } else {
       this.setCurrentIndexCircularly(diff);
     }
-    // To allow the `focusInIndex` to be calculated with the "after" state of the keyboard interaction
-    // do `elementEnterAction` _before_ focusing the next element.
-    // this.elementEnterAction(this.elements[this.currentIndex + this.offset * this.#directionLength()]);
-    // this.focus();
   };
 
   manage(): void {

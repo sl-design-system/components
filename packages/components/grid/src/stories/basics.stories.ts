@@ -141,7 +141,7 @@ export const SkipLinks: Story = {
           }}
         ></sl-grid-column>
       </sl-grid>
-      <p>A paragraph that follows the table, with a <a href="http://home.com">link</a> in it.</p>
+      <p>A paragraph that follows the table, with a <a href="#">link</a> in it.</p>
     `;
   }
 };

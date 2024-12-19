@@ -191,8 +191,15 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
    * @param force - Whether to force the panel to be collapsed or expanded.
    */
   toggle(force = !this.collapsed): void {
+    // const button = this.renderRoot.querySelector('sl-button');
+    // console.log('button', button);
+
     const button = this.renderRoot.querySelector('sl-button');
-    console.log('button', button);
+    const icon = button?.querySelector('sl-icon');
+
+    if (!button || !icon) {
+      return;
+    }
 
     // if (!button) {
     //   return;
@@ -218,14 +225,22 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
     // this.collapsed = force;
     this.toggleEvent.emit(this.collapsed);*/
 
+    icon.classList.toggle('upside-down', !this.collapsed);
+
+    icon.name = 'dash-solid';
+
     this.#toggleClicked = true;
     this.requestUpdate();
+
+    // icon.classList.toggle('upside-down', !this.collapsed);
+
     setTimeout(() => {
       this.collapsed = force;
       this.#toggleClicked = false;
       // this.requestUpdate();
+      icon.name = 'chevron-down';
       this.toggleEvent.emit(this.collapsed);
-    }, 100);
+    }, 150);
 
     // setTimeout(() => {
     // this.collapsed = force;

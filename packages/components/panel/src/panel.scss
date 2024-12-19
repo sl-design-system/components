@@ -160,7 +160,7 @@ slot[name='actions']::slotted(:first-child) {
 [part='body'] {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows 0.2s ease-in-out;
+  transition: grid-template-rows 200ms ease-in-out;
 
   // padding: 16px;
 }
@@ -175,50 +175,10 @@ slot[name='actions']::slotted(:first-child) {
   padding: 16px;
 }
 
-// sl-button {
-//  padding-block: var(--_padding-block);
-//  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
-// }
-
-// .dash {
-//  display: none;
-//  transition: opacity 0.3s ease;
-// }
-
-// sl-button.clicked .chevron {
-//  display: none;
-// }
-
-// sl-button.clicked .dash {
-//  display: inline-block;
-//  opacity: 1;
-// }
-
-// sl-button.clicked sl-icon {
-//  transform: scaleY(-1);
-//  transition: transform 0.3s ease; // TODO: need to be changed?
-// }
-
-// .icon {
-//  transition: transform 0.3s ease;
-// }
-
-// .icon.dash {
-//  display: none;
-// }
-
-// .icon.chevron {
-//  display: inline-block;
-// }
-
-// .icon.upside-down {
-//  transform: scaleY(-1);
-// }
-
 .icon {
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 300ms ease-in-out; // ease,
+  // opacity 50ms ease-in-out;
+  // ease;
 }
 
 .icon.dash {
@@ -227,11 +187,12 @@ slot[name='actions']::slotted(:first-child) {
   // position: absolute;
 }
 
-.icon.chevron {
+sl-button:not(.clicked) .icon.chevron {
   opacity: 1;
+  transform: scaleY(1);
 }
 
-.icon.upside-down {
+sl-button:not(.clicked) .icon.upside-down {
   transform: scaleY(-1);
 }
 
@@ -242,3 +203,5 @@ sl-button.clicked .icon.chevron {
 sl-button.clicked .icon.dash {
   opacity: 1;
 }
+
+// TODO: when reduced motion?

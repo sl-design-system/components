@@ -736,6 +736,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #addCustomOption(value: string): void {
+    if (!value.trim()) {
+      return;
+    }
+
     let option: T | undefined = undefined;
     if (this.optionLabelPath) {
       option = {} as T;
@@ -1093,7 +1097,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #updateCreateCustomOption(labelAndValue?: string): void {
-    if (labelAndValue) {
+    if (labelAndValue?.trim()) {
       if (this.createCustomOption) {
         this.createCustomOption.label = labelAndValue;
         this.createCustomOption.value = labelAndValue as U;

@@ -123,8 +123,9 @@ export class Tag extends ScopedElementsMixin(LitElement) {
               @blur=${this.#onBlur}
               @click=${this.#onRemove}
               @focus=${this.#onFocus}
-              aria-hidden="true"
               ?disabled=${this.disabled}
+              aria-hidden="true"
+              tabindex="-1"
             >
               <sl-icon name="xmark"></sl-icon>
             </button>

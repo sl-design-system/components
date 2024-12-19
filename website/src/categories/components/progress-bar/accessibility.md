@@ -10,8 +10,8 @@ eleventyNavigation:
 
 ## Accessibility considerations
 
-- Announcement of progress (for screen readers): Screen reader users should receive updates about the progress as it changes. This can be achieved by updating the aria-valuenow attribute and/or announcing changes in percentage or value through ARIA live regions (both are provided by the component).
-- Error States and feedback: In case of error states, such as when the progress bar indicates an error condition, keyboard users should receive appropriate feedback. This can include announcing the error through ARIA live regions or focusing on an error indicator. By default, the component uses `aria-live="polite"` (to announce the status and progress change). However, in cases where there is an error, it can be useful to use `aria-live="assertive"`. In such situations, the aria-live attribute needs to be added to an element other than the progress bar itself. For example, it could be added to a field that is connected to the progress bar and may cause an error.
+- Announcement of progress (for screen readers): Screen reader users receive updates about the progress as it changes. The value is announced when it changes, but not more often than once every 1,5 seconds. When it reaches 100% it immediately reads it out, inclusing the current state (for example 'success' or 'error').
+- Error States and feedback: In case of error states, such as when the progress bar indicates an error condition, keyboard users should receive appropriate feedback. Use for example an inline message, which uses the `announcer` to provide screen readers means to alert the user (using aria-live functionality) or make your own, custom, element using aria-live functionality. If the progressbar will never reach 100% because of the error let the screen reader user know what is happening and what they can do to remedy it by using a container with `aria-live` or use the `announcer` function.
 
 </section>
 

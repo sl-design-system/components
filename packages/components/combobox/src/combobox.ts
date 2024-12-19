@@ -694,6 +694,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     event.preventDefault();
     event.stopPropagation();
 
+    // Clear the focused tag before the focus moves out of the input
+    this.focusedTag = undefined;
+
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }

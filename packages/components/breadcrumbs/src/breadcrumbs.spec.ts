@@ -164,7 +164,7 @@ describe('sl-breadcrumbs', () => {
         menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
       expect(button).to.exist;
-      expect(button).to.have.attribute('fill', 'link');
+      expect(button).to.have.attribute('fill', 'ghost');
       expect(button?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(3);
@@ -217,7 +217,7 @@ describe('sl-breadcrumbs', () => {
         menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
       expect(button).to.exist;
-      expect(button).to.have.attribute('fill', 'link');
+      expect(button).to.have.attribute('fill', 'ghost');
       expect(button?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(4);

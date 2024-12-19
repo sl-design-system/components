@@ -131,23 +131,14 @@
     },
     "borderWidth": {
       "default": {
-        "value": "{size.010}",
-        "type": "borderWidth"
-      },
-      "subtle": {
-        "value": "{size.010}",
+        "value": "{size.borderWidth.subtle}",
         "type": "borderWidth",
-        "description": "A subtle border, applied to form controls, divider lines, and other UI elements where subtle emphasis is needed."
+        "description": "Sets the standard border width for UI elements."
       },
-      "bold": {
-        "value": "{size.025}",
+      "action": {
+        "value": "{size.borderWidth.subtle}",
         "type": "borderWidth",
-        "description": "A bold border, often used for buttons or other interactive elements that need to stand out."
-      },
-      "heavy": {
-        "value": "{size.050}",
-        "type": "borderWidth",
-        "description": "A heavy border, used for impactful elements like alert messages and focused or active states in components like tabs, where heavy emphasis is necessary."
+        "description": "Sets the standard border width for action components."
       }
     },
     "icon": {

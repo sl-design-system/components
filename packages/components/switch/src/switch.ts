@@ -263,7 +263,8 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     }
 
     const label = nodes
-      .map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node))
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
       .join(' ')
       .trim();
     if (label.length > 0) {

@@ -75,11 +75,11 @@
 
 :host([size='lg']) {
   --_button-size: var(--sl-size-tag-lg);
-  --_padding-block: var(--sl-space-075);
+  --_padding-block: var(--sl-space-050);
   --_padding-inline: var(--sl-space-150);
 }
 
-:host(:focus:not([focus-within])) {
+:host(:where(:focus:not([focus-within]), [focused])) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 }

@@ -119,8 +119,12 @@ export const Grouped: Story = {
     const dataSource = new ArrayDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
+    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
+      console.log('current active item:', item);
+    };
+
     return html`
-      <sl-grid .dataSource=${dataSource}>
+      <sl-grid .dataSource=${dataSource} clickable-row @sl-active-item-change=${onActiveItemChange}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

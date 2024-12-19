@@ -36,7 +36,7 @@ sl-icon {
 
 [part='wrapper'] {
   background: var(--sl-elevation-surface-raised-default-idle);
-  border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-subtle);
+  border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;

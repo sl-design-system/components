@@ -1,17 +1,17 @@
 :host {
-  border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
+  border-block-end: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
   inline-size: 100%;
   margin-block-end: var(--sl-space-075);
   margin-inline: 0;
   padding-block-end: var(--sl-space-100);
 }
 
-:host([aria-current]) .container {
-  background: var(--sl-color-action-background-accent-subtle-hover);
+:host(:where(:hover, [current])) .container {
+  background: var(--sl-elevation-surface-raised-default-hover);
 }
 
 :host(:active) .container {
-  background: var(--sl-color-action-background-accent-subtle-active);
+  background: var(--sl-elevation-surface-raised-default-active);
 }
 
 .container {
@@ -25,7 +25,7 @@
   padding: var(--sl-space-075) var(--sl-space-100);
 
   &:hover {
-    background: var(--sl-color-action-background-accent-subtle-hover);
+    background: var(--sl-elevation-surface-raised-default-hover);
   }
 }
 

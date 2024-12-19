@@ -1,5 +1,15 @@
 # @sl-design-system/tool-bar
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b), [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39)]:
+  - @sl-design-system/icon@1.0.3
+  - @sl-design-system/toggle-button@0.0.5
+  - @sl-design-system/menu@0.2.0
+  - @sl-design-system/toggle-group@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

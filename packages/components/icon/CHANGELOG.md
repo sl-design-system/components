@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 1.0.3
+
+### Patch Changes
+
+- [#1638](https://github.com/sl-design-system/components/pull/1638) [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee) - Update `IconPrefix` type to be compatible with FontAwesome 6.7.0
+
 ## 1.0.2
 
 ### Patch Changes

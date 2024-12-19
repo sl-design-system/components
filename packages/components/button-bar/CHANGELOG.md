@@ -1,5 +1,23 @@
 # @sl-design-system/button-bar
 
+## 1.2.0
+
+### Minor Changes
+
+- [#1679](https://github.com/sl-design-system/components/pull/1679) [`aefe4ec`](https://github.com/sl-design-system/components/commit/aefe4ecebafaf538b9bf129f66216413173686fe) - Refactor styling to use contextual tokens.
+
+  This also removes the CSS custom properties for the responsive behavior. It now
+  just sets the `flex-direction` and `align-items` directly from dialog.
+
+  ```css
+  @media (width <= 600px) {
+    sl-button-bar {
+      align-items: stretch;
+      flex-direction: column-reverse;
+    }
+  }
+  ```
+
 ## 1.1.0
 
 ### Minor Changes

@@ -473,6 +473,48 @@
       "active": {
         "value": "16%",
         "type": "opacity"
+      },
+      "muted": {
+        "idle": {
+          "value": "0%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "8%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "16%",
+          "type": "opacity"
+        }
+      },
+      "subtlest": {
+        "idle": {
+          "value": "8%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "16%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "24%",
+          "type": "opacity"
+        }
+      },
+      "subtle": {
+        "idle": {
+          "value": "16%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "24%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "32%",
+          "type": "opacity"
+        }
       }
     }
   }

@@ -600,6 +600,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   #onRemove(item: ComboboxItem<T, U>): void {
     this.#removeSelectedOption(item);
+    this.#updateFilteredOptions();
+    this.#updateCurrent();
 
     if (this.#popoverJustClosed) {
       this.wrapper?.showPopover();
@@ -736,7 +738,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   }
 
   #addCustomOption(value: string): void {
-    if (!value.trim()) {
+    if (!value.trimEnd()) {
       return;
     }
 

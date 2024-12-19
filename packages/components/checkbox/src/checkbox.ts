@@ -249,7 +249,10 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       return;
     }
 
-    const label = nodes.map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node)).join(' ');
+    const label = nodes
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join(' ');
     if (label.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;

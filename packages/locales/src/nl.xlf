@@ -166,16 +166,12 @@
   <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
   <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
 </trans-unit>
-<trans-unit id="s886db4d476f66522">
-  <source>Selected options</source>
-  <target>Geselecteerde opties</target>
-</trans-unit>
 <trans-unit id="sde3919a1e53d2cff">
   <source>Press the delete or backspace key to remove this item</source>
   <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
 </trans-unit>
 <trans-unit id="sa7c7ba461453bfef">
-  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.total}"/> items</source>
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> items</target>
 </trans-unit>
 <trans-unit id="s56360c5f24cfd4ff">
@@ -191,24 +187,28 @@
   <target><x id="0" equiv-text="${button.innerText.trim()}"/>, pagina</target>
 </trans-unit>
 <trans-unit id="s88b887b46242ba96">
-  <source>Go to the previous page (<x id="0" equiv-text="${this.activePage - 1}"/>)</source>
+  <source>Go to the previous page (<x id="0" equiv-text="${this.page - 1}"/>)</source>
   <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.activePage - 1}"/>)</target>
 </trans-unit>
 <trans-unit id="sa477d2feda7d475e">
-  <source>Go to the next page (<x id="0" equiv-text="${this.activePage + 1}"/>)</source>
+  <source>Go to the next page (<x id="0" equiv-text="${this.page + 1}"/>)</source>
   <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.activePage + 1}"/>)</target>
 </trans-unit>
 <trans-unit id="s6ef3b70aa370dba4">
-  <source>Amount of items per page: <x id="0" equiv-text="${this.itemsPerPage}"/></source>
+  <source>Amount of items per page: <x id="0" equiv-text="${this.pageSize}"/></source>
   <target>Aantal items per pagina: <x id="0" equiv-text="${this.itemsPerPage}"/></target>
 </trans-unit>
 <trans-unit id="s7d09afc329d9995b">
-  <source>Page <x id="0" equiv-text="${this.activePage}"/> of <x id="1" equiv-text="${this.#pages}"/></source>
+  <source>Page <x id="0" equiv-text="${this.page}"/> of <x id="1" equiv-text="${this.#pages}"/></source>
   <target>Pagina <x id="0" equiv-text="${this.activePage}"/> van <x id="1" equiv-text="${this.#pages}"/></target>
 </trans-unit>
 <trans-unit id="s9ad43731ebd435aa">
-  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.total}"/> items</source>
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> weergegeven</target>
+</trans-unit>
+<trans-unit id="s886db4d476f66522">
+  <source>Selected options</source>
+  <target>Geselecteerde opties</target>
 </trans-unit>
 </body>
 </file>

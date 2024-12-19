@@ -8,7 +8,7 @@
 }
 
 :host([direction]) {
-  --_direction-color: var(--sl-color-text-default);
+  --_direction-color: var(--sl-color-text-plain);
 }
 
 .direction {

@@ -299,7 +299,7 @@ describe('sl-combobox', () => {
       const createCustomOption = el.querySelector('sl-combobox-create-custom-option');
 
       expect(createCustomOption).to.exist;
-      expect(createCustomOption).to.have.attribute('aria-current', 'true');
+      expect(createCustomOption).to.have.attribute('current');
       expect(createCustomOption?.value).to.equal('Custom value');
     });
 
@@ -339,8 +339,8 @@ describe('sl-combobox', () => {
 
       expect(customOption).to.exist;
       expect(customOption).to.match('sl-combobox-custom-option');
-      expect(customOption).to.have.attribute('aria-current', 'true');
       expect(customOption).to.have.attribute('aria-selected', 'true');
+      expect(customOption).to.have.attribute('current');
       expect(customOption?.value).to.equal('Custom value');
       expect(el.value).to.equal('Custom value');
     });
@@ -355,8 +355,8 @@ describe('sl-combobox', () => {
 
       expect(customOption).to.exist;
       expect(customOption).to.match('sl-combobox-custom-option');
-      expect(customOption).to.have.attribute('aria-current', 'true');
       expect(customOption).to.have.attribute('aria-selected', 'true');
+      expect(customOption).to.have.attribute('current');
       expect(customOption?.value).to.equal('Custom value');
       expect(el.value).to.equal('Custom value');
     });

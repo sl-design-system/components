@@ -3600,7 +3600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/localize@npm:^0.12.0, @lit/localize@npm:^0.12.2":
+"@lit/localize@npm:^0.12.0, @lit/localize@npm:^0.12.1, @lit/localize@npm:^0.12.2":
   version: 0.12.2
   resolution: "@lit/localize@npm:0.12.2"
   dependencies:
@@ -4410,6 +4410,21 @@ __metadata:
     typescript: "npm:~5.4.5"
     wireit: "npm:^0.14.9"
     zone.js: "npm:~0.14.10"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/announcer@workspace:packages/components/announcer":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/announcer@workspace:packages/components/announcer"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/shared": "npm:^0.4.0"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -15046,7 +15061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:^2.0.0 || ^3.0.0, lit@npm:^3.0.0, lit@npm:^3.2.0, lit@npm:^3.2.1":
+"lit@npm:^2.0.0 || ^3.0.0, lit@npm:^3.0.0, lit@npm:^3.1.4, lit@npm:^3.2.0, lit@npm:^3.2.1":
   version: 3.2.1
   resolution: "lit@npm:3.2.1"
   dependencies:

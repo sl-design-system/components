@@ -7,6 +7,7 @@ import config from '../../eslint.config.mjs';
 export default [
   {
     ignores: [
+      '**/*.[json|md]',
       'packages/components/**/*.d.ts',
       'packages/components/**/*.scss.ts',
       'packages/components/shared/src/vendor/*.ts',

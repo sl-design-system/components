@@ -2261,27 +2261,6 @@ __metadata:
   linkType: hard
 
 "@custom-elements-manifest/analyzer@npm:^0.10.3":
-  version: 0.10.3
-  resolution: "@custom-elements-manifest/analyzer@npm:0.10.3"
-  dependencies:
-    "@custom-elements-manifest/find-dependencies": "npm:^0.0.5"
-    "@github/catalyst": "npm:^1.6.0"
-    "@web/config-loader": "npm:0.1.3"
-    chokidar: "npm:3.5.2"
-    command-line-args: "npm:5.1.2"
-    comment-parser: "npm:1.2.4"
-    custom-elements-manifest: "npm:1.0.0"
-    debounce: "npm:1.2.1"
-    globby: "npm:11.0.4"
-    typescript: "npm:~5.4.2"
-  bin:
-    cem: cem.js
-    custom-elements-manifest: cem.js
-  checksum: 10c0/7b566c297af57ac4999004033f1f105544da90c2d1c48c768d2258892f435958c9e8515e5675d65c988096f60300102db1160168bbb87cfef75dc5ebd5a03b00
-  languageName: node
-  linkType: hard
-
-"@custom-elements-manifest/analyzer@npm:^0.10.4":
   version: 0.10.4
   resolution: "@custom-elements-manifest/analyzer@npm:0.10.4"
   dependencies:
@@ -4886,7 +4865,7 @@ __metadata:
   dependencies:
     "@changesets/cli": "npm:^2.27.10"
     "@changesets/get-github-info": "npm:^0.6.0"
-    "@custom-elements-manifest/analyzer": "npm:^0.10.4"
+    "@custom-elements-manifest/analyzer": "npm:^0.10.3"
     "@lit/localize-tools": "npm:^0.8.0"
     "@oddbird/popover-polyfill": "npm:^0.5.2"
     "@open-wc/testing": "npm:^4.0.0"

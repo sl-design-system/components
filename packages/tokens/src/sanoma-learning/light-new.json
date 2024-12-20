@@ -3,19 +3,19 @@
     "palette": {
       "blue": {
         "100": {
-          "value": "#19288f",
+          "value": "#d9e5ff",
           "type": "color"
         },
         "150": {
-          "value": "#1727b6",
+          "value": "#bcd2ff",
           "type": "color"
         },
         "200": {
-          "value": "#142fe1",
+          "value": "#8eb6ff",
           "type": "color"
         },
         "300": {
-          "value": "#1b43f5",
+          "value": "#598eff",
           "type": "color"
         },
         "400": {
@@ -23,45 +23,45 @@
           "type": "color"
         },
         "500": {
-          "value": "#598eff",
+          "value": "#1b43f5",
           "type": "color"
         },
         "600": {
-          "value": "#8eb6ff",
+          "value": "#142fe1",
           "type": "color"
         },
         "700": {
-          "value": "#bcd2ff",
+          "value": "#1727b6",
           "type": "color"
         },
         "800": {
-          "value": "#d9e5ff",
+          "value": "#19288f",
           "type": "color"
         },
         "900": {
-          "value": "#eef4ff",
+          "value": "#141a57",
           "type": "color"
         },
         "050": {
-          "value": "#141a57",
+          "value": "#eef4ff",
           "type": "color"
         }
       },
       "green": {
         "100": {
-          "value": "#0a4a2c",
+          "value": "#d3f8de",
           "type": "color"
         },
         "150": {
-          "value": "#0b5a34",
+          "value": "#abefc3",
           "type": "color"
         },
         "200": {
-          "value": "#0b7140",
+          "value": "#75e0a1",
           "type": "color"
         },
         "300": {
-          "value": "#0d8e4c",
+          "value": "#45cc80",
           "type": "color"
         },
         "400": {
@@ -69,95 +69,95 @@
           "type": "color"
         },
         "500": {
-          "value": "#45cc80",
+          "value": "#0d8e4c",
           "type": "color"
         },
         "600": {
-          "value": "#75e0a1",
+          "value": "#0b7140",
           "type": "color"
         },
         "700": {
-          "value": "#abefc3",
+          "value": "#0b5a34",
           "type": "color"
         },
         "800": {
-          "value": "#d3f8de",
+          "value": "#0a4a2c",
           "type": "color"
         },
         "900": {
-          "value": "#edfcf2",
+          "value": "#042a19",
           "type": "color"
         },
         "050": {
-          "value": "#042a19",
+          "value": "#edfcf2",
           "type": "color"
         }
       },
       "grey": {
         "100": {
-          "value": "#454545",
-          "type": "color"
-        },
-        "150": {
-          "value": "#4f4f4f",
-          "type": "color"
-        },
-        "200": {
-          "value": "#5d5d5d",
-          "type": "color"
-        },
-        "300": {
-          "value": "#6d6d6d",
-          "type": "color"
-        },
-        "400": {
-          "value": "#888888",
-          "type": "color"
-        },
-        "500": {
-          "value": "#b0b0b0",
-          "type": "color"
-        },
-        "600": {
-          "value": "#d1d1d1",
-          "type": "color"
-        },
-        "700": {
           "value": "#e7e7e7",
           "type": "color"
         },
+        "150": {
+          "value": "#d1d1d1",
+          "type": "color"
+        },
+        "200": {
+          "value": "#b0b0b0",
+          "type": "color"
+        },
+        "300": {
+          "value": "#888888",
+          "type": "color"
+        },
+        "400": {
+          "value": "#6d6d6d",
+          "type": "color"
+        },
+        "500": {
+          "value": "#5d5d5d",
+          "type": "color"
+        },
+        "600": {
+          "value": "#4f4f4f",
+          "type": "color"
+        },
+        "700": {
+          "value": "#454545",
+          "type": "color"
+        },
         "800": {
-          "value": "#f6f6f6",
-          "type": "color"
-        },
-        "900": {
-          "value": "#ffffff",
-          "type": "color"
-        },
-        "050": {
           "value": "#3d3d3d",
           "type": "color"
         },
-        "000": {
+        "900": {
           "value": "#222222",
+          "type": "color"
+        },
+        "050": {
+          "value": "#f6f6f6",
+          "type": "color"
+        },
+        "000": {
+          "value": "#ffffff",
           "type": "color"
         }
       },
       "orange": {
         "100": {
-          "value": "#7e3410",
+          "value": "#fff0d4",
           "type": "color"
         },
         "150": {
-          "value": "#9d3d0f",
+          "value": "#ffdda8",
           "type": "color"
         },
         "200": {
-          "value": "#c64c08",
+          "value": "#ffc471",
           "type": "color"
         },
         "300": {
-          "value": "#ef6707",
+          "value": "#ff9d33",
           "type": "color"
         },
         "400": {
@@ -165,45 +165,45 @@
           "type": "color"
         },
         "500": {
-          "value": "#ff9d33",
+          "value": "#ef6707",
           "type": "color"
         },
         "600": {
-          "value": "#ffc471",
+          "value": "#c64c08",
           "type": "color"
         },
         "700": {
-          "value": "#ffdda8",
+          "value": "#9d3d0f",
           "type": "color"
         },
         "800": {
-          "value": "#fff0d4",
+          "value": "#7e3410",
           "type": "color"
         },
         "900": {
-          "value": "#fff8ed",
+          "value": "#441706",
           "type": "color"
         },
         "050": {
-          "value": "#441706",
+          "value": "#fff8ed",
           "type": "color"
         }
       },
       "purple": {
         "100": {
-          "value": "#4711a1",
+          "value": "#ece7ff",
           "type": "color"
         },
         "150": {
-          "value": "#5512c5",
+          "value": "#d9d2ff",
           "type": "color"
         },
         "200": {
-          "value": "#6616eb",
+          "value": "#bfaeff",
           "type": "color"
         },
         "300": {
-          "value": "#7b33ff",
+          "value": "#9f80ff",
           "type": "color"
         },
         "400": {
@@ -211,45 +211,45 @@
           "type": "color"
         },
         "500": {
-          "value": "#9f80ff",
+          "value": "#7b33ff",
           "type": "color"
         },
         "600": {
-          "value": "#bfaeff",
+          "value": "#6616eb",
           "type": "color"
         },
         "700": {
-          "value": "#d9d2ff",
+          "value": "#5512c5",
           "type": "color"
         },
         "800": {
-          "value": "#ece7ff",
+          "value": "#4711a1",
           "type": "color"
         },
         "900": {
-          "value": "#f4f2ff",
+          "value": "#29076e",
           "type": "color"
         },
         "050": {
-          "value": "#29076e",
+          "value": "#f4f2ff",
           "type": "color"
         }
       },
       "red": {
         "100": {
-          "value": "#84181b",
+          "value": "#ffe1e2",
           "type": "color"
         },
         "150": {
-          "value": "#a01418",
+          "value": "#ffc7c9",
           "type": "color"
         },
         "200": {
-          "value": "#c11419",
+          "value": "#ffa0a3",
           "type": "color"
         },
         "300": {
-          "value": "#e51d23",
+          "value": "#ff575c",
           "type": "color"
         },
         "400": {
@@ -257,45 +257,45 @@
           "type": "color"
         },
         "500": {
-          "value": "#ff575c",
+          "value": "#e51d23",
           "type": "color"
         },
         "600": {
-          "value": "#ffa0a3",
+          "value": "#c11419",
           "type": "color"
         },
         "700": {
-          "value": "#ffc7c9",
+          "value": "#a01418",
           "type": "color"
         },
         "800": {
-          "value": "#ffe1e2",
+          "value": "#84181b",
           "type": "color"
         },
         "900": {
-          "value": "#fff1f1",
+          "value": "#480709",
           "type": "color"
         },
         "050": {
-          "value": "#480709",
+          "value": "#fff1f1",
           "type": "color"
         }
       },
       "teal": {
         "100": {
-          "value": "#0a5757",
+          "value": "#c5fffa",
           "type": "color"
         },
         "150": {
-          "value": "#066769",
+          "value": "#8bfff5",
           "type": "color"
         },
         "200": {
-          "value": "#008080",
+          "value": "#4afef0",
           "type": "color"
         },
         "300": {
-          "value": "#00a8a5",
+          "value": "#15ece2",
           "type": "color"
         },
         "400": {
@@ -303,45 +303,45 @@
           "type": "color"
         },
         "500": {
-          "value": "#15ece2",
+          "value": "#00a8a5",
           "type": "color"
         },
         "600": {
-          "value": "#4afef0",
+          "value": "#008080",
           "type": "color"
         },
         "700": {
-          "value": "#8bfff5",
+          "value": "#066769",
           "type": "color"
         },
         "800": {
-          "value": "#c5fffa",
+          "value": "#0a5757",
           "type": "color"
         },
         "900": {
-          "value": "#eefffc",
+          "value": "#003235",
           "type": "color"
         },
         "050": {
-          "value": "#003235",
+          "value": "#eefffc",
           "type": "color"
         }
       },
       "yellow": {
         "100": {
-          "value": "#7c3a0b",
+          "value": "#fff7c5",
           "type": "color"
         },
         "150": {
-          "value": "#984708",
+          "value": "#fff085",
           "type": "color"
         },
         "200": {
-          "value": "#bb5c02",
+          "value": "#ffe146",
           "type": "color"
         },
         "300": {
-          "value": "#e28400",
+          "value": "#ffcf1b",
           "type": "color"
         },
         "400": {
@@ -349,27 +349,27 @@
           "type": "color"
         },
         "500": {
-          "value": "#ffcf1b",
+          "value": "#e28400",
           "type": "color"
         },
         "600": {
-          "value": "#ffe146",
+          "value": "#bb5c02",
           "type": "color"
         },
         "700": {
-          "value": "#fff085",
+          "value": "#984708",
           "type": "color"
         },
         "800": {
-          "value": "#fff7c5",
+          "value": "#7c3a0b",
           "type": "color"
         },
         "900": {
-          "value": "#fffdea",
+          "value": "#481d00",
           "type": "color"
         },
         "050": {
-          "value": "#481d00",
+          "value": "#fffdea",
           "type": "color"
         }
       }
@@ -800,7 +800,7 @@
         "description": "Use for placeholders and hints."
       },
       "inverted": {
-        "value": "{color.text.accent.grey.bold}",
+        "value": "{color.white}",
         "type": "color",
         "description": "Use for text on bold backgrounds."
       },
@@ -902,12 +902,12 @@
       "accent": {
         "blue": {
           "plain": {
-            "value": "{color.palette.blue.500}",
+            "value": "{color.palette.blue.400}",
             "type": "color",
             "description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.600}",
+            "value": "{color.palette.blue.700}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -946,7 +946,7 @@
             "description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{opacity.light.800}",
+            "value": "{color.palette.grey.900}",
             "type": "color",
             "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
           }
@@ -1689,17 +1689,17 @@
             }
           },
           "subtlest": {
-            "value": "{color.opacity.blue.100}",
+            "value": "{color.palette.blue.050}",
             "type": "color",
             "description": "The subtlest blue background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.opacity.blue.300}",
+            "value": "{color.palette.blue.150}",
             "type": "color",
             "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.200}",
+            "value": "{color.palette.blue.400}",
             "type": "color",
             "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
           }
@@ -1723,17 +1723,17 @@
             }
           },
           "subtlest": {
-            "value": "{color.opacity.green.100}",
+            "value": "{color.palette.green.050}",
             "type": "color",
             "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.opacity.green.300}",
+            "value": "{color.palette.green.150}",
             "type": "color",
             "description": "A subtle green background option, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.150}",
+            "value": "{color.palette.green.600}",
             "type": "color",
             "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
           }
@@ -1757,12 +1757,12 @@
             }
           },
           "subtlest": {
-            "value": "{opacity.light.050}",
+            "value": "{color.palette.grey.050}",
             "type": "color",
             "description": "The subtlest grey background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{opacity.light.200}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "A subtle grey background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1791,12 +1791,12 @@
             }
           },
           "subtlest": {
-            "value": "{color.opacity.orange.100}",
+            "value": "{color.palette.orange.050}",
             "type": "color",
             "description": "The subtlest orange background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.opacity.orange.300}",
+            "value": "{color.palette.orange.150}",
             "type": "color",
             "description": "A subtle orange background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1825,12 +1825,12 @@
             }
           },
           "subtlest": {
-            "value": "{color.opacity.purple.100}",
+            "value": "{color.palette.purple.050}",
             "type": "color",
             "description": "The subtlest purple background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.opacity.purple.300}",
+            "value": "{color.palette.purple.150}",
             "type": "color",
             "description": "A subtle purple background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1859,12 +1859,12 @@
             }
           },
           "subtlest": {
-            "value": "{color.opacity.red.050}",
+            "value": "{color.palette.red.050}",
             "type": "color",
             "description": "The subtlest red background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.opacity.red.200}",
+            "value": "{color.palette.red.150}",
             "type": "color",
             "description": "A subtle red background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1893,12 +1893,12 @@
             }
           },
           "subtlest": {
-            "value": "{color.opacity.teal.100}",
+            "value": "{color.palette.teal.050}",
             "type": "color",
             "description": "The subtlest teal background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.opacity.teal.300}",
+            "value": "{color.palette.teal.150}",
             "type": "color",
             "description": "A subtle teal background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1927,12 +1927,12 @@
             }
           },
           "subtlest": {
-            "value": "{color.opacity.yellow.100}",
+            "value": "{color.palette.yellow.050}",
             "type": "color",
             "description": "The subtlest yellow background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.opacity.yellow.300}",
+            "value": "{color.palette.yellow.150}",
             "type": "color",
             "description": "A subtle yellow background option, applied purely for stylistic purposes without specific meaning."
           },

@@ -1,7 +1,8 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Icon } from '@sl-design-system/icon';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -17,8 +18,6 @@ export type ProgressVariant = 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component that can be used to communicate process status.
- * Hidden `aria-live` element makes the progress bar more accessible, so developers don’t need to worry about adding it manually.
- *
  *
  * ```html
  *  <sl-progress-bar label="Downloading file">
@@ -52,6 +51,8 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;
 
+  private shouldAnnounce = true;
+
   /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {
     switch (this.variant) {
@@ -63,6 +64,23 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         return 'triangle-exclamation-solid';
       default:
         return 'circle-check-solid';
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('value')) {
+      if (this.value === 100) {
+        announce(`100%, ${this.#getLocalizedVariant().strings[0]}`);
+      }
+      if (this.shouldAnnounce) {
+        announce(`${this.value}%`, 'assertive');
+        this.shouldAnnounce = false;
+        setTimeout(() => {
+          this.shouldAnnounce = true;
+        }, 1500);
+      }
     }
   }
 
@@ -91,10 +109,8 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       </div>
       <div id="helper" class="helper">
         <slot></slot>
-        <span id="live" aria-live="polite" aria-busy=${ifDefined(this.indeterminate)}>
-          ${msg('state')} ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`}
-          <!-- We want '%' to be read every time the value changes. -->
-          <span aria-live="polite" aria-atomic="true">${this.value}%</span>
+        <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
+          ${msg('state')}: ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`}
         </span>
         ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
       </div>

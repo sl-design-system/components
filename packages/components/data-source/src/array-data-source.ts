@@ -92,7 +92,18 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
           const valueA = getStringByPath(a, path),
             valueB = getStringByPath(b, path);
 
-          return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
+          const numberA = parseFloat(valueA),
+            numberB = parseFloat(valueB);
+
+          if (!isNaN(numberA) && !isNaN(numberB)) {
+            return numberA - numberB;
+          }
+
+          return valueA.toLowerCase() === valueB.toLowerCase()
+            ? 0
+            : valueA.toLowerCase() < valueB.toLowerCase()
+              ? -1
+              : 1;
         };
       } else if ('sorter' in this.sort && this.sort.sorter) {
         sortFn = this.sort.sorter;

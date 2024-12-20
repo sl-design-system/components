@@ -26,6 +26,18 @@ describe('sl-breadcrumbs', () => {
       expect(el).to.have.attribute('aria-label', 'Breadcrumb trail');
     });
 
+    it('should not be inverted', () => {
+      expect(el).not.to.have.attribute('inverted');
+      expect(el.inverted).to.be.undefined;
+    });
+
+    it('should be inverted when set', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('inverted');
+    });
+
     it('should render a list of breadcrumbs', () => {
       const listItems = Array.from(el.renderRoot.querySelectorAll('ul > li'));
 

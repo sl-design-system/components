@@ -1,18 +1,21 @@
 :host {
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_padding-block: var(--sl-space-sm);
-  --_padding-inline: var(--sl-space-sm);
-  --_wrapper-padding-inline: var(--sl-space-sm);
+
+  // --_padding-block: var(--sl-space-sm);
+  // --_padding-inline: var(--sl-space-sm);
+  // --_wrapper-padding-inline: var(--sl-space-sm);
 
   // border: 1px solid var(--sl-color-palette-neutral-200);
-  border-radius: var(--sl-border-radius-2xs);
+  // border-radius: var(--sl-border-radius-2xs);
+  border-radius: var(--sl-size-borderRadius-md);
   display: flex;
   flex-direction: column;
 }
 
 :host([outline]) {
-  border: 1px solid var(--sl-color-palette-neutral-200);
+  // border: 1px solid var(--sl-color-palette-neutral-200);
+  border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-subtle); // TODO: use a token insetad of 1px
 }
 
 :host([elevation='raised']) {
@@ -67,17 +70,17 @@
 [part='titles'] {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--sl-space-new-sm); // 8px;
 }
 
 [part='header'] {
   align-items: center; // start;
   display: grid;
   flex: 1;
-  gap: 16px; // TODO: use tokens
+  gap: var(--sl-space-new-lg); // 16px; // TODO: use tokens
   grid-template-columns: 1fr minmax(0, auto); // minmax(min-content, max-content) minmax(min-content, max-content) minmax(0, auto); // minmax(min-content, max-content) minmax(0, auto);
   justify-content: space-between;
-  padding: 16px; // TODO: use tokens
+  padding: var(--sl-space-new-lg); // 16px; // TODO: use tokens
 
   > * {
     // FIXME: This is a quick hack to vertically align the heading with any action buttons
@@ -88,7 +91,7 @@
 [part='wrapper'] {
   align-items: center;
   display: flex;
-  gap: 16px; // 0.5rem;
+  gap: var(--sl-space-new-lg);
 
   // padding-block: var(--_padding-block);
   // padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
@@ -124,7 +127,7 @@ sl-icon {
 slot[name='heading'],
 slot[name='heading']::slotted(*) {
   color: var(--sl-color-accordion-default-foreground);
-  font: var(--sl-text-accordion-title);
+  font: var(--sl-text-accordion-title); // TODO: use contextual tokens
 }
 
 slot[name='heading'] {
@@ -133,15 +136,15 @@ slot[name='heading'] {
 
 slot[name='badge'] {
   display: flex;
-  gap: 8px;
+  gap: var(--sl-space-new-md);
 }
 
 sl-tool-bar {
   min-inline-size: 0;
 
-  &:not([empty]) {
-    padding-inline-end: var(--_padding-inline);
-  }
+  // &:not([empty]) {
+  //  padding-inline-end: var(--_padding-inline); // TODO: make sure if we really need this one
+  // }
 }
 
 slot[name='actions']::slotted(:first-child) {
@@ -154,7 +157,7 @@ slot[name='actions']::slotted(:first-child) {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--sl-space-new-lg); // 8px;
 }
 
 [part='body'] {
@@ -186,6 +189,11 @@ slot[name='actions']::slotted(:first-child) {
 
   // position: absolute;
 }
+
+// .icon.chevron {
+//  //opacity: 1;
+//  transform: scaleY(1);
+// }
 
 sl-button:not(.clicked) .icon.chevron {
   opacity: 1;

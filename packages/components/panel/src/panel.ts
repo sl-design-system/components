@@ -128,8 +128,14 @@ export class Panel extends ScopedElementsMixin(LitElement) {
               fill="ghost"
               aria-controls="body"
               aria-expanded=${this.collapsed ? 'false' : 'true'}
+              class=${this.#toggleClicked ? 'clicked' : ''}
             >
-              <sl-icon name="chevron-down"></sl-icon>
+              <sl-icon
+                class="icon ${this.#toggleClicked ? 'dash' : 'chevron'} ${!this.collapsed && !this.#toggleClicked
+                  ? 'upside-down'
+                  : ''}"
+                name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+              ></sl-icon>
             </sl-button>`
           : nothing}
       </div>
@@ -177,8 +183,6 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
         <div part="titles">
           <slot name="heading">${this.heading}</slot>
           <slot name="subtitle">${this.subtitle}</slot>
-          <sl-icon name="dash-solid"></sl-icon>
-          <sl-icon name="chevron-down"></sl-icon>
         </div>
         <slot name="badge" @slotchange=${this.handleBadgeSlotChange}></slot>
       </div>

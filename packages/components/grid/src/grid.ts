@@ -87,6 +87,11 @@ export type SlDropEvent<T = any> = CustomEvent<{
 export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 
 @localized()
+/**
+ * Data grid component. This component is designed to be highly customizable
+ * and can be used to display a wide variety of data. It supports sorting,
+ * filtering, grouping, and more.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -117,6 +122,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
     this.#mutationObserver?.disconnect();
+
+    // Only recalculate the column widths if the grid has been rendered for the first time
+    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
+      this.#initialColumnWidthsCalculated = true;
+      void this.recalculateColumnWidths();
+    }
 
     // This is a workaround for the virtualizer not taking the border width into account
     // We convert the min-height to a CSS variable so we can use it in the styles and
@@ -306,7 +317,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @visibilityChanged=${this.#onVisibilityChanged} id="tbody" part="tbody">
+        <tbody id="tbody" part="tbody">
           ${virtualize({
             items: this.view.rows,
             renderItem: (item, index) => this.renderItem(item, index)
@@ -803,15 +814,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters(true);
   }
 
-  #onVisibilityChanged(): void {
-    // Only recalculate the column widths if the grid has been rendered for the first time
-    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
-      this.#initialColumnWidthsCalculated = true;
-
-      void this.recalculateColumnWidths();
-    }
-  }
-
   #addScopedElements(scopedElements?: Record<string, typeof HTMLElement>): void {
     if (scopedElements) {
       for (const [tagName, klass] of Object.entries(scopedElements)) {
@@ -847,7 +849,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
-      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction ?? 'asc');
+      this.dataSource?.setSort(sorter.column.id, sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
       this.dataSource?.removeSort();
     }

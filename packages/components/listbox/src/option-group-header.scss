@@ -1,16 +1,16 @@
 :host {
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-text-muted);
   display: block;
   inline-size: 100%;
 }
 
 .wrapper {
-  padding: var(--sl-space-new-sm);
-  padding-inline-start: var(--sl-space-new-xl);
+  padding: var(--sl-space-075);
+  padding-inline-start: var(--sl-space-300);
 }
 
 .divider {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin-block-start: var(--sl-space-new-md);
-  padding-block-start: var(--sl-space-new-md);
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
+  margin-block-start: var(--sl-space-100);
+  padding-block-start: var(--sl-space-100);
 }

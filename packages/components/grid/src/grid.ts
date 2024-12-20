@@ -1,5 +1,5 @@
 /* eslint-disable lit/prefer-static-styles */
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
@@ -307,7 +307,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      <table part="table">
+      <a
+        id="table-start"
+        href="#table-end"
+        class="skip-link-start"
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+      >
+        ${msg('Skip to end of table')}</a
+      >
+      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <thead
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
@@ -335,6 +343,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             `
           : nothing}
       </table>
+
+      <a
+        id="table-end"
+        href="#table-start"
+        class="skip-link-end"
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+        >${msg('Skip to start of table')}</a
+      >
     `;
   }
 
@@ -440,6 +456,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         class=${classMap({ active })}
         part=${parts.join(' ')}
         index=${index}
+        aria-rowindex=${index}
       >
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -732,6 +749,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#virtualizer?._layout?._metricsCache?.clear();
   }
 
+  #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
+    // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
+    event.preventDefault();
+    (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
+  }
+
   #onScroll(): void {
     const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
 
@@ -870,6 +893,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters();
 
     dataSource?.update();
+
     this.stateChangeEvent.emit({ grid: this });
   }
 }

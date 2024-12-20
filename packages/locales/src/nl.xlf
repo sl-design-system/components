@@ -194,10 +194,6 @@
   <source>Go to the next page (<x id="0" equiv-text="${this.page + 1}"/>)</source>
   <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.activePage + 1}"/>)</target>
 </trans-unit>
-<trans-unit id="s6ef3b70aa370dba4">
-  <source>Amount of items per page: <x id="0" equiv-text="${this.pageSize}"/></source>
-  <target>Aantal items per pagina: <x id="0" equiv-text="${this.itemsPerPage}"/></target>
-</trans-unit>
 <trans-unit id="s7d09afc329d9995b">
   <source>Page <x id="0" equiv-text="${this.page}"/> of <x id="1" equiv-text="${this.#pages}"/></source>
   <target>Pagina <x id="0" equiv-text="${this.activePage}"/> van <x id="1" equiv-text="${this.#pages}"/></target>
@@ -209,6 +205,14 @@
 <trans-unit id="s886db4d476f66522">
   <source>Selected options</source>
   <target>Geselecteerde opties</target>
+</trans-unit>
+<trans-unit id="s874708ada8e71323">
+  <source>Skip to end of table</source>
+  <target>Naar het einde van de tabel</target>
+</trans-unit>
+<trans-unit id="se952fc198acfa288">
+  <source>Skip to start of table</source>
+  <target>Naar het begin van de tabel</target>
 </trans-unit>
 </body>
 </file>

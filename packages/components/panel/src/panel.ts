@@ -108,10 +108,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
                 class=${this.#toggleClicked ? 'clicked' : ''}
               >
                 <sl-icon
-                  class="icon ${this.#toggleClicked ? 'dash' : 'chevron'} ${!this.collapsed && !this.#toggleClicked
-                    ? 'upside-down'
-                    : ''}"
-                  name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+                  class="icon chevron ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
+                  name="chevron-down"
                 ></sl-icon>
               </sl-button>
               <div part="wrapper">${this.renderHeading()}</div>
@@ -148,6 +146,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       </div>
     `;
   }
+
+  // ${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
 
   /*<sl-button
 @click=${() => this.toggle()}
@@ -195,19 +195,12 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
    * @param force - Whether to force the panel to be collapsed or expanded.
    */
   toggle(force = !this.collapsed): void {
-    // const button = this.renderRoot.querySelector('sl-button');
-    // console.log('button', button);
-
     const button = this.renderRoot.querySelector('sl-button');
     const icon = button?.querySelector('sl-icon');
 
     if (!button || !icon) {
       return;
     }
-
-    // if (!button) {
-    //   return;
-    // }
 
     // button?.classList.toggle('clicked'); // TODO: maybe attribute instead of class? and can be used in sl-icon
     // this.#toggleClicked = true;
@@ -231,10 +224,10 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
 
     icon.classList.toggle('upside-down', !this.collapsed);
 
-    icon.name = 'dash-solid';
+    // icon.name = 'dash-solid';
 
     this.#toggleClicked = true;
-    this.requestUpdate();
+    //  this.requestUpdate();
 
     // icon.classList.toggle('upside-down', !this.collapsed);
 
@@ -245,11 +238,6 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
       icon.name = 'chevron-down';
       this.toggleEvent.emit(this.collapsed);
     }, 150);
-
-    // setTimeout(() => {
-    // this.collapsed = force;
-    // this.toggleEvent.emit(!!this.collapsed);
-    // }, 900);
   }
 
   private handleBadgeSlotChange(): void {

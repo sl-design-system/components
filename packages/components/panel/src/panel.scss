@@ -2,20 +2,13 @@
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 
-  // --_padding-block: var(--sl-space-sm);
-  // --_padding-inline: var(--sl-space-sm);
-  // --_wrapper-padding-inline: var(--sl-space-sm);
-
-  // border: 1px solid var(--sl-color-palette-neutral-200);
-  // border-radius: var(--sl-border-radius-2xs);
   border-radius: var(--sl-size-borderRadius-md);
   display: flex;
   flex-direction: column;
 }
 
 :host([outline]) {
-  // border: 1px solid var(--sl-color-palette-neutral-200);
-  border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-subtle); // TODO: use a token insetad of 1px
+  border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-subtle);
 }
 
 :host([elevation='raised']) {
@@ -70,22 +63,22 @@
 [part='titles'] {
   display: flex;
   flex-direction: column;
-  gap: var(--sl-space-new-sm); // 8px;
+  gap: var(--sl-space-new-sm);
 }
 
 [part='header'] {
-  align-items: center; // start;
+  align-items: center;
   display: grid;
   flex: 1;
-  gap: var(--sl-space-new-lg); // 16px; // TODO: use tokens
-  grid-template-columns: 1fr minmax(0, auto); // minmax(min-content, max-content) minmax(min-content, max-content) minmax(0, auto); // minmax(min-content, max-content) minmax(0, auto);
+  gap: var(--sl-space-new-lg);
+  grid-template-columns: 1fr minmax(0, auto);
   justify-content: space-between;
-  padding: var(--sl-space-new-lg); // 16px; // TODO: use tokens
+  padding: var(--sl-space-new-lg);
 
-  > * {
-    // FIXME: This is a quick hack to vertically align the heading with any action buttons
-    // padding-block-start: 2px;
-  }
+  // > * {
+  //  // FIXME: This is a quick hack to vertically align the heading with any action buttons
+  //   padding-block-start: var(--sl-space-new-lg); // 2px;
+  // }
 }
 
 [part='wrapper'] {
@@ -93,8 +86,10 @@
   display: flex;
   gap: var(--sl-space-new-lg);
 
-  // padding-block: var(--_padding-block);
-  // padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+  > * {
+    // FIXME: This is a quick hack to vertically align the heading with any action buttons
+    padding-block-start: var(--sl-space-new-lg); // 2px;
+  }
 }
 
 button {
@@ -157,15 +152,13 @@ slot[name='actions']::slotted(:first-child) {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: var(--sl-space-new-lg); // 8px;
+  gap: var(--sl-space-new-lg);
 }
 
 [part='body'] {
   display: grid;
   grid-template-rows: 1fr;
   transition: grid-template-rows 200ms ease-in-out;
-
-  // padding: 16px;
 }
 
 [part='inner'] {
@@ -175,11 +168,11 @@ slot[name='actions']::slotted(:first-child) {
 [part='content'] {
   // padding-block-end: var(--_padding-block);
   // padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
-  padding: 16px;
+  padding: var(--sl-space-new-lg);
 }
 
 .icon {
-  transition: transform 300ms ease-in-out; // ease,
+  transition: transform 200ms ease-in-out; // ease,
   // opacity 50ms ease-in-out;
   // ease;
 }
@@ -195,12 +188,18 @@ slot[name='actions']::slotted(:first-child) {
 //  transform: scaleY(1);
 // }
 
-sl-button:not(.clicked) .icon.chevron {
+// sl-button:not(.clicked) .icon.chevron {
+//  opacity: 1;
+//  transform: scaleY(1);
+// }
+
+.icon.chevron {
   opacity: 1;
   transform: scaleY(1);
 }
 
-sl-button:not(.clicked) .icon.upside-down {
+/* sl-button:not(.clicked) */
+.icon.upside-down {
   transform: scaleY(-1);
 }
 

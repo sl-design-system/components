@@ -4,14 +4,14 @@ import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { PaginatorSize } from './paginator-size';
+import { PaginatorPageSize } from './paginator-page-size.js';
 
-describe('sl-paginator-size', () => {
-  let el: PaginatorSize;
+describe('sl-paginator-page-size', () => {
+  let el: PaginatorPageSize;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator-size></sl-paginator-size> `);
+      el = await fixture(html`<sl-paginator-page-size></sl-paginator-page-size>`);
     });
 
     it('should have items per page with value of 10 by default', () => {
@@ -27,7 +27,7 @@ describe('sl-paginator-size', () => {
 
   describe('page sizes', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator-size .pageSizes=${[5, 10, 20]}></sl-paginator-size> `);
+      el = await fixture(html`<sl-paginator-page-size .pageSizes=${[5, 10, 20]}></sl-paginator-page-size>`);
     });
 
     it('should have a select inside when pageSizes is set', async () => {
@@ -55,7 +55,7 @@ describe('sl-paginator-size', () => {
 
   describe('items per page', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator-size .pageSizes=${[5, 10, 20]}></sl-paginator-size> `);
+      el = await fixture(html`<sl-paginator-page-size .pageSizes=${[5, 10, 20]}></sl-paginator-page-size>`);
     });
 
     it('should set first value of page sizes when there is no pageSize value', () => {
@@ -80,7 +80,7 @@ describe('sl-paginator-size', () => {
       expect(slSelect?.value).to.equal(10);
     });
 
-    it('should emit an sl-paginator-size-change event when the value of the items per page has changed', async () => {
+    it('should emit an sl-paginator-page-size-change event when the value of the items per page has changed', async () => {
       const onPageSizeChange = spy();
       el.addEventListener('sl-page-size-change', onPageSizeChange);
       const slSelect = el.renderRoot.querySelector('sl-select');

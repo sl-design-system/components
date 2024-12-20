@@ -2,7 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { Paginator, PaginatorSize, PaginatorStatus } from '@sl-design-system/paginator';
+import { Paginator, PaginatorPageSize, PaginatorStatus } from '@sl-design-system/paginator';
 import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import '@sl-design-system/text-field/register.js';
@@ -34,7 +34,7 @@ export const Basic: Story = {
 
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-        paginatorSize = document.querySelector('sl-paginator-size') as PaginatorSize,
+        paginatorSize = document.querySelector('sl-paginator-page-size') as PaginatorPageSize,
         visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus,
         grid = document.querySelector('sl-grid') as Grid;
 
@@ -84,7 +84,7 @@ export const Basic: Story = {
           .page=${page}
           .pageSize=${pageSize}
         ></sl-paginator>
-        <sl-paginator-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-size>
+        <sl-paginator-page-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-page-size>
       </div>
     `;
   }
@@ -123,7 +123,7 @@ export const PaginatedDataSourceWithFilter: Story = {
       <div class="pagination">
         <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
         <sl-paginator .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator>
-        <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>
+        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>
       </div>
     `;
   }
@@ -172,7 +172,7 @@ export const PaginatedDataSourceWithSorter: Story = {
       <div class="pagination">
         <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
         <sl-paginator .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator>
-        <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>
+        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>
       </div>
     `;
   }

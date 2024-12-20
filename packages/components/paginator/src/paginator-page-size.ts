@@ -7,7 +7,8 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './paginator-size.scss.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import styles from './paginator-page-size.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -15,7 +16,7 @@ declare global {
   }
 
   interface HTMLElementTagNameMap {
-    'sl-paginator-size': PaginatorSize;
+    'sl-paginator-page-size': PaginatorPageSize;
   }
 }
 
@@ -24,7 +25,7 @@ declare global {
  * The component adds a possibility to select/change the amount of items that would be visible per page.
  */
 @localized()
-export class PaginatorSize extends ScopedElementsMixin(LitElement) {
+export class PaginatorPageSize extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -47,7 +48,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>;
 
   /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
-  @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
+  @property({ type: Array, attribute: 'page-sizes' }) pageSizes?: number[];
 
   override disconnectedCallback(): void {
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
@@ -81,7 +82,7 @@ export class PaginatorSize extends ScopedElementsMixin(LitElement) {
       <sl-label for="select">${msg('Items per page')}:</sl-label>
       ${this.pageSizes
         ? html`
-            <sl-select id="select" size="lg" value=${this.pageSize} @sl-change=${this.#onChange}>
+            <sl-select id="select" size="lg" value=${ifDefined(this.pageSize)} @sl-change=${this.#onChange}>
               ${this.pageSizes.map(
                 size => html`
                   <sl-select-option aria-label=${`${size} ${msg('Items per page')}`} .value=${size}>

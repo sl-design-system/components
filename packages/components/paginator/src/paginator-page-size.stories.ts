@@ -8,10 +8,10 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type PaginatorSize } from './paginator-size';
+import { type PaginatorPageSize } from './paginator-page-size.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<PaginatorSize, 'pageSize' | 'pageSizes'> & {
+type Props = Pick<PaginatorPageSize, 'pageSize' | 'pageSizes'> & {
   totalItems: number;
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
@@ -19,7 +19,7 @@ type Props = Pick<PaginatorSize, 'pageSize' | 'pageSizes'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Navigation/Paginator/Paginator size',
+  title: 'Navigation/Paginator/Paginator page size',
   tags: ['draft'],
   parameters: {
     viewport: {
@@ -31,7 +31,7 @@ export default {
     pageSizes: [5, 10, 15]
   },
   render: ({ pageSize, pageSizes }) => {
-    return html` <sl-paginator-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-size> `;
+    return html`<sl-paginator-page-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-page-size>`;
   }
 } satisfies Meta<Props>;
 
@@ -53,7 +53,7 @@ export const WithDataSource: Story = {
       dataSource.update();
     });
 
-    return html` <sl-paginator-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-size>`;
+    return html` <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
   }
 };
 
@@ -66,7 +66,7 @@ export const WithPaginator: Story = {
   render: ({ pageSize, pageSizes, totalItems }) => {
     setTimeout(() => {
       const paginator = document.querySelector('sl-paginator') as Paginator,
-        pageSize = document.querySelector('sl-paginator-size') as PaginatorSize;
+        pageSize = document.querySelector('sl-paginator-page-size');
 
       pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
         paginator.pageSize = event.detail as number;
@@ -87,7 +87,7 @@ export const WithPaginator: Story = {
       </style>
       <div class="pagination">
         <sl-paginator .totalItems=${totalItems} .pageSize=${pageSize}></sl-paginator>
-        <sl-paginator-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-size>
+        <sl-paginator-page-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-page-size>
       </div>
     `;
   }

@@ -38,7 +38,7 @@ We’re currently refactoring our components in code to use the new contextual t
 In the end, this will make the SL Design System team more efficient—less maintenance and more time to focus on new components, patterns, and enhancements. For products, it means more consistent UI design overall.
 
 ### New Components
-- [Paginator](https://storybook.sanomalearning.design/?path=/story/navigation-paginator--all)
+- [Paginator](https://storybook.sanomalearning.design/?path=/story/navigation-paginator--all) <ds-status status="draft"></ds-status>
 
 ### Solved Bug Reports
 - [Rendering the correct column widths when the data grid contains only a few elements](https://github.com/sl-design-system/components/issues/1677)

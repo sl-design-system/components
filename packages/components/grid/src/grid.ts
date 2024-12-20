@@ -750,6 +750,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
+    // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
     event.preventDefault();
     (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
   }

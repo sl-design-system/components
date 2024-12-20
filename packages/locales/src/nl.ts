@@ -29,6 +29,7 @@ export const templates = {
   s7d09afc329d9995b: str`Pagina ${0} van ${1}`,
   s8079b71872346425: 'Voer een waarde in.',
   s864c948d4629240f: 'Toon alles',
+  s874708ada8e71323: 'Naar het einde van de tabel',
   s886db4d476f66522: 'Geselecteerde opties',
   s88b887b46242ba96: str`Ga naar vorige pagina (${0})`,
   s8c1f47dc13ead0c3: str`Maak "${0}" aan`,
@@ -51,10 +52,9 @@ export const templates = {
   sde3919a1e53d2cff: 'Druk op de delete of backspace toets om dit item te verwijderen',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
   se412fe8953013d92: 'Selecteer tenminste één optie.',
+  se952fc198acfa288: 'Naar het begin van de tabel',
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf7290005be5beae6: str`${0}, pagina`,
-  s874708ada8e71323: 'Skip to end of table',
-  se952fc198acfa288: 'Skip to start of table'
+  sf7290005be5beae6: str`${0}, pagina`
 };

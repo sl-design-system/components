@@ -51,7 +51,7 @@ In the end, this will make the SL Design System team more efficient—less maint
 - [FA icon disappears / changes to text inside button component](https://github.com/sl-design-system/components/issues/1482)
 
 ### Accessibility Improvements
-- [Create an aria live container on page]([https://github.com/sl-design-system/components/issues/1597](https://github.com/sl-design-system/components/pull/1649))
+- [Create an aria live container on page](https://github.com/sl-design-system/components/issues/1597)
 - [Tabs aren't correctly marked for screen reader](https://github.com/sl-design-system/components/issues/1560)
 - [Switch is not correctly marked for screen reader](https://github.com/sl-design-system/components/issues/1561)
 - [Checkbox has redundant aria role and property](https://github.com/sl-design-system/components/issues/1553)

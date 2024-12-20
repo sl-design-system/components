@@ -14,8 +14,11 @@ eleventyNavigation:
 </div>
 </header>
 
-
 <section class="ds-subpage-section">
+
+<div class="ds-subpage-section__wrapper">
+<section>
+  
 ## Accessibility Audit, new components and further updates
 <small>December 2024</small>
 
@@ -34,8 +37,7 @@ We’re currently refactoring our components in code to use the new contextual t
 
 In the end, this will make the SL Design System team more efficient—less maintenance and more time to focus on new components, patterns, and enhancements. For products, it means more consistent UI design overall.
 
-
-### New Components and Status Changes
+### New Components
 - [Paginator](https://storybook.sanomalearning.design/?path=/story/navigation-paginator--all)
 
 ### Solved Bug Reports
@@ -53,10 +55,6 @@ In the end, this will make the SL Design System team more efficient—less maint
 - [Tabs aren't correctly marked for screen reader](https://github.com/sl-design-system/components/issues/1560)
 - [Switch is not correctly marked for screen reader](https://github.com/sl-design-system/components/issues/1561)
 - [Checkbox has redundant aria role and property](https://github.com/sl-design-system/components/issues/1553)
-
-
-<div class="ds-subpage-section__wrapper">
-<section>
   
 </section>
 <section>

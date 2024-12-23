@@ -214,6 +214,14 @@
   <source>items per page</source>
   <target>items per pagina</target>
 </trans-unit>
+<trans-unit id="s874708ada8e71323">
+  <source>Skip to end of table</source>
+  <target>Naar het einde van de tabel</target>
+</trans-unit>
+<trans-unit id="se952fc198acfa288">
+  <source>Skip to start of table</source>
+  <target>Naar het begin van de tabel</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

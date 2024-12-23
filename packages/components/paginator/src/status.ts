@@ -24,6 +24,9 @@ export class PaginatorStatus<T = any> extends LitElement {
   /** The data source that the paginator controls. */
   #dataSource?: DataSource<T>;
 
+  /** Timeout id, to be used with `clearTimeout`. */
+  #timeoutId?: ReturnType<typeof setTimeout>;
+
   get dataSource(): DataSource<T> | undefined {
     return this.#dataSource;
   }
@@ -75,6 +78,11 @@ export class PaginatorStatus<T = any> extends LitElement {
   }
 
   override disconnectedCallback(): void {
+    if (this.#timeoutId) {
+      clearTimeout(this.#timeoutId);
+      this.#timeoutId = undefined;
+    }
+
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
     super.disconnectedCallback();
@@ -115,9 +123,14 @@ export class PaginatorStatus<T = any> extends LitElement {
   };
 
   #announce(): void {
+    if (this.#timeoutId) {
+      clearTimeout(this.#timeoutId);
+      this.#timeoutId = undefined;
+    }
+
     // Added timeout to prevent double announcement, otherwise the first
     // announcement would be with old or invalid values
-    setTimeout(() => {
+    this.#timeoutId = setTimeout(() => {
       if (this.totalItems > 1) {
         const [start, end] = this.range ?? [1, 1];
 

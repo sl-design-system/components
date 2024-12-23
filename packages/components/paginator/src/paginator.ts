@@ -120,8 +120,6 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true })
   set size(value: PaginatorSize | undefined) {
-    console.log('set size', value);
-
     this.#originalSize = value;
     this.#size = value;
   }

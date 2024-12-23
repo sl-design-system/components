@@ -1,180 +1,135 @@
 import { expect, fixture } from '@open-wc/testing';
-import { SlAnnounceEvent } from '@sl-design-system/announcer';
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import { html } from 'lit';
-import { spy } from 'sinon';
+import { type SinonSpy, spy } from 'sinon';
 import '../register.js';
 import { PaginatorStatus } from './status.js';
 
 describe('sl-paginator-status', () => {
   let el: PaginatorStatus;
-  const sendToAnnouncerSpy = spy();
-
-  beforeEach(() => {
-    document.body.addEventListener('sl-announce', sendToAnnouncerSpy);
-  });
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-paginator-status></sl-paginator-status>`);
     });
 
-    it('should have a rendered text with information about items', () => {
-      const itemsCounterLabel = el.renderRoot.textContent?.trim();
+    it('should have sane defaults', () => {
+      expect(el.page).to.equal(0);
+      expect(el.pageCount).to.equal(1);
+      expect(el.pageSize).to.equal(10);
+      expect(el.totalItems).to.equal(1);
+    });
 
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('1 - 1 of 1 items')).to.be.true;
+    it('should display the status', () => {
+      expect(el.renderRoot).to.have.trimmed.text('1 - 1 of 1 items');
     });
   });
 
   describe('first page', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-status .totalItems=${100} .pageSize=${15}></sl-paginator-status>`);
+      el = await fixture(html`<sl-paginator-status page-size="15" total-items="100"></sl-paginator-status>`);
     });
 
-    it('should have a rendered proper text with information about visible items on the first page', () => {
-      const itemsCounterLabel = el.renderRoot.textContent?.trim();
+    it('should display the status', () => {
+      expect(el.renderRoot).to.have.trimmed.text('1 - 15 of 100 items');
+    });
+  });
 
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('1 - 15 of 100 items')).to.be.true;
+  describe('current page', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-paginator-status page="7" page-size="15" total-items="209"></sl-paginator-status>`);
+    });
+
+    it('should display the status', () => {
+      expect(el.renderRoot).to.have.trimmed.text('106 - 120 of 209 items');
     });
   });
 
   describe('last page', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-paginator-status .totalItems=${209} .page=${14} .pageSize=${15}></sl-paginator-status>`
-      );
+      el = await fixture(html`<sl-paginator-status page="14" page-size="15" total-items="209"></sl-paginator-status>`);
     });
 
-    it('should have a rendered proper text with information about visible items on the first page', () => {
-      const itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
+    it('should display the status', () => {
+      expect(el.renderRoot).to.have.trimmed.text('196 - 209 of 209 items');
     });
   });
 
   describe('invalid page', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-paginator-status .totalItems=${209} .page=${-1} .pageSize=${15}></sl-paginator-status>`
-      );
+      el = await fixture(html`<sl-paginator-status page-size="15" total-items="209"></sl-paginator-status>`);
     });
 
-    it('should have a rendered proper text with information about visible items on the first page', () => {
-      const itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('1 - 15 of 209 items')).to.be.true;
-    });
-  });
-
-  describe('page change', () => {
-    beforeEach(async () => {
-      el = await fixture(
-        html`<sl-paginator-status .totalItems=${209} .page=${2} .pageSize=${15}></sl-paginator-status>`
-      );
-    });
-
-    it('should have a rendered proper text with information about visible items on the page', async () => {
-      el.page = 10;
+    it('should show the first page, if the page number is negative', async () => {
+      el.page = -10;
       await el.updateComplete;
 
-      const itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('136 - 150 of 209 items')).to.be.true;
-
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      // Check if sendToAnnouncer was called
-      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
-        'Currently showing 136 to 150 of 209 items'
-      );
+      expect(el.renderRoot).to.have.trimmed.text('1 - 15 of 209 items');
     });
 
-    it('should have a proper page when set smaller than 1', async () => {
-      el.page = -1;
-      await new Promise(resolve => setTimeout(resolve, 100));
+    it('should show the last page, if the page number is too big', async () => {
+      el.page = 400;
+      await el.updateComplete;
 
-      const itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(el.page).to.equal(1);
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('1 - 15 of 209 items')).to.be.true;
-
-      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
-        'Currently showing 1 to 15 of 209 items'
-      );
-    });
-
-    it('should have set page to the last one when the number set is bigger than the total number of pages', async () => {
-      el.page = 100;
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      const itemsCounterLabel = el.renderRoot.textContent?.trim();
-
-      expect(el.page).to.equal(14);
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
-
-      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
-        'Currently showing 196 to 209 of 209 items'
-      );
+      expect(el.renderRoot).to.have.trimmed.text('196 - 209 of 209 items');
     });
   });
 
-  describe('items per page change', () => {
+  describe('announcements', () => {
+    let announce: SinonSpy;
+
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-paginator-status .totalItems=${209} .page=${14} .pageSize=${15}></sl-paginator-status>`
-      );
+      announce = spy();
+      document.body.addEventListener('sl-announce', announce);
+
+      el = await fixture(html`<sl-paginator-status page="7" page-size="15" total-items="209"></sl-paginator-status>`);
     });
 
-    it('should have a rendered proper text with information about visible items', async () => {
-      let itemsCounterLabel = el.renderRoot.textContent?.trim();
+    afterEach(() => document.body.removeEventListener('sl-announce', announce));
 
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
+    it('should announce the status', async () => {
+      expect(announce).not.to.have.been.called;
 
-      el.pageSize = 5;
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      itemsCounterLabel = el.renderRoot.textContent?.trim();
+      expect(announce).to.have.been.calledOnce;
 
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('66 - 70 of 209 items')).to.be.true;
-
-      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
-        'Currently showing 66 to 70 of 209 items'
-      );
-    });
-  });
-
-  describe('total amount of items change', () => {
-    beforeEach(async () => {
-      el = await fixture(
-        html`<sl-paginator-status .totalItems=${209} .page=${14} .pageSize=${15}></sl-paginator-status>`
-      );
+      const event = announce.lastCall.firstArg as SlAnnounceEvent;
+      expect(event.detail.message).to.equal('Currently showing 106 to 120 of 209 items');
+      expect(event.detail.urgency).to.be.undefined;
     });
 
-    it('should have a rendered proper text with information about visible items', async () => {
-      let itemsCounterLabel = el.renderRoot.textContent?.trim();
+    it('should announce the status when the page changes', async () => {
+      el.page = 8;
+      await new Promise(resolve => setTimeout(resolve, 101));
 
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 209 of 209 items')).to.be.true;
+      expect(announce).to.have.been.calledOnce;
 
-      el.totalItems = 508;
-      await new Promise(resolve => setTimeout(resolve, 100));
+      const event = announce.lastCall.firstArg as SlAnnounceEvent;
+      expect(event.detail.message).to.equal('Currently showing 121 to 135 of 209 items');
+      expect(event.detail.urgency).to.be.undefined;
+    });
 
-      itemsCounterLabel = el.renderRoot.textContent?.trim();
+    it('should announce the status when the page size changes', async () => {
+      el.pageSize = 10;
+      await new Promise(resolve => setTimeout(resolve, 101));
 
-      expect(itemsCounterLabel).to.exist;
-      expect(itemsCounterLabel!.includes('196 - 210 of 508 items')).to.be.true;
+      expect(announce).to.have.been.calledOnce;
 
-      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal(
-        'Currently showing 196 to 210 of 508 items'
-      );
+      const event = announce.lastCall.firstArg as SlAnnounceEvent;
+      expect(event.detail.message).to.equal('Currently showing 71 to 80 of 209 items');
+      expect(event.detail.urgency).to.be.undefined;
+    });
+
+    it('should announce the status when the total number of items changes', async () => {
+      el.totalItems = 300;
+      await new Promise(resolve => setTimeout(resolve, 101));
+
+      expect(announce).to.have.been.calledOnce;
+
+      const event = announce.lastCall.firstArg as SlAnnounceEvent;
+      expect(event.detail.message).to.equal('Currently showing 106 to 120 of 300 items');
+      expect(event.detail.urgency).to.be.undefined;
     });
   });
 });

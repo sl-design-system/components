@@ -16,7 +16,7 @@ declare global {
 export type SlAnnounceEvent = CustomEvent<{ message: string; urgency?: 'polite' | 'assertive' }>;
 
 /**
- * Utility that serves as a receipient for all live-aria notifications and supplies them for screenreaders
+ * Utility that serves as a recipient for all live-aria notifications and supplies them for screenreaders
  * from a central place in your application.
  *
  * ```html
@@ -32,8 +32,10 @@ export class Announcer extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
     this.#events.listen(document.body, 'sl-announce', this.#onLiveEvent);
   }
+
   override render(): TemplateResult {
     return html`
       <ul aria-live="polite" aria-atomic="false"></ul>

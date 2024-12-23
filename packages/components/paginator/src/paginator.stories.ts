@@ -228,7 +228,7 @@ export const All: Story = {
 
     return html`
       <style>
-        div {
+        section {
           align-items: center;
           display: grid;
           gap: 1rem;
@@ -241,7 +241,7 @@ export const All: Story = {
           justify-content: end;
         }
       </style>
-      <div>
+      <section>
         <span>xs</span>
         <sl-paginator
           @sl-page-change=${onPageChange}
@@ -277,7 +277,7 @@ export const All: Story = {
           .totalItems=${totalItems}
           size="lg"
         ></sl-paginator>
-      </div>
+      </section>
     `;
   }
 };

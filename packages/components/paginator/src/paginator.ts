@@ -85,6 +85,12 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onUpdate();
   }
 
+  /** The original size, before any resize observer logic. */
+  #originalSize?: PaginatorSize;
+
+  /** The current size. */
+  #size?: PaginatorSize;
+
   /**
    * Current page.
    * @default 0
@@ -103,12 +109,20 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Number, attribute: 'page-size' }) pageSize = 10;
 
+  get size(): PaginatorSize | undefined {
+    return this.#size;
+  }
+
   /**
    * The size of the paginator. This is used to determine how many pages are visible at once.
    * For `xs` a select component will be used to select the page. For all other sizes,
    * buttons will be used.
    */
-  @property({ reflect: true }) size?: PaginatorSize;
+  @property({ reflect: true })
+  set size(value: PaginatorSize | undefined) {
+    this.#originalSize = value;
+    this.#size = value;
+  }
 
   /**
    * Total number of items.
@@ -295,9 +309,21 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (buttonSize && gap) {
       const count = Math.floor(entry.contentRect.width / (buttonSize + gap)) - 2,
-        [size, _] = Object.entries(PAGINATOR_SIZES).find(([, value]) => count <= value) || ['lg', 0];
+        [size, visiblePages] = Object.entries(PAGINATOR_SIZES).find(([, value]) => count <= value) || [
+          'lg',
+          PAGINATOR_SIZES['lg']
+        ];
 
-      this.size = size as PaginatorSize;
+      if (this.#originalSize) {
+        // We can go smaller than the original size, but never larger
+        if (visiblePages <= PAGINATOR_SIZES[this.#originalSize]) {
+          this.#size = size as PaginatorSize;
+        }
+      } else {
+        this.#size = size as PaginatorSize;
+      }
+
+      this.requestUpdate('size');
     }
   }
 

@@ -1,11 +1,11 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { type DataSource } from '@sl-design-system/data-source';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type DataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './page-size.scss.js';
@@ -68,13 +68,19 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
    * Items per page.
    * @default 10
    */
-  @property({ type: Number, attribute: 'page-size' }) pageSize?: number;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   /** @internal Emits when the page size has been selected/changed. */
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>;
 
   /** Available page sizes. */
   @property({ type: Array, attribute: 'page-sizes' }) pageSizes?: number[];
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.dataSource?.addEventListener('sl-update', this.#onUpdate);
+  }
 
   override disconnectedCallback(): void {
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
@@ -84,61 +90,36 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
-    if (changes.has('pageSize')) {
-      if (!this.pageSize) {
-        this.pageSize = this.pageSizes ? this.pageSizes[0] : 10;
-      }
-    }
 
-    if (changes.has('dataSource')) {
-      this.dataSource?.addEventListener('sl-update', this.#onUpdate);
-    }
-  }
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    if (!this.pageSize) {
-      this.pageSize = this.pageSizes ? this.pageSizes[0] : 10;
+    if (changes.has('pageSizes')) {
+      this.pageSize ??= this.pageSizes?.at(0) ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <sl-label for="select">${msg('Items per page')}:</sl-label>
-      ${this.pageSizes
-        ? html`
-            <sl-select id="select" size="lg" value=${ifDefined(this.pageSize)} @sl-change=${this.#onChange}>
-              ${this.pageSizes.map(
-                size => html`
-                  <sl-select-option aria-label=${`${size} ${msg('Items per page')}`} .value=${size}>
-                    ${size}
-                  </sl-select-option>
-                `
-              )}
-            </sl-select>
+      <sl-label for="sizes">${msg('Items per page:')}</sl-label>
+      <sl-select @sl-change=${this.#onChange} id="sizes" size="lg" value=${ifDefined(this.pageSize)}>
+        ${this.pageSizes?.map(
+          size => html`
+            <sl-select-option aria-label=${`${size} ${msg('items per page')}`} .value=${size}>
+              ${size}
+            </sl-select-option>
           `
-        : nothing}
+        )}
+      </sl-select>
     `;
   }
 
-  #onChange(event: Event): void {
-    const newValue = Number((event.target as SelectOption).value);
-    if (this.pageSize !== newValue) {
-      this.pageSize = newValue;
+  #onChange({ detail: pageSize }: SlChangeEvent<number>): void {
+    this.pageSize = pageSize;
+    this.pageSizeChangeEvent.emit(pageSize);
 
-      /** Emits amount of selected items per page */
-      this.pageSizeChangeEvent.emit(newValue);
-
-      this.dataSource?.setPageSize(newValue);
-      this.dataSource?.update();
-    }
+    this.dataSource?.setPageSize(pageSize);
+    this.dataSource?.update();
   }
 
   #onUpdate = () => {
-    const newPageSize = this.dataSource?.page?.pageSize;
-    if (this.pageSize !== newPageSize) {
-      this.pageSize = newPageSize;
-    }
+    this.pageSize = this.dataSource!.pageSize;
   };
 }

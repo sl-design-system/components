@@ -174,10 +174,6 @@
   <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> items</target>
 </trans-unit>
-<trans-unit id="s56360c5f24cfd4ff">
-  <source>Items per page</source>
-  <target>Items per pagina</target>
-</trans-unit>
 <trans-unit id="s1e55e510d77b5965">
   <source>Select page number</source>
   <target>Selecteer paginanummer</target>
@@ -209,6 +205,14 @@
 <trans-unit id="s3dc14a4b8129f989">
   <source>Pagination</source>
   <target>Paginering</target>
+</trans-unit>
+<trans-unit id="s4dabcaab8d268abf">
+  <source>Items per page:</source>
+  <target>Items per pagina:</target>
+</trans-unit>
+<trans-unit id="s15abf4bcf7cba79f">
+  <source>items per page</source>
+  <target>items per pagina</target>
 </trans-unit>
 </body>
 </file>

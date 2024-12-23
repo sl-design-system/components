@@ -1,4 +1,4 @@
-import { DataSource, type DataSourceSort } from './data-source.js';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, DataSource, type DataSourceSort } from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FetchDataSourceCallbackOptions<T = any> {
@@ -21,7 +21,7 @@ export type FetchDataSourcePlaceholder<T> = (n: number) => T;
 
 export interface FetchDataSourceOptions<T> {
   fetchPage: FetchDataSourceCallback<T>;
-  pageSize: number;
+  pageSize?: number;
   placeholder?: FetchDataSourcePlaceholder<T>;
   size?: number;
 }
@@ -51,6 +51,9 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   /** Object for keeping track of outstanding fetch calls. */
   #pages: Record<number, Promise<void> | undefined> = {};
 
+  /** The page size when retrieving data. */
+  #pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+
   /** Proxy of the items array. */
   #proxy: T[] = [];
 
@@ -60,14 +63,15 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   /** The callback for retrieving data. */
   fetchPage: FetchDataSourceCallback<T>;
 
-  /** The page size when retrieving data. */
-  pageSize: number;
-
   /** Returns placeholder data for items not yet loaded. */
   placeholder: FetchDataSourcePlaceholder<T> = () => FetchDataSourcePlaceholder as T;
 
   get items(): T[] {
     return this.#proxy;
+  }
+
+  override get pageSize(): number {
+    return this.#pageSize;
   }
 
   get size(): number {
@@ -76,9 +80,9 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
   constructor({ fetchPage, pageSize, placeholder, size }: FetchDataSourceOptions<T>) {
     super();
+    this.#pageSize = pageSize ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
     this.#size = size ?? FetchDataSource.defaultSize;
     this.fetchPage = fetchPage;
-    this.pageSize = pageSize;
 
     if (placeholder) {
       this.placeholder = placeholder;
@@ -89,6 +93,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
     this.#items = new Array<T>(this.size);
     this.#pages = {};
     this.#proxy = this.#createProxy(this.#items);
+
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 

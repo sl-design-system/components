@@ -42,6 +42,9 @@ export type DataSourcePagination = { page: number; pageSize: number; totalItems:
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
 
+/** The default page size, if not explicitly set. */
+export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
   /** Map of all active filters. */
@@ -50,8 +53,11 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Order the items by grouping them on the given attributes. */
   #groupBy?: DataSourceGroupBy<T>;
 
-  /** Parameters for pagination, contains page number, page size and total items amount. */
-  #page?: DataSourcePagination;
+  /** The index of the page. */
+  #page?: number;
+
+  /** The number of items on a single page. */
+  #pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   /**
    * The value and path/function to use for sorting. When setting this property,
@@ -67,8 +73,12 @@ export abstract class DataSource<T = any> extends EventTarget {
     return this.#groupBy;
   }
 
-  get page(): DataSourcePagination | undefined {
+  get page(): number | undefined {
     return this.#page;
+  }
+
+  get pageSize(): number {
+    return this.#pageSize;
   }
 
   get sort(): DataSourceSort<T> | undefined {
@@ -121,6 +131,14 @@ export abstract class DataSource<T = any> extends EventTarget {
     this.#groupBy = undefined;
   }
 
+  setPage(page: number): void {
+    this.#page = page;
+  }
+
+  setPageSize(pageSize: number): void {
+    this.#pageSize = pageSize;
+  }
+
   setSort<U extends PathKeys<T> | DataSourceSortFunction<T>>(
     id: string,
     pathOrSorter: U,
@@ -165,30 +183,5 @@ export abstract class DataSource<T = any> extends EventTarget {
     items.splice(to + (from < to ? -1 : 0), 0, item);
 
     this.update();
-  }
-
-  setPage(page: number): void {
-    if (this.#page) {
-      this.paginate(page, this.#page.pageSize, this.#page.totalItems);
-    }
-  }
-
-  setPageSize(pageSize: number): void {
-    if (this.#page) {
-      this.paginate(0, pageSize, this.#page.totalItems);
-    }
-  }
-
-  setTotalItems(totalItems: number): void {
-    if (this.#page) {
-      this.paginate(this.#page.page, this.#page.pageSize, totalItems);
-    }
-  }
-
-  /**
-   * Use to get the paginated data for usage with the sl-paginator component.
-   * */
-  paginate(page: number, pageSize: number, totalItems: number): void {
-    this.#page = { page: page, pageSize: pageSize, totalItems: totalItems };
   }
 }

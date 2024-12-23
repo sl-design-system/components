@@ -1,21 +1,10 @@
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/card/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';
-import '@sl-design-system/icon/register.js';
-import '@sl-design-system/menu/register.js';
-import '@sl-design-system/paginator/register.js';
-import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { html } from 'lit';
 import '../register.js';
 import { type PaginatorPageSize } from './page-size.js';
-import { type Paginator } from './paginator.js';
 
-type Props = Pick<PaginatorPageSize, 'pageSize' | 'pageSizes'> & {
-  totalItems: number;
-  actions?(): string | TemplateResult;
-  content?(): string | TemplateResult;
-};
+type Props = Pick<PaginatorPageSize, 'pageSize' | 'pageSizes'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -26,64 +15,22 @@ export default {
     pageSizes: [5, 10, 15]
   },
   render: ({ pageSize, pageSizes }) => {
-    return html`<sl-paginator-page-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-page-size>`;
+    return html`<sl-paginator-page-size .pageSize=${pageSize} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
-export const WithDataSource: Story = {
+export const DataSource: Story = {
   render: () => {
-    const items = Array.from({ length: 80 }, (_, index) => ({
-      nr: index + 1
-    }));
-
-    const pageSizes = [5, 10, 15, 20, 25, 30];
+    const items = Array.from({ length: 80 }, (_, index) => ({ nr: index + 1 })),
+      pageSizes = [5, 10, 15, 20, 25, 30];
 
     const dataSource = new ArrayDataSource(items);
+    dataSource.setPage(2);
+    dataSource.setPageSize(5);
+    dataSource.update();
 
-    requestAnimationFrame(() => {
-      const totalItems = dataSource.items.length;
-      dataSource.paginate(2, 5, totalItems);
-      dataSource.update();
-    });
-
-    return html` <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
-  }
-};
-
-export const WithPaginator: Story = {
-  args: {
-    totalItems: 120,
-    pageSize: 30,
-    pageSizes: [5, 15, 30, 45]
-  },
-  render: ({ pageSize, pageSizes, totalItems }) => {
-    setTimeout(() => {
-      const paginator = document.querySelector('sl-paginator') as Paginator,
-        pageSize = document.querySelector('sl-paginator-page-size');
-
-      pageSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-        paginator.pageSize = event.detail as number;
-      });
-    });
-    return html`
-      <style>
-        .pagination {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 16px;
-        }
-
-        sl-paginator {
-          flex: 1;
-        }
-      </style>
-      <div class="pagination">
-        <sl-paginator .totalItems=${totalItems} .pageSize=${pageSize}></sl-paginator>
-        <sl-paginator-page-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-page-size>
-      </div>
-    `;
+    return html`<sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>`;
   }
 };

@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import { type DataSource } from '@sl-design-system/data-source';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type DataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select, SelectOption } from '@sl-design-system/select';
@@ -107,7 +107,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    * Items per page. Default to the first item of pageSizes.
    * @default 10
    */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = 10;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   get size(): PaginatorSize | undefined {
     return this.#size;
@@ -147,13 +147,13 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('role', 'navigation');
 
-    this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+    this.dataSource?.addEventListener('sl-update', this.#onUpdate);
     this.#observer.observe(this);
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-    this.#dataSource?.removeEventListener('sl-update', this.#onUpdate);
+    this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
     super.disconnectedCallback();
   }
@@ -162,7 +162,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('page') || changes.has('pageSize') || changes.has('totalItems')) {
-      this.pageSize ??= 10;
+      this.pageSize ??= DATA_SOURCE_DEFAULT_PAGE_SIZE;
       this.pageCount = Math.ceil(this.totalItems / this.pageSize) || 1;
       this.page = Math.min(Math.max(this.page, 0), this.pageCount - 1);
 
@@ -332,15 +332,9 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdate = (): void => {
-    console.log('onUpdate');
-
-    // this.pageSize = this.dataSource.page.pageSize;
-    // if (this.totalItems === this.dataSource.page.totalItems) {
-    //   this.page = this.dataSource.page.page;
-    // }
-    // this.totalItems = this.dataSource.page.totalItems;
-
-    // this.#updateVisibility();
+    this.page = this.dataSource!.page ?? 0;
+    this.pageSize = this.dataSource!.pageSize;
+    this.totalItems = this.dataSource!.size;
   };
 
   #updateVisibility(): void {

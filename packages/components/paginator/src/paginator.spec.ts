@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { SlAnnounceEvent } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { Select } from '@sl-design-system/select';
 import '@sl-design-system/select/register.js';
 import { html } from 'lit';
@@ -202,7 +202,7 @@ describe('sl-paginator', () => {
     });
   });
 
-  describe('Overflow', () => {
+  describe('overflow', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-paginator
@@ -326,7 +326,7 @@ describe('sl-paginator', () => {
     });
   });
 
-  describe('Size', () => {
+  describe('size', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-paginator .totalItems=${200} page="1" .pageSizes=${[10, 15, 20]} size="sm"></sl-paginator>
@@ -530,19 +530,16 @@ describe('sl-paginator', () => {
     });
   });
 
-  describe('DataSource', () => {
-    const items = Array.from({ length: 80 }, (_, index) => ({
-      nr: index + 1
-    }));
-
-    const dataSource = new ArrayDataSource(items);
-    const totalItems = dataSource.items.length;
+  describe('dataSource', () => {
+    let ds: DataSource;
 
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator .dataSource=${dataSource} .pageSizes=${[10, 15, 20]}></sl-paginator> `);
+      ds = new ArrayDataSource(Array.from({ length: 80 }, (_, index) => ({ nr: index + 1 })));
+      ds.setPage(2);
+      ds.setPageSize(5);
+      ds.update();
 
-      dataSource.paginate(2, 10, totalItems);
-      dataSource.update();
+      el = await fixture(html`<sl-paginator .dataSource=${ds}></sl-paginator>`);
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 200));
@@ -560,7 +557,7 @@ describe('sl-paginator', () => {
     });
 
     it('should have a proper active page', () => {
-      dataSource.update();
+      ds.update();
       expect(el.page).to.equal(2);
     });
 
@@ -571,11 +568,11 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       expect(el.page).to.equal(4);
-      expect(el.dataSource?.page?.page).to.equal(4);
+      expect(el.dataSource?.page).to.equal(4);
     });
 
     it('should set the next page on next button click', async () => {
-      dataSource.update();
+      ds.update();
       const next = el.renderRoot.querySelector<Button>('sl-button.next');
 
       expect(next).to.exist;
@@ -584,11 +581,11 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       expect(el.page).to.equal(3);
-      expect(el.dataSource?.page?.page).to.equal(3);
+      expect(el.dataSource?.page).to.equal(3);
     });
 
     it('should set the previous page on prev button click', async () => {
-      dataSource.update();
+      ds.update();
       const prev = el.renderRoot.querySelector<Button>('sl-button');
 
       expect(prev).to.exist;
@@ -597,7 +594,7 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       expect(el.page).to.equal(2);
-      expect(el.dataSource?.page?.page).to.equal(2);
+      expect(el.dataSource?.page).to.equal(2);
     });
   });
 });

@@ -173,8 +173,8 @@ describe('ArrayDataSource', () => {
   describe('pagination', () => {
     beforeEach(() => {
       ds = new ArrayDataSource(people);
-
-      ds.paginate(2, 3, people.length);
+      ds.setPage(2);
+      ds.setPageSize(3);
       ds.update();
     });
 
@@ -199,7 +199,7 @@ describe('ArrayDataSource', () => {
       ds.update();
 
       expect(ds.page).to.exist;
-      expect(ds.page!.pageSize).to.equal(2);
+      expect(ds.pageSize).to.equal(2);
     });
   });
 });

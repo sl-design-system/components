@@ -25,8 +25,9 @@ export default {
 
 export const Basic: Story = {
   render: (_, { loaded: { people } }) => {
-    const people2 = people as unknown[];
-    const pageSizes = [5, 10, 15];
+    const people2 = people as Person[],
+      pageSizes = [5, 10, 15];
+
     let page = 1,
       pageSize = pageSizes[1],
       startIndex = (page - 1) * pageSize,
@@ -92,11 +93,9 @@ export const Basic: Story = {
 
 export const PaginatedDataSourceWithFilter: Story = {
   render: (_, { loaded: { people } }) => {
-    const pageSizes = [5, 10, 15, 20],
-      dataSource = new ArrayDataSource(people as Person[]);
-
-    const total = dataSource.items.length;
-    dataSource.paginate(2, 15, total);
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setPage(2);
+    dataSource.setPageSize(15);
     dataSource.update();
 
     return html`
@@ -108,7 +107,6 @@ export const PaginatedDataSourceWithFilter: Story = {
           margin-block: 1rem;
           justify-content: space-between;
         }
-
         sl-paginator {
           flex: 1;
         }
@@ -122,8 +120,8 @@ export const PaginatedDataSourceWithFilter: Story = {
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
-        <sl-paginator .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>
+        <sl-paginator .dataSource=${dataSource}></sl-paginator>
+        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${[5, 10, 15, 20]}></sl-paginator-page-size>
       </div>
     `;
   }
@@ -142,11 +140,9 @@ export const PaginatedDataSourceWithSorter: Story = {
     };
 
     const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setPage(3);
+    dataSource.setPageSize(10);
     dataSource.setSort('custom', sorter, 'asc');
-
-    const pageSizes = [10, 15, 20];
-    const total = dataSource.items.length;
-    dataSource.paginate(3, 10, total);
     dataSource.update();
 
     return html`
@@ -158,7 +154,6 @@ export const PaginatedDataSourceWithSorter: Story = {
           margin-block: 1rem;
           justify-content: space-between;
         }
-
         sl-paginator {
           flex: 1;
         }
@@ -171,8 +166,8 @@ export const PaginatedDataSourceWithSorter: Story = {
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
-        <sl-paginator .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${pageSizes}></sl-paginator-page-size>
+        <sl-paginator .dataSource=${dataSource}></sl-paginator>
+        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${[10, 15, 20]}></sl-paginator-page-size>
       </div>
     `;
   }

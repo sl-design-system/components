@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
-import { type DataSource } from '@sl-design-system/data-source';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type DataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './status.scss.js';
@@ -57,7 +57,7 @@ export class PaginatorStatus<T = any> extends LitElement {
    * Items per page.
    * @default 10
    */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = 10;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   /** @internal The current range of items visible. */
   @state() range?: number[];
@@ -71,11 +71,11 @@ export class PaginatorStatus<T = any> extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+    this.dataSource?.addEventListener('sl-update', this.#onUpdate);
   }
 
   override disconnectedCallback(): void {
-    this.#dataSource?.removeEventListener('sl-update', this.#onUpdate);
+    this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
     super.disconnectedCallback();
   }
@@ -109,13 +109,9 @@ export class PaginatorStatus<T = any> extends LitElement {
   }
 
   #onUpdate = () => {
-    if (!this.dataSource || !this.dataSource.page) {
-      return;
-    }
-
-    this.page = this.dataSource.page.page;
-    this.pageSize = this.dataSource.page.pageSize;
-    this.totalItems = this.dataSource.page.totalItems;
+    this.page = this.dataSource!.page ?? 0;
+    this.pageSize = this.dataSource!.pageSize;
+    this.totalItems = this.dataSource!.size;
   };
 
   #announce(): void {

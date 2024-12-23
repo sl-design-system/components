@@ -1,7 +1,8 @@
+import '@sl-design-system/card/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { LitElement, type PropertyValues, type TemplateResult, css, html } from 'lit';
+import { LitElement, type TemplateResult, css, html } from 'lit';
 import '../register.js';
 
 type Story = StoryObj;
@@ -50,12 +51,6 @@ export const Connected: Story = {
 
 export const DataSource: Story = {
   render: () => {
-    return html`asdfasdf`;
-  }
-};
-
-export const WithDataSource: Story = {
-  render: () => {
     try {
       customElements.define(
         'paginated-cards-example',
@@ -64,73 +59,48 @@ export const WithDataSource: Story = {
             :host {
               display: flex;
               flex-direction: column;
-              gap: 2rem;
+              gap: 1rem;
             }
-
+            .pagination {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 1rem;
+            }
             .cards-container {
               display: flex;
               flex-direction: column;
               gap: 2rem;
             }
-
-            .pagination {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              gap: 16px;
-              margin-block-end: 1rem;
-            }
-
             sl-paginator {
-              margin-block: 2rem;
-            }
-
-            sl-paginator-size {
-              justify-content: end;
+              justify-content: center;
             }
           `;
 
-          items = Array.from({ length: 80 }, (_, index) => ({
-            nr: index + 1,
-            title: `Title of card number ${index + 1}`
-          }));
+          dataSource = new ArrayDataSource(
+            Array.from({ length: 80 }, (_, index) => ({
+              nr: index + 1,
+              title: `Title of card number ${index + 1}`
+            }))
+          );
 
-          pageSizes = [5, 10, 15, 20];
-
-          dataSource = new ArrayDataSource(this.items);
-
-          totalItems: number = 1;
+          /**
+           * We need to trigger an update on this component, so it will
+           * re-render the cards when the data source is updated.
+           */
+          onUpdate = () => this.requestUpdate();
 
           override connectedCallback(): void {
             super.connectedCallback();
 
-            this.dataSource = new ArrayDataSource(this.items);
-
-            this.totalItems = this.dataSource?.items.length;
-
-            requestAnimationFrame(() => {
-              this.dataSource.paginate(2, 5, this.totalItems);
-              this.dataSource.update();
-            });
-          }
-
-          override firstUpdated(changes: PropertyValues<this>): void {
-            super.firstUpdated(changes);
-
-            requestAnimationFrame(() => {
-              this.dataSource.paginate(2, 5, this.totalItems);
-              this.dataSource.update();
-            });
-          }
-
-          override willUpdate(changes: PropertyValues<this>): void {
-            super.willUpdate(changes);
-
-            this.dataSource.addEventListener('sl-update', this.#onUpdate);
+            this.dataSource.setPage(2);
+            this.dataSource.setPageSize(5);
+            this.dataSource.update();
+            this.dataSource.addEventListener('sl-update', this.onUpdate);
           }
 
           override disconnectedCallback(): void {
-            this.dataSource.removeEventListener('sl-update', this.#onUpdate);
+            this.dataSource.removeEventListener('sl-update', this.onUpdate);
 
             super.disconnectedCallback();
           }
@@ -141,7 +111,7 @@ export const WithDataSource: Story = {
                 <sl-paginator-status .dataSource=${this.dataSource}></sl-paginator-status>
                 <sl-paginator-page-size
                   .dataSource=${this.dataSource}
-                  .pageSizes=${this.pageSizes}
+                  page-sizes="[5,10,15,20]"
                 ></sl-paginator-page-size>
               </div>
               <div class="cards-container">
@@ -149,17 +119,14 @@ export const WithDataSource: Story = {
                   item => html`
                     <sl-card responsive padding>
                       <h2>Card ${item.nr}</h2>
+                      <div slot="body">${item.title}</div>
                     </sl-card>
                   `
                 )}
               </div>
-              <sl-paginator .dataSource=${this.dataSource} .pageSizes=${this.pageSizes}></sl-paginator>
+              <sl-paginator .dataSource=${this.dataSource}></sl-paginator>
             `;
           }
-
-          #onUpdate = () => {
-            this.requestUpdate();
-          };
         }
       );
     } catch {

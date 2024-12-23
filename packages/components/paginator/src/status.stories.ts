@@ -39,11 +39,9 @@ export const DataSource: Story = {
       { nr: 10, title: 'test 10' }
     ]);
 
-    requestAnimationFrame(() => {
-      const totalItems = dataSource.items.length;
-      dataSource.paginate(2, 5, totalItems);
-      dataSource.update();
-    });
+    dataSource.setPage(1);
+    dataSource.setPageSize(5);
+    dataSource.update();
 
     return html`<sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>`;
   }

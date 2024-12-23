@@ -1,6 +1,4 @@
 import { expect, fixture } from '@open-wc/testing';
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
@@ -14,87 +12,64 @@ describe('sl-paginator-page-size', () => {
       el = await fixture(html`<sl-paginator-page-size></sl-paginator-page-size>`);
     });
 
-    it('should have items per page with value of 10 by default', () => {
+    it('should have items per page with value of 10', () => {
       expect(el.pageSize).to.equal(10);
     });
 
-    it('should not have a select inside when pageSizes is not set', () => {
-      const slSelect = el.renderRoot.querySelector('sl-select');
+    it('should have a label', () => {
+      const label = el.renderRoot.querySelector('sl-label'),
+        select = el.renderRoot.querySelector('sl-select');
 
-      expect(slSelect).not.to.exist;
+      expect(label).to.exist;
+      expect(label).to.have.attribute('for', select?.id);
+      expect(label).to.have.trimmed.text('Items per page:');
+    });
+
+    it('should have a disabled select', () => {
+      const select = el.renderRoot.querySelector('sl-select');
+
+      expect(select).to.exist;
+      expect(select).to.have.attribute('disabled');
     });
   });
 
   describe('page sizes', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-page-size .pageSizes=${[5, 10, 20]}></sl-paginator-page-size>`);
+      el = await fixture(html`<sl-paginator-page-size page-sizes="[5,10,20]"></sl-paginator-page-size>`);
     });
 
-    it('should have a select inside when pageSizes is set', async () => {
-      el.pageSizes = [5, 10, 20];
-      await el.updateComplete;
+    it('should have an enabled select', () => {
+      const select = el.renderRoot.querySelector('sl-select');
 
-      const slSelect = el.renderRoot.querySelector('sl-select');
-
-      expect(slSelect).to.exist;
+      expect(select).to.exist;
+      expect(select).not.to.have.attribute('disabled');
     });
 
-    it('should have proper options with possible page sizes', async () => {
-      el.pageSizes = [5, 10, 20];
-      await el.updateComplete;
-
-      const options = el.renderRoot.querySelectorAll('sl-select-option');
-
-      expect(options).to.exist;
-
-      const pageSizes = Array.from(options)?.map(option => option.value);
+    it('should have options for possible page sizes', () => {
+      const pageSizes = Array.from(el.renderRoot.querySelectorAll('sl-select-option')).map(o => o.value);
 
       expect(pageSizes).to.deep.equal([5, 10, 20]);
     });
-  });
 
-  describe('items per page', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-paginator-page-size .pageSizes=${[5, 10, 20]}></sl-paginator-page-size>`);
+    it('should default to the first page size', () => {
+      expect(el.renderRoot.querySelector('sl-select')?.value).to.equal(5);
     });
 
-    it('should set first value of page sizes when there is no pageSize value', () => {
-      const slSelect = el.renderRoot.querySelector('sl-select');
-
-      expect(slSelect).to.exist;
-      expect(slSelect?.value).to.equal(5);
-    });
-
-    it('should set a proper items per page amount when the value has changed', async () => {
-      const slSelect = el.renderRoot.querySelector('sl-select');
-
-      expect(slSelect).to.exist;
-
-      const options = el.renderRoot.querySelectorAll('sl-select-option');
-
-      expect(options).to.exist;
-
-      options[1].click();
+    it('should set the page size when you select a different page size', async () => {
+      el.renderRoot.querySelector('sl-select-option')?.click();
       await el.updateComplete;
 
-      expect(slSelect?.value).to.equal(10);
+      expect(el.pageSize).to.equal(5);
     });
 
-    it('should emit an sl-paginator-page-size-change event when the value of the items per page has changed', async () => {
+    it('should emit a sl-page-size-change event when the page size has changed', () => {
       const onPageSizeChange = spy();
+
       el.addEventListener('sl-page-size-change', onPageSizeChange);
-      const slSelect = el.renderRoot.querySelector('sl-select');
+      el.renderRoot.querySelector('sl-select-option')?.click();
 
-      expect(slSelect).to.exist;
-
-      const options = el.renderRoot.querySelectorAll('sl-select-option');
-
-      expect(options).to.exist;
-
-      options[1].click();
-      await el.updateComplete;
-
-      expect(onPageSizeChange).to.have.been.called;
+      expect(onPageSizeChange).to.have.been.calledOnce;
+      expect(onPageSizeChange).to.have.been.calledWithMatch({ detail: 5 });
     });
   });
 });

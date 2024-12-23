@@ -178,6 +178,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${this.#onPrevious}
         ?disabled=${this.page === 0}
         aria-label=${msg(str`Go to the previous page (${this.page})`)}
+        class="nav"
         fill="ghost"
         size="lg"
       >
@@ -267,6 +268,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${this.#onNext}
         ?disabled=${this.page === this.pageCount - 1}
         aria-label=${msg(str`Go to the next page (${this.page + 2})`)}
+        class="nav"
         fill="ghost"
         size="lg"
       >
@@ -306,8 +308,6 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   #onResize(entry: ResizeObserverEntry): void {
     const buttonSize = parseInt(getComputedStyle(this).getPropertyValue('--sl-size-500')) || 0,
       gap = parseInt(getComputedStyle(this).gap, 10) || 0;
-
-    console.log('onResize', buttonSize, gap);
 
     if (buttonSize && gap) {
       const count = Math.floor(entry.contentRect.width / (buttonSize + gap)) - 2,

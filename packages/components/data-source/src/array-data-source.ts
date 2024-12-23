@@ -151,7 +151,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     // Paginate items
     if (this.page !== undefined && this.pageSize) {
       const start = this.page * this.pageSize,
-        end = Math.min(start + this.pageSize, this.size - 1);
+        end = Math.min(start + this.pageSize, this.size);
 
       items = items.slice(start, end);
     }

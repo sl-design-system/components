@@ -92,14 +92,20 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     super.willUpdate(changes);
 
     if (changes.has('pageSizes')) {
-      this.pageSize ??= this.pageSizes?.at(0) ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
+      this.pageSize = this.pageSizes?.at(0) ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
     }
   }
 
   override render(): TemplateResult {
     return html`
       <sl-label for="sizes">${msg('Items per page:')}</sl-label>
-      <sl-select @sl-change=${this.#onChange} id="sizes" size="lg" value=${ifDefined(this.pageSize)}>
+      <sl-select
+        @sl-change=${this.#onChange}
+        ?disabled=${!this.pageSizes}
+        id="sizes"
+        size="lg"
+        value=${ifDefined(this.pageSize)}
+      >
         ${this.pageSizes?.map(
           size => html`
             <sl-select-option aria-label=${`${size} ${msg('items per page')}`} .value=${size}>

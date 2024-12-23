@@ -173,7 +173,7 @@ describe('ArrayDataSource', () => {
   describe('pagination', () => {
     beforeEach(() => {
       ds = new ArrayDataSource(people);
-      ds.setPage(2);
+      ds.setPage(1);
       ds.setPageSize(3);
       ds.update();
     });
@@ -182,24 +182,18 @@ describe('ArrayDataSource', () => {
       expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Bob']);
     });
 
-    it('should set the page', () => {
-      ds.setPage(1);
+    it('should update pagination after changing the page', () => {
+      ds.setPage(0);
       ds.update();
 
       expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John', 'Jane']);
-
-      ds.setPage(2);
-      ds.update();
-
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Bob']);
     });
 
-    it('should set page size', () => {
+    it('should update pagination after changing the page size', () => {
       ds.setPageSize(2);
       ds.update();
 
-      expect(ds.page).to.exist;
-      expect(ds.pageSize).to.equal(2);
+      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Jane', 'Ann']);
     });
   });
 });

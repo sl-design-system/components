@@ -2,14 +2,12 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { Paginator, PaginatorPageSize, PaginatorStatus } from '@sl-design-system/paginator';
 import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { Grid } from '../grid.js';
 
 type Story = StoryObj;
 
@@ -25,36 +23,28 @@ export default {
 
 export const Basic: Story = {
   render: (_, { loaded: { people } }) => {
-    const people2 = people as Person[],
-      pageSizes = [5, 10, 15];
+    const people2 = people as Person[];
 
-    let page = 1,
-      pageSize = pageSizes[1],
-      startIndex = (page - 1) * pageSize,
-      endIndex = startIndex + pageSize;
+    const update = ({ page, pageSize }: { page?: number; pageSize?: number }) => {
+      const grid = document.querySelector('sl-grid')!,
+        paginator = document.querySelector('sl-paginator')!,
+        size = document.querySelector('sl-paginator-page-size')!,
+        status = document.querySelector('sl-paginator-status')!;
 
-    setTimeout(() => {
-      const paginator = document.querySelector('sl-paginator') as Paginator,
-        paginatorSize = document.querySelector('sl-paginator-page-size') as PaginatorPageSize,
-        visibleItems = document.querySelector('sl-paginator-status') as PaginatorStatus,
-        grid = document.querySelector('sl-grid') as Grid;
+      page ??= paginator.page;
+      pageSize ??= paginator.pageSize;
 
-      paginator?.addEventListener('sl-page-change', (event: SlChangeEvent) => {
-        const detail = event.detail as number;
-        visibleItems.page = detail;
-        page = detail;
-        startIndex = (detail - 1) * pageSize;
-        endIndex = startIndex + pageSize;
-        grid.items = people2.slice(startIndex, endIndex);
-      });
+      paginator.page = status.page = page;
+      paginator.pageSize = size.pageSize = status.pageSize = pageSize;
 
-      paginatorSize?.addEventListener('sl-page-size-change', (event: SlChangeEvent) => {
-        const detail = event.detail as number;
-        paginator.pageSize = detail;
-        visibleItems.pageSize = detail;
-        pageSize = detail;
-      });
-    });
+      const startIndex = page * pageSize,
+        endIndex = Math.min(startIndex + pageSize, people2.length - 1);
+
+      grid.items = people2.slice(startIndex, endIndex);
+    };
+
+    const onPageChange = ({ detail: page }: SlChangeEvent<number>) => update({ page }),
+      onPageSizeChange = ({ detail: pageSize }: SlChangeEvent<number>) => update({ pageSize });
 
     return html`
       <style>
@@ -65,12 +55,11 @@ export const Basic: Story = {
           margin-block: 1rem;
           justify-content: space-between;
         }
-
         sl-paginator {
           flex: 1;
         }
       </style>
-      <sl-grid .items=${people2.slice(startIndex, endIndex)}>
+      <sl-grid .items=${people2.slice(0, 10)}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
@@ -78,25 +67,23 @@ export const Basic: Story = {
         <sl-grid-column path="membership"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status .totalItems=${people2.length} .page=${page} .pageSize=${pageSize}></sl-paginator-status>
-        <sl-paginator
-          .totalItems=${people2.length}
-          .pageSizes=${pageSizes}
-          .page=${page}
-          .pageSize=${pageSize}
-        ></sl-paginator>
-        <sl-paginator-page-size .pageSizes=${pageSizes} .pageSize=${pageSize}></sl-paginator-page-size>
+        <sl-paginator-status .totalItems=${people2.length}></sl-paginator-status>
+        <sl-paginator @sl-page-change=${onPageChange} .totalItems=${people2.length}></sl-paginator>
+        <sl-paginator-page-size
+          @sl-page-size-change=${onPageSizeChange}
+          page-sizes="[5,10,15]"
+        ></sl-paginator-page-size>
       </div>
     `;
   }
 };
 
-export const PaginatedDataSourceWithFilter: Story = {
+export const DataSource: Story = {
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
-    dataSource.setPage(2);
-    dataSource.setPageSize(15);
-    dataSource.update();
+    const ds = new ArrayDataSource(people as Person[]);
+    ds.setPage(2);
+    ds.setPageSize(10);
+    ds.update();
 
     return html`
       <style>
@@ -111,17 +98,17 @@ export const PaginatedDataSourceWithFilter: Story = {
           flex: 1;
         }
       </style>
-      <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid .dataSource=${ds}>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName" direction="desc"></sl-grid-sort-column>
         <sl-grid-filter-column id="filter-profession" mode="text" path="profession"></sl-grid-filter-column>
         <sl-grid-filter-column id="filter-status" path="status"></sl-grid-filter-column>
         <sl-grid-filter-column id="filter-membership" path="membership"></sl-grid-filter-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
-        <sl-paginator .dataSource=${dataSource}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${[5, 10, 15, 20]}></sl-paginator-page-size>
+        <sl-paginator-status .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size .dataSource=${ds} page-sizes="[5,10,15,20]"></sl-paginator-page-size>
       </div>
     `;
   }

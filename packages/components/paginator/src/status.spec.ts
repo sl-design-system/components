@@ -1,11 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { SlAnnounceEvent } from '@sl-design-system/announcer';
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { PaginatorStatus } from './paginator-status.js';
+import { PaginatorStatus } from './status.js';
 
 describe('sl-paginator-status', () => {
   let el: PaginatorStatus;

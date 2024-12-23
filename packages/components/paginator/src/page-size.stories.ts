@@ -8,7 +8,7 @@ import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type PaginatorPageSize } from './paginator-page-size.js';
+import { type PaginatorPageSize } from './page-size.js';
 import { type Paginator } from './paginator.js';
 
 type Props = Pick<PaginatorPageSize, 'pageSize' | 'pageSizes'> & {
@@ -19,13 +19,8 @@ type Props = Pick<PaginatorPageSize, 'pageSize' | 'pageSizes'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Navigation/Paginator/Paginator page size',
+  title: 'Navigation/Paginator/Page size',
   tags: ['draft'],
-  parameters: {
-    viewport: {
-      defaultViewport: 'reset'
-    }
-  },
   args: {
     pageSize: 10,
     pageSizes: [5, 10, 15]

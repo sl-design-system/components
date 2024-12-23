@@ -3,7 +3,7 @@ import { announce } from '@sl-design-system/announcer';
 import { type DataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './paginator-status.scss.js';
+import styles from './status.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {

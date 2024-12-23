@@ -4,7 +4,7 @@ import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { PaginatorPageSize } from './paginator-page-size.js';
+import { PaginatorPageSize } from './page-size.js';
 
 describe('sl-paginator-page-size', () => {
   let el: PaginatorPageSize;

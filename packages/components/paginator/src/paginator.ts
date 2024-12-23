@@ -17,7 +17,7 @@ import styles from './paginator.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-page-change': SlChangeEvent;
+    'sl-page-change': SlChangeEvent<number>;
   }
 
   interface HTMLElementTagNameMap {
@@ -120,6 +120,8 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true })
   set size(value: PaginatorSize | undefined) {
+    console.log('set size', value);
+
     this.#originalSize = value;
     this.#size = value;
   }
@@ -306,6 +308,8 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   #onResize(entry: ResizeObserverEntry): void {
     const buttonSize = parseInt(getComputedStyle(this).getPropertyValue('--sl-size-500')) || 0,
       gap = parseInt(getComputedStyle(this).gap, 10) || 0;
+
+    console.log('onResize', buttonSize, gap);
 
     if (buttonSize && gap) {
       const count = Math.floor(entry.contentRect.width / (buttonSize + gap)) - 2,

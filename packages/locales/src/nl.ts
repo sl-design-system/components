@@ -13,6 +13,7 @@ export const templates = {
   s2362b49263f76ec8: str`Geen opties gevonden die beginnen met "${0}".`,
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
+  s3dc14a4b8129f989: str`Paginering`,
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
   s4f6434b4c6326f21: 'Alle velden zijn correct.',
   s56360c5f24cfd4ff: 'Items per pagina',

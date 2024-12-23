@@ -25,7 +25,7 @@ declare global {
   }
 }
 
-const PAGINATOR_SIZES = {
+const PAGINATOR_SIZES: { [key in PaginatorSize]: number } = {
   xs: 6,
   sm: 7,
   md: 9,
@@ -95,7 +95,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlChangeEvent<number>>;
 
   /** @internal The total number of pages. */
-  @property({ type: Number, attribute: 'page-count' }) pageCount = 1;
+  @state() pageCount = 1;
 
   /**
    * Items per page. Default to the first item of pageSizes.
@@ -125,7 +125,10 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('aria-label', msg(str`Pagination`));
+    if (!this.hasAttribute('aria-label')) {
+      this.setAttribute('aria-label', msg(str`Pagination`));
+    }
+
     this.setAttribute('role', 'navigation');
 
     this.#dataSource?.addEventListener('sl-update', this.#onUpdate);

@@ -85,13 +85,10 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onUpdate();
   }
 
-  /** @internal The index from which the pages will be shown. */
-  @state() overflowStart = 0;
-
-  /** @internal The index from which the pages will be hidden.*/
-  @state() overflowEnd = Infinity;
-
-  /** Current page. */
+  /**
+   * Current page.
+   * @default 0
+   */
   @property({ type: Number }) page = 0;
 
   /** @internal Emits when the page has been changed. */
@@ -113,8 +110,17 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) size?: PaginatorSize;
 
-  /** Total amount of items. */
+  /**
+   * Total number of items.
+   * @default 1
+   */
   @property({ type: Number, attribute: 'total-items' }) totalItems = 1;
+
+  /** @internal The index of the start of the sliding window. */
+  @state() windowStart = 0;
+
+  /** @internal The index of the end of the sliding window. */
+  @state() windowEnd = Infinity;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -171,10 +177,13 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         1
       </sl-button>
 
-      ${this.overflowStart > 0
+      ${this.windowStart > 0
         ? html`
             <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size="lg">
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+              ${Array.from({ length: this.windowStart + 1 }).map(
+                (_, i) => html`<sl-menu-item @click=${() => this.#onPageClick(i + 1)}>${i + 2}</sl-menu-item>`
+              )}
             </sl-menu-button>
           `
         : nothing}
@@ -187,17 +196,24 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             fill="ghost"
             size="lg"
             style=${styleMap({
-              display: index <= this.overflowStart || index >= this.overflowEnd ? 'none' : undefined
+              display: index <= this.windowStart || index >= this.windowEnd ? 'none' : undefined
             })}
           >
             ${index + 2}
           </sl-button>
         `
       )}
-      ${this.overflowEnd < this.pageCount - 2
+      ${this.windowEnd < this.pageCount - 2
         ? html`
             <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size="lg">
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+              ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
+                (_, i) => html`
+                  <sl-menu-item @click=${() => this.#onPageClick(i + this.windowEnd + 1)}>
+                    ${i + this.windowEnd + 2}
+                  </sl-menu-item>
+                `
+              )}
             </sl-menu-button>
           `
         : nothing}
@@ -299,12 +315,12 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
       visiblePageCount = PAGINATOR_SIZES[this.size || 'lg'],
       count = Math.floor(visiblePageCount / 2);
 
-    this.overflowStart = Math.min(Math.max(page - count, 0), pageCount - visiblePageCount) || -1;
+    this.windowStart = Math.min(Math.max(page - count, 0), pageCount - visiblePageCount) || -1;
 
     if (page >= pageCount - count - 1) {
-      this.overflowEnd = pageCount - 2;
+      this.windowEnd = pageCount - 2;
     } else {
-      this.overflowEnd = Math.min(Math.max(page, count) + count - 2, pageCount - 1);
+      this.windowEnd = Math.min(Math.max(page, count) + count - 2, pageCount - 1);
     }
   }
 }

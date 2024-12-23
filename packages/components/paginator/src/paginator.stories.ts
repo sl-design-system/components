@@ -9,15 +9,10 @@ import { LitElement, type PropertyValues, type TemplateResult, css, html } from 
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { PaginatorStatus } from './paginator-status.js';
-import { type Paginator, PaginatorSize } from './paginator.js';
+import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'page' | 'pageSize' | 'size' | 'totalItems'> & {
-  actions?(): string | TemplateResult;
-  content?(): string | TemplateResult;
-};
+type Props = Pick<Paginator, 'page' | 'pageSize' | 'size' | 'totalItems'>;
 type Story = StoryObj<Props>;
-
-const sizes: PaginatorSize[] = ['xs', 'sm', 'md', 'lg'];
 
 export default {
   title: 'Navigation/Paginator',
@@ -35,7 +30,7 @@ export default {
   argTypes: {
     size: {
       control: 'radio',
-      options: sizes
+      options: ['xs', 'sm', 'md', 'lg']
     }
   },
   render: ({ page, pageSize, totalItems, size }) => {
@@ -57,12 +52,6 @@ export const Mobile: Story = {
     viewport: {
       defaultViewport: 'iphone5'
     }
-  }
-};
-
-export const Overflow: Story = {
-  args: {
-    totalItems: 900
   }
 };
 
@@ -92,21 +81,17 @@ export const WithEvents: Story = {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 16px;
+          gap: 1rem;
         }
-
         sl-paginator {
           flex: 1;
-        }
-
-        sl-paginator-size {
-          justify-content: end;
+          justify-content: center;
         }
       </style>
       <div class="pagination">
         <sl-paginator-status .totalItems=${totalItems} .page=${page} .pageSize=${pageSize}></sl-paginator-status>
         <sl-paginator .page=${page} .pageSize=${pageSize} .totalItems=${totalItems} .size=${size}></sl-paginator>
-        <sl-paginator-size .pageSizes=${[5, 10, 15]} .pageSize=${pageSize}></sl-paginator-size>
+        <sl-paginator-page-size .pageSizes=${[5, 10, 15]} .pageSize=${pageSize}></sl-paginator-page-size>
       </div>
     `;
   }

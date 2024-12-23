@@ -8,7 +8,6 @@ import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { PaginatorPage } from './paginator-page.js';
 import { Paginator } from './paginator.js';
 
 describe('sl-paginator', () => {
@@ -21,7 +20,7 @@ describe('sl-paginator', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator .totalItems=${200} .pageSizes=${[20, 40, 60]}></sl-paginator> `);
+      el = await fixture(html`<sl-paginator .totalItems=${200}></sl-paginator>`);
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -48,7 +47,7 @@ describe('sl-paginator', () => {
     });
 
     it('should have proper pages', () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
+      const pages = el.renderRoot.querySelectorAll<HTMLElement>('.page');
 
       expect(pages).to.exist;
       expect(pages.length).to.equal(10);
@@ -68,9 +67,7 @@ describe('sl-paginator', () => {
 
   describe('page', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator .totalItems=${200} .page=${2} .pageSizes=${[20, 40, 60]}></sl-paginator>
-      `);
+      el = await fixture(html`<sl-paginator .totalItems=${200} .page=${2}></sl-paginator>`);
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 100));
@@ -91,7 +88,7 @@ describe('sl-paginator', () => {
     });
 
     it('should set the right page on page click', async () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
+      const pages = el.renderRoot.querySelectorAll<HTMLElement>('.page');
 
       pages[3].click();
       await el.updateComplete;
@@ -100,7 +97,7 @@ describe('sl-paginator', () => {
     });
 
     it('should set the next page on next button click', async () => {
-      const next = el.renderRoot.querySelector<Button>('sl-button.next');
+      const next = el.renderRoot.querySelector<Button>('sl-button');
       expect(next).to.exist;
 
       next!.click();
@@ -111,7 +108,7 @@ describe('sl-paginator', () => {
     });
 
     it('should set the previous page on prev button click', async () => {
-      const prev = el.renderRoot.querySelector<Button>('sl-button.prev');
+      const prev = el.renderRoot.querySelector<Button>('sl-button:last-of-type');
 
       expect(prev).to.exist;
 
@@ -226,9 +223,7 @@ describe('sl-paginator', () => {
 
       expect(visibleElements.length).to.equal(10);
 
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
+      const visiblePages = Array.from(visibleElements).map(page => page.querySelector('.page'));
 
       expect(visiblePages).to.exist;
       expect(visiblePages.length).to.equal(10);
@@ -244,9 +239,7 @@ describe('sl-paginator', () => {
 
       expect(hiddenElements.length).to.equal(10);
 
-      const hiddenPages = Array.from(hiddenElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
+      const hiddenPages = Array.from(hiddenElements).map(page => page.querySelector('.page'));
 
       expect(hiddenPages).to.exist;
       expect(hiddenPages.length).to.equal(10);
@@ -349,9 +342,7 @@ describe('sl-paginator', () => {
 
       expect(visibleElements.length).to.equal(6);
 
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
+      const visiblePages = Array.from(visibleElements).map(page => page.querySelector('.page'));
 
       expect(visiblePages).to.exist;
       expect(visiblePages.length).to.equal(6);
@@ -370,9 +361,7 @@ describe('sl-paginator', () => {
 
       expect(visibleElements.length).to.equal(8);
 
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
+      const visiblePages = Array.from(visibleElements).map(page => page.querySelector('.page'));
 
       expect(visiblePages).to.exist;
       expect(visiblePages.length).to.equal(8);
@@ -391,9 +380,7 @@ describe('sl-paginator', () => {
 
       expect(visibleElements.length).to.equal(10);
 
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
+      const visiblePages = Array.from(visibleElements).map(page => page.querySelector('.page'));
 
       expect(visiblePages).to.exist;
       expect(visiblePages.length).to.equal(10);
@@ -562,7 +549,7 @@ describe('sl-paginator', () => {
     });
 
     it('should have proper pages', () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
+      const pages = el.renderRoot.querySelectorAll<HTMLElement>('.page');
 
       expect(pages).to.exist;
       expect(pages.length).to.equal(8);
@@ -578,7 +565,7 @@ describe('sl-paginator', () => {
     });
 
     it('should set the right page on page click', async () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
+      const pages = el.renderRoot.querySelectorAll<HTMLElement>('.page');
 
       pages[3].click();
       await el.updateComplete;
@@ -602,7 +589,7 @@ describe('sl-paginator', () => {
 
     it('should set the previous page on prev button click', async () => {
       dataSource.update();
-      const prev = el.renderRoot.querySelector<Button>('sl-button.prev');
+      const prev = el.renderRoot.querySelector<Button>('sl-button');
 
       expect(prev).to.exist;
 

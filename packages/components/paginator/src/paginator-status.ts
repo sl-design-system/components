@@ -16,86 +16,96 @@ declare global {
  * Contains information about currently visible items on the page and total amount of items.
  */
 @localized()
-export class PaginatorStatus extends LitElement {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class PaginatorStatus<T = any> extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal Pages amount. */
-  #pages = 1;
+  /** The data source that the paginator controls. */
+  #dataSource?: DataSource<T>;
 
-  /** Currently active page, if not set - default to 1. */
-  @property({ type: Number }) page = 1;
+  get dataSource(): DataSource<T> | undefined {
+    return this.#dataSource;
+  }
 
-  /** @internal Currently visible items on the current page. */
-  @state() currentlyVisibleItems = 1;
+  /**
+   * By setting a dataSource, the component will listen for changes on the data source
+   * and control the data source when the user selects a new page size in the component.
+   */
+  @property({ attribute: false })
+  set dataSource(dataSource: DataSource<T> | undefined) {
+    if (this.#dataSource) {
+      this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
+    }
 
-  /** Provided data source. */
-  @property({ attribute: false }) dataSource?: DataSource;
+    this.#dataSource = dataSource;
+    this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
 
-  /** Items per page, if not set - default to 10. */
+    this.#onUpdate();
+  }
+
+  /**
+   * Current page.
+   * @default 0
+   */
+  @property({ type: Number }) page = 0;
+
+  /** @internal The total number of pages. */
+  @property({ type: Number, attribute: 'page-count' }) pageCount = 1;
+
+  /**
+   * Items per page.
+   * @default 10
+   */
   @property({ type: Number, attribute: 'page-size' }) pageSize = 10;
 
-  /** Total amount of items, if not set - default to 1. */
+  /** @internal The current range of items visible. */
+  @state() range?: number[];
+
+  /**
+   * Total number of items.
+   * @default 1
+   */
   @property({ type: Number, attribute: 'total-items' }) totalItems = 1;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+  }
+
   override disconnectedCallback(): void {
-    this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
+    this.#dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
     super.disconnectedCallback();
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
-    this.#pages = Math.ceil(this.totalItems / this.pageSize);
+    if (changes.has('page') || changes.has('pageSize') || changes.has('totalItems')) {
+      this.pageSize ??= 10;
+      this.pageCount = Math.ceil(this.totalItems / this.pageSize) || 1;
+      this.page = Math.min(Math.max(this.page, 0), this.pageCount - 1);
 
-    this.#setCurrentlyVisibleItems();
-  }
+      const start = this.page * this.pageSize + 1;
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('dataSource')) {
-      this.dataSource?.addEventListener('sl-update', this.#onUpdate);
-    }
-
-    if (changes.has('pageSize') || changes.has('totalItems')) {
-      this.#pages = Math.ceil(this.totalItems / this.pageSize);
-      this.#setCurrentlyVisibleItems();
-    }
-
-    if (changes.has('page')) {
-      if (this.page < 1) {
-        this.page = 1;
-      } else if (this.page > this.#pages) {
-        this.page = this.#pages;
+      let end = start + this.pageSize - 1;
+      if (this.page === this.pageCount - 1) {
+        end += this.totalItems % this.pageSize;
+        end = Math.min(end, this.totalItems);
       }
 
-      this.#pages = Math.ceil(this.totalItems / this.pageSize);
-      this.#setCurrentlyVisibleItems();
+      this.range = [start, end];
+
+      this.#announce();
     }
   }
 
   override render(): TemplateResult {
-    const start = this.page === 1 ? 1 : (this.page - 1) * this.pageSize + 1;
-    const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
+    const [start, end] = this.range ?? [1, 1];
 
-    return html` ${msg(str`${start} - ${end} of ${this.totalItems} items`)} `;
-  }
-
-  #setCurrentlyVisibleItems(): void {
-    if (!this.pageSize || !this.#pages) {
-      return;
-    }
-
-    if (this.page === this.#pages) {
-      const itemsOnLastPage = this.totalItems % this.pageSize;
-      this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.pageSize : itemsOnLastPage;
-    } else {
-      this.currentlyVisibleItems = this.pageSize!;
-    }
-
-    this.#announce();
+    return html`${msg(str`${start} - ${end} of ${this.totalItems} items`)}`;
   }
 
   #onUpdate = () => {
@@ -103,17 +113,17 @@ export class PaginatorStatus extends LitElement {
       return;
     }
 
-    this.pageSize = this.dataSource.page.pageSize;
     this.page = this.dataSource.page.page;
+    this.pageSize = this.dataSource.page.pageSize;
     this.totalItems = this.dataSource.page.totalItems;
   };
 
   #announce(): void {
-    // added timeout to prevent double announcement, otherwise the first announcement would be with old or invalid values
+    // Added timeout to prevent double announcement, otherwise the first
+    // announcement would be with old or invalid values
     setTimeout(() => {
       if (this.totalItems > 1) {
-        const start = this.page === 1 ? 1 : (this.page - 1) * this.pageSize + 1;
-        const end = this.page === this.#pages ? this.totalItems : this.page * this.currentlyVisibleItems;
+        const [start, end] = this.range ?? [1, 1];
 
         announce(msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`));
       }

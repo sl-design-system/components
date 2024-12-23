@@ -25,7 +25,8 @@ declare global {
  * The component adds a possibility to select/change the amount of items that would be visible per page.
  */
 @localized()
-export class PaginatorPageSize extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -38,16 +39,41 @@ export class PaginatorPageSize extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Provided data source. */
-  @property({ attribute: false }) dataSource?: DataSource;
+  /** The data source that the paginator controls. */
+  #dataSource?: DataSource<T>;
 
-  /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
+  get dataSource(): DataSource<T> | undefined {
+    return this.#dataSource;
+  }
+
+  /**
+   * By setting a dataSource, the paginator will listen for changes on the data source
+   * and control the data source when the user selects a new page in the component. This
+   * can be very useful when the paginator is used in combination with a data source fed
+   * component, such as `<sl-grid>`.
+   */
+  @property({ attribute: false })
+  set dataSource(dataSource: DataSource<T> | undefined) {
+    if (this.#dataSource) {
+      this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
+    }
+
+    this.#dataSource = dataSource;
+    this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+
+    this.#onUpdate();
+  }
+
+  /**
+   * Items per page.
+   * @default 10
+   */
   @property({ type: Number, attribute: 'page-size' }) pageSize?: number;
 
   /** @internal Emits when the page size has been selected/changed. */
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>;
 
-  /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
+  /** Available page sizes. */
   @property({ type: Array, attribute: 'page-sizes' }) pageSizes?: number[];
 
   override disconnectedCallback(): void {

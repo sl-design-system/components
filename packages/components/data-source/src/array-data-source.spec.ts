@@ -172,7 +172,7 @@ describe('ArrayDataSource', () => {
 
   describe('pagination', () => {
     beforeEach(() => {
-      ds = new ArrayDataSource(people);
+      ds = new ArrayDataSource(people, { pagination: true });
       ds.setPage(1);
       ds.setPageSize(3);
       ds.update();

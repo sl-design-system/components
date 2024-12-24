@@ -130,8 +130,10 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
     return new Proxy(items, {
       get: function (target, property) {
+        const length = that.pagination ? Math.min(target.length, that.pageSize) : that.size;
+
         if (property === 'length') {
-          return that.pagination ? Math.min(target.length, that.pageSize) : that.size;
+          return length;
         } else if (property === 'at') {
           return (n: number) => {
             let index = n;
@@ -142,6 +144,12 @@ export class FetchDataSource<T = any> extends DataSource<T> {
             }
 
             return target[index] ?? that.#requestFetch(index);
+          };
+        } else if (property === Symbol.iterator) {
+          return function* () {
+            for (let i = 0; i < length; i++) {
+              yield target[i] ?? that.#requestFetch(i);
+            }
           };
         } else {
           const n = Number(property);
@@ -157,7 +165,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
 
   #requestFetch(n: number): T {
     const { pageSize } = this,
-      page = this.pagination ? this.page : Math.floor((n + 1) / pageSize);
+      page = this.pagination ? this.page : Math.floor(n / pageSize);
 
     if (!this.#pages[page]) {
       this.#pages[page] = (async () => {
@@ -172,6 +180,15 @@ export class FetchDataSource<T = any> extends DataSource<T> {
           const index = this.pagination ? i : pageSize * page + i;
 
           this.#items[index] = res.items[i];
+        }
+
+        /**
+         * When pagination is enabled and we are fetching a page for the first time,
+         * the size may be smaller than the initial size. In this case, we need to
+         * recreate the Proxy object to reflect the new size.
+         */
+        if (this.pagination && this.#items.length !== res.items.length) {
+          this.#proxy = this.#createProxy(this.#items.slice(0, res.items.length));
         }
 
         this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));

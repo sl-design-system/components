@@ -37,13 +37,15 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath<T>;
 
-export type DataSourcePagination = { page: number; pageSize: number; totalItems: number };
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
 
 /** The default page size, if not explicitly set. */
 export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
+
+export type DataSourceOptions = {
+  pagination?: boolean;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
@@ -54,10 +56,13 @@ export abstract class DataSource<T = any> extends EventTarget {
   #groupBy?: DataSourceGroupBy<T>;
 
   /** The index of the page. */
-  #page?: number;
+  #page = 0;
 
   /** The number of items on a single page. */
   #pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+
+  /** Whether this data source uses pagination. */
+  #pagination: boolean;
 
   /**
    * The value and path/function to use for sorting. When setting this property,
@@ -73,12 +78,16 @@ export abstract class DataSource<T = any> extends EventTarget {
     return this.#groupBy;
   }
 
-  get page(): number | undefined {
+  get page(): number {
     return this.#page;
   }
 
   get pageSize(): number {
     return this.#pageSize;
+  }
+
+  get pagination(): boolean {
+    return this.#pagination;
   }
 
   get sort(): DataSourceSort<T> | undefined {
@@ -91,8 +100,14 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Total number of items in this data source. */
   abstract readonly size: number;
 
-  /** Updates the list of items using filter, sorting and pagination if available. */
+  /** Updates the list of items using filter, sorting, grouping and pagination if available. */
   abstract update(): void;
+
+  constructor(options: DataSourceOptions = {}) {
+    super();
+
+    this.#pagination = options.pagination ?? false;
+  }
 
   addFilter<U extends PathKeys<T> | DataSourceFilterFunction<T>>(
     id: string,

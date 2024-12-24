@@ -1,10 +1,7 @@
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayDataSource, FetchDataSource, FetchDataSourceError } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -79,8 +76,9 @@ export const Basic: Story = {
 };
 
 export const DataSource: Story = {
+  name: 'Array Data Source',
   render: (_, { loaded: { people } }) => {
-    const ds = new ArrayDataSource(people as Person[]);
+    const ds = new ArrayDataSource(people as Person[], { pagination: true });
     ds.setPage(2);
     ds.setPageSize(10);
     ds.update();
@@ -114,23 +112,40 @@ export const DataSource: Story = {
   }
 };
 
-export const PaginatedDataSourceWithSorter: Story = {
-  render: (_, { loaded: { people } }) => {
-    const sorter = (a: Person, b: Person): number => {
-      const lastNameCmp = a.lastName.localeCompare(b.lastName);
+export const DataSource2: Story = {
+  name: 'Fetch Data Source',
+  loaders: [],
+  render: () => {
+    interface Quote {
+      id: string;
+      quote: string;
+      author: string;
+    }
 
-      if (lastNameCmp === 0) {
-        return a.firstName.localeCompare(b.firstName);
-      } else {
-        return lastNameCmp;
+    interface QuotesResponse {
+      quotes: Quote[];
+      total: number;
+      skip: number;
+      limit: number;
+    }
+
+    const ds = new FetchDataSource<Quote>({
+      pageSize: 10,
+      pagination: true,
+      fetchPage: async ({ page, pageSize }) => {
+        const response = await fetch(`https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`);
+
+        if (response.ok) {
+          const { quotes, total } = (await response.json()) as QuotesResponse;
+
+          return { items: quotes, totalItems: total };
+        } else {
+          throw new FetchDataSourceError('Failed to fetch data', response);
+        }
       }
-    };
-
-    const dataSource = new ArrayDataSource(people as Person[]);
-    dataSource.setPage(3);
-    dataSource.setPageSize(10);
-    dataSource.setSort('custom', sorter, 'asc');
-    dataSource.update();
+    });
+    ds.setPage(2);
+    ds.update();
 
     return html`
       <style>
@@ -145,16 +160,15 @@ export const PaginatedDataSourceWithSorter: Story = {
           flex: 1;
         }
       </style>
-      <p>This grid sorts people by last name, then first name, via a custom sorter on the data directly.</p>
-      <sl-grid .dataSource=${dataSource}>
-        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
-        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
-        <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid .dataSource=${ds}>
+        <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
+        <sl-grid-column path="quote" grow="3"></sl-grid-column>
+        <sl-grid-column path="author"></sl-grid-column>
       </sl-grid>
       <div class="pagination">
-        <sl-paginator-status .dataSource=${dataSource}></sl-paginator-status>
-        <sl-paginator .dataSource=${dataSource}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${dataSource} .pageSizes=${[10, 15, 20]}></sl-paginator-page-size>
+        <sl-paginator-status .dataSource=${ds}></sl-paginator-status>
+        <sl-paginator .dataSource=${ds}></sl-paginator>
+        <sl-paginator-page-size .dataSource=${ds} .pageSizes=${[10, 15, 20]}></sl-paginator-page-size>
       </div>
     `;
   }

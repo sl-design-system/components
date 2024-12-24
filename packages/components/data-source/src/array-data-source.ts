@@ -3,8 +3,11 @@ import {
   DataSource,
   type DataSourceFilterByFunction,
   type DataSourceFilterByPath,
+  type DataSourceOptions,
   type DataSourceSortFunction
 } from './data-source.js';
+
+export type ArrayDataSourceOptions = DataSourceOptions;
 
 /**
  * A data source that can be used to filter, group by, sort,
@@ -14,7 +17,13 @@ import {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayDataSource<T = any> extends DataSource<T> {
+  /**
+   * The array of items after filtering, sorting, grouping and
+   * pagination has been applied.
+   */
   #filteredItems: T[] = [];
+
+  /** The original array of items. */
   #items: T[];
 
   get items(): T[] {
@@ -30,8 +39,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     return this.#items.length;
   }
 
-  constructor(items: T[]) {
-    super();
+  constructor(items: T[], options: ArrayDataSourceOptions = {}) {
+    super(options);
     this.#filteredItems = [...items];
     this.#items = [...items];
   }
@@ -148,9 +157,8 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       });
     }
 
-    // Paginate items
-    if (this.page !== undefined && this.pageSize) {
-      const start = this.page * this.pageSize,
+    if (this.pagination) {
+      const start = (this.page ?? 0) * this.pageSize,
         end = Math.min(start + this.pageSize, this.size);
 
       items = items.slice(start, end);

@@ -1,4 +1,6 @@
 :host {
+  --_duration: 0.2s;
+
   display: block;
 }
 
@@ -8,7 +10,7 @@
   margin: 0;
   padding: 0;
   transition-behavior: allow-discrete;
-  transition-duration: 0.2s;
+  transition-duration: var(--_duration);
   transition-property: display;
 
   @media (width <= 1024px) {
@@ -27,7 +29,7 @@
 
   &::backdrop {
     backdrop-filter: blur(3px);
-    transition: backdrop-filter 0.5s ease;
+    transition: backdrop-filter var(--_duration) ease;
   }
 
   &:popover-open {
@@ -66,7 +68,7 @@
   gap: var(--sl-space-100);
   inline-size: min-content;
   padding: var(--sl-space-100) var(--sl-space-200);
-  transition-duration: 0.2s;
+  transition-duration: var(--_duration);
   transition-property: translate;
   transition-timing-function: ease;
   translate: 100% 0;

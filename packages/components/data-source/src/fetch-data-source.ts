@@ -96,7 +96,20 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   }
 
   update(): void {
-    this.#items = new Array<T>(this.pagination ? this.pageSize : this.size);
+    let length = this.size;
+
+    if (this.pagination) {
+      const pageCount = Math.ceil(this.size / this.pageSize),
+        lastPageSize = this.size % this.pageSize;
+
+      if (this.page === pageCount - 1 && lastPageSize > 0) {
+        length = lastPageSize;
+      } else {
+        length = this.pageSize;
+      }
+    }
+
+    this.#items = new Array<T>(length);
     this.#pages = {};
     this.#proxy = this.#createProxy(this.#items);
 
@@ -118,7 +131,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
     return new Proxy(items, {
       get: function (target, property) {
         if (property === 'length') {
-          return that.pagination ? that.pageSize : that.size;
+          return that.pagination ? Math.min(target.length, that.pageSize) : that.size;
         } else if (property === 'at') {
           return (n: number) => {
             let index = n;

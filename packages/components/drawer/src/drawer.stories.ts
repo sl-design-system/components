@@ -36,6 +36,9 @@ export default {
         `
           sl-drawer::part(content) {
             @media (width > 600px) {
+              inline-size: 60dvw;
+            }
+            @media (width > 1024px) {
               inline-size: 300px;
             }
           }

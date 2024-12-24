@@ -5,6 +5,7 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './drawer.scss.js';
 
 declare global {
@@ -41,7 +42,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
   @query('[popover]') popoverElement!: HTMLElement;
 
   /** The side of the screen where the drawer is attached */
-  @property({ reflect: true }) attachment?: DrawerAttachment;
+  @property() attachment?: DrawerAttachment;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -55,6 +56,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
         @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
         aria-labelledby="title"
+        class=${ifDefined(this.attachment)}
         part="popover"
         popover
       >

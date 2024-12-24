@@ -1,6 +1,6 @@
 import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Drawer } from './drawer.js';
@@ -11,6 +11,11 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Overlay/Drawer',
   tags: ['draft'],
+  parameters: {
+    viewport: {
+      defaultViewport: 'reset'
+    }
+  },
   argTypes: {
     attachment: {
       control: 'inline-radio',
@@ -26,13 +31,16 @@ export default {
     };
 
     return html`
-      ${styles
-        ? html`
-            <style>
-              ${styles}
-            </style>
-          `
-        : nothing}
+      <style>
+        ${styles ??
+        `
+          sl-drawer::part(content) {
+            @media (width > 600px) {
+              inline-size: 300px;
+            }
+          }
+          `}
+      </style>
       <sl-button @click=${onClick}>Show Drawer</sl-button>
       <sl-drawer attachment=${ifDefined(attachment)}>
         <h2 slot="title">In this side panel you can find a lot of info</h2>
@@ -47,18 +55,21 @@ export default {
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {
-  args: {
-    styles: `
-      sl-drawer::part(content) {
-        @media (width > 600px) {
-          inline-size: 300px;
-        }
-      }
-    `
+export const Basic: Story = {};
+
+export const Mobile: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphone6'
+    }
   }
 };
 
-export const Mobile: Story = {};
-
-export const Tablet: Story = {};
+export const Tablet: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'ipad',
+      defaultOrientation: 'landscape'
+    }
+  }
+};

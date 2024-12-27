@@ -37,10 +37,15 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath<T>;
 
-export type DataSourcePagination = { page: number; pageSize: number; totalItems: number };
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataSourceUpdateEvent<T = any> = CustomEvent<{ dataSource: DataSource<T> }>;
+
+/** The default page size, if not explicitly set. */
+export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
+
+export type DataSourceOptions = {
+  pagination?: boolean;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
@@ -50,8 +55,14 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Order the items by grouping them on the given attributes. */
   #groupBy?: DataSourceGroupBy<T>;
 
-  /** Parameters for pagination, contains page number, page size and total items amount. */
-  #page?: DataSourcePagination;
+  /** The index of the page. */
+  #page = 0;
+
+  /** The number of items on a single page. */
+  #pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+
+  /** Whether this data source uses pagination. */
+  #pagination: boolean;
 
   /**
    * The value and path/function to use for sorting. When setting this property,
@@ -67,8 +78,16 @@ export abstract class DataSource<T = any> extends EventTarget {
     return this.#groupBy;
   }
 
-  get page(): DataSourcePagination | undefined {
+  get page(): number {
     return this.#page;
+  }
+
+  get pageSize(): number {
+    return this.#pageSize;
+  }
+
+  get pagination(): boolean {
+    return this.#pagination;
   }
 
   get sort(): DataSourceSort<T> | undefined {
@@ -81,8 +100,14 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Total number of items in this data source. */
   abstract readonly size: number;
 
-  /** Updates the list of items using filter, sorting and pagination if available. */
+  /** Updates the list of items using filter, sorting, grouping and pagination if available. */
   abstract update(): void;
+
+  constructor(options: DataSourceOptions = {}) {
+    super();
+
+    this.#pagination = options.pagination ?? false;
+  }
 
   addFilter<U extends PathKeys<T> | DataSourceFilterFunction<T>>(
     id: string,
@@ -119,6 +144,14 @@ export abstract class DataSource<T = any> extends EventTarget {
    */
   removeGroupBy(): void {
     this.#groupBy = undefined;
+  }
+
+  setPage(page: number): void {
+    this.#page = page;
+  }
+
+  setPageSize(pageSize: number): void {
+    this.#pageSize = pageSize;
   }
 
   setSort<U extends PathKeys<T> | DataSourceSortFunction<T>>(
@@ -165,30 +198,5 @@ export abstract class DataSource<T = any> extends EventTarget {
     items.splice(to + (from < to ? -1 : 0), 0, item);
 
     this.update();
-  }
-
-  setPage(page: number): void {
-    if (this.#page) {
-      this.paginate(page, this.#page.pageSize, this.#page.totalItems);
-    }
-  }
-
-  setPageSize(pageSize: number): void {
-    if (this.#page) {
-      this.paginate(0, pageSize, this.#page.totalItems);
-    }
-  }
-
-  setTotalItems(totalItems: number): void {
-    if (this.#page) {
-      this.paginate(this.#page.page, this.#page.pageSize, totalItems);
-    }
-  }
-
-  /**
-   * Use to get the paginated data for usage with the sl-paginator component.
-   * */
-  paginate(page: number, pageSize: number, totalItems: number): void {
-    this.#page = { page: page, pageSize: pageSize, totalItems: totalItems };
   }
 }

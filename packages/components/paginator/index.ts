@@ -1,3 +1,3 @@
 export * from './src/paginator.js';
-export * from './src/paginator-size.js';
-export * from './src/paginator-status.js';
+export * from './src/page-size.js';
+export * from './src/status.js';

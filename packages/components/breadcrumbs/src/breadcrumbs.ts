@@ -154,7 +154,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
                 <sl-button
                   @click=${this.#onClick}
                   aria-label=${msg('More breadcrumbs')}
-                  fill="link"
+                  fill="ghost"
                   id="button"
                   variant=${ifDefined(this.inverted ? 'inverted' : undefined)}
                 >

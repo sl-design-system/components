@@ -2521,6 +2521,11 @@
         "value": "caret-right",
         "type": "Icons",
         "description": "icon.core.caret-right-solid"
+      },
+      "dash-solid": {
+        "value": "dash",
+        "type": "Icons",
+        "description": "icon.core.dash-solid"
       }
     },
     "typeset": {

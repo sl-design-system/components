@@ -1,45 +1,95 @@
 :host {
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_padding-block: var(--sl-space-sm);
-  --_padding-inline: var(--sl-space-sm);
-  --_wrapper-padding-inline: var(--sl-space-sm);
 
-  border: 1px solid var(--sl-color-palette-neutral-200);
-  border-radius: var(--sl-border-radius-2xs);
+  border-radius: var(--sl-size-borderRadius-md);
   display: flex;
   flex-direction: column;
 }
 
+:host([outline]) {
+  border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-subtle);
+}
+
+:host([elevation='raised']) {
+  background: var(--sl-elevation-surface-raised-alternative-idle);
+}
+
+:host([elevation='sunken']) {
+  background: var(--sl-elevation-surface-raised-sunken-idle);
+}
+
 :host([collapsible][collapsed]) {
-  sl-icon {
-    rotate: 0deg;
-  }
+  // sl-icon {
+  //  //rotate: 0deg;
+  //  transform: scaleY(-1);
+  // }
 
   [part='body'] {
     grid-template-rows: 0fr;
   }
 }
 
+:host([collapsible]) {
+  [part='header'] {
+    grid-template-columns: auto 1fr minmax(0, auto);
+  }
+}
+
+:host([collapsible][toggle-placement='end']) {
+  [part='header'] {
+    grid-template-columns: 1fr minmax(0, auto) auto;
+  }
+}
+
+:host([no-padding]) {
+  [part='content'] {
+    padding: 0;
+  }
+}
+
+:host([subtitle-placement='top']) {
+  [part='titles'] {
+    flex-direction: column-reverse;
+  }
+}
+
+:host([badges-placement='top']) {
+  [part='main'] {
+    flex-direction: column-reverse;
+  }
+}
+
+[part='titles'] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-new-sm);
+}
+
 [part='header'] {
-  align-items: start;
+  align-items: center;
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
+  gap: var(--sl-space-new-lg);
+  grid-template-columns: 1fr minmax(0, auto);
   justify-content: space-between;
+  padding: var(--sl-space-new-lg);
 
-  > * {
-    // FIXME: This is a quick hack to vertically align the heading with any action buttons
-    padding-block-start: 2px;
-  }
+  // > * {
+  //  // FIXME: This is a quick hack to vertically align the heading with any action buttons
+  //   padding-block-start: var(--sl-space-new-lg); // 2px;
+  // }
 }
 
 [part='wrapper'] {
   align-items: center;
   display: flex;
-  gap: 0.5rem;
-  padding-block: var(--_padding-block);
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+  gap: var(--sl-space-new-lg);
+
+  > * {
+    // FIXME: This is a quick hack to vertically align the heading with any action buttons
+    padding-block-start: var(--sl-space-new-lg); // 2px;
+  }
 }
 
 button {
@@ -59,27 +109,37 @@ button {
   }
 }
 
+.hidden {
+  display: none;
+}
+
 sl-icon {
-  rotate: 180deg;
-  transition: rotate 0.2s ease-in-out;
+  // rotate: 180deg;
+  // transition: rotate 0.2s ease-in-out;
+  transition: transform 0.3s ease;
 }
 
 slot[name='heading'],
 slot[name='heading']::slotted(*) {
   color: var(--sl-color-accordion-default-foreground);
-  font: var(--sl-text-accordion-title);
+  font: var(--sl-text-accordion-title); // TODO: use contextual tokens
 }
 
 slot[name='heading'] {
   display: block;
 }
 
+slot[name='badge'] {
+  display: flex;
+  gap: var(--sl-space-new-md);
+}
+
 sl-tool-bar {
   min-inline-size: 0;
 
-  &:not([empty]) {
-    padding-inline-end: var(--_padding-inline);
-  }
+  // &:not([empty]) {
+  //  padding-inline-end: var(--_padding-inline); // TODO: make sure if we really need this one
+  // }
 }
 
 slot[name='actions']::slotted(:first-child) {
@@ -88,10 +148,17 @@ slot[name='actions']::slotted(:first-child) {
   margin-inline-start: 1rem;
 }
 
+[part='main'] {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-new-lg);
+}
+
 [part='body'] {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows 0.2s ease-in-out;
+  transition: grid-template-rows 200ms ease-in-out;
 }
 
 [part='inner'] {
@@ -99,6 +166,49 @@ slot[name='actions']::slotted(:first-child) {
 }
 
 [part='content'] {
-  padding-block-end: var(--_padding-block);
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+  // padding-block-end: var(--_padding-block);
+  // padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+  padding: var(--sl-space-new-lg);
 }
+
+.icon {
+  transition: transform 200ms ease-in-out; // ease,
+  // opacity 50ms ease-in-out;
+  // ease;
+}
+
+.icon.dash {
+  opacity: 0;
+
+  // position: absolute;
+}
+
+// .icon.chevron {
+//  //opacity: 1;
+//  transform: scaleY(1);
+// }
+
+// sl-button:not(.clicked) .icon.chevron {
+//  opacity: 1;
+//  transform: scaleY(1);
+// }
+
+.icon.chevron {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* sl-button:not(.clicked) */
+.icon.upside-down {
+  transform: scaleY(-1);
+}
+
+sl-button.clicked .icon.chevron {
+  opacity: 0;
+}
+
+sl-button.clicked .icon.dash {
+  opacity: 1;
+}
+
+// TODO: when reduced motion?

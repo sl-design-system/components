@@ -1,5 +1,6 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -14,6 +15,14 @@ declare global {
     'sl-panel': Panel;
   }
 }
+
+export type TogglePlacement = 'start' | 'end';
+
+export type SubtitlePlacement = 'bottom' | 'top';
+
+export type BadgesPlacement = 'bottom' | 'top';
+
+export type PanelElevation = 'none' | 'raised' | 'sunken';
 
 /**
  * A container that can be collapsed and expanded.
@@ -34,6 +43,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon,
       'sl-tool-bar': ToolBar
     };
@@ -42,11 +52,22 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  #hasBadge = false;
+
+  #toggleClicked = false;
+
+  @property({ reflect: true, attribute: 'badges-placement' }) badgesPlacement?: BadgesPlacement;
+
   /** Indicates whether the panel is collapsed or expanded . */
   @property({ type: Boolean, reflect: true }) collapsed?: boolean;
 
   /** Indicates whether the panel can be collapsed. */
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
+
+  /** Indicates whether the panel has a border. */
+  @property({ type: Boolean, reflect: true }) outline?: boolean;
+
+  @property({ reflect: true }) elevation?: PanelElevation; // TODO: none by default
 
   /**
    * The heading shown in the header. Use this property if your heading is a string. If you need
@@ -54,22 +75,44 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   @property() heading?: string;
 
+  /**
+   * The heading shown in the header. Use this property if your subtitle is a string. If you need
+   * more flexibility, such as an icon or other elements, use the `subtitle` slot.
+   */
+  @property() subtitle?: string;
+
+  @property({ reflect: true, attribute: 'subtitle-placement' }) subtitlePlacement?: SubtitlePlacement;
+
+  /** The placement of the toggle button when it's collapsible. */ // TODO: add @default...
+  @property({ reflect: true, attribute: 'toggle-placement' }) togglePlacement?: TogglePlacement; // togglePlacement
+
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  /** TODO: descriptions */
+  @property({ type: Boolean, reflect: true, attribute: 'no-padding' }) noPadding?: boolean;
+
+  // TODO: chevron on the left or on the right (toggle start / toggle end / none when not collapsible) toggle placement? (use TogglePlacement)
+
   override render(): TemplateResult {
+    console.log('togglePlacement', this.togglePlacement);
     return html`
       <div part="header">
-        ${this.collapsible
+        ${this.collapsible && this.togglePlacement !== 'end'
           ? html`
-              <button
+              <sl-button
                 @click=${() => this.toggle()}
+                fill="ghost"
                 aria-controls="body"
                 aria-expanded=${this.collapsed ? 'false' : 'true'}
-                part="wrapper"
+                class=${this.#toggleClicked ? 'clicked' : ''}
               >
-                ${this.renderHeading()}
-              </button>
+                <sl-icon
+                  class="icon chevron ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
+                  name="chevron-down"
+                ></sl-icon>
+              </sl-button>
+              <div part="wrapper">${this.renderHeading()}</div>
             `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
@@ -77,6 +120,22 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             <slot name="actions"></slot>
           </sl-tool-bar>
         </slot>
+        ${this.collapsible && this.togglePlacement === 'end'
+          ? html`<sl-button
+              @click=${() => this.toggle()}
+              fill="ghost"
+              aria-controls="body"
+              aria-expanded=${this.collapsed ? 'false' : 'true'}
+              class=${this.#toggleClicked ? 'clicked' : ''}
+            >
+              <sl-icon
+                class="icon ${this.#toggleClicked ? 'dash' : 'chevron'} ${!this.collapsed && !this.#toggleClicked
+                  ? 'upside-down'
+                  : ''}"
+                name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+              ></sl-icon>
+            </sl-button>`
+          : nothing}
       </div>
       <div id="body" part="body" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
         <div part="inner">
@@ -88,19 +147,107 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  // ${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+
+  /*<sl-button
+@click=${() => this.toggle()}
+fill="ghost"
+aria-controls="body"
+aria-expanded=${this.collapsed ? 'false' : 'true'}
+>
+<sl-icon name="chevron-down" class="chevron"></sl-icon>
+  <sl-icon name="dash-solid" class="dash"></sl-icon>
+  </sl-button>
+
+  <h2>toggleClicked ??? ${this.#toggleClicked}</h2>
+              <h2>${this.renderRoot.querySelector('sl-button')?.classList}</h2>*/
+
+  // <sl-icon name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+  // class=${classMap({ dash: this.#toggleClicked, chevron: this.collapsible, clicked: this.#toggleClicked })}></sl-icon>
+
+  // name=${this.#toggleClicked ? 'dash-solid' : this.collapsed ? 'chevron-down' : 'chevron-up'}
+
+  // <button
+  // @click=${() => this.toggle()}
+  // aria-controls="body"
+  // aria-expanded=${this.collapsed ? 'false' : 'true'}
+  // part="wrapper"
+  //   >
+  //   ${this.renderHeading()}
+  // </button>
+
   renderHeading(): TemplateResult {
     return html`
-      ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing}
-      <slot name="heading">${this.heading}</slot>
+      <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
+      <div part="main">
+        <div part="titles">
+          <slot name="heading">${this.heading}</slot>
+          <slot name="subtitle">${this.subtitle}</slot>
+        </div>
+        <slot name="badge" @slotchange=${this.handleBadgeSlotChange}></slot>
+      </div>
+      <slot name="suffix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
     `;
-  }
+  } // <!-- ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing} -->
 
   /**
    * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.
    * @param force - Whether to force the panel to be collapsed or expanded.
    */
   toggle(force = !this.collapsed): void {
-    this.collapsed = force;
-    this.toggleEvent.emit(this.collapsed);
+    const button = this.renderRoot.querySelector('sl-button');
+    const icon = button?.querySelector('sl-icon');
+
+    if (!button || !icon) {
+      return;
+    }
+
+    // button?.classList.toggle('clicked'); // TODO: maybe attribute instead of class? and can be used in sl-icon
+    // this.#toggleClicked = true;
+    // setTimeout(() => {
+    //   button?.classList.toggle('clicked');
+    //   this.#toggleClicked = false;
+    // }, 100);
+
+    // this.#toggleClicked = !this.#toggleClicked;
+    /*    this.#toggleClicked = true;
+    setTimeout(() => {
+     // this.collapsed = !this.collapsed;
+      this.collapsed = force;
+      // this.#toggleClicked = !this.#toggleClicked;
+      this.#toggleClicked = false;
+      // this.toggleEvent.emit(this.collapsed);
+    }, 500);
+
+    // this.collapsed = force;
+    this.toggleEvent.emit(this.collapsed);*/
+
+    icon.classList.toggle('upside-down', !this.collapsed);
+
+    // icon.name = 'dash-solid';
+
+    this.#toggleClicked = true;
+    //  this.requestUpdate();
+
+    // icon.classList.toggle('upside-down', !this.collapsed);
+
+    setTimeout(() => {
+      this.collapsed = force;
+      this.#toggleClicked = false;
+      // this.requestUpdate();
+      icon.name = 'chevron-down';
+      this.toggleEvent.emit(this.collapsed);
+    }, 150);
+  }
+
+  private handleBadgeSlotChange(): void {
+    const badgeSlot = this.shadowRoot?.querySelector('slot[name="badge"]') as HTMLSlotElement | null;
+    this.#hasBadge = (badgeSlot && badgeSlot.assignedNodes().length > 0) || false;
+
+    console.log('this.#hasBadge', this.#hasBadge);
+
+    // TODO: when prefix there should be no suffix?
+
+    this.requestUpdate();
   }
 }

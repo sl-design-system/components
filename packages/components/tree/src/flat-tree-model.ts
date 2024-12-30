@@ -4,13 +4,13 @@ import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tre
 /**
  * A tree model that represents a flat list of nodes.
  */
-export class FlatTreeModel<T> extends TreeModel<T> {
+export class FlatTreeModel<T, U extends keyof T> extends TreeModel<T, U> {
   constructor(
     public override dataNodes: T[],
-    public getLabel: TreeModel<T>['getLabel'],
+    public getLabel: TreeModel<T, U>['getLabel'],
     public getLevel: (dataNode: T) => number,
-    public isExpandable: TreeModel<T>['isExpandable'],
-    options: Partial<TreeModelOptions<T>> = {}
+    public isExpandable: TreeModel<T, U>['isExpandable'],
+    options: Partial<TreeModelOptions<T, U>> = {}
   ) {
     super(options);
   }

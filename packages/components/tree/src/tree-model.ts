@@ -8,22 +8,22 @@ export interface TreeModelArrayItem<T> {
   level: number;
 }
 
-export interface TreeModelOptions<T> {
-  getIcon: TreeModel<T>['getIcon'];
-  trackBy(dataNode: T, index: number): unknown;
+export interface TreeModelOptions<T, U extends keyof T> {
+  getIcon: TreeModel<T, U>['getIcon'];
+  trackBy(dataNode: T): T[U];
 }
 
 /**
  * Abstract class used to provide a common interface for tree data.
  */
-export abstract class TreeModel<T> {
+export abstract class TreeModel<T, U extends keyof T> {
   /** The nodes of the tree. */
   dataNodes: T[] = [];
 
   /** Used during rendering to determine if a tree node needs to be rerendered. */
-  trackBy?(dataNode: T, index: number): unknown;
+  trackBy?(dataNode: T): T[U];
 
-  constructor(options: Partial<TreeModelOptions<T>> = {}) {
+  constructor(options: Partial<TreeModelOptions<T, U>> = {}) {
     if (options.getIcon) {
       this.getIcon = options.getIcon;
     }

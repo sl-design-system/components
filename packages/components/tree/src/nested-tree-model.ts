@@ -4,13 +4,13 @@ import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tre
 /**
  * A tree model that represents a nested list of nodes.
  */
-export class NestedTreeModel<T> extends TreeModel<T> {
+export class NestedTreeModel<T, U extends keyof T> extends TreeModel<T, U> {
   constructor(
     public override dataNodes: T[],
     public getChildren: (dataNode: T) => T[] | undefined,
-    public getLabel: TreeModel<T>['getLabel'],
-    public isExpandable: TreeModel<T>['isExpandable'],
-    options: Partial<TreeModelOptions<T>> = {}
+    public getLabel: TreeModel<T, U>['getLabel'],
+    public isExpandable: TreeModel<T, U>['isExpandable'],
+    options: Partial<TreeModelOptions<T, U>> = {}
   ) {
     super(options);
   }

@@ -7,7 +7,7 @@ import { FlatTreeModel } from './flat-tree-model.js';
 import { NestedTreeModel } from './nested-tree-model.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'model' | 'selects'>;
+type Props = Pick<Tree, 'model' | 'selected' | 'selects'>;
 type Story = StoryObj<Props>;
 
 interface NestedDataNode {
@@ -179,10 +179,11 @@ export default {
       options: ['single', 'multiple']
     }
   },
-  render: ({ model, selects }) => html`<sl-tree .model=${model} .selects=${selects}></sl-tree>`
+  render: ({ model, selected, selects }) =>
+    html`<sl-tree .model=${model} .selected=${selected} .selects=${selects}></sl-tree>`
 } satisfies Meta<Props>;
 
-export const Flat: Story = {
+export const FlatModel: Story = {
   args: {
     model: new FlatTreeModel(
       flatData,
@@ -197,7 +198,7 @@ export const Flat: Story = {
   }
 };
 
-export const Nested: Story = {
+export const NestedModel: Story = {
   args: {
     model: new NestedTreeModel(
       nestedData,
@@ -214,14 +215,15 @@ export const Nested: Story = {
 
 export const SingleSelect: Story = {
   args: {
-    ...Flat.args,
+    ...FlatModel.args,
+    selected: 16,
     selects: 'single'
   }
 };
 
 export const MultiSelect: Story = {
   args: {
-    ...Flat.args,
+    ...FlatModel.args,
     selects: 'multiple'
   }
 };

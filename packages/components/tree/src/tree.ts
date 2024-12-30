@@ -25,7 +25,7 @@ export interface TreeItemRendererOptions {
 export type TreeItemRenderer<T = any> = (item: T, options: TreeItemRendererOptions) => TemplateResult;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
+export class Tree<T = any, U extends keyof T = keyof T> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -49,13 +49,16 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   readonly expansion = new SelectionController<T>(this, { multiple: true });
 
   /** The model for the tree. */
-  @property({ attribute: false }) model?: TreeModel<T>;
+  @property({ attribute: false }) model?: TreeModel<T, U>;
 
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 
   /** Contains the selection state for the tree when `selects` is defined. */
-  readonly selection = new SelectionController<T>(this);
+  readonly selection = new SelectionController<T[U]>(this);
+
+  /** The selected tree node(s). */
+  @property() selected?: T[U] | Array<T[U]>;
 
   /** If you are able to select one or more tree items (at the same time). */
   @property() selects?: 'single' | 'multiple';
@@ -72,6 +75,16 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('selects')) {
       this.selection.multiple = this.selects === 'multiple';
     }
+
+    if (changes.has('selected')) {
+      this.selection.deselectAll();
+
+      if (this.selects === 'single' && this.selected && !Array.isArray(this.selected)) {
+        this.selection.select(this.selected);
+      } else if (this.selects === 'multiple' && Array.isArray(this.selected)) {
+        this.selected.forEach(item => this.selection.select(item));
+      }
+    }
   }
 
   override render(): TemplateResult {
@@ -84,7 +97,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ${virtualize({
           items,
           keyFunction: this.model?.trackBy
-            ? (item: TreeModelArrayItem<T>, index: number) => this.model!.trackBy!(item.dataNode, index)
+            ? (item: TreeModelArrayItem<T>) => this.model!.trackBy!(item.dataNode)
             : undefined,
           renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item)
         })}
@@ -95,7 +108,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   renderItem(item: TreeModelArrayItem<T>): TemplateResult {
     const { dataNode, expandable, expanded, lastNodeInLevel, level } = item,
       icon = this.model!.getIcon(dataNode, expanded),
-      selected = this.selection.isSelected(dataNode);
+      selected = this.selection.isSelected(this.model!.trackBy?.(dataNode) || (dataNode as T[U]));
 
     return html`
       <sl-tree-node

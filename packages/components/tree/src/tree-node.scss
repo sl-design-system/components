@@ -1,19 +1,12 @@
 :host {
-  --_background: #fff;
-  --_background-hover: #f7f7f7;
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_focus-radius: var(--sl-border-radius-focusring-default);
-  --_gap: 0.375rem;
-  --_padding-block: 0.25rem;
-  --_padding-inline: 0.5rem;
-
   align-items: center;
-  background: var(--_background);
+  background: var(--sl-elevation-surface-raised-default-idle);
+  border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: flex;
-  gap: var(--_gap);
+  gap: var(--sl-size-075);
   inline-size: 100%;
+  transition: background 0.2s ease-in-out;
 }
 
 :host(:not([expandable])) {
@@ -24,15 +17,22 @@
   rotate: 90deg;
 }
 
+:host([aria-selected='true']) {
+  background: var(--sl-color-background-selected-subtle-idle);
+}
+
 :host(:focus-visible) {
-  border-radius: var(--_focus-radius);
-  outline: var(--_focus-outline);
+  outline: var(--sl-size-borderWidth-bold) solid var(--sl-color-border-focused);
   outline-offset: calc(var(--_focus-outline-offset) * -1);
   z-index: 1;
 }
 
 :host(:hover) {
-  background: var(--_background-hover);
+  background: var(--sl-elevation-surface-raised-default-hover);
+}
+
+:host(:active) {
+  background: var(--sl-elevation-surface-raised-default-active);
 }
 
 :host([disabled]) {
@@ -54,9 +54,9 @@ sl-indent-guides {
   align-items: center;
   display: flex;
   flex: 1;
-  gap: var(--_gap);
-  padding-block: var(--_padding-block);
-  padding-inline: 0 var(--_padding-inline);
+  gap: var(--sl-size-075);
+  padding-block: var(--sl-size-050);
+  padding-inline: 0 var(--sl-size-100);
 }
 
 ::slotted(*) {
@@ -65,6 +65,7 @@ sl-indent-guides {
 
 ::slotted(sl-icon) {
   flex: 0 1;
+  vertical-align: bottom;
 }
 
 sl-icon {
@@ -72,8 +73,15 @@ sl-icon {
   transition: rotate 100ms ease-in-out;
 }
 
-sl-checkbox::part(label) {
+sl-checkbox {
   align-items: center;
-  display: inline-flex;
-  gap: var(--_gap);
+  font: inherit;
+  line-height: inherit;
+
+  &::part(label) {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--sl-size-075);
+    margin: 0;
+  }
 }

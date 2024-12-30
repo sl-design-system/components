@@ -2,7 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
-import { type SlChangeEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { IndentGuides } from './indent-guides.js';
@@ -14,7 +14,8 @@ declare global {
   }
 }
 
-export class TreeNode extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
@@ -35,6 +36,9 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
 
   /** Determines whether the checkbox is checked or not. */
   @property({ type: Boolean }) checked?: boolean;
+
+  /** The node data. */
+  @property({ attribute: false }) data?: T;
 
   /** Whether the node is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -57,6 +61,9 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   /** The depth level of this node, 0 being the root of the tree. */
   @property({ type: Number, reflect: true }) level = 0;
 
+  /** @internal Emits when the user clicks a the wrapper part of the tree node. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<T>>;
+
   /** Whether the node is currently selected. */
   @property({ type: Boolean }) selected?: boolean;
 
@@ -76,7 +83,7 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('selects')) {
+    if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
       if (this.selects === 'multiple') {
         this.setAttribute('aria-checked', this.checked ? 'true' : this.indeterminate ? 'mixed' : 'false');
       } else {
@@ -136,8 +143,19 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     this.indeterminate = false;
   }
 
-  #onClick(): void {
-    if (this.expandable) {
+  #onClick(event: Event): void {
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+
+    const insideWrapper = !!event
+      .composedPath()
+      .filter((el): el is HTMLElement => el instanceof HTMLElement)
+      .find(el => el === wrapper);
+
+    if (insideWrapper) {
+      event.preventDefault();
+
+      this.selectEvent.emit(this.data!);
+    } else if (this.expandable) {
       this.toggle();
     }
   }

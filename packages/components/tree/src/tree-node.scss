@@ -2,6 +2,7 @@
   align-items: center;
   background: var(--sl-elevation-surface-raised-default-idle);
   border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-text-plain);
   cursor: pointer;
   display: flex;
   gap: var(--sl-size-075);
@@ -21,8 +22,9 @@
   --_guide-color: transparent;
 }
 
-:host([aria-selected='true']) {
+:host([selected]) {
   background: var(--sl-color-background-selected-subtle-idle);
+  color: var(--sl-color-text-selected);
 }
 
 :host(:focus-visible) {

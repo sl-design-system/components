@@ -1,8 +1,8 @@
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { RovingTabindexController, SelectionController } from '@sl-design-system/shared';
-import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
+import { type EventEmitter, RovingTabindexController, SelectionController, event } from '@sl-design-system/shared';
+import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { TreeModel, type TreeModelArrayItem, type TreeModelId } from './tree-model.js';
@@ -72,6 +72,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 
+  /** @internal Emits when the user selects a tree node. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<T>>;
+
   /** Contains the selection state for the tree when `selects` is defined. */
   readonly selection = new SelectionController(this);
 
@@ -119,7 +122,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     setTimeout(() => this.#rovingTabindexController.clearElementCache(), 100);
 
     return html`
-      <div part="wrapper">
+      <div @sl-select=${this.#onSelect} part="wrapper">
         ${virtualize({
           items,
           keyFunction: (item: TreeModelArrayItem<T>) => this.model?.getId(item.dataNode),
@@ -134,6 +137,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       icon = this.model!.getIcon(dataNode, expanded),
       selected = this.selection.isSelected(this.model!.getId(dataNode));
 
+    console.log('renderItem', dataNode, selected);
+
     return html`
       <sl-tree-node
         @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, dataNode)}
@@ -144,6 +149,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ?hide-guides=${this.hideGuides}
         ?last-node-in-level=${lastNodeInLevel}
         ?selected=${selected && this.selects === 'single'}
+        .data=${dataNode}
         .level=${level}
         .selects=${this.selects}
       >
@@ -159,6 +165,15 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onChange(event: SlChangeEvent<boolean>, item: T): void {
     console.log('event', event, event.detail, item);
+  }
+
+  #onSelect(event: SlSelectEvent<T>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log('select', this.model!.getId(event.detail));
+
+    this.selection.select(this.model!.getId(event.detail));
   }
 
   #onToggle(item: T): void {

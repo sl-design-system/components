@@ -51,6 +51,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** The initial expanded tree nodes. */
   @property({ type: Array }) expanded?: Array<TreeModelId<T>>;
 
+  /** Hides the indentation guides when set. */
+  @property({ type: Boolean, attribute: 'hide-guides' }) hideGuides?: boolean;
+
   get model() {
     return this.#model;
   }
@@ -138,6 +141,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ?checked=${selected && this.selects === 'multiple'}
         ?expandable=${expandable}
         ?expanded=${expanded}
+        ?hide-guides=${this.hideGuides}
         ?last-node-in-level=${lastNodeInLevel}
         ?selected=${selected && this.selects === 'single'}
         .level=${level}

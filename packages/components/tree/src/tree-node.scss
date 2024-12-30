@@ -17,6 +17,10 @@
   rotate: 90deg;
 }
 
+:host([hide-guides]) sl-indent-guides {
+  --_guide-color: transparent;
+}
+
 :host([aria-selected='true']) {
   background: var(--sl-color-background-selected-subtle-idle);
 }

@@ -21,6 +21,12 @@ export class IndentGuides extends LitElement {
   /** Level of indentation. */
   @property({ type: Number, reflect: true }) level = 0;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('aria-hidden', 'true');
+  }
+
   override updated(changes: PropertyValues<this>): void {
     if (changes.has('level')) {
       this.style.setProperty('--guide-level', this.level.toString());

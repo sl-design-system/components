@@ -45,6 +45,9 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   /** Indicates whether the node is expanded or collapsed. */
   @property({ type: Boolean, reflect: true }) expanded?: boolean;
 
+  /** Hides the indentation guides when set. */
+  @property({ type: Boolean, attribute: 'hide-guides', reflect: true }) hideGuides?: boolean;
+
   /** Indeterminate state of the checkbox. Used when not all children are checked. */
   @property({ type: Boolean }) indeterminate?: boolean;
 

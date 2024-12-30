@@ -9,7 +9,7 @@ import { FlatTreeModel } from './flat-tree-model.js';
 import { NestedTreeModel } from './nested-tree-model.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'expanded' | 'model' | 'selected' | 'selects'>;
+type Props = Pick<Tree, 'expanded' | 'hideGuides' | 'model' | 'selected' | 'selects'>;
 type Story = StoryObj<Props>;
 
 interface NestedDataNode {
@@ -171,7 +171,9 @@ const nestedData: NestedDataNode[] = [
 export default {
   title: 'Navigation/Tree',
   tags: ['draft'],
-  args: {},
+  args: {
+    hideGuides: false
+  },
   argTypes: {
     model: {
       table: { disable: true }
@@ -181,7 +183,7 @@ export default {
       options: ['single', 'multiple']
     }
   },
-  render: ({ expanded, model, selected, selects }) => {
+  render: ({ expanded, hideGuides, model, selected, selects }) => {
     const onToggleTree = () => model?.toggle(4),
       onToggleTreeDescendants = () => model?.toggleDescendants(4),
       onExpandAll = () => model?.expandAll(),
@@ -194,7 +196,13 @@ export default {
         <sl-button @click=${onExpandAll}>Expand all</sl-button>
         <sl-button @click=${onCollapseAll}>Collapse all</sl-button>
       </sl-button-bar>
-      <sl-tree .expanded=${expanded} .model=${model} .selected=${selected} .selects=${selects}></sl-tree>
+      <sl-tree
+        ?hide-guides=${hideGuides}
+        .expanded=${expanded}
+        .model=${model}
+        .selected=${selected}
+        .selects=${selects}
+      ></sl-tree>
     `;
   }
 } satisfies Meta<Props>;

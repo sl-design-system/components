@@ -1,10 +1,11 @@
 :host {
-  --_duration: 0.2s;
+  --_duration: 2s;
 
-  display: block;
+  display: contents;
 }
 
 [part='popover'] {
+  background: transparent;
   border: 0;
   inset: 0 0 0 auto;
   margin: 0;
@@ -28,11 +29,29 @@
   }
 
   &::backdrop {
-    backdrop-filter: blur(3px);
-    transition: backdrop-filter var(--_duration) ease;
+    background: color-mix(
+      in srgb,
+      var(--sl-color-palette-primary-base) calc(var(--sl-opacity-700) * 100%),
+      transparent
+    );
+    opacity: calc(var(--_opened) - (var(--_opened) * var(--_closed)));
+    transition-behavior: allow-discrete;
+    transition-duration: var(--_duration);
+    transition-property: display, --_opened, --_closed, overlay;
+    transition-timing-function: ease;
   }
 
   &:popover-open {
+    overscroll-behavior: none;
+
+    &::backdrop {
+      --_opened: 1;
+
+      @starting-style {
+        --_opened: 0;
+      }
+    }
+
     [part='content'] {
       translate: 0 0;
 

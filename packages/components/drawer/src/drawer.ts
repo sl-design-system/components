@@ -89,13 +89,9 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
   }
 
   #onBeforeToggle(event: ToggleEvent): void {
-    if (event.newState === 'closed') {
-      document.documentElement.style.overflow = '';
-      this.inert = true;
-    } else {
-      document.documentElement.style.overflow = 'hidden';
-      this.inert = false;
-    }
+    this.inert = event.newState === 'closed';
+
+    document.documentElement.classList.toggle('sl-drawer-open', event.newState === 'open');
   }
 
   #onClick(): void {

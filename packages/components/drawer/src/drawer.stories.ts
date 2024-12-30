@@ -47,7 +47,7 @@ export default {
         }
 
         :root {
-          --_duration: 2s;
+          --_duration: 0.2s;
 
           timeline-scope: --drawer;
         }

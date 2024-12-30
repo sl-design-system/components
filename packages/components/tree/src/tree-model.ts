@@ -47,7 +47,11 @@ export abstract class TreeModel<T> extends EventTarget {
     return false;
   }
 
-  /** Returns a string that is used as the label for the tree node. */
+  /**
+   * Returns a string that is used as the label for the tree node.
+   * If you want to customize how the tree node is rendered, you can
+   * provide your own `TreeItemRenderer` function to the tree component.
+   */
   getLabel(_dataNode: T): string {
     return '';
   }
@@ -62,6 +66,12 @@ export abstract class TreeModel<T> extends EventTarget {
     return undefined;
   }
 
+  /**
+   * Toggles the expansion state of a tree node. You can optionally force the
+   * state to a specific value using the `force` parameter. The `emitEvent`
+   * parameter determines whether the model should emit an `sl-update` event
+   * after changing the state.
+   */
   toggle(id: TreeModelId<T>, force?: boolean, emitEvent?: boolean): void {
     if ((typeof force === 'boolean' && !force) || this.isExpanded(id)) {
       this.collapse(id, emitEvent);
@@ -70,36 +80,44 @@ export abstract class TreeModel<T> extends EventTarget {
     }
   }
 
+  /** Expands a tree node. */
   expand(id: TreeModelId<T>, emitEvent = true): void {
     this.#expansion.add(id);
     this.#update(emitEvent);
   }
 
+  /** Collapses a tree node. */
   collapse(id: TreeModelId<T>, emitEvent = true): void {
     this.#expansion.delete(id);
     this.#update(emitEvent);
   }
 
+  /** Returns whether a tree node is expanded. */
   isExpanded(id: TreeModelId<T>): boolean {
     return this.#expansion.has(id);
   }
 
+  /** Expands all expandable tree nodes. */
   expandAll(emitEvent = true): void {
     this.#expansion = new Set(this.dataNodes.map(n => this.getId(n)));
     this.#update(emitEvent);
   }
 
+  /** Collapses all expandable tree nodes. */
   collapseAll(emitEvent = true): void {
     this.#expansion.clear();
     this.#update(emitEvent);
   }
 
+  /** Toggles the expansion state of all descendants of a given tree node. */
   abstract toggleDescendants(id: TreeModelId<T>, force?: boolean): void;
 
+  /** Expands all descendants of a given tree node. */
   expandDescendants(id: TreeModelId<T>): void {
     this.toggleDescendants(id, true);
   }
 
+  /** Collapses all descendants of a given tree node. */
   collapseDescendants(id: TreeModelId<T>): void {
     this.toggleDescendants(id, false);
   }

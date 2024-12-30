@@ -34,8 +34,6 @@ export class IndentGuides extends LitElement {
   }
 
   override render(): TemplateResult[] {
-    return Array(this.level)
-      .fill(0)
-      .map(() => html`<div part="guide"></div>`);
+    return Array.from({ length: this.level }).map(() => html`<div part="guide"></div>`);
   }
 }

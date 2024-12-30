@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -28,7 +28,16 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  */
 @localized()
-export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
+export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby'
+]) {
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
+  }
+
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
@@ -83,11 +92,11 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   @property() override value?: T;
 
   override get formValue(): T | null {
-    return this.checked ? ((this.value ?? 'on') as T) : null;
+    return this.checked ? ((this.value ?? true) as T) : null;
   }
 
   override set formValue(value: T | null) {
-    this.checked = value === this.value || (this.value === undefined && value === 'on');
+    this.checked = value === this.value || (this.value === undefined && value === true);
   }
 
   override connectedCallback(): void {
@@ -114,7 +123,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       this.append(style);
     }
 
-    this.setAttribute('role', 'checkbox');
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
@@ -167,6 +175,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     this.input.focus();
   }
 
+  override blur(): void {
+    this.input.blur();
+  }
+
   override getLocalizedValidationMessage(): string {
     if (!this.validity.customError && this.validity.valueMissing) {
       return msg('Please check this box.');
@@ -180,10 +192,14 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       return;
     }
 
-    event.preventDefault();
+    if (event.target instanceof HTMLLabelElement) {
+      this.input.click();
+    }
+
     event.stopPropagation();
 
     this.checked = !this.checked;
+    this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
     this.updateValidity();
@@ -200,6 +216,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
       this.#onClick(event);
     }
   }
@@ -231,7 +249,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       return;
     }
 
-    const label = nodes.map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node)).join(' ');
+    const label = nodes
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join(' ');
     if (label.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
@@ -249,8 +270,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.id ||= `sl-checkbox-${nextUniqueId++}`;
     input.required = !!this.required;
 
-    input.toggleAttribute('checked', !!this.checked);
-    input.toggleAttribute('indeterminate', !!this.indeterminate);
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    input.checked = !!this.checked;
+    input.indeterminate = !!this.indeterminate;
+    input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
+
+    this.setAttributesTarget(input);
   }
 }

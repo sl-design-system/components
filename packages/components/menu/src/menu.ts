@@ -25,29 +25,26 @@ declare global {
  * @cssprop --sl-menu-max-inline-size - The maximum inline size of the menu.
  * @cssprop --sl-menu-min-inline-size - The minimum inline size of the menu.
  *
- * @slot - The menu's content: menu items or menu item groups.
+ * @slot default - The menu's content: menu items or menu item groups.
  */
 export class Menu extends LitElement {
-  /** The default offset of the menu to its anchor. */
-  static offset = 4;
+  /** @internal The default offset of the menu to its anchor. */
+  static offset = 6;
 
-  /** @private */
+  /**@internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The default margin between the menu and the viewport. */
+  /** @internal The default margin between the menu and the viewport. */
   static viewportMargin = 8;
 
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin });
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, {
-    keydown: this.#onKeydown,
-    toggle: this.#onToggle
-  });
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** The menu items. */
   #menuItems: MenuItem[] = [];
@@ -61,9 +58,9 @@ export class Menu extends LitElement {
   });
 
   /**
-   * The offset of the menu to its anchor. This is a property on this instance so
-   * that it can be overridden by the menu item in case of a nested menu. You
-   * should not need to set this property yourself.
+   * The offset of the menu to its anchor. This is a property on this instance so that it can be overridden
+   * by the menu item in case of a nested menu.
+   * You should not need to set this property yourself.
    */
   @property({ type: Number }) offset?: number;
 
@@ -73,7 +70,7 @@ export class Menu extends LitElement {
   /** @internal Emits when the menu item selection changes. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
 
-  /** Whether this menu has any children that can be selected. */
+  /** @internal Whether this menu has any children that can be selected. */
   @state() selectableChildren?: boolean;
 
   /** Determines whether if and how many menu items can be selected. */
@@ -83,7 +80,10 @@ export class Menu extends LitElement {
     super.connectedCallback();
 
     this.role = 'menu';
-    this.setAttribute('popover', '');
+
+    if (!this.hasAttribute('popover')) {
+      this.setAttribute('popover', '');
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -108,6 +108,15 @@ export class Menu extends LitElement {
     `;
   }
 
+  /**
+   * @internal Workaround for `delegatesFocus` on the shadowroot not taking
+   * any of the menu items in the light DOM into account.
+   */
+  override focus(): void {
+    this.#rovingTabindexController.focus();
+  }
+
+  /** @internal */
   focusLastItem(): void {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
   }
@@ -180,11 +189,5 @@ export class Menu extends LitElement {
     });
 
     this.#rovingTabindexController.clearElementCache();
-  }
-
-  #onToggle(event: Event): void {
-    if ((event as ToggleEvent).newState === 'closed' && this.anchorElement instanceof MenuItem) {
-      this.anchorElement.focus();
-    }
   }
 }

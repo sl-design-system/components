@@ -36,7 +36,7 @@ export default {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'default'
+      defaultViewport: 'reset'
     }
   },
   render: args => {
@@ -74,30 +74,6 @@ export const Basic: Story = {
   }
 };
 
-export const CloseButton: Story = {};
-
-export const All: Story = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    // See https://storybook.js.org/docs/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
-    await userEvent.click(canvas.getByTestId('button'));
-  },
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.nextElementSibling as Dialog).showModal();
-    };
-
-    return html` <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
-      <sl-dialog close-button disable-cancel>
-        <span slot="title">Title</span>
-        <span slot="subtitle">Subtitle</span>
-        Body text
-        <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-        <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
-      </sl-dialog>`;
-  }
-};
-
 export const DisableCancel: Story = {
   args: {
     body: 'You cannot close me by pressing the Escape key, or clicking the backdrop. This dialog also has no close button. The only way to close it is by clicking one of the action buttons.',
@@ -108,12 +84,20 @@ export const DisableCancel: Story = {
   }
 };
 
+export const Empty: Story = {
+  args: {
+    body: 'Since there are no elements inside the dialog that are focusable, the dialog itself should have focus.',
+    closeButton: false,
+    footerButtons: () => html`Nothing here`
+  }
+};
+
 export const FooterButtons: Story = {
   args: {
     footerButtons: () => html`
       <sl-button fill="ghost" slot="actions" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
       <sl-button fill="outline" slot="actions" variant="primary" sl-dialog-close>Action 2</sl-button>
-      <sl-button fill="solid" slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
+      <sl-button slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
     `,
     reverse: false,
     title: 'Dialog with extra footer buttons'
@@ -139,11 +123,34 @@ export const HeaderButtons: Story = {
   }
 };
 
+export const Lazy: Story = {
+  render: () => {
+    const onClick = async (event: Event & { target: HTMLElement }) => {
+      const dialog = document.createElement('sl-dialog');
+      dialog.innerHTML = `
+        <span slot="title">Title</span>
+        Hello world!
+      `;
+      dialog.addEventListener('sl-close', () => {
+        console.log('Dialog closed');
+
+        dialog.remove();
+      });
+
+      event.target.insertAdjacentElement('afterend', dialog);
+      await dialog.updateComplete;
+      dialog.showModal();
+    };
+
+    return html`<sl-button @click=${onClick}>Show dialog</sl-button>`;
+  }
+};
+
 export const Mobile: Story = {
   ...Basic,
   parameters: {
     viewport: {
-      defaultViewport: 'iphone14'
+      defaultViewport: 'iphone13'
     }
   }
 };
@@ -173,6 +180,30 @@ export const CustomComponent: Story = {
     return html`
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <example-form-in-dialog></example-form-in-dialog>
+    `;
+  }
+};
+
+export const All: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // See https://storybook.js.org/docs/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
+    await userEvent.click(canvas.getByTestId('button'));
+  },
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.nextElementSibling as Dialog).showModal();
+    };
+
+    return html`
+      <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
+      <sl-dialog close-button disable-cancel>
+        <span slot="title">Title</span>
+        <span slot="subtitle">Subtitle</span>
+        Body text
+        <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
+        <sl-button slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
+      </sl-dialog>
     `;
   }
 };

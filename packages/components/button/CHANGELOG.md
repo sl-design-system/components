@@ -1,5 +1,36 @@
 # @sl-design-system/button
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1580](https://github.com/sl-design-system/components/pull/1580) [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6) - Improve form integration behavior
+
+  Previously, if you had an `<sl-button>` with `type` `reset` or `submit`, it would call the `<form>`'s `reset()` or `requestSubmit()` methods. With this change, the same behavior now works if you only have an `<sl-form>` element as the parent. If both `<form>` and `<sl-form>` elements are present, then the `<form>` element will take precedence. This makes it a minor change.
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+
+## 1.0.3
+
+### Patch Changes
+
+- [#1456](https://github.com/sl-design-system/components/pull/1456) [`347418f`](https://github.com/sl-design-system/components/commit/347418fa98477365f5bc0aef1c70c9da4579f2a4) - Fixed selector that could cause incorrecty paddings on icon-only button in different fills
+
+- Updated dependencies [[`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/shared@0.3.0
+
+## 1.0.2
+
+### Patch Changes
+
+- [#1365](https://github.com/sl-design-system/components/pull/1365) [`6c7f900`](https://github.com/sl-design-system/components/commit/6c7f9004959dfbb7a715a6ecec8d82da6b1e5e9c) - Added tokens for toggle button and updated style for ghost button to match
+
+- Updated dependencies [[`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220)]:
+  - @sl-design-system/shared@0.2.13
+
 ## 1.0.1
 
 ### Patch Changes

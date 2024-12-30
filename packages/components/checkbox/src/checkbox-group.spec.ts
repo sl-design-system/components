@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -18,10 +19,6 @@ describe('sl-checkbox-group', () => {
           <sl-checkbox value="2">Option 3</sl-checkbox>
         </sl-checkbox-group>
       `);
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should not be disabled', () => {
@@ -240,22 +237,40 @@ describe('sl-checkbox-group', () => {
     });
 
     it('should handle navigating between options correctly', async () => {
-      expect(el.boxes?.[0].checked).not.to.equal(true);
+      expect(el.boxes?.[0].checked).not.to.be.true;
       expect(el.boxes?.[0].tabIndex).to.equal(0);
-      expect(el.boxes?.[1].checked).not.to.equal(true);
+      expect(el.boxes?.[1].checked).not.to.be.true;
       expect(el.boxes?.[1].tabIndex).to.equal(-1);
 
       el.boxes?.[0]?.focus();
       await sendKeys({ press: 'Space' });
 
-      expect(el.boxes?.[0].checked).to.equal(true);
-      expect(el.boxes?.[1].checked).not.to.equal(true);
+      expect(el.boxes?.[0].checked).to.be.true;
+      expect(el.boxes?.[1].checked).not.to.be.true;
 
-      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'ArrowDown' });
       await sendKeys({ press: 'Enter' });
 
-      expect(el.boxes?.[0].checked).to.equal(true);
-      expect(el.boxes?.[1].checked).to.equal(true);
+      expect(el.boxes?.[0].checked).to.be.true;
+      expect(el.boxes?.[1].checked).to.be.true;
+    });
+  });
+
+  describe('implicit value', () => {
+    let el: CheckboxGroup;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox checked value="0">Option 1</sl-checkbox>
+          <sl-checkbox checked value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+    });
+
+    it('should have a value of the checked boxes', () => {
+      expect(el.value).to.deep.equal(['0', '1', null]);
     });
   });
 
@@ -276,11 +291,11 @@ describe('sl-checkbox-group', () => {
       expect(el.value).to.deep.equal([null, null, null]);
     });
 
-    it('should have a value of "on" when checked', async () => {
+    it('should have a value of true when checked', async () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.value).to.deep.equal(['on', null, null]);
+      expect(el.value).to.deep.equal([true, null, null]);
     });
 
     it('should filter out the null values in the formValue', async () => {
@@ -289,7 +304,7 @@ describe('sl-checkbox-group', () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.formValue).to.deep.equal(['on']);
+      expect(el.formValue).to.deep.equal([true]);
     });
   });
 
@@ -301,23 +316,39 @@ describe('sl-checkbox-group', () => {
 
       override render(): TemplateResult {
         return html`
-          <sl-checkbox-group @sl-form-control=${this.onFormControl}>
-            <sl-checkbox>Option 1</sl-checkbox>
-            <sl-checkbox>Option 2</sl-checkbox>
-            <sl-checkbox>Option 3</sl-checkbox>
-          </sl-checkbox-group>
+          <sl-form-field label="Label">
+            <sl-checkbox-group @sl-form-control=${this.onFormControl}>
+              <sl-checkbox>Option 1</sl-checkbox>
+              <sl-checkbox>Option 2</sl-checkbox>
+              <sl-checkbox>Option 3</sl-checkbox>
+            </sl-checkbox-group>
+          </sl-form-field>
         `;
       }
     }
 
     beforeEach(async () => {
-      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
 
       el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the input of the first checkbox when the label is clicked', async () => {
+      const input = el.renderRoot.querySelector('input'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(input);
     });
   });
 });

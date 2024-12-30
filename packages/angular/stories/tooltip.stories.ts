@@ -1,6 +1,6 @@
 import { type Meta, type StoryObj, moduleMetadata } from '@storybook/angular';
+import { ButtonComponent } from '../src/button/button.component';
 import { TooltipDirective } from '../src/tooltip.directive';
-import { ButtonComponent } from '../src/wrappers';
 
 export default {
   title: 'Tooltip',

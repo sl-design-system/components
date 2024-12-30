@@ -153,7 +153,7 @@ describe('sl-message-dialog', () => {
 
       promise.then(callback);
 
-      dialog.querySelector<HTMLElement>('sl-button[variant="primary"]')?.click();
+      dialog.querySelector<HTMLElement>('sl-button:last-of-type')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       expect(callback).to.have.been.calledWith(true);
@@ -182,7 +182,7 @@ describe('sl-message-dialog', () => {
         subtitle: 'Subtitle',
         message: html`This is a message with <strong>HTML</strong>!`,
         buttons: [
-          { text: 'No, run away!', fill: 'outline', value: 'NO' },
+          { text: 'No, run away!', fill: 'outline', value: 'NO', variant: 'primary' },
           { text: "Yes, I don't care what it does", value: 'YES', variant: 'danger' }
         ],
         disableCancel: true
@@ -219,7 +219,7 @@ describe('sl-message-dialog', () => {
       expect(buttons).to.have.length(2);
       expect(buttons[0]).to.have.trimmed.text('No, run away!');
       expect(buttons[0]).to.have.attribute('fill', 'outline');
-      expect(buttons[0]).to.have.attribute('variant', 'default');
+      expect(buttons[0]).to.have.attribute('variant', 'primary');
       expect(buttons[1]).to.have.trimmed.text("Yes, I don't care what it does");
       expect(buttons[1]).to.have.attribute('variant', 'danger');
     });
@@ -246,7 +246,7 @@ describe('sl-message-dialog', () => {
       promise.then(callback);
 
       dialog.querySelector<HTMLElement>('sl-button')?.click();
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(callback).to.have.been.calledWith('NO');
     });
@@ -257,7 +257,7 @@ describe('sl-message-dialog', () => {
       promise.then(callback);
 
       dialog.querySelector<HTMLElement>('sl-button[variant="danger"]')?.click();
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(callback).to.have.been.calledWith('YES');
     });

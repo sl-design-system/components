@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -14,10 +15,6 @@ describe('sl-text-field', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-field></sl-text-field>`);
       input = el.querySelector('input')!;
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should have an input slot', () => {
@@ -287,6 +284,23 @@ describe('sl-text-field', () => {
     });
   });
 
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      input = el.querySelector('input')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(input).to.have.attribute('aria-label', 'my label');
+      expect(input).to.have.attribute('aria-disabled', 'true');
+    });
+  });
+
   describe('invalid', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-field required></sl-text-field>`);
@@ -431,18 +445,49 @@ describe('sl-text-field', () => {
       onFormControl: (event: SlFormControlEvent) => void = spy();
 
       override render(): TemplateResult {
-        return html`<sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>`;
+        return html`
+          <sl-form>
+            <sl-form-field label="Label">
+              <sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>
+            </sl-form-field>
+          </sl-form>
+        `;
       }
     }
 
     beforeEach(async () => {
-      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
 
       el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the input when the label is clicked', async () => {
+      const input = el.renderRoot.querySelector('input'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(input);
+    });
+
+    it('should call requestSubmit after pressing Enter in the text-field', async () => {
+      const form = el.renderRoot.querySelector('sl-form')!;
+
+      spy(form, 'requestSubmit');
+
+      el.renderRoot.querySelector('input')?.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(form.requestSubmit).to.have.been.calledOnce;
     });
   });
 

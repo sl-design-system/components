@@ -173,6 +173,68 @@ describe('sl-form', () => {
       expect(el.touched).to.be.true;
       expect(el.untouched).to.be.false;
     });
+
+    it('should emit an sl-submit event when requestSubmit() is called and the form is valid', async () => {
+      const onSubmit = spy();
+
+      el.addEventListener('sl-submit', onSubmit);
+      el.requestSubmit();
+
+      expect(onSubmit).to.not.have.been.calledOnce;
+
+      el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
+      await sendKeys({ type: 'asdf' });
+
+      el.requestSubmit();
+
+      expect(onSubmit).to.have.been.calledOnce;
+    });
+  });
+
+  describe('reset', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Foo">
+            <sl-text-field name="foo" value="lorem"></sl-text-field>
+          </sl-form-field>
+
+          <sl-form-field label="Bar">
+            <sl-text-field name="bar" required></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+      // Give the form time to register the controls
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should reset the form', async () => {
+      expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
+      el.querySelector<HTMLElement>('sl-text-field[name="foo"]')?.focus();
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+      await sendKeys({ press: 'Backspace' });
+
+      el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
+      await sendKeys({ type: 'asdf' });
+
+      expect(el.value).to.deep.equal({ foo: '', bar: 'asdf' });
+
+      el.reset();
+
+      expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
+    });
+
+    it('should emit an sl-reset event when reset() is called', () => {
+      const onReset = spy();
+
+      el.addEventListener('sl-reset', onReset);
+      el.reset();
+
+      expect(onReset).to.have.been.calledOnce;
+    });
   });
 
   describe('array values', () => {

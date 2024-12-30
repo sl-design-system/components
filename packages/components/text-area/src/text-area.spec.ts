@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
+import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -324,6 +325,23 @@ describe('sl-text-area', () => {
     });
   });
 
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-area aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      textArea = el.querySelector('textarea')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(textArea).to.have.attribute('aria-label', 'my label');
+      expect(textArea).to.have.attribute('aria-disabled', 'true');
+    });
+  });
+
   describe('maxlength', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-area maxlength="3"></sl-text-area>`);
@@ -440,18 +458,36 @@ describe('sl-text-area', () => {
       onFormControl: (event: SlFormControlEvent) => void = spy();
 
       override render(): TemplateResult {
-        return html`<sl-text-area @sl-form-control=${this.onFormControl}></sl-text-area>`;
+        return html`
+          <sl-form-field label="Label">
+            <sl-text-area @sl-form-control=${this.onFormControl}></sl-text-area>
+          </sl-form-field>
+        `;
       }
     }
 
     beforeEach(async () => {
-      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      try {
+        customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+      } catch {
+        // empty
+      }
 
       el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
     });
 
     it('should emit an sl-form-control event after first render', () => {
       expect(el.onFormControl).to.have.been.calledOnce;
+    });
+
+    it('should focus the textarea when the label is clicked', async () => {
+      const textarea = el.renderRoot.querySelector('textarea'),
+        label = el.renderRoot.querySelector('label');
+
+      label?.click();
+      await el.updateComplete;
+
+      expect(el.shadowRoot!.activeElement).to.equal(textarea);
     });
   });
 });

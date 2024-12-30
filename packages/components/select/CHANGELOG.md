@@ -1,5 +1,42 @@
 # @sl-design-system/select
 
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+  - @sl-design-system/form@1.1.0
+
+## 1.1.1
+
+### Patch Changes
+
+- [#1536](https://github.com/sl-design-system/components/pull/1536) [`d79c397`](https://github.com/sl-design-system/components/commit/d79c3977b15cf55c8a83db94fc4ab98a1fe7e328) - Fix combobox, radio-group and select not focusing the form control when clicking the label
+
+- [#1492](https://github.com/sl-design-system/components/pull/1492) [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d) - Fix `.focus()` not working properly on the select component.
+
+- Updated dependencies [[`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d), [`000723a`](https://github.com/sl-design-system/components/commit/000723a8e42cb468383fa0b968eb31a672b95e80)]:
+  - @sl-design-system/shared@0.3.2
+  - @sl-design-system/form@1.0.4
+
+## 1.1.0
+
+### Minor Changes
+
+- [#1428](https://github.com/sl-design-system/components/pull/1428) [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea) - Fixed issue where popover was too small to show any content even if there was space on the other side of the anchor component.
+  The way to set the min and max size of the popover have changed: use the following properties instead of setting the width directly on the popover. (Those values will be ignored when calculating the size of the popover as it can exist in the available space)
+  --sl-popover-min-block-size
+  --sl-popover-max-block-size
+  --sl-popover-max-inline-size
+
+### Patch Changes
+
+- Updated dependencies [[`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb), [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/icon@1.0.2
+  - @sl-design-system/shared@0.3.0
+  - @sl-design-system/form@1.0.3
+
 ## 1.0.1
 
 ### Patch Changes

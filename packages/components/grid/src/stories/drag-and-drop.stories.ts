@@ -1,5 +1,5 @@
+import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ArrayDataSource } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -8,7 +8,8 @@ import { type GridDropFilter, type SlDropEvent } from '../grid.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Drag and drop',
+  title: 'Grid/Drag and drop',
+  tags: ['draft'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }

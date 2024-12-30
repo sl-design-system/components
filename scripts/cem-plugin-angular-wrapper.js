@@ -1,4 +1,4 @@
-import { writeFile } from 'fs/promises';
+import { mkdir, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { camelize, dasherize } from './utils.js';
 
@@ -20,7 +20,8 @@ function getComponentEvents(component, eventMap) {
 function generateComponent(imports, component, events) {
   return `import { Component, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
 ${imports.join('\n')}
-import { CePassthrough } from './ce-passthrough';
+import { ElementRef } from '@angular/core';
+import { CePassthrough } from '@sl-design-system/angular';
 
 @Component({
   selector: '${component.tagName}',
@@ -29,16 +30,24 @@ import { CePassthrough } from './ce-passthrough';
 })
 export class ${component.name}Component extends CePassthrough<${component.name}> {${events.length ? `\n  static override eventMap = {\n${events.map(event => `    '${event.name}': '${event.angularName}'`).join(',\n')}\n  };\n` : ''}
 ${component.members
-  .filter(member => member.kind === 'field' && !member.privacy && !member.static && !member.name.endsWith('Event'))
-  .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n')}
-${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}}
+  ?.filter(member => member.kind === 'field' && !member.privacy && !member.static && !member.name.endsWith('Event'))
+  .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n') ?? ''}
+${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}\n  constructor(elRef: ElementRef<${component.name}>) {\n    super(elRef);\n  }\n}
 `;
 };
 
-const generateIndex = async (components, outDir) => {
-  const indexSrc = components.map(component => `export * from './${dasherize(component.name)}.component';`).join('\n');
+const generatePublicApis = async (packages, outDir) => {
+  for (const [packageName, files] of packages) {
+    await writeFile(join(outDir, packageName, 'public-api.ts'), files.map(f => `export * from './${f}';`).join('\n').concat('\n'), 'utf8');
 
-  await writeFile(join(outDir, 'index.ts'), indexSrc, 'utf8');
+    await writeFile(join(outDir, packageName, 'ng-package.json'), `{
+  "$schema": "../../node_modules/ng-packagr/ng-entrypoint.schema.json",
+  "lib": {
+    "entryFile": "public-api.ts"
+  }
+}
+`, 'utf8');
+  }
 };
 
 const generateComponents = async (modules, exclude, outDir) => {
@@ -62,6 +71,8 @@ const generateComponents = async (modules, exclude, outDir) => {
     .flatMap(m => m.declarations.filter(decl => !exclude.includes(decl.name) && decl.customElement || decl.tagName))
     .filter(({ tagName }) => ceMap.has(tagName) && ceMap.get(tagName).package);
 
+  const packages = new Map(components.map(c => ([ceMap.get(c.tagName).package.split('/').pop(), []])));
+
   for (const component of components) {
     const ce = ceMap.get(component.tagName),
       events = getComponentEvents(component, eventMap) ?? [];
@@ -74,10 +85,17 @@ const generateComponents = async (modules, exclude, outDir) => {
 
     const componentSrc = await generateComponent(imports, component, events);
 
-    await writeFile(join(outDir, `${dasherize(component.name)}.component.ts`), componentSrc, 'utf8');
+    const packageName = ce.package.split('/').pop(),
+      folder = join(outDir, packageName),
+      fileName = `${dasherize(component.name)}.component`;
+
+    packages.set(packageName, [...packages.get(packageName), fileName]);
+
+    await mkdir(folder, { recursive: true });
+    await writeFile(join(folder, `${fileName}.ts`), componentSrc, 'utf8');
   }
 
-  await generateIndex(components, outDir);
+  await generatePublicApis(packages, outDir);
 };
 
 export default function plugin({

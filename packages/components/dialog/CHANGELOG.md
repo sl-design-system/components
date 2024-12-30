@@ -1,5 +1,53 @@
 # @sl-design-system/dialog
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1576](https://github.com/sl-design-system/components/pull/1576) [`b3619c7`](https://github.com/sl-design-system/components/commit/b3619c75d92f72d1db06146c93b98a3a5f86c035) - Improve ability to `extends Dialog`
+
+  This change improves the ability to extend the Dialog component by splitting the `render()` method into smaller methods. This makes it easier to override specific parts of the Dialog component:
+
+  - `renderHeader(title: string, subtitle: string)`
+  - `renderBody()`
+  - `renderFooter()`
+  - `renderActions()`
+
+  The `renderHeader` method is slightly different. If all you want to do is add a title or subtitle to the header, you can override the method and call `return super.renderHeader('My title', 'My subtitle')`.
+
+  To be clear: the above API is only meant to be used when you are _extending_ the `Dialog` class. If you are using the `<sl-dialog>` element in your HTML, than you can still use the `header`, `body`, and `footer` slots as before.
+
+### Patch Changes
+
+- Updated dependencies [[`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/button@1.1.0
+  - @sl-design-system/shared@0.4.0
+
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`e3597ad`](https://github.com/sl-design-system/components/commit/e3597adca3a2b98f1507af55b7fb3748d9c29ffb), [`347418f`](https://github.com/sl-design-system/components/commit/347418fa98477365f5bc0aef1c70c9da4579f2a4), [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea), [`ff1618c`](https://github.com/sl-design-system/components/commit/ff1618cdfa4d0060465d993f656345ba1044f88c), [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56)]:
+  - @sl-design-system/icon@1.0.2
+  - @sl-design-system/button@1.0.3
+  - @sl-design-system/shared@0.3.0
+
+## 1.0.3
+
+### Patch Changes
+
+- [#1392](https://github.com/sl-design-system/components/pull/1392) [`fdf3644`](https://github.com/sl-design-system/components/commit/fdf36446ce68afe58d10ace6706258a46c822579) - Fix `max-inline-size` default behavior to account for inline margins
+
+- [#1379](https://github.com/sl-design-system/components/pull/1379) [`4242ea2`](https://github.com/sl-design-system/components/commit/4242ea24a85d758a71bb8c88aa6ae8a0aba442b5) - Fix various issues:
+  - Add focus outline for `<dialog>`; see https://adrianroselli.com/2020/10/dialog-focus-in-screen-readers.html#Update01
+  - Add workaround for dialog focus behavior in combination with slots; see https://github.com/whatwg/html/issues/9245
+  - Improve API documentation
+- Updated dependencies [[`1ea82aa`](https://github.com/sl-design-system/components/commit/1ea82aad5579752ba52e8e6c08c97e3c14237816), [`1647361`](https://github.com/sl-design-system/components/commit/1647361aba7af478745fc30a8067154debff0808), [`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220), [`6c7f900`](https://github.com/sl-design-system/components/commit/6c7f9004959dfbb7a715a6ecec8d82da6b1e5e9c)]:
+  - @sl-design-system/button-bar@1.1.0
+  - @sl-design-system/icon@1.0.1
+  - @sl-design-system/shared@0.2.13
+  - @sl-design-system/button@1.0.2
+
 ## 1.0.2
 
 ### Patch Changes

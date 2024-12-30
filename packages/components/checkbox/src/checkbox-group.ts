@@ -45,6 +45,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
+    direction: 'vertical',
     focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
     elements: () => this.boxes || [],
     isFocusableElement: (el: Checkbox) => !el.disabled
@@ -79,6 +80,14 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   override get formValue(): T[] {
     return this.value?.filter((v): v is T => v !== null) ?? [];
+  }
+
+  /**
+   * We need to override the setter as well, otherwise it won't work.
+   * See https://github.com/sl-design-system/components/issues/1441
+   */
+  override set formValue(value: T[]) {
+    super.formValue = value;
   }
 
   override connectedCallback(): void {
@@ -140,7 +149,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <slot
-        @slotchange=${this.#onSlotchange}
+        @slotchange=${this.#onSlotChange}
         @sl-blur=${this.#stopEvent}
         @sl-change=${this.#stopEvent}
         @sl-focus=${this.#stopEvent}
@@ -182,17 +191,20 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     event.stopPropagation();
   }
 
-  #onSlotchange(): void {
+  #onSlotChange(): void {
     this.#rovingTabindexController.clearElementCache();
 
     this.#observer.disconnect();
 
     this.boxes?.forEach((box, index) => {
       box.name = this.name;
-      if (box.value !== undefined) {
-        box.checked = this.value?.includes(box.value) ?? false;
-      } else {
-        box.formValue = this.value?.at(index) ?? null;
+
+      if (this.value !== undefined) {
+        if (box.value !== undefined) {
+          box.checked = this.value?.includes(box.value) ?? false;
+        } else {
+          box.formValue = this.value?.at(index) ?? null;
+        }
       }
 
       if (typeof this.disabled === 'boolean') {

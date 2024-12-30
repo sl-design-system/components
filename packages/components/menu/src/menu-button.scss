@@ -2,14 +2,10 @@
   display: inline-flex;
 }
 
-slot[name='button'] {
-  display: inline-flex;
-
-  &:has(+ .selected)::after {
-    content: ':';
-  }
-}
-
-.selected {
-  font-weight: 600;
+// Workaround for sl-menu-item-group being the first child in this slot,
+// but *NOT* being the first child in the light DOM.
+sl-menu slot::slotted(:nth-child(1 of :not([slot]))) {
+  border-block-start: 0;
+  margin-block-start: 0;
+  padding-block-start: 0;
 }

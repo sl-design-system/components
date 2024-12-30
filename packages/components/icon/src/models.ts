@@ -14,7 +14,26 @@ export interface CustomIconDefinition {
 
 // Copied from FontAwesome so we don't rely on it as a dependency
 export type IconStyle = 'solid' | 'regular' | 'light' | 'thin' | 'duotone' | 'brands';
-export type IconPrefix = 'fas' | 'far' | 'fal' | 'fat' | 'fad' | 'fab' | 'fak' | 'fass' | 'fasr' | 'fasl' | 'fast';
+export type IconPrefix =
+  | 'fas'
+  | 'fass'
+  | 'far'
+  | 'fasr'
+  | 'fal'
+  | 'fasl'
+  | 'fat'
+  | 'fast'
+  | 'fad'
+  | 'fadr'
+  | 'fadl'
+  | 'fadt'
+  | 'fasds'
+  | 'fasdr'
+  | 'fasdl'
+  | 'fasdt'
+  | 'fab'
+  | 'fak'
+  | 'fakd';
 export type IconPathData = string | string[];
 
 export interface IconLookup {

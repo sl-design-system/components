@@ -1,5 +1,5 @@
 import { Select, SelectOption } from '@sl-design-system/select';
-import { getValueByPath, setValueByPath } from '@sl-design-system/shared';
+import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -24,10 +24,10 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
 
   override renderData(item: T): TemplateResult {
     return html`
-      <td part="data select">
+      <td part="data select delegate-focus">
         <sl-select
           @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item)}
-          .value=${getValueByPath(item, this.path)}
+          .value=${getValueByPath(item, this.path!)}
         >
           ${this.options?.map(option =>
             typeof option === 'string'
@@ -40,6 +40,6 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
   }
 
   #onChange(event: SlChangeEvent, item: T): void {
-    setValueByPath(item, this.path, event.detail);
+    setValueByPath(item, this.path!, event.detail as Path<T, PathKeys<T>>);
   }
 }

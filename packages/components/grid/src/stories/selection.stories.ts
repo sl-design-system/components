@@ -1,7 +1,8 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ArrayDataSource, type SelectionController } from '@sl-design-system/shared';
+import { type SelectionController } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -10,30 +11,23 @@ import { type SlActiveItemChangeEvent } from '../grid.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Selection',
+  title: 'Grid/Selection',
+  tags: ['draft'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   }
 };
 
-export const Single: Story = {
+export const ClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const onActiveItemChange = ({ detail: { item, grid } }: SlActiveItemChangeEvent<Person>): void => {
-      grid.selection.select(item);
+    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
+      console.log('current active item:', item);
     };
 
     return html`
-      <style>
-        sl-grid::part(row) {
-          cursor: pointer;
-        }
-        sl-grid::part(row):hover {
-          --_cell-background: #f5f5f5;
-        }
-      </style>
-      <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people}>
+      <sl-grid @sl-active-item-change=${onActiveItemChange} .items=${people} clickable-row>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
@@ -44,7 +38,7 @@ export const Single: Story = {
   }
 };
 
-export const Multiple: Story = {
+export const SelectionColumn: Story = {
   args: {
     selectAll: false
   },
@@ -76,19 +70,15 @@ export const Multiple: Story = {
   }
 };
 
-export const MultipleAutoSelect: Story = {
+export const SelectionColumnAndClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
+    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
+      console.log('current active item:', item);
+    };
+
     return html`
-      <style>
-        sl-grid::part(row) {
-          cursor: pointer;
-        }
-        sl-grid::part(row):hover {
-          --_cell-background: #f5f5f5;
-        }
-      </style>
-      <sl-grid .items=${people}>
+      <sl-grid .items=${people} clickable-row @sl-active-item-change=${onActiveItemChange}>
         <sl-grid-selection-column auto-select></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -98,14 +88,14 @@ export const MultipleAutoSelect: Story = {
   }
 };
 
-export const MultipleWithCustomHeader: Story = {
+export const SelectionColumnWithCustomHeader: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: ({ selectAll }, { loaded: { people } }) => {
     return html`
       <style>
         sl-grid::part(active-selection) {
           gap: 0.5rem;
-          padding-block: 0.125rem;
+          padding-block: var(--sl-space-150);
         }
       </style>
       <sl-grid .items=${people}>
@@ -129,8 +119,12 @@ export const Grouped: Story = {
     const dataSource = new ArrayDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
+    const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
+      console.log('current active item:', item);
+    };
+
     return html`
-      <sl-grid .dataSource=${dataSource}>
+      <sl-grid .dataSource=${dataSource} clickable-row @sl-active-item-change=${onActiveItemChange}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

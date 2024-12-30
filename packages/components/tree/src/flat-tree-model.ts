@@ -1,4 +1,4 @@
-import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tree-model.js';
+import { TreeModel, type TreeModelArrayItem, type TreeModelId, type TreeModelOptions } from './tree-model.js';
 
 export interface FlatTreeModelOptions<T> extends TreeModelOptions<T> {
   getLevel(dataNode: T): number;
@@ -16,6 +16,28 @@ export class FlatTreeModel<T> extends TreeModel<T> {
 
   getLevel(_dataNode: T): number {
     return 0;
+  }
+
+  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
+    const node = this.dataNodes.find(n => this.getId(n) === id);
+    if (!node) {
+      return;
+    }
+
+    const index = this.dataNodes.indexOf(node),
+      level = this.getLevel(node);
+
+    for (let i = index + 1; i < this.dataNodes.length; i++) {
+      const nextNode = this.dataNodes[i];
+
+      if (this.getLevel(nextNode) <= level) {
+        break;
+      }
+
+      this.toggle(this.getId(nextNode), force, false);
+    }
+
+    this.dispatchEvent(new Event('sl-update'));
   }
 
   override toArray(): Array<TreeModelArrayItem<T>> {

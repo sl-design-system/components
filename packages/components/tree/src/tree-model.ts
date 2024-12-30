@@ -62,52 +62,54 @@ export abstract class TreeModel<T> extends EventTarget {
     return undefined;
   }
 
-  toggle(id: TreeModelId<T>): void {
-    if (this.isExpanded(id)) {
-      this.collapse(id);
+  toggle(id: TreeModelId<T>, force?: boolean, emitEvent?: boolean): void {
+    if ((typeof force === 'boolean' && !force) || this.isExpanded(id)) {
+      this.collapse(id, emitEvent);
     } else {
-      this.expand(id);
+      this.expand(id, emitEvent);
     }
   }
 
-  expand(id: TreeModelId<T>): void {
+  expand(id: TreeModelId<T>, emitEvent = true): void {
     this.#expansion.add(id);
-    this.#update();
+    this.#update(emitEvent);
   }
 
-  collapse(id: TreeModelId<T>): void {
+  collapse(id: TreeModelId<T>, emitEvent = true): void {
     this.#expansion.delete(id);
-    this.#update();
+    this.#update(emitEvent);
   }
 
   isExpanded(id: TreeModelId<T>): boolean {
     return this.#expansion.has(id);
   }
 
-  expandAll(): void {
+  expandAll(emitEvent = true): void {
     this.#expansion = new Set(this.dataNodes.map(n => this.getId(n)));
-    this.#update();
+    this.#update(emitEvent);
   }
 
-  collapseAll(): void {
+  collapseAll(emitEvent = true): void {
     this.#expansion.clear();
-    this.#update();
+    this.#update(emitEvent);
   }
 
-  toggleDescendants(id: TreeModelId<T>): void {
-    console.log('toggleDescendants', id);
-  }
+  abstract toggleDescendants(id: TreeModelId<T>, force?: boolean): void;
+
   expandDescendants(id: TreeModelId<T>): void {
-    console.log('expandDescendants', id);
+    this.toggleDescendants(id, true);
   }
+
   collapseDescendants(id: TreeModelId<T>): void {
-    console.log('collapseDescendants', id);
+    this.toggleDescendants(id, false);
   }
 
   /** Flattens the tree to an array based on the expansion state. */
   abstract toArray(): Array<TreeModelArrayItem<T>>;
 
-  #update(): void {
-    this.dispatchEvent(new Event('sl-update'));
+  #update(emitEvent: boolean): void {
+    if (emitEvent) {
+      this.dispatchEvent(new Event('sl-update'));
+    }
   }
 }

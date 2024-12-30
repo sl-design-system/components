@@ -1,4 +1,4 @@
-import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tree-model.js';
+import { TreeModel, type TreeModelArrayItem, type TreeModelId, type TreeModelOptions } from './tree-model.js';
 
 export interface NestedTreeModelOptions<T> extends TreeModelOptions<T> {
   getChildren(dataNode: T): T[] | undefined;
@@ -16,6 +16,17 @@ export class NestedTreeModel<T> extends TreeModel<T> {
 
   getChildren(_dataNode: T): T[] | undefined {
     return undefined;
+  }
+
+  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
+    const node = this.#findById(id, this.dataNodes);
+    if (!node) {
+      return;
+    }
+
+    this.#toggleChildren(node, force);
+
+    this.dispatchEvent(new Event('sl-update'));
   }
 
   override toArray(): Array<TreeModelArrayItem<T>> {
@@ -53,5 +64,36 @@ export class NestedTreeModel<T> extends TreeModel<T> {
 
       return dataNodes;
     }, []);
+  }
+
+  #findById(id: TreeModelId<T>, dataNodes: T[]): T | undefined {
+    for (const dataNode of dataNodes) {
+      if (this.getId(dataNode) === id) {
+        return dataNode;
+      }
+
+      const children = this.getChildren(dataNode);
+      if (Array.isArray(children)) {
+        const found = this.#findById(id, children);
+
+        if (found) {
+          return found;
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  #toggleChildren(dataNode: T, force?: boolean): void {
+    const children = this.getChildren(dataNode);
+    if (!Array.isArray(children)) {
+      return;
+    }
+
+    for (const child of children) {
+      this.toggle(this.getId(child), force, false);
+      this.#toggleChildren(child, force);
+    }
   }
 }

@@ -1,6 +1,9 @@
 import { type SelectionController } from '@sl-design-system/shared';
 import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tree-model.js';
 
+/**
+ * A tree model that represents a nested list of nodes.
+ */
 export class NestedTreeModel<T> extends TreeModel<T> {
   constructor(
     public override dataNodes: T[],
@@ -35,8 +38,8 @@ export class NestedTreeModel<T> extends TreeModel<T> {
     }
 
     return children.reduce((dataNodes: Array<TreeModelArrayItem<T>>, childNode, index, array) => {
-      const expanded = expansion.isSelected(dataNode),
-        expandable = this.isExpandable(dataNode),
+      const expanded = expansion.isSelected(childNode),
+        expandable = this.isExpandable(childNode),
         lastNodeInLevel = index === array.length - 1;
 
       dataNodes.push({ dataNode: childNode, expandable, expanded, lastNodeInLevel, level });

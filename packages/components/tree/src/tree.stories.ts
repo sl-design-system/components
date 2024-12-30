@@ -11,6 +11,7 @@ type Props = Pick<Tree, 'model' | 'selects'>;
 type Story = StoryObj<Props>;
 
 interface NestedDataNode {
+  id: number;
   name: string;
   children?: NestedDataNode[];
 }
@@ -130,25 +131,39 @@ const flatData = [
 
 const nestedData: NestedDataNode[] = [
   {
+    id: 0,
+    name: 'textarea',
+    children: [{ id: 1, name: 'package.json' }]
+  },
+  {
+    id: 2,
+    name: 'tooltip',
+    children: [{ id: 3, name: 'package.json' }]
+  },
+  {
+    id: 4,
     name: 'tree',
     children: [
       {
+        id: 5,
         name: 'src',
         children: [
-          { name: 'flat-tree-model.ts' },
-          { name: 'nested-tree-model.ts' },
-          { name: 'tree-model.ts' },
-          { name: 'tree-node.scss' },
-          { name: 'tree-node.ts' },
-          { name: 'tree.ts' },
-          { name: 'utils.ts' }
+          { id: 6, name: 'flat-tree-model.ts' },
+          { id: 7, name: 'nested-tree-model.ts' },
+          { id: 8, name: 'tree-model.ts' },
+          { id: 9, name: 'tree-node.scss' },
+          { id: 10, name: 'tree-node.ts' },
+          { id: 11, name: 'tree.ts' },
+          { id: 12, name: 'utils.ts' }
         ]
       },
-      { name: 'index.ts' },
-      { name: 'package.json' },
-      { name: 'register.ts' }
+      { id: 13, name: 'index.ts' },
+      { id: 14, name: 'package.json' },
+      { id: 15, name: 'register.ts' }
     ]
-  }
+  },
+  { id: 16, name: 'eslint.config.mjs' },
+  { id: 17, name: 'stylelint.config.mjs' }
 ];
 
 export default {
@@ -186,9 +201,13 @@ export const Nested: Story = {
   args: {
     model: new NestedTreeModel(
       nestedData,
-      dataNode => dataNode.children,
-      dataNode => dataNode.name,
-      dataNode => !!dataNode.children
+      ({ children }) => children,
+      ({ name }) => name,
+      ({ children }) => !!children,
+      {
+        getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+        trackBy: item => item.id
+      }
     )
   }
 };

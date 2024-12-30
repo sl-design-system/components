@@ -1,6 +1,9 @@
 import { SelectionController } from '@sl-design-system/shared';
 import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tree-model.js';
 
+/**
+ * A tree model that represents a flat list of nodes.
+ */
 export class FlatTreeModel<T> extends TreeModel<T> {
   constructor(
     public override dataNodes: T[],

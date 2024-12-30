@@ -7,7 +7,7 @@ import { FlatTreeModel } from './flat-tree-model.js';
 import { NestedTreeModel } from './nested-tree-model.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'model' | 'selected' | 'selects'>;
+type Props = Pick<Tree, 'expanded' | 'model' | 'selected' | 'selects'>;
 type Story = StoryObj<Props>;
 
 interface NestedDataNode {
@@ -179,37 +179,38 @@ export default {
       options: ['single', 'multiple']
     }
   },
-  render: ({ model, selected, selects }) =>
-    html`<sl-tree .model=${model} .selected=${selected} .selects=${selects}></sl-tree>`
+  render: ({ expanded, model, selected, selects }) =>
+    html`<sl-tree .expanded=${expanded} .model=${model} .selected=${selected} .selects=${selects}></sl-tree>`
 } satisfies Meta<Props>;
 
 export const FlatModel: Story = {
   args: {
-    model: new FlatTreeModel(
-      flatData,
-      ({ name }) => name,
-      ({ level }) => level,
-      ({ expandable }) => expandable,
-      {
-        getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
-        trackBy: item => item.id
-      }
-    )
+    model: new FlatTreeModel(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable
+    })
   }
 };
 
 export const NestedModel: Story = {
   args: {
-    model: new NestedTreeModel(
-      nestedData,
-      ({ children }) => children,
-      ({ name }) => name,
-      ({ children }) => !!children,
-      {
-        getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
-        trackBy: item => item.id
-      }
-    )
+    model: new NestedTreeModel(nestedData, {
+      getChildren: ({ children }) => children,
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpandable: ({ children }) => !!children
+    })
+  }
+};
+
+export const Expanded: Story = {
+  args: {
+    ...FlatModel.args,
+    expanded: [4, 5]
   }
 };
 
@@ -224,6 +225,7 @@ export const SingleSelect: Story = {
 export const MultiSelect: Story = {
   args: {
     ...FlatModel.args,
+    selected: [16, 17],
     selects: 'multiple'
   }
 };

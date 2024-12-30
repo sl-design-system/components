@@ -1,25 +1,32 @@
 import { SelectionController } from '@sl-design-system/shared';
 import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tree-model.js';
 
+export interface FlatTreeModelOptions<T> extends TreeModelOptions<T> {
+  getLevel(dataNode: T): number;
+}
+
 /**
  * A tree model that represents a flat list of nodes.
  */
-export class FlatTreeModel<T, U extends keyof T> extends TreeModel<T, U> {
+export class FlatTreeModel<T> extends TreeModel<T> {
   constructor(
     public override dataNodes: T[],
-    public getLabel: TreeModel<T, U>['getLabel'],
-    public getLevel: (dataNode: T) => number,
-    public isExpandable: TreeModel<T, U>['isExpandable'],
-    options: Partial<TreeModelOptions<T, U>> = {}
+    options: FlatTreeModelOptions<T>
   ) {
     super(options);
+
+    this.getLevel = options.getLevel;
   }
 
-  override toArray(expansion: SelectionController<T>): Array<TreeModelArrayItem<T>> {
+  getLevel(_dataNode: T): number {
+    return 0;
+  }
+
+  override toArray(expansion: SelectionController): Array<TreeModelArrayItem<T>> {
     let currentLevel = 0;
 
     return this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode, index, array) => {
-      const expanded = expansion.isSelected(dataNode),
+      const expanded = expansion.isSelected(this.getId(dataNode)),
         expandable = this.isExpandable(dataNode),
         level = this.getLevel(dataNode),
         nextLevel = index < array.length - 1 ? this.getLevel(array[index + 1]) : level;

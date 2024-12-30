@@ -5,7 +5,7 @@ import { RovingTabindexController, SelectionController } from '@sl-design-system
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import { TreeModel, type TreeModelArrayItem } from './tree-model.js';
+import { TreeModel, type TreeModelArrayItem, type TreeModelId } from './tree-model.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
 
@@ -25,7 +25,7 @@ export interface TreeItemRendererOptions {
 export type TreeItemRenderer<T = any> = (item: T, options: TreeItemRendererOptions) => TemplateResult;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Tree<T = any, U extends keyof T = keyof T> extends ScopedElementsMixin(LitElement) {
+export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -45,20 +45,23 @@ export class Tree<T = any, U extends keyof T = keyof T> extends ScopedElementsMi
     isFocusableElement: (el: TreeNode) => !el.disabled
   });
 
+  /** The initial expanded tree nodes. */
+  @property({ type: Array }) expanded?: Array<TreeModelId<T>>;
+
   /** Contains the expanded state for the tree. */
-  readonly expansion = new SelectionController<T>(this, { multiple: true });
+  readonly expansion = new SelectionController(this, { multiple: true });
 
   /** The model for the tree. */
-  @property({ attribute: false }) model?: TreeModel<T, U>;
+  @property({ attribute: false }) model?: TreeModel<T>;
 
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 
   /** Contains the selection state for the tree when `selects` is defined. */
-  readonly selection = new SelectionController<T[U]>(this);
+  readonly selection = new SelectionController(this);
 
-  /** The selected tree node(s). */
-  @property() selected?: T[U] | Array<T[U]>;
+  /** The initial selected tree node(s). */
+  @property() selected?: unknown;
 
   /** If you are able to select one or more tree items (at the same time). */
   @property() selects?: 'single' | 'multiple';
@@ -71,6 +74,14 @@ export class Tree<T = any, U extends keyof T = keyof T> extends ScopedElementsMi
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('expanded')) {
+      this.expansion.deselectAll();
+
+      if (this.expanded) {
+        this.expanded.forEach(item => this.expansion.select(item));
+      }
+    }
 
     if (changes.has('selects')) {
       this.selection.multiple = this.selects === 'multiple';
@@ -96,9 +107,7 @@ export class Tree<T = any, U extends keyof T = keyof T> extends ScopedElementsMi
       <div part="wrapper">
         ${virtualize({
           items,
-          keyFunction: this.model?.trackBy
-            ? (item: TreeModelArrayItem<T>) => this.model!.trackBy!(item.dataNode)
-            : undefined,
+          keyFunction: (item: TreeModelArrayItem<T>) => this.model?.getId(item.dataNode),
           renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item)
         })}
       </div>
@@ -108,7 +117,7 @@ export class Tree<T = any, U extends keyof T = keyof T> extends ScopedElementsMi
   renderItem(item: TreeModelArrayItem<T>): TemplateResult {
     const { dataNode, expandable, expanded, lastNodeInLevel, level } = item,
       icon = this.model!.getIcon(dataNode, expanded),
-      selected = this.selection.isSelected(this.model!.trackBy?.(dataNode) || (dataNode as T[U]));
+      selected = this.selection.isSelected(this.model!.getId(dataNode));
 
     return html`
       <sl-tree-node
@@ -137,6 +146,6 @@ export class Tree<T = any, U extends keyof T = keyof T> extends ScopedElementsMi
   }
 
   #onToggle(item: T): void {
-    this.expansion.toggle(item);
+    this.expansion.toggle(this.model?.getId(item));
   }
 }

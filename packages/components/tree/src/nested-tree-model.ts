@@ -1,24 +1,31 @@
 import { type SelectionController } from '@sl-design-system/shared';
 import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tree-model.js';
 
+export interface NestedTreeModelOptions<T> extends TreeModelOptions<T> {
+  getChildren(dataNode: T): T[] | undefined;
+}
+
 /**
  * A tree model that represents a nested list of nodes.
  */
-export class NestedTreeModel<T, U extends keyof T> extends TreeModel<T, U> {
+export class NestedTreeModel<T> extends TreeModel<T> {
   constructor(
     public override dataNodes: T[],
-    public getChildren: (dataNode: T) => T[] | undefined,
-    public getLabel: TreeModel<T, U>['getLabel'],
-    public isExpandable: TreeModel<T, U>['isExpandable'],
-    options: Partial<TreeModelOptions<T, U>> = {}
+    options: NestedTreeModelOptions<T>
   ) {
     super(options);
+
+    this.getChildren = options.getChildren;
   }
 
-  override toArray(expansion: SelectionController<T>): Array<TreeModelArrayItem<T>> {
+  getChildren(_dataNode: T): T[] | undefined {
+    return undefined;
+  }
+
+  override toArray(expansion: SelectionController): Array<TreeModelArrayItem<T>> {
     return this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode) => {
       const expandable = this.isExpandable(dataNode),
-        expanded = expansion.isSelected(dataNode);
+        expanded = expansion.isSelected(this.getId(dataNode));
 
       dataNodes.push({ dataNode, expandable, expanded, level: 0 });
 
@@ -30,7 +37,7 @@ export class NestedTreeModel<T, U extends keyof T> extends TreeModel<T, U> {
     }, []);
   }
 
-  nestedToArray(expansion: SelectionController<T>, dataNode: T, level: number): Array<TreeModelArrayItem<T>> {
+  nestedToArray(expansion: SelectionController, dataNode: T, level: number): Array<TreeModelArrayItem<T>> {
     const children = this.getChildren(dataNode);
 
     if (!Array.isArray(children)) {
@@ -38,7 +45,7 @@ export class NestedTreeModel<T, U extends keyof T> extends TreeModel<T, U> {
     }
 
     return children.reduce((dataNodes: Array<TreeModelArrayItem<T>>, childNode, index, array) => {
-      const expanded = expansion.isSelected(childNode),
+      const expanded = expansion.isSelected(this.getId(childNode)),
         expandable = this.isExpandable(childNode),
         lastNodeInLevel = index === array.length - 1;
 

@@ -8,34 +8,49 @@ export interface TreeModelArrayItem<T> {
   level: number;
 }
 
-export interface TreeModelOptions<T, U extends keyof T> {
-  getIcon: TreeModel<T, U>['getIcon'];
-  trackBy(dataNode: T): T[U];
+export interface TreeModelOptions<T> {
+  getIcon?: TreeModel<T>['getIcon'];
+  getId?: TreeModel<T>['getId'];
+  getLabel: TreeModel<T>['getLabel'];
+  isExpandable: TreeModel<T>['isExpandable'];
 }
+
+export type TreeModelId<T> = ReturnType<TreeModel<T>['getId']>;
 
 /**
  * Abstract class used to provide a common interface for tree data.
  */
-export abstract class TreeModel<T, U extends keyof T> {
+export abstract class TreeModel<T> {
   /** The nodes of the tree. */
   dataNodes: T[] = [];
 
-  /** Used during rendering to determine if a tree node needs to be rerendered. */
-  trackBy?(dataNode: T): T[U];
-
-  constructor(options: Partial<TreeModelOptions<T, U>> = {}) {
+  constructor(options: TreeModelOptions<T>) {
     if (options.getIcon) {
       this.getIcon = options.getIcon;
     }
 
-    this.trackBy = options.trackBy;
+    if (options.getId) {
+      this.getId = options.getId;
+    }
+
+    this.getLabel = options.getLabel;
+    this.isExpandable = options.isExpandable;
   }
 
   /** Returns whether the given node is expandable. */
-  abstract isExpandable(dataNode: T): boolean;
+  isExpandable(_dataNode: T): boolean {
+    return false;
+  }
 
   /** Returns a string that is used as the label for the tree node. */
-  abstract getLabel(dataNode: T): string;
+  getLabel(_dataNode: T): string {
+    return '';
+  }
+
+  /** Used to identify a tree node. */
+  getId(dataNode: T): unknown {
+    return dataNode;
+  }
 
   /** Optional method for returning a custom icon for a tree node. */
   getIcon(_dataNode: T, _expanded?: boolean): string | undefined {
@@ -54,5 +69,5 @@ export abstract class TreeModel<T, U extends keyof T> {
   collapseDescendants(_dataNode: T): void {}
 
   /** Flattens the tree to an array based on the expansion state. */
-  abstract toArray(expansion: SelectionController<T>): Array<TreeModelArrayItem<T>>;
+  abstract toArray(expansion: SelectionController): Array<TreeModelArrayItem<T>>;
 }

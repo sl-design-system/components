@@ -1,4 +1,6 @@
 import { faFile, faFolder, faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -179,8 +181,22 @@ export default {
       options: ['single', 'multiple']
     }
   },
-  render: ({ expanded, model, selected, selects }) =>
-    html`<sl-tree .expanded=${expanded} .model=${model} .selected=${selected} .selects=${selects}></sl-tree>`
+  render: ({ expanded, model, selected, selects }) => {
+    const onToggleTree = () => model?.toggle(4),
+      onToggleTreeDescendants = () => model?.toggleDescendants(4),
+      onExpandAll = () => model?.expandAll(),
+      onCollapseAll = () => model?.collapseAll();
+
+    return html`
+      <sl-button-bar style="margin-block-end: 1rem">
+        <sl-button @click=${onToggleTree}>Toggle "tree"</sl-button>
+        <sl-button @click=${onToggleTreeDescendants}>Toggle all below "tree"</sl-button>
+        <sl-button @click=${onExpandAll}>Expand all</sl-button>
+        <sl-button @click=${onCollapseAll}>Collapse all</sl-button>
+      </sl-button-bar>
+      <sl-tree .expanded=${expanded} .model=${model} .selected=${selected} .selects=${selects}></sl-tree>
+    `;
+  }
 } satisfies Meta<Props>;
 
 export const FlatModel: Story = {
@@ -191,7 +207,8 @@ export const FlatModel: Story = {
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable
-    })
+    }),
+    expanded: [4, 5]
   }
 };
 
@@ -203,13 +220,7 @@ export const NestedModel: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children
-    })
-  }
-};
-
-export const Expanded: Story = {
-  args: {
-    ...FlatModel.args,
+    }),
     expanded: [4, 5]
   }
 };
@@ -217,7 +228,7 @@ export const Expanded: Story = {
 export const SingleSelect: Story = {
   args: {
     ...FlatModel.args,
-    selected: 16,
+    selected: 10,
     selects: 'single'
   }
 };
@@ -225,7 +236,7 @@ export const SingleSelect: Story = {
 export const MultiSelect: Story = {
   args: {
     ...FlatModel.args,
-    selected: [16, 17],
+    selected: [9, 10],
     selects: 'multiple'
   }
 };

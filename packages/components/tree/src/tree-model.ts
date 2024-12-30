@@ -1,5 +1,3 @@
-import { type SelectionController } from '@sl-design-system/shared';
-
 export interface TreeModelArrayItem<T> {
   dataNode: T;
   expanded: boolean;
@@ -20,11 +18,18 @@ export type TreeModelId<T> = ReturnType<TreeModel<T>['getId']>;
 /**
  * Abstract class used to provide a common interface for tree data.
  */
-export abstract class TreeModel<T> {
-  /** The nodes of the tree. */
-  dataNodes: T[] = [];
+export abstract class TreeModel<T> extends EventTarget {
+  /** The expansion state of the tree. */
+  #expansion = new Set<TreeModelId<T>>();
 
-  constructor(options: TreeModelOptions<T>) {
+  /** The nodes of the tree. */
+  readonly dataNodes: T[] = [];
+
+  constructor(dataNodes: T[], options: TreeModelOptions<T>) {
+    super();
+
+    this.dataNodes = dataNodes;
+
     if (options.getIcon) {
       this.getIcon = options.getIcon;
     }
@@ -57,17 +62,52 @@ export abstract class TreeModel<T> {
     return undefined;
   }
 
-  toggle(_dataNode: T): void {}
-  expand(_dataNode: T): void {}
-  collapse(_dataNode: T): void {}
+  toggle(id: TreeModelId<T>): void {
+    if (this.isExpanded(id)) {
+      this.collapse(id);
+    } else {
+      this.expand(id);
+    }
+  }
 
-  expandAll(): void {}
-  collapseAll(): void {}
+  expand(id: TreeModelId<T>): void {
+    this.#expansion.add(id);
+    this.#update();
+  }
 
-  toggleDescendants(_dataNode: T): void {}
-  expandDescendants(_dataNode: T): void {}
-  collapseDescendants(_dataNode: T): void {}
+  collapse(id: TreeModelId<T>): void {
+    this.#expansion.delete(id);
+    this.#update();
+  }
+
+  isExpanded(id: TreeModelId<T>): boolean {
+    return this.#expansion.has(id);
+  }
+
+  expandAll(): void {
+    this.#expansion = new Set(this.dataNodes.map(n => this.getId(n)));
+    this.#update();
+  }
+
+  collapseAll(): void {
+    this.#expansion.clear();
+    this.#update();
+  }
+
+  toggleDescendants(id: TreeModelId<T>): void {
+    console.log('toggleDescendants', id);
+  }
+  expandDescendants(id: TreeModelId<T>): void {
+    console.log('expandDescendants', id);
+  }
+  collapseDescendants(id: TreeModelId<T>): void {
+    console.log('collapseDescendants', id);
+  }
 
   /** Flattens the tree to an array based on the expansion state. */
-  abstract toArray(expansion: SelectionController): Array<TreeModelArrayItem<T>>;
+  abstract toArray(): Array<TreeModelArrayItem<T>>;
+
+  #update(): void {
+    this.dispatchEvent(new Event('sl-update'));
+  }
 }

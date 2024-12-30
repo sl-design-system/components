@@ -37,6 +37,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** The data model for the tree. */
+  #model?: TreeModel<T>;
+
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
     focusInIndex: (elements: TreeNode[]) => elements.findIndex(el => !el.disabled),
@@ -48,11 +51,20 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** The initial expanded tree nodes. */
   @property({ type: Array }) expanded?: Array<TreeModelId<T>>;
 
-  /** Contains the expanded state for the tree. */
-  readonly expansion = new SelectionController(this, { multiple: true });
+  get model() {
+    return this.#model;
+  }
 
   /** The model for the tree. */
-  @property({ attribute: false }) model?: TreeModel<T>;
+  @property({ attribute: false })
+  set model(model: TreeModel<T> | undefined) {
+    if (this.#model) {
+      this.#model.removeEventListener('sl-update', this.#onUpdate);
+    }
+
+    this.#model = model;
+    this.#model?.addEventListener('sl-update', this.#onUpdate);
+  }
 
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
@@ -76,10 +88,10 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('expanded')) {
-      this.expansion.deselectAll();
+      this.model?.collapseAll();
 
       if (this.expanded) {
-        this.expanded.forEach(item => this.expansion.select(item));
+        this.expanded.forEach(item => this.model?.expand(item));
       }
     }
 
@@ -99,7 +111,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const items = this.model?.toArray(this.expansion) ?? [];
+    const items = this.model?.toArray() ?? [];
 
     setTimeout(() => this.#rovingTabindexController.clearElementCache(), 100);
 
@@ -146,6 +158,10 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onToggle(item: T): void {
-    this.expansion.toggle(this.model?.getId(item));
+    this.model?.toggle(this.model?.getId(item));
   }
+
+  #onUpdate = (): void => {
+    this.requestUpdate('model');
+  };
 }

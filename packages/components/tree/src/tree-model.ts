@@ -98,15 +98,12 @@ export abstract class TreeModel<T> extends EventTarget {
   }
 
   /** Expands all expandable tree nodes. */
-  expandAll(emitEvent = true): void {
-    this.#expansion = new Set(this.dataNodes.map(n => this.getId(n)));
-    this.#update(emitEvent);
-  }
+  abstract expandAll(): void;
 
   /** Collapses all expandable tree nodes. */
-  collapseAll(emitEvent = true): void {
+  collapseAll(): void {
     this.#expansion.clear();
-    this.#update(emitEvent);
+    this.#update(true);
   }
 
   /** Toggles the expansion state of all descendants of a given tree node. */

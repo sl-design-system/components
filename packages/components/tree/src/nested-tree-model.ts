@@ -18,6 +18,15 @@ export class NestedTreeModel<T> extends TreeModel<T> {
     return undefined;
   }
 
+  override expandAll(): void {
+    this.dataNodes.forEach(dataNode => {
+      this.expand(this.getId(dataNode), false);
+      this.#toggleChildren(dataNode, true);
+    });
+
+    this.dispatchEvent(new Event('sl-update'));
+  }
+
   override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
     const node = this.#findById(id, this.dataNodes);
     if (!node) {

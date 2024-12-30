@@ -18,6 +18,12 @@ export class FlatTreeModel<T> extends TreeModel<T> {
     return 0;
   }
 
+  override expandAll(): void {
+    this.dataNodes.filter(n => this.isExpandable(n)).forEach(dataNode => this.expand(this.getId(dataNode), false));
+
+    this.dispatchEvent(new Event('sl-update'));
+  }
+
   override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
     const node = this.dataNodes.find(n => this.getId(n) === id);
     if (!node) {

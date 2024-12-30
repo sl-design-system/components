@@ -34,10 +34,10 @@ export abstract class TreeModel<T> {
   /** Returns whether the given node is expandable. */
   abstract isExpandable(dataNode: T): boolean;
 
-  /** Returns a string that is used as the label for the treenode. */
+  /** Returns a string that is used as the label for the tree node. */
   abstract getLabel(dataNode: T): string;
 
-  /** Optional method for returning a custom icon for a treenode. */
+  /** Optional method for returning a custom icon for a tree node. */
   getIcon(_dataNode: T, _expanded?: boolean): string | undefined {
     return undefined;
   }

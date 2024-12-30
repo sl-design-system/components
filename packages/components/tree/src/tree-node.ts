@@ -27,7 +27,7 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** Event controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown
@@ -96,7 +96,7 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     return html`
       <sl-indent-guides
         ?expandable=${this.expandable}
-        .lastNodeInLevel=${this.lastNodeInLevel}
+        ?last-node-in-level=${this.lastNodeInLevel}
         .level=${this.level}
       ></sl-indent-guides>
       ${this.expandable

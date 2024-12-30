@@ -21,18 +21,12 @@ export class FlatTreeModel<T> extends TreeModel<T> {
         level = this.getLevel(dataNode),
         nextLevel = index < array.length - 1 ? this.getLevel(array[index + 1]) : level;
 
-      if (level === currentLevel) {
-        if (expanded) {
-          currentLevel++;
-        }
+      if (level > currentLevel) {
+        return dataNodes;
+      } else {
+        currentLevel = expanded ? level + 1 : level;
 
         return [...dataNodes, { dataNode, expandable, expanded, lastNodeInLevel: level > nextLevel, level }];
-      } else {
-        if (level < currentLevel) {
-          currentLevel = level;
-        }
-
-        return dataNodes;
       }
     }, []);
   }

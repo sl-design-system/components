@@ -101,11 +101,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       <sl-tree-node
         @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, dataNode)}
         @sl-toggle=${() => this.#onToggle(dataNode)}
+        ?checked=${selected && this.selects === 'multiple'}
         ?expandable=${expandable}
         ?expanded=${expanded}
-        ?checked=${selected && this.selects === 'multiple'}
+        ?last-node-in-level=${lastNodeInLevel}
         ?selected=${selected && this.selects === 'single'}
-        .lastNodeInLevel=${lastNodeInLevel}
         .level=${level}
         .selects=${this.selects}
       >

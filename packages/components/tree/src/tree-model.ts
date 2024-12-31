@@ -106,6 +106,9 @@ export abstract class TreeModel<T> extends EventTarget {
     this.#update(true);
   }
 
+  /** Returns an array of all the descendants of a given tree node. */
+  abstract getDescendants(id: TreeModelId<T>): T[];
+
   /** Toggles the expansion state of all descendants of a given tree node. */
   abstract toggleDescendants(id: TreeModelId<T>, force?: boolean): void;
 

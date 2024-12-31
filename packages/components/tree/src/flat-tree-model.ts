@@ -24,14 +24,15 @@ export class FlatTreeModel<T> extends TreeModel<T> {
     this.dispatchEvent(new Event('sl-update'));
   }
 
-  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
+  override getDescendants(id: TreeModelId<T>): T[] {
     const node = this.dataNodes.find(n => this.getId(n) === id);
     if (!node) {
-      return;
+      return [];
     }
 
     const index = this.dataNodes.indexOf(node),
-      level = this.getLevel(node);
+      level = this.getLevel(node),
+      descendants: T[] = [];
 
     for (let i = index + 1; i < this.dataNodes.length; i++) {
       const nextNode = this.dataNodes[i];
@@ -40,8 +41,16 @@ export class FlatTreeModel<T> extends TreeModel<T> {
         break;
       }
 
-      this.toggle(this.getId(nextNode), force, false);
+      descendants.push(nextNode);
     }
+
+    return descendants;
+  }
+
+  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
+    this.getDescendants(id).forEach(nextNode => {
+      this.toggle(this.getId(nextNode), force, false);
+    });
 
     this.dispatchEvent(new Event('sl-update'));
   }

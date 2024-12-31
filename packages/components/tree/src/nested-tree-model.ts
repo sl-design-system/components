@@ -20,20 +20,43 @@ export class NestedTreeModel<T> extends TreeModel<T> {
 
   override expandAll(): void {
     this.dataNodes.forEach(dataNode => {
-      this.expand(this.getId(dataNode), false);
-      this.#toggleChildren(dataNode, true);
+      const id = this.getId(dataNode);
+
+      this.expand(id, false);
+
+      this.getDescendants(id).forEach(nextNode => {
+        this.expand(this.getId(nextNode), false);
+      });
     });
 
     this.dispatchEvent(new Event('sl-update'));
   }
 
-  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
+  override getDescendants(id: TreeModelId<T>): T[] {
     const node = this.#findById(id, this.dataNodes);
     if (!node) {
-      return;
+      return [];
     }
 
-    this.#toggleChildren(node, force);
+    const descendants: T[] = [];
+
+    const traverse = (dataNode: T) => {
+      const children = this.getChildren(dataNode);
+      if (Array.isArray(children)) {
+        descendants.push(...children);
+        children.forEach(traverse);
+      }
+    };
+
+    traverse(node);
+
+    return descendants;
+  }
+
+  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
+    this.getDescendants(id).forEach(nextNode => {
+      this.toggle(this.getId(nextNode), force, false);
+    });
 
     this.dispatchEvent(new Event('sl-update'));
   }
@@ -92,17 +115,5 @@ export class NestedTreeModel<T> extends TreeModel<T> {
     }
 
     return undefined;
-  }
-
-  #toggleChildren(dataNode: T, force?: boolean): void {
-    const children = this.getChildren(dataNode);
-    if (!Array.isArray(children)) {
-      return;
-    }
-
-    for (const child of children) {
-      this.toggle(this.getId(child), force, false);
-      this.#toggleChildren(child, force);
-    }
   }
 }

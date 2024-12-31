@@ -10,10 +10,14 @@ import styles from './tree-node.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-tree-item': TreeNode;
+    'sl-tree-node': TreeNode;
   }
 }
 
+/**
+ * A tree node component. Used to represent a node in a tree. This component
+ * is not public API and is used internally by `<sl-tree>`.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */

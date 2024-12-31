@@ -24,6 +24,10 @@ export interface TreeItemRendererOptions {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TreeItemRenderer<T = any> = (item: T, options: TreeItemRendererOptions) => TemplateResult;
 
+/**
+ * A tree component. Supports both flat and nested data structures. Use this if you
+ * have hierarchical data that you want to display in a tree-like structure.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -149,38 +153,80 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderItem(item: TreeModelArrayItem<T>): TemplateResult {
-    const { dataNode, expandable, expanded, lastNodeInLevel, level } = item,
+    const isSelected = (node: T) => this.selection.isSelected(this.model!.getId(node)),
+      { dataNode, expandable, expanded, lastNodeInLevel, level } = item,
       icon = this.model!.getIcon(dataNode, expanded),
-      selected = this.selection.isSelected(this.model!.getId(dataNode));
+      selected = isSelected(dataNode);
 
-    console.log('renderItem', dataNode, selected);
+    let checked = false,
+      indeterminate = false;
+    if (this.selects === 'multiple') {
+      checked = !expandable && selected;
+
+      if (expandable) {
+        const descendants = this.model!.getDescendants(this.model!.getId(dataNode)).filter(
+          n => !this.model!.isExpandable(n)
+        );
+
+        const someChecked = descendants.some(isSelected);
+
+        if (someChecked) {
+          const allChecked = descendants.every(isSelected);
+
+          if (allChecked) {
+            checked = true;
+          } else if (someChecked) {
+            indeterminate = true;
+          }
+        }
+      }
+    }
 
     return html`
       <sl-tree-node
         @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, dataNode)}
         @sl-toggle=${() => this.#onToggle(dataNode)}
-        ?checked=${selected && this.selects === 'multiple'}
+        ?checked=${checked}
         ?expandable=${expandable}
         ?expanded=${expanded}
         ?hide-guides=${this.hideGuides}
+        ?indeterminate=${indeterminate}
         ?last-node-in-level=${lastNodeInLevel}
         ?selected=${selected && this.selects === 'single'}
         .data=${dataNode}
         .level=${level}
         .selects=${this.selects}
       >
-        ${this.renderer
-          ? this.renderer(dataNode, { expanded, expandable })
-          : html`
-              ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
-              <span>${this.model!.getLabel(dataNode)}</span>
-            `}
+        ${this.renderer?.(dataNode, { expanded, expandable }) ??
+        html`
+          ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+          <span>${this.model!.getLabel(dataNode)}</span>
+        `}
       </sl-tree-node>
     `;
   }
 
-  #onChange(event: SlChangeEvent<boolean>, item: T): void {
-    console.log('event', event, event.detail, item);
+  #onChange(event: SlChangeEvent<boolean>, node: T): void {
+    const id = this.model!.getId(node),
+      expandable = this.model!.isExpandable(node);
+
+    if (expandable) {
+      const descendants = this.model!.getDescendants(id).filter(n => !this.model!.isExpandable(n));
+
+      descendants.forEach(n => {
+        if (event.detail) {
+          this.selection.select(this.model!.getId(n));
+        } else {
+          this.selection.deselect(this.model!.getId(n));
+        }
+      });
+    } else {
+      if (event.detail) {
+        this.selection.select(id);
+      } else {
+        this.selection.deselect(id);
+      }
+    }
   }
 
   #onSelect(event: SlSelectEvent<T>): void {

@@ -8,6 +8,10 @@ declare global {
   }
 }
 
+/**
+ * A component that renders indentation guides for tree nodes. This component
+ * is not public API and is used internally by `<sl-tree>`.
+ */
 export class IndentGuides extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;

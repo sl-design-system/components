@@ -165,15 +165,22 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === 'Enter') {
       event.preventDefault();
 
       this.selectEvent.emit(this.data!);
-    } else if (
-      this.expandable &&
-      ((event.key === 'ArrowRight' && !this.expanded) || (event.key === 'ArrowLeft' && this.expanded))
-    ) {
-      this.toggle();
+    } else if (event.key === 'ArrowLeft') {
+      if (this.expandable && this.expanded) {
+        this.toggle();
+      } else {
+        console.log('Focus the parent');
+      }
+    } else if (event.key === 'ArrowRight') {
+      if (this.expandable && !this.expanded) {
+        this.toggle();
+      } else if (this.expanded) {
+        console.log('Focus the first child');
+      }
     }
   }
 }

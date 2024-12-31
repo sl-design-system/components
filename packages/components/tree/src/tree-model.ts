@@ -42,10 +42,17 @@ export abstract class TreeModel<T> extends EventTarget {
     this.isExpandable = options.isExpandable;
   }
 
-  /** Returns whether the given node is expandable. */
-  isExpandable(_dataNode: T): boolean {
-    return false;
-  }
+  /** Returns an array of all the descendants of a given tree node. */
+  abstract getDescendants(id: TreeModelId<T>): T[];
+
+  /** Returns the parent node or `undefined` if the node is a root node. */
+  abstract getParent(id: TreeModelId<T>): T | undefined;
+
+  /** Returns an array of all siblings of a given tree node. */
+  abstract getSiblings(id: TreeModelId<T>): T[];
+
+  /** Flattens the tree to an array based on the expansion state. */
+  abstract toArray(): Array<TreeModelArrayItem<T>>;
 
   /**
    * Returns a string that is used as the label for the tree node.
@@ -64,6 +71,11 @@ export abstract class TreeModel<T> extends EventTarget {
   /** Optional method for returning a custom icon for a tree node. */
   getIcon(_dataNode: T, _expanded?: boolean): string | undefined {
     return undefined;
+  }
+
+  /** Returns whether the given node is expandable. */
+  isExpandable(_dataNode: T): boolean {
+    return false;
   }
 
   /**
@@ -98,7 +110,16 @@ export abstract class TreeModel<T> extends EventTarget {
   }
 
   /** Expands all expandable tree nodes. */
-  abstract expandAll(): void;
+  expandAll(): void {
+    this.dataNodes.forEach(node => {
+      const id = this.getId(node);
+
+      this.expand(id, false);
+      this.expandDescendants(id);
+    });
+
+    this.dispatchEvent(new Event('sl-update'));
+  }
 
   /** Collapses all expandable tree nodes. */
   collapseAll(): void {
@@ -106,11 +127,14 @@ export abstract class TreeModel<T> extends EventTarget {
     this.#update(true);
   }
 
-  /** Returns an array of all the descendants of a given tree node. */
-  abstract getDescendants(id: TreeModelId<T>): T[];
-
   /** Toggles the expansion state of all descendants of a given tree node. */
-  abstract toggleDescendants(id: TreeModelId<T>, force?: boolean): void;
+  toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
+    this.getDescendants(id).forEach(nextNode => {
+      this.toggle(this.getId(nextNode), force, false);
+    });
+
+    this.dispatchEvent(new Event('sl-update'));
+  }
 
   /** Expands all descendants of a given tree node. */
   expandDescendants(id: TreeModelId<T>): void {
@@ -121,9 +145,6 @@ export abstract class TreeModel<T> extends EventTarget {
   collapseDescendants(id: TreeModelId<T>): void {
     this.toggleDescendants(id, false);
   }
-
-  /** Flattens the tree to an array based on the expansion state. */
-  abstract toArray(): Array<TreeModelArrayItem<T>>;
 
   #update(emitEvent: boolean): void {
     if (emitEvent) {

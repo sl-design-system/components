@@ -142,7 +142,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     setTimeout(() => this.#rovingTabindexController.clearElementCache(), 100);
 
     return html`
-      <div @sl-select=${this.#onSelect} part="wrapper">
+      <div @keydown=${this.#onKeydown} @sl-select=${this.#onSelect} part="wrapper">
         ${virtualize({
           items,
           keyFunction: (item: TreeModelArrayItem<T>) => this.model?.getId(item.dataNode),
@@ -226,6 +226,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       } else {
         this.selection.deselect(id);
       }
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === '*' && event.target instanceof TreeNode) {
+      console.log('Expand all siblings');
     }
   }
 

@@ -18,12 +18,6 @@ export class FlatTreeModel<T> extends TreeModel<T> {
     return 0;
   }
 
-  override expandAll(): void {
-    this.dataNodes.filter(n => this.isExpandable(n)).forEach(dataNode => this.expand(this.getId(dataNode), false));
-
-    this.dispatchEvent(new Event('sl-update'));
-  }
-
   override getDescendants(id: TreeModelId<T>): T[] {
     const node = this.dataNodes.find(n => this.getId(n) === id);
     if (!node) {
@@ -47,12 +41,46 @@ export class FlatTreeModel<T> extends TreeModel<T> {
     return descendants;
   }
 
-  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
-    this.getDescendants(id).forEach(nextNode => {
-      this.toggle(this.getId(nextNode), force, false);
-    });
+  override getParent(id: TreeModelId<T>): T | undefined {
+    const node = this.dataNodes.find(n => this.getId(n) === id);
+    if (!node) {
+      return undefined;
+    }
 
-    this.dispatchEvent(new Event('sl-update'));
+    const level = this.getLevel(node);
+
+    for (let i = this.dataNodes.indexOf(node) - 1; i >= 0; i--) {
+      const prevNode = this.dataNodes[i];
+
+      if (this.getLevel(prevNode) < level) {
+        return prevNode;
+      }
+    }
+
+    return undefined;
+  }
+
+  override getSiblings(id: TreeModelId<T>): T[] {
+    const node = this.dataNodes.find(n => this.getId(n) === id);
+    if (!node) {
+      return [];
+    }
+
+    const index = this.dataNodes.indexOf(node),
+      level = this.getLevel(node),
+      siblings: T[] = [];
+
+    for (let i = index + 1; i < this.dataNodes.length; i++) {
+      const nextNode = this.dataNodes[i];
+
+      if (this.getLevel(nextNode) === level) {
+        break;
+      }
+
+      siblings.push(nextNode);
+    }
+
+    return siblings;
   }
 
   override toArray(): Array<TreeModelArrayItem<T>> {

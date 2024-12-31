@@ -18,20 +18,6 @@ export class NestedTreeModel<T> extends TreeModel<T> {
     return undefined;
   }
 
-  override expandAll(): void {
-    this.dataNodes.forEach(dataNode => {
-      const id = this.getId(dataNode);
-
-      this.expand(id, false);
-
-      this.getDescendants(id).forEach(nextNode => {
-        this.expand(this.getId(nextNode), false);
-      });
-    });
-
-    this.dispatchEvent(new Event('sl-update'));
-  }
-
   override getDescendants(id: TreeModelId<T>): T[] {
     const node = this.#findById(id, this.dataNodes);
     if (!node) {
@@ -42,6 +28,7 @@ export class NestedTreeModel<T> extends TreeModel<T> {
 
     const traverse = (dataNode: T) => {
       const children = this.getChildren(dataNode);
+
       if (Array.isArray(children)) {
         descendants.push(...children);
         children.forEach(traverse);
@@ -53,12 +40,40 @@ export class NestedTreeModel<T> extends TreeModel<T> {
     return descendants;
   }
 
-  override toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
-    this.getDescendants(id).forEach(nextNode => {
-      this.toggle(this.getId(nextNode), force, false);
-    });
+  override getParent(id: TreeModelId<T>): T | undefined {
+    const traverse = (dataNodes: T[]): T | undefined => {
+      for (const dataNode of dataNodes) {
+        const children = this.getChildren(dataNode);
 
-    this.dispatchEvent(new Event('sl-update'));
+        if (Array.isArray(children)) {
+          if (children.find(child => this.getId(child) === id)) {
+            return dataNode;
+          } else {
+            const found = traverse(children);
+
+            if (found) {
+              return found;
+            }
+          }
+        }
+      }
+
+      return undefined;
+    };
+
+    return traverse(this.dataNodes);
+  }
+
+  override getSiblings(id: TreeModelId<T>): T[] {
+    for (const dataNode of this.dataNodes) {
+      const children = this.getChildren(dataNode);
+
+      if (Array.isArray(children) && children.find(child => this.getId(child) === id)) {
+        return children;
+      }
+    }
+
+    return [];
   }
 
   override toArray(): Array<TreeModelArrayItem<T>> {

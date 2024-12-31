@@ -72,6 +72,14 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 
+  /**
+   * The custom elements used for rendering this tree. If you are using a custom renderer
+   * to render the tree nodes, any custom elements you use in the renderer need to be specified
+   * via this property. Otherwise those custom elements will not initialize, since the tree
+   * uses a Scoped Custom Element Registry.
+   */
+  @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
+
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<T>>;
 
@@ -98,6 +106,14 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (this.expanded) {
         this.expanded.forEach(item => this.model?.expand(item));
+      }
+    }
+
+    if (changes.has('scopedElements') && this.scopedElements) {
+      for (const [tagName, klass] of Object.entries(this.scopedElements)) {
+        if (!this.registry?.get(tagName)) {
+          this.registry?.define(tagName, klass);
+        }
       }
     }
 
@@ -170,8 +186,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   #onSelect(event: SlSelectEvent<T>): void {
     event.preventDefault();
     event.stopPropagation();
-
-    console.log('select', this.model!.getId(event.detail));
 
     this.selection.select(this.model!.getId(event.detail));
   }

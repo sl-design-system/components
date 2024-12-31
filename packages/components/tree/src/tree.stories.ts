@@ -1,16 +1,28 @@
-import { faFile, faFolder, faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
+import { faFile, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { ButtonBar } from '@sl-design-system/button-bar';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import '../register.js';
 import { FlatTreeModel } from './flat-tree-model.js';
 import { NestedTreeModel } from './nested-tree-model.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'expanded' | 'hideGuides' | 'model' | 'selected' | 'selects'>;
+type Props = Pick<
+  Tree,
+  'expanded' | 'hideGuides' | 'model' | 'renderer' | 'scopedElements' | 'selected' | 'selects'
+> & { styles?: string };
 type Story = StoryObj<Props>;
+
+interface FlatDataNode {
+  id: number;
+  expandable: boolean;
+  level: number;
+  name: string;
+}
 
 interface NestedDataNode {
   id: number;
@@ -18,9 +30,9 @@ interface NestedDataNode {
   children?: NestedDataNode[];
 }
 
-Icon.register(faFile, faFolder, faFolderOpen);
+Icon.register(faFile, faFolder, faFolderOpen, faPen, faTrash);
 
-const flatData = [
+const flatData: FlatDataNode[] = [
   {
     id: 0,
     expandable: true,
@@ -178,18 +190,31 @@ export default {
     model: {
       table: { disable: true }
     },
+    renderer: {
+      table: { disable: true }
+    },
     selects: {
       control: 'inline-radio',
       options: ['single', 'multiple']
+    },
+    styles: {
+      table: { disable: true }
     }
   },
-  render: ({ expanded, hideGuides, model, selected, selects }) => {
+  render: ({ expanded, hideGuides, model, renderer, scopedElements, selected, selects, styles }) => {
     const onToggleTree = () => model?.toggle(4),
       onToggleTreeDescendants = () => model?.toggleDescendants(4),
       onExpandAll = () => model?.expandAll(),
       onCollapseAll = () => model?.collapseAll();
 
     return html`
+      ${styles
+        ? html`
+            <style>
+              ${styles}
+            </style>
+          `
+        : nothing}
       <sl-button-bar style="margin-block-end: 1rem">
         <sl-button @click=${onToggleTree}>Toggle "tree"</sl-button>
         <sl-button @click=${onToggleTreeDescendants}>Toggle all below "tree"</sl-button>
@@ -200,6 +225,8 @@ export default {
         ?hide-guides=${hideGuides}
         .expanded=${expanded}
         .model=${model}
+        .renderer=${renderer}
+        .scopedElements=${scopedElements}
         .selected=${selected}
         .selects=${selects}
       ></sl-tree>
@@ -246,5 +273,39 @@ export const MultiSelect: Story = {
     ...FlatModel.args,
     selected: [9, 10],
     selects: 'multiple'
+  }
+};
+
+export const CustomRenderer: Story = {
+  args: {
+    ...FlatModel.args,
+    renderer: (node, { expanded }) => {
+      const { name } = node as FlatDataNode,
+        icon = name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`;
+
+      return html`
+        ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+        <span>${name}</span>
+        <sl-button-bar part="button-bar">
+          <sl-button fill="ghost" size="sm">
+            <sl-icon name="far-pen"></sl-icon>
+          </sl-button>
+          <sl-button fill="ghost" size="sm">
+            <sl-icon name="far-trash"></sl-icon>
+          </sl-button>
+        </sl-button-bar>
+      `;
+    },
+    scopedElements: {
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
+    },
+    styles: `
+      sl-tree::part(button-bar) {
+        flex: inherit;
+        margin-inline-start: auto;
+      }
+    `
   }
 };

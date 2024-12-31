@@ -161,9 +161,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (!this.expandable) {
-      return;
-    } else if ((event.key === 'ArrowRight' && !this.expanded) || (event.key === 'ArrowLeft' && this.expanded)) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+
+      this.selectEvent.emit(this.data!);
+    } else if (
+      this.expandable &&
+      ((event.key === 'ArrowRight' && !this.expanded) || (event.key === 'ArrowLeft' && this.expanded))
+    ) {
       this.toggle();
     }
   }

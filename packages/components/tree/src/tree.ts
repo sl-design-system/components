@@ -47,7 +47,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
     focusInIndex: (elements: TreeNode[]) => elements.findIndex(el => !el.disabled),
-    direction: 'vertical',
     elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) || [],
     isFocusableElement: (el: TreeNode) => !el.disabled
   });

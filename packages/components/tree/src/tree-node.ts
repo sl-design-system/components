@@ -147,6 +147,11 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     this.indeterminate = false;
   }
 
+  /**
+   * If the user clicked on the wrapper part of the tree node,
+   * emit the select event. Otherwise, if the node is expandable,
+   * toggle the expanded state.
+   */
   #onClick(event: Event): void {
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
@@ -171,16 +176,20 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
       this.selectEvent.emit(this.data!);
     } else if (event.key === 'ArrowLeft') {
-      if (this.expandable && this.expanded) {
+      if (this.expanded) {
+        event.preventDefault();
+
         this.toggle();
-      } else if (this.previousElementSibling instanceof TreeNode) {
-        this.previousElementSibling?.focus();
+      } else if (this.level === 0) {
+        event.preventDefault();
       }
     } else if (event.key === 'ArrowRight') {
       if (this.expandable && !this.expanded) {
+        event.preventDefault();
+
         this.toggle();
-      } else if (this.expanded && this.nextElementSibling instanceof TreeNode) {
-        this.nextElementSibling?.focus();
+      } else if (!this.expandable) {
+        event.preventDefault();
       }
     }
   }

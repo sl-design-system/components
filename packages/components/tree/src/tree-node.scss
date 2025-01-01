@@ -15,7 +15,7 @@
 }
 
 :host([hide-guides]) sl-indent-guides {
-  --_guide-color: transparent;
+  color: transparent;
 }
 
 :host([selected]) {

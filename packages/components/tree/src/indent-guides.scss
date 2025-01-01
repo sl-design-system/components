@@ -1,8 +1,6 @@
 :host {
-  --_guide-color: var(--sl-color-border-plain);
-  --_guide-size: var(--sl-size-borderWidth-subtle);
-
   align-items: stretch;
+  color: var(--sl-color-border-plain);
   display: flex;
   padding-inline-end: calc(var(--sl-space-200) + var(--sl-space-025));
 }
@@ -18,9 +16,9 @@
 
   &::before {
     block-size: 100%;
-    border-block-end: var(--_guide-size) solid var(--_guide-color);
+    border-block-end: var(--sl-size-borderWidth-subtle) solid currentcolor;
     border-end-start-radius: var(--sl-size-050);
-    border-inline-start: var(--_guide-size) solid var(--_guide-color);
+    border-inline-start: var(--sl-size-borderWidth-subtle) solid currentcolor;
     content: '';
     inline-size: var(--sl-space-050);
     inset: 100% auto auto 0;
@@ -29,7 +27,7 @@
 }
 
 [part='guide'] {
-  background: var(--_guide-color);
-  inline-size: var(--_guide-size);
+  background: currentcolor;
+  inline-size: var(--sl-size-borderWidth-subtle);
   margin-inline-start: var(--sl-space-150);
 }

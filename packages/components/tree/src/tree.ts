@@ -230,8 +230,16 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    // Expands all siblings that are at the same level as the current node.
+    // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
     if (event.key === '*' && event.target instanceof TreeNode) {
-      console.log('Expand all siblings');
+      event.preventDefault();
+
+      const id = this.model?.getId(event.target.data as T);
+
+      this.model?.getSiblings(id).forEach(sibling => {
+        this.model?.expand(this.model.getId(sibling));
+      });
     }
   }
 

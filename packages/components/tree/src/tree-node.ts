@@ -164,6 +164,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  /** See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction */
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       event.preventDefault();
@@ -172,14 +173,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     } else if (event.key === 'ArrowLeft') {
       if (this.expandable && this.expanded) {
         this.toggle();
-      } else {
-        console.log('Focus the parent');
+      } else if (this.previousElementSibling instanceof TreeNode) {
+        this.previousElementSibling?.focus();
       }
     } else if (event.key === 'ArrowRight') {
       if (this.expandable && !this.expanded) {
         this.toggle();
-      } else if (this.expanded) {
-        console.log('Focus the first child');
+      } else if (this.expanded && this.nextElementSibling instanceof TreeNode) {
+        this.nextElementSibling?.focus();
       }
     }
   }

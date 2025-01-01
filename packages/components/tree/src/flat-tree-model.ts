@@ -70,14 +70,28 @@ export class FlatTreeModel<T> extends TreeModel<T> {
       level = this.getLevel(node),
       siblings: T[] = [];
 
-    for (let i = index + 1; i < this.dataNodes.length; i++) {
-      const nextNode = this.dataNodes[i];
+    // Get siblings before the node
+    for (let i = index - 1; i >= 0; i--) {
+      const prevNode = this.dataNodes[i],
+        prevLevel = this.getLevel(prevNode);
 
-      if (this.getLevel(nextNode) === level) {
+      if (prevLevel < level) {
         break;
+      } else if (prevLevel === level) {
+        siblings.unshift(prevNode);
       }
+    }
 
-      siblings.push(nextNode);
+    // Get siblings after the node
+    for (let i = index + 1; i < this.dataNodes.length; i++) {
+      const nextNode = this.dataNodes[i],
+        nextLevel = this.getLevel(nextNode);
+
+      if (nextLevel < level) {
+        break;
+      } else if (nextLevel === level) {
+        siblings.push(nextNode);
+      }
     }
 
     return siblings;

@@ -122,6 +122,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('selects')) {
       this.selection.multiple = this.selects === 'multiple';
+
+      if (this.selects === 'multiple') {
+        this.setAttribute('aria-multiselectable', 'true');
+      } else {
+        this.removeAttribute('aria-multiselectable');
+      }
     }
 
     if (changes.has('selected')) {
@@ -145,13 +151,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ${virtualize({
           items,
           keyFunction: (item: TreeModelArrayItem<T>) => this.model?.getId(item.dataNode),
-          renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item)
+          renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item, items)
         })}
       </div>
     `;
   }
 
-  renderItem(item: TreeModelArrayItem<T>): TemplateResult {
+  renderItem(item: TreeModelArrayItem<T>, items: Array<TreeModelArrayItem<T>>): TemplateResult {
     const isSelected = (node: T) => this.selection.isSelected(this.model!.getId(node)),
       { dataNode, expandable, expanded, lastNodeInLevel, level } = item,
       icon = this.model!.getIcon(dataNode, expanded),
@@ -195,6 +201,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         .data=${dataNode}
         .level=${level}
         .selects=${this.selects}
+        aria-level=${level}
+        aria-setsize=${items.length}
       >
         ${this.renderer?.(dataNode, { expanded, expandable }) ??
         html`

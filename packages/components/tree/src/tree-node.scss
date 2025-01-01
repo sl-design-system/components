@@ -10,11 +10,7 @@
   transition: background 0.2s ease-in-out;
 }
 
-:host(:not([expandable])) {
-  --_expander-indent: var(--_expander-size);
-}
-
-:host([expanded]) sl-icon {
+:host([aria-expanded='true']) sl-icon {
   rotate: 90deg;
 }
 

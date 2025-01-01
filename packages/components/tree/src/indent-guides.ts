@@ -1,4 +1,4 @@
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './indent-guides.scss.js';
 
@@ -23,18 +23,12 @@ export class IndentGuides extends LitElement {
   @property({ type: Boolean, attribute: 'last-node-in-level', reflect: true }) lastNodeInLevel?: boolean;
 
   /** Level of indentation. */
-  @property({ type: Number, reflect: true }) level = 0;
+  @property({ type: Number }) level = 0;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.setAttribute('aria-hidden', 'true');
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    if (changes.has('level')) {
-      this.style.setProperty('--guide-level', this.level.toString());
-    }
   }
 
   override render(): TemplateResult[] {

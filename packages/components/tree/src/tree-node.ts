@@ -51,7 +51,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean }) expandable?: boolean;
 
   /** Indicates whether the node is expanded or collapsed. */
-  @property({ type: Boolean, reflect: true }) expanded?: boolean;
+  @property({ type: Boolean }) expanded?: boolean;
 
   /** Hides the indentation guides when set. */
   @property({ type: Boolean, attribute: 'hide-guides', reflect: true }) hideGuides?: boolean;
@@ -63,7 +63,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'last-node-in-level' }) lastNodeInLevel?: boolean;
 
   /** The depth level of this node, 0 being the root of the tree. */
-  @property({ type: Number, reflect: true }) level = 0;
+  @property({ type: Number }) level = 0;
 
   /** @internal Emits when the user clicks a the wrapper part of the tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<T>>;
@@ -95,14 +95,18 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       }
 
       if (this.selects === 'single') {
-        this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+        this.setAttribute('aria-selected', Boolean(this.selected).toString());
       } else {
         this.removeAttribute('aria-selected');
       }
     }
 
-    if (changes.has('expanded')) {
-      this.toggleAttribute('aria-expanded', this.expanded);
+    if (changes.has('expandable') || changes.has('expanded')) {
+      if (this.expandable) {
+        this.setAttribute('aria-expanded', Boolean(this.expanded).toString());
+      } else {
+        this.removeAttribute('aria-expanded');
+      }
     }
   }
 

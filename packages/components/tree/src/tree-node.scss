@@ -77,8 +77,8 @@ sl-icon {
 
 sl-checkbox {
   align-items: center;
-  font: inherit;
-  line-height: inherit;
+  font: inherit; // FIXME: Remove when checkbox styling has been refactored
+  line-height: inherit; // FIXME: Same as above
 
   &::part(label) {
     align-items: center;

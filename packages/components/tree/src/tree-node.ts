@@ -38,6 +38,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     keydown: this.#onKeydown
   });
 
+  /** @internal Emits when the checked state of the checkbox changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<boolean>>;
+
   /** Determines whether the checkbox is checked or not. */
   @property({ type: Boolean }) checked?: boolean;
 
@@ -133,6 +136,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                 ?indeterminate=${this.indeterminate}
                 size="sm"
               >
+                <input slot="input" tabindex="-1" type="checkbox" />
                 <slot></slot>
               </sl-checkbox>
             `
@@ -147,8 +151,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onChange(event: SlChangeEvent<boolean>): void {
+    event.preventDefault();
+    event.stopPropagation();
+
     this.checked = event.detail;
     this.indeterminate = false;
+    this.changeEvent.emit(this.checked);
   }
 
   /**
@@ -178,7 +186,13 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (event.key === 'Enter') {
       event.preventDefault();
 
-      this.selectEvent.emit(this.data!);
+      if (this.selects === 'multiple') {
+        this.checked = !this.checked;
+        this.indeterminate = false;
+        this.changeEvent.emit(this.checked);
+      } else {
+        this.selectEvent.emit(this.data!);
+      }
     } else if (event.key === 'ArrowLeft') {
       if (this.expanded) {
         event.preventDefault();

@@ -16,7 +16,7 @@ const config = {
     'packages/components/**/src/**/*.spec.ts',
   ],
 
-  browsers: [playwrightLauncher({ product: 'chromium', createPage: ({ context }) => context.newPage({ locale: 'nl' }) })],
+  browsers: [playwrightLauncher({ product: 'chromium' })],
   plugins: [a11ySnapshotPlugin(), esbuildPlugin({ ts: true, tsconfig: './tsconfig.base.json' })],
 
   filterBrowserLogs: ({ type, args }) => {

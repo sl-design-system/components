@@ -192,7 +192,8 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       return;
     }
 
-    if (event.target instanceof HTMLLabelElement) {
+    const label = event.composedPath().find((el): el is HTMLLabelElement => el instanceof HTMLLabelElement);
+    if (label?.parentElement === this) {
       this.input.click();
     }
 

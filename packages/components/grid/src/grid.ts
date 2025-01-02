@@ -13,7 +13,6 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -164,7 +163,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #sorters: Array<GridSorter<T>> = [];
 
   /** The virtualizer instance for the grid. */
-  #virtualizer?: Virtualizer;
+  #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -272,7 +271,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     await new Promise(resolve => requestAnimationFrame(resolve));
 
     const host = this.tbody as VirtualizerHostElement;
-    this.#virtualizer = host[virtualizerRef] as Virtualizer;
+    this.#virtualizer = host[virtualizerRef];
     this.#virtualizer?.disconnected();
     this.#virtualizer?.connected();
   }

@@ -1,10 +1,10 @@
-import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
+import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, RovingTabindexController, SelectionController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { TreeModel, type TreeModelArrayItem, type TreeModelId } from './tree-model.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
@@ -13,6 +13,14 @@ declare global {
   interface HTMLElementTagNameMap {
     'sl-tree': Tree;
   }
+}
+
+/** @internal Item structure used for rendering `<sl-tree-node>`s. */
+interface TreeItem<T> extends TreeModelArrayItem<T> {
+  checked?: boolean;
+  icon?: string;
+  indeterminate?: boolean;
+  selected?: boolean;
 }
 
 export interface TreeItemRendererOptions {
@@ -47,15 +55,21 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
     focusInIndex: (elements: TreeNode[]) => elements.findIndex(el => !el.disabled),
-    elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) || [],
+    elements: () => Array.from(this.shadowRoot?.querySelectorAll('sl-tree-node') ?? []),
     isFocusableElement: (el: TreeNode) => !el.disabled
   });
+
+  /** The virtualizer instance. */
+  #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   /** The initial expanded tree nodes. */
   @property({ type: Array }) expanded?: Array<TreeModelId<T>>;
 
   /** Hides the indentation guides when set. */
   @property({ type: Boolean, attribute: 'hide-guides' }) hideGuides?: boolean;
+
+  /** @internal The array of items to be rendered. */
+  @state() items?: Array<TreeItem<T>>;
 
   get model() {
     return this.#model;
@@ -70,6 +84,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.#model = model;
     this.#model?.addEventListener('sl-update', this.#onUpdate);
+
+    // Trigger first update
+    void this.#onUpdate();
   }
 
   /** Custom renderer function for tree items. */
@@ -99,6 +116,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.role = 'tree';
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    const host = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
+    this.#virtualizer = host[virtualizerRef];
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -141,51 +165,31 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('items')) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      this.#virtualizer?.layoutComplete.then(() => {
+        this.#rovingTabindexController.clearElementCache();
+      });
+    }
+  }
+
   override render(): TemplateResult {
-    const items = this.model?.toArray() ?? [];
-
-    setTimeout(() => this.#rovingTabindexController.clearElementCache(), 100);
-
     return html`
       <div @keydown=${this.#onKeydown} @sl-select=${this.#onSelect} part="wrapper">
         ${virtualize({
-          items,
+          items: this.items,
           keyFunction: (item: TreeModelArrayItem<T>) => this.model?.getId(item.dataNode),
-          renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item, items)
+          renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item)
         })}
       </div>
     `;
   }
 
-  renderItem(item: TreeModelArrayItem<T>, items: Array<TreeModelArrayItem<T>>): TemplateResult {
-    const isSelected = (node: T) => this.selection.isSelected(this.model!.getId(node)),
-      { dataNode, expandable, expanded, lastNodeInLevel, level } = item,
-      icon = this.model!.getIcon(dataNode, expanded),
-      selected = isSelected(dataNode);
-
-    let checked = false,
-      indeterminate = false;
-    if (this.selects === 'multiple') {
-      checked = !expandable && selected;
-
-      if (expandable) {
-        const descendants = this.model!.getDescendants(this.model!.getId(dataNode)).filter(
-          n => !this.model!.isExpandable(n)
-        );
-
-        const someChecked = descendants.some(isSelected);
-
-        if (someChecked) {
-          const allChecked = descendants.every(isSelected);
-
-          if (allChecked) {
-            checked = true;
-          } else if (someChecked) {
-            indeterminate = true;
-          }
-        }
-      }
-    }
+  renderItem(item: TreeItem<T>): TemplateResult {
+    const { checked, dataNode, expandable, expanded, icon, indeterminate, lastNodeInLevel, level, selected } = item;
 
     return html`
       <sl-tree-node
@@ -202,7 +206,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         .level=${level}
         .selects=${this.selects}
         aria-level=${level}
-        aria-setsize=${items.length}
       >
         ${this.renderer?.(dataNode, { expanded, expandable }) ??
         html`
@@ -213,20 +216,22 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onChange(event: SlChangeEvent<boolean>, node: T): void {
+  async #onChange(event: SlChangeEvent<boolean>, node: T): Promise<void> {
     const id = this.model!.getId(node),
       expandable = this.model!.isExpandable(node);
 
     if (expandable) {
-      const descendants = this.model!.getDescendants(id).filter(n => !this.model!.isExpandable(n));
+      const descendants = await this.model!.getDescendants(id);
 
-      descendants.forEach(n => {
-        if (event.detail) {
-          this.selection.select(this.model!.getId(n));
-        } else {
-          this.selection.deselect(this.model!.getId(n));
-        }
-      });
+      descendants
+        .filter(n => !this.model!.isExpandable(n))
+        .forEach(n => {
+          if (event.detail) {
+            this.selection.select(this.model!.getId(n));
+          } else {
+            this.selection.deselect(this.model!.getId(n));
+          }
+        });
     } else {
       if (event.detail) {
         this.selection.select(id);
@@ -234,19 +239,21 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         this.selection.deselect(id);
       }
     }
+
+    await this.#onUpdate();
   }
 
-  #onKeydown(event: KeyboardEvent): void {
+  async #onKeydown(event: KeyboardEvent): Promise<void> {
     // Expands all siblings that are at the same level as the current node.
     // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
     if (event.key === '*' && event.target instanceof TreeNode) {
       event.preventDefault();
 
-      const id = this.model?.getId(event.target.data as T);
+      const id = this.model?.getId(event.target.data as T),
+        siblings = await this.model?.getSiblings(id);
 
-      this.model?.getSiblings(id).forEach(sibling => {
-        this.model?.expand(this.model.getId(sibling));
-      });
+      siblings?.forEach(sibling => this.model?.expand(this.model.getId(sibling), false));
+      await this.#onUpdate();
     }
   }
 
@@ -255,13 +262,57 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.selection.select(this.model!.getId(event.detail));
+    void this.#onUpdate();
   }
 
   #onToggle(item: T): void {
     this.model?.toggle(this.model?.getId(item));
   }
 
-  #onUpdate = (): void => {
-    this.requestUpdate('model');
+  #onUpdate = async (): Promise<void> => {
+    this.items = await this.model?.toArray();
+
+    const isSelected = (node: T) => this.selection.isSelected(this.model!.getId(node));
+
+    if (this.selects === 'multiple' && this.items) {
+      this.items = await Promise.all(
+        this.items.map(async item => {
+          const { expanded, expandable, dataNode } = item,
+            icon = this.model!.getIcon(dataNode, expanded),
+            selected = isSelected(dataNode);
+
+          let checked = !expandable && selected,
+            indeterminate = false;
+          if (expandable) {
+            const descendants = (await this.model!.getDescendants(this.model!.getId(dataNode))).filter(
+              n => !this.model!.isExpandable(n)
+            );
+
+            const someChecked = descendants.some(isSelected);
+
+            if (someChecked) {
+              const allChecked = descendants.every(isSelected);
+
+              if (allChecked) {
+                checked = true;
+              } else if (someChecked) {
+                indeterminate = true;
+              }
+            }
+          }
+
+          return { ...item, checked, icon, indeterminate, selected };
+        })
+      );
+    } else {
+      this.items = this.items?.map(item => {
+        const icon = this.model!.getIcon(item.dataNode, item.expanded),
+          selected = isSelected(item.dataNode);
+
+        return { ...item, icon, selected };
+      });
+    }
+
+    console.log(this.items);
   };
 }

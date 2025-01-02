@@ -18,10 +18,10 @@ export class FlatTreeModel<T> extends TreeModel<T> {
     return 0;
   }
 
-  override getDescendants(id: TreeModelId<T>): T[] {
+  override getDescendants(id: TreeModelId<T>): Promise<T[]> {
     const node = this.dataNodes.find(n => this.getId(n) === id);
     if (!node) {
-      return [];
+      return Promise.resolve([]);
     }
 
     const index = this.dataNodes.indexOf(node),
@@ -38,13 +38,13 @@ export class FlatTreeModel<T> extends TreeModel<T> {
       descendants.push(nextNode);
     }
 
-    return descendants;
+    return Promise.resolve(descendants);
   }
 
-  override getParent(id: TreeModelId<T>): T | undefined {
+  override getParent(id: TreeModelId<T>): Promise<T | undefined> {
     const node = this.dataNodes.find(n => this.getId(n) === id);
     if (!node) {
-      return undefined;
+      return Promise.resolve(undefined);
     }
 
     const level = this.getLevel(node);
@@ -53,17 +53,17 @@ export class FlatTreeModel<T> extends TreeModel<T> {
       const prevNode = this.dataNodes[i];
 
       if (this.getLevel(prevNode) < level) {
-        return prevNode;
+        return Promise.resolve(prevNode);
       }
     }
 
-    return undefined;
+    return Promise.resolve(undefined);
   }
 
-  override getSiblings(id: TreeModelId<T>): T[] {
+  override getSiblings(id: TreeModelId<T>): Promise<T[]> {
     const node = this.dataNodes.find(n => this.getId(n) === id);
     if (!node) {
-      return [];
+      return Promise.resolve([]);
     }
 
     const index = this.dataNodes.indexOf(node),
@@ -94,13 +94,13 @@ export class FlatTreeModel<T> extends TreeModel<T> {
       }
     }
 
-    return siblings;
+    return Promise.resolve(siblings);
   }
 
-  override toArray(): Array<TreeModelArrayItem<T>> {
+  override toArray(): Promise<Array<TreeModelArrayItem<T>>> {
     let currentLevel = 0;
 
-    return this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode, index, array) => {
+    const array = this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode, index, array) => {
       const expanded = this.isExpanded(this.getId(dataNode)),
         expandable = this.isExpandable(dataNode),
         level = this.getLevel(dataNode),
@@ -114,5 +114,7 @@ export class FlatTreeModel<T> extends TreeModel<T> {
         return [...dataNodes, { dataNode, expandable, expanded, lastNodeInLevel: level > nextLevel, level }];
       }
     }, []);
+
+    return Promise.resolve(array);
   }
 }

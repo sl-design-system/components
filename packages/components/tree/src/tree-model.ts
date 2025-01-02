@@ -43,16 +43,16 @@ export abstract class TreeModel<T> extends EventTarget {
   }
 
   /** Returns an array of all the descendants of a given tree node. */
-  abstract getDescendants(id: TreeModelId<T>): T[];
+  abstract getDescendants(id: TreeModelId<T>): Promise<T[]>;
 
   /** Returns the parent node or `undefined` if the node is a root node. */
-  abstract getParent(id: TreeModelId<T>): T | undefined;
+  abstract getParent(id: TreeModelId<T>): Promise<T | undefined>;
 
   /** Returns an array of all siblings of a given tree node. */
-  abstract getSiblings(id: TreeModelId<T>): T[];
+  abstract getSiblings(id: TreeModelId<T>): Promise<T[]>;
 
   /** Flattens the tree to an array based on the expansion state. */
-  abstract toArray(): Array<TreeModelArrayItem<T>>;
+  abstract toArray(): Promise<Array<TreeModelArrayItem<T>>>;
 
   /**
    * Returns a string that is used as the label for the tree node.
@@ -110,13 +110,13 @@ export abstract class TreeModel<T> extends EventTarget {
   }
 
   /** Expands all expandable tree nodes. */
-  expandAll(): void {
-    this.dataNodes.forEach(node => {
+  async expandAll(): Promise<void> {
+    for (const node of this.dataNodes) {
       const id = this.getId(node);
 
       this.expand(id, false);
-      this.expandDescendants(id);
-    });
+      await this.expandDescendants(id);
+    }
 
     this.dispatchEvent(new Event('sl-update'));
   }
@@ -128,22 +128,21 @@ export abstract class TreeModel<T> extends EventTarget {
   }
 
   /** Toggles the expansion state of all descendants of a given tree node. */
-  toggleDescendants(id: TreeModelId<T>, force?: boolean): void {
-    this.getDescendants(id).forEach(nextNode => {
-      this.toggle(this.getId(nextNode), force, false);
-    });
+  async toggleDescendants(id: TreeModelId<T>, force?: boolean): Promise<void> {
+    const descendants = await this.getDescendants(id);
+    descendants.forEach(n => this.toggle(this.getId(n), force, false));
 
     this.dispatchEvent(new Event('sl-update'));
   }
 
   /** Expands all descendants of a given tree node. */
-  expandDescendants(id: TreeModelId<T>): void {
-    this.toggleDescendants(id, true);
+  async expandDescendants(id: TreeModelId<T>): Promise<void> {
+    await this.toggleDescendants(id, true);
   }
 
   /** Collapses all descendants of a given tree node. */
-  collapseDescendants(id: TreeModelId<T>): void {
-    this.toggleDescendants(id, false);
+  async collapseDescendants(id: TreeModelId<T>): Promise<void> {
+    await this.toggleDescendants(id, false);
   }
 
   #update(emitEvent: boolean): void {

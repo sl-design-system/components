@@ -30,6 +30,12 @@ interface NestedDataNode {
   children?: NestedDataNode[];
 }
 
+interface LazyNestedDataNode {
+  id: string;
+  expandable?: boolean;
+  children?: LazyNestedDataNode[];
+}
+
 Icon.register(faFile, faFolder, faFolderOpen, faPen, faTrash);
 
 const flatData: FlatDataNode[] = [
@@ -273,6 +279,41 @@ export const MultiSelect: Story = {
     ...FlatModel.args,
     selected: [9, 10],
     selects: 'multiple'
+  }
+};
+
+export const LazyLoad: Story = {
+  args: {
+    model: new NestedTreeModel(
+      [
+        { id: '0-0', expandable: true },
+        { id: '0-1', expandable: true },
+        { id: '0-2', expandable: true },
+        { id: '0-3' },
+        { id: '0-4' }
+      ] as LazyNestedDataNode[],
+      {
+        getChildren: async node => {
+          if (node.children) {
+            return node.children;
+          }
+
+          return await new Promise(resolve =>
+            setTimeout(() => {
+              node.children = Array.from({ length: 10 }).map((_, i) => ({
+                id: `${node.id}-${i}`,
+                expandable: true
+              }));
+
+              resolve(node.children);
+            }, 2000)
+          );
+        },
+        getId: ({ id }) => id,
+        getLabel: ({ id }) => id,
+        isExpandable: ({ expandable }) => !!expandable
+      }
+    )
   }
 };
 

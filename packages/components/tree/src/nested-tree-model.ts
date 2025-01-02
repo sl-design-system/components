@@ -1,7 +1,7 @@
 import { TreeModel, type TreeModelArrayItem, type TreeModelId, type TreeModelOptions } from './tree-model.js';
 
 export interface NestedTreeModelOptions<T> extends TreeModelOptions<T> {
-  getChildren(dataNode: T): T[] | undefined;
+  getChildren(dataNode: T): T[] | Promise<T[] | undefined> | undefined;
 }
 
 /**
@@ -14,20 +14,20 @@ export class NestedTreeModel<T> extends TreeModel<T> {
     this.getChildren = options.getChildren;
   }
 
-  getChildren(_dataNode: T): T[] | undefined {
+  getChildren(_dataNode: T): T[] | Promise<T[] | undefined> | undefined {
     return undefined;
   }
 
-  override getDescendants(id: TreeModelId<T>): T[] {
-    const node = this.#findById(id, this.dataNodes);
+  override async getDescendants(id: TreeModelId<T>): Promise<T[]> {
+    const node = await this.#findById(id, this.dataNodes);
     if (!node) {
       return [];
     }
 
     const descendants: T[] = [];
 
-    const traverse = (dataNode: T) => {
-      const children = this.getChildren(dataNode);
+    const traverse = async (dataNode: T) => {
+      const children = await this.getChildren(dataNode);
 
       if (Array.isArray(children)) {
         descendants.push(...children);
@@ -35,21 +35,21 @@ export class NestedTreeModel<T> extends TreeModel<T> {
       }
     };
 
-    traverse(node);
+    await traverse(node);
 
     return descendants;
   }
 
-  override getParent(id: TreeModelId<T>): T | undefined {
-    const traverse = (dataNodes: T[]): T | undefined => {
+  override async getParent(id: TreeModelId<T>): Promise<T | undefined> {
+    const traverse = async (dataNodes: T[]): Promise<T | undefined> => {
       for (const dataNode of dataNodes) {
-        const children = this.getChildren(dataNode);
+        const children = await this.getChildren(dataNode);
 
         if (Array.isArray(children)) {
           if (children.find(child => this.getId(child) === id)) {
             return dataNode;
           } else {
-            const found = traverse(children);
+            const found = await traverse(children);
 
             if (found) {
               return found;
@@ -61,12 +61,12 @@ export class NestedTreeModel<T> extends TreeModel<T> {
       return undefined;
     };
 
-    return traverse(this.dataNodes);
+    return await traverse(this.dataNodes);
   }
 
-  override getSiblings(id: TreeModelId<T>): T[] {
+  override async getSiblings(id: TreeModelId<T>): Promise<T[]> {
     for (const dataNode of this.dataNodes) {
-      const children = this.getChildren(dataNode);
+      const children = await this.getChildren(dataNode);
 
       if (Array.isArray(children) && children.find(child => this.getId(child) === id)) {
         return children;
@@ -76,52 +76,56 @@ export class NestedTreeModel<T> extends TreeModel<T> {
     return [];
   }
 
-  override toArray(): Array<TreeModelArrayItem<T>> {
-    return this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode) => {
+  override async toArray(): Promise<Array<TreeModelArrayItem<T>>> {
+    const array: Array<TreeModelArrayItem<T>> = [];
+
+    for (const dataNode of this.dataNodes) {
       const expandable = this.isExpandable(dataNode),
         expanded = this.isExpanded(this.getId(dataNode));
 
-      dataNodes.push({ dataNode, expandable, expanded, level: 0 });
+      array.push({ dataNode, expandable, expanded, level: 0 });
 
       if (expandable && expanded) {
-        dataNodes.push(...this.nestedToArray(dataNode, 1));
+        array.push(...(await this.nestedToArray(dataNode, 1)));
       }
+    }
 
-      return dataNodes;
-    }, []);
+    return array;
   }
 
-  nestedToArray(dataNode: T, level: number): Array<TreeModelArrayItem<T>> {
-    const children = this.getChildren(dataNode);
+  async nestedToArray(dataNode: T, level: number): Promise<Array<TreeModelArrayItem<T>>> {
+    const children = await this.getChildren(dataNode);
 
     if (!Array.isArray(children)) {
       return [];
     }
 
-    return children.reduce((dataNodes: Array<TreeModelArrayItem<T>>, childNode, index, array) => {
+    const array: Array<TreeModelArrayItem<T>> = [];
+
+    for (const [index, childNode] of children.entries()) {
       const expanded = this.isExpanded(this.getId(childNode)),
         expandable = this.isExpandable(childNode),
-        lastNodeInLevel = index === array.length - 1;
+        lastNodeInLevel = index === children.length - 1;
 
-      dataNodes.push({ dataNode: childNode, expandable, expanded, lastNodeInLevel, level });
+      array.push({ dataNode: childNode, expandable, expanded, lastNodeInLevel, level });
 
       if (expandable && expanded) {
-        dataNodes.push(...this.nestedToArray(childNode, level + 1));
+        array.push(...(await this.nestedToArray(childNode, level + 1)));
       }
+    }
 
-      return dataNodes;
-    }, []);
+    return array;
   }
 
-  #findById(id: TreeModelId<T>, dataNodes: T[]): T | undefined {
+  async #findById(id: TreeModelId<T>, dataNodes: T[]): Promise<T | undefined> {
     for (const dataNode of dataNodes) {
       if (this.getId(dataNode) === id) {
         return dataNode;
       }
 
-      const children = this.getChildren(dataNode);
+      const children = await this.getChildren(dataNode);
       if (Array.isArray(children)) {
-        const found = this.#findById(id, children);
+        const found = await this.#findById(id, children);
 
         if (found) {
           return found;

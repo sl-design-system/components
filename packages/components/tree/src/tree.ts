@@ -176,7 +176,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onChange(event: SlChangeEvent<boolean>, node: TreeModelNode<T>): void {
-    this.model?.select(node, event.detail);
+    if (event.detail) {
+      this.model?.select(node);
+    } else {
+      this.model?.deselect(node);
+    }
+
     this.selectEvent.emit(node);
   }
 

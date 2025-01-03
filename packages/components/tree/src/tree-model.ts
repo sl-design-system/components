@@ -215,6 +215,7 @@ export abstract class TreeModel<T> extends EventTarget {
       this.deselectAll();
     }
 
+    node.indeterminate = false;
     node.selected = true;
     this.#selection.add(node);
 
@@ -222,6 +223,7 @@ export abstract class TreeModel<T> extends EventTarget {
       // Select all children
       if (node.expandable) {
         const traverse = (node: TreeModelNode<T>): void => {
+          node.indeterminate = false;
           node.selected = true;
           this.#selection.add(node);
 
@@ -237,7 +239,8 @@ export abstract class TreeModel<T> extends EventTarget {
       let parent = node.parent;
       while (parent) {
         parent.selected = parent.children!.every(child => child.selected);
-        parent.indeterminate = !parent.selected && parent.children!.some(child => child.selected);
+        parent.indeterminate =
+          !parent.selected && parent.children!.some(child => child.indeterminate || child.selected);
         parent = parent.parent;
       }
     }
@@ -247,20 +250,32 @@ export abstract class TreeModel<T> extends EventTarget {
 
   /** Deselects the given node and any children. */
   deselect(node: TreeModelNode<T>, emitEvent = true): void {
-    node.selected = false;
+    node.indeterminate = node.selected = false;
     this.#selection.delete(node);
 
-    if (node.expandable) {
-      const traverse = (node: TreeModelNode<T>): void => {
-        node.selected = false;
-        this.#selection.delete(node);
+    if (this.selects === 'multiple') {
+      // Deselect all children
+      if (node.expandable) {
+        const traverse = (node: TreeModelNode<T>): void => {
+          node.indeterminate = node.selected = false;
+          this.#selection.delete(node);
 
-        if (node.expandable) {
-          (node.children || []).forEach(traverse);
-        }
-      };
+          if (node.expandable) {
+            (node.children || []).forEach(traverse);
+          }
+        };
 
-      node.children?.forEach(traverse);
+        node.children?.forEach(traverse);
+      }
+
+      // Update parent nodes
+      let parent = node.parent;
+      while (parent) {
+        parent.selected = parent.children!.every(child => child.selected);
+        parent.indeterminate =
+          !parent.selected && parent.children!.some(child => child.indeterminate || child.selected);
+        parent = parent.parent;
+      }
     }
 
     this.#update(emitEvent);
@@ -269,6 +284,7 @@ export abstract class TreeModel<T> extends EventTarget {
   /** Selects all nodes in the tree. */
   selectAll(): void {
     const traverse = (node: TreeModelNode<T>): void => {
+      node.indeterminate = false;
       node.selected = true;
       this.#selection.add(node);
 
@@ -285,7 +301,7 @@ export abstract class TreeModel<T> extends EventTarget {
   /** Deselects all nodes in the tree. */
   deselectAll(): void {
     const traverse = (node: TreeModelNode<T>): void => {
-      node.selected = false;
+      node.indeterminate = node.selected = false;
       this.#selection.delete(node);
 
       if (node.expandable) {

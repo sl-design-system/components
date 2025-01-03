@@ -463,6 +463,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
     "lit": "^3.2.1",
+    "playwright": "^1.49.1",
     "sinon": "^19.0.2",
     "storybook": "^8.4.7",
     "stylelint": "^16.12.0",

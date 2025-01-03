@@ -1,5 +1,20 @@
 # @sl-design-system/editorial-suite
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1607](https://github.com/sl-design-system/components/pull/1607) [`e184512`](https://github.com/sl-design-system/components/commit/e1845127a49819b7ab8d5a0a6a246576195cbe81) - Add new contextual tokens
+
+  This adds new contextual tokens for all themes. The old tokens are still here and are still in use. When the old tokens are no longer used throughout the design system, they will be removed. If you are starting something new, please use the new contextual tokens.
+
+### Patch Changes
+
+- [#1497](https://github.com/sl-design-system/components/pull/1497) [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f) - New paginator tokens, new `ellipsis-down` icon.
+
+- Updated dependencies [[`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee)]:
+  - @sl-design-system/icon@1.0.3
+
 ## 0.0.18
 
 ### Patch Changes

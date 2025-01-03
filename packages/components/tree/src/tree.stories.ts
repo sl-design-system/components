@@ -11,10 +11,9 @@ import { FlatTreeModel } from './flat-tree-model.js';
 import { NestedTreeModel } from './nested-tree-model.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<
-  Tree,
-  'expanded' | 'hideGuides' | 'model' | 'renderer' | 'scopedElements' | 'selected' | 'selects'
-> & { styles?: string };
+type Props = Pick<Tree, 'hideGuides' | 'model' | 'renderer' | 'scopedElements'> & {
+  styles?: string;
+};
 type Story = StoryObj<Props>;
 
 interface FlatDataNode {
@@ -33,7 +32,7 @@ interface NestedDataNode {
 interface LazyNestedDataNode {
   id: string;
   expandable?: boolean;
-  children?: LazyNestedDataNode[];
+  children?: LazyNestedDataNode[] | Promise<LazyNestedDataNode[]> | Array<Promise<LazyNestedDataNode>>;
 }
 
 Icon.register(faFile, faFolder, faFolderOpen, faPen, faTrash);
@@ -190,7 +189,8 @@ export default {
   title: 'Navigation/Tree',
   tags: ['draft'],
   args: {
-    hideGuides: false
+    hideGuides: false,
+    model: undefined
   },
   argTypes: {
     model: {
@@ -199,17 +199,13 @@ export default {
     renderer: {
       table: { disable: true }
     },
-    selects: {
-      control: 'inline-radio',
-      options: ['single', 'multiple']
-    },
     styles: {
       table: { disable: true }
     }
   },
-  render: ({ expanded, hideGuides, model, renderer, scopedElements, selected, selects, styles }) => {
-    const onToggleTree = () => model?.toggle(4),
-      onToggleTreeDescendants = () => model?.toggleDescendants(4),
+  render: ({ hideGuides, model, renderer, scopedElements, styles }) => {
+    const onToggle = () => model?.selection.forEach(node => model?.toggle(node)),
+      onToggleDescendants = () => model?.selection.forEach(node => model?.toggleDescendants(node)),
       onExpandAll = () => model?.expandAll(),
       onCollapseAll = () => model?.collapseAll();
 
@@ -222,19 +218,20 @@ export default {
           `
         : nothing}
       <sl-button-bar style="margin-block-end: 1rem">
-        <sl-button @click=${onToggleTree}>Toggle "tree"</sl-button>
-        <sl-button @click=${onToggleTreeDescendants}>Toggle all below "tree"</sl-button>
+        ${model?.selects
+          ? html`
+              <sl-button @click=${onToggle}>Toggle selected</sl-button>
+              <sl-button @click=${onToggleDescendants}>Toggle descendants</sl-button>
+            `
+          : nothing}
         <sl-button @click=${onExpandAll}>Expand all</sl-button>
         <sl-button @click=${onCollapseAll}>Collapse all</sl-button>
       </sl-button-bar>
       <sl-tree
         ?hide-guides=${hideGuides}
-        .expanded=${expanded}
         .model=${model}
         .renderer=${renderer}
         .scopedElements=${scopedElements}
-        .selected=${selected}
-        .selects=${selects}
       ></sl-tree>
     `;
   }
@@ -247,9 +244,9 @@ export const FlatModel: Story = {
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
-      isExpandable: ({ expandable }) => expandable
-    }),
-    expanded: [4, 5]
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
+    })
   }
 };
 
@@ -260,25 +257,39 @@ export const NestedModel: Story = {
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
-      isExpandable: ({ children }) => !!children
-    }),
-    expanded: [4, 5]
+      isExpandable: ({ children }) => !!children,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name)
+    })
   }
 };
 
 export const SingleSelect: Story = {
   args: {
-    ...FlatModel.args,
-    selected: 10,
-    selects: 'single'
+    model: new FlatTreeModel(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      isSelected: ({ name }) => name === 'tree-node.ts',
+      selects: 'single'
+    })
   }
 };
 
 export const MultiSelect: Story = {
   args: {
-    ...FlatModel.args,
-    selected: [9, 10],
-    selects: 'multiple'
+    model: new NestedTreeModel(nestedData, {
+      getChildren: ({ children }) => children,
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      isExpandable: ({ children }) => !!children,
+      isSelected: ({ name }) => ['tree-node.scss', 'tree-node.ts'].includes(name),
+      selects: 'multiple'
+    })
   }
 };
 
@@ -293,22 +304,19 @@ export const LazyLoad: Story = {
         { id: '0-4' }
       ] as LazyNestedDataNode[],
       {
-        getChildren: async node => {
-          if (node.children) {
-            return node.children;
-          }
-
-          return await new Promise(resolve =>
+        loadChildren: node => {
+          return new Promise(resolve => {
             setTimeout(() => {
-              node.children = Array.from({ length: 10 }).map((_, i) => ({
+              const children = Array.from({ length: 10 }).map((_, i) => ({
                 id: `${node.id}-${i}`,
                 expandable: true
               }));
 
-              resolve(node.children);
-            }, 2000)
-          );
+              resolve(children);
+            }, 2000);
+          });
         },
+        getChildren: () => undefined,
         getId: ({ id }) => id,
         getLabel: ({ id }) => id,
         isExpandable: ({ expandable }) => !!expandable
@@ -317,16 +325,47 @@ export const LazyLoad: Story = {
   }
 };
 
+// export const Skeleton: Story = {
+//   args: {
+//     model: new NestedTreeModel(
+//       [
+//         { id: '0-0', expandable: true },
+//         { id: '0-1', expandable: true },
+//         { id: '0-2', expandable: true },
+//         { id: '0-3' },
+//         { id: '0-4' }
+//       ] as LazyNestedDataNode[],
+//       {
+//         getChildren: node => {
+//           if (!node.children) {
+//             node.children = Array.from({ length: 10 }).map((_, i) => {
+//               return new Promise<LazyNestedDataNode>(resolve =>
+//                 setTimeout(() => {
+//                   resolve({ id: `${node.id}-${i}`, expandable: true });
+//                 }, Math.random() * 4000)
+//               );
+//             });
+//           }
+
+//           return node.children;
+//         },
+//         getId: ({ id }) => id,
+//         getLabel: ({ id }) => id,
+//         isExpandable: ({ expandable }) => !!expandable
+//       }
+//     )
+//   }
+// };
+
 export const CustomRenderer: Story = {
   args: {
     ...FlatModel.args,
-    renderer: (node, { expanded }) => {
-      const { name } = node as FlatDataNode,
-        icon = name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`;
+    renderer: node => {
+      const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
 
       return html`
         ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
-        <span>${name}</span>
+        <span>${node.label}</span>
         <sl-button-bar part="button-bar">
           <sl-button fill="ghost" size="sm">
             <sl-icon name="far-pen"></sl-icon>

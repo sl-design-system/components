@@ -1,138 +1,114 @@
-import { TreeModel, type TreeModelArrayItem, type TreeModelId, type TreeModelOptions } from './tree-model.js';
+import { TreeModel, type TreeModelNode, type TreeModelNodeMapping, type TreeModelOptions } from './tree-model.js';
 
-export interface NestedTreeModelOptions<T> extends TreeModelOptions<T> {
-  getChildren(dataNode: T): T[] | Promise<T[] | undefined> | undefined;
+export interface NestedTreeModelNodeMapping<T> extends TreeModelNodeMapping<T> {
+  getChildren(dataNode: T): T[] | Promise<T[]> | undefined;
+}
+
+export interface NestedTreeModelOptions<T> extends NestedTreeModelNodeMapping<T> {
+  loadChildren?(node: T): Promise<T[]>;
+  selects?: 'single' | 'multiple';
 }
 
 /**
  * A tree model that represents a nested list of nodes.
  */
 export class NestedTreeModel<T> extends TreeModel<T> {
+  #mapping: NestedTreeModelNodeMapping<T>;
+
+  override treeNodes: Array<TreeModelNode<T>>;
+
   constructor(dataNodes: T[], options: NestedTreeModelOptions<T>) {
-    super(dataNodes, options);
+    let loadChildren: TreeModelOptions<T>['loadChildren'] | undefined = undefined;
+    if (options.loadChildren) {
+      loadChildren = async (node: TreeModelNode<T>) => {
+        const children = await options.loadChildren!(node.dataNode);
 
-    this.getChildren = options.getChildren;
-  }
-
-  getChildren(_dataNode: T): T[] | Promise<T[] | undefined> | undefined {
-    return undefined;
-  }
-
-  override async getDescendants(id: TreeModelId<T>): Promise<T[]> {
-    const node = await this.#findById(id, this.dataNodes);
-    if (!node) {
-      return [];
+        return children.map((child, index) => this.#mapToTreeNode(child, node, index === children.length - 1));
+      };
     }
 
-    const descendants: T[] = [];
+    super(dataNodes, { ...options, loadChildren });
 
-    const traverse = async (dataNode: T) => {
-      const children = await this.getChildren(dataNode);
-
-      if (Array.isArray(children)) {
-        descendants.push(...children);
-        children.forEach(traverse);
-      }
+    this.#mapping = {
+      getChildren: options.getChildren,
+      getChildrenCount: options.getChildrenCount,
+      getIcon: options.getIcon,
+      getId: options.getId ?? (dataNode => dataNode),
+      getLabel: options.getLabel ?? (() => ''),
+      isExpandable: options.isExpandable ?? (() => false),
+      isExpanded: options.isExpanded,
+      isSelected: options.isSelected
     };
 
-    await traverse(node);
+    this.treeNodes = dataNodes.map(dataNode => this.#mapToTreeNode(dataNode));
 
-    return descendants;
+    if (this.selects === 'multiple') {
+      Array.from(this.selection)
+        .filter(node => node.parent)
+        .forEach(node => {
+          this.#updateSelected(node.parent!);
+        });
+    }
   }
 
-  override async getParent(id: TreeModelId<T>): Promise<T | undefined> {
-    const traverse = async (dataNodes: T[]): Promise<T | undefined> => {
-      for (const dataNode of dataNodes) {
-        const children = await this.getChildren(dataNode);
+  #mapToTreeNode(dataNode: T, parent?: TreeModelNode<T>, lastNodeInLevel?: boolean): TreeModelNode<T> {
+    const { getChildren, getChildrenCount, getIcon, getId, getLabel, isExpandable, isExpanded, isSelected } =
+      this.#mapping;
 
-        if (Array.isArray(children)) {
-          if (children.find(child => this.getId(child) === id)) {
-            return dataNode;
-          } else {
-            const found = await traverse(children);
-
-            if (found) {
-              return found;
-            }
-          }
-        }
-      }
-
-      return undefined;
+    const treeNode: TreeModelNode<T> = {
+      id: getId(dataNode),
+      childrenCount: getChildrenCount?.(dataNode),
+      dataNode,
+      expandable: isExpandable(dataNode),
+      expanded: isExpanded?.(dataNode) ?? false,
+      expandedIcon: getIcon?.(dataNode, true),
+      icon: getIcon?.(dataNode, false),
+      label: getLabel(dataNode),
+      lastNodeInLevel,
+      level: parent ? parent.level + 1 : 0,
+      parent,
+      selected: isSelected?.(dataNode)
     };
 
-    return await traverse(this.dataNodes);
-  }
-
-  override async getSiblings(id: TreeModelId<T>): Promise<T[]> {
-    for (const dataNode of this.dataNodes) {
-      const children = await this.getChildren(dataNode);
-
-      if (Array.isArray(children) && children.find(child => this.getId(child) === id)) {
-        return children;
-      }
+    if (treeNode.selected) {
+      this.selection.add(treeNode);
     }
 
-    return [];
-  }
+    if (treeNode.expandable && treeNode.expanded) {
+      const children = getChildren(dataNode);
 
-  override async toArray(): Promise<Array<TreeModelArrayItem<T>>> {
-    const array: Array<TreeModelArrayItem<T>> = [];
-
-    for (const dataNode of this.dataNodes) {
-      const expandable = this.isExpandable(dataNode),
-        expanded = this.isExpanded(this.getId(dataNode));
-
-      array.push({ dataNode, expandable, expanded, level: 0 });
-
-      if (expandable && expanded) {
-        array.push(...(await this.nestedToArray(dataNode, 1)));
-      }
-    }
-
-    return array;
-  }
-
-  async nestedToArray(dataNode: T, level: number): Promise<Array<TreeModelArrayItem<T>>> {
-    const children = await this.getChildren(dataNode);
-
-    if (!Array.isArray(children)) {
-      return [];
-    }
-
-    const array: Array<TreeModelArrayItem<T>> = [];
-
-    for (const [index, childNode] of children.entries()) {
-      const expanded = this.isExpanded(this.getId(childNode)),
-        expandable = this.isExpandable(childNode),
-        lastNodeInLevel = index === children.length - 1;
-
-      array.push({ dataNode: childNode, expandable, expanded, lastNodeInLevel, level });
-
-      if (expandable && expanded) {
-        array.push(...(await this.nestedToArray(childNode, level + 1)));
-      }
-    }
-
-    return array;
-  }
-
-  async #findById(id: TreeModelId<T>, dataNodes: T[]): Promise<T | undefined> {
-    for (const dataNode of dataNodes) {
-      if (this.getId(dataNode) === id) {
-        return dataNode;
-      }
-
-      const children = await this.getChildren(dataNode);
       if (Array.isArray(children)) {
-        const found = await this.#findById(id, children);
+        treeNode.children = children.map((child, index) =>
+          this.#mapToTreeNode(child, treeNode, index === children.length - 1)
+        );
+      } else if (children instanceof Promise) {
+        treeNode.childrenLoading = new Promise(resolve => {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          children.then(loadedChildren => {
+            treeNode.children = loadedChildren.map((child, index) =>
+              this.#mapToTreeNode(child, treeNode, index === loadedChildren.length - 1)
+            );
+            treeNode.childrenLoading = undefined;
 
-        if (found) {
-          return found;
-        }
+            resolve();
+          });
+        });
       }
     }
 
-    return undefined;
+    return treeNode;
+  }
+
+  /** Traverse up the tree and update the selected/indeterminate state. */
+  #updateSelected(treeNode: TreeModelNode<T>): void {
+    this.selection.add(treeNode);
+
+    treeNode.selected = treeNode.children?.every(child => child.selected) ?? false;
+    treeNode.indeterminate =
+      (!treeNode.selected && treeNode.children?.some(child => child.indeterminate || child.selected)) ?? false;
+
+    if (treeNode.parent) {
+      this.#updateSelected(treeNode.parent);
+    }
   }
 }

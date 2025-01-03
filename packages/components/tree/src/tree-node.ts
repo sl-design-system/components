@@ -6,6 +6,7 @@ import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { IndentGuides } from './indent-guides.js';
+import { type TreeModelNode } from './tree-model.js';
 import styles from './tree-node.scss.js';
 
 declare global {
@@ -44,9 +45,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** Determines whether the checkbox is checked or not. */
   @property({ type: Boolean }) checked?: boolean;
 
-  /** The node data. */
-  @property({ attribute: false }) data?: T;
-
   /** Whether the node is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -68,8 +66,11 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** The depth level of this node, 0 being the root of the tree. */
   @property({ type: Number }) level = 0;
 
+  /** The tree model node. */
+  @property({ attribute: false }) node?: TreeModelNode<T>;
+
   /** @internal Emits when the user clicks a the wrapper part of the tree node. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<T>>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeModelNode<T>>>;
 
   /** Whether the node is currently selected. */
   @property({ type: Boolean }) selected?: boolean;
@@ -175,7 +176,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (insideWrapper) {
       event.preventDefault();
 
-      this.selectEvent.emit(this.data!);
+      this.selectEvent.emit(this.node!);
     } else if (this.expandable) {
       this.toggle();
     }
@@ -191,7 +192,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         this.indeterminate = false;
         this.changeEvent.emit(this.checked);
       } else {
-        this.selectEvent.emit(this.data!);
+        this.selectEvent.emit(this.node!);
       }
     } else if (event.key === 'ArrowLeft') {
       if (this.expanded) {

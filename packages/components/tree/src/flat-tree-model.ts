@@ -1,120 +1,126 @@
-import { TreeModel, type TreeModelArrayItem, type TreeModelId, type TreeModelOptions } from './tree-model.js';
+import { TreeModel, TreeModelNode, type TreeModelNodeMapping, type TreeModelOptions } from './tree-model.js';
 
-export interface FlatTreeModelOptions<T> extends TreeModelOptions<T> {
+export interface FlatTreeModelNodeMapping<T> extends TreeModelNodeMapping<T> {
   getLevel(dataNode: T): number;
+}
+
+export interface FlatTreeModelOptions<T> extends FlatTreeModelNodeMapping<T> {
+  loadChildren?(node: T): Promise<T[]>;
+  selects?: 'single' | 'multiple';
 }
 
 /**
  * A tree model that represents a flat list of nodes.
  */
 export class FlatTreeModel<T> extends TreeModel<T> {
+  #mapping: FlatTreeModelNodeMapping<T>;
+
+  override treeNodes: Array<TreeModelNode<T>>;
+
   constructor(dataNodes: T[], options: FlatTreeModelOptions<T>) {
-    super(dataNodes, options);
+    let loadChildren: TreeModelOptions<T>['loadChildren'] | undefined = undefined;
+    if (options.loadChildren) {
+      loadChildren = async (node: TreeModelNode<T>) => {
+        const children = await options.loadChildren!(node.dataNode);
 
-    this.getLevel = options.getLevel;
-  }
-
-  getLevel(_dataNode: T): number {
-    return 0;
-  }
-
-  override getDescendants(id: TreeModelId<T>): Promise<T[]> {
-    const node = this.dataNodes.find(n => this.getId(n) === id);
-    if (!node) {
-      return Promise.resolve([]);
+        return children.map((child, index) => this.#mapToTreeNode(child, node, index === children.length - 1));
+      };
     }
 
-    const index = this.dataNodes.indexOf(node),
-      level = this.getLevel(node),
-      descendants: T[] = [];
+    super(dataNodes, { ...options, loadChildren });
 
-    for (let i = index + 1; i < this.dataNodes.length; i++) {
-      const nextNode = this.dataNodes[i];
+    this.#mapping = {
+      getChildrenCount: options.getChildrenCount,
+      getIcon: options.getIcon,
+      getId: options.getId ?? (dataNode => dataNode),
+      getLabel: options.getLabel ?? (() => ''),
+      getLevel: options.getLevel ?? (() => 0),
+      isExpandable: options.isExpandable ?? (() => false),
+      isExpanded: options.isExpanded,
+      isSelected: options.isSelected
+    };
 
-      if (this.getLevel(nextNode) <= level) {
-        break;
+    this.treeNodes = this.#mapToTreeNodes(dataNodes);
+
+    if (this.selects === 'multiple') {
+      Array.from(this.selection)
+        .filter(node => node.parent)
+        .forEach(node => {
+          this.#updateSelected(node.parent!);
+        });
+    }
+  }
+
+  #mapToTreeNodes(dataNodes: T[]): Array<TreeModelNode<T>> {
+    const levelMap: Map<number, Array<TreeModelNode<T>>> = new Map(),
+      rootNodes: Array<TreeModelNode<T>> = [];
+
+    dataNodes.forEach((dataNode, index) => {
+      const nextLevel = index < dataNodes.length - 1 ? this.#mapping.getLevel(dataNodes[index + 1]) : 0,
+        level = this.#mapping.getLevel(dataNode);
+
+      const treeNode = this.#mapToTreeNode(dataNode, undefined, level > nextLevel);
+
+      if (treeNode.selected) {
+        this.selection.add(treeNode);
       }
 
-      descendants.push(nextNode);
-    }
-
-    return Promise.resolve(descendants);
-  }
-
-  override getParent(id: TreeModelId<T>): Promise<T | undefined> {
-    const node = this.dataNodes.find(n => this.getId(n) === id);
-    if (!node) {
-      return Promise.resolve(undefined);
-    }
-
-    const level = this.getLevel(node);
-
-    for (let i = this.dataNodes.indexOf(node) - 1; i >= 0; i--) {
-      const prevNode = this.dataNodes[i];
-
-      if (this.getLevel(prevNode) < level) {
-        return Promise.resolve(prevNode);
-      }
-    }
-
-    return Promise.resolve(undefined);
-  }
-
-  override getSiblings(id: TreeModelId<T>): Promise<T[]> {
-    const node = this.dataNodes.find(n => this.getId(n) === id);
-    if (!node) {
-      return Promise.resolve([]);
-    }
-
-    const index = this.dataNodes.indexOf(node),
-      level = this.getLevel(node),
-      siblings: T[] = [];
-
-    // Get siblings before the node
-    for (let i = index - 1; i >= 0; i--) {
-      const prevNode = this.dataNodes[i],
-        prevLevel = this.getLevel(prevNode);
-
-      if (prevLevel < level) {
-        break;
-      } else if (prevLevel === level) {
-        siblings.unshift(prevNode);
-      }
-    }
-
-    // Get siblings after the node
-    for (let i = index + 1; i < this.dataNodes.length; i++) {
-      const nextNode = this.dataNodes[i],
-        nextLevel = this.getLevel(nextNode);
-
-      if (nextLevel < level) {
-        break;
-      } else if (nextLevel === level) {
-        siblings.push(nextNode);
-      }
-    }
-
-    return Promise.resolve(siblings);
-  }
-
-  override toArray(): Promise<Array<TreeModelArrayItem<T>>> {
-    let currentLevel = 0;
-
-    const array = this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode, index, array) => {
-      const expanded = this.isExpanded(this.getId(dataNode)),
-        expandable = this.isExpandable(dataNode),
-        level = this.getLevel(dataNode),
-        nextLevel = index < array.length - 1 ? this.getLevel(array[index + 1]) : level;
-
-      if (level > currentLevel) {
-        return dataNodes;
+      if (level === 0) {
+        rootNodes.push(treeNode);
       } else {
-        currentLevel = expanded ? level + 1 : level;
+        const parentLevel = level - 1,
+          parentNodes = levelMap.get(parentLevel);
 
-        return [...dataNodes, { dataNode, expandable, expanded, lastNodeInLevel: level > nextLevel, level }];
+        if (parentNodes) {
+          const parentNode = parentNodes[parentNodes.length - 1];
+          parentNode.children ||= [];
+          parentNode.children.push(treeNode);
+          treeNode.parent = parentNode;
+        }
       }
-    }, []);
 
-    return Promise.resolve(array);
+      if (!levelMap.has(level)) {
+        levelMap.set(level, []);
+      }
+
+      levelMap.get(level)!.push(treeNode);
+    });
+
+    return rootNodes;
+  }
+
+  #mapToTreeNode(dataNode: T, parent?: TreeModelNode<T>, lastNodeInLevel?: boolean): TreeModelNode<T> {
+    const { getChildrenCount, getIcon, getId, getLabel, getLevel, isExpandable, isExpanded, isSelected } =
+      this.#mapping;
+
+    const treeNode: TreeModelNode<T> = {
+      id: getId(dataNode),
+      childrenCount: getChildrenCount?.(dataNode),
+      dataNode,
+      expandable: isExpandable(dataNode),
+      expanded: isExpanded?.(dataNode) ?? false,
+      expandedIcon: getIcon?.(dataNode, true),
+      icon: getIcon?.(dataNode, false),
+      label: getLabel(dataNode),
+      lastNodeInLevel,
+      level: getLevel(dataNode),
+      parent,
+      selected: isSelected?.(dataNode)
+    };
+
+    return treeNode;
+  }
+
+  /** Traverse up the tree and update the selected/indeterminate state. */
+  #updateSelected(treeNode: TreeModelNode<T>): void {
+    this.selection.add(treeNode);
+
+    treeNode.selected = treeNode.children?.every(child => child.selected) ?? false;
+    treeNode.indeterminate =
+      (!treeNode.selected && treeNode.children?.some(child => child.indeterminate || child.selected)) ?? false;
+
+    if (treeNode.parent) {
+      this.#updateSelected(treeNode.parent);
+    }
   }
 }

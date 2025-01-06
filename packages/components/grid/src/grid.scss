@@ -160,6 +160,10 @@ table {
   z-index: 1;
 }
 
+.table-anchor {
+  anchor-name: --myanchor;
+}
+
 thead,
 tbody {
   box-sizing: border-box;
@@ -366,15 +370,23 @@ a[class^='skip-link'] {
   background-color: var(--sl-color-background-focused);
   color: var(--sl-link-focused-idle);
   display: inline-block;
-  inset-inline-start: var(--sl-space-100);
+  inset-inline-start: calc(anchor(left) + var(--sl-space-100));
+  opacity: 0;
   padding: var(--sl-space-100) var(--sl-space-200);
-  position: absolute;
-  transition: transform 250ms ease-in;
-  z-index: 0;
+  position: fixed;
+  position-anchor: --myanchor;
+  scale: 1 0;
+  transform-origin: 0 100%;
+  transition:
+    opacity 0.5s ease-in-out,
+    scale 0.5s ease-in-out;
 
   &:focus {
+    opacity: 1;
     outline: var(--_focus-outline);
     outline-offset: var(--sl-border-width-focusring-offset);
+    scale: 1;
+    z-index: 2;
   }
 
   &:hover {
@@ -382,24 +394,28 @@ a[class^='skip-link'] {
   }
 }
 
-.skip-link-start {
-  border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
-  inset-block-start: 0;
-  translate: 0;
-}
-
 .skip-link-start:focus {
-  translate: 0 calc(-1 * (1lh + 2 * var(--sl-space-100)));
+  border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
+  inset-block-end: anchor(top);
+  position-try: --start-fallback;
 }
 
 .skip-link-end {
   border-radius: 0 0 var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default);
-  inset-block-end: 0;
-  translate: 0;
 }
 
 .skip-link-end:focus {
-  translate: 0 calc(1lh + 2 * var(--sl-space-100));
+  position-try: --end-fallback;
+
+  // top: anchor(bottom);
+}
+
+@position-try --start-fallback {
+  inset-block: anchor(top) auto;
+}
+
+@position-try --end-fallback {
+  inset-block: auto anchor(bottom);
 }
 
 tfoot {

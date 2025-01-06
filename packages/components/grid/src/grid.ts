@@ -289,11 +289,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('items')) {
-      if (this.dataSource) {
-        this.dataSource.items = this.items ?? [];
-      } else {
-        this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
-      }
+      this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
 
       this.#updateDataSource(this.dataSource);
     }

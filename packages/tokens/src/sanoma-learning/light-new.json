@@ -1869,7 +1869,7 @@
             "description": "A subtle red background option, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.150}",
+            "value": "{color.palette.red.500}",
             "type": "color",
             "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
           }

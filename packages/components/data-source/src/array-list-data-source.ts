@@ -1,23 +1,18 @@
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import {
-  DataSource,
   type DataSourceFilterByFunction,
   type DataSourceFilterByPath,
   type DataSourceSortFunction
 } from './data-source.js';
+import { ListDataSource } from './list-data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class ArrayDataSource<T = any> extends DataSource<T> {
+export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   #filteredItems: T[] = [];
   #items: T[];
 
   get items(): T[] {
     return this.#filteredItems;
-  }
-
-  set items(items: T[]) {
-    this.#items = items;
-    this.update();
   }
 
   get size(): number {

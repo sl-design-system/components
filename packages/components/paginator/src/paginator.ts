@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import { type DataSource } from '@sl-design-system/data-source';
+import { type ListDataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select, SelectOption } from '@sl-design-system/select';
@@ -82,7 +82,7 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   @state() currentlyVisibleItems = 1;
 
   /** Provided data source. */
-  @property({ attribute: false }) dataSource?: DataSource;
+  @property({ attribute: false }) dataSource?: ListDataSource;
 
   /** @internal Hidden pages on the left, after the first page in the overflow version. */
   @state() hiddenPagesLeft: HTMLLIElement[] = [];

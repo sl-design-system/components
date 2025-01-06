@@ -1,6 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/card/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
 import '@sl-design-system/paginator/register.js';
@@ -180,14 +180,14 @@ export const WithDataSource: Story = {
 
           pageSizes = [5, 10, 15, 20];
 
-          dataSource = new ArrayDataSource(this.items);
+          dataSource = new ArrayListDataSource(this.items);
 
           totalItems: number = 1;
 
           override connectedCallback(): void {
             super.connectedCallback();
 
-            this.dataSource = new ArrayDataSource(this.items);
+            this.dataSource = new ArrayListDataSource(this.items);
 
             this.totalItems = this.dataSource?.items.length;
 

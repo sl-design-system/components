@@ -1,14 +1,14 @@
 import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
-import { ArrayDataSource } from './array-data-source.js';
+import { ArrayListDataSource } from './array-list-data-source.js';
 import { type Person, people } from './data-source.spec.js';
 
-describe('ArrayDataSource', () => {
-  let ds: ArrayDataSource<Person>;
+describe('ArrayListDataSource', () => {
+  let ds: ArrayListDataSource<Person>;
 
   describe('basics', () => {
     beforeEach(() => {
-      ds = new ArrayDataSource(people);
+      ds = new ArrayListDataSource(people);
     });
 
     it('should have items', () => {
@@ -47,7 +47,7 @@ describe('ArrayDataSource', () => {
 
   describe('filtering', () => {
     beforeEach(() => {
-      ds = new ArrayDataSource(people);
+      ds = new ArrayListDataSource(people);
     });
 
     it('should filter by path', () => {
@@ -121,7 +121,7 @@ describe('ArrayDataSource', () => {
 
   describe('sorting', () => {
     beforeEach(() => {
-      ds = new ArrayDataSource(people);
+      ds = new ArrayListDataSource(people);
     });
 
     it('should sort by path', () => {
@@ -172,7 +172,7 @@ describe('ArrayDataSource', () => {
 
   describe('pagination', () => {
     beforeEach(() => {
-      ds = new ArrayDataSource(people);
+      ds = new ArrayListDataSource(people);
 
       ds.paginate(2, 3, people.length);
       ds.update();

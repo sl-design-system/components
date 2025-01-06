@@ -8,7 +8,7 @@ import { Spinner } from '@sl-design-system/spinner';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { IndentGuides } from './indent-guides.js';
-import { type TreeModelNode } from './tree-model.js';
+import { type TreeDataSourceNode } from './tree-data-source.js';
 import styles from './tree-node.scss.js';
 
 declare global {
@@ -71,13 +71,13 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Number }) level = 0;
 
   /** The tree model node. */
-  @property({ attribute: false }) node?: TreeModelNode<T>;
+  @property({ attribute: false }) node?: TreeDataSourceNode<T>;
 
   /** Acts as a placeholder for loading nodes when set. */
   @property({ type: Boolean }) placeholder?: boolean;
 
   /** @internal Emits when the user clicks a the wrapper part of the tree node. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeModelNode<T>>>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
   /** Whether the node is currently selected. */
   @property({ type: Boolean }) selected?: boolean;

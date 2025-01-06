@@ -1,6 +1,8 @@
-export interface TreeModelNode<T> {
+import { DataSource } from '@sl-design-system/data-source';
+
+export interface TreeDataSourceNode<T> {
   id: unknown;
-  children?: Array<TreeModelNode<T>>;
+  children?: Array<TreeDataSourceNode<T>>;
   childrenCount?: number;
   childrenLoading?: Promise<void>;
   dataNode: T;
@@ -12,53 +14,53 @@ export interface TreeModelNode<T> {
   label: string;
   lastNodeInLevel?: boolean;
   level: number;
-  parent?: TreeModelNode<T>;
+  parent?: TreeDataSourceNode<T>;
   placeholder?: boolean;
   selected?: boolean;
 }
 
-export interface TreeModelNodeMapping<T> {
+export interface TreeDataSourceMapping<T> {
   /**
    * Returns the number of children. This can be used in combination with
    * lazy loading children. This way, the tree component can show skeletons
    * for the children while they are being loaded.
    */
-  getChildrenCount?(dataNode: T): number;
+  getChildrenCount?(item: T): number;
 
   /** Optional method for returning a custom icon for a tree node. */
-  getIcon?(dataNode: T, expanded: boolean): string;
+  getIcon?(item: T, expanded: boolean): string;
 
   /** Used to identify a tree node. */
-  getId(dataNode: T): unknown;
+  getId(item: T): unknown;
 
   /**
    * Returns a string that is used as the label for the tree node.
    * If you want to customize how the tree node is rendered, you can
    * provide your own `TreeItemRenderer` function to the tree component.
    */
-  getLabel(dataNode: T): string;
+  getLabel(item: T): string;
 
   /** Returns whether the given node is expandable. */
-  isExpandable(dataNode: T): boolean;
+  isExpandable(item: T): boolean;
 
   /**
    * Returns whether the given node is expanded. This is only used for the initial
    * expanded state of the node. If you want to expand/collapse a node programmatically,
    * use the `expand` and `collapse` methods on the tree model.
    */
-  isExpanded?(dataNode: T): boolean;
+  isExpanded?(item: T): boolean;
 
   /**
    * Returns whether the given node is selected. This is only used for the initial
    * selected state of the node. If you want to select/deselect a node programmatically,
    * use the `select` and `deselect` methods on the tree model.
    */
-  isSelected?(dataNode: T): boolean;
+  isSelected?(item: T): boolean;
 }
 
-export interface TreeModelOptions<T> {
+export interface TreeDataSourceOptions<T> {
   /** Provide this method to lazy load child nodes when a parent node is expanded. */
-  loadChildren?(node: TreeModelNode<T>): Promise<Array<TreeModelNode<T>>>;
+  loadChildren?(node: TreeDataSourceNode<T>): Promise<Array<TreeDataSourceNode<T>>>;
 
   /** Enables single or multiple selection of tree nodes. */
   selects?: 'single' | 'multiple';
@@ -67,10 +69,14 @@ export interface TreeModelOptions<T> {
 /**
  * Abstract class used to provide a common interface for tree data.
  */
-export abstract class TreeModel<T> extends EventTarget {
-  #loadChildren?: TreeModelOptions<T>['loadChildren'];
-  #selection: Set<TreeModelNode<T>> = new Set();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSourceNode<T>> {
+  #loadChildren?: TreeDataSourceOptions<T>['loadChildren'];
+  #selection: Set<TreeDataSourceNode<T>> = new Set();
   #selects?: 'single' | 'multiple';
+
+  /** A hierarchical representation of the items in the tree. */
+  abstract readonly nodes: Array<TreeDataSourceNode<T>>;
 
   /** The current selection of tree node(s). */
   get selection() {
@@ -82,13 +88,7 @@ export abstract class TreeModel<T> extends EventTarget {
     return this.#selects;
   }
 
-  /** An optimized representation of the data nodes for rendering in a tree. */
-  abstract get treeNodes(): Array<TreeModelNode<T>>;
-
-  constructor(
-    public readonly dataNodes: T[],
-    options: TreeModelOptions<T> = {}
-  ) {
+  constructor(options: TreeDataSourceOptions<T> = {}) {
     super();
 
     this.#loadChildren = options.loadChildren;
@@ -101,7 +101,7 @@ export abstract class TreeModel<T> extends EventTarget {
    * parameter determines whether the model should emit an `sl-update` event
    * after changing the state.
    */
-  toggle(node: TreeModelNode<T>, force?: boolean, emitEvent?: boolean): void {
+  toggle(node: TreeDataSourceNode<T>, force?: boolean, emitEvent?: boolean): void {
     if ((typeof force === 'boolean' && !force) || node.expanded) {
       this.collapse(node, emitEvent);
     } else {
@@ -110,7 +110,7 @@ export abstract class TreeModel<T> extends EventTarget {
   }
 
   /** Expands a tree node. */
-  expand(node: TreeModelNode<T>, emitEvent = true): void {
+  expand(node: TreeDataSourceNode<T>, emitEvent = true): void {
     if (!node.expandable) {
       return;
     }
@@ -122,27 +122,31 @@ export abstract class TreeModel<T> extends EventTarget {
         node.children = children;
         node.childrenLoading = undefined;
 
-        this.#update(true);
+        this.update();
       });
     }
 
-    this.#update(emitEvent);
+    if (emitEvent) {
+      this.update();
+    }
   }
 
   /** Collapses a tree node. */
-  collapse(node: TreeModelNode<T>, emitEvent = true): void {
+  collapse(node: TreeDataSourceNode<T>, emitEvent = true): void {
     if (!node.expandable) {
       return;
     }
 
     node.expanded = false;
 
-    this.#update(emitEvent);
+    if (emitEvent) {
+      this.update();
+    }
   }
 
   /** Toggles the expansion state of all descendants of a given tree node. */
-  toggleDescendants(node: TreeModelNode<T>, force?: boolean): void {
-    const traverse = (node: TreeModelNode<T>): void => {
+  toggleDescendants(node: TreeDataSourceNode<T>, force?: boolean): void {
+    const traverse = (node: TreeDataSourceNode<T>): void => {
       if (node.expandable) {
         if ((typeof force === 'boolean' && !force) || node.expanded) {
           this.collapse(node, false);
@@ -156,22 +160,22 @@ export abstract class TreeModel<T> extends EventTarget {
 
     traverse(node);
 
-    this.dispatchEvent(new Event('sl-update'));
+    this.update();
   }
 
   /** Expands all descendants of a given tree node. */
-  expandDescendants(node: TreeModelNode<T>): void {
+  expandDescendants(node: TreeDataSourceNode<T>): void {
     this.toggleDescendants(node, true);
   }
 
   /** Collapses all descendants of a given tree node. */
-  collapseDescendants(node: TreeModelNode<T>): void {
+  collapseDescendants(node: TreeDataSourceNode<T>): void {
     this.toggleDescendants(node, false);
   }
 
   /** Expands all expandable tree nodes. */
   async expandAll(): Promise<void> {
-    const traverse = async (node: TreeModelNode<T>): Promise<void> => {
+    const traverse = async (node: TreeDataSourceNode<T>): Promise<void> => {
       if (node.expandable) {
         this.expand(node, false);
 
@@ -185,16 +189,16 @@ export abstract class TreeModel<T> extends EventTarget {
       }
     };
 
-    for (const node of this.treeNodes) {
+    for (const node of this.nodes) {
       await traverse(node);
     }
 
-    this.#update(true);
+    this.update();
   }
 
   /** Collapses all expandable tree nodes. */
   collapseAll(): void {
-    const traverse = (node: TreeModelNode<T>): void => {
+    const traverse = (node: TreeDataSourceNode<T>): void => {
       if (node.expandable) {
         this.collapse(node, false);
 
@@ -202,13 +206,13 @@ export abstract class TreeModel<T> extends EventTarget {
       }
     };
 
-    this.treeNodes.forEach(traverse);
+    this.nodes.forEach(traverse);
 
-    this.#update(true);
+    this.update();
   }
 
   /** Selects the given node and any children. */
-  select(node: TreeModelNode<T>, emitEvent = true): void {
+  select(node: TreeDataSourceNode<T>, emitEvent = true): void {
     if (this.selects === 'single') {
       this.deselectAll();
     }
@@ -220,7 +224,7 @@ export abstract class TreeModel<T> extends EventTarget {
     if (this.selects === 'multiple') {
       // Select all children
       if (node.expandable) {
-        const traverse = (node: TreeModelNode<T>): void => {
+        const traverse = (node: TreeDataSourceNode<T>): void => {
           node.indeterminate = false;
           node.selected = true;
           this.#selection.add(node);
@@ -243,18 +247,20 @@ export abstract class TreeModel<T> extends EventTarget {
       }
     }
 
-    this.#update(emitEvent);
+    if (emitEvent) {
+      this.update();
+    }
   }
 
   /** Deselects the given node and any children. */
-  deselect(node: TreeModelNode<T>, emitEvent = true): void {
+  deselect(node: TreeDataSourceNode<T>, emitEvent = true): void {
     node.indeterminate = node.selected = false;
     this.#selection.delete(node);
 
     if (this.selects === 'multiple') {
       // Deselect all children
       if (node.expandable) {
-        const traverse = (node: TreeModelNode<T>): void => {
+        const traverse = (node: TreeDataSourceNode<T>): void => {
           node.indeterminate = node.selected = false;
           this.#selection.delete(node);
 
@@ -276,12 +282,14 @@ export abstract class TreeModel<T> extends EventTarget {
       }
     }
 
-    this.#update(emitEvent);
+    if (emitEvent) {
+      this.update();
+    }
   }
 
   /** Selects all nodes in the tree. */
   selectAll(): void {
-    const traverse = (node: TreeModelNode<T>): void => {
+    const traverse = (node: TreeDataSourceNode<T>): void => {
       node.indeterminate = false;
       node.selected = true;
       this.#selection.add(node);
@@ -291,14 +299,14 @@ export abstract class TreeModel<T> extends EventTarget {
       }
     };
 
-    this.treeNodes.forEach(traverse);
+    this.nodes.forEach(traverse);
 
-    this.#update(true);
+    this.update();
   }
 
   /** Deselects all nodes in the tree. */
   deselectAll(): void {
-    const traverse = (node: TreeModelNode<T>): void => {
+    const traverse = (node: TreeDataSourceNode<T>): void => {
       node.indeterminate = node.selected = false;
       this.#selection.delete(node);
 
@@ -307,14 +315,14 @@ export abstract class TreeModel<T> extends EventTarget {
       }
     };
 
-    this.treeNodes.forEach(traverse);
+    this.nodes.forEach(traverse);
 
-    this.#update(true);
+    this.update();
   }
 
   /** Flattens the tree nodes to an array based on the expansion state. */
-  toViewArray(): Array<TreeModelNode<T>> {
-    const traverse = (treeNode: TreeModelNode<T>): Array<TreeModelNode<T>> => {
+  toViewArray(): Array<TreeDataSourceNode<T>> {
+    const traverse = (treeNode: TreeDataSourceNode<T>): Array<TreeDataSourceNode<T>> => {
       if (treeNode.expandable && treeNode.expanded) {
         if (Array.isArray(treeNode.children)) {
           const array = treeNode.children.map(childNode => {
@@ -334,10 +342,10 @@ export abstract class TreeModel<T> extends EventTarget {
       return [treeNode];
     };
 
-    return this.treeNodes.flatMap(treeNode => traverse(treeNode));
+    return this.nodes.flatMap(treeNode => traverse(treeNode));
   }
 
-  #createTreeNodePlaceholder(parent: TreeModelNode<T>): TreeModelNode<T> {
+  #createTreeNodePlaceholder(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
     return {
       dataNode: null as unknown as T,
       expandable: false,
@@ -348,11 +356,5 @@ export abstract class TreeModel<T> extends EventTarget {
       parent,
       placeholder: true
     };
-  }
-
-  #update(emitEvent: boolean): void {
-    if (emitEvent) {
-      this.dispatchEvent(new Event('sl-update'));
-    }
   }
 }

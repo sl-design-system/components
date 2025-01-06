@@ -5582,12 +5582,15 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/checkbox": "npm:^2.0.1"
+    "@sl-design-system/data-source": "npm:^0.0.1"
     "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/shared": "npm:^0.4.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
     "@sl-design-system/spinner": "npm:^1.0.1"
+    lit: "npm:^3.2.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 

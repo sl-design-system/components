@@ -7,11 +7,11 @@ import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import '../register.js';
-import { FlatTreeModel } from './flat-tree-model.js';
-import { NestedTreeModel } from './nested-tree-model.js';
+import { FlatTreeDataSource } from './flat-tree-data-source.js';
+import { NestedTreeDataSource } from './nested-tree-data-source.js';
 import { type Tree } from './tree.js';
 
-type Props = Pick<Tree, 'hideGuides' | 'model' | 'renderer' | 'scopedElements'> & {
+type Props = Pick<Tree, 'dataSource' | 'hideGuides' | 'renderer' | 'scopedElements'> & {
   styles?: string;
 };
 type Story = StoryObj<Props>;
@@ -190,10 +190,10 @@ export default {
   tags: ['draft'],
   args: {
     hideGuides: false,
-    model: undefined
+    dataSource: undefined
   },
   argTypes: {
-    model: {
+    dataSource: {
       table: { disable: true }
     },
     renderer: {
@@ -203,11 +203,11 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ hideGuides, model, renderer, scopedElements, styles }) => {
-    const onToggle = () => model?.selection.forEach(node => model?.toggle(node)),
-      onToggleDescendants = () => model?.selection.forEach(node => model?.toggleDescendants(node)),
-      onExpandAll = () => model?.expandAll(),
-      onCollapseAll = () => model?.collapseAll();
+  render: ({ dataSource, hideGuides, renderer, scopedElements, styles }) => {
+    const onToggle = () => dataSource?.selection.forEach(node => dataSource?.toggle(node)),
+      onToggleDescendants = () => dataSource?.selection.forEach(node => dataSource?.toggleDescendants(node)),
+      onExpandAll = () => dataSource?.expandAll(),
+      onCollapseAll = () => dataSource?.collapseAll();
 
     return html`
       ${styles
@@ -218,7 +218,7 @@ export default {
           `
         : nothing}
       <sl-button-bar style="margin-block-end: 1rem">
-        ${model?.selects
+        ${dataSource?.selects
           ? html`
               <sl-button @click=${onToggle}>Toggle selected</sl-button>
               <sl-button @click=${onToggleDescendants}>Toggle descendants</sl-button>
@@ -229,7 +229,7 @@ export default {
       </sl-button-bar>
       <sl-tree
         ?hide-guides=${hideGuides}
-        .model=${model}
+        .dataSource=${dataSource}
         .renderer=${renderer}
         .scopedElements=${scopedElements}
       ></sl-tree>
@@ -237,9 +237,9 @@ export default {
   }
 } satisfies Meta<Props>;
 
-export const FlatModel: Story = {
+export const FlatDataSource: Story = {
   args: {
-    model: new FlatTreeModel(flatData, {
+    dataSource: new FlatTreeDataSource(flatData, {
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
@@ -250,9 +250,9 @@ export const FlatModel: Story = {
   }
 };
 
-export const NestedModel: Story = {
+export const NestedDataSource: Story = {
   args: {
-    model: new NestedTreeModel(nestedData, {
+    dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
@@ -265,7 +265,7 @@ export const NestedModel: Story = {
 
 export const SingleSelect: Story = {
   args: {
-    model: new FlatTreeModel(flatData, {
+    dataSource: new FlatTreeDataSource(flatData, {
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
@@ -280,7 +280,7 @@ export const SingleSelect: Story = {
 
 export const MultiSelect: Story = {
   args: {
-    model: new NestedTreeModel(nestedData, {
+    dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
@@ -295,7 +295,7 @@ export const MultiSelect: Story = {
 
 export const LazyLoad: Story = {
   args: {
-    model: new NestedTreeModel(
+    dataSource: new NestedTreeDataSource(
       [
         { id: '0-0', expandable: true },
         { id: '0-1', expandable: true },
@@ -359,7 +359,7 @@ export const LazyLoad: Story = {
 
 export const CustomRenderer: Story = {
   args: {
-    ...FlatModel.args,
+    ...FlatDataSource.args,
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
 

@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { SlAnnounceEvent } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { Select } from '@sl-design-system/select';
 import '@sl-design-system/select/register.js';
 import { html } from 'lit';
@@ -548,7 +548,7 @@ describe('sl-paginator', () => {
       nr: index + 1
     }));
 
-    const dataSource = new ArrayDataSource(items);
+    const dataSource = new ArrayListDataSource(items);
     const totalItems = dataSource.items.length;
 
     beforeEach(async () => {

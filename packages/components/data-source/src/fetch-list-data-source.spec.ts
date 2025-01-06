@@ -2,23 +2,23 @@ import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
 import { type Person, people } from './data-source.spec.js';
 import {
-  FetchDataSource,
-  type FetchDataSourceCallbackOptions,
-  FetchDataSourcePlaceholder
-} from './fetch-data-source.js';
+  FetchListDataSource,
+  type FetchListDataSourceCallbackOptions,
+  FetchListDataSourcePlaceholder
+} from './fetch-list-data-source.js';
 
-describe('FetchDataSource', () => {
-  let ds: FetchDataSource<Person>;
+describe('FetchListDataSource', () => {
+  let ds: FetchListDataSource<Person>;
 
   beforeEach(() => {
-    ds = new FetchDataSource<Person>({
+    ds = new FetchListDataSource<Person>({
       fetchPage: () => Promise.resolve({ items: [...people], totalItems: people.length }),
       pageSize: 2
     });
   });
 
   it('should have a size', () => {
-    expect(ds.size).to.equal(FetchDataSource.defaultSize);
+    expect(ds.size).to.equal(FetchListDataSource.defaultSize);
   });
 
   it('should have a page size', () => {
@@ -46,7 +46,7 @@ describe('FetchDataSource', () => {
   it('should return a placeholder item when the item is not yet available', async () => {
     ds.update();
 
-    expect(ds.items[0]).to.equal(FetchDataSourcePlaceholder);
+    expect(ds.items[0]).to.equal(FetchListDataSourcePlaceholder);
 
     await new Promise(resolve => setTimeout(resolve));
 
@@ -112,7 +112,7 @@ describe('FetchDataSource', () => {
     });
 
     it('should provide filter options when fetching a page', () => {
-      let options: FetchDataSourceCallbackOptions | undefined;
+      let options: FetchListDataSourceCallbackOptions | undefined;
 
       ds.fetchPage = _options => {
         options = _options;

@@ -1,6 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/card/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/menu/register.js';
 import '@sl-design-system/paginator/register.js';
@@ -54,7 +54,7 @@ export const WithDataSource: Story = {
       { nr: 10, title: 'test 10' }
     ];
 
-    const dataSource = new ArrayDataSource(items);
+    const dataSource = new ArrayListDataSource(items);
 
     requestAnimationFrame(() => {
       const totalItems = dataSource.items.length;

@@ -1,6 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Paginator, PaginatorSize, PaginatorStatus } from '@sl-design-system/paginator';
 import '@sl-design-system/paginator/register.js';
@@ -93,7 +93,7 @@ export const Basic: Story = {
 export const PaginatedDataSourceWithFilter: Story = {
   render: (_, { loaded: { people } }) => {
     const pageSizes = [5, 10, 15, 20],
-      dataSource = new ArrayDataSource(people as Person[]);
+      dataSource = new ArrayListDataSource(people as Person[]);
 
     const total = dataSource.items.length;
     dataSource.paginate(2, 15, total);
@@ -141,7 +141,7 @@ export const PaginatedDataSourceWithSorter: Story = {
       }
     };
 
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setSort('custom', sorter, 'asc');
 
     const pageSizes = [10, 15, 20];

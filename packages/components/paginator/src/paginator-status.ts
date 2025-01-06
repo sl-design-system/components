@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
-import { type DataSource } from '@sl-design-system/data-source';
+import { type ListDataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './paginator-status.scss.js';
@@ -30,7 +30,7 @@ export class PaginatorStatus extends LitElement {
   @state() currentlyVisibleItems = 1;
 
   /** Provided data source. */
-  @property({ attribute: false }) dataSource?: DataSource;
+  @property({ attribute: false }) dataSource?: ListDataSource;
 
   /** Items per page, if not set - default to 10. */
   @property({ type: Number, attribute: 'page-size' }) pageSize = 10;

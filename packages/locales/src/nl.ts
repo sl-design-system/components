@@ -56,5 +56,6 @@ export const templates = {
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf7290005be5beae6: str`${0}, pagina`
+  sf7290005be5beae6: str`${0}, pagina`,
+  sb59d68ed12d46377: 'Loading'
 };

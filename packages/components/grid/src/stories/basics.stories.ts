@@ -1,5 +1,9 @@
 import { Avatar } from '@sl-design-system/avatar';
-import { FetchDataSource, FetchDataSourceError, FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
+import {
+  FetchListDataSource,
+  FetchListDataSourceError,
+  FetchListDataSourcePlaceholder
+} from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -257,7 +261,7 @@ export const LazyLoad: Story = {
       limit: number;
     }
 
-    const dataSource = new FetchDataSource<Quote>({
+    const dataSource = new FetchListDataSource<Quote>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
         const response = await fetch(`https://dummyjson.com/quotes?skip=${(page - 1) * pageSize}&limit=${pageSize}`);
@@ -267,7 +271,7 @@ export const LazyLoad: Story = {
 
           return { items: quotes, totalItems: total };
         } else {
-          throw new FetchDataSourceError('Failed to fetch data', response);
+          throw new FetchListDataSourceError('Failed to fetch data', response);
         }
       }
     });
@@ -284,7 +288,7 @@ export const LazyLoad: Story = {
 
 export const Skeleton: Story = {
   render: () => {
-    const dataSource = new FetchDataSource<Person>({
+    const dataSource = new FetchListDataSource<Person>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
         const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
@@ -310,7 +314,7 @@ export const Skeleton: Story = {
 export const CustomSkeleton: Story = {
   render: () => {
     const avatarRenderer: GridColumnDataRenderer<Person> = item => {
-      if (typeof item === 'symbol' && item === FetchDataSourcePlaceholder) {
+      if (typeof item === 'symbol' && item === FetchListDataSourcePlaceholder) {
         return html`
           <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
             <sl-skeleton
@@ -327,7 +331,7 @@ export const CustomSkeleton: Story = {
       }
     };
 
-    const dataSource = new FetchDataSource<Person>({
+    const dataSource = new FetchListDataSource<Person>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
         const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });

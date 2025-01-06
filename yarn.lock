@@ -5411,7 +5411,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/spinner@workspace:packages/components/spinner":
+"@sl-design-system/spinner@npm:^1.0.1, @sl-design-system/spinner@workspace:packages/components/spinner":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/spinner@workspace:packages/components/spinner"
   dependencies:
@@ -5584,6 +5584,8 @@ __metadata:
     "@sl-design-system/checkbox": "npm:^2.0.1"
     "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/shared": "npm:^0.4.0"
+    "@sl-design-system/skeleton": "npm:^1.0.0"
+    "@sl-design-system/spinner": "npm:^1.0.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown

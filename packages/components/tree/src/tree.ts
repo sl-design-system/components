@@ -3,9 +3,11 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
+import { Skeleton } from '@sl-design-system/skeleton';
+import { Spinner } from '@sl-design-system/spinner';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { TreeModel, type TreeModelNode, TreeModelNodePlaceholder } from './tree-model.js';
+import { TreeModel, type TreeModelNode } from './tree-model.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
 
@@ -28,6 +30,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
+      'sl-skeleton': Skeleton,
+      'sl-spinner': Spinner,
       'sl-tree-node': TreeNode
     };
   }
@@ -52,7 +56,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, attribute: 'hide-guides' }) hideGuides?: boolean;
 
   /** @internal The array of items to be rendered. */
-  @state() items?: Array<TreeModelNode<T> | typeof TreeModelNodePlaceholder>;
+  @state() items?: Array<TreeModelNode<T>>;
 
   get model() {
     return this.#model;
@@ -135,19 +139,14 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       <div @keydown=${this.#onKeydown} @sl-select=${this.#onSelect} part="wrapper">
         ${virtualize({
           items: this.items,
-          keyFunction: (item: TreeModelNode<T> | typeof TreeModelNodePlaceholder) =>
-            item === TreeModelNodePlaceholder ? TreeModelNodePlaceholder : item.id,
-          renderItem: (item: TreeModelNode<T> | typeof TreeModelNodePlaceholder) => this.renderItem(item)
+          keyFunction: (item: TreeModelNode<T>) => item.id,
+          renderItem: (item: TreeModelNode<T>) => this.renderItem(item)
         })}
       </div>
     `;
   }
 
-  renderItem(item: TreeModelNode<T> | typeof TreeModelNodePlaceholder): TemplateResult {
-    if (item === TreeModelNodePlaceholder) {
-      return html`<div part="placeholder"></div>`;
-    }
-
+  renderItem(item: TreeModelNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
 
     return html`
@@ -160,6 +159,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ?hide-guides=${this.hideGuides}
         ?indeterminate=${item.indeterminate}
         ?last-node-in-level=${item.lastNodeInLevel}
+        ?placeholder=${item.placeholder}
         ?selected=${this.model?.selects === 'single' && item.selected}
         .level=${item.level}
         .node=${item}
@@ -217,6 +217,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdate = (): void => {
-    this.items = this.model?.toArray() ?? [];
+    this.items = this.model?.toViewArray() ?? [];
   };
 }

@@ -1,8 +1,10 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { Spinner } from '@sl-design-system/spinner';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { IndentGuides } from './indent-guides.js';
@@ -19,6 +21,7 @@ declare global {
  * A tree node component. Used to represent a node in a tree. This component
  * is not public API and is used internally by `<sl-tree>`.
  */
+@localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -29,7 +32,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     return {
       'sl-checkbox': Checkbox,
       'sl-icon': Icon,
-      'sl-indent-guides': IndentGuides
+      'sl-indent-guides': IndentGuides,
+      'sl-spinner': Spinner
     };
   }
 
@@ -68,6 +72,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The tree model node. */
   @property({ attribute: false }) node?: TreeModelNode<T>;
+
+  /** Acts as a placeholder for loading nodes when set. */
+  @property({ type: Boolean }) placeholder?: boolean;
 
   /** @internal Emits when the user clicks a the wrapper part of the tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeModelNode<T>>>;
@@ -129,19 +136,21 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <div part="wrapper">
-        ${this.selects === 'multiple'
-          ? html`
-              <sl-checkbox
-                @sl-change=${this.#onChange}
-                ?checked=${this.checked}
-                ?indeterminate=${this.indeterminate}
-                size="sm"
-              >
-                <input slot="input" tabindex="-1" type="checkbox" />
-                <slot></slot>
-              </sl-checkbox>
-            `
-          : html`<slot></slot>`}
+        ${this.placeholder
+          ? html`<sl-spinner></sl-spinner>${msg('Loading')}`
+          : this.selects === 'multiple'
+            ? html`
+                <sl-checkbox
+                  @sl-change=${this.#onChange}
+                  ?checked=${this.checked}
+                  ?indeterminate=${this.indeterminate}
+                  size="sm"
+                >
+                  <input slot="input" tabindex="-1" type="checkbox" />
+                  <slot></slot>
+                </sl-checkbox>
+              `
+            : html`<slot></slot>`}
       </div>
     `;
   }

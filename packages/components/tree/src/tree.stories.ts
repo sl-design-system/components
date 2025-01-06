@@ -313,7 +313,7 @@ export const LazyLoad: Story = {
               }));
 
               resolve(children);
-            }, 2000);
+            }, 1000);
           });
         },
         getChildren: () => undefined,

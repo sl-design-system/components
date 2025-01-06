@@ -1,6 +1,3 @@
-/** Symbol used as a placeholder for tree nodes that are being loaded. */
-export const TreeModelNodePlaceholder = Symbol('TreeModelItemPlaceholder');
-
 export interface TreeModelNode<T> {
   id: unknown;
   children?: Array<TreeModelNode<T>>;
@@ -16,6 +13,7 @@ export interface TreeModelNode<T> {
   lastNodeInLevel?: boolean;
   level: number;
   parent?: TreeModelNode<T>;
+  placeholder?: boolean;
   selected?: boolean;
 }
 
@@ -315,13 +313,13 @@ export abstract class TreeModel<T> extends EventTarget {
   }
 
   /** Flattens the tree nodes to an array based on the expansion state. */
-  toArray(): Array<TreeModelNode<T> | typeof TreeModelNodePlaceholder> {
-    const traverse = (treeNode: TreeModelNode<T>): Array<TreeModelNode<T> | typeof TreeModelNodePlaceholder> => {
+  toViewArray(): Array<TreeModelNode<T>> {
+    const traverse = (treeNode: TreeModelNode<T>): Array<TreeModelNode<T>> => {
       if (treeNode.expandable && treeNode.expanded) {
         if (Array.isArray(treeNode.children)) {
           const array = treeNode.children.map(childNode => {
             if (childNode instanceof Promise) {
-              return TreeModelNodePlaceholder;
+              return this.#createTreeNodePlaceholder(treeNode);
             } else {
               return traverse(childNode);
             }
@@ -329,7 +327,7 @@ export abstract class TreeModel<T> extends EventTarget {
 
           return [treeNode, ...array.flat()];
         } else if (treeNode.childrenLoading instanceof Promise) {
-          return [treeNode, TreeModelNodePlaceholder];
+          return [treeNode, this.#createTreeNodePlaceholder(treeNode)];
         }
       }
 
@@ -337,6 +335,19 @@ export abstract class TreeModel<T> extends EventTarget {
     };
 
     return this.treeNodes.flatMap(treeNode => traverse(treeNode));
+  }
+
+  #createTreeNodePlaceholder(parent: TreeModelNode<T>): TreeModelNode<T> {
+    return {
+      dataNode: null as unknown as T,
+      expandable: false,
+      expanded: false,
+      id: 'placeholder',
+      label: '',
+      level: parent.level + 1,
+      parent,
+      placeholder: true
+    };
   }
 
   #update(emitEvent: boolean): void {

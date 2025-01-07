@@ -98,7 +98,7 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       this.selection.add(treeNode);
     }
 
-    if (treeNode.expandable && treeNode.expanded) {
+    if (treeNode.expandable) {
       const children = getChildren(item);
 
       if (Array.isArray(children)) {

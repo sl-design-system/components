@@ -218,7 +218,7 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       expect(announce).to.have.been.calledOnce;
-      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 4 of 20' } });
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 5 of 20' } });
     });
 
     it('should announce the current page after clicking the next button', async () => {
@@ -229,7 +229,7 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       expect(announce).to.have.been.calledOnce;
-      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 6 of 20' } });
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 7 of 20' } });
     });
   });
 
@@ -266,6 +266,18 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       expect(ds.page).to.equal(1);
+    });
+
+    it('should announce the current page when the page size has changed', async () => {
+      const announce = spy();
+      document.body.addEventListener('sl-announce', announce);
+
+      ds.setPageSize(5);
+      ds.update();
+      await el.updateComplete;
+
+      expect(announce).to.have.been.calledOnce;
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 1 of 8' } });
     });
   });
 

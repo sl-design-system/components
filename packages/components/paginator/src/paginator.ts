@@ -297,7 +297,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     this.#updateVisibility();
 
     if (announcePage) {
-      announce(msg(str`Page ${this.page} of ${this.pageCount}`));
+      announce(msg(str`Page ${this.page + 1} of ${this.pageCount}`));
     }
   }
 
@@ -330,6 +330,16 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdate = (): void => {
+    // If only the page size has changed, we need to reset the page to 0
+    if (this.page === this.dataSource!.page && this.pageSize !== this.dataSource!.pageSize) {
+      // Prevent an infinite loop
+      this.pageSize = this.dataSource!.pageSize;
+
+      this.#onPageClick(0, true);
+
+      return;
+    }
+
     this.page = this.dataSource!.page ?? 0;
     this.pageSize = this.dataSource!.pageSize;
     this.totalItems = this.dataSource!.size;

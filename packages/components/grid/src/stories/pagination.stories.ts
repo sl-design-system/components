@@ -28,7 +28,12 @@ export const Basic: Story = {
         size = document.querySelector('sl-paginator-page-size')!,
         status = document.querySelector('sl-paginator-status')!;
 
-      page ??= paginator.page;
+      if (typeof pageSize === 'number' && pageSize !== paginator.pageSize) {
+        page = 0;
+      } else {
+        page ??= paginator.page;
+      }
+
       pageSize ??= paginator.pageSize;
 
       paginator.page = status.page = page;

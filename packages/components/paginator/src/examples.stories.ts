@@ -81,7 +81,8 @@ export const DataSource: Story = {
             Array.from({ length: 80 }, (_, index) => ({
               nr: index + 1,
               title: `Title of card number ${index + 1}`
-            }))
+            })),
+            { pagination: true }
           );
 
           /**

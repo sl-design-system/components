@@ -375,11 +375,7 @@ a[class^='skip-link'] {
   padding: var(--sl-space-100) var(--sl-space-200);
   position: fixed;
   position-anchor: --myanchor;
-  scale: 1 0;
-  transform-origin: 0 100%;
-  transition:
-    opacity 0.5s ease-in-out,
-    scale 0.5s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 
   &:focus {
     opacity: 1;
@@ -395,13 +391,8 @@ a[class^='skip-link'] {
 }
 
 .skip-link-start:focus {
-  border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
   inset-block-end: anchor(top);
   position-try: --start-fallback;
-}
-
-.skip-link-end {
-  border-radius: 0 0 var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default);
 }
 
 .skip-link-end:focus {

@@ -82,7 +82,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dataSource = dataSource;
     this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
 
-    this.#onUpdate();
+    void this.#onUpdate();
   }
 
   /** The original size, before any resize observer logic. */
@@ -329,20 +329,27 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onUpdate = (): void => {
-    // If only the page size has changed, we need to reset the page to 0
-    if (this.page === this.dataSource!.page && this.pageSize !== this.dataSource!.pageSize) {
+  #onUpdate = async (): Promise<void> => {
+    const { page, pageSize, size } = this.dataSource!;
+
+    // If the page remains the same, but the pageSize or size has changed,
+    // we need to reset the page to the first page.
+    if (this.page === page && (this.pageSize !== pageSize || this.totalItems !== size)) {
       // Prevent an infinite loop
-      this.pageSize = this.dataSource!.pageSize;
+      this.pageSize = pageSize;
+      this.totalItems = size;
+
+      // Wait for the update, so pageCount is updated
+      await this.updateComplete;
 
       this.#onPageClick(0, true);
 
       return;
     }
 
-    this.page = this.dataSource!.page ?? 0;
-    this.pageSize = this.dataSource!.pageSize;
-    this.totalItems = this.dataSource!.size;
+    this.page = page ?? 0;
+    this.pageSize = pageSize;
+    this.totalItems = size;
   };
 
   #updateVisibility(): void {

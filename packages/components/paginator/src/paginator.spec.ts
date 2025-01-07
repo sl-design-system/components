@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { Button } from '@sl-design-system/button';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { html } from 'lit';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import '../register.js';
 import { Paginator } from './paginator.js';
 
@@ -268,6 +268,23 @@ describe('sl-paginator', () => {
       expect(ds.page).to.equal(1);
     });
 
+    it('should set the current page to the first page when the page size changes', async () => {
+      ds.setPageSize(5);
+      ds.update();
+      await el.updateComplete;
+
+      expect(el.page).to.equal(0);
+    });
+
+    it('should set the current page to the first page when the size has changed', async () => {
+      stub(ds, 'size').get(() => 100);
+
+      ds.update();
+      await el.updateComplete;
+
+      expect(el.page).to.equal(0);
+    });
+
     it('should announce the current page when the page size has changed', async () => {
       const announce = spy();
       document.body.addEventListener('sl-announce', announce);
@@ -277,7 +294,19 @@ describe('sl-paginator', () => {
       await el.updateComplete;
 
       expect(announce).to.have.been.calledOnce;
-      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 1 of 8' } });
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 1 of 16' } });
+    });
+
+    it('should announce the current page when the size has changed', async () => {
+      const announce = spy();
+      document.body.addEventListener('sl-announce', announce);
+
+      stub(ds, 'size').get(() => 100);
+      ds.update();
+      await el.updateComplete;
+
+      expect(announce).to.have.been.calledOnce;
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 1 of 10' } });
     });
   });
 

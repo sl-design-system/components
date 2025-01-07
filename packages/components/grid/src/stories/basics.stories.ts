@@ -260,7 +260,7 @@ export const LazyLoad: Story = {
     const dataSource = new FetchDataSource<Quote>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
-        const response = await fetch(`https://dummyjson.com/quotes?skip=${(page - 1) * pageSize}&limit=${pageSize}`);
+        const response = await fetch(`https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`);
 
         if (response.ok) {
           const { quotes, total } = (await response.json()) as QuotesResponse;

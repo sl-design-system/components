@@ -1,4 +1,5 @@
-/** Sends a notification to the live aria.
+/**
+ * Sends a notification to the live aria.
  * Please be aware that sending messages too soon after each other can cause the screenreader
  * to stop reading the earlier messages, or even skip them, when a new message is sent.
  * If you want to send multiple messages in a row, consider using a single message with all the information.

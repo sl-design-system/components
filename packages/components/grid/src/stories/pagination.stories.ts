@@ -99,6 +99,7 @@ export const DataSource: Story = {
         }
         sl-paginator {
           flex: 1;
+          justify-content: center;
         }
       </style>
       <sl-grid .dataSource=${ds}>
@@ -163,6 +164,7 @@ export const DataSource2: Story = {
         }
         sl-paginator {
           flex: 1;
+          justify-content: center;
         }
       </style>
       <sl-grid .dataSource=${ds}>

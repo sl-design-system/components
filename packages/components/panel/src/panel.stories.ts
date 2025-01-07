@@ -121,9 +121,9 @@ export const Basic: Story = {
   args: {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
     badge: () =>
-      html`<sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">prefix</sl-badge
-        ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">prefix</sl-badge>`,
-    content: () => html`<p>Panel content</p>`,
+      html`<sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+        ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>`,
+    content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading',
@@ -134,7 +134,7 @@ export const Basic: Story = {
 export const WithPrefix: Story = {
   args: {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
-    content: () => html`<p>Panel content</p>`,
+    content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading',
@@ -145,7 +145,7 @@ export const WithPrefix: Story = {
 export const WithSuffix: Story = {
   args: {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
-    content: () => html`<p>Panel content</p>`,
+    content: () => html`<span>Panel content</span>`,
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading',
     subtitle: 'Panel subtitle'
@@ -213,6 +213,11 @@ export const All: Story = {
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
         align-items: center;
+        padding: 1rem;
+      }
+
+      section:first-of-type {
+        background-color: var(--sl-elevation-surface-raised-alternative-idle);
       }
     </style>
     ${elevations.map(
@@ -297,3 +302,5 @@ export const All: Story = {
     )}
   `
 };
+
+// TODO: problems with overflow, menu button is outside the panel

@@ -54,6 +54,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   #hasBadge = false;
 
+  #hasPrefix = false;
+
   #toggleClicked = false;
 
   @property({ reflect: true, attribute: 'badges-placement' }) badgesPlacement?: BadgesPlacement;
@@ -129,10 +131,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
               class=${this.#toggleClicked ? 'clicked' : ''}
             >
               <sl-icon
-                class="icon ${this.#toggleClicked ? 'dash' : 'chevron'} ${!this.collapsed && !this.#toggleClicked
-                  ? 'upside-down'
-                  : ''}"
-                name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
+                class="icon chevron ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
+                name="chevron-down"
               ></sl-icon>
             </sl-button>`
           : nothing}
@@ -176,9 +176,11 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
   //   ${this.renderHeading()}
   // </button>
 
+  // TODO: badges placement when no badges should not be there?
+
   renderHeading(): TemplateResult {
     return html`
-      <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
+      <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''} @slotchange=${this.handleBadgeSlotChange}></slot>
       <div part="main">
         <div part="titles">
           <slot name="heading">${this.heading}</slot>
@@ -186,7 +188,11 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
         </div>
         <slot name="badge" @slotchange=${this.handleBadgeSlotChange}></slot>
       </div>
-      <slot name="suffix" class=${this.#hasBadge ? 'hidden' : ''}></slot>
+      <slot
+        name="suffix"
+        class=${this.#hasBadge || this.#hasPrefix ? 'hidden' : ''}
+        @slotchange=${this.handleBadgeSlotChange}
+      ></slot>
     `;
   } // <!-- ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing} -->
 
@@ -242,9 +248,14 @@ aria-expanded=${this.collapsed ? 'false' : 'true'}
 
   private handleBadgeSlotChange(): void {
     const badgeSlot = this.shadowRoot?.querySelector('slot[name="badge"]') as HTMLSlotElement | null;
+    const prefixSlot = this.shadowRoot?.querySelector('slot[name="prefix"]') as HTMLSlotElement | null;
     this.#hasBadge = (badgeSlot && badgeSlot.assignedNodes().length > 0) || false;
+    this.#hasPrefix = (prefixSlot && prefixSlot.assignedNodes().length > 0) || false;
 
     console.log('this.#hasBadge', this.#hasBadge);
+    console.log('this.#hasPrefix', this.#hasPrefix);
+
+    this.toggleAttribute('has-badge', this.#hasBadge);
 
     // TODO: when prefix there should be no suffix?
 

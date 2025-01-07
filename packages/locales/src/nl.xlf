@@ -214,6 +214,10 @@
   <source>Skip to start of table</source>
   <target>Naar het begin van de tabel</target>
 </trans-unit>
+<trans-unit id="sb2c57b2d347203dd">
+  <source>Show more</source>
+  <target/>Meer tonen
+</trans-unit>
 </body>
 </file>
 </xliff>

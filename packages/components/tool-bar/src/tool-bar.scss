@@ -1,4 +1,5 @@
 :host {
+  align-items: center;
   border: 1px solid var(--sl-color-palette-neutral-200);
   border-radius: var(--sl-border-radius-2xs);
   display: flex;
@@ -32,7 +33,8 @@
   flex: 1;
   gap: 1rem;
   min-inline-size: 0;
-  padding: 0.5rem;
+
+  // padding: 0.5rem;
 }
 
 sl-menu-button {

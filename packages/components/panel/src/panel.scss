@@ -2,6 +2,7 @@
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 
+  background: var(--sl-elevation-surface-raised-default-idle);
   border-radius: var(--sl-size-borderRadius-md);
   display: flex;
   flex-direction: column;
@@ -54,7 +55,13 @@
   }
 }
 
-:host([badges-placement='top']) {
+:host([has-badge]) {
+  [part='main'] {
+    gap: var(--sl-space-new-lg);
+  }
+}
+
+:host([has-badge][badges-placement='top']) {
   [part='main'] {
     flex-direction: column-reverse;
   }
@@ -84,11 +91,12 @@
 [part='wrapper'] {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--sl-space-new-lg);
 
   > * {
     // FIXME: This is a quick hack to vertically align the heading with any action buttons
-    padding-block-start: var(--sl-space-new-lg); // 2px;
+    // padding-block-start: var(--sl-space-new-lg);
   }
 }
 
@@ -113,16 +121,12 @@ button {
   display: none;
 }
 
-sl-icon {
-  // rotate: 180deg;
-  // transition: rotate 0.2s ease-in-out;
-  transition: transform 0.3s ease;
-}
-
 slot[name='heading'],
 slot[name='heading']::slotted(*) {
-  color: var(--sl-color-accordion-default-foreground);
-  font: var(--sl-text-accordion-title); // TODO: use contextual tokens
+  color: var(--sl-color-text-bold);
+
+  // font: var(--sl-text-accordion-title); // TODO: use contextual tokens
+  font-size: 1.5em;
 }
 
 slot[name='heading'] {
@@ -136,29 +140,27 @@ slot[name='badge'] {
 
 sl-tool-bar {
   min-inline-size: 0;
-
-  // &:not([empty]) {
-  //  padding-inline-end: var(--_padding-inline); // TODO: make sure if we really need this one
-  // }
 }
 
 slot[name='actions']::slotted(:first-child) {
   // FIXME: Since the `aside` slot always has content, gap on the header won't work as expected
   // So we explicitly set a left margin on the first action
-  margin-inline-start: 1rem;
+  // margin-inline-start: 1rem;
 }
 
 [part='main'] {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  gap: var(--sl-space-new-lg);
 }
 
 [part='body'] {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows 200ms ease-in-out;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: grid-template-rows 200ms ease-in-out;
+  }
 }
 
 [part='inner'] {
@@ -166,39 +168,20 @@ slot[name='actions']::slotted(:first-child) {
 }
 
 [part='content'] {
-  // padding-block-end: var(--_padding-block);
-  // padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
   padding: var(--sl-space-new-lg);
 }
 
 .icon {
-  transition: transform 200ms ease-in-out; // ease,
-  // opacity 50ms ease-in-out;
-  // ease;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 200ms ease-in-out;
+  }
 }
-
-.icon.dash {
-  opacity: 0;
-
-  // position: absolute;
-}
-
-// .icon.chevron {
-//  //opacity: 1;
-//  transform: scaleY(1);
-// }
-
-// sl-button:not(.clicked) .icon.chevron {
-//  opacity: 1;
-//  transform: scaleY(1);
-// }
 
 .icon.chevron {
   opacity: 1;
   transform: scaleY(1);
 }
 
-/* sl-button:not(.clicked) */
 .icon.upside-down {
   transform: scaleY(-1);
 }
@@ -206,9 +189,3 @@ slot[name='actions']::slotted(:first-child) {
 sl-button.clicked .icon.chevron {
   opacity: 0;
 }
-
-sl-button.clicked .icon.dash {
-  opacity: 1;
-}
-
-// TODO: when reduced motion?

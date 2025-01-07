@@ -1,9 +1,4 @@
-import {
-  DATA_SOURCE_DEFAULT_PAGE_SIZE,
-  DataSource,
-  type DataSourceOptions,
-  type DataSourceSort
-} from './data-source.js';
+import { DataSource, type DataSourceOptions, type DataSourceSort } from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FetchDataSourceCallbackOptions<T = any> {
@@ -56,9 +51,6 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   /** Object for keeping track of outstanding fetch calls. */
   #pages: Record<number, Promise<void> | undefined> = {};
 
-  /** The page size when retrieving data. */
-  #pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
-
   /** Proxy of the items array. */
   #proxy: T[] = [];
 
@@ -75,10 +67,6 @@ export class FetchDataSource<T = any> extends DataSource<T> {
     return this.#proxy;
   }
 
-  override get pageSize(): number {
-    return this.#pageSize;
-  }
-
   get size(): number {
     return this.#size;
   }
@@ -86,9 +74,12 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   constructor(options: FetchDataSourceOptions<T>) {
     super(options);
 
-    this.#pageSize = options.pageSize ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
     this.#size = options.size ?? FetchDataSource.defaultSize;
     this.fetchPage = options.fetchPage;
+
+    if (typeof options.pageSize === 'number') {
+      this.setPageSize(options.pageSize);
+    }
 
     if (options.placeholder) {
       this.placeholder = options.placeholder;

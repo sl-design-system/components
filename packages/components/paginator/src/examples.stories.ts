@@ -19,6 +19,7 @@ export const Connected: Story = {
     };
 
     const onPageSizeChange = ({ detail: pageSize }: SlChangeEvent<number>): void => {
+      document.querySelector('sl-paginator')!.page = 0;
       document.querySelector('sl-paginator')!.pageSize = pageSize;
       document.querySelector('sl-paginator-status')!.pageSize = pageSize;
     };

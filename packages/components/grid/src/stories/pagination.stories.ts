@@ -173,7 +173,7 @@ export const DataSource2: Story = {
       <div class="pagination">
         <sl-paginator-status .dataSource=${ds}></sl-paginator-status>
         <sl-paginator .dataSource=${ds}></sl-paginator>
-        <sl-paginator-page-size .dataSource=${ds} .pageSizes=${[10, 15, 20]}></sl-paginator-page-size>
+        <sl-paginator-page-size .dataSource=${ds} page-sizes="[5,10,15,20]"></sl-paginator-page-size>
       </div>
     `;
   }

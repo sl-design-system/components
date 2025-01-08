@@ -396,9 +396,8 @@ a[class^='skip-link'] {
 }
 
 .skip-link-end:focus {
+  inset-block-start: anchor(bottom);
   position-try: --end-fallback;
-
-  // top: anchor(bottom);
 }
 
 @position-try --start-fallback {

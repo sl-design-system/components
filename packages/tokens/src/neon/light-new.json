@@ -1089,7 +1089,7 @@
       "selected": {
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.blue.subtle.idle}",
+            "value": "{color.background.accent.blue.subtle}",
             "type": "color",
             "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
           },
@@ -1106,7 +1106,7 @@
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.blue.bold.idle}",
+            "value": "{color.background.accent.blue.bold}",
             "type": "color",
             "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
           },
@@ -1142,7 +1142,7 @@
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.blue.subtle.idle}",
+            "value": "{color.background.accent.blue.subtle}",
             "type": "color",
             "description": "A subtle background variant in the primary color."
           },
@@ -1159,7 +1159,7 @@
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.blue.bold.idle}",
+            "value": "{color.background.accent.blue.bold}",
             "type": "color",
             "description": "Use for the background of primary actions with bold emphasis."
           },
@@ -1195,7 +1195,7 @@
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.blue.subtle.idle}",
+            "value": "{color.background.accent.blue.subtle}",
             "type": "color",
             "description": "A subtle background variant in the secondary color."
           },

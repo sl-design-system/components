@@ -385,6 +385,64 @@
       "050": {
         "value": "rgba({color.white}, 0.05)",
         "type": "color"
+      },
+      "interactive": {
+        "bold": {
+          "idle": {
+            "value": "0%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "20%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "40%",
+            "type": "opacity"
+          }
+        },
+        "muted": {
+          "idle": {
+            "value": "0%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "10%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "20%",
+            "type": "opacity"
+          }
+        },
+        "subtlest": {
+          "idle": {
+            "value": "10%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "25%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "35%",
+            "type": "opacity"
+          }
+        },
+        "subtle": {
+          "idle": {
+            "value": "30%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "40%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "50%",
+            "type": "opacity"
+          }
+        }
       }
     },
     "dark": {
@@ -435,10 +493,8 @@
       "050": {
         "value": "rgba({color.black}, 0.08)",
         "type": "color"
-      }
-    },
-    "interactive": {
-      "light": {
+      },
+      "interactive": {
         "bold": {
           "idle": {
             "value": "0%",
@@ -459,97 +515,39 @@
             "type": "opacity"
           },
           "hover": {
-            "value": "8%",
+            "value": "20%",
             "type": "opacity"
           },
           "active": {
-            "value": "16%",
+            "value": "30%",
             "type": "opacity"
           }
         },
         "subtlest": {
           "idle": {
-            "value": "8%",
+            "value": "20%",
             "type": "opacity"
           },
           "hover": {
-            "value": "16%",
+            "value": "30%",
             "type": "opacity"
           },
           "active": {
-            "value": "24%",
+            "value": "40%",
             "type": "opacity"
           }
         },
         "subtle": {
           "idle": {
-            "value": "16%",
+            "value": "30%",
             "type": "opacity"
           },
           "hover": {
-            "value": "24%",
+            "value": "40%",
             "type": "opacity"
           },
           "active": {
-            "value": "32%",
-            "type": "opacity"
-          }
-        }
-      },
-      "dark": {
-        "bold": {
-          "idle": {
-            "value": "0%",
-            "type": "opacity"
-          },
-          "hover": {
-            "value": "8%",
-            "type": "opacity"
-          },
-          "active": {
-            "value": "16%",
-            "type": "opacity"
-          }
-        },
-        "muted": {
-          "idle": {
-            "value": "0%",
-            "type": "opacity"
-          },
-          "hover": {
-            "value": "16%",
-            "type": "opacity"
-          },
-          "active": {
-            "value": "24%",
-            "type": "opacity"
-          }
-        },
-        "subtlest": {
-          "idle": {
-            "value": "8%",
-            "type": "opacity"
-          },
-          "hover": {
-            "value": "16%",
-            "type": "opacity"
-          },
-          "active": {
-            "value": "24%",
-            "type": "opacity"
-          }
-        },
-        "subtle": {
-          "idle": {
-            "value": "16%",
-            "type": "opacity"
-          },
-          "hover": {
-            "value": "24%",
-            "type": "opacity"
-          },
-          "active": {
-            "value": "32%",
+            "value": "50%",
             "type": "opacity"
           }
         }

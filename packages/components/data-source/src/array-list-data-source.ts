@@ -4,11 +4,23 @@ import {
   type DataSourceFilterByPath,
   type DataSourceSortFunction
 } from './data-source.js';
-import { ListDataSource } from './list-data-source.js';
+import { ListDataSource, type ListDataSourceOptions } from './list-data-source.js';
 
+/**
+ * A data source that can be used to filter, group by, sort,
+ * and paginate an array of items. Use this data source when
+ * you have all the data you need in memory and you don't need
+ * to load any additional data.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayListDataSource<T = any> extends ListDataSource<T> {
+  /**
+   * The array of items after filtering, sorting, grouping and
+   * pagination has been applied.
+   */
   #filteredItems: T[] = [];
+
+  /** The original array of items. */
   #items: T[];
 
   get items(): T[] {
@@ -19,8 +31,8 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     return this.#items.length;
   }
 
-  constructor(items: T[]) {
-    super();
+  constructor(items: T[], options: ListDataSourceOptions = {}) {
+    super(options);
     this.#filteredItems = [...items];
     this.#items = [...items];
   }
@@ -137,13 +149,11 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       });
     }
 
-    // paginate items
-    if (this.page) {
-      const startIndex = (this.page.page - 1) * this.page.pageSize,
-        endIndex = startIndex + this.page.pageSize;
+    if (this.pagination) {
+      const start = (this.page ?? 0) * this.pageSize,
+        end = Math.min(start + this.pageSize, this.size);
 
-      this.page.totalItems = items.length;
-      items = items.slice(startIndex, endIndex);
+      items = items.slice(start, end);
     }
 
     this.#filteredItems = items;

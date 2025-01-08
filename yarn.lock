@@ -4704,7 +4704,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/announcer@workspace:packages/components/announcer":
+"@sl-design-system/announcer@npm:^0.0.0, @sl-design-system/announcer@workspace:packages/components/announcer":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/announcer@workspace:packages/components/announcer"
   dependencies:
@@ -5245,7 +5245,9 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/announcer": "npm:^0.0.0"
     "@sl-design-system/button": "npm:^1.0.3"
+    "@sl-design-system/form": "npm:^1.1.0"
     "@sl-design-system/icon": "npm:^1.0.2"
     "@sl-design-system/menu": "npm:^0.1.3"
     "@sl-design-system/select": "npm:^1.1.2"

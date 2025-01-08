@@ -1,5 +1,5 @@
 import { type DataSourceSort } from './data-source.js';
-import { ListDataSource } from './list-data-source.js';
+import { ListDataSource, type ListDataSourceOptions } from './list-data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FetchListDataSourceCallbackOptions<T = any> {
@@ -20,7 +20,7 @@ export type FetchListDataSourceCallback<T> = (
 
 export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
 
-export interface FetchListDataSourceOptions<T> {
+export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions {
   fetchPage: FetchListDataSourceCallback<T>;
   pageSize: number;
   placeholder?: FetchListDataSourcePlaceholder<T>;
@@ -61,9 +61,6 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The callback for retrieving data. */
   fetchPage: FetchListDataSourceCallback<T>;
 
-  /** The page size when retrieving data. */
-  pageSize: number;
-
   /** Returns placeholder data for items not yet loaded. */
   placeholder: FetchListDataSourcePlaceholder<T> = () => FetchListDataSourcePlaceholder as T;
 
@@ -75,21 +72,39 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     return this.#size;
   }
 
-  constructor({ fetchPage, pageSize, placeholder, size }: FetchListDataSourceOptions<T>) {
-    super();
-    this.#size = size ?? FetchListDataSource.defaultSize;
-    this.fetchPage = fetchPage;
-    this.pageSize = pageSize;
+  constructor(options: FetchListDataSourceOptions<T>) {
+    super(options);
 
-    if (placeholder) {
-      this.placeholder = placeholder;
+    this.#size = options.size ?? FetchListDataSource.defaultSize;
+    this.fetchPage = options.fetchPage;
+
+    if (typeof options.pageSize === 'number') {
+      this.setPageSize(options.pageSize);
+    }
+
+    if (options.placeholder) {
+      this.placeholder = options.placeholder;
     }
   }
 
   update(): void {
-    this.#items = new Array<T>(this.size);
+    let length = this.size;
+
+    if (this.pagination) {
+      const pageCount = Math.ceil(this.size / this.pageSize),
+        lastPageSize = this.size % this.pageSize;
+
+      if (this.page === pageCount - 1 && lastPageSize > 0) {
+        length = lastPageSize;
+      } else {
+        length = this.pageSize;
+      }
+    }
+
+    this.#items = new Array<T>(length);
     this.#pages = {};
     this.#proxy = this.#createProxy(this.#items);
+
     this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
   }
 
@@ -107,8 +122,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
     return new Proxy(items, {
       get: function (target, property) {
+        const length = that.pagination ? Math.min(target.length, that.pageSize) : that.size;
+
         if (property === 'length') {
-          return that.size;
+          return length;
         } else if (property === 'at') {
           return (n: number) => {
             let index = n;
@@ -119,6 +136,12 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
             }
 
             return target[index] ?? that.#requestFetch(index);
+          };
+        } else if (property === Symbol.iterator) {
+          return function* () {
+            for (let i = 0; i < length; i++) {
+              yield target[i] ?? that.#requestFetch(i);
+            }
           };
         } else {
           const n = Number(property);
@@ -134,7 +157,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   #requestFetch(n: number): T {
     const { pageSize } = this,
-      page = Math.ceil((n + 1) / pageSize);
+      page = this.pagination ? this.page : Math.floor(n / pageSize);
 
     if (!this.#pages[page]) {
       this.#pages[page] = (async () => {
@@ -146,7 +169,18 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         }
 
         for (let i = 0; i < res.items.length; i++) {
-          this.#items[pageSize * (page - 1) + i] = res.items[i];
+          const index = this.pagination ? i : pageSize * page + i;
+
+          this.#items[index] = res.items[i];
+        }
+
+        /**
+         * When pagination is enabled and we are fetching a page for the first time,
+         * the size may be smaller than the initial size. In this case, we need to
+         * recreate the Proxy object to reflect the new size.
+         */
+        if (this.pagination && this.#items.length !== res.items.length) {
+          this.#proxy = this.#createProxy(this.#items.slice(0, res.items.length));
         }
 
         this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));

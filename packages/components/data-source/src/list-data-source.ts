@@ -7,22 +7,47 @@ export type ListDataSourceGroupBy<T> = {
   direction?: DataSourceSortDirection;
 };
 
-export type ListDataSourcePagination = { page: number; pageSize: number; totalItems: number };
+export type ListDataSourceOptions = {
+  pagination?: boolean;
+};
+
+/** The default page size, if not explicitly set. */
+export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
   /** Order the items by grouping them on the given attributes. */
   #groupBy?: ListDataSourceGroupBy<T>;
 
-  /** Parameters for pagination, contains page number, page size and total items amount. */
-  #page?: ListDataSourcePagination;
+  /** The index of the page. */
+  #page = 0;
+
+  /** The number of items on a single page. */
+  #pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+
+  /** Whether this data source uses pagination. */
+  #pagination: boolean;
 
   get groupBy(): ListDataSourceGroupBy<T> | undefined {
     return this.#groupBy;
   }
 
-  get page(): ListDataSourcePagination | undefined {
+  get page(): number {
     return this.#page;
+  }
+
+  get pageSize(): number {
+    return this.#pageSize;
+  }
+
+  get pagination(): boolean {
+    return this.#pagination;
+  }
+
+  constructor(options: ListDataSourceOptions = {}) {
+    super();
+
+    this.#pagination = options.pagination ?? false;
   }
 
   /**
@@ -47,15 +72,11 @@ export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
   }
 
   setPage(page: number): void {
-    if (this.#page) {
-      this.paginate(page, this.#page.pageSize, this.#page.totalItems);
-    }
+    this.#page = page;
   }
 
   setPageSize(pageSize: number): void {
-    if (this.#page) {
-      this.paginate(0, pageSize, this.#page.totalItems);
-    }
+    this.#pageSize = pageSize;
   }
 
   override setSort<U extends PathKeys<T> | DataSourceSortFunction<T>>(
@@ -76,17 +97,6 @@ export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
     if (this.#page) {
       this.setPage(0);
     }
-  }
-
-  setTotalItems(totalItems: number): void {
-    if (this.#page) {
-      this.paginate(this.#page.page, this.#page.pageSize, totalItems);
-    }
-  }
-
-  /** Use to get the paginated data for usage with the sl-paginator component. */
-  paginate(page: number, pageSize: number, totalItems: number): void {
-    this.#page = { page: page, pageSize: pageSize, totalItems: totalItems };
   }
 
   /**

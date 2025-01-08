@@ -1034,7 +1034,8 @@
       "color.tag.bold.close.active.foreground": "S:e825c6e534f2dc6e22ca8d41d41ae265b596a005,",
       "color.tag.bold.close.active.border": "S:bc22ef924f0fad963beaaac04db21c99814a66c3,",
       "color.focusring.inversed": "S:94c3a9d2526b78197b80cf27c8070565d726bf8e,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "fe66830bc69788a47b68afc3602ed862f56468d9",
@@ -1048,7 +1049,8 @@
       "bingel-int/light-new": "enabled",
       "bingel-int/base-new": "enabled"
     },
-    "$figmaStyleReferences": {}
+    "$figmaStyleReferences": {},
+    "$figmaVariableReferences": {}
   },
   {
     "id": "f29bcd4917ac377e9acae60e5bea805443e64557",
@@ -2157,7 +2159,8 @@
       "text.input.fieldLabel.tag.lg": "S:ae73e36775c8776362b841b2b9f6c7a9a840d135,",
       "text.tag.close.md": "S:c206c5cd6526891a93e7b372490d5647107b6767,",
       "text.tag.close.lg": "S:aa61c9d3c5c087a75a73a48fc1b6ac04900c2580,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "75c085de26b040da28d51d8de52eb55f6c5def28",
@@ -3111,7 +3114,8 @@
       "color.tag.bold.close.active.foreground": "S:79c01c85b13236ae48985b5e38f0dac6dc77b280,",
       "color.tag.bold.close.active.border": "S:baeb19cf72d0fab0e2abbb2df169062422028b4d,",
       "color.focusring.inversed-copy": "S:1833cc3057105fd16b1347cc5f9807042c1661eb,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "0666bcf8f8b42e1998f235d1c0017e5713a2d1c5",
@@ -4316,7 +4320,8 @@
       "color.tag.bold.close.active.foreground": "S:d1723e5f459941b053bd17d2953aaa9f7591fe27,",
       "color.tag.bold.close.active.border": "S:769b9c8d46304dcc899e90dbad5fefce84a68a4f,",
       "color.focusring.inversed-copy": "S:32b602680c93b51e7b376bae268eaa02203d987e,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "e9b7bccb31a259deda783812a64c74d9f4eded1f",
@@ -5470,7 +5475,8 @@
       "color.tag.bold.close.active.foreground": "S:acfe0cd54ef444c955de00c1d8980fbbe5637bf0,",
       "color.tag.bold.close.active.border": "S:2326b3085dd12f2a71743dc0c0d4f2f5760f372a,",
       "color.focusring.inversed-copy": "S:1a4c9f2a229ab1e8e3cf20919239155172f0b269,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "0631665162f34da485674fa1150d8fbd1d3b448c",
@@ -6332,7 +6338,8 @@
       "text.tag.sm": "S:52718f3248ab720322f60b8e5d46f72814efc2af,",
       "text.tag.label.md": "S:7a82f0c76b877d63146ad6e22de2481f0b90d87e,",
       "text.tag.label.lg": "S:6a5fd54a4c0b78cc061e6fbc44670c2df3268dd8,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "3c0efcad43272eb5bb21bcbff94b5f2dbd876fcf",
@@ -7445,7 +7452,8 @@
       "color.tag.bold.close.active.foreground": "S:a3a904bc6c9c5d6462a8709997a264a5b2a223aa,",
       "color.tag.bold.close.active.border": "S:897a15144bce8fe4d30fec5c5e0d7a1543d78a74,",
       "color.focusring.inversed-copy": "S:7cc88021d9d417662669d3bd2ac16724d0091168,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "449e41c0b79397c25c33901ab5f3d8368791872f",
@@ -9437,7 +9445,8 @@
       "color.icon.positive.bold": "S:2b3dfec98c39beeec58268c5b335506d18fede32,",
       "color.text.secondary.bold": "S:05269dfa8fa96498aeeb225e4f4aefae0698fdac,",
       "color.link.idle": "S:9e84c4380684b46649d5624497fcbc93fa2ba20b,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "a00a0a39a93c4999fa17c244b2d1efa344b553a5",
@@ -11225,7 +11234,8 @@
       "color.icon.positive.bold": "S:2b3dfec98c39beeec58268c5b335506d18fede32,",
       "color.text.secondary.bold": "S:05269dfa8fa96498aeeb225e4f4aefae0698fdac,",
       "color.link.idle": "S:9e84c4380684b46649d5624497fcbc93fa2ba20b,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "60a68a937863627cbe44b73f4c022517333e0de6",
@@ -12300,7 +12310,8 @@
       "text.tag.sm": "S:1d383400740e7f4ff656eef9c183e97319ffc1f0,",
       "text.tag.label.md": "S:b43b13a837e3667d3aed285d74548fe0259e1f6a,",
       "text.tag.label.lg": "S:70115dc240cbbd70b52fefbb478529d394160d03,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "f76ab6629be224b8b2a31bc50e52bd0408bc72d6",
@@ -13642,7 +13653,8 @@
       "color.tag.bold.close.active.foreground": "S:7ec502a5afff7f4d52093b4f82bffaa15944db74,",
       "color.tag.bold.close.active.border": "S:7e3c2b9d30c17d8d0cf0995fb0d309007407890b,",
       "color.focusring.inversed-copy": "S:0c0ea0221bb36ef9e04de512d5599d32cafde9b1,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "8b23509cf0a35208aad368c416a303dcc9c17258",
@@ -14761,11 +14773,17 @@
       "body.surface.200": "S:c5e737f62c9e4b895780bb4143dc613fecf852b6,",
       "body.surface.overlay": "S:94149617a695c8a55cd7082e9ae81858d11a5906,",
       "color.palette.primary.25": "S:5949bcbaa16285fa54f6d22054a4339cac25bea8,"
-    }
+    },
+    "$figmaVariableReferences": {}
   },
   {
     "id": "602a04f491ccd8e9e737d56ed95cb349b5904c9c",
     "name": "myvanin_onhold/light",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "myvanin_onhold/base": "enabled",
+      "myvanin_onhold/light": "enabled"
+    },
     "$figmaStyleReferences": {
       "body.background": "S:844b3b45196aa5c197d73f037991b434d324a546,",
       "body.foreground": "S:61029622e6342c9feb2a8bab4d705bc9bb312722,",
@@ -15785,15 +15803,20 @@
       "text.tag.label.md": "S:7764794d472821d22937c3b02a6456e142f9e99e,",
       "text.tag.label.lg": "S:8173ebd3509a652391283409ddd804d767d77e92,"
     },
-    "selectedTokenSets": {
-      "core": "enabled",
-      "myvanin_onhold/base": "enabled",
-      "myvanin_onhold/light": "enabled"
-    }
+    "$figmaVariableReferences": {}
   },
   {
     "id": "2238cc554f2c51d124ae0b38928da5dc55a0327d",
     "name": "editorial-suite/light",
+    "selectedTokenSets": {
+      "core": "source",
+      "editorial-suite/base": "enabled",
+      "primitives": "source",
+      "system": "source",
+      "editorial-suite/light": "enabled",
+      "editorial-suite/light-new": "enabled",
+      "editorial-suite/base-new": "enabled"
+    },
     "$figmaStyleReferences": {
       "body.background": "S:aba733b77a7f068303c7457e6e99dbb5ed81197b,",
       "body.foreground": "S:4c7a48ebada04120f54eb9eec7122ecf71330cb0,",
@@ -16909,19 +16932,20 @@
       "color.tag.bold.close.active.border": "S:44e90ba5ac36b8e5070d0b5618dab37e784b10c6,",
       "color.focusring.inversed-copy": "S:6a18802aecdd84c81476f8c1761a55df52a96fa2,"
     },
-    "selectedTokenSets": {
-      "core": "source",
-      "editorial-suite/base": "enabled",
-      "primitives": "source",
-      "system": "source",
-      "editorial-suite/light": "enabled",
-      "editorial-suite/light-new": "enabled",
-      "editorial-suite/base-new": "enabled"
-    }
+    "$figmaVariableReferences": {}
   },
   {
     "id": "5fce7e9ea4c449e6db2a4075a03d0b54e40b0ba2",
     "name": "my-digital-book/light",
+    "selectedTokenSets": {
+      "core": "source",
+      "my-digital-book/base": "enabled",
+      "primitives": "source",
+      "system": "source",
+      "my-digital-book/light": "enabled",
+      "my-digital-book/light-new": "enabled",
+      "my-digital-book/base-new": "enabled"
+    },
     "$figmaStyleReferences": {
       "color.palette.primary.50": "S:cdb7d124a79a506da585c0c0140098dc9d5bf08d,",
       "color.palette.primary.100": "S:fc73b3e62c5ee1e2a709fe2237d1363be4f16203,",
@@ -17888,19 +17912,16 @@
       "color.select.panel.bacground": "S:47a785c973248b3e22d8b13abfbceaae3094d84b,",
       "color.select.panel.bacground-copy": "S:f2cf76ddc1ca5bcaffe6cb1211e9d9d99a9e212a,"
     },
-    "selectedTokenSets": {
-      "core": "source",
-      "my-digital-book/base": "enabled",
-      "primitives": "source",
-      "system": "source",
-      "my-digital-book/light": "enabled",
-      "my-digital-book/light-new": "enabled",
-      "my-digital-book/base-new": "enabled"
-    }
+    "$figmaVariableReferences": {}
   },
   {
     "id": "06d056d2ce141d0046cae5f452cdc7e2ac280d0f",
     "name": "sanoma-utbildning_onhold/light",
+    "selectedTokenSets": {
+      "core": "enabled",
+      "sanoma-utbildning_onhold/base": "enabled",
+      "sanoma-utbildning_onhold/light": "enabled"
+    },
     "$figmaStyleReferences": {
       "body.background": "S:79b9af311a01f8ef1c33b3ceb9d60096a469431d,",
       "body.foreground": "S:f56f50e4e853a8271ca30c55a0e9aaa387fd118d,",
@@ -18920,10 +18941,6 @@
       "text.tag.label.md": "S:88f4efc7f6514a3220e0be32882d7d0344e3666e,",
       "text.tag.label.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,"
     },
-    "selectedTokenSets": {
-      "core": "enabled",
-      "sanoma-utbildning_onhold/base": "enabled",
-      "sanoma-utbildning_onhold/light": "enabled"
-    }
+    "$figmaVariableReferences": {}
   }
 ]

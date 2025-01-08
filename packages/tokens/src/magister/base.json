@@ -1170,6 +1170,11 @@
       }
     },
     "textField": {
+      "value": {
+        "md": "[object Object]",
+        "lg": "[object Object]"
+      },
+      "type": "other",
       "fontIcon": {
         "md": {
           "value": {
@@ -1209,12 +1214,7 @@
           },
           "type": "typography"
         }
-      },
-      "value": {
-        "md": "[object Object]",
-        "lg": "[object Object]"
-      },
-      "type": "other"
+      }
     },
     "icon": {
       "font": {

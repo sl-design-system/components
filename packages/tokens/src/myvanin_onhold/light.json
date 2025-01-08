@@ -4436,6 +4436,7 @@
       "pulse": {
         "value": "{color.palette.neutral.100}",
         "type": "color",
+        "description": "body.surface.100",
         "$extensions": {
           "studio.tokens": {
             "modify": {
@@ -4444,8 +4445,7 @@
               "space": "hsl"
             }
           }
-        },
-        "description": "body.surface.100"
+        }
       },
       "shimmer": {
         "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
@@ -4577,6 +4577,29 @@
           "value": "{color.button.default.link.disabled.foreground}",
           "type": "color",
           "description": "color.button.info.outline.disabled.foreground"
+        }
+      }
+    },
+    "background": {
+      "accent": {
+        "blue": {
+          "interactive": {
+            "base": {
+              "value": "{color.palette.blue.400}",
+              "type": "color",
+              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "solid": {
+              "value": "{color.palette.blue.800}",
+              "type": "color",
+              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "transparant": {
+              "value": "{color.background.accent.blue.interactive.base}",
+              "type": "color",
+              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            }
+          }
         }
       }
     }

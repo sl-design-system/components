@@ -4299,6 +4299,7 @@
       "pulse": {
         "value": "{color.palette.neutral.100}",
         "type": "color",
+        "description": "body.surface.100",
         "$extensions": {
           "studio.tokens": {
             "modify": {
@@ -4307,8 +4308,7 @@
               "space": "hsl"
             }
           }
-        },
-        "description": "body.surface.100"
+        }
       },
       "shimmer": {
         "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",

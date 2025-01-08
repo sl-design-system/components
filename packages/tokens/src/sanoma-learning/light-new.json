@@ -1387,7 +1387,7 @@
         },
         "subtlest": {
           "idle": {
-            "value": "{color.background.accent.green.subtlest.idle}",
+            "value": "{color.background.accent.green.subtlest}",
             "type": "color",
             "description": "The subtlest background option for communicating a positive outcome."
           },
@@ -1404,7 +1404,7 @@
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.green.subtle.idle}",
+            "value": "{color.background.accent.green.subtle}",
             "type": "color",
             "description": "A subtle background option for communicating a positive outcome."
           },
@@ -1421,7 +1421,7 @@
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.green.bold.idle}",
+            "value": "{color.background.accent.green.bold}",
             "type": "color",
             "description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
           },
@@ -1608,87 +1608,29 @@
           }
         },
         "green": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted green backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.green.100}",
-              "type": "color",
-              "description": "Used for muted green backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.green.150}",
-              "type": "color",
-              "description": "Used for muted green backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
           "subtlest": {
-            "idle": {
-              "value": "{color.palette.green.050}",
-              "type": "color",
-              "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.green.100}",
-              "type": "color",
-              "description": "The subtlest green background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.green.150}",
-              "type": "color",
-              "description": "The sublest green background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.green.400} {opacity.light.interactive.subtlest.idle})",
+            "type": "color",
+            "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.green.150}",
-              "type": "color",
-              "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.green.100}",
-              "type": "color",
-              "description": "A subtle green background option in hover state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.green.050}",
-              "type": "color",
-              "description": "A subtle green background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.green.400} {opacity.light.interactive.subtle.idle})",
+            "type": "color",
+            "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.green.600}",
-              "type": "color",
-              "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.green.700}",
-              "type": "color",
-              "description": "A vibrant green background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.green.800}",
-              "type": "color",
-              "description": "A vibrant green background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "{color.palette.green.600}",
+            "type": "color",
+            "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
           },
           "interactive": {
-            "base": {
-              "value": "{color.palette.green.600}",
+            "bold": {
+              "value": "{color.palette.green.900}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             },
-            "solid": {
-              "value": "{color.palette.green.800}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "transparant": {
-              "value": "{color.background.accent.green.interactive.base}",
+            "plain": {
+              "value": "{color.background.accent.green.bold}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             }

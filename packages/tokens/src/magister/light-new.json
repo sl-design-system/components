@@ -1301,7 +1301,7 @@
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.green.subtle.idle}",
+            "value": "{color.background.accent.green.subtle}",
             "type": "color",
             "description": "A subtle background option for communicating a positive outcome."
           },
@@ -1318,7 +1318,7 @@
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.green.bold.idle}",
+            "value": "{color.background.accent.green.bold}",
             "type": "color",
             "description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
           },

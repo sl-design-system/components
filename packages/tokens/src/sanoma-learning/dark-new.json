@@ -1188,51 +1188,51 @@
       "secondary": {
         "muted": {
           "idle": {
-            "value": "{color.background.accent.grey.muted.idle}",
+            "value": "{color.background.accent.grey-old.muted.idle}",
             "type": "color",
             "description": "Use for the background of secondary actions that appear to have no background in idle state. Such as outline and ghost buttons."
           },
           "hover": {
-            "value": "{color.background.accent.grey.muted.hover}",
+            "value": "{color.background.accent.grey-old.muted.hover}",
             "type": "color",
             "description": "Use for the background while hovering of secondary actions that appear to have no background in idle state. Such as outline and ghost buttons."
           },
           "active": {
-            "value": "{color.background.accent.grey.muted.active}",
+            "value": "{color.background.accent.grey-old.muted.active}",
             "type": "color",
             "description": "Use for the background while pressing of secondary actions that appear to have no background in idle state. such as outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
+            "value": "{color.background.accent.grey-old.subtle.idle}",
             "type": "color",
             "description": "A subtle background variant in the secondary color."
           },
           "hover": {
-            "value": "{color.background.accent.grey.subtle.hover}",
+            "value": "{color.background.accent.grey-old.subtle.hover}",
             "type": "color",
             "description": "A subtle background variant in the secondary color for hover states."
           },
           "active": {
-            "value": "{color.background.accent.grey.subtle.active}",
+            "value": "{color.background.accent.grey-old.subtle.active}",
             "type": "color",
             "description": "A subtle background variant in the secondary color for active states."
           }
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.grey.bold.idle}",
+            "value": "{color.background.accent.grey-old.bold.idle}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis."
           },
           "hover": {
-            "value": "{color.background.accent.grey.bold.hover}",
+            "value": "{color.background.accent.grey-old.bold.hover}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during hover states."
           },
           "active": {
-            "value": "{color.background.accent.grey.bold.active}",
+            "value": "{color.background.accent.grey-old.bold.active}",
             "type": "color",
             "description": "Use for the background of secondary actions with bold emphasis during pressed states"
           }
@@ -1347,51 +1347,51 @@
       "caution": {
         "muted": {
           "idle": {
-            "value": "{color.background.accent.yellow.muted.idle}",
+            "value": "{color.background.accent.yellow-old.muted.idle}",
             "type": "color",
             "description": "Background for caution to prevent errors, with no background in the idle state, used on outline and ghost buttons."
           },
           "hover": {
-            "value": "{color.background.accent.yellow.muted.hover}",
+            "value": "{color.background.accent.yellow-old.muted.hover}",
             "type": "color",
             "description": "Background for caution to prevent errors in the hovered state, with no background in the idle state, used on outline and ghost buttons."
           },
           "active": {
-            "value": "{color.background.accent.yellow.muted.active}",
+            "value": "{color.background.accent.yellow-old.muted.active}",
             "type": "color",
             "description": "Background for caution to prevent errors in the pressed state, with no background in the idle state, used on outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.yellow.subtle.idle}",
+            "value": "{color.background.accent.yellow-old.subtle.idle}",
             "type": "color",
             "description": "A subtle background option for communicating caution to prevent mistakes or errors, such as in inline messages."
           },
           "hover": {
-            "value": "{color.background.accent.yellow.subtle.hover}",
+            "value": "{color.background.accent.yellow-old.subtle.hover}",
             "type": "color",
             "description": "A subtle background option for communicating caution to prevent mistakes or errors in a hovered state."
           },
           "active": {
-            "value": "{color.background.accent.yellow.subtle.active}",
+            "value": "{color.background.accent.yellow-old.subtle.active}",
             "type": "color",
             "description": "A subtle background option for communicating caution to prevent mistakes or errors in a pressed state."
           }
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.yellow.bold.idle}",
+            "value": "{color.background.accent.yellow-old.bold.idle}",
             "type": "color",
             "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons."
           },
           "hover": {
-            "value": "{color.background.accent.yellow.bold.hover}",
+            "value": "{color.background.accent.yellow-old.bold.hover}",
             "type": "color",
             "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons in a hovered state."
           },
           "active": {
-            "value": "{color.background.accent.yellow.bold.active}",
+            "value": "{color.background.accent.yellow-old.bold.active}",
             "type": "color",
             "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons in a pressed state."
           }
@@ -1400,51 +1400,51 @@
       "negative": {
         "muted": {
           "idle": {
-            "value": "{color.background.accent.red.muted.idle}",
+            "value": "{color.background.accent.red-old.muted.idle}",
             "type": "color",
             "description": "Background for negative or serious error states (e.g., validation errors or irreversible actions), with no background in the idle state, used on outline and ghost buttons."
           },
           "hover": {
-            "value": "{color.background.accent.red.muted.hover}",
+            "value": "{color.background.accent.red-old.muted.hover}",
             "type": "color",
             "description": "Background for negative or serious error states (e.g., validation errors or irreversible actions) in hovered state, with no background in the idle state, used on outline and ghost buttons."
           },
           "active": {
-            "value": "{color.background.accent.red.muted.active}",
+            "value": "{color.background.accent.red-old.muted.active}",
             "type": "color",
             "description": "Background for negative or serious error states (e.g., validation errors or irreversible actions) in pressed, with no background in the idle state, used on outline and ghost buttons."
           }
         },
         "subtle": {
           "idle": {
-            "value": "{color.background.accent.red.subtle.idle}",
+            "value": "{color.background.accent.red-old.subtle.idle}",
             "type": "color",
             "description": "A subtle background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in inline messages."
           },
           "hover": {
-            "value": "{color.background.accent.red.subtle.hover}",
+            "value": "{color.background.accent.red-old.subtle.hover}",
             "type": "color",
             "description": "A subtle background option for communicating negative or serious error states (e.g., validation errors or irreversible actions) in hovered state."
           },
           "active": {
-            "value": "{color.background.accent.red.subtle.active}",
+            "value": "{color.background.accent.red-old.subtle.active}",
             "type": "color",
             "description": "A subtle background option for communicating negative or serious error states (e.g., validation errors or irreversible actions) in pressed state."
           }
         },
         "bold": {
           "idle": {
-            "value": "{color.background.accent.red.bold.idle}",
+            "value": "{color.background.accent.red-old.bold.idle}",
             "type": "color",
             "description": "A vibrant background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons."
           },
           "hover": {
-            "value": "{color.background.accent.red.bold.hover}",
+            "value": "{color.background.accent.red-old.bold.hover}",
             "type": "color",
             "description": "A vibrant background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons in a hovered state."
           },
           "active": {
-            "value": "{color.background.accent.red.bold.active}",
+            "value": "{color.background.accent.red-old.bold.active}",
             "type": "color",
             "description": "A vibrant background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons in an active state."
           }
@@ -2037,7 +2037,7 @@
         },
         "sunken": {
           "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
+            "value": "{color.background.accent.grey-old.subtle.idle}",
             "type": "color",
             "description": "Background for components that create a sunken effect, typically used for grouping related items."
           },

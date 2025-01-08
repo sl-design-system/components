@@ -91,7 +91,8 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
       lastNodeInLevel,
       level: parent ? parent.level + 1 : 0,
       parent,
-      selected: isSelected?.(item)
+      selected: isSelected?.(item),
+      type: 'node'
     };
 
     if (treeNode.selected) {

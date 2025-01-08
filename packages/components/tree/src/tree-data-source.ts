@@ -1,4 +1,5 @@
 import { DataSource } from '@sl-design-system/data-source';
+import { type TreeNodeType } from './tree-node.js';
 
 export interface TreeDataSourceNode<T> {
   id: unknown;
@@ -15,8 +16,8 @@ export interface TreeDataSourceNode<T> {
   lastNodeInLevel?: boolean;
   level: number;
   parent?: TreeDataSourceNode<T>;
-  placeholder?: boolean;
   selected?: boolean;
+  type: TreeNodeType;
 }
 
 export interface TreeDataSourceMapping<T> {
@@ -25,7 +26,7 @@ export interface TreeDataSourceMapping<T> {
    * lazy loading children. This way, the tree component can show skeletons
    * for the children while they are being loaded.
    */
-  getChildrenCount?(item: T): number;
+  getChildrenCount?(item: T): number | undefined;
 
   /** Optional method for returning a custom icon for a tree node. */
   getIcon?(item: T, expanded: boolean): string;
@@ -327,7 +328,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
         if (Array.isArray(treeNode.children)) {
           const array = treeNode.children.map(childNode => {
             if (childNode instanceof Promise) {
-              return this.#createTreeNodePlaceholder(treeNode);
+              return this.#createPlaceholderTreeNode(treeNode);
             } else {
               return traverse(childNode);
             }
@@ -335,7 +336,14 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
           return [treeNode, ...array.flat()];
         } else if (treeNode.childrenLoading instanceof Promise) {
-          return [treeNode, this.#createTreeNodePlaceholder(treeNode)];
+          if (typeof treeNode.childrenCount === 'number') {
+            return [
+              treeNode,
+              ...Array.from({ length: treeNode.childrenCount }).map(() => this.#createSkeletonTreeNode(treeNode))
+            ];
+          } else {
+            return [treeNode, this.#createPlaceholderTreeNode(treeNode)];
+          }
         }
       }
 
@@ -345,7 +353,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     return this.nodes.flatMap(treeNode => traverse(treeNode));
   }
 
-  #createTreeNodePlaceholder(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
+  #createPlaceholderTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
     return {
       dataNode: null as unknown as T,
       expandable: false,
@@ -354,7 +362,20 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
       label: '',
       level: parent.level + 1,
       parent,
-      placeholder: true
+      type: 'placeholder'
+    };
+  }
+
+  #createSkeletonTreeNode(parent: TreeDataSourceNode<T>): TreeDataSourceNode<T> {
+    return {
+      dataNode: null as unknown as T,
+      expandable: false,
+      expanded: false,
+      id: 'skeleton',
+      label: '',
+      level: parent.level + 1,
+      parent,
+      type: 'skeleton'
     };
   }
 }

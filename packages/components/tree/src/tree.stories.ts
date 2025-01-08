@@ -325,37 +325,38 @@ export const LazyLoad: Story = {
   }
 };
 
-// export const Skeleton: Story = {
-//   args: {
-//     model: new NestedTreeModel(
-//       [
-//         { id: '0-0', expandable: true },
-//         { id: '0-1', expandable: true },
-//         { id: '0-2', expandable: true },
-//         { id: '0-3' },
-//         { id: '0-4' }
-//       ] as LazyNestedDataNode[],
-//       {
-//         getChildren: node => {
-//           if (!node.children) {
-//             node.children = Array.from({ length: 10 }).map((_, i) => {
-//               return new Promise<LazyNestedDataNode>(resolve =>
-//                 setTimeout(() => {
-//                   resolve({ id: `${node.id}-${i}`, expandable: true });
-//                 }, Math.random() * 4000)
-//               );
-//             });
-//           }
+export const Skeleton: Story = {
+  args: {
+    dataSource: new NestedTreeDataSource(
+      [
+        { id: '0-0', expandable: true },
+        { id: '0-1', expandable: true },
+        { id: '0-2', expandable: true },
+        { id: '0-3' },
+        { id: '0-4' }
+      ] as LazyNestedDataNode[],
+      {
+        loadChildren: node => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              const children = Array.from({ length: 10 }).map((_, i) => ({
+                id: `${node.id}-${i}`,
+                expandable: true
+              }));
 
-//           return node.children;
-//         },
-//         getId: ({ id }) => id,
-//         getLabel: ({ id }) => id,
-//         isExpandable: ({ expandable }) => !!expandable
-//       }
-//     )
-//   }
-// };
+              resolve(children);
+            }, 1000);
+          });
+        },
+        getChildren: () => undefined,
+        getChildrenCount: ({ expandable }) => (expandable ? 10 : undefined),
+        getId: ({ id }) => id,
+        getLabel: ({ id }) => id,
+        isExpandable: ({ expandable }) => !!expandable
+      }
+    )
+  }
+};
 
 export const CustomRenderer: Story = {
   args: {

@@ -4,9 +4,11 @@ import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { choose } from 'lit/directives/choose.js';
 import { IndentGuides } from './indent-guides.js';
 import { type TreeDataSourceNode } from './tree-data-source.js';
 import styles from './tree-node.scss.js';
@@ -16,6 +18,8 @@ declare global {
     'sl-tree-node': TreeNode;
   }
 }
+
+export type TreeNodeType = 'node' | 'placeholder' | 'skeleton';
 
 /**
  * A tree node component. Used to represent a node in a tree. This component
@@ -33,7 +37,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-checkbox': Checkbox,
       'sl-icon': Icon,
       'sl-indent-guides': IndentGuides,
-      'sl-spinner': Spinner
+      'sl-spinner': Spinner,
+      'sl-skeleton': Skeleton
     };
   }
 
@@ -88,6 +93,16 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the expanded state changes. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
+  /**
+   * The type of tree node:
+   * - 'node': A regular tree node.
+   * - 'placeholder': A placeholder node used for loading children.
+   * - 'skeleton': A skeleton node used for loading individual nodes.
+   *
+   * @default node
+   */
+  @property() type?: TreeNodeType;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -136,21 +151,30 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <div part="wrapper">
-        ${this.placeholder
-          ? html`<sl-spinner></sl-spinner>${msg('Loading')}`
-          : this.selects === 'multiple'
-            ? html`
-                <sl-checkbox
-                  @sl-change=${this.#onChange}
-                  ?checked=${this.checked}
-                  ?indeterminate=${this.indeterminate}
-                  size="sm"
-                >
-                  <input slot="input" tabindex="-1" type="checkbox" />
-                  <slot></slot>
-                </sl-checkbox>
-              `
-            : html`<slot></slot>`}
+        ${choose(
+          this.type,
+          [
+            ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading')}`],
+            [
+              'skeleton',
+              () => html` <sl-skeleton style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton> `
+            ]
+          ],
+          () =>
+            this.selects === 'multiple'
+              ? html`
+                  <sl-checkbox
+                    @sl-change=${this.#onChange}
+                    ?checked=${this.checked}
+                    ?indeterminate=${this.indeterminate}
+                    size="sm"
+                  >
+                    <input slot="input" tabindex="-1" type="checkbox" />
+                    <slot></slot>
+                  </sl-checkbox>
+                `
+              : html`<slot></slot>`
+        )}
       </div>
     `;
   }

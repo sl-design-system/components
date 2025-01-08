@@ -160,11 +160,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ?hide-guides=${this.hideGuides}
         ?indeterminate=${item.indeterminate}
         ?last-node-in-level=${item.lastNodeInLevel}
-        ?placeholder=${item.placeholder}
         ?selected=${this.dataSource?.selects === 'single' && item.selected}
         .level=${item.level}
         .node=${item}
         .selects=${this.dataSource?.selects}
+        .type=${item.type}
         aria-level=${item.level}
       >
         ${this.renderer?.(item) ??

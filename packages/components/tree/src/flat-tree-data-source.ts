@@ -129,7 +129,8 @@ export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
       lastNodeInLevel,
       level: getLevel(item),
       parent,
-      selected: isSelected?.(item)
+      selected: isSelected?.(item),
+      type: 'node'
     };
 
     return treeNode;

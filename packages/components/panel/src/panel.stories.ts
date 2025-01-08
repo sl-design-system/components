@@ -115,8 +115,6 @@ export default {
   }
 } satisfies Meta<Props>;
 
-// TODO: prefix and suffix examples
-
 export const Basic: Story = {
   args: {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
@@ -128,6 +126,12 @@ export const Basic: Story = {
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading',
     subtitle: 'Panel subtitle'
+  }
+};
+
+export const NoHeader: Story = {
+  args: {
+    content: () => html`<span>Panel content</span>`
   }
 };
 
@@ -171,6 +175,8 @@ export const OverflowHeading: Story = {
     ...Basic.args,
     heading:
       'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
+    subtitle:
+      'Panel subtitle. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.',
     content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'
   }
 };
@@ -212,7 +218,7 @@ export const All: Story = {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
-        align-items: center;
+        align-items: start;
         padding: 1rem;
       }
 
@@ -226,6 +232,7 @@ export const All: Story = {
         <section>
           <div>
             <h3>No outline</h3>
+            <sl-panel .elevation=${elevation}>Panel content without header</sl-panel>
             <sl-panel .elevation=${elevation} heading="Panel 1">Panel 1 content</sl-panel>
             <sl-panel .elevation=${elevation} heading="Panel 2">
               Panel 2 content
@@ -255,13 +262,69 @@ export const All: Story = {
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel 7 with suffix">
-              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
+              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
               Panel 7 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              .elevation=${elevation}
+              collapsible
+              collapsed
+              heading="Panel 8 with badges on the bottom"
+              subtitle="Panel subtitle"
+            >
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 8 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              .elevation=${elevation}
+              collapsible
+              collapsed
+              heading="Panel 9 with badges on the top"
+              subtitle="Panel subtitle"
+              badges-placement="top"
+            >
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 9 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel .elevation=${elevation} heading="Panel 10 with badges on the bottom" subtitle="Panel subtitle">
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 10 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              .elevation=${elevation}
+              heading="Panel 11 with badges on the top"
+              subtitle="Panel subtitle"
+              badges-placement="top"
+            >
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 11 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
           </div>
           <div>
             <h3>Outline</h3>
+            <sl-panel outline .elevation=${elevation}>Panel content without header</sl-panel>
             <sl-panel outline .elevation=${elevation} heading="Panel 1">Panel 1 content</sl-panel>
             <sl-panel outline .elevation=${elevation} heading="Panel 2">
               Panel 2 content
@@ -292,8 +355,71 @@ export const All: Story = {
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel outline .elevation=${elevation} collapsible collapsed heading="Panel 7 with suffix">
-              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
+              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
               Panel 7 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              collapsible
+              collapsed
+              heading="Panel 7 with badges on the bottom"
+              subtitle="Panel subtitle"
+            >
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 8 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              collapsible
+              collapsed
+              heading="Panel 7 with badges on the top"
+              subtitle="Panel subtitle"
+              badges-placement="top"
+            >
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 8 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              heading="Panel 10 with badges on the bottom"
+              subtitle="Panel subtitle"
+            >
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 10 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              heading="Panel 11 with badges on the top"
+              subtitle="Panel subtitle"
+              badges-placement="top"
+            >
+              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
+              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
+              Panel 11 content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
           </div>
@@ -302,5 +428,3 @@ export const All: Story = {
     )}
   `
 };
-
-// TODO: problems with overflow, menu button is outside the panel

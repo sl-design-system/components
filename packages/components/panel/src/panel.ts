@@ -5,7 +5,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToolBar } from '@sl-design-system/tool-bar';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './panel.scss.js';
@@ -16,13 +16,13 @@ declare global {
   }
 }
 
-export type TogglePlacement = 'start' | 'end';
-
-export type SubtitlePlacement = 'bottom' | 'top';
-
 export type BadgesPlacement = 'bottom' | 'top';
 
 export type PanelElevation = 'none' | 'raised' | 'sunken';
+
+export type SubtitlePlacement = 'bottom' | 'top';
+
+export type TogglePlacement = 'start' | 'end';
 
 /**
  * A container that can be collapsed and expanded.
@@ -32,11 +32,17 @@ export type PanelElevation = 'none' | 'raised' | 'sunken';
  * @csspart body - The body of the panel.
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
+ * @csspart main - The main container of the panel.
+ * @csspart titles - The container for the heading and subtitle.
  *
- * @slot heading - The panel's heading. Use this is the `heading` property does not suffice.
+ * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
  * @slot aside - Additional content to show in the header; replaces the button bar.
  * @slot actions - The panel's actions; will slot in a button bar by default.
  * @slot default - The panel's content.
+ * @slot prefix - Content to show before the heading.
+ * @slot subtitle - The panel's subtitle. Use this if the `subtitle` property is not sufficient.
+ * @slot badge - Place for badges that can be shown above or below the heading/subtitle.
+ * @slot suffix - Content to show after the heading.
  */
 @localized()
 export class Panel extends ScopedElementsMixin(LitElement) {
@@ -52,12 +58,16 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Indicates whether the panel has a badge in the main part. */
   #hasBadge = false;
 
+  /** Indicates whether the panel has a prefix. There should be no suffix visible, when there is something in the prefix. */
   #hasPrefix = false;
 
+  /** Indicates whether the toggle button has been clicked. */
   #toggleClicked = false;
 
+  /** The placement of badges within the panel - above or below the heading/subtitle. */
   @property({ reflect: true, attribute: 'badges-placement' }) badgesPlacement?: BadgesPlacement;
 
   /** Indicates whether the panel is collapsed or expanded . */
@@ -66,10 +76,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** Indicates whether the panel can be collapsed. */
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
 
-  /** Indicates whether the panel has a border. */
-  @property({ type: Boolean, reflect: true }) outline?: boolean;
-
-  @property({ reflect: true }) elevation?: PanelElevation; // TODO: none by default
+  /** The elevation style of the panel. */
+  @property({ reflect: true }) elevation?: PanelElevation;
 
   /**
    * The heading shown in the header. Use this property if your heading is a string. If you need
@@ -77,29 +85,46 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   @property() heading?: string;
 
+  /** Indicates whether the panel has no padding. */
+  @property({ type: Boolean, reflect: true, attribute: 'no-padding' }) noPadding?: boolean;
+
+  /** Indicates whether the panel has a border. */
+  @property({ type: Boolean, reflect: true }) outline?: boolean;
+
   /**
    * The heading shown in the header. Use this property if your subtitle is a string. If you need
    * more flexibility, such as an icon or other elements, use the `subtitle` slot.
    */
   @property() subtitle?: string;
 
+  /** The placement of the subtitle - below or above the heading. */
   @property({ reflect: true, attribute: 'subtitle-placement' }) subtitlePlacement?: SubtitlePlacement;
 
-  /** The placement of the toggle button when it's collapsible. */ // TODO: add @default...
-  @property({ reflect: true, attribute: 'toggle-placement' }) togglePlacement?: TogglePlacement; // togglePlacement
+  /** The placement of the toggle button when it's collapsible.
+   * @default `start`
+   * */
+  @property({ reflect: true, attribute: 'toggle-placement' }) togglePlacement?: TogglePlacement;
 
   /** @internal Emits when the panel expands/collapses. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
-  /** TODO: descriptions */
-  @property({ type: Boolean, reflect: true, attribute: 'no-padding' }) noPadding?: boolean;
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
-  // TODO: chevron on the left or on the right (toggle start / toggle end / none when not collapsible) toggle placement? (use TogglePlacement)
+    if (changes.has('heading') || changes.has('subtitle')) {
+      this.#handleHeaderSlotChange();
+    }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.#handleHeaderSlotChange();
+  }
 
   override render(): TemplateResult {
-    console.log('togglePlacement', this.togglePlacement);
     return html`
-      <div part="header">
+      <div part="header" @slotchange=${this.#handleHeaderSlotChange}>
         ${this.collapsible && this.togglePlacement !== 'end'
           ? html`
               <sl-button
@@ -110,7 +135,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
                 class=${this.#toggleClicked ? 'clicked' : ''}
               >
                 <sl-icon
-                  class="icon chevron ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
+                  class="icon ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
                   name="chevron-down"
                 ></sl-icon>
               </sl-button>
@@ -131,7 +156,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
               class=${this.#toggleClicked ? 'clicked' : ''}
             >
               <sl-icon
-                class="icon chevron ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
+                class="icon ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
                 name="chevron-down"
               ></sl-icon>
             </sl-button>`
@@ -147,118 +172,59 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  // ${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
-
-  /*<sl-button
-@click=${() => this.toggle()}
-fill="ghost"
-aria-controls="body"
-aria-expanded=${this.collapsed ? 'false' : 'true'}
->
-<sl-icon name="chevron-down" class="chevron"></sl-icon>
-  <sl-icon name="dash-solid" class="dash"></sl-icon>
-  </sl-button>
-
-  <h2>toggleClicked ??? ${this.#toggleClicked}</h2>
-              <h2>${this.renderRoot.querySelector('sl-button')?.classList}</h2>*/
-
-  // <sl-icon name=${this.#toggleClicked ? 'dash-solid' : 'chevron-down'}
-  // class=${classMap({ dash: this.#toggleClicked, chevron: this.collapsible, clicked: this.#toggleClicked })}></sl-icon>
-
-  // name=${this.#toggleClicked ? 'dash-solid' : this.collapsed ? 'chevron-down' : 'chevron-up'}
-
-  // <button
-  // @click=${() => this.toggle()}
-  // aria-controls="body"
-  // aria-expanded=${this.collapsed ? 'false' : 'true'}
-  // part="wrapper"
-  //   >
-  //   ${this.renderHeading()}
-  // </button>
-
-  // TODO: badges placement when no badges should not be there?
-
   renderHeading(): TemplateResult {
     return html`
-      <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''} @slotchange=${this.handleBadgeSlotChange}></slot>
+      <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''} @slotchange=${this.#handleBadgeSlotChange}></slot>
       <div part="main">
         <div part="titles">
           <slot name="heading">${this.heading}</slot>
           <slot name="subtitle">${this.subtitle}</slot>
         </div>
-        <slot name="badge" @slotchange=${this.handleBadgeSlotChange}></slot>
+        <slot name="badge" @slotchange=${this.#handleBadgeSlotChange}></slot>
       </div>
       <slot
         name="suffix"
         class=${this.#hasBadge || this.#hasPrefix ? 'hidden' : ''}
-        @slotchange=${this.handleBadgeSlotChange}
+        @slotchange=${this.#handleBadgeSlotChange}
       ></slot>
     `;
-  } // <!-- ${this.collapsible ? html`<sl-icon name="chevron-down"></sl-icon>` : nothing} -->
+  }
 
   /**
    * Toggle's the collapsed state of the panel. This only does something if the panel is collapsible.
    * @param force - Whether to force the panel to be collapsed or expanded.
    */
   toggle(force = !this.collapsed): void {
-    const button = this.renderRoot.querySelector('sl-button');
-    const icon = button?.querySelector('sl-icon');
-
-    if (!button || !icon) {
+    if (this.#toggleClicked) {
       return;
     }
 
-    // button?.classList.toggle('clicked'); // TODO: maybe attribute instead of class? and can be used in sl-icon
-    // this.#toggleClicked = true;
-    // setTimeout(() => {
-    //   button?.classList.toggle('clicked');
-    //   this.#toggleClicked = false;
-    // }, 100);
-
-    // this.#toggleClicked = !this.#toggleClicked;
-    /*    this.#toggleClicked = true;
-    setTimeout(() => {
-     // this.collapsed = !this.collapsed;
-      this.collapsed = force;
-      // this.#toggleClicked = !this.#toggleClicked;
-      this.#toggleClicked = false;
-      // this.toggleEvent.emit(this.collapsed);
-    }, 500);
-
-    // this.collapsed = force;
-    this.toggleEvent.emit(this.collapsed);*/
-
-    icon.classList.toggle('upside-down', !this.collapsed);
-
-    // icon.name = 'dash-solid';
-
     this.#toggleClicked = true;
-    //  this.requestUpdate();
 
-    // icon.classList.toggle('upside-down', !this.collapsed);
-
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       this.collapsed = force;
       this.#toggleClicked = false;
-      // this.requestUpdate();
-      icon.name = 'chevron-down';
       this.toggleEvent.emit(this.collapsed);
-    }, 150);
+    });
   }
 
-  private handleBadgeSlotChange(): void {
-    const badgeSlot = this.shadowRoot?.querySelector('slot[name="badge"]') as HTMLSlotElement | null;
-    const prefixSlot = this.shadowRoot?.querySelector('slot[name="prefix"]') as HTMLSlotElement | null;
-    this.#hasBadge = (badgeSlot && badgeSlot.assignedNodes().length > 0) || false;
-    this.#hasPrefix = (prefixSlot && prefixSlot.assignedNodes().length > 0) || false;
+  #handleBadgeSlotChange(): void {
+    const badgeSlot = this.renderRoot.querySelector('slot[name="badge"]') as HTMLSlotElement,
+      prefixSlot = this.renderRoot.querySelector('slot[name="prefix"]') as HTMLSlotElement;
 
-    console.log('this.#hasBadge', this.#hasBadge);
-    console.log('this.#hasPrefix', this.#hasPrefix);
+    this.#hasBadge = badgeSlot ? badgeSlot.assignedNodes().length > 0 : false;
+    this.#hasPrefix = prefixSlot ? prefixSlot.assignedNodes().length > 0 : false;
 
     this.toggleAttribute('has-badge', this.#hasBadge);
 
-    // TODO: when prefix there should be no suffix?
+    this.requestUpdate();
+  }
 
+  #handleHeaderSlotChange(): void {
+    const headerSlots = this.renderRoot.querySelectorAll('div[part="header"] slot'),
+      hasContent = Array.from(headerSlots).some(slot => (slot as HTMLSlotElement).assignedNodes().length > 0);
+
+    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.subtitle);
     this.requestUpdate();
   }
 }

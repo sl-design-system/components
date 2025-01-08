@@ -1,7 +1,4 @@
 :host {
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-
   background: var(--sl-elevation-surface-raised-default-idle);
   border-radius: var(--sl-size-borderRadius-md);
   display: flex;
@@ -21,11 +18,6 @@
 }
 
 :host([collapsible][collapsed]) {
-  // sl-icon {
-  //  //rotate: 0deg;
-  //  transform: scaleY(-1);
-  // }
-
   [part='body'] {
     grid-template-rows: 0fr;
   }
@@ -33,7 +25,7 @@
 
 :host([collapsible]) {
   [part='header'] {
-    grid-template-columns: auto 1fr minmax(0, auto);
+    grid-template-columns: auto minmax(auto, 1fr) minmax(40px, auto);
   }
 }
 
@@ -67,6 +59,12 @@
   }
 }
 
+:host([no-header]) {
+  [part='header'] {
+    padding: 0;
+  }
+}
+
 [part='titles'] {
   display: flex;
   flex-direction: column;
@@ -81,11 +79,6 @@
   grid-template-columns: 1fr minmax(0, auto);
   justify-content: space-between;
   padding: var(--sl-space-new-lg);
-
-  // > * {
-  //  // FIXME: This is a quick hack to vertically align the heading with any action buttons
-  //   padding-block-start: var(--sl-space-new-lg); // 2px;
-  // }
 }
 
 [part='wrapper'] {
@@ -93,28 +86,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sl-space-new-lg);
-
-  > * {
-    // FIXME: This is a quick hack to vertically align the heading with any action buttons
-    // padding-block-start: var(--sl-space-new-lg);
-  }
-}
-
-button {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  border-radius: var(--sl-border-radius-button-md);
-  cursor: pointer;
-  flex: 1;
-  outline: 0;
-  padding: 0;
-  text-align: start;
-
-  &:focus-visible {
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
-  }
 }
 
 .hidden {
@@ -124,13 +95,18 @@ button {
 slot[name='heading'],
 slot[name='heading']::slotted(*) {
   color: var(--sl-color-text-bold);
-
-  // font: var(--sl-text-accordion-title); // TODO: use contextual tokens
   font-size: 1.5em;
+  line-height: 1;
 }
 
 slot[name='heading'] {
   display: block;
+}
+
+slot[name='subtitle'],
+slot[name='subtitle']::slotted(*) {
+  color: var(--sl-color-text-bold);
+  line-height: 1.5;
 }
 
 slot[name='badge'] {
@@ -140,12 +116,6 @@ slot[name='badge'] {
 
 sl-tool-bar {
   min-inline-size: 0;
-}
-
-slot[name='actions']::slotted(:first-child) {
-  // FIXME: Since the `aside` slot always has content, gap on the header won't work as expected
-  // So we explicitly set a left margin on the first action
-  // margin-inline-start: 1rem;
 }
 
 [part='main'] {
@@ -172,20 +142,18 @@ slot[name='actions']::slotted(:first-child) {
 }
 
 .icon {
+  opacity: 1;
+  transform: scaleY(1);
+
   @media (prefers-reduced-motion: no-preference) {
     transition: transform 200ms ease-in-out;
   }
-}
-
-.icon.chevron {
-  opacity: 1;
-  transform: scaleY(1);
 }
 
 .icon.upside-down {
   transform: scaleY(-1);
 }
 
-sl-button.clicked .icon.chevron {
+sl-button.clicked .icon {
   opacity: 0;
 }

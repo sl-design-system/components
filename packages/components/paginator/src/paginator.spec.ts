@@ -1,616 +1,424 @@
 import { expect, fixture } from '@open-wc/testing';
-import { SlAnnounceEvent } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import '@sl-design-system/button/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
-import { Select } from '@sl-design-system/select';
-import '@sl-design-system/select/register.js';
+import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { html } from 'lit';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import '../register.js';
-import { PaginatorPage } from './paginator-page.js';
 import { Paginator } from './paginator.js';
 
 describe('sl-paginator', () => {
   let el: Paginator;
-  const sendToAnnouncerSpy = spy();
-
-  beforeEach(() => {
-    document.body.addEventListener('sl-announce', sendToAnnouncerSpy);
-  });
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-paginator .totalItems=${200} .pageSizes=${[20, 40, 60]}></sl-paginator> `);
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      el = await fixture(html`<sl-paginator total-items="200"></sl-paginator>`);
     });
 
-    it('should have active page with value of 1 when it is not explicitly set', () => {
-      expect(el.page).to.equal(1);
-    });
-
-    it('should have a proper value of items per page when it is not explicitly set', () => {
-      expect(el.pageSize).to.equal(20);
-    });
-
-    it('should have no mobile attribute', () => {
-      expect(el).not.to.have.attribute('mobile');
-    });
-
-    it('should have previous and next buttons', () => {
-      const prev = el.renderRoot.querySelector('sl-button.prev'),
-        next = el.renderRoot.querySelector('sl-button.next');
-
-      expect(prev).to.exist;
-      expect(next).to.exist;
-    });
-
-    it('should have proper pages', () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
-
-      expect(pages).to.exist;
-      expect(pages.length).to.equal(10);
-
-      const pagesLabels = Array.from(pages).map(page => page.textContent?.trim());
-
-      expect(pagesLabels).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
-    });
-
-    it('should have not displayed compact variant', () => {
-      const selectWrapper = el.renderRoot.querySelector('div.select-wrapper') as HTMLDivElement;
-
-      expect(selectWrapper).to.exist;
-      expect(getComputedStyle(selectWrapper).display).to.equal('none');
-    });
-  });
-
-  describe('page', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator .totalItems=${200} .page=${2} .pageSizes=${[20, 40, 60]}></sl-paginator>
-      `);
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
-    });
-
-    it('should go to page 1 when set page is smaller than 1', async () => {
-      el.page = -1;
+    it('should ignore negative page values', async () => {
+      el.page = -10;
       await el.updateComplete;
 
-      expect(el.page).to.equal(1);
+      expect(el.page).to.equal(0);
     });
 
-    it('should have set page to the last one when the number set is bigger than the total number of pages', async () => {
+    it('should ignore page values greater than the total number of pages', async () => {
       el.page = 100;
       await el.updateComplete;
 
-      expect(el.page).to.equal(10);
+      expect(el.page).to.equal(19);
     });
 
-    it('should set the right page on page click', async () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
+    it('should have a disabled previous button', () => {
+      const button = el.renderRoot.querySelector(':nth-child(1 of sl-button.nav)');
 
-      pages[3].click();
+      expect(button).to.exist;
+      expect(button).to.have.attribute('aria-label', 'Go to the previous page (0)');
+      expect(button).to.match(':disabled');
+    });
+
+    it('should enable the previous button when the current page is not the first', async () => {
+      el.page = 1;
       await el.updateComplete;
 
-      expect(el.page).to.equal(4);
+      const button = el.renderRoot.querySelector(':nth-child(1 of sl-button.nav)');
+
+      expect(button).to.exist;
+      expect(button).not.to.match(':disabled');
     });
 
-    it('should set the next page on next button click', async () => {
-      const next = el.renderRoot.querySelector<Button>('sl-button.next');
-      expect(next).to.exist;
+    it('should have a enabled next button', () => {
+      const button = el.renderRoot.querySelector(':nth-child(2 of sl-button.nav)');
 
-      next!.click();
+      expect(button).to.exist;
+      expect(button).to.have.attribute('aria-label', 'Go to the next page (2)');
+      expect(button).not.to.match(':disabled');
+    });
+
+    it('should disable the next button when the current page is the last', async () => {
+      el.page = 19;
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.page).to.equal(2);
+      const button = el.renderRoot.querySelector(':nth-child(2 of sl-button.nav)');
+
+      expect(button).to.exist;
+      expect(button).to.match(':disabled');
     });
 
-    it('should set the previous page on prev button click', async () => {
-      const prev = el.renderRoot.querySelector<Button>('sl-button.prev');
+    it('should have the current page set to the first page', () => {
+      const button = el.renderRoot.querySelector('sl-button[aria-current="page"]');
 
-      expect(prev).to.exist;
+      expect(button).to.exist;
+      expect(button).to.have.trimmed.text('1');
+      expect(button).to.match('.current');
+    });
 
-      prev!.click();
+    it('should have a page size of 10', () => {
+      const buttons = el.renderRoot.querySelectorAll('sl-button.page'),
+        labels = Array.from(buttons).map(button => button.textContent?.trim());
+
+      expect(el.pageSize).to.equal(10);
+      expect(buttons).to.have.lengthOf(20);
+      expect(labels).to.deep.equal(Array.from({ length: 20 }).map((_, i) => `${i + 1}`));
+    });
+
+    it('should only show 10 pages', () => {
+      const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button.page')).filter(
+        button => button.style.display !== 'none'
+      );
+
+      const labels = buttons.map(button => button.textContent?.trim());
+
+      expect(buttons).to.have.lengthOf(10);
+      expect(labels).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '8', '9', '20']);
+    });
+
+    it('should have a select element with all the pages', () => {
+      const select = el.renderRoot.querySelector('sl-select'),
+        options = Array.from(select?.querySelectorAll('sl-select-option') ?? []).map(o => o.value);
+
+      expect(select).to.exist;
+      expect(options).to.have.lengthOf(20);
+      expect(options).to.deep.equal(Array.from({ length: 20 }).map((_, i) => i));
+    });
+
+    it('should have a menu button with hidden pages before the last page if the current page is near the start', () => {
+      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
+        pages = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []).map(o => o.textContent?.trim());
+
+      expect(menuButton).to.exist;
+      expect(pages).to.have.lengthOf(10);
+      expect(pages).to.deep.equal(['10', '11', '12', '13', '14', '15', '16', '17', '18', '19']);
+    });
+
+    it('should have a menu button with hidden pages after the first page if the current page is near the end', async () => {
+      el.page = 19;
+      await el.updateComplete;
+
+      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
+        pages = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []).map(o => o.textContent?.trim());
+
+      expect(menuButton).to.exist;
+      expect(pages).to.have.lengthOf(10);
+      expect(pages).to.deep.equal(['2', '3', '4', '5', '6', '7', '8', '9', '10', '11']);
+    });
+
+    it('should have two menu buttons with hidden pages if the current page is in the middle', async () => {
+      el.page = 10;
+      await el.updateComplete;
+
+      const menuButtons = Array.from(el.renderRoot.querySelectorAll('sl-menu-button')),
+        startPages = Array.from(menuButtons[0].querySelectorAll('sl-menu-item')).map(o => o.textContent?.trim()),
+        endPages = Array.from(menuButtons[1].querySelectorAll('sl-menu-item')).map(o => o.textContent?.trim());
+
+      expect(menuButtons).to.have.lengthOf(2);
+      expect(startPages).to.deep.equal(['2', '3', '4', '5', '6', '7']);
+      expect(endPages).to.deep.equal(['15', '16', '17', '18', '19']);
+    });
+
+    it('should increment the current page when the next button is clicked', async () => {
+      const button = el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)');
+
+      button?.click();
       await el.updateComplete;
 
       expect(el.page).to.equal(1);
+
+      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
+      expect(currentPage).to.have.trimmed.text('2');
+      expect(currentPage).to.match('.current');
     });
 
-    it('should have previous and next buttons with proper aria-labels', async () => {
-      el.page = 3;
+    it('should update the current page when a page button is clicked', async () => {
+      el.renderRoot.querySelector<Button>(':nth-child(3 of sl-button.page)')?.click();
       await el.updateComplete;
 
-      const prev = el.renderRoot.querySelector('sl-button.prev') as Button,
-        next = el.renderRoot.querySelector('sl-button.next') as Button;
+      expect(el.page).to.equal(2);
 
-      expect(prev).to.exist;
-      expect(next).to.exist;
+      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
+      expect(currentPage).to.have.trimmed.text('3');
+      expect(currentPage).to.match('.current');
+    });
 
-      const prevAriaLabel = prev.ariaLabel,
-        nextAriaLabel = next.ariaLabel;
+    it('should update the current page when a menu item is clicked', async () => {
+      el.renderRoot.querySelector('sl-menu-item')?.click();
+      await el.updateComplete;
 
-      expect(prevAriaLabel).to.equal('Go to the previous page (2)');
-      expect(nextAriaLabel).to.equal('Go to the next page (4)');
+      expect(el.page).to.equal(9);
+
+      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
+      expect(currentPage).to.have.trimmed.text('10');
+      expect(currentPage).to.match('.current');
+    });
+
+    it('should update the current page when the page property is changed', async () => {
+      el.page = 5;
+      await el.updateComplete;
+
+      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
+      expect(currentPage).to.have.trimmed.text('6');
+      expect(currentPage).to.match('.current');
+    });
+
+    it('should decrement the current page when the previous button is clicked', async () => {
+      el.page = 10;
+      await el.updateComplete;
+
+      el.renderRoot.querySelector<Button>(':nth-child(1 of sl-button.nav')?.click();
+      await el.updateComplete;
+
+      expect(el.page).to.equal(9);
+
+      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
+      expect(currentPage).to.have.trimmed.text('10');
+      expect(currentPage).to.match('.current');
     });
 
     it('should emit an sl-page-change event when the page has changed', async () => {
       const onPageChange = spy();
 
       el.addEventListener('sl-page-change', onPageChange);
-
-      el.page = 5;
+      el.renderRoot.querySelector<Button>(':nth-child(5 of sl-button.page)')?.click();
       await el.updateComplete;
 
-      expect(onPageChange).to.have.been.called;
-    });
-
-    it('should send an announcement when the page has changed', async () => {
-      el.page = 5;
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      expect((sendToAnnouncerSpy.getCall(-1).args[0] as SlAnnounceEvent).detail.message).to.equal('Page 5 of 10');
-    });
-
-    it('should set the first page when items per page amount has changed', async () => {
-      el.pageSize = 10;
-      await el.updateComplete;
-
-      expect(el.page).to.equal(1);
-    });
-
-    it('should set the first page when items total amount of items has changed', async () => {
-      el.totalItems = 800;
-      await el.updateComplete;
-
-      expect(el.page).to.equal(1);
+      expect(onPageChange).to.have.been.calledOnce;
+      expect(onPageChange).to.have.been.calledWithMatch({ detail: 4 });
     });
   });
 
-  describe('smaller page', () => {
+  describe('announcement', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator .totalItems=${200} .page=${-2} .pageSizes=${[20, 40, 60]}></sl-paginator>
-      `);
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      el = await fixture(html`<sl-paginator page="5" total-items="200"></sl-paginator>`);
     });
 
-    it('should have a valid active page when set smaller than 1', () => {
-      expect(el.page).to.equal(1);
-    });
-  });
+    it('should announce the current page after clicking the previous button', async () => {
+      const announce = spy();
+      document.body.addEventListener('sl-announce', announce);
 
-  describe('bigger page', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator .totalItems=${200} page="2000" .pageSizes=${[20, 40, 60]}></sl-paginator>
-      `);
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 200));
-    });
-
-    it('should be on the last page when the set page is larger than the number of pages', async () => {
-      el.page = 2000;
+      el.renderRoot.querySelector<Button>(':nth-child(1 of sl-button.nav)')?.click();
       await el.updateComplete;
 
-      expect(el.page).to.equal(10);
-    });
-  });
-
-  describe('Overflow', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator
-          style="inline-size: 800px;"
-          .totalItems=${200}
-          .page=${2}
-          .pageSizes=${[10, 15, 20]}
-        ></sl-paginator>
-      `);
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 200));
+      expect(announce).to.have.been.calledOnce;
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 5 of 20' } });
     });
 
-    it('should have proper pages visible', () => {
-      const pages = el.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-        visibleElements = Array.from(pages).filter(page => page.style.display !== 'none');
+    it('should announce the current page after clicking the next button', async () => {
+      const announce = spy();
+      document.body.addEventListener('sl-announce', announce);
 
-      expect(visibleElements.length).to.equal(10);
-
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
-
-      expect(visiblePages).to.exist;
-      expect(visiblePages.length).to.equal(10);
-
-      const visiblePagesLabels = Array.from(visiblePages).map(page => page!.textContent?.trim());
-
-      expect(visiblePagesLabels).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '8', '9', '20']);
-    });
-
-    it('should have proper pages hidden', () => {
-      const pages = el.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-        hiddenElements = Array.from(pages).filter(page => page.style.display === 'none');
-
-      expect(hiddenElements.length).to.equal(10);
-
-      const hiddenPages = Array.from(hiddenElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
-
-      expect(hiddenPages).to.exist;
-      expect(hiddenPages.length).to.equal(10);
-
-      const visiblePagesLabels = Array.from(hiddenPages).map(page => page!.textContent?.trim());
-
-      expect(visiblePagesLabels).to.deep.equal(['10', '11', '12', '13', '14', '15', '16', '17', '18', '19']);
-    });
-
-    it('should have one menu button with hidden pages before the last page', () => {
-      const pagesWrapper = el.renderRoot.querySelector('.pages-wrapper');
-
-      expect(pagesWrapper).to.exist;
-
-      const menuButtons = pagesWrapper!.querySelectorAll('sl-menu-button');
-
-      expect(menuButtons).to.exist;
-      expect(menuButtons.length).to.equal(1);
-
-      const liElements = Array.from(pagesWrapper!.querySelectorAll('li')),
-        [lastItem] = liElements.slice(-1),
-        [itemBefore] = liElements.slice(-2);
-
-      expect(lastItem).to.exist;
-      expect(itemBefore).to.exist;
-      expect(itemBefore.querySelector('sl-menu-button')).to.exist;
-    });
-
-    it('should have one menu button with hidden pages after the first page', async () => {
-      el.page = 20;
+      el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)')?.click();
       await el.updateComplete;
 
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      const pagesWrapper = el.renderRoot.querySelector('.pages-wrapper');
-
-      expect(pagesWrapper).to.exist;
-
-      const menuButtons = pagesWrapper!.querySelectorAll('sl-menu-button');
-
-      expect(menuButtons).to.exist;
-      expect(menuButtons.length).to.equal(1);
-
-      const liElements = Array.from(pagesWrapper!.querySelectorAll('li')),
-        firstItem = liElements[0],
-        secondItem = liElements[1];
-
-      expect(firstItem).to.exist;
-      expect(secondItem).to.exist;
-      expect(secondItem.querySelector('sl-menu-button')).to.exist;
-    });
-
-    it('should have two menu buttons with hidden pages, one after the first page and before the last page', async () => {
-      el.page = 10;
-      await el.updateComplete;
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      const pagesWrapper = el.renderRoot.querySelector('.pages-wrapper');
-
-      expect(pagesWrapper).to.exist;
-
-      const menuButtons = pagesWrapper!.querySelectorAll('sl-menu-button');
-
-      expect(menuButtons).to.exist;
-      expect(menuButtons.length).to.equal(2);
-
-      const liElements = Array.from(pagesWrapper!.querySelectorAll('li')),
-        firstItem = liElements[0],
-        secondItem = liElements[1];
-
-      expect(firstItem).to.exist;
-      expect(secondItem).to.exist;
-      expect(secondItem.querySelector('sl-menu-button')).to.exist;
-
-      const [lastItem] = liElements.slice(-1),
-        [itemBefore] = liElements.slice(-2);
-
-      expect(lastItem).to.exist;
-      expect(itemBefore).to.exist;
-      expect(itemBefore.querySelector('sl-menu-button')).to.exist;
+      expect(announce).to.have.been.calledOnce;
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 7 of 20' } });
     });
   });
 
-  describe('Size', () => {
+  describe('dataSource', () => {
+    let ds: DataSource;
+
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator .totalItems=${200} page="1" .pageSizes=${[10, 15, 20]} size="sm"></sl-paginator>
-      `);
+      ds = new ArrayDataSource(Array.from({ length: 80 }, (_, index) => ({ nr: index + 1 })));
 
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 200));
+      el = await fixture(html`<sl-paginator .dataSource=${ds}></sl-paginator>`);
     });
 
-    it('should have proper pages visible', () => {
-      const pages = el.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-        visibleElements = Array.from(pages).filter(page => page.style.display !== 'none');
-
-      expect(visibleElements.length).to.equal(6);
-
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
-
-      expect(visiblePages).to.exist;
-      expect(visiblePages.length).to.equal(6);
-
-      const visiblePagesLabels = Array.from(visiblePages).map(page => page!.textContent?.trim());
-
-      expect(visiblePagesLabels).to.deep.equal(['1', '2', '3', '4', '5', '20']);
+    it('should have sane defaults', () => {
+      expect(el.page).to.equal(0);
+      expect(el.pageSize).to.equal(10);
+      expect(el.totalItems).to.equal(80);
     });
 
-    it('should have proper pages visible when md size is set', async () => {
-      el.size = 'md';
-      await new Promise(resolve => setTimeout(resolve, 200));
-
-      const pages = el.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-        visibleElements = Array.from(pages).filter(page => page.style.display !== 'none');
-
-      expect(visibleElements.length).to.equal(8);
-
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
-
-      expect(visiblePages).to.exist;
-      expect(visiblePages.length).to.equal(8);
-
-      const visiblePagesLabels = Array.from(visiblePages).map(page => page!.textContent?.trim());
-
-      expect(visiblePagesLabels).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '20']);
-    });
-
-    it('should have proper pages visible when lg size is set', async () => {
-      el.size = 'lg';
-      await new Promise(resolve => setTimeout(resolve, 200));
-
-      const pages = el.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-        visibleElements = Array.from(pages).filter(page => page.style.display !== 'none');
-
-      expect(visibleElements.length).to.equal(10);
-
-      const visiblePages = Array.from(visibleElements).map(page =>
-        page.querySelector<PaginatorPage>('sl-paginator-page')
-      );
-
-      expect(visiblePages).to.exist;
-      expect(visiblePages.length).to.equal(10);
-
-      const visiblePagesLabels = Array.from(visiblePages).map(page => page!.textContent?.trim());
-
-      expect(visiblePagesLabels).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '8', '9', '20']);
-    });
-
-    it('should have proper select options to set when xs size is set', async () => {
-      el.size = 'xs';
-      await new Promise(resolve => setTimeout(resolve, 200));
-
-      const selectOptions = el.renderRoot.querySelectorAll('sl-select-option');
-
-      expect(selectOptions).to.exist;
-
-      const optionsLabels = Array.from(selectOptions).map(page => page.textContent?.trim());
-
-      expect(optionsLabels).to.exist;
-      expect(optionsLabels).to.deep.equal([
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12',
-        '13',
-        '14',
-        '15',
-        '16',
-        '17',
-        '18',
-        '19',
-        '20'
-      ]);
-    });
-  });
-
-  describe('Compact variant', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-paginator
-          style="inline-size: 300px;"
-          .totalItems=${100}
-          .page=${1}
-          .pageSizes=${[10, 15, 20]}
-        ></sl-paginator>
-      `);
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 200));
-    });
-
-    it('should have not displayed default variant', () => {
-      const pagesWrapper = el.renderRoot.querySelector('ul.pages-wrapper') as HTMLUListElement;
-
-      expect(pagesWrapper).to.exist;
-      expect(getComputedStyle(pagesWrapper).display).to.equal('none');
-    });
-
-    it('should have displayed compact variant', () => {
-      const selectWrapper = el.renderRoot.querySelector('div.select-wrapper') as HTMLDivElement;
-
-      expect(selectWrapper).to.exist;
-      expect(getComputedStyle(selectWrapper).display).not.to.equal('none');
-    });
-
-    it('should have a mobile attribute', () => {
-      expect(el).to.have.attribute('mobile');
-    });
-
-    it('should not have previous and next buttons visible', () => {
-      const prev = el.renderRoot.querySelector('sl-button.prev') as Button,
-        next = el.renderRoot.querySelector('sl-button.next') as Button;
-
-      expect(prev).to.exist;
-      expect(next).to.exist;
-      expect(getComputedStyle(prev).display).to.equal('none');
-      expect(getComputedStyle(next).display).to.equal('none');
-    });
-
-    it('should contain select', () => {
-      const selectEl = el.renderRoot.querySelector('sl-select') as Select;
-
-      expect(selectEl).to.exist;
-    });
-
-    it('should have a proper aria-label', () => {
-      const selectEl = el.renderRoot.querySelector('sl-select') as Select;
-
-      expect(selectEl).to.exist;
-
-      const ariaLabel = selectEl.ariaLabel;
-
-      expect(ariaLabel).to.equal('1, page');
-    });
-
-    it('should have proper select options with pages to set', () => {
-      const selectOptions = el.renderRoot.querySelectorAll('sl-select-option');
-
-      expect(selectOptions).to.exist;
-
-      const optionsLabels = Array.from(selectOptions).map(page => page.textContent?.trim());
-
-      expect(optionsLabels).to.exist;
-      expect(optionsLabels).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
-    });
-
-    it('should have select options with proper aria-labels', () => {
-      const selectOptions = el.renderRoot.querySelectorAll('sl-select-option');
-
-      expect(selectOptions).to.exist;
-
-      const optionsLabels = Array.from(selectOptions).map(page => page.ariaLabel);
-
-      expect(optionsLabels).to.exist;
-      expect(optionsLabels).to.deep.equal([
-        '1, page',
-        '2, page',
-        '3, page',
-        '4, page',
-        '5, page',
-        '6, page',
-        '7, page',
-        '8, page',
-        '9, page',
-        '10, page'
-      ]);
-    });
-
-    it('should set the right page on option click', async () => {
-      const selectOptions = el.renderRoot.querySelectorAll('sl-select-option');
-
-      expect(selectOptions).to.exist;
-
-      selectOptions[4].click();
+    it('should update the paginator when the data source changes', async () => {
+      ds.setPage(5);
+      ds.setPageSize(15);
+      ds.update();
       await el.updateComplete;
 
       expect(el.page).to.equal(5);
+      expect(el.pageSize).to.equal(15);
+
+      const currentPage = el.renderRoot.querySelector('sl-button[aria-current="page"]');
+      expect(currentPage).to.have.trimmed.text('6');
+    });
+
+    it('should update the data source when the current page changes', async () => {
+      el.renderRoot.querySelector<Button>(':nth-child(2 of sl-button.nav)')?.click();
+      await el.updateComplete;
+
+      expect(ds.page).to.equal(1);
+    });
+
+    it('should set the current page to the first page when the page size changes', async () => {
+      ds.setPageSize(5);
+      ds.update();
+      await el.updateComplete;
+
+      expect(el.page).to.equal(0);
+    });
+
+    it('should set the current page to the first page when the size has changed', async () => {
+      stub(ds, 'size').get(() => 100);
+
+      ds.update();
+      await el.updateComplete;
+
+      expect(el.page).to.equal(0);
+    });
+
+    it('should announce the current page when the page size has changed', async () => {
+      const announce = spy();
+      document.body.addEventListener('sl-announce', announce);
+
+      ds.setPageSize(5);
+      ds.update();
+      await el.updateComplete;
+
+      expect(announce).to.have.been.calledOnce;
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 1 of 16' } });
+    });
+
+    it('should announce the current page when the size has changed', async () => {
+      const announce = spy();
+      document.body.addEventListener('sl-announce', announce);
+
+      stub(ds, 'size').get(() => 100);
+      ds.update();
+      await el.updateComplete;
+
+      expect(announce).to.have.been.calledOnce;
+      expect(announce).to.have.been.calledWithMatch({ detail: { message: 'Page 1 of 10' } });
     });
   });
 
-  describe('DataSource', () => {
-    const items = Array.from({ length: 80 }, (_, index) => ({
-      nr: index + 1
-    }));
+  describe('size', () => {
+    it('should have a large size when there is enough space', async () => {
+      el = await fixture(html`<sl-paginator total-items="200"></sl-paginator>`);
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-    const dataSource = new ArrayDataSource(items);
-    const totalItems = dataSource.items.length;
-
-    beforeEach(async () => {
-      el = await fixture(html` <sl-paginator .dataSource=${dataSource} .pageSizes=${[10, 15, 20]}></sl-paginator> `);
-
-      dataSource.paginate(2, 10, totalItems);
-      dataSource.update();
-
-      // Give the resize observer time to do its thing
-      await new Promise(resolve => setTimeout(resolve, 200));
+      expect(el).to.have.attribute('size', 'lg');
+      expect(el.size).to.equal('lg');
     });
 
-    it('should have proper pages', () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
+    it('should have a medium size when there is limited space', async () => {
+      el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 500px;"></sl-paginator>`);
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(pages).to.exist;
-      expect(pages.length).to.equal(8);
-
-      const pagesLabels = Array.from(pages).map(page => page.textContent?.trim());
-
-      expect(pagesLabels).to.deep.equal(['1', '2', '3', '4', '5', '6', '7', '8']);
+      expect(el).to.have.attribute('size', 'md');
+      expect(el.size).to.equal('md');
     });
 
-    it('should have a proper active page', () => {
-      dataSource.update();
-      expect(el.page).to.equal(2);
+    it('should have a small size when there is very limited space', async () => {
+      el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 450px;"></sl-paginator>`);
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el).to.have.attribute('size', 'sm');
+      expect(el.size).to.equal('sm');
     });
 
-    it('should set the right page on page click', async () => {
-      const pages = el.renderRoot.querySelectorAll('sl-paginator-page');
+    it('should have an extra small size when there is very limited space', async () => {
+      el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 400px;"></sl-paginator>`);
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      pages[3].click();
-      await el.updateComplete;
-
-      expect(el.page).to.equal(4);
-      expect(el.dataSource?.page?.page).to.equal(4);
+      expect(el).to.have.attribute('size', 'xs');
+      expect(el.size).to.equal('xs');
     });
 
-    it('should set the next page on next button click', async () => {
-      dataSource.update();
-      const next = el.renderRoot.querySelector<Button>('sl-button.next');
+    it('should not grow larger than the initial set size', async () => {
+      el = await fixture(html`<sl-paginator total-items="200" size="md"></sl-paginator>`);
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(next).to.exist;
-
-      next!.click();
-      await el.updateComplete;
-
-      expect(el.page).to.equal(3);
-      expect(el.dataSource?.page?.page).to.equal(3);
+      expect(el).to.have.attribute('size', 'md');
+      expect(el.size).to.equal('md');
     });
 
-    it('should set the previous page on prev button click', async () => {
-      dataSource.update();
-      const prev = el.renderRoot.querySelector<Button>('sl-button.prev');
+    it('should shrink smaller than the initial set size', async () => {
+      el = await fixture(html`<sl-paginator total-items="200" size="md" style="inline-size: 400px;"></sl-paginator>`);
+      await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(prev).to.exist;
+      expect(el).to.have.attribute('size', 'xs');
+      expect(el.size).to.equal('xs');
+    });
 
-      prev!.click();
-      await el.updateComplete;
+    describe('visible pages', () => {
+      beforeEach(async () => {
+        el = await fixture(html`<sl-paginator total-items="200"></sl-paginator>`);
 
-      expect(el.page).to.equal(2);
-      expect(el.dataSource?.page?.page).to.equal(2);
+        await new Promise(resolve => setTimeout(resolve, 100));
+      });
+
+      it('should display 10 pages when the size is lg', () => {
+        const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button.page')).filter(
+          button => button.style.display !== 'none'
+        );
+
+        expect(buttons).to.have.lengthOf(10);
+      });
+
+      it('should display 8 pages when the size is md', async () => {
+        el.size = 'md';
+        await el.updateComplete;
+
+        const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button.page')).filter(
+          button => button.style.display !== 'none'
+        );
+
+        expect(buttons).to.have.lengthOf(8);
+      });
+
+      it('should display 6 pages when the size is sm', async () => {
+        el.size = 'sm';
+        await el.updateComplete;
+
+        const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button.page')).filter(
+          button => button.style.display !== 'none'
+        );
+
+        expect(buttons).to.have.lengthOf(6);
+      });
+
+      it('should display the select instead when the size is xs', async () => {
+        const wrapper = el.renderRoot.querySelector('.wrapper')!;
+
+        // expect(wrapper).not.to.be.displayed;
+        expect(getComputedStyle(wrapper).display).to.equal('none');
+
+        el.size = 'xs';
+        await el.updateComplete;
+
+        // expect(wrapper).to.be.displayed;
+        expect(getComputedStyle(wrapper).display).not.to.equal('none');
+      });
+
+      it('should not show any buttons when the size is xs', async () => {
+        el.size = 'xs';
+        await el.updateComplete;
+
+        const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button')).filter(
+          b => getComputedStyle(b).display !== 'none'
+        );
+
+        expect(buttons).to.have.lengthOf(0);
+      });
     });
   });
 });

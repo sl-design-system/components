@@ -44,11 +44,11 @@ eleventyNavigation:
 ## When to Use
 Use a Combobox to help users easily search, filter, and select options from long list of options.
 
-### **Large Datasets**
+### Large Datasets
 Comboboxes are a better choice than checkbox or radio button groups when dealing with more than 15 options. Unlike static groups that can overwhelm users with lengthy lists, Comboboxes save space and simplify the interface by enabling search and filtering. This makes it easier and faster for users to find their desired option, especially in large datasets like cities, products, or categories, without scrolling through extensive lists.
 
 ### Multiple Choices
-Our comboboxes come with multi-selection capabilities provide a clear overview of selected options by displaying them within a tag list. This is ideal when users need to choose multiple items, this ensures selections are visible and easy to manage, allowing users to remove or modify choices effortlessly while keeping the interface organized and intuitive.
+Our combobox comes with multi-selection capabilities that provide a clear overview of selected options by displaying them within a tag list in the input field of the combobox. This is ideal when users need to choose multiple items, as it ensures selections are visible and easy to manage, allowing users to remove or modify choices effortlessly while keeping the interface organized and intuitive.
 
 </section>
 
@@ -58,8 +58,11 @@ Our comboboxes come with multi-selection capabilities provide a clear overview o
 ## When Not to Use
 Avoid a Combobox when users benefit more from seeing all options at once for quick selection.
 
-### Fewer Options**
+### Fewer Options
 For list of options small than 15 choices, use [Checkbox](/categories/components/checkbox/usage) or [Radio Button](/categories/components/radio-group/usage) instead of a Combobox. These components present all options visible, making them quicker and more intuitive for users to scan and select without additional interactions.
+
+## Short Lists
+Use a Select instead of a Combobox when the list of options contains fewer than 15 items. The simplicity of a [Select](/categories/components/select/usage) allows users to see all options at once, making it quicker and more straightforward for them to make a choice without the need for search or filtering.
 
 </section>
 
@@ -83,7 +86,7 @@ For list of options small than 15 choices, use [Checkbox](/categories/components
 <section>
 
 ## Variants
-Contextual Menu comes in two versions, each suited for specific situations:
+Combobox comes in two versions, each suited for specific situations:
 
 ### Single Selection
 This variant allows users to choose one option from the list. It’s ideal for scenarios where only one value is required, such as selecting a country or choosing a payment method. Single selection Comboboxes simplify decision-making by focusing the user on one clear choice at a time.
@@ -134,9 +137,6 @@ Provides organizational structure for selected items by categorizing them under 
 
 ### Stacked Selections
 Displays multiple selected items as a visually stacked list at the top of the dropdow list or within tag list. This approach keeps the interface tidy and ensures users can quickly review or edit their choices without scrolling through a long dropdown.
-
-### Dynamic Filtering
-Filters the options list in real time based on user input, displaying only relevant matches. This functionality enhances usability, particularly for lists with many similar or closely related items.
 
 ### Dynamic Filtering
 Filters the options list in real time based on user input, displaying only relevant matches. This functionality enhances usability, particularly for lists with many similar or closely related items.

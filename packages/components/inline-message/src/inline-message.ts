@@ -111,7 +111,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <div part="title">
           <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
         </div>
-        <div part="content" @slotchange=${this.#onContentSlotChange}>
+        <div part="content" @slotchange=${this.#checkWrapAction}>
           <slot></slot>
         </div>
         <div part="action">
@@ -179,11 +179,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
-    this.#checkWrapAction();
-  }
-
-  #onContentSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    console.log(event);
     this.#checkWrapAction();
   }
 

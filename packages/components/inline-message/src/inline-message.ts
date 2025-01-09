@@ -45,6 +45,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(e => this.#onResize(e));
 
+  /** Needed for calculating the need for wrap-action */
   #maxInlineSize = 0;
   #previousInlineSize = 0;
 
@@ -139,11 +140,17 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(e: ResizeObserverEntry[]): void {
+    // only check if the width has changed; the height is irrelevant for the wrapping of text, and if we do check on height changes, it will cause an infinite loop
     if (e[0].contentBoxSize[0].inlineSize === this.#previousInlineSize) {
       return;
     }
 
     this.#previousInlineSize = e[0].contentBoxSize[0].inlineSize;
+
+    /**
+     * We need to see how big the text can be if the button is underneath the text,
+     * so we can calculate whether the text also wraps when the button is underneath the text in the #checkWrapAction method
+     * */
     this.wrapAction = true;
     requestAnimationFrame(() => {
       const text = this.noTitle
@@ -168,6 +175,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         lineHeight = parseInt(getComputedStyle(text).getPropertyValue('line-height') ?? '1000');
 
       const actionWidth = action?.getBoundingClientRect().width || 0;
+      // if the text wrapped (height > lineHeight) or the text + action is wider than the max width, we need to put the action underneath the text
       this.wrapAction = height > lineHeight || width + actionWidth > this.#maxInlineSize;
 
       // clean up

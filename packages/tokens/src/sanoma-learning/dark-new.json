@@ -555,7 +555,7 @@
             "description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.500}",
+            "value": "{color.palette.blue.600}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -1824,12 +1824,12 @@
         },
         "blue": {
           "subtlest": {
-            "value": "rgba({color.background.accent.blue.bold} {opacity.dark.subtlest})",
+            "value": "rgba({color.palette.blue.400} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.background.accent.blue.bold} {opacity.dark.subtle})",
+            "value": "rgba({color.palette.blue.400} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1840,12 +1840,12 @@
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.blue.900}",
+              "value": "{color.palette.blue.200}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "plain": {
-              "value": "{color.background.accent.blue.bold}",
+              "value": "{color.palette.blue.400}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             }

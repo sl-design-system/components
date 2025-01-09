@@ -545,7 +545,7 @@
             "description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.600}",
+            "value": "{color.palette.blue.700}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           }

@@ -1840,7 +1840,7 @@
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.blue.200}",
+              "value": "{color.palette.blue.100}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             },

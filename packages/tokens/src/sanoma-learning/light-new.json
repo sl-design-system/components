@@ -374,410 +374,6 @@
         }
       }
     },
-    "utility": {
-      "transparent": {
-        "100": {
-          "value": "rgba( {color.palette.grey.050} , 11%)",
-          "type": "color"
-        },
-        "150": {
-          "value": "rgba( {color.palette.grey.050} , 21%)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba( {color.palette.grey.050} , 36%)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba( {color.palette.grey.050} , 54%)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba( {color.palette.grey.050} , 66%)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba( {color.palette.grey.050} , 73%)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba( {color.palette.grey.050} , 79%)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba( {color.palette.grey.050} , 84%)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba( {color.palette.grey.050} , 88%)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba( {color.palette.grey.050} , 100%)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba( {color.palette.grey.050} , 5%)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba( {color.palette.grey.050} , 0%)",
-          "type": "color"
-        }
-      }
-    },
-    "opacity": {
-      "blue": {
-        "100": {
-          "value": "rgba({color.palette.blue.400}, 0.15)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba({color.palette.blue.400}, 0.20)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba({color.palette.blue.400}, 0.28)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba({color.palette.blue.400}, 0.40)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba({color.palette.blue.400}, 0.54)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba({color.palette.blue.400}, 0.65)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba({color.palette.blue.400}, 0.78)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba({color.palette.blue.400}, 0.90)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba({color.palette.blue.400}, 0.95)",
-          "type": "color"
-        },
-        "1000": {
-          "value": "rgba({color.palette.blue.400}, 1)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba({color.palette.blue.400}, 0)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba({color.palette.blue.400}, 0.08)",
-          "type": "color"
-        }
-      },
-      "green": {
-        "100": {
-          "value": "rgba({color.palette.green.400}, 0.15)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba({color.palette.green.400}, 0.20)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba({color.palette.green.400}, 0.28)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba({color.palette.green.400}, 0.40)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba({color.palette.green.400}, 0.54)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba({color.palette.green.400}, 0.65)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba({color.palette.green.400}, 0.78)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba({color.palette.green.400}, 0.90)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba({color.palette.green.400}, 0.95)",
-          "type": "color"
-        },
-        "1000": {
-          "value": "rgba({color.palette.green.400}, 1)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba({color.palette.green.400}, 0)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba({color.palette.green.400}, 0.08)",
-          "type": "color"
-        }
-      },
-      "orange": {
-        "100": {
-          "value": "rgba({color.palette.orange.400}, 0.15)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba({color.palette.orange.400}, 0.20)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba({color.palette.orange.400}, 0.28)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba({color.palette.orange.400}, 0.40)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba({color.palette.orange.400}, 0.54)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba({color.palette.orange.400}, 0.65)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba({color.palette.orange.400}, 0.78)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba({color.palette.orange.400}, 0.90)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba({color.palette.orange.400}, 0.95)",
-          "type": "color"
-        },
-        "1000": {
-          "value": "rgba({color.palette.orange.400}, 1)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba({color.palette.orange.400}, 0)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba({color.palette.orange.400}, 0.08)",
-          "type": "color"
-        }
-      },
-      "purple": {
-        "100": {
-          "value": "rgba({color.palette.purple.400}, 0.15)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba({color.palette.purple.400}, 0.20)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba({color.palette.purple.400}, 0.28)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba({color.palette.purple.400}, 0.40)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba({color.palette.purple.400}, 0.54)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba({color.palette.purple.400}, 0.65)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba({color.palette.purple.400}, 0.78)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba({color.palette.purple.400}, 0.90)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba({color.palette.purple.400}, 0.95)",
-          "type": "color"
-        },
-        "1000": {
-          "value": "rgba({color.palette.purple.400}, 1)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba({color.palette.purple.400}, 0)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba({color.palette.purple.400}, 0.08)",
-          "type": "color"
-        }
-      },
-      "red": {
-        "100": {
-          "value": "rgba({color.palette.red.400}, 0.09)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba({color.palette.red.400}, 0.13)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba({color.palette.red.400}, 0.28)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba({color.palette.red.400}, 0.40)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba({color.palette.red.400}, 0.54)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba({color.palette.red.400}, 0.65)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba({color.palette.red.400}, 0.78)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba({color.palette.red.400}, 0.90)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba({color.palette.red.400}, 0.95)",
-          "type": "color"
-        },
-        "1000": {
-          "value": "rgba({color.palette.red.400}, 1)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba({color.palette.red.400}, 0)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba({color.palette.red.400}, 0.05)",
-          "type": "color"
-        }
-      },
-      "teal": {
-        "100": {
-          "value": "rgba({color.palette.teal.400}, 0.15)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba({color.palette.teal.400}, 0.20)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba({color.palette.teal.400}, 0.28)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba({color.palette.teal.400}, 0.40)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba({color.palette.teal.400}, 0.54)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba({color.palette.teal.400}, 0.65)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba({color.palette.teal.400}, 0.78)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba({color.palette.teal.400}, 0.90)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba({color.palette.teal.400}, 0.95)",
-          "type": "color"
-        },
-        "1000": {
-          "value": "rgba({color.palette.teal.400}, 1)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba({color.palette.teal.400}, 0)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba({color.palette.teal.400}, 0.08)",
-          "type": "color"
-        }
-      },
-      "yellow": {
-        "100": {
-          "value": "rgba({color.palette.yellow.400}, 0.15)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba({color.palette.yellow.400}, 0.20)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba({color.palette.yellow.400}, 0.28)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba({color.palette.yellow.400}, 0.40)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba({color.palette.yellow.400}, 0.54)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba({color.palette.yellow.400}, 0.65)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba({color.palette.yellow.400}, 0.78)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba({color.palette.yellow.400}, 0.90)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba({color.palette.yellow.400}, 0.95)",
-          "type": "color"
-        },
-        "1000": {
-          "value": "rgba({color.palette.yellow.400}, 1)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba({color.palette.yellow.400}, 0)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba({color.palette.yellow.400}, 0.08)",
-          "type": "color"
-        }
-      }
-    },
     "text": {
       "bold": {
         "value": "{color.text.accent.grey.bold}",
@@ -1671,71 +1267,61 @@
       },
       "accent": {
         "blue": {
-          "muted": {
-            "idle": {
-              "value": "{color.opacity.blue.000}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.opacity.blue.200}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.opacity.blue.300}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
           "subtlest": {
-            "value": "{color.palette.blue.050}",
+            "value": "rgba({color.background.accent.blue.bold} {opacity.light.subtlest})",
             "type": "color",
-            "description": "The subtlest blue background option, applied purely for stylistic purposes without specific meaning."
+            "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.palette.blue.150}",
+            "value": "rgba({color.background.accent.blue.bold} {opacity.light.subtle})",
             "type": "color",
-            "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
+            "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
             "value": "{color.palette.blue.400}",
             "type": "color",
             "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.blue.900}",
+              "type": "color",
+              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "value": "{color.background.accent.blue.bold}",
+              "type": "color",
+              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            }
           }
         },
         "green": {
-          "muted": {
-            "idle": {
-              "value": "{color.opacity.green.000}",
-              "type": "color",
-              "description": "Used for muted green backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.opacity.green.200}",
-              "type": "color",
-              "description": "Used for muted green backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.opacity.green.300}",
-              "type": "color",
-              "description": "Used for muted green backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
           "subtlest": {
-            "value": "{color.palette.green.050}",
+            "value": "rgba( {color.palette.green.400} {opacity.light.subtlest})",
             "type": "color",
-            "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
+            "description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.palette.green.150}",
+            "value": "rgba({color.palette.green.400} {opacity.light.subtle})",
             "type": "color",
-            "description": "A subtle green background option, applied purely for stylistic purposes without specific meaning."
+            "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
             "value": "{color.palette.green.600}",
             "type": "color",
             "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.green.900}",
+              "type": "color",
+              "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "value": "{color.palette.green.400}",
+              "type": "color",
+              "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+            }
           }
         },
         "grey": {

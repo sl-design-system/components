@@ -1609,12 +1609,12 @@
         },
         "green": {
           "subtlest": {
-            "value": "rgba({color.background.accent.green.bold} {opacity.light.interactive.plain.idle})",
+            "value": "rgba({color.background.accent.green.bold} {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.background.accent.green.bold} {opacity.light.interactive.subtle.idle})",
+            "value": "rgba({color.background.accent.green.bold} {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },

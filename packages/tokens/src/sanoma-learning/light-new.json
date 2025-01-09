@@ -1580,12 +1580,12 @@
       "accent": {
         "blue": {
           "subtlest": {
-            "value": "rgba({color.background.accent.blue.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.blue.bold} {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.background.accent.blue.bold} {opacity.light.interactive.subtle.idle})",
+            "value": "rgba({color.background.accent.blue.bold} {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1609,7 +1609,7 @@
         },
         "green": {
           "subtlest": {
-            "value": "rgba({color.background.accent.green.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.green.bold} {opacity.light.interactive.plain.idle})",
             "type": "color",
             "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1631,267 +1631,6 @@
             },
             "plain": {
               "value": "{color.background.accent.green.bold}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            }
-          }
-        },
-        "grey-old": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.grey.100}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.grey.150}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtlest": {
-            "idle": {
-              "value": "{color.palette.grey.050}",
-              "type": "color",
-              "description": "The subtlest grey background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.grey.100}",
-              "type": "color",
-              "description": "The subtlest grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.grey.150}",
-              "type": "color",
-              "description": "The subtlest grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtle": {
-            "idle": {
-              "value": "{color.palette.grey.150}",
-              "type": "color",
-              "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.grey.100}",
-              "type": "color",
-              "description": "A subtle grey background option in hover state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.grey.050}",
-              "type": "color",
-              "description": "A subtle grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "bold": {
-            "idle": {
-              "value": "{color.palette.grey.900}",
-              "type": "color",
-              "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.grey.800}",
-              "type": "color",
-              "description": "A vibrant grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.grey.600}",
-              "type": "color",
-              "description": "A vibrant grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "interactive": {
-            "base": {
-              "value": "{color.palette.grey.900}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "solid": {
-              "value": "{color.palette.grey.100}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "transparant": {
-              "value": "{color.background.accent.grey-old.interactive.base}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            }
-          }
-        },
-        "orange-old": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted orange backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.orange.100}",
-              "type": "color",
-              "description": "Used for muted orange backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.orange.150}",
-              "type": "color",
-              "description": "Used for muted orange backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtlest": {
-            "idle": {
-              "value": "{color.palette.orange.050}",
-              "type": "color",
-              "description": "The subtlest orange background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.orange.100}",
-              "type": "color",
-              "description": "The subtlest orange background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.orange.150}",
-              "type": "color",
-              "description": "The subtlest orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtle": {
-            "idle": {
-              "value": "{color.palette.orange.150}",
-              "type": "color",
-              "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.orange.100}",
-              "type": "color",
-              "description": "A subtle orange background option in hover state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.orange.050}",
-              "type": "color",
-              "description": "A subtle orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "bold": {
-            "idle": {
-              "value": "{color.palette.orange.500}",
-              "type": "color",
-              "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.orange.600}",
-              "type": "color",
-              "description": "A vibrant orange background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.orange.700}",
-              "type": "color",
-              "description": "A vibrant orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "interactive": {
-            "base": {
-              "value": "{color.palette.orange.500}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "solid": {
-              "value": "{color.palette.orange.800}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "transparant": {
-              "value": "{color.background.accent.orange-old.interactive.base}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            }
-          }
-        },
-        "purple-old": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted purple backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.purple.100}",
-              "type": "color",
-              "description": "Used for muted purple backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.purple.150}",
-              "type": "color",
-              "description": "Used for muted purple backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtlest": {
-            "idle": {
-              "value": "{color.palette.purple.050}",
-              "type": "color",
-              "description": "The subtlest purple background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.purple.100}",
-              "type": "color",
-              "description": "The subtlest purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.purple.150}",
-              "type": "color",
-              "description": "The subtlest purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtle": {
-            "idle": {
-              "value": "{color.palette.purple.150}",
-              "type": "color",
-              "description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.purple.100}",
-              "type": "color",
-              "description": "A subtle purple background option in hover state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.purple.050}",
-              "type": "color",
-              "description": "A subtle purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "bold": {
-            "idle": {
-              "value": "{color.palette.purple.500}",
-              "type": "color",
-              "description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.purple.600}",
-              "type": "color",
-              "description": "A vibrant purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.purple.700}",
-              "type": "color",
-              "description": "A vibrant purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "interactive": {
-            "base": {
-              "value": "{color.palette.purple.500}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "solid": {
-              "value": "{color.palette.purple.900}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "transparant": {
-              "value": "{color.background.accent.purple-old.interactive.base}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             }
@@ -2160,7 +1899,7 @@
         },
         "grey": {
           "subtlest": {
-            "value": "rgba({color.background.accent.grey.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.grey.bold} {opacity.light.interactive.plain.idle})",
             "type": "color",
             "description": "The subtlest green background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -2189,7 +1928,7 @@
         },
         "orange": {
           "subtlest": {
-            "value": "rgba({color.background.accent.orange.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.orange.bold} {opacity.light.interactive.plain.idle})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
@@ -2218,7 +1957,7 @@
         },
         "purple": {
           "subtlest": {
-            "value": "rgba({color.background.accent.purple.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.purple.bold} {opacity.light.interactive.plain.idle})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
@@ -2247,7 +1986,7 @@
         },
         "red": {
           "subtlest": {
-            "value": "rgba({color.background.accent.red.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.red.bold} {opacity.light.interactive.plain.idle})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
@@ -2276,7 +2015,7 @@
         },
         "teal": {
           "subtlest": {
-            "value": "rgba({color.background.accent.teal.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.teal.bold} {opacity.light.interactive.plain.idle})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
@@ -2305,7 +2044,7 @@
         },
         "yellow": {
           "subtlest": {
-            "value": "rgba({color.background.accent.yellow.bold} {opacity.light.interactive.subtlest.idle})",
+            "value": "rgba({color.background.accent.yellow.bold} {opacity.light.interactive.plain.idle})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },

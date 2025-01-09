@@ -353,48 +353,36 @@
             "type": "opacity"
           }
         },
-        "muted": {
+        "plain": {
           "idle": {
             "value": "0%",
             "type": "opacity"
           },
           "hover": {
-            "value": "10%",
+            "value": "15%",
             "type": "opacity"
           },
           "active": {
-            "value": "20%",
-            "type": "opacity"
-          }
-        },
-        "subtlest": {
-          "idle": {
-            "value": "10%",
-            "type": "opacity"
-          },
-          "hover": {
-            "value": "20%",
-            "type": "opacity"
-          },
-          "active": {
-            "value": "30%",
-            "type": "opacity"
-          }
-        },
-        "subtle": {
-          "idle": {
-            "value": "20%",
-            "type": "opacity"
-          },
-          "hover": {
-            "value": "30%",
-            "type": "opacity"
-          },
-          "active": {
-            "value": "40%",
+            "value": "25%",
             "type": "opacity"
           }
         }
+      },
+      "muted": {
+        "value": "0%",
+        "type": "opacity"
+      },
+      "subtlest": {
+        "value": "10%",
+        "type": "opacity"
+      },
+      "subtle": {
+        "value": "20%",
+        "type": "opacity"
+      },
+      "bold": {
+        "value": "100%",
+        "type": "opacity"
       }
     },
     "dark": {

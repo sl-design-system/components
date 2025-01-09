@@ -43,7 +43,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Observe the size and determine where to place the action button if present. */
-  #observer = new ResizeObserver(() => this.#onResize());
+  #observer = new ResizeObserver(e => this.#onResize(e));
+
+  #maxInlineSize = 0;
+  #previouseInlineSize = 0;
 
   /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
@@ -108,6 +111,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <div part="title">
           <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
         </div>
+        <div part="content" @slotchange=${this.#onContentSlotChange}>
+          <slot></slot>
+        </div>
         <div part="action">
           <slot @slotchange=${this.#onActionSlotChange} name="action"></slot>
         </div>
@@ -124,9 +130,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>
             `}
-        <div part="content">
-          <slot></slot>
-        </div>
       </div>
     `;
   }
@@ -135,16 +138,40 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noAction = !event.target.assignedElements({ flatten: true }).length;
   }
 
-  #onResize(): void {
-    const heading = this.noTitle
+  #onResize(e: ResizeObserverEntry[]): void {
+    if (e[0].contentBoxSize[0].inlineSize === this.#previouseInlineSize) {
+      return;
+    }
+
+    this.#previouseInlineSize = e[0].contentBoxSize[0].inlineSize;
+    this.wrapAction = true;
+    requestAnimationFrame(() => {
+      const text = this.noTitle
+        ? this.renderRoot.querySelector('slot:not([name])')
+        : this.renderRoot.querySelector('slot[name="title"]');
+      this.#maxInlineSize = text?.getBoundingClientRect()?.width || 10000;
+      this.#checkWrapAction();
+    });
+  }
+
+  #checkWrapAction(): void {
+    const text = this.noTitle
       ? this.renderRoot.querySelector('slot:not([name])')
       : this.renderRoot.querySelector('slot[name="title"]');
+    const action = this.renderRoot.querySelector('[part="action"]');
 
-    if (heading) {
-      const { height } = heading.getBoundingClientRect(),
-        lineHeight = parseInt(getComputedStyle(heading).getPropertyValue('line-height') ?? '1000');
+    if (text && this.#maxInlineSize > 0) {
+      //this is done to get the true width of the text
+      (text as HTMLElement).style.setProperty('width', 'fit-content');
 
-      this.wrapAction = height > lineHeight;
+      const { height, width } = text.getBoundingClientRect(),
+        lineHeight = parseInt(getComputedStyle(text).getPropertyValue('line-height') ?? '1000');
+
+      const actionWidth = action?.getBoundingClientRect().width || 0;
+      this.wrapAction = height > lineHeight || width + actionWidth > this.#maxInlineSize;
+
+      // clean up
+      (text as HTMLElement).style.removeProperty('width');
     }
   }
 
@@ -152,6 +179,12 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
+    this.#checkWrapAction();
+  }
+
+  #onContentSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    console.log(event);
+    this.#checkWrapAction();
   }
 
   #closeOnAnimationend(event: AnimationEvent): void {

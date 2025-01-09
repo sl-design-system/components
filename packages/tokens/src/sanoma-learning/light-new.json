@@ -515,7 +515,7 @@
             "description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.600}",
+            "value": "{color.palette.green.700}",
             "type": "color",
             "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -1325,37 +1325,32 @@
           }
         },
         "grey": {
-          "muted": {
-            "idle": {
-              "value": "{opacity.light.000}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{opacity.light.100}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{opacity.light.200}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
           "subtlest": {
-            "value": "{color.palette.grey.050}",
+            "value": "rgba( {color.palette.grey.700} {opacity.light.subtlest})",
             "type": "color",
-            "description": "The subtlest grey background option, applied purely for stylistic purposes without specific meaning."
+            "description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "{color.palette.grey.150}",
+            "value": "rgba({color.palette.grey.700} {opacity.light.subtle})",
             "type": "color",
-            "description": "A subtle grey background option, applied purely for stylistic purposes without specific meaning."
+            "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.500}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
-            "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
+            "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.grey.800}",
+              "type": "color",
+              "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "value": "{color.palette.grey.800}",
+              "type": "color",
+              "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+            }
           }
         },
         "orange": {

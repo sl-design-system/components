@@ -6,7 +6,6 @@ import { type Panel, PanelElevation, type SubtitlePlacement, type TogglePlacemen
 
 type Props = Pick<
   Panel,
-  | 'badgesPlacement'
   | 'collapsed'
   | 'collapsible'
   | 'elevation'
@@ -18,7 +17,6 @@ type Props = Pick<
   | 'togglePlacement'
 > & {
   actions?(): string | TemplateResult;
-  badge?(): string | TemplateResult;
   content?(): string | TemplateResult;
   prefix?(): string | TemplateResult;
   suffix?(): string | TemplateResult;
@@ -31,11 +29,53 @@ const placements: SubtitlePlacement[] = ['bottom', 'top'];
 
 const elevations: PanelElevation[] = ['none', 'raised', 'sunken'];
 
+const users: Array<{ name: string; picture?: string; days: number; since: string; signal: string }> = [
+  {
+    name: 'Yousef van der Schaaf',
+    picture: 'https://randomuser.me/api/portraits/mendfgdfgdfdfg/81.jpg',
+    days: 7,
+    since: '2021-01-01',
+    signal: 'long-term'
+  },
+  {
+    name: 'Chester Reid',
+    picture: 'https://randomuser.me/api/portraits/men/19.jpg',
+    days: 2,
+    since: '2021-01-06',
+    signal: 'no data'
+  },
+  {
+    name: 'Emma Henderson - Van Deursen',
+    picture: 'https://randomuser.me/api/portraits/women/19.jpg',
+    days: 1,
+    since: '2021-01-07',
+    signal: 'no data'
+  },
+  {
+    name: 'Johnni Sullivan',
+    days: 1,
+    since: '2021-01-07',
+    signal: 'long-term'
+  },
+  {
+    name: 'Gustav Christensen',
+    days: 3,
+    since: '2021-01-05',
+    signal: 'no data'
+  },
+  {
+    name: 'Rose Nylund',
+    picture: 'https://randomuser.me/api/portraits/women/10.jpg',
+    days: 10,
+    since: '2020-12-29',
+    signal: 'no data'
+  }
+];
+
 export default {
   title: 'Layout/Panel',
   tags: ['draft'],
   args: {
-    badgesPlacement: 'bottom',
     collapsible: false,
     elevation: 'none',
     noPadding: false,
@@ -46,13 +86,6 @@ export default {
   argTypes: {
     actions: {
       table: { disable: true }
-    },
-    badge: {
-      table: { disable: true }
-    },
-    badgesPlacement: {
-      control: 'radio',
-      options: placements
     },
     collapsed: {
       control: 'boolean'
@@ -81,8 +114,6 @@ export default {
   },
   render: ({
     actions,
-    badge,
-    badgesPlacement,
     collapsed,
     collapsible,
     content,
@@ -100,7 +131,6 @@ export default {
       <sl-panel
         ?collapsed=${collapsible && collapsed}
         ?collapsible=${collapsible}
-        .badgesPlacement=${badgesPlacement}
         .heading=${heading}
         .elevation=${elevation}
         .noPadding=${noPadding}
@@ -109,7 +139,7 @@ export default {
         .subtitlePlacement=${subtitlePlacement}
         .togglePlacement=${togglePlacement}
       >
-        ${actions?.()}${badge?.()}${content?.()}${prefix?.()}${suffix?.()}
+        ${actions?.()}${content?.()}${prefix?.()}${suffix?.()}
       </sl-panel>
     `;
   }
@@ -118,20 +148,9 @@ export default {
 export const Basic: Story = {
   args: {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
-    badge: () =>
-      html`<sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-        ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>`,
     content: () => html`<span>Panel content</span>`,
-    prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
-    suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading',
     subtitle: 'Panel subtitle'
-  }
-};
-
-export const NoHeader: Story = {
-  args: {
-    content: () => html`<span>Panel content</span>`
   }
 };
 
@@ -140,7 +159,6 @@ export const WithPrefix: Story = {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
     content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
-    suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading',
     subtitle: 'Panel subtitle'
   }
@@ -204,6 +222,94 @@ export const WithoutActions: Story = {
   }
 };
 
+export const NoPaddingContent: Story = {
+  args: {
+    collapsible: true,
+    content: () => html`
+      <style>
+        .flex-table {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .row {
+          display: flex;
+        }
+
+        .row:first-of-type {
+          .cell {
+            padding: 16px;
+            font-weight: 600;
+            font-size: 1.1em;
+          }
+        }
+
+        .cell {
+          flex: 1;
+          border-top: 1px solid #ccc;
+          padding: 8px 16px;
+          align-content: center;
+        }
+      </style>
+
+      <div>
+        <div class="flex-table">
+          <div class="row">
+            <div class="cell">Name</div>
+            <div class="cell">Days</div>
+            <div class="cell">Since</div>
+            <div class="cell">Signal</div>
+          </div>
+          ${Array.from({ length: 6 }).map(
+            (_, rowIndex) => html`
+              <div class="row">
+                <div class="cell">
+                  <sl-avatar
+                    .displayName=${users[rowIndex].name}
+                    .pictureUrl=${users[rowIndex].picture}
+                    size="md"
+                  ></sl-avatar>
+                </div>
+                <div class="cell">${users[rowIndex].days}</div>
+                <div class="cell">${users[rowIndex].since}</div>
+                <div class="cell">
+                  <sl-badge emphasis="subtle" size="lg" variant="info">${users[rowIndex].signal}</sl-badge>
+                </div>
+              </div>
+            `
+          )}
+        </div>
+      </div>
+    `,
+    heading: 'Absence',
+    noPadding: true
+  }
+};
+
+export const NoHeader: Story = {
+  args: {
+    content: () => html`
+      <style>
+        div {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          align-items: start;
+        }
+
+        img {
+          width: 40rem;
+          height: 40rem;
+        }
+      </style>
+      <div>
+        <span>Panel without header. Panel content - can contain anything you need.</span>
+        <img alt="city" src="https://images.unsplash.com/photo-1586622992874-27d98f198139" />
+      </div>
+    `
+  }
+};
+
 export const All: Story = {
   render: () => html`
     <style>
@@ -211,13 +317,17 @@ export const All: Story = {
       div {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
+      }
+
+      .examples {
+        gap: 1.62rem;
       }
 
       section {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1rem;
+        gap: 3rem;
         align-items: start;
         padding: 1rem;
       }
@@ -225,99 +335,121 @@ export const All: Story = {
       section:first-of-type {
         background-color: var(--sl-elevation-surface-raised-alternative-idle);
       }
+
+      .my-heading {
+        font-size: 1.3rem;
+        font-weight: 600;
+        gap: 16px;
+      }
+
+      .badges {
+        flex-direction: row;
+        gap: 8px;
+      }
     </style>
     ${elevations.map(
       elevation => html`
         <h2>Elevation: ${elevation}</h2>
         <section>
-          <div>
+          <div class="examples">
             <h3>No outline</h3>
-            <sl-panel .elevation=${elevation}>Panel content without header</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel 1">Panel 1 content</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel 2">
-              Panel 2 content
+            <sl-panel .elevation=${elevation}>Panel without header that can contain anything.</sl-panel>
+            <sl-panel .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
+            <sl-panel .elevation=${elevation} heading="Panel heading" subtitle="Panel subtitle">Panel content</sl-panel>
+            <sl-panel .elevation=${elevation} heading="Panel heading">
+              Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible heading="Panel 3">Panel 3 content</sl-panel>
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel 4">
-              Panel 4 content
+            <sl-panel .elevation=${elevation} collapsible heading="Panel heading">Panel content</sl-panel>
+            <sl-panel
+              .elevation=${elevation}
+              collapsible
+              heading="Panel heading - toggle on the right"
+              toggle-placement="end"
+              >Panel content</sl-panel
+            >
+            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading">
+              Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel
               .elevation=${elevation}
               collapsible
               collapsed
-              heading="Panel 5; Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
+              heading="Panel heading - toggle on the right"
+              toggle-placement="end"
             >
-              Panel 5 content.
+              Panel content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              .elevation=${elevation}
+              collapsible
+              collapsed
+              heading="Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel 6 with prefix">
+            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading with prefix">
               <sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
-              Panel 6 content
+              Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel 7 with suffix">
+            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading with suffix">
               <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
-              Panel 7 content
+              Panel content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              .elevation=${elevation}
+              heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              .elevation=${elevation}
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+            >
+              <div class="my-heading" slot="heading">
+                <div class="badges">
+                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
+                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
+                </div>
+                Custom, slotted heading
+              </div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel
               .elevation=${elevation}
               collapsible
               collapsed
-              heading="Panel 8 with badges on the bottom"
-              subtitle="Panel subtitle"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
             >
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 8 content
+              <div class="my-heading" slot="heading">
+                <div class="badges">
+                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
+                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
+                </div>
+                Custom, slotted heading (collapsible)
+              </div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
               <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Panel 9 with badges on the top"
-              subtitle="Panel subtitle"
-              badges-placement="top"
-            >
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 9 content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel 10 with badges on the bottom" subtitle="Panel subtitle">
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 10 content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              heading="Panel 11 with badges on the top"
-              subtitle="Panel subtitle"
-              badges-placement="top"
-            >
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 11 content
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
@@ -325,14 +457,25 @@ export const All: Story = {
           <div>
             <h3>Outline</h3>
             <sl-panel outline .elevation=${elevation}>Panel content without header</sl-panel>
-            <sl-panel outline .elevation=${elevation} heading="Panel 1">Panel 1 content</sl-panel>
-            <sl-panel outline .elevation=${elevation} heading="Panel 2">
-              Panel 2 content
+            <sl-panel outline .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
+            <sl-panel outline .elevation=${elevation} heading="Panel heading" subtitle="Panel subtitle"
+              >Panel content</sl-panel
+            >
+            <sl-panel outline .elevation=${elevation} heading="Panel heading">
+              Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
-            <sl-panel outline .elevation=${elevation} collapsible heading="Panel 3">Panel 3 content</sl-panel>
-            <sl-panel outline .elevation=${elevation} collapsible collapsed heading="Panel 4">
-              Panel 4 content
+            <sl-panel outline .elevation=${elevation} collapsible heading="Panel heading">Panel content</sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              collapsible
+              heading="Panel heading - toggle on the right"
+              toggle-placement="end"
+              >Panel content</sl-panel
+            >
+            <sl-panel outline .elevation=${elevation} collapsible collapsed heading="Panel heading">
+              Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel
@@ -340,23 +483,65 @@ export const All: Story = {
               .elevation=${elevation}
               collapsible
               collapsed
-              heading="Panel 5; Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
+              heading="Panel heading - toggle on the right"
+              toggle-placement="end"
             >
-              Panel 5 content.
+              Panel content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              collapsible
+              collapsed
+              heading=" Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
-            <sl-panel outline .elevation=${elevation} collapsible collapsed heading="Panel 6 with prefix">
+            <sl-panel outline .elevation=${elevation} collapsible collapsed heading="Panel heading with prefix">
               <sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
-              Panel 6 content
+              Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
-            <sl-panel outline .elevation=${elevation} collapsible collapsed heading="Panel 7 with suffix">
+            <sl-panel outline .elevation=${elevation} collapsible collapsed heading="Panel heading with suffix">
               <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
-              Panel 7 content
+              Panel content
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+            </sl-panel>
+            <sl-panel
+              outline
+              .elevation=${elevation}
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+            >
+              <div class="my-heading" slot="heading">
+                <div class="badges">
+                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
+                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
+                </div>
+                Custom, slotted heading
+              </div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
+              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel
@@ -364,61 +549,18 @@ export const All: Story = {
               .elevation=${elevation}
               collapsible
               collapsed
-              heading="Panel 7 with badges on the bottom"
-              subtitle="Panel subtitle"
+              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
             >
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 8 content
+              <div class="my-heading" slot="heading">
+                <div class="badges">
+                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
+                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
+                </div>
+                Custom, slotted heading (collapsible)
+              </div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
               <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              outline
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Panel 7 with badges on the top"
-              subtitle="Panel subtitle"
-              badges-placement="top"
-            >
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 8 content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              outline
-              .elevation=${elevation}
-              heading="Panel 10 with badges on the bottom"
-              subtitle="Panel subtitle"
-            >
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 10 content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              outline
-              .elevation=${elevation}
-              heading="Panel 11 with badges on the top"
-              subtitle="Panel subtitle"
-              badges-placement="top"
-            >
-              <sl-badge slot="badge" emphasis="subtle" size="lg" variant="info">badge</sl-badge
-              ><sl-badge slot="badge" emphasis="subtle" size="lg" variant="success">badge</sl-badge>
-              Panel 11 content
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>

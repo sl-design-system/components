@@ -16,8 +16,6 @@ declare global {
   }
 }
 
-export type BadgesPlacement = 'bottom' | 'top';
-
 export type PanelElevation = 'none' | 'raised' | 'sunken';
 
 export type SubtitlePlacement = 'bottom' | 'top';
@@ -32,7 +30,6 @@ export type TogglePlacement = 'start' | 'end';
  * @csspart body - The body of the panel.
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
- * @csspart main - The main container of the panel.
  * @csspart titles - The container for the heading and subtitle.
  *
  * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
@@ -41,7 +38,6 @@ export type TogglePlacement = 'start' | 'end';
  * @slot default - The panel's content.
  * @slot prefix - Content to show before the heading.
  * @slot subtitle - The panel's subtitle. Use this if the `subtitle` property is not sufficient.
- * @slot badge - Place for badges that can be shown above or below the heading/subtitle.
  * @slot suffix - Content to show after the heading.
  */
 @localized()
@@ -58,17 +54,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Indicates whether the panel has a badge in the main part. */
-  #hasBadge = false;
-
-  /** Indicates whether the panel has a prefix. There should be no suffix visible, when there is something in the prefix. */
-  #hasPrefix = false;
-
   /** Indicates whether the toggle button has been clicked. */
   #toggleClicked = false;
-
-  /** The placement of badges within the panel - above or below the heading/subtitle. */
-  @property({ reflect: true, attribute: 'badges-placement' }) badgesPlacement?: BadgesPlacement;
 
   /** Indicates whether the panel is collapsed or expanded . */
   @property({ type: Boolean, reflect: true }) collapsed?: boolean;
@@ -111,7 +98,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('heading') || changes.has('subtitle')) {
+    if (changes.has('heading') || changes.has('subtitle') || changes.has('collapsible')) {
       this.#handleHeaderSlotChange();
     }
   }
@@ -174,19 +161,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   renderHeading(): TemplateResult {
     return html`
-      <slot name="prefix" class=${this.#hasBadge ? 'hidden' : ''} @slotchange=${this.#handleBadgeSlotChange}></slot>
-      <div part="main">
-        <div part="titles">
-          <slot name="heading">${this.heading}</slot>
-          <slot name="subtitle">${this.subtitle}</slot>
-        </div>
-        <slot name="badge" @slotchange=${this.#handleBadgeSlotChange}></slot>
+      <slot name="prefix"></slot>
+      <div part="titles">
+        <slot name="heading">${this.heading}</slot>
+        <slot name="subtitle">${this.subtitle}</slot>
       </div>
-      <slot
-        name="suffix"
-        class=${this.#hasBadge || this.#hasPrefix ? 'hidden' : ''}
-        @slotchange=${this.#handleBadgeSlotChange}
-      ></slot>
+      <slot name="suffix"></slot>
     `;
   }
 
@@ -208,23 +188,11 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  #handleBadgeSlotChange(): void {
-    const badgeSlot = this.renderRoot.querySelector('slot[name="badge"]') as HTMLSlotElement,
-      prefixSlot = this.renderRoot.querySelector('slot[name="prefix"]') as HTMLSlotElement;
-
-    this.#hasBadge = badgeSlot ? badgeSlot.assignedNodes().length > 0 : false;
-    this.#hasPrefix = prefixSlot ? prefixSlot.assignedNodes().length > 0 : false;
-
-    this.toggleAttribute('has-badge', this.#hasBadge);
-
-    this.requestUpdate();
-  }
-
   #handleHeaderSlotChange(): void {
     const headerSlots = this.renderRoot.querySelectorAll('div[part="header"] slot'),
       hasContent = Array.from(headerSlots).some(slot => (slot as HTMLSlotElement).assignedNodes().length > 0);
 
-    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.subtitle);
+    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.subtitle && !this.collapsible);
     this.requestUpdate();
   }
 }

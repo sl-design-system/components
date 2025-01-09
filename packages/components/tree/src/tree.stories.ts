@@ -4,6 +4,7 @@ import '@sl-design-system/button/register.js';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/menu/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import '../register.js';

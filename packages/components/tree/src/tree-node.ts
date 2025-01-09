@@ -2,6 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
+import { type Menu } from '@sl-design-system/menu';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
@@ -18,6 +19,8 @@ declare global {
     'sl-tree-node': TreeNode;
   }
 }
+
+export type TreeNodeContextMenu<T> = (node: TreeDataSourceNode<T>) => Menu | undefined;
 
 export type TreeNodeType = 'node' | 'placeholder' | 'skeleton';
 

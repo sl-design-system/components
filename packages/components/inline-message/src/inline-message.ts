@@ -46,7 +46,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   #observer = new ResizeObserver(e => this.#onResize(e));
 
   #maxInlineSize = 0;
-  #previouseInlineSize = 0;
+  #previousInlineSize = 0;
 
   /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
@@ -139,11 +139,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(e: ResizeObserverEntry[]): void {
-    if (e[0].contentBoxSize[0].inlineSize === this.#previouseInlineSize) {
+    if (e[0].contentBoxSize[0].inlineSize === this.#previousInlineSize) {
       return;
     }
 
-    this.#previouseInlineSize = e[0].contentBoxSize[0].inlineSize;
+    this.#previousInlineSize = e[0].contentBoxSize[0].inlineSize;
     this.wrapAction = true;
     requestAnimationFrame(() => {
       const text = this.noTitle

@@ -1451,93 +1451,6 @@
         }
       },
       "accent": {
-        "blue": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.blue.100}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.blue.150}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtle": {
-            "idle": {
-              "value": "{color.palette.blue.050}",
-              "type": "color",
-              "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.blue.100}",
-              "type": "color",
-              "description": "A subtle blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.blue.150}",
-              "type": "color",
-              "description": "A subtle blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "bold": {
-            "idle": {
-              "value": "{color.palette.blue.500}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.blue.600}",
-              "type": "color",
-              "description": "A vibrant blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.blue.700}",
-              "type": "color",
-              "description": "A vibrant blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "subtlest": {
-            "idle": {
-              "value": "{color.palette.blue.050}",
-              "type": "color",
-              "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.blue.100}",
-              "type": "color",
-              "description": "A subtle blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.blue.150}",
-              "type": "color",
-              "description": "A subtle blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
-          },
-          "interactive": {
-            "base": {
-              "value": "{color.palette.blue.400}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "solid": {
-              "value": "{color.palette.blue.800}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "transparant": {
-              "value": "{color.background.accent.blue.interactive.base}",
-              "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
-            }
-          }
-        },
         "green": {
           "muted": {
             "idle": {
@@ -1906,6 +1819,35 @@
               "value": "{color.palette.yellow.500}",
               "type": "color",
               "description": "A vibrant yellow background option in pressed state, applied purely for stylistic purposes without specific meaning."
+            }
+          }
+        },
+        "blue": {
+          "subtlest": {
+            "value": "rgba({color.background.accent.blue.bold} {opacity.dark.subtlest})",
+            "type": "color",
+            "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
+          },
+          "subtle": {
+            "value": "rgba({color.background.accent.blue.bold} {opacity.dark.subtle})",
+            "type": "color",
+            "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
+          },
+          "bold": {
+            "value": "{color.palette.blue.400}",
+            "type": "color",
+            "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.blue.900}",
+              "type": "color",
+              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+            },
+            "plain": {
+              "value": "{color.background.accent.blue.bold}",
+              "type": "color",
+              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             }
           }
         }

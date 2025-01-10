@@ -43,7 +43,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Observe the size and determine where to place the action button if present. */
-  #observer = new ResizeObserver(e => this.#onResize(e));
+  #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
   /** Needed for calculating the need for wrap-action */
   #maxInlineSize = 0;
@@ -139,14 +139,15 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noAction = !event.target.assignedElements({ flatten: true }).length;
   }
 
-  #onResize(e: ResizeObserverEntry[]): void {
+  #onResize(entry: ResizeObserverEntry): void {
     // only check if the width has changed; the height is irrelevant for the wrapping of text, and if we do check on height changes, it will cause an infinite loop
-    if (e[0].contentBoxSize[0].inlineSize === this.#previousInlineSize) {
-      return;
+    if (entry.contentBoxSize[0].inlineSize !== this.#previousInlineSize) {
+      this.#previousInlineSize = entry.contentBoxSize[0].inlineSize;
+      this.#setMaxSize();
     }
+  }
 
-    this.#previousInlineSize = e[0].contentBoxSize[0].inlineSize;
-
+  #setMaxSize(): void {
     /**
      * We need to see how big the text can be if the button is underneath the text,
      * so we can calculate whether the text also wraps when the button is underneath the text in the #checkWrapAction method

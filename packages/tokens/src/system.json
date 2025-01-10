@@ -404,6 +404,10 @@
         "value": "20%",
         "type": "opacity"
       },
+      "moderate": {
+        "value": "80%",
+        "type": "opacity"
+      },
       "bold": {
         "value": "100%",
         "type": "opacity"
@@ -450,6 +454,10 @@
       },
       "subtle": {
         "value": "35%",
+        "type": "opacity"
+      },
+      "moderate": {
+        "value": "80%",
         "type": "opacity"
       },
       "bold": {

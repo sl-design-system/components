@@ -225,6 +225,7 @@ export const WithoutActions: Story = {
 export const NoPaddingContent: Story = {
   args: {
     collapsible: true,
+    collapsed: true,
     content: () => html`
       <style>
         .flex-table {
@@ -308,6 +309,87 @@ export const NoHeader: Story = {
       </div>
     `
   }
+};
+
+export const CustomHeading: Story = {
+  render: ({ elevation }) => html`
+    <style>
+      #root-inner,
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        inline-size: 100%;
+      }
+
+      .examples {
+        gap: 1.62rem;
+      }
+
+      section {
+        display: flex;
+        gap: 3rem;
+        align-items: start;
+        padding: 1rem;
+      }
+
+      section:first-of-type {
+        background-color: var(--sl-elevation-surface-raised-alternative-idle);
+      }
+
+      .my-heading {
+        font-size: 1.3rem;
+        font-weight: 600;
+        gap: 16px;
+      }
+
+      .badges {
+        flex-direction: row;
+        gap: 8px;
+      }
+    </style>
+    <h2>Custom, slotted heading</h2>
+    <section>
+      <div class="examples">
+        <sl-panel
+          .elevation=${elevation}
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+        >
+          <div class="my-heading" slot="heading">
+            <div class="badges">
+              <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
+              <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
+            </div>
+            Custom, slotted heading
+          </div>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+          faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
+          <sl-button fill="outline" slot="actions">Action</sl-button>
+          <sl-button fill="outline" slot="actions">Action</sl-button>
+          <sl-button fill="outline" slot="actions">Action</sl-button>
+        </sl-panel>
+        <sl-panel
+          .elevation=${elevation}
+          collapsible
+          collapsed
+          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+        >
+          <div class="my-heading" slot="heading">
+            <div class="badges">
+              <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
+              <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
+            </div>
+            Custom, slotted heading (collapsible)
+          </div>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
+          faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
+          <sl-button fill="outline" slot="actions">Action</sl-button>
+          <sl-button fill="outline" slot="actions">Action</sl-button>
+          <sl-button fill="outline" slot="actions">Action</sl-button>
+        </sl-panel>
+      </div>
+    </section>
+  `
 };
 
 export const All: Story = {

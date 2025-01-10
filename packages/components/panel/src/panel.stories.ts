@@ -499,42 +499,6 @@ export const All: Story = {
               <sl-button fill="outline" slot="actions">Action</sl-button>
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-            >
-              <div class="my-heading" slot="heading">
-                <div class="badges">
-                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-                </div>
-                Custom, slotted heading
-              </div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-            >
-              <div class="my-heading" slot="heading">
-                <div class="badges">
-                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-                </div>
-                Custom, slotted heading (collapsible)
-              </div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
           </div>
           <div>
             <h3>Outline</h3>
@@ -602,44 +566,6 @@ export const All: Story = {
               heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
               subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              outline
-              .elevation=${elevation}
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-            >
-              <div class="my-heading" slot="heading">
-                <div class="badges">
-                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-                </div>
-                Custom, slotted heading
-              </div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              outline
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-            >
-              <div class="my-heading" slot="heading">
-                <div class="badges">
-                  <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-                  <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-                </div>
-                Custom, slotted heading (collapsible)
-              </div>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
               faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
               <sl-button fill="outline" slot="actions">Action</sl-button>

@@ -1515,7 +1515,7 @@
     },
     "blanket": {
       "plain": {
-        "value": "rgba({color.palette.blue.900} {opacity.light.moderate})",
+        "value": "rgba({color.palette.grey.900} {opacity.light.moderate})",
         "type": "color",
         "description": "Use for screen overlay that appears with dialogs or drawers."
       }

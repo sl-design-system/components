@@ -1441,17 +1441,17 @@
         },
         "teal": {
           "subtlest": {
-            "value": "rgba( {color.palette.teal.400} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.teal.300} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.teal.400} {opacity.dark.subtle})",
+            "value": "rgba({color.palette.teal.300} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.teal.300}",
+            "value": "{color.palette.teal.200}",
             "type": "color",
             "description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1462,7 +1462,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.teal.300}",
+              "value": "{color.palette.teal.400}",
               "type": "color",
               "description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1470,12 +1470,12 @@
         },
         "yellow": {
           "subtlest": {
-            "value": "rgba( {color.palette.yellow.150} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.yellow.200} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.yellow.150} {opacity.dark.subtle})",
+            "value": "rgba({color.palette.yellow.200} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
           },

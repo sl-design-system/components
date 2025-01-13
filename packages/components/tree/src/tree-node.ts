@@ -209,6 +209,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     if (insideWrapper) {
       event.preventDefault();
 
+      this.selected = this.selects === 'single' ? true : this.selected;
       this.selectEvent.emit(this.node!);
     } else if (this.expandable) {
       this.toggle();
@@ -225,6 +226,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         this.indeterminate = false;
         this.changeEvent.emit(this.checked);
       } else {
+        this.selected = this.selects === 'single' ? true : this.selected;
         this.selectEvent.emit(this.node!);
       }
     } else if (event.key === 'ArrowLeft') {

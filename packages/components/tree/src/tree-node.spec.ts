@@ -1,5 +1,6 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
+import { sendKeys } from '@web/test-runner-commands';
 import { spy } from 'sinon';
 import { TreeNode } from './tree-node.js';
 
@@ -89,7 +90,11 @@ describe('sl-tree-node', () => {
 
   describe('single select', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tree-node selects="single"></sl-tree-node>`);
+      el = await fixture(html`
+        <sl-tree-node .node=${{ hello: true }} selects="single">
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
     });
 
     it('should have an aria-selected attribute', () => {
@@ -100,6 +105,33 @@ describe('sl-tree-node', () => {
       const checkbox = el.renderRoot.querySelector('sl-checkbox');
 
       expect(checkbox).to.not.exist;
+    });
+
+    it('should set the selected state when clicking the text', async () => {
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should set the selected state by using the keyboard', async () => {
+      el.focus();
+
+      await sendKeys({ press: 'Enter' });
+
+      expect(el).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should emit a select event when the text is clicked', () => {
+      const onSelect = spy();
+
+      el.addEventListener('sl-select', (event: CustomEvent) => {
+        onSelect(event.detail);
+      });
+      el.querySelector('span')?.click();
+
+      expect(onSelect).to.have.been.calledOnce;
+      expect(onSelect.lastCall.firstArg).to.deep.equal({ hello: true });
     });
   });
 

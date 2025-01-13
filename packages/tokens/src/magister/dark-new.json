@@ -1354,23 +1354,23 @@
         },
         "orange": {
           "subtlest": {
-            "value": "rgba( {color.palette.orange.200} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.orange.300} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.orange.200} {opacity.dark.subtle})",
+            "value": "rgba( {color.palette.orange.300} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.orange.150}",
+            "value": "{color.palette.orange.200}",
             "type": "color",
             "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.orange.050}",
+              "value": "{color.palette.orange.100}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
@@ -1412,12 +1412,12 @@
         },
         "red": {
           "subtlest": {
-            "value": "rgba( {color.palette.red.150} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.red.200} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.red.150} {opacity.dark.subtle})",
+            "value": "rgba( {color.palette.red.200} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1433,7 +1433,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.red.200}",
+              "value": "{color.palette.red.300}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1462,7 +1462,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.teal.200}",
+              "value": "{color.palette.teal.300}",
               "type": "color",
               "description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
             }

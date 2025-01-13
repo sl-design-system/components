@@ -1,4 +1,6 @@
 import { expect, fixture, html } from '@open-wc/testing';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
+import { spy } from 'sinon';
 import { TreeNode } from './tree-node.js';
 
 // We need to define sl-tree-node ourselves, since it's not
@@ -82,6 +84,74 @@ describe('sl-tree-node', () => {
 
     it('should not have a type', () => {
       expect(el.type).to.be.undefined;
+    });
+  });
+
+  describe('single select', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-tree-node selects="single"></sl-tree-node>`);
+    });
+
+    it('should have an aria-selected attribute', () => {
+      expect(el).to.have.attribute('aria-selected', 'false');
+    });
+
+    it('should not render a checkbox', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+
+      expect(checkbox).to.not.exist;
+    });
+  });
+
+  describe('multiple select', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node selects="multiple">
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+
+    it('should have an aria-checked attribute', () => {
+      expect(el).to.have.attribute('aria-checked', 'false');
+    });
+
+    it('should render a checkbox', () => {
+      const checkbox = el.renderRoot.querySelector('sl-checkbox');
+
+      expect(checkbox).to.exist;
+    });
+
+    it('should toggle the checkbox when clicking the text', async () => {
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', true);
+
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-checked', 'false');
+      expect(el.renderRoot.querySelector('sl-checkbox')).to.have.property('checked', false);
+    });
+
+    it('should emit a change event when the checkbox is toggled', () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', (event: SlChangeEvent) => {
+        onChange(event.detail);
+      });
+
+      el.querySelector('span')?.click();
+
+      expect(onChange).to.have.been.calledOnce;
+      expect(onChange.lastCall.firstArg).to.be.true;
+
+      el.querySelector('span')?.click();
+
+      expect(onChange).to.have.been.calledTwice;
+      expect(onChange.lastCall.firstArg).to.not.be.true;
     });
   });
 });

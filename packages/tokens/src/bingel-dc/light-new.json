@@ -374,58 +374,6 @@
         }
       }
     },
-    "utility": {
-      "transparent": {
-        "100": {
-          "value": "rgba( {color.palette.blue.800} , 11%)",
-          "type": "color"
-        },
-        "150": {
-          "value": "rgba( {color.palette.blue.800} , 21%)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba( {color.palette.blue.800} , 36%)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba( {color.palette.blue.800} , 54%)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba( {color.palette.blue.800} , 66%)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba( {color.palette.blue.800} , 73%)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba( {color.palette.blue.800} , 79%)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba( {color.palette.blue.800} , 84%)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba( {color.palette.blue.800} , 88%)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba( {color.palette.blue.800} , 100%)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba( {color.palette.blue.800} , 5%)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba( {color.palette.blue.800} , 0%)",
-          "type": "color"
-        }
-      }
-    },
     "text": {
       "bold": {
         "value": "{color.text.accent.grey.bold}",
@@ -608,7 +556,7 @@
             "description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.purple.600}",
+            "value": "{color.palette.purple.700}",
             "type": "color",
             "description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
           }
@@ -1175,13 +1123,13 @@
           "description": "A subtle background for informative messages."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "{color.palette.accent.700}",
           "type": "color",
           "description": "Use for the background of actions with bold emphasis related to informative messages."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.blue.interactive.bold}",
+            "value": "{color.palette.accent.300}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1223,28 +1171,28 @@
       },
       "caution": {
         "subtlest": {
-          "value": "{color.background.accent.yellow.subtlest}",
+          "value": "{color.background.accent.orange.subtlest}",
           "type": "color",
           "description": "The subtlest background option to communicate caution to prevent errors."
         },
         "subtle": {
-          "value": "{color.background.accent.yellow.subtle}",
+          "value": "{color.background.accent.orange.subtle}",
           "type": "color",
           "description": "A subtle background option to communicate caution to prevent errors."
         },
         "bold": {
-          "value": "{color.background.accent.yellow.bold}",
+          "value": "{color.background.accent.orange.bold}",
           "type": "color",
           "description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.yellow.interactive.bold}",
+            "value": "{color.background.accent.orange.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.yellow.interactive.plain}",
+            "value": "{color.background.accent.orange.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1340,28 +1288,28 @@
         },
         "grey": {
           "subtlest": {
-            "value": "rgba( {color.palette.grey.700} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.grey.400} {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.grey.700} {opacity.light.subtle})",
+            "value": "rgba({color.palette.grey.400} {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.150}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.grey.800}",
+              "value": "{color.palette.grey.500}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.800}",
+              "value": "{color.palette.grey.500}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1379,13 +1327,13 @@
             "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.orange.600}",
+            "value": "{color.palette.orange.400}",
             "type": "color",
             "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.orange.900}",
+              "value": "{color.palette.orange.700}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
@@ -1437,7 +1385,7 @@
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.500}",
+            "value": "{color.palette.red.400}",
             "type": "color",
             "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1501,7 +1449,7 @@
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.yellow.800}",
+              "value": "{color.palette.yellow.600}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
@@ -1570,98 +1518,24 @@
   },
   "blanket": {
     "plain": {
-      "value": "rgba({color.palette.grey.900} {opacity.light.moderate})",
+      "value": "rgba({color.palette.blue.900} {opacity.light.moderate})",
       "type": "color",
       "description": "Use for screen overlay that appears with dialogs or drawers."
     }
   },
   "skeleton": {
     "plain": {
-      "value": "{color.palette.grey.150}",
+      "value": "{color.background.accent.grey.subtle}",
       "type": "color",
       "description": "Use for skeleton loading states."
     },
     "subtle": {
-      "value": "{color.palette.grey.050}",
+      "value": "{color.background.accent.grey.subtlest}",
       "type": "color",
       "description": "Use for the pulse or shimmer effect in skeleton loading states."
     }
   },
   "elevation": {
-    "surface": {
-      "base": {
-        "default": {
-          "idle": {
-            "value": "{color.palette.grey.000}",
-            "type": "color",
-            "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
-            "type": "color",
-            "description": "The default, flat surface level in hover state. Used for primary content backgrounds."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.muted.active}",
-            "type": "color",
-            "description": "Use as the default background for the UI while pressing."
-          }
-        }
-      },
-      "raised": {
-        "default": {
-          "idle": {
-            "value": "{color.palette.grey.000}",
-            "type": "color",
-            "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
-            "type": "color",
-            "description": "Background of elevated components in hovered state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.muted.active}",
-            "type": "color",
-            "description": "Background of elevated components in active state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          }
-        },
-        "alternative": {
-          "idle": {
-            "value": "{color.palette.grey.000}",
-            "type": "color",
-            "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "An alternate surface color in hover state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "An alternate surface color in active state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          }
-        },
-        "sunken": {
-          "idle": {
-            "value": "{color.background.accent.grey.subtlest.idle}",
-            "type": "color",
-            "description": "Background for components that create a sunken effect, typically used for grouping related items."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "Background for components in hover state that create a sunken effect, typically used for grouping related items."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "Background for components in active state that create a sunken effect, typically used for grouping related items."
-          }
-        }
-      }
-    },
     "shadow": {
       "overflow": {
         "value": {
@@ -1686,6 +1560,32 @@
         },
         "type": "boxShadow",
         "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
+      }
+    },
+    "surface": {
+      "base": {
+        "default": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
+        }
+      },
+      "raised": {
+        "default": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+        },
+        "alternative": {
+          "value": "{color.palette.grey.100}",
+          "type": "color",
+          "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+        },
+        "sunken": {
+          "value": "{color.palette.grey.050}",
+          "type": "color",
+          "description": "Background for components that create a sunken effect, typically used for grouping related items."
+        }
       }
     }
   }

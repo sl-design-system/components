@@ -448,7 +448,7 @@
         "description": "Use for placeholders and hints."
       },
       "inverted": {
-        "value": "{color.text.accent.grey.bold}",
+        "value": "{color.palette.grey.000}",
         "type": "color",
         "description": "Use for text on bold backgrounds."
       },

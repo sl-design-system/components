@@ -1,4 +1,5 @@
 import { localized } from '@lit/localize';
+import { announce } from '@sl-design-system/announcer';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -105,6 +106,9 @@ export class AccordionItem extends LitElement {
       return;
     }
 
+    announce('accordion opened in the item?'); // TODO: title and expanded / collapsed??? or how to annouce it and what?
+    // TODO: maybe in the story only and add some more documentation about that?
+
     this.open = force ?? !this.open;
   }
 
@@ -123,6 +127,7 @@ export class AccordionItem extends LitElement {
 
   #onToggle(event: ToggleEvent): void {
     this.open = event.newState === 'open';
+    announce(`${this.summary} ${this.open ? 'expanded' : 'collapsed'}`); // expanded / collapsed // TODO: translation
     this.toggleEvent.emit(this.open);
   }
 

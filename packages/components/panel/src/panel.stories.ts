@@ -12,7 +12,7 @@ type Props = Pick<
   | 'heading'
   | 'noPadding'
   | 'outline'
-  | 'subtitle'
+  | 'subheading'
   | 'subtitlePlacement'
   | 'togglePlacement'
 > & {
@@ -122,7 +122,7 @@ export default {
     noPadding,
     outline,
     prefix,
-    subtitle,
+    subheading,
     subtitlePlacement,
     suffix,
     togglePlacement
@@ -135,7 +135,7 @@ export default {
         .elevation=${elevation}
         .noPadding=${noPadding}
         .outline=${outline}
-        .subtitle=${subtitle}
+        .subheading=${subheading}
         .subtitlePlacement=${subtitlePlacement}
         .togglePlacement=${togglePlacement}
       >
@@ -150,7 +150,7 @@ export const Basic: Story = {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
     content: () => html`<span>Panel content</span>`,
     heading: 'Panel heading',
-    subtitle: 'Panel subtitle'
+    subheading: 'Panel subheading'
   }
 };
 
@@ -160,7 +160,7 @@ export const WithPrefix: Story = {
     content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
     heading: 'Panel heading',
-    subtitle: 'Panel subtitle'
+    subheading: 'Panel subheading'
   }
 };
 
@@ -170,7 +170,7 @@ export const WithSuffix: Story = {
     content: () => html`<span>Panel content</span>`,
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading',
-    subtitle: 'Panel subtitle'
+    subheading: 'Panel subheading'
   }
 };
 
@@ -193,8 +193,8 @@ export const OverflowHeading: Story = {
     ...Basic.args,
     heading:
       'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
-    subtitle:
-      'Panel subtitle. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.',
+    subheading:
+      'Panel subheading. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.',
     content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'
   }
 };
@@ -353,7 +353,7 @@ export const CustomHeading: Story = {
       <div class="examples">
         <sl-panel
           .elevation=${elevation}
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+          subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
         >
           <div class="my-heading" slot="heading">
             <div class="badges">
@@ -372,7 +372,7 @@ export const CustomHeading: Story = {
           .elevation=${elevation}
           collapsible
           collapsed
-          subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+          subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
         >
           <div class="my-heading" slot="heading">
             <div class="badges">
@@ -437,7 +437,9 @@ export const All: Story = {
             <h3>No outline</h3>
             <sl-panel .elevation=${elevation}>Panel without header that can contain anything.</sl-panel>
             <sl-panel .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel heading" subtitle="Panel subtitle">Panel content</sl-panel>
+            <sl-panel .elevation=${elevation} heading="Panel heading" subheading="Panel subheading"
+              >Panel content</sl-panel
+            >
             <sl-panel .elevation=${elevation} heading="Panel heading">
               Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
@@ -491,7 +493,7 @@ export const All: Story = {
             <sl-panel
               .elevation=${elevation}
               heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
+              subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
               faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
@@ -504,7 +506,7 @@ export const All: Story = {
             <h3>Outline</h3>
             <sl-panel outline .elevation=${elevation}>Panel content without header</sl-panel>
             <sl-panel outline .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel outline .elevation=${elevation} heading="Panel heading" subtitle="Panel subtitle"
+            <sl-panel outline .elevation=${elevation} heading="Panel heading" subheading="Panel subheading"
               >Panel content</sl-panel
             >
             <sl-panel outline .elevation=${elevation} heading="Panel heading">
@@ -564,7 +566,7 @@ export const All: Story = {
               outline
               .elevation=${elevation}
               heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-              subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
+              subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
               faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.

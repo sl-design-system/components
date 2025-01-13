@@ -30,14 +30,14 @@ export type TogglePlacement = 'start' | 'end';
  * @csspart body - The body of the panel.
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
- * @csspart titles - The container for the heading and subtitle.
+ * @csspart titles - The container for the heading and subheading.
  *
  * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
  * @slot aside - Additional content to show in the header; replaces the button bar.
  * @slot actions - The panel's actions; will slot in a button bar by default.
  * @slot default - The panel's content.
  * @slot prefix - Content to show before the heading.
- * @slot subtitle - The panel's subtitle. Use this if the `subtitle` property is not sufficient.
+ * @slot subheading - The panel's subheading. Use this if the `subheading` property is not sufficient.
  * @slot suffix - Content to show after the heading.
  */
 @localized()
@@ -79,12 +79,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) outline?: boolean;
 
   /**
-   * The heading shown in the header. Use this property if your subtitle is a string. If you need
-   * more flexibility, such as an icon or other elements, use the `subtitle` slot.
+   * The heading shown in the header. Use this property if your subheading is a string. If you need
+   * more flexibility, such as an icon or other elements, use the `subheading` slot.
    */
-  @property() subtitle?: string;
+  @property() subheading?: string;
 
-  /** The placement of the subtitle - below or above the heading. */
+  /** The placement of the subheading - below or above the heading. */
   @property({ reflect: true, attribute: 'subtitle-placement' }) subtitlePlacement?: SubtitlePlacement;
 
   /** The placement of the toggle button when it's collapsible.
@@ -98,20 +98,22 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('heading') || changes.has('subtitle') || changes.has('collapsible')) {
-      this.#handleHeaderSlotChange();
+    if (changes.has('heading') || changes.has('subheading') || changes.has('collapsible')) {
+      this.#onHeaderSlotChange();
     }
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.#handleHeaderSlotChange();
+    requestAnimationFrame(() => {
+      this.#onHeaderSlotChange();
+    });
   }
 
   override render(): TemplateResult {
     return html`
-      <div part="header" @slotchange=${this.#handleHeaderSlotChange}>
+      <div part="header" @slotchange=${this.#onHeaderSlotChange}>
         ${this.collapsible && this.togglePlacement !== 'end'
           ? html`
               <sl-button
@@ -119,10 +121,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
                 fill="ghost"
                 aria-controls="body"
                 aria-expanded=${this.collapsed ? 'false' : 'true'}
-                class=${this.#toggleClicked ? 'clicked' : ''}
               >
                 <sl-icon
-                  class="icon ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
+                  class=${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}
                   name="chevron-down"
                 ></sl-icon>
               </sl-button>
@@ -140,16 +141,15 @@ export class Panel extends ScopedElementsMixin(LitElement) {
               fill="ghost"
               aria-controls="body"
               aria-expanded=${this.collapsed ? 'false' : 'true'}
-              class=${this.#toggleClicked ? 'clicked' : ''}
             >
               <sl-icon
-                class="icon ${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}"
+                class=${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}
                 name="chevron-down"
               ></sl-icon>
             </sl-button>`
           : nothing}
       </div>
-      <div id="body" part="body" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
+      <div id="body" part="body" aria-labelledby="heading" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
         <div part="inner">
           <div part="content">
             <slot></slot>
@@ -163,8 +163,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="prefix"></slot>
       <div part="titles">
-        <slot name="heading">${this.heading}</slot>
-        <slot name="subtitle">${this.subtitle}</slot>
+        <slot id="heading" name="heading">${this.heading}</slot>
+        <slot name="subheading">${this.subheading}</slot>
       </div>
       <slot name="suffix"></slot>
     `;
@@ -188,11 +188,20 @@ export class Panel extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  #handleHeaderSlotChange(): void {
+  #onHeaderSlotChange(): void {
     const headerSlots = this.renderRoot.querySelectorAll('div[part="header"] slot'),
-      hasContent = Array.from(headerSlots).some(slot => (slot as HTMLSlotElement).assignedNodes().length > 0);
+      hasContent = Array.from(headerSlots).find(slot =>
+        (slot as HTMLSlotElement)
+          .assignedNodes({ flatten: true })
+          .some(
+            node =>
+              node.textContent?.trim() !== '' ||
+              (node.nodeType === Node.ELEMENT_NODE &&
+                (node as Element)?.tagName === 'SL-TOOL-BAR' &&
+                !(node as Element)?.hasAttribute('empty'))
+          )
+      );
 
-    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.subtitle && !this.collapsible);
-    this.requestUpdate();
+    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.subheading && !this.collapsible);
   }
 }

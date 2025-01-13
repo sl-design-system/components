@@ -13,7 +13,11 @@ describe('sl-tree-node', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tree-node></sl-tree-node>`);
+      el = await fixture(html`
+        <sl-tree-node>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
     });
 
     it('should have a treeitem role', () => {
@@ -85,6 +89,117 @@ describe('sl-tree-node', () => {
 
     it('should not have a type', () => {
       expect(el.type).to.be.undefined;
+    });
+
+    it('should render a spinner when type "placeholder"', async () => {
+      el.type = 'placeholder';
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-spinner')).to.exist;
+    });
+
+    it('should render a skeleton when type "skeleton"', async () => {
+      el.type = 'skeleton';
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-skeleton')).to.exist;
+    });
+  });
+
+  describe('expandable', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tree-node expandable>
+          <span>Lorem</span>
+        </sl-tree-node>
+      `);
+    });
+
+    it('should be expandable', () => {
+      expect(el.expandable).to.be.true;
+    });
+
+    it('should not be expanded', () => {
+      expect(el).to.have.attribute('aria-expanded', 'false');
+      expect(el.expanded).not.to.be.true;
+    });
+
+    it('should render an expander', () => {
+      const expander = el.renderRoot.querySelector('.expander');
+
+      expect(expander).to.exist;
+      expect(expander).to.contain('sl-icon[name="chevron-right"]');
+    });
+
+    it('should toggle the expanded state when clicking the element', async () => {
+      el.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should not toggle the expanded state when clicking the text', async () => {
+      el.querySelector('span')?.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should toggle the expanded state when using the keyboard', async () => {
+      el.focus();
+
+      await sendKeys({ press: 'ArrowRight' });
+      expect(el).to.have.attribute('aria-expanded', 'true');
+
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should toggle the expanded state by using the toggle() method', async () => {
+      el.toggle();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
+
+      el.toggle();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should force toggle the expanded state by using the toggle(true) method', async () => {
+      el.toggle();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
+
+      el.toggle(true);
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should emit a toggle event when the expanded state changes', () => {
+      const onToggle = spy();
+
+      el.addEventListener('sl-toggle', (event: CustomEvent) => {
+        onToggle(event.detail);
+      });
+
+      el.click();
+
+      expect(onToggle).to.have.been.calledOnce;
+      expect(onToggle.lastCall.firstArg).to.be.true;
+
+      el.toggle();
+
+      expect(onToggle).to.have.been.calledTwice;
+      expect(onToggle.lastCall.firstArg).to.be.false;
     });
   });
 

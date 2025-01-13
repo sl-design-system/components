@@ -6,7 +6,7 @@ import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { TreeDataSource, type TreeDataSourceNode } from './tree-data-source.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
@@ -58,24 +58,18 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The model for the tree. */
   @property({ attribute: false })
-  set dataSource(model: TreeDataSource<T> | undefined) {
+  set dataSource(dataSource: TreeDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
     }
 
-    this.#dataSource = model;
+    this.#dataSource = dataSource;
     this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
     this.#dataSource?.update();
-
-    // Trigger first time render
-    // this.#onUpdate();
   }
 
   /** Hides the indentation guides when set. */
   @property({ type: Boolean, attribute: 'hide-guides' }) hideGuides?: boolean;
-
-  /** @internal The array of items to be rendered. */
-  @state() items?: Array<TreeDataSourceNode<T>>;
 
   /**
    * Use this if you want to wait until lit-virtualizer has finished the rendering
@@ -110,6 +104,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     const host = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
     this.#virtualizer = host[virtualizerRef];
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.#virtualizer?.layoutComplete.then(() => {
+      this.#rovingTabindexController.clearElementCache();
+    });
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -129,17 +128,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
           this.registry?.define(tagName, klass);
         }
       }
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('items')) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      this.#virtualizer?.layoutComplete.then(() => {
-        this.#rovingTabindexController.clearElementCache();
-      });
     }
   }
 
@@ -227,6 +215,10 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onUpdate = (): void => {
     this.requestUpdate('dataSource');
-    // this.items = this.dataSource?.toViewArray() ?? [];
+
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.#virtualizer?.layoutComplete.then(() => {
+      this.#rovingTabindexController.clearElementCache();
+    });
   };
 }

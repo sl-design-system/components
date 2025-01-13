@@ -79,7 +79,7 @@ slot[name='heading'],
 slot[name='heading']::slotted(*) {
   color: var(--sl-color-text-bold);
   font-size: 1.5em;
-  line-height: 1;
+  line-height: 1.5em;
 }
 
 slot[name='heading'] {

@@ -77,6 +77,14 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal The array of items to be rendered. */
   @state() items?: Array<TreeDataSourceNode<T>>;
 
+  /**
+   * Use this if you want to wait until lit-virtualizer has finished the rendering
+   * the tree nodes. This can be useful in unit tests for example.
+   */
+  get layoutComplete() {
+    return this.#virtualizer?.layoutComplete ?? Promise.resolve();
+  }
+
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 

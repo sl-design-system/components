@@ -17,20 +17,20 @@ type Props = Pick<Tree, 'dataSource' | 'hideGuides' | 'renderer' | 'scopedElemen
 };
 type Story = StoryObj<Props>;
 
-interface FlatDataNode {
+export interface FlatDataNode {
   id: number;
   expandable: boolean;
   level: number;
   name: string;
 }
 
-interface NestedDataNode {
+export interface NestedDataNode {
   id: number;
   name: string;
   children?: NestedDataNode[];
 }
 
-interface LazyNestedDataNode {
+export interface LazyNestedDataNode {
   id: string;
   expandable?: boolean;
   children?: LazyNestedDataNode[] | Promise<LazyNestedDataNode[]> | Array<Promise<LazyNestedDataNode>>;
@@ -38,7 +38,7 @@ interface LazyNestedDataNode {
 
 Icon.register(faFile, faFolder, faFolderOpen, faPen, faTrash);
 
-const flatData: FlatDataNode[] = [
+export const flatData: FlatDataNode[] = [
   {
     id: 0,
     expandable: true,
@@ -149,7 +149,7 @@ const flatData: FlatDataNode[] = [
   }
 ];
 
-const nestedData: NestedDataNode[] = [
+export const nestedData: NestedDataNode[] = [
   {
     id: 0,
     name: 'textarea',
@@ -189,6 +189,7 @@ const nestedData: NestedDataNode[] = [
 export default {
   title: 'Navigation/Tree',
   tags: ['draft'],
+  excludeStories: ['flatData', 'nestedData'],
   args: {
     hideGuides: false,
     dataSource: undefined

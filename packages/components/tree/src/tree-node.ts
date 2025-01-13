@@ -81,9 +81,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** The tree model node. */
   @property({ attribute: false }) node?: TreeDataSourceNode<T>;
 
-  /** Acts as a placeholder for loading nodes when set. */
-  @property({ type: Boolean }) placeholder?: boolean;
-
   /** @internal Emits when the user clicks a the wrapper part of the tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 

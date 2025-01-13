@@ -99,14 +99,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     this.role = 'tree';
   }
 
-  override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
+  override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     const host = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
     this.#virtualizer = host[virtualizerRef];
-
-    await this.layoutComplete;
-    this.#rovingTabindexController.clearElementCache();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -130,6 +127,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    this.layoutComplete.then(() => this.#rovingTabindexController.clearElementCache());
+
     return html`
       <div @keydown=${this.#onKeydown} @sl-select=${this.#onSelect} part="wrapper">
         ${virtualize({
@@ -195,7 +195,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
           .forEach(sibling => this.dataSource?.expand(sibling, false));
       }
 
-      void this.#onUpdate();
+      this.#onUpdate();
     }
   }
 
@@ -211,10 +211,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.toggle(node);
   }
 
-  #onUpdate = async (): Promise<void> => {
+  #onUpdate = (): void => {
     this.requestUpdate('dataSource');
-
-    await this.layoutComplete;
-    this.#rovingTabindexController.clearElementCache();
   };
 }

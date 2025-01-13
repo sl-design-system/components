@@ -1441,17 +1441,17 @@
         },
         "teal": {
           "subtlest": {
-            "value": "rgba( {color.palette.teal.150} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.teal.400} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.teal.150} {opacity.dark.subtle})",
+            "value": "rgba({color.palette.teal.400} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.teal.150}",
+            "value": "{color.palette.teal.300}",
             "type": "color",
             "description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
           },

@@ -149,6 +149,7 @@
 }
 
 table {
+  anchor-name: --myanchor;
   border: var(--_border);
   border-block-start: 0;
   border-radius: var(--_border-radius);
@@ -158,10 +159,6 @@ table {
   min-inline-size: 100%;
   position: relative;
   z-index: 1;
-}
-
-.table-anchor {
-  anchor-name: --myanchor;
 }
 
 thead,

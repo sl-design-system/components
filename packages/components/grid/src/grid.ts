@@ -256,8 +256,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The table element. */
   @query('table') table!: HTMLTableElement;
+
   /** The table foot element. */
-  @query('tfoot') tfoot!: HTMLTableElement;
+  @query('tfoot') tfoot!: HTMLTableSectionElement;
 
   /** The model used for rendering the grid. */
   @property({ attribute: false }) view = new GridViewModel<T>(this);
@@ -328,7 +329,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       >
         ${msg('Skip to end of table')}</a
       >
-      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0} class="table-anchor">
+      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <thead
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
@@ -766,9 +767,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
     // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
     event.preventDefault();
-    this.renderRoot
-      .querySelector('.table-anchor')
-      ?.scrollIntoView({ behavior: 'instant', block: destination as ScrollLogicalPosition });
+    this.table?.scrollIntoView({ behavior: 'instant', block: destination as ScrollLogicalPosition });
     (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
   }
 

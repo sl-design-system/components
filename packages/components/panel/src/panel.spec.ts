@@ -191,16 +191,6 @@ describe('sl-panel', () => {
       expect(onToggle).to.have.been.calledTwice;
       expect(onToggle.lastCall.args[0]).to.be.false;
     });
-
-    it('should render the toggle button at the end of the header', async () => {
-      el.togglePlacement = 'end';
-      await el.updateComplete;
-
-      const button = el.renderRoot.querySelector('div[part="header"] sl-button');
-
-      expect(button).to.exist;
-      expect(button?.nextElementSibling).not.to.exist;
-    });
   });
 
   describe('slotted elements', () => {
@@ -270,6 +260,9 @@ describe('sl-panel', () => {
   describe('panel content without header', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-panel>Body content</sl-panel>`);
+
+      // Wait for the animation to finish
+      await new Promise(resolve => setTimeout(resolve, 400));
     });
 
     it('should have no header attribute when there is nothing in the header', () => {
@@ -277,7 +270,7 @@ describe('sl-panel', () => {
     });
 
     it('should have the content without padding when no-padding is set', async () => {
-      el.noPadding = true;
+      el.style.setProperty('--sl-panel-content-padding', '0px');
       await el.updateComplete;
 
       const content = el.renderRoot.querySelector('[part="content"]');

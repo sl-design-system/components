@@ -191,7 +191,7 @@
   <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.activePage + 1}"/>)</target>
 </trans-unit>
 <trans-unit id="s7d09afc329d9995b">
-  <source>Page <x id="0" equiv-text="${this.page}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
+  <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
   <target>Pagina <x id="0" equiv-text="${this.activePage}"/> van <x id="1" equiv-text="${this.#pages}"/></target>
 </trans-unit>
 <trans-unit id="s9ad43731ebd435aa">
@@ -221,6 +221,10 @@
 <trans-unit id="se952fc198acfa288">
   <source>Skip to start of table</source>
   <target>Naar het begin van de tabel</target>
+</trans-unit>
+<trans-unit id="sb2c57b2d347203dd">
+  <source>Show more</source>
+  <target>Meer tonen</target>
 </trans-unit>
 </body>
 </file>

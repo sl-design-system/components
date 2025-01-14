@@ -1,5 +1,6 @@
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
@@ -143,23 +144,20 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     // only check if the width has changed; the height is irrelevant for the wrapping of text, and if we do check on height changes, it will cause an infinite loop
     if (entry.contentBoxSize[0].inlineSize !== this.#previousInlineSize) {
       this.#previousInlineSize = entry.contentBoxSize[0].inlineSize;
-      this.#setMaxSize();
-    }
-  }
 
-  #setMaxSize(): void {
-    /**
-     * We need to see how big the text can be if the button is underneath the text,
-     * so we can calculate whether the text also wraps when the button is underneath the text in the #checkWrapAction method
-     * */
-    this.wrapAction = true;
-    requestAnimationFrame(() => {
-      const text = this.noTitle
-        ? this.renderRoot.querySelector('slot:not([name])')
-        : this.renderRoot.querySelector('slot[name="title"]');
-      this.#maxInlineSize = text?.getBoundingClientRect()?.width || 10000;
-      this.#checkWrapAction();
-    });
+      /**
+       * We need to see how big the text can be if the button is underneath the text,
+       * so we can calculate whether the text also wraps when the button is underneath the text in the #checkWrapAction method
+       * */
+      this.wrapAction = true;
+      requestAnimationFrame(() => {
+        const text = this.noTitle
+          ? this.renderRoot.querySelector('slot:not([name])')
+          : this.renderRoot.querySelector('slot[name="title"]');
+        this.#maxInlineSize = text?.getBoundingClientRect()?.width || 10000;
+        this.#checkWrapAction();
+      });
+    }
   }
 
   #checkWrapAction(): void {
@@ -204,6 +202,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       'animationend',
       () => {
         this.dismissEvent.emit();
+        announce(msg(str`Message closed`));
         this.remove();
       },
       { once: true }

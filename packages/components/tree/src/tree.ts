@@ -37,16 +37,19 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The data model for the tree. */
   #dataSource?: TreeDataSource<T>;
 
   /** Manage keyboard navigation between tabs. */
-  #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
-    focusInIndex: (elements: TreeNode[]) => elements.findIndex(el => !el.disabled),
+  #rovingTabindexController = new RovingTabindexController<TreeNode<T>>(this, {
+    focusInIndex: (elements: Array<TreeNode<T>>) => elements.findIndex(el => !el.disabled),
     elements: () => Array.from(this.shadowRoot?.querySelectorAll('sl-tree-node') ?? []),
-    isFocusableElement: (el: TreeNode) => !el.disabled
+    isFocusableElement: (el: TreeNode<T>) => !el.disabled
   });
 
   /** The virtualizer instance. */

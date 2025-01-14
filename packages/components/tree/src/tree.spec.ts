@@ -1,6 +1,7 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import { type Icon } from '@sl-design-system/icon';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { FlatTreeDataSource } from './flat-tree-data-source.js';
@@ -111,7 +112,83 @@ describe('sl-tree', () => {
     });
   });
 
-  describe('with flat data', () => {
+  describe('keyboard navigation', () => {
+    let ds: FlatTreeDataSource;
+
+    beforeEach(async () => {
+      ds = new FlatTreeDataSource(flatData, {
+        getIcon: ({ expandable }, expanded) => (!expandable ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+        getId: item => item.id,
+        getLabel: ({ name }) => name,
+        getLevel: ({ level }) => level,
+        isExpandable: ({ expandable }) => expandable,
+        isExpanded: ({ name }) => ['Navigation', 'Tree'].includes(name)
+      });
+
+      el = await fixture(html`<sl-tree .dataSource=${ds}></sl-tree>`);
+      await el.layoutComplete;
+    });
+
+    it('should focus the first tree node when focusing the tree', () => {
+      el.focus();
+
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(1)');
+    });
+
+    it('should focus the next/previous tree nodes when pressing the up/down arrow keys', async () => {
+      el.focus();
+
+      await sendKeys({ press: 'ArrowDown' });
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(2)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Navigation');
+
+      await sendKeys({ press: 'ArrowDown' });
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(3)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Tree');
+
+      await sendKeys({ press: 'ArrowUp' });
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(2)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Navigation');
+    });
+
+    it('should expand and collapse tree nodes when pressing the right/left arrow keys', async () => {
+      el.focus();
+
+      // Expand first node
+      await sendKeys({ press: 'ArrowRight' });
+
+      // Wait for the tree nodes to update
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(1)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Actions');
+      expect(el.shadowRoot?.activeElement).to.have.property('expanded', true);
+
+      // Move focus to the next node
+      await sendKeys({ press: 'ArrowRight' });
+
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(2)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Button');
+
+      // Move focus to the previous (first) node
+      await sendKeys({ press: 'ArrowLeft' });
+
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(1)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Actions');
+
+      // Collapse first node
+      await sendKeys({ press: 'ArrowLeft' });
+
+      // Wait for the tree nodes to update
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(1)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Actions');
+      expect(el.shadowRoot?.activeElement).to.have.property('expanded', false);
+    });
+  });
+
+  describe('using flat data', () => {
     let ds: FlatTreeDataSource;
 
     beforeEach(async () => {
@@ -151,7 +228,7 @@ describe('sl-tree', () => {
     });
   });
 
-  describe('nested data', () => {
+  describe('using nested data', () => {
     let ds: NestedTreeDataSource;
 
     beforeEach(async () => {

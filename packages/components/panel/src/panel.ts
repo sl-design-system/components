@@ -5,7 +5,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { ToolBar } from '@sl-design-system/tool-bar';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './panel.scss.js';
@@ -18,8 +18,6 @@ declare global {
 
 export type PanelElevation = 'none' | 'raised' | 'sunken';
 
-export type SubtitlePlacement = 'bottom' | 'top';
-
 export type TogglePlacement = 'start' | 'end';
 
 /**
@@ -31,6 +29,9 @@ export type TogglePlacement = 'start' | 'end';
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
  * @csspart titles - The container for the heading and subheading.
+ *
+ * @cssprop --sl-panel-content-padding - The padding for the panel content, e.g. set to 0 to have content without any padding.
+ * @cssprop --sl-panel-titles-order - The order of the titles (heading and subheading) - `column` by default, so the subheading is below the heading. Can be used `column-reverse` as well to have subheading above the heading when it's necessary.
  *
  * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
  * @slot aside - Additional content to show in the header; replaces the button bar.
@@ -72,20 +73,14 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   @property() heading?: string;
 
-  /** Indicates whether the panel has no padding. */
-  @property({ type: Boolean, reflect: true, attribute: 'no-padding' }) noPadding?: boolean;
-
-  /** Indicates whether the panel has a border. */
-  @property({ type: Boolean, reflect: true }) outline?: boolean;
+  /** Hide the border around the panel when true. */
+  @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
   /**
    * The heading shown in the header. Use this property if your subheading is a string. If you need
    * more flexibility, such as an icon or other elements, use the `subheading` slot.
    */
   @property() subheading?: string;
-
-  /** The placement of the subheading - below or above the heading. */
-  @property({ reflect: true, attribute: 'subtitle-placement' }) subtitlePlacement?: SubtitlePlacement;
 
   /** The placement of the toggle button when it's collapsible.
    * @default `start`
@@ -114,9 +109,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div part="header" @slotchange=${this.#onHeaderSlotChange}>
-        ${this.collapsible && this.togglePlacement !== 'end'
+        ${this.collapsible
           ? html`
               <sl-button
+                class="toggle"
                 @click=${() => this.toggle()}
                 fill="ghost"
                 aria-controls="body"
@@ -135,19 +131,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             <slot name="actions"></slot>
           </sl-tool-bar>
         </slot>
-        ${this.collapsible && this.togglePlacement === 'end'
-          ? html`<sl-button
-              @click=${() => this.toggle()}
-              fill="ghost"
-              aria-controls="body"
-              aria-expanded=${this.collapsed ? 'false' : 'true'}
-            >
-              <sl-icon
-                class=${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}
-                name="chevron-down"
-              ></sl-icon>
-            </sl-button>`
-          : nothing}
       </div>
       <div id="body" part="body" aria-labelledby="heading" role=${ifDefined(this.collapsible ? 'region' : undefined)}>
         <div part="inner">

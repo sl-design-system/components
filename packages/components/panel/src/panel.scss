@@ -91,7 +91,8 @@ slot[name='heading'] {
 slot[name='subheading'],
 slot[name='subheading']::slotted(*) {
   color: var(--sl-color-text-bold);
-  line-height: 1.5;
+  font-size: 1em;
+  line-height: 1.5em;
 }
 
 slot[name='aside'] {

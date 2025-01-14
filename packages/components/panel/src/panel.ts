@@ -55,9 +55,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Indicates whether the toggle button has been clicked. */
-  #toggleClicked = false;
-
   /** Indicates whether the panel is collapsed or expanded . */
   @property({ type: Boolean, reflect: true }) collapsed?: boolean;
 
@@ -118,10 +115,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
                 aria-controls="body"
                 aria-expanded=${this.collapsed ? 'false' : 'true'}
               >
-                <sl-icon
-                  class=${!this.collapsed && !this.#toggleClicked ? 'upside-down' : ''}
-                  name="chevron-down"
-                ></sl-icon>
+                <sl-icon class=${!this.collapsed ? 'upside-down' : ''} name="chevron-down"></sl-icon>
               </sl-button>
               <div part="wrapper">${this.renderHeading()}</div>
             `
@@ -158,15 +152,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    * @param force - Whether to force the panel to be collapsed or expanded.
    */
   toggle(force = !this.collapsed): void {
-    if (this.#toggleClicked) {
-      return;
-    }
-
-    this.#toggleClicked = true;
-
     requestAnimationFrame(() => {
       this.collapsed = force;
-      this.#toggleClicked = false;
       this.toggleEvent.emit(this.collapsed);
     });
   }

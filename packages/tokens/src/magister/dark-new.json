@@ -510,12 +510,12 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.text.accent.orange.plain}",
+          "value": "{color.text.accent.yellow.plain}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.orange.bold}",
+          "value": "{color.text.accent.yellow.bold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
         },
@@ -796,12 +796,12 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.icon.accent.orange.plain}",
+          "value": "{color.icon.accent.yellow.plain}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.icon.accent.orange.bold}",
+          "value": "{color.icon.accent.yellow.bold}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.muted' or 'color.background.caution.subtle'."
         },

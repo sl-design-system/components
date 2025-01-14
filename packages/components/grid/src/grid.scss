@@ -381,6 +381,7 @@ a[class^='skip-link'] {
     opacity: 1;
     outline: var(--_focus-outline);
     outline-offset: var(--sl-border-width-focusring-offset);
+    z-index: 2;
   }
 
   &:hover {

@@ -80,6 +80,12 @@ export const icons = {
   'content-has-video': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g><path fill-rule="evenodd" d="M2.4 3.733v8.534h11.2V3.733zm-.067-1.066a1 1 0 0 0-1 1v8.666a1 1 0 0 0 1 1h11.334a1 1 0 0 0 1-1V3.667a1 1 0 0 0-1-1z" clip-rule="evenodd"/><path d="M6.667 9.429V6.57a.333.333 0 0 1 .497-.29l2.523 1.428a.333.333 0 0 1 0 .58L7.164 9.718a.333.333 0 0 1-.497-.29"/></g></svg>'
   },
+  'dash-solid': {
+    value: 'dash',
+    type: 'Icons',
+    description: 'icon.core.dash-solid',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M0 256c0-17.7 14.3-32 32-32l448 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   'edit-feed': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g><path d="M2.792 1.7a1 1 0 0 0-1 1v1.467a1 1 0 0 0 1 1h3.634a.533.533 0 1 0 0-1.067H2.859V2.767h8.133a.533.533 0 1 0 0-1.067z"/><path fill-rule="evenodd" d="M7.732 5.127a.67.67 0 0 0-.274.301L6.6 7.312a.4.4 0 0 0 .342.565l2.005.116c.13.008.26-.023.372-.088l4.388-2.534a1 1 0 0 0 .366-1.366l-.6-1.039a1 1 0 0 0-1.366-.366zm.644.86-.402.881.916.053 4.226-2.44-.533-.924z" clip-rule="evenodd"/><path d="M5.359 7.3h-2.5v1.333h8.533V7.7a.533.533 0 0 1 1.067 0v1a1 1 0 0 1-1 1H2.792a1 1 0 0 1-1-1V7.233a1 1 0 0 1 1-1H5.36a.533.533 0 0 1 0 1.067"/><path fill-rule="evenodd" d="M2.792 10.767a1 1 0 0 0-1 1V13.3a1 1 0 0 0 1 1h8.667a1 1 0 0 0 1-1v-1.533a1 1 0 0 0-1-1zm.067 2.466v-1.4h8.533v1.4z" clip-rule="evenodd"/></g></svg>'
   },

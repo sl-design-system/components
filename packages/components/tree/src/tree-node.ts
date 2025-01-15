@@ -232,6 +232,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     } else if (event.key === 'ArrowLeft') {
       if (this.expanded) {
         event.preventDefault();
+        event.stopPropagation();
 
         this.toggle();
       } else if (this.level === 0) {

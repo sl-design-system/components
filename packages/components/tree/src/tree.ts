@@ -188,9 +188,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (!(event.target instanceof TreeNode)) {
+      return;
+    }
+
     // Expands all siblings that are at the same level as the current node.
     // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
-    if (event.key === '*' && event.target instanceof TreeNode) {
+    if (event.key === '*') {
       event.preventDefault();
 
       const treeNode = event.target.node as TreeDataSourceNode<T>,
@@ -203,6 +207,17 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       }
 
       void this.#onUpdate();
+    } else if (event.key === 'ArrowLeft' && !event.target.expanded) {
+      event.preventDefault();
+
+      let parent = event.target.previousElementSibling as TreeNode<T> | null;
+      while (parent && parent.level === event.target.level) {
+        parent = parent.previousElementSibling as TreeNode<T> | null;
+      }
+
+      if (parent) {
+        this.#rovingTabindexController.focusToElement(parent);
+      }
     }
   }
 

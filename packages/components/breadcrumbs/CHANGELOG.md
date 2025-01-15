@@ -1,5 +1,23 @@
 # @sl-design-system/breadcrumbs
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1664](https://github.com/sl-design-system/components/pull/1664) [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb) - Added `inverted` property for use on dark backgrounds
+
+- [#1664](https://github.com/sl-design-system/components/pull/1664) [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb) - Refactoring styling to use new contextual tokens
+
+### Patch Changes
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Fix `ShadowRoot.createElement` type definition to properly match `document.createElement`
+
+- Updated dependencies [[`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652)]:
+  - @sl-design-system/popover@1.2.0
+  - @sl-design-system/icon@1.0.3
+  - @sl-design-system/button@1.1.1
+  - @sl-design-system/tooltip@1.1.2
+
 ## 1.0.3
 
 ### Patch Changes

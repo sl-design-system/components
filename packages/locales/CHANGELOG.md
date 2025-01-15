@@ -1,5 +1,11 @@
 # @sl-design-system/locales
 
+## 0.0.11
+
+### Patch Changes
+
+- [#1497](https://github.com/sl-design-system/components/pull/1497) [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f) - New translations added necessary for `paginator`, `items counter` and `page size` components.
+
 ## 0.0.10
 
 ### Patch Changes

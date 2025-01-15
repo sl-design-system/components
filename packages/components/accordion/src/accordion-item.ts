@@ -127,7 +127,7 @@ export class AccordionItem extends LitElement {
 
   #onToggle(event: ToggleEvent): void {
     this.open = event.newState === 'open';
-    announce(`${this.summary} ${this.open ? 'expanded' : 'collapsed'}`); // expanded / collapsed // TODO: translation
+    // announce(`${this.summary} ${this.open ? 'expanded' : 'collapsed'}`); // expanded / collapsed // TODO: translation
     this.toggleEvent.emit(this.open);
   }
 

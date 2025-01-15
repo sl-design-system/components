@@ -1,3 +1,4 @@
+import { announce } from '@sl-design-system/announcer';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -228,7 +229,7 @@ export const Sticky: Story = {
   }
 };
 
-export const ToggleExternally: Story = {
+export const ToggleExternallyWithAnnouncer: Story = {
   render: () => {
     try {
       customElements.define(
@@ -239,6 +240,7 @@ export const ToggleExternally: Story = {
 
           override render(): TemplateResult {
             return html`
+              <h2>We use the announcer to inform the user, when the accordion is opened/closed externally.</h2>
               <sl-button @click=${this.toggleDino}>Toggle 🦖</sl-button>
               <sl-button @click=${this.toggleAlien}>Toggle 👽</sl-button>
               <p>
@@ -287,6 +289,8 @@ export const ToggleExternally: Story = {
             if (item === 'alien') {
               this.alien = event.detail as boolean;
             }
+
+            announce(`${item} ${(event.detail as boolean) ? 'expanded' : 'collapsed'}`);
 
             this.requestUpdate();
           }

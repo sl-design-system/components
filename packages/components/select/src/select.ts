@@ -1,7 +1,14 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  anchor,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
@@ -34,12 +41,20 @@ export type SelectSize = 'md' | 'lg';
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
  */
 @localized()
-export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+  'aria-describedby',
+  'id'
+]) {
   /** @internal */
   static formAssociated = true;
 
   /** @internal The default offset of the listbox to the button. */
   static offset = 6;
+
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-describedby', 'id'];
+  }
 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -158,6 +173,10 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     this.setFormControlElement(this);
 
+    if (this.button) {
+      this.setAttributesTarget(this.button);
+    }
+
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
   }
@@ -218,9 +237,31 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
         this.#setSelectedOption(selectedOption, false);
       }
     }
+
+    if (this.button) {
+      console.log('in willUpdate', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+      this.setAttributesTarget(this.button);
+      // this.requestUpdate();
+    }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    if (this.button) {
+      console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+      this.setAttributesTarget(this.button);
+      // this.requestUpdate();
+    }
   }
 
   override render(): TemplateResult {
+    if (this.button) {
+      console.log('in render', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+      this.setAttributesTarget(this.button);
+      // this.requestUpdate();
+    }
+
     return html`
       <slot name="button"></slot>
       <div
@@ -406,5 +447,9 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     // `updateValidity()` method doesn't trigger a `willUpdate` call. So we
     // work around that by updating it here.
     this.button.showValidity = this.showValidity;
+
+    // if (this.button) {
+    //   this.setAttributesTarget(this.button);
+    // }
   }
 }

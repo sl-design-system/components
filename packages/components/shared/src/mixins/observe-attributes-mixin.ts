@@ -23,9 +23,29 @@ export function ObserveAttributesMixin<T extends Constructor<LitElement>>(
       super.attributeChangedCallback(name, oldValue, newValue);
 
       requestAnimationFrame(() => {
+        console.log(
+          'attributeChangedCallback',
+          this.#targetElement,
+          observedAttributes,
+          name,
+          oldValue,
+          newValue,
+          this.#targetElement && observedAttributes.includes(name)
+        );
         if (this.#targetElement && observedAttributes.includes(name)) {
           const value = this.getAttribute(name);
           if (value !== null) {
+            console.log(
+              'should set attribute?',
+              this.#targetElement,
+              observedAttributes,
+              name,
+              oldValue,
+              newValue,
+              'name and value???',
+              name,
+              value
+            );
             this.#targetElement.setAttribute(name, value);
             this.removeAttribute(name);
           }

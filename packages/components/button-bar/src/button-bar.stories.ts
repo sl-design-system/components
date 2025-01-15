@@ -49,7 +49,7 @@ export default {
           Bar
         </sl-button>
         <sl-button>
-          <sl-icon name="smile"></sl-icon>
+          <sl-icon name="face-smile"></sl-icon>
           Baz
         </sl-button>
       `}
@@ -105,7 +105,7 @@ export const IconOnly: Story = {
         <sl-icon name="pinata"></sl-icon>
       </sl-button>
       <sl-button fill="ghost">
-        <sl-icon name="smile"></sl-icon>
+        <sl-icon name="face-smile"></sl-icon>
       </sl-button>
     `
   }
@@ -116,7 +116,7 @@ export const All: Story = {
     const buttons = html`
       <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
       <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-      <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
+      <sl-button><sl-icon name="face-smile"></sl-icon> Baz</sl-button>
     `;
 
     return html`
@@ -153,7 +153,7 @@ export const All: Story = {
             <sl-icon name="pinata"></sl-icon>
           </sl-button>
           <sl-button fill="ghost">
-            <sl-icon name="smile"></sl-icon>
+            <sl-icon name="face-smile"></sl-icon>
           </sl-button>
         </sl-button-bar>
       </div>

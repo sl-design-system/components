@@ -229,7 +229,7 @@ export const Sticky: Story = {
   }
 };
 
-export const ToggleExternallyWithAnnouncer: Story = {
+export const ToggleExternally: Story = {
   render: () => {
     try {
       customElements.define(
@@ -273,11 +273,13 @@ export const ToggleExternallyWithAnnouncer: Story = {
 
           toggleAlien() {
             this.alien = !this.alien;
+            announce(`Alien ${this.alien ? 'expanded' : 'collapsed'}`);
             this.requestUpdate();
           }
 
           toggleDino() {
             this.dino = !this.dino;
+            announce(`Dino ${this.dino ? 'expanded' : 'collapsed'}`);
             this.requestUpdate();
           }
 
@@ -290,7 +292,7 @@ export const ToggleExternallyWithAnnouncer: Story = {
               this.alien = event.detail as boolean;
             }
 
-            announce(`${item} ${(event.detail as boolean) ? 'expanded' : 'collapsed'}`);
+            // announce(`${item} ${(event.detail as boolean) ? 'expanded' : 'collapsed'}`);
 
             this.requestUpdate();
           }

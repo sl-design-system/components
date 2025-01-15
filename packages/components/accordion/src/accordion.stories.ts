@@ -273,13 +273,13 @@ export const ToggleExternally: Story = {
 
           toggleAlien() {
             this.alien = !this.alien;
-            announce(`Alien ${this.alien ? 'expanded' : 'collapsed'}`);
+            announce(`Accordion Alien ${this.alien ? 'expanded' : 'collapsed'}`);
             this.requestUpdate();
           }
 
           toggleDino() {
             this.dino = !this.dino;
-            announce(`Dino ${this.dino ? 'expanded' : 'collapsed'}`);
+            announce(`Accordion Dino ${this.dino ? 'expanded' : 'collapsed'}`);
             this.requestUpdate();
           }
 
@@ -291,8 +291,6 @@ export const ToggleExternally: Story = {
             if (item === 'alien') {
               this.alien = event.detail as boolean;
             }
-
-            // announce(`${item} ${(event.detail as boolean) ? 'expanded' : 'collapsed'}`);
 
             this.requestUpdate();
           }

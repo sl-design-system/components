@@ -50,10 +50,6 @@ export class Accordion extends LitElement {
       return;
     }
 
-    // announce('accordion opened?');
-
-    // announce(msg(str`Page ${this.page + 1} of ${this.pageCount}`));
-
     const item = event.composedPath().find((et): et is AccordionItem => et instanceof AccordionItem);
 
     this.items?.filter(i => i !== item && i.open).forEach(i => i.toggle());

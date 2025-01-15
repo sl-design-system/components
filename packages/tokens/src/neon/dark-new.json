@@ -1208,28 +1208,28 @@
       },
       "caution": {
         "subtlest": {
-          "value": "{color.background.accent.orange.subtlest}",
+          "value": "{color.background.accent.yellow.subtlest}",
           "type": "color",
           "description": "The subtlest background option to communicate caution to prevent errors."
         },
         "subtle": {
-          "value": "{color.background.accent.orange.subtle}",
+          "value": "{color.background.accent.yellow.subtle}",
           "type": "color",
           "description": "A subtle background option to communicate caution to prevent errors."
         },
         "bold": {
-          "value": "{color.background.accent.orange.bold}",
+          "value": "{color.background.accent.yellow.bold}",
           "type": "color",
           "description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.orange.interactive.bold}",
+            "value": "{color.background.accent.yellow.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.orange.interactive.plain}",
+            "value": "{color.background.accent.yellow.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1354,23 +1354,23 @@
         },
         "orange": {
           "subtlest": {
-            "value": "rgba( {color.palette.orange.600} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.orange.300} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.orange.600} {opacity.dark.subtle})",
+            "value": "rgba( {color.palette.orange.300} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.orange.600}",
+            "value": "{color.palette.orange.200}",
             "type": "color",
             "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.orange.050}",
+              "value": "{color.palette.orange.100}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
@@ -1412,28 +1412,28 @@
         },
         "red": {
           "subtlest": {
-            "value": "rgba( {color.palette.red.400} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.red.200} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.red.400} {opacity.dark.subtle})",
+            "value": "rgba( {color.palette.red.200} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.600}",
+            "value": "{color.palette.red.200}",
             "type": "color",
             "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.red.300}",
+              "value": "{color.palette.red.050}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.red.200}",
+              "value": "{color.palette.red.300}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1470,12 +1470,12 @@
         },
         "yellow": {
           "subtlest": {
-            "value": "rgba( {color.palette.yellow.150} {opacity.dark.subtlest})",
+            "value": "rgba( {color.palette.yellow.200} {opacity.dark.subtlest})",
             "type": "color",
             "description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.yellow.150} {opacity.dark.subtle})",
+            "value": "rgba({color.palette.yellow.200} {opacity.dark.subtle})",
             "type": "color",
             "description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
           },

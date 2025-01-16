@@ -46,8 +46,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
-  /** Needed for calculating the need for wrap-action */
+  /** These are both needed for calculating the need for wrap-action */
+  /** How big is the area for the text in the message without the action */
   #maxInlineSize = 0;
+  /** The previous width of the message, to check if only the that has changed (changes in height shouldn't trigger a recheck) */
   #previousInlineSize = 0;
 
   /** @internal Emits when the inline message is dismissed. */

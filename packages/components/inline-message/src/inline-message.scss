@@ -58,6 +58,7 @@ $variants: info, success, warning, danger;
   [part='action'] {
     align-self: auto;
     grid-area: auto / 2;
+    inline-size: fit-content;
     margin-block-start: var(--sl-space-inline-message-block);
   }
 }

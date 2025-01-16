@@ -9,6 +9,7 @@ export const templates = {
   s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',
   s15abf4bcf7cba79f: 'items per pagina',
+  s197b12ac6e95ad9c: str`Bericht gesloten`,
   s19fe06e3408e53d0: 'succes',
   s1e55e510d77b5965: 'Selecteer paginanummer',
   s2362b49263f76ec8: str`Geen opties gevonden die beginnen met "${0}".`,

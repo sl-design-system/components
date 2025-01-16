@@ -1,3 +1,4 @@
+import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/text-field/register.js';
 import { LitElement, type TemplateResult, html } from 'lit';
@@ -6,6 +7,8 @@ import { spy, stub } from 'sinon';
 import '../register.js';
 import { FormController } from './form-controller.js';
 import { type FormValidationErrors } from './form-validation-errors.js';
+
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-form-validation-errors', () => {
   describe('defaults', () => {

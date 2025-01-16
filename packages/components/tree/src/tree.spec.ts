@@ -208,6 +208,20 @@ describe('sl-tree', () => {
       expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(4)');
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Flat Data Source');
     });
+
+    it('should expand all siblings that are at the same level when pressing *', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-tree-node:nth-of-type(2)')?.focus();
+
+      await sendKeys({ press: '*' });
+
+      // Wait for the tree nodes to update
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      const nodes = Array.from(el.renderRoot.querySelectorAll('sl-tree-node'));
+
+      expect(nodes).to.have.lengthOf(6);
+      expect(nodes.every(n => !n.expandable || n.expanded)).to.be.true;
+    });
   });
 
   describe('using flat data', () => {

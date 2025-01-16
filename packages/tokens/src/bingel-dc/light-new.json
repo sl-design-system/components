@@ -1524,32 +1524,6 @@
     }
   },
   "elevation": {
-    "shadow": {
-      "overflow": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "15",
-          "spread": "0",
-          "color": "{color.utility.transparent.150}",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "Use to create a shadow when the content scrolls under other content."
-      },
-      "overlay": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "10",
-          "spread": "0",
-          "color": "{color.utility.transparent.150}",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
-      }
-    },
     "surface": {
       "base": {
         "default": {
@@ -1574,6 +1548,32 @@
           "type": "color",
           "description": "Background for components that create a sunken effect, typically used for grouping related items."
         }
+      }
+    },
+    "shadow": {
+      "overflow": {
+        "value": {
+          "x": "0",
+          "y": "0",
+          "blur": "15",
+          "spread": "0",
+          "color": "rgba({color.palette.grey.700} {opacity.light.subtlest})",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "Use to create a shadow when the content scrolls under other content."
+      },
+      "overlay": {
+        "value": {
+          "x": "0",
+          "y": "0",
+          "blur": "10",
+          "spread": "0",
+          "color": "rgba({color.palette.grey.700} {opacity.light.subtle})",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
       }
     }
   }

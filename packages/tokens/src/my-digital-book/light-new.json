@@ -1609,7 +1609,7 @@
           "y": "0",
           "blur": "15",
           "spread": "0",
-          "color": "{color.utility.transparent.150}",
+          "color": "rgba({color.palette.grey.700} {opacity.light.subtlest})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1621,7 +1621,7 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "{color.utility.transparent.300}",
+          "color": "rgba({color.palette.grey.700} {opacity.light.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",

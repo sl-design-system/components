@@ -794,9 +794,16 @@
         "description": "Use for icons in primary actions paired with a 'color.background.primary.muted' background."
       },
       "secondary": {
-        "value": "{color.icon.accent.grey.bold}",
-        "type": "color",
-        "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
+        "bold": {
+          "value": "{color.icon.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
+        },
+        "onBold": {
+          "value": "{color.icon.inverted}",
+          "type": "color",
+          "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
+        }
       },
       "accent": {
         "blue": {
@@ -952,7 +959,7 @@
         }
       },
       "onBold": {
-        "value": "{color.icon.inverted}",
+        "value": "{color.icon.bold}",
         "type": "color",
         "description": "Use for text on bold backgrounds."
       },
@@ -1702,7 +1709,7 @@
           "y": "0",
           "blur": "15",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700} {opacity.light.subtlest})",
+          "color": "rgba({color.palette.grey.700} {opacity.subtlest})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1714,12 +1721,64 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700} {opacity.light.subtle})",
+          "color": "rgba({color.palette.grey.700} {opacity.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
         "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
       }
+    }
+  },
+  "opacity": {
+    "interactive": {
+      "bold": {
+        "idle": {
+          "value": "0%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "20%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "40%",
+          "type": "opacity"
+        }
+      },
+      "plain": {
+        "idle": {
+          "value": "0%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "25%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "35%",
+          "type": "opacity"
+        }
+      }
+    },
+    "muted": {
+      "value": "0%",
+      "type": "opacity"
+    },
+    "subtlest": {
+      "value": "25%",
+      "type": "opacity"
+    },
+    "subtle": {
+      "value": "35%",
+      "type": "opacity"
+    },
+    "moderate": {
+      "value": "80%",
+      "type": "opacity"
+    },
+    "bold": {
+      "value": "100%",
+      "type": "opacity"
     }
   }
 }

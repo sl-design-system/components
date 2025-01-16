@@ -1,6 +1,5 @@
-import { localized, msg, str } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
@@ -204,7 +203,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       'animationend',
       () => {
         this.dismissEvent.emit();
-        announce(msg(str`Message closed`));
         this.remove();
       },
       { once: true }

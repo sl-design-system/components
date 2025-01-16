@@ -1,4 +1,5 @@
 import { faEllipsisVertical } from '@fortawesome/pro-regular-svg-icons';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
@@ -54,6 +55,7 @@ Icon.register(faEllipsisVertical);
  *
  * @slot - The tool bar items.
  */
+@localized()
 export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -133,8 +135,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       ${this.menuItems.length
         ? html`
-            <!-- FIXME: There should be an aria-label on the menu button -->
-            <sl-menu-button>
+            <sl-menu-button aria-label=${msg('Show more')}>
               <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>
@@ -169,13 +170,15 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
       gap = parseInt(getComputedStyle(wrapper).gap);
 
     let totalWidth = 0;
-    this.items.forEach(item => {
+    this.items.forEach((item, index) => {
       totalWidth += item.element.getBoundingClientRect().width;
 
-      item.visible = totalWidth <= availableWidth;
+      item.visible = Math.round(totalWidth) <= Math.round(availableWidth);
       item.element.style.visibility = item.visible ? 'visible' : 'hidden';
 
-      totalWidth += gap;
+      if (index < this.items.length - 1) {
+        totalWidth += gap;
+      }
     });
 
     this.requestUpdate('items');

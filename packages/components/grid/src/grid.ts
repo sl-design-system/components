@@ -11,7 +11,8 @@ import {
   SelectionController,
   event,
   getValueByPath,
-  isSafari
+  isSafari,
+  positionPopover
 } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
@@ -253,6 +254,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The table head element. */
   @query('thead') thead!: HTMLTableSectionElement;
 
+  /** The table element. */
+  @query('table') table!: HTMLTableElement;
+
+  /** The table foot element. */
+  @query('tfoot') tfoot!: HTMLTableSectionElement;
+
   /** The model used for rendering the grid. */
   @property({ attribute: false }) view = new GridViewModel<T>(this);
 
@@ -313,6 +320,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         id="table-start"
         href="#table-end"
         class="skip-link-start"
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
       >
         ${msg('Skip to end of table')}</a
@@ -333,23 +341,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
-        ${this.scrollbar
-          ? html`
-              <tfoot>
+        <tfoot>
+          ${this.scrollbar
+            ? html`
                 <tr class="scrollbar">
                   <td>
                     <sl-scrollbar scroller="tbody"></sl-scrollbar>
                   </td>
                 </tr>
-              </tfoot>
-            `
-          : nothing}
+              `
+            : nothing}
+        </tfoot>
       </table>
 
       <a
         id="table-end"
         href="#table-start"
         class="skip-link-end"
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
         >${msg('Skip to start of table')}</a
       >
@@ -754,7 +763,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
     // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
     event.preventDefault();
+    this.table?.scrollIntoView({ behavior: 'instant', block: destination as ScrollLogicalPosition });
     (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
+  }
+
+  #onSkipToFocus(e: Event & { target: HTMLSlotElement }, position: 'top' | 'bottom') {
+    if (!('anchorName' in document.documentElement.style)) {
+      positionPopover(e.target, position === 'top' ? this.thead : this.tfoot, { position: `${position}-start` });
+    }
   }
 
   #onScroll(): void {

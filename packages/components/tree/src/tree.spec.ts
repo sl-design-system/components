@@ -186,6 +186,28 @@ describe('sl-tree', () => {
       expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Actions');
       expect(el.shadowRoot?.activeElement).to.have.property('expanded', false);
     });
+
+    it('should focus the parent node when pressing the left arrow on a leaf node', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-tree-node:nth-of-type(5)')?.focus();
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Nested Data Source');
+
+      await sendKeys({ press: 'ArrowLeft' });
+
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(3)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Tree');
+    });
+
+    it('should do nothing when pressing the right arrow on a leaf node', async () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-tree-node:nth-of-type(4)')?.focus();
+
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Flat Data Source');
+
+      await sendKeys({ press: 'ArrowRight' });
+
+      expect(el.shadowRoot?.activeElement).to.match('sl-tree-node:nth-of-type(4)');
+      expect(el.shadowRoot?.activeElement).to.have.trimmed.text('Flat Data Source');
+    });
   });
 
   describe('using flat data', () => {

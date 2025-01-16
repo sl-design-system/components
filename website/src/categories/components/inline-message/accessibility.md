@@ -9,7 +9,7 @@ eleventyNavigation:
 <section>
 
 ## Announcements
-When adding an inline message dynamically after page load, either after a direct user action (a warning that a form is not filled in correctly) or for other reasons (timeout, lost connection, new message) it is important to also let screenreader users know some new text has appeared on the page. 
+When adding an inline message dynamically after page load, either after a direct user action (a warning that a form is not filled in correctly) or for other reasons (timeout, lost connection, new message) it is important to also let screen reader users know some new text has appeared on the page. 
 
 
 You can use the `Announcer` utility (`announce` function) to inform users about the new message.

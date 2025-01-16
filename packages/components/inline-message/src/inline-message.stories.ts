@@ -93,50 +93,15 @@ export const Dynamic: Story = {
       msg.variant = variant;
 
       buttonBar?.after(msg);
-    };
 
-    const onRemove = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('sl-button-bar')?.nextElementSibling?.remove();
-    };
-
-    return html`
-      <style>
-        sl-button-bar {
-          margin-block-end: 1.5rem;
-        }
-        sl-inline-message + sl-inline-message {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <sl-button-bar>
-        <sl-button @click=${onAdd}>Add message</sl-button>
-        <sl-button @click=${onRemove}>Remove message</sl-button>
-      </sl-button-bar>
-    `;
-  }
-};
-
-export const AccessibilityConsiderations: Story = {
-  args: {
-    ...Basic.args,
-    title: 'Dynamic inline message title'
-  },
-  render: ({ body, indismissible, title, variant }) => {
-    const onAdd = (event: Event & { target: HTMLElement }): void => {
-      const buttonBar = event.target.closest('sl-button-bar'),
-        count = buttonBar?.parentElement?.querySelectorAll('sl-inline-message').length ?? 0;
-
-      const msg = document.createElement('sl-inline-message');
-      msg.indismissible = indismissible;
-      msg.innerHTML = `<span slot="title">${title} ${count + 1}</span>${body as string}`;
-      msg.variant = variant;
-
-      buttonBar?.after(msg);
+      // Send an announcement with the text from the inline message.
       announce(title);
     };
 
     const onRemove = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-button-bar')?.nextElementSibling?.remove();
+
+      // Give user feedback the message is closed, either via the announcer or by setting the focus on another element.
       announce('Message closed');
     };
 
@@ -155,12 +120,13 @@ export const AccessibilityConsiderations: Story = {
       </sl-button-bar>
       <h1>Announce changes</h1>
       <p>
-        In the functions adding and removeing the inline message we use the <code>announce</code> function to announce
-        the alert and the fact that the alert has been closed to users using a screenreader.
+        In this example app the functions adding and removeing the inline message we use the
+        <code>announce</code> function to announce the message and the fact that the message has been closed to users
+        using a screenreader.
       </p>
       <p>
-        When the message is closed using the close button in it (x) the announcement is done by the component itself. We
-        can't use the announcer to announce the showing of the message because we don't know if it is present on page
+        When the message is closed using the close button in it (x) the announcement is done by the component itself.
+        The component itself can't announce the showing of the message because it doesn't know if it is present on page
         load or added dynamically.
       </p>
     `;

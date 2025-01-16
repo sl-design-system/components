@@ -43,7 +43,8 @@ export type SelectSize = 'md' | 'lg';
 @localized()
 export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
   'aria-describedby',
-  'id'
+  'id',
+  'required'
 ]) {
   /** @internal */
   static formAssociated = true;
@@ -53,7 +54,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
   /** @internal */
   static override get observedAttributes(): string[] {
-    return [...super.observedAttributes, 'aria-describedby', 'id'];
+    console.log('...super.observedAttributes', ...super.observedAttributes);
+    return [...super.observedAttributes, 'aria-describedby', 'id', 'required'];
   }
 
   /** @internal */
@@ -62,6 +64,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       'sl-select-button': SelectButton
     };
   }
+
+  // check if validation works with required changes
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -171,11 +175,14 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.append(style);
     }
 
-    this.setFormControlElement(this);
+    this.setFormControlElement(/*this*/ this.button); // todo: required is not working? validation is broken when the required attr is rewritten to the button
+    // todo: maybe this.button should be the form control element? and should have elementInternals? attached?
 
+    // requestAnimationFrame(() => {
     if (this.button) {
       this.setAttributesTarget(this.button);
     }
+    // })
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
@@ -238,29 +245,67 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       }
     }
 
-    if (this.button) {
-      console.log('in willUpdate', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-      this.setAttributesTarget(this.button);
-      // this.requestUpdate();
-    }
+    // if (this.button) {
+    //   console.log('in willUpdate', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+    //   this.setAttributesTarget(this.button);
+    //   // this.requestUpdate();
+    // }
   }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    // console.log('changes in updated', changes, 'this.hasAttribute(\'id\')', this.hasAttribute('id'));
+
+    requestAnimationFrame(() => {
+      console.log('changes in updated in raf', changes, "this.hasAttribute('id')", this.hasAttribute('id'));
+      if (this.button) {
+        console.log(
+          'in updated in if button raf',
+          this.button,
+          this,
+          this.id,
+          this.getAttribute('id'),
+          this.hasAttribute('id')
+        );
+        this.setAttributesTarget(this.button);
+      }
+    });
+  }
+
+  // TODO: required, id
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    if (this.button) {
-      console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-      this.setAttributesTarget(this.button);
-      // this.requestUpdate();
-    }
+    // if (this.button) {
+    //   console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+    //   // this.setAttributesTarget(this.button);
+    //   // this.requestUpdate();
+    // }
+
+    // requestAnimationFrame(() => {
+    //   if (this.button) {
+    //     console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+    //     this.setAttributesTarget(this.button);
+    //   }
+    // })
   }
 
   override render(): TemplateResult {
-    if (this.button) {
-      console.log('in render', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-      this.setAttributesTarget(this.button);
-      // this.requestUpdate();
-    }
+    // if (this.button) {
+    //   console.log('in render', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'), 'internals?', this.internals);
+    //   this.setAttributesTarget(this.button);
+    //   // this.requestUpdate();
+    // }
+    //
+    // requestAnimationFrame(() => {
+    //   if (this.button) {
+    //     console.log('in render in RAF', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'), 'internals?', this.internals);
+    //     this.setAttributesTarget(this.button);
+    //     // this.requestUpdate();
+    //   }
+    // })
 
     return html`
       <slot name="button"></slot>
@@ -276,6 +321,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
         aria-label=${ifDefined(this.placeholder)}
+        id="listbox"
         part="listbox"
         popover
         role="listbox"
@@ -435,11 +481,22 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue);
+    this.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
     this.internals.setValidity(
       { valueMissing: this.required && !this.selectedOption },
       msg('Please choose an option from the list.')
     );
+
+    // if (this.button) {
+    //   this.button.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
+    //   this.button.internals.setValidity(
+    //     {valueMissing: this.required && !this.selectedOption},
+    //     msg('Please choose an option from the list.')
+    //   );
+    //
+    //   this.button.updateValidity();
+    //
+    // }
 
     this.updateValidity();
 

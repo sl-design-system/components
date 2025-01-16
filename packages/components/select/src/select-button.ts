@@ -24,6 +24,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** @internal */
+  readonly internals = this.attachInternals();
+
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 

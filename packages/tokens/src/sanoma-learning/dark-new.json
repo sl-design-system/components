@@ -506,6 +506,11 @@
             "value": "{color.palette.blue.700}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "green": {
@@ -518,6 +523,11 @@
             "value": "{color.palette.green.700}",
             "type": "color",
             "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "grey": {
@@ -545,6 +555,11 @@
             "value": "rgba( {color.palette.grey.900} 87%)",
             "type": "color",
             "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.bold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "orange": {
@@ -557,6 +572,11 @@
             "value": "{color.palette.orange.700}",
             "type": "color",
             "description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "purple": {
@@ -569,6 +589,11 @@
             "value": "{color.palette.purple.600}",
             "type": "color",
             "description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "red": {
@@ -581,6 +606,11 @@
             "value": "{color.palette.red.600}",
             "type": "color",
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "teal": {
@@ -593,6 +623,11 @@
             "value": "{color.palette.teal.500}",
             "type": "color",
             "description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "yellow": {
@@ -605,8 +640,18 @@
             "value": "{color.palette.yellow.500}",
             "type": "color",
             "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.bold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
         }
+      },
+      "onBold": {
+        "value": "{color.text.inverted}",
+        "type": "color",
+        "description": "Use for text on bold backgrounds."
       }
     },
     "link": {

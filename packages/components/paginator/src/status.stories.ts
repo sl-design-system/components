@@ -1,4 +1,4 @@
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -26,18 +26,21 @@ export const Basic: Story = {};
 
 export const DataSource: Story = {
   render: () => {
-    const dataSource = new ArrayDataSource([
-      { nr: 1, title: 'test 1' },
-      { nr: 2, title: 'test 2' },
-      { nr: 3, title: 'test 3' },
-      { nr: 4, title: 'test 4' },
-      { nr: 5, title: 'test 5' },
-      { nr: 6, title: 'test 6' },
-      { nr: 7, title: 'test 7' },
-      { nr: 8, title: 'test 8' },
-      { nr: 9, title: 'test 9' },
-      { nr: 10, title: 'test 10' }
-    ]);
+    const dataSource = new ArrayListDataSource(
+      [
+        { nr: 1, title: 'test 1' },
+        { nr: 2, title: 'test 2' },
+        { nr: 3, title: 'test 3' },
+        { nr: 4, title: 'test 4' },
+        { nr: 5, title: 'test 5' },
+        { nr: 6, title: 'test 6' },
+        { nr: 7, title: 'test 7' },
+        { nr: 8, title: 'test 8' },
+        { nr: 9, title: 'test 9' },
+        { nr: 10, title: 'test 10' }
+      ],
+      { pagination: true }
+    );
 
     dataSource.setPage(1);
     dataSource.setPageSize(5);

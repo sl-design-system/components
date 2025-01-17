@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type DataSource } from '@sl-design-system/data-source';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select, SelectOption } from '@sl-design-system/select';
@@ -58,12 +58,18 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** The data source that the paginator controls. */
-  #dataSource?: DataSource<T>;
+  #dataSource?: ListDataSource<T>;
 
   /** Observe changes in size of the container. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
-  get dataSource(): DataSource<T> | undefined {
+  /** The original size, before any resize observer logic. */
+  #originalSize?: PaginatorSize;
+
+  /** The current size. */
+  #size?: PaginatorSize;
+
+  get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
 
@@ -74,7 +80,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    * component, such as `<sl-grid>`.
    */
   @property({ attribute: false })
-  set dataSource(dataSource: DataSource<T> | undefined) {
+  set dataSource(dataSource: ListDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
     }
@@ -84,12 +90,6 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
     void this.#onUpdate();
   }
-
-  /** The original size, before any resize observer logic. */
-  #originalSize?: PaginatorSize;
-
-  /** The current size. */
-  #size?: PaginatorSize;
 
   /**
    * Current page.

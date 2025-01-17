@@ -1,5 +1,5 @@
 import '@sl-design-system/card/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { LitElement, type TemplateResult, css, html } from 'lit';
@@ -78,7 +78,7 @@ export const DataSource: Story = {
             }
           `;
 
-          dataSource = new ArrayDataSource(
+          dataSource = new ArrayListDataSource(
             Array.from({ length: 80 }, (_, index) => ({
               nr: index + 1,
               title: `Title of card number ${index + 1}`

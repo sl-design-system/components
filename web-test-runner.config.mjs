@@ -18,7 +18,7 @@ const config = {
 
   browsers: [
     playwrightLauncher({
-      product: 'chromium' ,
+      product: 'chromium',
       createBrowserContext({ browser }) {
         return browser.newContext({ locale: 'en' });
       }

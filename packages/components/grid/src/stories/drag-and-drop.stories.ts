@@ -1,4 +1,4 @@
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -77,7 +77,7 @@ export const Fixed: Story = {
 export const Grouping: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
     return html`

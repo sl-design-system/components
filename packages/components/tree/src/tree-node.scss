@@ -1,0 +1,115 @@
+:host {
+  align-items: center;
+  background: var(--sl-elevation-surface-raised-default-idle);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-text-plain);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-size-075);
+  inline-size: 100%;
+  scroll-margin-block: var(--sl-space-100);
+  transition: background 0.2s ease-in-out;
+}
+
+:host([aria-expanded='true']) sl-icon {
+  rotate: 90deg;
+}
+
+:host([hide-guides]) sl-indent-guides {
+  color: transparent;
+}
+
+:host([selected]) {
+  background: var(--sl-color-background-selected-subtle-idle);
+  color: var(--sl-color-text-selected);
+}
+
+:host(:focus-visible) {
+  outline: var(--sl-size-borderWidth-bold) solid var(--sl-color-border-focused);
+  outline-offset: calc(var(--_focus-outline-offset) * -1);
+  z-index: 1;
+
+  sl-button-bar {
+    display: flex;
+  }
+}
+
+:host(:hover) {
+  background: var(--sl-elevation-surface-raised-default-hover);
+
+  @media (hover: hover) {
+    sl-button-bar {
+      display: flex;
+    }
+  }
+}
+
+:host(:active) {
+  background: var(--sl-elevation-surface-raised-default-active);
+}
+
+:host([disabled]) {
+  cursor: default;
+  pointer-events: none;
+}
+
+sl-indent-guides {
+  align-self: stretch;
+}
+
+.expander {
+  align-items: center;
+  align-self: stretch;
+  display: inline-flex;
+}
+
+[part='wrapper'] {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: var(--sl-size-075);
+}
+
+[part='content'] {
+  align-items: center;
+  display: flex;
+  gap: var(--sl-size-075);
+  padding-block: var(--sl-size-075);
+  padding-inline: 0 var(--sl-size-100);
+}
+
+::slotted(*) {
+  flex: 1;
+}
+
+::slotted(sl-icon) {
+  flex: 0 1;
+  vertical-align: bottom;
+}
+
+sl-icon {
+  rotate: 0deg;
+  transition: rotate 100ms ease-in-out;
+}
+
+sl-checkbox {
+  align-items: center;
+  font: inherit; // FIXME: Remove when checkbox styling has been refactored
+  line-height: inherit; // FIXME: Same as above
+
+  &::part(label) {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--sl-size-075);
+    margin: 0;
+  }
+}
+
+sl-button-bar {
+  display: none;
+  margin-inline-start: auto;
+}
+
+sl-skeleton {
+  block-size: 1lh;
+}

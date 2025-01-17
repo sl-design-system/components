@@ -169,8 +169,11 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     }
   }
 
-  focusToElement(elementIndex: number): void {
-    this.currentIndex = elementIndex;
+  focusToElement(element: T): void;
+  focusToElement(elementIndex: number): void;
+
+  focusToElement(elementOrIndex: T | number): void {
+    this.currentIndex = typeof elementOrIndex === 'number' ? elementOrIndex : this.elements.indexOf(elementOrIndex);
     this.elementEnterAction(this.elements[this.currentIndex]);
     this.focus({ preventScroll: false });
   }

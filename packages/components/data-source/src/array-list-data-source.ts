@@ -1,13 +1,10 @@
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import {
-  DataSource,
   type DataSourceFilterByFunction,
   type DataSourceFilterByPath,
-  type DataSourceOptions,
   type DataSourceSortFunction
 } from './data-source.js';
-
-export type ArrayDataSourceOptions = DataSourceOptions;
+import { ListDataSource, type ListDataSourceOptions } from './list-data-source.js';
 
 /**
  * A data source that can be used to filter, group by, sort,
@@ -16,7 +13,7 @@ export type ArrayDataSourceOptions = DataSourceOptions;
  * to load any additional data.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class ArrayDataSource<T = any> extends DataSource<T> {
+export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /**
    * The array of items after filtering, sorting, grouping and
    * pagination has been applied.
@@ -30,16 +27,11 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     return this.#filteredItems;
   }
 
-  set items(items: T[]) {
-    this.#items = items;
-    this.update();
-  }
-
   get size(): number {
     return this.#items.length;
   }
 
-  constructor(items: T[], options: ArrayDataSourceOptions = {}) {
+  constructor(items: T[], options: ListDataSourceOptions = {}) {
     super(options);
     this.#filteredItems = [...items];
     this.#items = [...items];

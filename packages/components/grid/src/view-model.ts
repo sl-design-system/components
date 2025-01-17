@@ -1,4 +1,4 @@
-import { type DataSource } from '@sl-design-system/data-source';
+import { type ListDataSource } from '@sl-design-system/data-source';
 import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
@@ -16,7 +16,7 @@ export class GridViewModelGroup {
 export class GridViewModel<T = any> {
   #columnDefinitions: Array<GridColumn<T>> = [];
   #columns: Array<GridColumn<T>> = [];
-  #dataSource?: DataSource<T>;
+  #dataSource?: ListDataSource<T>;
   #grid: Grid<T>;
   #groups = new Map<string, boolean>();
   #headerRows: Array<Array<GridColumn<T>>> = [[]];
@@ -38,11 +38,11 @@ export class GridViewModel<T = any> {
     return this.#columns;
   }
 
-  get dataSource(): DataSource<T> | undefined {
+  get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
 
-  set dataSource(dataSource: DataSource<T> | undefined) {
+  set dataSource(dataSource: ListDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.update);
     }

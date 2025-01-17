@@ -1,4 +1,4 @@
-import { FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
 import {
   type EventEmitter,
   type PathKeys,
@@ -174,7 +174,7 @@ export class GridColumn<T = any> extends LitElement {
     let data: unknown;
     if (this.renderer) {
       data = this.renderer(item);
-    } else if (item === FetchDataSourcePlaceholder) {
+    } else if (item === FetchListDataSourcePlaceholder) {
       data = html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
     } else if (this.path) {
       data = getValueByPath(item, this.path);
@@ -212,7 +212,7 @@ export class GridColumn<T = any> extends LitElement {
       parts = this.parts(item)?.split(' ') ?? [];
     }
 
-    if (item === FetchDataSourcePlaceholder) {
+    if (item === FetchListDataSourcePlaceholder) {
       parts.push('placeholder');
     }
 

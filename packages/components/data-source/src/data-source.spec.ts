@@ -1,5 +1,4 @@
 import { expect } from '@open-wc/testing';
-import { spy } from 'sinon';
 import { DataSource } from './data-source.js';
 
 // eslint-disable-next-line mocha/no-exports
@@ -116,23 +115,6 @@ describe('DataSource', () => {
     expect(ds.filters).to.be.empty;
   });
 
-  it('should not group by by default', () => {
-    expect(ds.groupBy).to.be.undefined;
-  });
-
-  it('should group by after setting one', () => {
-    ds.setGroupBy('profession');
-
-    expect(ds.groupBy).to.deep.equal({ path: 'profession', sorter: undefined, direction: undefined });
-  });
-
-  it('should not group by after removing it', () => {
-    ds.setGroupBy('profession');
-    ds.removeGroupBy();
-
-    expect(ds.groupBy).to.be.undefined;
-  });
-
   it('should not sort by default', () => {
     expect(ds.sort).to.be.undefined;
   });
@@ -148,16 +130,5 @@ describe('DataSource', () => {
     ds.removeSort();
 
     expect(ds.sort).to.be.undefined;
-  });
-
-  it('should reorder items', () => {
-    spy(ds, 'update');
-
-    expect(ds.items.map(({ id }) => id)).to.deep.equal([1, 2, 3, 4, 5]);
-
-    ds.reorder(people[0], people[4], 'before');
-
-    expect(ds.items.map(({ id }) => id)).to.deep.equal([2, 3, 4, 1, 5]);
-    expect(ds.update).to.have.been.calledOnce;
   });
 });

@@ -135,8 +135,6 @@
 
 :host([fill='outline']) {
   --_bg-color: transparent;
-
-  border-color: var(--sl-color-border-secondary);
 }
 
 :host([icon-only]) {

@@ -20,12 +20,10 @@
   vertical-align: middle;
 }
 
-:host(:focus-visible) {
-  outline-color: var(--sl-color-border-focused);
-}
-
 :host(:where(:not([fill]), [fill='solid'])) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+
+  color: var(--sl-color-text-secondary-onBold);
 }
 
 :host(:hover) {
@@ -69,7 +67,7 @@
 :host([variant='success']:where(:not([fill]), [fill='solid'])) {
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
 
-  color: var(--sl-color-text-inverted);
+  color: var(--sl-color-text-positive-onBold);
 }
 
 :host([variant='warning']) {
@@ -83,7 +81,7 @@
 :host([variant='warning']:where(:not([fill]), [fill='solid'])) {
   --_bg-mix-color: var(--sl-color-background-caution-interactive-bold);
 
-  color: var(--sl-color-text-caution-inverted);
+  color: var(--sl-color-text-caution-onBold);
 }
 
 :host([variant='danger']) {
@@ -97,7 +95,7 @@
 :host([variant='danger']:where(:not([fill]), [fill='solid'])) {
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 
-  color: var(--sl-color-text-inverted);
+  color: var(--sl-color-text-negative-onBold);
 }
 
 :host([variant='info']) {
@@ -111,7 +109,7 @@
 :host([variant='info']:where(:not([fill]), [fill='solid'])) {
   --_bg-mix-color: var(--sl-color-background-info-interactive-bold);
 
-  color: var(--sl-color-text-inverted);
+  color: var(--sl-color-text-info-onBold);
 }
 
 :host([variant='inverted']) {
@@ -194,6 +192,10 @@
 
 :host([disabled][fill='outline']) {
   border-color: var(--sl-color-border-disabled);
+}
+
+:host(:focus-visible) {
+  outline-color: var(--sl-color-border-focused);
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,7 +1,7 @@
 :host {
   --_bg-color: var(--sl-color-background-secondary-bold);
   --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
-  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
@@ -24,11 +24,23 @@
   outline-color: var(--sl-color-border-focused);
 }
 
+:host(:where(:not([fill]), [fill='solid'])) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+}
+
 :host(:hover) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+:host(:where(:not([fill]), [fill='solid']):hover) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
 
 :host(:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+}
+
+:host(:where(:not([fill]), [fill='solid']):active) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 

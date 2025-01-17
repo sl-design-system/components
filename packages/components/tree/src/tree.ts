@@ -206,7 +206,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
           .forEach(sibling => this.dataSource?.expand(sibling, false));
       }
 
-      void this.#onUpdate();
+      this.dataSource?.update();
     } else if (event.key === 'ArrowLeft' && !event.target.expanded) {
       event.preventDefault();
 

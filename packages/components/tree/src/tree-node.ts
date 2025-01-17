@@ -1,5 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { ButtonBar } from '@sl-design-system/button-bar';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type Menu } from '@sl-design-system/menu';
@@ -37,6 +38,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button-bar': ButtonBar,
       'sl-checkbox': Checkbox,
       'sl-icon': Icon,
       'sl-indent-guides': IndentGuides,
@@ -173,7 +175,16 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                     <slot></slot>
                   </sl-checkbox>
                 `
-              : html`<slot></slot>`
+              : html`
+                  <div part="content">
+                    <slot></slot>
+                  </div>
+                  <slot name="aside">
+                    <sl-button-bar part="button-bar">
+                      <slot name="actions"></slot>
+                    </sl-button-bar>
+                  </slot>
+                `
         )}
       </div>
     `;

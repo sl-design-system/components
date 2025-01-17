@@ -38,6 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@sl-design-system/button-bar": "^1.1.0",
     "@sl-design-system/checkbox": "^2.0.1",
     "@sl-design-system/data-source": "^0.0.1",
     "@sl-design-system/icon": "^1.0.2",

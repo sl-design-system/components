@@ -390,26 +390,19 @@ export const CustomRenderer: Story = {
       return html`
         ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
-        <sl-button-bar part="button-bar">
-          <sl-button fill="ghost" size="sm">
-            <sl-icon name="far-pen"></sl-icon>
-          </sl-button>
-          <sl-button fill="ghost" size="sm">
-            <sl-icon name="far-trash"></sl-icon>
-          </sl-button>
-        </sl-button-bar>
+
+        <sl-button fill="ghost" size="sm" slot="actions">
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" size="sm" slot="actions">
+          <sl-icon name="far-trash"></sl-icon>
+        </sl-button>
       `;
     },
     scopedElements: {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-icon': Icon
-    },
-    styles: `
-      sl-tree::part(button-bar) {
-        flex: inherit;
-        margin-inline-start: auto;
-      }
-    `
+    }
   }
 };

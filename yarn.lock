@@ -5583,6 +5583,7 @@ __metadata:
   resolution: "@sl-design-system/tree@workspace:packages/components/tree"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button-bar": "npm:^1.1.0"
     "@sl-design-system/checkbox": "npm:^2.0.1"
     "@sl-design-system/data-source": "npm:^0.0.1"
     "@sl-design-system/icon": "npm:^1.0.2"

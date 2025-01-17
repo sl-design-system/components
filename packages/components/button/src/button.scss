@@ -16,6 +16,7 @@
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-space-offset-focused);
   padding: calc(var(--sl-space-075) - var(--sl-size-borderWidth-action)) var(--sl-space-300);
+  user-select: none;
   vertical-align: middle;
 }
 

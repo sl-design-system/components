@@ -1,97 +1,119 @@
 :host {
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_padding-block: var(--sl-space-sm);
-  --_padding-inline: var(--sl-space-sm);
-  --_wrapper-padding-inline: var(--sl-space-sm);
+  --sl-panel-content-padding: var(--sl-space-new-lg);
+  --sl-panel-titles-order: column;
 
-  border: 1px solid var(--sl-color-palette-neutral-200);
-  border-radius: var(--sl-border-radius-2xs);
+  background: var(--sl-elevation-surface-raised-default-idle);
+  border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-subtle);
+  border-radius: var(--sl-size-borderRadius-md);
   display: flex;
   flex-direction: column;
 }
 
-:host([collapsible][collapsed]) {
-  sl-icon {
-    rotate: 0deg;
-  }
+:host([no-border]) {
+  border: 0;
+}
 
+:host([elevation='raised']) {
+  background: var(--sl-elevation-surface-raised-alternative-idle);
+}
+
+:host([elevation='sunken']) {
+  background: var(--sl-elevation-surface-raised-sunken-idle);
+}
+
+:host([collapsible][collapsed]) {
   [part='body'] {
     grid-template-rows: 0fr;
   }
 }
 
+:host([collapsible]) {
+  [part='header'] {
+    grid-template-areas: 'toggle wrapper aside';
+    grid-template-columns: auto minmax(auto, 1fr) minmax(40px, auto);
+  }
+}
+
+:host([collapsible][toggle-placement='end']) {
+  [part='header'] {
+    grid-template-areas: 'wrapper aside toggle';
+    grid-template-columns: 1fr minmax(0, auto) auto;
+  }
+}
+
+:host([no-padding]) {
+  [part='content'] {
+    padding: 0;
+  }
+}
+
+:host([no-header]) {
+  [part='header'] {
+    padding: 0;
+  }
+}
+
+[part='titles'] {
+  display: flex;
+  flex-direction: var(--sl-panel-titles-order);
+  gap: var(--sl-space-new-sm);
+}
+
 [part='header'] {
-  align-items: start;
+  align-items: center;
   display: grid;
   flex: 1;
-  grid-template-columns: minmax(min-content, max-content) minmax(0, auto);
-  justify-content: space-between;
-
-  > * {
-    // FIXME: This is a quick hack to vertically align the heading with any action buttons
-    padding-block-start: 2px;
-  }
+  gap: var(--sl-space-new-lg);
+  grid-template-areas: 'wrapper aside';
+  grid-template-columns: 1fr minmax(0, auto);
+  padding: var(--sl-space-new-lg);
 }
 
 [part='wrapper'] {
   align-items: center;
   display: flex;
-  gap: 0.5rem;
-  padding-block: var(--_padding-block);
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
-}
-
-button {
-  appearance: none;
-  background: transparent;
-  border: 0;
-  border-radius: var(--sl-border-radius-button-md);
-  cursor: pointer;
-  flex: 1;
-  outline: 0;
-  padding: 0;
-  text-align: start;
-
-  &:focus-visible {
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
-  }
-}
-
-sl-icon {
-  rotate: 180deg;
-  transition: rotate 0.2s ease-in-out;
+  flex-wrap: wrap;
+  gap: var(--sl-space-new-lg);
+  grid-area: wrapper;
 }
 
 slot[name='heading'],
 slot[name='heading']::slotted(*) {
-  color: var(--sl-color-accordion-default-foreground);
-  font: var(--sl-text-accordion-title);
+  color: var(--sl-color-text-bold);
+  font-size: 1.5em;
+  line-height: 1.5em;
 }
 
 slot[name='heading'] {
   display: block;
 }
 
-sl-tool-bar {
-  min-inline-size: 0;
-
-  &:not([empty]) {
-    padding-inline-end: var(--_padding-inline);
-  }
+slot[name='subheading'],
+slot[name='subheading']::slotted(*) {
+  color: var(--sl-color-text-bold);
+  font-size: 1em;
+  line-height: 1.5em;
 }
 
-slot[name='actions']::slotted(:first-child) {
-  // FIXME: Since the `aside` slot always has content, gap on the header won't work as expected
-  // So we explicitly set a left margin on the first action
-  margin-inline-start: 1rem;
+slot[name='aside'] {
+  grid-area: aside;
+}
+
+.toggle {
+  grid-area: toggle;
+}
+
+sl-tool-bar {
+  min-inline-size: 0;
 }
 
 [part='body'] {
   display: grid;
   grid-template-rows: 1fr;
-  transition: grid-template-rows 0.2s ease-in-out;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: grid-template-rows 300ms ease-in-out;
+  }
 }
 
 [part='inner'] {
@@ -99,6 +121,17 @@ slot[name='actions']::slotted(:first-child) {
 }
 
 [part='content'] {
-  padding-block-end: var(--_padding-block);
-  padding-inline: calc(var(--_padding-inline) + var(--_wrapper-padding-inline));
+  padding: var(--sl-panel-content-padding);
+}
+
+sl-icon {
+  transform: scaleY(1);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform 200ms ease-in-out;
+  }
+}
+
+sl-icon.upside-down {
+  transform: scaleY(-1);
 }

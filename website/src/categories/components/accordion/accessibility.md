@@ -21,6 +21,19 @@ Each accordion is a tab stop. `Space` or `Enter` keys expand or collapse accordi
 
 </section>
 
+<section>
+
+## Accessibility considerations
+
+Sometimes, when e.g. we open or close accordion items externally, we need to announce to the user that something has changed (the accordion has expanded or collapsed).
+When we expand them externally, it is not automatically read by the screen reader by default. We need to use `aria-live` to announce this to the user.
+
+
+We recommend using the `Announcer` utility (`announce` function) to inform users about the changes.
+Here you can find [an example of how to use the Announcer utility with accordion component](https://storybook.sanomalearning.design/?path=/story/layout-accordion--toggle-externally).
+
+</section>
+
 <section> 
 
 ## WAI-ARIA
@@ -41,3 +54,5 @@ WAI-ARIA roles, states, and properties for an accordion provide essential inform
 {.ds-table .ds-table-align-top}
 
 </div>
+
+</section>

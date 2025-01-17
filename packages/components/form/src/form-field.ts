@@ -245,6 +245,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
     if (label) {
       this.#label = label;
+      this.#label.id ||= `sl-form-field-label-${nextUniqueId++}`; // TODO: maybe should be added to the label, not sl-label?
 
       if (this.control) {
         this.#label.for = this.control.id;

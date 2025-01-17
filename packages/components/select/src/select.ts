@@ -1,4 +1,4 @@
-import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
+import { LOCALE_STATUS_EVENT, localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import {
@@ -42,7 +42,7 @@ export type SelectSize = 'md' | 'lg';
  */
 @localized()
 export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-describedby'/*,
+  'aria-describedby' /*,
   'id',*/
 ]) {
   /** @internal */
@@ -54,7 +54,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** @internal */
   static override get observedAttributes(): string[] {
     console.log('...super.observedAttributes', ...super.observedAttributes);
-    return [...super.observedAttributes, 'aria-describedby'/*, 'id'*/];
+    return [...super.observedAttributes, 'aria-describedby' /*, 'id'*/];
   }
 
   /** @internal */
@@ -162,6 +162,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.button.placeholder = this.placeholder;
       this.button.size = this.size;
       this.button.setAttribute('aria-expanded', 'false');
+      // this.button.setAttribute('aria-controls', this.listbox.id);
       this.append(this.button);
 
       // This is a workaround because `::slotted` does not allow you to select children
@@ -192,9 +193,9 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   formAssociatedCallback(): void {
     this.#initialState = this.value;
 
-    console.log('in formAssociatedCallback', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-
-    this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
+    // console.log('in formAssociatedCallback', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+    //
+    // this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
   }
 
   /** @ignore Resets the select to the initial state */
@@ -231,9 +232,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.internals.ariaRequired = this.required ? 'true' : 'false';
       // this.button.toggleAttribute(this.required ? 'required' : '');
 
-      this.required ? this.button.setAttribute('required', '') : this.button.removeAttribute('required');
+      // this.required ? this.button.setAttribute('required', '') : this.button.removeAttribute('required');
       this.button.internals.ariaRequired = this.required ? 'true' : 'false';
-
 
       this.#updateValueAndValidity();
     }
@@ -290,12 +290,23 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
-      console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+      this.button.setAttribute('aria-controls', this.listbox.id);
+
+      console.log(
+        'in firstUpdated',
+        this.button,
+        this,
+        this.id,
+        this.getAttribute('id'),
+        this.hasAttribute('id'),
+        'labels?',
+        this.internals.labels
+      );
 
       // this.button.setAttribute('aria-lebelledby', this.getAttribute('id') ?? ''); // TODO: use label id?
 
-    //  this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
-    })
+      //  this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
+    });
 
     // if (this.button) {
     //   console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
@@ -366,7 +377,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
       this.#popoverClosing = true;
-     // this.button.removeAttribute('aria-expanded');
+      // this.button.removeAttribute('aria-expanded');
       this.button.setAttribute('aria-expanded', 'false');
     }
   }
@@ -512,16 +523,16 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     //   msg('Please choose an option from the list.')
     // );
 
-    if (this.button) {
-      this.button.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
-      this.button.internals.setValidity(
-        {valueMissing: this.required && !this.selectedOption},
-        msg('Please choose an option from the list.')
-      );
-
-      this.button.updateValidity();
-
-    }
+    // if (this.button) {
+    //   this.button.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
+    //   this.button.internals.setValidity(
+    //     {valueMissing: this.required && !this.selectedOption},
+    //     msg('Please choose an option from the list.')
+    //   );
+    //
+    //   this.button.updateValidity();
+    //
+    // }
 
     // this.updateValidity();
 

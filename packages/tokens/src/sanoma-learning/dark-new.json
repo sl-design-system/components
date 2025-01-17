@@ -395,11 +395,6 @@
         "type": "color",
         "description": "Use for placeholders and hints."
       },
-      "inverted": {
-        "value": "{color.text.accent.grey.bold}",
-        "type": "color",
-        "description": "Use for text on bold backgrounds."
-      },
       "disabled": {
         "value": "{color.text.accent.grey.faint}",
         "type": "color",
@@ -414,11 +409,6 @@
         "value": "{color.text.accent.blue.plain}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing text."
-      },
-      "primary": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
       },
       "secondary": {
         "bold": {
@@ -508,6 +498,23 @@
           "value": "{color.text.accent.red.onBold}",
           "type": "color",
           "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
+        }
+      },
+      "inverted": {
+        "plain": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for plain inverted text."
+        },
+        "bold": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.bold'."
         }
       },
       "accent": {
@@ -663,15 +670,22 @@
           }
         }
       },
-      "onBold": {
-        "value": "{color.text.bold}",
-        "type": "color",
-        "description": "Use for text on bold backgrounds."
-      },
-      "onInverted": {
-        "value": "{color.palette.grey.000}",
-        "type": "color",
-        "description": "Use for text on inverted backgrounds."
+      "primary": {
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "inverted": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          },
+          "description": "Use for primary actions on 'color.background.primary.bold'"
+        }
       }
     },
     "icon": {

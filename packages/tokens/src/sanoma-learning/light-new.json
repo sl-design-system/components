@@ -395,21 +395,6 @@
         "type": "color",
         "description": "Use for placeholders and hints."
       },
-      "inverted": {
-        "value": "{color.white}",
-        "type": "color",
-        "description": "Use for text on bold backgrounds."
-      },
-      "onBold": {
-        "value": "{color.text.inverted}",
-        "type": "color",
-        "description": "Use for text on bold backgrounds."
-      },
-      "onInverted": {
-        "value": "{color.text.accent.grey.onInverted}",
-        "type": "color",
-        "description": "Use for text on bold backgrounds."
-      },
       "disabled": {
         "value": "{color.text.accent.grey.faint}",
         "type": "color",
@@ -530,6 +515,23 @@
           "value": "{color.text.accent.red.onBold}",
           "type": "color",
           "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
+        }
+      },
+      "inverted": {
+        "plain": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for plain inverted text."
+        },
+        "bold": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
+        },
+        "onBold": {
+          "value": "{color.palette.grey.900}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.bold'."
         }
       },
       "accent": {

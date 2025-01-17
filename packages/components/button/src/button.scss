@@ -43,7 +43,7 @@
 :host([variant='primary']:where(:not([fill]), [fill='solid'])) {
   --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
 
-  color: var(--sl-color-text-inverted);
+  color: var(--sl-color-text-onBold);
 }
 
 :host([variant='success']) {

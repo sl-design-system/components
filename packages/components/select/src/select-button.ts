@@ -1,5 +1,5 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { type FormControlShowValidity } from '@sl-design-system/form';
+import {FormControlMixin, type FormControlShowValidity} from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -13,7 +13,10 @@ declare global {
   }
 }
 
-export class SelectButton extends ScopedElementsMixin(LitElement) {
+export class SelectButton extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+  /** @internal */
+  static formAssociated = true;
+
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -28,7 +31,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   readonly internals = this.attachInternals();
 
   /** Whether the button is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** The placeholder for when there is no selected option.s */
   @property() placeholder?: string;
@@ -40,10 +43,10 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) size?: SelectSize = 'md';
 
   /** Indicates whether the control should indicate it is valid. */
-  @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
+  @property({ type: Boolean, attribute: 'show-valid', reflect: true }) override showValid?: boolean;
 
   /** Mirrors the same property on the sl-select parent. */
-  @property({ reflect: true, attribute: 'show-validity' }) showValidity: FormControlShowValidity;
+  @property({ reflect: true, attribute: 'show-validity' }) override showValidity: FormControlShowValidity;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -54,6 +57,8 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = this.disabled ? -1 : 0;
     }
+
+    this.setFormControlElement(this);
   }
 
   override updated(changes: PropertyValues<this>): void {

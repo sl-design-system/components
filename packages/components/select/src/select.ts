@@ -42,9 +42,8 @@ export type SelectSize = 'md' | 'lg';
  */
 @localized()
 export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-describedby',
-  'id',
-  'required'
+  'aria-describedby'/*,
+  'id',*/
 ]) {
   /** @internal */
   static formAssociated = true;
@@ -55,7 +54,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** @internal */
   static override get observedAttributes(): string[] {
     console.log('...super.observedAttributes', ...super.observedAttributes);
-    return [...super.observedAttributes, 'aria-describedby', 'id', 'required'];
+    return [...super.observedAttributes, 'aria-describedby'/*, 'id'*/];
   }
 
   /** @internal */
@@ -162,6 +161,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.button.disabled = !!this.disabled;
       this.button.placeholder = this.placeholder;
       this.button.size = this.size;
+      this.button.setAttribute('aria-expanded', 'false');
       this.append(this.button);
 
       // This is a workaround because `::slotted` does not allow you to select children
@@ -191,6 +191,10 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** @ignore Stores the initial state of the select */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
+
+    console.log('in formAssociatedCallback', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+
+    this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
   }
 
   /** @ignore Resets the select to the initial state */
@@ -198,6 +202,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     this.value = this.#initialState;
     this.changeEvent.emit(this.value);
   }
+
+  // TODO: add aria-controls?
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -223,6 +229,11 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
+      // this.button.toggleAttribute(this.required ? 'required' : '');
+
+      this.required ? this.button.setAttribute('required', '') : this.button.removeAttribute('required');
+      this.button.internals.ariaRequired = this.required ? 'true' : 'false';
+
 
       this.#updateValueAndValidity();
     }
@@ -277,6 +288,14 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
+
+    requestAnimationFrame(() => {
+      console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
+
+      // this.button.setAttribute('aria-lebelledby', this.getAttribute('id') ?? ''); // TODO: use label id?
+
+    //  this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
+    })
 
     // if (this.button) {
     //   console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
@@ -335,6 +354,10 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     this.button?.focus(options);
   }
 
+  override blur(): void {
+    this.button?.blur();
+  }
+
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
@@ -343,7 +366,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
       this.#popoverClosing = true;
-      this.button.removeAttribute('aria-expanded');
+     // this.button.removeAttribute('aria-expanded');
+      this.button.setAttribute('aria-expanded', 'false');
     }
   }
 
@@ -356,7 +380,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #onClick(event: Event): void {
-    if (event.target === this) {
+    console.log('event.target on click', event.target);
+    if (event.target === this || event.target === this.button) {
       this.button.focus();
     }
   }
@@ -481,24 +506,24 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
-    this.internals.setValidity(
-      { valueMissing: this.required && !this.selectedOption },
-      msg('Please choose an option from the list.')
-    );
+    // this.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
+    // this.internals.setValidity(
+    //   { valueMissing: this.required && !this.selectedOption },
+    //   msg('Please choose an option from the list.')
+    // );
 
-    // if (this.button) {
-    //   this.button.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
-    //   this.button.internals.setValidity(
-    //     {valueMissing: this.required && !this.selectedOption},
-    //     msg('Please choose an option from the list.')
-    //   );
-    //
-    //   this.button.updateValidity();
-    //
-    // }
+    if (this.button) {
+      this.button.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
+      this.button.internals.setValidity(
+        {valueMissing: this.required && !this.selectedOption},
+        msg('Please choose an option from the list.')
+      );
 
-    this.updateValidity();
+      this.button.updateValidity();
+
+    }
+
+    // this.updateValidity();
 
     // NOTE: for some reason setting `showValidity` to `undefined` in the
     // `updateValidity()` method doesn't trigger a `willUpdate` call. So we

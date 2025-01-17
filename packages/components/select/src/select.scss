@@ -14,6 +14,14 @@ $variants: default, valid, invalid;
   outline: none;
 }
 
+:host(:focus-visible) /* ,
+:host(:focus) */ {
+  sl-select-button {
+    outline: var(--_focus-outline);
+    outline-offset: var(--_focus-outline-offset);
+  }
+}
+
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_padding-block: var(--sl-space-select-listbox-block-#{$size});

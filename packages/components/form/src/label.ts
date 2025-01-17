@@ -98,6 +98,8 @@ export class Label extends LitElement {
         this.#label?.removeAttribute('for');
         this.formControl = null;
       }
+
+      console.log('formControl in label', this.formControl, this.#label, this.for);
     }
 
     if (changes.has('formControl')) {

@@ -657,7 +657,7 @@
             "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }

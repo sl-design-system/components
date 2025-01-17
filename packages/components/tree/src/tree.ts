@@ -194,8 +194,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
-    console.log('scrollToNode', node);
-
     const index = this.dataSource?.items.indexOf(node) ?? -1;
     if (index !== -1) {
       this.#virtualizer?.element(index)?.scrollIntoView(options);

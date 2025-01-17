@@ -360,6 +360,27 @@ export const Skeleton: Story = {
   }
 };
 
+export const Scrolling: Story = {
+  args: {
+    dataSource: new NestedTreeDataSource<NestedDataNode>(
+      [1, 2, 3].map(id => ({
+        id,
+        name: `Root ${id}`,
+        children: Array.from({ length: 1000 }).map((_, i) => ({ id: 1000 * id + i, name: `Child ${i}` }))
+      })),
+      {
+        getChildren: ({ children }) => children,
+        getId: ({ id }) => id,
+        getLabel: ({ name }) => name,
+        isExpandable: ({ children }) => !!children,
+        isExpanded: () => true,
+        isSelected: ({ id }) => id === 2010,
+        selects: 'single'
+      }
+    )
+  }
+};
+
 export const CustomRenderer: Story = {
   args: {
     ...FlatDataSource.args,

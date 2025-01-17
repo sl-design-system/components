@@ -114,6 +114,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       await this.layoutComplete;
       this.#rovingTabindexController.clearElementCache();
     }
+
+    if (this.dataSource?.selection.size) {
+      const node = this.dataSource.selection.keys().next().value as TreeDataSourceNode<T>;
+
+      this.scrollToNode(node, { block: 'center' });
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -185,6 +191,15 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     this.selectEvent.emit(node);
+  }
+
+  scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
+    console.log('scrollToNode', node);
+
+    const index = this.dataSource?.items.indexOf(node) ?? -1;
+    if (index !== -1) {
+      this.#virtualizer?.element(index)?.scrollIntoView(options);
+    }
   }
 
   #onKeydown(event: KeyboardEvent): void {

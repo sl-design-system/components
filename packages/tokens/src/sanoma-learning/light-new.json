@@ -1086,7 +1086,7 @@
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.palette.blue.300}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },

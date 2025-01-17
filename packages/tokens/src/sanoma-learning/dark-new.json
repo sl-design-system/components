@@ -669,7 +669,7 @@
         "description": "Use for text on bold backgrounds."
       },
       "onInverted": {
-        "value": "{color.text.inverted}",
+        "value": "{color.palette.grey.000}",
         "type": "color",
         "description": "Use for text on inverted backgrounds."
       }
@@ -1059,7 +1059,7 @@
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.palette.accent.400}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },

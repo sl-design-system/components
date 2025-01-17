@@ -1561,5 +1561,57 @@
       "type": "color",
       "description": "Use for the pulse or shimmer effect in skeleton loading states."
     }
+  },
+  "opacity": {
+    "interactive": {
+      "bold": {
+        "idle": {
+          "value": "0%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "20%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "40%",
+          "type": "opacity"
+        }
+      },
+      "plain": {
+        "idle": {
+          "value": "0%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "25%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "35%",
+          "type": "opacity"
+        }
+      }
+    },
+    "muted": {
+      "value": "0%",
+      "type": "opacity"
+    },
+    "subtlest": {
+      "value": "25%",
+      "type": "opacity"
+    },
+    "subtle": {
+      "value": "35%",
+      "type": "opacity"
+    },
+    "moderate": {
+      "value": "80%",
+      "type": "opacity"
+    },
+    "bold": {
+      "value": "100%",
+      "type": "opacity"
+    }
   }
 }

@@ -396,7 +396,7 @@
         "description": "Use for placeholders and hints."
       },
       "inverted": {
-        "value": "{color.palette.grey.000}",
+        "value": "{color.text.accent.grey.bold}",
         "type": "color",
         "description": "Use for text on bold backgrounds."
       },
@@ -547,7 +547,7 @@
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.400}",
+            "value": "{color.palette.grey.300}",
             "type": "color",
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
@@ -671,7 +671,7 @@
       "onInverted": {
         "value": "{color.text.inverted}",
         "type": "color",
-        "description": "Use for text on bold backgrounds."
+        "description": "Use for text on inverted backgrounds."
       }
     },
     "icon": {
@@ -1165,7 +1165,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.background.accent.grey.subtle}",
+        "value": "{color.palette.grey.100}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1631,12 +1631,12 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }

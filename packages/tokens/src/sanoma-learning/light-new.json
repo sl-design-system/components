@@ -426,9 +426,21 @@
         "description": "Use for non-interactive brand-reinforcing text."
       },
       "primary": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "inverted": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          },
+          "description": "Use for primary actions on 'color.background.primary.bold'"
+        }
       },
       "secondary": {
         "bold": {
@@ -557,7 +569,7 @@
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.400}",
+            "value": "{color.palette.grey.300}",
             "type": "color",
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
@@ -1180,7 +1192,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.background.accent.grey.subtle}",
+        "value": "{color.palette.grey.100}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1471,12 +1483,12 @@
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.grey.800}",
+              "value": "{color.palette.grey.400}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.800}",
+              "value": "{color.palette.grey.400}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }

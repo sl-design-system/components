@@ -117,13 +117,13 @@
   --_bg-mix-color: var(--sl-color-background-inverted-interactive-plain);
 
   border-color: var(--sl-color-border-inverted);
-  color: var(--sl-color-text-inverted);
+  color: var(--sl-color-text-inverted-bold);
 }
 
 :host([variant='inverted']:where(:not([fill]), [fill='solid'])) {
   --_bg-mix-color: var(--sl-color-background-inverted-interactive-bold);
 
-  color: var(--sl-color-text-bold);
+  color: var(--sl-color-text-onBold);
 }
 
 :host(:is(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {

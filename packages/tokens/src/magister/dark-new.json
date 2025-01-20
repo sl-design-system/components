@@ -395,11 +395,6 @@
         "type": "color",
         "description": "Use for placeholders and hints."
       },
-      "inverted": {
-        "value": "{color.palette.grey.000}",
-        "type": "color",
-        "description": "Use for text on bold backgrounds."
-      },
       "disabled": {
         "value": "{color.text.accent.grey.faint}",
         "type": "color",
@@ -416,9 +411,16 @@
         "description": "Use for non-interactive brand-reinforcing text."
       },
       "primary": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "description": "Use for primary actions on 'color.background.primary.bold'"
+        }
       },
       "secondary": {
         "bold": {
@@ -426,10 +428,10 @@
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
-        "inverted": {
-          "value": "{color.palette.blue.900}",
+        "onBold": {
+          "value": "{color.palette.blue.800}",
           "type": "color",
-          "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          "description": "Use for secondary actions on 'color.background.secondary.bold'"
         }
       },
       "info": {
@@ -442,6 +444,11 @@
           "value": "{color.text.accent.blue.bold}",
           "type": "color",
           "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
         }
       },
       "positive": {
@@ -454,6 +461,11 @@
           "value": "{color.text.accent.green.bold}",
           "type": "color",
           "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.green.onBold}",
+          "type": "color",
+          "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
         }
       },
       "caution": {
@@ -467,8 +479,8 @@
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
         },
-        "inverted": {
-          "value": "{color.text.inverted}",
+        "onBold": {
+          "value": "{color.text.accent.yellow.onBold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
         }
@@ -483,6 +495,28 @@
           "value": "{color.text.accent.red.bold}",
           "type": "color",
           "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.red.onBold}",
+          "type": "color",
+          "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
+        }
+      },
+      "inverted": {
+        "plain": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for plain inverted text."
+        },
+        "bold": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
+        },
+        "onBold": {
+          "value": "{color.palette.grey.900}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.bold'."
         }
       },
       "accent": {
@@ -496,6 +530,11 @@
             "value": "{color.palette.blue.700}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.onBold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "green": {
@@ -508,6 +547,11 @@
             "value": "{color.palette.green.700}",
             "type": "color",
             "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.onBold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "grey": {
@@ -535,18 +579,33 @@
             "value": "rgba( {color.palette.grey.900} 90%)",
             "type": "color",
             "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
+          },
+          "onBold": {
+            "value": "rgba( {color.palette.grey.900} 90%)",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
+          },
+          "onInverted": {
+            "value": "{color.text.bold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
           }
         },
         "orange": {
           "plain": {
             "value": "{color.palette.orange.500}",
             "type": "color",
-            "description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
+            "description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
           "bold": {
             "value": "{color.palette.orange.700}",
             "type": "color",
             "description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.onBold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "purple": {
@@ -559,6 +618,11 @@
             "value": "{color.palette.purple.600}",
             "type": "color",
             "description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.onBold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "red": {
@@ -571,6 +635,11 @@
             "value": "{color.palette.red.700}",
             "type": "color",
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.onBold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "teal": {
@@ -583,6 +652,11 @@
             "value": "{color.palette.teal.600}",
             "type": "color",
             "description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.onBold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "yellow": {
@@ -595,6 +669,11 @@
             "value": "{color.palette.yellow.500}",
             "type": "color",
             "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.palette.grey.000}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
         }
       }

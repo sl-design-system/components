@@ -419,11 +419,6 @@
         "onBold": {
           "value": "{color.text.accent.blue.onBold}",
           "type": "color",
-          "inverted": {
-            "value": "{color.text.accent.blue.bold}",
-            "type": "color",
-            "description": "Use for secondary actions on 'color.background.secondary.bold'."
-          },
           "description": "Use for primary actions on 'color.background.primary.bold'"
         }
       },
@@ -431,21 +426,11 @@
         "bold": {
           "value": "{color.text.accent.grey.bold}",
           "type": "color",
-          "inverted": {
-            "value": "{color.text.accent.blue.bold}",
-            "type": "color",
-            "description": "Use for secondary actions on 'color.background.secondary.bold'."
-          },
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
         "onBold": {
           "value": "{color.text.accent.grey.onBold}",
           "type": "color",
-          "inverted": {
-            "value": "{color.text.accent.blue.bold}",
-            "type": "color",
-            "description": "Use for secondary actions on 'color.background.secondary.bold'."
-          },
           "description": "Use for secondary actions on 'color.background.secondary.bold'"
         }
       },

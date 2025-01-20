@@ -24,8 +24,8 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** @internal */
-  readonly internals = this.attachInternals();
+  // /** @internal */
+  // readonly internals = this.attachInternals();
 
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -38,6 +38,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize = 'md';
+
+  /** Mirrors the same property on the sl-select parent. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;

@@ -1,4 +1,4 @@
-import { LOCALE_STATUS_EVENT, localized } from '@lit/localize';
+import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import {
@@ -42,7 +42,9 @@ export type SelectSize = 'md' | 'lg';
  */
 @localized()
 export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
-  'aria-describedby' /*,
+  'aria-describedby',
+  'aria-label',
+  'aria-labelledby' /*,
   'id',*/
 ]) {
   /** @internal */
@@ -54,7 +56,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** @internal */
   static override get observedAttributes(): string[] {
     console.log('...super.observedAttributes', ...super.observedAttributes);
-    return [...super.observedAttributes, 'aria-describedby' /*, 'id'*/];
+    return [...super.observedAttributes, 'aria-describedby', 'aria-label', 'aria-labelledby' /*, 'id'*/];
   }
 
   /** @internal */
@@ -176,7 +178,9 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.append(style);
     }
 
-    this.setFormControlElement(/*this*/ this.button); // todo: required is not working? validation is broken when the required attr is rewritten to the button
+    this.setFormControlElement(this);
+
+    // this.setFormControlElement(/*this*/ this.button); // todo: required is not working? validation is broken when the required attr is rewritten to the button
     // todo: maybe this.button should be the form control element? and should have elementInternals? attached?
 
     // requestAnimationFrame(() => {
@@ -230,10 +234,17 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
+      // this.button.required = this.required ? 'true' : 'false';
+      this.button.required = !!this.required;
+      // if (this.required) {
+      //   this.button.required = 'true';
+      // } else {
+      //   this.button.required = undefined;
+      // }
       // this.button.toggleAttribute(this.required ? 'required' : '');
 
       // this.required ? this.button.setAttribute('required', '') : this.button.removeAttribute('required');
-      this.button.internals.ariaRequired = this.required ? 'true' : 'false';
+      // this.button.internals.ariaRequired = this.required ? 'true' : 'false'; // TODO: required needs to be set on the button?
 
       this.#updateValueAndValidity();
     }
@@ -292,6 +303,19 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     requestAnimationFrame(() => {
       this.button.setAttribute('aria-controls', this.listbox.id);
 
+      // this.button.setAttribute('aria-labelledby', (this.internals.labels[0] as HTMLLabelElement)?.id);
+
+      // this.button.setAttribute('aria-labelledby', (this.internals.labels as unknown as HTMLLabelElement[])?.map(label => label.id).join(' '));
+
+      if (this.internals.labels.length) {
+        this.button.setAttribute(
+          'aria-labelledby',
+          Array.from(this.internals.labels)
+            .map(label => (label as HTMLLabelElement).id)
+            .join(' ')
+        );
+      } // TODO: maybe it's also necessary in other places?
+
       console.log(
         'in firstUpdated',
         this.button,
@@ -300,7 +324,9 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         this.getAttribute('id'),
         this.hasAttribute('id'),
         'labels?',
-        this.internals.labels
+        this.internals.labels,
+        'first label?',
+        this.internals.labels[0]
       );
 
       // this.button.setAttribute('aria-lebelledby', this.getAttribute('id') ?? ''); // TODO: use label id?
@@ -361,13 +387,16 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     `;
   }
 
+  // TODO: when there is an error the aria-describedby is not being updated in the button, why?
+
   override focus(options?: FocusOptions): void {
+    console.log('in focus?', this, this.button);
     this.button?.focus(options);
   }
 
-  override blur(): void {
-    this.button?.blur();
-  }
+  // override blur(): void {
+  //   this.button?.blur();
+  // }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
@@ -391,9 +420,10 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #onClick(event: Event): void {
-    console.log('event.target on click', event.target);
+    // console.log('event.target on click', event.target);
+    console.log('in focus onclick?', this, this.button, event.target);
     if (event.target === this || event.target === this.button) {
-      this.button.focus();
+      this.button.focus(); // TODO: maybe just this.focus? or focusin?
     }
   }
 
@@ -517,11 +547,11 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #updateValueAndValidity(): void {
-    // this.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
-    // this.internals.setValidity(
-    //   { valueMissing: this.required && !this.selectedOption },
-    //   msg('Please choose an option from the list.')
-    // );
+    this.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
+    this.internals.setValidity(
+      { valueMissing: this.required && !this.selectedOption },
+      msg('Please choose an option from the list.')
+    );
 
     // if (this.button) {
     //   this.button.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
@@ -534,7 +564,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     //
     // }
 
-    // this.updateValidity();
+    this.updateValidity();
 
     // NOTE: for some reason setting `showValidity` to `undefined` in the
     // `updateValidity()` method doesn't trigger a `willUpdate` call. So we

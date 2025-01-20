@@ -245,10 +245,13 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
     if (label) {
       this.#label = label;
-      this.#label.id ||= `sl-form-field-label-${nextUniqueId++}`; // TODO: maybe should be added to the label, not sl-label?
+      // this.#label.id ||= `sl-form-field-label-${nextUniqueId++}`; // TODO: maybe should be added to the label, not sl-label?
+
+      console.log('which label?', label, this.#label);
 
       if (this.control) {
         this.#label.for = this.control.id;
+        console.log('which label?22', label, this.#label);
       }
     } else {
       this.#label = undefined;

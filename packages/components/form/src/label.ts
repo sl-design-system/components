@@ -14,7 +14,7 @@ export type LabelMark = 'optional' | 'required';
 
 export type LabelSize = 'sm' | 'md' | 'lg';
 
-// let nextUniqueId = 0;
+let nextUniqueId = 0;
 
 /**
  * Label component that hooks a `<label>` element up with the input element of the form control,
@@ -164,6 +164,8 @@ export class Label extends LitElement {
         this.#formControlId
       );
     }
+
+    this.#label.id ||= `sl-label-${nextUniqueId++}`;
   }
 
   #update(): void {

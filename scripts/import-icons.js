@@ -108,17 +108,17 @@ const buildIcons = async theme => {
     await fs.unlink(join(iconsFolderPath, file));
   }
 
-  // load all custom icons from figma and store svgs
-  await new Promise((resolve, reject) => {
-    console.log(`Extracting icons from Figma for ${theme}...`);
-    exec(`yarn run figma-export use-config .figmaexportrc.js ${figmaIconPages[theme]} ${theme}`, { cwd }, error => {
-      if (error) {
-        reject(error);
-      }
+  // // load all custom icons from figma and store svgs
+  // await new Promise((resolve, reject) => {
+  //   console.log(`Extracting icons from Figma for ${theme}...`);
+  //   exec(`yarn run figma-export use-config .figmaexportrc.js ${figmaIconPages[theme]} ${theme}`, { cwd }, error => {
+  //     if (error) {
+  //       reject(error);
+  //     }
 
-      resolve();
-    });
-  });
+  //     resolve();
+  //   });
+  // });
 
   // 3. Convert downloaded icons to appropriate format?
   // We only need the `<path>` data for `<sl-icon>`
@@ -169,7 +169,7 @@ const exportCoreIcons = async () => {
   // load all custom icons from figma and store svgs
   await new Promise((resolve, reject) => {
     console.log(`Extracting icons from Figma for core...`);
-    exec(`yarn run figma-export use-config .figmaexportrc.js SKFTFiiz7YK9E2TPfCan9o core`, { cwd }, error => {
+    exec(`yarn run figma-export use-config .figmaexportrc.js Pbs7HEwKmwm6wAX9tfjk2N core`, { cwd }, error => {
       if (error) {
         reject(error);
       }
@@ -200,4 +200,4 @@ const exportCoreIcons = async () => {
 };
 
 const coreCustomIcons  = await exportCoreIcons();
-buildAllIcons();
+// buildAllIcons();

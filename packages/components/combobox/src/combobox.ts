@@ -237,7 +237,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.input.slot = 'input';
 
       if (!this.input.parentElement) {
-        this.append(this.input);
+        this.prepend(this.input);
       }
     }
 
@@ -293,7 +293,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.listbox.items = this.items;
         this.listbox.renderer = (item, index: number) =>
           this.#renderItem(item as ComboboxItem<T, U>, index) as unknown as TemplateResult;
-        this.appendChild(this.listbox);
+        this.prepend(this.listbox);
         this.#useVirtualList = true;
       } else if (changes.get('options')) {
         this.items = [];

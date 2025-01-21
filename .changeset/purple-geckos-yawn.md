@@ -1,12 +1,8 @@
 ---
-'@sl-design-system/text-field': patch
-'@sl-design-system/text-area': patch
 '@sl-design-system/checkbox': patch
-'@sl-design-system/combobox': patch
+'@sl-design-system/form': patch
 '@sl-design-system/listbox': patch
 '@sl-design-system/select': patch
-'@sl-design-system/switch': patch
-'@sl-design-system/form': patch
 ---
 
 Prepend light DOM elements to the host, instead of `append()`

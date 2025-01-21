@@ -1092,7 +1092,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.background.accent.grey.subtle}",
+        "value": "{color.palette.grey.100}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1110,23 +1110,23 @@
       },
       "selected": {
         "subtle": {
-          "value": "{color.background.accent.blue.subtle}",
+          "value": "{color.background.accent.purple.subtle}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "{color.background.accent.purple.bold}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.blue.interactive.bold}",
+            "value": "{color.background.accent.purple.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.blue.interactive.plain}",
+            "value": "{color.background.accent.purple.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1134,28 +1134,28 @@
       },
       "primary": {
         "subtlest": {
-          "value": "{color.background.accent.blue.subtlest}",
+          "value": "{color.background.accent.red.subtlest}",
           "type": "color",
           "description": "The subtlest background in the primary action color."
         },
         "subtle": {
-          "value": "{color.background.accent.blue.subtle}",
+          "value": "{color.background.accent.red.subtle}",
           "type": "color",
           "description": "A subtle background in the primary action color."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "{color.background.accent.red.bold}",
           "type": "color",
           "description": "A vibrant background option used for primary actions."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.blue.interactive.bold}",
+            "value": "{color.background.accent.red.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.blue.interactive.plain}",
+            "value": "{color.background.accent.red.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1163,28 +1163,28 @@
       },
       "secondary": {
         "subtlest": {
-          "value": "{color.background.accent.grey.subtlest}",
+          "value": "{color.background.accent.purple.subtlest}",
           "type": "color",
           "description": "The subtlest background in the secondary action color."
         },
         "subtle": {
-          "value": "{color.background.accent.grey.subtle}",
+          "value": "{color.background.accent.purple.subtle}",
           "type": "color",
           "description": "A subtle background in the secondary action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.background.accent.purple.bold}",
           "type": "color",
           "description": "A vibrant background option used for secondary actions."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.grey.interactive.bold}",
+            "value": "{color.background.accent.purple.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.grey.interactive.plain}",
+            "value": "{color.background.accent.purple.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1250,28 +1250,28 @@
       },
       "caution": {
         "subtlest": {
-          "value": "{color.background.accent.yellow.subtlest}",
+          "value": "{color.background.accent.orange.subtlest}",
           "type": "color",
           "description": "The subtlest background option to communicate caution to prevent errors."
         },
         "subtle": {
-          "value": "{color.background.accent.yellow.subtle}",
+          "value": "{color.background.accent.orange.subtle}",
           "type": "color",
           "description": "A subtle background option to communicate caution to prevent errors."
         },
         "bold": {
-          "value": "{color.background.accent.yellow.bold}",
+          "value": "{color.background.accent.orange.bold}",
           "type": "color",
           "description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.yellow.interactive.bold}",
+            "value": "{color.background.accent.orange.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.yellow.interactive.plain}",
+            "value": "{color.background.accent.orange.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1309,12 +1309,12 @@
       "accent": {
         "blue": {
           "subtlest": {
-            "value": "rgba({color.palette.blue.400} {opacity.light.subtlest})",
+            "value": "rgba({color.palette.blue.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba( {color.palette.blue.400} {opacity.light.subtle})",
+            "value": "rgba( {color.palette.blue.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1338,12 +1338,12 @@
         },
         "green": {
           "subtlest": {
-            "value": "rgba( {color.palette.green.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.green.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.green.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.green.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1367,12 +1367,12 @@
         },
         "grey": {
           "subtlest": {
-            "value": "rgba( {color.palette.grey.700} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.grey.700}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.grey.700} {opacity.light.subtle})",
+            "value": "rgba({color.palette.grey.700}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1396,12 +1396,12 @@
         },
         "orange": {
           "subtlest": {
-            "value": "rgba( {color.palette.orange.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.orange.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.orange.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.orange.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1425,7 +1425,7 @@
         },
         "purple": {
           "subtlest": {
-            "value": "rgba( {color.palette.purple.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.purple.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
@@ -1454,12 +1454,12 @@
         },
         "red": {
           "subtlest": {
-            "value": "rgba( {color.palette.red.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.red.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.red.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.red.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1483,12 +1483,12 @@
         },
         "teal": {
           "subtlest": {
-            "value": "rgba( {color.palette.teal.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.teal.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.teal.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.teal.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1512,12 +1512,12 @@
         },
         "yellow": {
           "subtlest": {
-            "value": "rgba( {color.palette.yellow.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.yellow.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.yellow.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.yellow.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1542,12 +1542,12 @@
       },
       "inverted": {
         "subtlest": {
-          "value": "rgba( {color.palette.grey.000} {opacity.light.subtlest})",
+          "value": "rgba( {color.palette.grey.000}, {opacity.light.subtlest})",
           "type": "color",
           "description": "The subtlest inverted background option."
         },
         "subtle": {
-          "value": "rgba({color.palette.grey.000} {opacity.light.subtle})",
+          "value": "rgba({color.palette.grey.000}, {opacity.light.subtle})",
           "type": "color",
           "description": "A subtle inverted background option."
         },
@@ -1585,7 +1585,7 @@
   },
   "blanket": {
     "plain": {
-      "value": "rgba({color.palette.grey.900} {opacity.light.moderate})",
+      "value": "rgba({color.palette.grey.900}, {opacity.light.moderate})",
       "type": "color",
       "description": "Use for screen overlay that appears with dialogs or drawers."
     }
@@ -1636,7 +1636,7 @@
           "y": "0",
           "blur": "15",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700} {opacity.light.subtlest})",
+          "color": "rgba({color.palette.grey.700}, {opacity.light.subtlest})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1648,7 +1648,7 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700} {opacity.light.subtle})",
+          "color": "rgba({color.palette.grey.700}, {opacity.light.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",

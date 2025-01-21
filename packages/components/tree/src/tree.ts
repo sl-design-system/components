@@ -103,11 +103,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     this.role = 'tree';
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
+  override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changes);
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
     this.#virtualizer = wrapper[virtualizerRef];
+
+    await this.layoutComplete;
 
     if (this.dataSource?.selection.size) {
       const node = this.dataSource.selection.keys().next().value as TreeDataSourceNode<T>;

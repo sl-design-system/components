@@ -3576,7 +3576,7 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.light.100})",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
@@ -3734,7 +3734,7 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({body.background} , {opacity.light.100})",
+            "value": "rgba({body.background} , {opacity.100})",
             "type": "color"
           },
           "foreground": {
@@ -4791,7 +4791,7 @@
         "y": "0",
         "blur": "0",
         "spread": "3px",
-        "color": "rgba({color.palette.info.500},{opacity.light.500})",
+        "color": "rgba({color.palette.info.500},{opacity.500})",
         "type": "dropShadow"
       },
       "type": "boxShadow",
@@ -4808,6 +4808,18 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
+    }
+  },
+  "skeleton-copy": {
+    "plain": {
+      "value": "{color.background.accent.grey.subtlest}",
+      "type": "color",
+      "description": "Use for skeleton loading states."
+    },
+    "subtle": {
+      "value": "{color.background.accent.grey.subtle}",
+      "type": "color",
+      "description": "Use for the pulse or shimmer effect in skeleton loading states."
     }
   }
 }

@@ -181,7 +181,7 @@
         "solid": {
           "idle": {
             "background": {
-              "value": "rgba({color.palette.primary.50},{opacity.light.200})",
+              "value": "rgba({color.palette.primary.50},{opacity.200})",
               "type": "color",
               "description": "color.button.default.idle.background"
             },
@@ -198,7 +198,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.primary.50},{opacity.light.400})",
+              "value": "rgba({color.palette.primary.50},{opacity.400})",
               "type": "color",
               "description": "color.button.default.hover.background"
             },
@@ -215,7 +215,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.primary.50},{opacity.light.600})",
+              "value": "rgba({color.palette.primary.50},{opacity.600})",
               "type": "color",
               "description": "color.button.default.active.background"
             },
@@ -268,7 +268,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.white.base},{opacity.light.300})",
+              "value": "rgba({color.palette.white.base},{opacity.300})",
               "type": "color",
               "description": "color.button.default.outline.hover.background"
             },
@@ -285,7 +285,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.white.base},{opacity.light.500})",
+              "value": "rgba({color.palette.white.base},{opacity.500})",
               "type": "color",
               "description": "color.button.default.outline.active.background"
             },
@@ -466,7 +466,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.white.base},{opacity.light.300})",
+              "value": "rgba({color.palette.white.base},{opacity.300})",
               "type": "color",
               "description": "color.button.default.outline.hover.background"
             },
@@ -476,14 +476,14 @@
               "description": "color.button.default.outline.hover.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.white.base},{opacity.light.300})",
+              "value": "rgba({color.palette.white.base},{opacity.300})",
               "type": "color",
               "description": "color.button.default.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.white.base},{opacity.light.500})",
+              "value": "rgba({color.palette.white.base},{opacity.500})",
               "type": "color",
               "description": "color.button.default.outline.active.background"
             },
@@ -493,7 +493,7 @@
               "description": "color.button.primary.outline.active.foreground"
             },
             "border": {
-              "value": "rgba({color.palette.white.base},{opacity.light.500})",
+              "value": "rgba({color.palette.white.base},{opacity.500})",
               "type": "color",
               "description": "color.button.default.outline.active.border"
             }
@@ -678,7 +678,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.primary.100},{opacity.light.300})",
+              "value": "rgba({color.palette.primary.100},{opacity.300})",
               "type": "color",
               "description": "color.button.primary.outline.hover.background"
             },
@@ -695,7 +695,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.primary.100},{opacity.light.500})",
+              "value": "rgba({color.palette.primary.100},{opacity.500})",
               "type": "color",
               "description": "color.button.primary.outline.active.background"
             },
@@ -805,7 +805,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.primary.50}, {opacity.light.300})",
+              "value": "rgba({color.palette.primary.50}, {opacity.300})",
               "type": "color"
             },
             "foreground": {
@@ -819,7 +819,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.primary.50}, {opacity.light.500})",
+              "value": "rgba({color.palette.primary.50}, {opacity.500})",
               "type": "color"
             },
             "foreground": {
@@ -940,7 +940,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.success.200},{opacity.light.300})",
+              "value": "rgba({color.palette.success.200},{opacity.300})",
               "type": "color",
               "description": "color.button.success.outline.hover.background"
             },
@@ -957,7 +957,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.success.200},{opacity.light.500})",
+              "value": "rgba({color.palette.success.200},{opacity.500})",
               "type": "color",
               "description": "color.button.success.outline.active.background"
             },
@@ -1067,7 +1067,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.success.200},{opacity.light.300})",
+              "value": "rgba({color.palette.success.200},{opacity.300})",
               "type": "color"
             },
             "foreground": {
@@ -1081,7 +1081,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.success.200},{opacity.light.500})",
+              "value": "rgba({color.palette.success.200},{opacity.500})",
               "type": "color"
             },
             "foreground": {
@@ -1202,7 +1202,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.warning.base},{opacity.light.300})",
+              "value": "rgba({color.palette.warning.base},{opacity.300})",
               "type": "color",
               "description": "color.button.warning.outline.hover.background"
             },
@@ -1219,7 +1219,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.warning.base},{opacity.light.500})",
+              "value": "rgba({color.palette.warning.base},{opacity.500})",
               "type": "color",
               "description": "color.button.warning.outline.active.background"
             },
@@ -1329,7 +1329,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.warning.base},{opacity.light.300})",
+              "value": "rgba({color.palette.warning.base},{opacity.300})",
               "type": "color"
             },
             "foreground": {
@@ -1343,7 +1343,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.warning.base},{opacity.light.500})",
+              "value": "rgba({color.palette.warning.base},{opacity.500})",
               "type": "color"
             },
             "foreground": {
@@ -1464,7 +1464,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.danger.400},{opacity.light.300})",
+              "value": "rgba({color.palette.danger.400},{opacity.300})",
               "type": "color",
               "description": "color.button.danger.outline.hover.background"
             },
@@ -1481,7 +1481,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.danger.400},{opacity.light.500})",
+              "value": "rgba({color.palette.danger.400},{opacity.500})",
               "type": "color",
               "description": "color.button.danger.outline.active.background"
             },
@@ -1591,7 +1591,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.danger.base},{opacity.light.300})",
+              "value": "rgba({color.palette.danger.base},{opacity.300})",
               "type": "color"
             },
             "foreground": {
@@ -1605,7 +1605,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.danger.base},{opacity.light.500})",
+              "value": "rgba({color.palette.danger.base},{opacity.500})",
               "type": "color"
             },
             "foreground": {
@@ -1726,7 +1726,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.info.200},{opacity.light.300})",
+              "value": "rgba({color.palette.info.200},{opacity.300})",
               "type": "color",
               "description": "color.button.info.outline.hover.background"
             },
@@ -1743,7 +1743,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.info.200},{opacity.light.500})",
+              "value": "rgba({color.palette.info.200},{opacity.500})",
               "type": "color",
               "description": "color.button.info.outline.active.background"
             },
@@ -1853,7 +1853,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.info.200},{opacity.light.300})",
+              "value": "rgba({color.palette.info.200},{opacity.300})",
               "type": "color"
             },
             "foreground": {
@@ -1867,7 +1867,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.info.200},{opacity.light.500})",
+              "value": "rgba({color.palette.info.200},{opacity.500})",
               "type": "color"
             },
             "foreground": {
@@ -2418,7 +2418,7 @@
             },
             "hover": {
               "background": {
-                "value": "rgba({color.palette.success.base} / {opacity.light.200})",
+                "value": "rgba({color.palette.success.base} / {opacity.200})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2440,7 +2440,7 @@
             },
             "active": {
               "background": {
-                "value": "rgba({color.palette.success.base} / {opacity.light.300})",
+                "value": "rgba({color.palette.success.base} / {opacity.300})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2462,7 +2462,7 @@
             },
             "focus": {
               "background": {
-                "value": "rgba({body.background} / {opacity.light.100})",
+                "value": "rgba({body.background} / {opacity.100})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2883,7 +2883,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.primary.150},{opacity.light.200})",
+              "value": "rgba({color.palette.primary.150},{opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2915,7 +2915,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.primary.150},{opacity.light.100})",
+              "value": "rgba({color.palette.primary.150},{opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3045,7 +3045,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.danger.600} ,{opacity.light.200})",
+              "value": "rgba({color.palette.danger.600} ,{opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3077,7 +3077,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.danger.600} ,{opacity.light.100})",
+              "value": "rgba({color.palette.danger.600} ,{opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3202,7 +3202,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.success.base} ,{opacity.light.200})",
+              "value": "rgba({color.palette.success.base} ,{opacity.200})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3229,7 +3229,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.success.base} ,{opacity.light.100})",
+              "value": "rgba({color.palette.success.base} ,{opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3464,7 +3464,7 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.light.100})",
+              "value": "rgba({body.background},{opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
@@ -3572,7 +3572,7 @@
         },
         "hover": {
           "background": {
-            "value": "rgba({color.palette.primary.100} , {opacity.light.200})",
+            "value": "rgba({color.palette.primary.100} , {opacity.200})",
             "type": "color"
           },
           "foreground": {
@@ -3590,7 +3590,7 @@
         },
         "active": {
           "background": {
-            "value": "rgba({color.palette.primary.100} , {opacity.light.400})",
+            "value": "rgba({color.palette.primary.100} , {opacity.400})",
             "type": "color"
           },
           "foreground": {
@@ -4098,7 +4098,7 @@
     "inline-message": {
       "info": {
         "background": {
-          "value": "rgba({color.palette.info.base} ,{opacity.light.200})",
+          "value": "rgba({color.palette.info.base} ,{opacity.200})",
           "type": "color"
         },
         "foreground": {
@@ -4116,7 +4116,7 @@
       },
       "success": {
         "background": {
-          "value": "rgba({color.palette.success.base} ,{opacity.light.200})",
+          "value": "rgba({color.palette.success.base} ,{opacity.200})",
           "type": "color"
         },
         "foreground": {
@@ -4134,7 +4134,7 @@
       },
       "warning": {
         "background": {
-          "value": "rgba({color.palette.warning.base} ,{opacity.light.200})",
+          "value": "rgba({color.palette.warning.base} ,{opacity.200})",
           "type": "color"
         },
         "foreground": {
@@ -4152,7 +4152,7 @@
       },
       "danger": {
         "background": {
-          "value": "rgba({color.palette.danger.base} ,{opacity.light.200})",
+          "value": "rgba({color.palette.danger.base} ,{opacity.200})",
           "type": "color"
         },
         "foreground": {
@@ -4190,7 +4190,7 @@
       },
       "hover": {
         "background": {
-          "value": "rgba({color.palette.primary.400} ,{opacity.light.200})",
+          "value": "rgba({color.palette.primary.400} ,{opacity.200})",
           "type": "color"
         },
         "foreground": {
@@ -4232,7 +4232,7 @@
       },
       "active": {
         "background": {
-          "value": "rgba({color.palette.primary.400} ,{opacity.light.600})",
+          "value": "rgba({color.palette.primary.400} ,{opacity.600})",
           "type": "color"
         },
         "foreground": {
@@ -4355,11 +4355,11 @@
       },
       "hover": {
         "background": {
-          "value": "rgba({color.palette.primary.400} , {opacity.light.200})",
+          "value": "rgba({color.palette.primary.400} , {opacity.200})",
           "type": "color"
         },
         "header": {
-          "value": "rgba({color.palette.primary.400} , {opacity.light.200})",
+          "value": "rgba({color.palette.primary.400} , {opacity.200})",
           "type": "color"
         },
         "foreground": {
@@ -4377,11 +4377,11 @@
       },
       "disabled": {
         "background": {
-          "value": "rgba({color.palette.neutral.400}, {opacity.light.700})",
+          "value": "rgba({color.palette.neutral.400}, {opacity.700})",
           "type": "color"
         },
         "header": {
-          "value": "rgba({color.palette.neutral.400}, {opacity.light.700})",
+          "value": "rgba({color.palette.neutral.400}, {opacity.700})",
           "type": "color"
         },
         "foreground": {
@@ -4399,11 +4399,11 @@
       },
       "active": {
         "background": {
-          "value": "rgba({color.palette.primary.400}, {opacity.light.600})",
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
           "type": "color"
         },
         "header": {
-          "value": "rgba({color.palette.primary.400}, {opacity.light.600})",
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
           "type": "color"
         },
         "foreground": {
@@ -4679,7 +4679,7 @@
         "y": "0",
         "blur": "0",
         "spread": "4px",
-        "color": "rgba({color.palette.info.200},{opacity.light.500})",
+        "color": "rgba({color.palette.info.200},{opacity.500})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

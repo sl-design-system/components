@@ -667,6 +667,22 @@
         "value": "{size.2xl}",
         "type": "sizing"
       }
+    },
+    "paginator": {
+      "pageButton": {
+        "minWidth": {
+          "value": "40px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      },
+      "Select": {
+        "minWidth": {
+          "value": "80px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      }
     }
   },
   "space": {
@@ -2065,6 +2081,12 @@
         "value": "{border.width.focusring.default} + {border.width.focusring.offset}",
         "type": "spacing"
       }
+    },
+    "paginator": {
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      }
     }
   },
   "text": {
@@ -2489,6 +2511,21 @@
         "value": "magnifying-glass",
         "type": "Icons",
         "description": "icon.core.search"
+      },
+      "caret-left-solid": {
+        "value": "caret-left",
+        "type": "Icons",
+        "description": "icon.core.caret-left-solid"
+      },
+      "caret-right-solid": {
+        "value": "caret-right",
+        "type": "Icons",
+        "description": "icon.core.caret-right-solid"
+      },
+      "dash-solid": {
+        "value": "dash",
+        "type": "Icons",
+        "description": "icon.core.dash-solid"
       }
     },
     "typeset": {
@@ -2600,7 +2637,7 @@
             "y": "2px",
             "blur": "4px",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.light.200})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"
           }
         ],
@@ -2634,7 +2671,7 @@
             "y": "0",
             "blur": "4",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.light.100})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
             "type": "dropShadow"
           },
           {
@@ -2642,7 +2679,7 @@
             "y": "8",
             "blur": "16",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.light.200})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"
           }
         ],

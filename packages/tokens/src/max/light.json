@@ -2995,7 +2995,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.accent.base} , {opacity.light.300})",
+              "value": "rgba({color.palette.accent.base} , {opacity.300})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3027,7 +3027,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.accent.base} , {opacity.light.100})",
+              "value": "rgba({color.palette.accent.base} , {opacity.100})",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3594,7 +3594,7 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({body.background} , {opacity.light.100})",
+            "value": "rgba({body.background} , {opacity.100})",
             "type": "color"
           },
           "foreground": {
@@ -4665,7 +4665,7 @@
         "y": "0",
         "blur": "0",
         "spread": "3px",
-        "color": "rgba({color.palette.info.base},{opacity.light.400})",
+        "color": "rgba({color.palette.info.base},{opacity.400})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

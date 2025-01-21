@@ -22,7 +22,7 @@
         "description": "body.surface.100"
       },
       "overlay": {
-        "value": "rgba({color.palette.primary.base} , {opacity.light.700})",
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -2591,7 +2591,7 @@
             },
             "focus": {
               "background": {
-                "value": "rgba({body.background} , {opacity.light.100})",
+                "value": "rgba({body.background} , {opacity.100})",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3587,7 +3587,7 @@
         },
         "focus": {
           "background": {
-            "value": "rgba({body.background} , {opacity.light.100})",
+            "value": "rgba({body.background} , {opacity.100})",
             "type": "color"
           },
           "foreground": {
@@ -4781,7 +4781,7 @@
         "y": "0",
         "blur": "0",
         "spread": "3px",
-        "color": "rgba({color.palette.info.base},{opacity.light.500})",
+        "color": "rgba({color.palette.info.base},{opacity.500})",
         "type": "dropShadow"
       },
       "type": "boxShadow",

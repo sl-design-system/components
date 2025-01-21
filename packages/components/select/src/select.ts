@@ -160,7 +160,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.button.placeholder = this.placeholder;
       this.button.size = this.size;
       this.button.setAttribute('aria-expanded', 'false');
-      this.append(this.button);
+      this.prepend(this.button);
 
       // This is a workaround because `::slotted` does not allow you to select children
       // of the slotted elements. For example grouped options.
@@ -170,7 +170,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
           background-color: var(--sl-color-select-item-hover-background);
         }
       `;
-      this.append(style);
+      this.prepend(style);
     }
 
     this.setFormControlElement(this);
@@ -520,7 +520,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
+    this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity(
       { valueMissing: this.required && !this.selectedOption },
       msg('Please choose an option from the list.')

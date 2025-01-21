@@ -153,7 +153,7 @@ export class Label extends LitElement {
       this.#label.htmlFor = this.#formControlId ?? '';
       this.#label.slot = 'label';
       this.#label.append(...nodes);
-      this.append(this.#label);
+      this.prepend(this.#label);
 
       console.log(
         'formControl in label in onSlotChange????',

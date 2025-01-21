@@ -119,7 +119,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
           this.#error.innerText = this.error;
 
           if (!this.#error.parentElement) {
-            this.append(this.#error);
+            this.prepend(this.#error);
           }
         } else {
           const describedby = this.control?.formControlElement.getAttribute('aria-describedby');
@@ -140,7 +140,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.#hint.innerText = this.hint;
 
         if (!this.#hint.parentElement) {
-          this.append(this.#hint);
+          this.prepend(this.#hint);
         }
       } else {
         const describedby = this.control?.formControlElement.getAttribute('aria-describedby');

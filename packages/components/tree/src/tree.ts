@@ -1,3 +1,4 @@
+import { type RangeChangedEvent } from '@lit-labs/virtualizer';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
@@ -44,13 +45,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The data model for the tree. */
   #dataSource?: TreeDataSource<T>;
-
-  /** Observe changes to the rendered tree nodes and clear the element cache. */
-  #observer = new MutationObserver(() => {
-    const offset = (this.#virtualizer as unknown as { _first: number })?._first ?? 0;
-
-    this.#rovingTabindexController.clearElementCache(offset);
-  });
 
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<TreeNode<T>>(this, {
@@ -107,25 +101,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.role = 'tree';
-
-    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-    if (wrapper) {
-      this.#observer.observe(wrapper, { childList: true });
-    }
-  }
-
-  override disconnectedCallback(): void {
-    this.#observer.disconnect();
-
-    super.disconnectedCallback();
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
-
-    this.#observer.observe(wrapper, { childList: true });
     this.#virtualizer = wrapper[virtualizerRef];
 
     if (this.dataSource?.selection.size) {
@@ -157,7 +138,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div @keydown=${this.#onKeydown} @sl-select=${this.#onSelect} part="wrapper">
+      <div
+        @keydown=${this.#onKeydown}
+        @rangeChanged=${this.#onRangeChanged}
+        @sl-select=${this.#onSelect}
+        part="wrapper"
+      >
         ${virtualize({
           items: this.dataSource?.items,
           keyFunction: (item: TreeDataSourceNode<T>) => item.id,
@@ -196,6 +182,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
+    const index = this.dataSource?.items.indexOf(node) ?? -1;
+    if (index !== -1) {
+      this.#virtualizer?.element(index)?.scrollIntoView(options);
+    }
+  }
+
   #onChange(event: SlChangeEvent<boolean>, node: TreeDataSourceNode<T>): void {
     if (event.detail) {
       this.dataSource?.select(node);
@@ -204,13 +197,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     this.selectEvent.emit(node);
-  }
-
-  scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
-    const index = this.dataSource?.items.indexOf(node) ?? -1;
-    if (index !== -1) {
-      this.#virtualizer?.element(index)?.scrollIntoView(options);
-    }
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -245,6 +231,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         this.#rovingTabindexController.focusToElement(parent);
       }
     }
+  }
+
+  #onRangeChanged(event: RangeChangedEvent): void {
+    this.#rovingTabindexController.updateWithVirtualizer(
+      { elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) },
+      event
+    );
   }
 
   #onSelect(event: SlSelectEvent<TreeDataSourceNode<T>>): void {

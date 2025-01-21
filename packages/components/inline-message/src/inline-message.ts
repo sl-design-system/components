@@ -43,7 +43,13 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Observe the size and determine where to place the action button if present. */
-  #observer = new ResizeObserver(() => this.#onResize());
+  #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
+
+  /** These are both needed for calculating the need for wrap-action */
+  /** How big is the area for the text in the message without the action */
+  #maxInlineSize = 0;
+  /** The previous width of the message, to check if only the that has changed (changes in height shouldn't trigger a recheck) */
+  #previousInlineSize = 0;
 
   /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
@@ -108,6 +114,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <div part="title">
           <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
         </div>
+        <div part="content" @slotchange=${this.#checkWrapAction}>
+          <slot></slot>
+        </div>
         <div part="action">
           <slot @slotchange=${this.#onActionSlotChange} name="action"></slot>
         </div>
@@ -124,9 +133,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>
             `}
-        <div part="content">
-          <slot></slot>
-        </div>
       </div>
     `;
   }
@@ -135,16 +141,45 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noAction = !event.target.assignedElements({ flatten: true }).length;
   }
 
-  #onResize(): void {
-    const heading = this.noTitle
+  #onResize(entry: ResizeObserverEntry): void {
+    // only check if the width has changed; the height is irrelevant for the wrapping of text, and if we do check on height changes, it will cause an infinite loop
+    if (entry.contentBoxSize[0].inlineSize !== this.#previousInlineSize) {
+      this.#previousInlineSize = entry.contentBoxSize[0].inlineSize;
+
+      /**
+       * We need to see how big the text can be if the button is underneath the text,
+       * so we can calculate whether the text also wraps when the button is underneath the text in the #checkWrapAction method
+       * */
+      this.wrapAction = true;
+      requestAnimationFrame(() => {
+        const text = this.noTitle
+          ? this.renderRoot.querySelector('slot:not([name])')
+          : this.renderRoot.querySelector('slot[name="title"]');
+        this.#maxInlineSize = text?.getBoundingClientRect()?.width || 10000;
+        this.#checkWrapAction();
+      });
+    }
+  }
+
+  #checkWrapAction(): void {
+    const text = this.noTitle
       ? this.renderRoot.querySelector('slot:not([name])')
       : this.renderRoot.querySelector('slot[name="title"]');
+    const action = this.renderRoot.querySelector('[part="action"]');
 
-    if (heading) {
-      const { height } = heading.getBoundingClientRect(),
-        lineHeight = parseInt(getComputedStyle(heading).getPropertyValue('line-height') ?? '1000');
+    if (text && this.#maxInlineSize > 0) {
+      //this is done to get the true width of the text
+      (text as HTMLElement).style.setProperty('width', 'fit-content');
 
-      this.wrapAction = height > lineHeight;
+      const { height, width } = text.getBoundingClientRect(),
+        lineHeight = parseInt(getComputedStyle(text).getPropertyValue('line-height') ?? '1000');
+
+      const actionWidth = action?.getBoundingClientRect().width || 0;
+      // if the text wrapped (height > lineHeight) or the text + action is wider than the max width, we need to put the action underneath the text
+      this.wrapAction = height > lineHeight || width + actionWidth > this.#maxInlineSize;
+
+      // clean up
+      (text as HTMLElement).style.removeProperty('width');
     }
   }
 
@@ -152,6 +187,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
+    this.#checkWrapAction();
   }
 
   #closeOnAnimationend(event: AnimationEvent): void {

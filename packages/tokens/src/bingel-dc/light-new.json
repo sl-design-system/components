@@ -1590,7 +1590,7 @@
   },
   "blanket": {
     "plain": {
-      "value": "rgba({color.palette.blue.900} {opacity.light.moderate})",
+      "value": "rgba({color.palette.blue.900}, {opacity.light.moderate})",
       "type": "color",
       "description": "Use for screen overlay that appears with dialogs or drawers."
     }
@@ -1641,7 +1641,7 @@
           "y": "0",
           "blur": "15",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700} {opacity.light.subtlest})",
+          "color": "rgba({color.palette.grey.700}, {opacity.light.subtlest})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1653,7 +1653,7 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700} {opacity.light.subtle})",
+          "color": "rgba({color.palette.grey.700}, {opacity.light.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",

@@ -143,7 +143,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       this.button.disabled = !!this.disabled;
       this.button.placeholder = this.placeholder;
       this.button.size = this.size;
-      this.append(this.button);
+      this.prepend(this.button);
 
       // This is a workaround because `::slotted` does not allow you to select children
       // of the slotted elements. For example grouped options.
@@ -153,7 +153,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
           background-color: var(--sl-color-select-item-hover-background);
         }
       `;
-      this.append(style);
+      this.prepend(style);
     }
 
     this.setFormControlElement(this);

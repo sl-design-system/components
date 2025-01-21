@@ -95,7 +95,7 @@ const buildIcons = async theme => {
       paths = Array.isArray(path) ? path : [path];
 
     const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
-
+      console.log(theme, iconName, svg);
     icons[iconName] = { ...value, svg };
   });
 
@@ -136,18 +136,20 @@ const buildIcons = async theme => {
       });
   });
 
+  console.log(filesToRead);
   await Promise.all(filesToRead);
 
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
-  const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
-    source = `export const icons = ${JSON.stringify(sortedIcons)};`,
-    results = await eslint.lintText(source, { filePath });
+  // const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
+  //   sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
+  //   source = `export const icons = ${JSON.stringify(sortedIcons)||'{}'};`,
+  //   results = await eslint.lintText(source, { filePath });
 
-  await FlatESLint.outputFixes(results);
+  //   console.log(results[0]);
+  // await FlatESLint.outputFixes(results);
 
-  await fs.writeFile(filePath, results[0].output);
+  // await fs.writeFile(filePath, results[0].output);
 };
 
 const buildAllIcons = async () => {
@@ -169,7 +171,7 @@ const exportCoreIcons = async () => {
   // load all custom icons from figma and store svgs
   await new Promise((resolve, reject) => {
     console.log(`Extracting icons from Figma for core...`);
-    exec(`yarn run figma-export use-config .figmaexportrc.js Pbs7HEwKmwm6wAX9tfjk2N core`, { cwd }, error => {
+    exec(`yarn run figma-export use-config .figmaexportrc.js Pbs7HEwKmwm6wAX9tfjk2N`, { cwd }, error => {
       if (error) {
         reject(error);
       }
@@ -200,4 +202,5 @@ const exportCoreIcons = async () => {
 };
 
 const coreCustomIcons  = await exportCoreIcons();
-// buildAllIcons();
+buildAllIcons();
+// buildIcons('clickedu');

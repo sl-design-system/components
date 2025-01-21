@@ -19,11 +19,11 @@ export default ({
   return (pages) => __awaiter(void 0, void 0, void 0, function* () {
         pages.forEach(({ name: pageName, components }) => {
           const outputFolder = `${output}/${pageName}/icons`;
-          // console.log(components);
+          console.log(outputFolder);
           components.forEach(({ name: componentName, svg, figmaExport }) => {
                 const options = Object.assign({ pageName,
                     componentName }, figmaExport);
-                console.log(options, figmaExport.pathToComponent);
+                // console.log(options, figmaExport.pathToComponent);
                 const filePath = path.resolve(outputFolder, getDirname(options));
                 fs.mkdirSync(filePath, { recursive: true });
                 fs.writeFileSync(path.resolve(filePath, getBasename(options)), svg);

@@ -3,8 +3,7 @@ import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo';
 import { argv } from 'node:process';
 import { sep } from 'path';
 
-const fileId = argv.at(4),
-  theme = argv.at(5);
+const fileId = argv.at(4);
 
 export default {
   commands: [

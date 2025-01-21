@@ -1,5 +1,4 @@
 ---
-'@sl-design-system/checkbox': patch
 '@sl-design-system/form': patch
 '@sl-design-system/listbox': patch
 '@sl-design-system/select': patch

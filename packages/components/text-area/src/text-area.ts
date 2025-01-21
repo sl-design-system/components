@@ -128,7 +128,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
       this.#syncTextarea(this.textarea);
 
       if (!this.textarea.parentElement) {
-        this.prepend(this.textarea);
+        this.append(this.textarea);
       }
     }
 

@@ -144,7 +144,7 @@ export class TextField<T extends { toString(): string } = string>
       this.input.slot = 'input';
 
       if (!this.input.parentElement) {
-        this.prepend(this.input);
+        this.append(this.input);
       }
     }
 

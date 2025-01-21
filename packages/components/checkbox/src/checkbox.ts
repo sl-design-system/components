@@ -109,7 +109,7 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
-        this.prepend(this.input);
+        this.append(this.input);
       }
 
       // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
@@ -120,7 +120,7 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
           transition: var(--_transition);
           transition-property: background, border-color, color, filter, outline-color;        }
       `;
-      this.prepend(style);
+      this.append(style);
     }
 
     this.setFormControlElement(this.input);
@@ -259,7 +259,7 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       this.#label.htmlFor = this.input.id;
       this.#label.slot = 'label';
       this.#label.append(...nodes);
-      this.prepend(this.#label);
+      this.append(this.#label);
     }
 
     this.toggleAttribute('no-label', label.length === 0);

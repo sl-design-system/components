@@ -122,7 +122,7 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
-        this.prepend(this.input);
+        this.append(this.input);
       }
 
       // This is a workaround because we can't style the inner part based on :focus-visible and ::slotted
@@ -133,7 +133,7 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
           transition: var(--_transition);
           transition-property: background, border-color, color, filter, outline-color;        }
       `;
-      this.prepend(style);
+      this.append(style);
     }
 
     this.setFormControlElement(this.input);
@@ -272,7 +272,7 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.#label.htmlFor = this.input.id;
       this.#label.slot = '';
       this.#label.append(...nodes);
-      this.prepend(this.#label);
+      this.append(this.#label);
     }
 
     this.toggleAttribute('no-label', label.length === 0);

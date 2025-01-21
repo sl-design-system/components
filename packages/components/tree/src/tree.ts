@@ -45,6 +45,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** The data model for the tree. */
   #dataSource?: TreeDataSource<T>;
 
+  /** Observe changes to the rendered tree nodes and clear the element cache. */
+  #observer = new MutationObserver(() => {
+    const offset = (this.#virtualizer as unknown as { _first: number })?._first ?? 0;
+
+    this.#rovingTabindexController.clearElementCache(offset);
+  });
+
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<TreeNode<T>>(this, {
     focusInIndex: (elements: Array<TreeNode<T>>) => elements.findIndex(el => !el.disabled),
@@ -100,20 +107,26 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.role = 'tree';
+
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+    if (wrapper) {
+      this.#observer.observe(wrapper, { childList: true });
+    }
   }
 
-  override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    const host = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
-    this.#virtualizer = host[virtualizerRef];
+    const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
 
-    // Check if there is a data source, otherwise we don't need to do anything.
-    // Doing this when there is no data source causes errors in unit tests.
-    if (this.dataSource) {
-      await this.layoutComplete;
-      this.#rovingTabindexController.clearElementCache();
-    }
+    this.#observer.observe(wrapper, { childList: true });
+    this.#virtualizer = wrapper[virtualizerRef];
 
     if (this.dataSource?.selection.size) {
       const node = this.dataSource.selection.keys().next().value as TreeDataSourceNode<T>;
@@ -246,10 +259,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.toggle(node);
   }
 
-  #onUpdate = async (): Promise<void> => {
+  #onUpdate = (): void => {
     this.requestUpdate('dataSource');
-
-    await this.layoutComplete;
-    this.#rovingTabindexController.clearElementCache();
   };
 }

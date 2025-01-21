@@ -65,7 +65,10 @@ describe('sl-select', () => {
       el.placeholder = 'Placeholder';
       await el.updateComplete;
 
-      expect(el.querySelector('sl-select-button')).to.have.attribute('aria-placeholder', 'Placeholder');
+      const button = el.querySelector('sl-select-button') as SelectButton;
+      const placeholder = button.shadowRoot?.querySelector('div');
+
+      expect(placeholder).to.have.trimmed.text('Placeholder');
     });
 
     it('should not be required', () => {
@@ -256,7 +259,7 @@ describe('sl-select', () => {
       button?.click();
       await el.updateComplete;
 
-      expect(button).not.to.have.attribute('aria-expanded');
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
     it('should not toggle the expanded state on enter', async () => {
@@ -266,7 +269,7 @@ describe('sl-select', () => {
       await sendKeys({ press: 'Enter' });
       await el.updateComplete;
 
-      expect(button).not.to.have.attribute('aria-expanded');
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
   });
 

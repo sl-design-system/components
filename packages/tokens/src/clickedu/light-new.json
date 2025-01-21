@@ -1092,7 +1092,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.palette.grey.100}",
+        "value": "{color.palette.grey.050}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },

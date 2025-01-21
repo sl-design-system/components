@@ -12,7 +12,6 @@ import {
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { SelectButton } from './select-button.js';
 import { SelectOptionGroup } from './select-option-group.js';
 import { SelectOption } from './select-option.js';
@@ -44,8 +43,7 @@ export type SelectSize = 'md' | 'lg';
 export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
   'aria-describedby',
   'aria-label',
-  'aria-labelledby' /*,
-  'id',*/
+  'aria-labelledby'
 ]) {
   /** @internal */
   static formAssociated = true;
@@ -56,7 +54,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** @internal */
   static override get observedAttributes(): string[] {
     console.log('...super.observedAttributes', ...super.observedAttributes);
-    return [...super.observedAttributes, 'aria-describedby', 'aria-label', 'aria-labelledby' /*, 'id'*/];
+    return [...super.observedAttributes, 'aria-describedby', 'aria-label', 'aria-labelledby'];
   }
 
   /** @internal */
@@ -65,8 +63,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       'sl-select-button': SelectButton
     };
   }
-
-  // check if validation works with required changes
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
@@ -164,7 +160,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.button.placeholder = this.placeholder;
       this.button.size = this.size;
       this.button.setAttribute('aria-expanded', 'false');
-      // this.button.setAttribute('aria-controls', this.listbox.id);
       this.append(this.button);
 
       // This is a workaround because `::slotted` does not allow you to select children
@@ -179,9 +174,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     }
 
     this.setFormControlElement(this);
-
-    // this.setFormControlElement(/*this*/ this.button); // todo: required is not working? validation is broken when the required attr is rewritten to the button
-    // todo: maybe this.button should be the form control element? and should have elementInternals? attached?
 
     // requestAnimationFrame(() => {
     if (this.button) {
@@ -274,26 +266,26 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     // }
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    // console.log('changes in updated', changes, 'this.hasAttribute(\'id\')', this.hasAttribute('id'));
-
-    requestAnimationFrame(() => {
-      console.log('changes in updated in raf', changes, "this.hasAttribute('id')", this.hasAttribute('id'));
-      if (this.button) {
-        console.log(
-          'in updated in if button raf',
-          this.button,
-          this,
-          this.id,
-          this.getAttribute('id'),
-          this.hasAttribute('id')
-        );
-        this.setAttributesTarget(this.button);
-      }
-    });
-  }
+  // override updated(changes: PropertyValues<this>): void {
+  //   super.updated(changes);
+  //
+  //   // console.log('changes in updated', changes, 'this.hasAttribute(\'id\')', this.hasAttribute('id'));
+  //
+  //   requestAnimationFrame(() => {
+  //     console.log('changes in updated in raf', changes, "this.hasAttribute('id')", this.hasAttribute('id'));
+  //     if (this.button) {
+  //       console.log(
+  //         'in updated in if button raf',
+  //         this.button,
+  //         this,
+  //         this.id,
+  //         this.getAttribute('id'),
+  //         this.hasAttribute('id')
+  //       );
+  //       this.setAttributesTarget(this.button);
+  //     }
+  //   });
+  // }
 
   // TODO: required, id
 
@@ -328,10 +320,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         'first label?',
         this.internals.labels[0]
       );
-
-      // this.button.setAttribute('aria-lebelledby', this.getAttribute('id') ?? ''); // TODO: use label id?
-
-      //  this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
     });
 
     // if (this.button) {
@@ -349,20 +337,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   override render(): TemplateResult {
-    // if (this.button) {
-    //   console.log('in render', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'), 'internals?', this.internals);
-    //   this.setAttributesTarget(this.button);
-    //   // this.requestUpdate();
-    // }
-    //
-    // requestAnimationFrame(() => {
-    //   if (this.button) {
-    //     console.log('in render in RAF', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'), 'internals?', this.internals);
-    //     this.setAttributesTarget(this.button);
-    //     // this.requestUpdate();
-    //   }
-    // })
-
     return html`
       <slot name="button"></slot>
       <div
@@ -376,7 +350,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
-        aria-label=${ifDefined(this.placeholder)}
         id="listbox"
         part="listbox"
         popover
@@ -385,7 +358,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
     `;
-  }
+  } // aria-label=${ifDefined(this.placeholder)}
 
   // TODO: when there is an error the aria-describedby is not being updated in the button, why?
 
@@ -552,17 +525,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       { valueMissing: this.required && !this.selectedOption },
       msg('Please choose an option from the list.')
     );
-
-    // if (this.button) {
-    //   this.button.internals.setFormValue(this.nativeFormValue); // TODO: needs to be moved to button?
-    //   this.button.internals.setValidity(
-    //     {valueMissing: this.required && !this.selectedOption},
-    //     msg('Please choose an option from the list.')
-    //   );
-    //
-    //   this.button.updateValidity();
-    //
-    // }
 
     this.updateValidity();
 

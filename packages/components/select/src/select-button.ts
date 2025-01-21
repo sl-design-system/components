@@ -68,13 +68,13 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       this.tabIndex = this.disabled ? -1 : 0;
     }
 
-    if (changes.has('placeholder')) {
-      if (this.placeholder) {
-        this.setAttribute('aria-placeholder', this.placeholder);
-      } else {
-        this.removeAttribute('aria-placeholder');
-      }
-    }
+    // if (changes.has('placeholder')) {
+    //   if (this.placeholder) {
+    //     this.setAttribute('aria-placeholder', this.placeholder);
+    //   } else {
+    //     this.removeAttribute('aria-placeholder');
+    //   }
+    // }
   }
 
   override render(): TemplateResult {

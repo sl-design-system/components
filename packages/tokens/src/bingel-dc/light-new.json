@@ -991,12 +991,12 @@
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.palette.accent.400}",
+        "value": "{color.palette.blue.400}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.palette.accent.400}",
+        "value": "{color.palette.blue.400}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -1006,7 +1006,7 @@
         "description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
       },
       "primary": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.palette.blue.400}",
         "type": "color",
         "description": "Use for borders that highlight primary actions."
       },
@@ -1016,7 +1016,7 @@
         "description": "Use for borders that highlight secondary actions."
       },
       "info": {
-        "value": "{color.palette.blue.700}",
+        "value": "{color.border.accent.blue}",
         "type": "color",
         "description": "Use for borders that highlight informative messages the user needs to be aware of."
       },

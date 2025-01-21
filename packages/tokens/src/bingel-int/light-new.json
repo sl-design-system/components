@@ -1314,12 +1314,12 @@
       "accent": {
         "blue": {
           "subtlest": {
-            "value": "rgba({color.background.accent.blue.bold} {opacity.light.subtlest})",
+            "value": "rgba({color.background.accent.blue.bold}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.background.accent.blue.bold} {opacity.light.subtle})",
+            "value": "rgba({color.background.accent.blue.bold}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1343,12 +1343,12 @@
         },
         "green": {
           "subtlest": {
-            "value": "rgba( {color.palette.green.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.green.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.green.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.green.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1372,12 +1372,12 @@
         },
         "grey": {
           "subtlest": {
-            "value": "rgba( {color.palette.grey.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.grey.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.grey.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.grey.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1401,12 +1401,12 @@
         },
         "orange": {
           "subtlest": {
-            "value": "rgba( {color.palette.orange.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.orange.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.orange.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.orange.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1430,12 +1430,12 @@
         },
         "purple": {
           "subtlest": {
-            "value": "rgba( {color.palette.purple.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.purple.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.purple.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.purple.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1459,12 +1459,12 @@
         },
         "red": {
           "subtlest": {
-            "value": "rgba( {color.palette.red.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.red.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.red.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.red.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1488,12 +1488,12 @@
         },
         "teal": {
           "subtlest": {
-            "value": "rgba( {color.palette.teal.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.teal.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.teal.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.teal.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1517,12 +1517,12 @@
         },
         "yellow": {
           "subtlest": {
-            "value": "rgba( {color.palette.yellow.400} {opacity.light.subtlest})",
+            "value": "rgba( {color.palette.yellow.400}, {opacity.light.subtlest})",
             "type": "color",
             "description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.yellow.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.yellow.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
           },

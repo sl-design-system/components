@@ -47,13 +47,13 @@
   --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
 
   border-color: var(--sl-color-border-primary);
-  color: var(--sl-color-text-primary);
+  color: var(--sl-color-text-primary-bold);
 }
 
 :host([variant='primary']:where(:not([fill]), [fill='solid'])) {
   --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
 
-  color: var(--sl-color-text-onBold);
+  color: var(--sl-color-text-primary-onBold);
 }
 
 :host([variant='success']) {

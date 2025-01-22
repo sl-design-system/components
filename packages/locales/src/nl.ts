@@ -43,6 +43,7 @@ export const templates = {
   sa7c7ba461453bfef: str`${0} - ${1} van ${2} items`,
   sa996297f6a208e98: 'Kruimelpad',
   sb2c57b2d347203dd: 'Meer tonen',
+  sb59d68ed12d46377: 'Laden',
   sb85774dc5d18ff0f: 'Bevestig',
   sb881081d4f28c851: 'Kies een optie uit de lijst.',
   sbf1de7bf2881bae1: 'Vaak gebruikt',
@@ -59,6 +60,5 @@ export const templates = {
   see63aaad45b1b116: 'status',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf7290005be5beae6: str`${0}, pagina`,
-  sb59d68ed12d46377: 'Loading'
+  sf7290005be5beae6: str`${0}, pagina`
 };

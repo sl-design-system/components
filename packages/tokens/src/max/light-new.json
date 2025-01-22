@@ -1048,7 +1048,7 @@
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
           "plain": {
-            "value": "{color.palette.grey.150}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },

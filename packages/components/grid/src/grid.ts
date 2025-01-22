@@ -1,11 +1,18 @@
 /* eslint-disable lit/prefer-static-styles */
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Scrollbar } from '@sl-design-system/scrollbar';
-import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  SelectionController,
+  event,
+  getValueByPath,
+  isSafari,
+  positionPopover
+} from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -87,6 +94,11 @@ export type SlDropEvent<T = any> = CustomEvent<{
 export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 
 @localized()
+/**
+ * Data grid component. This component is designed to be highly customizable
+ * and can be used to display a wide variety of data. It supports sorting,
+ * filtering, grouping, and more.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -117,6 +129,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
     this.#mutationObserver?.disconnect();
+
+    // Only recalculate the column widths if the grid has been rendered for the first time
+    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
+      this.#initialColumnWidthsCalculated = true;
+      void this.recalculateColumnWidths();
+    }
 
     // This is a workaround for the virtualizer not taking the border width into account
     // We convert the min-height to a CSS variable so we can use it in the styles and
@@ -236,6 +254,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The table head element. */
   @query('thead') thead!: HTMLTableSectionElement;
 
+  /** The table element. */
+  @query('table') table!: HTMLTableElement;
+
+  /** The table foot element. */
+  @query('tfoot') tfoot!: HTMLTableSectionElement;
+
   /** The model used for rendering the grid. */
   @property({ attribute: false }) view = new GridViewModel<T>(this);
 
@@ -296,7 +320,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      <table part="table">
+      <a
+        id="table-start"
+        href="#table-end"
+        class="skip-link-start"
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+      >
+        ${msg('Skip to end of table')}</a
+      >
+      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <thead
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
@@ -306,24 +339,33 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${this.renderHeader()}
         </thead>
-        <tbody @visibilityChanged=${this.#onVisibilityChanged} id="tbody" part="tbody">
+        <tbody id="tbody" part="tbody">
           ${virtualize({
             items: this.view.rows,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
-        ${this.scrollbar
-          ? html`
-              <tfoot>
+        <tfoot>
+          ${this.scrollbar
+            ? html`
                 <tr class="scrollbar">
                   <td>
                     <sl-scrollbar scroller="tbody"></sl-scrollbar>
                   </td>
                 </tr>
-              </tfoot>
-            `
-          : nothing}
+              `
+            : nothing}
+        </tfoot>
       </table>
+
+      <a
+        id="table-end"
+        href="#table-start"
+        class="skip-link-end"
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+        >${msg('Skip to start of table')}</a
+      >
     `;
   }
 
@@ -429,6 +471,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         class=${classMap({ active })}
         part=${parts.join(' ')}
         index=${index}
+        aria-rowindex=${index}
       >
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -721,6 +764,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#virtualizer?._layout?._metricsCache?.clear();
   }
 
+  #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
+    // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
+    event.preventDefault();
+    this.table?.scrollIntoView({ behavior: 'instant', block: destination as ScrollLogicalPosition });
+    (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
+  }
+
+  #onSkipToFocus(e: Event & { target: HTMLSlotElement }, position: 'top' | 'bottom') {
+    if (!('anchorName' in document.documentElement.style)) {
+      positionPopover(e.target, position === 'top' ? this.thead : this.tfoot, { position: `${position}-start` });
+    }
+  }
+
   #onScroll(): void {
     const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
 
@@ -803,15 +859,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters(true);
   }
 
-  #onVisibilityChanged(): void {
-    // Only recalculate the column widths if the grid has been rendered for the first time
-    if (!this.#initialColumnWidthsCalculated && this.renderRoot.querySelectorAll('td').length) {
-      this.#initialColumnWidthsCalculated = true;
-
-      void this.recalculateColumnWidths();
-    }
-  }
-
   #addScopedElements(scopedElements?: Record<string, typeof HTMLElement>): void {
     if (scopedElements) {
       for (const [tagName, klass] of Object.entries(scopedElements)) {
@@ -847,7 +894,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
-      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction ?? 'asc');
+      this.dataSource?.setSort(sorter.column.id, sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
       this.dataSource?.removeSort();
     }
@@ -868,6 +915,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters();
 
     dataSource?.update();
+
     this.stateChangeEvent.emit({ grid: this });
   }
 }

@@ -2,7 +2,7 @@
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-border-plain);
-  --_border-width: var(--sl-size-borderWidth-default);
+  --_border-width: var(--sl-size-borderWidth-subtle);
   --_border-radius: var(--sl-size-borderRadius-default);
   --_cell-background: var(--sl-elevation-surface-raised-default-idle);
   --_cell-border: var(--_border-width) solid var(--_border-color);
@@ -14,6 +14,9 @@
   --_dragging-opacity: 0.8;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
+  --_focus-outline: var(--sl-color-border-focused) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_font: var(--sl-text-body-md-normal);
   --_group-background: var(--sl-elevation-surface-raised-sunken-idle);
   --_header-background: var(--sl-elevation-surface-raised-alternative-idle);
@@ -22,7 +25,7 @@
   --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
     calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
     no-repeat;
-  --_vertical-border-offset: var(--sl-space-new-md);
+  --_vertical-border-offset: var(--sl-space-100);
   --_selected-background: var(--sl-color-background-selected-subtle-idle);
   --_striped-background: var(--sl-elevation-surface-raised-alternative-idle);
 
@@ -97,8 +100,8 @@
   sl-scrollbar::before {
     background: var(--sl-color-grid-border);
     content: '';
-    inline-size: var(--sl-size-borderWidth-default);
-    inset: 0 auto 0 calc(var(--sl-size-borderWidth-default) * -1);
+    inline-size: var(--sl-size-borderWidth-subtle);
+    inset: 0 auto 0 calc(var(--sl-size-borderWidth-subtle) * -1);
     position: absolute;
   }
 }
@@ -135,8 +138,8 @@
   sl-scrollbar::after {
     background: var(--sl-color-grid-border);
     content: '';
-    inline-size: var(--sl-size-borderWidth-default);
-    inset: 0 calc(var(--sl-size-borderWidth-default) * -1) 0 auto;
+    inline-size: var(--sl-size-borderWidth-subtle);
+    inset: 0 calc(var(--sl-size-borderWidth-subtle) * -1) 0 auto;
     position: absolute;
   }
 }
@@ -146,6 +149,7 @@
 }
 
 table {
+  anchor-name: --myanchor;
   border: var(--_border);
   border-block-start: 0;
   border-radius: var(--_border-radius);
@@ -154,6 +158,12 @@ table {
   inline-size: fit-content;
   min-inline-size: 100%;
   position: relative;
+  z-index: 1;
+}
+
+thead,
+tbody {
+  box-sizing: border-box;
 }
 
 thead {
@@ -161,14 +171,15 @@ thead {
   border-start-end-radius: var(--_border-radius);
   border-start-start-radius: var(--_border-radius);
   inset-block-start: 0;
-  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
   overflow-x: hidden;
   position: sticky;
   z-index: 1;
 }
 
 tbody {
-  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+  background-color: var(--sl-elevation-surface-raised-default-idle);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow: auto clip;
   overscroll-behavior: contain auto;
@@ -234,7 +245,8 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: content-box 0;
+  overflow-clip-margin: content-box
+    calc(var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default));
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
   &:first-of-type:not([part~='drag-handle']) {
@@ -323,7 +335,7 @@ td[part~='text-field'] {
     cursor: pointer;
 
     &:hover {
-      --_cell-background: var(--sl-color-action-background-accent-subtle-hover);
+      --_cell-background: var(--sl-elevation-surface-raised-default-hover);
     }
   }
 
@@ -350,16 +362,58 @@ td[part~='text-field'] {
   z-index: 1;
 }
 
+/* Set some base styles, so it is easy to see */
+a[class^='skip-link'] {
+  background-color: var(--sl-color-background-focused);
+  color: var(--sl-link-focused-idle);
+  display: inline-block;
+  inset-inline-start: calc(anchor(left) + var(--sl-space-100));
+  opacity: 0;
+  padding: var(--sl-space-100) var(--sl-space-200);
+  position: fixed;
+  position-anchor: --myanchor;
+  transition: opacity 0.3s ease-in-out;
+
+  &:focus {
+    opacity: 1;
+    outline: var(--_focus-outline);
+    outline-offset: var(--sl-border-width-focusring-offset);
+    z-index: 2;
+  }
+
+  &:hover {
+    color: var(--sl-link-focused-hover);
+  }
+}
+
+.skip-link-start:focus {
+  inset-block-end: anchor(top);
+  position-try: --start-fallback;
+}
+
+.skip-link-end:focus {
+  inset-block-start: anchor(bottom);
+  position-try: --end-fallback;
+}
+
+@position-try --start-fallback {
+  inset-block: anchor(top) auto;
+}
+
+@position-try --end-fallback {
+  inset-block: auto anchor(bottom);
+}
+
 tfoot {
   inset-block-end: 0;
-  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
   overflow: hidden;
   position: sticky;
 
   td {
     display: flex;
     flex: 1;
-    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
+    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
     padding: 0 !important;
   }
 

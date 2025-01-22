@@ -298,6 +298,18 @@ export const All: Story = {
           Delete...
         </sl-menu-item>
       </sl-menu-button>
+      <span>Ghost</span>
+      <sl-menu-button aria-label="Label" fill="ghost">
+        <sl-icon name="far-gear" slot="button"></sl-icon>
+        <sl-menu-item>
+          <sl-icon name="far-pen"></sl-icon>
+          Rename...
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-trash"></sl-icon>
+          Delete...
+        </sl-menu-item>
+      </sl-menu-button>
     </div>
   `
 };

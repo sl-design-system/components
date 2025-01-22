@@ -26,6 +26,18 @@ describe('sl-breadcrumbs', () => {
       expect(el).to.have.attribute('aria-label', 'Breadcrumb trail');
     });
 
+    it('should not be inverted', () => {
+      expect(el).not.to.have.attribute('inverted');
+      expect(el.inverted).to.be.undefined;
+    });
+
+    it('should be inverted when set', async () => {
+      el.inverted = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('inverted');
+    });
+
     it('should render a list of breadcrumbs', () => {
       const listItems = Array.from(el.renderRoot.querySelectorAll('ul > li'));
 
@@ -152,7 +164,7 @@ describe('sl-breadcrumbs', () => {
         menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
       expect(button).to.exist;
-      expect(button).to.have.attribute('fill', 'link');
+      expect(button).to.have.attribute('fill', 'ghost');
       expect(button?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(3);
@@ -205,7 +217,7 @@ describe('sl-breadcrumbs', () => {
         menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
       expect(button).to.exist;
-      expect(button).to.have.attribute('fill', 'link');
+      expect(button).to.have.attribute('fill', 'ghost');
       expect(button?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(4);

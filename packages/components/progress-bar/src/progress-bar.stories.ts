@@ -154,7 +154,7 @@ export const Download: StoryObj = {
             return size;
           }
         }, 300);
-      }, 3000);
+      }, 6000);
     });
     return html` <style>
         #root-inner {

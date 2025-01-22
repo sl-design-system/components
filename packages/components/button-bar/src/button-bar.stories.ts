@@ -37,13 +37,6 @@ export default {
     }
   },
   render: ({ align, buttons, reverse, size }) => html`
-    <style>
-      @media (max-width: 600px) {
-        sl-button-bar {
-          --sl-button-bar-vertical: var(--sl-ON);
-        }
-      }
-    </style>
     <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
       ${buttons ??
       html`
@@ -56,7 +49,7 @@ export default {
           Bar
         </sl-button>
         <sl-button>
-          <sl-icon name="smile"></sl-icon>
+          <sl-icon name="face-smile"></sl-icon>
           Baz
         </sl-button>
       `}
@@ -65,26 +58,6 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
-
-export const Alignment: Story = {
-  render: () => {
-    const buttons = html`
-      <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
-      <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-      <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
-    `;
-    return html`
-      <p>Start:</p>
-      <sl-button-bar style="--sl-button-bar-align: start;"> ${buttons} </sl-button-bar>
-      <p>End:</p>
-      <sl-button-bar style="--sl-button-bar-align: end;"> ${buttons} </sl-button-bar>
-      <p>Center:</p>
-      <sl-button-bar style="--sl-button-bar-align: center;"> ${buttons} </sl-button-bar>
-      <p>Space between:</p>
-      <sl-button-bar style="--sl-button-bar-align: space-between;"> ${buttons} </sl-button-bar>
-    `;
-  }
-};
 
 export const Groups: Story = {
   args: {
@@ -98,15 +71,6 @@ export const Groups: Story = {
         <sl-toggle-button>Qux</sl-toggle-button>
       </sl-toggle-group>
     `
-  }
-};
-
-export const Mobile: Story = {
-  ...Basic,
-  parameters: {
-    viewport: {
-      defaultViewport: 'iphone13'
-    }
   }
 };
 
@@ -141,8 +105,58 @@ export const IconOnly: Story = {
         <sl-icon name="pinata"></sl-icon>
       </sl-button>
       <sl-button fill="ghost">
-        <sl-icon name="smile"></sl-icon>
+        <sl-icon name="face-smile"></sl-icon>
       </sl-button>
     `
+  }
+};
+
+export const All: Story = {
+  render: () => {
+    const buttons = html`
+      <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
+      <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
+      <sl-button><sl-icon name="face-smile"></sl-icon> Baz</sl-button>
+    `;
+
+    return html`
+      <style>
+        .wrapper {
+          align-items: center;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 1rem;
+        }
+      </style>
+      <div class="wrapper">
+        <span>default</span>
+        <sl-button-bar>${buttons}</sl-button-bar>
+
+        <span>align center</span>
+        <sl-button-bar align="center">${buttons}</sl-button-bar>
+
+        <span>align end</span>
+        <sl-button-bar align="end">${buttons}</sl-button-bar>
+
+        <span>align space-between</span>
+        <sl-button-bar align="space-between">${buttons}</sl-button-bar>
+
+        <span>reverse</span>
+        <sl-button-bar reverse>${buttons}</sl-button-bar>
+
+        <span>icon only</span>
+        <sl-button-bar>
+          <sl-button fill="ghost">
+            <sl-icon name="home-blank"></sl-icon>
+          </sl-button>
+          <sl-button fill="ghost">
+            <sl-icon name="pinata"></sl-icon>
+          </sl-button>
+          <sl-button fill="ghost">
+            <sl-icon name="face-smile"></sl-icon>
+          </sl-button>
+        </sl-button-bar>
+      </div>
+    `;
   }
 };

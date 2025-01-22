@@ -406,13 +406,13 @@
         "description": "Use for text in selected states (e.g., tabs or menu items)."
       },
       "brand": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.palette.blue.800}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing text."
       },
       "primary": {
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.palette.blue.800}",
           "type": "color",
           "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
         },
@@ -424,12 +424,12 @@
       },
       "secondary": {
         "bold": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.text.accent.blue.bold}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.grey.onBold}",
+          "value": "{color.text.accent.blue.onBold}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.bold'"
         }
@@ -1144,7 +1144,7 @@
           "description": "A subtle background in the primary action color."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "{color.palette.blue.800}",
           "type": "color",
           "description": "A vibrant background option used for primary actions."
         },
@@ -1250,28 +1250,28 @@
       },
       "caution": {
         "subtlest": {
-          "value": "{color.background.accent.yellow.subtlest}",
+          "value": "{color.background.accent.orange.subtlest}",
           "type": "color",
           "description": "The subtlest background option to communicate caution to prevent errors."
         },
         "subtle": {
-          "value": "{color.background.accent.yellow.subtle}",
+          "value": "{color.background.accent.orange.subtle}",
           "type": "color",
           "description": "A subtle background option to communicate caution to prevent errors."
         },
         "bold": {
-          "value": "{color.background.accent.yellow.bold}",
+          "value": "{color.background.accent.orange.bold}",
           "type": "color",
           "description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.yellow.interactive.bold}",
+            "value": "{color.background.accent.orange.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.yellow.interactive.plain}",
+            "value": "{color.background.accent.orange.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }

@@ -1699,7 +1699,7 @@
         }
       },
       "raised": {
-        "idle": {
+        "default": {
           "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."

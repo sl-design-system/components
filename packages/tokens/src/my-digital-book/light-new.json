@@ -1150,7 +1150,7 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.palette.blue.400}",
+            "value": "{color.palette.blue.200}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1319,7 +1319,7 @@
             "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.blue.400}",
+            "value": "{color.palette.blue.500}",
             "type": "color",
             "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
           },

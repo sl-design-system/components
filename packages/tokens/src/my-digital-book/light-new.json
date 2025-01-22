@@ -1150,7 +1150,7 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.blue.interactive.bold}",
+            "value": "{color.palette.blue.400}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1464,7 +1464,7 @@
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.500}",
+            "value": "{color.palette.red.600}",
             "type": "color",
             "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
           },

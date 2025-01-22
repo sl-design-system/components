@@ -236,10 +236,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onRangeChanged(event: RangeChangedEvent): void {
-    this.#rovingTabindexController.updateWithVirtualizer(
-      { elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) },
-      event
-    );
+    // Give lit-virtualizer time to finish rendering the tree nodes
+    requestAnimationFrame(() => {
+      this.#rovingTabindexController.updateWithVirtualizer(
+        { elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) },
+        event
+      );
+    });
   }
 
   #onSelect(event: SlSelectEvent<TreeDataSourceNode<T>>): void {

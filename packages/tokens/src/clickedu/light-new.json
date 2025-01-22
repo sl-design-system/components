@@ -1430,7 +1430,7 @@
             "description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.purple.400} {opacity.light.subtle})",
+            "value": "rgba({color.palette.purple.400}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
           },

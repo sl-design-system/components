@@ -833,7 +833,7 @@
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.muted' or 'color.background.caution.subtle'."
         },
         "inverted": {
-          "value": "{color.icon.accent.grey.bold}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.bold'."
         }
@@ -1163,28 +1163,28 @@
       },
       "secondary": {
         "subtlest": {
-          "value": "{color.background.accent.grey.subtlest}",
+          "value": "{color.background.accent.blue.subtlest}",
           "type": "color",
           "description": "The subtlest background in the secondary action color."
         },
         "subtle": {
-          "value": "{color.background.accent.grey.subtle}",
+          "value": "{color.background.accent.blue.subtle}",
           "type": "color",
           "description": "A subtle background in the secondary action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.background.accent.blue.bold}",
           "type": "color",
           "description": "A vibrant background option used for secondary actions."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.grey.interactive.bold}",
+            "value": "{color.background.accent.blue.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.grey.interactive.plain}",
+            "value": "{color.background.accent.blue.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }

@@ -100,15 +100,6 @@ export class Label extends LitElement {
         this.#label?.removeAttribute('for');
         this.formControl = null;
       }
-
-      console.log(
-        'formControl in label',
-        this.formControl,
-        this.#label,
-        this.for,
-        'formControlId?',
-        this.#formControlId
-      );
     }
 
     if (changes.has('formControl')) {
@@ -154,15 +145,6 @@ export class Label extends LitElement {
       this.#label.slot = 'label';
       this.#label.append(...nodes);
       this.prepend(this.#label);
-
-      console.log(
-        'formControl in label in onSlotChange????',
-        this.formControl,
-        this.#label,
-        this.for,
-        'formControlId?',
-        this.#formControlId
-      );
     }
 
     this.#label.id ||= `sl-label-${nextUniqueId++}`;

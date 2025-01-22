@@ -493,4 +493,56 @@ describe('sl-select', () => {
       expect(el.shadowRoot!.activeElement).to.equal(button);
     });
   });
+
+  describe('keyboard interactions', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+      <sl-select>
+        <sl-select-option value="1">Option 1</sl-select-option>
+        <sl-select-option value="2">Option 2</sl-select-option>
+        <sl-select-option value="3">Option 3</sl-select-option>
+      </sl-select>
+    `);
+    });
+
+    it('should open the dropdown on Enter key', async () => {
+      const button = el.querySelector('sl-select-button') as SelectButton;
+
+      button.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should close the dropdown on Escape key', async () => {
+      const button = el.querySelector('sl-select-button') as SelectButton;
+
+      button.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      await sendKeys({ press: 'Escape' });
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should navigate options with ArrowDown key', async () => {
+      const button = el.querySelector('sl-select-button') as SelectButton;
+
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      const selectedOption = el.querySelectorAll('sl-select-option')[1];
+
+      expect(selectedOption).to.have.attribute('selected');
+      expect(selectedOption).to.have.attribute('aria-selected', 'true');
+    });
+  });
 });

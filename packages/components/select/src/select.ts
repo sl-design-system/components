@@ -53,7 +53,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
   /** @internal */
   static override get observedAttributes(): string[] {
-    console.log('...super.observedAttributes', ...super.observedAttributes);
     return [...super.observedAttributes, 'aria-describedby', 'aria-label', 'aria-labelledby'];
   }
 
@@ -175,11 +174,9 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
     this.setFormControlElement(this);
 
-    // requestAnimationFrame(() => {
     if (this.button) {
       this.setAttributesTarget(this.button);
     }
-    // })
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
@@ -188,10 +185,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** @ignore Stores the initial state of the select */
   formAssociatedCallback(): void {
     this.#initialState = this.value;
-
-    // console.log('in formAssociatedCallback', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-    //
-    // this.hasAttribute('id') ? this.button.setAttribute('id', this.getAttribute('id') ?? '') : null;
   }
 
   /** @ignore Resets the select to the initial state */
@@ -199,8 +192,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     this.value = this.#initialState;
     this.changeEvent.emit(this.value);
   }
-
-  // TODO: add aria-controls?
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -226,17 +217,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
-      // this.button.required = this.required ? 'true' : 'false';
       this.button.required = !!this.required;
-      // if (this.required) {
-      //   this.button.required = 'true';
-      // } else {
-      //   this.button.required = undefined;
-      // }
-      // this.button.toggleAttribute(this.required ? 'required' : '');
-
-      // this.required ? this.button.setAttribute('required', '') : this.button.removeAttribute('required');
-      // this.button.internals.ariaRequired = this.required ? 'true' : 'false'; // TODO: required needs to be set on the button?
 
       this.#updateValueAndValidity();
     }
@@ -258,46 +239,13 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         this.#setSelectedOption(selectedOption, false);
       }
     }
-
-    // if (this.button) {
-    //   console.log('in willUpdate', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-    //   this.setAttributesTarget(this.button);
-    //   // this.requestUpdate();
-    // }
   }
-
-  // override updated(changes: PropertyValues<this>): void {
-  //   super.updated(changes);
-  //
-  //   // console.log('changes in updated', changes, 'this.hasAttribute(\'id\')', this.hasAttribute('id'));
-  //
-  //   requestAnimationFrame(() => {
-  //     console.log('changes in updated in raf', changes, "this.hasAttribute('id')", this.hasAttribute('id'));
-  //     if (this.button) {
-  //       console.log(
-  //         'in updated in if button raf',
-  //         this.button,
-  //         this,
-  //         this.id,
-  //         this.getAttribute('id'),
-  //         this.hasAttribute('id')
-  //       );
-  //       this.setAttributesTarget(this.button);
-  //     }
-  //   });
-  // }
-
-  // TODO: required, id
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
       this.button.setAttribute('aria-controls', this.listbox.id);
-
-      // this.button.setAttribute('aria-labelledby', (this.internals.labels[0] as HTMLLabelElement)?.id);
-
-      // this.button.setAttribute('aria-labelledby', (this.internals.labels as unknown as HTMLLabelElement[])?.map(label => label.id).join(' '));
 
       if (this.internals.labels.length) {
         this.button.setAttribute(
@@ -306,34 +254,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
             .map(label => (label as HTMLLabelElement).id)
             .join(' ')
         );
-      } // TODO: maybe it's also necessary in other places?
-
-      console.log(
-        'in firstUpdated',
-        this.button,
-        this,
-        this.id,
-        this.getAttribute('id'),
-        this.hasAttribute('id'),
-        'labels?',
-        this.internals.labels,
-        'first label?',
-        this.internals.labels[0]
-      );
+      }
     });
-
-    // if (this.button) {
-    //   console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-    //   // this.setAttributesTarget(this.button);
-    //   // this.requestUpdate();
-    // }
-
-    // requestAnimationFrame(() => {
-    //   if (this.button) {
-    //     console.log('in firstUpdated', this.button, this, this.id, this.getAttribute('id'), this.hasAttribute('id'));
-    //     this.setAttributesTarget(this.button);
-    //   }
-    // })
   }
 
   override render(): TemplateResult {
@@ -358,18 +280,11 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
     `;
-  } // aria-label=${ifDefined(this.placeholder)}
-
-  // TODO: when there is an error the aria-describedby is not being updated in the button, why?
-
-  override focus(options?: FocusOptions): void {
-    console.log('in focus?', this, this.button);
-    this.button?.focus(options);
   }
 
-  // override blur(): void {
-  //   this.button?.blur();
-  // }
+  override focus(options?: FocusOptions): void {
+    this.button?.focus(options);
+  }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
@@ -379,7 +294,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
       this.#popoverClosing = true;
-      // this.button.removeAttribute('aria-expanded');
       this.button.setAttribute('aria-expanded', 'false');
     }
   }
@@ -393,10 +307,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #onClick(event: Event): void {
-    // console.log('event.target on click', event.target);
-    console.log('in focus onclick?', this, this.button, event.target);
     if (event.target === this || event.target === this.button) {
-      this.button.focus(); // TODO: maybe just this.focus? or focusin?
+      this.button.focus();
     }
   }
 
@@ -532,9 +444,5 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     // `updateValidity()` method doesn't trigger a `willUpdate` call. So we
     // work around that by updating it here.
     this.button.showValidity = this.showValidity;
-
-    // if (this.button) {
-    //   this.setAttributesTarget(this.button);
-    // }
   }
 }

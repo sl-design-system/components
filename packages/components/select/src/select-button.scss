@@ -72,8 +72,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   transition-property: background, border, color, filter, outline-color;
 }
 
-:host(:focus-visible),
-:host(:focus) {
+:host(:focus-visible) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 }

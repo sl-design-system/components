@@ -24,9 +24,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // /** @internal */
-  // readonly internals = this.attachInternals();
-
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -57,8 +54,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = this.disabled ? -1 : 0;
     }
-
-    // this.setFormControlElement(this);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -67,14 +62,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     if (changes.has('disabled')) {
       this.tabIndex = this.disabled ? -1 : 0;
     }
-
-    // if (changes.has('placeholder')) {
-    //   if (this.placeholder) {
-    //     this.setAttribute('aria-placeholder', this.placeholder);
-    //   } else {
-    //     this.removeAttribute('aria-placeholder');
-    //   }
-    // }
   }
 
   override render(): TemplateResult {

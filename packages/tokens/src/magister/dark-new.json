@@ -1001,12 +1001,12 @@
         "description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
       },
       "primary": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for borders that highlight primary actions."
       },
       "secondary": {
-        "value": "{color.border.accent.grey.heavy}",
+        "value": "{color.background.secondary.bold}",
         "type": "color",
         "description": "Use for borders that highlight secondary actions."
       },
@@ -1064,12 +1064,12 @@
           }
         },
         "yellow": {
-          "value": "{color.palette.yellow.600}",
+          "value": "{color.text.accent.yellow.bold}",
           "type": "color",
           "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
         },
         "red": {
-          "value": "{color.palette.red.500}",
+          "value": "{color.text.accent.red.bold}",
           "type": "color",
           "description": "Use for red borders for purely stylistic purposes with no specific meaning."
         }
@@ -1148,17 +1148,17 @@
       },
       "secondary": {
         "subtlest": {
-          "value": "{color.background.accent.grey.subtlest}",
+          "value": "{color.background.accent.blue.subtlest}",
           "type": "color",
           "description": "The subtlest background in the secondary action color."
         },
         "subtle": {
-          "value": "{color.background.accent.grey.subtle}",
+          "value": "{color.background.accent.blue.subtle}",
           "type": "color",
           "description": "A subtle background in the secondary action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.palette.blue.050}",
           "type": "color",
           "description": "A vibrant background option used for secondary actions."
         },
@@ -1449,7 +1449,7 @@
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.200}",
+            "value": "{color.palette.red.150}",
             "type": "color",
             "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1543,12 +1543,12 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.400}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }

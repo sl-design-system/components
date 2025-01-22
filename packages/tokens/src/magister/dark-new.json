@@ -514,7 +514,7 @@
           "description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
         },
         "onBold": {
-          "value": "{color.palette.grey.900}",
+          "value": "{color.text.bold}",
           "type": "color",
           "description": "Use for inverted text on 'color.background.inverted.bold'."
         }
@@ -1006,7 +1006,7 @@
         "description": "Use for borders that highlight primary actions."
       },
       "secondary": {
-        "value": "{color.background.secondary.bold}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for borders that highlight secondary actions."
       },

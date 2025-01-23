@@ -37,8 +37,8 @@ export default {
     disabled: false,
     label: 'Label',
     placeholder: 'Type something here',
-    required: false,
     readonly: false,
+    required: false,
     showValid: false
   },
   argTypes: {
@@ -286,26 +286,39 @@ export const All: StoryObj = {
         <h2>Size: ${size}</h2>
         <div class="content-wrapper">
           <div class="wrapper">
-            <sl-text-field size=${size} placeholder="Placeholder ${size}"></sl-text-field>
-            <sl-text-field size=${size} value="I am ${size}"></sl-text-field>
-            <sl-text-field readonly size=${size} value="${size} readonly"></sl-text-field>
-            <sl-text-field disabled size=${size} value="${size} disabled"></sl-text-field>
-            <sl-text-field disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-text-field>
+            <sl-text-field aria-label="label" size=${size} placeholder="Placeholder ${size}"></sl-text-field>
+            <sl-text-field aria-label="label" size=${size} value="I am ${size}"></sl-text-field>
+            <sl-text-field aria-label="label" readonly size=${size} value="${size} readonly"></sl-text-field>
+            <sl-text-field aria-label="label" disabled size=${size} value="${size} disabled"></sl-text-field>
+            <sl-text-field
+              aria-label="label"
+              disabled
+              size=${size}
+              placeholder="Placeholder ${size} disabled"
+            ></sl-text-field>
           </div>
           <div class="wrapper">
-            <sl-text-field .size=${size} show-validity="invalid" value="I am ${size} invalid"></sl-text-field>
             <sl-text-field
+              aria-label="label"
+              .size=${size}
+              show-validity="invalid"
+              value="I am ${size} invalid"
+            ></sl-text-field>
+            <sl-text-field
+              aria-label="label"
               .size=${size}
               placeholder="Placeholder ${size} invalid"
               show-validity="invalid"
             ></sl-text-field>
             <sl-text-field
+              aria-label="label"
               .size=${size}
               disabled
               show-validity="invalid"
               value="${size} invalid disabled"
             ></sl-text-field>
             <sl-text-field
+              aria-label="label"
               .size=${size}
               disabled
               placeholder="Placeholder ${size} disabled invalid"
@@ -313,8 +326,19 @@ export const All: StoryObj = {
             ></sl-text-field>
           </div>
           <div class="wrapper">
-            <sl-text-field show-validity="valid" .size=${size} value="I am ${size} valid"></sl-text-field>
-            <sl-text-field .size=${size} disabled show-validity="valid" value="${size} valid disabled"></sl-text-field>
+            <sl-text-field
+              aria-label="label"
+              show-validity="valid"
+              .size=${size}
+              value="I am ${size} valid"
+            ></sl-text-field>
+            <sl-text-field
+              aria-label="label"
+              .size=${size}
+              disabled
+              show-validity="valid"
+              value="${size} valid disabled"
+            ></sl-text-field>
           </div>
         </div>
       `

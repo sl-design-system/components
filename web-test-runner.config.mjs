@@ -16,11 +16,22 @@ const config = {
     'packages/components/**/src/**/*.spec.ts',
   ],
 
-  browsers: [playwrightLauncher({ product: 'chromium' })],
+  browsers: [
+    playwrightLauncher({
+      product: 'chromium' ,
+      createBrowserContext({ browser }) {
+        return browser.newContext({ locale: 'en' });
+      }
+    })
+  ],
   plugins: [a11ySnapshotPlugin(), esbuildPlugin({ ts: true, tsconfig: './tsconfig.base.json' })],
 
   filterBrowserLogs: ({ type, args }) => {
     if (type === 'warn' && args?.at(0)?.startsWith('Lit is in dev mode.')) {
+      return false;
+    } else if (type === 'error' && args?.at(0) === null) {
+      // This is unwanted output due to the `setupIgnoreWindowResizeObserverLoopErrors`
+      // function from `@lit-labs/virtualizer/support/resize-observer-errors.js`.
       return false;
     }
 

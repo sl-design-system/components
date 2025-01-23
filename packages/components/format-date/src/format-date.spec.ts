@@ -5,7 +5,7 @@ import { FormatDate } from './format-date.js';
 
 describe('sl-format-number', () => {
   let el: FormatDate;
-  const date = new Date(Date.UTC(2022, 11, 17, 14, 5, 42));
+  const date = new Date(2022, 11, 17, 14, 5, 42);
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -111,7 +111,6 @@ describe('sl-format-number', () => {
       el.timeZoneName = 'long';
 
       await el.updateComplete;
-      console.log(el.renderRoot);
       expect(el.renderRoot).to.have.trimmed.text('12/17/2022, Coordinated Universal Time');
     });
 

@@ -1,3 +1,2 @@
-export * from './forms/index';
+export * from './ce-passthrough';
 export * from './tooltip.directive';
-export * from './wrappers/index';

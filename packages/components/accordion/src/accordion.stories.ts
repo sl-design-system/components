@@ -1,6 +1,9 @@
+import { announce } from '@sl-design-system/announcer';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
@@ -8,7 +11,7 @@ export type Props = Pick<Accordion, 'single'> & { items: TemplateResult };
 export type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Accordion',
+  title: 'Layout/Accordion',
   tags: ['stable'],
   args: {
     single: false
@@ -22,24 +25,6 @@ export default {
   },
   render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items}</sl-accordion>`
 } satisfies Meta<Props>;
-
-export const All: Story = {
-  render: () => {
-    return html`
-      <sl-accordion>
-        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
-          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
-        </sl-accordion-item>
-        <sl-accordion-item summary="Journey Through Ancient Civilizations">
-          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
-        </sl-accordion-item>
-        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
-          Buckle up for a cosmic adventure! 🚀🪐👽
-        </sl-accordion-item>
-      </sl-accordion>
-    `;
-  }
-};
 
 export const Basic: Story = {
   args: {
@@ -241,5 +226,135 @@ export const Sticky: Story = {
         scelerisque arcu suscipit eu.
       </sl-accordion-item>
     `
+  }
+};
+
+export const ToggleExternally: Story = {
+  render: () => {
+    try {
+      customElements.define(
+        'accordion-toggle-example',
+        class extends LitElement {
+          alien = false;
+          dino = true;
+
+          override render(): TemplateResult {
+            return html`
+              <h2>We use the announcer to inform the user, when the accordion is opened/closed externally.</h2>
+              <sl-button @click=${this.toggleDino}>Toggle 🦖</sl-button>
+              <sl-button @click=${this.toggleAlien}>Toggle 👽</sl-button>
+              <p>
+                🦖 state: ${this.dino ? 'open' : 'closed'}<br />
+                👽 state: ${this.alien ? 'open' : 'closed'}
+              </p>
+              <sl-accordion>
+                <sl-accordion-item
+                  summary="🦖"
+                  .open=${this.dino}
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'dino')}
+                >
+                  Discovering Dinosaurs: A Prehistoric Adventure Embark on a thrilling journey back in time to the age
+                  of dinosaurs! 🌎🦕🌿🦖
+                </sl-accordion-item>
+                <sl-accordion-item summary="🏛️">
+                  Journey Through Ancient Civilizations Pack your virtual bags and travel through time to ancient Egypt,
+                  Greece, Rome, and beyond 🌍🏛️🔍🏺
+                </sl-accordion-item>
+                <sl-accordion-item
+                  summary="👽"
+                  .open=${this.alien}
+                  @sl-toggle=${(e: SlToggleEvent) => this.onToggle(e, 'alien')}
+                >
+                  Space Odyssey: Exploring Planets and Stars Buckle up for a cosmic adventure! 🚀🪐👽
+                </sl-accordion-item>
+              </sl-accordion>
+            `;
+          }
+
+          toggleAlien() {
+            this.alien = !this.alien;
+            announce(`Accordion Alien ${this.alien ? 'expanded' : 'collapsed'}`);
+            this.requestUpdate();
+          }
+
+          toggleDino() {
+            this.dino = !this.dino;
+            announce(`Accordion Dino ${this.dino ? 'expanded' : 'collapsed'}`);
+            this.requestUpdate();
+          }
+
+          //make sure that the state of the accordion is updated in the current component when it's changed in the SLDS accordion component
+          onToggle(event: SlToggleEvent, item: string) {
+            if (item === 'dino') {
+              this.dino = event.detail as boolean;
+            }
+            if (item === 'alien') {
+              this.alien = event.detail as boolean;
+            }
+
+            this.requestUpdate();
+          }
+        }
+      );
+    } catch {
+      /* empty */
+    }
+
+    return html`<accordion-toggle-example></accordion-toggle-example>`;
+  }
+};
+
+export const CustomSummary: Story = {
+  args: {
+    items: html`
+      <style>
+        div[slot] {
+          align-items: center;
+          display: flex;
+          flex: 1;
+          justify-content: space-between;
+          gap: 0.5rem;
+        }
+      </style>
+      <sl-accordion-item>
+        <div slot="summary">
+          Discovering Dinosaurs: A Prehistoric Adventure
+          <sl-icon name="circle-check-solid" size="lg"></sl-icon>
+        </div>
+        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+      </sl-accordion-item>
+      <sl-accordion-item>
+        <div slot="summary">
+          Journey Through Ancient Civilizations
+          <sl-icon name="octagon-exclamation-solid" size="lg"></sl-icon>
+        </div>
+        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+      </sl-accordion-item>
+      <sl-accordion-item>
+        <div slot="summary">
+          Space Odyssey: Exploring Planets and Stars
+          <sl-icon name="info" size="lg"></sl-icon>
+        </div>
+        Buckle up for a cosmic adventure! 🚀🪐👽
+      </sl-accordion-item>
+    `
+  }
+};
+
+export const All: Story = {
+  render: () => {
+    return html`
+      <sl-accordion>
+        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
+          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
+        </sl-accordion-item>
+        <sl-accordion-item summary="Journey Through Ancient Civilizations">
+          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
+        </sl-accordion-item>
+        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
+          Buckle up for a cosmic adventure! 🚀🪐👽
+        </sl-accordion-item>
+      </sl-accordion>
+    `;
   }
 };

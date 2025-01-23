@@ -38,16 +38,19 @@ export class AnchorDirective extends Directive {
   }
 
   override update(part: ElementPart, [config = {}]: DirectiveParameters<this>): void {
+    // Prevent initializing the directive multiple times
+    if (this.#host) {
+      return;
+    }
+
     this.#config = config;
     this.#host = part.element as HTMLElement;
     this.#host.addEventListener('beforetoggle', (event: Event) =>
       this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
     );
-    const rootMargin = `-${this.#config?.rootMarginTop}px 0px 0px 0px`;
+    const rootMargin = `-${this.#config?.rootMarginTop ?? 0}px 0px 0px 0px`;
     this.observer = new IntersectionObserver(
-      (entries, _) => {
-        updatePopoverVisibility(this.#host, !entries[0].isIntersecting);
-      },
+      entries => updatePopoverVisibility(this.#host, !entries[0].isIntersecting),
       {
         threshold: 0,
         rootMargin

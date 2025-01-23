@@ -18,14 +18,14 @@ export type ErrorSize = 'sm' | 'md' | 'lg';
  * @slot error-text - The error message to display.
  */
 export class Error extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The light DOM slot. */
@@ -39,7 +39,7 @@ export class Error extends ScopedElementsMixin(LitElement) {
 
     this.#slot ??= document.createElement('slot');
     this.#slot.name = 'error-text';
-    this.append(this.#slot);
+    this.prepend(this.#slot);
 
     // Make sure the error doesn't end up in the default slot
     if (this.parentElement?.tagName === 'SL-FORM-FIELD') {

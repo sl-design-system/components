@@ -1,15 +1,20 @@
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import { ArrayDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ArrayDataSource } from '@sl-design-system/shared';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
+import { state } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import '../../register.js';
 
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Filtering',
+  title: 'Grid/Filtering',
+  tags: ['draft'],
   loaders: [async () => ({ people: (await getPeople()).people })],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
@@ -166,5 +171,53 @@ export const OutsideGrid: Story = {
         <sl-grid-column path="profession"></sl-grid-column>
       </sl-grid>
     `;
+  }
+};
+
+export const ReorderColumns: Story = {
+  render: (_, { loaded: { people } }) => {
+    class GridReorderExample extends LitElement {
+      @state()
+      columns = [
+        { path: 'firstName' },
+        { path: 'lastName' },
+        { path: 'profession', type: 'filter' },
+        { path: 'status', type: 'filter' },
+        { path: 'membership', type: 'filter' }
+      ];
+
+      override render(): TemplateResult {
+        return html`
+          <sl-button-bar style="margin-block-end: 1rem">
+            <sl-button @click=${this.onClick}>Reorder columns</sl-button>
+          </sl-button-bar>
+          <sl-grid .items=${people}>
+            ${repeat(
+              this.columns,
+              column => column.path,
+              column => {
+                if (column.type === 'filter') {
+                  return html`<sl-grid-filter-column .path=${column.path}></sl-grid-filter-column>`;
+                } else {
+                  return html`<sl-grid-column .path=${column.path}></sl-grid-column>`;
+                }
+              }
+            )}
+          </sl-grid>
+        `;
+      }
+
+      onClick(): void {
+        this.columns = [...this.columns.sort(() => Math.random() - 0.5)];
+      }
+    }
+
+    try {
+      customElements.define('grid-reorder-example', GridReorderExample);
+    } catch {
+      /* empty */
+    }
+
+    return html`<grid-reorder-example></grid-reorder-example>`;
   }
 };

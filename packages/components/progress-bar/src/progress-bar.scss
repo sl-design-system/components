@@ -1,0 +1,132 @@
+$variants: success, warning, error;
+
+:host {
+  --_bar-background: var(--sl-color-progressbar-background);
+  --_bar-thickness: var(--sl-size-progressbar);
+  --_border-radius: var(--sl-border-radius-full);
+  --_gap: var(--sl-space-progressbar-vertical-gap);
+  --_helper-color: var(--sl-color-input-helper-text-default);
+  --_helper-color-error: var(--sl-color-progressbar-error-track);
+  --_helper-font: var(--sl-text-input-field-label-hint-md);
+  --_indeterminate-duration: 20s;
+  --_label-color: var(--sl-color-input-field-label-text-default);
+  --_label-font: var(--sl-text-input-field-label-label-md);
+  --_label-gap: var(--sl-space-progressbar-horizontal-gap);
+  --_progress-background: var(--sl-color-progressbar-active-track);
+  --_icon-fill: var(--sl-color-progressbar-active-track);
+
+  @media (prefers-reduced-motion: no-preference) {
+    --_indeterminate-duration: 1.2s;
+  }
+
+  color: var(--_helper-color);
+  display: flex;
+  flex-direction: column;
+  font: var(--_helper-font);
+  gap: var(--_gap);
+}
+
+@each $variant in $variants {
+  :host([variant='#{$variant}']:not([indeterminate])) {
+    --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
+    --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
+  }
+
+  :host([variant='#{$variant}'][indeterminate]) .progress {
+    --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
+    --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
+
+    animation: none;
+    inline-size: 100%;
+  }
+
+  :host([variant='#{$variant}'][indeterminate]) {
+    .label sl-icon {
+      --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
+    }
+
+    .helper sl-icon {
+      --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
+    }
+  }
+}
+
+:host([indeterminate]) .progress {
+  animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
+  position: relative;
+}
+
+:host(:not([indeterminate])) .progress {
+  inline-size: 100%;
+}
+
+:host([variant='error']) ::slotted(*) {
+  color: var(--_helper-color-error);
+}
+
+.label {
+  color: var(--_label-color);
+  display: flex;
+  font: var(--_label-font);
+  gap: var(--_label-gap);
+  justify-content: space-between;
+
+  sl-icon {
+    --sl-icon-fill-default: var(--_icon-fill);
+  }
+}
+
+.helper {
+  display: flex;
+  gap: var(--_label-gap);
+  justify-content: space-between;
+
+  sl-icon {
+    --sl-icon-fill-default: var(--_icon-fill);
+  }
+}
+
+::slotted(*) {
+  color: var(--_helper-color);
+  font: var(--_helper-font);
+}
+
+.container {
+  align-items: stretch;
+  background: var(--_bar-background);
+  block-size: var(--_bar-thickness);
+  border-radius: var(--_border-radius);
+  display: flex;
+  inline-size: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress {
+  background: var(--_progress-background);
+  border-radius: var(--_border-radius);
+  transform-origin: left;
+  transition:
+    400ms transform,
+    400ms width,
+    400ms background-color;
+}
+
+/** Hiding the aria-live element for the UI, but not for the screen readers. */
+#live {
+  block-size: 0;
+  inline-size: 0;
+  overflow: hidden;
+}
+
+@keyframes indeterminate {
+  0% {
+    inline-size: 80%;
+    inset-inline-start: -80%;
+  }
+
+  100% {
+    inline-size: 10%;
+    inset-inline-start: 110%;
+  }
+}

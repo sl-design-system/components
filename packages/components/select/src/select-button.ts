@@ -7,15 +7,21 @@ import styles from './select-button.scss.js';
 import { type SelectOption } from './select-option.js';
 import { type SelectSize } from './select.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-select-button': SelectButton;
+  }
+}
+
 export class SelectButton extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Whether the button is disabled. */

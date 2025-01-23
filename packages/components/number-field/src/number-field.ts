@@ -13,6 +13,8 @@ declare global {
   }
 }
 
+// export type ControlsPlacement = 'left' | 'right';
+
 export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
   static override styles = [TextField.styles, styles];
@@ -29,6 +31,9 @@ export class NumberField extends LocaleMixin(TextField) {
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
    */
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
+
+  // /** Buttons placement for incrementing / decrementing. */
+  // @property({ type: Object, attribute: 'format-options' }) controls?: Intl.NumberFormatOptions;
 
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {

@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex: 1;
+  inline-size: 100%;
+}
+
+:host(:not(:first-of-type)) {
+  border-block-start: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
+  margin-block-start: var(--sl-space-075);
+  padding-block-start: var(--sl-space-100);
+}
+
+::slotted(sl-option:first-of-type) {
+  margin-block-start: var(--sl-space-025);
+}
+
+[part='wrapper'] {
+  flex: 1;
+}

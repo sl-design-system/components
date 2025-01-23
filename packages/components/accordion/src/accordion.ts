@@ -21,7 +21,7 @@ declare global {
  * @slot default - The place for multiple `<sl-accordion-item>`
  */
 export class Accordion extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Manage the keyboard navigation. */

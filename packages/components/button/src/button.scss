@@ -24,6 +24,7 @@ $variants: default, primary, success, info, warning, danger;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transform: var(--_transform);
+  user-select: none;
   vertical-align: middle;
 }
 
@@ -106,7 +107,7 @@ $variants: default, primary, success, info, warning, danger;
       --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size});
     }
 
-    :host([size='#{$size}'][size='#{$size}'][icon-only]) {
+    :host([size='#{$size}'][fill='#{$fill}'][icon-only]) {
       --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
       --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
     }

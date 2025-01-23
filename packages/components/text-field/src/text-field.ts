@@ -2,7 +2,13 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  ObserveAttributesMixin,
+  ObserveAttributesMixinInterface,
+  closestElementComposed,
+  event
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -27,7 +33,20 @@ let nextUniqueId = 0;
  * @slot suffix - Content shown after the input
  */
 @localized()
-export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class TextField<T extends { toString(): string } = string>
+  extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+    'aria-disabled',
+    'aria-label',
+    'aria-labelledby',
+    'aria-required'
+  ])
+  implements ObserveAttributesMixinInterface
+{
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+  }
+
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -43,6 +62,13 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   /** The value of the text field. */
   #value?: string = '';
+  // #value: T | undefined = '' as unknown as T;
+
+  // /**
+  //  * Specifies which type of data the browser can use to pre-fill the input.
+  //  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+  //  */
+  // @property() autocomplete?: string;
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
@@ -52,6 +78,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string | undefined>>;
+  // @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -88,6 +115,9 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
+  // /** The raw (string) value of the input. */
+  // @state() rawValue = '';
+
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
@@ -122,6 +152,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
+      // this.#syncInput(this.input);
       this.syncInputElement(this.input);
 
       if (!this.input.parentElement) {
@@ -149,7 +180,10 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     ];
 
     if (props.some(prop => changes.has(prop))) {
+      // this.#syncInput(this.input);
       this.syncInputElement(this.input);
+
+      // this.updateInputElement(this.input); // TODO: from main?
     }
 
     if (changes.has('disabled')) {
@@ -158,9 +192,11 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     }
 
     if (changes.has('value')) {
+      // const formattedValue = this.formatValue(this.value);
       const formattedValue = this.formattedValue;
 
       if (this.input.value !== formattedValue) {
+        // this.input.value = this.formatValue(this.value);
         this.input.value = formattedValue;
       }
     }
@@ -207,23 +243,67 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return super.getLocalizedValidationMessage();
   }
 
+  /**
+   * Method that converts the string value in the input to the specified type T. Override this method
+   * if you want to convert the value in a different way. Throw an error if the value is invalid.
+   */
+  parseValue(value: string): T | undefined {
+    return value as unknown as T;
+  }
+
+  /**
+   * Method that formats the value and set's it on the native input element. Override this method
+   * if you want to format the value in a different way.
+   */
+  formatValue(value?: T): string {
+    return value?.toString() || '';
+  }
+
   /** @internal */
   override focus(): void {
     this.input.focus();
   }
 
   protected onBlur(): void {
-    this.hasFocusRing = false;
-    this.blurEvent.emit();
-    this.updateState({ touched: true });
+    // this.hasFocusRing = false;
+    // this.blurEvent.emit();
+    // this.updateState({ touched: true });
+
+    // Only emit the event if we have focus
+    if (this.hasFocusRing) {
+      this.hasFocusRing = false;
+      this.blurEvent.emit();
+      this.updateState({ touched: true });
+    }
   }
 
   protected onFocus(): void {
-    this.hasFocusRing = true;
-    this.focusEvent.emit();
+    // this.hasFocusRing = true;
+    // this.focusEvent.emit();
+
+    // Only emit the event if we don't have focus
+    if (!this.hasFocusRing) {
+      this.hasFocusRing = true;
+      this.focusEvent.emit();
+    }
   }
 
   protected onInput({ target }: Event & { target: HTMLInputElement }): void {
+    // this.rawValue = target.value;
+    //
+    // try {
+    //   // Try to parse the value, but do nothing if it fails
+    //   this.value = this.parseValue(this.rawValue);
+    //   this.changeEvent.emit(this.value);
+    // } catch {
+    //   /* empty */
+    // }
+    //
+    // this.updateState({ dirty: true });
+    // this.updateValidity();
+
+    // TODO: rawValue from main,. is necessary?
+
     this.value = target.value;
     this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
@@ -231,34 +311,68 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   protected onKeydown(event: KeyboardEvent): void {
+    // // Simulate native behavior where pressing Enter in a text field will submit the form
+    // if (!this.disabled && event.key === 'Enter') {
+    //   this.form?.requestSubmit();
+    // }
+
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
-      this.form?.requestSubmit();
+      if (this.form) {
+        this.form.requestSubmit();
+      } else {
+        closestElementComposed(this, 'sl-form')?.requestSubmit();
+      }
     }
   }
 
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
+      // input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
+      inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 
-    // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    if (input) {
-      this.input = input;
-      this.input.addEventListener('blur', () => this.onBlur());
-      this.input.addEventListener('focus', () => this.onFocus());
-      this.syncInputElement(this.input);
+    // // Handle the scenario where a custom input is being slotted after `connectedCallback`
+    // if (input) {
+    //   this.input = input;
+    //   this.input.addEventListener('blur', () => this.#onBlur());
+    //   this.input.addEventListener('focus', () => this.#onFocus());
+    //   this.#syncInput(this.input);
+    //
+    //   this.setFormControlElement(this.input);
+    // }
 
-      this.setFormControlElement(this.input);
+    // If an input has been slotted after `connectedCallback`, that input takes precedence
+    if (this.input && this.input !== inputs.at(0)) {
+      this.input.remove();
     }
+
+    this.input = inputs.at(0)!;
+    this.input.addEventListener('blur', () => this.onBlur());
+    this.input.addEventListener('focus', () => this.onFocus());
+    // this.updateInputElement(this.input);
+    this.syncInputElement(this.input);
+    this.setFormControlElement(this.input);
   }
 
+  /** @internal Synchronize the input element with the component properties. */
+  // #syncInput(input: HTMLInputElement): void {
   protected syncInputElement(input: HTMLInputElement): void {
+    if (!input) {
+      return;
+    }
+
     input.autocomplete = this.autocomplete || 'off';
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-text-field-${nextUniqueId++}`;
+    input.placeholder = this.placeholder ?? '';
     input.readOnly = !!this.readonly;
     input.required = !!this.required;
+
+    this.setAttributesTarget(input);
+
+    // Use `setAttribute` to avoid typing coercion
+    input.setAttribute('autocomplete', this.autocomplete || 'off');
 
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {

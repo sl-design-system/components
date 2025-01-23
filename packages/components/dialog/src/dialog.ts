@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
+import { type EventEmitter, FocusTrapController, breakpoints, event } from '@sl-design-system/shared';
 import {
   type CSSResult,
   type CSSResultGroup,
@@ -15,6 +15,7 @@ import {
   unsafeCSS
 } from 'lit';
 import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './dialog.scss.js';
 
 declare global {
@@ -50,10 +51,9 @@ export type SlCloseEvent = CustomEvent<void>;
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
  */
-
 @localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -62,24 +62,26 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  /** @private */
-  @query('dialog') dialog?: HTMLDialogElement;
+  /** The controller that manages the focus trap within the dialog. */
+  #focusTrap = new FocusTrapController(this);
 
   /**
-   * Emits when the cancel has been cancelled. This happens when the user closes
-   * the dialog using the escape key or clicks on the backdrop.
-   * @internal
+   * @internal Emits when the dialog has been cancelled. This happens when the
+   * user closes the dialog using the escape key or clicks on the backdrop.
    */
   @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
+
+  /** Determines whether a close button should be shown in the top right corner. */
+  @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
 
   /** @internal Emits when the dialog has been closed. */
   @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
 
-  /** Determines whether a close button should be shown in the top right corner. */
-  @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
+  /** @internal */
+  @query('dialog') dialog?: HTMLDialogElement;
 
   /** The role for the dialog element. */
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
@@ -99,47 +101,92 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <dialog
-        @cancel=${this.#onCancel}
         @click=${this.#onClick}
         @close=${this.#onClose}
+        @keydown=${this.#onKeydown}
         aria-labelledby="title"
-        role=${this.dialogRole}
+        role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
         part="dialog"
       >
-        <div part="header">
-          <slot name="header">
-            <div part="titles">
-              <slot name="title" id="title"></slot>
-              <slot name="subtitle"></slot>
-            </div>
-            <slot name="header-actions">
-              <sl-button-bar part="header-bar">
-                <slot name="header-buttons"></slot>
-                ${this.closeButton
-                  ? html`
-                      <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
-                        <sl-icon name="xmark"></sl-icon>
-                      </sl-button>
-                    `
-                  : nothing}
-              </sl-button-bar>
-            </slot>
-          </slot>
-        </div>
-        <div part="body">
-          <slot></slot>
-        </div>
-        <div part="footer">
-          <slot name="footer">
-            <sl-button-bar part="footer-bar">
-              <slot name="actions"></slot>
-            </sl-button-bar>
-          </slot>
-        </div>
+        <div part="header">${this.renderHeader()}</div>
+        <div part="body">${this.renderBody()}</div>
+        <div part="footer">${this.renderFooter()}</div>
       </dialog>
     `;
   }
 
+  /**
+   * Override this method to customize the header of the dialog. If you only
+   * want to customize the title, you can use the `title` and `subtitle` arguments
+   * and call `super.renderHeader('My title', 'My subtitle')` to render the default
+   * header.
+   *
+   * Beware when customizing the header: the `<dialog>` element is labelled by
+   * the element with ID `title`. If you override this method, make sure to include
+   * an element with ID `title` in the header.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderHeader(title = '', subtitle = ''): TemplateResult {
+    return html`
+      <slot name="header">
+        <div part="titles">
+          <slot name="title" id="title">${title}</slot>
+          <slot name="subtitle">${subtitle}</slot>
+        </div>
+        <slot name="header-actions">
+          <sl-button-bar part="header-bar">
+            <slot name="header-buttons"></slot>
+            ${this.closeButton
+              ? html`
+                  <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
+                    <sl-icon name="xmark"></sl-icon>
+                  </sl-button>
+                `
+              : nothing}
+          </sl-button-bar>
+        </slot>
+      </slot>
+    `;
+  }
+
+  /**
+   * Override this method to customize the body of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderBody(): TemplateResult {
+    return html`<slot></slot>`;
+  }
+
+  /**
+   * Override this method to customize the footer of the dialog. If you only
+   * want to add action buttons, see the `renderActions` method.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderFooter(): TemplateResult {
+    return html`
+      <slot name="footer">
+        <sl-button-bar align="end" part="footer-bar"><slot name="actions">${this.renderActions()}</slot></sl-button-bar>
+      </slot>
+    `;
+  }
+
+  /**
+   * Override this method to customize the actions in the footer of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderActions(): TemplateResult | typeof nothing {
+    return nothing;
+  }
+
+  /** Show the dialog as a modal, in the top layer, with a backdrop. */
   showModal(): void {
     if (this.dialog?.open) {
       return;
@@ -165,19 +212,26 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     this.inert = false;
     this.dialog?.showModal();
+
+    // Workaround for broken focus behavior when using <slot> inside <dialog>
+    // See https://github.com/whatwg/html/issues/9245
+    requestAnimationFrame(() => {
+      const focusable = this.querySelector<HTMLElement>('[autofocus], [tabindex]:not([tabindex="-1"])');
+
+      if (focusable && this.shadowRoot?.activeElement !== focusable) {
+        focusable.focus();
+      }
+
+      if (this.dialog) {
+        this.#focusTrap.activate(this.dialog);
+      }
+    });
   }
 
+  /** Close the dialog. */
   close(): void {
     if (this.dialog?.open) {
       this.#closeDialogOnAnimationend();
-    }
-  }
-
-  #onCancel(event: Event & { target: HTMLElement }): void {
-    event.preventDefault();
-
-    if (!this.disableCancel) {
-      this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 
@@ -201,6 +255,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     // Reenable scrolling after the dialog has closed
     document.documentElement.style.overflow = '';
 
+    this.#focusTrap.deactivate();
+
     this.inert = true;
     this.closeEvent.emit();
   }
@@ -210,6 +266,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
+  }
+
+  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+
+      if (!this.disableCancel) {
+        this.#closeDialogOnAnimationend(event.target, true);
+      }
+    }
   }
 
   #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
@@ -230,6 +296,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       },
       { once: true }
     );
+
+    this.#focusTrap.deactivate();
 
     /**
      * Set the closing attribute, this triggers the closing animation.

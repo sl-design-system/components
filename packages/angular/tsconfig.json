@@ -9,7 +9,10 @@
     "outDir": "./out-tsc",
     "paths": {
       "@sl-design-system/angular": [
-        "./dist"
+        "packages/angular/dist"
+      ],
+      "@sl-design-system/angular/*": [
+        "packages/angular/dist/*"
       ]
     }
   },

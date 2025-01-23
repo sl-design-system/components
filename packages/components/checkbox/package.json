@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/checkbox",
-  "version": "1.0.2",
+  "version": "2.0.1",
   "description": "Checkbox component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,11 +38,11 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "^1.0.2",
-    "@sl-design-system/shared": "^0.2.12"
+    "@sl-design-system/form": "^1.1.0",
+    "@sl-design-system/shared": "^0.4.0"
   },
   "devDependencies": {
-    "@lit/localize": "^0.12.1"
+    "@lit/localize": "^0.12.2"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1"

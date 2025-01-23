@@ -91,6 +91,18 @@ export const Value: Story = {
   }
 };
 
+export const ImplicitValue: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group>
+        <sl-checkbox checked value="0">Option 1</sl-checkbox>
+        <sl-checkbox checked value="1">Option 2</sl-checkbox>
+        <sl-checkbox value="2">Option 3</sl-checkbox>
+      </sl-checkbox-group>
+    `
+  }
+};
+
 export const WithoutValues: Story = {
   args: {
     boxes: () => html`
@@ -99,6 +111,18 @@ export const WithoutValues: Story = {
       <sl-checkbox>Option 3</sl-checkbox>
     `,
     value: ['on', null, null]
+  }
+};
+
+export const NoLabel: Story = {
+  render: () => {
+    return html`
+      <sl-checkbox-group aria-label="Choose at least one option">
+        <sl-checkbox value="1">One</sl-checkbox>
+        <sl-checkbox value="2">Two</sl-checkbox>
+        <sl-checkbox value="3">Three</sl-checkbox>
+      </sl-checkbox-group>
+    `;
   }
 };
 

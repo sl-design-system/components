@@ -111,7 +111,7 @@ const buildIcons = async theme => {
   // load all custom icons from figma and store svgs
   await new Promise((resolve, reject) => {
     console.log(`Extracting icons from Figma for ${theme}...`);
-    exec(`yarn run figma-export use-config .figmaexportrc.cjs ${figmaIconPages[theme]} ${theme}`, { cwd }, error => {
+    exec(`yarn run figma-export use-config .figmaexportrc.js ${figmaIconPages[theme]} ${theme}`, { cwd }, error => {
       if (error) {
         reject(error);
       }
@@ -131,7 +131,9 @@ const buildIcons = async theme => {
 
     return fs
       .readFile(join(cwd, `../packages/themes/${theme}/icons/${fileName}`), 'utf8')
-      .then(svg => (iconsCustom[iconName] = { svg }));
+      .then(svg => {
+        iconsCustom[iconName] = { svg: svg.replace('<svg ','<svg fill="var(--sl-icon-fill-default)" ') }
+      });
   });
 
   await Promise.all(filesToRead);
@@ -167,7 +169,7 @@ const exportCoreIcons = async () => {
   // load all custom icons from figma and store svgs
   await new Promise((resolve, reject) => {
     console.log(`Extracting icons from Figma for core...`);
-    exec(`yarn run figma-export use-config .figmaexportrc.cjs SKFTFiiz7YK9E2TPfCan9o core`, { cwd }, error => {
+    exec(`yarn run figma-export use-config .figmaexportrc.js SKFTFiiz7YK9E2TPfCan9o core`, { cwd }, error => {
       if (error) {
         reject(error);
       }
@@ -187,7 +189,9 @@ const exportCoreIcons = async () => {
 
     return fs
       .readFile(join(cwd, `../packages/themes/core/icons/${fileName}`), 'utf8')
-      .then(svg => (iconsCustom[iconName] = { svg }));
+      .then(svg => {
+        svg = svg.replace('<svg ','<svg fill="var(--sl-icon-fill-default)" ');
+        iconsCustom[iconName] = { svg }});
   });
 
   await Promise.all(filesToRead);

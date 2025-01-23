@@ -16,7 +16,7 @@ export type HintSize = 'sm' | 'md' | 'lg';
  * @slot hint-text - The hint to display.
  */
 export class Hint extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The light DOM slot. */
@@ -30,7 +30,7 @@ export class Hint extends LitElement {
 
     this.#slot ??= document.createElement('slot');
     this.#slot.name = 'hint-text';
-    this.append(this.#slot);
+    this.prepend(this.#slot);
 
     // Make sure the hint doesn't end up in the default slot
     if (this.parentElement?.tagName === 'SL-FORM-FIELD') {

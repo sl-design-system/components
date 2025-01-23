@@ -1,4 +1,4 @@
-import { EventsController } from '@sl-design-system/shared';
+import { EventsController, closestElementComposed } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
@@ -27,10 +27,10 @@ export type ButtonVariant = 'default' | 'primary' | 'success' | 'info' | 'warnin
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  */
 export class Button extends LitElement {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -39,23 +39,16 @@ export class Button extends LitElement {
     keydown: this.#onKeydown
   });
 
-  /** @private. */
+  /** @internal. */
   readonly internals = this.attachInternals();
-
-  /** The original tabIndex before disabled. */
-  private originalTabIndex = 0;
 
   /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /**
-   * The fill of the button.
-   */
+  /** The fill of the button. */
   @property({ reflect: true }) fill: ButtonFill = 'solid';
 
-  /**
-   * The size of the button.
-   */
+  /** The size of the button. */
   @property({ reflect: true }) size: ButtonSize = 'md';
 
   /**
@@ -63,9 +56,7 @@ export class Button extends LitElement {
    */
   @property() type: ButtonType = 'button';
 
-  /**
-   * The variant of the button.
-   */
+  /** The variant of the button. */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
   override connectedCallback(): void {
@@ -76,15 +67,6 @@ export class Button extends LitElement {
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
-  }
-
-  /** @private */
-  formDisabledCallback(disabled: boolean): void {
-    if (disabled) {
-      this.originalTabIndex = this.tabIndex;
-    }
-
-    this.tabIndex = disabled ? -1 : this.originalTabIndex;
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -104,9 +86,19 @@ export class Button extends LitElement {
       event.preventDefault();
       event.stopPropagation();
     } else if (this.type === 'reset') {
-      this.internals.form?.reset();
+      if (this.internals.form) {
+        this.internals.form.reset();
+      } else {
+        // Workaround for not wanting a dependency on the `@sl-design-system/form` package
+        (closestElementComposed(this, 'sl-form') as unknown as { reset(): void })?.reset();
+      }
     } else if (this.type === 'submit') {
-      this.internals.form?.requestSubmit();
+      if (this.internals.form) {
+        this.internals.form?.requestSubmit();
+      } else {
+        // Workaround for not wanting a dependency on the `@sl-design-system/form` package
+        (closestElementComposed(this, 'sl-form') as unknown as { requestSubmit(): void })?.requestSubmit();
+      }
     }
   }
 

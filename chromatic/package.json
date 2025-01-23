@@ -11,8 +11,9 @@
   "type": "module",
   "scripts": {
     "chromatic": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
-    "themes": "wireit",
-    "start": "wireit"
+    "start": "wireit",
+    "storybook": "wireit",
+    "themes": "wireit"
   },
   "wireit": {
     "themes": {
@@ -33,19 +34,22 @@
       "files": [
         ".storybook/main.ts"
       ]
+    },
+    "storybook": {
+      "command": "storybook build -o storybook-static"
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^8.1.10",
-    "@storybook/addon-essentials": "^8.1.10",
-    "@storybook/addon-storysource": "^8.1.10",
-    "@storybook/addon-themes": "^8.1.10",
-    "@storybook/web-components-vite": "^8.1.10",
-    "lit": "^3.1.4",
-    "storybook": "^8.1.10",
-    "storybook-addon-pseudo-states": "^3.1.1",
-    "tslib": "^2.6.3",
+    "@storybook/addon-a11y": "^8.4.7",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-storysource": "^8.4.7",
+    "@storybook/addon-themes": "^8.4.7",
+    "@storybook/web-components-vite": "^8.4.7",
+    "lit": "^3.2.1",
+    "storybook": "^8.4.7",
+    "storybook-addon-pseudo-states": "^4.0.2",
+    "tslib": "^2.8.1",
     "typescript": "^5.4.5",
-    "wireit": "^0.14.4"
+    "wireit": "^0.14.9"
   }
 }

@@ -12,7 +12,8 @@ export interface PersonWithRating extends Person {
 }
 
 export default {
-  title: 'Layout/Grid/Styling',
+  title: 'Grid/Styling',
+  tags: ['draft'],
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
@@ -36,6 +37,19 @@ export const Striped: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} striped>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="address.phone"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const ColumnDivider: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} column-divider>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>

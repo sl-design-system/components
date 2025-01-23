@@ -1,0 +1,34 @@
+:host {
+  border-block-end: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
+  inline-size: 100%;
+  margin-block-end: var(--sl-space-075);
+  margin-inline: 0;
+  padding-block-end: var(--sl-space-100);
+}
+
+:host(:where(:hover, [current])) .container {
+  background: var(--sl-elevation-surface-raised-default-hover);
+}
+
+:host(:active) .container {
+  background: var(--sl-elevation-surface-raised-default-active);
+}
+
+.container {
+  align-items: center;
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-text-plain);
+  cursor: pointer;
+  display: flex;
+  gap: var(--sl-space-100);
+  margin-inline: var(--sl-space-100);
+  padding: var(--sl-space-075) var(--sl-space-100);
+
+  &:hover {
+    background: var(--sl-elevation-surface-raised-default-hover);
+  }
+}
+
+sl-icon {
+  visibility: visible;
+}

@@ -1,5 +1,54 @@
 # @sl-design-system/shared
 
+## 0.4.0
+
+### Minor Changes
+
+- [#1575](https://github.com/sl-design-system/components/pull/1575) [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9) - Migrate `DataSource` and `ArrayDataSource` to dedicated `@sl-design-system/data-source` package.
+
+  Since these are only used in the grid component, and that component is still in draft, migrating
+  this code into its own package is not considered a breaking change.
+
+- [#1580](https://github.com/sl-design-system/components/pull/1580) [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6) - Add new `closestElementComposed` DOM utility method
+
+  This new utility method is a wrapper around `HTMLElement.prototype.closest` that also considers the composed tree. This makes it easier to find the closest ancestor that matches a given selector, even if the element is in a shadow tree.
+
+### Patch Changes
+
+- [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Fix `RovingTabindexController` to correctly navigate between light & shadow DOM elements
+
+## 0.3.2
+
+### Patch Changes
+
+- [#1492](https://github.com/sl-design-system/components/pull/1492) [`21302c2`](https://github.com/sl-design-system/components/commit/21302c28065512f1c89ffde17dbc3241a2306d5d) - Prevent anchor directive from initializing more than once on the same host
+
+## 0.3.1
+
+### Patch Changes
+
+- [#1499](https://github.com/sl-design-system/components/pull/1499) [`d4bb7fe`](https://github.com/sl-design-system/components/commit/d4bb7fe67bf95807437e41528c334f62d6cff807) - Handle `rootMarginTop` being undefined
+
+## 0.3.0
+
+### Minor Changes
+
+- [#1428](https://github.com/sl-design-system/components/pull/1428) [`c8b9c89`](https://github.com/sl-design-system/components/commit/c8b9c89a367066ab241348c9f93e6e087ec796ea) - Fixed issue where popover was too small to show any content even if there was space on the other side of the anchor component.
+  The way to set the min and max size of the popover have changed: use the following properties instead of setting the width directly on the popover. (Those values will be ignored when calculating the size of the popover as it can exist in the available space)
+  --sl-popover-min-block-size
+  --sl-popover-max-block-size
+  --sl-popover-max-inline-size
+
+### Patch Changes
+
+- [#1474](https://github.com/sl-design-system/components/pull/1474) [`96c5ade`](https://github.com/sl-design-system/components/commit/96c5ade1562ca5faf936ce59f13a2fb84abeac56) - Change popover positioning to use `inset` rather than `translate`
+
+## 0.2.13
+
+### Patch Changes
+
+- [#1407](https://github.com/sl-design-system/components/pull/1407) [`5212fb6`](https://github.com/sl-design-system/components/commit/5212fb638d3eeb535d5988b8793db21fb4fcc220) - Fix typing of `SlToggleEvent` to be slightly more flexible
+
 ## 0.2.12
 
 ### Patch Changes

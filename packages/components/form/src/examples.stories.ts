@@ -14,7 +14,7 @@ import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { type Form } from './form.js';
+import { type SlSubmitEvent } from './form.js';
 
 type Story = StoryObj;
 
@@ -24,14 +24,14 @@ export default {
 
 export const LogIn: Story = {
   render: () => {
-    const onSubmit = (event: Event & { target: HTMLElement }): void => {
-      const form = event.target.closest('sl-form') as Form;
+    const onReset = (): void => console.log('Form has been reset');
 
-      console.log(form.reportValidity(), form.value);
+    const onSubmit = (event: SlSubmitEvent): void => {
+      console.log('submit', event.target.value);
     };
 
     return html`
-      <sl-form>
+      <sl-form @sl-reset=${onReset} @sl-submit=${onSubmit}>
         <sl-form-field label="Username">
           <sl-text-field
             name="username"
@@ -48,9 +48,10 @@ export const LogIn: Story = {
           <sl-checkbox name="remember">Remember me</sl-checkbox>
         </sl-form-field>
 
-        <sl-button-bar align="space-between">
-          <sl-button fill="link">Forgot password?</sl-button>
-          <sl-button @click=${onSubmit} variant="primary">Log in</sl-button>
+        <sl-button-bar align="end">
+          <sl-button fill="link" style="margin-inline-end:auto">Forgot password?</sl-button>
+          <sl-button fill="outline" type="reset" variant="primary">Reset</sl-button>
+          <sl-button type="submit" variant="primary">Log in</sl-button>
         </sl-button-bar>
       </sl-form>
     `;

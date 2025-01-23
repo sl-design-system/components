@@ -1,16 +1,26 @@
-import { EventsController } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  type Path,
+  type PathKeys,
+  event,
+  getValueByPath,
+  setValueByPath
+} from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
-import { getValueByPath, setValueByPath } from './path.js';
 
 declare global {
   interface HTMLElementTagNameMap {
     'sl-form': Form;
   }
 }
+
+export type SlResetEvent = CustomEvent<void> & { target: Form };
+export type SlSubmitEvent = CustomEvent<void> & { target: Form };
 
 /**
  * This component is a wrapper for the form controls.
@@ -23,7 +33,7 @@ declare global {
  * See https://github.com/whatwg/html/issues/9878
  */
 export class Form<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
@@ -41,6 +51,9 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
    */
   #value: T | undefined;
 
+  /** Value when the form is initialized, used when the form is reset. */
+  #initialValue: T | undefined;
+
   /** The controls in the form; not necessarily the same amount as the fields. */
   controls: Array<HTMLElement & FormControl> = [];
 
@@ -49,7 +62,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** A form is marked dirty when the user has modified a form control. */
   get dirty(): boolean {
-    return this.controls.map(c => c.dirty).some(Boolean);
+    return this.controls.some(c => c.dirty);
   }
 
   /** Will disable the entire form when true. */
@@ -65,19 +78,20 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return !this.dirty;
   }
 
+  /** @internals Emits when the form has been reset. */
+  @event({ name: 'sl-reset' }) resetEvent!: EventEmitter<SlResetEvent>;
+
   /** Indicates whether to show validity state. */
   get showValidity(): boolean {
     return this.#showValidity;
   }
 
+  /** @internal Emits when the form is to be submitted. */
+  @event({ name: 'sl-submit' }) submitEvent!: EventEmitter<SlSubmitEvent>;
+
   /** A form is marked touched once the user has triggered a blur event on a form control. */
   get touched(): boolean {
-    return this.controls.map(c => c.touched).some(Boolean);
-  }
-
-  /** Whether the form is valid. */
-  get valid(): boolean {
-    return this.controls.map(c => c.valid).every(Boolean);
+    return this.controls.some(c => c.touched);
   }
 
   /** A form is marked untouched as long as the user hasn't trigger a blur event on a form control. */
@@ -85,15 +99,25 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return !this.touched;
   }
 
+  /** Whether the form is valid. */
+  get valid(): boolean {
+    return this.controls.every(c => c.valid);
+  }
+
   /** The aggregated value of all form controls. */
   get value(): T {
-    return this.controls.reduce((value, control) => {
+    const value = this.controls.reduce((value, control) => {
       if (control.name) {
-        setValueByPath(value, control.name, control.formValue);
+        setValueByPath(value as T, control.name as PathKeys<T>, control.formValue as Path<T, PathKeys<T>>);
       }
-
       return value;
     }, {}) as T;
+
+    if (!this.#initialValue && !!value) {
+      this.#initialValue = value;
+    }
+
+    return value;
   }
 
   @property({ attribute: false })
@@ -101,10 +125,16 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#value = value;
 
     if (value) {
-      this.controls.filter(c => c.name).forEach(c => (c.formValue = getValueByPath(value, c.name!)));
+      this.controls.filter(c => c.name).forEach(c => (c.formValue = getValueByPath(value, c.name! as PathKeys<T>)));
     } else {
       this.controls.forEach(c => (c.formValue = undefined));
     }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.#initialValue = this.#value;
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -119,11 +149,30 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return html`<slot></slot>`;
   }
 
-  /** Calls `reportValidity()` on all form controls. */
+  /** Calls `reportValidity()` on all form controls and returns if they are all valid. */
   reportValidity(): boolean {
     this.#showValidity = true;
 
+    // First .map(), then .every() to ensure all reportValidity() calls are made
     return this.controls.map(c => c.reportValidity()).every(Boolean);
+  }
+
+  /** If the form is valid, it will emit an `sl-submit` event. */
+  requestSubmit(): void {
+    if (this.reportValidity()) {
+      this.submitEvent.emit();
+    }
+  }
+
+  /** Puts all the initial values of the form controls back and updates the validity of all fields. */
+  reset(): void {
+    this.controls.map(c => {
+      if (c.name) {
+        c.reset(this.#initialValue?.[c.name]);
+      }
+    });
+
+    this.resetEvent.emit();
   }
 
   #onFormControl(event: SlFormControlEvent): void {
@@ -142,7 +191,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     // Wait for the next frame change the control's properties
     requestAnimationFrame(() => {
       if (control.name && this.#value) {
-        control.formValue = getValueByPath(this.#value, control.name);
+        control.formValue = getValueByPath(this.#value, control.name as PathKeys<T>);
       }
 
       if (this.disabled) {

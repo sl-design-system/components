@@ -9,16 +9,6 @@ export interface Theme {
 
 export const themes: Theme[] = [
   {
-    id: 'bingel',
-    name: 'Bingel',
-    fonts: ['https://use.typekit.net/xps8gfu.css'],
-    setup: async () => {
-      const { setup } = await import('@sl-design-system/bingel');
-
-      setup();
-    }
-  },
-  {
     id: 'bingel-dc',
     name: 'Bingel DC',
     fonts: ['https://use.typekit.net/ghy4rhf.css'],
@@ -117,16 +107,16 @@ export const themes: Theme[] = [
       setup();
     }
   },
-  {
-    id: 'myvanin',
-    name: 'My Van In',
-    fonts: ['https://use.typekit.net/qwk4gym.css'],
-    setup: async () => {
-      const { setup } = await import('@sl-design-system/myvanin');
+  // {
+  //   id: 'myvanin',
+  //   name: 'My Van In',
+  //   fonts: ['https://use.typekit.net/qwk4gym.css'],
+  //   setup: async () => {
+  //     const { setup } = await import('@sl-design-system/myvanin');
 
-      setup();
-    }
-  },
+  //     setup();
+  //   }
+  // },
   {
     id: 'neon',
     name: 'NEON',
@@ -136,16 +126,6 @@ export const themes: Theme[] = [
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/neon');
-
-      setup();
-    }
-  },
-  {
-    id: 'nowa-era',
-    name: 'Nowa Era',
-    fonts: ['https://use.typekit.net/jrl0ltd.css'],
-    setup: async () => {
-      const { setup } = await import('@sl-design-system/nowa-era');
 
       setup();
     }
@@ -163,16 +143,16 @@ export const themes: Theme[] = [
       setup();
     }
   },
-  {
-    id: 'sanoma-utbildning',
-    name: 'Sanoma Utbildning',
-    fonts: ['https://use.typekit.net/zjd4wix.css'],
-    setup: async () => {
-      const { setup } = await import('@sl-design-system/sanoma-utbildning');
+  // {
+  //   id: 'sanoma-utbildning',
+  //   name: 'Sanoma Utbildning',
+  //   fonts: ['https://use.typekit.net/zjd4wix.css'],
+  //   setup: async () => {
+  //     const { setup } = await import('@sl-design-system/sanoma-utbildning');
 
-      setup();
-    }
-  },
+  //     setup();
+  //   }
+  // },
   {
     id: 'teas',
     name: 'TEAS',
@@ -187,7 +167,7 @@ export const themes: Theme[] = [
 
 const resources: { mode?: HTMLLinkElement, fonts?: HTMLLinkElement[] } = {};
 
-export const updateTheme = (themeId: string, mode: Mode): void => {
+export const updateTheme = async (themeId: string, mode: Mode = 'light'): Promise<void> => {
   const theme = themes.find(({ id }) => id === themeId);
   if (!theme) {
     return;
@@ -207,5 +187,9 @@ export const updateTheme = (themeId: string, mode: Mode): void => {
     });
   }
 
-  theme.setup();
+  await Promise.allSettled([
+    new Promise(resolve => resources.mode!.onload = resolve),
+    ...(resources.fonts?.map(font => new Promise(resolve => font.onload = resolve)) ?? []),
+    theme.setup()
+  ])
 };

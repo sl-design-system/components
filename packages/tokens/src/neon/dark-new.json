@@ -1006,7 +1006,7 @@
         "description": "Use for borders that highlight primary actions."
       },
       "secondary": {
-        "value": "{color.palette.blue.150}",
+        "value": "{color.palette.blue.200}",
         "type": "color",
         "description": "Use for borders that highlight secondary actions."
       },
@@ -1135,7 +1135,7 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.palette.blue.600}",
+            "value": "{color.palette.blue.400}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1158,13 +1158,13 @@
           "description": "A subtle background in the secondary action color."
         },
         "bold": {
-          "value": "{color.palette.blue.150}",
+          "value": "{color.palette.blue.200}",
           "type": "color",
           "description": "A vibrant background option used for secondary actions."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.blue.interactive.bold}",
+            "value": "{color.background.accent.blue.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },

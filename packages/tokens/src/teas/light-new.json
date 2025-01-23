@@ -424,12 +424,12 @@
       },
       "secondary": {
         "bold": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.text.accent.blue.bold}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.grey.onBold}",
+          "value": "{color.text.accent.blue.bold}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.bold'"
         }
@@ -1377,7 +1377,7 @@
             "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.150}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1606,7 +1606,7 @@
     "surface": {
       "base": {
         "default": {
-          "value": "{color.palette.grey.000}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
         }

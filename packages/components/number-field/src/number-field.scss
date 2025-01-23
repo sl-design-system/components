@@ -9,7 +9,8 @@
 .step-buttons {
   border-inline-start: 1px solid var(--_border-color);
   display: flex;
-  flex-direction: column;
+
+  // flex-direction: column;
 
   button {
     background: var(--sl-color-palette-neutral-100);

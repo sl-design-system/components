@@ -7,13 +7,13 @@ import { type NumberField } from './number-field.js';
 
 type Props = Pick<
   NumberField,
+  | 'stepButtons'
   | 'disabled'
   | 'formatOptions'
   | 'inputSize'
   | 'locale'
   | 'max'
   | 'min'
-  | 'noStepButtons'
   | 'placeholder'
   | 'readonly'
   | 'required'
@@ -33,8 +33,13 @@ export default {
   args: {
     inputSize: 6,
     label: 'Number'
+    // controls: undefined,
   },
   argTypes: {
+    stepButtons: {
+      control: 'inline-radio',
+      options: ['undefined', 'end', 'edges']
+    },
     locale: {
       control: 'inline-radio',
       options: ['de', 'en', 'es', 'fi', 'it', 'nl', 'no', 'pl', 'sv']
@@ -49,11 +54,11 @@ export default {
     locale,
     max,
     min,
-    noStepButtons,
     placeholder,
     readonly,
     required,
     step,
+    stepButtons,
     value,
     valueAsNumber
   }) => {
@@ -62,7 +67,6 @@ export default {
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-number-field
             ?disabled=${disabled}
-            ?no-step-buttons=${noStepButtons}
             ?readonly=${readonly}
             ?required=${required}
             .formatOptions=${formatOptions}
@@ -71,6 +75,7 @@ export default {
             .min=${min}
             .placeholder=${placeholder}
             .step=${step}
+            .stepButtons=${stepButtons}
             .valueAsNumber=${valueAsNumber}
             locale=${ifDefined(locale)}
             value=${ifDefined(value)}
@@ -132,8 +137,8 @@ export const MinMax: Story = {
 export const NoStepButtons: Story = {
   args: {
     ...Basic.args,
-    hint: 'The step buttons are hidden, you can still use the keyboard to increase or decrease the value.',
-    noStepButtons: true
+    hint: 'The step buttons are hidden, you can still use the keyboard to increase or decrease the value.'
+    // noStepButtons: true
   }
 };
 
@@ -151,3 +156,5 @@ export const Required: Story = {
     required: true
   }
 };
+
+// TODO: sizes story

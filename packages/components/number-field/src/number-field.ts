@@ -1,5 +1,8 @@
 import { msg } from '@lit/localize';
+import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { format } from '@sl-design-system/format-number/format.js';
+import { Icon } from '@sl-design-system/icon';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -13,9 +16,17 @@ declare global {
   }
 }
 
-// export type ControlsPlacement = 'left' | 'right';
+export type StepButtonsPlacement = 'end' | 'edges'; // | 'none';
 
 export class NumberField extends LocaleMixin(TextField) {
+  /** @internal */
+  static override get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-button': Button,
+      'sl-icon': Icon
+    };
+  }
+
   /** @internal */
   static override styles = [TextField.styles, styles];
 
@@ -32,8 +43,8 @@ export class NumberField extends LocaleMixin(TextField) {
    */
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
-  // /** Buttons placement for incrementing / decrementing. */
-  // @property({ type: Object, attribute: 'format-options' }) controls?: Intl.NumberFormatOptions;
+  /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
+  @property({ type: Object, attribute: 'step-buttons' }) stepButtons?: StepButtonsPlacement;
 
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
@@ -55,8 +66,8 @@ export class NumberField extends LocaleMixin(TextField) {
    */
   @property({ type: Number }) min?: number;
 
-  /** Hides the step buttons if set. */
-  @property({ type: Boolean, reflect: true, attribute: 'no-step-buttons' }) noStepButtons?: boolean;
+  // /** Hides the step buttons if set. */
+  // @property({ type: Boolean, reflect: true, attribute: 'no-step-buttons' }) noStepButtons?: boolean;
 
   /** @internal The raw value of the input. */
   @state() rawValue?: string;
@@ -99,30 +110,40 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  // override renderPrefix(): TemplateResult | typeof nothing {
+  //   // TODO...
+  // }
+
   override renderSuffix(): TemplateResult | typeof nothing {
-    return this.noStepButtons
-      ? nothing
-      : html`
+    // TODO: for edges variant should be not rendered as suffix? or maybe minus as prefix and plus as suffix?
+    console.log('stepButtons', this.stepButtons);
+    return this.stepButtons
+      ? html`
           <div class="step-buttons">
-            <button
-              @click=${() => this.stepUp()}
-              ?disabled=${this.disabled || this.readonly}
-              aria-label=${msg('Step up')}
-              tabindex="-1"
-            >
-              <sl-icon name="chevron-up" size="xs"></sl-icon>
-            </button>
-            <button
+            <sl-button
+              size="md"
+              fill="outline"
               @click=${() => this.stepDown()}
               ?disabled=${this.disabled || this.readonly}
               aria-label=${msg('Step down')}
               tabindex="-1"
             >
-              <sl-icon name="chevron-down" size="xs"></sl-icon>
-            </button>
+              <sl-icon name="dash-solid" size="xs"></sl-icon>
+            </sl-button>
+            <sl-button
+              size="md"
+              fill="outline"
+              @click=${() => this.stepUp()}
+              ?disabled=${this.disabled || this.readonly}
+              aria-label=${msg('Step up')}
+              tabindex="-1"
+            >
+              <sl-icon name="far-plus" size="xs"></sl-icon>
+            </sl-button>
           </div>
-        `;
-  }
+        `
+      : nothing;
+  } // TODO: plus and minus or chevron?
 
   /** Decreases the current value by the `step` amount. */
   stepDown(decrement: number = this.step ?? 1): void {

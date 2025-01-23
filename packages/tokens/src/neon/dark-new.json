@@ -417,7 +417,7 @@
           "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.blue.onBold}",
+          "value": "{color.palette.blue.100}",
           "type": "color",
           "description": "Use for primary actions on 'color.background.primary.bold'"
         }
@@ -986,7 +986,7 @@
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.palette.blue.400}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },
@@ -1001,7 +1001,7 @@
         "description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
       },
       "primary": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.text.primary.bold}",
         "type": "color",
         "description": "Use for borders that highlight primary actions."
       },
@@ -1129,7 +1129,7 @@
           "description": "A subtle background in the primary action color."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "rgba({color.palette.blue.800}, 90%)",
           "type": "color",
           "description": "A vibrant background option used for primary actions."
         },

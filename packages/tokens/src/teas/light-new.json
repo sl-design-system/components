@@ -1032,18 +1032,18 @@
       },
       "accent": {
         "blue": {
-          "value": "{color.palette.blue.400}",
+          "value": "{color.text.accent.blue.bold}",
           "type": "color",
           "description": "Use for blue borders for purely stylistic purposes with no specific meaning."
         },
         "green": {
-          "value": "{color.palette.green.600}",
+          "value": "{color.text.accent.green.bold}",
           "type": "color",
           "description": "Use for green borders for purely stylistic purposes with no specific meaning."
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.100}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -1053,7 +1053,7 @@
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.300}",
+            "value": "{color.palette.grey.600}",
             "type": "color",
             "description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -1063,15 +1063,30 @@
             "description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
           }
         },
-        "yellow": {
-          "value": "{color.palette.yellow.600}",
+        "orange": {
+          "value": "{color.text.accent.orange.bold}",
           "type": "color",
-          "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
+          "description": "Use for orange borders for purely stylistic purposes with no specific meaning."
+        },
+        "purple": {
+          "value": "{color.text.accent.purple.bold}",
+          "type": "color",
+          "description": "Use for purple borders for purely stylistic purposes with no specific meaning."
         },
         "red": {
-          "value": "{color.palette.red.500}",
+          "value": "{color.text.accent.red.bold}",
           "type": "color",
           "description": "Use for red borders for purely stylistic purposes with no specific meaning."
+        },
+        "teal": {
+          "value": "{color.text.accent.teal.bold}",
+          "type": "color",
+          "description": "Use for teal borders for purely stylistic purposes with no specific meaning."
+        },
+        "yellow": {
+          "value": "{color.text.accent.yellow.bold}",
+          "type": "color",
+          "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
         }
       }
     },

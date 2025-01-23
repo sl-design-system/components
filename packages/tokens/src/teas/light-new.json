@@ -470,17 +470,17 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.text.accent.yellow.plain}",
+          "value": "{color.text.accent.orange.plain}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.yellow.bold}",
+          "value": "{color.text.accent.orange.bold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.yellow.onBold}",
+          "value": "{color.text.accent.orange.onBold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
         }
@@ -1021,7 +1021,7 @@
         "description": "Use for borders that highlight a favorable outcome."
       },
       "caution": {
-        "value": "{color.border.accent.yellow}",
+        "value": "{color.border.accent.orange}",
         "type": "color",
         "description": "Use for borders that highlight caution to help prevent mistakes or errors."
       },
@@ -1250,28 +1250,28 @@
       },
       "caution": {
         "subtlest": {
-          "value": "{color.background.accent.yellow.subtlest}",
+          "value": "{color.background.accent.orange.subtlest}",
           "type": "color",
           "description": "The subtlest background option to communicate caution to prevent errors."
         },
         "subtle": {
-          "value": "{color.background.accent.yellow.subtle}",
+          "value": "{color.background.accent.orange.subtle}",
           "type": "color",
           "description": "A subtle background option to communicate caution to prevent errors."
         },
         "bold": {
-          "value": "{color.background.accent.yellow.bold}",
+          "value": "{color.background.accent.orange.bold}",
           "type": "color",
           "description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.yellow.interactive.bold}",
+            "value": "{color.background.accent.orange.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.yellow.interactive.plain}",
+            "value": "{color.background.accent.orange.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1348,7 +1348,7 @@
             "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.green.600}",
+            "value": "{color.palette.green.700}",
             "type": "color",
             "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1383,7 +1383,7 @@
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.grey.800}",
+              "value": "{color.palette.grey.600}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
@@ -1464,7 +1464,7 @@
             "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.red.500}",
+            "value": "{color.palette.red.600}",
             "type": "color",
             "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1558,12 +1558,12 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.600}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }

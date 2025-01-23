@@ -77,11 +77,11 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   outline-offset: var(--_focus-outline-offset);
 }
 
-:host([aria-expanded]) sl-icon {
+:host([aria-expanded='true']) sl-icon {
   rotate: 180deg;
 }
 
-:host([aria-placeholder]) {
+.placeholder {
   color: var(--_placeholder-color);
 }
 

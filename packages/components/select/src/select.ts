@@ -272,6 +272,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
+        aria-labelledby="button-content"
         id="listbox"
         part="listbox"
         popover

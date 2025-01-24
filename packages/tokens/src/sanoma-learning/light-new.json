@@ -561,17 +561,8 @@
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
           "muted": {
-            "value": "{color.palette.grey.900}",
+            "value": "rgba({color.palette.grey.900}, 62%)",
             "type": "color",
-            "$extensions": {
-              "studio.tokens": {
-                "modify": {
-                  "type": "lighten",
-                  "value": "0.39",
-                  "space": "hsl"
-                }
-              }
-            },
             "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
           },
           "subtle": {

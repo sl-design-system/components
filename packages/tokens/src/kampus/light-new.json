@@ -671,7 +671,7 @@
             "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted.plain}",
+            "value": "{color.text.bold}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -713,7 +713,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.text.inverted}",
+          "value": "{color.text.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },

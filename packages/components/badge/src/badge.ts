@@ -8,6 +8,7 @@ declare global {
   }
 }
 
+export type BadgeColor = 'blue' | 'green' | 'grey' | 'orange' | 'purple' | 'red' | 'teal' | 'yellow';
 export type BadgeEmphasis = 'subtle' | 'bold';
 export type BadgeSize = 'sm' | 'md' | 'lg';
 export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent';
@@ -25,14 +26,30 @@ export class Badge extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The emphasis of the badge; defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis: BadgeEmphasis = 'subtle';
+  /**
+   * The color of the badge.
+   * @default grey
+   */
+  @property({ reflect: true }) color?: BadgeColor;
 
-  /** The size of the badge component. */
-  @property({ reflect: true }) size: BadgeSize = 'md';
+  /**
+   * The emphasis of the badge.
+   * @default subtle
+   */
+  @property({ reflect: true }) emphasis?: BadgeEmphasis;
 
-  /** The variant of the badge. */
-  @property({ reflect: true }) variant: BadgeVariant = 'neutral';
+  /**
+   * The size of the badge component.
+   * @default md
+   */
+  @property({ reflect: true }) size?: BadgeSize;
+
+  /**
+   * The variant of the badge. This property is deprecated. Use the color property instead.
+   * @default neutral
+   * @deprecated Use the color property instead.
+   */
+  @property({ reflect: true }) variant?: BadgeVariant;
 
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotChange}></slot>`;

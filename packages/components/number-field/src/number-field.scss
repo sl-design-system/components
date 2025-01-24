@@ -1,9 +1,17 @@
 :host {
+  padding: 0 var(--_padding-inline); // 0; // 0 0 0 var(--_padding-inline); // TODO: maybe old values for edges variant?
+}
+
+:host([step-buttons='edges']) {
+  padding: 0;
+}
+
+:host([step-buttons='end']) {
   padding: 0 0 0 var(--_padding-inline);
 }
 
 ::slotted(input) {
-  padding-block: var(--_padding-block) !important;
+  padding-block: var(--_padding-block) !important; // TODO why important?
 }
 
 .step-buttons {

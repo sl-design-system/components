@@ -44,7 +44,7 @@ export class NumberField extends LocaleMixin(TextField) {
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
-  @property({ type: Object, attribute: 'step-buttons' }) stepButtons?: StepButtonsPlacement;
+  @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: StepButtonsPlacement;
 
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
@@ -110,38 +110,67 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
-  // override renderPrefix(): TemplateResult | typeof nothing {
-  //   // TODO...
-  // }
+  override renderPrefix(): TemplateResult | typeof nothing {
+    // TODO...
+    return this.stepButtons === 'edges'
+      ? html`
+          <sl-button
+            size="md"
+            fill="outline"
+            @click=${() => this.stepDown()}
+            ?disabled=${this.disabled || this.readonly}
+            aria-label=${msg('Step down')}
+            tabindex="-1"
+          >
+            <sl-icon name="dash-solid" size="xs"></sl-icon>
+          </sl-button>
+        `
+      : nothing;
+  }
 
   override renderSuffix(): TemplateResult | typeof nothing {
     // TODO: for edges variant should be not rendered as suffix? or maybe minus as prefix and plus as suffix?
-    console.log('stepButtons', this.stepButtons);
+    console.log('stepButtons', this.stepButtons, this.size);
     return this.stepButtons
-      ? html`
-          <div class="step-buttons">
-            <sl-button
-              size="md"
-              fill="outline"
-              @click=${() => this.stepDown()}
-              ?disabled=${this.disabled || this.readonly}
-              aria-label=${msg('Step down')}
-              tabindex="-1"
-            >
-              <sl-icon name="dash-solid" size="xs"></sl-icon>
-            </sl-button>
-            <sl-button
-              size="md"
-              fill="outline"
-              @click=${() => this.stepUp()}
-              ?disabled=${this.disabled || this.readonly}
-              aria-label=${msg('Step up')}
-              tabindex="-1"
-            >
-              <sl-icon name="far-plus" size="xs"></sl-icon>
-            </sl-button>
-          </div>
-        `
+      ? this.stepButtons === 'end'
+        ? html`
+            <div class="step-buttons">
+              <sl-button
+                size="md"
+                fill="outline"
+                @click=${() => this.stepDown()}
+                ?disabled=${this.disabled || this.readonly}
+                aria-label=${msg('Step down')}
+                tabindex="-1"
+              >
+                <sl-icon name="dash-solid" size="xs"></sl-icon>
+              </sl-button>
+              <sl-button
+                size="md"
+                fill="outline"
+                @click=${() => this.stepUp()}
+                ?disabled=${this.disabled || this.readonly}
+                aria-label=${msg('Step up')}
+                tabindex="-1"
+              >
+                <sl-icon name="far-plus" size="xs"></sl-icon>
+              </sl-button>
+            </div>
+          `
+        : html`
+            <div class="step-buttons">
+              <sl-button
+                size="md"
+                fill="outline"
+                @click=${() => this.stepUp()}
+                ?disabled=${this.disabled || this.readonly}
+                aria-label=${msg('Step up')}
+                tabindex="-1"
+              >
+                <sl-icon name="far-plus" size="xs"></sl-icon>
+              </sl-button>
+            </div>
+          `
       : nothing;
   } // TODO: plus and minus or chevron?
 
@@ -188,4 +217,6 @@ export class NumberField extends LocaleMixin(TextField) {
   #convertValueToNumber(value: string): number {
     return parseFloat(value);
   }
+
+  // TODO maybe setCustomValidity needs to be added to handle min/max values?
 }

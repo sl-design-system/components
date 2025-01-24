@@ -3,7 +3,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type NumberField } from './number-field.js';
+import { type NumberField, StepButtonsPlacement } from './number-field.js';
 
 type Props = Pick<
   NumberField,
@@ -27,6 +27,8 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
+const stepButtonsPlacements: StepButtonsPlacement[] = ['end', 'edges'];
+
 export default {
   title: 'Form/Number field',
   tags: ['draft'],
@@ -38,7 +40,7 @@ export default {
   argTypes: {
     stepButtons: {
       control: 'inline-radio',
-      options: ['undefined', 'end', 'edges']
+      options: stepButtonsPlacements
     },
     locale: {
       control: 'inline-radio',
@@ -62,6 +64,10 @@ export default {
     value,
     valueAsNumber
   }) => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
@@ -81,6 +87,9 @@ export default {
             value=${ifDefined(value)}
           ></sl-number-field>
         </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
       </sl-form>
     `;
   }
@@ -103,6 +112,7 @@ export const FormatCurrency: Story = {
   args: {
     formatOptions: { style: 'currency', currency: 'EUR' },
     hint: 'The number is formatted as currency.',
+    step: 0.01,
     valueAsNumber: 9.9
   }
 };
@@ -137,8 +147,8 @@ export const MinMax: Story = {
 export const NoStepButtons: Story = {
   args: {
     ...Basic.args,
-    hint: 'The step buttons are hidden, you can still use the keyboard to increase or decrease the value.'
-    // noStepButtons: true
+    hint: 'The step buttons are hidden, you can still use the keyboard to increase or decrease the value.',
+    stepButtons: undefined
   }
 };
 
@@ -153,8 +163,66 @@ export const Readonly: Story = {
 export const Required: Story = {
   args: {
     hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    max: 10,
     required: true
-  }
+  } // TODO: rangeOverflow is not working?
+  // TODO: min max is not working with text input, maybe use pattern?
 };
 
+export const All: Story = {
+  render: () => html`
+    <style>
+      #root-inner,
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .examples {
+        gap: 1.62rem;
+      }
+
+      section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+        padding: 1rem;
+      }
+
+      .my-heading {
+        font-size: 1.3rem;
+        font-weight: 600;
+        gap: 16px;
+      }
+
+      .badges {
+        flex-direction: row;
+        gap: 8px;
+      }
+    </style>
+    <section>
+      <div class="examples">
+        <h2>Size: md</h2>
+        <sl-number-field size="md" placeholder="Placeholder"></sl-number-field>
+        <sl-number-field size="md" placeholder="Placeholder" valueAsNumber="100"></sl-number-field>
+        <sl-number-field disabled size="md" placeholder="Placeholder"></sl-number-field>
+        <sl-number-field disabled size="md" placeholder="Placeholder" valueAsNumber="100"></sl-number-field>
+      </div>
+      <div class="examples">
+        <h2>Size: lg</h2>
+        <sl-number-field size="lg" placeholder="Placeholder"></sl-number-field>
+        <sl-number-field size="lg" placeholder="Placeholder" valueAsNumber="100"></sl-number-field>
+        <sl-number-field disabled size="lg" placeholder="Placeholder"></sl-number-field>
+        <sl-number-field disabled size="lg" placeholder="Placeholder" valueAsNumber="100"></sl-number-field>
+      </div>
+    </section>
+  `
+};
+
+// TODO: disabled, readonly, required and so on...step buttons end, edges
+
 // TODO: sizes story
+
+// TODO: all

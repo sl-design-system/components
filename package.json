@@ -318,9 +318,6 @@
         "scripts/import-icons.js",
         "packages/tokens/src/core.json",
         "packages/tokens/src/*/base.json"
-      ],
-      "output": [
-        "packages/themes/*/icons/*.svg"
       ]
     },
     "lint": {

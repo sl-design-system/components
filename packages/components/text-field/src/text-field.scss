@@ -17,10 +17,14 @@
   padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
 }
 
+:host([show-validity='invalid']) {
+  border-color: var(--sl-color-border-negative);
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  :host(:where([has-focus-ring], :hover)) {
+  :host(:where([has-focus-ring])) {
     transition: 200ms ease-in-out;
-    transition-property: background, border, color, filter, outline-color;
+    transition-property: background, border, color, outline-color;
   }
 }
 

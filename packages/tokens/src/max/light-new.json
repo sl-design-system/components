@@ -1048,7 +1048,7 @@
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
           "plain": {
-            "value": "{color.palette.grey.150}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -1092,7 +1092,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.background.accent.grey.subtle}",
+        "value": "{color.palette.grey.150}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1558,12 +1558,12 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.600}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.palette.grey.800}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }

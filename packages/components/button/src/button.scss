@@ -21,6 +21,7 @@
 }
 
 :host(:where(:not([fill]), [fill='solid'])) {
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
 
   color: var(--sl-color-text-secondary-onBold);

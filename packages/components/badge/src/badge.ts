@@ -45,7 +45,7 @@ export class Badge extends LitElement {
   @property({ reflect: true }) size?: BadgeSize;
 
   /**
-   * The variant of the badge.
+   * The variant of the badge. This property is deprecated. Use the color property instead.
    * @default neutral
    * @deprecated Use the color property instead.
    */

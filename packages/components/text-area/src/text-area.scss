@@ -13,7 +13,7 @@ $resize-types: none, both, horizontal, vertical, auto;
   display: flex;
   gap: var(--sl-space-100);
   outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: var(--sl-space-offset-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
   position: relative;
 }
 

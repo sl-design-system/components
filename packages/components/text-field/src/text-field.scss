@@ -8,7 +8,7 @@
   display: flex;
   gap: var(--sl-space-100);
   outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: var(--sl-space-offset-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
   padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
   padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
 }

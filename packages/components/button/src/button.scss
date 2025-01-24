@@ -14,7 +14,7 @@
   gap: var(--sl-space-075);
   justify-content: center;
   outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: var(--sl-space-offset-focused);
+  outline-offset: var(--sl-size-outlineOffset-default);
   padding: calc(var(--sl-space-075) - var(--sl-size-borderWidth-action)) var(--sl-space-300);
   user-select: none;
   vertical-align: middle;

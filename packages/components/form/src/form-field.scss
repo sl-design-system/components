@@ -1,12 +1,10 @@
 :host {
-  --_label-gap: var(--sl-space-input-field-label-padding-bottom-md);
-
   display: flex;
   flex-direction: column;
 }
 
 slot:not([name])::slotted(*) {
-  margin-block-start: var(--_label-gap);
+  margin-block-start: var(--sl-space-050);
 }
 
 slot:not([name])::slotted(:is(sl-checkbox, sl-switch[reverse])) {

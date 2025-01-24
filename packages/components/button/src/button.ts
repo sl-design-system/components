@@ -9,13 +9,15 @@ declare global {
   }
 }
 
-export type ButtonSize = 'sm' | 'md' | 'lg';
-
 export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
+
+export type ButtonShape = 'square' | 'pill';
+
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
-export type ButtonVariant = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'inverted';
 
 /**
  * A single, simple button, with optionally an icon.
@@ -45,24 +47,40 @@ export class Button extends LitElement {
   /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** The fill of the button. */
-  @property({ reflect: true }) fill: ButtonFill = 'solid';
+  /**
+   * The fill of the button.
+   * @default solid
+   */
+  @property({ reflect: true }) fill?: ButtonFill;
 
-  /** The size of the button. */
-  @property({ reflect: true }) size: ButtonSize = 'md';
+  /**
+   * The shape of the button.
+   * @default square
+   */
+  @property({ reflect: true }) shape?: ButtonShape;
+
+  /**
+   * The size of the button.
+   * @default md
+   */
+  @property({ reflect: true }) size?: ButtonSize;
 
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
+   * @default button
    */
-  @property() type: ButtonType = 'button';
+  @property() type?: ButtonType;
 
-  /** The variant of the button. */
-  @property({ reflect: true }) variant: ButtonVariant = 'default';
+  /**
+   * The variant of the button.
+   * @default secondary
+   */
+  @property({ reflect: true }) variant?: ButtonVariant;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'button';
+    this.setAttribute('role', 'button');
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
@@ -72,8 +90,8 @@ export class Button extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('size')) {
-      this.#setIconProperties(Array.from(this.childNodes));
+    if (changes.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
     }
   }
 
@@ -112,31 +130,11 @@ export class Button extends LitElement {
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const assignedNodes = event.target.assignedNodes({ flatten: true });
-    this.#setIconProperties(assignedNodes);
-  }
-
-  #hasOnlyIconAsChild(el: HTMLElement): boolean {
-    return (
-      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
-    );
-  }
-
-  #setIconProperties(assignedNodes: Node[]): void {
-    const filteredNodes = assignedNodes.filter(node => {
+    const filteredNodes = event.target.assignedNodes({ flatten: true }).filter(node => {
       return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
     });
 
     let hasIcon = false;
-
-    filteredNodes.forEach(node => {
-      const el = node as HTMLElement;
-      if (el.nodeName === 'SL-ICON') {
-        el.setAttribute('size', this.size);
-      } else if (this.#hasOnlyIconAsChild(el)) {
-        (el.children[0] as HTMLElement).setAttribute('size', this.size);
-      }
-    });
 
     if (filteredNodes.length === 1) {
       const el = filteredNodes[0] as HTMLElement;
@@ -145,5 +143,11 @@ export class Button extends LitElement {
     }
 
     this.toggleAttribute('icon-only', hasIcon);
+  }
+
+  #hasOnlyIconAsChild(el: HTMLElement): boolean {
+    return (
+      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
+    );
   }
 }

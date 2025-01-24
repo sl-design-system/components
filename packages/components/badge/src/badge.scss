@@ -23,7 +23,6 @@
 }
 
 :host([color='blue'][emphasis='bold']),
-:host([color='info'][emphasis='bold']),
 :host([variant='primary'][emphasis='bold']) {
   background: var(--sl-color-background-accent-blue-bold);
   color: var(--sl-color-text-accent-blue-onBold);

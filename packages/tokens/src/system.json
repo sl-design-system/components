@@ -470,5 +470,13 @@
         "type": "opacity"
       }
     }
+  },
+  "space": {
+    "offset": {
+      "focused": {
+        "value": "3px",
+        "type": "spacing"
+      }
+    }
   }
 }

@@ -5,27 +5,34 @@ $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 
 :host {
+  --_border-size: var(--sl-border-width-input-border);
+  --_border: var(--_border-size) solid var(--_border-color);
+  --_border-radius: var(--sl-border-radius-default);
+  --_cursor: text;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_transition: 200ms ease-in-out;
+
   align-items: center;
-  background: var(--sl-color-background-input-plain);
-  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-input);
-  border-radius: var(--sl-size-borderRadius-default);
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
   box-sizing: border-box;
   display: flex;
-  gap: var(--sl-space-100);
-  outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: var(--sl-space-offset-focused);
-  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
-  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  font: var(--_font);
+  gap: var(--_gap);
+  outline-color: transparent;
+  padding: var(--_padding-block) var(--_padding-inline);
+  transition: var(--_transition);
+  transition-property: background, border, color, filter, outline-color;
 }
 
-:host([size='lg']) {
-  padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :host(:where([has-focus-ring], :hover)) {
-    transition: 200ms ease-in-out;
-    transition-property: background, border, color, filter, outline-color;
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_gap: var(--sl-space-input-text-field-gap-#{$size});
+    --_font: var(--sl-text-input-text-field-text-#{$size});
+    --_padding-block: var(--sl-space-input-text-field-block-#{$size});
+    --_padding-inline: var(--sl-space-input-text-field-inline-#{$size});
   }
 }
 
@@ -107,14 +114,14 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 :host([disabled]) {
-  background: var(--sl-color-background-disabled);
-  color: var(--sl-color-text-disabled);
-  cursor: pointer;
+  --_cursor: default;
+
   pointer-events: none;
 }
 
 :host([has-focus-ring]) {
-  outline-color: var(--sl-color-border-focused);
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
 :host([input-size]) {
@@ -122,16 +129,17 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 :host([readonly]) {
-  cursor: pointer;
+  --_cursor: default;
 }
 
 slot[name='input']::slotted(input) {
   appearance: none;
   background: none;
   border: 0;
-  color: currentcolor;
+  color: var(--_color);
+  cursor: var(--_cursor);
   flex: 1;
-  font: inherit;
+  font: var(--_font);
   margin: 0;
   min-inline-size: 0;
   outline: none;
@@ -142,7 +150,7 @@ slot[name='input']::slotted(input) {
   }
 
   &::placeholder {
-    color: var(--sl-color-text-muted);
+    color: var(--_placeholder-color);
     opacity: 1;
   }
 }

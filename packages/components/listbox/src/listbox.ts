@@ -142,7 +142,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
             this.#renderItem(item as ListboxItem<T, U>, index)) as unknown as TemplateResult;
 
         if (!this.#virtualizer.parentElement) {
-          this.appendChild(this.#virtualizer);
+          this.prepend(this.#virtualizer);
         }
       } else if (changes.get('items')) {
         this.#virtualizer?.remove();

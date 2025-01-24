@@ -39,7 +39,7 @@ export class Error extends ScopedElementsMixin(LitElement) {
 
     this.#slot ??= document.createElement('slot');
     this.#slot.name = 'error-text';
-    this.append(this.#slot);
+    this.prepend(this.#slot);
 
     // Make sure the error doesn't end up in the default slot
     if (this.parentElement?.tagName === 'SL-FORM-FIELD') {

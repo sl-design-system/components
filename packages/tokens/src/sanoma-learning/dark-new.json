@@ -783,7 +783,7 @@
         "description": "Use for icons paired with 'color.text.muted'."
       },
       "inverted": {
-        "value": "{color.text.inverted}",
+        "value": "{color.text.inverted.plain}",
         "type": "color",
         "description": "Use for icons on bold backgrounds."
       },
@@ -1018,7 +1018,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.text.inverted}",
+          "value": "{color.text.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },

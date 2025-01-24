@@ -561,8 +561,17 @@
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
           "muted": {
-            "value": "rgba({color.palette.grey.800}, 71%)",
+            "value": "{color.palette.grey.900}",
             "type": "color",
+            "$extensions": {
+              "studio.tokens": {
+                "modify": {
+                  "type": "lighten",
+                  "value": "0.39",
+                  "space": "hsl"
+                }
+              }
+            },
             "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
           },
           "subtle": {
@@ -958,7 +967,7 @@
         "description": "Use for icons paired with 'color.text.muted'."
       },
       "inverted": {
-        "value": "{color.text.inverted}",
+        "value": "{color.text.inverted.plain}",
         "type": "color",
         "description": "Use for icons on bold backgrounds."
       },
@@ -1018,7 +1027,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.text.inverted}",
+          "value": "{color.text.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },

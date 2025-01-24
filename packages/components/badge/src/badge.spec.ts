@@ -15,19 +15,40 @@ describe('sl-badge', () => {
       expect(el).to.not.have.attribute('round');
     });
 
-    it('should have subtle emphasis', () => {
-      expect(el.emphasis).to.equal('subtle');
-      expect(el).to.have.attribute('emphasis', 'subtle');
+    it('should not have an explicit emphasis', () => {
+      expect(el).not.to.have.attribute('emphasis');
+      expect(el.emphasis).to.be.undefined;
     });
 
-    it('should have medium size', () => {
-      expect(el.size).to.equal('md');
-      expect(el).to.have.attribute('size', 'md');
+    it('should have a bold emphasis when set', async () => {
+      el.emphasis = 'bold';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('emphasis', 'bold');
     });
 
-    it('should have neutral variant', () => {
-      expect(el.variant).to.equal('neutral');
-      expect(el).to.have.attribute('variant', 'neutral');
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
+    });
+
+    it('should have a size when set', async () => {
+      el.size = 'sm';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('size', 'sm');
+    });
+
+    it('should not have an explicit variant', () => {
+      expect(el).not.to.have.attribute('variant');
+      expect(el.variant).to.be.undefined;
+    });
+
+    it('should have a variant when set', async () => {
+      el.variant = 'primary';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('variant', 'primary');
     });
   });
 

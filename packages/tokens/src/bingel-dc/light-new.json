@@ -378,7 +378,7 @@
       "bold": {
         "value": "{color.text.accent.grey.bold}",
         "type": "color",
-        "description": "Use for headers."
+        "description": "Use for headers and labels."
       },
       "plain": {
         "value": "{color.text.accent.grey.plain}",
@@ -388,7 +388,7 @@
       "subtle": {
         "value": "{color.text.accent.grey.subtle}",
         "type": "color",
-        "description": "Use for labels and subheadings."
+        "description": "Use for subheadings."
       },
       "muted": {
         "value": "{color.text.accent.grey.muted}",

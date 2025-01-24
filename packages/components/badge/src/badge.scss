@@ -1,10 +1,10 @@
 :host {
   align-items: center;
-  background: var(--sl-color-background-secondary-subtle);
+  background: var(--sl-color-background-accent-grey-subtle);
   block-size: 1lh;
   border-radius: var(--sl-size-borderRadius-full);
   box-sizing: border-box;
-  color: var(--sl-color-text-secondary-bold);
+  color: var(--sl-color-text-accent-grey-bold);
   display: inline-flex;
   font-size: 0.857em;
   gap: var(--sl-space-025);
@@ -115,8 +115,8 @@
 }
 
 :host([emphasis='bold']) {
-  background: var(--sl-color-background-secondary-bold);
-  color: var(--sl-color-text-secondary-onBold);
+  background: var(--sl-color-background-accent-grey-bold);
+  color: var(--sl-color-text-accent-grey-onBold);
 }
 
 ::slotted(sl-icon) {

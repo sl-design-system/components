@@ -28,6 +28,10 @@
   }
 }
 
+.valid-icon {
+  color: var(--sl-color-background-positive-bold);
+}
+
 // @each $variant in $variants {
 //   $i: list.index($variants, $variant);
 //   $variant-selector: list.nth($variant-selectors, $i);

@@ -109,8 +109,8 @@
   }
 }
 
-:host([size='sm']),
-:host([round]) {
+:host([round]),
+:host([size='sm']) {
   justify-content: center;
   padding-inline: 0;
 }

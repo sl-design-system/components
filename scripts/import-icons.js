@@ -8,18 +8,17 @@ import { fasl } from '@fortawesome/sharp-light-svg-icons';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { exec } from 'child_process';
-import pkg from 'eslint/use-at-your-own-risk';
+import pkg from 'eslint';
 import fg from 'fast-glob';
 import { promises as fs, existsSync } from 'fs';
 import { basename, join } from 'path';
-import figmaIconPages from './figma-icon-pages.json' assert { type: 'json' };
 
 library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
 
-const { FlatESLint } = pkg
+const { ESLint } = pkg
 
 const cwd = new URL('.', import.meta.url).pathname,
-  eslint = new FlatESLint({ fix: true });
+  eslint = new ESLint({ fix: true });
 
 const {
   default: { icon: coreIcons }
@@ -95,7 +94,7 @@ const buildIcons = async theme => {
       paths = Array.isArray(path) ? path : [path];
 
     const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
-      console.log(theme, iconName, svg);
+
     icons[iconName] = { ...value, svg };
   });
 
@@ -136,20 +135,17 @@ const buildIcons = async theme => {
       });
   });
 
-  console.log(filesToRead);
   await Promise.all(filesToRead);
-
+  
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
-  // const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
-  //   sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
-  //   source = `export const icons = ${JSON.stringify(sortedIcons)||'{}'};`,
-  //   results = await eslint.lintText(source, { filePath });
-
-  //   console.log(results[0]);
-  // await FlatESLint.outputFixes(results);
-
-  // await fs.writeFile(filePath, results[0].output);
+  const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
+    sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons }).sort()),
+    source = `export const icons = ${JSON.stringify(sortedIcons)};`,
+    results = await eslint.lintText(source, { filePath });
+  
+    await ESLint.outputFixes(results);
+  await fs.writeFile(filePath, results[0].output);
 };
 
 const buildAllIcons = async () => {

@@ -320,7 +320,6 @@
         "packages/tokens/src/*/base.json"
       ],
       "output": [
-        "packages/themes/*/icons.ts",
         "packages/themes/*/icons/*.svg"
       ]
     },

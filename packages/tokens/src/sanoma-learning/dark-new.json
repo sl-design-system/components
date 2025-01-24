@@ -378,7 +378,7 @@
       "bold": {
         "value": "{color.text.accent.grey.bold}",
         "type": "color",
-        "description": "Use for headers."
+        "description": "Use for headers and labels."
       },
       "plain": {
         "value": "{color.text.accent.grey.plain}",
@@ -388,7 +388,7 @@
       "subtle": {
         "value": "{color.text.accent.grey.subtle}",
         "type": "color",
-        "description": "Use for labels and subheadings."
+        "description": "Use for subheadings."
       },
       "muted": {
         "value": "{color.text.accent.grey.muted}",
@@ -559,17 +559,17 @@
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
           "muted": {
-            "value": "rgba( {color.palette.grey.900}, 60%)",
+            "value": "rgba( {color.palette.grey.900}, 47%)",
             "type": "color",
             "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
           },
           "subtle": {
-            "value": "rgba( {color.palette.grey.900}, 69%)",
+            "value": "rgba( {color.palette.grey.900}, 60%)",
             "type": "color",
             "description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
           },
           "plain": {
-            "value": "rgba( {color.palette.grey.900}, 78%)",
+            "value": "rgba( {color.palette.grey.900}, 80%)",
             "type": "color",
             "description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
           },
@@ -1140,7 +1140,7 @@
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.300}",
+            "value": "rgba({color.palette.grey.900}, 34%)",
             "type": "color",
             "description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
           },

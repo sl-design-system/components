@@ -134,6 +134,7 @@ export const All: Story = {
           // .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
           .map(i => html`<sl-icon .name=${i} size="2xl" .label=${i} title=${i}></sl-icon>`)}
       </section>
+      change
     `;
   }
 };

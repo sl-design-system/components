@@ -76,9 +76,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     }
 
     return html`
-      <div id="button-content" class=${this.placeholder && !selected ? 'placeholder' : ''}>
-        ${selected || this.placeholder || '\u00a0'}
-      </div>
+      <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
       <sl-icon name="chevron-down"></sl-icon>
     `;
   }

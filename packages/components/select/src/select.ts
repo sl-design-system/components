@@ -12,6 +12,7 @@ import {
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { SelectButton } from './select-button.js';
 import { SelectOptionGroup } from './select-option-group.js';
 import { SelectOption } from './select-option.js';
@@ -272,7 +273,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
-        aria-labelledby="button-content"
+        aria-label=${ifDefined(this.placeholder)}
         id="listbox"
         part="listbox"
         popover

@@ -6,7 +6,7 @@ export const icons = {
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M241 369c-9.4 9.4-24.6 9.4-33.9 0L47 209c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l143 143L367 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L241 369z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'badge-available': {
-    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><path fill-rule="evenodd" d="M14.73 4.316a1 1 0 0 1-.046 1.414l-7.333 7a1 1 0 0 1-1.368 0l-4.667-4.5a1 1 0 0 1 1.368-1.46l3.983 3.86 6.65-6.36a1 1 0 0 1 1.412.046" clip-rule="evenodd"/></svg>'
+    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14.73 3.316a1 1 0 0 1-.046 1.414l-7.333 7a1 1 0 0 1-1.368 0l-4.667-4.5a1 1 0 0 1 1.368-1.46l3.983 3.86 6.65-6.36a1 1 0 0 1 1.412.046" clip-rule="evenodd"/></svg>'
   },
   'badge-away': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M12.832 11.555a1 1 0 0 1-1.387.277l-4-3A1 1 0 0 1 7 8V2a1 1 0 0 1 2 0v5.465l3.555 2.703a1 1 0 0 1 .277 1.387" clip-rule="evenodd"/></svg>'
@@ -36,7 +36,10 @@ export const icons = {
     svg: '<svg viewBox="0 0 256 512" xmlns="http://www.w3.org/2000/svg"><path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   check: {
-    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path stroke="#222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m2 8 4 4 8-8"/></svg>'
+    value: 'check',
+    type: 'Icons',
+    description: 'icon.core.check',
+    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M441 103c9.4 9.4 9.4 24.6 0 33.9L177 401c-9.4 9.4-24.6 9.4-33.9 0L7 265c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l119 119L407 103c9.4-9.4 24.6-9.4 33.9 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'check-solid': {
     value: 'check',
@@ -56,9 +59,6 @@ export const icons = {
     description: 'icon.core.chevron-right',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M305 239c9.4 9.4 9.4 24.6 0 33.9L113 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L79 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L305 239z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
-  circle: {
-    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/></svg>'
-  },
   'circle-check-solid': {
     value: 'circle-check',
     type: 'Icons',
@@ -70,6 +70,12 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.circle-exclamation-solid',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24l0 112c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-112c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'circle-solid': {
+    value: 'circle',
+    type: 'Icons',
+    description: 'icon.core.circle',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'dash-solid': {
     value: 'dash',
@@ -116,9 +122,6 @@ export const icons = {
     description: 'icon.core.home-blank',
     svg: '<svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path d="M303.5 5.7c-9-7.6-22.1-7.6-31.1 0l-264 224c-10.1 8.6-11.3 23.7-2.8 33.8s23.7 11.3 33.8 2.8L64 245.5 64 432c0 44.2 35.8 80 80 80l288 0c44.2 0 80-35.8 80-80l0-186.5 24.5 20.8c10.1 8.6 25.3 7.3 33.8-2.8s7.3-25.3-2.8-33.8l-264-224zM464 204.8L464 432c0 17.7-14.3 32-32 32l-288 0c-17.7 0-32-14.3-32-32l0-227.2L288 55.5 464 204.8z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
-  hyphen: {
-    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path stroke="#222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h8"/></svg>'
-  },
   info: {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M9.125 4.005a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0M8 6.505a1 1 0 0 1 1 1v4.5a1 1 0 1 1-2 0v-4.5a1 1 0 0 1 1-1" clip-rule="evenodd"/></svg>'
   },
@@ -156,13 +159,13 @@ export const icons = {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 10.75c1.06 0 1.805-.487 2.234-.945a.684.684 0 0 1 .974-.058c.287.258.287.688.029.974A4.35 4.35 0 0 1 8 12.125c-1.547 0-2.635-.716-3.266-1.404-.257-.286-.257-.716.029-.974a.684.684 0 0 1 .974.058c.43.458 1.174.945 2.263.945M6.625 6.625a.905.905 0 0 1-.917.917.905.905 0 0 1-.916-.917c0-.487.4-.917.916-.917s.917.43.917.917m2.75 0c0-.487.401-.917.917-.917.515 0 .916.43.916.917a.905.905 0 0 1-.916.917.905.905 0 0 1-.917-.917M15.333 8A7.33 7.33 0 0 1 8 15.333 7.31 7.31 0 0 1 .667 8 7.33 7.33 0 0 1 8 .667c4.04 0 7.333 3.294 7.333 7.333M8 2.042C4.706 2.042 2.042 4.734 2.042 8A5.954 5.954 0 0 0 8 13.958c3.266 0 5.958-2.664 5.958-5.958 0-3.266-2.692-5.958-5.958-5.958"/></svg>'
   },
   sort: {
-    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><path d="M8.477 15.578c-.282.219-.688.219-.938 0l-5-4c-.344-.25-.375-.719-.125-1.062a.744.744 0 0 1 1.063-.094l4.53 3.625 4.532-3.625a.71.71 0 0 1 1.031.094c.25.343.22.812-.125 1.062l-5 4zm5-11.156a.71.71 0 0 1 .093 1.031.714.714 0 0 1-1.03.125L8.007 1.953 3.477 5.578c-.344.25-.813.219-1.063-.125a.714.714 0 0 1 .125-1.031l5-4c.25-.219.656-.219.938 0z"/></svg>'
+    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><path d="M8.477 15.32c-.282.22-.688.22-.938 0l-5-4c-.344-.25-.375-.718-.125-1.062a.744.744 0 0 1 1.063-.094l4.53 3.625 4.532-3.625a.71.71 0 0 1 1.031.094c.25.344.22.812-.125 1.062l-5 4zm5-11.156a.71.71 0 0 1 .093 1.031.714.714 0 0 1-1.03.125L8.007 1.695 3.477 5.32c-.344.25-.813.22-1.063-.125a.714.714 0 0 1 .125-1.03l5-4c.25-.22.656-.22.938 0z"/></svg>'
   },
   'sort-down': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g><path d="M7.54 15.578c.25.219.655.219.937 0h-.032l5-4c.344-.25.375-.719.125-1.062a.73.73 0 0 0-.538-.273l.004-.003H2.964l.003.002a.73.73 0 0 0-.553.274c-.25.343-.219.812.125 1.062zM13.57 5.453a.71.71 0 0 0-.093-1.031l-5-4c-.282-.219-.688-.219-.938 0l-5 4a.714.714 0 0 0-.125 1.031c.25.344.719.375 1.063.125l4.53-3.625 4.532 3.625a.714.714 0 0 0 1.031-.125"/></g></svg>'
   },
   'sort-up': {
-    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><g><path d="M7.54 15.578c.25.219.655.219.937 0h-.032l5-4c.344-.25.375-.719.125-1.062a.71.71 0 0 0-1.03-.094l-4.532 3.625-4.531-3.625a.744.744 0 0 0-1.063.094c-.25.343-.219.812.125 1.062zM13.57 5.453a.71.71 0 0 0-.093-1.031l-5-4c-.282-.219-.688-.219-.938 0l-5 4a.714.714 0 0 0-.125 1.031.7.7 0 0 0 .64.286l-.012.01h10.072l-.016-.013a.7.7 0 0 0 .472-.283"/></g></svg>'
+    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17"><g><path d="M7.54 15.32c.25.22.655.22.937 0h-.032l5-4c.344-.25.375-.718.125-1.062a.71.71 0 0 0-1.03-.094L8.007 13.79l-4.531-3.625a.744.744 0 0 0-1.063.094c-.25.344-.219.812.125 1.062zM13.57 5.195a.71.71 0 0 0-.093-1.03l-5-4c-.282-.22-.688-.22-.938 0l-5 4a.714.714 0 0 0-.125 1.03.7.7 0 0 0 .64.286l-.012.01h10.072l-.016-.013a.7.7 0 0 0 .472-.283"/></g></svg>'
   },
   star: {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.493 5.107 8.616.896H7.384l-1.792 4.21-4.567.488-.373 1.174 3.6 3.037-1.193 4.554 1.002.745 3.925-2.442 3.924 2.442 1.003-.745-1.217-4.44 3.652-3.15-.373-1.175zm-2.507-1.63L6.86 6.317l-.444.322-3.1.272 2.488 2.001.172.544-.856 3.039 2.594-1.662h.568l2.595 1.662-.901-2.94.172-.544 2.507-2.1-3-.272-.445-.321z" clip-rule="evenodd"/></svg>'
@@ -177,6 +180,9 @@ export const icons = {
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480L40 480c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   xmark: {
-    svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path stroke="#222" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13 13 3m0 10L3 3"/></svg>'
+    value: 'xmark',
+    type: 'Icons',
+    description: 'icon.core.xmark',
+    svg: '<svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg"><path d="M345 137c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-119 119L73 103c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l119 119L39 375c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l119-119L311 409c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-119-119L345 137z" fill="var(--sl-icon-fill-default)"></path></svg>'
   }
 };

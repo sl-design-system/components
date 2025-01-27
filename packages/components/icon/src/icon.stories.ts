@@ -129,12 +129,12 @@ export const All: Story = {
           justify-items: center;
         }
       </style>
+      change
       <section class="copyable">
         ${icons
-          // .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
+          .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
           .map(i => html`<sl-icon .name=${i} size="2xl" .label=${i} title=${i}></sl-icon>`)}
       </section>
-      change
     `;
   }
 };

@@ -39,6 +39,8 @@ WAI-ARIA Roles, States, and Properties for a select component provide essential 
 |-|-|-|-|
 |`role`|`'combobox'`|Identifies the select-button as a combobox.|no|
 |`role`|`'listbox'`|Identifies the list of options as a listbox.|no|
+|`aria-controls`|string|Refers to the `id` of the listbox that the button controls.|no|
+|`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
 |`aria-expanded`|boolean|Set to `true` if the listbox (list of options) is visible, `false` if it is hidden.|no|
 |`aria-activedescendant`|string|When a select option in the listbox is visually indicated as having keyboard focus, refers to that option (by `id`) or when it is already selected.|no|
 |`aria-label`|string|Defines a string that labels the action that will be performed when the user interacts with the select. Needs to be added when the select is not wrapped with `sl-form-field` and there is no `sl-label`.|yes|

@@ -150,7 +150,7 @@ export const Groups: Story = {
         <sl-select-option>🥳 Partying Face</sl-select-option>
       </sl-select-option-group>
       <sl-select-option>😶 Unfazed</sl-select-option>
-      <sl-select-option-group group-heading="Sad">
+      <sl-select-option-group heading="Sad">
         <sl-select-option>😒 Unamused Face</sl-select-option>
         <sl-select-option>🤧 Sneezing Face</sl-select-option>
         <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>
@@ -419,6 +419,7 @@ export const All: StoryObj = {
                             .showValid=${state === 'valid'}
                             .showValidity=${state}
                             .size=${size}
+                            aria-label="Select an animal"
                             data-mock-state
                             value="1"
                             >${options}
@@ -442,6 +443,7 @@ export const All: StoryObj = {
                             .showValid=${state === 'valid'}
                             .showValidity=${state}
                             .size=${size}
+                            aria-label="Select an animal"
                             data-mock-state
                             placeholder="Placeholder"
                             ><sl-select-option .size=${size} ?disabled=${disabledState}>Hamster</sl-select-option>

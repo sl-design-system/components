@@ -129,7 +129,6 @@ export const All: Story = {
           justify-items: center;
         }
       </style>
-      change
       <section class="copyable">
         ${icons
           .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')

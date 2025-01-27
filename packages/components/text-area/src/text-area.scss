@@ -36,7 +36,7 @@
   background: var(--sl-color-background-positive-subtlest);
 }
 
-:host([size='lg']) {
+:host([size='lg']) ::slotted(textarea) {
   padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
 }
 

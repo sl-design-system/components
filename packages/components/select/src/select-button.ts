@@ -36,6 +36,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize = 'md';
 
+  /** Mirrors the same property on the sl-select parent. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
+
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
 
@@ -59,14 +62,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     if (changes.has('disabled')) {
       this.tabIndex = this.disabled ? -1 : 0;
     }
-
-    if (changes.has('placeholder')) {
-      if (this.placeholder) {
-        this.setAttribute('aria-placeholder', this.placeholder);
-      } else {
-        this.removeAttribute('aria-placeholder');
-      }
-    }
   }
 
   override render(): TemplateResult {
@@ -81,7 +76,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     }
 
     return html`
-      <div>${selected || this.placeholder || '\u00a0'}</div>
+      <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
       <sl-icon name="chevron-down"></sl-icon>
     `;
   }

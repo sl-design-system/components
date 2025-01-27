@@ -1,6 +1,5 @@
 import { msg } from '@lit/localize';
 import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
 import { format } from '@sl-design-system/format-number/format.js';
 import { Icon } from '@sl-design-system/icon';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
@@ -20,15 +19,20 @@ export type StepButtonsPlacement = 'end' | 'edges'; // | 'none';
 
 export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
+  static formAssociated = true;
+
+  /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
       'sl-icon': Icon
     };
-  }
+  } // TODO: is this scopedElements needed? also check dependencies...
 
   /** @internal */
   static override styles = [TextField.styles, styles];
+
+  /** @internal Element internals. */
+  readonly internals = this.attachInternals();
 
   /** Parser used for user input.  */
   // eslint-disable-next-line no-unused-private-class-members
@@ -100,10 +104,31 @@ export class NumberField extends LocaleMixin(TextField) {
     super.connectedCallback();
 
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
+    this.internals.setFormValue(this.valueAsNumber?.toString() || '');
+
+    console.log('min and max', this.min, this.max);
+
+    // if (this.max) {
+    //   this.input.max = this.max.toString();
+    // }
+    //
+    // if (this.min) {
+    //   this.input.min = this.min.toString();
+    // }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    console.log('min and max in willUpdate', this.min, this.max);
+
+    if (this.max) {
+      this.input.max = this.max.toString();
+    }
+
+    if (this.min) {
+      this.input.min = this.min.toString();
+    }
 
     if (changes.has('locale') || changes.has('formatOptions')) {
       this.#parser = new NumberParser(this.locale, this.formatOptions);
@@ -114,16 +139,14 @@ export class NumberField extends LocaleMixin(TextField) {
     // TODO...
     return this.stepButtons === 'edges'
       ? html`
-          <sl-button
-            size="md"
-            fill="outline"
+          <button
             @click=${() => this.stepDown()}
             ?disabled=${this.disabled || this.readonly}
             aria-label=${msg('Step down')}
             tabindex="-1"
           >
             <sl-icon name="dash-solid" size="xs"></sl-icon>
-          </sl-button>
+          </button>
         `
       : nothing;
   }
@@ -134,40 +157,34 @@ export class NumberField extends LocaleMixin(TextField) {
       ? this.stepButtons === 'end'
         ? html`
             <div class="step-buttons">
-              <sl-button
-                size="md"
-                fill="outline"
+              <button
                 @click=${() => this.stepDown()}
                 ?disabled=${this.disabled || this.readonly}
                 aria-label=${msg('Step down')}
                 tabindex="-1"
               >
                 <sl-icon name="dash-solid" size="xs"></sl-icon>
-              </sl-button>
-              <sl-button
-                size="md"
-                fill="outline"
+              </button>
+              <button
                 @click=${() => this.stepUp()}
                 ?disabled=${this.disabled || this.readonly}
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
                 <sl-icon name="far-plus" size="xs"></sl-icon>
-              </sl-button>
+              </button>
             </div>
           `
         : html`
             <div class="step-buttons">
-              <sl-button
-                size="md"
-                fill="outline"
+              <button
                 @click=${() => this.stepUp()}
                 ?disabled=${this.disabled || this.readonly}
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
                 <sl-icon name="far-plus" size="xs"></sl-icon>
-              </sl-button>
+              </button>
             </div>
           `
       : nothing;
@@ -178,6 +195,7 @@ export class NumberField extends LocaleMixin(TextField) {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
+    this.internals.setFormValue(this.valueAsNumber?.toString() || '');
   }
 
   /** Increases the current value by the `step` amount. */
@@ -185,6 +203,7 @@ export class NumberField extends LocaleMixin(TextField) {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
+    this.internals.setFormValue(this.valueAsNumber?.toString() || '');
   }
 
   override onBlur(): void {
@@ -192,11 +211,26 @@ export class NumberField extends LocaleMixin(TextField) {
       this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
     }
 
+    this.internals.setValidity({
+      rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+      rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    });
+
+    // this.input.setValidity({ rangeOverflow: this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber < (this.min ?? -Infinity) });
+    // this.internals.setValidity({ rangeOverflow: this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) });
+    // this.input.setCustomValidity(this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) ? 'Invalid value' : '');
+
     super.onBlur();
   }
 
   override onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
+    this.internals.setFormValue(this.rawValue);
+
+    this.internals.setValidity({
+      rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+      rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    });
   }
 
   override onKeydown(event: KeyboardEvent): void {
@@ -216,6 +250,8 @@ export class NumberField extends LocaleMixin(TextField) {
   #convertValueToNumber(value: string): number {
     return parseFloat(value);
   }
+
+  // TODO: this.#updateValueAndValidity();
 
   // TODO maybe setCustomValidity needs to be added to handle min/max values?
 }

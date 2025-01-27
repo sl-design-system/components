@@ -18,21 +18,17 @@
   // border-inline-start: 1px solid var(--_border-color);
   display: flex;
 
-  // flex-direction: column;
-
-  button {
-    background: var(--sl-color-palette-neutral-100);
-    block-size: calc((1lh + var(--_padding-block) * 2) / 2);
-    border-radius: 0;
-    inline-size: 24px;
-
-    &:first-of-type {
-      border-start-end-radius: var(--_border-radius);
-    }
-
-    &:last-of-type {
-      border-block-start: 1px solid var(--_border-color);
-      border-end-end-radius: var(--_border-radius);
-    }
-  }
+  // button {
+  //  background: var(--sl-color-palette-neutral-100);
+  //  block-size: calc((1lh + var(--_padding-block) * 2) / 2);
+  //  border-radius: 0;
+  //  inline-size: 24px;
+  //  &:first-of-type {
+  //    border-start-end-radius: var(--_border-radius);
+  //  }
+  //  &:last-of-type {
+  //    border-block-start: 1px solid var(--_border-color);
+  //    border-end-end-radius: var(--_border-radius);
+  //  }
+  // }
 }

@@ -117,8 +117,11 @@ export class TextField<T extends { toString(): string } = string>
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the input. */
-  @property({ reflect: true }) size: TextFieldSize = 'md';
+  /**
+   * The size of the input.
+   * @default md
+   */
+  @property({ reflect: true }) size?: TextFieldSize;
 
   /**
    * The input type. Only text types are valid here. For other types,

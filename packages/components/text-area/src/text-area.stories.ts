@@ -274,3 +274,47 @@ export const All: StoryObj = {
     )}
   `
 };
+
+export const All2: Story = {
+  render: () => {
+    return html`
+      <style>
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto 1fr 1fr;
+        }
+      </style>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center">md</span>
+        <span style="justify-self: center">lg</span>
+
+        <span>Empty</span>
+        <sl-text-area placeholder="Placeholder"></sl-text-area>
+        <sl-text-area placeholder="Placeholder" size="lg"></sl-text-area>
+
+        <span>Value</span>
+        <sl-text-area value="Value"></sl-text-area>
+        <sl-text-area size="lg" value="Value"></sl-text-area>
+
+        <span>Invalid</span>
+        <sl-text-area show-validity="invalid" value="Invalid"></sl-text-area>
+        <sl-text-area show-validity="invalid" size="lg" value="Invalid"></sl-text-area>
+
+        <span>Valid</span>
+        <sl-text-area show-validity="valid" value="Valid"></sl-text-area>
+        <sl-text-area show-validity="valid" size="lg" value="Valid"></sl-text-area>
+
+        <span>Readonly</span>
+        <sl-text-area readonly value="Value"></sl-text-area>
+        <sl-text-area readonly size="lg" value="Value"></sl-text-area>
+
+        <span>Disabled</span>
+        <sl-text-area disabled value="Value"></sl-text-area>
+        <sl-text-area disabled size="lg" value="Value"></sl-text-area>
+      </div>
+    `;
+  }
+};

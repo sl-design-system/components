@@ -10,6 +10,7 @@
   gap: var(--sl-space-100);
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
+  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
   vertical-align: middle;
 }
 
@@ -58,8 +59,8 @@
   cursor: default;
 }
 
-::slotted(:first-child) {
-  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+slot[name='suffix']::slotted(:not(button)) {
+  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
 }
 
 slot[name='input']::slotted(input) {

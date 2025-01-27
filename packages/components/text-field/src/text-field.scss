@@ -5,114 +5,44 @@
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
   color: var(--sl-color-text-plain);
+  cursor: text;
   display: flex;
   gap: var(--sl-space-100);
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
-  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  vertical-align: middle;
 }
 
-:host([size='lg']) {
-  padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
+:host(:hover:not(:focus-within)) {
+  background: var(--sl-color-background-input-interactive);
 }
 
 :host([show-validity='invalid']) {
   border-color: var(--sl-color-border-negative);
 }
 
+:host([show-validity='invalid']:hover:not(:focus-within)) {
+  background: var(--sl-color-background-negative-subtlest);
+}
+
+:host([show-validity='valid']:hover:not(:focus-within)) {
+  background: var(--sl-color-background-positive-subtlest);
+}
+
+:host([size='lg']) {
+  padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  :host(:where([has-focus-ring])) {
+  :host(:where(:hover, [has-focus-ring])) {
     transition: 200ms ease-in-out;
     transition-property: background, border, color, outline-color;
   }
 }
 
-.valid-icon {
-  color: var(--sl-color-icon-positive-plain);
-}
-
-// @each $variant in $variants {
-//   $i: list.index($variants, $variant);
-//   $variant-selector: list.nth($variant-selectors, $i);
-
-//   :host(#{$variant-selector}) {
-//     --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
-//     --_border-color: var(--sl-color-input-text-field-#{$variant}-default-border);
-
-//     slot[name='input']::slotted(input) {
-//       --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
-//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
-//     }
-
-//     slot[name='suffix'] sl-icon {
-//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
-//     }
-//   }
-
-//   :host(#{$variant-selector}:hover) {
-//     --_border-color: var(--sl-color-input-text-field-#{$variant}-hover-border);
-//     --_background: var(--sl-color-input-text-field-#{$variant}-hover-background);
-
-//     slot[name='input']::slotted(input) {
-//       --_color: var(--sl-color-input-text-field-#{$variant}-hover-input-text);
-//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
-//     }
-
-//     slot[name='suffix'] sl-icon {
-//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
-//     }
-//   }
-
-//   :host(#{$variant-selector}:active:not([disabled])) {
-//     --_background: var(--sl-color-input-text-field-#{$variant}-active-background);
-//     --_border-color: var(--sl-color-input-text-field-#{$variant}-active-border);
-
-//     slot[name='input']::slotted(input) {
-//       --_color: var(--sl-color-input-text-field-#{$variant}-active-input-text);
-//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
-//     }
-
-//     slot[name='suffix'] sl-icon {
-//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
-//     }
-//   }
-
-//   :host(#{$variant-selector}:focus-within:not([disabled])) {
-//     --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
-//     --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
-
-//     slot[name='input']::slotted(input) {
-//       --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
-//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
-//     }
-
-//     slot[name='suffix'] sl-icon {
-//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
-//     }
-//   }
-
-//   :host(#{$variant-selector}[disabled]) {
-//     --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
-//     --_border-color: var(--sl-color-input-text-field-#{$variant}-disabled-border);
-
-//     slot[name='input']::slotted(input) {
-//       --_color: var(--sl-color-input-text-field-#{$variant}-disabled-input-text);
-//       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
-//     }
-
-//     slot[name='prefix']::slotted(sl-icon),
-//     slot[name='suffix']::slotted(sl-icon),
-//     slot[name='suffix'] sl-icon {
-//       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
-//     }
-//   }
-// }
-
 :host([disabled]) {
   background: var(--sl-color-background-disabled);
   color: var(--sl-color-text-disabled);
-  cursor: pointer;
   pointer-events: none;
 }
 
@@ -125,7 +55,11 @@
 }
 
 :host([readonly]) {
-  cursor: pointer;
+  cursor: default;
+}
+
+::slotted(:first-child) {
+  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
 }
 
 slot[name='input']::slotted(input) {
@@ -138,7 +72,7 @@ slot[name='input']::slotted(input) {
   margin: 0;
   min-inline-size: 0;
   outline: none;
-  padding: 0;
+  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
 
   &:focus {
     outline: none;
@@ -150,43 +84,39 @@ slot[name='input']::slotted(input) {
   }
 }
 
+.valid-icon {
+  color: var(--sl-color-icon-positive-plain);
+  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+}
+
 button,
 ::slotted(button) {
   align-items: center;
   appearance: none;
   aspect-ratio: 1 / 1;
-  background: var(--sl-color-field-button-default-idle-background);
-  block-size: calc(1lh + var(--_padding-block) * 2);
+  background: transparent;
+  block-size: calc(1lh + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
   border: 0;
-  border-radius: var(--_border-radius);
-  color: var(--sl-color-field-button-default-idle-foreground);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-text-muted);
   cursor: pointer;
   display: inline-flex;
-  font: var(--_font);
+  font: inherit;
   justify-content: center;
   outline: 0;
   padding: 0;
-  transition: var(--_transition);
-  transition-property: background, color;
-
-  &:focus-visible {
-    color: var(--sl-color-field-button-default-hover-foreground);
-    outline: var(--_focus-outline);
-  }
 
   &:hover {
-    background: var(--sl-color-field-button-default-hover-background);
-    color: var(--sl-color-field-button-default-hover-foreground);
-  }
+    color: var(--sl-color-text-plain);
 
-  &:active {
-    background: var(--sl-color-field-button-default-active-background);
-    color: var(--sl-color-field-button-default-active-foreground);
+    @media (prefers-reduced-motion: no-preference) {
+      transition: 200ms ease-in-out;
+      transition-property: color;
+    }
   }
 
   &:disabled {
-    background: var(--sl-color-field-button-default-disabled-background);
-    color: var(--sl-color-field-button-default-disabled-foreground);
+    color: var(--sl-color-text-disabled);
     cursor: default;
   }
 }

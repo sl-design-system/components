@@ -1,6 +1,8 @@
+import { faCalendar } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -28,6 +30,8 @@ type Props = Pick<
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
+
+Icon.register(faCalendar);
 
 const sizes: TextFieldSize[] = ['md', 'lg'];
 
@@ -302,6 +306,20 @@ export const All: Story = {
         <span>Valid</span>
         <sl-text-field show-validity="valid" value="Valid"></sl-text-field>
         <sl-text-field show-validity="valid" size="lg" value="Valid"></sl-text-field>
+
+        <span>Prefix/suffix</span>
+        <sl-text-field placeholder="Placeholder">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </button>
+        </sl-text-field>
+        <sl-text-field placeholder="Placeholder" size="lg">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </button>
+        </sl-text-field>
 
         <span>Readonly</span>
         <sl-text-field readonly value="Value"></sl-text-field>

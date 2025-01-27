@@ -1,5 +1,5 @@
 :host {
-  padding: 0 var(--_padding-inline); // 0; // 0 0 0 var(--_padding-inline); // TODO: maybe old values for edges variant?
+  padding: 0 var(--_padding-inline); // 0; // 0 0 0 var(--_padding-inline);
 }
 
 :host([step-buttons='edges']) {
@@ -15,7 +15,7 @@
 }
 
 .step-buttons {
-  border-inline-start: 1px solid var(--_border-color);
+  // border-inline-start: 1px solid var(--_border-color);
   display: flex;
 
   // flex-direction: column;

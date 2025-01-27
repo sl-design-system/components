@@ -129,7 +129,6 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   override renderSuffix(): TemplateResult | typeof nothing {
-    // TODO: for edges variant should be not rendered as suffix? or maybe minus as prefix and plus as suffix?
     console.log('stepButtons', this.stepButtons, this.size);
     return this.stepButtons
       ? this.stepButtons === 'end'

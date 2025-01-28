@@ -28,8 +28,10 @@ sl-tag-list {
   max-inline-size: 66%;
 }
 
-sl-icon {
-  transition: rotate 0.2s ease-in-out;
+@media (prefers-reduced-motion: no-preference) {
+  sl-icon {
+    transition: rotate 0.2s ease-in-out;
+  }
 }
 
 [part='wrapper'] {

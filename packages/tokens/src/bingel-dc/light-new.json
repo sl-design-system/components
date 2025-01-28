@@ -1055,12 +1055,12 @@
       },
       "caution": {
         "plain": {
-          "value": "{color.border.accent.yellow.plain}",
+          "value": "{color.border.accent.orange.plain}",
           "type": "color",
           "description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
         },
         "bold": {
-          "value": "{color.border.accent.yellow.bold}",
+          "value": "{color.border.accent.orange.bold}",
           "type": "color",
           "description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
         }

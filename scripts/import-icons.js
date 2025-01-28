@@ -152,6 +152,7 @@ const exportCoreIcons = async () => {
   // load all custom icons from figma and store svgs
   await new Promise((resolve, reject) => {
     console.log(`Extracting icons from Figma for core...`);
+    // Pbs7HEwKmwm6wAX9tfjk2N is the page id in figma where the icons are stored
     exec(`yarn run figma-export use-config .figmaexportrc.js Pbs7HEwKmwm6wAX9tfjk2N`, { cwd }, error => {
       if (error) {
         reject(error);

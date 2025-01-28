@@ -19,7 +19,7 @@
 }
 
 :host([show-validity='invalid']) {
-  border-color: var(--sl-color-border-negative);
+  border-color: var(--sl-color-border-negative-plain);
 }
 
 :host([show-validity='invalid']:hover:not(:focus-within)) {

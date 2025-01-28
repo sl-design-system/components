@@ -82,8 +82,11 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the checkbox. */
-  @property({ reflect: true }) size: CheckboxSize = 'md';
+  /**
+   * The size of the checkbox.
+   * @default md
+   */
+  @property({ reflect: true }) size?: CheckboxSize;
 
   /**
    * The value of the checkbox when the checkbox is checked.

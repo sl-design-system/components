@@ -119,9 +119,9 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       const style = document.createElement('style');
       style.innerHTML = `
         sl-checkbox:has(input:focus-visible)::part(inner) {
-          outline: var(--_focus-outline);
-          transition: var(--_transition);
-          transition-property: background, border-color, color, filter, outline-color;        }
+          outline-color: var(--sl-color-border-focused);
+          transition: 200ms ease-in-out;
+          transition-property: background, border-color, color, outline-color;        }
       `;
       this.append(style);
     }

@@ -74,7 +74,7 @@
 @media (prefers-reduced-motion: no-preference) {
   :host(:where(:active, :focus-visible, :hover)) [part='box'] {
     transition: 200ms ease-in-out;
-    transition-property: background, border-color, color, filter, outline-color;
+    transition-property: background, border-color, color, outline-color;
   }
 }
 

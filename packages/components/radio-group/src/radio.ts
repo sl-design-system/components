@@ -61,7 +61,7 @@ export class Radio<T = unknown> extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div class="box">
+      <div part="box">
         ${this.checked
           ? html`
               <svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ export class Radio<T = unknown> extends LitElement {
             `
           : html`<svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24"></svg>`}
       </div>
-      <span class="label">
+      <span part="label">
         <slot></slot>
       </span>
     `;

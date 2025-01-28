@@ -1073,12 +1073,12 @@
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.palette.accent.400}",
+        "value": "{color.border.accent.blue.plain}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.border.accent.blue.plain}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -1088,45 +1088,101 @@
         "description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
       },
       "primary": {
-        "value": "{color.border.accent.blue}",
-        "type": "color",
-        "description": "Use for borders that highlight primary actions."
+        "plain": {
+          "value": "{color.border.accent.blue.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
+        }
       },
       "secondary": {
-        "value": "{color.border.accent.grey.heavy}",
-        "type": "color",
-        "description": "Use for borders that highlight secondary actions."
+        "plain": {
+          "value": "{color.border.accent.grey.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.background.secondary.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
+        }
       },
       "info": {
-        "value": "{color.border.accent.blue}",
-        "type": "color",
-        "description": "Use for borders that highlight informative messages the user needs to be aware of."
+        "plain": {
+          "value": "{color.border.accent.blue.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
+        }
       },
       "positive": {
-        "value": "{color.border.accent.green}",
-        "type": "color",
-        "description": "Use for borders that highlight a favorable outcome."
+        "plain": {
+          "value": "{color.border.accent.green.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.green.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
+        }
       },
       "caution": {
-        "value": "{color.border.accent.yellow}",
-        "type": "color",
-        "description": "Use for borders that highlight caution to help prevent mistakes or errors."
+        "plain": {
+          "value": "{color.border.accent.yellow.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.yellow.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
+        }
       },
       "negative": {
-        "value": "{color.border.accent.red}",
-        "type": "color",
-        "description": "Use for borders that highlight negative or serious error states, such as validation errors or irreversible actions."
+        "plain": {
+          "value": "{color.border.accent.red.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.red.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
+        }
       },
       "accent": {
         "blue": {
-          "value": "{color.text.accent.blue.bold}",
-          "type": "color",
-          "description": "Use for blue borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.palette.blue.500}",
+            "type": "color",
+            "description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "green": {
-          "value": "{color.text.accent.green.bold}",
-          "type": "color",
-          "description": "Use for green borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.palette.green.400}",
+            "type": "color",
+            "description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.green.bold}",
+            "type": "color",
+            "description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "grey": {
           "faint": {
@@ -1135,45 +1191,80 @@
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
           "plain": {
-            "value": "{color.palette.grey.200}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "rgba({color.palette.grey.900}, 34%)",
+            "value": "{color.palette.grey.400}",
             "type": "color",
             "description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
           },
           "heavy": {
-            "value": "{color.palette.grey.900}",
+            "value": "{color.text.bold}",
             "type": "color",
             "description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
           }
         },
         "orange": {
-          "value": "{color.text.accent.orange.bold}",
-          "type": "color",
-          "description": "Use for orange borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.palette.orange.300}",
+            "type": "color",
+            "description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.orange.bold}",
+            "type": "color",
+            "description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "purple": {
-          "value": "{color.text.accent.purple.bold}",
-          "type": "color",
-          "description": "Use for purple borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.palette.purple.500}",
+            "type": "color",
+            "description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.purple.bold}",
+            "type": "color",
+            "description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "red": {
-          "value": "{color.text.accent.red.bold}",
-          "type": "color",
-          "description": "Use for red borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.palette.red.400}",
+            "type": "color",
+            "description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.red.bold}",
+            "type": "color",
+            "description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "teal": {
-          "value": "{color.text.accent.teal.bold}",
-          "type": "color",
-          "description": "Use for teal borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.palette.teal.300}",
+            "type": "color",
+            "description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.teal.bold}",
+            "type": "color",
+            "description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "yellow": {
-          "value": "{color.text.accent.yellow.bold}",
-          "type": "color",
-          "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.palette.yellow.300}",
+            "type": "color",
+            "description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.yellow.bold}",
+            "type": "color",
+            "description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
+          }
         }
       }
     },

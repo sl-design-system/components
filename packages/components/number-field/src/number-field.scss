@@ -4,6 +4,10 @@
 
 :host([step-buttons='edges']) {
   padding: 0;
+
+  slot[name='input']::slotted(input) {
+    text-align: center;
+  }
 }
 
 :host([step-buttons='end']) {

@@ -314,6 +314,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
           this.formControlElement.internals.ariaInvalid = this.showValidity === 'invalid' ? 'true' : null;
         }
       }
+
+      console.log('this.formControlElement in updated', this.formControlElement);
     }
 
     /**
@@ -474,6 +476,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
+      console.log('form control element', element, this.#formControlElement);
     }
   }
 

@@ -136,6 +136,8 @@ export class TextField<T extends { toString(): string } = string>
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
+  // @property({ type: Boolean }) noInputTarget?: boolean;
+
   override get value(): string | undefined {
     return this.#value;
   }
@@ -149,6 +151,8 @@ export class TextField<T extends { toString(): string } = string>
   override connectedCallback(): void {
     super.connectedCallback();
 
+    //  console.log('this and this input in text field', this, this.input, this.hasOwnProperty('attachInternals'), this.hasOwnProperty('internals')/*, this instanceof NumberField*/);
+
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
@@ -160,11 +164,23 @@ export class TextField<T extends { toString(): string } = string>
       }
     }
 
+    // if (!this.noInputTarget) {
     this.setFormControlElement(this.input);
+    // } else {
+    //   this.setFormControlElement(this);
+    // }
+
+    // if (this.hasOwnProperty('internals')) {
+    //   this.setFormControlElement(this as FormControlElement);
+    // } else {
+    //   this.setFormControlElement(this.input);
+    // }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    //  console.log('this and this input in text field in UPDATED', this, this.input, this.hasOwnProperty('attachInternals'), this.hasOwnProperty('internals')/*, this instanceof NumberField*/);
 
     const props: Array<keyof TextField> = [
       'autocomplete',

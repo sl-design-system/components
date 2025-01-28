@@ -50,6 +50,8 @@ export class NumberField extends LocaleMixin(TextField) {
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
   @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: StepButtonsPlacement;
 
+  // TODO: maybe it should not extent TextField?
+
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
       return format(this.valueAsNumber, this.locale, this.formatOptions);
@@ -103,8 +105,12 @@ export class NumberField extends LocaleMixin(TextField) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.input.setAttribute('inputmode', this.inputMode || 'numeric');
+    this.setFormControlElement(this);
+
+    // this.input.setAttribute('inputmode', this.inputMode || 'numeric');
     this.internals.setFormValue(this.valueAsNumber?.toString() || '');
+
+    // this.setFormControlElement(this);
 
     console.log('min and max', this.min, this.max);
 
@@ -123,11 +129,13 @@ export class NumberField extends LocaleMixin(TextField) {
     console.log('min and max in willUpdate', this.min, this.max);
 
     if (this.max) {
-      this.input.max = this.max.toString();
+      // this.input.max = this.max.toString();
+      this.internals.ariaValueMax = this.max.toString();
     }
 
     if (this.min) {
-      this.input.min = this.min.toString();
+      // this.input.min = this.min.toString();
+      this.internals.ariaValueMin = this.min.toString();
     }
 
     if (changes.has('locale') || changes.has('formatOptions')) {
@@ -211,14 +219,29 @@ export class NumberField extends LocaleMixin(TextField) {
       this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
     }
 
-    this.internals.setValidity({
-      rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-      rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    });
+    // this.internals.setValidity({
+    //   rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+    //   rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    // });
+
+    this.internals.setValidity(
+      {
+        rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+        rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+      },
+      this.valueAsNumber &&
+        (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
+        ? 'Invalid value'
+        : ''
+    );
 
     // this.input.setValidity({ rangeOverflow: this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber < (this.min ?? -Infinity) });
     // this.internals.setValidity({ rangeOverflow: this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) });
     // this.input.setCustomValidity(this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) ? 'Invalid value' : '');
+
+    this.internals.checkValidity();
+
+    this.updateValidity();
 
     super.onBlur();
   }
@@ -227,10 +250,25 @@ export class NumberField extends LocaleMixin(TextField) {
     this.rawValue = target.value;
     this.internals.setFormValue(this.rawValue);
 
-    this.internals.setValidity({
-      rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-      rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    });
+    // this.internals.setValidity({
+    //   rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+    //   rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    // });
+
+    this.internals.setValidity(
+      {
+        rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+        rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+      },
+      this.valueAsNumber &&
+        (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
+        ? 'Invalid value'
+        : ''
+    );
+
+    this.internals.checkValidity();
+
+    this.updateValidity();
   }
 
   override onKeydown(event: KeyboardEvent): void {

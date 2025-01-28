@@ -91,6 +91,53 @@
         },
         "type": "typography"
       }
+    },
+    "heading": {
+      "sm": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.sm}",
+          "lineHeight": "{size.lineHeight.250}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "md": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.md}",
+          "lineHeight": "{size.lineHeight.250}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "lg": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.lg}",
+          "lineHeight": "{size.lineHeight.400}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "xl": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.xl}",
+          "lineHeight": "{size.lineHeight.500}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "2xl": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.2xl}",
+          "lineHeight": "{size.lineHeight.600}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      }
     }
   },
   "size": {
@@ -146,12 +193,12 @@
       },
       "focusRing": {
         "outside": {
-          "value": "{size.borderRadius.default} + 2px",
+          "value": "{size.borderRadius.default} + 2",
           "type": "borderRadius",
           "description": "Use for focusring outside of component"
         },
         "inside": {
-          "value": "{size.borderRadius.default} - 1px",
+          "value": "{size.borderRadius.default} - 1",
           "type": "borderRadius",
           "description": "Use for focusring inside of component when outside focus ring is not possible"
         }

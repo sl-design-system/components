@@ -14,8 +14,6 @@
 sl-text-field {
   flex: 1;
   max-inline-size: 100%;
-  padding-block: 0;
-  padding-inline: var(--_padding-inline) 0;
 
   &:has(> sl-tag-list) {
     padding-inline: calc(var(--sl-space-100) - var(--sl-size-borderWidth-subtle)) 0;
@@ -35,7 +33,7 @@ sl-icon {
 }
 
 [part='wrapper'] {
-  background: var(--sl-elevation-surface-raised-default-idle);
+  background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);

@@ -162,74 +162,46 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
-export const All: StoryObj = {
+export const All: Story = {
   render: () => {
-    const checked = ['', 'checked'],
-      states = ['', 'valid', 'invalid'];
-
     return html`
       <style>
-        table {
-          border-collapse: collapse;
-          margin-bottom: 24px;
-        }
-        th {
-          text-transform: capitalize;
-        }
-        th,
-        td {
-          padding: 4px 8px;
-        }
-        thead td {
-          text-align: center;
-        }
-
-        tbody td:nth-of-type(4n + 5) {
-          border-right: 2px solid #dedede;
-          padding-right: 24px;
-        }
-        tbody td:nth-of-type(4n + 2):not(:first-of-type) {
-          padding-left: 24px;
-        }
-        tbody td:last-of-type {
-          border: none;
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto 1fr 1fr 1fr 1fr;
         }
       </style>
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            ${sizes.map(size => html`<th colspan=${states.length + 1}>Size: ${size}</th>`)}
-          </tr>
-        </thead>
-        <tbody>
-          ${checked.map(
-            c =>
-              html` <tr>
-                <td>${c}</td>
-                ${sizes.map(
-                  size =>
-                    html` <td>
-                        <sl-radio ?checked=${c === 'checked'} size=${size} data-mock-state>Label </sl-radio>
-                      </td>
-                      <td>
-                        <sl-radio ?checked=${c === 'checked'} show-validity="valid" size=${size} data-mock-state
-                          >Label
-                        </sl-radio>
-                      </td>
-                      <td>
-                        <sl-radio ?checked=${c === 'checked'} show-validity="invalid" size=${size} data-mock-state
-                          >Label
-                        </sl-radio>
-                      </td>
-                      <td>
-                        <sl-radio ?checked=${c === 'checked'} size=${size} disabled data-mock-state>Label </sl-radio>
-                      </td>`
-                )}
-              </tr>`
-          )}
-        </tbody>
-      </table>
+      <div class="wrapper">
+        <span></span>
+        <span style="grid-column: 2 / 4; justify-self: center">md</span>
+        <span style="grid-column: 4 / 6; justify-self: center">lg</span>
+
+        <span>Default</span>
+        <sl-radio>Unchecked</sl-radio>
+        <sl-radio checked>Checked</sl-radio>
+        <sl-radio size="lg">Unchecked</sl-radio>
+        <sl-radio checked size="lg">Checked</sl-radio>
+
+        <span>Invalid</span>
+        <sl-radio show-validity="invalid">Unchecked</sl-radio>
+        <sl-radio checked show-validity="invalid">Checked</sl-radio>
+        <sl-radio show-validity="invalid" size="lg">Unchecked</sl-radio>
+        <sl-radio checked show-validity="invalid" size="lg">Checked</sl-radio>
+
+        <span>Valid</span>
+        <sl-radio show-validity="valid">Unchecked</sl-radio>
+        <sl-radio checked show-validity="valid">Checked</sl-radio>
+        <sl-radio show-validity="valid" size="lg">Unchecked</sl-radio>
+        <sl-radio checked show-validity="valid" size="lg">Checked</sl-radio>
+
+        <span>Disabled</span>
+        <sl-radio disabled>Unchecked</sl-radio>
+        <sl-radio checked disabled>Checked</sl-radio>
+        <sl-radio disabled size="lg">Unchecked</sl-radio>
+        <sl-radio checked disabled size="lg">Checked</sl-radio>
+      </div>
     `;
   }
 };

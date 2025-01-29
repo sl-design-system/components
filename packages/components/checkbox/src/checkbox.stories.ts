@@ -249,77 +249,54 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
-export const All: StoryObj = {
+export const All: Story = {
   render: () => {
-    const checked: string[] = ['', 'checked', 'indeterminate'];
-
     return html`
       <style>
-        table {
-          border-collapse: collapse;
-          border-spacing: 0;
-        }
-        td[colspan] {
-          font-weight: bold;
-          padding-block-start: 1rem;
-          text-align: center;
-        }
-        td {
-          padding: 0.25rem 0.5rem;
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr 1fr;
         }
       </style>
-      <table>
-        <tbody>
-          ${sizes.map(
-            size => html`
-              <tr>
-                <td colspan="4">${size}</td>
-              </tr>
-              ${checked.map(
-                check => html`
-                  <tr>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        size=${size}
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        show-validity="valid"
-                        size=${size}
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        show-validity="invalid"
-                        size=${size}
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        size=${size}
-                        disabled
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                  </tr>
-                `
-              )}
-            `
-          )}
-        </tbody>
-      </table>
+      <div class="wrapper">
+        <span></span>
+        <span style="grid-column: 2 / 5; justify-self: center">md</span>
+        <span style="grid-column: 6 / 8; justify-self: center">lg</span>
+
+        <span>Default</span>
+        <sl-checkbox>Unchecked</sl-checkbox>
+        <sl-checkbox checked>Checked</sl-checkbox>
+        <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+        <sl-checkbox size="lg">Unchecked</sl-checkbox>
+        <sl-checkbox checked size="lg">Checked</sl-checkbox>
+        <sl-checkbox indeterminate size="lg">Indeterminate</sl-checkbox>
+
+        <span>Invalid</span>
+        <sl-checkbox show-validity="invalid">Unchecked</sl-checkbox>
+        <sl-checkbox checked show-validity="invalid">Checked</sl-checkbox>
+        <sl-checkbox indeterminate show-validity="invalid">Indeterminate</sl-checkbox>
+        <sl-checkbox show-validity="invalid" size="lg">Unchecked</sl-checkbox>
+        <sl-checkbox checked show-validity="invalid" size="lg">Checked</sl-checkbox>
+        <sl-checkbox indeterminate show-validity="invalid" size="lg">Indeterminate</sl-checkbox>
+
+        <span>Valid</span>
+        <sl-checkbox show-validity="valid">Unchecked</sl-checkbox>
+        <sl-checkbox checked show-validity="valid">Checked</sl-checkbox>
+        <sl-checkbox indeterminate show-validity="valid">Indeterminate</sl-checkbox>
+        <sl-checkbox show-validity="valid" size="lg">Unchecked</sl-checkbox>
+        <sl-checkbox checked show-validity="valid" size="lg">Checked</sl-checkbox>
+        <sl-checkbox indeterminate show-validity="valid" size="lg">Indeterminate</sl-checkbox>
+
+        <span>Disabled</span>
+        <sl-checkbox disabled>Unchecked</sl-checkbox>
+        <sl-checkbox checked disabled>Checked</sl-checkbox>
+        <sl-checkbox disabled indeterminate>Indeterminate</sl-checkbox>
+        <sl-checkbox disabled size="lg">Unchecked</sl-checkbox>
+        <sl-checkbox checked disabled size="lg">Checked</sl-checkbox>
+        <sl-checkbox disabled indeterminate size="lg">Indeterminate</sl-checkbox>
+      </div>
     `;
   }
 };

@@ -121,7 +121,8 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
         sl-checkbox:has(input:focus-visible)::part(inner) {
           outline-color: var(--sl-color-border-focused);
           transition: 200ms ease-in-out;
-          transition-property: background, border-color, color, outline-color;        }
+          transition-property: background, border-color, color, outline-color;
+        }
       `;
       this.append(style);
     }

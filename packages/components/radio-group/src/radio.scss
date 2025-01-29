@@ -2,7 +2,8 @@
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
-  --_br-color: var(--sl-color-border-input);
+  --_border: var(--sl-color-border-input);
+  --_fill: var(--sl-color-text-selected-onBold);
 
   align-items: start;
   color: var(--sl-color-text-plain);
@@ -26,21 +27,22 @@
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
-  --_br-color: var(--sl-color-border-selected);
-}
+  --_border: var(--sl-color-border-selected);
 
-:host([checked]:hover) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
-}
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
+  }
 
-:host([checked]:active) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
+  &:active {
+    --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
+  }
 }
 
 :host([show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
-  --_br-color: var(--sl-color-border-negative-plain);
+  --_border: var(--sl-color-border-negative-plain);
+  --_fill: var(--sl-color-text-negative-onBold);
 }
 
 :host([checked][show-validity='invalid']) {
@@ -51,12 +53,13 @@
 :host([show-validity='valid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
-  --_br-color: var(--sl-color-border-positive-plain);
+  --_border: var(--sl-color-border-positive-plain);
 }
 
 :host([checked][show-validity='valid']) {
   --_bg-color: var(--sl-color-background-positive-bold);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
+  --_fill: var(--sl-color-text-positive-onBold);
 }
 
 :host(:focus-visible) [part='box'] {
@@ -64,7 +67,7 @@
 }
 
 :host([disabled]) {
-  --_br-color: var(--sl-color-border-input);
+  --_border: var(--sl-color-border-input);
 
   color: var(--sl-color-text-disabled);
   cursor: default;
@@ -105,7 +108,7 @@
   aspect-ratio: 1;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   block-size: var(--sl-size-300);
-  border: var(--sl-size-borderWidth-subtle) solid var(--_br-color);
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
   border-radius: 50%;
   box-sizing: border-box;
   display: inline-flex;
@@ -126,5 +129,5 @@ svg {
 }
 
 circle {
-  fill: var(--sl-color-icon-onBold);
+  fill: var(--_fill);
 }

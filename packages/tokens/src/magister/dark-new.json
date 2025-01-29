@@ -1088,6 +1088,16 @@
       }
     },
     "background": {
+      "subtle": {
+        "value": "{color.background.accent.grey.subtle}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
+      },
+      "bold": {
+        "value": "{color.border.bold}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
+      },
       "disabled": {
         "value": "{color.background.accent.grey.subtle}",
         "type": "color",

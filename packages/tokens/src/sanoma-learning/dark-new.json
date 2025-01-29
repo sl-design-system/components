@@ -1281,7 +1281,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
         "interactive": {
-          "value": "rgba({color.background.accent.blue.interactive.plain}, {opacity.light.interactive.plain.hover})",
+          "value": "{color.background.accent.blue.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }

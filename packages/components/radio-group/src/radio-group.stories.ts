@@ -5,7 +5,6 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type RadioGroup } from './radio-group.js';
-import { type RadioButtonSize } from './radio.js';
 
 type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'size' | 'value'> & {
   hint?: string;
@@ -14,8 +13,6 @@ type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'size' | 
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
-
-const sizes: RadioButtonSize[] = ['md', 'lg'];
 
 export default {
   title: 'Form/Radio group',
@@ -31,7 +28,7 @@ export default {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: sizes
+      options: ['md', 'lg']
     },
     value: {
       control: 'text'
@@ -88,11 +85,11 @@ export const Horizontal: Story = {
 export const Overflow: Story = {
   args: {
     options: html`
-      <sl-radio>Lorem ipsum</sl-radio>
-      <sl-radio>
+      <sl-radio value="1">Lorem ipsum</sl-radio>
+      <sl-radio value="2">
         Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea
       </sl-radio>
-      <sl-radio>
+      <sl-radio value="3">
         Amet consequat veniam nostrud labore. Labore labore sunt in nisi ut voluptate cillum. Consequat ex dolor nostrud
         duis veniam ut est. Commodo dolor incididunt laborum cupidatat anim magna voluptate Lorem eu elit eiusmod mollit
         irure.

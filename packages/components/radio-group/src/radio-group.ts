@@ -64,6 +64,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Radio<T>>(this, {
+    direction: () => (this.horizontal ? 'horizontal' : 'vertical'),
     focusInIndex: (elements: Array<Radio<T>>) => {
       return elements.findIndex(el => {
         return this.value ? !el.disabled && el.value === this.value : !el.disabled;

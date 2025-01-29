@@ -400,16 +400,6 @@
         "type": "color",
         "description": "Use for text in a disabled state."
       },
-      "selected": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for text in selected states (e.g., tabs or menu items)."
-      },
-      "brand": {
-        "value": "{color.text.accent.blue.plain}",
-        "type": "color",
-        "description": "Use for non-interactive brand-reinforcing text."
-      },
       "primary": {
         "bold": {
           "value": "{color.text.accent.blue.bold}",
@@ -682,7 +672,7 @@
           }
         }
       },
-      "selected-copy": {
+      "selected": {
         "bold": {
           "value": "{color.text.accent.blue.bold}",
           "type": "color",

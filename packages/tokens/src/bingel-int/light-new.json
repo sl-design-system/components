@@ -681,6 +681,18 @@
             "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
         }
+      },
+      "selected-copy": {
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        }
       }
     },
     "link": {

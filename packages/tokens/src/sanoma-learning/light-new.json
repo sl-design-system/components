@@ -400,15 +400,22 @@
         "type": "color",
         "description": "Use for text in a disabled state."
       },
-      "selected": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for text in selected states (e.g., tabs or menu items)."
-      },
       "brand": {
         "value": "{color.text.accent.blue.plain}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing text."
+      },
+      "selected": {
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        }
       },
       "primary": {
         "bold": {
@@ -1746,6 +1753,16 @@
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
+      },
+      "subtle": {
+        "value": "{color.background.accent.grey.subtle}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
+      },
+      "bold": {
+        "value": "{color.border.bold}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
       },
       "interactive": {
         "bold": {

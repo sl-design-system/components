@@ -400,15 +400,39 @@
         "type": "color",
         "description": "Use for text in a disabled state."
       },
-      "selected": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for text in selected states (e.g., tabs or menu items)."
-      },
       "brand": {
         "value": "{color.text.accent.blue.plain}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing text."
+      },
+      "primary": {
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "inverted": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          },
+          "description": "Use for primary actions on 'color.background.primary.bold'"
+        }
+      },
+      "selected": {
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        }
       },
       "secondary": {
         "bold": {
@@ -668,23 +692,6 @@
             "type": "color",
             "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
-        }
-      },
-      "primary": {
-        "bold": {
-          "value": "{color.text.accent.blue.bold}",
-          "type": "color",
-          "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
-        },
-        "onBold": {
-          "value": "{color.text.accent.blue.onBold}",
-          "type": "color",
-          "inverted": {
-            "value": "{color.text.accent.blue.bold}",
-            "type": "color",
-            "description": "Use for secondary actions on 'color.background.secondary.bold'."
-          },
-          "description": "Use for primary actions on 'color.background.primary.bold'"
         }
       }
     },
@@ -1269,6 +1276,28 @@
       }
     },
     "background": {
+      "subtle": {
+        "value": "{color.background.accent.grey.subtle}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
+      },
+      "bold": {
+        "value": "{color.border.bold}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
+      },
+      "interactive": {
+        "bold": {
+          "value": "{color.background.accent.blue.interactive.bold}",
+          "type": "color",
+          "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+        },
+        "plain": {
+          "value": "{color.background.accent.blue.interactive.plain}",
+          "type": "color",
+          "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+        }
+      },
       "disabled": {
         "value": "{color.palette.grey.100}",
         "type": "color",
@@ -1745,18 +1774,6 @@
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
-        }
-      },
-      "interactive": {
-        "bold": {
-          "value": "{color.background.accent.blue.interactive.bold}",
-          "type": "color",
-          "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
-        },
-        "plain": {
-          "value": "{color.background.accent.blue.interactive.plain}",
-          "type": "color",
-          "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
         }
       }
     }

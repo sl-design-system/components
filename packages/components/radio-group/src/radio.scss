@@ -55,6 +55,10 @@
   [part='box'] {
     background: var(--sl-color-background-disabled);
   }
+
+  svg circle {
+    fill: var(--sl-color-icon-disabled);
+  }
 }
 
 :host([size='lg']) {
@@ -104,5 +108,5 @@ svg {
 }
 
 circle {
-  fill: var(--sl-color-white);
+  fill: var(--sl-color-icon-inverted);
 }

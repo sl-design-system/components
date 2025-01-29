@@ -1,6 +1,8 @@
 :host {
-  --_bg-color: var(--sl-color-background-input-interactive);
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_br-color: var(--sl-color-border-input);
 
   align-items: start;
   color: var(--sl-color-text-plain);
@@ -17,39 +19,58 @@
 }
 
 :host(:active) {
-  --_bg-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
 }
 
 :host(:where([checked], [indeterminate])) {
   --_bg-color: var(--sl-color-background-selected-bold);
-  --_bg-opacity: 1;
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+  --_br-color: var(--sl-color-border-selected);
 }
 
 :host(:where([checked], [indeterminate]):hover) {
-  --_bg-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
 }
 
 :host(:where([checked], [indeterminate]):active) {
-  --_bg-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
 }
 
 :host([show-validity='invalid']) {
-  --_bg-color: var(--sl-color-background-negative-interactive-plain);
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_br-color: var(--sl-color-border-negative-plain);
+}
+
+:host(:where([checked], [indeterminate])[show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-negative-bold);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 }
 
 :host([show-validity='valid']) {
-  --_bg-color: var(--sl-color-background-positive-interactive-plain);
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_br-color: var(--sl-color-border-positive-plain);
+}
+
+:host(:where([checked], [indeterminate])[show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-positive-bold);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
 }
 
 :host([disabled]) {
+  --_br-color: var(--sl-color-border-input);
+
   color: var(--sl-color-text-disabled);
   pointer-events: none;
 
   [part='inner'] {
     background: var(--sl-color-background-disabled);
+  }
+
+  svg path {
+    stroke: var(--sl-color-icon-disabled);
   }
 }
 
@@ -123,9 +144,9 @@
 [part='inner'] {
   align-items: center;
   aspect-ratio: 1;
-  background: rgb(from var(--_bg-color) r g b / var(--_bg-opacity));
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   block-size: var(--sl-size-300);
-  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-input);
+  border: var(--sl-size-borderWidth-subtle) solid var(--_br-color);
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
   display: inline-flex;
@@ -153,7 +174,7 @@ svg {
 }
 
 path {
-  stroke: var(--sl-color-white);
+  stroke: var(--sl-color-icon-inverted);
   stroke-dasharray: 23;
   stroke-dashoffset: 23;
   stroke-linecap: round;

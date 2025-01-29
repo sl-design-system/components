@@ -400,11 +400,6 @@
         "type": "color",
         "description": "Use for text in a disabled state."
       },
-      "selected": {
-        "value": "{color.text.accent.purple.bold}",
-        "type": "color",
-        "description": "Use for text in selected states (e.g., tabs or menu items)."
-      },
       "brand": {
         "value": "{color.text.accent.red.plain}",
         "type": "color",
@@ -677,9 +672,9 @@
           }
         }
       },
-      "selected-copy": {
+      "selected": {
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.text.accent.purple.bold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
@@ -1216,7 +1211,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
         "interactive": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }
@@ -1684,12 +1679,12 @@
       },
       "interactive": {
         "bold": {
-          "value": "{color.background.accent.blue.interactive.bold}",
+          "value": "{color.palette.grey.800}",
           "type": "color",
           "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
         },
         "plain": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.accent.grey.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
         }

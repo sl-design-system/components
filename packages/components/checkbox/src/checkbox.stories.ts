@@ -2,7 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Checkbox, type CheckboxSize } from './checkbox.js';
 
@@ -12,6 +12,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
+  reportValidity?: boolean;
   slot?(): TemplateResult;
   text?: string;
 };
@@ -37,7 +38,20 @@ export default {
       options: sizes
     }
   },
-  render: ({ checked, disabled, hint, indeterminate, label, required, showValid, size, slot, text, value }) => {
+  render: ({
+    checked,
+    disabled,
+    hint,
+    indeterminate,
+    label,
+    reportValidity,
+    required,
+    showValid,
+    size,
+    slot,
+    text,
+    value
+  }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -59,9 +73,13 @@ export default {
             >
           `}
         </sl-form-field>
-        <sl-button-bar>
-          <sl-button @click=${onClick}>Report validity</sl-button>
-        </sl-button-bar>
+        ${reportValidity
+          ? html`
+              <sl-button-bar>
+                <sl-button @click=${onClick}>Report validity</sl-button>
+              </sl-button-bar>
+            `
+          : nothing}
       </sl-form>
     `;
   }
@@ -199,6 +217,7 @@ export const Overflow: Story = {
 export const Required: Story = {
   args: {
     hint: 'This checkbox is required and should display an error after reporting the validity',
+    reportValidity: true,
     required: true
   }
 };
@@ -207,6 +226,7 @@ export const Valid: Story = {
   args: {
     checked: true,
     hint: 'This checkbox is marked as valid after reporting the validity',
+    reportValidity: true,
     showValid: true
   }
 };
@@ -214,6 +234,7 @@ export const Valid: Story = {
 export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to tick the box to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox.',
+    reportValidity: true,
     slot: () => {
       const onValidate = (event: Event & { target: Checkbox }): void => {
         event.target.setCustomValidity(event.target.checked ? '' : 'You need to tick the box');
@@ -229,6 +250,7 @@ export const CustomValidity: Story = {
 export const CustomAsyncValidity: Story = {
   args: {
     hint: 'This story has an async validator. You need to select the middle option to make the field valid. It will wait 2 seconds before validating.',
+    reportValidity: true,
     slot: () => {
       const onValidate = (event: Event & { target: Checkbox }): void => {
         if (event.target.checked) {

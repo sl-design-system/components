@@ -31,8 +31,11 @@ export class Radio<T = unknown> extends LitElement {
   /** Indicates if the radio button shows it is (in)valid. */
   @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
-  /** The size of the radio button. */
-  @property({ reflect: true }) size: RadioButtonSize = 'md';
+  /**
+   * The size of the radio button.
+   * @default md
+   */
+  @property({ reflect: true }) size?: RadioButtonSize;
 
   /** The value for this radio button. */
   @property() value?: T;

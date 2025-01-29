@@ -2,14 +2,15 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type RadioGroup } from './radio-group.js';
 
-type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'size' | 'value'> & {
+type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'showValid' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
   options?: TemplateResult;
+  reportValidity?: boolean;
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -22,6 +23,7 @@ export default {
     horizontal: false,
     label: 'Label',
     required: false,
+    showValid: false,
     size: 'md',
     value: null
   },
@@ -34,7 +36,7 @@ export default {
       control: 'text'
     }
   },
-  render: ({ disabled, hint, horizontal, label, options, required, slot, value, size }) => {
+  render: ({ disabled, hint, horizontal, label, options, reportValidity, required, showValid, slot, value, size }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -48,6 +50,7 @@ export default {
               ?disabled=${disabled}
               ?horizontal=${horizontal}
               ?required=${required}
+              ?show-valid=${showValid}
               .size=${size}
               .value=${value}
             >
@@ -60,9 +63,13 @@ export default {
             </sl-radio-group>
           `}
         </sl-form-field>
-        <sl-button-bar>
-          <sl-button @click=${onClick}>Report validity</sl-button>
-        </sl-button-bar>
+        ${reportValidity
+          ? html`
+              <sl-button-bar>
+                <sl-button @click=${onClick}>Report validity</sl-button>
+              </sl-button-bar>
+            `
+          : nothing}
       </sl-form>
     `;
   }
@@ -101,13 +108,16 @@ export const Overflow: Story = {
 export const Required: Story = {
   args: {
     hint: "This field is required, if you don't select an option, you will see an error message when clicking the button.",
+    reportValidity: true,
     required: true
   }
 };
 
 export const Valid: Story = {
   args: {
-    hint: 'After clicking the button, this field will show it is valid.'
+    hint: 'After clicking the button, this field will show it is valid.',
+    reportValidity: true,
+    showValid: true
   }
 };
 
@@ -120,6 +130,7 @@ export const Value: Story = {
 export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to pick the middle option to make the field valid. The custom validation is done by listening to the sl-change event and setting the custom validity on the radio group. If you never select any option, then only the builtin validation applies.',
+    reportValidity: true,
     slot: () => {
       const onValidate = (event: Event & { target: RadioGroup }): void => {
         event.target.setCustomValidity(event.target.value === '2' ? '' : 'Pick the middle option');
@@ -139,6 +150,7 @@ export const CustomValidity: Story = {
 export const CustomAsyncValidity: Story = {
   args: {
     hint: 'This story has an async validator. You need to pick the middle option to make the field valid. It will wait 2 seconds before validating.',
+    reportValidity: true,
     slot: () => {
       const onValidate = (event: Event & { target: RadioGroup }): void => {
         const promise = new Promise<string>(resolve =>

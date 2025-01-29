@@ -18,8 +18,8 @@ declare global {
 export type StepButtonsPlacement = 'end' | 'edges'; // | 'none';
 
 export class NumberField extends LocaleMixin(TextField) {
-  /** @internal */
-  static formAssociated = true;
+  // /** @internal */
+  // static formAssociated = true;
 
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
@@ -31,8 +31,8 @@ export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
   static override styles = [TextField.styles, styles];
 
-  /** @internal Element internals. */
-  readonly internals = this.attachInternals();
+  // /** @internal Element internals. */
+  // readonly internals = this.attachInternals();
 
   /** Parser used for user input.  */
   // eslint-disable-next-line no-unused-private-class-members
@@ -105,10 +105,10 @@ export class NumberField extends LocaleMixin(TextField) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setFormControlElement(this);
+    // this.setFormControlElement(this.input);
 
-    // this.input.setAttribute('inputmode', this.inputMode || 'numeric');
-    this.internals.setFormValue(this.valueAsNumber?.toString() || '');
+    this.input.setAttribute('inputmode', this.inputMode || 'numeric');
+    // this.internals.setFormValue(this.valueAsNumber?.toString() || '');
 
     // this.setFormControlElement(this);
 
@@ -129,13 +129,13 @@ export class NumberField extends LocaleMixin(TextField) {
     console.log('min and max in willUpdate', this.min, this.max);
 
     if (this.max) {
-      // this.input.max = this.max.toString();
-      this.internals.ariaValueMax = this.max.toString();
+      this.input.max = this.max.toString();
+      // this.internals.ariaValueMax = this.max.toString();
     }
 
     if (this.min) {
-      // this.input.min = this.min.toString();
-      this.internals.ariaValueMin = this.min.toString();
+      this.input.min = this.min.toString();
+      // this.internals.ariaValueMin = this.min.toString();
     }
 
     if (changes.has('locale') || changes.has('formatOptions')) {
@@ -203,7 +203,7 @@ export class NumberField extends LocaleMixin(TextField) {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
-    this.internals.setFormValue(this.valueAsNumber?.toString() || '');
+    // this.internals.setFormValue(this.valueAsNumber?.toString() || '');
   }
 
   /** Increases the current value by the `step` amount. */
@@ -211,64 +211,158 @@ export class NumberField extends LocaleMixin(TextField) {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
-    this.internals.setFormValue(this.valueAsNumber?.toString() || '');
+    // this.internals.setFormValue(this.valueAsNumber?.toString() || '');
   }
 
   override onBlur(): void {
     if (this.rawValue !== undefined) {
       this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
+      // const parsedValue = this.#convertValueToNumber(this.rawValue);
+
+      // TODO: maybe we don't want to clean the value when it's not a number typed in?
+
+      if (!Number.isNaN(this.valueAsNumber /*parsedValue*/)) {
+        // this.valueAsNumber = parsedValue;
+
+        // check constraints, when it really is a number
+        if (!!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)) {
+          this.input.setCustomValidity('rangeOverflow...');
+        } else if (!!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)) {
+          this.input.setCustomValidity('rangeUnderflow...');
+        } else {
+          // Clear custom validity message
+          this.input.setCustomValidity('');
+        }
+        console.log(
+          'this.valueAsNumber on blur in IFFFF',
+          this.rawValue,
+          this.valueAsNumber,
+          this.input.validity,
+          'parsedValue',
+          this.valueAsNumber,
+          '!NaN>???',
+          !isNaN(this.valueAsNumber),
+          !Number.isNaN(this.valueAsNumber)
+        );
+      } else if (this.rawValue !== '') {
+        console.log(
+          'this.valueAsNumber on blur in ELSE',
+          this.rawValue,
+          this.valueAsNumber,
+          this.input.validity,
+          'parsedValue',
+          this.valueAsNumber,
+          '!NaN>???',
+          !isNaN(this.valueAsNumber),
+          !Number.isNaN(this.valueAsNumber)
+        );
+        // Handle NaN case, e.g., set to undefined or some default value
+        // this.valueAsNumber = undefined;
+        // Set custom validity message for NaN case
+        this.input.setCustomValidity('Invalid number');
+      } else {
+        // Clear custom validity message
+        this.input.setCustomValidity('');
+      }
     }
+
+    // TODO: what if returns NaN?
+
+    // console.log('this.valueAsNumber on blur', this.valueAsNumber, this.input.validity);
 
     // this.internals.setValidity({
     //   rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
     //   rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
     // });
 
-    this.internals.setValidity(
-      {
-        rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-        rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-      },
-      this.valueAsNumber &&
-        (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
-        ? 'Invalid value'
-        : ''
+    // this.internals.setValidity(
+    //   {
+    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    //   },
+    //   this.valueAsNumber &&
+    //     (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
+    //     ? 'Invalid value'
+    //     : ''
+    // );
+
+    // if (!!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)) {
+    //   this.input.setCustomValidity('rangeOverflow...');
+    // } else if (!!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)) {
+    //   this.input.setCustomValidity('rangeUnderflow...');
+    // } else {
+    //   // Clear custom validity message
+    //   this.input.setCustomValidity('');
+    // }
+
+    console.log(
+      'this.valueAsNumber on blur',
+      this.valueAsNumber,
+      this.input.validity,
+      this.input.validationMessage,
+      this.input.value
     );
+
+    // TODO: translation for messages msg(...)
+
+    // this.internals.setValidity(
+    //   {
+    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    //   },
+    //   this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)
+    //     ? 'Value exceeds the maximum'
+    //     : this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    //       ? 'Value is below the minimum'
+    //       : ''
+    // ); // TODO: translation for messages msg(...)
 
     // this.input.setValidity({ rangeOverflow: this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber < (this.min ?? -Infinity) });
     // this.internals.setValidity({ rangeOverflow: this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) });
     // this.input.setCustomValidity(this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) ? 'Invalid value' : '');
 
-    this.internals.checkValidity();
+    // this.internals.checkValidity();
 
-    this.updateValidity();
+    // this.updateValidity();
 
     super.onBlur();
   }
 
   override onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
-    this.internals.setFormValue(this.rawValue);
+    // this.internals.setFormValue(this.rawValue);
 
     // this.internals.setValidity({
     //   rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
     //   rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
     // });
 
-    this.internals.setValidity(
-      {
-        rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-        rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-      },
-      this.valueAsNumber &&
-        (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
-        ? 'Invalid value'
-        : ''
-    );
+    // this.internals.setValidity(
+    //   {
+    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    //   },
+    //   this.valueAsNumber &&
+    //     (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
+    //     ? 'Invalid value'
+    //     : ''
+    // ); // TODO: translation for message msg(...)
 
-    this.internals.checkValidity();
-
-    this.updateValidity();
+    // this.internals.setValidity(
+    //   {
+    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
+    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    //   },
+    //   this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)
+    //     ? 'Value exceeds the maximum'
+    //     : this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
+    //       ? 'Value is below the minimum'
+    //       : ''
+    // ); // TODO: translation for messages msg(...)
+    //
+    // this.internals.checkValidity();
+    //
+    // this.updateValidity();
   }
 
   override onKeydown(event: KeyboardEvent): void {

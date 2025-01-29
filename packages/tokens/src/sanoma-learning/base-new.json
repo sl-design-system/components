@@ -186,6 +186,11 @@
         "type": "borderRadius",
         "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
       },
+      "child": {
+        "value": "{border.radius.2xs}/2",
+        "type": "borderRadius",
+        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+      },
       "full": {
         "value": "50rem",
         "type": "borderRadius",

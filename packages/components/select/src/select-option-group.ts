@@ -33,7 +33,7 @@ export class SelectOptionGroup extends LitElement {
   @property() heading?: string;
 
   /** @internal The size of the select. Is inherited from the select component it is in. */
-  @property({ reflect: true }) size: SelectSize = 'md';
+  @property({ reflect: true }) size?: SelectSize;
 
   override connectedCallback(): void {
     super.connectedCallback();

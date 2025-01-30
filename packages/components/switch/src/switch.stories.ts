@@ -8,14 +8,12 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Switch, type SwitchSize } from './switch.js';
+import { type Switch } from './switch.js';
 
 type Props = Pick<Switch, 'checked' | 'disabled' | 'reverse' | 'size' | 'value'> & {
   text: string;
 };
 type Story = StoryObj<Props>;
-
-const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
 
 Icon.register(faTurtle, faRabbitRunning);
 
@@ -32,7 +30,7 @@ export default {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: sizes
+      options: ['sm', 'md', 'lg']
     }
   },
   render: ({ checked, disabled, reverse, size, text, value }) => html`

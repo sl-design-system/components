@@ -52,12 +52,6 @@
   order: -1;
 }
 
-:host([no-label]) {
-  .label {
-    display: none;
-  }
-}
-
 :host([size='sm']) {
   --_handle-size: var(--sl-size-150);
   --_track-size: var(--sl-size-400);

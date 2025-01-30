@@ -280,8 +280,6 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.#label.append(...nodes);
       this.append(this.#label);
     }
-
-    this.toggleAttribute('no-label', label.length === 0);
   }
 
   #syncInput(input: HTMLInputElement): void {

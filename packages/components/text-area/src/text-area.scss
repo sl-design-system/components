@@ -1,7 +1,12 @@
 :host {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
+
   align-items: start;
-  background: var(--sl-color-background-input-plain);
-  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-input);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-text-plain);
   cursor: text;
@@ -17,27 +22,29 @@
 }
 
 :host(:hover:not(:focus-within)) {
-  background: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 
 :host([show-validity='invalid']) {
-  border-color: var(--sl-color-border-negative);
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
 }
 
-:host([show-validity='invalid']:hover:not(:focus-within)) {
-  background: var(--sl-color-background-negative-subtlest);
-}
-
-:host([show-validity='valid']) ::slotted(textarea) {
-  padding-inline-end: var(--sl-size-300);
-}
-
-:host([show-validity='valid']:hover:not(:focus-within)) {
-  background: var(--sl-color-background-positive-subtlest);
+:host([show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
 }
 
 :host([size='lg']) ::slotted(textarea) {
   padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
+}
+
+:host([disabled]) {
+  background: var(--sl-color-background-disabled);
+  color: var(--sl-color-text-disabled);
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -45,12 +52,6 @@
     transition: 200ms ease-in-out;
     transition-property: background, border, color, outline-color;
   }
-}
-
-:host([disabled]) {
-  background: var(--sl-color-background-disabled);
-  color: var(--sl-color-text-disabled);
-  pointer-events: none;
 }
 
 slot[name='textarea']::slotted(textarea) {

@@ -1,7 +1,12 @@
 :host {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
+
   align-items: center;
-  background: var(--sl-color-background-input-plain);
-  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-input);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
   color: var(--sl-color-text-plain);
@@ -15,30 +20,23 @@
 }
 
 :host(:hover:not(:focus-within)) {
-  background: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 
 :host([show-validity='invalid']) {
-  border-color: var(--sl-color-border-negative-plain);
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
 }
 
-:host([show-validity='invalid']:hover:not(:focus-within)) {
-  background: var(--sl-color-background-negative-subtlest);
-}
-
-:host([show-validity='valid']:hover:not(:focus-within)) {
-  background: var(--sl-color-background-positive-subtlest);
+:host([show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
 }
 
 :host([size='lg']) {
   padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :host(:where(:hover, [has-focus-ring])) {
-    transition: 200ms ease-in-out;
-    transition-property: background, border, color, outline-color;
-  }
 }
 
 :host([disabled]) {
@@ -57,6 +55,13 @@
 
 :host([readonly]) {
   cursor: default;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:hover, [has-focus-ring])) {
+    transition: 200ms ease-in-out;
+    transition-property: background, border, color, outline-color;
+  }
 }
 
 slot[name='suffix']::slotted(:not(button)) {

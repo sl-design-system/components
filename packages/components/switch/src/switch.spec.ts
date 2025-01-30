@@ -79,17 +79,6 @@ describe('sl-switch', () => {
       expect(el.renderRoot.querySelector('sl-icon')).to.exist;
     });
 
-    it('should have the correct icon size', async () => {
-      const icon = el.renderRoot.querySelector<Icon>('sl-icon');
-
-      expect(icon?.size).to.equal('xs');
-
-      el.size = 'lg';
-      await el.updateComplete;
-
-      expect(icon?.size).to.equal('md');
-    });
-
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });

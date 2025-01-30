@@ -362,6 +362,7 @@ export const Skeleton: Story = {
 
 export const Scrolling: Story = {
   parameters: {
+    // The size of the snapshot exceeds the maximum
     chromatic: { disableSnapshot: true }
   },
   args: {

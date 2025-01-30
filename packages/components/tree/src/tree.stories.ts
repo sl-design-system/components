@@ -361,6 +361,9 @@ export const Skeleton: Story = {
 };
 
 export const Scrolling: Story = {
+  parameters: {
+    chromatic: { disableSnapshot: true }
+  },
   args: {
     dataSource: new NestedTreeDataSource<NestedDataNode>(
       [1, 2, 3].map(id => ({

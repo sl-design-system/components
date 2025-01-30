@@ -28,12 +28,6 @@
   --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
 }
 
-:host([checked][disabled]) {
-  --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
-  --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
-  --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
-}
-
 :host([disabled]) {
   color: var(--sl-color-text-disabled);
   cursor: default;

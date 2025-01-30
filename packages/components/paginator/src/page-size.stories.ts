@@ -1,4 +1,4 @@
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -26,7 +26,7 @@ export const DataSource: Story = {
     const items = Array.from({ length: 80 }, (_, index) => ({ nr: index + 1 })),
       pageSizes = [5, 10, 15, 20, 25, 30];
 
-    const dataSource = new ArrayDataSource(items);
+    const dataSource = new ArrayListDataSource(items, { pagination: true });
     dataSource.setPage(2);
     dataSource.setPageSize(5);
     dataSource.update();

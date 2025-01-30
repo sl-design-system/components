@@ -2876,7 +2876,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2898,7 +2898,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2920,7 +2920,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2942,7 +2942,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2964,7 +2964,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.300}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2988,7 +2988,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3010,7 +3010,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3032,7 +3032,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3054,7 +3054,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{body.foreground}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3076,7 +3076,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{color.palette.white.base}",
+                "value": "{color.palette.neutral.300}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

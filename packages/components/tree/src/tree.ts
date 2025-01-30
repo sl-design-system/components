@@ -124,6 +124,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('dataSource')) {
       if (this.dataSource?.selects === 'multiple') {
         this.setAttribute('aria-multiselectable', 'true');
+      } else if (this.dataSource?.selects === 'single') {
+        this.setAttribute('aria-multiselectable', 'false');
       } else {
         this.removeAttribute('aria-multiselectable');
       }

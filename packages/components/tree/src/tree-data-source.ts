@@ -72,8 +72,12 @@ export interface TreeDataSourceOptions<T> {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSourceNode<T>> {
+  /** An optional callback for loading additional tree nodes. */
   #loadChildren?: TreeDataSourceOptions<T>['loadChildren'];
+  /** A set containing the selected node(s) in the tree. */
   #selection: Set<TreeDataSourceNode<T>> = new Set();
+
+  /** The selection type for the tree model. */
   #selects?: 'single' | 'multiple';
 
   /** A hierarchical representation of the items in the tree. */

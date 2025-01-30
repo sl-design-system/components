@@ -19,8 +19,13 @@ export interface FlatTreeDataSourceOptions<T> extends FlatTreeDataSourceMapping<
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FlatTreeDataSource<T = any> extends TreeDataSource<T> {
+  /** The mapping from the source model to the tree model. */
   #mapping: FlatTreeDataSourceMapping<T>;
+
+  /** Array of tree nodes that were mapped from the source model. */
   #nodes: Array<TreeDataSourceNode<T>> = [];
+
+  /** Array of view nodes that represent the current state of the tree. */
   #viewNodes: Array<TreeDataSourceNode<T>> = [];
 
   get items(): Array<TreeDataSourceNode<T>> {

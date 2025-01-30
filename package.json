@@ -314,7 +314,6 @@
       "command": "node scripts/import-icons.js",
       "clean": false,
       "files": [
-        "scripts/figma-icon-pages.json",
         "scripts/import-icons.js",
         "packages/tokens/src/core.json",
         "packages/tokens/src/*/base.json"

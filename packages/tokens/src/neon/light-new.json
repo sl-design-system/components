@@ -283,48 +283,64 @@
       },
       "teal": {
         "100": {
-          "value": "#e9f2f5",
-          "type": "color"
+          "value": "#F3F9F7",
+          "type": "color",
+          "description": "color.palette.info.100"
         },
         "150": {
-          "value": "#cfe4e8",
-          "type": "color"
+          "value": "#EEF7F9",
+          "type": "color",
+          "description": "color.palette.info.150"
         },
         "200": {
-          "value": "#9ec9d2",
-          "type": "color"
+          "value": "#C5DFE3",
+          "type": "color",
+          "description": "color.palette.info.200"
         },
         "300": {
-          "value": "#73b1bd",
-          "type": "color"
+          "value": "#9EC9D2",
+          "type": "color",
+          "description": "color.palette.info.300"
         },
         "400": {
-          "value": "#5297a5",
-          "type": "color"
+          "value": "#568B9B",
+          "type": "color",
+          "description": "color.palette.info.400"
         },
         "500": {
-          "value": "#3f7c8a",
-          "type": "color"
+          "value": "#447D8F",
+          "type": "color",
+          "description": "color.palette.info.500"
         },
         "600": {
-          "value": "#346470",
-          "type": "color"
+          "value": "#416881",
+          "type": "color",
+          "description": "color.palette.info.600"
         },
         "700": {
-          "value": "#2e545e",
-          "type": "color"
+          "value": "#36566A",
+          "type": "color",
+          "description": "color.palette.info.700"
         },
         "800": {
-          "value": "#2a4850",
-          "type": "color"
+          "value": "#2D485A",
+          "type": "color",
+          "description": "color.palette.info.800"
         },
         "900": {
-          "value": "#1c2f35",
-          "type": "color"
+          "value": "#203340",
+          "type": "color",
+          "description": "color.palette.info.900"
         },
         "050": {
-          "value": "#f5f9fa",
-          "type": "color"
+          "value": "#FFFEFC",
+          "type": "color",
+          "description": "color.palette.info.50"
+        },
+        "base": {
+          "value": "#9EC9D2",
+          "type": "color",
+          "description": "color.palette.info.base"
         }
       },
       "yellow": {
@@ -374,58 +390,6 @@
         }
       }
     },
-    "utility": {
-      "transparent": {
-        "100": {
-          "value": "rgba( {color.palette.blue.900} , 11%)",
-          "type": "color"
-        },
-        "150": {
-          "value": "rgba( {color.palette.blue.900} , 21%)",
-          "type": "color"
-        },
-        "200": {
-          "value": "rgba( {color.palette.blue.900} , 36%)",
-          "type": "color"
-        },
-        "300": {
-          "value": "rgba( {color.palette.blue.900} , 54%)",
-          "type": "color"
-        },
-        "400": {
-          "value": "rgba( {color.palette.blue.900} , 66%)",
-          "type": "color"
-        },
-        "500": {
-          "value": "rgba( {color.palette.blue.900} , 73%)",
-          "type": "color"
-        },
-        "600": {
-          "value": "rgba( {color.palette.blue.900} , 79%)",
-          "type": "color"
-        },
-        "700": {
-          "value": "rgba( {color.palette.blue.900} , 84%)",
-          "type": "color"
-        },
-        "800": {
-          "value": "rgba( {color.palette.blue.900} , 88%)",
-          "type": "color"
-        },
-        "900": {
-          "value": "rgba( {color.palette.blue.900} , 100%)",
-          "type": "color"
-        },
-        "050": {
-          "value": "rgba( {color.palette.blue.900} , 5%)",
-          "type": "color"
-        },
-        "000": {
-          "value": "rgba( {color.palette.blue.900} , 0%)",
-          "type": "color"
-        }
-      }
-    },
     "text": {
       "bold": {
         "value": "{color.text.accent.grey.bold}",
@@ -447,41 +411,43 @@
         "type": "color",
         "description": "Use for placeholders and hints."
       },
-      "inverted": {
-        "value": "{color.palette.grey.000}",
-        "type": "color",
-        "description": "Use for text on bold backgrounds."
-      },
       "disabled": {
         "value": "{color.text.accent.grey.faint}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
       "selected": {
-        "value": "{color.text.accent.teal.bold}",
+        "value": "{color.text.accent.blue.bold}",
         "type": "color",
         "description": "Use for text in selected states (e.g., tabs or menu items)."
       },
       "brand": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.palette.blue.800}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing text."
       },
       "primary": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        "bold": {
+          "value": "{color.palette.blue.800}",
+          "type": "color",
+          "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "description": "Use for primary actions on 'color.background.primary.bold'"
+        }
       },
       "secondary": {
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.palette.blue.400}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
-        "inverted": {
-          "value": "{color.text.accent.blue.bold}",
+        "onBold": {
+          "value": "{color.palette.blue.800}",
           "type": "color",
-          "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          "description": "Use for secondary actions on 'color.background.secondary.bold'"
         }
       },
       "info": {
@@ -494,6 +460,11 @@
           "value": "{color.text.accent.teal.bold}",
           "type": "color",
           "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.teal.onBold}",
+          "type": "color",
+          "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
         }
       },
       "positive": {
@@ -506,6 +477,11 @@
           "value": "{color.text.accent.green.bold}",
           "type": "color",
           "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.green.onBold}",
+          "type": "color",
+          "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
         }
       },
       "caution": {
@@ -519,8 +495,8 @@
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
         },
-        "inverted": {
-          "value": "{color.palette.grey.000}",
+        "onBold": {
+          "value": "{color.text.accent.orange.onBold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
         }
@@ -535,6 +511,28 @@
           "value": "{color.text.accent.red.bold}",
           "type": "color",
           "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.red.onBold}",
+          "type": "color",
+          "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
+        }
+      },
+      "inverted": {
+        "plain": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for plain inverted text."
+        },
+        "bold": {
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
+        },
+        "onBold": {
+          "value": "{color.palette.grey.900}",
+          "type": "color",
+          "description": "Use for inverted text on 'color.background.inverted.bold'."
         }
       },
       "accent": {
@@ -548,6 +546,11 @@
             "value": "{color.palette.blue.600}",
             "type": "color",
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.plain}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "green": {
@@ -560,6 +563,11 @@
             "value": "{color.palette.green.700}",
             "type": "color",
             "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.plain}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "grey": {
@@ -585,8 +593,18 @@
           },
           "bold": {
             "value": "{color.palette.grey.900}",
-            "description": "Use for bold grey text for purely stylistic purposes with no specific meaning.",
-            "type": "color"
+            "type": "color",
+            "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.bold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
+          },
+          "onInverted": {
+            "value": "{color.text.bold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
           }
         },
         "orange": {
@@ -599,6 +617,11 @@
             "value": "{color.palette.orange.700}",
             "type": "color",
             "description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.plain}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "purple": {
@@ -611,6 +634,11 @@
             "value": "{color.palette.purple.600}",
             "type": "color",
             "description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.plain}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "red": {
@@ -623,6 +651,11 @@
             "value": "{color.palette.red.600}",
             "type": "color",
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.plain}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "teal": {
@@ -635,6 +668,11 @@
             "value": "{color.palette.teal.600}",
             "type": "color",
             "description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.inverted.plain}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
         },
         "yellow": {
@@ -647,6 +685,11 @@
             "value": "{color.palette.yellow.600}",
             "type": "color",
             "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
+          },
+          "onBold": {
+            "value": "{color.text.bold}",
+            "type": "color",
+            "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
         }
       }
@@ -979,12 +1022,12 @@
         "description": "Use for borders that highlight primary actions."
       },
       "secondary": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.text.secondary.bold}",
         "type": "color",
         "description": "Use for borders that highlight secondary actions."
       },
       "info": {
-        "value": "{color.border.accent.blue}",
+        "value": "{color.border.accent.teal}",
         "type": "color",
         "description": "Use for borders that highlight informative messages the user needs to be aware of."
       },
@@ -1065,948 +1108,540 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.palette.grey.100}",
+        "value": "{color.background.accent.grey.subtle}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
       "input": {
-        "idle": {
+        "plain": {
           "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
-        "hover": {
-          "value": "{color.background.accent.blue.muted.hover}",
+        "interactive": {
+          "value": "rgba({color.background.accent.blue.interactive.plain}, {opacity.light.interactive.plain.hover})",
           "type": "color",
-          "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons in a hovered state."
-        },
-        "active": {
-          "value": "{color.palette.grey.000}",
-          "type": "color",
-          "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons in an active state."
+          "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }
       },
       "selected": {
         "subtle": {
-          "idle": {
-            "value": "{color.background.accent.blue.subtle.idle}",
-            "type": "color",
-            "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "Use for backgrounds of selected elements in hover state with subtle emphasis, such as in opened dropdowns."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "Use for backgrounds of selected elements in pressed state with subtle emphasis, such as in opened dropdowns."
-          }
+          "value": "{color.background.accent.blue.subtle}",
+          "type": "color",
+          "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
         },
         "bold": {
-          "idle": {
-            "value": "{color.background.accent.blue.bold.idle}",
+          "value": "{color.background.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.blue.interactive.bold}",
             "type": "color",
-            "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
-            "value": "{color.background.accent.blue.bold.hover}",
+          "plain": {
+            "value": "{color.background.accent.blue.interactive.plain}",
             "type": "color",
-            "description": "Use for backgrounds of selected elements in hover state state with bold emphasis, such as in opened dropdowns."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.bold.active}",
-            "type": "color",
-            "description": "Use for backgrounds of selected elements in pressed state with bold emphasis, such as in opened dropdowns."
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
       },
       "primary": {
-        "muted": {
-          "idle": {
-            "value": "{color.background.accent.blue.muted.idle}",
-            "type": "color",
-            "description": "Use for the background of primary actions that appear to have no background in idle state. Such as outline and ghost buttons."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
-            "type": "color",
-            "description": "Use for the background while hovering of primary actions that appear to have no background in idle state. Such as outline and ghost buttons."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.muted.active}",
-            "type": "color",
-            "description": "Use for the background while pressing of primary actions that appear to have no background in idle state. such as outline and ghost buttons."
-          }
+        "subtlest": {
+          "value": "{color.background.accent.blue.subtlest}",
+          "type": "color",
+          "description": "The subtlest background in the primary action color."
         },
         "subtle": {
-          "idle": {
-            "value": "{color.background.accent.blue.subtle.idle}",
-            "type": "color",
-            "description": "A subtle background variant in the primary color."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "A subtle background variant in the primary color for hover states."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "A subtle background variant in the primary color for active states."
-          }
+          "value": "{color.background.accent.blue.subtle}",
+          "type": "color",
+          "description": "A subtle background in the primary action color."
         },
         "bold": {
-          "idle": {
-            "value": "{color.background.accent.blue.bold.idle}",
+          "value": "{color.palette.blue.800}",
+          "type": "color",
+          "description": "A vibrant background option used for primary actions."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.blue.interactive.plain}",
             "type": "color",
-            "description": "Use for the background of primary actions with bold emphasis."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
-            "value": "{color.background.accent.blue.bold.hover}",
+          "plain": {
+            "value": "{color.palette.blue.300}",
             "type": "color",
-            "description": "Use for the background of primary actions with bold emphasis during hover states."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.bold.active}",
-            "type": "color",
-            "description": "Use for the background of primary actions with bold emphasis during pressed states"
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
       },
       "secondary": {
-        "muted": {
-          "idle": {
-            "value": "{color.background.accent.blue.muted.idle}",
-            "type": "color",
-            "description": "Use for the background of secondary actions that appear to have no background in idle state. Such as outline and ghost buttons."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
-            "type": "color",
-            "description": "Use for the background while hovering of secondary actions that appear to have no background in idle state. Such as outline and ghost buttons."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.muted.active}",
-            "type": "color",
-            "description": "Use for the background while pressing of secondary actions that appear to have no background in idle state. such as outline and ghost buttons."
-          }
+        "subtlest": {
+          "value": "{color.background.accent.blue.subtlest}",
+          "type": "color",
+          "description": "The subtlest background in the secondary action color."
         },
         "subtle": {
-          "idle": {
-            "value": "{color.background.accent.blue.subtle.idle}",
-            "type": "color",
-            "description": "A subtle background variant in the secondary color."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "A subtle background variant in the secondary color for hover states."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "A subtle background variant in the secondary color for active states."
-          }
+          "value": "{color.background.accent.blue.subtle}",
+          "type": "color",
+          "description": "A subtle background in the secondary action color."
         },
         "bold": {
-          "idle": {
-            "value": "{color.palette.blue.100}",
+          "value": "{color.palette.blue.100}",
+          "type": "color",
+          "description": "A vibrant background option used for secondary actions."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.palette.blue.400}",
             "type": "color",
-            "description": "Use for the background of secondary actions with bold emphasis."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
-            "value": "{color.palette.blue.150}",
+          "plain": {
+            "value": "{color.background.accent.blue.interactive.plain}",
             "type": "color",
-            "description": "Use for the background of secondary actions with bold emphasis during hover states."
-          },
-          "active": {
-            "value": "{color.palette.blue.200}",
-            "type": "color",
-            "description": "Use for the background of secondary actions with bold emphasis during pressed states"
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
       },
       "info": {
-        "muted": {
-          "idle": {
-            "value": "{color.background.accent.teal.muted.idle}",
-            "type": "color",
-            "description": "Background for informative actions, with no background in the idle state, used on outline and ghost buttons."
-          },
-          "hover": {
-            "value": "{color.background.accent.teal.muted.hover}",
-            "type": "color",
-            "description": "Background for informative actions in hovered state, with no background in the idle state, used on outline and ghost buttons."
-          },
-          "active": {
-            "value": "{color.background.accent.teal.muted.active}",
-            "type": "color",
-            "description": "Background for informative actions in pressed state, with no background in the idle state, used on outline and ghost buttons."
-          }
+        "subtlest": {
+          "value": "{color.background.accent.teal.subtlest}",
+          "type": "color",
+          "description": "The subtlest background for informative messages."
         },
         "subtle": {
-          "idle": {
-            "value": "{color.background.accent.teal.subtle.idle}",
-            "type": "color",
-            "description": "A subtle background variant for informative messages requiring user attention."
-          },
-          "hover": {
-            "value": "{color.background.accent.teal.subtle.hover}",
-            "type": "color",
-            "description": "A subtle background variant in the hover state for informative messages requiring user attention."
-          },
-          "active": {
-            "value": "{color.background.accent.teal.subtle.active}",
-            "type": "color",
-            "description": "A subtle background variant in the active state for informative messages requiring user attention."
-          }
+          "value": "{color.background.accent.teal.subtle}",
+          "type": "color",
+          "description": "A subtle background for informative messages."
         },
         "bold": {
-          "idle": {
-            "value": "{color.background.accent.teal.bold.idle}",
+          "value": "{color.background.accent.teal.bold}",
+          "type": "color",
+          "description": "Use for the background of actions with bold emphasis related to informative messages."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.teal.interactive.bold}",
             "type": "color",
-            "description": "Use for the background of actions with bold emphasis related to informative messages that the user needs to be aware of."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
-            "value": "{color.background.accent.teal.bold.hover}",
+          "plain": {
+            "value": "{color.background.accent.teal.interactive.plain}",
             "type": "color",
-            "description": "Use as the background for actions with bold emphasis during hover states, related to informative messages that the user needs to be aware of."
-          },
-          "active": {
-            "value": "{color.background.accent.teal.bold.active}",
-            "type": "color",
-            "description": "Use as the background for actions with bold emphasis during active states, related to informative messages that the user needs to be aware of."
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
       },
       "positive": {
-        "muted": {
-          "idle": {
-            "value": "{color.background.accent.green.muted.idle}",
-            "type": "color",
-            "description": "Use for the background of actions related to messages that communicate a positive outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
-          },
-          "hover": {
-            "value": "{color.background.accent.green.muted.hover}",
-            "type": "color",
-            "description": "Use as background while hovering actions related to messages that communicate a positive outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
-          },
-          "active": {
-            "value": "{color.background.accent.green.muted.active}",
-            "type": "color",
-            "description": "Use as background while pressing actions related to messages that communicate a positive outcome, which appear to have no background in their idle state, such as outline and ghost buttons."
-          }
+        "subtlest": {
+          "value": "{color.background.accent.green.subtlest}",
+          "type": "color",
+          "description": "The subtlest background option for communicating a positive outcome."
         },
         "subtle": {
-          "idle": {
-            "value": "{color.background.accent.green.subtle.idle}",
-            "type": "color",
-            "description": "A subtle background option for communicating a positive outcome."
-          },
-          "hover": {
-            "value": "{color.background.accent.green.subtle.hover}",
-            "type": "color",
-            "description": "A subtle background option in the hover state for communicating a positive outcome."
-          },
-          "active": {
-            "value": "{color.background.accent.green.subtle.active}",
-            "type": "color",
-            "description": "A subtle background option in the active state for communicating a positive outcome."
-          }
+          "value": "{color.background.accent.green.subtle}",
+          "type": "color",
+          "description": "A subtle background option for communicating a positive outcome."
         },
         "bold": {
-          "idle": {
-            "value": "{color.background.accent.green.bold.idle}",
+          "value": "{color.background.accent.green.bold}",
+          "type": "color",
+          "description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.green.interactive.bold}",
             "type": "color",
-            "description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
-            "value": "{color.background.accent.green.bold.hover}",
+          "plain": {
+            "value": "{color.background.accent.green.interactive.plain}",
             "type": "color",
-            "description": "Use as the background for actions with bold emphasis during hover states, related to messages that communicate a positive outcome."
-          },
-          "active": {
-            "value": "{color.background.accent.green.bold.active}",
-            "type": "color",
-            "description": "Use as the background for actions with bold emphasis during active states, related to messages that communicate a positive outcome."
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
       },
       "caution": {
-        "muted": {
-          "idle": {
-            "value": "{color.background.accent.orange.muted.idle}",
-            "type": "color",
-            "description": "Background for caution to prevent errors, with no background in the idle state, used on outline and ghost buttons."
-          },
-          "hover": {
-            "value": "{color.background.accent.orange.muted.hover}",
-            "type": "color",
-            "description": "Background for caution to prevent errors in the hovered state, with no background in the idle state, used on outline and ghost buttons."
-          },
-          "active": {
-            "value": "{color.background.accent.orange.muted.active}",
-            "type": "color",
-            "description": "Background for caution to prevent errors in the pressed state, with no background in the idle state, used on outline and ghost buttons."
-          }
+        "subtlest": {
+          "value": "{color.background.accent.orange.subtlest}",
+          "type": "color",
+          "description": "The subtlest background option to communicate caution to prevent errors."
         },
         "subtle": {
-          "idle": {
-            "value": "{color.background.accent.orange.subtle.idle}",
-            "type": "color",
-            "description": "A subtle background option for communicating caution to prevent mistakes or errors, such as in inline messages."
-          },
-          "hover": {
-            "value": "{color.background.accent.orange.subtle.hover}",
-            "type": "color",
-            "description": "A subtle background option for communicating caution to prevent mistakes or errors in a hovered state."
-          },
-          "active": {
-            "value": "{color.background.accent.orange.subtle.active}",
-            "type": "color",
-            "description": "A subtle background option for communicating caution to prevent mistakes or errors in a pressed state."
-          }
+          "value": "{color.background.accent.orange.subtle}",
+          "type": "color",
+          "description": "A subtle background option to communicate caution to prevent errors."
         },
         "bold": {
-          "idle": {
-            "value": "{color.background.accent.orange.bold.idle}",
+          "value": "{color.background.accent.orange.bold}",
+          "type": "color",
+          "description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.orange.interactive.bold}",
             "type": "color",
-            "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
-            "value": "{color.background.accent.orange.bold.hover}",
+          "plain": {
+            "value": "{color.background.accent.orange.interactive.plain}",
             "type": "color",
-            "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons in a hovered state."
-          },
-          "active": {
-            "value": "{color.background.accent.orange.bold.active}",
-            "type": "color",
-            "description": "A vibrant background option for communicating caution to prevent mistakes or errors, such as in warning buttons in a pressed state."
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
       },
       "negative": {
-        "muted": {
-          "idle": {
-            "value": "{color.background.accent.red.muted.idle}",
-            "type": "color",
-            "description": "Background for negative or serious error states (e.g., validation errors or irreversible actions), with no background in the idle state, used on outline and ghost buttons."
-          },
-          "hover": {
-            "value": "{color.background.accent.red.muted.hover}",
-            "type": "color",
-            "description": "Background for negative or serious error states (e.g., validation errors or irreversible actions) in hovered state, with no background in the idle state, used on outline and ghost buttons."
-          },
-          "active": {
-            "value": "{color.background.accent.red.muted.active}",
-            "type": "color",
-            "description": "Background for negative or serious error states (e.g., validation errors or irreversible actions) in pressed, with no background in the idle state, used on outline and ghost buttons."
-          }
+        "subtlest": {
+          "value": "{color.background.accent.red.subtlest}",
+          "type": "color",
+          "description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
         },
         "subtle": {
-          "idle": {
-            "value": "{color.background.accent.red.subtle.idle}",
-            "type": "color",
-            "description": "A subtle background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in inline messages."
-          },
-          "hover": {
-            "value": "{color.background.accent.red.subtle.hover}",
-            "type": "color",
-            "description": "A subtle background option for communicating negative or serious error states (e.g., validation errors or irreversible actions) in hovered state."
-          },
-          "active": {
-            "value": "{color.background.accent.red.subtle.active}",
-            "type": "color",
-            "description": "A subtle background option for communicating negative or serious error states (e.g., validation errors or irreversible actions) in pressed state."
-          }
+          "value": "{color.background.accent.red.subtle}",
+          "type": "color",
+          "description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
         },
         "bold": {
-          "idle": {
-            "value": "{color.background.accent.red.bold.idle}",
+          "value": "{color.background.accent.red.bold}",
+          "type": "color",
+          "description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.red.interactive.bold}",
             "type": "color",
-            "description": "A vibrant background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
-            "value": "{color.background.accent.red.bold.hover}",
+          "plain": {
+            "value": "{color.background.accent.red.interactive.plain}",
             "type": "color",
-            "description": "A vibrant background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons in a hovered state."
-          },
-          "active": {
-            "value": "{color.background.accent.red.bold.active}",
-            "type": "color",
-            "description": "A vibrant background option for communicating negative or serious error states (e.g., validation errors or irreversible actions), such as in danger buttons in an active state."
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
       },
       "accent": {
         "blue": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.blue.100}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.blue.150}",
-              "type": "color",
-              "description": "Used for muted blue backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba({color.background.accent.blue.bold}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.blue.050}",
-              "type": "color",
-              "description": "A subtle blue background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.blue.100}",
-              "type": "color",
-              "description": "A subtle blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.blue.150}",
-              "type": "color",
-              "description": "A subtle blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.background.accent.blue.bold}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
+            "value": "{color.palette.blue.400}",
+            "type": "color",
+            "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
               "value": "{color.palette.blue.800}",
               "type": "color",
-              "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
-              "value": "{color.palette.blue.700}",
+            "plain": {
+              "value": "{color.palette.blue.200}",
               "type": "color",
-              "description": "A vibrant blue background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.blue.600}",
-              "type": "color",
-              "description": "A vibrant blue background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "green": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted green backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.green.100}",
-              "type": "color",
-              "description": "Used for muted green backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.green.150}",
-              "type": "color",
-              "description": "Used for muted green backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba( {color.palette.green.400}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.green.050}",
-              "type": "color",
-              "description": "A subtle green background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.green.100}",
-              "type": "color",
-              "description": "A subtle green background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.green.150}",
-              "type": "color",
-              "description": "A subtle green background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.green.400}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.green.600}",
+            "value": "{color.palette.green.600}",
+            "type": "color",
+            "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.green.900}",
               "type": "color",
-              "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
-              "value": "{color.palette.green.700}",
+            "plain": {
+              "value": "{color.palette.green.400}",
               "type": "color",
-              "description": "A vibrant green background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.green.800}",
-              "type": "color",
-              "description": "A vibrant green background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "grey": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.grey.100}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.grey.150}",
-              "type": "color",
-              "description": "Used for muted grey backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba( {color.palette.grey.700}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.grey.050}",
-              "type": "color",
-              "description": "A subtle grey background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.grey.100}",
-              "type": "color",
-              "description": "A subtle grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.grey.150}",
-              "type": "color",
-              "description": "A subtle grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.grey.700}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.grey.150}",
+            "value": "{color.palette.grey.150}",
+            "type": "color",
+            "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.grey.800}",
               "type": "color",
-              "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
-              "value": "{color.palette.grey.200}",
+            "plain": {
+              "value": "{color.palette.grey.800}",
               "type": "color",
-              "description": "A vibrant grey background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.grey.300}",
-              "type": "color",
-              "description": "A vibrant grey background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "orange": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted orange backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.orange.100}",
-              "type": "color",
-              "description": "Used for muted orange backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.orange.150}",
-              "type": "color",
-              "description": "Used for muted orange backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba( {color.palette.orange.400}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.orange.050}",
-              "type": "color",
-              "description": "A subtle orange background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.orange.100}",
-              "type": "color",
-              "description": "A subtle orange background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.orange.150}",
-              "type": "color",
-              "description": "A subtle orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.orange.400}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.orange.600}",
+            "value": "{color.palette.orange.600}",
+            "type": "color",
+            "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.orange.900}",
               "type": "color",
-              "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
-              "value": "{color.palette.orange.700}",
+            "plain": {
+              "value": "{color.palette.orange.400}",
               "type": "color",
-              "description": "A vibrant orange background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.orange.800}",
-              "type": "color",
-              "description": "A vibrant orange background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "purple": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted purple backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.purple.100}",
-              "type": "color",
-              "description": "Used for muted purple backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.purple.150}",
-              "type": "color",
-              "description": "Used for muted purple backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba( {color.palette.purple.400}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.purple.050}",
-              "type": "color",
-              "description": "A subtle purple background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.purple.100}",
-              "type": "color",
-              "description": "A subtle purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.purple.150}",
-              "type": "color",
-              "description": "A subtle purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.purple.400}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.purple.600}",
+            "value": "{color.palette.purple.600}",
+            "type": "color",
+            "description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.purple.900}",
               "type": "color",
-              "description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
-              "value": "{color.palette.purple.700}",
+            "plain": {
+              "value": "{color.palette.purple.400}",
               "type": "color",
-              "description": "A vibrant purple background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.purple.800}",
-              "type": "color",
-              "description": "A vibrant purple background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "red": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted red backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.red.100}",
-              "type": "color",
-              "description": "Used for muted red backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.red.150}",
-              "type": "color",
-              "description": "Used for muted red backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba( {color.palette.red.400}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.red.050}",
-              "type": "color",
-              "description": "A subtle red background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.red.100}",
-              "type": "color",
-              "description": "A subtle red background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.red.150}",
-              "type": "color",
-              "description": "A subtle red background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.red.400}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.red.500}",
+            "value": "{color.palette.red.500}",
+            "type": "color",
+            "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.red.900}",
               "type": "color",
-              "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
-              "value": "{color.palette.red.600}",
+            "plain": {
+              "value": "{color.palette.red.400}",
               "type": "color",
-              "description": "A vibrant red background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.red.700}",
-              "type": "color",
-              "description": "A vibrant red background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "teal": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted teal backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.teal.100}",
-              "type": "color",
-              "description": "Used for muted teal backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.teal.150}",
-              "type": "color",
-              "description": "Used for muted teal backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba( {color.palette.teal.400}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.teal.050}",
-              "type": "color",
-              "description": "A subtle teal background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.teal.100}",
-              "type": "color",
-              "description": "A subtle teal background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.teal.150}",
-              "type": "color",
-              "description": "A subtle teal background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.teal.400}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.teal.500}",
+            "value": "{color.palette.teal.500}",
+            "type": "color",
+            "description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.teal.900}",
               "type": "color",
-              "description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
-              "value": "{color.palette.teal.600}",
+            "plain": {
+              "value": "{color.palette.teal.400}",
               "type": "color",
-              "description": "A vibrant teal background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.teal.700}",
-              "type": "color",
-              "description": "A vibrant teal background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "yellow": {
-          "muted": {
-            "idle": {
-              "value": "{color.utility.transparent.000}",
-              "type": "color",
-              "description": "Used for muted yellow backgrounds with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.yellow.100}",
-              "type": "color",
-              "description": "Used for muted yellow backgrounds in hovered state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.yellow.150}",
-              "type": "color",
-              "description": "Used for muted yellow backgrounds in pressed state with no background in the idle state, applied purely for stylistic purposes without specific meaning."
-            }
+          "subtlest": {
+            "value": "rgba( {color.palette.yellow.400}, {opacity.light.subtlest})",
+            "type": "color",
+            "description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "idle": {
-              "value": "{color.palette.yellow.050}",
-              "type": "color",
-              "description": "A subtle yellow background option, applied purely for stylistic purposes without specific meaning."
-            },
-            "hover": {
-              "value": "{color.palette.yellow.100}",
-              "type": "color",
-              "description": "A subtle yellow background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.yellow.150}",
-              "type": "color",
-              "description": "A subtle yellow background option in pressed state, applied purely for stylistic purposes without specific meaning."
-            }
+            "value": "rgba({color.palette.yellow.400}, {opacity.light.subtle})",
+            "type": "color",
+            "description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "idle": {
-              "value": "{color.palette.yellow.300}",
+            "value": "{color.palette.yellow.400}",
+            "type": "color",
+            "description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
+          },
+          "interactive": {
+            "bold": {
+              "value": "{color.palette.yellow.800}",
               "type": "color",
-              "description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
-            "hover": {
+            "plain": {
               "value": "{color.palette.yellow.400}",
               "type": "color",
-              "description": "A vibrant yellow background option in hovered state, applied purely for stylistic purposes without specific meaning."
-            },
-            "active": {
-              "value": "{color.palette.yellow.500}",
-              "type": "color",
-              "description": "A vibrant yellow background option in pressed state, applied purely for stylistic purposes without specific meaning."
+              "description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         }
       },
       "inverted": {
-        "muted": {
-          "idle": {
-            "type": "color",
-            "value": "{opacity.light.000}",
-            "description": "Use as inverted background of actions that appear to have no background in idle state. Such as inverted outline and ghost buttons."
-          },
-          "hover": {
-            "type": "color",
-            "value": "{opacity.light.100}",
-            "description": "Use as inverted background while hovering of actions that appear to have no background in idle state. Such as inverted outline and ghost buttons."
-          },
-          "active": {
-            "type": "color",
-            "value": "{opacity.light.200}",
-            "description": "Use as inverted background while pressing of actions that appear to have no background in idle state. such as inverted outline and ghost buttons."
-          }
+        "subtlest": {
+          "value": "rgba( {color.palette.grey.000}, {opacity.light.subtlest})",
+          "type": "color",
+          "description": "The subtlest inverted background option."
+        },
+        "subtle": {
+          "value": "rgba({color.palette.grey.000}, {opacity.light.subtle})",
+          "type": "color",
+          "description": "A subtle inverted background option."
         },
         "bold": {
-          "idle": {
-            "value": "{opacity.light.1000}",
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "A solid inverted background option."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.palette.grey.600}",
             "type": "color",
-            "description": "Use as inverted background of actions with bold emphasis."
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
-          "hover": {
+          "plain": {
+            "value": "{color.palette.grey.100}",
             "type": "color",
-            "value": "{opacity.light.700}",
-            "description": "Use as inverted background of actions with bold emphasis during hover states."
-          },
-          "active": {
-            "type": "color",
-            "value": "{opacity.light.500}",
-            "description": "Use as inverted background of actions with bold emphasis during pressed states."
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         }
-      }
-    },
-    "blanket": {
-      "plain": {
-        "value": "{color.utility.transparent.500}",
-        "type": "color",
-        "description": "Use for screen overlay that appears with dialogs or drawers."
-      }
-    },
-    "interaction": {
-      "hover": {
-        "value": "{color.utility.transparent.150}",
-        "type": "color",
-        "description": "Use as a background overlay for elements in a hover state when their background color remains unchanged, such as avatars."
       },
-      "active": {
-        "value": "{color.utility.transparent.200}",
-        "type": "color",
-        "description": "Use as a background overlay for elements in an active state when their background color remains unchanged, such as avatars."
+      "interactive": {
+        "bold": {
+          "value": "{color.background.accent.blue.interactive.bold}",
+          "type": "color",
+          "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+        },
+        "plain": {
+          "value": "{color.background.accent.blue.interactive.plain}",
+          "type": "color",
+          "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+        }
       }
+    }
+  },
+  "blanket": {
+    "plain": {
+      "value": "rgba({color.palette.grey.900}, {opacity.light.moderate})",
+      "type": "color",
+      "description": "Use for screen overlay that appears with dialogs or drawers."
+    }
+  },
+  "skeleton": {
+    "plain": {
+      "value": "{color.background.accent.grey.subtlest}",
+      "type": "color",
+      "description": "Use for skeleton loading states."
     },
-    "skeleton": {
-      "plain": {
-        "value": "{color.palette.grey.150}",
-        "type": "color",
-        "description": "Use for skeleton loading states."
-      },
-      "subtle": {
-        "value": "{color.palette.grey.050}",
-        "type": "color",
-        "description": "Use for the pulse or shimmer effect in skeleton loading states."
-      }
+    "subtle": {
+      "value": "{color.background.accent.grey.subtle}",
+      "type": "color",
+      "description": "Use for the pulse or shimmer effect in skeleton loading states."
     }
   },
   "elevation": {
     "surface": {
       "base": {
         "default": {
-          "idle": {
-            "value": "{color.palette.grey.000}",
-            "type": "color",
-            "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
-            "type": "color",
-            "description": "The default, flat surface level in hover state. Used for primary content backgrounds."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.muted.active}",
-            "type": "color",
-            "description": "Use as the default background for the UI while pressing."
-          }
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
         }
       },
       "raised": {
         "default": {
-          "idle": {
-            "value": "{color.palette.grey.000}",
-            "type": "color",
-            "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.muted.hover}",
-            "type": "color",
-            "description": "Background of elevated components in hovered state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.muted.active}",
-            "type": "color",
-            "description": "Background of elevated components in active state like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-          }
+          "value": "{color.palette.grey.000}",
+          "type": "color",
+          "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         },
         "alternative": {
-          "idle": {
-            "value": "{color.palette.grey.000}",
-            "type": "color",
-            "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "An alternate surface color in hover state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "An alternate surface color in active state used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-          }
+          "value": "{color.palette.grey.100}",
+          "type": "color",
+          "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
         },
         "sunken": {
-          "idle": {
-            "value": "{color.background.accent.grey.subtle.idle}",
-            "type": "color",
-            "description": "Background for components that create a sunken effect, typically used for grouping related items."
-          },
-          "hover": {
-            "value": "{color.background.accent.blue.subtle.hover}",
-            "type": "color",
-            "description": "Background for components in hover state that create a sunken effect, typically used for grouping related items."
-          },
-          "active": {
-            "value": "{color.background.accent.blue.subtle.active}",
-            "type": "color",
-            "description": "Background for components in active state that create a sunken effect, typically used for grouping related items."
-          }
+          "value": "{color.palette.grey.050}",
+          "type": "color",
+          "description": "Background for components that create a sunken effect, typically used for grouping related items."
         }
       }
     },
@@ -2017,7 +1652,7 @@
           "y": "0",
           "blur": "15",
           "spread": "0",
-          "color": "{color.utility.transparent.150}",
+          "color": "rgba({color.palette.grey.700}, {opacity.light.subtlest})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -2029,12 +1664,64 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "{color.utility.transparent.150}",
+          "color": "rgba({color.palette.grey.700}, {opacity.light.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
         "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
       }
+    }
+  },
+  "opacity": {
+    "interactive": {
+      "bold": {
+        "idle": {
+          "value": "0%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "20%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "40%",
+          "type": "opacity"
+        }
+      },
+      "plain": {
+        "idle": {
+          "value": "0%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "15%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "25%",
+          "type": "opacity"
+        }
+      }
+    },
+    "muted": {
+      "value": "0%",
+      "type": "opacity"
+    },
+    "subtlest": {
+      "value": "10%",
+      "type": "opacity"
+    },
+    "subtle": {
+      "value": "20%",
+      "type": "opacity"
+    },
+    "moderate": {
+      "value": "80%",
+      "type": "opacity"
+    },
+    "bold": {
+      "value": "100%",
+      "type": "opacity"
     }
   }
 }

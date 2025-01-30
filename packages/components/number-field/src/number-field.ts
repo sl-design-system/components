@@ -35,7 +35,7 @@ export class NumberField extends LocaleMixin(TextField) {
   // readonly internals = this.attachInternals();
 
   /** Parser used for user input.  */
-  // eslint-disable-next-line no-unused-private-class-members
+
   #parser?: NumberParser;
 
   /** The number value. */
@@ -53,9 +53,22 @@ export class NumberField extends LocaleMixin(TextField) {
   // TODO: maybe it should not extent TextField?
 
   override get formattedValue(): string {
+    // TODO: sth is wrong here?
+    console.log(
+      'is it a number? what type?',
+      typeof this.valueAsNumber,
+      !Number.isNaN(this.valueAsNumber),
+      this.valueAsNumber
+    );
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
+      console.log(
+        'this.valueAsNumber in formattedValue',
+        this.valueAsNumber,
+        format(this.valueAsNumber, this.locale, this.formatOptions)
+      );
       return format(this.valueAsNumber, this.locale, this.formatOptions);
     } else {
+      console.log('this.valueAsNumber in formattedValue in else should return empty string', this.valueAsNumber);
       return '';
     }
   }
@@ -76,7 +89,8 @@ export class NumberField extends LocaleMixin(TextField) {
   // @property({ type: Boolean, reflect: true, attribute: 'no-step-buttons' }) noStepButtons?: boolean;
 
   /** @internal The raw value of the input. */
-  @state() rawValue?: string;
+  // @state() override rawValue?: string;
+  @state() override rawValue: string = '';
 
   /** The amount by which the value will be increased/decreased by a step up/down. */
   @property({ type: Number }) step?: number;
@@ -153,7 +167,7 @@ export class NumberField extends LocaleMixin(TextField) {
             aria-label=${msg('Step down')}
             tabindex="-1"
           >
-            <sl-icon name="dash-solid" size="xs"></sl-icon>
+            <sl-icon name="minus" size="xs"></sl-icon>
           </button>
         `
       : nothing;
@@ -171,7 +185,7 @@ export class NumberField extends LocaleMixin(TextField) {
                 aria-label=${msg('Step down')}
                 tabindex="-1"
               >
-                <sl-icon name="dash-solid" size="xs"></sl-icon>
+                <sl-icon name="minus" size="xs"></sl-icon>
               </button>
               <button
                 @click=${() => this.stepUp()}
@@ -179,7 +193,7 @@ export class NumberField extends LocaleMixin(TextField) {
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
-                <sl-icon name="far-plus" size="xs"></sl-icon>
+                <sl-icon name="plus" size="xs"></sl-icon>
               </button>
             </div>
           `
@@ -191,7 +205,7 @@ export class NumberField extends LocaleMixin(TextField) {
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
-                <sl-icon name="far-plus" size="xs"></sl-icon>
+                <sl-icon name="plus" size="xs"></sl-icon>
               </button>
             </div>
           `
@@ -380,7 +394,14 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   #convertValueToNumber(value: string): number {
-    return parseFloat(value);
+    console.log('value and parseFloat in #convertValueToNumber', value, parseFloat(value));
+    // return parseFloat(value);
+    // const numericValue = value.replace(/[^\d.-]/g, ''); // Remove non-numeric characters
+    const numericValue = this.#parser?.parse(value) ?? value.replace(/[^\d.-]/g, ''); // Use parser if available, fallback to removing non-numeric characters
+    // new NumberParser(this.locale, this.formatOptions);
+    console.log('value and parseFloat in #convertValueToNumber', numericValue, parseFloat(numericValue.toString()));
+    // return parseFloat(numericValue);
+    return parseFloat(numericValue.toString());
   }
 
   // TODO: this.#updateValueAndValidity();

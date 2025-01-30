@@ -11,7 +11,7 @@ import {
 } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './text-field.scss.js';
 
 declare global {
@@ -61,8 +61,8 @@ export class TextField<T extends { toString(): string } = string>
   static override styles: CSSResultGroup = styles;
 
   /** The value of the text field. */
-  #value?: string = '';
-  // #value: T | undefined = '' as unknown as T;
+  // #value?: string = '';
+  #value: T | undefined = '' as unknown as T;
 
   // /**
   //  * Specifies which type of data the browser can use to pre-fill the input.
@@ -87,8 +87,8 @@ export class TextField<T extends { toString(): string } = string>
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The formatted value, to be used as the input value. */
-  get formattedValue(): string {
-    return this.value ?? '';
+  get formattedValue(): /*T | undefined*/ string {
+    return this.value?.toString() /*??*/ || '';
   }
 
   /** The input element in the light DOM. */
@@ -115,8 +115,8 @@ export class TextField<T extends { toString(): string } = string>
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
-  // /** The raw (string) value of the input. */
-  // @state() rawValue = '';
+  /** The raw (string) value of the input. */
+  @state() rawValue = '';
 
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
@@ -138,13 +138,15 @@ export class TextField<T extends { toString(): string } = string>
 
   // @property({ type: Boolean }) noInputTarget?: boolean;
 
-  override get value(): string | undefined {
+  // override get value(): string | undefined {
+  override get value(): T | undefined {
     return this.#value;
   }
 
   /** The value of the text field. */
   @property()
-  override set value(value: string | undefined) {
+  // override set value(value: string | undefined) {
+  override set value(value: T | undefined) {
     this.#value = value;
   }
 
@@ -180,6 +182,8 @@ export class TextField<T extends { toString(): string } = string>
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    console.log('changes in updated in text-field', changes);
+
     //  console.log('this and this input in text field in UPDATED', this, this.input, this.hasOwnProperty('attachInternals'), this.hasOwnProperty('internals')/*, this instanceof NumberField*/);
 
     const props: Array<keyof TextField> = [
@@ -207,9 +211,11 @@ export class TextField<T extends { toString(): string } = string>
       setTimeout(() => this.updateValidity());
     }
 
-    if (changes.has('value')) {
+    if (changes.has('value') /*|| changes.has('rawValue')*/) {
       // const formattedValue = this.formatValue(this.value);
       const formattedValue = this.formattedValue;
+
+      console.log('formattedValue in text-field', formattedValue, this.input.value);
 
       if (this.input.value !== formattedValue) {
         // this.input.value = this.formatValue(this.value);
@@ -306,24 +312,30 @@ export class TextField<T extends { toString(): string } = string>
 
   protected onInput({ target }: Event & { target: HTMLInputElement }): void {
     // this.rawValue = target.value;
-    //
-    // try {
-    //   // Try to parse the value, but do nothing if it fails
-    //   this.value = this.parseValue(this.rawValue);
-    //   this.changeEvent.emit(this.value);
-    // } catch {
-    //   /* empty */
-    // }
-    //
-    // this.updateState({ dirty: true });
-    // this.updateValidity();
+
+    console.log('1111this value and this rawValue in onInput in text-field', this.value, this.rawValue);
+
+    try {
+      // Try to parse the value, but do nothing if it fails
+      this.value = this.parseValue(this.rawValue);
+      console.log('this value and this rawValue in onInput in text-field', this.value, this.rawValue);
+      // this.changeEvent.emit(this.value);
+      this.changeEvent.emit(this.value?.toString());
+    } catch {
+      /* empty */
+    }
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
 
     // TODO: rawValue from main,. is necessary?
 
-    this.value = target.value;
-    this.changeEvent.emit(this.value);
-    this.updateState({ dirty: true });
-    this.updateValidity();
+    // this.value = target.value;
+    // this.changeEvent.emit(this.value);
+    // this.updateState({ dirty: true });
+    // this.updateValidity();
+
+    console.log('target in onInput in text-field and rawvalue and value', target.value, this.value, this.rawValue);
   }
 
   protected onKeydown(event: KeyboardEvent): void {

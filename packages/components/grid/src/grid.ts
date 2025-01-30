@@ -2,11 +2,12 @@
 import { localized, msg } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, ListDataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Scrollbar } from '@sl-design-system/scrollbar';
 import {
   type EventEmitter,
+  type PathKeys,
   SelectionController,
   event,
   getValueByPath,
@@ -20,7 +21,6 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -171,7 +171,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #sorters: Array<GridSorter<T>> = [];
 
   /** The virtualizer instance for the grid. */
-  #virtualizer?: Virtualizer;
+  #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -183,7 +183,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
 
   /** Provide your own implementation for getting the data. */
-  @property({ attribute: false }) dataSource?: DataSource;
+  @property({ attribute: false }) dataSource?: ListDataSource<T>;
 
   /**
    * Whether you can drag rows in the grid. If you use the drag-handle column,
@@ -285,7 +285,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     await new Promise(resolve => requestAnimationFrame(resolve));
 
     const host = this.tbody as VirtualizerHostElement;
-    this.#virtualizer = host[virtualizerRef] as Virtualizer;
+    this.#virtualizer = host[virtualizerRef];
     this.#virtualizer?.disconnected();
     this.#virtualizer?.connected();
   }
@@ -296,11 +296,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('items')) {
-      if (this.dataSource) {
-        this.dataSource.items = this.items ?? [];
-      } else {
-        this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
-      }
+      this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
 
       this.#updateDataSource(this.dataSource);
     }
@@ -743,12 +739,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
     const items = this.dataSource?.items ?? [],
-      groupItems = items.filter(item => getValueByPath(item, group.path) === group.value);
+      groupItems = items.filter(item => getValueByPath(item, group.path as PathKeys<T>) === group.value);
 
     if (event.detail) {
-      groupItems.forEach(item => this.selection.select(item as T));
+      groupItems.forEach(item => this.selection.select(item));
     } else {
-      groupItems.forEach(item => this.selection.deselect(item as T));
+      groupItems.forEach(item => this.selection.deselect(item));
     }
   }
 
@@ -907,7 +903,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #updateDataSource(dataSource?: DataSource<T>): void {
+  #updateDataSource(dataSource?: ListDataSource<T>): void {
     this.view.dataSource = dataSource;
     this.selection.size = dataSource?.size ?? 0;
 

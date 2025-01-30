@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type DataSource } from '@sl-design-system/data-source';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './status.scss.js';
@@ -22,12 +22,12 @@ export class PaginatorStatus<T = any> extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** The data source that the paginator controls. */
-  #dataSource?: DataSource<T>;
+  #dataSource?: ListDataSource<T>;
 
   /** Timeout id, to be used with `clearTimeout`. */
   #timeoutId?: ReturnType<typeof setTimeout>;
 
-  get dataSource(): DataSource<T> | undefined {
+  get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
 
@@ -36,7 +36,7 @@ export class PaginatorStatus<T = any> extends LitElement {
    * and control the data source when the user selects a new page size in the component.
    */
   @property({ attribute: false })
-  set dataSource(dataSource: DataSource<T> | undefined) {
+  set dataSource(dataSource: ListDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
     }

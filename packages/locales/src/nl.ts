@@ -44,6 +44,7 @@ export const templates = {
   sa7c7ba461453bfef: str`${0} - ${1} van ${2} items`,
   sa996297f6a208e98: 'Kruimelpad',
   sb2c57b2d347203dd: 'Meer tonen',
+  sb59d68ed12d46377: 'Laden',
   sb85774dc5d18ff0f: 'Bevestig',
   sb881081d4f28c851: 'Kies een optie uit de lijst.',
   sbf1de7bf2881bae1: 'Vaak gebruikt',

@@ -1,4 +1,4 @@
-import { ArrayDataSource, FetchDataSource, FetchDataSourceError } from '@sl-design-system/data-source';
+import { ArrayListDataSource, FetchListDataSource, FetchListDataSourceError } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import '@sl-design-system/paginator/register.js';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
@@ -83,7 +83,7 @@ export const Basic: Story = {
 export const DataSource: Story = {
   name: 'Array Data Source',
   render: (_, { loaded: { people } }) => {
-    const ds = new ArrayDataSource(people as Person[], { pagination: true });
+    const ds = new ArrayListDataSource(people as Person[], { pagination: true });
     ds.setPage(2);
     ds.setPageSize(10);
     ds.update();
@@ -135,7 +135,7 @@ export const DataSource2: Story = {
       limit: number;
     }
 
-    const ds = new FetchDataSource<Quote>({
+    const ds = new FetchListDataSource<Quote>({
       pageSize: 10,
       pagination: true,
       fetchPage: async ({ page, pageSize }) => {
@@ -146,7 +146,7 @@ export const DataSource2: Story = {
 
           return { items: quotes, totalItems: total };
         } else {
-          throw new FetchDataSourceError('Failed to fetch data', response);
+          throw new FetchListDataSourceError('Failed to fetch data', response);
         }
       }
     });

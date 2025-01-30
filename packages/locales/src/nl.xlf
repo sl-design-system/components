@@ -234,6 +234,10 @@
   <source>Show more</source>
   <target>Meer tonen</target>
 </trans-unit>
+<trans-unit id="sb59d68ed12d46377">
+  <source>Loading</source>
+  <target>Laden</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

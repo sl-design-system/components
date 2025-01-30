@@ -1,10 +1,9 @@
-import asSvg from '@figma-export/output-components-as-svg'
+import asSvgPerPage from './output-pages-to-folders-svg.js'
 import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo';
 import { argv } from 'node:process';
 import { sep } from 'path';
 
-const fileId = argv.at(4),
-  theme = argv.at(5);
+const fileId = argv.at(4);
 
 export default {
   commands: [
@@ -12,7 +11,6 @@ export default {
       'components',
       {
         fileId,
-        onlyFromPages: ['Custom Icons'], //this is case sensitive, make sure your Figma page name matches exactly
         transformers: [
           transformSvgWithSvgo({
             plugins: [
@@ -38,8 +36,8 @@ export default {
           })
         ],
         outputters: [
-          asSvg({
-            output: `../packages/themes/${theme}/icons`,
+          asSvgPerPage({
+            output: `../packages/themes`,
             getDirname: (options) => `.${sep}${options.dirname}`
           })
         ]

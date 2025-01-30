@@ -28,14 +28,14 @@
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
   --_border: var(--sl-color-border-selected);
+}
 
-  &:hover {
-    --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
-  }
+:host(:where([checked], [indeterminate]):hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
+}
 
-  &:active {
-    --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
-  }
+:host(:where([checked], [indeterminate]):active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
 }
 
 :host([show-validity='invalid']) {

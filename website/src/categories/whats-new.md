@@ -19,7 +19,7 @@ eleventyNavigation:
 <div class="ds-subpage-section__wrapper">
 <section>
   
-## Accessibility Audit, new components and further updates
+## SL Design System Update
 <small>January 2025</small>
 
 ### New Components

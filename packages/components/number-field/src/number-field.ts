@@ -29,7 +29,8 @@ export class NumberField extends LocaleMixin(TextField) {
   static override styles = [TextField.styles, styles];
 
   /** Parser used for user input.  */
-  // #parser?: NumberParser;
+  // eslint-disable-next-line no-unused-private-class-members
+  #parser?: NumberParser;
 
   /** The number value. */
   #value?: number;

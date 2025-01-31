@@ -313,12 +313,18 @@ export class TextField<T extends { toString(): string } = string>
   protected onInput({ target }: Event & { target: HTMLInputElement }): void {
     // this.rawValue = target.value;
 
-    console.log('1111this value and this rawValue in onInput in text-field', this.value, this.rawValue);
+    console.log('1111this value and this rawValue in onInput in text-field', this.value, this.rawValue, target.value);
 
     try {
+      console.log(
+        'IN TRY ->>> this value and this rawValue in onInput in text-field',
+        this.value,
+        this.rawValue,
+        this.parseValue(this.rawValue),
+        target.value
+      );
       // Try to parse the value, but do nothing if it fails
-      this.value = this.parseValue(this.rawValue);
-      console.log('this value and this rawValue in onInput in text-field', this.value, this.rawValue);
+      this.value = this.parseValue(this.rawValue); // TODO: do we really want to parse the value on input? or on blur maybe?
       // this.changeEvent.emit(this.value);
       this.changeEvent.emit(this.value?.toString());
     } catch {

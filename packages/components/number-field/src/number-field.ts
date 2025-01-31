@@ -18,9 +18,6 @@ declare global {
 export type StepButtonsPlacement = 'end' | 'edges'; // | 'none';
 
 export class NumberField extends LocaleMixin(TextField) {
-  // /** @internal */
-  // static formAssociated = true;
-
   /** @internal */
   static override get scopedElements(): ScopedElementsMap {
     return {
@@ -31,12 +28,8 @@ export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
   static override styles = [TextField.styles, styles];
 
-  // /** @internal Element internals. */
-  // readonly internals = this.attachInternals();
-
   /** Parser used for user input.  */
-
-  #parser?: NumberParser;
+  // #parser?: NumberParser;
 
   /** The number value. */
   #value?: number;
@@ -68,8 +61,13 @@ export class NumberField extends LocaleMixin(TextField) {
       );
       return format(this.valueAsNumber, this.locale, this.formatOptions);
     } else {
-      console.log('this.valueAsNumber in formattedValue in else should return empty string', this.valueAsNumber);
-      return '';
+      console.log(
+        'this.valueAsNumber in formattedValue in else should return empty string',
+        this.valueAsNumber,
+        this.rawValue
+      );
+      return this.rawValue ?? '';
+      // return '';
     }
   }
 
@@ -122,9 +120,6 @@ export class NumberField extends LocaleMixin(TextField) {
     // this.setFormControlElement(this.input);
 
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
-    // this.internals.setFormValue(this.valueAsNumber?.toString() || '');
-
-    // this.setFormControlElement(this);
 
     console.log('min and max', this.min, this.max);
 
@@ -144,12 +139,10 @@ export class NumberField extends LocaleMixin(TextField) {
 
     if (this.max) {
       this.input.max = this.max.toString();
-      // this.internals.ariaValueMax = this.max.toString();
     }
 
     if (this.min) {
       this.input.min = this.min.toString();
-      // this.internals.ariaValueMin = this.min.toString();
     }
 
     if (changes.has('locale') || changes.has('formatOptions')) {
@@ -217,7 +210,6 @@ export class NumberField extends LocaleMixin(TextField) {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
-    // this.internals.setFormValue(this.valueAsNumber?.toString() || '');
   }
 
   /** Increases the current value by the `step` amount. */
@@ -225,12 +217,26 @@ export class NumberField extends LocaleMixin(TextField) {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
-    // this.internals.setFormValue(this.valueAsNumber?.toString() || '');
   }
 
   override onBlur(): void {
+    console.log(
+      'this.valueAsNumber onBlur-firstcheck',
+      this.rawValue,
+      this.valueAsNumber,
+      this.input.validity,
+      'parsedValue',
+      this.valueAsNumber,
+      '!NaN>???',
+      // !isNaN(this.#convertValueToNumber(this.rawValue)) ?? 'not a number',
+      !Number.isNaN(this.valueAsNumber),
+      'formattedValue',
+      this.formattedValue
+    );
+
     if (this.rawValue !== undefined) {
       this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
+      // TODO: when it cannot be converted to a number with convertValueToNumber it should return invalid number or maybe rawValue should be used here??? or maybe formattedValue?
       // const parsedValue = this.#convertValueToNumber(this.rawValue);
 
       // TODO: maybe we don't want to clean the value when it's not a number typed in?
@@ -259,6 +265,7 @@ export class NumberField extends LocaleMixin(TextField) {
           !Number.isNaN(this.valueAsNumber)
         );
       } else if (this.rawValue !== '') {
+        // TODO this.valueAsNumber = ??? ???
         console.log(
           'this.valueAsNumber on blur in ELSE',
           this.rawValue,
@@ -284,22 +291,6 @@ export class NumberField extends LocaleMixin(TextField) {
 
     // console.log('this.valueAsNumber on blur', this.valueAsNumber, this.input.validity);
 
-    // this.internals.setValidity({
-    //   rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-    //   rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    // });
-
-    // this.internals.setValidity(
-    //   {
-    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    //   },
-    //   this.valueAsNumber &&
-    //     (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
-    //     ? 'Invalid value'
-    //     : ''
-    // );
-
     // if (!!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)) {
     //   this.input.setCustomValidity('rangeOverflow...');
     // } else if (!!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)) {
@@ -318,65 +309,11 @@ export class NumberField extends LocaleMixin(TextField) {
     );
 
     // TODO: translation for messages msg(...)
-
-    // this.internals.setValidity(
-    //   {
-    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    //   },
-    //   this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)
-    //     ? 'Value exceeds the maximum'
-    //     : this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    //       ? 'Value is below the minimum'
-    //       : ''
-    // ); // TODO: translation for messages msg(...)
-
-    // this.input.setValidity({ rangeOverflow: this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber < (this.min ?? -Infinity) });
-    // this.internals.setValidity({ rangeOverflow: this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity), rangeUnderflow: this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) });
-    // this.input.setCustomValidity(this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity) ? 'Invalid value' : '');
-
-    // this.internals.checkValidity();
-
-    // this.updateValidity();
-
     super.onBlur();
   }
 
   override onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
-    // this.internals.setFormValue(this.rawValue);
-
-    // this.internals.setValidity({
-    //   rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-    //   rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    // });
-
-    // this.internals.setValidity(
-    //   {
-    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    //   },
-    //   this.valueAsNumber &&
-    //     (this.valueAsNumber > (this.max ?? Infinity) || this.valueAsNumber < (this.min ?? -Infinity))
-    //     ? 'Invalid value'
-    //     : ''
-    // ); // TODO: translation for message msg(...)
-
-    // this.internals.setValidity(
-    //   {
-    //     rangeOverflow: !!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity),
-    //     rangeUnderflow: !!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    //   },
-    //   this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)
-    //     ? 'Value exceeds the maximum'
-    //     : this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)
-    //       ? 'Value is below the minimum'
-    //       : ''
-    // ); // TODO: translation for messages msg(...)
-    //
-    // this.internals.checkValidity();
-    //
-    // this.updateValidity();
   }
 
   override onKeydown(event: KeyboardEvent): void {
@@ -394,14 +331,45 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   #convertValueToNumber(value: string): number {
-    console.log('value and parseFloat in #convertValueToNumber', value, parseFloat(value));
+    console.log(
+      'value and parseFloat in #convertValueToNumber',
+      value,
+      parseFloat(value),
+      parseFloat(format(Number(value), this.locale, this.formatOptions)),
+      Number(value)
+    );
     // return parseFloat(value);
     // const numericValue = value.replace(/[^\d.-]/g, ''); // Remove non-numeric characters
-    const numericValue = this.#parser?.parse(value) ?? value.replace(/[^\d.-]/g, ''); // Use parser if available, fallback to removing non-numeric characters
+    // const numericValue = this.#parser?.parse(value) ?? value.replace(/[^\d.-]/g, ''); // Use parser if available, fallback to removing non-numeric characters
     // new NumberParser(this.locale, this.formatOptions);
-    console.log('value and parseFloat in #convertValueToNumber', numericValue, parseFloat(numericValue.toString()));
-    // return parseFloat(numericValue);
-    return parseFloat(numericValue.toString());
+    // console.log('value and parseFloat in #convertValueToNumber', numericValue, parseFloat(numericValue.toString()));
+    //  return parseFloat(value);
+    //  return parseFloat(format(Number(value), this.locale, this.formatOptions));
+    //  return parseFloat(numericValue);
+    // return parseFloat(numericValue.toString());
+    // TODO: problem here with currency and so on
+
+    // Remove non-numeric characters
+    //   const cleanedString = value.replace(/[^0-9.-]+/g, "");
+
+    // Remove currency symbols and spaces
+    let cleanedString = value.replace(/[^\d.,-]/g, '');
+    if (cleanedString.includes(',')) {
+      if (cleanedString.includes('.')) {
+        // If both comma and dot are present, assume comma is thousand separator
+        cleanedString = cleanedString.replace(/,/g, '');
+      } else {
+        // If only comma is present, assume it's a decimal separator
+        cleanedString = cleanedString.replace(/,/g, '.');
+      }
+    }
+
+    // Step 3: Remove non-numeric characters except for the decimal point and minus sign
+    cleanedString = cleanedString.replace(/[^0-9.-]+/g, '');
+
+    console.log('cleanedString', cleanedString);
+
+    return parseFloat(cleanedString);
   }
 
   // TODO: this.#updateValueAndValidity();

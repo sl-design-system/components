@@ -235,8 +235,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
       return targetIndex !== -1;
     });
     this.currentIndex = targetIndex > -1 ? targetIndex : this.currentIndex;
-
-    this.focusToElement(this.currentIndex);
   };
 
   handleFocusout = (event: FocusEvent): void => {

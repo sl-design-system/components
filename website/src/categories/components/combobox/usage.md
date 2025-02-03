@@ -56,7 +56,7 @@ Our combobox comes with multi-selection capabilities that provide a clear overvi
 <section>
 
 ## When Not to Use
-Avoid a Combobox when users benefit more from seeing all options at once for quick selection.
+Avoid a Combobox when users would benefit more from seeing all options at once for quick selection.
 
 ### Fewer Options
 For list of options small than 15 choices, use [Checkbox](/categories/components/checkbox/usage) or [Radio Button](/categories/components/radio-group/usage) instead of a Combobox. These components present all options visible, making them quicker and more intuitive for users to scan and select without additional interactions.

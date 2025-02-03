@@ -19,6 +19,31 @@ eleventyNavigation:
 <div class="ds-subpage-section__wrapper">
 <section>
   
+## SL Design System Update
+<small>January 2025</small>
+
+
+Below are the updates we made last month. Everything will be available after the release.
+
+
+### New Components
+- [Proof of Concept of Tree](https://storybook.sanomalearning.design/?path=/story/navigation-tree--flat-data-source) <ds-status status="draft"></ds-status>
+- [Panel](https://storybook.sanomalearning.design/?path=/story/layout-panel--basic) <ds-status status="draft"></ds-status>
+
+### Improvements & Maintenance
+- [Make it possible to use paginator component with FetchDataSource](https://storybook.sanomalearning.design/?path=/story/grid-pagination--data-source-2) 
+- [Added pill-shaped buttons and implemented new contextual tokens in the button component](https://storybook.sanomalearning.design/?path=/story/actions-button--all)
+- [Implemented new contextual tokens in the badge component](https://storybook.sanomalearning.design/?path=/story/feedback-status-badge--all)
+
+### Solved Accessibility Issues
+- [Accessibility features are not correctly marked/missing in the select element](https://github.com/sl-design-system/components/issues/1490)
+- [Accordion with external toggle give no status for a screen reader](https://github.com/sl-design-system/components/issues/1559)
+- [Inline messages reading order is unconventional](https://github.com/sl-design-system/components/issues/1558)
+- [Fix skip table links when at viewport edge](https://github.com/sl-design-system/components/issues/1689)
+  
+</section>
+<section>
+  
 ## Accessibility Audit, new components and further updates
 <small>December 2024</small>
 

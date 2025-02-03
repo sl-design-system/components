@@ -20,7 +20,6 @@ declare global {
 export type SlRemoveEvent = CustomEvent<void>;
 
 export type TagSize = 'md' | 'lg';
-export type TagEmphasis = 'subtle' | 'bold';
 
 /**
  * A tag component containing label.
@@ -59,9 +58,6 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** Whether the tag component is disabled, when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** The emphasis of the tag; defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis?: TagEmphasis;
-
   /** @internal The label of the tag component. */
   @state() label = '';
 
@@ -71,15 +67,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the tag is removed. */
   @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
 
-  /** The size of the tag. Defaults to `md`. */
+  /**
+   * The size of the tag.
+   * @default 'md'
+   */
   @property({ reflect: true }) size?: TagSize;
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '0');
-    }
 
     this.#observer.observe(this);
   }
@@ -101,8 +96,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled')) {
-      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+    if (changes.has('disabled') || changes.has('removable')) {
+      if (this.removable) {
+        this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+      } else {
+        this.removeAttribute('tabindex');
+      }
     }
 
     if (changes.has('removable')) {
@@ -119,27 +118,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       <slot @slotchange=${this.#onSlotChange}></slot>
       ${this.removable
         ? html`
-            <button
-              @blur=${this.#onBlur}
-              @click=${this.#onRemove}
-              @focus=${this.#onFocus}
-              ?disabled=${this.disabled}
-              aria-hidden="true"
-              tabindex="-1"
-            >
+            <button @click=${this.#onRemove} ?disabled=${this.disabled} aria-hidden="true" tabindex="-1">
               <sl-icon name="xmark"></sl-icon>
             </button>
           `
         : nothing}
     `;
-  }
-
-  #onBlur(): void {
-    this.removeAttribute('focus-within');
-  }
-
-  #onFocus(): void {
-    this.setAttribute('focus-within', '');
   }
 
   #onKeydown(event: KeyboardEvent): void {

@@ -13,7 +13,7 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-combobox multiple value='["0","3"]'>
+<sl-combobox multiple style="inline-size: 100%; max-inline-size: min(30vw, 500px)" value='["0","3"]'>
   <sl-listbox>
     <sl-option-group label="Math">
       <sl-option value="0">Algebra</sl-option>

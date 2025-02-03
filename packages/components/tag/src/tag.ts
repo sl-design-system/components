@@ -20,6 +20,7 @@ declare global {
 export type SlRemoveEvent = CustomEvent<void>;
 
 export type TagSize = 'md' | 'lg';
+export type TagVariant = 'neutral' | 'info';
 
 /**
  * A tag component containing label.
@@ -72,6 +73,12 @@ export class Tag extends ScopedElementsMixin(LitElement) {
    * @default 'md'
    */
   @property({ reflect: true }) size?: TagSize;
+
+  /**
+   * The variant of the tag.
+   * @default 'neutral'
+   */
+  @property({ reflect: true }) variant?: TagVariant;
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -21,16 +21,6 @@
   }
 }
 
-:host([disabled]) {
-  color: var(--sl-color-text-disabled);
-  pointer-events: none;
-
-  slot,
-  button {
-    background: var(--sl-color-background-disabled);
-  }
-}
-
 :host([size='lg']) {
   slot {
     padding-block: var(--sl-size-050);
@@ -39,6 +29,22 @@
 
   button {
     inline-size: calc(var(--sl-size-300) + var(--sl-size-050));
+  }
+}
+
+:host([variant='info']) {
+  --_bg-color: var(--sl-color-background-info-subtle);
+
+  color: var(--sl-color-text-info-bold);
+}
+
+:host([disabled]) {
+  color: var(--sl-color-text-disabled);
+  pointer-events: none;
+
+  slot,
+  button {
+    background: var(--sl-color-background-disabled);
   }
 }
 

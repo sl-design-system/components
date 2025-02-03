@@ -1,93 +1,60 @@
-$sizes: sm, md, lg;
-
 :host {
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
-  --_handle-position: 0%;
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
-  --_label-text-color: var(--sl-color-input-field-label-text-default);
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
-  --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
-  --_toggle-padding: var(--sl-space-input-switch-padding-controller);
-  --_track-radius: calc((var(--_handle-size) + var(--_toggle-padding) * 2) / 2);
-  --_transition: var(--sl-animation-duration-normal);
+  --_bg-color: var(--sl-color-background-bold);
+  --_bg-mix-color: var(--sl-color-background-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+  --_handle-size: var(--sl-size-250);
+  --_icon-size: var(--sl-size-150);
+  --_track-size: var(--sl-size-600);
 
   align-items: center;
+  color: var(--sl-color-text-plain);
+  cursor: pointer;
   display: inline-flex;
-  gap: 0 var(--sl-space-input-switch-margin-left);
+  gap: var(--sl-space-100);
   outline: none;
   vertical-align: middle;
 }
 
 :host(:hover) {
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-hover-handle);
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-hover-icon);
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-hover-background);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
 }
 
 :host(:active) {
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-active-handle);
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-active-icon);
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-active-background);
-}
-
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_gap: var(--sl-space-input-gap-#{$size});
-    --_handle-size: var(--sl-size-input-switch-handle-#{$size});
-    --_input-label-font: var(--sl-text-input-field-label-tag-#{$size});
-    --_toggle-width: calc(var(--sl-size-input-switch-controller-width-#{$size}) - var(--_toggle-padding) * 2);
-  }
-}
-
-:host([disabled]) {
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-disabled-handle);
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
-  --_label-text-color: var(--sl-color-input-field-label-text-disabled);
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
-
-  cursor: default;
-  pointer-events: none;
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
 }
 
 :host([checked]) {
-  --_handle-color: var(--sl-color-input-switch-default-checked-default-handle);
-  --_handle-position: calc(var(--_toggle-width) - 100%);
-  --_icon-color: var(--sl-color-input-switch-default-checked-default-icon);
-  --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
+  --_bg-color: var(--sl-color-background-positive-bold);
+  --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
+}
 
-  &:hover {
-    --_handle-color: var(--sl-color-input-switch-default-checked-hover-handle);
-    --_icon-color: var(--sl-color-input-switch-default-checked-hover-icon);
-    --_main-background-color: var(--sl-color-input-switch-default-checked-hover-background);
+:host([disabled]) {
+  color: var(--sl-color-text-disabled);
+  cursor: default;
+  pointer-events: none;
+
+  [part='track'] {
+    background: var(--sl-color-background-disabled);
   }
 
-  &:active {
-    --_handle-color: var(--sl-color-input-switch-default-checked-active-handle);
-    --_icon-color: var(--sl-color-input-switch-default-checked-active-icon);
-    --_main-background-color: var(--sl-color-input-switch-default-checked-active-background);
+  [part='handle'] {
+    color: var(--sl-color-text-disabled);
   }
 }
 
-:host([checked][disabled]) {
-  --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
-  --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
-  --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
-}
-
-:host([reverse]) .toggle {
+:host([reverse]) [part='toggle'] {
   order: -1;
 }
 
-:host([no-label]) {
-  .label {
-    display: none;
-  }
+:host([size='sm']) {
+  --_handle-size: var(--sl-size-150);
+  --_track-size: var(--sl-size-400);
 }
 
-[part='track']:focus-visible {
-  outline: var(--_focus-outline);
+:host([size='lg']) {
+  --_handle-size: calc(var(--sl-size-300) + var(--sl-size-050));
+  --_icon-size: var(--sl-size-200);
+  --_track-size: var(--sl-size-800);
 }
 
 ::slotted(input) {
@@ -103,51 +70,42 @@ $sizes: sm, md, lg;
   cursor: pointer;
 }
 
-slot {
-  color: var(--_label-text-color);
-  cursor: pointer;
-  font: var(--_input-label-font);
-}
-
-.toggle {
-  cursor: pointer;
-  grid-area: toggle;
-  margin: var(--_toggle-container-margin);
-  padding: var(--_toggle-container-padding);
+[part='toggle'] {
+  padding: var(--sl-size-050);
 }
 
 [part='track'] {
-  background-color: var(--_main-background-color);
-  border-radius: var(--_track-radius);
-  box-shadow: var(--_box-shadow);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border-radius: calc((var(--_handle-size) + var(--sl-size-025) * 2) / 2);
+  box-sizing: border-box;
   display: grid;
-  inline-size: var(--_toggle-width);
-  outline: none;
-  outline-color: transparent;
-  outline-offset: var(--_focus-outline-offset);
-  padding: var(--_toggle-padding);
+  inline-size: var(--_track-size);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: var(--sl-size-025);
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: var(--_transition);
-    transition-property: background-color, outline-color;
+    transition: 200ms ease-in-out;
+    transition-property: background, outline-color;
   }
 }
 
-[part='track'] div {
-  background-color: var(--_handle-color);
+[part='handle'] {
+  aspect-ratio: 1;
+  background: var(--sl-color-background-inverted-bold);
   block-size: var(--_handle-size);
-  border-radius: calc(var(--_handle-size) / 2);
+  border-radius: 50%;
+  color: var(--sl-color-text-inverted-onBold);
   display: grid;
-  inline-size: var(--_handle-size);
   place-content: center;
-  translate: var(--_handle-position);
+  translate: var(--_handle-position, 0);
   will-change: transform;
 
   sl-icon {
-    --sl-icon-fill-default: var(--_icon-color);
+    --sl-icon-size: var(--_icon-size);
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
+    transition: translate 200ms ease-in-out;
   }
 }

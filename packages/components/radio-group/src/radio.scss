@@ -1,128 +1,133 @@
-@use 'sass:list';
-
-$variants: default, valid, invalid;
-$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
-$states: unchecked, checked;
-$state-selectors: '', '[checked]';
-$sizes: md, lg;
-
 :host {
-  --_border-radius: var(--sl-border-radius-circle);
-  --_border-size: var(--sl-border-width-input-border);
-  --_border: var(--_border-size) solid var(--_border-color);
-  --_gap: var(--sl-space-input-option-gap-md);
-  --_line-height: var(--sl-text-typeset-line-height-md);
-  --_transition: 200ms ease-in-out;
-  --sl-size-input-icon-size-md: 20px;
-  --sl-size-input-icon-size-lg: 28px;
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
+  --_fill: var(--sl-color-text-selected-onBold);
 
   align-items: start;
-  color: var(--_label-color);
+  color: var(--sl-color-text-plain);
   cursor: pointer;
   display: inline-flex;
-  font: var(--_font);
-  gap: var(--_gap);
-  line-height: var(--_line-height);
+  gap: var(--sl-space-100);
   outline: none;
-  padding: var(--_padding);
+  padding-block: var(--sl-size-050);
+  vertical-align: middle;
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_line-height: var(--sl-text-typeset-line-height-#{$size});
-    --_padding: var(--sl-space-input-option-block-#{$size})
-      var(--sl-space-input-option-inline-#{$size})
-      var(--sl-space-input-option-block-#{$size})
-      0;
-    --_gap: var(--sl-space-input-option-gap-#{$size});
-    --_size: var(--sl-size-input-option-#{$size});
-    --_icon-size: var(--sl-size-input-icon-size-#{$size});
-    --_font: var(--sl-text-input-option-#{$size});
-  }
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 
-@each $variant in $variants {
-  $i: list.index($variants, $variant);
-  $variant-selector: list.nth($variant-selectors, $i);
-
-  @each $state in $states {
-    $j: list.index($states, $state);
-    $state-selector: list.nth($state-selectors, $j);
-
-    :host(#{$variant-selector + $state-selector}) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-label);
-      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}:not([disabled]):hover) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
-      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}:not([disabled]):active) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
-      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}:not([disabled]):focus-visible) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
-      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
-    }
-
-    :host(#{$variant-selector + $state-selector}:where([disabled])) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
-      --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
-    }
-  }
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
 }
 
-:host(:where(:active, :focus-visible, :hover)) .box {
-  transition: var(--_transition);
-  transition-property: background, border-color, color, filter, outline-color;
+:host([checked]) {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+  --_border: var(--sl-color-border-selected);
 }
 
-:host(:focus-visible) .box {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+:host([checked]:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
+}
+
+:host([checked]:active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
+}
+
+:host([show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
+  --_fill: var(--sl-color-text-negative-onBold);
+}
+
+:host([checked][show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-negative-bold);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
+}
+
+:host([show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
+}
+
+:host([checked][show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-positive-bold);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
+  --_fill: var(--sl-color-text-positive-onBold);
+}
+
+:host(:focus-visible) [part='box'] {
+  outline-color: var(--sl-color-border-focused);
 }
 
 :host([disabled]) {
+  --_border: var(--sl-color-border-input);
+
+  color: var(--sl-color-text-disabled);
   cursor: default;
   pointer-events: none;
+
+  [part='box'] {
+    background: var(--sl-color-background-disabled);
+  }
+
+  svg circle {
+    fill: var(--sl-color-icon-disabled);
+  }
 }
 
-.box {
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
+:host([size='lg']) {
+  [part='box'] {
+    block-size: var(--sl-size-400);
+  }
+
+  svg {
+    block-size: calc(var(--sl-size-400) - var(--sl-size-050));
+  }
+
+  [part='label'] {
+    margin-block-start: calc((var(--sl-size-400) - 1lh) / 2);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:active, :focus-visible, :hover)) [part='box'] {
+    transition: 200ms ease-in-out;
+    transition-property: background, border-color, color, outline-color;
+  }
+}
+
+[part='box'] {
+  align-items: center;
+  aspect-ratio: 1;
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  block-size: var(--sl-size-300);
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border-radius: 50%;
+  box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
-  outline-color: transparent;
-  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
+  justify-content: center;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
 }
 
-.label {
-  margin-block-start: calc((var(--_size) - var(--_line-height)) / 2);
+[part='label'] {
+  margin-block-start: calc((var(--sl-size-300) - 1lh) / 2);
 }
 
 svg {
-  block-size: var(--_icon-size);
+  aspect-ratio: 1;
+  block-size: var(--sl-size-250);
   fill: none;
-  inline-size: var(--_icon-size);
 }
 
 circle {
-  fill: var(--_fill, transparent);
+  fill: var(--_fill);
 }

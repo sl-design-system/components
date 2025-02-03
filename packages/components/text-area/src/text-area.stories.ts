@@ -185,92 +185,46 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
-export const All: StoryObj = {
-  argTypes: {
-    size: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: () => html`
-    <style>
-      .content-wrapper {
-        display: inline-grid;
-        gap: 1rem;
-      }
-      .wrapper {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: repeat(2, 1fr);
-        justify-items: center;
-      }
-      sl-text-area {
-        width: 300px;
-      }
-    </style>
+export const All: Story = {
+  render: () => {
+    return html`
+      <style>
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto 1fr 1fr;
+        }
+      </style>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center">md</span>
+        <span style="justify-self: center">lg</span>
 
-    ${sizes.map(
-      size => html`
-        <h2>Size: ${size}</h2>
-        <div class="content-wrapper">
-          <div class="wrapper">
-            <sl-text-area aria-label="label" size=${size} placeholder="Placeholder ${size}"></sl-text-area>
-            <sl-text-area aria-label="label" size=${size} value="I am ${size}"></sl-text-area>
-            <sl-text-area aria-label="label" readonly size=${size} value="${size} readonly"></sl-text-area>
-            <sl-text-area aria-label="label" disabled size=${size} value="${size} disabled"></sl-text-area>
-            <sl-text-area
-              aria-label="label"
-              disabled
-              size=${size}
-              placeholder="Placeholder ${size} disabled"
-            ></sl-text-area>
-          </div>
-          <div class="wrapper">
-            <sl-text-area
-              aria-label="label"
-              show-validity="invalid"
-              size=${size}
-              value="${size} invalid"
-            ></sl-text-area>
-            <sl-text-area
-              aria-label="label"
-              placeholder="Placeholder ${size} invalid"
-              show-validity="invalid"
-              size=${size}
-            ></sl-text-area>
-            <sl-text-area
-              aria-label="label"
-              disabled
-              show-validity="invalid"
-              size=${size}
-              value="${size} invalid disabled"
-            ></sl-text-area>
-            <sl-text-area
-              aria-label="label"
-              disabled
-              placeholder="Placeholder ${size} disabled invalid"
-              size=${size}
-              show-validity="invalid"
-            ></sl-text-area>
-          </div>
-          <div class="wrapper">
-            <sl-text-area
-              aria-label="label"
-              show-validity="valid"
-              size=${size}
-              value="I am ${size} valid"
-            ></sl-text-area>
-            <sl-text-area
-              aria-label="label"
-              disabled
-              show-validity="valid"
-              size=${size}
-              value="${size} valid disabled"
-            ></sl-text-area>
-          </div>
-        </div>
-      `
-    )}
-  `
+        <span>Empty</span>
+        <sl-text-area placeholder="Placeholder"></sl-text-area>
+        <sl-text-area placeholder="Placeholder" size="lg"></sl-text-area>
+
+        <span>Value</span>
+        <sl-text-area value="Value"></sl-text-area>
+        <sl-text-area size="lg" value="Value"></sl-text-area>
+
+        <span>Invalid</span>
+        <sl-text-area show-validity="invalid" value="Invalid"></sl-text-area>
+        <sl-text-area show-validity="invalid" size="lg" value="Invalid"></sl-text-area>
+
+        <span>Valid</span>
+        <sl-text-area show-validity="valid" value="Valid"></sl-text-area>
+        <sl-text-area show-validity="valid" size="lg" value="Valid"></sl-text-area>
+
+        <span>Readonly</span>
+        <sl-text-area readonly value="Value"></sl-text-area>
+        <sl-text-area readonly size="lg" value="Value"></sl-text-area>
+
+        <span>Disabled</span>
+        <sl-text-area disabled value="Value"></sl-text-area>
+        <sl-text-area disabled size="lg" value="Value"></sl-text-area>
+      </div>
+    `;
+  }
 };

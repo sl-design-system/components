@@ -1,6 +1,8 @@
+import { faCalendar } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -27,6 +29,8 @@ type Props = Pick<
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
+
+Icon.register(faCalendar);
 
 const sizes: TextFieldSize[] = ['md', 'lg'];
 
@@ -257,91 +261,68 @@ export const CustomAsyncValidity: Story = {
 //   }
 // };
 
-export const All: StoryObj = {
-  argTypes: {
-    size: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: () => html`
-    <style>
-      .content-wrapper {
-        display: inline-grid;
-        gap: 1rem;
-      }
-      .wrapper {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: repeat(2, 1fr);
-        justify-items: center;
-      }
-      sl-text-field {
-        width: 300px;
-      }
-    </style>
-    ${sizes.map(
-      size => html`
-        <h2>Size: ${size}</h2>
-        <div class="content-wrapper">
-          <div class="wrapper">
-            <sl-text-field aria-label="label" size=${size} placeholder="Placeholder ${size}"></sl-text-field>
-            <sl-text-field aria-label="label" size=${size} value="I am ${size}"></sl-text-field>
-            <sl-text-field aria-label="label" readonly size=${size} value="${size} readonly"></sl-text-field>
-            <sl-text-field aria-label="label" disabled size=${size} value="${size} disabled"></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              disabled
-              size=${size}
-              placeholder="Placeholder ${size} disabled"
-            ></sl-text-field>
-          </div>
-          <div class="wrapper">
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              show-validity="invalid"
-              value="I am ${size} invalid"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              placeholder="Placeholder ${size} invalid"
-              show-validity="invalid"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              disabled
-              show-validity="invalid"
-              value="${size} invalid disabled"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              disabled
-              placeholder="Placeholder ${size} disabled invalid"
-              show-validity="invalid"
-            ></sl-text-field>
-          </div>
-          <div class="wrapper">
-            <sl-text-field
-              aria-label="label"
-              show-validity="valid"
-              .size=${size}
-              value="I am ${size} valid"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              disabled
-              show-validity="valid"
-              value="${size} valid disabled"
-            ></sl-text-field>
-          </div>
-        </div>
-      `
-    )}
-  `
+export const All: Story = {
+  render: () => {
+    return html`
+      <style>
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto 1fr 1fr;
+        }
+      </style>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center">md</span>
+        <span style="justify-self: center">lg</span>
+
+        <span>Empty</span>
+        <sl-text-field placeholder="Placeholder"></sl-text-field>
+        <sl-text-field placeholder="Placeholder" size="lg"></sl-text-field>
+
+        <span>Value</span>
+        <sl-text-field value="Value"></sl-text-field>
+        <sl-text-field size="lg" value="Value"></sl-text-field>
+
+        <span>Invalid</span>
+        <sl-text-field show-validity="invalid" value="Invalid"></sl-text-field>
+        <sl-text-field show-validity="invalid" size="lg" value="Invalid"></sl-text-field>
+
+        <span>Valid</span>
+        <sl-text-field show-validity="valid" value="Valid"></sl-text-field>
+        <sl-text-field show-validity="valid" size="lg" value="Valid"></sl-text-field>
+
+        <span>Prefix/suffix</span>
+        <sl-text-field placeholder="Placeholder">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
+        <sl-text-field placeholder="Placeholder" size="lg">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
+
+        <span>Field button</span>
+        <sl-text-field placeholder="Placeholder">
+          <button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </button>
+        </sl-text-field>
+        <sl-text-field placeholder="Placeholder" size="lg">
+          <button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </button>
+        </sl-text-field>
+
+        <span>Readonly</span>
+        <sl-text-field readonly value="Value"></sl-text-field>
+        <sl-text-field readonly size="lg" value="Value"></sl-text-field>
+
+        <span>Disabled</span>
+        <sl-text-field disabled value="Value"></sl-text-field>
+        <sl-text-field disabled size="lg" value="Value"></sl-text-field>
+      </div>
+    `;
+  }
 };

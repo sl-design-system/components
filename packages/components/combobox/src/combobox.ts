@@ -935,13 +935,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         item.selected = true;
 
         this.selectedItems = [...this.selectedItems, item];
-
-        // VoiceOver gets confused after you selected the first item
-        // This is a hack to make it work again
-        if (this.selectedItems.length === 1) {
-          this.input.blur();
-          setTimeout(() => this.input.focus(), 10);
-        }
       }
     } else {
       item.selected = true;
@@ -964,13 +957,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       item.selected = false;
 
       this.selectedItems = this.selectedItems.filter(i => i !== item);
-
-      // VoiceOver gets confused after you deselected the last selected item
-      // This is a hack to make it work again
-      if (this.selectedItems.length === 0) {
-        this.input.blur();
-        setTimeout(() => this.input.focus(), 10);
-      }
 
       if (item.custom) {
         this.#removeCustomOption(item);

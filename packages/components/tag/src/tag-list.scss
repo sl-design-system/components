@@ -1,12 +1,11 @@
 :host {
-  --_border-color: var(--sl-color-tag-subtle-idle-border);
-  --_gap: var(--sl-space-tag-list-md);
-  --_stack-margin: var(--sl-border-width-xs);
-  --_stack-offset: var(--sl-border-width-md);
-  --_stack-width: var(--sl-border-width-lg);
+  --_border-color: var(--sl-color-background-secondary-subtle);
+  --_stack-margin: var(--sl-size-010);
+  --_stack-offset: calc(var(--sl-size-010) + var(--sl-size-025));
+  --_stack-width: var(--sl-size-050);
 
   display: flex;
-  gap: var(--_gap);
+  gap: var(--sl-space-050);
 }
 
 :host([stacked]) {
@@ -15,12 +14,11 @@
   .list {
     align-content: flex-end;
     flex-wrap: nowrap;
-    overflow: hidden;
   }
 }
 
-:host([emphasis='bold']) {
-  --_border-color: var(--sl-color-tag-bold-idle-border);
+:host([variant='info']) {
+  --_border-color: var(--sl-color-background-info-subtle);
 }
 
 ::slotted(*) {
@@ -38,14 +36,6 @@
   &.triple {
     padding-inline-start: calc(var(--_stack-offset) * 2);
   }
-
-  &:has(sl-tag:focus) {
-    --_border-color: var(--sl-color-tag-subtle-active-border);
-  }
-
-  &:has(sl-tag[emphasis='bold']:focus) {
-    --_border-color: var(--sl-color-tag-subtle-active-border);
-  }
 }
 
 .double::before,
@@ -53,7 +43,7 @@
 .triple::after {
   border-color: var(--_border-color);
   border-inline-start: calc(var(--_stack-offset) - var(--_stack-margin)) solid var(--_border-color);
-  border-radius: var(--sl-border-radius-full);
+  border-radius: var(--sl-size-borderRadius-full);
   content: '';
   display: flex;
   inline-size: var(--_stack-width);
@@ -68,5 +58,5 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--_gap);
+  gap: var(--sl-space-050);
 }

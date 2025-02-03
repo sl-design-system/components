@@ -7,7 +7,7 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag-list.scss.js';
-import { Tag, type TagEmphasis, type TagSize } from './tag.js';
+import { Tag, type TagSize, type TagVariant } from './tag.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -61,9 +61,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     isFocusableElement: (el: Tag) => !el.disabled
   });
 
-  /** The emphasis of the tag-list and tags inside. Defaults to 'subtle'. */
-  @property({ reflect: true }) emphasis?: TagEmphasis;
-
   /** The size of the tag-list (determines size of tags inside the tag-list). Defaults to `md`. */
   @property() size?: TagSize;
 
@@ -81,6 +78,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   /** @internal The slotted tags. */
   @state() tags: Tag[] = [];
+
+  /**
+   * The variant of the tag-list and tags inside.
+   * @default 'neutral'
+   */
+  @property({ reflect: true }) variant?: TagVariant;
 
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
@@ -102,16 +105,16 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('emphasis')) {
-      this.tags?.forEach(tag => (tag.emphasis = this.emphasis));
-    }
-
     if (changes.has('size')) {
       this.tags?.forEach(tag => (tag.size = this.size));
     }
 
     if (changes.has('stacked') && !this.stacked) {
       this.tags.forEach(tag => (tag.style.display = ''));
+    }
+
+    if (changes.has('variant')) {
+      this.tags?.forEach(tag => (tag.variant = this.variant));
     }
   }
 
@@ -120,7 +123,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       ${this.stacked && this.stackSize > 0
         ? html`
             <div class=${classMap({ stack: true, double: this.stackSize === 2, triple: this.stackSize >= 3 })}>
-              <sl-tag aria-labelledby="tooltip" emphasis=${ifDefined(this.emphasis)} size=${ifDefined(this.size)}>
+              <sl-tag aria-labelledby="tooltip" size=${ifDefined(this.size)} variant=${ifDefined(this.variant)}>
                 ${this.stackSize > 99 ? '+99' : this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
@@ -145,8 +148,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     );
 
     this.tags.forEach(tag => {
-      tag.emphasis = this.emphasis;
       tag.size = this.size;
+      tag.variant = this.variant;
       tag.setAttribute('role', 'listitem');
     });
 

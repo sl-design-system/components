@@ -7,8 +7,14 @@
   user-select: none;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:hover, :active)) [part='container'] {
+    transition: background 200ms ease-in-out;
+  }
+}
+
 :host(:where(:hover, [current])) [part='container'] {
-  background: var(--sl-elevation-surface-raised-default-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
 :host(:where([aria-selected='true'], [selected])) sl-icon {
@@ -16,7 +22,7 @@
 }
 
 :host(:active) [part='container'] {
-  background: var(--sl-elevation-surface-raised-default-active);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host(:not(:first-child)) {
@@ -39,6 +45,7 @@
 
 [part='container'] {
   align-items: center;
+  background: rgb(from var(--sl-color-background-interactive-plain) r g b / var(--_bg-opacity, 0));
   border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: flex;

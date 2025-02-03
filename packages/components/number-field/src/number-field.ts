@@ -29,7 +29,7 @@ export class NumberField extends LocaleMixin(TextField) {
   static override styles = [TextField.styles, styles];
 
   /** Parser used for user input.  */
-  // eslint-disable-next-line no-unused-private-class-members
+
   #parser?: NumberParser;
 
   /** The number value. */
@@ -131,6 +131,8 @@ export class NumberField extends LocaleMixin(TextField) {
     // if (this.min) {
     //   this.input.min = this.min.toString();
     // }
+
+    this.#parser = new NumberParser(this.locale, this.formatOptions);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -235,6 +237,13 @@ export class NumberField extends LocaleMixin(TextField) {
       this.formattedValue
     );
 
+    console.log(
+      'value as number??',
+      this.#convertValueToNumber(this.rawValue),
+      this.rawValue,
+      !Number.isNaN(this.#convertValueToNumber(this.rawValue)) /*isNaN(this.#convertValueToNumber(this.rawValue))*/
+    );
+
     if (this.rawValue !== undefined) {
       this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
       // TODO: when it cannot be converted to a number with convertValueToNumber it should return invalid number or maybe rawValue should be used here??? or maybe formattedValue?
@@ -242,7 +251,10 @@ export class NumberField extends LocaleMixin(TextField) {
 
       // TODO: maybe we don't want to clean the value when it's not a number typed in?
 
-      if (!Number.isNaN(this.valueAsNumber /*parsedValue*/)) {
+      if (
+        /*!Number.isNaN(this.valueAsNumber /*parsedValue*/ /*)*/ this.valueAsNumber !== undefined &&
+        !Number.isNaN(this.valueAsNumber /*parsedValue*/)
+      ) {
         // this.valueAsNumber = parsedValue;
 
         // check constraints, when it really is a number
@@ -262,7 +274,7 @@ export class NumberField extends LocaleMixin(TextField) {
           'parsedValue',
           this.valueAsNumber,
           '!NaN>???',
-          !isNaN(this.valueAsNumber),
+          //!isNaN(this.valueAsNumber),
           !Number.isNaN(this.valueAsNumber)
         );
       } else if (this.rawValue !== '') {
@@ -275,13 +287,21 @@ export class NumberField extends LocaleMixin(TextField) {
           'parsedValue',
           this.valueAsNumber,
           '!NaN>???',
-          !isNaN(this.valueAsNumber),
+          // !isNaN(this.valueAsNumber),
           !Number.isNaN(this.valueAsNumber)
         );
         // Handle NaN case, e.g., set to undefined or some default value
         // this.valueAsNumber = undefined;
         // Set custom validity message for NaN case
-        this.input.setCustomValidity('Invalid number');
+        if (
+          /*isNaN(this.valueAsNumber /*parsedValue*/ /*)*/ this.valueAsNumber === undefined ||
+          isNaN(this.valueAsNumber)
+        ) {
+          this.input.setCustomValidity('Invalid number');
+        } else {
+          // Clear custom validity message
+          this.input.setCustomValidity('');
+        }
       } else {
         // Clear custom validity message
         this.input.setCustomValidity('');
@@ -331,7 +351,7 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
-  #convertValueToNumber(value: string): number {
+  #convertValueToNumber(value: string): number | undefined {
     console.log(
       'value and parseFloat in #convertValueToNumber',
       value,
@@ -339,6 +359,9 @@ export class NumberField extends LocaleMixin(TextField) {
       parseFloat(format(Number(value), this.locale, this.formatOptions)),
       Number(value)
     );
+
+    console.log('this.#parser.parse(value)', this.#parser, this.#parser?.parse(value), 'value', value);
+
     // return parseFloat(value);
     // const numericValue = value.replace(/[^\d.-]/g, ''); // Remove non-numeric characters
     // const numericValue = this.#parser?.parse(value) ?? value.replace(/[^\d.-]/g, ''); // Use parser if available, fallback to removing non-numeric characters
@@ -353,6 +376,7 @@ export class NumberField extends LocaleMixin(TextField) {
     // Remove non-numeric characters
     //   const cleanedString = value.replace(/[^0-9.-]+/g, "");
 
+    /*
     // Remove currency symbols and spaces
     let cleanedString = value.replace(/[^\d.,-]/g, '');
     if (cleanedString.includes(',')) {
@@ -370,7 +394,9 @@ export class NumberField extends LocaleMixin(TextField) {
 
     console.log('cleanedString', cleanedString);
 
-    return parseFloat(cleanedString);
+    return parseFloat(cleanedString);*/
+
+    return this.#parser?.parse(value) || undefined; // ?? parseFloat(value); // TODO: is ?? parseFloat(value) reallye necessary here?
   }
 
   // TODO: this.#updateValueAndValidity();

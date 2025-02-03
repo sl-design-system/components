@@ -1,4 +1,4 @@
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -22,11 +22,12 @@ export default {
 export const Basic: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
     return html`
       <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
@@ -40,7 +41,7 @@ export const Basic: Story = {
 export const Collapsed: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
     setTimeout(() => {
@@ -62,7 +63,7 @@ export const Collapsed: Story = {
 export const CustomHeader: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
     const groupHeaderRenderer: GridGroupHeaderRenderer = (group: GridViewModelGroup) => {

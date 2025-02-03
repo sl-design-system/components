@@ -6,6 +6,10 @@
   li > a {
     color: var(--sl-color-link-inverted-idle);
 
+    &:focus-visible {
+      outline-color: var(--sl-color-border-inverted);
+    }
+
     &:hover {
       color: var(--sl-color-link-inverted-hover);
     }

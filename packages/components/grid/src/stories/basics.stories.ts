@@ -1,5 +1,9 @@
 import { Avatar } from '@sl-design-system/avatar';
-import { FetchDataSource, FetchDataSourceError, FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
+import {
+  FetchListDataSource,
+  FetchListDataSourceError,
+  FetchListDataSourcePlaceholder
+} from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -77,7 +81,7 @@ export const ColumnGroups: Story = {
 
 export const EllipsizeTextAllColumns: Story = {
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people} style="max-inline-size: 500px" ellipsize-text>
+    <sl-grid .items=${people} style="max-inline-size: 500px" ellipsize-text column-divider>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="address.street"></sl-grid-column>
@@ -89,7 +93,7 @@ export const EllipsizeTextAllColumns: Story = {
 
 export const EllipsizeTextSingleColumn: Story = {
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people} style="max-inline-size: 800px">
+    <sl-grid .items=${people} style="max-inline-size: 800px" column-divider>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="address.street" ellipsize-text></sl-grid-column>
@@ -97,6 +101,53 @@ export const EllipsizeTextSingleColumn: Story = {
       <sl-grid-column path="membership"></sl-grid-column>
     </sl-grid>
   `
+};
+
+export const SkipLinks: Story = {
+  render: (_, { loaded: { people } }) => {
+    const linkRenderer: GridColumnDataRenderer<Person> = ({ email }) => {
+      return html`<a href="mailto:${email}">${email}</a>`;
+    };
+
+    const menuButtonRenderer: GridColumnDataRenderer<Person> = person => {
+      const onClick = () => {
+        console.log('Menu item for person clicked', person);
+      };
+
+      return html`
+        <sl-menu-button fill="ghost">
+          <sl-icon slot="button" name="ellipsis"></sl-icon>
+          <sl-menu-item @click=${onClick}>Do something with this person</sl-menu-item>
+          <sl-menu-item @click=${onClick}>Something else</sl-menu-item>
+          <hr />
+          <sl-menu-item @click=${onClick}>Delete person</sl-menu-item>
+        </sl-menu-button>
+      `;
+    };
+    return html`
+      <h1>Some data for your information:</h1>
+      <sl-grid .items=${people} column-divider>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email" .renderer=${linkRenderer}></sl-grid-column>
+        <sl-grid-column path="address.city"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+        <sl-grid-column
+          header=""
+          .renderer=${menuButtonRenderer}
+          grow="0"
+          width="64"
+          .scopedElements=${{
+            'sl-icon': Icon,
+            'sl-menu-button': MenuButton,
+            'sl-menu-item': MenuItem
+          }}
+        ></sl-grid-column>
+      </sl-grid>
+      <p>A paragraph that follows the table, with a <a href="#">link</a> in it.</p>
+    `;
+  }
 };
 
 export const CustomRenderers: Story = {
@@ -210,17 +261,17 @@ export const LazyLoad: Story = {
       limit: number;
     }
 
-    const dataSource = new FetchDataSource<Quote>({
+    const dataSource = new FetchListDataSource<Quote>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
-        const response = await fetch(`https://dummyjson.com/quotes?skip=${(page - 1) * pageSize}&limit=${pageSize}`);
+        const response = await fetch(`https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`);
 
         if (response.ok) {
           const { quotes, total } = (await response.json()) as QuotesResponse;
 
           return { items: quotes, totalItems: total };
         } else {
-          throw new FetchDataSourceError('Failed to fetch data', response);
+          throw new FetchListDataSourceError('Failed to fetch data', response);
         }
       }
     });
@@ -237,7 +288,7 @@ export const LazyLoad: Story = {
 
 export const Skeleton: Story = {
   render: () => {
-    const dataSource = new FetchDataSource<Person>({
+    const dataSource = new FetchListDataSource<Person>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
         const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
@@ -263,7 +314,7 @@ export const Skeleton: Story = {
 export const CustomSkeleton: Story = {
   render: () => {
     const avatarRenderer: GridColumnDataRenderer<Person> = item => {
-      if (typeof item === 'symbol' && item === FetchDataSourcePlaceholder) {
+      if (typeof item === 'symbol' && item === FetchListDataSourcePlaceholder) {
         return html`
           <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
             <sl-skeleton
@@ -280,7 +331,7 @@ export const CustomSkeleton: Story = {
       }
     };
 
-    const dataSource = new FetchDataSource<Person>({
+    const dataSource = new FetchListDataSource<Person>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
         const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });

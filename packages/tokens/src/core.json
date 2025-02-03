@@ -2467,6 +2467,11 @@
         "type": "Icons",
         "description": "icon.core.xmark"
       },
+      "circle-solid": {
+        "value": "circle",
+        "type": "Icons",
+        "description": "icon.core.circle"
+      },
       "circle-exclamation-solid": {
         "value": "circle-exclamation",
         "type": "Icons",
@@ -2521,6 +2526,11 @@
         "value": "caret-right",
         "type": "Icons",
         "description": "icon.core.caret-right-solid"
+      },
+      "dash-solid": {
+        "value": "dash",
+        "type": "Icons",
+        "description": "icon.core.dash-solid"
       }
     },
     "typeset": {

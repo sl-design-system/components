@@ -314,7 +314,6 @@
       "command": "node scripts/import-icons.js",
       "clean": false,
       "files": [
-        "scripts/figma-icon-pages.json",
         "scripts/import-icons.js",
         "packages/tokens/src/core.json",
         "packages/tokens/src/*/base.json"
@@ -463,6 +462,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
     "lit": "^3.2.1",
+    "playwright": "^1.49.1",
     "sinon": "^19.0.2",
     "storybook": "^8.4.7",
     "stylelint": "^16.12.0",

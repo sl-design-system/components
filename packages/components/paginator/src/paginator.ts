@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import { type DataSource } from '@sl-design-system/data-source';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Select, SelectOption } from '@sl-design-system/select';
@@ -10,13 +10,14 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { PaginatorPage } from './paginator-page.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import styles from './paginator.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-page-change': SlChangeEvent;
+    'sl-page-change': SlChangeEvent<number>;
   }
 
   interface HTMLElementTagNameMap {
@@ -24,23 +25,30 @@ declare global {
   }
 }
 
-export type VisiblePagesSize = 'xs' | 'sm' | 'md' | 'lg';
+const PAGINATOR_SIZES: { [key in PaginatorSize]: number } = {
+  xs: 6,
+  sm: 7,
+  md: 9,
+  lg: 11
+} as const;
+
+export type PaginatorSize = 'xs' | 'sm' | 'md' | 'lg';
 
 /**
  * A paginator component used when there is a lot of data that needs to be shown and cannot be shown at once, in one view/page.
  * Can be used separately or together with paginator page size component and/or paginator status component.
  */
 @localized()
-export class Paginator extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
-      'sl-menu-button': MenuButton,
       'sl-menu': Menu,
+      'sl-menu-button': MenuButton,
       'sl-menu-item': MenuItem,
-      'sl-paginator-page': PaginatorPage,
       'sl-select': Select,
       'sl-select-option': SelectOption
     };
@@ -49,489 +57,312 @@ export class Paginator extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Active page. */
-  #page = 1;
-
-  /** @internal To check whether it's a first update. */
-  #initialLoad = true;
-
-  /** @internal Whether there is a mobile (compact) variant with `sl-select` instead of `pages` visible or not. */
-  #mobileVariant = false;
-
-  /** @internal Pages amount. */
-  #pages = 1;
+  /** The data source that the paginator controls. */
+  #dataSource?: ListDataSource<T>;
 
   /** Observe changes in size of the container. */
-  #observer = new ResizeObserver(() => {
-    requestAnimationFrame(() => this.#updateVisibility());
-  });
+  #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
-  get page(): number {
-    return this.#page;
+  /** The original size, before any resize observer logic. */
+  #originalSize?: PaginatorSize;
+
+  /** The current size. */
+  #size?: PaginatorSize;
+
+  get dataSource(): ListDataSource<T> | undefined {
+    return this.#dataSource;
   }
 
-  /** Currently active page. */
-  @property()
-  set page(value: number) {
-    this.#page = value;
+  /**
+   * By setting a dataSource, the paginator will listen for changes on the data source
+   * and control the data source when the user selects a new page in the component. This
+   * can be very useful when the paginator is used in combination with a data source fed
+   * component, such as `<sl-grid>`.
+   */
+  @property({ attribute: false })
+  set dataSource(dataSource: ListDataSource<T> | undefined) {
+    if (this.#dataSource) {
+      this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
+    }
 
-    this.pageChangeEvent.emit(this.#page);
+    this.#dataSource = dataSource;
+    this.#dataSource?.addEventListener('sl-update', this.#onUpdate);
+
+    void this.#onUpdate();
   }
 
-  /** @internal Currently visible items on the current page. */
-  @state() currentlyVisibleItems = 1;
+  /**
+   * Current page.
+   * @default 0
+   */
+  @property({ type: Number }) page = 0;
 
-  /** Provided data source. */
-  @property({ attribute: false }) dataSource?: DataSource;
-
-  /** @internal Hidden pages on the left, after the first page in the overflow version. */
-  @state() hiddenPagesLeft: HTMLLIElement[] = [];
-
-  /** @internal Hidden pages on the right, before the last page in the overflow version. */
-  @state() hiddenPagesRight: HTMLLIElement[] = [];
-
-  /** Items per page. Default to the first item of pageSizes, if pageSizes is not set - default to 10. */
-  @property({ type: Number, attribute: 'page-size' }) pageSize?: number;
-
-  /** @internal Emits when the page has been selected/changed. */
+  /** @internal Emits when the page has been changed. */
   @event({ name: 'sl-page-change' }) pageChangeEvent!: EventEmitter<SlChangeEvent<number>>;
 
-  /** Page sizes - array of possible page sizes e.g. [5, 10, 15]. */
-  @property({ type: Number, attribute: 'page-sizes' }) pageSizes?: number[];
+  /** @internal The total number of pages. */
+  @state() pageCount = 1;
 
-  /** Total amount of items. */
+  /**
+   * Items per page. Default to the first item of pageSizes.
+   * @default 10
+   */
+  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+
+  get size(): PaginatorSize | undefined {
+    return this.#size;
+  }
+
+  /**
+   * The size of the paginator. This is used to determine how many pages are visible at once.
+   * For `xs` a select component will be used to select the page. For all other sizes,
+   * buttons will be used.
+   */
+  @property({ reflect: true })
+  set size(value: PaginatorSize | undefined) {
+    this.#originalSize = value;
+    this.#size = value;
+  }
+
+  /**
+   * Total number of items.
+   * @default 1
+   */
   @property({ type: Number, attribute: 'total-items' }) totalItems = 1;
 
-  /** Amount of possibly visible pages in the paginator at once. */
-  @property() size?: VisiblePagesSize;
+  /** @internal The index of the start of the sliding window. */
+  @state() windowStart = 0;
 
-  /** @internal The value of visible pages amount, depending on the size. */
-  get visiblePageAmount(): number {
-    switch (this.size) {
-      case 'xs':
-        return 6;
-      case 'sm':
-        return 7;
-      case 'md':
-        return 9;
-      default:
-        return 11;
-    }
-  }
+  /** @internal The index of the end of the sliding window. */
+  @state() windowEnd = Infinity;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    requestAnimationFrame(() => {
-      this.#observer.observe(this);
-    });
+    if (!this.hasAttribute('aria-label')) {
+      this.setAttribute('aria-label', msg(str`Pagination`));
+    }
+
+    this.setAttribute('role', 'navigation');
+
+    this.dataSource?.addEventListener('sl-update', this.#onUpdate);
+    this.#observer.observe(this);
   }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
-
     this.dataSource?.removeEventListener('sl-update', this.#onUpdate);
 
     super.disconnectedCallback();
   }
 
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
-    this.pageSize ||= this.pageSizes?.[0] || 10;
+    if (changes.has('page') || changes.has('pageSize') || changes.has('totalItems')) {
+      this.pageSize ??= DATA_SOURCE_DEFAULT_PAGE_SIZE;
+      this.pageCount = Math.ceil(this.totalItems / this.pageSize) || 1;
+      this.page = Math.min(Math.max(this.page, 0), this.pageCount - 1);
 
-    this.#pages = Math.ceil(this.totalItems / this.pageSize);
-
-    if (this.page < 1) {
-      this.page = 1;
-    } else if (this.page > this.#pages) {
-      this.page = this.#pages;
-    }
-
-    this.#setCurrentlyVisibleItems();
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('pageSize')) {
-      const pageSize = this.pageSize ?? 10;
-      this.#pages = Math.ceil(this.totalItems / pageSize);
-
-      this.#setCurrentlyVisibleItems();
-
-      if (!this.#initialLoad) {
-        /** Always go back to the first page when items per page has changed, but not for the first time. */
-        this.page = 1;
-      }
-
-      requestAnimationFrame(() => {
-        this.#updateVisibility();
-      });
-    }
-
-    if (changes.has('page')) {
-      if (this.page < 1) {
-        this.page = 1;
-      } else if (this.page > this.#pages) {
-        this.page = this.#pages;
-      }
-
-      this.#setCurrentlyVisibleItems();
-
-      if (!this.#initialLoad) {
-        if (this.dataSource) {
-          this.dataSource.setPage(this.page);
-          this.dataSource.update();
-        }
-      }
-
-      requestAnimationFrame(() => {
-        this.#updateVisibility();
-      });
+      this.#updateVisibility();
     }
 
     if (changes.has('size')) {
-      requestAnimationFrame(() => {
-        this.#updateVisibility();
-      });
+      this.#updateVisibility();
     }
-
-    if (changes.has('totalItems')) {
-      const pageSize = this.pageSize ?? 10;
-      this.#pages = Math.ceil(this.totalItems / pageSize) || 1;
-
-      if (!this.#initialLoad) {
-        /** Always go back to the first page when the total amount of items has changed, but not for the first time. */
-        this.page = 1;
-      }
-
-      requestAnimationFrame(() => {
-        this.#updateVisibility();
-      });
-    }
-
-    this.dataSource?.addEventListener('sl-update', this.#onUpdate);
-
-    this.#initialLoad = false;
   }
 
   override render(): TemplateResult {
     return html`
-      <nav class="container">
-        <sl-button
-          class="prev"
-          aria-label=${msg(str`Go to the previous page (${this.page - 1})`)}
-          fill="ghost"
-          size="lg"
-          ?disabled=${this.page === 1}
-          @click=${this.#onPrevious}
-        >
-          <sl-icon name="caret-left-solid"></sl-icon>
-        </sl-button>
-        <ul class="pages-wrapper">
-          <li class="page">
-            <sl-paginator-page
-              fill="ghost"
-              size="lg"
-              class="page"
-              ?active=${this.page == 1}
-              aria-current=${ifDefined(this.page == 1 ? 'page' : undefined)}
-              @click=${this.#setActive}
-              >1</sl-paginator-page
-            >
-          </li>
-          ${this.hiddenPagesLeft.length
-            ? html`
-                <li class="more-button">
-                  <sl-menu-button fill="ghost" size="lg" aria-label=${msg('Select page number')}>
-                    <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+      <sl-button
+        @click=${this.#onPrevious}
+        ?disabled=${this.page === 0}
+        aria-label=${msg(str`Go to the previous page (${this.page})`)}
+        class="nav"
+        fill="ghost"
+        size="lg"
+      >
+        <sl-icon name="caret-left-solid"></sl-icon>
+      </sl-button>
 
-                    ${this.hiddenPagesLeft.map(
-                      page => html`
-                        <sl-menu-item @click=${this.#setActive} aria-label=${msg(str`${page.innerText.trim()}, page`)}
-                          >${page.innerText.trim()}</sl-menu-item
-                        >
-                      `
-                    )}
-                  </sl-menu-button>
-                </li>
-              `
-            : nothing}
-          ${Array.from({ length: this.#pages })
-            .slice(1, this.#pages - 1)
-            .map(
-              (_, index) => html`
-                <li class="page">
-                  <sl-paginator-page
-                    fill="ghost"
-                    size="lg"
-                    class="page"
-                    ?active=${this.page == index + 2}
-                    aria-current=${ifDefined(this.page == index + 2 ? 'page' : undefined)}
-                    @click=${this.#setActive}
-                  >
-                    ${index + 2}
-                  </sl-paginator-page>
-                </li>
-              `
-            )}
-          ${this.hiddenPagesRight.length
-            ? html`
-                <li class="more-button">
-                  <sl-menu-button
-                    id=${Math.random().toString(36).substring(2, 12)}
-                    fill="ghost"
-                    size="lg"
-                    aria-label=${msg('Select page number')}
-                  >
-                    <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+      <sl-button
+        @click=${() => this.#onPageClick(0)}
+        aria-current=${ifDefined(this.page === 0 ? 'page' : undefined)}
+        class=${classMap({ current: this.page === 0, page: true })}
+        fill="ghost"
+        size="lg"
+      >
+        1
+      </sl-button>
 
-                    ${this.hiddenPagesRight.map(
-                      page => html`
-                        <sl-menu-item @click=${this.#setActive} aria-label=${msg(str`${page.innerText.trim()}, page`)}
-                          >${page.innerText.trim()}</sl-menu-item
-                        >
-                      `
-                    )}
-                  </sl-menu-button>
-                </li>
-              `
-            : nothing}
-          ${this.#pages > 1
-            ? html`
-                <li class="page">
-                  <sl-paginator-page
-                    fill="ghost"
-                    size="lg"
-                    class="page"
-                    ?active=${this.page == this.#pages}
-                    aria-current=${ifDefined(this.page == this.#pages ? 'page' : undefined)}
-                    @click=${this.#setActive}
-                    >${this.#pages}</sl-paginator-page
-                  >
-                </li>
-              `
-            : nothing}
-        </ul>
-        <div class="select-wrapper">
-          <sl-select
+      ${this.windowStart > 0
+        ? html`
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size="lg">
+              <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+              ${Array.from({ length: this.windowStart + 1 }).map(
+                (_, i) => html`<sl-menu-item @click=${() => this.#onPageClick(i + 1)}>${i + 2}</sl-menu-item>`
+              )}
+            </sl-menu-button>
+          `
+        : nothing}
+      ${Array.from({ length: this.pageCount - 2 }).map(
+        (_, index) => html`
+          <sl-button
+            @click=${() => this.#onPageClick(index + 1)}
+            aria-current=${ifDefined(this.page === index + 1 ? 'page' : undefined)}
+            class=${classMap({ current: this.page === index + 1, page: true })}
+            fill="ghost"
             size="lg"
-            @sl-change=${this.#setActive}
-            value=${this.page}
-            aria-label=${`${msg(str`${this.page}, page`)}`}
+            style=${styleMap({
+              display: index <= this.windowStart || index >= this.windowEnd ? 'none' : undefined
+            })}
           >
-            ${Array.from({ length: this.#pages })?.map(
-              (_, index) => html`
-                <sl-select-option
-                  @click=${this.#setActive}
-                  .value=${index + 1}
-                  aria-label=${`${msg(str`${index + 1}, page`)}`}
-                >
-                  ${index + 1}
-                </sl-select-option>
-              `
-            )}
-          </sl-select>
-          <span>of ${this.#pages} pages</span>
-        </div>
-        <sl-button
-          class="next"
-          aria-label=${msg(str`Go to the next page (${this.page + 1})`)}
-          fill="ghost"
+            ${index + 2}
+          </sl-button>
+        `
+      )}
+      ${this.windowEnd < this.pageCount - 2
+        ? html`
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size="lg">
+              <sl-icon name="ellipsis-down" slot="button"></sl-icon>
+              ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
+                (_, i) => html`
+                  <sl-menu-item @click=${() => this.#onPageClick(i + this.windowEnd + 1)}>
+                    ${i + this.windowEnd + 2}
+                  </sl-menu-item>
+                `
+              )}
+            </sl-menu-button>
+          `
+        : nothing}
+
+      <sl-button
+        @click=${() => this.#onPageClick(this.pageCount - 1)}
+        aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
+        class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
+        fill="ghost"
+        size="lg"
+      >
+        ${this.pageCount}
+      </sl-button>
+
+      <div class="wrapper">
+        <sl-select
+          @sl-change=${this.#onChange}
+          .value=${this.page}
+          aria-label=${`${msg(str`${this.page}, page`)}`}
           size="lg"
-          ?disabled=${this.page === this.#pages}
-          @click=${this.#onNext}
         >
-          <sl-icon name="caret-right-solid"></sl-icon>
-        </sl-button>
-      </nav>
+          ${Array.from({ length: this.pageCount }).map(
+            (_, index) => html`
+              <sl-select-option aria-label=${msg(str`${index + 1}, page`)} .value=${index}>
+                ${index + 1}
+              </sl-select-option>
+            `
+          )}
+        </sl-select>
+        <span>of ${this.pageCount} pages</span>
+      </div>
+
+      <sl-button
+        @click=${this.#onNext}
+        ?disabled=${this.page === this.pageCount - 1}
+        aria-label=${msg(str`Go to the next page (${this.page + 2})`)}
+        class="nav"
+        fill="ghost"
+        size="lg"
+      >
+        <sl-icon name="caret-right-solid"></sl-icon>
+      </sl-button>
     `;
   }
 
-  /** Handles `click` event on the previous button. */
-  #onPrevious() {
-    this.page--;
-
-    if (this.dataSource) {
-      this.dataSource.setPage(this.page);
-      this.dataSource.update();
-    }
-
-    this.#setCurrentlyVisibleItems();
-    this.#updateVisibility();
+  #onChange(event: SlChangeEvent<number>): void {
+    this.#onPageClick(event.detail);
   }
 
-  /** Handles `click` event on the next button. */
   #onNext() {
-    this.page++;
+    this.#onPageClick(Math.min(this.page + 1, this.pageCount - 1), true);
+  }
+
+  #onPageClick(page: number, announcePage = false): void {
+    this.page = page;
+    this.pageChangeEvent.emit(this.page);
 
     if (this.dataSource) {
       this.dataSource.setPage(this.page);
       this.dataSource.update();
     }
 
-    this.#setCurrentlyVisibleItems();
-    this.#updateVisibility();
-  }
-
-  #setActive(event: Event) {
-    const target = event.target as Select | PaginatorPage;
-
-    if (target instanceof Select) {
-      this.page = Number(target.value);
-    } else {
-      this.page = Number(target.innerText?.trim());
-    }
-
-    if (this.dataSource) {
-      this.dataSource.setPage(this.page);
-      this.dataSource.update();
-    }
-
-    this.#setCurrentlyVisibleItems();
     this.#updateVisibility();
 
-    requestAnimationFrame(() => {
-      const activePageElement = this.renderRoot.querySelector('[active]') as PaginatorPage;
-      const activeButton = activePageElement?.renderRoot.querySelector('button');
-      activeButton?.focus();
-    });
+    if (announcePage) {
+      announce(msg(str`Page ${this.page + 1} of ${this.pageCount}`));
+    }
   }
 
-  #updateVisibility(): void {
-    const gap = parseInt(getComputedStyle(this).getPropertyValue('--sl-space-paginator-gap') || '0'),
-      pages = this.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-      pagesWrapper = this.renderRoot.querySelector('.pages-wrapper') as HTMLElement;
+  #onPrevious() {
+    this.#onPageClick(Math.max(this.page - 1, 0), true);
+  }
 
-    let totalAmountOfPagesWidth = 0,
-      [possiblyVisible, possiblyHidden]: HTMLLIElement[][] = Array.from({ length: 2 }, () => []);
+  #onResize(entry: ResizeObserverEntry): void {
+    const buttonSize = parseInt(getComputedStyle(this).getPropertyValue('--sl-size-500')) || 0,
+      gap = parseInt(getComputedStyle(this).gap, 10) || 0;
 
-    this.removeAttribute('mobile');
+    if (buttonSize && gap) {
+      const count = Math.floor(entry.contentRect.width / (buttonSize + gap)) - 2,
+        [size, visiblePages] = Object.entries(PAGINATOR_SIZES).find(([, value]) => count <= value) || [
+          'lg',
+          PAGINATOR_SIZES['lg']
+        ];
 
-    pages.forEach(page => {
-      page.style.display = '';
-    });
-
-    this.#mobileVariant = false;
-
-    Array.from(pages).forEach(button => {
-      totalAmountOfPagesWidth += button.getBoundingClientRect().width + gap;
-
-      if (pagesWrapper && totalAmountOfPagesWidth > pagesWrapper.getBoundingClientRect().width - 2 * gap) {
-        possiblyHidden.push(button);
+      if (this.#originalSize) {
+        // We can go smaller than the original size, but never larger
+        if (visiblePages <= PAGINATOR_SIZES[this.#originalSize]) {
+          this.#size = size as PaginatorSize;
+        }
       } else {
-        possiblyHidden = [];
+        this.#size = size as PaginatorSize;
       }
-    });
 
-    possiblyVisible = Array.from(pages).filter(page => !possiblyHidden.includes(page));
-
-    /** Max of visible amount should be 11 */
-    if (possiblyVisible.length > this.visiblePageAmount) {
-      possiblyVisible = Array.from(possiblyVisible).slice(0, this.visiblePageAmount);
-    }
-
-    /** Overflow variant. */
-    if (
-      (pagesWrapper && pagesWrapper.clientWidth < pagesWrapper.scrollWidth) ||
-      this.#pages > this.visiblePageAmount /*11*/
-    ) {
-      this.#setOverflow(possiblyVisible);
-    } else {
-      pages.forEach(page => (page.style.background = ''));
-      this.hiddenPagesLeft = [];
-      this.hiddenPagesRight = [];
-    }
-
-    this.#announce();
-  }
-
-  #setOverflow(possiblyVisible: HTMLLIElement[]) {
-    const pages = this.renderRoot.querySelectorAll<HTMLLIElement>('li.page'),
-      lastPage = pages.length;
-
-    /** Mobile (compact) version with sl-select instead of sl-paginator-pages,
-     * when possibly visible pages amount is smaller than 6
-     * */
-    this.#mobileVariant = possiblyVisible.length <= 6;
-    if (this.#mobileVariant) {
-      this.setAttribute('mobile', '');
-      this.requestUpdate();
-      return;
-    }
-
-    /**  A variant when page is bigger than half of possibly visible pages and smaller than last pages;
-     *   pages before and pages after active page, from 1...active and active ... 10
-     *   first page -> hidden pages on the left (one more button) -> shown pages on the left -> active page
-     *   -> shown pages on the right -> hidden pages on the right (one more button) -> last page
-     *   e.g.  1 ... 7 [8] 9 10 ... 20
-     */
-    if (
-      this.page > Math.floor(possiblyVisible.length / 2) &&
-      this.page <= lastPage - Math.floor(possiblyVisible.length / 2)
-    ) {
-      /** Possibly visible pages minus 3 - minus first, active page and last page. */
-      const pagesToShow = possiblyVisible.length - 3,
-        evenAmount = possiblyVisible.length % 2 === 0,
-        toShowAmount = Math.floor(pagesToShow / 2);
-
-      /** Hide pages on the left side of the active page, between first page and active page. */
-      this.hiddenPagesLeft = Array.from(pages).slice(1, this.page - toShowAmount);
-      this.hiddenPagesLeft.forEach(page => (page.style.display = 'none'));
-
-      /** Hide pages on the right side of the active page, between active page and last page. */
-      this.hiddenPagesRight = Array.from(pages).slice(this.page + (toShowAmount - (evenAmount ? 0 : 1)), -1);
-      this.hiddenPagesRight.forEach(page => (page.style.display = 'none'));
-    } else if (this.page <= Math.floor(possiblyVisible.length / 2)) {
-      /**  A variant when the first page is active or the active page is smaller than the half of possibly visible pages;
-       *   e.g. [1] 2 3 4 5 6...20
-       *   */
-      const toShowAmount = possiblyVisible.length - 2;
-      /** minus last page and space for menu button */
-      this.hiddenPagesLeft = [];
-      this.hiddenPagesRight = Array.from(pages).slice(toShowAmount, -1);
-      this.hiddenPagesRight.forEach(page => (page.style.display = 'none'));
-    } else {
-      /** A variant with last pages set as active page, e.g. 1... 15 16 17 18 19 [20] */
-      const toShowAmount = possiblyVisible.length - 2;
-      /** Minus first page and space for menu button. */
-      this.hiddenPagesLeft = Array.from(pages).slice(1, pages.length - toShowAmount);
-      this.hiddenPagesLeft.forEach(page => (page.style.display = 'none'));
-      this.hiddenPagesRight = [];
+      this.requestUpdate('size');
     }
   }
 
-  #setCurrentlyVisibleItems(): void {
-    if (!this.pageSize || !this.#pages) {
+  #onUpdate = async (): Promise<void> => {
+    const { page, pageSize, size } = this.dataSource!;
+
+    // If the page remains the same, but the pageSize or size has changed,
+    // we need to reset the page to the first page.
+    if (this.page === page && (this.pageSize !== pageSize || this.totalItems !== size)) {
+      // Prevent an infinite loop
+      this.pageSize = pageSize;
+      this.totalItems = size;
+
+      // Wait for the update, so pageCount is updated
+      await this.updateComplete;
+
+      this.#onPageClick(0, true);
+
       return;
     }
 
-    if (this.page === this.#pages) {
-      const itemsOnLastPage = this.totalItems % this.pageSize;
-      this.currentlyVisibleItems = itemsOnLastPage === 0 ? this.pageSize : itemsOnLastPage;
-    } else {
-      this.currentlyVisibleItems = this.pageSize;
-    }
-  }
-
-  #onUpdate = () => {
-    if (!this.dataSource || !this.dataSource.page) {
-      return;
-    }
-
-    this.pageSize = this.dataSource.page.pageSize;
-    if (this.totalItems === this.dataSource.page.totalItems) {
-      this.page = this.dataSource.page.page;
-    }
-    this.totalItems = this.dataSource.page.totalItems;
-
-    requestAnimationFrame(() => this.#updateVisibility());
+    this.page = page ?? 0;
+    this.pageSize = pageSize;
+    this.totalItems = size;
   };
 
-  #announce(): void {
-    if (!this.#initialLoad) {
-      announce(msg(str`Page ${this.page} of ${this.#pages}`));
+  #updateVisibility(): void {
+    const { page, pageCount } = this,
+      visiblePageCount = PAGINATOR_SIZES[this.size || 'lg'],
+      count = Math.floor(visiblePageCount / 2);
+
+    this.windowStart = Math.min(Math.max(page - count, 0), pageCount - visiblePageCount) || -1;
+
+    if (page >= pageCount - count - 1) {
+      this.windowEnd = pageCount - 2;
+    } else {
+      this.windowEnd = Math.min(Math.max(page, count) + count - 2, pageCount - 1);
     }
   }
 }

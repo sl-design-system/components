@@ -1,11 +1,19 @@
 /* eslint-disable lit/prefer-static-styles */
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, ListDataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Scrollbar } from '@sl-design-system/scrollbar';
-import { type EventEmitter, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  type PathKeys,
+  SelectionController,
+  event,
+  getValueByPath,
+  isSafari,
+  positionPopover
+} from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -13,7 +21,6 @@ import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import { styleMap } from 'lit/directives/style-map.js';
-import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -164,7 +171,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #sorters: Array<GridSorter<T>> = [];
 
   /** The virtualizer instance for the grid. */
-  #virtualizer?: Virtualizer;
+  #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -176,7 +183,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
 
   /** Provide your own implementation for getting the data. */
-  @property({ attribute: false }) dataSource?: DataSource;
+  @property({ attribute: false }) dataSource?: ListDataSource<T>;
 
   /**
    * Whether you can drag rows in the grid. If you use the drag-handle column,
@@ -247,6 +254,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The table head element. */
   @query('thead') thead!: HTMLTableSectionElement;
 
+  /** The table element. */
+  @query('table') table!: HTMLTableElement;
+
+  /** The table foot element. */
+  @query('tfoot') tfoot!: HTMLTableSectionElement;
+
   /** The model used for rendering the grid. */
   @property({ attribute: false }) view = new GridViewModel<T>(this);
 
@@ -272,7 +285,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     await new Promise(resolve => requestAnimationFrame(resolve));
 
     const host = this.tbody as VirtualizerHostElement;
-    this.#virtualizer = host[virtualizerRef] as Virtualizer;
+    this.#virtualizer = host[virtualizerRef];
     this.#virtualizer?.disconnected();
     this.#virtualizer?.connected();
   }
@@ -283,11 +296,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('items')) {
-      if (this.dataSource) {
-        this.dataSource.items = this.items ?? [];
-      } else {
-        this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
-      }
+      this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
 
       this.#updateDataSource(this.dataSource);
     }
@@ -307,7 +316,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <style>
         ${this.renderStyles()}
       </style>
-      <table part="table">
+      <a
+        id="table-start"
+        href="#table-end"
+        class="skip-link-start"
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+      >
+        ${msg('Skip to end of table')}</a
+      >
+      <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <thead
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
@@ -323,18 +341,27 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
-        ${this.scrollbar
-          ? html`
-              <tfoot>
+        <tfoot>
+          ${this.scrollbar
+            ? html`
                 <tr class="scrollbar">
                   <td>
                     <sl-scrollbar scroller="tbody"></sl-scrollbar>
                   </td>
                 </tr>
-              </tfoot>
-            `
-          : nothing}
+              `
+            : nothing}
+        </tfoot>
       </table>
+
+      <a
+        id="table-end"
+        href="#table-start"
+        class="skip-link-end"
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
+        @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
+        >${msg('Skip to start of table')}</a
+      >
     `;
   }
 
@@ -440,6 +467,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         class=${classMap({ active })}
         part=${parts.join(' ')}
         index=${index}
+        aria-rowindex=${index}
       >
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -711,12 +739,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
     const items = this.dataSource?.items ?? [],
-      groupItems = items.filter(item => getValueByPath(item, group.path) === group.value);
+      groupItems = items.filter(item => getValueByPath(item, group.path as PathKeys<T>) === group.value);
 
     if (event.detail) {
-      groupItems.forEach(item => this.selection.select(item as T));
+      groupItems.forEach(item => this.selection.select(item));
     } else {
-      groupItems.forEach(item => this.selection.deselect(item as T));
+      groupItems.forEach(item => this.selection.deselect(item));
     }
   }
 
@@ -730,6 +758,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // @ts-expect-error This is a hack
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     this.#virtualizer?._layout?._metricsCache?.clear();
+  }
+
+  #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
+    // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
+    event.preventDefault();
+    this.table?.scrollIntoView({ behavior: 'instant', block: destination as ScrollLogicalPosition });
+    (this.renderRoot.querySelector(`#table-${destination}`) as HTMLLinkElement).focus();
+  }
+
+  #onSkipToFocus(e: Event & { target: HTMLSlotElement }, position: 'top' | 'bottom') {
+    if (!('anchorName' in document.documentElement.style)) {
+      positionPopover(e.target, position === 'top' ? this.thead : this.tfoot, { position: `${position}-start` });
+    }
   }
 
   #onScroll(): void {
@@ -862,7 +903,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #updateDataSource(dataSource?: DataSource<T>): void {
+  #updateDataSource(dataSource?: ListDataSource<T>): void {
     this.view.dataSource = dataSource;
     this.selection.size = dataSource?.size ?? 0;
 
@@ -870,6 +911,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters();
 
     dataSource?.update();
+
     this.stateChangeEvent.emit({ grid: this });
   }
 }

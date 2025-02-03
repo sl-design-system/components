@@ -23,6 +23,10 @@ describe('sl-select-option-group', () => {
     expect(el).to.have.attribute('role', 'group');
   });
 
+  it('should have no group title by default', () => {
+    expect(el).not.to.have.attribute('aria-label');
+  });
+
   it('should show the group title when there is one', async () => {
     el.heading = 'group 1';
     await el.updateComplete;

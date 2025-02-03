@@ -2,7 +2,7 @@
   --_arrow-block-size: var(--sl-size-075);
   --_arrow-inline-size: var(--sl-size-200);
 
-  background: var(--sl-elevation-surface-raised-default-idle);
+  background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);
@@ -26,7 +26,7 @@
    * This is only necessary for Firefox < 125 and older browsers that don't support popover
    */
   @supports not selector(:popover-open) {
-    background: var(--sl-elevation-surface-raised-default-idle) !important;
+    background: var(--sl-elevation-surface-raised-default) !important;
     border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain) !important;
     color: var(--sl-color-text-plain) !important;
     margin: 0 !important;
@@ -79,7 +79,7 @@
 .arrow {
   block-size: var(--_arrow-block-size);
   display: inline-flex;
-  fill: var(--sl-elevation-surface-raised-default-idle);
+  fill: var(--sl-elevation-surface-raised-default);
   inline-size: var(--_arrow-inline-size);
   position: absolute;
   stroke: var(--sl-color-border-plain);

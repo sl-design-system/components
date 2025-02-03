@@ -1,7 +1,14 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  ObserveAttributesMixin,
+  anchor,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
@@ -34,12 +41,21 @@ export type SelectSize = 'md' | 'lg';
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
  */
 @localized()
-export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+  'aria-describedby',
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static formAssociated = true;
 
   /** @internal The default offset of the listbox to the button. */
   static offset = 6;
+
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-describedby', 'aria-label', 'aria-labelledby'];
+  }
 
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -143,7 +159,8 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       this.button.disabled = !!this.disabled;
       this.button.placeholder = this.placeholder;
       this.button.size = this.size;
-      this.append(this.button);
+      this.button.setAttribute('aria-expanded', 'false');
+      this.prepend(this.button);
 
       // This is a workaround because `::slotted` does not allow you to select children
       // of the slotted elements. For example grouped options.
@@ -153,10 +170,14 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
           background-color: var(--sl-color-select-item-hover-background);
         }
       `;
-      this.append(style);
+      this.prepend(style);
     }
 
     this.setFormControlElement(this);
+
+    if (this.button) {
+      this.setAttributesTarget(this.button);
+    }
 
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
@@ -197,6 +218,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
+      this.button.required = !!this.required;
 
       this.#updateValueAndValidity();
     }
@@ -220,6 +242,23 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     }
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    requestAnimationFrame(() => {
+      this.button.setAttribute('aria-controls', this.listbox.id);
+
+      if (this.internals.labels.length) {
+        this.button.setAttribute(
+          'aria-labelledby',
+          Array.from(this.internals.labels)
+            .map(label => (label as HTMLLabelElement).id)
+            .join(' ')
+        );
+      }
+    });
+  }
+
   override render(): TemplateResult {
     return html`
       <slot name="button"></slot>
@@ -235,6 +274,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
         aria-label=${ifDefined(this.placeholder)}
+        id="listbox"
         part="listbox"
         popover
         role="listbox"
@@ -256,7 +296,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
       this.#popoverClosing = true;
-      this.button.removeAttribute('aria-expanded');
+      this.button.setAttribute('aria-expanded', 'false');
     }
   }
 
@@ -269,7 +309,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   }
 
   #onClick(event: Event): void {
-    if (event.target === this) {
+    if (event.target === this || event.target === this.button) {
       this.button.focus();
     }
   }

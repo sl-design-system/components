@@ -65,9 +65,11 @@ export class NumberField extends LocaleMixin(TextField) {
       console.log(
         'this.valueAsNumber in formattedValue in else should return empty string',
         this.valueAsNumber,
-        this.rawValue
+        this.rawValue,
+        this.value
       );
-      return this.rawValue ?? '';
+      return this.value ?? ''; // TODO: why it clears the input when it should not...
+      // return this.rawValue ?? '';
       // return '';
     }
   }
@@ -219,6 +221,8 @@ export class NumberField extends LocaleMixin(TextField) {
   stepUp(increment: number = this.step ?? 1): void {
     const value = this.valueAsNumber ?? 0;
 
+    // TODO: maybe it should be rawValue set here as well?
+
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
   }
 
@@ -241,10 +245,11 @@ export class NumberField extends LocaleMixin(TextField) {
       'value as number??',
       this.#convertValueToNumber(this.rawValue),
       this.rawValue,
+      this.value,
       !Number.isNaN(this.#convertValueToNumber(this.rawValue)) /*isNaN(this.#convertValueToNumber(this.rawValue))*/
     );
 
-    if (this.rawValue !== undefined) {
+    if (this.rawValue !== undefined || this.value !== undefined) {
       this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
       // TODO: when it cannot be converted to a number with convertValueToNumber it should return invalid number or maybe rawValue should be used here??? or maybe formattedValue?
       // const parsedValue = this.#convertValueToNumber(this.rawValue);
@@ -277,7 +282,7 @@ export class NumberField extends LocaleMixin(TextField) {
           //!isNaN(this.valueAsNumber),
           !Number.isNaN(this.valueAsNumber)
         );
-      } else if (this.rawValue !== '') {
+      } else if (this.rawValue !== '' || this.value !== '') {
         // TODO this.valueAsNumber = ??? ???
         console.log(
           'this.valueAsNumber on blur in ELSE',

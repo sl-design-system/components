@@ -61,7 +61,7 @@ export class Button extends LitElement {
 
   /**
    * The size of the button.
-   * @default md
+   * @default 'md'
    */
   @property({ reflect: true }) size?: ButtonSize;
 

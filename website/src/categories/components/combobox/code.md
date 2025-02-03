@@ -2,7 +2,7 @@
 title: Combobox code
 tags: code
 APIdescription: {
-  sl-combobox: "DESCRIPTION"
+  sl-combobox: "The Combobox streamlines single and multiple selections in large datasets of over 15 options. Its autocomplete feature filters options as users type, improving speed and usability. For multiple selections, it displays choices as tags in a tag list, enabling easy management and clear visibility of selected items."
 }
 eleventyNavigation:
   parent: Combobox

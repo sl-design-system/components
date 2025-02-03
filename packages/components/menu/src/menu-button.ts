@@ -68,7 +68,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
   /**
    * The size of the button.
-   * @default md
+   * @default 'md'
    */
   @property() size?: ButtonSize;
 

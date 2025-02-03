@@ -45,6 +45,8 @@ WAI-ARIA Roles, States, and Properties for a combobox component provide essentia
 |`aria-controls`|string|Identifies the listbox controlled by the combobox.|no|
 |`aria-expanded`|boolean|Set to `true` if the listbox (list of options) is visible, `false` if it is hidden.|no|
 |`aria-haspopup`|`listbox`|Indicates that the combobox has a listbox popup.|no|
+|`aria-label`	|string|Defines a string that labels the action that will be performed when the user interacts with the combobox. Needs to be added when the combobox is not wrapped with `sl-form-field` and there is no `sl-label`. |yes|
+|`aria-labelledby`|string|Used to connect with single header/element that describes the combobox, when there is no label component connected to.|yes|
 |`aria-owns`|string|Identifies the listbox controlled by the combobox.|no|
 |`aria-describedby`|string|Indicates the elements that describe the combobox. Used for helper text and validation.|no|
 

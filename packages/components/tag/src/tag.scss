@@ -3,7 +3,7 @@
   --_border-color: var(--sl-color-tag-subtle-idle-border);
   --_border-radius: var(--sl-border-radius-default);
   --_border-width: var(--sl-border-width-divider);
-  --_button-size: var(--sl-size-tag-md);
+  --_button-size: var(--sl-size-300);
   --_color: var(--sl-color-tag-subtle-idle-foreground);
   --_cursor: pointer;
   --_focus-color: var(--sl-color-focusring-default);
@@ -74,7 +74,7 @@
 }
 
 :host([size='lg']) {
-  --_button-size: var(--sl-size-tag-lg);
+  --_button-size: calc(var(--sl-size-300) + var(--sl-size-050));
   --_padding-block: var(--sl-space-050);
   --_padding-inline: var(--sl-space-150);
 }

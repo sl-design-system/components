@@ -50,13 +50,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    */
   #resizeObserver = new ResizeObserver(() => this.#updateVisibility());
 
-  /** Manage keyboard navigation between tags. */
+  // /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
     elements: () => [
       ...(this.stackTag ? [this.stackTag] : []),
-      ...(this.tags ?? []).filter(t => t.style.display !== 'none')
+      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && t.removable)
     ],
     isFocusableElement: (el: Tag) => !el.disabled
   });
@@ -123,7 +123,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       ${this.stacked && this.stackSize > 0
         ? html`
             <div class=${classMap({ stack: true, double: this.stackSize === 2, triple: this.stackSize >= 3 })}>
-              <sl-tag aria-labelledby="tooltip" size=${ifDefined(this.size)} variant=${ifDefined(this.variant)}>
+              <sl-tag
+                aria-labelledby="tooltip"
+                size=${ifDefined(this.size)}
+                tabindex="0"
+                variant=${ifDefined(this.variant)}
+              >
                 ${this.stackSize > 99 ? '+99' : this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
@@ -152,6 +157,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       tag.variant = this.variant;
       tag.setAttribute('role', 'listitem');
     });
+
+    this.#rovingTabindexController.clearElementCache();
 
     requestAnimationFrame(() => this.#updateVisibility());
   }

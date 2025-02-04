@@ -401,9 +401,16 @@
         "description": "Use for text in a disabled state."
       },
       "selected": {
-        "value": "{color.text.accent.teal.bold}",
-        "type": "color",
-        "description": "Use for text in selected states (e.g., tabs or menu items)."
+        "bold": {
+          "value": "{color.text.accent.teal.bold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "onBold": {
+          "value": "{color.text.accent.teal.onBold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        }
       },
       "brand": {
         "value": "{color.text.accent.teal.plain}",

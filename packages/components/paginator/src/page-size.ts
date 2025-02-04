@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type DataSource } from '@sl-design-system/data-source';
+import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
@@ -40,9 +40,9 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   static override styles: CSSResultGroup = styles;
 
   /** The data source that the paginator controls. */
-  #dataSource?: DataSource<T>;
+  #dataSource?: ListDataSource<T>;
 
-  get dataSource(): DataSource<T> | undefined {
+  get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
 
@@ -53,7 +53,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
    * component, such as `<sl-grid>`.
    */
   @property({ attribute: false })
-  set dataSource(dataSource: DataSource<T> | undefined) {
+  set dataSource(dataSource: ListDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
     }

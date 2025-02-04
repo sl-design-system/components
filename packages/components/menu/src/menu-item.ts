@@ -190,6 +190,8 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     if (this.submenu) {
       this.submenu.anchorElement = this;
       this.submenu.offset = MenuItem.submenuOffset;
+      this.setAttribute('aria-haspopup', 'menu');
+      this.setAttribute('aria-controls', this.submenu.id);
     }
   }
 
@@ -199,6 +201,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     }
 
     this.submenu?.showPopover();
+    this.setAttribute('aria-expanded', 'true');
 
     if (focus) {
       this.submenu?.focus();
@@ -207,6 +210,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   #hideSubMenu(): void {
     this.submenu?.hidePopover();
+    this.setAttribute('aria-expanded', 'false');
   }
 
   /**

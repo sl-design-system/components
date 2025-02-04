@@ -138,17 +138,27 @@ export class NumberParser {
     // Check if the cleaned value is a valid number
     const match = cleanedValue.match(/^\d+(\.\d+)?$/);
 
+    console.log('match in number parser', match, value.replace(/[^0-9.,]/g, ''));
+
     if (!match) {
       return undefined;
     }
 
-    const number = parseFloat(cleanedValue); // TODO: or use Number(cleanedValue) ??
+    const number = Number(cleanedValue); //parseFloat(cleanedValue); // TODO: or use Number(cleanedValue) ??
+
+    console.log(
+      'number in number parser',
+      number,
+      value,
+      new Intl.NumberFormat(this.locale, this.options).format(number),
+      value != new Intl.NumberFormat(this.locale, this.options).format(number)
+    );
 
     // Make sure the original value matches the cleaned value
-    const formattedOriginalValue = new Intl.NumberFormat(this.locale, this.options).format(number);
-    if (value !== formattedOriginalValue) {
-      return undefined;
-    }
+    // const formattedOriginalValue = new Intl.NumberFormat(this.locale, this.options).format(number);
+    // if (value !== formattedOriginalValue) {
+    //   return undefined;
+    // }
 
     return number;
   }

@@ -52,7 +52,11 @@ export class NumberField extends LocaleMixin(TextField) {
       'is it a number? what type?',
       typeof this.valueAsNumber,
       !Number.isNaN(this.valueAsNumber),
-      this.valueAsNumber
+      this.valueAsNumber,
+      'this.value',
+      this.value,
+      'rawvalue',
+      this.rawValue
     );
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
       console.log(
@@ -68,11 +72,11 @@ export class NumberField extends LocaleMixin(TextField) {
         this.rawValue,
         this.value
       );
-      return this.value ?? ''; // TODO: why it clears the input when it should not...
-      // return this.rawValue ?? '';
+      // return this.value ?? ''; // TODO: why it clears the input when it should not...
+      return this.rawValue ?? this.valueAsNumber; //'';
       // return '';
     }
-  }
+  } // TODO: why it's cleaning the input when readonly?
 
   /**
    * The maximum value that is acceptable and valid.
@@ -114,6 +118,7 @@ export class NumberField extends LocaleMixin(TextField) {
   @property({ type: Number })
   set valueAsNumber(value: number | undefined) {
     this.#value = value;
+    console.log('valueAsNumber in set', value);
     this.value = value === undefined ? '' : value.toString();
   }
 
@@ -362,7 +367,8 @@ export class NumberField extends LocaleMixin(TextField) {
       value,
       parseFloat(value),
       parseFloat(format(Number(value), this.locale, this.formatOptions)),
-      Number(value)
+      Number(value),
+      this.#parser?.parse(value)
     );
 
     console.log('this.#parser.parse(value)', this.#parser, this.#parser?.parse(value), 'value', value);

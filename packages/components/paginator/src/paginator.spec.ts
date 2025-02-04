@@ -1,7 +1,9 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import { Button } from '@sl-design-system/button';
-import { ArrayDataSource, type DataSource } from '@sl-design-system/data-source';
+import '@sl-design-system/button/register.js';
+import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
+import '@sl-design-system/select/register.js';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
 import '../register.js';
@@ -237,10 +239,10 @@ describe('sl-paginator', () => {
   });
 
   describe('dataSource', () => {
-    let ds: DataSource;
+    let ds: ListDataSource;
 
     beforeEach(async () => {
-      ds = new ArrayDataSource(Array.from({ length: 80 }, (_, index) => ({ nr: index + 1 })));
+      ds = new ArrayListDataSource(Array.from({ length: 80 }, (_, index) => ({ nr: index + 1 })));
 
       el = await fixture(html`<sl-paginator .dataSource=${ds}></sl-paginator>`);
     });

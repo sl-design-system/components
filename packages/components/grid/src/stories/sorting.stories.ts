@@ -1,5 +1,5 @@
 import { Button } from '@sl-design-system/button';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
@@ -105,7 +105,7 @@ export const CustomDataSourceSorter: Story = {
       }
     };
 
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setSort('custom', sorter, 'asc');
 
     return html`
@@ -122,7 +122,7 @@ export const CustomDataSourceSorter: Story = {
 export const Grouped: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
     return html`

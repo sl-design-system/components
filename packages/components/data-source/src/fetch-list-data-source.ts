@@ -1,34 +1,35 @@
-import { DataSource, type DataSourceOptions, type DataSourceSort } from './data-source.js';
+import { type DataSourceSort } from './data-source.js';
+import { ListDataSource, type ListDataSourceOptions } from './list-data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface FetchDataSourceCallbackOptions<T = any> {
+export interface FetchListDataSourceCallbackOptions<T = any> {
   page: number;
   pageSize: number;
   sort?: DataSourceSort<T>;
   [key: string]: unknown;
 }
 
-export interface FetchDataSourceCallbackResult<T> {
+export interface FetchListDataSourceCallbackResult<T> {
   items: T[];
   totalItems?: number;
 }
 
-export type FetchDataSourceCallback<T> = (
-  options: FetchDataSourceCallbackOptions
-) => Promise<FetchDataSourceCallbackResult<T>>;
+export type FetchListDataSourceCallback<T> = (
+  options: FetchListDataSourceCallbackOptions
+) => Promise<FetchListDataSourceCallbackResult<T>>;
 
-export type FetchDataSourcePlaceholder<T> = (n: number) => T;
+export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
 
-export type FetchDataSourceOptions<T> = DataSourceOptions & {
-  fetchPage: FetchDataSourceCallback<T>;
-  pageSize?: number;
-  placeholder?: FetchDataSourcePlaceholder<T>;
+export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions {
+  fetchPage: FetchListDataSourceCallback<T>;
+  pageSize: number;
+  placeholder?: FetchListDataSourcePlaceholder<T>;
   size?: number;
-};
+}
 
-export type FetchDataSourceEvent = CustomEvent<FetchDataSourceCallbackOptions>;
+export type FetchListDataSourceEvent = CustomEvent<FetchListDataSourceCallbackOptions>;
 
-export const FetchDataSourceError = class extends Error {
+export const FetchListDataSourceError = class extends Error {
   constructor(
     message: string,
     public response: Response
@@ -38,10 +39,10 @@ export const FetchDataSourceError = class extends Error {
 };
 
 /** Symbol used as a placeholder for items that are being loaded. */
-export const FetchDataSourcePlaceholder = Symbol('FetchDataSourcePlaceholder');
+export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceholder');
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class FetchDataSource<T = any> extends DataSource<T> {
+export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The default size of the item collection if not explicitly set. */
   static defaultSize = 10;
 
@@ -58,10 +59,10 @@ export class FetchDataSource<T = any> extends DataSource<T> {
   #size: number;
 
   /** The callback for retrieving data. */
-  fetchPage: FetchDataSourceCallback<T>;
+  fetchPage: FetchListDataSourceCallback<T>;
 
   /** Returns placeholder data for items not yet loaded. */
-  placeholder: FetchDataSourcePlaceholder<T> = () => FetchDataSourcePlaceholder as T;
+  placeholder: FetchListDataSourcePlaceholder<T> = () => FetchListDataSourcePlaceholder as T;
 
   get items(): T[] {
     return this.#proxy;
@@ -71,10 +72,10 @@ export class FetchDataSource<T = any> extends DataSource<T> {
     return this.#size;
   }
 
-  constructor(options: FetchDataSourceOptions<T>) {
+  constructor(options: FetchListDataSourceOptions<T>) {
     super(options);
 
-    this.#size = options.size ?? FetchDataSource.defaultSize;
+    this.#size = options.size ?? FetchListDataSource.defaultSize;
     this.fetchPage = options.fetchPage;
 
     if (typeof options.pageSize === 'number') {
@@ -111,7 +112,7 @@ export class FetchDataSource<T = any> extends DataSource<T> {
    * Override this function if you are extending the `FetchDataSource` class to
    * provide any additional options you may need when `fetchPage` is called.
    */
-  getFetchOptions(page: number, pageSize: number): FetchDataSourceCallbackOptions {
+  getFetchOptions(page: number, pageSize: number): FetchListDataSourceCallbackOptions {
     return { filters: Array.from(this.filters.values()), page, pageSize, sort: this.sort };
   }
 

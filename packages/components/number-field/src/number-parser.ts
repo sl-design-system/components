@@ -151,8 +151,18 @@ export class NumberParser {
       number,
       value,
       new Intl.NumberFormat(this.locale, this.options).format(number),
-      value != new Intl.NumberFormat(this.locale, this.options).format(number)
+      value != new Intl.NumberFormat(this.locale, this.options).format(number),
+      'style percent?',
+      this.options.style === 'percent'
     );
+
+    if (this.options.style === 'percent' && number > 1) {
+      // TODO: not only bigger than 1, because 1.5 should result in 150%
+      // if (number < 0 || number > 100) {
+      //   return undefined;
+      // }
+      return number * 0.01;
+    }
 
     // Make sure the original value matches the cleaned value
     // const formattedOriginalValue = new Intl.NumberFormat(this.locale, this.options).format(number);

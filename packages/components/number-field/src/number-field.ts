@@ -98,7 +98,7 @@ export class NumberField extends LocaleMixin(TextField) {
   @state() override rawValue: string = '';
 
   /** The amount by which the value will be increased/decreased by a step up/down. */
-  @property({ type: Number }) step?: number;
+  @property({ type: Number }) step?: number; // TODO: maybe for percentage the default should be 0.01 like in spectrum?
 
   // override set value(value: string) {
   //   const newValue = value === '' ? undefined : this.parseValue(value);

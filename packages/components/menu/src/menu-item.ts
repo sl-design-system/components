@@ -9,7 +9,7 @@ import {
 } from '@sl-design-system/shared';
 import { SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import styles from './menu-item.scss.js';
 import { Menu } from './menu.js';
 
@@ -71,6 +71,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
+
+  /** @internal The sub menu, if present. */
+  @query('[part="wrapper"]') wrapper?: HTMLElement;
 
   /** The variant of the menu item. */
   @property({ reflect: true }) variant?: MenuItemVariant;
@@ -190,8 +193,8 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     if (this.submenu) {
       this.submenu.anchorElement = this;
       this.submenu.offset = MenuItem.submenuOffset;
-      this.setAttribute('aria-haspopup', 'menu');
-      this.setAttribute('aria-controls', this.submenu.id);
+      this.wrapper?.setAttribute('aria-haspopup', 'true');
+      this.wrapper?.setAttribute('aria-controls', this.submenu.id);
     }
   }
 

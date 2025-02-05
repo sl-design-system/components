@@ -14,6 +14,18 @@ const colors: BadgeColor[] = ['blue', 'green', 'grey', 'orange', 'purple', 'red'
 export default {
   title: 'Feedback & status/Badge',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-badge'
+          }
+        ]
+      }
+    }
+  },
   args: {
     emphasis: 'subtle',
     icon: false,

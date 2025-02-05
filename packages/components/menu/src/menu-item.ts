@@ -99,6 +99,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
         this.#shortcut.unbind();
       }
     }
+
+    if (changes.has('selectable')) {
+      this.role = this.selectable ? 'menuitemcheckbox' : 'menuitem';
+    }
   }
 
   override render(): TemplateResult {
@@ -140,6 +144,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       setTimeout(() => this.#showSubMenu(), 100);
     } else if (this.selectable) {
       this.selected = !this.selected;
+      this.setAttribute('aria-checked', this.selected.toString());
       this.selectEvent.emit(this.selected);
     }
   }
@@ -212,6 +217,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #hideSubMenu(): void {
+    if (!this.submenu) {
+      return;
+    }
     this.submenu?.hidePopover();
     this.setAttribute('aria-expanded', 'false');
   }

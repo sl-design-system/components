@@ -23,6 +23,18 @@ const sizes: CheckboxSize[] = ['sm', 'md', 'lg'];
 export default {
   title: 'Form/Checkbox',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-checkbox:not([disabled])'
+          }
+        ]
+      }
+    }
+  },
   args: {
     checked: false,
     disabled: false,

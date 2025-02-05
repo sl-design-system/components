@@ -400,15 +400,27 @@
         "type": "color",
         "description": "Use for text in a disabled state."
       },
-      "selected": {
-        "value": "{color.text.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for text in selected states (e.g., tabs or menu items)."
-      },
       "brand": {
         "value": "{color.text.accent.blue.plain}",
         "type": "color",
         "description": "Use for non-interactive brand-reinforcing text."
+      },
+      "selected": {
+        "bold": {
+          "value": "{color.text.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "inverted": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for secondary actions on 'color.background.secondary.bold'."
+          },
+          "description": "Use for primary actions on 'color.background.primary.bold'"
+        }
       },
       "primary": {
         "bold": {
@@ -706,6 +718,18 @@
           "description": "Use for icons in primary actions paired with a 'color.background.primary.muted' background."
         }
       },
+      "selected": {
+        "onBold": {
+          "value": "{color.icon.inverted.plain}",
+          "type": "color",
+          "description": "Use for text on bold backgrounds."
+        },
+        "bold": {
+          "value": "{color.icon.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for icons in selected state (e.g., tabs or menu items)."
+        }
+      },
       "inverted": {
         "onBold": {
           "value": "{color.icon.accent.grey.onInverted}",
@@ -996,11 +1020,6 @@
         "type": "color",
         "description": "Use for icons in a disabled state."
       },
-      "selected": {
-        "value": "{color.icon.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for icons in selected state (e.g., tabs or menu items)."
-      },
       "brand": {
         "value": "{color.icon.accent.blue.plain}",
         "type": "color",
@@ -1220,6 +1239,11 @@
         }
       },
       "selected": {
+        "subtlest": {
+          "value": "{color.background.accent.blue.subtlest}",
+          "type": "color",
+          "description": "The subtlest background in the primary action color."
+        },
         "subtle": {
           "value": "{color.background.accent.blue.subtle}",
           "type": "color",

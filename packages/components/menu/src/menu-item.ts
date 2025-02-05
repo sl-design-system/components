@@ -101,7 +101,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('selectable')) {
-      this.role = this.selectable ? 'menuitemcheckbox' : 'menuitem';
+      const selectMode = this.parentElement?.matches('[selects="single"]') ? 'menuitemradio' : 'menuitemcheckbox';
+      this.role = this.selectable ? selectMode : 'menuitem';
+    }
+    if (changes.has('selected')) {
+      this.setAttribute('aria-checked', (this.selected || false).toString());
     }
   }
 
@@ -144,7 +148,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       setTimeout(() => this.#showSubMenu(), 100);
     } else if (this.selectable) {
       this.selected = !this.selected;
-      this.setAttribute('aria-checked', this.selected.toString());
       this.selectEvent.emit(this.selected);
     }
   }

@@ -36,6 +36,7 @@
 
 :host([variant='info']) {
   --_bg-color: var(--sl-color-background-info-subtle);
+  --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
   --_br-color: var(--sl-color-border-info-subtle);
 
   color: var(--sl-color-text-info-bold);

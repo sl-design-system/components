@@ -1120,7 +1120,7 @@
       },
       "neutral": {
         "subtle": {
-          "value": "{color.background.grey.subtle}",
+          "value": "{color.background.accent.grey.subtle}",
           "type": "color",
           "description": "Use for subtle borders on color.background.neutral background colors."
         },
@@ -1137,7 +1137,7 @@
       },
       "info": {
         "subtle": {
-          "value": "{color.background.info.subtle}",
+          "value": "{color.background.accent.blue.subtle}",
           "type": "color",
           "description": "Use for subtle borders on color.background.info background colors."
         },

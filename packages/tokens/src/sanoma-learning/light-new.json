@@ -441,6 +441,18 @@
           "description": "Use for secondary actions on 'color.background.secondary.bold'"
         }
       },
+      "neutral": {
+        "bold": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.grey.onBold}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.bold'"
+        }
+      },
       "info": {
         "plain": {
           "value": "{color.text.accent.blue.plain}",

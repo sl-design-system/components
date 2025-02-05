@@ -620,7 +620,7 @@
             "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
           },
           "onBold": {
-            "value": "{color.text.bold}",
+            "value": "{color.palette.grey.000}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
           }

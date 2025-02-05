@@ -296,16 +296,16 @@ export const All: Story = {
         <sl-text-field placeholder="Placeholder" size="lg"></sl-text-field>
 
         <span>Value</span>
-        <sl-text-field value="Value"></sl-text-field>
-        <sl-text-field size="lg" value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" size="lg" value="Value"></sl-text-field>
 
         <span>Invalid</span>
-        <sl-text-field show-validity="invalid" value="Invalid"></sl-text-field>
-        <sl-text-field show-validity="invalid" size="lg" value="Invalid"></sl-text-field>
+        <sl-text-field aria-label="Text field" show-validity="invalid" value="Invalid"></sl-text-field>
+        <sl-text-field aria-label="Text field" show-validity="invalid" size="lg" value="Invalid"></sl-text-field>
 
         <span>Valid</span>
-        <sl-text-field show-validity="valid" value="Valid"></sl-text-field>
-        <sl-text-field show-validity="valid" size="lg" value="Valid"></sl-text-field>
+        <sl-text-field aria-label="Text field" show-validity="valid" value="Valid"></sl-text-field>
+        <sl-text-field aria-label="Text field" show-validity="valid" size="lg" value="Valid"></sl-text-field>
 
         <span>Prefix/suffix</span>
         <sl-text-field placeholder="Placeholder">
@@ -330,12 +330,12 @@ export const All: Story = {
         </sl-text-field>
 
         <span>Readonly</span>
-        <sl-text-field readonly value="Value"></sl-text-field>
-        <sl-text-field readonly size="lg" value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" readonly value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" readonly size="lg" value="Value"></sl-text-field>
 
         <span>Disabled</span>
-        <sl-text-field disabled value="Value"></sl-text-field>
-        <sl-text-field disabled size="lg" value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" disabled value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" disabled size="lg" value="Value"></sl-text-field>
       </div>
     `;
   }

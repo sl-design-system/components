@@ -18,6 +18,18 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Form/Radio group',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: ':where(sl-radio, sl-radio-group):not([disabled])'
+          }
+        ]
+      }
+    }
+  },
   args: {
     disabled: false,
     horizontal: false,

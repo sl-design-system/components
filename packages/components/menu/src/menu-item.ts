@@ -147,8 +147,13 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
        */
       setTimeout(() => this.#showSubMenu(), 100);
     } else if (this.selectable) {
-      this.selected = !this.selected;
-      this.selectEvent.emit(this.selected);
+      if (
+        !this.parentElement?.matches('[selects="single"]') ||
+        (this.parentElement?.matches('[selects="single"]') && !this.selected)
+      ) {
+        this.selected = !this.selected;
+        this.selectEvent.emit(this.selected);
+      }
     }
   }
 

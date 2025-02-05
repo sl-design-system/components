@@ -28,6 +28,15 @@ sl-tag-list {
   max-inline-size: 66%;
 }
 
+sl-tag {
+  outline-offset: 0;
+  outline-width: 0;
+
+  &.focused {
+    outline: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-focused);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   sl-icon {
     transition: rotate 0.2s ease-in-out;

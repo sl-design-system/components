@@ -187,10 +187,10 @@
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
-    "sass": "^1.83.0",
+    "sass": "^1.83.4",
     "slugify": "^1.6.6",
     "tiny-glob": "^0.2.9",
     "typescript": "^5.4.5",
-    "wireit": "^0.14.9"
+    "wireit": "^0.14.10"
   }
 }

@@ -1,13 +1,13 @@
 :host {
-  --_bg-color: var(--sl-color-background-secondary-subtle);
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_bg-color: var(--sl-color-background-neutral-subtle);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-  --_br-color: var(--sl-color-border-secondary-bold);
+  --_br-color: var(--sl-color-border-neutral-subtle);
 
   align-items: center;
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
-  color: var(--sl-color-text-secondary-bold);
+  color: var(--sl-color-text-neutral-bold);
   cursor: default;
   display: inline-flex;
   font-weight: var(--sl-text-typeset-fontWeight-demibold);

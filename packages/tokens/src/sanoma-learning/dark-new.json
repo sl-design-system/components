@@ -456,6 +456,23 @@
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         }
       },
+      "neutral": {
+        "plain": {
+          "value": "{color.text.accent.grey.muted}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+        },
+        "bold": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.grey.onBold}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.bold'"
+        }
+      },
       "info": {
         "plain": {
           "value": "{color.text.accent.blue.plain}",
@@ -1118,7 +1135,29 @@
           "description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
         }
       },
+      "neutral": {
+        "subtle": {
+          "value": "{color.background.accent.grey.subtle}",
+          "type": "color",
+          "description": "Use for subtle borders on color.background.neutral background colors."
+        },
+        "plain": {
+          "value": "{color.border.accent.grey.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
+        }
+      },
       "info": {
+        "subtle": {
+          "value": "{color.background.info.subtle}",
+          "type": "color",
+          "description": "Use for subtle borders on color.background.info background colors."
+        },
         "plain": {
           "value": "{color.border.accent.blue.plain}",
           "type": "color",
@@ -1383,6 +1422,35 @@
           "value": "{color.background.accent.grey.bold}",
           "type": "color",
           "description": "A vibrant background option used for secondary actions."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.grey.interactive.bold}",
+            "type": "color",
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+          },
+          "plain": {
+            "value": "{color.background.accent.grey.interactive.plain}",
+            "type": "color",
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+          }
+        }
+      },
+      "neutral": {
+        "subtlest": {
+          "value": "{color.background.accent.grey.subtlest}",
+          "type": "color",
+          "description": "The subtlest background in the neutral action color."
+        },
+        "subtle": {
+          "value": "{color.background.accent.grey.subtle}",
+          "type": "color",
+          "description": "A subtle background in the neutral action color."
+        },
+        "bold": {
+          "value": "{color.background.accent.grey.bold}",
+          "type": "color",
+          "description": "A vibrant background option used for neutral actions."
         },
         "interactive": {
           "bold": {

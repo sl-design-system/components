@@ -442,6 +442,11 @@
         }
       },
       "neutral": {
+        "plain": {
+          "value": "{color.text.accent.grey.muted}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+        },
         "bold": {
           "value": "{color.text.accent.grey.bold}",
           "type": "color",

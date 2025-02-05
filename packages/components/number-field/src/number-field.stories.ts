@@ -119,10 +119,10 @@ export const FormatCurrency: Story = {
 
 export const FormatPercent: Story = {
   args: {
-    formatOptions: { style: 'percent' },
+    formatOptions: { style: 'percent', maximumFractionDigits: 2 },
     hint: 'The number is formatted as a percentage.',
     step: 0.01,
-    valueAsNumber: 0.1
+    valueAsNumber: 10
   }
 };
 

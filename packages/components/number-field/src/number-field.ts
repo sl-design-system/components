@@ -64,6 +64,12 @@ export class NumberField extends LocaleMixin(TextField) {
         this.valueAsNumber,
         format(this.valueAsNumber, this.locale, this.formatOptions)
       );
+      if (this.formatOptions && this.formatOptions.style === 'percent') {
+        const percentageValue = this.valueAsNumber * 0.01;
+        console.log('percentageValue', percentageValue);
+        return format(percentageValue, this.locale, this.formatOptions);
+      }
+
       return format(this.valueAsNumber, this.locale, this.formatOptions);
     } else {
       console.log(
@@ -243,21 +249,36 @@ export class NumberField extends LocaleMixin(TextField) {
       // !isNaN(this.#convertValueToNumber(this.rawValue)) ?? 'not a number',
       !Number.isNaN(this.valueAsNumber),
       'formattedValue',
-      this.formattedValue
+      this.formattedValue,
+      'this.#value???',
+      this.#value
     );
 
-    console.log(
-      'value as number??',
-      this.#convertValueToNumber(this.rawValue),
-      this.rawValue,
-      this.value,
-      !Number.isNaN(this.#convertValueToNumber(this.rawValue)) /*isNaN(this.#convertValueToNumber(this.rawValue))*/
-    );
+    // console.log(
+    //   'value as number??',
+    //   this.#convertValueToNumber(this.rawValue),
+    //   this.rawValue,
+    //   this.value,
+    //   !Number.isNaN(this.#convertValueToNumber(this.rawValue)) /*isNaN(this.#convertValueToNumber(this.rawValue))*/
+    // );
 
-    if (this.rawValue !== undefined || this.value !== undefined) {
-      this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
+    // TO
+
+    if (this.rawValue !== undefined || this.#value !== undefined) {
+      // this.valueAsNumber = this.#convertValueToNumber(this.rawValue ? this.rawValue : (this.#value)?.toString());
+      this.valueAsNumber = this.#convertValueToNumber(
+        this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
+      );
       // TODO: when it cannot be converted to a number with convertValueToNumber it should return invalid number or maybe rawValue should be used here??? or maybe formattedValue?
       // const parsedValue = this.#convertValueToNumber(this.rawValue);
+
+      console.log(
+        'valueasnumber when this.rawValue !== undefined || this.value !== undefined',
+        this.valueAsNumber,
+        this.rawValue,
+        'value??',
+        this.value
+      );
 
       // TODO: maybe we don't want to clean the value when it's not a number typed in?
 
@@ -370,6 +391,9 @@ export class NumberField extends LocaleMixin(TextField) {
       Number(value),
       this.#parser?.parse(value)
     );
+    if (!value) {
+      console.log('value is empty string', value);
+    }
 
     console.log('this.#parser.parse(value)', this.#parser, this.#parser?.parse(value), 'value', value);
 

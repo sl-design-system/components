@@ -1,6 +1,6 @@
-:host {
-  padding: 0 var(--_padding-inline); // 0; // 0 0 0 var(--_padding-inline);
-}
+// :host {
+// // padding: 0 var(--_padding-inline); // 0; // 0 0 0 var(--_padding-inline);
+// }
 
 :host([step-buttons='edges']) {
   padding: 0;
@@ -10,13 +10,14 @@
   }
 }
 
-:host([step-buttons='end']) {
-  padding: 0 0 0 var(--_padding-inline);
-}
+// :host([step-buttons='end']) {
+//  //padding: 0 0 0 var(--_padding-inline);
+//  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle)); // TODO: use right tokens, this one are from text-field changes
+// }
 
-::slotted(input) {
-  padding-block: var(--_padding-block) !important; // TODO why important?
-}
+// ::slotted(input) {
+//  padding-block: var(--_padding-block) !important; // TODO why important?
+// }
 
 .step-buttons {
   // border-inline-start: 1px solid var(--_border-color);

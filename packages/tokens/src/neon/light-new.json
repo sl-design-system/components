@@ -1059,7 +1059,7 @@
           "description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
         },
         "bold": {
-          "value": "{color.background.blue.bold}",
+          "value": "{color.background.accent.blue.bold}",
           "type": "color",
           "description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
         }

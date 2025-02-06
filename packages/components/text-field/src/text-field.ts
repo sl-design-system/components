@@ -88,6 +88,7 @@ export class TextField<T extends { toString(): string } = string>
 
   /** The formatted value, to be used as the input value. */
   get formattedValue(): /*T | undefined*/ string {
+    console.log('this.value?.toString() in formattedValue in text-field', this.value?.toString());
     return this.value?.toString() /*??*/ || '';
   }
 
@@ -218,11 +219,18 @@ export class TextField<T extends { toString(): string } = string>
       // const formattedValue = this.formatValue(this.value);
       const formattedValue = this.formattedValue;
 
-      console.log('formattedValue in text-field', formattedValue, this.input.value);
+      console.log(
+        'formattedValue in text-field',
+        formattedValue,
+        this.input.value,
+        this.input.value !== formattedValue
+      );
 
       if (this.input.value !== formattedValue) {
         // this.input.value = this.formatValue(this.value);
         this.input.value = formattedValue;
+        console.log('formattedValue in if', formattedValue, this.input.value, this.input.value !== formattedValue);
+        // this.requestUpdate();
       }
     }
   }

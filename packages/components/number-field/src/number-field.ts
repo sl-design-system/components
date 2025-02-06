@@ -123,9 +123,15 @@ export class NumberField extends LocaleMixin(TextField) {
   /** The value, as a number. */
   @property({ type: Number })
   set valueAsNumber(value: number | undefined) {
+    // this.#value = value;
+    // console.log('valueAsNumber in set', value, this.value);
+    // this.value = value === undefined ? '' : value.toString();
+    // this.requestUpdate();
+    // const oldValue = this.#value;
     this.#value = value;
-    console.log('valueAsNumber in set', value);
     this.value = value === undefined ? '' : value.toString();
+    this.requestUpdate('value');
+    // TODO: why value change is not being triggered in teh text field when I type in eg 2.,,,9 meters and later again 2.,,,9 meters, only works for the first time
   }
 
   override connectedCallback(): void {
@@ -226,6 +232,7 @@ export class NumberField extends LocaleMixin(TextField) {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
+    this.#validateInput();
   }
 
   /** Increases the current value by the `step` amount. */
@@ -235,130 +242,20 @@ export class NumberField extends LocaleMixin(TextField) {
     // TODO: maybe it should be rawValue set here as well?
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
+    this.#validateInput();
   }
 
   override onBlur(): void {
-    console.log(
-      'this.valueAsNumber onBlur-firstcheck',
-      this.rawValue,
-      this.valueAsNumber,
-      this.input.validity,
-      'parsedValue',
-      this.valueAsNumber,
-      '!NaN>???',
-      // !isNaN(this.#convertValueToNumber(this.rawValue)) ?? 'not a number',
-      !Number.isNaN(this.valueAsNumber),
-      'formattedValue',
-      this.formattedValue,
-      'this.#value???',
-      this.#value
-    );
-
-    // console.log(
-    //   'value as number??',
-    //   this.#convertValueToNumber(this.rawValue),
-    //   this.rawValue,
-    //   this.value,
-    //   !Number.isNaN(this.#convertValueToNumber(this.rawValue)) /*isNaN(this.#convertValueToNumber(this.rawValue))*/
-    // );
-
-    // TO
-
     if (this.rawValue !== undefined || this.#value !== undefined) {
       // this.valueAsNumber = this.#convertValueToNumber(this.rawValue ? this.rawValue : (this.#value)?.toString());
       this.valueAsNumber = this.#convertValueToNumber(
         this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
       );
-      // TODO: when it cannot be converted to a number with convertValueToNumber it should return invalid number or maybe rawValue should be used here??? or maybe formattedValue?
-      // const parsedValue = this.#convertValueToNumber(this.rawValue);
 
-      console.log(
-        'valueasnumber when this.rawValue !== undefined || this.value !== undefined',
-        this.valueAsNumber,
-        this.rawValue,
-        'value??',
-        this.value
-      );
-
-      // TODO: maybe we don't want to clean the value when it's not a number typed in?
-
-      if (
-        /*!Number.isNaN(this.valueAsNumber /*parsedValue*/ /*)*/ this.valueAsNumber !== undefined &&
-        !Number.isNaN(this.valueAsNumber /*parsedValue*/)
-      ) {
-        // this.valueAsNumber = parsedValue;
-
-        // check constraints, when it really is a number
-        if (!!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)) {
-          this.input.setCustomValidity('rangeOverflow...');
-        } else if (!!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)) {
-          this.input.setCustomValidity('rangeUnderflow...');
-        } else {
-          // Clear custom validity message
-          this.input.setCustomValidity('');
-        }
-        console.log(
-          'this.valueAsNumber on blur in IFFFF',
-          this.rawValue,
-          this.valueAsNumber,
-          this.input.validity,
-          'parsedValue',
-          this.valueAsNumber,
-          '!NaN>???',
-          //!isNaN(this.valueAsNumber),
-          !Number.isNaN(this.valueAsNumber)
-        );
-      } else if (this.rawValue !== '' || this.value !== '') {
-        // TODO this.valueAsNumber = ??? ???
-        console.log(
-          'this.valueAsNumber on blur in ELSE',
-          this.rawValue,
-          this.valueAsNumber,
-          this.input.validity,
-          'parsedValue',
-          this.valueAsNumber,
-          '!NaN>???',
-          // !isNaN(this.valueAsNumber),
-          !Number.isNaN(this.valueAsNumber)
-        );
-        // Handle NaN case, e.g., set to undefined or some default value
-        // this.valueAsNumber = undefined;
-        // Set custom validity message for NaN case
-        if (
-          /*isNaN(this.valueAsNumber /*parsedValue*/ /*)*/ this.valueAsNumber === undefined ||
-          isNaN(this.valueAsNumber)
-        ) {
-          this.input.setCustomValidity('Invalid number');
-        } else {
-          // Clear custom validity message
-          this.input.setCustomValidity('');
-        }
-      } else {
-        // Clear custom validity message
-        this.input.setCustomValidity('');
-      }
+      this.#validateInput();
     }
 
-    // TODO: what if returns NaN?
-
-    // console.log('this.valueAsNumber on blur', this.valueAsNumber, this.input.validity);
-
-    // if (!!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)) {
-    //   this.input.setCustomValidity('rangeOverflow...');
-    // } else if (!!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)) {
-    //   this.input.setCustomValidity('rangeUnderflow...');
-    // } else {
-    //   // Clear custom validity message
-    //   this.input.setCustomValidity('');
-    // }
-
-    console.log(
-      'this.valueAsNumber on blur',
-      this.valueAsNumber,
-      this.input.validity,
-      this.input.validationMessage,
-      this.input.value
-    );
+    // this.#validateInput();
 
     // TODO: translation for messages msg(...)
     super.onBlur();
@@ -382,59 +279,31 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
-  #convertValueToNumber(value: string): number | undefined {
-    console.log(
-      'value and parseFloat in #convertValueToNumber',
-      value,
-      parseFloat(value),
-      parseFloat(format(Number(value), this.locale, this.formatOptions)),
-      Number(value),
-      this.#parser?.parse(value)
-    );
-    if (!value) {
-      console.log('value is empty string', value);
-    }
-
-    console.log('this.#parser.parse(value)', this.#parser, this.#parser?.parse(value), 'value', value);
-
-    // return parseFloat(value);
-    // const numericValue = value.replace(/[^\d.-]/g, ''); // Remove non-numeric characters
-    // const numericValue = this.#parser?.parse(value) ?? value.replace(/[^\d.-]/g, ''); // Use parser if available, fallback to removing non-numeric characters
-    // new NumberParser(this.locale, this.formatOptions);
-    // console.log('value and parseFloat in #convertValueToNumber', numericValue, parseFloat(numericValue.toString()));
-    //  return parseFloat(value);
-    //  return parseFloat(format(Number(value), this.locale, this.formatOptions));
-    //  return parseFloat(numericValue);
-    // return parseFloat(numericValue.toString());
-    // TODO: problem here with currency and so on
-
-    // Remove non-numeric characters
-    //   const cleanedString = value.replace(/[^0-9.-]+/g, "");
-
-    /*
-    // Remove currency symbols and spaces
-    let cleanedString = value.replace(/[^\d.,-]/g, '');
-    if (cleanedString.includes(',')) {
-      if (cleanedString.includes('.')) {
-        // If both comma and dot are present, assume comma is thousand separator
-        cleanedString = cleanedString.replace(/,/g, '');
+  #validateInput(): void {
+    if (this.valueAsNumber !== undefined && !Number.isNaN(this.valueAsNumber)) {
+      // check constraints, when it really is a number
+      if (!!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)) {
+        this.input.setCustomValidity('rangeOverflow...');
+      } else if (!!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)) {
+        this.input.setCustomValidity('rangeUnderflow...'); // TODO: use translations
       } else {
-        // If only comma is present, assume it's a decimal separator
-        cleanedString = cleanedString.replace(/,/g, '.');
+        this.input.setCustomValidity('');
       }
+    } else if (this.rawValue !== '' || this.value !== '') {
+      // Set custom validity message for NaN case
+      if (this.valueAsNumber === undefined || isNaN(this.valueAsNumber)) {
+        this.input.setCustomValidity('Invalid number');
+      } else {
+        // Clear custom validity message
+        this.input.setCustomValidity('');
+      }
+    } else {
+      // Clear custom validity message
+      this.input.setCustomValidity('');
     }
-
-    // Step 3: Remove non-numeric characters except for the decimal point and minus sign
-    cleanedString = cleanedString.replace(/[^0-9.-]+/g, '');
-
-    console.log('cleanedString', cleanedString);
-
-    return parseFloat(cleanedString);*/
-
-    return this.#parser?.parse(value) || undefined; // ?? parseFloat(value); // TODO: is ?? parseFloat(value) reallye necessary here?
   }
 
-  // TODO: this.#updateValueAndValidity();
-
-  // TODO maybe setCustomValidity needs to be added to handle min/max values?
+  #convertValueToNumber(value: string): number | undefined {
+    return this.#parser?.parse(value) || undefined;
+  }
 }

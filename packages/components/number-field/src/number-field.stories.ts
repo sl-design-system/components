@@ -33,7 +33,7 @@ export default {
   title: 'Form/Number field',
   tags: ['draft'],
   args: {
-    inputSize: 6,
+    inputSize: 8,
     label: 'Number'
     // controls: undefined,
   },

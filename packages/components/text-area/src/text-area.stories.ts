@@ -206,24 +206,24 @@ export const All: Story = {
         <sl-text-area placeholder="Placeholder" size="lg"></sl-text-area>
 
         <span>Value</span>
-        <sl-text-area value="Value"></sl-text-area>
-        <sl-text-area size="lg" value="Value"></sl-text-area>
+        <sl-text-area aria-label="Text area" value="Value"></sl-text-area>
+        <sl-text-area aria-label="Text area" size="lg" value="Value"></sl-text-area>
 
         <span>Invalid</span>
-        <sl-text-area show-validity="invalid" value="Invalid"></sl-text-area>
-        <sl-text-area show-validity="invalid" size="lg" value="Invalid"></sl-text-area>
+        <sl-text-area aria-label="Text area" show-validity="invalid" value="Invalid"></sl-text-area>
+        <sl-text-area aria-label="Text area" show-validity="invalid" size="lg" value="Invalid"></sl-text-area>
 
         <span>Valid</span>
-        <sl-text-area show-validity="valid" value="Valid"></sl-text-area>
-        <sl-text-area show-validity="valid" size="lg" value="Valid"></sl-text-area>
+        <sl-text-area aria-label="Text area" show-validity="valid" value="Valid"></sl-text-area>
+        <sl-text-area aria-label="Text area" show-validity="valid" size="lg" value="Valid"></sl-text-area>
 
         <span>Readonly</span>
-        <sl-text-area readonly value="Value"></sl-text-area>
-        <sl-text-area readonly size="lg" value="Value"></sl-text-area>
+        <sl-text-area aria-label="Text area" readonly value="Value"></sl-text-area>
+        <sl-text-area aria-label="Text area" readonly size="lg" value="Value"></sl-text-area>
 
         <span>Disabled</span>
-        <sl-text-area disabled value="Value"></sl-text-area>
-        <sl-text-area disabled size="lg" value="Value"></sl-text-area>
+        <sl-text-area aria-label="Text area" disabled value="Value"></sl-text-area>
+        <sl-text-area aria-label="Text area" disabled size="lg" value="Value"></sl-text-area>
       </div>
     `;
   }

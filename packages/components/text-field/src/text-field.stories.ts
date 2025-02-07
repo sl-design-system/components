@@ -8,7 +8,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import '../register.js';
-import { TextField, type TextFieldSize } from './text-field.js';
+import { TextField } from './text-field.js';
 
 type Props = Pick<
   TextField,
@@ -33,8 +33,6 @@ type Story = StoryObj<Props>;
 
 Icon.register(faCalendar);
 
-const sizes: TextFieldSize[] = ['md', 'lg'];
-
 export default {
   title: 'Form/Text field',
   tags: ['stable'],
@@ -51,7 +49,7 @@ export default {
     minLength: { type: 'number' },
     size: {
       control: 'inline-radio',
-      options: sizes
+      options: ['md', 'lg']
     },
     type: {
       control: 'inline-radio',

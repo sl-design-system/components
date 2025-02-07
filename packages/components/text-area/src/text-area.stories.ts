@@ -2,7 +2,7 @@ import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type TextArea, type TextAreaSize } from './text-area.js';
+import { type TextArea } from './text-area.js';
 
 type Props = Pick<
   TextArea,
@@ -24,8 +24,6 @@ type Props = Pick<
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
-
-const sizes: TextAreaSize[] = ['md', 'lg'];
 
 export default {
   title: 'Form/Text area',
@@ -49,7 +47,7 @@ export default {
     },
     size: {
       control: 'inline-radio',
-      options: sizes
+      options: ['md', 'lg']
     },
     value: {
       control: 'text'

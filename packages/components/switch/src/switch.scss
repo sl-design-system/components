@@ -53,7 +53,7 @@
 }
 
 :host([size='lg']) {
-  --_handle-size: calc(var(--sl-size-300) + var(--sl-size-050));
+  --_handle-size: var(--sl-size-350);
   --_icon-size: var(--sl-size-200);
   --_track-size: var(--sl-size-800);
 }

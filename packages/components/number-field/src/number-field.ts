@@ -1,7 +1,5 @@
-import { msg } from '@lit/localize';
-import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { localized, msg, str } from '@lit/localize';
 import { format } from '@sl-design-system/format-number/format.js';
-import { Icon } from '@sl-design-system/icon';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -15,21 +13,14 @@ declare global {
   }
 }
 
-export type StepButtonsPlacement = 'end' | 'edges'; // | 'none';
+export type StepButtonsPlacement = 'end' | 'edges';
 
+@localized()
 export class NumberField extends LocaleMixin(TextField) {
-  /** @internal */
-  static override get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-icon': Icon
-    };
-  } // TODO: is this scopedElements needed? also check dependencies...
-
   /** @internal */
   static override styles = [TextField.styles, styles];
 
   /** Parser used for user input.  */
-
   #parser?: NumberParser;
 
   /** The number value. */
@@ -44,45 +35,18 @@ export class NumberField extends LocaleMixin(TextField) {
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
   @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: StepButtonsPlacement;
 
-  // TODO: maybe it should not extent TextField?
-
   override get formattedValue(): string {
-    // TODO: sth is wrong here?
-    console.log(
-      'is it a number? what type?',
-      typeof this.valueAsNumber,
-      !Number.isNaN(this.valueAsNumber),
-      this.valueAsNumber,
-      'this.value',
-      this.value,
-      'rawvalue',
-      this.rawValue
-    );
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
-      console.log(
-        'this.valueAsNumber in formattedValue',
-        this.valueAsNumber,
-        format(this.valueAsNumber, this.locale, this.formatOptions)
-      );
       if (this.formatOptions && this.formatOptions.style === 'percent') {
         const percentageValue = this.valueAsNumber * 0.01;
-        console.log('percentageValue', percentageValue);
         return format(percentageValue, this.locale, this.formatOptions);
       }
 
       return format(this.valueAsNumber, this.locale, this.formatOptions);
     } else {
-      console.log(
-        'this.valueAsNumber in formattedValue in else should return empty string',
-        this.valueAsNumber,
-        this.rawValue,
-        this.value
-      );
-      // return this.value ?? ''; // TODO: why it clears the input when it should not...
-      return this.rawValue ?? this.valueAsNumber; //'';
-      // return '';
+      return this.rawValue ?? this.valueAsNumber;
     }
-  } // TODO: why it's cleaning the input when readonly?
+  }
 
   /**
    * The maximum value that is acceptable and valid.
@@ -96,25 +60,11 @@ export class NumberField extends LocaleMixin(TextField) {
    */
   @property({ type: Number }) min?: number;
 
-  // /** Hides the step buttons if set. */
-  // @property({ type: Boolean, reflect: true, attribute: 'no-step-buttons' }) noStepButtons?: boolean;
-
   /** @internal The raw value of the input. */
-  // @state() override rawValue?: string;
   @state() override rawValue: string = '';
 
   /** The amount by which the value will be increased/decreased by a step up/down. */
-  @property({ type: Number }) step?: number; // TODO: maybe for percentage the default should be 0.01 like in spectrum?
-
-  // override set value(value: string) {
-  //   const newValue = value === '' ? undefined : this.parseValue(value);
-  //   const oldValue = this.valueAsNumber;
-
-  //   if (newValue !== oldValue) {
-  //     this.valueAsNumber = newValue;
-  //     this.requestUpdate('value', oldValue);
-  //   }
-  // }
+  @property({ type: Number }) step?: number;
 
   get valueAsNumber() {
     return this.#value;
@@ -123,41 +73,21 @@ export class NumberField extends LocaleMixin(TextField) {
   /** The value, as a number. */
   @property({ type: Number })
   set valueAsNumber(value: number | undefined) {
-    // this.#value = value;
-    // console.log('valueAsNumber in set', value, this.value);
-    // this.value = value === undefined ? '' : value.toString();
-    // this.requestUpdate();
-    // const oldValue = this.#value;
     this.#value = value;
     this.value = value === undefined ? '' : value.toString();
     this.requestUpdate('value');
-    // TODO: why value change is not being triggered in teh text field when I type in eg 2.,,,9 meters and later again 2.,,,9 meters, only works for the first time
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // this.setFormControlElement(this.input);
-
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
-
-    console.log('min and max', this.min, this.max);
-
-    // if (this.max) {
-    //   this.input.max = this.max.toString();
-    // }
-    //
-    // if (this.min) {
-    //   this.input.min = this.min.toString();
-    // }
 
     this.#parser = new NumberParser(this.locale, this.formatOptions);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
-
-    console.log('min and max in willUpdate', this.min, this.max);
 
     if (this.max) {
       this.input.max = this.max.toString();
@@ -169,6 +99,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
     if (changes.has('locale') || changes.has('formatOptions')) {
       this.#parser = new NumberParser(this.locale, this.formatOptions);
+      this.requestUpdate('value');
     }
   }
 
@@ -189,7 +120,6 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   override renderSuffix(): TemplateResult | typeof nothing {
-    console.log('stepButtons', this.stepButtons, this.size);
     return this.stepButtons
       ? this.stepButtons === 'end'
         ? html`
@@ -225,7 +155,7 @@ export class NumberField extends LocaleMixin(TextField) {
             </div>
           `
       : nothing;
-  } // TODO: plus and minus or chevron?
+  }
 
   /** Decreases the current value by the `step` amount. */
   stepDown(decrement: number = this.step ?? 1): void {
@@ -239,15 +169,12 @@ export class NumberField extends LocaleMixin(TextField) {
   stepUp(increment: number = this.step ?? 1): void {
     const value = this.valueAsNumber ?? 0;
 
-    // TODO: maybe it should be rawValue set here as well?
-
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
     this.#validateInput();
   }
 
   override onBlur(): void {
     if (this.rawValue !== undefined || this.#value !== undefined) {
-      // this.valueAsNumber = this.#convertValueToNumber(this.rawValue ? this.rawValue : (this.#value)?.toString());
       this.valueAsNumber = this.#convertValueToNumber(
         this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
       );
@@ -255,9 +182,6 @@ export class NumberField extends LocaleMixin(TextField) {
       this.#validateInput();
     }
 
-    // this.#validateInput();
-
-    // TODO: translation for messages msg(...)
     super.onBlur();
   }
 
@@ -280,19 +204,20 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   #validateInput(): void {
+    console.log('valueAsN umber in validateInput', this.valueAsNumber);
     if (this.valueAsNumber !== undefined && !Number.isNaN(this.valueAsNumber)) {
       // check constraints, when it really is a number
-      if (!!this.valueAsNumber && this.valueAsNumber > (this.max ?? Infinity)) {
-        this.input.setCustomValidity('rangeOverflow...');
-      } else if (!!this.valueAsNumber && this.valueAsNumber < (this.min ?? -Infinity)) {
-        this.input.setCustomValidity('rangeUnderflow...'); // TODO: use translations
+      if (this.valueAsNumber > (this.max ?? Infinity)) {
+        this.input.setCustomValidity(msg(str`The value must be less than or equal to ${this.max}.`));
+      } else if (this.valueAsNumber < (this.min ?? -Infinity)) {
+        this.input.setCustomValidity(msg(str`The value must be greater than or equal to ${this.min}.`));
       } else {
         this.input.setCustomValidity('');
       }
     } else if (this.rawValue !== '' || this.value !== '') {
       // Set custom validity message for NaN case
       if (this.valueAsNumber === undefined || isNaN(this.valueAsNumber)) {
-        this.input.setCustomValidity('Invalid number');
+        this.input.setCustomValidity(msg('Please enter a valid number.'));
       } else {
         // Clear custom validity message
         this.input.setCustomValidity('');

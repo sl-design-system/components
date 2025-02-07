@@ -7,10 +7,6 @@ export class NumberParser {
     this.options = options;
   }
 
-  // parse(value: string): number {
-  //   return parseFloat(value);
-  // }
-
   parse(value: string): number | undefined {
     if (this.options.style === 'percent') {
       return this.#parseLocalePercentage(value);
@@ -43,12 +39,10 @@ export class NumberParser {
     value = value.replace('%', '').trim();
 
     // Create a NumberFormat object for the specified locale, changed to decimal to get proper parts
-    const formatter = new Intl.NumberFormat(this.locale, { style: 'decimal' });
-
-    // Use the formatter to parse the value
-    const parts = formatter.formatToParts(parseFloat(value.replace(/[^0-9.,-]/g, '').replace(',', '.')));
-    const decimalSeparator = parts.find(part => part.type === 'decimal')?.value || '.';
-    const groupSeparator = parts.find(part => part.type === 'group')?.value || ',';
+    const formatter = new Intl.NumberFormat(this.locale, { style: 'decimal' }),
+      parts = formatter.formatToParts(parseFloat(value.replace(/[^0-9.,-]/g, '').replace(',', '.'))),
+      decimalSeparator = parts.find(part => part.type === 'decimal')?.value || '.',
+      groupSeparator = parts.find(part => part.type === 'group')?.value || ',';
 
     // Replace locale-specific group separators with an empty string only if present
     if (groupSeparator !== decimalSeparator) {
@@ -56,9 +50,8 @@ export class NumberParser {
     }
 
     // Check if the value is a valid number
-    const regex = new RegExp(`^-?\\d+(\\${decimalSeparator}\\d+)?$`);
-    if (!regex.test(value)) {
-      console.log('regex test failed??', value, regex);
+    const isNumber = new RegExp(`^-?\\d+(\\${decimalSeparator}\\d+)?$`);
+    if (!isNumber.test(value)) {
       return undefined;
     }
 
@@ -67,14 +60,6 @@ export class NumberParser {
 
     const normalizedValue = integer + '.' + (fraction || '');
 
-    // // Make sure the original value matches the cleaned value
-    // const formattedOriginalValue = new Intl.NumberFormat(this.locale, this.options).format(
-    //   parseFloat(normalizedValue) * 0.01
-    // );
-
-    // TODO: check whether there are other unnecessary characters in the value like abc and so on
-
-    // Parse the normalized value as a float
     return parseFloat(normalizedValue);
   }
 
@@ -83,17 +68,14 @@ export class NumberParser {
     value = value.replace(/[%\s]/g, '').trim();
 
     // Create a NumberFormat object for the specified locale and options
-    const formatter = new Intl.NumberFormat(this.locale, this.options);
+    const formatter = new Intl.NumberFormat(this.locale, this.options),
+      parts = formatter.formatToParts(parseFloat(value.replace(/[^0-9.,-]/g, '').replace(',', '.'))),
+      decimalSeparator = parts.find(part => part.type === 'decimal')?.value || '.',
+      groupSeparator = parts.find(part => part.type === 'group')?.value || ',',
+      currencySymbol = parts.find(part => part.type === 'currency')?.value || '',
+      unitSymbol = parts.find(part => part.type === 'unit')?.value || '';
 
-    // Use the formatter to parse the value
-    //  const parts = formatter.formatToParts(1234.56);
-    //  const formatter = new Intl.NumberFormat(this.locale, this.options);
-    const parts = formatter.formatToParts(parseFloat(value.replace(/[^0-9.,-]/g, '').replace(',', '.')));
-    const decimalSeparator = parts.find(part => part.type === 'decimal')?.value || '.';
-    const groupSeparator = parts.find(part => part.type === 'group')?.value || ',';
-    const currencySymbol = parts.find(part => part.type === 'currency')?.value || '';
-    const unitSymbol = parts.find(part => part.type === 'unit')?.value || '';
-
+    // Removes currency symbols, unit symbols, percentage signs, and whitespace
     value = value.replace(new RegExp(`[${currencySymbol}${unitSymbol}%\\s]`, 'g'), '').trim();
 
     // Replace locale-specific group separators with an empty string only if different from decimal separator
@@ -102,15 +84,14 @@ export class NumberParser {
     }
 
     // Check if the value is a valid number
-    const regex = new RegExp(`^-?\\d+(\\${decimalSeparator}\\d+)?$`);
-    if (!regex.test(value)) {
+    const isNumber = new RegExp(`^-?\\d+(\\${decimalSeparator}\\d+)?$`);
+    if (!isNumber.test(value)) {
       return undefined;
     }
 
-    const [integer, fraction] = value.split(decimalSeparator);
-    const normalizedValue = integer + '.' + (fraction || '');
+    const [integer, fraction] = value.split(decimalSeparator),
+      normalizedValue = integer + '.' + (fraction || '');
 
-    // Parse the normalized value as a float
     return parseFloat(normalizedValue);
   }
 }

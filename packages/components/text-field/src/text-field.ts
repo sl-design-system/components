@@ -61,24 +61,19 @@ export class TextField<T extends { toString(): string } = string>
   static override styles: CSSResultGroup = styles;
 
   /** The value of the text field. */
-  // #value?: string = '';
   #value: T | undefined = '' as unknown as T;
 
-  // /**
-  //  * Specifies which type of data the browser can use to pre-fill the input.
-  //  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
-  //  */
-  // @property() autocomplete?: string;
-
-  /** Specifies which type of data the browser can use to pre-fill the input. */
-  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
+  /**
+   * Specifies which type of data the browser can use to pre-fill the input.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+   */
+  @property() autocomplete?: string;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string | undefined>>;
-  // @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -87,9 +82,8 @@ export class TextField<T extends { toString(): string } = string>
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The formatted value, to be used as the input value. */
-  get formattedValue(): /*T | undefined*/ string {
-    console.log('this.value?.toString() in formattedValue in text-field', this.value?.toString());
-    return this.value?.toString() /*??*/ || '';
+  get formattedValue(): string {
+    return this.value?.toString() || '';
   }
 
   /** The input element in the light DOM. */
@@ -140,16 +134,12 @@ export class TextField<T extends { toString(): string } = string>
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
-  // @property({ type: Boolean }) noInputTarget?: boolean;
-
-  // override get value(): string | undefined {
   override get value(): T | undefined {
     return this.#value;
   }
 
   /** The value of the text field. */
   @property()
-  // override set value(value: string | undefined) {
   override set value(value: T | undefined) {
     this.#value = value;
   }
@@ -157,38 +147,20 @@ export class TextField<T extends { toString(): string } = string>
   override connectedCallback(): void {
     super.connectedCallback();
 
-    //  console.log('this and this input in text field', this, this.input, this.hasOwnProperty('attachInternals'), this.hasOwnProperty('internals')/*, this instanceof NumberField*/);
-
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
-      // this.#syncInput(this.input);
-      this.syncInputElement(this.input);
 
       if (!this.input.parentElement) {
         this.append(this.input);
       }
     }
 
-    // if (!this.noInputTarget) {
     this.setFormControlElement(this.input);
-    // } else {
-    //   this.setFormControlElement(this);
-    // }
-
-    // if (this.hasOwnProperty('internals')) {
-    //   this.setFormControlElement(this as FormControlElement);
-    // } else {
-    //   this.setFormControlElement(this.input);
-    // }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('changes in updated in text-field', changes);
-
-    //  console.log('this and this input in text field in UPDATED', this, this.input, this.hasOwnProperty('attachInternals'), this.hasOwnProperty('internals')/*, this instanceof NumberField*/);
 
     const props: Array<keyof TextField> = [
       'autocomplete',
@@ -204,10 +176,7 @@ export class TextField<T extends { toString(): string } = string>
     ];
 
     if (props.some(prop => changes.has(prop))) {
-      // this.#syncInput(this.input);
-      this.syncInputElement(this.input);
-
-      // this.updateInputElement(this.input); // TODO: from main?
+      this.updateInputElement(this.input);
     }
 
     if (changes.has('disabled')) {
@@ -215,22 +184,11 @@ export class TextField<T extends { toString(): string } = string>
       setTimeout(() => this.updateValidity());
     }
 
-    if (changes.has('value') /*|| changes.has('rawValue')*/) {
-      // const formattedValue = this.formatValue(this.value);
+    if (changes.has('value')) {
       const formattedValue = this.formattedValue;
 
-      console.log(
-        'formattedValue in text-field',
-        formattedValue,
-        this.input.value,
-        this.input.value !== formattedValue
-      );
-
       if (this.input.value !== formattedValue) {
-        // this.input.value = this.formatValue(this.value);
         this.input.value = formattedValue;
-        console.log('formattedValue in if', formattedValue, this.input.value, this.input.value !== formattedValue);
-        // this.requestUpdate();
       }
     }
   }
@@ -284,24 +242,12 @@ export class TextField<T extends { toString(): string } = string>
     return value as unknown as T;
   }
 
-  /**
-   * Method that formats the value and set's it on the native input element. Override this method
-   * if you want to format the value in a different way.
-   */
-  formatValue(value?: T): string {
-    return value?.toString() || '';
-  }
-
   /** @internal */
   override focus(): void {
     this.input.focus();
   }
 
   protected onBlur(): void {
-    // this.hasFocusRing = false;
-    // this.blurEvent.emit();
-    // this.updateState({ touched: true });
-
     // Only emit the event if we have focus
     if (this.hasFocusRing) {
       this.hasFocusRing = false;
@@ -311,9 +257,6 @@ export class TextField<T extends { toString(): string } = string>
   }
 
   protected onFocus(): void {
-    // this.hasFocusRing = true;
-    // this.focusEvent.emit();
-
     // Only emit the event if we don't have focus
     if (!this.hasFocusRing) {
       this.hasFocusRing = true;
@@ -322,45 +265,21 @@ export class TextField<T extends { toString(): string } = string>
   }
 
   protected onInput({ target }: Event & { target: HTMLInputElement }): void {
-    // this.rawValue = target.value;
-
-    console.log('1111this value and this rawValue in onInput in text-field', this.value, this.rawValue, target.value);
+    this.rawValue = target.value;
 
     try {
-      console.log(
-        'IN TRY ->>> this value and this rawValue in onInput in text-field',
-        this.value,
-        this.rawValue,
-        this.parseValue(this.rawValue),
-        target.value
-      );
       // Try to parse the value, but do nothing if it fails
-      this.value = this.parseValue(this.rawValue); // TODO: do we really want to parse the value on input? or on blur maybe?
-      // this.changeEvent.emit(this.value);
-      this.changeEvent.emit(this.value?.toString());
+      this.value = this.parseValue(this.rawValue);
+      this.changeEvent.emit(this.value);
     } catch {
       /* empty */
     }
 
     this.updateState({ dirty: true });
     this.updateValidity();
-
-    // TODO: rawValue from main,. is necessary?
-
-    // this.value = target.value;
-    // this.changeEvent.emit(this.value);
-    // this.updateState({ dirty: true });
-    // this.updateValidity();
-
-    console.log('target in onInput in text-field and rawvalue and value', target.value, this.value, this.rawValue);
   }
 
   protected onKeydown(event: KeyboardEvent): void {
-    // // Simulate native behavior where pressing Enter in a text field will submit the form
-    // if (!this.disabled && event.key === 'Enter') {
-    //   this.form?.requestSubmit();
-    // }
-
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
       if (this.form) {
@@ -373,18 +292,7 @@ export class TextField<T extends { toString(): string } = string>
 
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      // input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
-
-    // // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    // if (input) {
-    //   this.input = input;
-    //   this.input.addEventListener('blur', () => this.#onBlur());
-    //   this.input.addEventListener('focus', () => this.#onFocus());
-    //   this.#syncInput(this.input);
-    //
-    //   this.setFormControlElement(this.input);
-    // }
 
     // If an input has been slotted after `connectedCallback`, that input takes precedence
     if (this.input && this.input !== inputs.at(0)) {
@@ -394,19 +302,16 @@ export class TextField<T extends { toString(): string } = string>
     this.input = inputs.at(0)!;
     this.input.addEventListener('blur', () => this.onBlur());
     this.input.addEventListener('focus', () => this.onFocus());
-    // this.updateInputElement(this.input);
-    this.syncInputElement(this.input);
+    this.updateInputElement(this.input);
     this.setFormControlElement(this.input);
   }
 
   /** @internal Synchronize the input element with the component properties. */
-  // #syncInput(input: HTMLInputElement): void {
-  protected syncInputElement(input: HTMLInputElement): void {
+  protected updateInputElement(input: HTMLInputElement): void {
     if (!input) {
       return;
     }
 
-    input.autocomplete = this.autocomplete || 'off';
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-text-field-${nextUniqueId++}`;

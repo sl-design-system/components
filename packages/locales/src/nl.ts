@@ -17,6 +17,7 @@ export const templates = {
   s39bba60b440fcf00: 'verplicht',
   s3dc14a4b8129f989: str`Paginering`,
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
+  s47319a3cf96f6c33: str`De waarde moet kleiner dan of gelijk aan ${0}zijn.`,
   s4dabcaab8d268abf: 'Items per pagina:',
   s4f6434b4c6326f21: 'Alle velden zijn correct.',
   s58bfb494feb8eb02: str`${0} geselecteerd`,
@@ -42,6 +43,7 @@ export const templates = {
   sa447e2f801a7eb2d: 'Kies een optie.',
   sa477d2feda7d475e: str`Ga naar de volgende pagina (${0})`,
   sa7c7ba461453bfef: str`${0} - ${1} van ${2} items`,
+  sa857aed87918391e: str`De waarde moet groter dan of gelijk aan ${0}zijn.`,
   sa996297f6a208e98: 'Kruimelpad',
   sb2c57b2d347203dd: 'Meer tonen',
   sb59d68ed12d46377: 'Laden',
@@ -62,5 +64,6 @@ export const templates = {
   sefa2cd5631cae9d8: 'Stap omhoog',
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
-  sf7290005be5beae6: str`${0}, pagina`
+  sf7290005be5beae6: str`${0}, pagina`,
+  sfc5e976d64c3fb31: 'Voer een geldig nummer in.'
 };

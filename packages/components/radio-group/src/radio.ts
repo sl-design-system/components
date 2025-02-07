@@ -44,7 +44,7 @@ export class Radio<T = unknown> extends LitElement {
     super.connectedCallback();
 
     // Make sure aria-checked is always set
-    this.setAttribute('aria-checked', Boolean(this.checked).toString());
+    this.checked ??= false;
 
     this.setAttribute('role', 'radio');
 

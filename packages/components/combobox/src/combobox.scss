@@ -16,7 +16,7 @@ sl-text-field {
   max-inline-size: 100%;
 
   &:has(> sl-tag-list) {
-    padding-inline: calc(var(--sl-space-100) - var(--sl-size-borderWidth-subtle)) 0;
+    padding-inline: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle)) 0;
   }
 }
 

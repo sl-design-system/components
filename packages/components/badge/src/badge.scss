@@ -7,10 +7,10 @@
   color: var(--sl-color-text-accent-grey-bold);
   display: inline-flex;
   font-size: 0.857em;
-  gap: var(--sl-space-025);
+  gap: var(--sl-size-025);
   line-height: 0.8lh;
   min-inline-size: 1lh;
-  padding-inline: var(--sl-space-100);
+  padding-inline: var(--sl-size-100);
   text-transform: uppercase;
   vertical-align: middle;
 }
@@ -95,7 +95,7 @@
 }
 
 :host([size='sm']) {
-  line-height: var(--sl-space-100);
+  line-height: var(--sl-size-100);
 }
 
 :host([size='lg']) {

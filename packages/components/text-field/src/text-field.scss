@@ -35,7 +35,7 @@
   --_border: var(--sl-color-border-positive-plain);
 }
 
-:host([size='lg']) {
+:host([size='lg']) ::slotted(input) {
   padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
 }
 

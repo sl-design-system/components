@@ -1,7 +1,7 @@
 :host {
   --_bg-color: var(--sl-color-background-secondary-bold);
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
 
   align-items: center;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
@@ -21,110 +21,111 @@
 }
 
 :host(:where(:not([fill]), [fill='solid'])) {
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
-  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
-
   color: var(--sl-color-text-secondary-onBold);
 }
 
 :host(:hover) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-}
-
-:host(:where(:not([fill]), [fill='solid']):hover) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
 
 :host(:active) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
-}
-
-:host(:where(:not([fill]), [fill='solid']):active) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
 :host([variant='primary']) {
   --_bg-color: var(--sl-color-background-primary-bold);
-  --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
+  --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
 
   border-color: var(--sl-color-border-primary-bold);
   color: var(--sl-color-text-primary-bold);
 }
 
 :host([variant='primary']:where(:not([fill]), [fill='solid'])) {
-  --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
-
   color: var(--sl-color-text-primary-onBold);
+}
+
+:host([variant='primary']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
 }
 
 :host([variant='success']) {
   --_bg-color: var(--sl-color-background-positive-bold);
-  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
 
   border-color: var(--sl-color-border-positive-bold);
   color: var(--sl-color-text-positive-bold);
 }
 
 :host([variant='success']:where(:not([fill]), [fill='solid'])) {
-  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
-
   color: var(--sl-color-text-positive-onBold);
+}
+
+:host([variant='success']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
 }
 
 :host([variant='warning']) {
   --_bg-color: var(--sl-color-background-caution-bold);
-  --_bg-mix-color: var(--sl-color-background-caution-interactive-plain);
+  --_bg-mix-color: var(--sl-color-background-caution-interactive-bold);
 
   border-color: var(--sl-color-border-caution-bold);
   color: var(--sl-color-text-caution-bold);
 }
 
 :host([variant='warning']:where(:not([fill]), [fill='solid'])) {
-  --_bg-mix-color: var(--sl-color-background-caution-interactive-bold);
-
   color: var(--sl-color-text-caution-onBold);
+}
+
+:host([variant='warning']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-caution-interactive-plain);
 }
 
 :host([variant='danger']) {
   --_bg-color: var(--sl-color-background-negative-bold);
-  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 
   border-color: var(--sl-color-border-negative-bold);
   color: var(--sl-color-text-negative-bold);
 }
 
 :host([variant='danger']:where(:not([fill]), [fill='solid'])) {
-  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
-
   color: var(--sl-color-text-negative-onBold);
+}
+
+:host([variant='danger']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
 }
 
 :host([variant='info']) {
   --_bg-color: var(--sl-color-background-info-bold);
-  --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
+  --_bg-mix-color: var(--sl-color-background-info-interactive-bold);
 
   border-color: var(--sl-color-border-info-bold);
   color: var(--sl-color-text-info-bold);
 }
 
 :host([variant='info']:where(:not([fill]), [fill='solid'])) {
-  --_bg-mix-color: var(--sl-color-background-info-interactive-bold);
-
   color: var(--sl-color-text-info-onBold);
+}
+
+:host([variant='info']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
 }
 
 :host([variant='inverted']) {
   --_bg-color: var(--sl-color-background-inverted-bold);
-  --_bg-mix-color: var(--sl-color-background-inverted-interactive-plain);
+  --_bg-mix-color: var(--sl-color-background-inverted-interactive-bold);
 
   border-color: var(--sl-color-border-inverted);
   color: var(--sl-color-text-inverted-bold);
 }
 
 :host([variant='inverted']:where(:not([fill]), [fill='solid'])) {
-  --_bg-mix-color: var(--sl-color-background-inverted-interactive-bold);
-
   color: var(--sl-color-text-onBold);
+}
+
+:host([variant='inverted']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-inverted-interactive-plain);
 }
 
 :host(:is(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {
@@ -146,6 +147,14 @@
 
 :host([fill='outline']) {
   --_bg-color: transparent;
+}
+
+:host([fill='outline']:hover) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+:host([fill='outline']:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host([icon-only]) {

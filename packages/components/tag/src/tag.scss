@@ -8,9 +8,7 @@
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
   color: var(--sl-color-text-neutral-bold);
-  cursor: default;
   display: inline-flex;
-  font-weight: var(--sl-text-typeset-fontWeight-demibold);
   max-inline-size: 100%;
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
@@ -25,8 +23,7 @@
 
 :host([size='lg']) {
   slot {
-    padding-block: var(--sl-size-050);
-    padding-inline: var(--sl-size-150);
+    padding: var(--sl-size-050) var(--sl-size-150);
   }
 
   button {
@@ -57,30 +54,15 @@
 }
 
 slot {
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: var(--_bg-color);
   border-end-start-radius: var(--sl-size-borderRadius-default);
   border-start-start-radius: var(--sl-size-borderRadius-default);
   display: block;
   flex: 1;
   overflow: hidden;
-  padding-block: var(--sl-space-025);
-  padding-inline: var(--sl-space-100);
+  padding: var(--sl-space-025) var(--sl-space-100);
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: background 200ms linear;
-  }
-}
-
-slot:hover,
-slot:hover + button {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-}
-
-slot:active,
-slot:active + button {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 button {

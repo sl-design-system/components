@@ -6,7 +6,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type ToggleButton } from './toggle-button.js';
+import { type ToggleButton, ToggleButtonEmphasis, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
 type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'size'> & {
   icons?: TemplateResult;
@@ -103,6 +103,90 @@ export const Errors: Story = {
 
 export const All: Story = {
   render: () => {
+    const renderRow = (options: { fill: ToggleButtonFill; size: ToggleButtonSize; emphasis: ToggleButtonEmphasis }) => {
+      return html`
+        <div>
+          <sl-toggle-button aria-label="Show settings" fill=${ifDefined(options.fill)} size=${ifDefined(options.size)}>
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+            shape="pill"
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            pressed
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            pressed
+            shape="pill"
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            shape="pill"
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            fill=${ifDefined(options.fill)}
+            pressed
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            fill=${ifDefined(options.fill)}
+            pressed
+            shape="pill"
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+      `;
+    };
     return html`
       <style>
         section {
@@ -113,91 +197,130 @@ export const All: Story = {
           grid-template-columns: auto 1fr 1fr 1fr 1fr;
           justify-items: center;
         }
+        section div {
+          white-space: nowrap;
+        }
       </style>
       <section>
-        <span>Ghost</span>
+        <span>Ghost - muted</span>
         <span>Idle</span>
         <span>Pressed</span>
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
         <span>md</span>
-        <sl-toggle-button aria-label="Show settings">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'ghost',
+          size: 'md'
+        })}
 
         <span>lg</span>
-        <sl-toggle-button aria-label="Show settings" size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'ghost',
+          size: 'lg'
+        })}
 
-        <span>Outline</span>
+        <span>Outline - muted</span>
         <span></span>
         <span></span>
         <span></span>
         <span></span>
 
         <span>md</span>
-        <sl-toggle-button aria-label="Show settings" fill="outline">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" fill="outline" pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" fill="outline" disabled>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled fill="outline" pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'outline',
+          size: 'md'
+        })}
 
         <span>lg</span>
-        <sl-toggle-button aria-label="Show settings" fill="outline" size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" fill="outline" pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled fill="outline" size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled fill="outline" pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'outline',
+          size: 'lg'
+        })}
+
+        <span>Ghost - subtle</span>
+        <span>Idle</span>
+        <span>Pressed</span>
+        <span>Disabled</span>
+        <span>Disabled + pressed</span>
+
+        <span>md</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'ghost',
+          size: 'md'
+        })}
+
+        <span>lg</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'ghost',
+          size: 'lg'
+        })}
+
+        <span>Outline - subtle</span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+        <span>md</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'outline',
+          size: 'md'
+        })}
+
+        <span>lg</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'outline',
+          size: 'lg'
+        })}
+
+        <span>Ghost - bold</span>
+        <span>Idle</span>
+        <span>Pressed</span>
+        <span>Disabled</span>
+        <span>Disabled + pressed</span>
+
+        <span>md</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'ghost',
+          size: 'md'
+        })}
+
+        <span>lg</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'ghost',
+          size: 'lg'
+        })}
+
+        <span>Outline - bold</span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+
+        <span>md</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'outline',
+          size: 'md'
+        })}
+
+        <span>lg</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'outline',
+          size: 'lg'
+        })}
       </section>
     `;
   }

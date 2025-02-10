@@ -15,6 +15,8 @@ declare global {
 
 export type ToggleButtonFill = 'ghost' | 'outline';
 export type ToggleButtonSize = 'md' | 'lg';
+export type ToggleButtonShape = 'pill' | 'square';
+export type ToggleButtonEmphasis = 'bold' | 'muted' | 'subtle';
 
 /**
  * Lets the user toggle between two states.
@@ -76,6 +78,12 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
   /** The size of the button. */
   @property({ reflect: true }) size?: ToggleButtonSize;
+
+  /** The size of the button. */
+  @property({ reflect: true }) emphasis?: ToggleButtonEmphasis;
+
+  /** The size of the button. */
+  @property({ reflect: true }) shape?: ToggleButtonShape;
 
   /** @internal Emits when the button has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;

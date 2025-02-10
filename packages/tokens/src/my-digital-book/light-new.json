@@ -1031,7 +1031,7 @@
           "description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
         },
         "bold": {
-          "value": "{color.border.accent.blue.bold}",
+          "value": "{color.palette.blue.800}",
           "type": "color",
           "description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
         }

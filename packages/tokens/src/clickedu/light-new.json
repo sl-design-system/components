@@ -737,7 +737,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.text.inverted}",
+          "value": "{color.text.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },
@@ -1015,7 +1015,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.accent.blue.plain}",
+        "value": "{color.border.accent.purple.plain}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -1026,12 +1026,12 @@
       },
       "primary": {
         "plain": {
-          "value": "{color.border.accent.blue.plain}",
+          "value": "{color.border.accent.red.plain}",
           "type": "color",
           "description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
         },
         "bold": {
-          "value": "{color.border.accent.blue.bold}",
+          "value": "{color.border.accent.red.bold}",
           "type": "color",
           "description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
         }

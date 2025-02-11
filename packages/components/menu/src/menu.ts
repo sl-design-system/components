@@ -19,6 +19,8 @@ declare global {
   }
 }
 
+export type MenuEmphasis = 'subtle' | 'bold';
+
 /**
  * A menu that can be used as a context menu or as a dropdown menu.
  *
@@ -75,6 +77,12 @@ export class Menu extends LitElement {
 
   /** Determines whether if and how many menu items can be selected. */
   @property() selects?: 'single' | 'multiple';
+
+  /**
+   * The emphasis of the menu.
+   * @default subtle
+   */
+  @property({ reflect: true }) emphasis?: MenuEmphasis;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -187,6 +195,12 @@ export class Menu extends LitElement {
         (element instanceof MenuItem && element.selectable) || (element instanceof MenuItemGroup && element.selects)
       );
     });
+
+    if (this.#menuItems) {
+      this.#menuItems.forEach(item => {
+        item.emphasis = this.emphasis;
+      });
+    }
 
     this.#rovingTabindexController.clearElementCache();
   }

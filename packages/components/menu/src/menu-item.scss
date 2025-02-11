@@ -1,5 +1,5 @@
 :host {
-  --_bg-color: var(--sl-elevation-surface-base-default);
+  --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 
@@ -23,10 +23,24 @@
   color: var(--sl-color-text-selected);
 }
 
-:host([variant='danger']) {
-  color: var(--sl-color-text-negative-bold);
+:host([emphasis='bold'][selected]) {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
 
+  color: var(--sl-color-foreground-selected-onBold);
+}
+
+:host([variant='danger']) {
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+
+  color: var(--sl-color-text-negative-bold);
+}
+
+:host([emphasis='bold'][variant='danger']) {
+  --_bg-color: var(--sl-color-background-negative-bold);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
+
+  color: var(--sl-color-foreground-selected-onBold);
 }
 
 :host([disabled]) {

@@ -20,6 +20,7 @@ declare global {
 }
 
 export type MenuItemVariant = 'default' | 'danger';
+export type MenuItemEmphasis = 'subtle' | 'bold';
 
 /**
  * Menu item component for use inside a menu.
@@ -71,6 +72,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
+
+  /** @internal The emphasis, inherited from the menu. */
+  @property({ reflect: true }) emphasis?: MenuItemEmphasis;
 
   /** @internal The sub menu, if present. */
   @query('[part="wrapper"]') wrapper?: HTMLElement;

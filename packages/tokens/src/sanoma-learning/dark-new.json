@@ -1344,7 +1344,7 @@
       },
       "input": {
         "plain": {
-          "value": "{color.palette.grey.050}",
+          "value": "rgba({color.palette.grey.900}, 5%)",
           "type": "color",
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },

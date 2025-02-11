@@ -661,7 +661,7 @@
         },
         "red": {
           "plain": {
-            "value": "{color.palette.red.600}",
+            "value": "{color.palette.red.500}",
             "type": "color",
             "description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },

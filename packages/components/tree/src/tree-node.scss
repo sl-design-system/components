@@ -13,7 +13,7 @@
   inline-size: 100%;
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
-  scroll-margin-block: var(--sl-space-100);
+  scroll-margin-block: var(--sl-size-100);
 
   @media (prefers-reduced-motion: no-preference) {
     transition: background 200ms ease-in-out;

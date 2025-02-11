@@ -4,7 +4,7 @@
 }
 
 slot:not([name])::slotted(*) {
-  margin-block-start: var(--sl-space-050);
+  margin-block-start: var(--sl-size-050);
 }
 
 slot:not([name])::slotted(:is(sl-checkbox, sl-switch[reverse])) {

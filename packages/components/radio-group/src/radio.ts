@@ -43,6 +43,9 @@ export class Radio<T = unknown> extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    // Make sure aria-checked is always set
+    this.checked ??= false;
+
     this.setAttribute('role', 'radio');
 
     if (!this.hasAttribute('tabindex')) {
@@ -54,7 +57,7 @@ export class Radio<T = unknown> extends LitElement {
     super.updated(changes);
 
     if (changes.has('checked')) {
-      this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+      this.setAttribute('aria-checked', Boolean(this.checked).toString());
     }
 
     if (changes.has('disabled')) {

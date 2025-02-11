@@ -189,7 +189,7 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
       <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
       <div part="toggle">
-        <div part="track" aria-checked=${this.checked ? 'true' : 'false'}>
+        <div part="track">
           <div part="handle">
             ${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
           </div>

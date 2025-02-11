@@ -38,7 +38,6 @@ describe('sl-tag', () => {
     });
 
     it('should not be removable', () => {
-      expect(el).not.to.have.attribute('removable');
       expect(el.removable).not.to.be.true;
       expect(el.renderRoot.querySelector('button')).not.to.exist;
     });
@@ -47,7 +46,6 @@ describe('sl-tag', () => {
       el.removable = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('removable');
       expect(el.renderRoot.querySelector('button')).to.exist;
     });
 

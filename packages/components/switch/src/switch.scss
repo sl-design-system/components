@@ -1,7 +1,8 @@
 :host {
-  --_bg-color: var(--sl-color-background-bold);
-  --_bg-mix-color: var(--sl-color-background-interactive-bold);
+  --_bg-color: var(--sl-color-background-neutral-bold);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
   --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+  --_handle-color: var(--sl-color-text-neutral-plain);
   --_handle-size: var(--sl-size-250);
   --_icon-size: var(--sl-size-150);
   --_track-size: var(--sl-size-600);
@@ -10,7 +11,7 @@
   color: var(--sl-color-text-plain);
   cursor: pointer;
   display: inline-flex;
-  gap: var(--sl-space-100);
+  gap: var(--sl-size-100);
   outline: none;
   vertical-align: middle;
 }
@@ -25,20 +26,20 @@
 
 :host([checked]) {
   --_bg-color: var(--sl-color-background-positive-bold);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
+  --_handle-color: var(--sl-color-text-positive-bold);
   --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
 }
 
 :host([disabled]) {
+  --_handle-color: var(--sl-color-text-disabled);
+
   color: var(--sl-color-text-disabled);
   cursor: default;
   pointer-events: none;
 
   [part='track'] {
     background: var(--sl-color-background-disabled);
-  }
-
-  [part='handle'] {
-    color: var(--sl-color-text-disabled);
   }
 }
 
@@ -52,7 +53,7 @@
 }
 
 :host([size='lg']) {
-  --_handle-size: calc(var(--sl-size-300) + var(--sl-size-050));
+  --_handle-size: var(--sl-size-350);
   --_icon-size: var(--sl-size-200);
   --_track-size: var(--sl-size-800);
 }
@@ -95,7 +96,7 @@
   background: var(--sl-color-background-inverted-bold);
   block-size: var(--_handle-size);
   border-radius: 50%;
-  color: var(--sl-color-text-inverted-onBold);
+  color: var(--_handle-color);
   display: grid;
   place-content: center;
   translate: var(--_handle-position, 0);

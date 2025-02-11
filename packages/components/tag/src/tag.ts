@@ -63,7 +63,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   @state() label = '';
 
   /** Whether the tag component is removable. */
-  @property({ type: Boolean, reflect: true }) removable?: boolean;
+  @property({ type: Boolean }) removable?: boolean;
 
   /** @internal Emits when the tag is removed. */
   @event({ name: 'sl-remove' }) removeEvent!: EventEmitter<SlRemoveEvent>;
@@ -106,7 +106,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     if (changes.has('disabled') || changes.has('removable')) {
       if (this.removable) {
         this.setAttribute('tabindex', this.disabled ? '-1' : '0');
-      } else {
+      } else if (this.disabled || changes.get('removable')) {
         this.removeAttribute('tabindex');
       }
     }
@@ -122,10 +122,10 @@ export class Tag extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotChange}></slot>
+      <slot @slotchange=${this.#onSlotChange} part="label"></slot>
       ${this.removable
         ? html`
-            <button @click=${this.#onRemove} ?disabled=${this.disabled} aria-hidden="true" tabindex="-1">
+            <button @click=${this.#onRemove} ?disabled=${this.disabled} aria-hidden="true" part="button" tabindex="-1">
               <sl-icon name="xmark"></sl-icon>
             </button>
           `
@@ -170,6 +170,14 @@ export class Tag extends ScopedElementsMixin(LitElement) {
     } else if (this.#tooltip) {
       this.#tooltip();
       this.#tooltip = undefined;
+    }
+
+    // If the contents of the the tag overflows, make sure it is keyboard focusable,
+    // so the user can tab to it.
+    if (!this.disabled && (this.removable || this.#tooltip)) {
+      this.setAttribute('tabindex', '0');
+    } else if (!this.hasAttribute('aria-labelledby')) {
+      this.removeAttribute('tabindex');
     }
   }
 

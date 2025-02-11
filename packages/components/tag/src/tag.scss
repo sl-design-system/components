@@ -1,14 +1,14 @@
 :host {
-  --_bg-color: var(--sl-color-background-secondary-subtle);
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_bg-color: var(--sl-color-background-neutral-subtle);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --_br-color: var(--sl-color-border-neutral-subtle);
 
   align-items: center;
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-secondary-bold);
-  cursor: default;
+  box-sizing: border-box;
+  color: var(--sl-color-text-neutral-bold);
   display: inline-flex;
-  font-weight: var(--sl-text-typeset-fontWeight-demibold);
   max-inline-size: 100%;
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
@@ -23,17 +23,18 @@
 
 :host([size='lg']) {
   slot {
-    padding-block: var(--sl-size-050);
-    padding-inline: var(--sl-size-150);
+    padding: var(--sl-size-050) var(--sl-size-150);
   }
 
   button {
-    inline-size: calc(var(--sl-size-300) + var(--sl-size-050));
+    inline-size: var(--sl-size-350);
   }
 }
 
 :host([variant='info']) {
   --_bg-color: var(--sl-color-background-info-subtle);
+  --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
+  --_br-color: var(--sl-color-border-info-subtle);
 
   color: var(--sl-color-text-info-bold);
 }
@@ -53,28 +54,15 @@
 }
 
 slot {
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  background: var(--_bg-color);
+  border-end-start-radius: var(--sl-size-borderRadius-default);
+  border-start-start-radius: var(--sl-size-borderRadius-default);
   display: block;
   flex: 1;
   overflow: hidden;
-  padding-block: var(--sl-space-025);
-  padding-inline: var(--sl-space-100);
+  padding: var(--sl-size-025) var(--sl-size-100);
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  @media (prefers-reduced-motion: no-preference) {
-    transition: background 200ms linear;
-  }
-}
-
-slot:hover,
-slot:hover + button {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-}
-
-slot:active,
-slot:active + button {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 button {
@@ -83,8 +71,9 @@ button {
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border: 0;
   border-end-end-radius: var(--sl-size-borderRadius-default);
-  border-inline-start: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-secondary-bold);
+  border-inline-start: var(--sl-size-borderWidth-subtle) solid var(--_br-color);
   border-start-end-radius: var(--sl-size-borderRadius-default);
+  box-sizing: border-box;
   color: inherit;
   cursor: pointer;
   display: inline-flex;

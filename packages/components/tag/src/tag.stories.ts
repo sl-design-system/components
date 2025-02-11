@@ -13,6 +13,18 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Feedback & status/Tag',
   tags: ['draft'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-tag:not([disabled])'
+          }
+        ]
+      }
+    }
+  },
   args: {
     disabled: false,
     label: 'Tag label',

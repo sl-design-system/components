@@ -11,7 +11,7 @@
   color: var(--sl-color-text-plain);
   cursor: text;
   display: flex;
-  gap: var(--sl-space-100);
+  gap: var(--sl-size-100);
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
   position: relative;
@@ -38,7 +38,7 @@
 }
 
 :host([size='lg']) ::slotted(textarea) {
-  padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
+  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
 }
 
 :host([disabled]) {
@@ -80,8 +80,8 @@ slot[name='textarea']::slotted(textarea) {
 
 sl-icon,
 slot[name='suffix']::slotted(sl-icon) {
-  inset-block-start: calc(var(--sl-space-100) - var(--sl-size-borderWidth-subtle));
-  inset-inline-end: calc(var(--sl-space-150) - var(--sl-size-borderWidth-subtle));
+  inset-block-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
   position: absolute;
 }
 

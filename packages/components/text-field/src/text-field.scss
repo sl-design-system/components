@@ -12,7 +12,7 @@
   color: var(--sl-color-text-plain);
   cursor: text;
   display: flex;
-  gap: var(--sl-space-100);
+  gap: var(--sl-size-100);
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
   padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
@@ -35,8 +35,8 @@
   --_border: var(--sl-color-border-positive-plain);
 }
 
-:host([size='lg']) {
-  padding-block: calc(var(--sl-space-125) - var(--sl-size-borderWidth-subtle));
+:host([size='lg']) ::slotted(input) {
+  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
 }
 
 :host([disabled]) {

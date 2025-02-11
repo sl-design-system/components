@@ -171,7 +171,6 @@ export const Required: Story = {
 export const OnBlur: Story = {
   render: ({ min }) => {
     const onBlur = (event: Event & { target: HTMLElement }): void => {
-      console.log('onblur', event.target.closest('sl-number-field')?.valueAsNumber);
       event.target.closest('sl-form')?.reportValidity();
     };
 

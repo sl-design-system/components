@@ -153,8 +153,6 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   reportValidity(): boolean {
     this.#showValidity = true;
 
-    console.log('this.controls on reportValidity', this.controls);
-
     // First .map(), then .every() to ensure all reportValidity() calls are made
     return this.controls.map(c => c.reportValidity()).every(Boolean);
   }

@@ -49,76 +49,36 @@ describe('sl-number-field', () => {
       el = await fixture(html`<sl-number-field value="10"></sl-search-field>`);
     });
 
-    // it('should have a clear button', () => {
-    //   const button = el.renderRoot.querySelector('button');
-    //
-    //   expect(button).to.exist;
-    //   expect(button).to.contain('sl-icon[name="xmark"]');
-    // });
+    it('should have the correct initial value', () => {
+      expect(el.valueAsNumber).to.equal(10);
+    });
 
-    // it('should not have a clear button when disabled', async () => {
-    //   el.disabled = true;
-    //   await el.updateComplete;
-    //
-    //   expect(el.renderRoot.querySelector('button')).to.not.exist;
-    // });
+    it('should update the value when changed programmatically', async () => {
+      el.valueAsNumber = 20;
+      await el.updateComplete;
 
-    // it('should clear the input when the clear button is clicked', () => {
-    //   el.renderRoot.querySelector('button')?.click();
-    //
-    //   expect(el.value).to.equal('');
-    // });
+      expect(el.valueAsNumber).to.equal(20);
+    });
 
-    // it('should clear the input when the escape key is pressed', async () => {
-    //   el.focus();
-    //   await sendKeys({ press: 'Escape' });
-    //
-    //   expect(el.value).to.equal('');
-    // });
+    it('should reflect the value in the input element', async () => {
+      const input = el.querySelector('input')!;
+      expect(input.value).to.equal('10');
 
-    // it('should focus the input when the clear button is clicked', () => {
-    //   el.renderRoot.querySelector('button')?.click();
-    //
-    //   expect(document.activeElement).to.equal(el.querySelector('input'));
-    // });
+      el.valueAsNumber = 15;
+      await el.updateComplete;
 
-    // it('should emit a clear event when the clear button is clicked', () => {
-    //   const onClear = spy();
-    //
-    //   el.addEventListener('sl-clear', onClear);
-    //   el.renderRoot.querySelector('button')?.click();
-    //
-    //   expect(onClear).to.be.calledOnce;
-    // });
+      expect(input.value).to.equal('15');
+    });
 
-    // it('should emit a clear event when the escape key is pressed', async () => {
-    //   const onClear = spy();
-    //
-    //   el.addEventListener('sl-clear', onClear);
-    //   el.focus();
-    //   await sendKeys({ press: 'Escape' });
-    //
-    //   expect(onClear).to.be.calledOnce;
-    // });
-
-    // it('should emit a search event with the value when enter is pressed', async () => {
-    //   const onSearch: (value: string) => void = spy();
-    //
-    //   el.addEventListener('sl-search', (event: SlSearchEvent) => onSearch(event.detail));
-    //   el.focus();
-    //   await sendKeys({ press: 'Enter' });
-    //
-    //   expect(onSearch).to.be.calledOnce;
-    //   expect(onSearch).to.be.calledWith('Foo');
-    // });
+    it('should be valid with a valid value', () => {
+      expect(el.valid).to.be.true;
+    });
   });
 
   describe('with buttons', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-number-field value="10"></sl-search-field>`);
     });
-
-    // TODO: end, edges, click on plus, click on minus, shold have plus and minus icon
   });
 
   describe('required', () => {
@@ -138,10 +98,6 @@ describe('sl-number-field', () => {
       expect(input.validity.valid).to.be.false;
       expect(input.validity.valueMissing).to.be.true;
     });
-
-    // it('should have a validation message', () => {
-    //   expect(el.validationMessage).to.equal('Please fill in this field.');
-    // });
 
     it('should have a show-validity attribute when reported', async () => {
       el.reportValidity();
@@ -169,44 +125,15 @@ describe('sl-number-field', () => {
     });
   });
 
-  describe('min and max', () => {
+  describe('min', () => {
     let input: HTMLInputElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field min="2" max="12" value="13"></sl-text-area>`);
+      el = await fixture(html`<sl-number-field min="2" value="-1"></sl-text-area>`);
       input = el.querySelector('input')!;
-      el.valueAsNumber = 13;
-      await el.updateComplete;
-
-      el.reportValidity();
-      await el.updateComplete;
     });
 
-    it('should be invalid when value is greated than max', () => {
-      // input.value = '13';
-      //  await el.updateComplete;
-      el.blur();
-
-      // el.reportValidity();
-      // await el.updateComplete;
-
-      console.log(
-        'el should be invalid',
-        input,
-        'value??',
-        input.value,
-        '--->',
-        el.value,
-        '<---',
-        el.valid,
-        input.validity.valid,
-        input.validity.rangeOverflow,
-        input.validity.customError,
-        input.validity,
-        input.validationMessage,
-        el.validity
-      );
-
+    it('should be invalid when value is greater than max', () => {
       expect(el.valid).to.be.false;
     });
 
@@ -217,14 +144,46 @@ describe('sl-number-field', () => {
     });
 
     it('should have a validation message', () => {
-      console.log(
-        'el.validationMessage',
-        el.validationMessage,
-        input.validationMessage,
-        input.value,
-        el.valueAsNumber,
-        el.max
-      );
+      expect(input.validationMessage).to.equal('The value must be greater than or equal to 2.');
+    });
+
+    it('should have a show-validity attribute when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should emit an update-validity event when reported', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(onUpdateValidity).to.have.been.calledOnce;
+    });
+  });
+
+  describe('max', () => {
+    let input: HTMLInputElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-number-field max="12" value="13"></sl-text-area>`);
+      input = el.querySelector('input')!;
+    });
+
+    it('should be invalid when value is greater than max', () => {
+      expect(el.valid).to.be.false;
+    });
+
+    it('should have an invalid input', () => {
+      expect(input.matches(':invalid')).to.be.true;
+      expect(input.validity.valid).to.be.false;
+      expect(input.validity.customError).to.be.true;
+    });
+
+    it('should have a validation message', () => {
       expect(input.validationMessage).to.equal('The value must be less than or equal to 12.');
     });
 
@@ -244,23 +203,89 @@ describe('sl-number-field', () => {
 
       expect(onUpdateValidity).to.have.been.calledOnce;
     });
+  });
 
-    // it('should be valid after typing proper number', async () => {
-    //   el.focus();
-    //   await sendKeys({ type: '' });
-    //   await el.updateComplete;
-    //
-    //   await sendKeys({ type: '10 ' });
-    //   el.blur();
-    //   await el.updateComplete;
-    //
-    //   console.log('el should be valid with proper value',input, 'value??', input.value, '--->', el.value ,'<---', el.valid, input.validity.valid, input.validity.rangeOverflow, input.validity.customError, input.validity, input.validationMessage, el.validity);
-    //
-    //   expect(el.valid).to.equal(true);
-    // });
+  describe('step buttons', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-number-field step-buttons="end" value="10"></sl-number-field>`);
+    });
+
+    it('should have step buttons', () => {
+      const buttons = el.renderRoot.querySelectorAll('button');
+      expect(buttons).to.have.length(2);
+      expect(buttons[0].getAttribute('aria-label')).to.equal('Step down');
+      expect(buttons[1].getAttribute('aria-label')).to.equal('Step up');
+
+      const icons = el.renderRoot.querySelectorAll('sl-icon');
+      expect(icons).to.have.length(2);
+      expect(icons[0]).to.have.attribute('name', 'minus');
+    });
+
+    it('should increase the value when step up button is clicked', async () => {
+      const button = el.renderRoot.querySelector('button[aria-label="Step up"]') as HTMLButtonElement;
+
+      expect(button).to.exist;
+
+      button.click();
+      await el.updateComplete;
+
+      expect(el.valueAsNumber).to.equal(11);
+    });
+
+    it('should decrease the value when step down button is clicked', async () => {
+      const button = el.renderRoot.querySelector('button[aria-label="Step down"]') as HTMLButtonElement;
+
+      expect(button).to.exist;
+
+      button.click();
+      await el.updateComplete;
+
+      expect(el.valueAsNumber).to.equal(9);
+    });
+  });
+
+  describe('step up and down with arrow keys', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-number-field value="10" step="1"></sl-number-field>`);
+    });
+
+    it('should increase the value when ArrowUp key is pressed', async () => {
+      el.focus();
+      await sendKeys({ press: 'ArrowUp' });
+      await el.updateComplete;
+
+      expect(el.valueAsNumber).to.equal(11);
+    });
+
+    it('should decrease the value when ArrowDown key is pressed', async () => {
+      el.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      expect(el.valueAsNumber).to.equal(9);
+    });
+  });
+
+  describe('percentage', () => {
+    let input: HTMLInputElement;
+
+    beforeEach(async () => {
+      el = await fixture(
+        html`<sl-number-field
+          value="10.809"
+          .formatOptions=${{ style: 'percent', maximumFractionDigits: 2 }}
+        ></sl-number-field>`
+      );
+      input = el.querySelector('input')!;
+    });
+
+    it('should have a proper value with percentage', () => {
+      expect(input.value).to.equal('10.81%');
+    });
+
+    it('should have a valid input', () => {
+      expect(input.matches(':invalid')).to.be.false;
+      expect(input.validity.valid).to.be.true;
+    });
   });
 });
-
-// TODO: test with unit parsing, with percentage
-// min and max
-// per different locale?

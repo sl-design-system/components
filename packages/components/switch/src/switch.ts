@@ -91,8 +91,11 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** Whether the toggle should be shown *after* the text. */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
-  /** The size of the switch. */
-  @property({ reflect: true }) size: SwitchSize = 'md';
+  /**
+   * The size of the switch.
+   * @default md
+   */
+  @property({ reflect: true }) size?: SwitchSize;
 
   /**
    * The value of the switch when the switch is checked.
@@ -129,9 +132,10 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       const style = document.createElement('style');
       style.innerHTML = `
         sl-switch:has(input:focus-visible)::part(track) {
-          outline: var(--_focus-outline);
-          transition: var(--_transition);
-          transition-property: background, border-color, color, filter, outline-color;        }
+          outline-color: var(--sl-color-border-focused);
+          transition: 200ms ease-in-out;
+          transition-property: background, border-color, color, outline-color;
+        }
       `;
       this.append(style);
     }
@@ -184,9 +188,11 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       <slot></slot>
       <slot @slotchange=${() => this.#onLabelSlotChange()} style="display: none"></slot>
       <slot @keydown=${this.#onKeydown} @slotchange=${this.#onInputSlotChange} name="input"></slot>
-      <div class="toggle">
-        <div part="track" aria-checked=${this.checked ? 'true' : 'false'}>
-          <div>${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}</div>
+      <div part="toggle">
+        <div part="track">
+          <div part="handle">
+            ${this.size === 'sm' ? nothing : html`<sl-icon .name=${icon} .size=${size}></sl-icon>`}
+          </div>
         </div>
       </div>
     `;
@@ -274,8 +280,6 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.#label.append(...nodes);
       this.append(this.#label);
     }
-
-    this.toggleAttribute('no-label', label.length === 0);
   }
 
   #syncInput(input: HTMLInputElement): void {

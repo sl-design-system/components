@@ -1,80 +1,60 @@
-@use 'sass:list';
-
-$sizes: md, lg;
-$variants: default, valid, invalid;
-$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
-
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_border-radius: var(--sl-border-radius-default);
-    --_border-width: var(--sl-border-width-input-border);
-    --_padding-block: var(--sl-space-select-selectbox-block-#{$size});
-    --_padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
-    --_font: var(--sl-text-select-selectbox-text-#{$size});
-    --_gap: var(--sl-space-select-listbox-gap-#{$size});
-  }
-}
-
-@each $variant in $variants {
-  $i: list.index($variants, $variant);
-  $variant-selector: list.nth($variant-selectors, $i);
-
-  :host(#{$variant-selector}:not([disabled])) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-default-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-default-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-default-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-default-placeholder);
-  }
-
-  :host(#{$variant-selector}:not([disabled]):focus-visible) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-focus-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-focus-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-focus-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-focus-placeholder);
-  }
-
-  :host(#{$variant-selector}:not([disabled]):hover) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-hover-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-hover-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-hover-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-hover-placeholder);
-  }
-
-  :host(#{$variant-selector}:not([disabled]):active) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-active-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-active-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-active-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-active-placeholder);
-  }
-
-  :host(#{$variant-selector}[disabled]) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-disabled-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-disabled-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-input-text);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-disabled-placeholder);
-  }
-}
-
 :host {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
+
   align-items: center;
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
-  color: var(--_color);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
   display: flex;
   flex: 1;
-  font: var(--_font);
-  gap: var(--_gap);
+  gap: var(--sl-size-050);
   max-inline-size: 100%;
   min-inline-size: 0;
-  padding-inline-end: var(--_padding-inline);
-  transition: 0.2s ease-in-out;
-  transition-property: background, border, color, filter, outline-color;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 0.2s ease-in-out;
+    transition-property: background, border, color, outline-color;
+  }
+}
+
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+}
+
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
+}
+
+:host([show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
+}
+
+:host([show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
+}
+
+:host([disabled]) {
+  --_border: var(--sl-color-border-input);
+
+  background: var(--sl-color-background-disabled);
+  color: var(--sl-color-foreground-disabled);
+  pointer-events: none;
 }
 
 :host(:focus-visible) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  outline-color: var(--sl-color-border-focused);
 }
 
 :host([aria-expanded='true']) sl-icon {
@@ -82,14 +62,14 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 .placeholder {
-  color: var(--_placeholder-color);
+  color: var(--sl-color-foreground-muted);
 }
 
 div {
   flex: 1;
   overflow: hidden;
-  padding-block: var(--_padding-block);
-  padding-inline-start: var(--_padding-inline);
+  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
   pointer-events: none;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -103,5 +83,8 @@ div {
 sl-icon {
   flex-shrink: 0;
   pointer-events: none;
-  transition: rotate 0.2s ease-in-out;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: rotate 0.2s ease-in-out;
+  }
 }

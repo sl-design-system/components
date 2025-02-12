@@ -20,7 +20,7 @@ import { type MenuButton } from './menu-button.js';
 
 type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'size' | 'variant'> & {
   alignSelf: string;
-  body: string | TemplateResult;
+  body: string | (() => TemplateResult);
   justifySelf: string;
   label?: string;
   menuItems?(): TemplateResult;
@@ -105,7 +105,7 @@ export default {
         style=${styleMap({ alignSelf, justifySelf })}
         variant=${ifDefined(variant)}
       >
-        ${body ?? html`<div slot="button">${body}</div>`} ${menuItems?.()}
+        ${typeof body === 'string' ? html`<div slot="button">${body}</div>` : body()} ${menuItems?.()}
       </sl-menu-button>
     `;
   }
@@ -113,7 +113,7 @@ export default {
 
 export const Basic: Story = {
   args: {
-    body: html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
+    body: () => html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
     label: 'Settings',
     menuItems: () => html`
       <sl-menu-item>
@@ -138,7 +138,7 @@ export const Disabled: Story = {
 export const IconAndText: Story = {
   args: {
     ...Basic.args,
-    body: html`
+    body: () => html`
       <sl-icon name="far-gear" slot="button"></sl-icon>
       <span slot="button">Settings</span>
     `,
@@ -149,7 +149,7 @@ export const IconAndText: Story = {
 export const Text: Story = {
   args: {
     ...Basic.args,
-    body: html`<span slot="button">Settings</span>`,
+    body: () => html`<span slot="button">Settings</span>`,
     label: undefined
   }
 };
@@ -174,7 +174,7 @@ export const Submenu: Story = {
 
 export const Avatar: Story = {
   args: {
-    body: html`<sl-avatar display-name="John Doe" size="sm" slot="button"></sl-avatar>`,
+    body: () => html`<sl-avatar display-name="John Doe" size="sm" slot="button"></sl-avatar>`,
     fill: 'ghost',
     menuItems: () => html`
       <sl-menu-item>Profile...</sl-menu-item>

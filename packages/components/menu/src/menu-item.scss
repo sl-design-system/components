@@ -4,7 +4,7 @@
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   display: block;
   flex-grow: 1;
 }
@@ -33,7 +33,7 @@
 :host([variant='danger']) {
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
 
-  color: var(--sl-color-text-negative-bold);
+  color: var(--sl-color-foreground-negative-bold);
 }
 
 :host([emphasis='bold'][variant='danger']) {
@@ -44,7 +44,7 @@
 }
 
 :host([disabled]) {
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
   .wrapper {

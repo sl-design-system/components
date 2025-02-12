@@ -1,123 +1,57 @@
-@use 'sass:list';
-
-$sizes: md, lg;
-$variants: default, valid, invalid;
-$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
-$resize-types: none, both, horizontal, vertical, auto;
-
 :host {
-  --sl-text-area-rows: 3;
-  --_border-radius: var(--sl-border-radius-default);
-  --_border-size: var(--sl-border-width-input-border);
-  --_border: var(--_border-size) solid var(--_border-color);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_min-height: calc(var(--sl-text-area-rows) * 1lh);
-  --_transition: 200ms ease-in-out;
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
 
   align-items: start;
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: text;
   display: flex;
-  gap: var(--_gap);
-  outline-color: transparent;
+  gap: var(--sl-size-100);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
   position: relative;
-  transition: var(--_transition);
-  transition-property: background, border, color, filter, outline-color;
-}
-
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_font: var(--sl-text-input-text-field-text-#{$size});
-    --_gap: var(--sl-space-text-field-gap-#{$size});
-    --_padding: var(--sl-space-input-text-field-block-#{$size})
-      calc(
-        var(--sl-space-input-text-field-inline-#{$size}) +
-          var(--sl-space-input-text-field-gap-#{$size}) +
-          var(--sl-size-icon-#{$size})
-      )
-      var(--sl-space-input-text-field-block-#{$size})
-      var(--sl-space-input-text-field-inline-#{$size});
-    --_right: var(--sl-space-input-text-field-inline-#{$size});
-    --_top: var(--sl-space-input-text-field-block-#{$size});
-
-    // TODO: needs to be removed in the future when lh unit will be supported for Firefox as well
-    @supports not (min-height: 1lh) {
-      --_min-height: calc(var(--sl-text-area-rows) * var(--sl-text-typeset-line-height-#{$size}));
-    }
-  }
-}
-
-@each $resize in $resize-types {
-  :host([resize='#{$resize}']) slot[name='textarea']::slotted(textarea) {
-    @if $resize == auto {
-      resize: none;
-    } @else {
-      resize: $resize;
-    }
-  }
-}
-
-@each $variant in $variants {
-  $i: list.index($variants, $variant);
-  $variant-selector: list.nth($variant-selectors, $i);
-
-  :host(#{$variant-selector}) {
-    --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
-    --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-default-border);
-    --_color: var(--sl-color-input-text-field-#{$variant}-default-input-text);
-    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-default-placeholder);
-  }
-
-  :host(#{$variant-selector}:hover) {
-    --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
-    --_background: var(--sl-color-input-text-field-#{$variant}-hover-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-hover-border);
-    --_color: var(--sl-color-input-text-field-#{$variant}-hover-input-text);
-    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-hover-placeholder);
-  }
-
-  :host(#{$variant-selector}:active:not([disabled])) {
-    --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
-    --_background: var(--sl-color-input-text-field-#{$variant}-active-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-active-border);
-    --_color: var(--sl-color-input-text-field-#{$variant}-active-input-text);
-    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-active-placeholder);
-  }
-
-  :host(#{$variant-selector}:focus-within:not([disabled])) {
-    --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
-    --_background: var(--sl-color-input-text-field-#{$variant}-focus-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-focus-border);
-    --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
-    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-focus-placeholder);
-  }
-
-  slot[name='textarea']::slotted(textarea) {
-    &:focus-visible {
-      --_color: var(--sl-color-input-text-field-#{$variant}-focus-input-text);
-    }
-  }
-
-  :host(#{$variant-selector}[disabled]) {
-    --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
-    --_background: var(--sl-color-input-text-field-#{$variant}-disabled-background);
-    --_border-color: var(--sl-color-input-text-field-#{$variant}-disabled-border);
-    --_color: var(--sl-color-input-text-field-#{$variant}-disabled-input-text);
-    --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
-  }
 }
 
 :host(:focus-within) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  outline-color: var(--sl-color-border-focused);
+}
+
+:host(:hover:not(:focus-within)) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+}
+
+:host([show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
+}
+
+:host([show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
+}
+
+:host([size='lg']) ::slotted(textarea) {
+  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
 }
 
 :host([disabled]) {
-  cursor: default;
+  background: var(--sl-color-background-disabled);
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:hover, :focus-within)) {
+    transition: 200ms ease-in-out;
+    transition-property: background, border, color, outline-color;
+  }
 }
 
 slot[name='textarea']::slotted(textarea) {
@@ -125,28 +59,32 @@ slot[name='textarea']::slotted(textarea) {
   background: none;
   border: 0;
   box-sizing: content-box;
-  color: var(--_color);
+  color: currentcolor;
   flex: 1;
-  font: var(--_font);
+  font: inherit;
   margin: 0;
-  min-block-size: var(--_min-height);
+  min-block-size: calc(var(--sl-text-area-rows, 3) * 1lh);
   outline: none;
-  padding: var(--_padding);
+  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
 
   &:focus {
     outline: none;
   }
 
   &::placeholder {
-    color: var(--_placeholder-color);
+    color: var(--sl-color-foreground-muted);
     opacity: 1;
   }
 }
 
-slot[name='suffix'] sl-icon {
-  --sl-icon-fill-default: inherit;
-
-  inset-block-start: var(--_top);
-  inset-inline-end: var(--_right);
+sl-icon,
+slot[name='suffix']::slotted(sl-icon) {
+  inset-block-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
   position: absolute;
+}
+
+.valid-icon {
+  color: var(--sl-color-icon-positive-plain);
 }

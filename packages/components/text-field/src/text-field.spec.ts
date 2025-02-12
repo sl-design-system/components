@@ -49,9 +49,9 @@ describe('sl-text-field', () => {
       expect(input.value).to.equal('my value');
     });
 
-    it('should have a medium size', () => {
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
     });
 
     it('should have a large size when set', async () => {

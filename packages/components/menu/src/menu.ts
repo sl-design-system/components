@@ -213,5 +213,9 @@ export class Menu extends LitElement {
         }
       });
     }
+    const submenus = Array.from<Menu>(this.querySelectorAll('sl-menu'));
+    submenus?.forEach(submenu => {
+      submenu.emphasis = this.emphasis;
+    });
   }
 }

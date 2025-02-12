@@ -36,7 +36,7 @@
   color: var(--sl-color-foreground-negative-bold);
 }
 
-:host([emphasis='bold'][variant='danger']) {
+:host([emphasis='bold'][variant='danger']):not([disabled]) {
   --_bg-color: var(--sl-color-background-negative-bold);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 

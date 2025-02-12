@@ -424,7 +424,7 @@
           "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.purple.onBold}",
+          "value": "{color.foreground.accent.purple.onBold}",
           "type": "color",
           "description": "Use for primary actions on 'color.background.primary.bold'"
         }

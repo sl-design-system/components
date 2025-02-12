@@ -29,11 +29,10 @@ jobs:
         uses: chromaui/action@latest
         with:
           autoAcceptChanges: main
-          buildCommand: yarn exec storybook build --stats-json --
+          buildCommand: yarn exec storybook build -o storybook-components --stats-json
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           onlyChanged: true
-          outputDir: storybook-components
           workingDir: .
       - name: Publish to Chromatic - Themes
         uses: chromaui/action@latest

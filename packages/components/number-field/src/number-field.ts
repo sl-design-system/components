@@ -115,7 +115,6 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   override renderPrefix(): TemplateResult | typeof nothing {
-    // TODO...
     return this.stepButtons === 'edges'
       ? html`
           <button

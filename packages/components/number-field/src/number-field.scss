@@ -21,9 +21,21 @@
 }
 
 button:hover {
-  --_bg-color: var(--sl-color-background-secondary-bold);
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
-  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+}
+
+button:active {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button:where(:active, :focus-visible, :hover) {
+    transition-duration: var(--sl-animation-button-duration);
+    transition-property: background, border-color, color, outline-color;
+    transition-timing-function: var(--sl-animation-button-easing);
+  }
 }

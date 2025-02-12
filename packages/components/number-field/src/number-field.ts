@@ -74,7 +74,6 @@ export class NumberField extends LocaleMixin(TextField) {
   @property({ type: Number })
   set valueAsNumber(value: number | undefined) {
     this.#value = value;
-    console.log('valueAsNumber in setter', value, 'raw', this.rawValue, '#value', this.#value);
     this.value = value === undefined ? '' : value.toString();
     this.requestUpdate('value');
   }
@@ -87,7 +86,6 @@ export class NumberField extends LocaleMixin(TextField) {
     this.#parser = new NumberParser(this.locale, this.formatOptions);
 
     if (!this.rawValue && this.value && !this.valueAsNumber) {
-      console.log('value in connectedCallback', this.value, 'raw?', this.rawValue, this.valueAsNumber);
       this.rawValue = this.value;
       this.valueAsNumber = this.#convertValueToNumber(
         // this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
@@ -95,8 +93,6 @@ export class NumberField extends LocaleMixin(TextField) {
         this.rawValue ? this.rawValue : ''
       );
     }
-
-    console.log('valueAsNumber in connectedCallback', this.valueAsNumber, this.value, this.#value, this.rawValue);
 
     this.#validateInput();
   }
@@ -189,17 +185,10 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   override onBlur(): void {
-    console.log('rawValue in onBlur', this.value, 'raw:', this.rawValue, this.#value);
     if (this.rawValue !== undefined || this.#value !== undefined) {
       this.valueAsNumber = this.#convertValueToNumber(
         this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
-        // this.#value ? this.#value.toString() : ''
-        //this.rawValue ? this.rawValue : ''
       );
-
-      // debugger;
-
-      console.log('valueAsNumber in onBlur', this.valueAsNumber, this.rawValue, this.#value);
 
       this.#validateInput();
     }
@@ -209,7 +198,6 @@ export class NumberField extends LocaleMixin(TextField) {
 
   override onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
-    console.log('rawValue in onInput', this.value, this.rawValue);
   }
 
   override onKeydown(event: KeyboardEvent): void {
@@ -227,7 +215,6 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   #validateInput(): void {
-    console.log('valueAsN umber in validateInput', this.valueAsNumber, this.value, this.#value, this.rawValue);
     if (this.valueAsNumber !== undefined && !Number.isNaN(this.valueAsNumber)) {
       // check constraints, when it really is a number
       if (this.valueAsNumber > (this.max ?? Infinity)) {
@@ -252,7 +239,6 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   #convertValueToNumber(value: string): number | undefined {
-    console.log('value in convertValueToNumber', value, this.#parser?.parse(value), this.#parser);
     return this.#parser?.parse(value); // || undefined;
   }
 }

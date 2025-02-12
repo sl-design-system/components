@@ -31,14 +31,20 @@ export class Radio<T = unknown> extends LitElement {
   /** Indicates if the radio button shows it is (in)valid. */
   @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
-  /** The size of the radio button. */
-  @property({ reflect: true }) size: RadioButtonSize = 'md';
+  /**
+   * The size of the radio button.
+   * @default md
+   */
+  @property({ reflect: true }) size?: RadioButtonSize;
 
   /** The value for this radio button. */
   @property() value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    // Make sure aria-checked is always set
+    this.checked ??= false;
 
     this.setAttribute('role', 'radio');
 
@@ -51,7 +57,7 @@ export class Radio<T = unknown> extends LitElement {
     super.updated(changes);
 
     if (changes.has('checked')) {
-      this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+      this.setAttribute('aria-checked', Boolean(this.checked).toString());
     }
 
     if (changes.has('disabled')) {
@@ -61,7 +67,7 @@ export class Radio<T = unknown> extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div class="box">
+      <div part="box">
         ${this.checked
           ? html`
               <svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24">
@@ -70,7 +76,7 @@ export class Radio<T = unknown> extends LitElement {
             `
           : html`<svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24"></svg>`}
       </div>
-      <span class="label">
+      <span part="label">
         <slot></slot>
       </span>
     `;

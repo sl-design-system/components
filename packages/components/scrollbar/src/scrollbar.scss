@@ -3,12 +3,12 @@
   background: var(--sl-color-background-accent-grey-subtle-idle);
   box-sizing: border-box;
   display: flex;
-  padding: calc((var(--sl-size-150) - var(--sl-size-075)) / 2) var(--sl-space-050);
+  padding: calc((var(--sl-size-150) - var(--sl-size-075)) / 2) var(--sl-size-050);
   user-select: none;
 }
 
 :host([vertical]) {
-  padding: var(--sl-space-050) calc((var(--sl-size-150) - var(--sl-size-075)) / 2);
+  padding: var(--sl-size-050) calc((var(--sl-size-150) - var(--sl-size-075)) / 2);
 }
 
 [part='track'] {

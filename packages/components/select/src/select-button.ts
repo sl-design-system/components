@@ -34,7 +34,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   @property({ attribute: false }) selected?: SelectOption | null;
 
   /** The size of the parent select. */
-  @property({ reflect: true }) size?: SelectSize = 'md';
+  @property({ reflect: true }) size?: SelectSize;
 
   /** Mirrors the same property on the sl-select parent. */
   @property({ type: Boolean, reflect: true }) required?: boolean;

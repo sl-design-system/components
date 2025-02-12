@@ -40,16 +40,16 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^8.4.7",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-storysource": "^8.4.7",
-    "@storybook/addon-themes": "^8.4.7",
-    "@storybook/web-components-vite": "^8.4.7",
+    "@storybook/addon-a11y": "^8.5.3",
+    "@storybook/addon-essentials": "^8.5.3",
+    "@storybook/addon-storysource": "^8.5.3",
+    "@storybook/addon-themes": "^8.5.3",
+    "@storybook/web-components-vite": "^8.5.3",
     "lit": "^3.2.1",
-    "storybook": "^8.4.7",
+    "storybook": "^8.5.3",
     "storybook-addon-pseudo-states": "^4.0.2",
     "tslib": "^2.8.1",
     "typescript": "^5.4.5",
-    "wireit": "^0.14.9"
+    "wireit": "^0.14.10"
   }
 }

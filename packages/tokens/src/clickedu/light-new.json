@@ -378,7 +378,7 @@
       "bold": {
         "value": "{color.text.accent.grey.bold}",
         "type": "color",
-        "description": "Use for headers."
+        "description": "Use for headers and labels."
       },
       "plain": {
         "value": "{color.text.accent.grey.plain}",
@@ -388,7 +388,7 @@
       "subtle": {
         "value": "{color.text.accent.grey.subtle}",
         "type": "color",
-        "description": "Use for labels and subheadings."
+        "description": "Use for subheadings."
       },
       "muted": {
         "value": "{color.text.accent.grey.muted}",
@@ -399,11 +399,6 @@
         "value": "{color.text.accent.grey.faint}",
         "type": "color",
         "description": "Use for text in a disabled state."
-      },
-      "selected": {
-        "value": "{color.text.accent.purple.bold}",
-        "type": "color",
-        "description": "Use for text in selected states (e.g., tabs or menu items)."
       },
       "brand": {
         "value": "{color.text.accent.red.plain}",
@@ -432,6 +427,23 @@
           "value": "{color.text.accent.purple.onBold}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.bold'"
+        }
+      },
+      "neutral": {
+        "plain": {
+          "value": "{color.text.accent.grey.muted}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+        },
+        "bold": {
+          "value": "{color.text.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
+        },
+        "onBold": {
+          "value": "{color.text.accent.grey.onBold}",
+          "type": "color",
+          "description": "Use for neutral actions on 'color.background.neutral.bold'"
         }
       },
       "info": {
@@ -561,7 +573,7 @@
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
           "muted": {
-            "value": "{color.palette.grey.600}",
+            "value": "rgba({color.palette.grey.900}, 70%)",
             "type": "color",
             "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
           },
@@ -676,6 +688,18 @@
             "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
         }
+      },
+      "selected": {
+        "bold": {
+          "value": "{color.text.accent.purple.bold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "onBold": {
+          "value": "{color.text.accent.blue.onBold}",
+          "type": "color",
+          "description": "Use for text in selected states (e.g., tabs or menu items)."
+        }
       }
     },
     "link": {
@@ -713,7 +737,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.text.inverted}",
+          "value": "{color.text.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },
@@ -966,7 +990,7 @@
     },
     "border": {
       "plain": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.border.accent.grey.plain}",
         "type": "color",
         "description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
       },
@@ -981,17 +1005,17 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.plain}",
+        "value": "{color.border.accent.grey.faint}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
       "focused": {
-        "value": "{color.border.accent.purple}",
+        "value": "{color.palette.blue.400}",
         "type": "color",
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.accent.purple}",
+        "value": "{color.border.accent.purple.plain}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -1001,49 +1025,127 @@
         "description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
       },
       "primary": {
-        "value": "{color.border.accent.red}",
-        "type": "color",
-        "description": "Use for borders that highlight primary actions."
+        "plain": {
+          "value": "{color.border.accent.red.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.red.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
+        }
       },
       "secondary": {
-        "value": "{color.border.accent.purple}",
-        "type": "color",
-        "description": "Use for borders that highlight secondary actions."
+        "plain": {
+          "value": "{color.border.accent.purple.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.purple.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
+        }
+      },
+      "neutral": {
+        "subtle": {
+          "value": "{color.background.accent.grey.subtle}",
+          "type": "color",
+          "description": "Use for subtle borders on color.background.neutral background colors."
+        },
+        "plain": {
+          "value": "{color.border.accent.grey.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.grey.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
+        }
       },
       "info": {
-        "value": "{color.palette.blue.700}",
-        "type": "color",
-        "description": "Use for borders that highlight informative messages the user needs to be aware of."
+        "subtle": {
+          "value": "{color.background.info.subtle}",
+          "type": "color",
+          "description": "Use for subtle borders on color.background.info background colors."
+        },
+        "plain": {
+          "value": "{color.border.accent.blue.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.blue.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
+        }
       },
       "positive": {
-        "value": "{color.border.accent.green}",
-        "type": "color",
-        "description": "Use for borders that highlight a favorable outcome."
+        "plain": {
+          "value": "{color.border.accent.green.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.green.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
+        }
       },
       "caution": {
-        "value": "{color.border.accent.orange}",
-        "type": "color",
-        "description": "Use for borders that highlight caution to help prevent mistakes or errors."
+        "plain": {
+          "value": "{color.border.accent.orange.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.orange.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
+        }
       },
       "negative": {
-        "value": "{color.border.accent.red}",
-        "type": "color",
-        "description": "Use for borders that highlight negative or serious error states, such as validation errors or irreversible actions."
+        "plain": {
+          "value": "{color.border.accent.red.plain}",
+          "type": "color",
+          "description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
+        },
+        "bold": {
+          "value": "{color.border.accent.red.bold}",
+          "type": "color",
+          "description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
+        }
       },
       "accent": {
         "blue": {
-          "value": "{color.text.accent.blue.bold}",
-          "type": "color",
-          "description": "Use for blue borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.background.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.blue.bold}",
+            "type": "color",
+            "description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "green": {
-          "value": "{color.text.accent.green.bold}",
-          "type": "color",
-          "description": "Use for green borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.background.accent.green.bold}",
+            "type": "color",
+            "description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.green.bold}",
+            "type": "color",
+            "description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.050}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -1064,33 +1166,78 @@
           }
         },
         "orange": {
-          "value": "{color.text.accent.orange.bold}",
-          "type": "color",
-          "description": "Use for orange borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.background.accent.orange.bold}",
+            "type": "color",
+            "description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.orange.bold}",
+            "type": "color",
+            "description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "purple": {
-          "value": "{color.text.accent.purple.bold}",
-          "type": "color",
-          "description": "Use for purple borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.background.accent.purple.bold}",
+            "type": "color",
+            "description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.purple.bold}",
+            "type": "color",
+            "description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "red": {
-          "value": "{color.text.accent.red.bold}",
-          "type": "color",
-          "description": "Use for red borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.background.accent.red.bold}",
+            "type": "color",
+            "description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.red.bold}",
+            "type": "color",
+            "description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "teal": {
-          "value": "{color.text.accent.teal.bold}",
-          "type": "color",
-          "description": "Use for teal borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.background.accent.teal.bold}",
+            "type": "color",
+            "description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.teal.bold}",
+            "type": "color",
+            "description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
+          }
         },
         "yellow": {
-          "value": "{color.text.accent.yellow.bold}",
-          "type": "color",
-          "description": "Use for yellow borders for purely stylistic purposes with no specific meaning."
+          "plain": {
+            "value": "{color.background.accent.yellow.bold}",
+            "type": "color",
+            "description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
+          },
+          "bold": {
+            "value": "{color.text.accent.yellow.bold}",
+            "type": "color",
+            "description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
+          }
         }
       }
     },
     "background": {
+      "subtle": {
+        "value": "{color.background.accent.grey.subtle}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
+      },
+      "bold": {
+        "value": "{color.border.bold}",
+        "type": "color",
+        "description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
+      },
       "disabled": {
         "value": "{color.palette.grey.050}",
         "type": "color",
@@ -1103,7 +1250,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
         "interactive": {
-          "value": "rgba({color.background.accent.blue.interactive.plain}, {opacity.light.interactive.plain.hover})",
+          "value": "{color.background.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }
@@ -1185,6 +1332,35 @@
           },
           "plain": {
             "value": "{color.background.accent.purple.interactive.plain}",
+            "type": "color",
+            "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
+          }
+        }
+      },
+      "neutral": {
+        "subtlest": {
+          "value": "{color.background.accent.grey.subtlest}",
+          "type": "color",
+          "description": "The subtlest background in the neutral action color."
+        },
+        "subtle": {
+          "value": "{color.background.accent.grey.subtle}",
+          "type": "color",
+          "description": "A subtle background in the neutral action color."
+        },
+        "bold": {
+          "value": "{color.background.accent.grey.bold}",
+          "type": "color",
+          "description": "A vibrant background option used for neutral actions."
+        },
+        "interactive": {
+          "bold": {
+            "value": "{color.background.accent.grey.interactive.bold}",
+            "type": "color",
+            "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
+          },
+          "plain": {
+            "value": "{color.background.accent.grey.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1571,12 +1747,12 @@
       },
       "interactive": {
         "bold": {
-          "value": "{color.background.accent.blue.interactive.bold}",
+          "value": "{color.palette.grey.800}",
           "type": "color",
           "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
         },
         "plain": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.accent.grey.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
         }

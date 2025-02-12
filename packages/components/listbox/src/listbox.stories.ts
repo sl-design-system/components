@@ -1,12 +1,13 @@
 import '@sl-design-system/badge/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Listbox } from './listbox.js';
 
 type Props = Pick<
   Listbox,
-  'options' | 'optionGroupPath' | 'optionLabelPath' | 'optionSelectedPath' | 'optionValuePath'
+  'emphasis' | 'options' | 'optionGroupPath' | 'optionLabelPath' | 'optionSelectedPath' | 'optionValuePath'
 > & {
   slot?(): TemplateResult;
 };
@@ -16,6 +17,10 @@ export default {
   title: 'Utilities/Listbox',
   tags: ['draft'],
   argTypes: {
+    emphasis: {
+      control: 'inline-radio',
+      options: ['subtle', 'bold']
+    },
     options: {
       table: { disable: true }
     },
@@ -23,7 +28,7 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ options, optionGroupPath, optionLabelPath, optionSelectedPath, optionValuePath, slot }) => {
+  render: ({ emphasis, options, optionGroupPath, optionLabelPath, optionSelectedPath, optionValuePath, slot }) => {
     return html`
       <style>
         sl-listbox {
@@ -38,6 +43,7 @@ export default {
         .optionLabelPath=${optionLabelPath}
         .optionSelectedPath=${optionSelectedPath}
         .optionValuePath=${optionValuePath}
+        emphasis=${ifDefined(emphasis)}
       >
         ${slot?.()}
       </sl-listbox>
@@ -73,6 +79,13 @@ export const Divider: Story = {
       <hr />
       <sl-option>Option 3</sl-option>
     `
+  }
+};
+
+export const Emphasis: Story = {
+  args: {
+    ...Basic.args,
+    emphasis: 'bold'
   }
 };
 

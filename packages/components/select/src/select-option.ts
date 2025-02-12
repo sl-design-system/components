@@ -22,7 +22,7 @@ export class SelectOption<T = unknown> extends LitElement {
   @property({ reflect: true, type: Boolean }) selected?: boolean;
 
   /** @internal The size of the select, is set by the select component. */
-  @property({ reflect: true }) size: SelectSize = 'md';
+  @property({ reflect: true }) size?: SelectSize;
 
   /** The value for the option item, to be used in forms. */
   @property() value?: T;

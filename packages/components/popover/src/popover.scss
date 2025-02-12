@@ -12,7 +12,7 @@
   max-inline-size: var(--sl-popover-max-inline-size, 80vw);
   opacity: 0;
   overflow: visible;
-  padding: var(--sl-space-100) var(--sl-space-150);
+  padding: var(--sl-size-100) var(--sl-size-150);
 
   @media (prefers-reduced-motion: no-preference) {
     transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
@@ -31,7 +31,7 @@
     color: var(--sl-color-text-plain) !important;
     margin: 0 !important;
     overflow: visible !important;
-    padding: var(--sl-space-100) var(--sl-space-150) !important;
+    padding: var(--sl-size-100) var(--sl-size-150) !important;
     position: fixed;
   }
 }

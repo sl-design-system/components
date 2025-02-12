@@ -20,8 +20,20 @@ describe('sl-radio', () => {
       expect(el).to.have.attribute('role', 'radio');
     });
 
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
+    });
+
+    it('should have a size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('size', 'lg');
+    });
+
     it('should not be checked', () => {
-      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).to.have.attribute('aria-checked', 'false');
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).not.to.be.true;
     });
@@ -79,7 +91,7 @@ describe('sl-radio', () => {
       el.click();
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).to.have.attribute('aria-checked', 'false');
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).not.to.be.true;
     });
@@ -89,7 +101,7 @@ describe('sl-radio', () => {
       await sendKeys({ press: 'Enter' });
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).to.have.attribute('aria-checked', 'false');
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).not.to.be.true;
     });
@@ -99,7 +111,7 @@ describe('sl-radio', () => {
       await sendKeys({ press: 'Enter' });
       await el.updateComplete;
 
-      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).to.have.attribute('aria-checked', 'false');
       expect(el).not.to.have.attribute('checked');
       expect(el.checked).not.to.be.true;
     });

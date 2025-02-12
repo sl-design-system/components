@@ -51,9 +51,16 @@ describe('sl-switch', () => {
       expect(el).to.have.attribute('disabled');
     });
 
-    it('should have a medium size', () => {
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
+    });
+
+    it('should have a size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('size', 'lg');
     });
 
     it('should not have an icon when size is sm', async () => {
@@ -70,17 +77,6 @@ describe('sl-switch', () => {
       await el.updateComplete;
 
       expect(el.renderRoot.querySelector('sl-icon')).to.exist;
-    });
-
-    it('should have the correct icon size', async () => {
-      const icon = el.renderRoot.querySelector<Icon>('sl-icon');
-
-      expect(icon?.size).to.equal('xs');
-
-      el.size = 'lg';
-      await el.updateComplete;
-
-      expect(icon?.size).to.equal('md');
     });
 
     it('should be pristine', () => {

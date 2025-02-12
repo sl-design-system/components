@@ -1,7 +1,7 @@
 :host {
   align-items: center;
   display: flex;
-  gap: var(--sl-space-100);
+  gap: var(--sl-size-100);
   min-inline-size: 0;
 }
 
@@ -15,7 +15,7 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--sl-space-100);
+    gap: var(--sl-size-100);
     justify-content: center;
   }
 

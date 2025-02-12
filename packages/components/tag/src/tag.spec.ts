@@ -13,27 +13,44 @@ describe('sl-tag', () => {
       el = await fixture(html`<sl-tag>My label</sl-tag>`);
     });
 
-    it('should not have emphasis by default', () => {
-      expect(el).not.to.have.attribute('emphasis');
-      expect(el.size).to.be.undefined;
-    });
-
-    it('should not have size by default', () => {
+    it('should not have an explicit', () => {
       expect(el).not.to.have.attribute('size');
       expect(el.size).to.be.undefined;
     });
 
-    it('should not be removable by default', () => {
-      expect(el).not.to.have.attribute('removable');
+    it('should have a size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('size', 'lg');
+    });
+
+    it('should not have an explicit variant', () => {
+      expect(el).not.to.have.attribute('variant');
+      expect(el.variant).to.be.undefined;
+    });
+
+    it('should have a variant when set', async () => {
+      el.variant = 'info';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('variant', 'info');
+    });
+
+    it('should not be removable', () => {
       expect(el.removable).not.to.be.true;
       expect(el.renderRoot.querySelector('button')).not.to.exist;
     });
 
-    it('should have a tabindex of -1 when it is disabled', async () => {
-      el.setAttribute('disabled', '');
+    it('should be removable when set', async () => {
+      el.removable = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('tabindex', '-1');
+      expect(el.renderRoot.querySelector('button')).to.exist;
+    });
+
+    it('should not have a tabindex', () => {
+      expect(el).not.to.have.attribute('tabindex');
     });
 
     it('should not have a tooltip', async () => {
@@ -51,6 +68,17 @@ describe('sl-tag', () => {
 
     it('should have an ARIA description indicating how to remove the tag', () => {
       expect(el).to.have.attribute('aria-description', 'Press the delete or backspace key to remove this item');
+    });
+
+    it('should have a tabindex of 0', () => {
+      expect(el).to.have.attribute('tabindex', '0');
+    });
+
+    it('should have a tabindex of -1 when disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('tabindex', '-1');
     });
 
     it('should have a button', () => {
@@ -111,7 +139,7 @@ describe('sl-tag', () => {
 
   describe('overflow', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tag style="inline-size: 50px">My label is very long</sl-tag>`);
+      el = await fixture(html`<sl-tag removable style="inline-size: 50px">My label is very long</sl-tag>`);
 
       // Give the resize observer time to do its thing
       await new Promise(resolve => setTimeout(resolve, 50));

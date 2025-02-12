@@ -41,6 +41,7 @@
     { "path": "./packages/components/listbox" },
     { "path": "./packages/components/menu" },
     { "path": "./packages/components/message-dialog" },
+    { "path": "./packages/components/number-field" },
     { "path": "./packages/components/paginator" },
     { "path": "./packages/components/panel" },
     { "path": "./packages/components/popover" },

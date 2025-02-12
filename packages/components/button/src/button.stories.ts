@@ -18,6 +18,18 @@ Icon.register(faPlus, faUniversalAccess);
 export default {
   title: 'Actions/Button',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-button:not([disabled])'
+          }
+        ]
+      }
+    }
+  },
   args: {
     disabled: false,
     icon: 'none',

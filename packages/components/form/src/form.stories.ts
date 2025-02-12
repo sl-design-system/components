@@ -240,7 +240,8 @@ export const AllValid: Story = {
       textArea: 'Text area',
       checkbox: 'checked',
       checkboxGroup: ['1'],
-      combobox: 'Option 2',
+      comboboxSingle: 'Option 2',
+      comboboxMultiple: ['Option 1', 'Option 2'],
       radioGroup: '2',
       select: '2',
       switch: 'toggled'

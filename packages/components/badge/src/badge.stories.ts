@@ -14,6 +14,18 @@ const colors: BadgeColor[] = ['blue', 'green', 'grey', 'orange', 'purple', 'red'
 export default {
   title: 'Feedback & status/Badge',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-badge'
+          }
+        ]
+      }
+    }
+  },
   args: {
     emphasis: 'subtle',
     icon: false,
@@ -103,7 +115,9 @@ export const All: Story = {
         ${[undefined, 'bold'].map(emphasis =>
           colors.map(
             color => html`
-              <span>${color}</span>
+              <span style="font-weight: ${emphasis ? 'var(--sl-text-typeset-fontWeight-demibold)' : 'regular'}">
+                ${color}
+              </span>
               <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="sm"></sl-badge>
               <div class="wrapper">
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>8</sl-badge>

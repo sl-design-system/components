@@ -1,8 +1,7 @@
 import { msg } from '@lit/localize';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
-import styles from './search-field.scss.js';
+import { type TemplateResult, html, nothing } from 'lit';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -25,9 +24,6 @@ export type SlSearchEvent = CustomEvent<string>;
  * @slot input - The slot for the input element
  */
 export class SearchField extends TextField {
-  /** @internal */
-  static override styles: CSSResultGroup = [TextField.styles, styles];
-
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeyDown });
 

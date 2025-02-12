@@ -21,18 +21,18 @@ describe('sl-tag', () => {
       expect(el).to.have.attribute('role', 'list');
     });
 
-    it('should not have emphasis', () => {
-      expect(el).not.to.have.attribute('emphasis');
-      expect(el.size).to.be.undefined;
+    it('should not have an explicit variant', () => {
+      expect(el).not.to.have.attribute('variant');
+      expect(el.variant).to.be.undefined;
     });
 
-    it('should propagate the emphasis to the tags', async () => {
-      el.emphasis = 'bold';
+    it('should propagate the variant to the tags', async () => {
+      el.variant = 'info';
       await el.updateComplete;
 
-      const emphasis = Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.emphasis);
+      const variant = Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.variant);
 
-      expect(emphasis).to.deep.equal(['bold', 'bold', 'bold']);
+      expect(variant).to.deep.equal(['info', 'info', 'info']);
     });
 
     it('should not have size', () => {

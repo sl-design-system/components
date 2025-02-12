@@ -1,12 +1,13 @@
+import { faCalendar } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
 import '../register.js';
-import { TextField, type TextFieldSize } from './text-field.js';
+import { TextField } from './text-field.js';
 
 type Props = Pick<
   TextField,
@@ -29,7 +30,7 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const sizes: TextFieldSize[] = ['md', 'lg'];
+Icon.register(faCalendar);
 
 export default {
   title: 'Form/Text field',
@@ -47,7 +48,7 @@ export default {
     minLength: { type: 'number' },
     size: {
       control: 'inline-radio',
-      options: sizes
+      options: ['md', 'lg']
     },
     type: {
       control: 'inline-radio',
@@ -204,158 +205,122 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
-export const CustomComponent: Story = {
-  args: {
-    hint: 'This story uses a custom component that inherits from the text field component. It parses and formats the value as a date in the format "DD-MM-YYYY". The field is invalid if the year is before 2024.',
-    control: () => {
-      class CustomTextField extends TextField<Date> {
-        #value?: Date;
+// export const CustomComponent: Story = {
+//   args: {
+//     hint: 'This story uses a custom component that inherits from the text field component. It parses and formats the value as a date in the format "DD-MM-YYYY". The field is invalid if the year is before 2024.',
+//     control: () => {
+//       class CustomTextField extends TextField<Date> {
+//         #value?: Date;
 
-        override get value(): Date | undefined {
-          return this.#value;
+//           if (!match) {
+//             throw new Error('Invalid date format');
+//           } else {
+//             const [, day, month, year] = match,
+//               date = new Date(`${year}-${month}-${day}`);
+
+//             if (isNaN(date.getTime())) {
+//               throw new Error('Invalid date');
+//             }
+
+//             return date;
+//           }
+//         }
+
+//         /** Format the date as DD-MM-YYYY. */
+//         override formatValue(value?: Date): string {
+//           return value?.toLocaleDateString() ?? '';
+//         }
+//       }
+
+//       try {
+//         customElements.define('custom-text-field', CustomTextField);
+//       } catch {
+//         /* empty */
+//       }
+
+//       const onValidate = (event: Event & { target: CustomTextField }): void => {
+//         const year = event.target.value?.getFullYear();
+
+//         if (typeof year === 'number') {
+//           event.target.setCustomValidity(year < 2024 ? 'Enter a date after 2023' : '');
+//         } else {
+//           event.target.setCustomValidity('');
+//         }
+//       };
+
+//       return html`
+//         <custom-text-field
+//           @sl-validate=${onValidate}
+//           placeholder="Enter a DD-MM-YYYY value"
+//           required
+//         ></custom-text-field>
+//       `;
+//     }
+//   }
+// };
+
+export const All: Story = {
+  render: () => {
+    return html`
+      <style>
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto 1fr 1fr;
         }
+      </style>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center">md</span>
+        <span style="justify-self: center">lg</span>
 
-        @property()
-        override set value(value: Date | undefined) {
-          this.#value = value;
-        }
+        <span>Empty</span>
+        <sl-text-field placeholder="Placeholder"></sl-text-field>
+        <sl-text-field placeholder="Placeholder" size="lg"></sl-text-field>
 
-        /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
-        override parseValue(value: string): Date | undefined {
-          const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+        <span>Value</span>
+        <sl-text-field aria-label="Text field" value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" size="lg" value="Value"></sl-text-field>
 
-          if (!match) {
-            throw new Error('Invalid date format');
-          } else {
-            const [, day, month, year] = match,
-              date = new Date(`${year}-${month}-${day}`);
+        <span>Invalid</span>
+        <sl-text-field aria-label="Text field" show-validity="invalid" value="Invalid"></sl-text-field>
+        <sl-text-field aria-label="Text field" show-validity="invalid" size="lg" value="Invalid"></sl-text-field>
 
-            if (isNaN(date.getTime())) {
-              throw new Error('Invalid date');
-            }
+        <span>Valid</span>
+        <sl-text-field aria-label="Text field" show-validity="valid" value="Valid"></sl-text-field>
+        <sl-text-field aria-label="Text field" show-validity="valid" size="lg" value="Valid"></sl-text-field>
 
-            return date;
-          }
-        }
+        <span>Prefix/suffix</span>
+        <sl-text-field placeholder="Placeholder">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
+        <sl-text-field placeholder="Placeholder" size="lg">
+          <sl-icon slot="prefix" name="face-smile"></sl-icon>
+          <sl-icon slot="suffix" name="face-smile"></sl-icon>
+        </sl-text-field>
 
-        /** Format the date as DD-MM-YYYY. */
-        override formatValue(value?: Date): string {
-          return value?.toLocaleDateString() ?? '';
-        }
-      }
+        <span>Field button</span>
+        <sl-text-field placeholder="Placeholder">
+          <button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </button>
+        </sl-text-field>
+        <sl-text-field placeholder="Placeholder" size="lg">
+          <button aria-label="Show calendar" slot="suffix">
+            <sl-icon name="far-calendar"></sl-icon>
+          </button>
+        </sl-text-field>
 
-      try {
-        customElements.define('custom-text-field', CustomTextField);
-      } catch {
-        /* empty */
-      }
+        <span>Readonly</span>
+        <sl-text-field aria-label="Text field" readonly value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" readonly size="lg" value="Value"></sl-text-field>
 
-      const onValidate = (event: Event & { target: CustomTextField }): void => {
-        const year = event.target.value?.getFullYear();
-
-        if (typeof year === 'number') {
-          event.target.setCustomValidity(year < 2024 ? 'Enter a date after 2023' : '');
-        } else {
-          event.target.setCustomValidity('');
-        }
-      };
-
-      return html`
-        <custom-text-field
-          @sl-validate=${onValidate}
-          placeholder="Enter a DD-MM-YYYY value"
-          required
-        ></custom-text-field>
-      `;
-    }
+        <span>Disabled</span>
+        <sl-text-field aria-label="Text field" disabled value="Value"></sl-text-field>
+        <sl-text-field aria-label="Text field" disabled size="lg" value="Value"></sl-text-field>
+      </div>
+    `;
   }
-};
-
-export const All: StoryObj = {
-  argTypes: {
-    size: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: () => html`
-    <style>
-      .content-wrapper {
-        display: inline-grid;
-        gap: 1rem;
-      }
-      .wrapper {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: repeat(2, 1fr);
-        justify-items: center;
-      }
-      sl-text-field {
-        width: 300px;
-      }
-    </style>
-    ${sizes.map(
-      size => html`
-        <h2>Size: ${size}</h2>
-        <div class="content-wrapper">
-          <div class="wrapper">
-            <sl-text-field aria-label="label" size=${size} placeholder="Placeholder ${size}"></sl-text-field>
-            <sl-text-field aria-label="label" size=${size} value="I am ${size}"></sl-text-field>
-            <sl-text-field aria-label="label" readonly size=${size} value="${size} readonly"></sl-text-field>
-            <sl-text-field aria-label="label" disabled size=${size} value="${size} disabled"></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              disabled
-              size=${size}
-              placeholder="Placeholder ${size} disabled"
-            ></sl-text-field>
-          </div>
-          <div class="wrapper">
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              show-validity="invalid"
-              value="I am ${size} invalid"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              placeholder="Placeholder ${size} invalid"
-              show-validity="invalid"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              disabled
-              show-validity="invalid"
-              value="${size} invalid disabled"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              disabled
-              placeholder="Placeholder ${size} disabled invalid"
-              show-validity="invalid"
-            ></sl-text-field>
-          </div>
-          <div class="wrapper">
-            <sl-text-field
-              aria-label="label"
-              show-validity="valid"
-              .size=${size}
-              value="I am ${size} valid"
-            ></sl-text-field>
-            <sl-text-field
-              aria-label="label"
-              .size=${size}
-              disabled
-              show-validity="valid"
-              value="${size} valid disabled"
-            ></sl-text-field>
-          </div>
-        </div>
-      `
-    )}
-  `
 };

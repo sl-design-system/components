@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-flow: row wrap;
-  gap: var(--sl-space-100);
+  gap: var(--sl-size-100);
   justify-content: start;
 }
 
@@ -19,7 +19,7 @@
 }
 
 :host([icon-only]) {
-  gap: var(--sl-space-050);
+  gap: var(--sl-size-050);
 }
 
 :host([reverse]) {

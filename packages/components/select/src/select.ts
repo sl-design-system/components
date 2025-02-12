@@ -134,8 +134,11 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the select. */
-  @property({ reflect: true }) size: SelectSize = 'md';
+  /**
+   * The size of the select.
+   * @default md
+   */
+  @property({ reflect: true }) size?: SelectSize;
 
   /**
    * The number of pixels from the top of the viewport the select should be hidden on scroll.

@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type TagList } from './tag-list.js';
 
-type Props = Pick<TagList, 'emphasis' | 'size' | 'stacked'> & {
+type Props = Pick<TagList, 'size' | 'stacked' | 'variant'> & {
   count: number;
   disabled?: boolean;
   removable?: boolean;
@@ -21,37 +21,37 @@ export default {
     stacked: false
   },
   argTypes: {
-    emphasis: {
-      control: 'inline-radio',
-      options: ['subtle', 'bold']
-    },
     size: {
       control: 'inline-radio',
       options: ['md', 'lg']
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['neutral', 'info']
     }
   },
-  render: ({ count, disabled, emphasis, removable, size, stacked, tags }) => {
+  render: ({ count, disabled, removable, size, stacked, tags, variant }) => {
     tags ??= Array.from({ length: count }).map(
       (_, index) => html`<sl-tag ?disabled=${disabled} ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
     );
 
     return html`
-      <sl-tag-list emphasis=${ifDefined(emphasis)} size=${ifDefined(size)} ?stacked=${stacked}>${tags}</sl-tag-list>
+      <sl-tag-list size=${ifDefined(size)} ?stacked=${stacked} variant=${ifDefined(variant)}>${tags}</sl-tag-list>
     `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
-export const Bold: Story = {
-  args: {
-    emphasis: 'bold'
-  }
-};
-
 export const Disabled: Story = {
   args: {
     disabled: true
+  }
+};
+
+export const Info: Story = {
+  args: {
+    variant: 'info'
   }
 };
 

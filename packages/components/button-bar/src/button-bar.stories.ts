@@ -8,7 +8,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ButtonBar } from './button-bar.js';
 
-type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size'> & { buttons: TemplateResult };
+type Props = Pick<ButtonBar, 'align' | 'reverse' | 'size'> & { buttons(): TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -38,7 +38,7 @@ export default {
   },
   render: ({ align, buttons, reverse, size }) => html`
     <sl-button-bar .align=${align} ?reverse=${reverse} size=${ifDefined(size)}>
-      ${buttons ??
+      ${buttons?.() ??
       html`
         <sl-button>
           <sl-icon name="home-blank"></sl-icon>
@@ -61,7 +61,7 @@ export const Basic: Story = {};
 
 export const Groups: Story = {
   args: {
-    buttons: html`
+    buttons: () => html`
       <sl-toggle-group>
         <sl-toggle-button>Foo</sl-toggle-button>
         <sl-toggle-button>Bar</sl-toggle-button>
@@ -76,7 +76,7 @@ export const Groups: Story = {
 
 export const Wrapping: Story = {
   args: {
-    buttons: html`
+    buttons: () => html`
       <sl-button>Lorem </sl-button>
       <sl-button>dolor</sl-button>
       <sl-button>sit</sl-button>
@@ -97,14 +97,14 @@ export const Wrapping: Story = {
 
 export const IconOnly: Story = {
   args: {
-    buttons: html`
-      <sl-button fill="ghost">
+    buttons: () => html`
+      <sl-button aria-label="Home" fill="ghost">
         <sl-icon name="home-blank"></sl-icon>
       </sl-button>
-      <sl-button fill="ghost">
+      <sl-button aria-label="Pinata" fill="ghost">
         <sl-icon name="pinata"></sl-icon>
       </sl-button>
-      <sl-button fill="ghost">
+      <sl-button aria-label="Smile" fill="ghost">
         <sl-icon name="face-smile"></sl-icon>
       </sl-button>
     `
@@ -146,13 +146,13 @@ export const All: Story = {
 
         <span>icon only</span>
         <sl-button-bar>
-          <sl-button fill="ghost">
+          <sl-button aria-label="Home" fill="ghost">
             <sl-icon name="home-blank"></sl-icon>
           </sl-button>
-          <sl-button fill="ghost">
+          <sl-button aria-label="Pinata" fill="ghost">
             <sl-icon name="pinata"></sl-icon>
           </sl-button>
-          <sl-button fill="ghost">
+          <sl-button aria-label="Smile" fill="ghost">
             <sl-icon name="face-smile"></sl-icon>
           </sl-button>
         </sl-button-bar>

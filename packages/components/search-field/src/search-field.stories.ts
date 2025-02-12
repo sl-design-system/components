@@ -73,3 +73,39 @@ export const Complete: Story = {
     `;
   }
 };
+
+export const All: Story = {
+  render: () => {
+    return html`
+      <style>
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          gap: 1rem;
+          grid-template-columns: auto 1fr 1fr;
+        }
+      </style>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center">md</span>
+        <span style="justify-self: center">lg</span>
+
+        <span>Empty</span>
+        <sl-search-field placeholder="Placeholder"></sl-search-field>
+        <sl-search-field placeholder="Placeholder" size="lg"></sl-search-field>
+
+        <span>Value</span>
+        <sl-search-field aria-label="Search" value="Value"></sl-search-field>
+        <sl-search-field aria-label="Search" size="lg" value="Value"></sl-search-field>
+
+        <span>Readonly</span>
+        <sl-search-field aria-label="Search" readonly value="Value"></sl-search-field>
+        <sl-search-field aria-label="Search" readonly size="lg" value="Value"></sl-search-field>
+
+        <span>Disabled</span>
+        <sl-search-field aria-label="Search" disabled value="Value"></sl-search-field>
+        <sl-search-field aria-label="Search" disabled size="lg" value="Value"></sl-search-field>
+      </div>
+    `;
+  }
+};

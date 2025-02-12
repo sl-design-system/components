@@ -2467,6 +2467,11 @@
         "type": "Icons",
         "description": "icon.core.xmark"
       },
+      "circle-solid": {
+        "value": "circle",
+        "type": "Icons",
+        "description": "icon.core.circle"
+      },
       "circle-exclamation-solid": {
         "value": "circle-exclamation",
         "type": "Icons",

@@ -216,7 +216,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the combobox. */
+  /**
+   * The size of the combobox.
+   * @default 'md'
+   */
   @property({ reflect: true }) size?: ComboboxSize;
 
   /**
@@ -411,6 +414,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     `;
   }
 
+  /** @internal */
   override focus(options?: FocusOptions): void {
     this.input?.focus(options);
   }

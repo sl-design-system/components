@@ -104,6 +104,10 @@ export class Menu extends LitElement {
     if (changes.has('position')) {
       this.#anchor.position = this.position;
     }
+
+    if (changes.has('emphasis')) {
+      this.#propagateEmphasis();
+    }
   }
 
   override render(): TemplateResult {
@@ -196,12 +200,18 @@ export class Menu extends LitElement {
       );
     });
 
-    if (this.#menuItems) {
-      this.#menuItems.forEach(item => {
-        item.emphasis = this.emphasis;
-      });
-    }
+    this.#propagateEmphasis();
 
     this.#rovingTabindexController.clearElementCache();
+  }
+
+  #propagateEmphasis(): void {
+    if (this.#menuItems) {
+      this.#menuItems.forEach(item => {
+        if (!(item.variant === 'danger' && item.selectable)) {
+          item.emphasis = this.emphasis;
+        }
+      });
+    }
   }
 }

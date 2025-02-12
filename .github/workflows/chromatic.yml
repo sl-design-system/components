@@ -27,7 +27,7 @@ jobs:
         uses: chromaui/action@v1
         with:
           autoAcceptChanges: main
-          buildScriptName: chromatic-components
+          buildScriptName: chromatic-components --
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           onlyChanged: true
@@ -36,7 +36,7 @@ jobs:
         uses: chromaui/action@v1
         with:
           autoAcceptChanges: main
-          buildScriptName: themes
+          buildScriptName: themes --
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           onlyChanged: true

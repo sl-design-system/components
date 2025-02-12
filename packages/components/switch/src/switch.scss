@@ -1,7 +1,7 @@
 :host {
-  --_bg-color: var(--sl-color-background-neutral-bold);
-  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+  --_bg-color: var(--sl-color-background-neutral-subtle);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_handle-color: var(--sl-color-text-neutral-plain);
   --_handle-size: var(--sl-size-250);
   --_icon-size: var(--sl-size-150);
@@ -17,18 +17,27 @@
 }
 
 :host(:hover) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
 :host(:active) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host([checked]) {
   --_bg-color: var(--sl-color-background-positive-bold);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
   --_handle-color: var(--sl-color-text-positive-bold);
   --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
+}
+
+:host([checked]:hover) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+}
+
+:host([checked]:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
 :host([disabled]) {

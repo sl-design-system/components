@@ -24,6 +24,10 @@
   color: var(--sl-color-text-secondary-onBold);
 }
 
+:host(:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+}
+
 :host(:hover) {
   --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }

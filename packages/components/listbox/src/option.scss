@@ -1,5 +1,5 @@
 :host {
-  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-color: transparent;
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 
@@ -45,6 +45,29 @@
   color: var(--sl-color-text-disabled);
   cursor: default;
   pointer-events: none;
+}
+
+:host([selected]) {
+  --_bg-color: var(--sl-color-background-selected-subtle);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+
+  color: var(--sl-color-text-selected-bold);
+}
+
+:host([selected][emphasis='bold']) {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+
+  color: var(--sl-color-text-selected-onBold);
+}
+
+:host([selected][emphasis='bold']:where(:hover, [current])) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+}
+
+:host([selected][emphasis='bold']:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
 [part='container'] {

@@ -87,6 +87,28 @@ describe('sl-column', () => {
     });
   });
 
+  describe('empty string value', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="foo"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [{ foo: 'Bar' }, { foo: '' }];
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+    });
+
+    it('should render nothing', () => {
+      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+
+      expect(data).to.deep.equal(['Bar', '']);
+    });
+  });
+
   describe('custom renderer', () => {
     beforeEach(async () => {
       const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {

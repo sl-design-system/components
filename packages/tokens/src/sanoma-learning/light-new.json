@@ -443,7 +443,7 @@
       },
       "neutral": {
         "plain": {
-          "value": "{color.foreground.accent.grey.muted}",
+          "value": "{color.foreground.accent.grey.subtlest}",
           "type": "color",
           "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
         },

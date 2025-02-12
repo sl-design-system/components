@@ -24,19 +24,19 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Publish to Chromatic - Components
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         with:
           autoAcceptChanges: main
-          buildScriptName: chromatic-components --
+          buildCommand: yarn run chromatic-components --
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           onlyChanged: true
           workingDir: .
       - name: Publish to Chromatic - Themes
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         with:
           autoAcceptChanges: main
-          buildScriptName: themes --
+          buildScriptName: themes
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           onlyChanged: true

@@ -125,7 +125,7 @@
 }
 
 :host([variant='inverted']:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-foreground-onBold);
+  color: var(--sl-color-foreground-inverted-onBold);
 }
 
 :host([variant='inverted']:where([fill='ghost'], [fill='outline'])) {

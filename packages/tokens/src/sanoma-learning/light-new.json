@@ -390,8 +390,8 @@
         "type": "color",
         "description": "Use for subheadings."
       },
-      "muted": {
-        "value": "{color.foreground.accent.grey.muted}",
+      "subtlest": {
+        "value": "{color.foreground.accent.grey.subtlest}",
         "type": "color",
         "description": "Use for placeholders and hints."
       },
@@ -443,7 +443,7 @@
       },
       "neutral": {
         "plain": {
-          "value": "{color.foreground.accent.grey.muted}",
+          "value": "{color.foreground.accent.grey.subtlest}",
           "type": "color",
           "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
         },
@@ -584,7 +584,7 @@
             "type": "color",
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
-          "muted": {
+          "subtlest": {
             "value": "rgba({color.palette.grey.900}, 62%)",
             "type": "color",
             "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
@@ -720,7 +720,7 @@
       },
       "muted": {
         "idle": {
-          "value": "{color.foreground.accent.grey.muted}",
+          "value": "{color.foreground.accent.grey.subtlest}",
           "type": "color",
           "description": "Use for muted links in idle state."
         },

@@ -33,6 +33,7 @@ jobs:
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           onlyChanged: true
+          outputDir: storybook-components
           workingDir: .
       - name: Publish to Chromatic - Themes
         uses: chromaui/action@latest

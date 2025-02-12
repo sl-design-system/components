@@ -35,15 +35,14 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           storybookBaseDir: .
           storybookBuildDir: storybook-static
-      # - name: Build Themes Storybook
-      #   run: yarn run chromatic-themes
-      # - name: Publish to Chromatic - Themes
-      #   uses: chromaui/action@latest
-      #   with:
-      #     autoAcceptChanges: main
-      #     exitOnceUploaded: true
-      #     projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
-      #     onlyChanged: true
-      #     storybookBaseDir: chromatic
-      #     storybookBuildDir: chromatic/storybook-static
-      #     workingDir: chromatic
+      - name: Build Themes Storybook
+        run: yarn run chromatic-themes
+      - name: Publish to Chromatic - Themes
+        uses: chromaui/action@latest
+        with:
+          autoAcceptChanges: main
+          exitOnceUploaded: true
+          onlyChanged: true
+          projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
+          storybookBaseDir: chromatic
+          storybookBuildDir: chromatic/storybook-static

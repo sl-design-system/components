@@ -73,7 +73,7 @@ slot[name='textarea']::slotted(textarea) {
   }
 
   &::placeholder {
-    color: var(--sl-color-foreground-muted);
+    color: var(--sl-color-foreground-subtlest);
     opacity: 1;
   }
 }

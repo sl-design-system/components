@@ -23,26 +23,45 @@ jobs:
           fetch-depth: 0
       - name: Install dependencies
         run: yarn install --immutable
-      - name: Build Components Storybook
-        run: yarn run chromatic-components
       - name: Publish to Chromatic - Components
-        uses: chromaui/action@latest
+        uses: chromaui/action@v1
         with:
           autoAcceptChanges: main
+          buildScriptName: chromatic-components
           exitOnceUploaded: true
-          onlyChanged: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          storybookBaseDir: .
-          storybookBuildDir: storybook-static
-      - name: Build Themes Storybook
-        run: yarn run chromatic-themes
+          onlyChanged: true
+          workingDir: .
       - name: Publish to Chromatic - Themes
-        uses: chromaui/action@latest
+        uses: chromaui/action@v1
         with:
           autoAcceptChanges: main
+          buildScriptName: themes
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           onlyChanged: true
-          storybookBaseDir: chromatic
-          storybookBuildDir: chromatic/storybook-static
           workingDir: chromatic
+
+      # - name: Build Components Storybook
+      #   run: yarn run chromatic-components
+      # - name: Publish to Chromatic - Components
+      #   uses: chromaui/action@latest
+      #   with:
+      #     autoAcceptChanges: main
+      #     exitOnceUploaded: true
+      #     onlyChanged: true
+      #     projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+      #     storybookBaseDir: .
+      #     storybookBuildDir: storybook-static
+      # - name: Build Themes Storybook
+      #   run: yarn run chromatic-themes
+      # - name: Publish to Chromatic - Themes
+      #   uses: chromaui/action@latest
+      #   with:
+      #     autoAcceptChanges: main
+      #     exitOnceUploaded: true
+      #     projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
+      #     onlyChanged: true
+      #     storybookBaseDir: chromatic
+      #     storybookBuildDir: chromatic/storybook-static
+      #     workingDir: chromatic

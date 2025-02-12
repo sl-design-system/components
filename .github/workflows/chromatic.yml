@@ -30,10 +30,10 @@ jobs:
         with:
           autoAcceptChanges: main
           exitOnceUploaded: true
+          onlyChanged: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          # onlyChanged: true
+          storybookBaseDir: .
           storybookBuildDir: storybook-static
-          workingDir: .
       - name: Build Themes Storybook
         run: yarn run chromatic-themes
       - name: Publish to Chromatic - Themes
@@ -42,6 +42,7 @@ jobs:
           autoAcceptChanges: main
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
-          # onlyChanged: true
+          onlyChanged: true
+          storybookBaseDir: chromatic
           storybookBuildDir: chromatic/storybook-static
           workingDir: chromatic

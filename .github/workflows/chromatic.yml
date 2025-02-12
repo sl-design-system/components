@@ -23,14 +23,17 @@ jobs:
           fetch-depth: 0
       - name: Install dependencies
         run: yarn install --immutable
+      - name: Build
+        run: yarn build
       - name: Publish to Chromatic - Components
         uses: chromaui/action@latest
         with:
           autoAcceptChanges: main
-          buildCommand: yarn run chromatic-components --
+          buildCommand: yarn exec storybook build --stats-json --
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           onlyChanged: true
+          outputDir: storybook-components
           workingDir: .
       - name: Publish to Chromatic - Themes
         uses: chromaui/action@latest

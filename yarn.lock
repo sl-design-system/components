@@ -5207,7 +5207,7 @@ __metadata:
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.9"
     chai: "npm:^5.1.2"
     chai-as-promised: "npm:^8.0.1"
-    chromatic: "npm:11.20.2"
+    chromatic: "npm:^11.25.2"
     eslint: "npm:^9.17.0"
     husky: "npm:^9.1.7"
     lint-staged: "npm:^15.4.3"
@@ -9156,9 +9156,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:11.20.2":
-  version: 11.20.2
-  resolution: "chromatic@npm:11.20.2"
+"chromatic@npm:^11.25.2":
+  version: 11.25.2
+  resolution: "chromatic@npm:11.25.2"
   peerDependencies:
     "@chromatic-com/cypress": ^0.*.* || ^1.0.0
     "@chromatic-com/playwright": ^0.*.* || ^1.0.0
@@ -9171,7 +9171,7 @@ __metadata:
     chroma: dist/bin.js
     chromatic: dist/bin.js
     chromatic-cli: dist/bin.js
-  checksum: 10c0/9f60e966fc7dc22df920649e3860493dbf7c86ea34d96e9818e4450c7572e47b8554a3ecec273881184303ee9098ca15b4c85d519b37138ee0399387b1356b7d
+  checksum: 10c0/2cb4bb40a062005292a4cd606321f6c9bdaa31e255e66bae12c780bca9b72e883c017ebe48c5a9228db88a010f5977571ef7dfdcdd4195ad0e7b955f9966d7df
   languageName: node
   linkType: hard
 

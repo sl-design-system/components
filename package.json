@@ -467,7 +467,7 @@
     "storybook": "^8.5.4",
     "stylelint": "^16.12.0",
     "typescript": "^5.4.5",
-    "vite": "^6.1.0",
+    "vite": "6.0.11",
     "wireit": "^0.14.11"
   }
 }

@@ -113,7 +113,7 @@ export const All: Story = {
           position: relative;
 
           > span:nth-of-type(8) {
-            color: var(--sl-color-text-inverted-bold);
+            color: var(--sl-color-foreground-inverted-bold);
           }
         }
         .inverted-background {

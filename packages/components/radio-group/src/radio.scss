@@ -3,10 +3,10 @@
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
-  --_fill: var(--sl-color-text-selected-onBold);
+  --_fill: var(--sl-color-foreground-selected-onBold);
 
   align-items: start;
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: inline-flex;
   gap: var(--sl-size-100);
@@ -42,7 +42,7 @@
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
   --_border: var(--sl-color-border-negative-plain);
-  --_fill: var(--sl-color-text-negative-onBold);
+  --_fill: var(--sl-color-foreground-negative-onBold);
 }
 
 :host([checked][show-validity='invalid']) {
@@ -59,7 +59,7 @@
 :host([checked][show-validity='valid']) {
   --_bg-color: var(--sl-color-background-positive-bold);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
-  --_fill: var(--sl-color-text-positive-onBold);
+  --_fill: var(--sl-color-foreground-positive-onBold);
 }
 
 :host(:focus-visible) [part='box'] {
@@ -69,7 +69,7 @@
 :host([disabled]) {
   --_border: var(--sl-color-border-input);
 
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   cursor: default;
   pointer-events: none;
 

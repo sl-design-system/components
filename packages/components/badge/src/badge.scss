@@ -4,7 +4,7 @@
   block-size: 1lh;
   border-radius: var(--sl-size-borderRadius-full);
   box-sizing: border-box;
-  color: var(--sl-color-text-accent-grey-bold);
+  color: var(--sl-color-foreground-accent-grey-bold);
   display: inline-flex;
   font-size: 0.857em;
   gap: var(--sl-size-025);
@@ -19,79 +19,79 @@
 :host([variant='info']),
 :host([variant='primary']) {
   background: var(--sl-color-background-accent-blue-subtle);
-  color: var(--sl-color-text-accent-blue-bold);
+  color: var(--sl-color-foreground-accent-blue-bold);
 }
 
 :host([color='blue'][emphasis='bold']),
 :host([variant='primary'][emphasis='bold']) {
   background: var(--sl-color-background-accent-blue-bold);
-  color: var(--sl-color-text-accent-blue-onBold);
+  color: var(--sl-color-foreground-accent-blue-onBold);
 }
 
 :host([color='green']),
 :host([variant='success']) {
   background: var(--sl-color-background-accent-green-subtle);
-  color: var(--sl-color-text-accent-green-bold);
+  color: var(--sl-color-foreground-accent-green-bold);
 }
 
 :host([color='green'][emphasis='bold']),
 :host([variant='success'][emphasis='bold']) {
   background: var(--sl-color-background-accent-green-bold);
-  color: var(--sl-color-text-accent-green-onBold);
+  color: var(--sl-color-foreground-accent-green-onBold);
 }
 
 :host([color='orange']) {
   background: var(--sl-color-background-accent-orange-subtle);
-  color: var(--sl-color-text-accent-orange-bold);
+  color: var(--sl-color-foreground-accent-orange-bold);
 }
 
 :host([color='orange'][emphasis='bold']) {
   background: var(--sl-color-background-accent-orange-bold);
-  color: var(--sl-color-text-accent-orange-onBold);
+  color: var(--sl-color-foreground-accent-orange-onBold);
 }
 
 :host([color='purple']) {
   background: var(--sl-color-background-accent-purple-subtle);
-  color: var(--sl-color-text-accent-purple-bold);
+  color: var(--sl-color-foreground-accent-purple-bold);
 }
 
 :host([color='purple'][emphasis='bold']) {
   background: var(--sl-color-background-accent-purple-bold);
-  color: var(--sl-color-text-accent-purple-onBold);
+  color: var(--sl-color-foreground-accent-purple-onBold);
 }
 
 :host([color='red']),
 :host([variant='danger']) {
   background: var(--sl-color-background-accent-red-subtle);
-  color: var(--sl-color-text-accent-red-bold);
+  color: var(--sl-color-foreground-accent-red-bold);
 }
 
 :host([color='red'][emphasis='bold']),
 :host([variant='danger'][emphasis='bold']) {
   background: var(--sl-color-background-accent-red-bold);
-  color: var(--sl-color-text-accent-red-onBold);
+  color: var(--sl-color-foreground-accent-red-onBold);
 }
 
 :host([color='teal']) {
   background: var(--sl-color-background-accent-teal-subtle);
-  color: var(--sl-color-text-accent-teal-bold);
+  color: var(--sl-color-foreground-accent-teal-bold);
 }
 
 :host([color='teal'][emphasis='bold']) {
   background: var(--sl-color-background-accent-teal-bold);
-  color: var(--sl-color-text-accent-teal-onBold);
+  color: var(--sl-color-foreground-accent-teal-onBold);
 }
 
 :host([color='yellow']),
 :host([variant='warning']) {
   background: var(--sl-color-background-accent-yellow-subtle);
-  color: var(--sl-color-text-accent-yellow-bold);
+  color: var(--sl-color-foreground-accent-yellow-bold);
 }
 
 :host([color='yellow'][emphasis='bold']),
 :host([variant='warning'][emphasis='bold']) {
   background: var(--sl-color-background-accent-yellow-bold);
-  color: var(--sl-color-text-accent-yellow-onBold);
+  color: var(--sl-color-foreground-accent-yellow-onBold);
 }
 
 :host([size='sm']) {
@@ -116,7 +116,7 @@
 
 :host([emphasis='bold']) {
   background: var(--sl-color-background-accent-grey-bold);
-  color: var(--sl-color-text-accent-grey-onBold);
+  color: var(--sl-color-foreground-accent-grey-onBold);
 }
 
 ::slotted(sl-icon) {

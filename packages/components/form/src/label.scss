@@ -1,12 +1,12 @@
 :host {
   align-items: center;
-  color: var(--sl-color-text-bold);
+  color: var(--sl-color-foreground-bold);
   display: inline-flex;
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
 }
 
 :host([disabled]) {
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
 }
 
 .optional,

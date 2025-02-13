@@ -797,7 +797,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.accent.blue.plain}",
+        "value": "{color.border.accent.teal.plain}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },

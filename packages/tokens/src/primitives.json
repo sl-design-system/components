@@ -28,6 +28,10 @@
       "value": "24px",
       "type": "sizing"
     },
+    "350": {
+      "value": "28px",
+      "type": "sizing"
+    },
     "400": {
       "value": "32px",
       "type": "sizing"

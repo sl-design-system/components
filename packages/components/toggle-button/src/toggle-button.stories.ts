@@ -9,7 +9,7 @@ import '../register.js';
 import { type ToggleButton, ToggleButtonEmphasis, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
 type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'size'> & {
-  icons?: TemplateResult;
+  icons(): TemplateResult;
   label: string;
 };
 type Story = StoryObj<Props>;
@@ -46,7 +46,7 @@ export default {
         fill=${ifDefined(fill)}
         size=${ifDefined(size)}
       >
-        ${icons}
+        ${icons?.()}
       </sl-toggle-button>
     `;
   }
@@ -54,7 +54,7 @@ export default {
 
 export const Basic: Story = {
   args: {
-    icons: html`
+    icons: () => html`
       <sl-icon name="far-gear" slot="default"></sl-icon>
       <sl-icon name="fas-gear" slot="pressed"></sl-icon>
     `

@@ -1,14 +1,37 @@
 :host {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+
   align-items: center;
-  background: var(--sl-elevation-surface-raised-default-idle);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: flex;
   gap: var(--sl-size-075);
   inline-size: 100%;
-  scroll-margin-block: var(--sl-space-100);
-  transition: background 0.2s ease-in-out;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  scroll-margin-block: var(--sl-size-100);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background 200ms ease-in-out;
+  }
+}
+
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+
+  @media (hover: hover) {
+    sl-button-bar {
+      display: flex;
+    }
+  }
+}
+
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
 }
 
 :host([aria-expanded='true']) sl-icon {
@@ -20,32 +43,28 @@
 }
 
 :host([selected]) {
-  background: var(--sl-color-background-selected-subtle-idle);
-  color: var(--sl-color-text-selected);
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+
+  color: var(--sl-color-foreground-selected-onBold);
+}
+
+:host([selected]:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
+}
+
+:host([selected]:active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
 }
 
 :host(:focus-visible) {
-  outline: var(--sl-size-borderWidth-bold) solid var(--sl-color-border-focused);
-  outline-offset: calc(var(--_focus-outline-offset) * -1);
+  outline-color: var(--sl-color-border-focused);
   z-index: 1;
 
   sl-button-bar {
     display: flex;
   }
-}
-
-:host(:hover) {
-  background: var(--sl-elevation-surface-raised-default-hover);
-
-  @media (hover: hover) {
-    sl-button-bar {
-      display: flex;
-    }
-  }
-}
-
-:host(:active) {
-  background: var(--sl-elevation-surface-raised-default-active);
 }
 
 :host([disabled]) {
@@ -89,13 +108,14 @@ sl-indent-guides {
 
 sl-icon {
   rotate: 0deg;
-  transition: rotate 100ms ease-in-out;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: rotate 100ms ease-in-out;
+  }
 }
 
 sl-checkbox {
   align-items: center;
-  font: inherit; // FIXME: Remove when checkbox styling has been refactored
-  line-height: inherit; // FIXME: Same as above
 
   &::part(label) {
     align-items: center;

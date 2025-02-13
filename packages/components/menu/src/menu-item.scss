@@ -1,6 +1,6 @@
 :host {
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   display: block;
   flex-grow: 1;
 }
@@ -17,7 +17,7 @@
 }
 
 :host([variant='danger']) {
-  color: var(--sl-color-text-negative-bold);
+  color: var(--sl-color-foreground-negative-bold);
 
   [part='wrapper'] {
     background: var(--sl-color-background-negative-muted-idle);
@@ -33,7 +33,7 @@
 }
 
 :host([disabled]) {
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
   .wrapper {

@@ -1,5 +1,35 @@
 # @sanomalearning/sanoma-utbildning
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
+
+  The following icons have changed:
+
+  - `circle` has been renamed to `circle-solid`
+
+  The following icons have been added:
+
+  - `badge-available`
+  - `badge-away`
+  - `badge-donotdisturb`
+  - `badge-offline`
+  - `error`
+  - `info`
+
+  The following items have been removed (mainly in cleaning up, they were never meant to be there)
+
+  - `svg-sort`
+  - `svg-sort-down`
+  - `svg-sort-up`
+
+### Patch Changes
+
+- Updated dependencies [[`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee)]:
+  - @sl-design-system/icon@1.1.0
+
 ## 0.0.11
 
 ### Patch Changes

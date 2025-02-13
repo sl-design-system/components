@@ -7,7 +7,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
-export type Props = Pick<Accordion, 'single'> & { items: TemplateResult };
+export type Props = Pick<Accordion, 'single'> & { items(): TemplateResult };
 export type Story = StoryObj<Props>;
 
 export default {
@@ -23,12 +23,12 @@ export default {
       }
     }
   },
-  render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items}</sl-accordion>`
+  render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items()}</sl-accordion>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
   args: {
-    items: html`
+    items: () => html`
       <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
         Embark on a thrilling journey back in time to the age of dinosaurs! Unearth fossils, learn about different
         species, and imagine what life was like when these colossal creatures roamed the Earth. From the mighty
@@ -112,7 +112,7 @@ export const Basic: Story = {
 
 export const Overflow: Story = {
   args: {
-    items: html`
+    items: () => html`
       <sl-accordion-item
         summary="Velit Lorem nostrud anim officia adipisicing dolore incididunt esse."
       ></sl-accordion-item>
@@ -135,7 +135,7 @@ export const Single: Story = {
 
 export const Sticky: Story = {
   args: {
-    items: html`
+    items: () => html`
       <style>
         ::part(summary) {
           position: sticky;
@@ -306,7 +306,7 @@ export const ToggleExternally: Story = {
 
 export const CustomSummary: Story = {
   args: {
-    items: html`
+    items: () => html`
       <style>
         div[slot] {
           align-items: center;

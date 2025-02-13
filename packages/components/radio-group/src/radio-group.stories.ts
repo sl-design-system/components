@@ -9,7 +9,7 @@ import { type RadioGroup } from './radio-group.js';
 type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'showValid' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
-  options?: TemplateResult;
+  options?(): TemplateResult;
   reportValidity?: boolean;
   slot?(): TemplateResult;
 };
@@ -66,7 +66,7 @@ export default {
               .size=${size}
               .value=${value}
             >
-              ${options ??
+              ${options?.() ??
               html`
                 <sl-radio value="1">One</sl-radio>
                 <sl-radio value="2">Two</sl-radio>
@@ -103,7 +103,7 @@ export const Horizontal: Story = {
 
 export const Overflow: Story = {
   args: {
-    options: html`
+    options: () => html`
       <sl-radio value="1">Lorem ipsum</sl-radio>
       <sl-radio value="2">
         Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea

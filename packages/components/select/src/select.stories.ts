@@ -11,7 +11,7 @@ import { type Select, type SelectSize } from './select.js';
 type Props = Pick<Select, 'disabled' | 'placeholder' | 'required' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
-  options?: TemplateResult;
+  options?(): TemplateResult;
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -55,7 +55,7 @@ export default {
               .size=${size}
               .value=${value}
             >
-              ${options ??
+              ${options?.() ??
               html`
                 <sl-select-option value="1">Option 1</sl-select-option>
                 <sl-select-option value="2">Option 2</sl-select-option>
@@ -76,7 +76,7 @@ export const Basic: Story = {};
 
 export const Clear: Story = {
   args: {
-    options: html`
+    options: () => html`
       <sl-select-option>&nbsp;</sl-select-option>
       <sl-select-option value="1">Option 1</sl-select-option>
       <sl-select-option value="2">Option 2</sl-select-option>
@@ -140,7 +140,7 @@ export const Empty: Story = {
 
 export const Groups: Story = {
   args: {
-    options: html`
+    options: () => html`
       <sl-select-option-group heading="Happy">
         <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
         <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
@@ -170,7 +170,7 @@ export const Groups: Story = {
 export const OptionOverflow: Story = {
   args: {
     hint: 'This field has a lot of options, try scrolling through them.',
-    options: html`
+    options: () => html`
       ${Array.from(
         { length: 100 },
         (_, i) => html`<sl-select-option value=${i + 1}>Option ${i + 1}</sl-select-option>`
@@ -196,7 +196,7 @@ export const TextOverflow: Story = {
   args: {
     placeholder:
       'Cupidatat adipisicing adipisicing dolore in ea ea magna culpa Lorem aute veniam in. Laboris ea pariatur velit adipisicing pariatur aliqua Lorem est aliqua Lorem minim excepteur.',
-    options: html`
+    options: () => html`
       <sl-select-option value="1">
         Voluptate sint ullamco proident cillum sint nostrud laborum labore et ad minim veniam eiusmod.
       </sl-select-option>

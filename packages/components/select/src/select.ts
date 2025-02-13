@@ -1,6 +1,7 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
+import { Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
   EventsController,
@@ -14,8 +15,6 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { SelectButton } from './select-button.js';
-import { SelectOptionGroup } from './select-option-group.js';
-import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
 declare global {
@@ -99,10 +98,10 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** @internal */
-  @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
+  @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: OptionGroup[];
 
   /** @internal A flattened array of all options (even grouped ones). */
-  get options(): Array<SelectOption<T>> {
+  get options(): Array<Option<T>> {
     const elements =
       this.renderRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({ flatten: true }) ?? [];
 
@@ -114,7 +113,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
    * selected option if the user presses Enter/Space.
    * @internal
    */
-  @state() currentOption?: SelectOption<T>;
+  @state() currentOption?: Option<T>;
 
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -129,7 +128,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
   /** @internal The selected option in the listbox. */
-  @state() selectedOption?: SelectOption<T>;
+  @state() selectedOption?: Option<T>;
 
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
@@ -232,8 +231,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
     if (changes.has('size')) {
       this.button.size = this.size;
-      this.options?.forEach(option => (option.size = this.size));
-      this.optionGroups?.forEach(group => (group.size = this.size));
     }
 
     if (changes.has('value')) {
@@ -372,7 +369,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #onListboxClick(event: Event & { target: HTMLElement }): void {
-    const option = event.target?.closest<SelectOption<T>>('sl-select-option');
+    const option = event.target?.closest<Option<T>>('sl-select-option');
 
     if (option) {
       this.#setSelectedOption(option);
@@ -387,15 +384,12 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     );
 
     this.optionGroups?.forEach(group => {
-      group.size = this.size;
       group.classList.remove('bottom-divider');
 
-      if (group.nextElementSibling?.nodeName === 'SL-SELECT-OPTION') {
+      if (group.nextElementSibling?.nodeName === 'SL-OPTION') {
         group.classList.add('bottom-divider');
       }
     });
-
-    this.options?.forEach(option => (option.size = this.size));
   }
 
   #onToggle(event: ToggleEvent): void {
@@ -405,17 +399,17 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   /** Returns a flattened array of all options (also the options in groups). */
-  #getAllOptions(root: Element): Array<SelectOption<T>> {
-    if (root instanceof SelectOption) {
-      return [root] as Array<SelectOption<T>>;
-    } else if (root instanceof SelectOptionGroup) {
+  #getAllOptions(root: Element): Array<Option<T>> {
+    if (root instanceof Option) {
+      return [root] as Array<Option<T>>;
+    } else if (root instanceof OptionGroup) {
       return Array.from(root.children).flatMap(child => this.#getAllOptions(child));
     } else {
       return [];
     }
   }
 
-  #setSelectedOption(option?: SelectOption<T>, emitEvent = true): void {
+  #setSelectedOption(option?: Option<T>, emitEvent = true): void {
     if (this.selectedOption) {
       this.selectedOption.selected = false;
     }

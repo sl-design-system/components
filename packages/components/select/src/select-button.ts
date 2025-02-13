@@ -1,10 +1,10 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
+import { Option } from '@sl-design-system/listbox';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
-import { type SelectOption } from './select-option.js';
 import { type SelectSize } from './select.js';
 
 declare global {
@@ -31,7 +31,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   @property() placeholder?: string;
 
   /** The selected option. */
-  @property({ attribute: false }) selected?: SelectOption | null;
+  @property({ attribute: false }) selected?: Option | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize;

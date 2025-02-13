@@ -5389,6 +5389,7 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/form": "npm:^1.1.0"
     "@sl-design-system/icon": "npm:^1.0.2"
+    "@sl-design-system/listbox": "npm:^0.0.2"
     "@sl-design-system/shared": "npm:^0.4.0"
   peerDependencies:
     "@lit/localize": ^0.12.1

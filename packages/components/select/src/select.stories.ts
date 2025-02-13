@@ -3,6 +3,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -57,9 +58,9 @@ export default {
             >
               ${options?.() ??
               html`
-                <sl-select-option value="1">Option 1</sl-select-option>
-                <sl-select-option value="2">Option 2</sl-select-option>
-                <sl-select-option value="3">Option 3</sl-select-option>
+                <sl-option value="1">Option 1</sl-option>
+                <sl-option value="2">Option 2</sl-option>
+                <sl-option value="3">Option 3</sl-option>
               `}
             </sl-select>
           `}
@@ -77,10 +78,10 @@ export const Basic: Story = {};
 export const Clear: Story = {
   args: {
     options: () => html`
-      <sl-select-option>&nbsp;</sl-select-option>
-      <sl-select-option value="1">Option 1</sl-select-option>
-      <sl-select-option value="2">Option 2</sl-select-option>
-      <sl-select-option value="3">Option 3</sl-select-option>
+      <sl-option>&nbsp;</sl-option>
+      <sl-option value="1">Option 1</sl-option>
+      <sl-option value="2">Option 2</sl-option>
+      <sl-option value="3">Option 3</sl-option>
     `
   }
 };
@@ -97,36 +98,36 @@ export const EmbeddedComponents: Story = {
     slot: () => html`
       <style>
         sl-select-button::part(selected),
-        sl-select-option {
+        sl-option {
           align-items: center;
           display: flex;
         }
         sl-select-button::part(selected) {
           padding-block: 3px;
         }
-        sl-select-option {
+        sl-option {
           padding-block: 4px;
         }
       </style>
       <sl-select value="2">
-        <sl-select-option value="1">
+        <sl-option value="1">
           <sl-avatar size="sm" display-name="Ashley Howard"></sl-avatar>
-        </sl-select-option>
-        <sl-select-option value="2">
+        </sl-option>
+        <sl-option value="2">
           <sl-avatar size="sm" display-name="Aria Bailey"></sl-avatar>
-        </sl-select-option>
-        <sl-select-option value="3">
+        </sl-option>
+        <sl-option value="3">
           <sl-avatar size="sm" display-name="Cooper Philips"></sl-avatar>
-        </sl-select-option>
-        <sl-select-option value="4">
+        </sl-option>
+        <sl-option value="4">
           <sl-avatar size="sm" display-name="Abigail Lewis"></sl-avatar>
-        </sl-select-option>
-        <sl-select-option disabled value="5">
+        </sl-option>
+        <sl-option disabled value="5">
           <sl-avatar size="sm" display-name="Ryder Turner"></sl-avatar>
-        </sl-select-option>
-        <sl-select-option value="6">
+        </sl-option>
+        <sl-option value="6">
           <sl-avatar size="sm" display-name="Zoe Robinson"></sl-avatar>
-        </sl-select-option>
+        </sl-option>
       </sl-select>
     `
   }
@@ -141,28 +142,28 @@ export const Empty: Story = {
 export const Groups: Story = {
   args: {
     options: () => html`
-      <sl-select-option-group heading="Happy">
-        <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
-        <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
-        <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>
-        <sl-select-option>🤩 Star-Struck</sl-select-option>
-        <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>
-        <sl-select-option>🥳 Partying Face</sl-select-option>
-      </sl-select-option-group>
-      <sl-select-option>😶 Unfazed</sl-select-option>
-      <sl-select-option-group heading="Sad">
-        <sl-select-option>😒 Unamused Face</sl-select-option>
-        <sl-select-option>🤧 Sneezing Face</sl-select-option>
-        <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>
-        <sl-select-option>😡 Enraged Face</sl-select-option>
-      </sl-select-option-group>
-      <sl-select-option-group>
-        <sl-select-option>🐷 Pig</sl-select-option>
-        <sl-select-option selected>🐨 Koala</sl-select-option>
-        <sl-select-option>🐼 Panda</sl-select-option>
-        <sl-select-option>🦊 Fox</sl-select-option>
-      </sl-select-option-group>
-      <sl-select-option>🤖 Robot</sl-select-option>
+      <sl-option-group heading="Happy">
+        <sl-option>😄 Grinning Face with Smiling Eyes</sl-option>
+        <sl-option>😂 Face with Tears of Joy</sl-option>
+        <sl-option>😊 Smiling Face with Smiling Eyes</sl-option>
+        <sl-option>🤩 Star-Struck</sl-option>
+        <sl-option disabled>🙂 Slightly Smiling Face</sl-option>
+        <sl-option>🥳 Partying Face</sl-option>
+      </sl-option-group>
+      <sl-option>😶 Unfazed</sl-option>
+      <sl-option-group heading="Sad">
+        <sl-option>😒 Unamused Face</sl-option>
+        <sl-option>🤧 Sneezing Face</sl-option>
+        <sl-option>😓 Downcast Face with Sweat</sl-option>
+        <sl-option>😡 Enraged Face</sl-option>
+      </sl-option-group>
+      <sl-option-group>
+        <sl-option>🐷 Pig</sl-option>
+        <sl-option selected>🐨 Koala</sl-option>
+        <sl-option>🐼 Panda</sl-option>
+        <sl-option>🦊 Fox</sl-option>
+      </sl-option-group>
+      <sl-option>🤖 Robot</sl-option>
     `
   }
 };
@@ -171,10 +172,7 @@ export const OptionOverflow: Story = {
   args: {
     hint: 'This field has a lot of options, try scrolling through them.',
     options: () => html`
-      ${Array.from(
-        { length: 100 },
-        (_, i) => html`<sl-select-option value=${i + 1}>Option ${i + 1}</sl-select-option>`
-      )}
+      ${Array.from({ length: 100 }, (_, i) => html`<sl-option value=${i + 1}>Option ${i + 1}</sl-option>`)}
     `
   }
 };
@@ -197,14 +195,14 @@ export const TextOverflow: Story = {
     placeholder:
       'Cupidatat adipisicing adipisicing dolore in ea ea magna culpa Lorem aute veniam in. Laboris ea pariatur velit adipisicing pariatur aliqua Lorem est aliqua Lorem minim excepteur.',
     options: () => html`
-      <sl-select-option value="1">
+      <sl-option value="1">
         Voluptate sint ullamco proident cillum sint nostrud laborum labore et ad minim veniam eiusmod.
-      </sl-select-option>
-      <sl-select-option value="2">Consequat cupidatat amet sunt laborum laborum quis.</sl-select-option>
-      <sl-select-option value="3">
+      </sl-option>
+      <sl-option value="2">Consequat cupidatat amet sunt laborum laborum quis.</sl-option>
+      <sl-option value="3">
         Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea cillum dolor est ut
         deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
-      </sl-select-option>
+      </sl-option>
     `
   }
 };
@@ -218,9 +216,9 @@ export const WordBreak: Story = {
         }
       </style>
       <sl-select value="2">
-        <sl-select-option value="1" lang="nl">Schoenenborstel</sl-select-option>
-        <sl-select-option value="2" lang="en">1. MBO Paragraphcomponent</sl-select-option>
-        <sl-select-option value="3" lang="en">Disproportionate</sl-select-option>
+        <sl-option value="1" lang="nl">Schoenenborstel</sl-option>
+        <sl-option value="2" lang="en">1. MBO Paragraphcomponent</sl-option>
+        <sl-option value="3" lang="en">Disproportionate</sl-option>
       </sl-select>
     `
   }
@@ -238,16 +236,16 @@ export const DisplayInlineBlock: Story = {
     </style>
     <section>
       <sl-select value="2">
-        <sl-select-option value="1">short</sl-select-option>
-        <sl-select-option value="2">very very long option text</sl-select-option>
+        <sl-option value="1">short</sl-option>
+        <sl-option value="2">very very long option text</sl-option>
       </sl-select>
       <sl-select value="2">
-        <sl-select-option value="1">short</sl-select-option>
-        <sl-select-option value="2">very very long option text</sl-select-option>
+        <sl-option value="1">short</sl-option>
+        <sl-option value="2">very very long option text</sl-option>
       </sl-select>
       <sl-select value="2">
-        <sl-select-option value="1">short</sl-select-option>
-        <sl-select-option value="2">very very long option text</sl-select-option>
+        <sl-option value="1">short</sl-option>
+        <sl-option value="2">very very long option text</sl-option>
       </sl-select>
     </section>
   `
@@ -271,9 +269,9 @@ export const CustomValidity: Story = {
 
       return html`
         <sl-select @sl-validate=${onValidate} required>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       `;
     }
@@ -294,9 +292,9 @@ export const CustomAsyncValidity: Story = {
 
       return html`
         <sl-select @sl-validate=${onValidate} required>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       `;
     }
@@ -336,12 +334,12 @@ export const HideWhenOutOfView: StoryObj = {
       <header>Sticky header</header>
       <sl-form-field hint="This will hide when the whole page" label="Window scroll">
         <sl-select hide-margin-top="100">
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
-          <sl-select-option value="4">Option 4</sl-select-option>
-          <sl-select-option value="5">Option 5</sl-select-option>
-          <sl-select-option value="6">Option 6</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+          <sl-option value="4">Option 4</sl-option>
+          <sl-option value="5">Option 5</sl-option>
+          <sl-option value="6">Option 6</sl-option>
         </sl-select>
       </sl-form-field>
 
@@ -352,12 +350,12 @@ export const HideWhenOutOfView: StoryObj = {
             label="Container scroll"
           >
             <sl-select>
-              <sl-select-option value="1">Option 1</sl-select-option>
-              <sl-select-option value="2">Option 2</sl-select-option>
-              <sl-select-option value="3">Option 3</sl-select-option>
-              <sl-select-option value="4">Option 4</sl-select-option>
-              <sl-select-option value="5">Option 5</sl-select-option>
-              <sl-select-option value="6">Option 6</sl-select-option>
+              <sl-option value="1">Option 1</sl-option>
+              <sl-option value="2">Option 2</sl-option>
+              <sl-option value="3">Option 3</sl-option>
+              <sl-option value="4">Option 4</sl-option>
+              <sl-option value="5">Option 5</sl-option>
+              <sl-option value="6">Option 6</sl-option>
             </sl-select>
           </sl-form-field>
         </div>
@@ -372,10 +370,10 @@ export const All: StoryObj = {
       states: FormControlShowValidity[] = [undefined, 'valid', 'invalid'];
 
     const options = html`
-      <sl-select-option value="1">🐷 Pig</sl-select-option>
-      <sl-select-option value="2">🐨 Koala</sl-select-option>
-      <sl-select-option value="3">🐼 Panda</sl-select-option>
-      <sl-select-option value="4">🦊 Fox</sl-select-option>
+      <sl-option value="1">🐷 Pig</sl-option>
+      <sl-option value="2">🐨 Koala</sl-option>
+      <sl-option value="3">🐼 Panda</sl-option>
+      <sl-option value="4">🦊 Fox</sl-option>
     `;
 
     return html` <style>
@@ -446,7 +444,7 @@ export const All: StoryObj = {
                             aria-label="Select an animal"
                             data-mock-state
                             placeholder="Placeholder"
-                            ><sl-select-option .size=${size} ?disabled=${disabledState}>Hamster</sl-select-option>
+                            ><sl-option .size=${size} ?disabled=${disabledState}>Hamster</sl-option>
                           </sl-select>
                         </td>
                       `
@@ -458,7 +456,7 @@ export const All: StoryObj = {
                 ${disabledStates.map(
                   state => html`
                     <td class=${state ? 'sb-disabled' : ''}>
-                      <sl-select-option .size=${size} ?disabled=${state}>🐹 Hamster</sl-select-option>
+                      <sl-option .size=${size} ?disabled=${state}>🐹 Hamster</sl-option>
                     </td>
                   `
                 )}
@@ -468,7 +466,7 @@ export const All: StoryObj = {
                 ${disabledStates.map(
                   state => html`
                     <td class=${state ? 'sb-disabled' : ''}>
-                      <sl-select-option .size=${size} ?disabled=${state} selected>🐹 Hamster</sl-select-option>
+                      <sl-option .size=${size} ?disabled=${state} selected>🐹 Hamster</sl-option>
                     </td>
                   `
                 )}

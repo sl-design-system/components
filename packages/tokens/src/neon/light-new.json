@@ -1089,7 +1089,7 @@
           "description": "A subtle background in the primary action color."
         },
         "bold": {
-          "value": "{color.palette.blue.800}",
+          "value": "{color.palette.blue.600}",
           "type": "color",
           "description": "A vibrant background option used for primary actions."
         },

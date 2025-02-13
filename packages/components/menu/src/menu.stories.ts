@@ -21,7 +21,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Menu } from './menu.js';
 
-type Props = Pick<Menu, 'selects'> & { menuItems(): TemplateResult; maxWidth: string };
+type Props = Pick<Menu, 'selects' | 'emphasis'> & { menuItems(): TemplateResult; maxWidth: string };
 type Story = StoryObj<Props>;
 
 Icon.register(
@@ -43,12 +43,19 @@ export default {
   title: 'Overlay/Menu',
   tags: ['draft'],
   args: {
-    maxWidth: '200px'
+    maxWidth: '200px',
+    emphasis: 'subtle'
+  },
+  argTypes: {
+    emphasis: {
+      control: 'inline-radio',
+      options: ['subtle', 'bold']
+    }
   },
   parameters: {
     layout: 'centered'
   },
-  render: ({ maxWidth, menuItems, selects }) => {
+  render: ({ maxWidth, menuItems, selects, emphasis }) => {
     setTimeout(() => document.querySelector('sl-menu')?.showPopover());
 
     return html`
@@ -58,7 +65,13 @@ export default {
           position: static !important;
         }
       </style>
-      <sl-menu .selects=${selects} class="root-menu" popover="manual" style="max-width: ${maxWidth}">
+      <sl-menu
+        .selects=${selects}
+        class="root-menu"
+        popover="manual"
+        style="max-width: ${maxWidth}"
+        .emphasis=${emphasis}
+      >
         ${menuItems()}
       </sl-menu>
     `;
@@ -69,6 +82,15 @@ export const Basic: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item>Rename...</sl-menu-item>
+      <sl-menu-item>Delete...</sl-menu-item>
+    `
+  }
+};
+
+export const Bold: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item selected>Rename...</sl-menu-item>
       <sl-menu-item>Delete...</sl-menu-item>
     `
   }
@@ -280,7 +302,7 @@ export const All: Story = {
     <style>
       .container {
         display: inline-grid;
-        grid-template-columns: repeat(4, auto);
+        grid-template-columns: repeat(5, auto);
         gap: 1rem;
         justify-items: center;
       }
@@ -296,6 +318,7 @@ export const All: Story = {
       <span>Selectable</span>
       <span>Icons</span>
       <span>Selectable + icons</span>
+      <span>Bold</span>
 
       <sl-menu>
         <sl-menu-item shortcut="$mod+Digit1">Default</sl-menu-item>
@@ -418,6 +441,30 @@ export const All: Story = {
             <sl-icon name="far-trash"></sl-icon>
             Danger, disabled
           </sl-menu-item>
+        </sl-menu-item-group>
+      </sl-menu>
+
+      <sl-menu emphasis="bold">
+        <sl-menu-item selectable selected shortcut="$mod+Digit1">Default, selected</sl-menu-item>
+        <sl-menu-item disabled shortcut="$mod+Digit2">Default, disabled</sl-menu-item>
+        <hr />
+        <sl-menu-item>
+          Submenu
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item disabled>
+          Submenu, disabled
+          <sl-menu selects="single" slot="submenu">
+            <sl-menu-item selectable selected>Something</sl-menu-item>
+            <sl-menu-item selectable>Other</sl-menu-item>
+          </sl-menu>
+        </sl-menu-item>
+        <sl-menu-item-group heading="Group heading">
+          <sl-menu-item variant="danger">Danger</sl-menu-item>
+          <sl-menu-item disabled variant="danger">Danger, disabled</sl-menu-item>
         </sl-menu-item-group>
       </sl-menu>
     </div>

@@ -50,7 +50,7 @@ describe('sl-menu-button', () => {
       });
 
       it('should be linked to the menu', () => {
-        expect(button.getAttribute('aria-details')).to.equal(menu.id);
+        expect(button.getAttribute('aria-controls')).to.equal(menu.id);
       });
 
       it('should not have a disabled button', () => {

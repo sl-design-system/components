@@ -1022,7 +1022,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
         "interactive": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.accent.grey.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }
@@ -1126,7 +1126,7 @@
           "description": "A subtle background in the neutral action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.palette.grey.100}",
           "type": "color",
           "description": "A vibrant background option used for neutral actions."
         },

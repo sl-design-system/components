@@ -1,5 +1,30 @@
 # @sl-design-system/form
 
+## 1.2.0
+
+### Minor Changes
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refactor styling to use new contextual tokens
+
+### Patch Changes
+
+- [#1633](https://github.com/sl-design-system/components/pull/1633) [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd) - Fix of `aria-describedby` in form field when there is a hint and validation message.
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Refactor `getValueByPath` and related functions to properly infer type
+
+- [#1709](https://github.com/sl-design-system/components/pull/1709) [`a62dee4`](https://github.com/sl-design-system/components/commit/a62dee4a381450cca44c647a54d850290e5b0f11) - Prepend light DOM elements to the host, instead of `append()`
+
+  The fixes any possible issues where the element is added to the light DOM and Lit itself
+  get's confused and thinks the element is rendered by Lit. This can cause Lit to later
+  in the lifecycle remove the element from the light DOM, which is not what we want.
+
+  By prepending the element to the host, we ensure that the element is not in any scope of Lit.
+  This scope is visible in the DOM as HTML comments.
+
+- Updated dependencies [[`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`abdf56b`](https://github.com/sl-design-system/components/commit/abdf56bf38c97ef5ca6d432f09346f7ad205c507)]:
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/inline-message@1.0.3
+
 ## 1.1.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @sl-design-system/angular
 
+## 3.0.0
+
+### Major Changes
+
+- [#1682](https://github.com/sl-design-system/components/pull/1682) [`edbc0e4`](https://github.com/sl-design-system/components/commit/edbc0e49ffef09a55248e68f783a6c5a2f1cd44b) - Upgrade to Angular 18 and drop support for 17
+
 ## 2.0.0
 
 ### Major Changes

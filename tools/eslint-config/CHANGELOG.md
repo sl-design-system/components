@@ -1,5 +1,18 @@
 # @sl-design-system/eslint-config
 
+## 0.3.0
+
+### Minor Changes
+
+- [#1683](https://github.com/sl-design-system/components/pull/1683) [`de95129`](https://github.com/sl-design-system/components/commit/de951293157d273600e9f5bd97dd25cb21ce6d69) - Update dependencies
+
+### Patch Changes
+
+- [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Bump typescript-eslint version to fix false positive
+
+  Updating to the latest version fixes a false positive error that
+  was being thrown related to the `RovingTabindexController` having an `any` type.
+
 ## 0.2.3
 
 ### Patch Changes

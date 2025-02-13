@@ -29,11 +29,12 @@ jobs:
         uses: chromaui/action@latest
         with:
           autoAcceptChanges: main
+          diagnostics: true
           exitOnceUploaded: true
-          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           onlyChanged: true
+          projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+          storybookBaseDir: .
           storybookBuildDir: storybook-static
-          workingDir: .
       - name: Build Themes Storybook
         run: yarn run chromatic-themes
       - name: Publish to Chromatic - Themes
@@ -41,7 +42,7 @@ jobs:
         with:
           autoAcceptChanges: main
           exitOnceUploaded: true
-          projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           onlyChanged: true
+          projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
+          storybookBaseDir: chromatic
           storybookBuildDir: chromatic/storybook-static
-          workingDir: chromatic

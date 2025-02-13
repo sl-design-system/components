@@ -116,7 +116,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('aria-label', msg('Breadcrumb trail'));
+    if (!this.hasAttribute('aria-label')) {
+      this.setAttribute('aria-label', msg('Breadcrumb trail'));
+    }
+
     this.setAttribute('role', 'navigation');
 
     this.#observer.observe(this);

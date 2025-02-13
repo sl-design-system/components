@@ -10,6 +10,8 @@ declare global {
   }
 }
 
+export type OptionEmphasis = 'subtle' | 'bold';
+
 /**
  * An option in a list, such as select or combobox.
  *
@@ -29,6 +31,12 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Whether this option is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /**
+   * The emphasis style when selected.
+   * @default 'subtle'
+   */
+  @property({ reflect: true }) emphasis?: OptionEmphasis;
 
   /** Whether this option is selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;

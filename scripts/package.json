@@ -25,10 +25,10 @@
     "@tokens-studio/sd-transforms": "^1.2.9",
     "cssnano": "^7.0.6",
     "esbuild": "^0.24.0",
-    "fast-glob": "^3.3.2",
+    "fast-glob": "^3.3.3",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
-    "sass": "^1.83.0",
+    "sass": "^1.83.4",
     "style-dictionary": "^4.3.0"
   }
 }

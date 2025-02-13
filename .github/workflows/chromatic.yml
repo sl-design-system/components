@@ -29,7 +29,6 @@ jobs:
         uses: chromaui/action@latest
         with:
           autoAcceptChanges: main
-          diagnostics: true
           exitOnceUploaded: true
           onlyChanged: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}

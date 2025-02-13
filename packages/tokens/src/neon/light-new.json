@@ -1060,7 +1060,7 @@
           "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "{color.background.primary.bold}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
         },

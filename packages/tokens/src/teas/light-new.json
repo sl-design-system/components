@@ -737,7 +737,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.foreground.inverted}",
+          "value": "{color.foreground.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },

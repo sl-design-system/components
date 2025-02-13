@@ -109,50 +109,56 @@ button,
   appearance: none;
   aspect-ratio: 1 / 1;
   background: transparent;
-  block-size: calc(1lh + 8px + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
-  block-size: 22px;
+  block-size: calc(1lh + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
-
-  // margin: -4px;
-  // padding: 4px;
-  // block-size: calc(100% - 4px);
-  // inline-size: calc(100% - 4px);
-  // padding: 8px;
-  // margin: -8px;
-  // inline-size: calc(100% - 2px);
-  // block-size: calc(100% - 2px);
   box-sizing: content-box;
   color: var(--sl-color-text-muted);
   cursor: pointer;
   display: inline-flex;
   font: inherit;
   justify-content: center;
-  outline: 0;
   padding: 0;
-  padding: 4px;
 }
 
-button:hover,
-::slotted(button:hover) {
-  --_bg-color: transparent;
-  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+// :host([size='lg']) {
+//  button,
+//  ::slotted(button) {
+//    block-size: 38px; // TODO: use tokens
+//  }
+// }
 
-  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  block-size: 22px;
+button {
+  sl-icon,
+  ::slotted(sl-icon) {
+    --sl-icon-container-size: 22px; // TODO: use tokens and make changes for large text fields
+  }
+}
 
-  // margin: -4px;
-  // padding: 4px; //0;
-  // inline-size: calc(100% - 4px);
-  // block-size: calc(100% - 4px);
-  // padding: 4px;
-  // box-shadow: inset 0 0 0 4px white;
-  box-shadow: 0 0 4px 4px var(--sl-color-background-input-plain); // #ffffff;
-  margin: 4px;
-  padding: 0; // 4px;
-  // margin: -12px;
-  // padding: 12px;
+:host([size='lg']) {
+  button,
+  ::slotted(button) {
+    block-size: 38px; // TODO: use tokens
+  }
+
+  button {
+    sl-icon,
+    ::slotted(sl-icon) {
+      --sl-icon-container-size: 30px; // TODO: use tokens and make changes for large text fields
+    }
+  }
+}
+
+button:hover {
+  sl-icon,
+  ::slotted(sl-icon) {
+    --_bg-color: transparent;
+    --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+    --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+
+    background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+    border-radius: inherit;
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     transition: 200ms ease-in-out;

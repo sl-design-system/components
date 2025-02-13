@@ -106,12 +106,18 @@ export const All: Story = {
     const renderRow = (options: { fill: ToggleButtonFill; size: ToggleButtonSize; emphasis: ToggleButtonEmphasis }) => {
       return html`
         <div>
-          <sl-toggle-button aria-label="Show settings" fill=${ifDefined(options.fill)} size=${ifDefined(options.size)}>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+            emphasis=${ifDefined(options.emphasis)}
+          >
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
           <sl-toggle-button
             aria-label="Show settings"
+            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
             shape="pill"
@@ -123,6 +129,7 @@ export const All: Story = {
         <div>
           <sl-toggle-button
             aria-label="Show settings"
+            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
@@ -132,6 +139,7 @@ export const All: Story = {
           </sl-toggle-button>
           <sl-toggle-button
             aria-label="Show settings"
+            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"
@@ -145,6 +153,7 @@ export const All: Story = {
           <sl-toggle-button
             aria-label="Show settings"
             disabled
+            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
           >
@@ -155,6 +164,7 @@ export const All: Story = {
             aria-label="Show settings"
             disabled
             shape="pill"
+            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
           >
@@ -166,6 +176,7 @@ export const All: Story = {
           <sl-toggle-button
             aria-label="Show settings"
             disabled
+            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
@@ -176,6 +187,7 @@ export const All: Story = {
           <sl-toggle-button
             aria-label="Show settings"
             disabled
+            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"

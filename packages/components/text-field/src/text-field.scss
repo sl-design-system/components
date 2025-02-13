@@ -19,8 +19,16 @@
   vertical-align: middle;
 }
 
-:host(:hover:not(:focus-within)) {
+:host(:hover) {
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+}
+
+:host(:hover:focus-within) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+}
+
+:host:has(button:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 }
 
 :host([show-validity='invalid']) {
@@ -101,9 +109,20 @@ button,
   appearance: none;
   aspect-ratio: 1 / 1;
   background: transparent;
-  block-size: calc(1lh + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
+  block-size: calc(1lh + 8px + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
+  block-size: 22px;
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
+
+  // margin: -4px;
+  // padding: 4px;
+  // block-size: calc(100% - 4px);
+  // inline-size: calc(100% - 4px);
+  // padding: 8px;
+  // margin: -8px;
+  // inline-size: calc(100% - 2px);
+  // block-size: calc(100% - 2px);
+  box-sizing: content-box;
   color: var(--sl-color-text-muted);
   cursor: pointer;
   display: inline-flex;
@@ -111,18 +130,32 @@ button,
   justify-content: center;
   outline: 0;
   padding: 0;
+  padding: 4px;
+}
 
-  &:hover {
-    color: var(--sl-color-text-plain);
+button:hover,
+::slotted(button:hover) {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 
-    @media (prefers-reduced-motion: no-preference) {
-      transition: 200ms ease-in-out;
-      transition-property: color;
-    }
-  }
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  block-size: 22px;
 
-  &:disabled {
-    color: var(--sl-color-text-disabled);
-    cursor: default;
+  // margin: -4px;
+  // padding: 4px; //0;
+  // inline-size: calc(100% - 4px);
+  // block-size: calc(100% - 4px);
+  // padding: 4px;
+  // box-shadow: inset 0 0 0 4px white;
+  box-shadow: 0 0 4px 4px var(--sl-color-background-input-plain); // #ffffff;
+  margin: 4px;
+  padding: 0; // 4px;
+  // margin: -12px;
+  // padding: 12px;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 200ms ease-in-out;
+    transition-property: color;
   }
 }

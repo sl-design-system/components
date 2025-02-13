@@ -129,6 +129,8 @@ export class NumberField extends LocaleMixin(TextField) {
       : nothing;
   }
 
+  // TODO: disabled button when min, max, value
+
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.stepButtons
       ? this.stepButtons === 'end'

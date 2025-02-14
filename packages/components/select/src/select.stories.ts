@@ -5,7 +5,7 @@ import { type FormControlShowValidity } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Select, type SelectSize } from './select.js';
 
@@ -13,6 +13,7 @@ type Props = Pick<Select, 'disabled' | 'placeholder' | 'required' | 'size' | 'va
   hint?: string;
   label?: string;
   options?(): TemplateResult;
+  reportValidity?: boolean;
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -39,7 +40,7 @@ export default {
       control: 'text'
     }
   },
-  render: ({ disabled, hint, label, options, placeholder, required, size, slot, value }) => {
+  render: ({ disabled, hint, label, options, placeholder, reportValidity, required, size, slot, value }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -56,18 +57,24 @@ export default {
               .size=${size}
               .value=${value}
             >
-              ${options?.() ??
-              html`
-                <sl-option value="1">Option 1</sl-option>
-                <sl-option value="2">Option 2</sl-option>
-                <sl-option value="3">Option 3</sl-option>
-              `}
+              <sl-listbox>
+                ${options?.() ??
+                html`
+                  <sl-option value="1">Option 1</sl-option>
+                  <sl-option value="2">Option 2</sl-option>
+                  <sl-option value="3">Option 3</sl-option>
+                `}
+              </sl-listbox>
             </sl-select>
           `}
         </sl-form-field>
-        <sl-button-bar>
-          <sl-button @click=${onClick}>Report validity</sl-button>
-        </sl-button-bar>
+        ${reportValidity
+          ? html`
+              <sl-button-bar>
+                <sl-button @click=${onClick}>Report validity</sl-button>
+              </sl-button-bar>
+            `
+          : nothing}
       </sl-form>
     `;
   }
@@ -180,6 +187,7 @@ export const OptionOverflow: Story = {
 export const Required: Story = {
   args: {
     hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    reportValidity: true,
     required: true
   }
 };
@@ -253,15 +261,18 @@ export const DisplayInlineBlock: Story = {
 
 export const Valid: Story = {
   args: {
-    hint: 'After clicking the button, this field will show it is valid.'
+    hint: 'After clicking the button, this field will show it is valid.',
+    reportValidity: true
   }
 };
 
 export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. The second option should be selected to make the field valid. In this example, you should never see the builtin validation message.',
+    reportValidity: true,
     slot: () => {
       const onValidate = (event: Event & { target: Select }): void => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const value = event.target.value;
 
         event.target.setCustomValidity(value === '2' ? '' : 'Select the second option.');
@@ -281,6 +292,7 @@ export const CustomValidity: Story = {
 export const CustomAsyncValidity: Story = {
   args: {
     hint: 'This story has an async validator. You need to the second option to make the field valid. It will wait 2 seconds before validating.',
+    reportValidity: true,
     slot: () => {
       const onValidate = (event: Event & { target: Select }): void => {
         const promise = new Promise<string>(resolve =>
@@ -475,5 +487,85 @@ export const All: StoryObj = {
           </table>
         `
       )}`;
+  }
+};
+
+export const All2: Story = {
+  render: () => {
+    return html`
+      <style>
+        .wrapper {
+          align-items: center;
+          display: inline-grid;
+          grid-template-columns: auto 1fr 1fr;
+          gap: 1rem;
+        }
+      </style>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center">md</span>
+        <span style="justify-self: center">lg</span>
+
+        <span>Placeholder</span>
+        <sl-select placeholder="Select an option">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select placeholder="Select an option" size="lg">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Value</span>
+        <sl-select placeholder="Select an option" value="Value 2">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select placeholder="Select an option" value="Value 2" size="lg">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Valid</span>
+        <sl-select placeholder="Select an option" show-validity="valid" value="Value 2">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select placeholder="Select an option" show-validity="valid" value="Value 2" size="lg">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Invalid</span>
+        <sl-select placeholder="Select an option" show-validity="invalid" value="Value 2">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select placeholder="Select an option" show-validity="invalid" value="Value 2" size="lg">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Disabled</span>
+        <sl-select disabled placeholder="Select an option" value="Value 2">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select disabled placeholder="Select an option" value="Value 2" size="lg">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+      </div>
+    `;
   }
 };

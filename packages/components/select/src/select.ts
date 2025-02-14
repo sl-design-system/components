@@ -1,7 +1,7 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
-import { Option, OptionGroup } from '@sl-design-system/listbox';
+import { Listbox, Option, OptionGroup } from '@sl-design-system/listbox';
 import {
   type EventEmitter,
   EventsController,
@@ -13,7 +13,6 @@ import {
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
 
@@ -33,14 +32,17 @@ declare global {
 
 export type SelectSize = 'md' | 'lg';
 
+let nextUniqueId = 0;
+
 /**
  * A form control that allows users to select one option from a list of options.
  *
- * @slot default - Place for `sl-select-option` elements
+ * @slot default - Place for `sl-option` elements
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
  */
 @localized()
-export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
   'aria-describedby',
   'aria-label',
   'aria-labelledby'
@@ -97,8 +99,11 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  /** @internal The listbox containing the options. */
+  @state() listbox?: Listbox;
+
   /** @internal */
-  @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: OptionGroup[];
+  @queryAssignedElements({ selector: 'sl-option-group', flatten: false }) optionGroups?: OptionGroup[];
 
   /** @internal A flattened array of all options (even grouped ones). */
   get options(): Array<Option<T>> {
@@ -117,9 +122,6 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
-
-  /** @internal The listbox element. */
-  @query('[popover]') listbox!: HTMLElement;
 
   /** The placeholder text to show when no option is chosen. */
   @property() placeholder?: string;
@@ -147,6 +149,9 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
   /** The value for the select, to be used in forms. */
   @property() override value?: T;
+
+  /** @internal The wrapper element that is also the popover. */
+  @query('[part="wrapper"]') wrapper?: HTMLSlotElement;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -246,7 +251,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     super.firstUpdated(changes);
 
     requestAnimationFrame(() => {
-      this.button.setAttribute('aria-controls', this.listbox.id);
+      // this.button.setAttribute('aria-controls', this.wrapper.id);
 
       if (this.internals.labels.length) {
         this.button.setAttribute(
@@ -262,7 +267,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   override render(): TemplateResult {
     return html`
       <slot name="button"></slot>
-      <div
+      <slot
         ${anchor({
           element: this.button,
           offset: Select.offset,
@@ -272,15 +277,12 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         })}
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
+        @slotchange=${this.#onSlotchange}
         @toggle=${this.#onToggle}
-        aria-label=${ifDefined(this.placeholder)}
-        id="listbox"
-        part="listbox"
+        part="wrapper"
         popover
-        role="listbox"
       >
-        <slot @slotchange=${this.#onSlotchange}></slot>
-      </div>
+      </slot>
     `;
   }
 
@@ -291,7 +293,7 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
       this.button.setAttribute('aria-expanded', 'true');
-      this.listbox.style.width = `${this.button.getBoundingClientRect().width}px`;
+      this.wrapper!.style.width = `${this.button.getBoundingClientRect().width}px`;
 
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
@@ -301,8 +303,8 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
   }
 
   #onButtonClick(): void {
-    if (!isPopoverOpen(this.listbox) && !this.#popoverClosing) {
-      this.listbox.showPopover();
+    if (!isPopoverOpen(this.wrapper) && !this.#popoverClosing) {
+      this.wrapper?.showPopover();
     }
 
     this.#popoverClosing = false;
@@ -332,10 +334,10 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
     switch (event.key) {
       case 'ArrowDown':
-        if (isPopoverOpen(this.listbox)) {
+        if (isPopoverOpen(this.wrapper)) {
           delta = 1;
         } else {
-          this.listbox.showPopover();
+          this.wrapper?.showPopover();
         }
         break;
       case 'ArrowUp':
@@ -349,11 +351,11 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
         break;
       case ' ':
       case 'Enter':
-        if (isPopoverOpen(this.listbox)) {
+        if (isPopoverOpen(this.wrapper)) {
           this.#setSelectedOption(this.currentOption);
-          this.listbox.hidePopover();
+          this.wrapper?.hidePopover();
         } else {
-          this.listbox.showPopover();
+          this.wrapper?.showPopover();
         }
 
         return;
@@ -373,11 +375,19 @@ export class Select<T = unknown> extends ObserveAttributesMixin(FormControlMixin
 
     if (option) {
       this.#setSelectedOption(option);
-      this.listbox.hidePopover();
+      this.wrapper?.hidePopover();
     }
   }
 
   #onSlotchange(): void {
+    this.listbox = this.wrapper?.assignedElements({ flatten: true }).find(el => el instanceof Listbox);
+
+    if (this.listbox) {
+      this.listbox.id ||= `sl-select-listbox-${nextUniqueId++}`;
+      this.button?.setAttribute('aria-controls', this.listbox.id);
+      this.button?.setAttribute('aria-owns', this.listbox.id);
+    }
+
     this.#setSelectedOption(
       this.options.find(option => option.value === this.value),
       false

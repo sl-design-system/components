@@ -334,6 +334,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       return valid;
     }
 
+    /** @internal Reset the form control state */
     reset(value: unknown): void {
       this.dirty = false;
       this.formValue = value;

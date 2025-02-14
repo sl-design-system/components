@@ -35,6 +35,7 @@
     { "path": "./packages/components/emoji" },
     { "path": "./packages/components/form" },
     { "path": "./packages/components/format-date" },
+    { "path": "./packages/components/format-number" },
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
     { "path": "./packages/components/inline-message" },

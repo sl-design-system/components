@@ -3,6 +3,7 @@ import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { spy } from 'sinon';
 import '../register.js';
 import { TextField } from './text-field.js';
@@ -87,7 +88,7 @@ describe('sl-text-field', () => {
 
     it('should not have a placeholder', () => {
       expect(el.placeholder).to.be.undefined;
-      expect(input).not.to.have.attribute('placeholder');
+      expect(input).to.have.attribute('placeholder', '');
     });
 
     it('should have a placeholder when set', async () => {
@@ -116,7 +117,7 @@ describe('sl-text-field', () => {
 
     it('should have a focus ring attribute when the input has focus', async () => {
       input.focus();
-      await new Promise(resolve => setTimeout(resolve));
+      await el.updateComplete;
 
       expect(el).to.have.attribute('has-focus-ring');
       expect(el.hasFocusRing).to.be.true;
@@ -406,8 +407,8 @@ describe('sl-text-field', () => {
       expect(el.input).to.equal(input);
     });
 
-    it('should overwrite text field properties', () => {
-      expect(input).to.not.have.attribute('placeholder');
+    it('should overwrite text field properties except for "type"', () => {
+      expect(input).to.have.attribute('placeholder', '');
       expect(input.type).to.equal('color');
     });
   });
@@ -490,94 +491,94 @@ describe('sl-text-field', () => {
     });
   });
 
-  // describe('inheritance', () => {
-  //   let el: DateField;
+  describe('inheritance', () => {
+    let el: DateField;
 
-  //   class DateField extends TextField<Date> {
-  //     #value?: Date;
+    class DateField extends TextField<Date> {
+      #value?: Date;
 
-  //     override get value(): Date | undefined {
-  //       return this.#value;
-  //     }
+      override get value(): Date | undefined {
+        return this.#value;
+      }
 
-  //     @property()
-  //     override set value(value: number | string | Date | undefined) {
-  //       if (value instanceof Date) {
-  //         this.#value = value;
-  //       } else if (typeof value === 'number') {
-  //         this.#value = new Date(value);
-  //       } else if (typeof value === 'string') {
-  //         this.#value = new Date(value);
-  //       } else {
-  //         this.#value = undefined;
-  //       }
-  //     }
+      @property()
+      override set value(value: number | string | Date | undefined) {
+        if (value instanceof Date) {
+          this.#value = value;
+        } else if (typeof value === 'number') {
+          this.#value = new Date(value);
+        } else if (typeof value === 'string') {
+          this.#value = new Date(value);
+        } else {
+          this.#value = undefined;
+        }
+      }
 
-  //     /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
-  //     override parseValue(value: string): Date | undefined {
-  //       const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+      /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
+      override parseValue(value: string): Date | undefined {
+        const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
 
-  //       if (!match) {
-  //         throw new Error('Invalid date format');
-  //       } else {
-  //         const [, day, month, year] = match,
-  //           date = new Date(`${year}-${month}-${day}`);
+        if (!match) {
+          throw new Error('Invalid date format');
+        } else {
+          const [, day, month, year] = match,
+            date = new Date(`${year}-${month}-${day}`);
 
-  //         if (isNaN(date.getTime())) {
-  //           throw new Error('Invalid date');
-  //         }
+          if (isNaN(date.getTime())) {
+            throw new Error('Invalid date');
+          }
 
-  //         return date;
-  //       }
-  //     }
+          return date;
+        }
+      }
 
-  //     /** Format the date as DD-MM-YYYY. */
-  //     override formatValue(value?: Date): string {
-  //       return value?.toLocaleDateString() ?? '';
-  //     }
-  //   }
+      /** Format the date as DD-MM-YYYY. */
+      override formatValue(value?: Date): string {
+        return value?.toLocaleDateString() ?? '';
+      }
+    }
 
-  //   beforeEach(async () => {
-  //     try {
-  //       customElements.define('test-date-field', DateField);
-  //     } catch {
-  //       /* empty */
-  //     }
+    beforeEach(async () => {
+      try {
+        customElements.define('test-date-field', DateField);
+      } catch {
+        /* empty */
+      }
 
-  //     el = await fixture(html`<test-date-field></test-date-field>`);
-  //   });
+      el = await fixture(html`<test-date-field></test-date-field>`);
+    });
 
-  //   it('should format the value correctly', async () => {
-  //     const date = new Date(2024, 0, 1);
+    it('should format the value correctly', async () => {
+      const date = new Date(2024, 0, 1);
 
-  //     el.value = date;
-  //     await el.updateComplete;
+      el.value = date;
+      await el.updateComplete;
 
-  //     expect(el.querySelector('input')?.value).to.equal(date.toLocaleDateString());
-  //   });
+      expect(el.querySelector('input')?.value).to.equal(date.toLocaleDateString());
+    });
 
-  //   it('should parse the value correctly', async () => {
-  //     el.focus();
-  //     await sendKeys({ type: '01-01-2024' });
+    it('should parse the value correctly', async () => {
+      el.focus();
+      await sendKeys({ type: '01-01-2024' });
 
-  //     expect(el.value).to.be.an.instanceof(Date);
-  //     expect(el.value!.getFullYear()).to.equal(2024);
-  //     expect(el.value!.getMonth()).to.equal(0);
-  //     expect(el.value!.getDate()).to.equal(1);
-  //   });
+      expect(el.value).to.be.an.instanceof(Date);
+      expect(el.value!.getFullYear()).to.equal(2024);
+      expect(el.value!.getMonth()).to.equal(0);
+      expect(el.value!.getDate()).to.equal(1);
+    });
 
-  //   it('should support setting a date in milliseconds', async () => {
-  //     el.value = new Date(2025, 0, 1).getTime();
-  //     await el.updateComplete;
+    it('should support setting a date in milliseconds', async () => {
+      el.value = new Date(2025, 0, 1).getTime();
+      await el.updateComplete;
 
-  //     expect(el.querySelector('input')?.value).to.equal('1/1/2025');
-  //   });
+      expect(el.querySelector('input')?.value).to.equal('1/1/2025');
+    });
 
-  //   it('should support setting a date as text', async () => {
-  //     el.value = '01-01-2025';
-  //     await el.updateComplete;
+    it('should support setting a date as text', async () => {
+      el.value = '01-01-2025';
+      await el.updateComplete;
 
-  //     expect(el.querySelector('input')?.value).to.equal('1/1/2025');
-  //   });
-  // });
+      expect(el.querySelector('input')?.value).to.equal('1/1/2025');
+    });
+  });
 });

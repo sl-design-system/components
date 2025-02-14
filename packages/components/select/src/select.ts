@@ -6,9 +6,9 @@ import {
   type EventEmitter,
   EventsController,
   ObserveAttributesMixin,
+  RovingTabindexController,
   anchor,
-  event,
-  isPopoverOpen
+  event
 } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -66,17 +66,16 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;
 
   /** Events controller. */
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    focusin: this.#onFocusin,
-    focusout: this.#onFocusout
-  });
+  #events = new EventsController(this, { focusin: this.#onFocusin, focusout: this.#onFocusout });
 
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState?: T;
@@ -84,8 +83,13 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
-  /** @internal */
-  readonly internals = this.attachInternals();
+  /** Manage keyboard navigation. */
+  #rovingTabindexController = new RovingTabindexController<Option>(this, {
+    direction: 'vertical',
+    elements: () => this.options || [],
+    focusInIndex: (elements: Option[]) => elements.findIndex(el => !el.disabled),
+    isFocusableElement: (el: Option) => !el.disabled
+  });
 
   /**m @internal The button in the light DOM. */
   button: Ref<SelectButton> = createRef();
@@ -99,16 +103,18 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  /** @internal */
+  readonly internals = this.attachInternals();
+
   /** @internal The listbox element that is also the popover. */
   @query('sl-listbox') listbox?: Listbox;
 
   /** @internal */
-  @queryAssignedElements({ selector: 'sl-option-group', flatten: false }) optionGroups?: OptionGroup[];
+  @queryAssignedElements({ selector: 'sl-option-group', flatten: true }) optionGroups?: OptionGroup[];
 
   /** @internal A flattened array of all options (even grouped ones). */
   get options(): Array<Option<T>> {
-    const elements =
-      this.renderRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({ flatten: true }) ?? [];
+    const elements = this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
 
     return elements.flatMap(element => this.#getAllOptions(element));
   }
@@ -122,9 +128,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
-
-  /** @internal Boolean for tracking the expanded state of the popover. */
-  @state() expanded?: boolean;
 
   /** The placeholder text to show when no option is chosen. */
   @property() placeholder?: string;
@@ -156,30 +159,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // // This is a workaround because `ariaActiveDescendantElement` is only supported in
-    // // Safari at the time of writing. By putting the button in the light DOM, we can use
-    // // the aria-activedescendant attribute on the button itself.
-    // if (!this.button) {
-    //   this.button = this.shadowRoot!.createElement('sl-select-button');
-    //   this.button.addEventListener('click', () => this.#onButtonClick());
-    //   this.button.addEventListener('keydown', (event: KeyboardEvent) => this.#onKeydown(event));
-    //   this.button.disabled = !!this.disabled;
-    //   this.button.placeholder = this.placeholder;
-    //   this.button.size = this.size;
-    //   this.button.setAttribute('aria-expanded', 'false');
-    //   this.prepend(this.button);
-
-    //   // This is a workaround because `::slotted` does not allow you to select children
-    //   // of the slotted elements. For example grouped options.
-    //   const style = document.createElement('style');
-    //   style.innerHTML = `
-    //     sl-select:has(sl-select-button:focus-visible) .sl-current {
-    //       background-color: var(--sl-color-select-item-hover-background);
-    //     }
-    //   `;
-    //   this.prepend(style);
-    // }
-
     this.setFormControlElement(this);
 
     // if (this.button) {
@@ -203,17 +182,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
-
-    if (changes.has('currentOption')) {
-      this.options.forEach(option => option.classList.toggle('sl-current', option === this.currentOption));
-      // this.currentOption?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-
-      // if (this.currentOption) {
-      //   this.button.setAttribute('aria-activedescendant', this.currentOption.id);
-      // } else {
-      //   this.button.removeAttribute('aria-activedescendant');
-      // }
-    }
 
     if (changes.has('required')) {
       this.internals.ariaRequired = Boolean(this.required).toString();
@@ -249,30 +217,17 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   override render(): TemplateResult {
     return html`
-      <sl-select-button
-        ${ref(this.button)}
-        @click=${this.#onButtonClick}
-        @keydown=${this.#onKeydown}
-        ?disabled=${this.disabled}
-        ?required=${this.required}
-        .placeholder=${this.placeholder}
-        .selected=${this.selectedOption}
-        .showValidity=${this.showValidity}
-        .size=${this.size}
-        aria-expanded=${Boolean(this.expanded).toString()}
-        aria-controls="listbox"
-      ></sl-select-button>
-
       <sl-listbox
         ${anchor({
           element: this.button,
           offset: Select.offset,
           position: 'bottom-start',
-          viewportMargin: Select.viewportMargin,
-          rootMarginTop: this.rootMarginTop
+          rootMarginTop: this.rootMarginTop,
+          viewportMargin: Select.viewportMargin
         })}
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
+        @keydown=${this.#onListboxKeydown}
         @toggle=${this.#onToggle}
         id="listbox"
         part="listbox"
@@ -280,19 +235,34 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       >
         <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-listbox>
-    `;
-  }
 
-  override focus(options?: FocusOptions): void {
-    this.button.value?.focus(options);
+      <sl-select-button
+        ${ref(this.button)}
+        @click=${this.#onButtonClick}
+        @keydown=${this.#onKeydown}
+        ?disabled=${this.disabled}
+        ?required=${this.required}
+        ?show-valid=${this.showValid}
+        .placeholder=${this.placeholder}
+        .selected=${this.selectedOption}
+        .showValidity=${this.showValidity}
+        .size=${this.size}
+        .tabIndex=${this.disabled ? -1 : 0}
+        aria-expanded="false"
+        aria-controls="listbox"
+        aria-haspopup="listbox"
+      ></sl-select-button>
+    `;
   }
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
+      this.button.value?.setAttribute('aria-expanded', 'true');
       this.listbox!.style.width = `${this.button.value?.getBoundingClientRect().width}px`;
 
       this.currentOption = this.selectedOption ?? this.options[0];
     } else {
+      this.button.value?.setAttribute('aria-expanded', 'false');
       this.#popoverClosing = true;
     }
   }
@@ -305,12 +275,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.#popoverClosing = false;
   }
 
-  #onClick(event: Event): void {
-    if (event.target === this || event.target === this.button) {
-      this.button.value?.focus();
-    }
-  }
-
   #onFocusin(): void {
     this.focusEvent.emit();
   }
@@ -321,48 +285,12 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    const options = this.options.filter(o => !o.disabled),
-      size = options.length;
+    if (event.key === 'ArrowDown' && !this.listbox?.matches(':popover-open')) {
+      event.preventDefault();
+      event.stopPropagation();
 
-    let delta = 0,
-      index = options.indexOf(this.currentOption ?? this.selectedOption ?? this.options[0]);
-
-    switch (event.key) {
-      case 'ArrowDown':
-        if (isPopoverOpen(this.listbox)) {
-          delta = 1;
-        } else {
-          this.listbox?.showPopover();
-        }
-        break;
-      case 'ArrowUp':
-        delta = -1;
-        break;
-      case 'Home':
-        index = 0;
-        break;
-      case 'End':
-        index = size - 1;
-        break;
-      case ' ':
-      case 'Enter':
-        if (isPopoverOpen(this.listbox)) {
-          this.#setSelectedOption(this.currentOption);
-          this.listbox?.hidePopover();
-        } else {
-          this.listbox?.showPopover();
-        }
-
-        return;
-      default:
-        return;
+      this.listbox?.showPopover();
     }
-
-    index = (index + delta + size) % size;
-    this.currentOption = options[index];
-
-    event.preventDefault();
-    event.stopPropagation();
   }
 
   #onListboxClick(event: Event & { target: HTMLElement }): void {
@@ -370,6 +298,16 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     if (option) {
       this.#setSelectedOption(option);
+      this.listbox?.hidePopover();
+    }
+  }
+
+  #onListboxKeydown(event: KeyboardEvent): void {
+    if (event.target instanceof Option && [' ', 'Enter'].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.#setSelectedOption(event.target);
       this.listbox?.hidePopover();
     }
   }
@@ -390,10 +328,11 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onToggle(event: ToggleEvent): void {
-    this.expanded = event.newState === 'open';
-
-    if (event.newState === 'closed') {
+    if (event.newState === 'open') {
+      this.#rovingTabindexController.focus();
+    } else if (event.newState === 'closed') {
       this.#popoverClosing = false;
+      this.button.value?.focus();
     }
   }
 

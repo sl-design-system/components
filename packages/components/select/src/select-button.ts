@@ -2,7 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
@@ -48,20 +48,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.slot = 'button';
     this.setAttribute('role', 'combobox');
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = this.disabled ? -1 : 0;
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disabled')) {
-      this.tabIndex = this.disabled ? -1 : 0;
-    }
   }
 
   override render(): TemplateResult {

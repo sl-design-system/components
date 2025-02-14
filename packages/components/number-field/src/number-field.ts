@@ -85,28 +85,14 @@ export class NumberField extends LocaleMixin(TextField) {
 
     this.#parser = new NumberParser(this.locale, this.formatOptions);
 
-    if (!this.rawValue && this.value && !this.valueAsNumber) {
+    if (!this.rawValue && this.value && this.valueAsNumber) {
       this.rawValue = this.value;
-      this.valueAsNumber = this.#convertValueToNumber(
-        // this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
-        // this.#value ? this.#value.toString() : ''
-        this.rawValue ? this.rawValue : ''
-      );
+    } else if (!this.rawValue && this.value && !this.valueAsNumber) {
+      this.rawValue = this.value;
+      this.valueAsNumber = this.#convertValueToNumber(this.rawValue ? this.rawValue : '');
     }
 
     this.#validateInput();
-
-    console.log('size in number field', this.size, this);
-
-    console.log(
-      'button should be disabled?',
-      this.disabled || this.readonly || (!!this.min && !!this.valueAsNumber && this.min === this.valueAsNumber),
-      this.disabled,
-      this.readonly,
-      !!this.min && !!this.valueAsNumber && this.min === this.valueAsNumber,
-      this.min,
-      this.valueAsNumber
-    );
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -206,7 +192,7 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   override onBlur(): void {
-    if (this.rawValue !== undefined || this.#value !== undefined) {
+    if (this.rawValue !== undefined && this.rawValue !== '') {
       this.valueAsNumber = this.#convertValueToNumber(
         this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
       );

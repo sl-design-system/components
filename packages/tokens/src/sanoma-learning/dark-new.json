@@ -473,7 +473,7 @@
           "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
         },
         "onBold": {
-          "value": "{color.foreground.accent.grey.onBold}",
+          "value": "{color.foreground.bold}",
           "type": "color",
           "description": "Use for neutral actions on 'color.background.neutral.bold'"
         }
@@ -1158,7 +1158,7 @@
           "description": "A subtle background in the neutral action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.palette.grey.100}",
           "type": "color",
           "description": "A vibrant background option used for neutral actions."
         },

@@ -356,7 +356,7 @@ export class TextField<T extends { toString(): string } = string>
     if (typeof this.placeholder === 'string') {
       input.setAttribute('placeholder', this.placeholder);
     } else {
-      input.removeAttribute('placeholder');
+      input.setAttribute('placeholder', '');
     }
   }
 }

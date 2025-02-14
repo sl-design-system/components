@@ -1,0 +1,12 @@
+:host([step-buttons='edges']) {
+  padding: 0;
+
+  slot[name='input']::slotted(input) {
+    text-align: center;
+  }
+}
+
+.step-buttons {
+  display: flex;
+  gap: var(--sl-size-100);
+}

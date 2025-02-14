@@ -241,8 +241,8 @@ export const CustomComponent: Story = {
         }
 
         /** Format the date as DD-MM-YYYY. */
-        override formatValue(value?: Date): string {
-          return value?.toLocaleDateString() ?? '';
+        override get formattedValue(): string {
+          return this.value?.toLocaleDateString() ?? '';
         }
       }
 

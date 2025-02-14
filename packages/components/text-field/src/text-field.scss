@@ -19,10 +19,6 @@
   vertical-align: middle;
 }
 
-// :host(:hover:not(:focus-within)) {
-//  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-// }
-
 :host(:hover) {
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
@@ -117,27 +113,12 @@ button,
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-subtlest);
-
-  // box-sizing: content-box;
   cursor: pointer;
   display: inline-flex;
   font: inherit;
   justify-content: center;
   outline: 0;
   padding: 0;
-
-  // &:hover {
-  //  color: var(--sl-color-foreground-plain);
-  //  @media (prefers-reduced-motion: no-preference) {
-  //    transition: 200ms ease-in-out;
-  //    transition-property: color;
-  //  }
-  // }
-
-  &:disabled {
-    color: var(--sl-color-foreground-disabled);
-    cursor: default;
-  }
 }
 
 button {
@@ -161,7 +142,7 @@ button {
   }
 }
 
-button:hover {
+button:hover:not(:disabled) {
   sl-icon,
   ::slotted(sl-icon) {
     --_bg-color: transparent;
@@ -170,12 +151,27 @@ button:hover {
 
     background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
     border-radius: inherit;
-  }
 
-  @media (prefers-reduced-motion: no-preference) {
-    transition: 200ms ease-in-out;
-    transition-property: color;
+    @media (prefers-reduced-motion: no-preference) {
+      transition: 200ms ease-in-out;
+      transition-property: color;
+    }
   }
 }
 
-// TODO: disabled
+button:active:not(:disabled) {
+  sl-icon,
+  ::slotted(sl-icon) {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: 200ms ease-in-out;
+      transition-property: color;
+    }
+  }
+}
+
+button:disabled {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+}

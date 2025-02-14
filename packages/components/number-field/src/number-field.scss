@@ -1,13 +1,3 @@
-:host {
-  // --_bg-color: var(--sl-color-background-secondary-bold);
-  // --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
-  // --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
-
-  // background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-
-  // padding: 0 var(--_padding-inline); // 0; // 0 0 0 var(--_padding-inline);
-}
-
 :host([step-buttons='edges']) {
   padding: 0;
 
@@ -18,58 +8,5 @@
 
 .step-buttons {
   display: flex;
-}
-
-// button:hover {
-//  --_bg-color: transparent;
-//  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
-//  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
-//  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-// }
-
-button:active {
-  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  button:where(:active, :focus-visible, :hover) {
-    transition-duration: var(--sl-animation-button-duration);
-    transition-property: background, border-color, color, outline-color;
-    transition-timing-function: var(--sl-animation-button-easing);
-  }
-}
-
-// :host {
-//  pointer-events: none;
-// }
-// :host(:hover) {
-//  background: yellow;
-// }
-// :host {
-//  button {
-//    pointer-events: auto;
-//  }
-//  button:hover {
-//    background: red;
-//  }
-// }
-
-// :host(:not(:has(button:hover))) {
-//  background: yellow;
-// }
-// :host(:has(button:hover):hover) {
-//  background: green;
-// }
-// :host(:has(button)) {
-//  background: blue;
-// }
-// :host(:hover) {
-//  background: lightblue;
-// }
-
-slot:hover,
-slot:hover + button {
-  --_background: var(--sl-color-tag-subtle-hover-background);
-  --_border-color: var(--sl-color-tag-subtle-hover-border);
-  --_color: var(--sl-color-tag-subtle-hover-foreground);
+  gap: var(--sl-size-100);
 }

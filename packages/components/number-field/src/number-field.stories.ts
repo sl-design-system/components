@@ -1,4 +1,5 @@
 import '@sl-design-system/form/register.js';
+import { type TextFieldSize } from '@sl-design-system/text-field';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -17,6 +18,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'size'
   | 'step'
   | 'value'
   | 'valueAsNumber'
@@ -29,6 +31,8 @@ type Story = StoryObj<Props>;
 
 const stepButtonsPlacements: StepButtonsPlacement[] = ['end', 'edges'];
 
+const sizes: TextFieldSize[] = ['md', 'lg'];
+
 export default {
   title: 'Form/Number field',
   tags: ['draft'],
@@ -38,6 +42,10 @@ export default {
     // controls: undefined,
   },
   argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: sizes
+    },
     stepButtons: {
       control: 'inline-radio',
       options: stepButtonsPlacements
@@ -59,6 +67,7 @@ export default {
     placeholder,
     readonly,
     required,
+    size,
     step,
     stepButtons,
     value,
@@ -80,6 +89,7 @@ export default {
             .max=${max}
             .min=${min}
             .placeholder=${placeholder}
+            .size=${size}
             .step=${step}
             .stepButtons=${stepButtons}
             .valueAsNumber=${valueAsNumber}

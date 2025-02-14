@@ -95,6 +95,18 @@ export class NumberField extends LocaleMixin(TextField) {
     }
 
     this.#validateInput();
+
+    console.log('size in number field', this.size, this);
+
+    console.log(
+      'button should be disabled?',
+      this.disabled || this.readonly || (!!this.min && !!this.valueAsNumber && this.min === this.valueAsNumber),
+      this.disabled,
+      this.readonly,
+      !!this.min && !!this.valueAsNumber && this.min === this.valueAsNumber,
+      this.min,
+      this.valueAsNumber
+    );
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -119,11 +131,13 @@ export class NumberField extends LocaleMixin(TextField) {
       ? html`
           <button
             @click=${() => this.stepDown()}
-            ?disabled=${this.disabled || this.readonly}
+            ?disabled=${this.disabled ||
+            this.readonly ||
+            (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)}
             aria-label=${msg('Step down')}
             tabindex="-1"
           >
-            <sl-icon name="minus" size="xs"></sl-icon>
+            <sl-icon name="minus" .size=${this.size && this.size === 'lg' ? 'md' : 'xs'}></sl-icon>
           </button>
         `
       : nothing;
@@ -138,19 +152,23 @@ export class NumberField extends LocaleMixin(TextField) {
             <div class="step-buttons">
               <button
                 @click=${() => this.stepDown()}
-                ?disabled=${this.disabled || this.readonly}
+                ?disabled=${this.disabled ||
+                this.readonly ||
+                (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)}
                 aria-label=${msg('Step down')}
                 tabindex="-1"
               >
-                <sl-icon name="minus" size="xs"></sl-icon>
+                <sl-icon name="minus" .size=${this.size && this.size === 'lg' ? 'md' : 'xs'}></sl-icon>
               </button>
               <button
                 @click=${() => this.stepUp()}
-                ?disabled=${this.disabled || this.readonly}
+                ?disabled=${this.disabled ||
+                this.readonly ||
+                (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)}
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
-                <sl-icon name="plus" size="xs"></sl-icon>
+                <sl-icon name="plus" .size=${this.size && this.size === 'lg' ? 'md' : 'xs'}></sl-icon>
               </button>
             </div>
           `
@@ -158,11 +176,13 @@ export class NumberField extends LocaleMixin(TextField) {
             <div class="step-buttons">
               <button
                 @click=${() => this.stepUp()}
-                ?disabled=${this.disabled || this.readonly}
+                ?disabled=${this.disabled ||
+                this.readonly ||
+                (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)}
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
-                <sl-icon name="plus" size="xs"></sl-icon>
+                <sl-icon name="plus" .size=${this.size && this.size === 'lg' ? 'md' : 'xs'}></sl-icon>
               </button>
             </div>
           `

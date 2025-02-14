@@ -32,16 +32,25 @@
 }
 
 .current {
-  background: var(--sl-color-background-selected-subtle-idle);
+  --_bg-color: var(--sl-color-background-selected-subtlest); // var(--sl-color-background-secondary-bold);
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold); // TODO: from where should I take this one?
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+
+  // background: var(--sl-color-background-selected-subtlest); // var(--sl-color-background-selected-subtle-idle);
+  color: var(--sl-color-foreground-primary-bold);
 
   &:hover {
-    background: var(--sl-color-background-selected-subtle-hover);
+    // background: var(--sl-color-background-selected-subtlest); // var(--sl-color-background-selected-subtle-hover);
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
   &:active {
-    background: var(--sl-color-background-selected-subtle-active);
+    // background: var(--sl-color-background-selected-subtle-active);
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
-}
+} // TODO: use new approach with transparency and mixin colours
 
 .wrapper {
   display: none;

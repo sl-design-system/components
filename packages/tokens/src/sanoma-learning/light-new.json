@@ -406,6 +406,10 @@
         "description": "Use for non-interactive brand-reinforcing text."
       },
       "selected": {
+        "plain": {
+          "value": "{color.foreground.accent.blue.plain}",
+          "type": "color"
+        },
         "bold": {
           "value": "{color.foreground.accent.blue.bold}",
           "type": "color",

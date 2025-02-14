@@ -7,7 +7,7 @@
   align-items: center;
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
-  color: var(--sl-color-text-neutral-bold);
+  color: var(--sl-color-foreground-neutral-bold);
   display: inline-flex;
   max-inline-size: 100%;
   outline: transparent solid var(--sl-size-outlineWidth-default);
@@ -36,11 +36,11 @@
   --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
   --_br-color: var(--sl-color-border-info-subtle);
 
-  color: var(--sl-color-text-info-bold);
+  color: var(--sl-color-foreground-info-bold);
 }
 
 :host([disabled]) {
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
   slot,

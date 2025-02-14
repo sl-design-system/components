@@ -6,6 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 import '../register.js';
 import { TextField } from './text-field.js';
 
@@ -205,59 +206,72 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
-// export const CustomComponent: Story = {
-//   args: {
-//     hint: 'This story uses a custom component that inherits from the text field component. It parses and formats the value as a date in the format "DD-MM-YYYY". The field is invalid if the year is before 2024.',
-//     control: () => {
-//       class CustomTextField extends TextField<Date> {
-//         #value?: Date;
+export const CustomComponent: Story = {
+  args: {
+    hint: 'This story uses a custom component that inherits from the text field component. It parses and formats the value as a date in the format "DD-MM-YYYY". The field is invalid if the year is before 2024.',
+    control: () => {
+      class CustomTextField extends TextField<Date> {
+        #value?: Date;
 
-//           if (!match) {
-//             throw new Error('Invalid date format');
-//           } else {
-//             const [, day, month, year] = match,
-//               date = new Date(`${year}-${month}-${day}`);
+        override get value(): Date | undefined {
+          return this.#value;
+        }
 
-//             if (isNaN(date.getTime())) {
-//               throw new Error('Invalid date');
-//             }
+        @property()
+        override set value(value: Date | undefined) {
+          this.#value = value;
+        }
 
-//             return date;
-//           }
-//         }
+        /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
+        override parseValue(value: string): Date | undefined {
+          const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
 
-//         /** Format the date as DD-MM-YYYY. */
-//         override formatValue(value?: Date): string {
-//           return value?.toLocaleDateString() ?? '';
-//         }
-//       }
+          if (!match) {
+            throw new Error('Invalid date format');
+          } else {
+            const [, day, month, year] = match,
+              date = new Date(`${year}-${month}-${day}`);
 
-//       try {
-//         customElements.define('custom-text-field', CustomTextField);
-//       } catch {
-//         /* empty */
-//       }
+            if (isNaN(date.getTime())) {
+              throw new Error('Invalid date');
+            }
 
-//       const onValidate = (event: Event & { target: CustomTextField }): void => {
-//         const year = event.target.value?.getFullYear();
+            return date;
+          }
+        }
 
-//         if (typeof year === 'number') {
-//           event.target.setCustomValidity(year < 2024 ? 'Enter a date after 2023' : '');
-//         } else {
-//           event.target.setCustomValidity('');
-//         }
-//       };
+        /** Format the date as DD-MM-YYYY. */
+        override get formattedValue(): string {
+          return this.value?.toLocaleDateString() ?? '';
+        }
+      }
 
-//       return html`
-//         <custom-text-field
-//           @sl-validate=${onValidate}
-//           placeholder="Enter a DD-MM-YYYY value"
-//           required
-//         ></custom-text-field>
-//       `;
-//     }
-//   }
-// };
+      try {
+        customElements.define('custom-text-field', CustomTextField);
+      } catch {
+        /* empty */
+      }
+
+      const onValidate = (event: Event & { target: CustomTextField }): void => {
+        const year = event.target.value?.getFullYear();
+
+        if (typeof year === 'number') {
+          event.target.setCustomValidity(year < 2024 ? 'Enter a date after 2023' : '');
+        } else {
+          event.target.setCustomValidity('');
+        }
+      };
+
+      return html`
+        <custom-text-field
+          @sl-validate=${onValidate}
+          placeholder="Enter a DD-MM-YYYY value"
+          required
+        ></custom-text-field>
+      `;
+    }
+  }
+};
 
 export const All: Story = {
   render: () => {

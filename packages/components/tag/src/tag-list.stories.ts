@@ -8,7 +8,7 @@ type Props = Pick<TagList, 'size' | 'stacked' | 'variant'> & {
   count: number;
   disabled?: boolean;
   removable?: boolean;
-  tags?: TemplateResult[];
+  tags?(): TemplateResult[];
 };
 type Story = StoryObj<Props>;
 
@@ -31,12 +31,13 @@ export default {
     }
   },
   render: ({ count, disabled, removable, size, stacked, tags, variant }) => {
-    tags ??= Array.from({ length: count }).map(
-      (_, index) => html`<sl-tag ?disabled=${disabled} ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
-    );
+    tags ??= () =>
+      Array.from({ length: count }).map(
+        (_, index) => html`<sl-tag ?disabled=${disabled} ?removable=${removable}>${`Tag ${index + 1}`}</sl-tag>`
+      );
 
     return html`
-      <sl-tag-list size=${ifDefined(size)} ?stacked=${stacked} variant=${ifDefined(variant)}>${tags}</sl-tag-list>
+      <sl-tag-list size=${ifDefined(size)} ?stacked=${stacked} variant=${ifDefined(variant)}>${tags()}</sl-tag-list>
     `;
   }
 } satisfies Meta<Props>;
@@ -69,9 +70,10 @@ export const Removable: Story = {
 
 export const Mixed: Story = {
   args: {
-    tags: Array.from({ length: 10 }).map(
-      (_, index) => html`<sl-tag ?removable=${index % 2 === 0}>${`Tag ${index + 1}`}</sl-tag>`
-    )
+    tags: () =>
+      Array.from({ length: 10 }).map(
+        (_, index) => html`<sl-tag ?removable=${index % 2 === 0}>${`Tag ${index + 1}`}</sl-tag>`
+      )
   }
 };
 

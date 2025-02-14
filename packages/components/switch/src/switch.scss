@@ -2,13 +2,13 @@
   --_bg-color: var(--sl-color-background-neutral-subtle);
   --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
-  --_handle-color: var(--sl-color-text-neutral-plain);
+  --_handle-color: var(--sl-color-foreground-neutral-plain);
   --_handle-size: var(--sl-size-250);
   --_icon-size: var(--sl-size-150);
   --_track-size: var(--sl-size-600);
 
   align-items: center;
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: inline-flex;
   gap: var(--sl-size-100);
@@ -28,7 +28,7 @@
   --_bg-color: var(--sl-color-background-positive-bold);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
-  --_handle-color: var(--sl-color-text-positive-bold);
+  --_handle-color: var(--sl-color-foreground-positive-bold);
   --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
 }
 
@@ -41,9 +41,9 @@
 }
 
 :host([disabled]) {
-  --_handle-color: var(--sl-color-text-disabled);
+  --_handle-color: var(--sl-color-foreground-disabled);
 
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   cursor: default;
   pointer-events: none;
 

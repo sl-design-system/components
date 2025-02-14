@@ -3,7 +3,7 @@
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   display: block;
   inline-size: calc(100% - var(--sl-size-100) * 2);
   margin-inline: var(--sl-size-100);
@@ -42,7 +42,7 @@
 }
 
 :host([disabled]) {
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   cursor: default;
   pointer-events: none;
 }
@@ -51,7 +51,7 @@
   --_bg-color: var(--sl-color-background-selected-subtle);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
 
-  color: var(--sl-color-text-selected-bold);
+  color: var(--sl-color-foreground-selected-bold);
 }
 
 :host([selected][emphasis='bold']) {
@@ -59,7 +59,7 @@
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
 
-  color: var(--sl-color-text-selected-onBold);
+  color: var(--sl-color-foreground-selected-onBold);
 }
 
 :host([selected][emphasis='bold']:where(:hover, [current])) {

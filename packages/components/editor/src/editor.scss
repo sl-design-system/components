@@ -8,7 +8,7 @@
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border: var(--sl-size-borderWidth-subtle) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   cursor: text;
   display: block;
   outline: transparent solid var(--sl-size-outlineWidth-default);
@@ -25,7 +25,7 @@
 
 :host([disabled]) {
   background: var(--sl-color-background-disabled);
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 }
 

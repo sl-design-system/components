@@ -374,40 +374,40 @@
         }
       }
     },
-    "text": {
+    "foreground": {
       "bold": {
-        "value": "{color.text.accent.grey.bold}",
+        "value": "{color.foreground.accent.grey.bold}",
         "type": "color",
         "description": "Use for headers."
       },
       "plain": {
-        "value": "{color.text.accent.grey.plain}",
+        "value": "{color.foreground.accent.grey.plain}",
         "type": "color",
         "description": "Use for body copy and menu items."
       },
       "subtle": {
-        "value": "{color.text.accent.grey.subtle}",
+        "value": "{color.foreground.accent.grey.subtle}",
         "type": "color",
         "description": "Use for labels and subheadings."
       },
-      "muted": {
-        "value": "{color.text.accent.grey.muted}",
+      "subtlest": {
+        "value": "{color.foreground.accent.grey.subtlest}",
         "type": "color",
         "description": "Use for placeholders and hints."
       },
       "disabled": {
-        "value": "{color.text.accent.grey.faint}",
+        "value": "{color.foreground.accent.grey.faint}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
       "selected": {
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.foreground.accent.blue.bold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "onBold": {
-          "value": "{color.text.accent.blue.onBold}",
+          "value": "{color.foreground.accent.blue.onBold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         }
@@ -424,104 +424,104 @@
           "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.blue.onBold}",
+          "value": "{color.foreground.accent.blue.onBold}",
           "type": "color",
           "description": "Use for primary actions on 'color.background.primary.bold'"
         }
       },
       "secondary": {
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.foreground.accent.blue.bold}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.blue.onBold}",
+          "value": "{color.foreground.accent.blue.onBold}",
           "type": "color",
           "description": "Use for secondary actions on 'color.background.secondary.bold'"
         }
       },
       "neutral": {
         "plain": {
-          "value": "{color.text.accent.grey.muted}",
+          "value": "{color.foreground.accent.grey.subtlest}",
           "type": "color",
           "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
         },
         "bold": {
-          "value": "{color.text.accent.grey.bold}",
+          "value": "{color.foreground.accent.grey.bold}",
           "type": "color",
           "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.grey.onBold}",
+          "value": "{color.foreground.accent.grey.onBold}",
           "type": "color",
           "description": "Use for neutral actions on 'color.background.neutral.bold'"
         }
       },
       "info": {
         "plain": {
-          "value": "{color.text.accent.blue.plain}",
+          "value": "{color.foreground.accent.blue.plain}",
           "type": "color",
           "description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.blue.bold}",
+          "value": "{color.foreground.accent.blue.bold}",
           "type": "color",
           "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.blue.onBold}",
+          "value": "{color.foreground.accent.blue.onBold}",
           "type": "color",
           "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
         }
       },
       "positive": {
         "plain": {
-          "value": "{color.text.accent.green.plain}",
+          "value": "{color.foreground.accent.green.plain}",
           "type": "color",
           "description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
         },
         "bold": {
-          "value": "{color.text.accent.green.bold}",
+          "value": "{color.foreground.accent.green.bold}",
           "type": "color",
           "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.green.onBold}",
+          "value": "{color.foreground.accent.green.onBold}",
           "type": "color",
           "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
         }
       },
       "caution": {
         "plain": {
-          "value": "{color.text.accent.orange.plain}",
+          "value": "{color.foreground.accent.orange.plain}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.orange.bold}",
+          "value": "{color.foreground.accent.orange.bold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.orange.onBold}",
+          "value": "{color.foreground.accent.orange.onBold}",
           "type": "color",
           "description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
         }
       },
       "negative": {
         "plain": {
-          "value": "{color.text.accent.red.plain}",
+          "value": "{color.foreground.accent.red.plain}",
           "type": "color",
           "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds."
         },
         "bold": {
-          "value": "{color.text.accent.red.bold}",
+          "value": "{color.foreground.accent.red.bold}",
           "type": "color",
           "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
         },
         "onBold": {
-          "value": "{color.text.accent.red.onBold}",
+          "value": "{color.foreground.accent.red.onBold}",
           "type": "color",
           "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
         }
@@ -556,7 +556,7 @@
             "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted.plain}",
+            "value": "{color.foreground.inverted.plain}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -573,7 +573,7 @@
             "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted.plain}",
+            "value": "{color.foreground.inverted.plain}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -584,7 +584,7 @@
             "type": "color",
             "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
           },
-          "muted": {
+          "subtlest": {
             "value": "{color.palette.grey.500}",
             "type": "color",
             "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
@@ -605,12 +605,12 @@
             "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
           },
           "onBold": {
-            "value": "{color.text.bold}",
+            "value": "{color.foreground.bold}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
           },
           "onInverted": {
-            "value": "{color.text.bold}",
+            "value": "{color.foreground.bold}",
             "type": "color",
             "description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
           }
@@ -627,7 +627,7 @@
             "description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted.plain}",
+            "value": "{color.foreground.inverted.plain}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -644,7 +644,7 @@
             "description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted.plain}",
+            "value": "{color.foreground.inverted.plain}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -661,7 +661,7 @@
             "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted.plain}",
+            "value": "{color.foreground.inverted.plain}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -678,7 +678,7 @@
             "description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.inverted.plain}",
+            "value": "{color.foreground.inverted.plain}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -695,7 +695,7 @@
             "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
           },
           "onBold": {
-            "value": "{color.text.bold}",
+            "value": "{color.foreground.bold}",
             "type": "color",
             "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
           }
@@ -704,12 +704,12 @@
     },
     "link": {
       "idle": {
-        "value": "{color.text.accent.blue.plain}",
+        "value": "{color.foreground.accent.blue.plain}",
         "type": "color",
         "description": "Use for links in their default or hovered state."
       },
       "hover": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.foreground.accent.blue.bold}",
         "type": "color",
         "description": "Use for links in hover state."
       },
@@ -720,7 +720,7 @@
       },
       "muted": {
         "idle": {
-          "value": "{color.text.accent.grey.muted}",
+          "value": "{color.foreground.accent.grey.subtlest}",
           "type": "color",
           "description": "Use for muted links in idle state."
         },
@@ -737,7 +737,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.text.inverted.plain}",
+          "value": "{color.foreground.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },
@@ -770,224 +770,6 @@
         }
       }
     },
-    "icon": {
-      "bold": {
-        "value": "{color.icon.accent.grey.bold}",
-        "type": "color",
-        "description": "Use for icons paired with 'color.text.bold'."
-      },
-      "plain": {
-        "value": "{color.icon.accent.grey.plain}",
-        "type": "color",
-        "description": "Use for icons paired with 'color.text.plain'."
-      },
-      "subtle": {
-        "value": "{color.icon.accent.grey.subtle}",
-        "type": "color",
-        "description": "Use for icons paired with 'color.text.subtle'."
-      },
-      "muted": {
-        "value": "{color.icon.accent.grey.muted}",
-        "type": "color",
-        "description": "Use for icons paired with 'color.text.muted'."
-      },
-      "inverted": {
-        "value": "{color.palette.grey.000}",
-        "type": "color",
-        "description": "Use for icons on bold backgrounds."
-      },
-      "disabled": {
-        "value": "{color.icon.accent.grey.faint}",
-        "type": "color",
-        "description": "Use for icons in a disabled state."
-      },
-      "selected": {
-        "value": "{color.icon.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for icons in selected state (e.g., tabs or menu items)."
-      },
-      "brand": {
-        "value": "{color.icon.accent.blue.plain}",
-        "type": "color",
-        "description": "Use for non-interactive brand-reinforcing icons."
-      },
-      "primary": {
-        "value": "{color.icon.accent.blue.bold}",
-        "type": "color",
-        "description": "Use for icons in primary actions paired with a 'color.background.primary.muted' background."
-      },
-      "secondary": {
-        "value": "{color.icon.accent.grey.bold}",
-        "type": "color",
-        "description": "Use for icons in secondary actions paired with a 'color.background.secondary.muted' background."
-      },
-      "info": {
-        "plain": {
-          "value": "{color.icon.accent.blue.plain}",
-          "type": "color",
-          "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on neutral backgrounds."
-        },
-        "bold": {
-          "value": "{color.icon.accent.blue.bold}",
-          "type": "color",
-          "description": "Icons that serve as visual cues for informative messages the user needs to be aware of, applied on 'color.background.info.muted' or 'color.background.info.subtle'."
-        }
-      },
-      "positive": {
-        "plain": {
-          "value": "{color.icon.accent.green.plain}",
-          "type": "color",
-          "description": "Icons that serve as visual cues for messages communicating a favorable outcome, applied on neutral backgrounds."
-        },
-        "bold": {
-          "value": "{color.icon.accent.green.bold}",
-          "type": "color",
-          "description": "Icons that serve as visual cues for messages communicating a favorable outcome on'color.background.positive.muted' or 'color.background.positive.subtle'."
-        }
-      },
-      "caution": {
-        "plain": {
-          "value": "{color.icon.accent.orange.plain}",
-          "type": "color",
-          "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on neutral backgrounds."
-        },
-        "bold": {
-          "value": "{color.icon.accent.orange.bold}",
-          "type": "color",
-          "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.muted' or 'color.background.caution.subtle'."
-        },
-        "inverted": {
-          "value": "{color.palette.grey.000}",
-          "type": "color",
-          "description": "Use for icons that serve as visual cues for messages communicating caution to prevent mistakes or errors, applied on 'color.background.caution.bold'."
-        }
-      },
-      "negative": {
-        "plain": {
-          "value": "{color.icon.accent.red.plain}",
-          "type": "color",
-          "description": "Use for icons that serve as visual cues for messages communicating negative or serious error states (e.g., validation errors or irreversible actions), applied on neutral backgrounds."
-        },
-        "bold": {
-          "value": "{color.icon.accent.red.bold}",
-          "type": "color",
-          "description": "Use for icons that serve as visual cues for messages communicating negative or serious error states (e.g., validation errors or irreversible actions), applied on 'color.background.negative.muted' and 'color.background.negative.subtle'."
-        }
-      },
-      "accent": {
-        "blue": {
-          "plain": {
-            "value": "{color.text.accent.blue.plain}",
-            "type": "color",
-            "description": "Use for blue icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.blue.bold}",
-            "type": "color",
-            "description": "Use for blue icons on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "green": {
-          "plain": {
-            "value": "{color.text.accent.green.plain}",
-            "type": "color",
-            "description": "Use for green icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.green.bold}",
-            "type": "color",
-            "description": "Use for green icons on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "grey": {
-          "faint": {
-            "value": "{color.text.accent.grey.faint}",
-            "type": "color",
-            "description": "Use for faint icons on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
-          },
-          "muted": {
-            "value": "{color.text.accent.grey.muted}",
-            "type": "color",
-            "description": "Use for muted grey icons for purely stylistic purposes with no specific meaning."
-          },
-          "subtle": {
-            "value": "{color.text.accent.grey.subtle}",
-            "type": "color",
-            "description": "Use for subtle grey icons for purely stylistic purposes with no specific meaning."
-          },
-          "plain": {
-            "value": "{color.text.accent.grey.plain}",
-            "type": "color",
-            "description": "Use for plain grey icons for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.grey.bold}",
-            "description": "Use for bold grey icons for purely stylistic purposes with no specific meaning.",
-            "type": "color"
-          }
-        },
-        "orange": {
-          "plain": {
-            "value": "{color.text.accent.orange.plain}",
-            "type": "color",
-            "description": "Use for orange icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.orange.bold}",
-            "type": "color",
-            "description": "Use for orange icons on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "purple": {
-          "plain": {
-            "value": "{color.text.accent.purple.plain}",
-            "type": "color",
-            "description": "Use for purple icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.purple.bold}",
-            "type": "color",
-            "description": "Use for purple icons on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "red": {
-          "plain": {
-            "value": "{color.text.accent.red.plain}",
-            "type": "color",
-            "description": "Use for red icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.red.bold}",
-            "type": "color",
-            "description": "Use for red icons on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "teal": {
-          "plain": {
-            "value": "{color.text.accent.teal.plain}",
-            "type": "color",
-            "description": "Use for teal icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.teal.bold}",
-            "type": "color",
-            "description": "Use for teal icons on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
-          }
-        },
-        "yellow": {
-          "plain": {
-            "value": "{color.text.accent.yellow.plain}",
-            "type": "color",
-            "description": "Use for yellow icons on neutral backgrounds for purely stylistic purposes with no specific meaning."
-          },
-          "bold": {
-            "value": "{color.text.accent.yellow.bold}",
-            "type": "color",
-            "description": "Use for yellow icons on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
-          }
-        }
-      }
-    },
     "border": {
       "plain": {
         "value": "{color.border.accent.grey.plain}",
@@ -1015,7 +797,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.text.accent.blue.bold}",
+        "value": "{color.foreground.accent.blue.bold}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -1126,7 +908,7 @@
             "description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.text.accent.blue.bold}",
+            "value": "{color.foreground.accent.blue.bold}",
             "type": "color",
             "description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
           }
@@ -1138,7 +920,7 @@
             "description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.text.accent.green.bold}",
+            "value": "{color.foreground.accent.green.bold}",
             "type": "color",
             "description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
           }
@@ -1172,7 +954,7 @@
             "description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.text.accent.orange.bold}",
+            "value": "{color.foreground.accent.orange.bold}",
             "type": "color",
             "description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
           }
@@ -1184,7 +966,7 @@
             "description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.text.accent.purple.bold}",
+            "value": "{color.foreground.accent.purple.bold}",
             "type": "color",
             "description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
           }
@@ -1196,7 +978,7 @@
             "description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.text.accent.red.bold}",
+            "value": "{color.foreground.accent.red.bold}",
             "type": "color",
             "description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
           }
@@ -1208,7 +990,7 @@
             "description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.text.accent.teal.bold}",
+            "value": "{color.foreground.accent.teal.bold}",
             "type": "color",
             "description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
           }
@@ -1220,7 +1002,7 @@
             "description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.text.accent.yellow.bold}",
+            "value": "{color.foreground.accent.yellow.bold}",
             "type": "color",
             "description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
           }

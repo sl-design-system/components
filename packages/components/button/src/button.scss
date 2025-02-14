@@ -7,7 +7,7 @@
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary-bold);
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-secondary-bold);
+  color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
@@ -21,7 +21,7 @@
 }
 
 :host(:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-text-secondary-onBold);
+  color: var(--sl-color-foreground-secondary-onBold);
 }
 
 :host(:where([fill='ghost'], [fill='outline'])) {
@@ -41,11 +41,11 @@
   --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
 
   border-color: var(--sl-color-border-primary-bold);
-  color: var(--sl-color-text-primary-bold);
+  color: var(--sl-color-foreground-primary-bold);
 }
 
 :host([variant='primary']:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-text-primary-onBold);
+  color: var(--sl-color-foreground-primary-onBold);
 }
 
 :host([variant='primary']:where([fill='ghost'], [fill='outline'])) {
@@ -57,11 +57,11 @@
   --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
 
   border-color: var(--sl-color-border-positive-bold);
-  color: var(--sl-color-text-positive-bold);
+  color: var(--sl-color-foreground-positive-bold);
 }
 
 :host([variant='success']:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-text-positive-onBold);
+  color: var(--sl-color-foreground-positive-onBold);
 }
 
 :host([variant='success']:where([fill='ghost'], [fill='outline'])) {
@@ -73,11 +73,11 @@
   --_bg-mix-color: var(--sl-color-background-caution-interactive-bold);
 
   border-color: var(--sl-color-border-caution-bold);
-  color: var(--sl-color-text-caution-bold);
+  color: var(--sl-color-foreground-caution-bold);
 }
 
 :host([variant='warning']:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-text-caution-onBold);
+  color: var(--sl-color-foreground-caution-onBold);
 }
 
 :host([variant='warning']:where([fill='ghost'], [fill='outline'])) {
@@ -89,11 +89,11 @@
   --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
 
   border-color: var(--sl-color-border-negative-bold);
-  color: var(--sl-color-text-negative-bold);
+  color: var(--sl-color-foreground-negative-bold);
 }
 
 :host([variant='danger']:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-text-negative-onBold);
+  color: var(--sl-color-foreground-negative-onBold);
 }
 
 :host([variant='danger']:where([fill='ghost'], [fill='outline'])) {
@@ -105,11 +105,11 @@
   --_bg-mix-color: var(--sl-color-background-info-interactive-bold);
 
   border-color: var(--sl-color-border-info-bold);
-  color: var(--sl-color-text-info-bold);
+  color: var(--sl-color-foreground-info-bold);
 }
 
 :host([variant='info']:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-text-info-onBold);
+  color: var(--sl-color-foreground-info-onBold);
 }
 
 :host([variant='info']:where([fill='ghost'], [fill='outline'])) {
@@ -121,11 +121,11 @@
   --_bg-mix-color: var(--sl-color-background-inverted-interactive-bold);
 
   border-color: var(--sl-color-border-inverted);
-  color: var(--sl-color-text-inverted-bold);
+  color: var(--sl-color-foreground-inverted-bold);
 }
 
 :host([variant='inverted']:where(:not([fill]), [fill='solid'])) {
-  color: var(--sl-color-text-onBold);
+  color: var(--sl-color-foreground-inverted-onBold);
 }
 
 :host([variant='inverted']:where([fill='ghost'], [fill='outline'])) {
@@ -191,7 +191,7 @@
 }
 
 :host([disabled]) {
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   cursor: default;
   pointer-events: none;
 }

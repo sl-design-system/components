@@ -9,7 +9,7 @@ import { InlineMessage, type InlineMessageVariant } from './inline-message';
 interface Props extends Pick<InlineMessage, 'indismissible' | 'variant'> {
   title: string;
   button: string;
-  body: string | TemplateResult;
+  body: string | (() => TemplateResult);
 }
 type Story = StoryObj<Props>;
 
@@ -41,7 +41,8 @@ export default {
   render: ({ body, button, indismissible, title, variant }) => html`
     <sl-inline-message ?indismissible=${indismissible} .variant=${variant}>
       ${title ? html`<span slot="title">${title}</span>` : nothing}
-      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing} ${body}
+      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing}
+      ${typeof body === 'string' ? body : body()}
     </sl-inline-message>
   `
 } satisfies Meta<Props>;
@@ -55,7 +56,7 @@ export const Basic: Story = {
 export const Details: Story = {
   args: {
     title: 'Inline message title',
-    body: html`
+    body: () => html`
       <style>
         p {
           margin-block: 0 0.5rem;
@@ -151,7 +152,7 @@ export const Overflow: Story = {
 export const CustomIcon: Story = {
   args: {
     ...Basic.args,
-    body: html`
+    body: () => html`
       <sl-icon slot="icon" name="face-smile"></sl-icon>
       The main content of the message
     `

@@ -3,10 +3,10 @@
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
   --_border: var(--sl-color-border-input);
-  --_stroke: var(--sl-color-text-selected-onBold);
+  --_stroke: var(--sl-color-foreground-selected-onBold);
 
   align-items: start;
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: flex;
   gap: var(--sl-size-100);
@@ -42,7 +42,7 @@
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
   --_border: var(--sl-color-border-negative-plain);
-  --_stroke: var(--sl-color-text-negative-onBold);
+  --_stroke: var(--sl-color-foreground-negative-onBold);
 }
 
 :host(:where([checked], [indeterminate])[show-validity='invalid']) {
@@ -54,7 +54,7 @@
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
   --_border: var(--sl-color-border-positive-plain);
-  --_stroke: var(--sl-color-text-positive-onBold);
+  --_stroke: var(--sl-color-foreground-positive-onBold);
 }
 
 :host(:where([checked], [indeterminate])[show-validity='valid']) {
@@ -64,9 +64,9 @@
 
 :host([disabled]) {
   --_border: var(--sl-color-border-input);
-  --_stroke: var(--sl-color-text-disabled);
+  --_stroke: var(--sl-color-foreground-disabled);
 
-  color: var(--sl-color-text-disabled);
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 
   [part='inner'] {

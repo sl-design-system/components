@@ -6,7 +6,7 @@
   align-items: center;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: flex;
   gap: var(--sl-size-075);
@@ -47,7 +47,7 @@
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
 
-  color: var(--sl-color-text-selected-onBold);
+  color: var(--sl-color-foreground-selected-onBold);
 }
 
 :host([selected]:hover) {

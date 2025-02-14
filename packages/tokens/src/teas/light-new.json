@@ -410,6 +410,11 @@
           "value": "{color.foreground.accent.teal.onBold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "plain": {
+          "value": "{color.foreground.accent.blue.plain}",
+          "type": "color",
+          "description": "Used as selected foreground color on white backgrounds."
         }
       },
       "brand": {
@@ -737,7 +742,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.foreground.inverted}",
+          "value": "{color.foreground.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },
@@ -797,7 +802,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.accent.blue.plain}",
+        "value": "{color.border.accent.teal.plain}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -1032,7 +1037,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
         "interactive": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.accent.grey.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }

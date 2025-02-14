@@ -1,5 +1,5 @@
 :host {
-  --_bg-color: var(--sl-color-background-neutral-subtle);
+  --_bg-color: var(--sl-color-border-bold);
   --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_handle-color: var(--sl-color-foreground-neutral-plain);
@@ -25,10 +25,10 @@
 }
 
 :host([checked]) {
-  --_bg-color: var(--sl-color-background-positive-bold);
-  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
-  --_handle-color: var(--sl-color-foreground-positive-bold);
+  --_handle-color: var(--sl-color-foreground-selected-bold);
   --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
 }
 

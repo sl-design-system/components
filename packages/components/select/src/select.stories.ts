@@ -57,14 +57,12 @@ export default {
               .size=${size}
               .value=${value}
             >
-              <sl-listbox>
-                ${options?.() ??
-                html`
-                  <sl-option value="1">Option 1</sl-option>
-                  <sl-option value="2">Option 2</sl-option>
-                  <sl-option value="3">Option 3</sl-option>
-                `}
-              </sl-listbox>
+              ${options?.() ??
+              html`
+                <sl-option value="1">Option 1</sl-option>
+                <sl-option value="2">Option 2</sl-option>
+                <sl-option value="3">Option 3</sl-option>
+              `}
             </sl-select>
           `}
         </sl-form-field>

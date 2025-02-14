@@ -7,6 +7,7 @@ import {
   PartType,
   directive
 } from 'lit/directive.js';
+import { Ref } from 'lit/directives/ref.js';
 import { type PositionPopoverOptions, positionPopover, updatePopoverVisibility } from '../popover.js';
 
 declare global {
@@ -16,7 +17,7 @@ declare global {
 }
 
 export interface AnchorDirectiveConfig extends PositionPopoverOptions {
-  element?: HTMLElement;
+  element?: Element | Ref<Element>;
 }
 
 export class AnchorDirective extends Directive {
@@ -62,7 +63,13 @@ export class AnchorDirective extends Directive {
     if (event.newState === 'open') {
       const host = event.target;
 
-      let anchorElement = this.#config?.element || host.anchorElement;
+      let anchorElement = host.anchorElement;
+      if (this.#config?.element instanceof Element) {
+        anchorElement = this.#config.element;
+      } else if (this.#config?.element) {
+        anchorElement = this.#config.element.value;
+      }
+
       if (!anchorElement && host.hasAttribute('anchor')) {
         anchorElement =
           (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;

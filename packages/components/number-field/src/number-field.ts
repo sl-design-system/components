@@ -15,6 +15,10 @@ declare global {
 
 export type StepButtonsPlacement = 'end' | 'edges';
 
+/**
+ * Single line number field component.
+ *
+ */
 @localized()
 export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
@@ -234,16 +238,14 @@ export class NumberField extends LocaleMixin(TextField) {
       if (this.valueAsNumber === undefined || isNaN(this.valueAsNumber)) {
         this.input.setCustomValidity(msg('Please enter a valid number.'));
       } else {
-        // Clear custom validity message
         this.input.setCustomValidity('');
       }
     } else {
-      // Clear custom validity message
       this.input.setCustomValidity('');
     }
   }
 
   #convertValueToNumber(value: string): number | undefined {
-    return this.#parser?.parse(value); // || undefined;
+    return this.#parser?.parse(value);
   }
 }

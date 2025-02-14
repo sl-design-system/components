@@ -39,7 +39,6 @@ export default {
   args: {
     inputSize: 8,
     label: 'Number'
-    // controls: undefined,
   },
   argTypes: {
     size: {

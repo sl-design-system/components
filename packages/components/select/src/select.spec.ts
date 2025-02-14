@@ -497,12 +497,12 @@ describe('sl-select', () => {
   describe('keyboard interactions', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-select>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
-        </sl-select>
-      `);
+      <sl-select>
+        <sl-select-option value="1">Option 1</sl-select-option>
+        <sl-select-option value="2">Option 2</sl-select-option>
+        <sl-select-option value="3">Option 3</sl-select-option>
+      </sl-select>
+    `);
     });
 
     it('should open the dropdown on Enter key', async () => {

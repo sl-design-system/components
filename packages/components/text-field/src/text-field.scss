@@ -121,13 +121,6 @@ button,
   padding: 0;
 }
 
-// :host([size='lg']) {
-//  button,
-//  ::slotted(button) {
-//    block-size: 38px; // TODO: use tokens
-//  }
-// }
-
 button {
   sl-icon,
   ::slotted(sl-icon) {

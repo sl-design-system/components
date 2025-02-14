@@ -5,10 +5,6 @@
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
 }
 
-:host([disabled]) {
-  color: var(--sl-color-foreground-disabled);
-}
-
 .optional,
 .required {
   margin-inline-start: var(--sl-size-050);

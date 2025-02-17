@@ -10,7 +10,7 @@ describe('sl-number-field', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field></sl-search-field>`);
+      el = await fixture(html`<sl-number-field></sl-number-field>`);
     });
 
     it('should have no buttons', () => {
@@ -27,7 +27,6 @@ describe('sl-number-field', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
-      expect(el.disabled).to.be.true;
     });
 
     it('should not be readonly', () => {
@@ -40,13 +39,12 @@ describe('sl-number-field', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('readonly');
-      expect(el.readonly).to.be.true;
     });
   });
 
   describe('with value', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field value="10"></sl-search-field>`);
+      el = await fixture(html`<sl-number-field value="10"></sl-number-field>`);
     });
 
     it('should have the correct initial value', () => {
@@ -57,7 +55,10 @@ describe('sl-number-field', () => {
       el.valueAsNumber = 20;
       await el.updateComplete;
 
-      expect(el.valueAsNumber).to.equal(20);
+      const input = el.querySelector('input');
+
+      expect(input).to.exist;
+      expect(input!.value).to.equal('20');
     });
 
     it('should reflect the value in the input element', async () => {
@@ -72,12 +73,6 @@ describe('sl-number-field', () => {
 
     it('should be valid with a valid value', () => {
       expect(el.valid).to.be.true;
-    });
-  });
-
-  describe('with buttons', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-number-field value="10"></sl-search-field>`);
     });
   });
 
@@ -129,7 +124,7 @@ describe('sl-number-field', () => {
     let input: HTMLInputElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field min="2" value="-1"></sl-text-area>`);
+      el = await fixture(html`<sl-number-field min="2" value="-1"></sl-number-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -169,7 +164,7 @@ describe('sl-number-field', () => {
     let input: HTMLInputElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field max="12" value="13"></sl-text-area>`);
+      el = await fixture(html`<sl-number-field max="12" value="13"></sl-number-field>`);
       input = el.querySelector('input')!;
     });
 

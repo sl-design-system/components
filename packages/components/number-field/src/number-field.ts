@@ -16,8 +16,7 @@ declare global {
 export type StepButtonsPlacement = 'end' | 'edges';
 
 /**
- * Single line number field component.
- *
+ * A number field component.
  */
 @localized()
 export class NumberField extends LocaleMixin(TextField) {

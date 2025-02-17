@@ -8,7 +8,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToggleButton, ToggleButtonEmphasis, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'size'> & {
+type Props = Pick<ToggleButton, 'disabled' | 'emphasis' | 'fill' | 'pressed' | 'size'> & {
   icons(): TemplateResult;
   label: string;
 };
@@ -25,6 +25,10 @@ export default {
     pressed: false
   },
   argTypes: {
+    emphasis: {
+      control: 'inline-radio',
+      options: ['muted', 'suble', 'bold']
+    },
     fill: {
       control: 'inline-radio',
       options: ['ghost', 'outline']
@@ -37,12 +41,13 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ disabled, fill, icons, label, pressed, size }) => {
+  render: ({ disabled, emphasis, fill, icons, label, pressed, size }) => {
     return html`
       <sl-toggle-button
         ?disabled=${disabled}
         ?pressed=${pressed}
         aria-label=${ifDefined(label)}
+        emphasis=${ifDefined(emphasis)}
         fill=${ifDefined(fill)}
         size=${ifDefined(size)}
       >
@@ -205,8 +210,8 @@ export const All: Story = {
           align-items: center;
           align-self: start;
           display: inline-grid;
-          gap: 1rem 2rem;
-          grid-template-columns: auto 1fr 1fr 1fr 1fr;
+          gap: 0.5rem 2rem;
+          grid-template-columns: auto auto 1fr 1fr 1fr 1fr;
           justify-items: center;
         }
         section div {
@@ -214,126 +219,112 @@ export const All: Story = {
         }
       </style>
       <section>
-        <span>Ghost - muted</span>
+        <span style="grid-column: span 2">Muted</span>
         <span>Idle</span>
         <span>Pressed</span>
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
-        <span>md</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'ghost',
-          size: 'md'
-        })}
-
-        <span>lg</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'ghost',
-          size: 'lg'
-        })}
-
-        <span>Outline - muted</span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-
-        <span>md</span>
+        <span style="grid-row: span 2">md</span>
+        <span>Outline</span>
         ${renderRow({
           emphasis: 'muted',
           fill: 'outline',
           size: 'md'
         })}
 
-        <span>lg</span>
+        <span>Ghost</span>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'ghost',
+          size: 'md'
+        })}
+
+        <span style="grid-row: span 2">lg</span>
+        <span>Outline</span>
         ${renderRow({
           emphasis: 'muted',
           fill: 'outline',
           size: 'lg'
         })}
 
-        <span>Ghost - subtle</span>
+        <span>Ghost</span>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'ghost',
+          size: 'lg'
+        })}
+
+        <span style="grid-column: span 2">Subtle</span>
         <span>Idle</span>
         <span>Pressed</span>
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
-        <span>md</span>
+        <span style="grid-row: span 2">md</span>
+        <span>Outline</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'outline',
+          size: 'md'
+        })}
+        <span>Ghost</span>
         ${renderRow({
           emphasis: 'subtle',
           fill: 'ghost',
           size: 'md'
         })}
 
-        <span>lg</span>
+        <span style="grid-row: span 2">lg</span>
+        <span>Outline</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'outline',
+          size: 'lg'
+        })}
+        <span>Ghost</span>
         ${renderRow({
           emphasis: 'subtle',
           fill: 'ghost',
           size: 'lg'
         })}
 
-        <span>Outline - subtle</span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-
-        <span>md</span>
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'outline',
-          size: 'md'
-        })}
-
-        <span>lg</span>
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'outline',
-          size: 'lg'
-        })}
-
-        <span>Ghost - bold</span>
+        <span style="grid-column: span 2">Bold</span>
         <span>Idle</span>
         <span>Pressed</span>
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
-        <span>md</span>
+        <span style="grid-row: span 2">md</span>
+        <span>Outline</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'outline',
+          size: 'md'
+        })}
+        <span>Ghost</span>
         ${renderRow({
           emphasis: 'bold',
           fill: 'ghost',
           size: 'md'
         })}
 
-        <span>lg</span>
+        <span style="grid-row: span 2">lg</span>
+        <span>Outline</span>
         ${renderRow({
           emphasis: 'bold',
-          fill: 'ghost',
+          fill: 'outline',
           size: 'lg'
         })}
 
-        <span>Outline - bold</span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-
-        <span>md</span>
+        <span>Ghost</span>
         ${renderRow({
           emphasis: 'bold',
-          fill: 'outline',
-          size: 'md'
-        })}
-
-        <span>lg</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'outline',
+          fill: 'ghost',
           size: 'lg'
         })}
       </section>
+      First item on the first row is the default combination of values; muted, outline, md and square shape.
     `;
   }
 };

@@ -6,6 +6,7 @@ import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
@@ -16,8 +17,6 @@ declare global {
     'sl-select-button': SelectButton;
   }
 }
-
-export type SlClearEvent = CustomEvent<void>;
 
 Icon.register(faCircleXmark, fasCircleXmark);
 

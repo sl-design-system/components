@@ -39,7 +39,8 @@
   },
   "dependencies": {
     "@sl-design-system/shared": "^0.4.0",
-    "@sl-design-system/text-field": "^1.3.4"
+    "@sl-design-system/text-field": "^1.3.4",
+    "@sl-design-system/format-number": "^0.0.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5"

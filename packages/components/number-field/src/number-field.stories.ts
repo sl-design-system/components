@@ -185,25 +185,27 @@ export const OnBlur: Story = {
 
     return html`
       <style>
-        #root-inner {
+        .wrapper {
           display: flex;
           flex-direction: column;
           gap: 1.5rem;
           align-items: start;
         }
       </style>
-      <sl-form>
-        <sl-form-field hint="The value should be of maximum 8" label="Number label">
-          <sl-number-field
-            @sl-blur=${onBlur}
-            size="md"
-            placeholder="Placeholder"
-            required
-            .min=${min}
-            max="8"
-          ></sl-number-field>
-        </sl-form-field>
-      </sl-form>
+      <section class="wrapper">
+        <sl-form>
+          <sl-form-field hint="The value should be of maximum 8" label="Number label">
+            <sl-number-field
+              @sl-blur=${onBlur}
+              size="md"
+              placeholder="Placeholder"
+              required
+              .min=${min}
+              max="8"
+            ></sl-number-field>
+          </sl-form-field>
+        </sl-form>
+      </section>
     `;
   }
 };
@@ -211,206 +213,208 @@ export const OnBlur: Story = {
 export const All: Story = {
   render: () => html`
     <style>
-      #root-inner {
+      .wrapper {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
         align-items: start;
       }
 
-      section {
+      div {
         display: grid;
         grid-template-columns: auto 1fr 1fr;
         gap: 3rem;
         align-items: center;
       }
     </style>
-    <section>
-      <span></span>
-      <h2>Size: md</h2>
-      <h2>Size: lg</h2>
+    <section class="wrapper">
+      <div>
+        <span></span>
+        <h2>Size: md</h2>
+        <h2>Size: lg</h2>
 
-      <h3>Empty</h3>
-      <sl-number-field size="md" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
-      <sl-number-field size="lg" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
+        <h3>Empty</h3>
+        <sl-number-field size="md" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
+        <sl-number-field size="lg" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
 
-      <h3>Value</h3>
-      <sl-number-field
-        size="md"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        size="lg"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Value</h3>
+        <sl-number-field
+          size="md"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          size="lg"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Disabled</h3>
-      <sl-number-field disabled size="md" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
-      <sl-number-field disabled size="lg" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
+        <h3>Disabled</h3>
+        <sl-number-field disabled size="md" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
+        <sl-number-field disabled size="lg" placeholder="Placeholder" aria-label="Number field"></sl-number-field>
 
-      <h3>Disabled with value</h3>
-      <sl-number-field
-        disabled
-        size="md"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        disabled
-        size="lg"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Disabled with value</h3>
+        <sl-number-field
+          disabled
+          size="md"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          disabled
+          size="lg"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Readonly</h3>
-      <sl-number-field
-        size="md"
-        placeholder="Placeholder"
-        readonly
-        valueAsNumber="100"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        size="lg"
-        placeholder="Placeholder"
-        readonly
-        valueAsNumber="100"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Readonly</h3>
+        <sl-number-field
+          size="md"
+          placeholder="Placeholder"
+          readonly
+          valueAsNumber="100"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          size="lg"
+          placeholder="Placeholder"
+          readonly
+          valueAsNumber="100"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Empty, step buttons: end</h3>
-      <sl-number-field
-        size="md"
-        placeholder="Placeholder"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        size="lg"
-        placeholder="Placeholder"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Empty, step buttons: end</h3>
+        <sl-number-field
+          size="md"
+          placeholder="Placeholder"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          size="lg"
+          placeholder="Placeholder"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Value, step buttons: end</h3>
-      <sl-number-field
-        size="md"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        size="lg"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Value, step buttons: end</h3>
+        <sl-number-field
+          size="md"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          size="lg"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Disabled, step buttons: end</h3>
-      <sl-number-field
-        disabled
-        size="md"
-        placeholder="Placeholder"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        disabled
-        size="lg"
-        placeholder="Placeholder"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Disabled, step buttons: end</h3>
+        <sl-number-field
+          disabled
+          size="md"
+          placeholder="Placeholder"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          disabled
+          size="lg"
+          placeholder="Placeholder"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Disabled with value, step buttons: end</h3>
-      <sl-number-field
-        disabled
-        size="md"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        disabled
-        size="lg"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="end"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Disabled with value, step buttons: end</h3>
+        <sl-number-field
+          disabled
+          size="md"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          disabled
+          size="lg"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="end"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Empty, step buttons: edges</h3>
-      <sl-number-field
-        size="md"
-        placeholder="Placeholder"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        size="lg"
-        placeholder="Placeholder"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Empty, step buttons: edges</h3>
+        <sl-number-field
+          size="md"
+          placeholder="Placeholder"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          size="lg"
+          placeholder="Placeholder"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Value, step buttons: edges</h3>
-      <sl-number-field
-        size="md"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        size="lg"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Value, step buttons: edges</h3>
+        <sl-number-field
+          size="md"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          size="lg"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Disabled, step buttons: edges</h3>
-      <sl-number-field
-        disabled
-        size="md"
-        placeholder="Placeholder"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        disabled
-        size="lg"
-        placeholder="Placeholder"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Disabled, step buttons: edges</h3>
+        <sl-number-field
+          disabled
+          size="md"
+          placeholder="Placeholder"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          disabled
+          size="lg"
+          placeholder="Placeholder"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
 
-      <h3>Disabled with value, step buttons: edges</h3>
-      <sl-number-field
-        disabled
-        size="md"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
-      <sl-number-field
-        disabled
-        size="lg"
-        placeholder="Placeholder"
-        valueAsNumber="100"
-        step-buttons="edges"
-        aria-label="Number field"
-      ></sl-number-field>
+        <h3>Disabled with value, step buttons: edges</h3>
+        <sl-number-field
+          disabled
+          size="md"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
+        <sl-number-field
+          disabled
+          size="lg"
+          placeholder="Placeholder"
+          valueAsNumber="100"
+          step-buttons="edges"
+          aria-label="Number field"
+        ></sl-number-field>
+      </div>
     </section>
   `
 };

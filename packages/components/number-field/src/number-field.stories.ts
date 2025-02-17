@@ -4,7 +4,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type NumberField, StepButtonsPlacement } from './number-field.js';
+import { type NumberField, type NumberFieldButtonsAlignment } from './number-field.js';
 
 type Props = Pick<
   NumberField,
@@ -29,7 +29,7 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const stepButtonsPlacements: StepButtonsPlacement[] = ['end', 'edges'];
+const stepButtonsPlacements: NumberFieldButtonsAlignment[] = ['end', 'edges'];
 
 const sizes: TextFieldSize[] = ['md', 'lg'];
 

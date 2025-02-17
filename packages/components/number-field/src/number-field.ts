@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type StepButtonsPlacement = 'end' | 'edges';
+export type NumberFieldButtonsAlignment = 'end' | 'edges';
 
 /**
  * A number field component.
@@ -36,7 +36,7 @@ export class NumberField extends LocaleMixin(TextField) {
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
-  @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: StepButtonsPlacement;
+  @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
 
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
@@ -87,15 +87,6 @@ export class NumberField extends LocaleMixin(TextField) {
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
 
     this.#parser = new NumberParser(this.locale, this.formatOptions);
-
-    if (!this.rawValue && this.value && this.valueAsNumber) {
-      this.rawValue = this.value;
-    } else if (!this.rawValue && this.value && !this.valueAsNumber) {
-      this.rawValue = this.value;
-      this.valueAsNumber = this.#convertValueToNumber(this.rawValue ? this.rawValue : '');
-    }
-
-    this.#validateInput();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -113,6 +104,19 @@ export class NumberField extends LocaleMixin(TextField) {
       this.#parser = new NumberParser(this.locale, this.formatOptions);
       this.requestUpdate('value');
     }
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    if (!this.rawValue && this.value && this.valueAsNumber) {
+      this.rawValue = this.value;
+    } else if (!this.rawValue && this.value && !this.valueAsNumber) {
+      this.rawValue = this.value;
+      this.valueAsNumber = this.#convertValueToNumber(this.rawValue ? this.rawValue : '');
+    }
+
+    this.#validateInput();
   }
 
   override renderPrefix(): TemplateResult | typeof nothing {

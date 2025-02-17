@@ -86,40 +86,42 @@ export class FormatNumber extends LocaleMixin(LitElement) {
   useGrouping?: boolean;
 
   override render(): TemplateResult | string {
-    if (typeof this.number === 'number' && !Number.isNaN(this.number)) {
-      const {
-        currency,
-        currencyDisplay,
-        minimumIntegerDigits,
-        minimumFractionDigits,
-        maximumFractionDigits,
-        minimumSignificantDigits,
-        maximumSignificantDigits,
-        notation,
-        numberStyle: style,
-        signDisplay,
-        unit,
-        unitDisplay,
-        useGrouping
-      } = this;
-
-      return format(this.number, this.locale, {
-        currency,
-        currencyDisplay,
-        minimumIntegerDigits,
-        minimumFractionDigits,
-        maximumFractionDigits,
-        minimumSignificantDigits,
-        maximumSignificantDigits,
-        notation,
-        signDisplay,
-        style,
-        unit,
-        unitDisplay,
-        useGrouping,
-        ...this.formatOptions
-      });
+    if (typeof this.number !== 'number' || Number.isNaN(this.number)) {
+      return html`<slot></slot>`;
     }
+
+    const {
+      currency,
+      currencyDisplay,
+      minimumIntegerDigits,
+      minimumFractionDigits,
+      maximumFractionDigits,
+      minimumSignificantDigits,
+      maximumSignificantDigits,
+      notation,
+      numberStyle: style,
+      signDisplay,
+      unit,
+      unitDisplay,
+      useGrouping
+    } = this;
+
+    return format(this.number, this.locale, {
+      currency,
+      currencyDisplay,
+      minimumIntegerDigits,
+      minimumFractionDigits,
+      maximumFractionDigits,
+      minimumSignificantDigits,
+      maximumSignificantDigits,
+      notation,
+      signDisplay,
+      style,
+      unit,
+      unitDisplay,
+      useGrouping,
+      ...this.formatOptions
+    });
 
     return html`<slot></slot>`;
   }

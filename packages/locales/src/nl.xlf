@@ -248,7 +248,7 @@
 </trans-unit>
 <trans-unit id="sfc5e976d64c3fb31">
   <source>Please enter a valid number.</source>
-  <target>Voer een geldig nummer in.</target>
+  <target>Voer een geldig getal in.</target>
 </trans-unit>
 </body>
 </file>

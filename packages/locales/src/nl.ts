@@ -65,5 +65,5 @@ export const templates = {
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
   sf7290005be5beae6: str`${0}, pagina`,
-  sfc5e976d64c3fb31: 'Voer een geldig nummer in.'
+  sfc5e976d64c3fb31: 'Voer een geldig getal in.'
 };

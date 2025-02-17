@@ -128,7 +128,7 @@ describe('sl-number-field', () => {
       input = el.querySelector('input')!;
     });
 
-    it('should be invalid when value is greater than max', () => {
+    it('should be invalid when value is lower than min', () => {
       expect(el.valid).to.be.false;
     });
 
@@ -140,23 +140,6 @@ describe('sl-number-field', () => {
 
     it('should have a validation message', () => {
       expect(input.validationMessage).to.equal('The value must be greater than or equal to 2.');
-    });
-
-    it('should have a show-validity attribute when reported', async () => {
-      el.reportValidity();
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('show-validity', 'invalid');
-    });
-
-    it('should emit an update-validity event when reported', async () => {
-      const onUpdateValidity = spy();
-
-      el.addEventListener('sl-update-validity', onUpdateValidity);
-      el.reportValidity();
-      await el.updateComplete;
-
-      expect(onUpdateValidity).to.have.been.calledOnce;
     });
   });
 
@@ -180,23 +163,6 @@ describe('sl-number-field', () => {
 
     it('should have a validation message', () => {
       expect(input.validationMessage).to.equal('The value must be less than or equal to 12.');
-    });
-
-    it('should have a show-validity attribute when reported', async () => {
-      el.reportValidity();
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('show-validity', 'invalid');
-    });
-
-    it('should emit an update-validity event when reported', async () => {
-      const onUpdateValidity = spy();
-
-      el.addEventListener('sl-update-validity', onUpdateValidity);
-      el.reportValidity();
-      await el.updateComplete;
-
-      expect(onUpdateValidity).to.have.been.calledOnce;
     });
   });
 

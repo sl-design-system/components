@@ -30,7 +30,7 @@ describe('sl-format-number', () => {
       expect(el.renderRoot).to.have.text('123,456%');
     });
 
-    it('should render a currency unit if numberStyle is set to unit', async () => {
+    it('should render a unit if numberStyle is set to unit', async () => {
       el.numberStyle = 'unit';
       el.unit = 'meter';
       el.unitDisplay = 'long';

@@ -128,8 +128,6 @@ button {
   padding: 0;
 
   &:hover {
-    color: var(--sl-color-foreground-plain);
-
     sl-icon[name='far-circle-xmark'] {
       opacity: 0;
     }
@@ -139,7 +137,7 @@ button {
     }
   }
 
-  &:active sl-icon {
+  &:active {
     color: var(--sl-color-foreground-bold);
   }
 

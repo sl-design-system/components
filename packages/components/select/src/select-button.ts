@@ -5,7 +5,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
@@ -36,6 +36,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -102,5 +105,14 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.clearEvent.emit();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (!this.disabled && this.clearable && this.selected && ['Backspace', 'Delete'].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.clearEvent.emit();
+    }
   }
 }

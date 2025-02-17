@@ -1,7 +1,6 @@
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { type FormControlShowValidity } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -372,121 +371,7 @@ export const HideWhenOutOfView: StoryObj = {
   }
 };
 
-export const All: StoryObj = {
-  render: () => {
-    const disabledStates = [false, true],
-      states: FormControlShowValidity[] = [undefined, 'valid', 'invalid'];
-
-    const options = html`
-      <sl-option value="1">🐷 Pig</sl-option>
-      <sl-option value="2">🐨 Koala</sl-option>
-      <sl-option value="3">🐼 Panda</sl-option>
-      <sl-option value="4">🦊 Fox</sl-option>
-    `;
-
-    return html` <style>
-        table {
-          border-collapse: collapse;
-        }
-        th {
-          text-transform: capitalize;
-        }
-        th,
-        td {
-          padding: 4px 8px;
-        }
-        thead td {
-          text-align: center;
-        }
-      </style>
-      ${sizes.map(
-        size => html`
-          <h2>Size: ${size}</h2>
-          <table>
-            <thead>
-              <tr>
-                <td></td>
-                ${disabledStates.map(
-                  state => html`<td class=${state ? 'sb-disabled' : ''}>${state ? 'Disabled' : 'Enabled'}</td>`
-                )}
-              </tr>
-            </thead>
-            <tbody>
-              ${states.map(
-                state => html`
-                  <tr>
-                    <th>${state}</th>
-                    ${disabledStates.map(
-                      disabledState => html`
-                        <td class=${disabledState ? 'sb-disabled' : ''}>
-                          <sl-select
-                            ?disabled=${disabledState}
-                            ?required=${state === 'invalid'}
-                            .showValid=${state === 'valid'}
-                            .showValidity=${state}
-                            .size=${size}
-                            aria-label="Select an animal"
-                            data-mock-state
-                            value="1"
-                            >${options}
-                          </sl-select>
-                        </td>
-                      `
-                    )}
-                  </tr>
-                `
-              )}
-              ${states.map(
-                state =>
-                  html`<tr>
-                    <th>Placeholder ${state}</th>
-                    ${disabledStates.map(
-                      disabledState => html`
-                        <td class=${disabledState ? 'sb-disabled' : ''}>
-                          <sl-select
-                            ?disabled=${disabledState}
-                            ?required=${state === 'invalid'}
-                            .showValid=${state === 'valid'}
-                            .showValidity=${state}
-                            .size=${size}
-                            aria-label="Select an animal"
-                            data-mock-state
-                            placeholder="Placeholder"
-                            ><sl-option .size=${size} ?disabled=${disabledState}>Hamster</sl-option>
-                          </sl-select>
-                        </td>
-                      `
-                    )}
-                  </tr>`
-              )}
-              <tr>
-                <th>Unselected Option</th>
-                ${disabledStates.map(
-                  state => html`
-                    <td class=${state ? 'sb-disabled' : ''}>
-                      <sl-option .size=${size} ?disabled=${state}>🐹 Hamster</sl-option>
-                    </td>
-                  `
-                )}
-              </tr>
-              <tr>
-                <th>Selected Option</th>
-                ${disabledStates.map(
-                  state => html`
-                    <td class=${state ? 'sb-disabled' : ''}>
-                      <sl-option .size=${size} ?disabled=${state} selected>🐹 Hamster</sl-option>
-                    </td>
-                  `
-                )}
-              </tr>
-            </tbody>
-          </table>
-        `
-      )}`;
-  }
-};
-
-export const All2: Story = {
+export const All: Story = {
   render: () => {
     return html`
       <style>

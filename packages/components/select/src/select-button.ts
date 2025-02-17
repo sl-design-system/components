@@ -85,7 +85,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
       ${!this.disabled && this.clearable && this.selected
         ? html`
-            <button @click=${this.#onClick} aria-label=${msg('Clear selection')}>
+            <button @click=${this.#onClick} aria-label=${msg('Clear selection')} tabindex="-1">
               <sl-icon name="far-circle-xmark" size="sm"></sl-icon>
               <sl-icon name="fas-circle-xmark" size="sm"></sl-icon>
             </button>

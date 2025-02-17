@@ -12,10 +12,6 @@ import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-clear': SlClearEvent;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-select-button': SelectButton;
   }

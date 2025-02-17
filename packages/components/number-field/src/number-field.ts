@@ -78,7 +78,6 @@ export class NumberField extends LocaleMixin(TextField) {
   set valueAsNumber(value: number | undefined) {
     this.#value = value;
     this.value = value === undefined ? '' : value.toString();
-    this.requestUpdate('value');
   }
 
   override connectedCallback(): void {
@@ -124,9 +123,7 @@ export class NumberField extends LocaleMixin(TextField) {
       ? html`
           <button
             @click=${() => this.stepDown()}
-            ?disabled=${this.disabled ||
-            this.readonly ||
-            (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)}
+            ?disabled=${this.#isButtonDisabled('down')}
             aria-label=${msg('Step down')}
             tabindex="-1"
           >
@@ -143,9 +140,7 @@ export class NumberField extends LocaleMixin(TextField) {
             <div class="step-buttons">
               <button
                 @click=${() => this.stepDown()}
-                ?disabled=${this.disabled ||
-                this.readonly ||
-                (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)}
+                ?disabled=${this.#isButtonDisabled('down')}
                 aria-label=${msg('Step down')}
                 tabindex="-1"
               >
@@ -153,9 +148,7 @@ export class NumberField extends LocaleMixin(TextField) {
               </button>
               <button
                 @click=${() => this.stepUp()}
-                ?disabled=${this.disabled ||
-                this.readonly ||
-                (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)}
+                ?disabled=${this.#isButtonDisabled('up')}
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
@@ -167,9 +160,7 @@ export class NumberField extends LocaleMixin(TextField) {
             <div class="step-buttons">
               <button
                 @click=${() => this.stepUp()}
-                ?disabled=${this.disabled ||
-                this.readonly ||
-                (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)}
+                ?disabled=${this.#isButtonDisabled('up')}
                 aria-label=${msg('Step up')}
                 tabindex="-1"
               >
@@ -194,6 +185,24 @@ export class NumberField extends LocaleMixin(TextField) {
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
     this.#validateInput();
+  }
+
+  #isButtonDisabled(button: string): boolean {
+    if (button === 'up') {
+      return (
+        this.disabled ||
+        this.readonly ||
+        (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)
+      );
+    } else if (button === 'down') {
+      return (
+        this.disabled ||
+        this.readonly ||
+        (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)
+      );
+    } else {
+      return false;
+    }
   }
 
   override onBlur(): void {

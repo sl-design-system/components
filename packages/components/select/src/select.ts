@@ -334,10 +334,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onSlotchange(): void {
     this.options.forEach(option => option.setAttribute('aria-selected', 'false'));
 
-    this.#setSelectedOption(
-      this.options.find(option => option.value === this.value),
-      false
-    );
+    if (this.value !== undefined) {
+      this.#setSelectedOption(
+        this.options.find(option => option.value === this.value),
+        false
+      );
+    } else {
+      this.#setSelectedOption(undefined, false);
+    }
 
     this.optionGroups?.forEach(group => {
       group.classList.remove('bottom-divider');

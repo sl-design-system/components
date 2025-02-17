@@ -1,3 +1,5 @@
+import { faCircleXmark } from '@fortawesome/pro-regular-svg-icons';
+import { faCircleXmark as fasCircleXmark } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
@@ -20,6 +22,8 @@ declare global {
 }
 
 export type SlClearEvent = CustomEvent<void>;
+
+Icon.register(faCircleXmark, fasCircleXmark);
 
 @localized()
 export class SelectButton extends ScopedElementsMixin(LitElement) {
@@ -79,10 +83,11 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     return html`
       <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
-      ${this.clearable && this.selected
+      ${!this.disabled && this.clearable && this.selected
         ? html`
             <button @click=${this.#onClick} aria-label=${msg('Clear selection')}>
-              <sl-icon name="xmark"></sl-icon>
+              <sl-icon name="far-circle-xmark" size="sm"></sl-icon>
+              <sl-icon name="fas-circle-xmark" size="sm"></sl-icon>
             </button>
           `
         : nothing}

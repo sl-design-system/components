@@ -493,7 +493,7 @@ export const All2: Story = {
         .wrapper {
           align-items: center;
           display: inline-grid;
-          grid-template-columns: auto 1fr 1fr;
+          grid-template-columns: auto minmax(200px, 1fr) minmax(200px, 1fr);
           gap: 1rem;
         }
       </style>
@@ -514,13 +514,25 @@ export const All2: Story = {
           <sl-option>Value 3</sl-option>
         </sl-select>
 
-        <span>Value</span>
+        <span>Selected</span>
         <sl-select placeholder="Select an option" value="Value 2">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>
         </sl-select>
         <sl-select placeholder="Select an option" value="Value 2" size="lg">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+
+        <span>Clearable</span>
+        <sl-select clearable placeholder="Select an option" value="Value 2">
+          <sl-option>Value 1</sl-option>
+          <sl-option>Value 2</sl-option>
+          <sl-option>Value 3</sl-option>
+        </sl-select>
+        <sl-select clearable placeholder="Select an option" value="Value 2" size="lg">
           <sl-option>Value 1</sl-option>
           <sl-option>Value 2</sl-option>
           <sl-option>Value 3</sl-option>

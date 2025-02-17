@@ -230,6 +230,10 @@
   <source>Loading</source>
   <target>Laden</target>
 </trans-unit>
+<trans-unit id="s8f18916860db5d80">
+  <source>Clear selection</source>
+  <target>Selectie wissen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

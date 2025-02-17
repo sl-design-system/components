@@ -11,12 +11,11 @@
   cursor: pointer;
   display: flex;
   flex: 1;
-  gap: var(--sl-size-050);
   max-inline-size: 100%;
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  padding-inline-end: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
 
   @media (prefers-reduced-motion: no-preference) {
     transition: 0.2s ease-in-out;
@@ -26,6 +25,10 @@
 
 :host(:hover) {
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+}
+
+:host:has(button:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 }
 
 :host(:active) {
@@ -57,8 +60,16 @@
   outline-color: var(--sl-color-border-focused);
 }
 
-:host([aria-expanded='true']) sl-icon {
+:host([aria-expanded='true']) .status sl-icon {
   rotate: 180deg;
+}
+
+:host([clearable]) {
+  button + .status {
+    border-inline-start: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-subtle);
+    margin-inline-start: 0;
+    padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  }
 }
 
 .placeholder {
@@ -80,11 +91,62 @@ div {
   }
 }
 
-sl-icon {
+.status {
+  align-items: center;
+  block-size: 1lh;
+  display: inline-flex;
   flex-shrink: 0;
+  justify-content: center;
+  margin-inline-start: var(--sl-size-050);
   pointer-events: none;
 
+  sl-icon {
+    @media (prefers-reduced-motion: no-preference) {
+      transition: rotate 0.2s ease-in-out;
+    }
+  }
+}
+
+button {
+  --_opacity: var(--sl-opacity-interactive-bold-idle);
+
+  align-items: center;
+  appearance: none;
+  aspect-ratio: 1;
+  background: transparent;
+  block-size: calc(1lh + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  justify-content: center;
+  margin-inline-start: var(--sl-size-050);
+  outline: 0;
+  padding: 0;
+
+  &:hover {
+    --_opacity: var(--sl-opacity-interactive-bold-hover);
+  }
+
+  &:active {
+    --_opacity: var(--sl-opacity-interactive-bold-active);
+  }
+
   @media (prefers-reduced-motion: no-preference) {
-    transition: rotate 0.2s ease-in-out;
+    transition: background 0.2s ease-in-out;
+  }
+
+  sl-icon {
+    align-items: center;
+    background: color-mix(
+      in srgb,
+      transparent,
+      var(--sl-color-background-secondary-interactive-plain) calc(100% * var(--_opacity))
+    );
+    block-size: var(--sl-size-xl);
+    border-radius: var(--sl-size-borderRadius-default);
+    display: inline-flex;
+    inline-size: var(--sl-size-xl);
+    justify-content: center;
   }
 }

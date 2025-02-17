@@ -6,10 +6,11 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/listbox/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Select, type SelectSize } from './select.js';
 
-type Props = Pick<Select, 'disabled' | 'placeholder' | 'required' | 'size' | 'value'> & {
+type Props = Pick<Select, 'clearable' | 'disabled' | 'placeholder' | 'required' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
   options?(): TemplateResult;
@@ -40,7 +41,7 @@ export default {
       control: 'text'
     }
   },
-  render: ({ disabled, hint, label, options, placeholder, reportValidity, required, size, slot, value }) => {
+  render: ({ clearable, disabled, hint, label, options, placeholder, reportValidity, required, size, slot, value }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -51,11 +52,12 @@ export default {
           ${slot?.() ??
           html`
             <sl-select
+              ?clearable=${clearable}
               ?disabled=${disabled}
               ?required=${required}
-              .placeholder=${placeholder}
-              .size=${size}
               .value=${value}
+              placeholder=${ifDefined(placeholder)}
+              size=${ifDefined(size)}
             >
               ${options?.() ??
               html`
@@ -80,14 +82,10 @@ export default {
 
 export const Basic: Story = {};
 
-export const Clear: Story = {
+export const Clearable: Story = {
   args: {
-    options: () => html`
-      <sl-option>&nbsp;</sl-option>
-      <sl-option value="1">Option 1</sl-option>
-      <sl-option value="2">Option 2</sl-option>
-      <sl-option value="3">Option 3</sl-option>
-    `
+    clearable: true,
+    value: '2'
   }
 };
 

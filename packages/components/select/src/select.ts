@@ -18,6 +18,12 @@ import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
 
 declare global {
+  interface HTMLElement {
+    // Workaround for missing options in TypeScript's lib.dom.d.ts
+    // See https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
+    showPopover(options?: { source?: HTMLElement }): void;
+  }
+
   interface HTMLElementTagNameMap {
     'sl-select': Select;
   }
@@ -87,7 +93,11 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #rovingTabindexController = new RovingTabindexController<Option>(this, {
     direction: 'vertical',
     elements: () => this.options || [],
-    focusInIndex: (elements: Option[]) => elements.findIndex(el => !el.disabled),
+    focusInIndex: (elements: Option[]) => {
+      const index = elements.findIndex(el => el.selected);
+
+      return index !== -1 ? index : elements.findIndex(el => !el.disabled);
+    },
     isFocusableElement: (el: Option) => !el.disabled
   });
 
@@ -99,6 +109,19 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
+
+  /** Will display a clear button when an option is selected. */
+  @property({ type: Boolean, reflect: true }) clearable?: boolean;
+
+  /**
+   * The current option in the listbox. This is the option that will become the
+   * selected option if the user presses Enter/Space.
+   * @internal
+   */
+  @state() currentOption?: Option<T>;
+
+  /** Whether the select is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
@@ -118,16 +141,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     return elements.flatMap(element => this.#getAllOptions(element));
   }
-
-  /**
-   * The current option in the listbox. This is the option that will become the
-   * selected option if the user presses Enter/Space.
-   * @internal
-   */
-  @state() currentOption?: Option<T>;
-
-  /** Whether the select is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** The placeholder text to show when no option is chosen. */
   @property() placeholder?: string;
@@ -240,6 +253,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
         ${ref(this.button)}
         @click=${this.#onButtonClick}
         @keydown=${this.#onKeydown}
+        @sl-clear=${this.#onClear}
+        ?clearable=${this.clearable}
         ?disabled=${this.disabled}
         ?required=${this.required}
         ?show-valid=${this.showValid}
@@ -269,10 +284,14 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   #onButtonClick(): void {
     if (!this.listbox?.matches(':popover-open') && !this.#popoverClosing) {
-      this.listbox?.showPopover();
+      this.listbox?.showPopover({ source: this.button.value });
     }
 
     this.#popoverClosing = false;
+  }
+
+  #onClear(): void {
+    this.#setSelectedOption(undefined, true);
   }
 
   #onFocusin(): void {
@@ -289,7 +308,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.preventDefault();
       event.stopPropagation();
 
-      this.listbox?.showPopover();
+      this.listbox?.showPopover({ source: this.button.value });
     }
   }
 
@@ -313,6 +332,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onSlotchange(): void {
+    this.options.forEach(option => option.setAttribute('aria-selected', 'false'));
+
     this.#setSelectedOption(
       this.options.find(option => option.value === this.value),
       false
@@ -350,11 +371,13 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #setSelectedOption(option?: Option<T>, emitEvent = true): void {
     if (this.selectedOption) {
       this.selectedOption.selected = false;
+      this.selectedOption.setAttribute('aria-selected', 'false');
     }
 
     this.selectedOption = option;
     if (this.selectedOption) {
       this.selectedOption.selected = true;
+      this.selectedOption.setAttribute('aria-selected', 'true');
     }
 
     this.value = this.selectedOption?.value;

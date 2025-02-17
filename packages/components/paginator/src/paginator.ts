@@ -277,6 +277,8 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  // TODO: variant, emphasis, sizes sm, md, lg???
+
   #onChange(event: SlChangeEvent<number>): void {
     this.#onPageClick(event.detail);
   }

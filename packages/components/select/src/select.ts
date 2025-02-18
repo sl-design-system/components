@@ -17,12 +17,6 @@ import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
 
 declare global {
-  interface HTMLElement {
-    // Workaround for missing options in TypeScript's lib.dom.d.ts
-    // See https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
-    showPopover(options?: { source?: HTMLElement }): void;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-select': Select;
   }
@@ -41,7 +35,7 @@ export type SelectSize = 'md' | 'lg';
 /**
  * A form control that allows users to select one option from a list of options.
  *
- * @slot default - Place for `sl-option` elements
+ * @slot default - Place for `sl-option` and `sl-option-group` elements
  * @csspart listbox - Set `--sl-popover-max-block-size` and/or `--sl-popover-min-block-size` to control the minimum and maximum height of the dropdown (within the limits of the available screen real estate)
  */
 @localized()
@@ -77,7 +71,11 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   static viewportMargin = 8;
 
   /** Events controller. */
-  #events = new EventsController(this, { focusin: this.#onFocusin, focusout: this.#onFocusout });
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    focusin: this.#onFocusin,
+    focusout: this.#onFocusout
+  });
 
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState?: T;
@@ -224,6 +222,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
 
     if (changes.has('required')) {
+      this.button.required = this.required;
       this.internals.ariaRequired = Boolean(this.required).toString();
 
       this.#updateValueAndValidity();
@@ -308,7 +307,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   #onButtonClick(): void {
     if (!this.listbox?.matches(':popover-open') && !this.#popoverClosing) {
-      this.listbox?.showPopover({ source: this.button });
+      this.listbox?.showPopover();
     }
 
     this.#popoverClosing = false;
@@ -316,6 +315,12 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   #onClear(): void {
     this.#setSelectedOption(undefined, true);
+  }
+
+  #onClick(event: Event): void {
+    if (event.target === this || event.target === this.button) {
+      this.button.focus();
+    }
   }
 
   #onFocusin(): void {
@@ -344,7 +349,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
       event.preventDefault();
       event.stopPropagation();
 
-      this.listbox?.showPopover({ source: this.button });
+      this.listbox?.showPopover();
     }
   }
 
@@ -402,9 +407,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   /** Returns a flattened array of all options (also the options in groups). */
-  #getAllOptions(root: Element): Array<Option<T>> {
+  #getAllOptions(root: Element): Array<Option<T>> | Option<T> {
     if (root instanceof Option) {
-      return [root] as Array<Option<T>>;
+      return root as Option<T>;
     } else if (root instanceof OptionGroup) {
       return Array.from(root.children).flatMap(child => this.#getAllOptions(child));
     } else {

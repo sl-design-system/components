@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/listbox/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -9,21 +10,7 @@ import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
 
 describe('sl-select', () => {
-  let el: Select;
-
-  describe('empty', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-select></sl-select>`);
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
-    it('should have a button', () => {
-      expect(el.querySelector('sl-select-button')).to.exist;
-    });
-  });
+  let el: Select, button: SelectButton;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -34,19 +21,22 @@ describe('sl-select', () => {
           <sl-option value="3">Option 3</sl-option>
         </sl-select>
       `);
+
+      button = el.querySelector('sl-select-button')!;
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
+    it('should have a button', () => {
+      expect(button).to.exist;
     });
 
     it('should have a tabindex of 0', () => {
-      expect(el.querySelector('sl-select-button')).to.have.attribute('tabindex', '0');
+      expect(button).to.have.attribute('tabindex', '0');
     });
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
+      expect(button).not.to.have.attribute('disabled');
     });
 
     it('should be disabled when set', async () => {
@@ -55,34 +45,36 @@ describe('sl-select', () => {
 
       expect(el).to.have.attribute('disabled');
       expect(el.disabled).to.be.true;
+      expect(button).to.have.attribute('disabled');
     });
 
     it('should not have a placeholder', () => {
-      expect(el.querySelector('sl-select-button')).not.to.have.attribute('aria-placeholder');
+      expect(button).not.to.have.attribute('aria-placeholder');
+      expect(button.renderRoot).to.have.trimmed.text('');
     });
 
     it('should have a placeholder when set', async () => {
       el.placeholder = 'Placeholder';
       await el.updateComplete;
 
-      const button = el.querySelector('sl-select-button') as SelectButton;
-      const placeholder = button.shadowRoot?.querySelector('div');
-
-      expect(placeholder).to.have.trimmed.text('Placeholder');
+      expect(button).to.have.attribute('aria-placeholder', 'Placeholder');
+      expect(button.renderRoot).to.have.trimmed.text('Placeholder');
     });
 
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;
       expect(el.internals.ariaRequired).not.to.equal('true');
+      expect(button).not.to.have.attribute('aria-required');
     });
 
     it('should be required when set', async () => {
       el.required = true;
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.have.attribute('required');
       expect(el.internals.ariaRequired).to.equal('true');
+      expect(button).to.have.attribute('aria-required', 'true');
     });
 
     it('should be valid by default', () => {
@@ -105,11 +97,19 @@ describe('sl-select', () => {
       expect(el.value).to.be.undefined;
     });
 
+    it('should have set aria-selected to false on all options', () => {
+      const allNotSelected = Array.from(el.querySelectorAll('sl-option')).every(
+        option => option.getAttribute('aria-selected') === 'false'
+      );
+
+      expect(allNotSelected).to.be.true;
+    });
+
     it('should have a selected option after setting a value', async () => {
       el.value = '2';
       await el.updateComplete;
 
-      expect(el.querySelector('sl-option[value="2"]')).to.have.attribute('selected');
+      expect(el.querySelector('sl-option[value="2"]')).to.have.attribute('aria-selected', 'true');
     });
 
     it('should have a value after selection', async () => {
@@ -503,21 +503,19 @@ describe('sl-select', () => {
           <sl-option value="3">Option 3</sl-option>
         </sl-select>
       `);
+
+      button = el.querySelector('sl-select-button')!;
     });
 
-    it('should open the dropdown on Enter key', async () => {
-      const button = el.querySelector('sl-select-button') as SelectButton;
-
+    it('should open the popover on ArrowDown key', async () => {
       button.focus();
-      await sendKeys({ press: 'Enter' });
+      await sendKeys({ press: 'ArrowDown' });
       await el.updateComplete;
 
       expect(button).to.have.attribute('aria-expanded', 'true');
     });
 
-    it('should close the dropdown on Escape key', async () => {
-      const button = el.querySelector('sl-select-button') as SelectButton;
-
+    it('should close the popover on Escape key', async () => {
       button.focus();
       await sendKeys({ press: 'Enter' });
       await el.updateComplete;
@@ -528,9 +526,34 @@ describe('sl-select', () => {
       expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('should navigate options with ArrowDown key', async () => {
-      const button = el.querySelector('sl-select-button') as SelectButton;
+    it('should close the popover when focus leaves the select', async () => {
+      const listbox = el.renderRoot.querySelector('sl-listbox');
 
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      expect(listbox).to.match(':popover-open');
+
+      await sendKeys({ press: 'Tab' });
+      await el.updateComplete;
+
+      expect(listbox).not.to.match(':popover-open');
+    });
+
+    it('should focus the button after the popover closes', async () => {
+      button.focus();
+
+      // Open popover
+      await sendKeys({ press: 'ArrowDown' });
+
+      // Select the first option
+      await sendKeys({ press: 'Enter' });
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should navigate options with ArrowDown key', async () => {
       button.focus();
       await sendKeys({ press: 'ArrowDown' });
       await el.updateComplete;

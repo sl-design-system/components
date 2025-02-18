@@ -55,7 +55,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) size?: SelectSize;
 
   /** Mirrors the same property on the sl-select parent. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
+  @property({ type: Boolean }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
@@ -78,6 +78,14 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
         this.setAttribute('aria-placeholder', this.placeholder);
       } else {
         this.removeAttribute('aria-placeholder');
+      }
+    }
+
+    if (changes.has('required')) {
+      if (this.required) {
+        this.setAttribute('aria-required', 'true');
+      } else {
+        this.removeAttribute('aria-required');
       }
     }
   }

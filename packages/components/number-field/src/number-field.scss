@@ -8,6 +8,7 @@
 
 .step-buttons {
   display: flex;
+  margin-inline: var(--sl-size-025);
 
   button {
     sl-icon,

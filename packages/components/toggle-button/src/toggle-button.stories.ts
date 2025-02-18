@@ -31,7 +31,7 @@ export default {
     },
     fill: {
       control: 'inline-radio',
-      options: ['ghost', 'outline']
+      options: ['ghost', 'outline', 'solid']
     },
     icons: {
       table: { disable: true }
@@ -295,7 +295,7 @@ export const All: Story = {
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
-        <span style="grid-row: span 2">md</span>
+        <span style="grid-row: span 3">md</span>
         <span>Outline</span>
         ${renderRow({
           emphasis: 'bold',
@@ -308,23 +308,34 @@ export const All: Story = {
           fill: 'ghost',
           size: 'md'
         })}
+        <span>Solid</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'solid',
+          size: 'md'
+        })}
 
-        <span style="grid-row: span 2">lg</span>
+        <span style="grid-row: span 3">lg</span>
         <span>Outline</span>
         ${renderRow({
           emphasis: 'bold',
           fill: 'outline',
           size: 'lg'
         })}
-
         <span>Ghost</span>
         ${renderRow({
           emphasis: 'bold',
           fill: 'ghost',
+          size: 'lg'
+        })}
+        <span>Solid</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'solid',
           size: 'lg'
         })}
       </section>
-      First item on the first row is the default combination of values; muted, outline, md and square shape.
+      <p>First item on the first row is the default combination of values; muted, outline, md and square shape.</p>
     `;
   }
 };

@@ -52,6 +52,16 @@
   --_bg-color: var(--sl-color-background-selected-subtlest);
 }
 
+:host([emphasis='bold'][fill='solid']) {
+  --_bg-color: var(--sl-color-background-secondary-bold);
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
+  --_border-width: var(--sl-size-borderWidth-none);
+}
+
+:host([emphasis='bold'][fill='solid'][disabled]) {
+  --_bg-mix-color: transparent;
+}
+
 :host([emphasis='bold'][pressed]) {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);

@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type ToggleButtonFill = 'ghost' | 'outline';
+export type ToggleButtonFill = 'ghost' | 'outline' | 'solid';
 export type ToggleButtonSize = 'md' | 'lg';
 export type ToggleButtonShape = 'pill' | 'square';
 export type ToggleButtonEmphasis = 'bold' | 'muted' | 'subtle';

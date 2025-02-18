@@ -19,7 +19,7 @@
   vertical-align: middle;
 }
 
-:host(:hover:not(:focus-within)) {
+:host(:hover) {
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 

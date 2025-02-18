@@ -7,7 +7,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
@@ -34,6 +34,8 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
+
+  #internals = this.attachInternals();
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -66,6 +68,22 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'combobox');
+  }
+
+  override firstUpdated(changes: PropertyValues): void {
+    super.firstUpdated(changes);
+
+    requestAnimationFrame(() => {
+      let parent = (this.getRootNode() as ShadowRoot).host;
+      parent = parent.getRootNode() as HTMLElement;
+
+      const ids = this.getAttribute('aria-describedby')?.split(' ') ?? [];
+      this.removeAttribute('aria-describedby');
+      this.#internals.ariaDescribedByElements = ids
+        .map(id => parent.querySelector(`#${id}`))
+        .filter(Boolean) as Element[];
+      console.log('this.internals.ariaDescribedByElements', this.#internals.ariaDescribedByElements);
+    });
   }
 
   override render(): TemplateResult {

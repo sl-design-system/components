@@ -18,6 +18,10 @@ import { SelectButton } from './select-button.js';
 import styles from './select.scss.js';
 
 declare global {
+  interface ElementInternals {
+    ariaDescribedByElements: Element[];
+  }
+
   interface HTMLElement {
     // Workaround for missing options in TypeScript's lib.dom.d.ts
     // See https://html.spec.whatwg.org/multipage/popover.html#dom-showpopover
@@ -174,10 +178,6 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
     this.setFormControlElement(this);
 
-    // if (this.button) {
-    //   this.setAttributesTarget(this.button);
-    // }
-
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
   }
@@ -211,22 +211,26 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     }
   }
 
-  // override firstUpdated(changes: PropertyValues<this>): void {
-  //   super.firstUpdated(changes);
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
 
-  //   requestAnimationFrame(() => {
-  //     this.button.setAttribute('aria-controls', this.wrapper.id);
+    if (this.button.value) {
+      this.setAttributesTarget(this.button.value);
+    }
 
-  //     if (this.internals.labels.length) {
-  //       this.button.setAttribute(
-  //         'aria-labelledby',
-  //         Array.from(this.internals.labels)
-  //           .map(label => (label as HTMLLabelElement).id)
-  //           .join(' ')
-  //       );
-  //     }
-  //   });
-  // }
+    requestAnimationFrame(() => {
+      if (this.internals.labels.length) {
+        // Set the aria-label of the button to the concatenated text content of all labels
+        // FIXME: This is a workaround because we do not yet have access to `referenceTarget`
+        this.button.value?.setAttribute(
+          'aria-label',
+          Array.from(this.internals.labels)
+            .map(label => (label as HTMLLabelElement).textContent?.trim())
+            .join(' ')
+        );
+      }
+    });
+  }
 
   override render(): TemplateResult {
     return html`

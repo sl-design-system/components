@@ -1619,9 +1619,9 @@
         "value": {
           "x": "0",
           "y": "0",
-          "blur": "10",
+          "blur": "8",
           "spread": "0",
-          "color": "rgba({color.palette.grey.050}, {opacity.subtle})",
+          "color": "rgba( {color.palette.grey.000} , {opacity.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",

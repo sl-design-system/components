@@ -157,16 +157,14 @@ export class NumberField extends LocaleMixin(TextField) {
             </div>
           `
         : html`
-            <div class="step-buttons">
-              <button
-                @click=${() => this.stepUp()}
-                ?disabled=${this.#isButtonDisabled('up')}
-                aria-label=${msg('Step up')}
-                tabindex="-1"
-              >
-                <sl-icon name="plus" size="md"></sl-icon>
-              </button>
-            </div>
+            <button
+              @click=${() => this.stepUp()}
+              ?disabled=${this.#isButtonDisabled('up')}
+              aria-label=${msg('Step up')}
+              tabindex="-1"
+            >
+              <sl-icon name="plus" size="md"></sl-icon>
+            </button>
           `
       : nothing;
   }

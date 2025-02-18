@@ -23,7 +23,8 @@
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 
-:host(:hover):has(button:hover) {
+:host(:hover):has(button:hover),
+:host:has(button:hover) {
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 }
 
@@ -150,7 +151,7 @@ button:hover:not(:disabled) {
     --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 
     background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-    border-radius: inherit;
+    border-radius: calc(var(--sl-size-borderRadius-child));
 
     @media (prefers-reduced-motion: no-preference) {
       transition: 200ms ease-in-out;

@@ -50,13 +50,13 @@ WAI-ARIA Roles, States, and Properties for a select component provide essential 
 
 </div>
 
-### Select option group
+### Option group
 
 <div class="ds-table-wrapper">
 
 |Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
 |-|-|-|-|
-|`role`|`'group'`|Identifies the `select-option-group` as a group.|no|
+|`role`|`'group'`|Identifies the `option-group` as a group.|no|
 |`aria-label`|string|String that labels the select options group. Same as `heading` string by default. When there is no `heading` please add your own aria-label string.|no/yes|
 |`aria-labelledby`|string|Can be used to connect with single header/element that describes the select group, when there is no label/`heading` connected to.|yes|
 
@@ -64,13 +64,13 @@ WAI-ARIA Roles, States, and Properties for a select component provide essential 
 
 </div>
 
-### Select option
+### Option
 
 <div class="ds-table-wrapper">
 
 |Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
 |-|-|-|-|
-|`role`|`'option'`|Identifies the `select-option` as an option, which is a part of the listbox/group.|no|
+|`role`|`'option'`|Identifies the `option` as an option, which is a part of the listbox/group.|no|
 |`aria-disabled`|boolean|Announces the select option as disabled with a screen reader when there is a `disabled` attribute set.|no|
 |`aria-selected`|boolean|Set to `true` when a select option is selected.|no|
 

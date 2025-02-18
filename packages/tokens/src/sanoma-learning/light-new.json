@@ -406,6 +406,10 @@
         "description": "Use for non-interactive brand-reinforcing text."
       },
       "selected": {
+        "plain": {
+          "value": "{color.foreground.accent.blue.plain}",
+          "type": "color"
+        },
         "bold": {
           "value": "{color.foreground.accent.blue.bold}",
           "type": "color",
@@ -1022,7 +1026,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
         "interactive": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.accent.grey.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }
@@ -1126,13 +1130,13 @@
           "description": "A subtle background in the neutral action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.palette.grey.100}",
           "type": "color",
           "description": "A vibrant background option used for neutral actions."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.grey.interactive.bold}",
+            "value": "{color.palette.grey.600}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1341,7 +1345,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.400}",
+              "value": "{color.palette.grey.200}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1611,7 +1615,7 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700}, {opacity.subtle})",
+          "color": "rgba({color.palette.grey.900}, {opacity.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1646,6 +1650,20 @@
         },
         "active": {
           "value": "25%",
+          "type": "opacity"
+        }
+      },
+      "reversed": {
+        "idle": {
+          "value": "80%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "90%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "100%",
           "type": "opacity"
         }
       }

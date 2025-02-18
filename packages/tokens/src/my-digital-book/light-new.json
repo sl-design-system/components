@@ -410,6 +410,11 @@
           "value": "{color.foreground.accent.blue.onBold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "plain": {
+          "value": "{color.foreground.accent.blue.plain}",
+          "type": "color",
+          "description": "Used as selected foreground color on white backgrounds."
         }
       },
       "brand": {
@@ -787,7 +792,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.foreground.accent.grey.faint}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
@@ -797,7 +802,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.foreground.accent.blue.bold}",
+        "value": "{color.border.primary.bold}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -937,7 +942,7 @@
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.600}",
+            "value": "{color.palette.grey.400}",
             "type": "color",
             "description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -1044,7 +1049,7 @@
           "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "{color.background.primary.bold}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
         },
@@ -1346,7 +1351,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.800}",
+              "value": "{color.palette.grey.600}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }

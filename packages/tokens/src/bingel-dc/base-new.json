@@ -131,7 +131,7 @@
     },
     "borderWidth": {
       "default": {
-        "value": "{size.borderWidth.bold}",
+        "value": "{size.borderWidth.subtle}",
         "type": "borderWidth",
         "description": "Sets the standard border width for UI elements."
       },

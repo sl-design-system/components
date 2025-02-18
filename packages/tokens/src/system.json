@@ -440,6 +440,22 @@
         "type": "opacity"
       }
     },
+    "interactive": {
+      "reversed": {
+        "idle": {
+          "value": "80%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "90%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "100%",
+          "type": "opacity"
+        }
+      }
+    },
     "dark": {
       "interactive": {
         "bold": {

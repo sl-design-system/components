@@ -6,7 +6,7 @@
 
   background: var(--_background);
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border: var(--sl-size-borderWidth-default) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   cursor: text;

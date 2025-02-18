@@ -13,10 +13,10 @@ import { CheckboxComponent } from '../src/checkbox/checkbox.component';
 import { DialogComponent } from '../src/dialog/dialog.component';
 import { IconComponent } from '../src/icon/icon.component';
 import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
+import { OptionComponent } from '../src/listbox/option.component';
 import { PopoverComponent } from '../src/popover/popover.component';
 import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
 import { RadioComponent } from '../src/radio-group/radio.component';
-import { SelectOptionComponent } from '../src/select/select-option.component';
 import { SelectComponent } from '../src/select/select.component';
 import { SkeletonComponent } from '../src/skeleton/skeleton.component';
 import { SpinnerComponent } from '../src/spinner/spinner.component';
@@ -46,11 +46,11 @@ export default {
         DialogComponent,
         IconComponent,
         InlineMessageComponent,
+        OptionComponent,
         PopoverComponent,
         RadioComponent,
         RadioGroupComponent,
         SelectComponent,
-        SelectOptionComponent,
         SkeletonComponent,
         SpinnerComponent,
         SwitchComponent,
@@ -218,9 +218,9 @@ export const Select: StoryObj = {
   render: () => ({
     template: `
       <sl-select>
-        <sl-select-option value="1">Option 1</sl-select-option>
-        <sl-select-option value="2">Option 2</sl-select-option>
-        <sl-select-option value="3">Option 3</sl-select-option>
+        <sl-option value="1">Option 1</sl-option>
+        <sl-option value="2">Option 2</sl-option>
+        <sl-option value="3">Option 3</sl-option>
       </sl-select>
     `
   })

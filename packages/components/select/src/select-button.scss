@@ -60,8 +60,12 @@
   outline-color: var(--sl-color-border-focused);
 }
 
-:host([aria-expanded='true']) .status sl-icon {
-  rotate: 180deg;
+:host([aria-expanded='true']) {
+  outline-color: var(--sl-color-border-focused);
+
+  .status sl-icon {
+    rotate: 180deg;
+  }
 }
 
 :host([clearable]) {

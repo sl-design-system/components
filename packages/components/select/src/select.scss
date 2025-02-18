@@ -23,8 +23,4 @@ sl-listbox {
 sl-listbox:popover-open {
   display: flex;
   opacity: 1;
-
-  + sl-select-button {
-    outline-color: var(--sl-color-border-focused);
-  }
 }

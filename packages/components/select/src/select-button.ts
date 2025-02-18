@@ -9,6 +9,7 @@ import { type EventEmitter, EventsController, event } from '@sl-design-system/sh
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
 
@@ -34,8 +35,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
-
-  #internals = this.attachInternals();
 
   /** Will display a clear button when an option is selected. */
   @property({ type: Boolean, reflect: true }) clearable?: boolean;
@@ -68,22 +67,19 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'combobox');
+    this.setAttribute('slot', 'button');
   }
 
-  override firstUpdated(changes: PropertyValues): void {
-    super.firstUpdated(changes);
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
 
-    requestAnimationFrame(() => {
-      let parent = (this.getRootNode() as ShadowRoot).host;
-      parent = parent.getRootNode() as HTMLElement;
-
-      const ids = this.getAttribute('aria-describedby')?.split(' ') ?? [];
-      this.removeAttribute('aria-describedby');
-      this.#internals.ariaDescribedByElements = ids
-        .map(id => parent.querySelector(`#${id}`))
-        .filter(Boolean) as Element[];
-      console.log('this.internals.ariaDescribedByElements', this.#internals.ariaDescribedByElements);
-    });
+    if (changes.has('placeholder') || changes.has('selected')) {
+      if (this.placeholder && !this.selected) {
+        this.setAttribute('aria-placeholder', this.placeholder);
+      } else {
+        this.removeAttribute('aria-placeholder');
+      }
+    }
   }
 
   override render(): TemplateResult {
@@ -97,8 +93,12 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       selected = this.selected?.textContent?.trim();
     }
 
+    const showPlaceholder = this.placeholder && !selected;
+
     return html`
-      <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
+      <div aria-hidden=${ifDefined(showPlaceholder ? true : undefined)} class=${showPlaceholder ? 'placeholder' : ''}>
+        ${selected || this.placeholder || '\u00a0'}
+      </div>
       ${!this.disabled && this.clearable && this.selected
         ? html`
             <button @click=${this.#onClick} aria-label=${msg('Clear selection')} tabindex="-1">

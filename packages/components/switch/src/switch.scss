@@ -111,6 +111,7 @@
   background: var(--sl-color-background-inverted-bold);
   block-size: var(--_handle-size);
   border-radius: 50%;
+  box-shadow: var(--sl-elevation-shadow-overlay);
   color: var(--_handle-color);
   display: grid;
   place-content: center;

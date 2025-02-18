@@ -701,7 +701,7 @@
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "plain": {
-          "value": "{color.foreground.accent.blue.plain}",
+          "value": "{color.foreground.accent.purple.plain}",
           "type": "color",
           "description": "Used as selected foreground color on white backgrounds."
         }
@@ -1142,7 +1142,7 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.grey.interactive.bold}",
+            "value": "{color.palette.grey.800}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },

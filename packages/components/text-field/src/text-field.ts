@@ -157,7 +157,44 @@ export class TextField<T extends { toString(): string } = string>
     }
 
     this.setFormControlElement(this.input);
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+      sl-number-field:hover:not(:focus-within) {
+        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+
+      sl-number-field:has(button) {
+        background-color: red;
+      }
+
+      sl-number-field:has(button:hover) {
+      --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+      }
+
+        sl-number-field:hover {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+        }
+
+        sl-number-field:focus-within {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+        }
+
+        sl-number-field:hover:has(button) {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+        }
+      `;
+    this.prepend(style);
   }
+
+  //   sl-number-field:hover:not(:has(button:hover), :focus-within) {
+  // --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+  // }
+
+  // sl-number-field:hover:not(:has(button:hover)):not(:focus-within) {
+  //   --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+  // }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);

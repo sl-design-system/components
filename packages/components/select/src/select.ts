@@ -318,7 +318,7 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onClick(event: Event): void {
-    if (event.target === this || event.target === this.button) {
+    if (event.target === this) {
       this.button.focus();
     }
   }
@@ -330,7 +330,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   #onFocusout(event: FocusEvent): void {
     const leavingComponent =
       !event.relatedTarget ||
-      (event.relatedTarget instanceof Element && event.relatedTarget?.closest('sl-select') !== this);
+      (event.relatedTarget !== this.button &&
+        (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this));
 
     if (leavingComponent) {
       if (this.listbox?.matches(':popover-open')) {
@@ -449,10 +450,5 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     );
 
     this.updateValidity();
-
-    // NOTE: for some reason setting `showValidity` to `undefined` in the
-    // `updateValidity()` method doesn't trigger a `willUpdate` call. So we
-    // work around that by updating it here.
-    // this.button.showValidity = this.showValidity;
   }
 }

@@ -1,7 +1,7 @@
 :host {
   --_bg-color: var(--sl-color-border-bold);
-  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
-  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
   --_handle-color: var(--sl-color-foreground-neutral-plain);
   --_handle-size: var(--sl-size-250);
   --_icon-size: var(--sl-size-150);
@@ -17,19 +17,23 @@
 }
 
 :host(:hover) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
 
 :host(:active) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
 }
 
 :host([checked]) {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
   --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
-  --_handle-color: var(--sl-color-foreground-selected-bold);
+  --_handle-color: var(--sl-color-foreground-selected-plain);
   --_handle-position: calc(var(--_track-size) - var(--_handle-size) - var(--sl-size-025) * 2);
+
+  [part='track'] {
+    border-color: var(--sl-color-border-selected);
+  }
 }
 
 :host([checked]:hover) {
@@ -49,6 +53,7 @@
 
   [part='track'] {
     background: var(--sl-color-background-disabled);
+    border-color: var(--sl-color-border-disabled);
   }
 }
 
@@ -86,13 +91,14 @@
 
 [part='track'] {
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-bold);
   border-radius: calc((var(--_handle-size) + var(--sl-size-025) * 2) / 2);
   box-sizing: border-box;
   display: grid;
   inline-size: var(--_track-size);
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding: var(--sl-size-025);
+  padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-default));
 
   @media (prefers-reduced-motion: no-preference) {
     transition: 200ms ease-in-out;

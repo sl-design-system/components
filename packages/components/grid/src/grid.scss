@@ -2,7 +2,7 @@
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-border-plain);
-  --_border-width: var(--sl-size-borderWidth-subtle);
+  --_border-width: var(--sl-size-borderWidth-default);
   --_border-radius: var(--sl-size-borderRadius-default);
   --_cell-background: var(--sl-elevation-surface-raised-default-idle);
   --_cell-border: var(--_border-width) solid var(--_border-color);
@@ -100,8 +100,8 @@
   sl-scrollbar::before {
     background: var(--sl-color-grid-border);
     content: '';
-    inline-size: var(--sl-size-borderWidth-subtle);
-    inset: 0 auto 0 calc(var(--sl-size-borderWidth-subtle) * -1);
+    inline-size: var(--sl-size-borderWidth-default);
+    inset: 0 auto 0 calc(var(--sl-size-borderWidth-default) * -1);
     position: absolute;
   }
 }
@@ -138,8 +138,8 @@
   sl-scrollbar::after {
     background: var(--sl-color-grid-border);
     content: '';
-    inline-size: var(--sl-size-borderWidth-subtle);
-    inset: 0 calc(var(--sl-size-borderWidth-subtle) * -1) 0 auto;
+    inline-size: var(--sl-size-borderWidth-default);
+    inset: 0 calc(var(--sl-size-borderWidth-default) * -1) 0 auto;
     position: absolute;
   }
 }
@@ -171,7 +171,7 @@ thead {
   border-start-end-radius: var(--_border-radius);
   border-start-start-radius: var(--_border-radius);
   inset-block-start: 0;
-  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
   overflow-x: hidden;
   position: sticky;
   z-index: 1;
@@ -179,7 +179,7 @@ thead {
 
 tbody {
   background-color: var(--sl-elevation-surface-raised-default-idle);
-  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow: auto clip;
   overscroll-behavior: contain auto;
@@ -406,14 +406,14 @@ a[class^='skip-link'] {
 
 tfoot {
   inset-block-end: 0;
-  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
   overflow: hidden;
   position: sticky;
 
   td {
     display: flex;
     flex: 1;
-    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
+    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
     padding: 0 !important;
   }
 

@@ -1,4 +1,4 @@
-import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
+import { faMoonStars, faSunBright } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
@@ -15,7 +15,7 @@ type Props = Pick<Switch, 'checked' | 'disabled' | 'reverse' | 'size' | 'value'>
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faTurtle, faRabbitRunning);
+Icon.register(faMoonStars, faSunBright);
 
 export default {
   title: 'Form/Switch',
@@ -87,9 +87,9 @@ export const Reverse: Story = {
 export const CustomIcons: Story = {
   render: () => {
     return html`
-      <sl-switch size="sm" icon-off="far-turtle" icon-on="far-rabbit-running"></sl-switch>
-      <sl-switch icon-off="far-turtle" icon-on="far-rabbit-running"></sl-switch>
-      <sl-switch size="lg" icon-off="far-turtle" icon-on="far-rabbit-running"></sl-switch>
+      <sl-switch size="sm" icon-off="far-sun-bright" icon-on="far-moon-stars"></sl-switch>
+      <sl-switch icon-off="far-sun-bright" icon-on="far-moon-stars"></sl-switch>
+      <sl-switch size="lg" icon-off="far-sun-bright" icon-on="far-moon-stars"></sl-switch>
     `;
   }
 };
@@ -147,12 +147,12 @@ export const All: Story = {
         <sl-switch checked size="lg">Checked</sl-switch>
 
         <span style="justify-self: start">Custom</span>
-        <sl-switch icon-off="far-turtle" icon-on="far-rabbit-running" size="sm">Unchecked</sl-switch>
-        <sl-switch checked icon-off="far-turtle" icon-on="far-rabbit-running" size="sm">Checked</sl-switch>
-        <sl-switch icon-off="far-turtle" icon-on="far-rabbit-running">Unchecked</sl-switch>
-        <sl-switch checked icon-off="far-turtle" icon-on="far-rabbit-running">Checked</sl-switch>
-        <sl-switch icon-off="far-turtle" icon-on="far-rabbit-running" size="lg">Unchecked</sl-switch>
-        <sl-switch checked icon-off="far-turtle" icon-on="far-rabbit-running" size="lg">Checked</sl-switch>
+        <sl-switch icon-off="far-sun-bright" icon-on="far-moon-stars" size="sm">Unchecked</sl-switch>
+        <sl-switch checked icon-off="far-sun-bright" icon-on="far-moon-stars" size="sm">Checked</sl-switch>
+        <sl-switch icon-off="far-sun-bright" icon-on="far-moon-stars">Unchecked</sl-switch>
+        <sl-switch checked icon-off="far-sun-bright" icon-on="far-moon-stars">Checked</sl-switch>
+        <sl-switch icon-off="far-sun-bright" icon-on="far-moon-stars" size="lg">Unchecked</sl-switch>
+        <sl-switch checked icon-off="far-sun-bright" icon-on="far-moon-stars" size="lg">Checked</sl-switch>
 
         <span style="justify-self: start">Reverse</span>
         <sl-switch reverse size="sm">Unchecked</sl-switch>

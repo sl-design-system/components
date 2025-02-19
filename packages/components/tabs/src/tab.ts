@@ -1,8 +1,6 @@
-import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { EventsController } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tab.scss.js';
 
 declare global {
@@ -30,63 +28,62 @@ declare global {
  */
 export class Tab extends LitElement {
   /** @internal */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
+
   /** Whether the tab item is disabled. */
-  @property({ type: Boolean }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
-   * When set, it will render the tab contents in a link tag. Use this when you want to render the tab contents using a router and to make the tab navigatable by URL.
+   * When set, it will render the tab contents in a link tag. Use this when you
+   * want to render the tab contents using a router and to make the tab
+   * navigable by URL.
    */
   @property() href?: string;
 
   /** Whether the tab item is selected. */
-  @property({ type: Boolean, reflect: true }) selected?: boolean;
+  @property({ type: Boolean }) selected?: boolean;
 
-  /** Emits when the user selects the tab. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
+  /**
+   * Set by the tab group component when the tabs are stretched. This causes
+   * the title to be centered in this component.
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true }) stretch?: boolean;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.setAttribute('role', 'tab');
     this.slot ||= 'tabs';
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('selected')) {
+      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    }
   }
 
   override render(): TemplateResult {
     return this.href && !this.disabled
-      ? html`<a aria-selected=${ifDefined(this.selected)} href=${this.href} role="tab">${this.renderContent()}</a>`
-      : html`
-          <button
-            @click=${this.#onClick}
-            @keydown=${this.#onKeydown}
-            aria-selected=${ifDefined(this.selected)}
-            ?disabled=${this.disabled}
-            role="tab"
-          >
-            ${this.renderContent()}
-          </button>
-        `;
+      ? html`<a href=${this.href} part="outer" role="presentation" tabindex="-1">${this.renderContent()}</a>`
+      : html`<div part="outer">${this.renderContent()}</div>`;
   }
 
   /** @ignore */
   renderContent(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onIconSlotChange} name="icon" part="icon"></slot>
-      <div class="content">
-        <span class="title">
-          <slot @slotchange=${this.#onSlotChange}></slot>
-          <slot name="badge" part="badge"></slot>
-        </span>
+      <div part="inner">
+        <slot @slotchange=${this.#onIconSlotChange} name="icon" part="icon"></slot>
+        <slot @slotchange=${this.#onSlotChange} part="title"></slot>
+        <slot name="badge" part="badge"></slot>
         <slot @slotchange=${this.#onSubtitleSlotChange} name="subtitle" part="subtitle"></slot>
       </div>
     `;
-  }
-
-  #onClick(): void {
-    this.selectEvent.emit();
   }
 
   #onIconSlotChange(event: Event & { target: HTMLSlotElement }): void {

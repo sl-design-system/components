@@ -1,47 +1,55 @@
+import { faGear, faSliders, faUser } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type SlTabChangeEvent, type TabGroup } from './tab-group.js';
 import { type TabPanel } from './tab-panel.js';
 
-type Props = Pick<TabGroup, 'vertical' | 'alignTabs'> & {
+type Props = Pick<TabGroup, 'activation' | 'alignTabs' | 'vertical'> & {
   tabs?(): TemplateResult;
   tabPanels?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 
+Icon.register(faGear, faSliders, faUser);
+
 export default {
-  title: 'Navigation/Tab group',
+  title: 'Navigation/Tabs',
   tags: ['stable'],
   args: {
-    alignTabs: 'start',
     vertical: false
   },
   argTypes: {
+    activation: {
+      control: 'inline-radio',
+      options: ['auto', 'manual']
+    },
     alignTabs: {
       control: 'inline-radio',
       options: ['start', 'center', 'end', 'stretch']
     },
     tabs: {
-      table: {
-        disable: true
-      }
+      table: { disable: true }
     },
     tabPanels: {
-      table: {
-        disable: true
-      }
+      table: { disable: true }
     }
   },
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({ alignTabs, tabs, tabPanels, vertical }) => {
-    return html`<sl-tab-group .alignTabs=${alignTabs} .vertical=${vertical}>${tabs?.()}${tabPanels?.()}</sl-tab-group>`;
+  render: ({ activation, alignTabs, tabs, tabPanels, vertical }) => {
+    return html`
+      <sl-tab-group activation=${ifDefined(activation)} align-tabs=${ifDefined(alignTabs)} ?vertical=${vertical}>
+        ${tabs?.()}${tabPanels?.()}
+      </sl-tab-group>
+    `;
   }
 } satisfies Meta<Props>;
 
@@ -50,11 +58,13 @@ export const Basic: Story = {
     tabs: () => html`
       <sl-tab>First tab</sl-tab>
       <sl-tab>Second tab</sl-tab>
-      <sl-tab disabled>Disabled</sl-tab>
+      <sl-tab disabled>Disabled tab</sl-tab>
       <sl-tab>Last tab that is longer than the rest</sl-tab>
     `,
     tabPanels: () => html`
-      <sl-tab-panel>Contents tab 1</sl-tab-panel>
+      <sl-tab-panel>
+        <sl-button>I should be focusable</sl-button>
+      </sl-tab-panel>
       <sl-tab-panel>Contents tab 2</sl-tab-panel>
       <sl-tab-panel>Contents tab 3</sl-tab-panel>
       <sl-tab-panel>Contents tab 4</sl-tab-panel>
@@ -62,7 +72,7 @@ export const Basic: Story = {
   }
 };
 
-export const Empty: Story = {
+export const TabsOnly: Story = {
   args: {
     ...Basic.args,
     tabPanels: undefined
@@ -73,16 +83,13 @@ export const IconOnly: Story = {
   args: {
     tabs: () => html`
       <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        <sl-icon slot="icon" name="far-user"></sl-icon>
       </sl-tab>
       <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        <sl-icon slot="icon" name="far-sliders"></sl-icon>
       </sl-tab>
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-      </sl-tab>
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      <sl-tab disabled>
+        <sl-icon slot="icon" name="far-gear"></sl-icon>
       </sl-tab>
     `
   }
@@ -315,7 +322,7 @@ export const Subtitle: Story = {
         <sl-icon slot="icon" name="star" size="md"></sl-icon>
         Tab 3
         <span slot="subtitle">Tab 3 subtitle</span>
-        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
+        <sl-badge slot="badge" size="lg" color="blue">100</sl-badge>
       </sl-tab>
       <sl-tab>
         <sl-icon slot="icon" name="star" size="md"></sl-icon>
@@ -335,31 +342,108 @@ export const Vertical: Story = {
 
 export const All: Story = {
   render: () => html`
-    <sl-tab-group>
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-        Tab 1
-        <span slot="subtitle">Tab 1 subtitle</span>
-      </sl-tab>
-      <sl-tab> Tab 2 </sl-tab>
-      <sl-tab>
-        Tab 3
-        <span slot="subtitle">Tab 3 subtitle</span>
-        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
-      </sl-tab>
-    </sl-tab-group>
-    <sl-tab-group vertical>
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-        Tab 1
-        <span slot="subtitle">Tab 1 subtitle</span>
-      </sl-tab>
-      <sl-tab> Tab 2 </sl-tab>
-      <sl-tab>
-        Tab 3
-        <span slot="subtitle">Tab 3 subtitle</span>
-        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
-      </sl-tab>
-    </sl-tab-group>
+    <style>
+      .wrapper {
+        align-items: center;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: auto 1fr;
+      }
+    </style>
+    <div class="wrapper">
+      <span>Default</span>
+      <sl-tab-group>
+        <sl-tab>Plain tab</sl-tab>
+        <sl-tab>
+          <sl-icon slot="icon" name="star"></sl-icon>
+          Icon tab
+        </sl-tab>
+        <sl-tab>
+          Badge tab
+          <sl-badge slot="badge" color="blue">100</sl-badge>
+        </sl-tab>
+        <sl-tab disabled>Disabled tab</sl-tab>
+      </sl-tab-group>
+
+      <span>Stretch</span>
+      <sl-tab-group align-tabs="stretch">
+        <sl-tab>Plain tab</sl-tab>
+        <sl-tab>
+          <sl-icon slot="icon" name="star"></sl-icon>
+          Icon tab
+        </sl-tab>
+        <sl-tab>
+          Badge tab
+          <sl-badge slot="badge" color="blue">100</sl-badge>
+        </sl-tab>
+        <sl-tab disabled>Disabled tab</sl-tab>
+      </sl-tab-group>
+
+      <span>Icon only</span>
+      <sl-tab-group>
+        <sl-tab>
+          <sl-icon slot="icon" name="far-user"></sl-icon>
+        </sl-tab>
+        <sl-tab>
+          <sl-icon slot="icon" name="far-sliders"></sl-icon>
+        </sl-tab>
+        <sl-tab disabled>
+          <sl-icon slot="icon" name="far-gear"></sl-icon>
+        </sl-tab>
+      </sl-tab-group>
+
+      <span>Overflow</span>
+      <sl-tab-group>
+        <sl-tab>First tab</sl-tab>
+        <sl-tab>Second tab</sl-tab>
+        <sl-tab>Third tab</sl-tab>
+        <sl-tab>Fourth tab</sl-tab>
+        <sl-tab>Fifth tab</sl-tab>
+        <sl-tab>Sixth tab</sl-tab>
+        <sl-tab>Seventh tab</sl-tab>
+        <sl-tab>Eighth tab</sl-tab>
+        <sl-tab>Ninth tab</sl-tab>
+        <sl-tab>Tenth tab</sl-tab>
+        <sl-tab>Eleventh tab</sl-tab>
+        <sl-tab>Twelfth tab</sl-tab>
+      </sl-tab-group>
+
+      <span>Subtitles</span>
+      <sl-tab-group>
+        <sl-tab>
+          Plain tab
+          <span slot="subtitle">Subtitle</span>
+        </sl-tab>
+        <sl-tab>
+          <sl-icon slot="icon" name="star"></sl-icon>
+          Icon tab
+          <span slot="subtitle">Subtitle</span>
+        </sl-tab>
+        <sl-tab>
+          <sl-icon slot="icon" name="star"></sl-icon>
+          Badge tab
+          <sl-badge slot="badge" color="blue">100</sl-badge>
+          <span slot="subtitle">Subtitle</span>
+        </sl-tab>
+        <sl-tab disabled>
+          Disabled tab
+          <span slot="subtitle">Subtitle</span>
+        </sl-tab>
+      </sl-tab-group>
+
+      <span>Vertical</span>
+      <sl-tab-group vertical>
+        <sl-tab>Plain tab</sl-tab>
+        <sl-tab>
+          <sl-icon slot="icon" name="star"></sl-icon>
+          Icon tab
+        </sl-tab>
+        <sl-tab>
+          Badge tab
+          <sl-badge slot="badge" color="blue">100</sl-badge>
+        </sl-tab>
+        <sl-tab disabled>Disabled tab</sl-tab>
+      </sl-tab-group>
+    </div>
   `
 };

@@ -27,7 +27,16 @@ declare global {
 
 export type SlTabChangeEvent = CustomEvent<number>;
 
+export type TabsActivation = 'auto' | 'manual';
+
 export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
+
+export type TabMenuItem = {
+  tab: Tab;
+  disabled?: boolean;
+  title: string;
+  subtitle?: string;
+};
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
   attributes: true,
@@ -146,11 +155,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Determines whether the active tab indicator should animate. */
   #shouldAnimate = false;
 
-  /** The alignment of tabs within the wrapper. */
+  /**
+   * Determines when the contents of a tab is shown. Auto means the contents will be
+   * shown when the tab is focused. Manual means the user has to activate the tab first
+   * by clicking or using the keyboard.
+   * @default 'auto'
+   */
+  @property() activation?: TabsActivation;
+
+  /**
+   * The alignment of tabs within the wrapper.
+   * @default 'start'
+   */
   @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
 
   /** @internal The menu items to render when the tabs are overflowing. */
-  @state() menuItems?: Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }>;
+  @state() menuItems?: TabMenuItem[];
 
   /** @internal The currently selected tab. */
   @state() selectedTab?: Tab;
@@ -167,7 +187,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @internal The slotted tabs. */
   @state() tabs?: Tab[];
 
-  /** Renders the tabs vertically instead of the default horizontal  */
+  /**
+   * Renders the tabs vertically instead of the default horizontal.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
   override connectedCallback(): void {
@@ -238,7 +261,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <div @scroll=${this.#onScroll} part="scroller">
               <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
                 <span class="indicator" role="presentation"></span>
-                <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
+                <slot @sl-select=${this.#onSelect} @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
             </div>
           </div>
@@ -312,6 +335,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     this.toggleAttribute('scroll-start', scrollStart);
     this.toggleAttribute('scroll-end', scrollEnd);
+  }
+
+  #onSelect(event: Event): void {
+    console.log('onSelect', event.target);
   }
 
   #onTabSlotChange(event: Event & { target: HTMLSlotElement }): void {

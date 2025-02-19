@@ -290,8 +290,8 @@ export const All: Story = {
         <span style="justify-self: center">lg</span>
 
         <span>Empty</span>
-        <sl-text-field placeholder="Placeholder"></sl-text-field>
-        <sl-text-field placeholder="Placeholder" size="lg"></sl-text-field>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder"></sl-text-field>
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" size="lg"></sl-text-field>
 
         <span>Value</span>
         <sl-text-field aria-label="Text field" value="Value"></sl-text-field>
@@ -306,22 +306,22 @@ export const All: Story = {
         <sl-text-field aria-label="Text field" show-validity="valid" size="lg" value="Valid"></sl-text-field>
 
         <span>Prefix/suffix</span>
-        <sl-text-field placeholder="Placeholder">
+        <sl-text-field aria-label="Text field" placeholder="Placeholder">
           <sl-icon slot="prefix" name="face-smile"></sl-icon>
           <sl-icon slot="suffix" name="face-smile"></sl-icon>
         </sl-text-field>
-        <sl-text-field placeholder="Placeholder" size="lg">
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" size="lg">
           <sl-icon slot="prefix" name="face-smile"></sl-icon>
           <sl-icon slot="suffix" name="face-smile"></sl-icon>
         </sl-text-field>
 
         <span>Field button</span>
-        <sl-text-field placeholder="Placeholder">
+        <sl-text-field aria-label="Text field" placeholder="Placeholder">
           <button aria-label="Show calendar" slot="suffix">
             <sl-icon name="far-calendar"></sl-icon>
           </button>
         </sl-text-field>
-        <sl-text-field placeholder="Placeholder" size="lg">
+        <sl-text-field aria-label="Text field" placeholder="Placeholder" size="lg">
           <button aria-label="Show calendar" slot="suffix">
             <sl-icon name="far-calendar"></sl-icon>
           </button>

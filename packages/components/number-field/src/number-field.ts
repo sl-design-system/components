@@ -86,6 +86,15 @@ export class NumberField extends LocaleMixin(TextField) {
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
 
     this.#parser = new NumberParser(this.locale, this.formatOptions);
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+       sl-number-field:has(input:hover):not(:focus-within) {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+       }
+      `;
+    this.prepend(style);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -185,24 +194,6 @@ export class NumberField extends LocaleMixin(TextField) {
     this.#validateInput();
   }
 
-  #isButtonDisabled(button: string): boolean {
-    if (button === 'up') {
-      return (
-        this.disabled ||
-        this.readonly ||
-        (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)
-      );
-    } else if (button === 'down') {
-      return (
-        this.disabled ||
-        this.readonly ||
-        (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)
-      );
-    } else {
-      return false;
-    }
-  }
-
   override onBlur(): void {
     if (this.rawValue !== undefined && this.rawValue !== '') {
       this.valueAsNumber = this.#convertValueToNumber(
@@ -230,6 +221,24 @@ export class NumberField extends LocaleMixin(TextField) {
       this.stepDown();
     } else {
       super.onKeydown(event);
+    }
+  }
+
+  #isButtonDisabled(button: string): boolean {
+    if (button === 'up') {
+      return (
+        this.disabled ||
+        this.readonly ||
+        (this.max !== undefined && this.valueAsNumber !== undefined && this.max === this.valueAsNumber)
+      );
+    } else if (button === 'down') {
+      return (
+        this.disabled ||
+        this.readonly ||
+        (this.min !== undefined && this.valueAsNumber !== undefined && this.min === this.valueAsNumber)
+      );
+    } else {
+      return false;
     }
   }
 

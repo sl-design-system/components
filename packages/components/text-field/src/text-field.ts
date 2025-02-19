@@ -161,8 +161,6 @@ export class TextField<T extends { toString(): string } = string>
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
     style.innerHTML = `
-       sl-number-field:has(input:hover):not(:focus-within),
-       sl-search-field:has(input:hover):not(:focus-within),
        sl-text-field:has(input:hover):not(:focus-within) {
           --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
        }

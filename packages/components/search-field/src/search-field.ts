@@ -33,6 +33,19 @@ export class SearchField extends TextField {
   /** @internal Emits when the user presses enter. */
   @event({ name: 'sl-search' }) searchEvent!: EventEmitter<SlSearchEvent>;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+       sl-search-field:has(input:hover):not(:focus-within) {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+       }
+      `;
+    this.prepend(style);
+  }
+
   override renderPrefix(): TemplateResult {
     return html`<sl-icon name="search"></sl-icon>`;
   }

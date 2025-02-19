@@ -8,7 +8,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToggleButton, ToggleButtonEmphasis, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-type Props = Pick<ToggleButton, 'disabled' | 'emphasis' | 'fill' | 'pressed' | 'size'> & {
+type Props = Pick<ToggleButton, 'disabled' | 'emphasis' | 'fill' | 'pressed' | 'shape' | 'size'> & {
   icons(): TemplateResult;
   label: string;
 };
@@ -27,11 +27,15 @@ export default {
   argTypes: {
     emphasis: {
       control: 'inline-radio',
-      options: ['muted', 'suble', 'bold']
+      options: ['muted', 'subtle', 'bold']
     },
     fill: {
       control: 'inline-radio',
       options: ['ghost', 'outline', 'solid']
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['pill', 'square']
     },
     icons: {
       table: { disable: true }
@@ -41,7 +45,7 @@ export default {
       options: ['md', 'lg']
     }
   },
-  render: ({ disabled, emphasis, fill, icons, label, pressed, size }) => {
+  render: ({ disabled, emphasis, fill, icons, label, pressed, shape, size }) => {
     return html`
       <sl-toggle-button
         ?disabled=${disabled}
@@ -49,6 +53,7 @@ export default {
         aria-label=${ifDefined(label)}
         emphasis=${ifDefined(emphasis)}
         fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
         size=${ifDefined(size)}
       >
         ${icons?.()}

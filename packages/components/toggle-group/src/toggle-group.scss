@@ -1,14 +1,16 @@
 :host {
-  --_border-color: var(--sl-color-button-default-outline-idle-border);
-  --_border-radius: var(--sl-border-radius-button-md);
+  --_border-color: var(--sl-color-border-secondary-bold);
+  --_border-radius: var(--sl-size-borderRadius-default);
+  --_group-border-width: var(--sl-border-width-button-outline);
   --_border-width: var(--sl-border-width-button-outline);
-  --_icon-size: var(--sl-size-icon-md);
-  --_paddingInline: var(--sl-space-button-outline-inline-md);
-  --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-md);
+
+  // --_icon-size: var(--sl-size-icon-md);
+  // --_paddingInline: var(--sl-space-button-outline-inline-md);
+  // --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-md);
   --_separator-color: var(--sl-color-button-default-outline-idle-border);
   --_separator-width: var(--sl-border-width-button-outline);
 
-  border: var(--_border-width) solid var(--_border-color);
+  border: var(--_group-border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
   display: inline-flex;
   gap: var(--_border-width);
@@ -19,11 +21,29 @@
   --_separator-color: var(--sl-color-button-default-outline-disabled-border);
 }
 
-:host([size='lg']) {
-  --_border-radius: var(--sl-border-radius-button-lg);
-  --_paddingInline: var(--sl-space-button-outline-inline-lg);
-  --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-lg);
+:host([fill='ghost']) {
+  background-color: var(--sl-elevation-surface-raised-sunken);
 }
+
+:host([fill='ghost']),
+:host([fill='solid']) {
+  --_group-border-width: var(--sl-size-borderWidth-none);
+  --_border-width: var(--sl-size-borderWidth-none);
+}
+
+:host([shape='pill']) {
+  --_border-radius: var(--sl-size-borderRadius-full);
+
+  ::slotted(sl-toggle-button:first-of-type) {
+    --_padding-start: var(--sl-space-150);
+  }
+}
+
+// :host([size='lg']) {
+//   --_border-radius: var(--sl-border-radius-button-lg);
+//   --_paddingInline: var(--sl-space-button-outline-inline-lg);
+//   --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-lg);
+// }
 
 ::slotted(sl-toggle-button) {
   --_border-width: 0px;
@@ -33,11 +53,11 @@
   position: relative;
 
   &::after {
-    background: var(--_separator-color);
+    background: var(--_border-color);
     block-size: 100%;
     content: '';
-    inline-size: var(--_separator-width);
-    inset: 0 calc(var(--_separator-width) * -1) 0 auto;
+    inline-size: var(--_group-border-width);
+    inset: 0 calc(var(--_group-border-width) * -1) 0 auto;
     position: absolute;
   }
 }

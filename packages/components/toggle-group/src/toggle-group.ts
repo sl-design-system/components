@@ -11,6 +11,10 @@ declare global {
   }
 }
 
+export type ToggleGroupEmphasis = 'bold' | 'muted' | 'subtle';
+export type ToggleGroupFill = 'ghost' | 'outline' | 'solid';
+export type ToggleGroupShape = 'pill' | 'square';
+
 /**
  * A component for visually grouping toggle buttons together. By default, this component ensures that only one button
  * in the group is active at a time. This behavior can be disabled by setting the `multiple` property.
@@ -55,6 +59,15 @@ export class ToggleGroup extends LitElement {
   /** Determines the size of all buttons in the group. */
   @property({ reflect: true }) size?: ToggleButtonSize;
 
+  /** The emphasis of the group. */
+  @property({ reflect: true }) emphasis?: ToggleGroupEmphasis;
+
+  /** The shaoe of the group. */
+  @property({ reflect: true }) shape?: ToggleGroupShape;
+
+  /** The variant of the toggle-group. */
+  @property({ reflect: true }) fill?: ToggleGroupFill;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -65,7 +78,7 @@ export class ToggleGroup extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled') || changes.has('size')) {
+    if (changes.has('disabled') || changes.has('emphasis') || changes.has('fill') || changes.has('size')) {
       this.#updateButtonProperties();
     }
   }
@@ -94,7 +107,9 @@ export class ToggleGroup extends LitElement {
         button.disabled = this.disabled;
       }
 
-      button.fill = 'ghost';
+      console.log(this.emphasis, this.fill);
+      button.fill = this.fill;
+      button.emphasis = this.emphasis;
 
       if (this.size) {
         button.size = this.size;

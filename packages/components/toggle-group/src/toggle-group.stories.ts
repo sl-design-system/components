@@ -28,7 +28,9 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type ToggleGroup } from './toggle-group.js';
 
-type Props = Pick<ToggleGroup, 'disabled' | 'multiple' | 'size'> & { slot?(): TemplateResult };
+type Props = Pick<ToggleGroup, 'disabled' | 'emphasis' | 'fill' | 'multiple' | 'shape' | 'size'> & {
+  slot?(): TemplateResult;
+};
 type Story = StoryObj<Props>;
 
 Icon.register(
@@ -62,13 +64,33 @@ export default {
       control: 'inline-radio',
       options: ['md', 'lg']
     },
+    emphasis: {
+      control: 'inline-radio',
+      options: ['muted', 'subtle', 'bold']
+    },
+    fill: {
+      control: 'inline-radio',
+      options: ['ghost', 'outline', 'solid']
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['pill', 'square']
+    },
     slot: {
       table: { disable: true }
     }
   },
-  render: ({ disabled, multiple, size, slot }) => {
+  render: ({ disabled, emphasis, fill, multiple, shape, size, slot }) => {
     return html`
-      <sl-toggle-group ?disabled=${disabled} ?multiple=${multiple} size=${ifDefined(size)}>${slot?.()}</sl-toggle-group>
+      <sl-toggle-group
+        ?disabled=${disabled}
+        ?multiple=${multiple}
+        emphasis=${ifDefined(emphasis)}
+        fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
+        >${slot?.()}</sl-toggle-group
+      >
     `;
   }
 } satisfies Meta<Props>;

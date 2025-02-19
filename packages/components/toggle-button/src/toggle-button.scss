@@ -4,11 +4,14 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
+
+  // these are overwritten in toggle group
   --_border-width: var(--sl-size-borderWidth-action);
+  --_button-border-radius: var(--sl-size-borderRadius-default);
 
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border: var(--_border-width) solid var(--sl-color-border-secondary-bold);
-  border-radius: var(--sl-size-borderRadius-default);
+  border-radius: var(--_button-border-radius);
   color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
@@ -33,7 +36,7 @@
 // selectors based on attributes
 
 :host([shape='pill']) {
-  border-radius: var(--sl-size-borderRadius-full);
+  --_button-border-radius: var(--sl-size-borderRadius-full);
 }
 
 :host([pressed]) {
@@ -60,6 +63,7 @@
 
 :host([emphasis='bold'][fill='solid'][disabled]) {
   --_bg-mix-color: transparent;
+  --_bg-color: var(--sl-color-background-disabled);
 }
 
 :host([emphasis='bold'][pressed]) {
@@ -81,12 +85,13 @@
 }
 
 :host([size='lg']) [part='wrapper'] {
-  --_button-border-radius: var(--sl-border-radius-button-icon-only-lg);
   --_font: var(--sl-text-button-text-lg);
   --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-lg);
 
   padding: calc(var(--sl-space-125) - var(--_border-width))
-    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-width));
+    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-width) + var(--_pill-compensation-end))
+    calc(var(--sl-space-125) - var(--_border-width))
+    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-width) + var(--_pill-compensation-start));
 }
 
 :host([pressed]) [part='wrapper'] {

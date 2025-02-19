@@ -89,6 +89,7 @@ export const Basic: Story = {
 
 export const Bold: Story = {
   args: {
+    emphasis: 'bold',
     menuItems: () => html`
       <sl-menu-item selected>Rename...</sl-menu-item>
       <sl-menu-item>Delete...</sl-menu-item>

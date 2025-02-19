@@ -52,6 +52,30 @@
   }
 } // TODO: use new approach with transparency and mixin colours
 
+:host([emphasis='bold']) .current {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+
+  background: color-mix(
+    in srgb,
+    var(--_bg-color),
+    var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
+  ); // TODO: maybe it needs to be somewhere else?
+  color: var(--sl-color-foreground-selected-onBold);
+
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  &:active {
+    // TODO: only oncce and hover should be added per .current class?
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+}
+
 .wrapper {
   display: none;
 }
+
+// TODO: outline

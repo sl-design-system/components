@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'page' | 'pageSize' | 'size' | 'totalItems'>;
+type Props = Pick<Paginator, 'emphasis' | 'fill' | 'page' | 'pageSize' | 'size' | 'totalItems'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -22,18 +22,28 @@ export default {
     totalItems: 200
   },
   argTypes: {
+    emphasis: {
+      control: 'inline-radio',
+      options: ['subtle', 'bold']
+    },
+    fill: {
+      control: 'inline-radio',
+      options: ['ghost', 'outline']
+    },
     size: {
       control: 'radio',
       options: ['xs', 'sm', 'md', 'lg']
     }
   },
-  render: ({ page, pageSize, totalItems, size }) => {
+  render: ({ emphasis, fill, page, pageSize, totalItems, size }) => {
     return html`
       <sl-paginator
         .page=${page}
         .pageSize=${pageSize}
         .totalItems=${totalItems}
+        emphasis=${ifDefined(emphasis)}
         size=${ifDefined(size)}
+        fill=${ifDefined(fill)}
       ></sl-paginator>
     `;
   }

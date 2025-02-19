@@ -49,7 +49,6 @@ export default {
       <sl-tab-group activation=${ifDefined(activation)} align-tabs=${ifDefined(alignTabs)} ?vertical=${vertical}>
         ${tabs?.()}${tabPanels?.()}
       </sl-tab-group>
-      <sl-button>I'm outside the tab-group</sl-button>
     `;
   }
 } satisfies Meta<Props>;

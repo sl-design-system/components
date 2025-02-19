@@ -49,10 +49,10 @@
 :host([has-subtitle]) slot:not([name]) {
   font-size: 1.2em;
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
-  line-height: 2em;
 }
 
 [part='outer'] {
+  color: inherit;
   display: flex;
   flex-grow: 1;
   justify-content: center;

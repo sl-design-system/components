@@ -2,13 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
-import {
-  type EventEmitter,
-  RovingTabindexController,
-  event,
-  getScrollParent,
-  isPopoverOpen
-} from '@sl-design-system/shared';
+import { type EventEmitter, RovingTabindexController, event, getScrollParent } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './tab-group.scss.js';
@@ -137,20 +131,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   });
 
   /** Manage keyboard navigation between tabs. */
-  #rovingTabindexController = new RovingTabindexController<Tab | MenuItem>(this, {
+  #rovingTabindexController = new RovingTabindexController<Tab>(this, {
+    elements: () => this.tabs ?? [],
     focusInIndex: (elements: Tab[]) => {
       const index = elements.findIndex(el => el.selected);
+
       return index === -1 ? 0 : index;
     },
-    elements: () => (this.#menu && isPopoverOpen(this.#menu) ? this.#menuItems : this.tabs) || [],
-    isFocusableElement: (el: Tab) => !el.disabled
+    isFocusableElement: (el: Tab) => !el.disabled,
+    listenerScope: (): HTMLElement => this.renderRoot.querySelector('[part="tablist"]') as HTMLElement
   });
 
   /** Menu element, is shown when the tabs are overflowing. */
   #menu?: Menu;
-
-  /** Menu items, are shown in the menu when the tabs are overflowing. */
-  #menuItems: MenuItem[] = [];
 
   /** Determines whether the active tab indicator should animate. */
   #shouldAnimate = false;
@@ -237,18 +230,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         this.#resizeObserver.unobserve(scroller);
       }
     }
-
-    if (changes.has('menuItems')) {
-      const menuBtn = this.renderRoot.querySelector('sl-menu-button') as MenuButton;
-
-      if (menuBtn) {
-        this.#menuItems = Array.from(menuBtn.querySelectorAll<MenuItem>('sl-menu-item'));
-      } else if (this.tabs) {
-        this.tabs[0].setAttribute('tabindex', '0');
-      }
-
-      this.#rovingTabindexController.clearElementCache();
-    }
   }
 
   override render(): TemplateResult {
@@ -261,7 +242,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <div @scroll=${this.#onScroll} part="scroller">
               <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
                 <span class="indicator" role="presentation"></span>
-                <slot @sl-select=${this.#onSelect} @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
+                <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
             </div>
           </div>
@@ -299,11 +280,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (this.#menu && isPopoverOpen(this.#menu)) {
-      this.#rovingTabindexController.clearElementCache();
-      this.#rovingTabindexController.hostContainsFocus();
-    }
-
     if (['Enter', ' '].includes(event.key)) {
       this.#updateSelectedTab(<Tab>event.target);
       this.#scrollToTabPanelStart();
@@ -312,7 +288,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #onMenuItemClick(tab: Tab): void {
     this.#updateSelectedTab(tab);
-    this.#rovingTabindexController.clearElementCache();
   }
 
   #onScroll(event: Event & { target: HTMLElement }): void {
@@ -337,13 +312,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('scroll-end', scrollEnd);
   }
 
-  #onSelect(event: Event): void {
-    console.log('onSelect', event.target);
-  }
-
   #onTabSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.#rovingTabindexController.clearElementCache();
-
     this.tabs = event.target.assignedElements({ flatten: true }).filter((el): el is Tab => el instanceof Tab);
     this.tabs.forEach((tab, index) => {
       tab.id ||= `${this.#idPrefix}-tab-${index + 1}`;
@@ -355,6 +324,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.tabs[0].setAttribute('tabindex', '0');
     }
 
+    this.#rovingTabindexController.clearElementCache();
     this.#linkTabsWithPanels();
   }
 

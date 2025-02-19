@@ -410,6 +410,11 @@
           "value": "{color.foreground.accent.purple.onBold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
+        },
+        "plain": {
+          "value": "{color.foreground.accent.blue.plain}",
+          "type": "color",
+          "description": "Used as selected foreground color on white backgrounds."
         }
       },
       "brand": {

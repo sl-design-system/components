@@ -5032,6 +5032,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/format-number@npm:^0.0.0, @sl-design-system/format-number@workspace:packages/components/format-number":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/format-number@workspace:packages/components/format-number"
+  dependencies:
+    "@sl-design-system/shared": "npm:^0.4.0"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/grid@workspace:packages/components/grid":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/grid@workspace:packages/components/grid"
@@ -5243,6 +5251,19 @@ __metadata:
   resolution: "@sl-design-system/neon@workspace:packages/themes/neon"
   dependencies:
     "@sl-design-system/icon": "npm:1.0.2"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/number-field@workspace:packages/components/number-field":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/number-field@workspace:packages/components/number-field"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/format-number": "npm:^0.0.0"
+    "@sl-design-system/shared": "npm:^0.4.0"
+    "@sl-design-system/text-field": "npm:^1.3.4"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
@@ -5514,7 +5535,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:^1.3.5, @sl-design-system/text-field@npm:^1.5.0, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:^1.3.4, @sl-design-system/text-field@npm:^1.3.5, @sl-design-system/text-field@npm:^1.5.0, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:

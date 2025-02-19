@@ -19,20 +19,6 @@
   vertical-align: middle;
 }
 
-// :host(:hover) {
-//  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-// }
-
-// :host(:hover:not(:focus-within)) {
-//  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-// }
-
-// :host(:hover):has(button:hover),
-// :host:has(button:hover),
-// :host(:focus-within) {
-//  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
-// }
-
 :host([show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);

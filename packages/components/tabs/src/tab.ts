@@ -1,6 +1,8 @@
-import { EventsController } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tab.scss.js';
 
 declare global {
@@ -28,13 +30,13 @@ declare global {
  */
 export class Tab extends LitElement {
   /** @internal */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onKeydown });
-
   /** Whether the tab item is disabled. */
-  @property({ reflect: true, type: Boolean }) disabled?: boolean;
+  @property({ type: Boolean }) disabled?: boolean;
 
   /**
    * When set, it will render the tab contents in a link tag. Use this when you want to render the tab contents using a router and to make the tab navigatable by URL.
@@ -42,19 +44,31 @@ export class Tab extends LitElement {
   @property() href?: string;
 
   /** Whether the tab item is selected. */
-  @property({ reflect: true, type: Boolean }) selected?: boolean;
+  @property({ type: Boolean, reflect: true }) selected?: boolean;
+
+  /** Emits when the user selects the tab. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('role', 'tab');
     this.slot ||= 'tabs';
   }
 
   override render(): TemplateResult {
-    return this.href
-      ? html`<a href=${this.href}>${this.renderContent()}</a>`
-      : html`<div class="wrapper">${this.renderContent()}</div>`;
+    return this.href && !this.disabled
+      ? html`<a aria-selected=${ifDefined(this.selected)} href=${this.href} role="tab">${this.renderContent()}</a>`
+      : html`
+          <button
+            @click=${this.#onClick}
+            @keydown=${this.#onKeydown}
+            aria-selected=${ifDefined(this.selected)}
+            ?disabled=${this.disabled}
+            role="tab"
+          >
+            ${this.renderContent()}
+          </button>
+        `;
   }
 
   /** @ignore */
@@ -71,12 +85,8 @@ export class Tab extends LitElement {
     `;
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('selected')) {
-      this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-    }
+  #onClick(): void {
+    this.selectEvent.emit();
   }
 
   #onIconSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -86,26 +96,22 @@ export class Tab extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (!this.href || this.disabled) {
-      return;
-    } else if (event.key === 'Enter' || event.key === ' ') {
+    if (this.disabled) {
       event.preventDefault();
+      event.stopPropagation();
 
-      // Enter automatically triggers a click event, but space does not
-      this.renderRoot.querySelector<HTMLElement>('a[href]')?.click();
+      return;
     }
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const nodes = event.target.assignedNodes({ flatten: true }),
-      hasTitle = nodes.some(node => !!node.textContent?.trim());
+    const hasTitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());
 
     this.toggleAttribute('has-title', hasTitle);
   }
 
   #onSubtitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const nodes = event.target.assignedNodes({ flatten: true }),
-      hasSubtitle = nodes.some(node => !!node.textContent?.trim());
+    const hasSubtitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());
 
     this.toggleAttribute('has-subtitle', hasSubtitle);
   }

@@ -43,15 +43,11 @@ export class Tab extends LitElement {
    */
   @property() href?: string;
 
-  /** Whether the tab item is selected. */
-  @property({ type: Boolean }) selected?: boolean;
-
   /**
-   * Set by the tab group component when the tabs are stretched. This causes
-   * the title to be centered in this component.
+   * Indicates if this tab is selected.
    * @default false
    */
-  @property({ type: Boolean, reflect: true }) stretch?: boolean;
+  @property({ type: Boolean, reflect: true }) selected?: boolean;
 
   override connectedCallback(): void {
     super.connectedCallback();

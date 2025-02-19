@@ -133,6 +133,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<Tab>(this, {
     elements: () => this.tabs ?? [],
+    elementEnterAction: (el: Tab) => this.#scrollIntoViewIfNeeded(el),
     focusInIndex: (elements: Tab[]) => {
       const index = elements.findIndex(el => el.selected);
 
@@ -270,7 +271,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #onClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
-
     if (!tab) {
       return;
     }
@@ -348,7 +348,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       tab.toggleAttribute('selected', tab === this.selectedTab);
 
       const panel = this.tabPanels?.at(index);
-
       if (panel) {
         tab.setAttribute('aria-controls', `${this.#idPrefix}-panel-${index + 1}`);
         panel.setAttribute('aria-hidden', tab === this.selectedTab ? 'false' : 'true');
@@ -448,8 +447,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSize(): void {
-    this.#rovingTabindexController.clearElementCache();
-
     const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
       tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
 
@@ -461,7 +458,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       const menuBtn = this.renderRoot.querySelector('sl-menu-button');
 
       this.#menu = menuBtn?.renderRoot?.querySelector('sl-menu') as Menu;
-
       this.#menu?.addEventListener('toggle', () => {
         this.#rovingTabindexController.clearElementCache();
       });

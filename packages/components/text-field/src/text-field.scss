@@ -19,10 +19,6 @@
   vertical-align: middle;
 }
 
-:host(:hover:not(:focus-within)) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-}
-
 :host([show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
@@ -104,25 +100,66 @@ button,
   block-size: calc(1lh + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-foreground-subtlest);
+  color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
   font: inherit;
   justify-content: center;
   outline: 0;
   padding: 0;
+}
 
-  &:hover {
-    color: var(--sl-color-foreground-plain);
+button {
+  sl-icon,
+  ::slotted(sl-icon) {
+    --sl-icon-container-size: calc(var(--sl-size-icon-md) + (var(--sl-size-050) * 2));
+  }
+}
+
+:host([size='lg']) {
+  button,
+  ::slotted(button) {
+    block-size: calc(1lh + (var(--sl-size-100) + var(--sl-size-borderWidth-subtle)) * 2);
+  }
+
+  button {
+    sl-icon,
+    ::slotted(sl-icon) {
+      --sl-icon-container-size: calc(var(--sl-size-icon-md) + (var(--sl-size-100) * 2));
+    }
+  }
+}
+
+button:hover:not(:disabled) {
+  sl-icon,
+  ::slotted(sl-icon) {
+    --_bg-color: transparent;
+    --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+    --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+
+    background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+    border-radius: calc(var(--sl-size-borderRadius-child));
 
     @media (prefers-reduced-motion: no-preference) {
       transition: 200ms ease-in-out;
       transition-property: color;
     }
   }
+}
 
-  &:disabled {
-    color: var(--sl-color-foreground-disabled);
-    cursor: default;
+button:active:not(:disabled) {
+  sl-icon,
+  ::slotted(sl-icon) {
+    --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: 200ms ease-in-out;
+      transition-property: color;
+    }
   }
+}
+
+button:disabled {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
 }

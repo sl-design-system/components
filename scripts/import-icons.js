@@ -121,14 +121,14 @@ const buildIcons = async theme => {
   });
 
   await Promise.all(filesToRead);
-  
+
   // 4. Write the output to `icons.json`???? Or just `icons.ts` which exports
   console.log(`Writing icons to ${theme}...`);
   const filePath = join(cwd, `../packages/themes/${theme}/icons.ts`),
     sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
     source = `export const icons = ${JSON.stringify(sortedIcons)};`,
     results = await eslint.lintText(source, { filePath });
-  
+
     await ESLint.outputFixes(results);
   await fs.writeFile(filePath, results[0].output);
 };

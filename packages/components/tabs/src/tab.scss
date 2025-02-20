@@ -42,7 +42,7 @@
 }
 
 :host([selected]) {
-  z-index: 1;
+  z-index: 1; // Ensure element is above any gradient
 }
 
 :host([has-icon][has-title]) slot[name='icon']::slotted(*) {

@@ -42,7 +42,6 @@ describe('sl-tab-group', () => {
 
     it('should align tabs to start', () => {
       expect(el).not.to.have.attribute('align-tabs');
-      expect(el).to.have.style('--_tabs-alignment', 'start');
       expect(el.alignTabs).to.be.undefined;
     });
 
@@ -52,7 +51,10 @@ describe('sl-tab-group', () => {
         await el.updateComplete;
 
         expect(el).to.have.attribute('align-tabs', align);
-        expect(el).to.have.style('--_tabs-alignment', align);
+        expect(el.renderRoot.querySelector('.fade-container')).to.have.style(
+          'justify-content',
+          align === 'start' ? 'normal' : align
+        );
       });
     });
 

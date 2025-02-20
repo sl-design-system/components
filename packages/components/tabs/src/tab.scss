@@ -4,12 +4,11 @@
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  border-start-end-radius: var(--sl-size-borderRadius-default);
-  border-start-start-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: inline-flex;
   flex-shrink: 0;
+  justify-content: center;
   min-inline-size: fit-content;
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: calc(var(--sl-size-outlineOffset-default) * -1);
@@ -42,6 +41,10 @@
   pointer-events: none;
 }
 
+:host([selected]) {
+  z-index: 1;
+}
+
 :host([has-icon][has-title]) slot[name='icon']::slotted(*) {
   margin-inline-end: var(--sl-size-100);
 }
@@ -55,7 +58,7 @@
   color: inherit;
   display: flex;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: inherit;
   padding: var(--sl-size-150) var(--sl-size-300);
   text-decoration: none;
 

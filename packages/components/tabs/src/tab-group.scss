@@ -1,35 +1,30 @@
 :host {
-  --_background: var(--sl-color-tab-default-background);
-  --_border: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
-  --_fade-size: 6rem;
-  --_indicator-animation-duration: var(--sl-animation-duration-slow);
-  --_indicator-color: var(--sl-color-button-primary-solid-idle-background);
-  --_indicator-size: var(--sl-size-tab-indicator);
   --_menu-button-inline-padding: calc(
     var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default)
   );
   --_panel-horizontal-padding: var(--sl-space-tab-content-horizontal-block)
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
-  --_tablist-background: var(--sl-color-tab-tabbar-background);
   --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth, 200px);
-  --_tabs-alignment: start;
 
+  background: var(--sl-elevation-surface-raised-default);
   display: flex;
   flex-direction: column;
   isolation: isolate; // Prevent any possible z-index clashes with other DOM elements
 }
 
-:host([align-tabs='center']) {
-  --_tabs-alignment: center;
+:host([align-tabs='center']) .fade-container {
+  justify-content: center;
 }
 
-:host([align-tabs='end']) {
-  --_tabs-alignment: end;
+:host([align-tabs='end']) .fade-container {
+  justify-content: end;
 }
 
 :host([align-tabs='stretch']) {
-  --_tabs-alignment: stretch;
+  .fade-container {
+    justify-content: stretch;
+  }
 
   [part='scroller'],
   ::slotted(sl-tab) {
@@ -42,7 +37,7 @@
 }
 
 :host(:not([no-panels])) [part='panels'] {
-  padding: var(--_panel-horizontal-padding);
+  padding: var(--sl-size-300);
 }
 
 :host([scroll-start]) .fade-start,
@@ -55,7 +50,7 @@
 
   [part='container'] {
     border-block-end: 0;
-    border-inline-end: var(--_border);
+    border-inline-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
     display: inline-flex;
     flex: 0 0 auto;
     flex-direction: column;
@@ -69,7 +64,7 @@
   }
 
   .fade {
-    block-size: var(--_fade-size);
+    block-size: 6rem;
     inline-size: 100%;
     inset: auto 0;
   }
@@ -109,7 +104,7 @@
 
   .indicator {
     block-size: 100px;
-    inline-size: var(--_indicator-size);
+    inline-size: var(--sl-size-025);
     inset: 0 0 auto auto;
     transform-origin: center top;
   }
@@ -125,8 +120,7 @@
 }
 
 [part='container'] {
-  background: var(--_tablist-background);
-  border-block-end: var(--_border);
+  border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   display: flex;
   inline-size: 100%;
 }
@@ -139,14 +133,13 @@
 
 .fade-container {
   display: flex;
-  justify-content: var(--_tabs-alignment);
   min-inline-size: 0;
   position: relative;
 }
 
 .fade {
   block-size: 100%;
-  inline-size: var(--_fade-size);
+  inline-size: 6rem;
   inset-block: 0;
   pointer-events: none;
   position: absolute;
@@ -155,20 +148,21 @@
 }
 
 .fade-start {
-  background: linear-gradient(-90deg, transparent, var(--_background));
+  background: linear-gradient(-90deg, transparent, var(--sl-elevation-surface-raised-default));
   inset-inline-start: 0;
 }
 
 .fade-end {
-  background: linear-gradient(90deg, transparent, var(--_background));
+  background: linear-gradient(90deg, transparent, var(--sl-elevation-surface-raised-default));
   inset-inline-end: 0;
 }
 
 [part='scroller'] {
   display: flex;
-  justify-content: var(--_tabs-alignment);
+  justify-content: inherit;
   overflow: scroll clip;
   overscroll-behavior-x: contain;
+  scroll-behavior: instant;
   scroll-snap-points-x: repeat(100%);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -183,17 +177,16 @@
 }
 
 [part='tablist'] {
-  background: var(--_background);
   display: flex;
   inline-size: fit-content;
-  justify-content: var(--_tabs-alignment);
+  justify-content: inherit;
   position: relative;
 }
 
 .indicator {
-  background: var(--_indicator-color);
-  block-size: var(--_indicator-size);
-  inline-size: 100px;
+  background: var(--sl-color-border-selected);
+  block-size: var(--sl-size-025);
+  inline-size: 100px; // Default value; actual width depends on scale transform
   inset: auto auto 0 0;
   opacity: 0;
   position: absolute;
@@ -207,7 +200,7 @@
   z-index: 2;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition-duration: var(--_indicator-animation-duration);
+    transition-duration: 0.5s;
   }
 }
 
@@ -217,10 +210,12 @@
 }
 
 sl-menu-button {
-  --sl-menu-max-inline-size: var(--sl-tab-group-menu-max-inline-size, min(100vw, 200px));
-  --sl-menu-min-inline-size: var(--sl-tab-group-menu-min-inline-size, 100px);
-
   align-self: center;
-  padding-inline-start: var(--_menu-button-inline-padding);
+  padding-inline-start: var(--sl-size-050);
   position: relative;
+
+  // TODO: Rename to `menu` part when the menu-button component is updated
+  &::part(listbox) {
+    max-inline-size: min(80vw, 50%);
+  }
 }

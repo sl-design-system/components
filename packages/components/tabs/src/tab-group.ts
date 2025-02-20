@@ -194,7 +194,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
-      const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
+      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
+        tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
+
+      // Manually trigger the scroll event handler the first time,
+      // so that the fade elements are shown if necessary.
+      this.#onScroll(scroller);
 
       // We want to observe the size of the tablist, not the
       // container or wrapper. The tablist is the element that
@@ -240,7 +245,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           <div class="fade-container">
             <div class="fade fade-start"></div>
             <div class="fade fade-end"></div>
-            <div @scroll=${this.#onScroll} part="scroller">
+            <div @scroll=${(event: Event) => this.#onScroll(event.target as HTMLElement)} part="scroller">
               <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
                 <span class="indicator" role="presentation"></span>
                 <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
@@ -290,18 +295,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.#updateSelectedTab(tab);
   }
 
-  #onScroll(event: Event & { target: HTMLElement }): void {
+  #onScroll(scroller: HTMLElement): void {
     let scrollStart = false,
       scrollEnd = false;
 
     if (this.vertical) {
-      const { clientHeight, scrollTop, scrollHeight } = event.target,
+      const { clientHeight, scrollTop, scrollHeight } = scroller,
         scrollable = scrollHeight > clientHeight;
 
       scrollStart = scrollable && scrollTop > 0;
       scrollEnd = scrollable && Math.round(scrollTop + clientHeight) < scrollHeight;
     } else {
-      const { clientWidth, scrollLeft, scrollWidth } = event.target,
+      const { clientWidth, scrollLeft, scrollWidth } = scroller,
         scrollable = scrollWidth > clientWidth;
 
       scrollStart = scrollable && scrollLeft > 0;
@@ -318,10 +323,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       tab.id ||= `${this.#idPrefix}-tab-${index + 1}`;
     });
 
-    this.selectedTab = this.tabs.find(tab => tab.selected);
-
-    if (!this.selectedTab) {
-      this.tabs[0].setAttribute('tabindex', '0');
+    const selectedTab = this.tabs.find(tab => tab.selected);
+    if (selectedTab) {
+      this.#updateSelectedTab(selectedTab, false);
     }
 
     this.#rovingTabindexController.clearElementCache();
@@ -358,7 +362,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  #scrollIntoViewIfNeeded(tab: Tab): void {
+  #scrollIntoViewIfNeeded(tab: Tab, behavior?: ScrollBehavior): void {
     const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
       scrollerRect = scroller.getBoundingClientRect(),
       tabRect = tab.getBoundingClientRect();
@@ -366,18 +370,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (this.vertical) {
       if (tabRect.top < scrollerRect.top) {
         // The tab is above the top edge of the scroller
-        scroller.scrollBy({ top: tabRect.top - scrollerRect.top });
+        scroller.scrollBy({ top: tabRect.top - scrollerRect.top, behavior });
       } else if (tabRect.bottom > scrollerRect.bottom) {
         // The tab is below the bottom edge of the scroller
-        scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom });
+        scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom, behavior });
       }
     } else {
       if (tabRect.left < scrollerRect.left) {
         // The tab is to the left of the left edge of the scroller
-        scroller.scrollBy({ left: tabRect.left - scrollerRect.left });
+        scroller.scrollBy({ left: tabRect.left - scrollerRect.left, behavior });
       } else if (tabRect.right > scrollerRect.right) {
         // The tab is to the right of the right edge of the scroller
-        scroller.scrollBy({ left: tabRect.right - scrollerRect.right });
+        scroller.scrollBy({ left: tabRect.right - scrollerRect.right, behavior });
       }
     }
   }
@@ -393,7 +397,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
   }
 
-  #updateSelectedTab(selectedTab?: Tab): void {
+  #updateSelectedTab(selectedTab?: Tab, emitEvent = true): void {
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
@@ -402,12 +406,16 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       });
 
       this.selectedTab = selectedTab;
-      this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);
+
+      if (emitEvent) {
+        this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);
+      }
+
       this.#updateSelectionIndicator();
     }
 
     if (selectedTab) {
-      this.#scrollIntoViewIfNeeded(selectedTab);
+      this.#scrollIntoViewIfNeeded(selectedTab, emitEvent ? 'smooth' : 'instant');
     }
   }
 
@@ -477,7 +485,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.menuItems = undefined;
     }
 
-    this.selectedTab?.scrollIntoView(false);
+    if (this.selectedTab) {
+      this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
+    }
 
     this.#updateSelectionIndicator();
   }

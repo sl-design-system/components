@@ -165,7 +165,7 @@ export const OverflowHorizontal: Story = {
       <sl-tab disabled>Tab 15</sl-tab>
       <sl-tab>Tab 16</sl-tab>
       <sl-tab>Tab 17</sl-tab>
-      <sl-tab>Tab 18</sl-tab>
+      <sl-tab selected>Tab 18</sl-tab>
       <sl-tab>Tab 19</sl-tab>
       <sl-tab>Tab 20</sl-tab>
     `
@@ -358,7 +358,7 @@ export const All: Story = {
           <sl-icon slot="icon" name="star"></sl-icon>
           Icon tab
         </sl-tab>
-        <sl-tab>
+        <sl-tab selected>
           Badge tab
           <sl-badge slot="badge" color="blue">100</sl-badge>
         </sl-tab>
@@ -372,7 +372,7 @@ export const All: Story = {
           <sl-icon slot="icon" name="star"></sl-icon>
           Icon tab
         </sl-tab>
-        <sl-tab>
+        <sl-tab selected>
           Badge tab
           <sl-badge slot="badge" color="blue">100</sl-badge>
         </sl-tab>
@@ -384,7 +384,7 @@ export const All: Story = {
         <sl-tab>
           <sl-icon slot="icon" name="far-user"></sl-icon>
         </sl-tab>
-        <sl-tab>
+        <sl-tab selected>
           <sl-icon slot="icon" name="far-sliders"></sl-icon>
         </sl-tab>
         <sl-tab disabled>
@@ -403,7 +403,7 @@ export const All: Story = {
         <sl-tab>Seventh tab</sl-tab>
         <sl-tab>Eighth tab</sl-tab>
         <sl-tab>Ninth tab</sl-tab>
-        <sl-tab>Tenth tab</sl-tab>
+        <sl-tab selected>Tenth tab</sl-tab>
         <sl-tab>Eleventh tab</sl-tab>
         <sl-tab>Twelfth tab</sl-tab>
       </sl-tab-group>
@@ -419,7 +419,7 @@ export const All: Story = {
           Icon tab
           <span slot="subtitle">Subtitle</span>
         </sl-tab>
-        <sl-tab>
+        <sl-tab selected>
           <sl-icon slot="icon" name="star"></sl-icon>
           Badge tab
           <sl-badge slot="badge" color="blue">100</sl-badge>
@@ -438,7 +438,7 @@ export const All: Story = {
           <sl-icon slot="icon" name="star"></sl-icon>
           Icon tab
         </sl-tab>
-        <sl-tab>
+        <sl-tab selected>
           Badge tab
           <sl-badge slot="badge" color="blue">100</sl-badge>
         </sl-tab>

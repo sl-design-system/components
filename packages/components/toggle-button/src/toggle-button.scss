@@ -8,6 +8,9 @@
   // these are overwritten in toggle group
   --_border-width: var(--sl-size-borderWidth-action);
   --_button-border-radius: var(--sl-size-borderRadius-default);
+  --_pill-compensation-start: 0px;
+  --_pill-compensation-end: 0px;
+  --_border-compensation: var(--_toggle-group-border, var(--_border-width));
 
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
   border: var(--_border-width) solid var(--sl-color-border-secondary-bold);
@@ -88,24 +91,31 @@
   --_font: var(--sl-text-button-text-lg);
   --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-lg);
 
-  padding: calc(var(--sl-space-125) - var(--_border-width))
-    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-width) + var(--_pill-compensation-end))
-    calc(var(--sl-space-125) - var(--_border-width))
-    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-width) + var(--_pill-compensation-start));
+  padding: calc(var(--sl-space-125) - var(--_border-compensation))
+    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-space-125) - var(--_border-compensation))
+    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-compensation) + var(--_pill-compensation-start));
 }
 
 :host([pressed]) [part='wrapper'] {
-  padding-inline: calc(var(--sl-space-300) - var(--_border-width));
+  padding-inline: calc(var(--sl-space-300) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-space-300) - var(--_border-compensation) + var(--_pill-compensation-start));
 }
 
 :host([icon-only]) [part='wrapper'] {
   aspect-ratio: 1;
   line-height: var(--sl-size-new-icon-md);
-  padding: calc(var(--sl-space-100) - var(--_border-width));
+  padding: calc(var(--sl-space-125) - var(--_border-compensation))
+    calc(var(--sl-space-125) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-space-125) - var(--_border-compensation))
+    calc(var(--sl-space-125) - var(--_border-compensation) + var(--_pill-compensation-start));
 }
 
 :host([icon-only][size='lg']) [part='wrapper'] {
-  padding: calc(var(--sl-space-150) - var(--_border-width));
+  padding: calc(var(--sl-space-200) - var(--_border-compensation))
+    calc(var(--sl-space-200) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-space-200) - var(--_border-compensation))
+    calc(var(--sl-space-200) - var(--_border-compensation) + var(--_pill-compensation-start));
 }
 
 :host(:where(:active, :focus-visible, :hover)) {
@@ -133,8 +143,8 @@
   gap: var(--sl-space-new-sm);
   justify-content: center;
   min-block-size: 1lh;
-  padding: calc(var(--sl-space-075) - var(--_border-width))
-    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-width));
+  padding: calc(var(--sl-space-075) - var(--_border-compensation))
+    calc(var(--sl-space-new-toggleButton-nonActive-md) - var(--_border-compensation));
   transition: background var(--_transition-duration) var(--_transition-easing);
 }
 

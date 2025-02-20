@@ -113,7 +113,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
-        part="listbox"
+        part="menu"
       >
         <slot></slot>
       </sl-menu>

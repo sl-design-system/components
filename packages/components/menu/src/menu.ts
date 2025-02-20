@@ -24,8 +24,7 @@ export type MenuEmphasis = 'subtle' | 'bold';
 /**
  * A menu that can be used as a context menu or as a dropdown menu.
  *
- * @cssprop --sl-menu-max-inline-size - The maximum inline size of the menu.
- * @cssprop --sl-menu-min-inline-size - The minimum inline size of the menu.
+ * @csspart menu - The sl-menu element, use this to set for example a min and/or max inline size of the menu
  *
  * @slot default - The menu's content: menu items or menu item groups.
  */
@@ -80,7 +79,7 @@ export class Menu extends LitElement {
 
   /**
    * The emphasis of the menu.
-   * @default subtle
+   * @default 'subtle'
    */
   @property({ reflect: true }) emphasis?: MenuEmphasis;
 
@@ -206,13 +205,11 @@ export class Menu extends LitElement {
   }
 
   #propagateEmphasis(): void {
-    if (this.#menuItems) {
-      this.#menuItems.forEach(item => {
-        if (!(item.variant === 'danger' && item.selectable)) {
-          item.emphasis = this.emphasis;
-        }
-      });
-    }
+    this.#menuItems?.forEach(item => {
+      if (!(item.variant === 'danger' && item.selectable)) {
+        item.emphasis = this.emphasis;
+      }
+    });
     const submenus = Array.from<Menu>(this.querySelectorAll('sl-menu'));
     submenus?.forEach(submenu => {
       submenu.emphasis = this.emphasis;

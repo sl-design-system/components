@@ -77,10 +77,10 @@ sl-icon[name='chevron-right'] {
   border-radius: var(--sl-size-borderRadius-default);
   cursor: pointer;
   display: flex;
-  gap: var(--sl-space-new-md);
-  padding: var(--sl-space-new-sm) var(--sl-space-new-md);
+  gap: var(--sl-size-100);
+  padding: var(--sl-size-075) var(--sl-size-100);
   padding-inline-start: calc(
-    var(--sl-menu-item-indent, 0) * (var(--sl-size-new-icon-sm) + var(--sl-space-new-md)) + var(--sl-space-new-md)
+    var(--sl-menu-item-indent, 0) * (var(--sl-size-new-icon-sm) + var(--sl-size-100)) + var(--sl-size-100)
   );
 
   &:hover {
@@ -101,15 +101,15 @@ kbd {
   font-family: var(--sl-text-typeset-font-family-body);
   letter-spacing: 2px;
   margin-inline-start: auto;
-  padding-inline-start: var(--sl-space-new-md);
+  padding-inline-start: var(--sl-size-100);
 }
 
 sl-icon[name='chevron-right'] {
   margin-inline-start: auto;
-  padding-inline-start: var(--sl-space-new-lg);
+  padding-inline-start: var(--sl-size-new-lg);
 }
 
 slot[name='submenu']::slotted(sl-menu) {
   // Make sure the first menu item in the nested menu aligns horizontally
-  margin-block-start: calc((var(--sl-space-new-md) + var(--sl-size-borderWidth-subtle)) * -1);
+  margin-block-start: calc((var(--sl-size-100) + var(--sl-size-borderWidth-subtle)) * -1);
 }

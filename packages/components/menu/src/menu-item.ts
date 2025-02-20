@@ -151,10 +151,8 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
        */
       setTimeout(() => this.#showSubMenu(), 100);
     } else if (this.selectable) {
-      if (
-        !this.parentElement?.matches('[selects="single"]') ||
-        (this.parentElement?.matches('[selects="single"]') && !this.selected)
-      ) {
+      const selectModeSingle = this.parentElement?.matches('[selects="single"]');
+      if (!selectModeSingle || (selectModeSingle && !this.selected)) {
         this.selected = !this.selected;
         this.selectEvent.emit(this.selected);
       }
@@ -212,6 +210,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       this.submenu.offset = MenuItem.submenuOffset;
       this.wrapper?.setAttribute('aria-haspopup', 'true');
       this.wrapper?.setAttribute('aria-controls', this.submenu.id);
+
+      this.submenu.addEventListener('beforetoggle', () => {
+        this.setAttribute('aria-expanded', (!this.submenu?.matches(':popover-open')).toString());
+      });
     }
   }
 
@@ -221,7 +223,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     }
 
     this.submenu?.showPopover();
-    this.setAttribute('aria-expanded', 'true');
 
     if (focus) {
       this.submenu?.focus();
@@ -233,7 +234,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       return;
     }
     this.submenu?.hidePopover();
-    this.setAttribute('aria-expanded', 'false');
   }
 
   /**

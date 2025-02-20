@@ -5,7 +5,7 @@
   min-inline-size: 0;
 }
 
-:host([size='xs']) {
+:host([width='xs']) {
   sl-button,
   sl-menu-button {
     display: none;
@@ -32,7 +32,7 @@
 }
 
 .current {
-  --_bg-color: var(--sl-color-background-selected-subtlest); // var(--sl-color-background-secondary-bold);
+  --_bg-color: var(--sl-color-background-selected-subtlest);
   --_bg-mix-color: var(--sl-color-background-primary-interactive-plain); // TODO: from where should I take this one?
   --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
@@ -42,12 +42,10 @@
   color: var(--sl-color-foreground-primary-bold);
 
   &:hover {
-    // background: var(--sl-color-background-selected-subtlest); // var(--sl-color-background-selected-subtle-hover);
     --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
   }
 
   &:active {
-    // background: var(--sl-color-background-selected-subtle-active);
     --_bg-opacity: var(--sl-opacity-interactive-plain-active);
   }
 } // TODO: use new approach with transparency and mixin colours
@@ -62,6 +60,7 @@
     var(--_bg-color),
     var(--_bg-mix-color) calc(100% * var(--_bg-opacity))
   ); // TODO: maybe it needs to be somewhere else?
+
   color: var(--sl-color-foreground-selected-onBold);
 
   &:hover {
@@ -77,5 +76,3 @@
 .wrapper {
   display: none;
 }
-
-// TODO: outline

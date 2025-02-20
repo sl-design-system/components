@@ -25,14 +25,16 @@ declare global {
   }
 }
 
-const PAGINATOR_SIZES: { [key in PaginatorSize]: number } = {
+const PAGINATOR_SIZES: { [key in PaginatorWidth]: number } = {
   xs: 6,
   sm: 7,
   md: 9,
   lg: 11
 } as const;
 
-export type PaginatorSize = 'xs' | 'sm' | 'md' | 'lg';
+// export type PaginatorSize = 'sm' | 'md' | 'lg';
+
+export type PaginatorWidth = 'xs' | 'sm' | 'md' | 'lg';
 
 export type PaginatorEmphasis = 'subtle' | 'bold';
 
@@ -68,10 +70,11 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
   /** The original size, before any resize observer logic. */
-  #originalSize?: PaginatorSize;
+  // #originalSize?: PaginatorSize;
+  #originalWidth?: PaginatorWidth;
 
   /** The current size. */
-  #size?: PaginatorSize;
+  #width?: PaginatorWidth;
 
   get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
@@ -119,20 +122,28 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
-  get size(): PaginatorSize | undefined {
-    return this.#size;
+  // TODO: width instead of size
+
+  get width(): PaginatorWidth | undefined {
+    return this.#width;
   }
 
   /**
-   * The size of the paginator. This is used to determine how many pages are visible at once.
-   * For `xs` a select component will be used to select the page. For all other sizes,
+   * The width of the paginator. This is used to determine how many pages are visible at once.
+   * For `xs` a select component will be used to select the page. For all other widths,
    * buttons will be used.
    */
   @property({ reflect: true })
-  set size(value: PaginatorSize | undefined) {
-    this.#originalSize = value;
-    this.#size = value;
+  set width(value: PaginatorWidth | undefined) {
+    this.#originalWidth = value;
+    this.#width = value;
   }
+
+  // /**
+  //  * The size of the paginator.
+  //  * @default md
+  //  */
+  // @property({ reflect: true }) size?: ButtonSize;
 
   /**
    * Total number of items.
@@ -183,7 +194,8 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
       this.#updateVisibility();
     }
 
-    if (changes.has('size')) {
+    if (changes.has('width')) {
+      // TODO: plus probably suze change as well
       this.#updateVisibility();
     }
   }
@@ -293,7 +305,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  // TODO: variant, emphasis, sizes sm, md, lg???
+  // TODO: variant (fill), emphasis, sizes sm, md, lg???
 
   #onChange(event: SlChangeEvent<number>): void {
     this.#onPageClick(event.detail);
@@ -329,21 +341,21 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (buttonSize && gap) {
       const count = Math.floor(entry.contentRect.width / (buttonSize + gap)) - 2,
-        [size, visiblePages] = Object.entries(PAGINATOR_SIZES).find(([, value]) => count <= value) || [
+        [width, visiblePages] = Object.entries(PAGINATOR_SIZES).find(([, value]) => count <= value) || [
           'lg',
           PAGINATOR_SIZES['lg']
         ];
 
-      if (this.#originalSize) {
+      if (this.#originalWidth) {
         // We can go smaller than the original size, but never larger
-        if (visiblePages <= PAGINATOR_SIZES[this.#originalSize]) {
-          this.#size = size as PaginatorSize;
+        if (visiblePages <= PAGINATOR_SIZES[this.#originalWidth]) {
+          this.#width = width as PaginatorWidth;
         }
       } else {
-        this.#size = size as PaginatorSize;
+        this.#width = width as PaginatorWidth;
       }
 
-      this.requestUpdate('size');
+      this.requestUpdate('width');
     }
   }
 
@@ -372,7 +384,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
   #updateVisibility(): void {
     const { page, pageCount } = this,
-      visiblePageCount = PAGINATOR_SIZES[this.size || 'lg'],
+      visiblePageCount = PAGINATOR_SIZES[this.width || 'lg'],
       count = Math.floor(visiblePageCount / 2);
 
     this.windowStart = Math.min(Math.max(page - count, 0), pageCount - visiblePageCount) || -1;

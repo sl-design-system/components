@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'emphasis' | 'fill' | 'page' | 'pageSize' | 'size' | 'totalItems'>;
+type Props = Pick<Paginator, 'emphasis' | 'fill' | 'page' | 'pageSize' | 'totalItems' | 'width'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -30,20 +30,20 @@ export default {
       control: 'inline-radio',
       options: ['ghost', 'outline']
     },
-    size: {
+    width: {
       control: 'radio',
       options: ['xs', 'sm', 'md', 'lg']
     }
   },
-  render: ({ emphasis, fill, page, pageSize, totalItems, size }) => {
+  render: ({ emphasis, fill, page, pageSize, totalItems, width }) => {
     return html`
       <sl-paginator
         .page=${page}
         .pageSize=${pageSize}
         .totalItems=${totalItems}
         emphasis=${ifDefined(emphasis)}
-        size=${ifDefined(size)}
         fill=${ifDefined(fill)}
+        width=${ifDefined(width)}
       ></sl-paginator>
     `;
   }
@@ -87,43 +87,153 @@ export const All: Story = {
           justify-content: end;
         }
       </style>
+      <h2>Emphasis subtle (default)</h2>
       <section>
-        <span>xs</span>
+        <span>Ghost, width: xs</span>
         <sl-paginator
           @sl-page-change=${onPageChange}
           .page=${page}
           .pageSize=${pageSize}
           .totalItems=${totalItems}
-          size="xs"
+          width="xs"
         ></sl-paginator>
 
-        <span>sm</span>
+        <span>Ghost, width: sm</span>
         <sl-paginator
           @sl-page-change=${onPageChange}
           .page=${page}
           .pageSize=${pageSize}
           .totalItems=${totalItems}
-          size="sm"
+          width="sm"
         ></sl-paginator>
 
-        <span>md</span>
+        <span>Ghost, width: md</span>
         <sl-paginator
           @sl-page-change=${onPageChange}
           .page=${page}
           .pageSize=${pageSize}
           .totalItems=${totalItems}
-          size="md"
+          width="md"
         ></sl-paginator>
 
-        <span>lg</span>
+        <span>Ghost, width: lg</span>
         <sl-paginator
           @sl-page-change=${onPageChange}
           .page=${page}
           .pageSize=${pageSize}
           .totalItems=${totalItems}
-          size="lg"
+          width="lg"
+        ></sl-paginator>
+
+        <span>Outline, width: sm</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          fill="outline"
+          width="sm"
+        ></sl-paginator>
+
+        <span>Outline, width: md</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          fill="outline"
+          width="md"
+        ></sl-paginator>
+
+        <span>Outline, width: lg</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          fill="outline"
+          width="lg"
+        ></sl-paginator>
+      </section>
+      <h2>Emphasis bold</h2>
+      <section>
+        <span>Ghost, width: xs</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          emphasis="bold"
+          width="xs"
+        ></sl-paginator>
+
+        <span>Ghost, width: sm</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          emphasis="bold"
+          width="sm"
+        ></sl-paginator>
+
+        <span>Ghost, width: md</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          emphasis="bold"
+          width="md"
+        ></sl-paginator>
+
+        <span>Ghost, width: lg</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          emphasis="bold"
+          width="lg"
+        ></sl-paginator>
+
+        <span>Outline, width: sm</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          emphasis="bold"
+          fill="outline"
+          width="sm"
+        ></sl-paginator>
+
+        <span>Outline, width: md</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          emphasis="bold"
+          fill="outline"
+          width="md"
+        ></sl-paginator>
+
+        <span>Outline, width: lg</span>
+        <sl-paginator
+          @sl-page-change=${onPageChange}
+          .page=${page}
+          .pageSize=${pageSize}
+          .totalItems=${totalItems}
+          emphasis="bold"
+          fill="outline"
+          width="lg"
         ></sl-paginator>
       </section>
     `;
   }
 };
+
+// TODO: change everythere size to width
+// TODO: reset viewport? right now it's not always working in the stories, mobile everywhere?
+// TODO: select `md` and `lg` and `md` as default???

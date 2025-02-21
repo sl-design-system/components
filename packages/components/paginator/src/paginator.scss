@@ -27,8 +27,20 @@
 .page {
   box-sizing: border-box;
   flex-shrink: 0;
-  inline-size: var(--sl-size-500);
-  padding-inline: 0;
+  inline-size: calc(1lh + (var(--sl-size-100) * 2));
+  padding-inline: 0; // inherit; // var(--sl-size-100); // 36px; // var(--sl-size-500);
+}
+
+:host([size='sm']) {
+  .page {
+    inline-size: calc(1lh + (var(--sl-size-4xs) * 2)); // 24px; // TODO: should be 'size.015' insetad of 'sl-size-4xs'?
+  }
+}
+
+:host([size='lg']) {
+  .page {
+    inline-size: calc(1lh + (var(--sl-size-175) * 2)); // 48px;
+  }
 }
 
 .current {

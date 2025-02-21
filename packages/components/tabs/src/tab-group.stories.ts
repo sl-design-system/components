@@ -56,7 +56,7 @@ export default {
 export const Basic: Story = {
   args: {
     tabs: () => html`
-      <sl-tab>First tab</sl-tab>
+      <sl-tab selected>First tab</sl-tab>
       <sl-tab>Second tab</sl-tab>
       <sl-tab disabled>Disabled tab</sl-tab>
       <sl-tab>Last tab that is longer than the rest</sl-tab>
@@ -72,10 +72,10 @@ export const Basic: Story = {
   }
 };
 
-export const TabsOnly: Story = {
+export const AutoActivation: Story = {
   args: {
     ...Basic.args,
-    tabPanels: undefined
+    activation: 'auto'
   }
 };
 
@@ -142,6 +142,13 @@ export const Links: Story = {
         to use a router in your application for the tabs.
       </p>
     `
+  }
+};
+
+export const NoPanels: Story = {
+  args: {
+    ...Basic.args,
+    tabPanels: undefined
   }
 };
 

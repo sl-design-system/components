@@ -153,7 +153,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Determines when the contents of a tab is shown. Auto means the contents will be
    * shown when the tab is focused. Manual means the user has to activate the tab first
    * by clicking or using the keyboard.
-   * @default 'auto'
+   *
+   * For backwards compatibility, the default is 'manual'.
+   *
+   * @default 'manual'
    */
   @property() activation?: TabsActivation;
 
@@ -246,7 +249,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <div class="fade fade-start"></div>
             <div class="fade fade-end"></div>
             <div @scroll=${(event: Event) => this.#onScroll(event.target as HTMLElement)} part="scroller">
-              <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
+              <div
+                @click=${this.#onClick}
+                @focusin=${this.#onFocusin}
+                @keydown=${this.#onKeydown}
+                part="tablist"
+                role="tablist"
+              >
                 <span class="indicator" role="presentation"></span>
                 <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
@@ -282,6 +291,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     this.#updateSelectedTab(tab);
     this.#scrollToTabPanelStart();
+  }
+
+  #onFocusin(event: FocusEvent): void {
+    if (event.target instanceof Tab && this.selectedTab !== event.target && this.activation === 'auto') {
+      this.#updateSelectedTab(event.target);
+    }
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {

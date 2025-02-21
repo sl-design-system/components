@@ -131,16 +131,16 @@ button {
   padding: 0;
 
   &:hover {
-    sl-icon[name='far-circle-xmark'] {
+    sl-icon[name='circle-xmark'] {
       opacity: 0;
     }
 
-    sl-icon[name='fas-circle-xmark'] {
+    sl-icon[name='circle-xmark-solid'] {
       opacity: var(--sl-opacity-interactive-reversed-hover);
     }
   }
 
-  &:active sl-icon[name='fas-circle-xmark'] {
+  &:active sl-icon[name='circle-xmark-solid'] {
     opacity: var(--sl-opacity-interactive-reversed-active);
   }
 
@@ -155,7 +155,7 @@ button {
     justify-content: center;
     opacity: var(--sl-opacity-interactive-reversed-idle);
 
-    &[name='fas-circle-xmark'] {
+    &[name='circle-xmark-solid'] {
       opacity: 0;
     }
 

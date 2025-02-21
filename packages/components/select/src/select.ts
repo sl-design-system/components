@@ -92,7 +92,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
       return index !== -1 ? index : elements.findIndex(el => !el.disabled);
     },
-    isFocusableElement: (el: Option) => !el.disabled
+    isFocusableElement: (el: Option) => !el.disabled,
+    listenerScope: (): HTMLElement => this.listbox!
   });
 
   /** The button in the light DOM. */
@@ -346,7 +347,17 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowDown' && !this.listbox?.matches(':popover-open')) {
+    if (!this.listbox?.matches(':popover-open')) {
+      if (['ArrowDown', 'Enter', ' '].includes(event.key)) {
+        this.#rovingTabindexController.focus();
+      } else if (event.key === 'Home') {
+        this.#rovingTabindexController.focusToElement(0);
+      } else if (event.key === 'End') {
+        this.#rovingTabindexController.focusToElement(this.options.length - 1);
+      } else {
+        return;
+      }
+
       event.preventDefault();
       event.stopPropagation();
 

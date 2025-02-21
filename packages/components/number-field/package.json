@@ -1,0 +1,51 @@
+{
+  "name": "@sl-design-system/number-field",
+  "version": "0.0.0",
+  "description": "Number field component for the SL Design System",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/components/number-field"
+  },
+  "homepage": "https://sanomalearning.design/components/number-field",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "customElements": "custom-elements.json",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./register.js": "./register.js"
+  },
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.js.map",
+    "custom-elements.json"
+  ],
+  "sideEffects": [
+    "register.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "dependencies": {
+    "@sl-design-system/format-number": "^0.0.0",
+    "@sl-design-system/shared": "^0.4.0",
+    "@sl-design-system/text-field": "^1.3.4"
+  },
+  "devDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5"
+  },
+  "peerDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5"
+  }
+}

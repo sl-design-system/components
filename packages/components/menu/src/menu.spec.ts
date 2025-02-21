@@ -62,7 +62,7 @@ describe('sl-menu', () => {
       `);
     });
 
-    it('should toggle between selected items', () => {
+    it('should toggle between selected items, but not deselect the current item when it is clicked again', () => {
       const item1 = el.querySelector<MenuItem>('sl-menu-item:nth-of-type(1)'),
         item2 = el.querySelector<MenuItem>('sl-menu-item:nth-of-type(2)');
 
@@ -76,7 +76,7 @@ describe('sl-menu', () => {
 
       item2?.click();
       expect(item1?.selected).to.be.false;
-      expect(item2?.selected).to.be.false;
+      expect(item2?.selected).to.be.true;
     });
 
     it('should emit an sl-select event when a menu item is selected', async () => {

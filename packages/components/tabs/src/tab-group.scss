@@ -214,8 +214,7 @@ sl-menu-button {
   padding-inline-start: var(--sl-size-050);
   position: relative;
 
-  // TODO: Rename to `menu` part when the menu-button component is updated
-  &::part(listbox) {
+  &::part(menu) {
     max-inline-size: min(80vw, 50%);
   }
 }

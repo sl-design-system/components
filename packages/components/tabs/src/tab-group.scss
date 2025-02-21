@@ -217,10 +217,12 @@
 }
 
 sl-menu-button {
-  --sl-menu-max-inline-size: var(--sl-tab-group-menu-max-inline-size, min(100vw, 200px));
-  --sl-menu-min-inline-size: var(--sl-tab-group-menu-min-inline-size, 100px);
-
   align-self: center;
   padding-inline-start: var(--_menu-button-inline-padding);
   position: relative;
+
+  &::part(menu) {
+    max-inline-size: var(--sl-tab-group-menu-max-inline-size, min(100vw, 200px));
+    min-inline-size: var(--sl-tab-group-menu-min-inline-size, 100px);
+  }
 }

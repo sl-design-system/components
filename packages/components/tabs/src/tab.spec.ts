@@ -114,5 +114,32 @@ describe('sl-tab', () => {
     it('should have a link with tabindex of -1', () => {
       expect(link).to.have.attribute('tabindex', '-1');
     });
+
+    it('should not render a link when the tab is disabled', async () => {
+      tab.disabled = true;
+      await tab.updateComplete;
+
+      expect(tab.renderRoot.querySelector('a')).not.to.exist;
+    });
+
+    it('should click the link when the user presses Enter', async () => {
+      const onClick = spy();
+
+      link.addEventListener('click', onClick);
+      tab.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(onClick).to.have.been.called;
+    });
+
+    it('should click the link when the user presses Space', async () => {
+      const onClick = spy();
+
+      link.addEventListener('click', onClick);
+      tab.focus();
+      await sendKeys({ press: 'Space' });
+
+      expect(onClick).to.have.been.called;
+    });
   });
 });

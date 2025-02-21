@@ -94,6 +94,8 @@ export class Tab extends LitElement {
       event.stopPropagation();
 
       return;
+    } else if (this.href && ['Enter', ' '].includes(event.key)) {
+      this.renderRoot.querySelector('a')?.click();
     }
   }
 

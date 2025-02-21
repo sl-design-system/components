@@ -120,6 +120,7 @@
 }
 
 [part='container'] {
+  background: var(--sl-elevation-surface-raised-default); // Sticky tabs should not have a transparent background
   border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   display: flex;
   inline-size: 100%;
@@ -213,6 +214,7 @@ sl-menu-button {
   align-self: center;
   padding-inline-start: var(--sl-size-050);
   position: relative;
+  z-index: 1;
 
   &::part(menu) {
     max-inline-size: min(80vw, 50%);

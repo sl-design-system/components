@@ -6,7 +6,9 @@ BREAKING: Remove `<sl-select-option>` and `<sl-select-option-group>` and use `<s
 
 This change was made to align the select component with the listbox component. The listbox component is a more flexible and powerful component that can be used to create a variety of custom select-like components.
 
-To update your code, replace all instances of `<sl-select-option>` with `<sl-option>` and `<sl-select-option-group>` with `<sl-option-group>`. Make sure you have those custom elements loaded. If not, you can import them from the `@sl-design-system/listbox` package.
+To update your code, replace all instances of `<sl-select-option>` with `<sl-option>` and `<sl-select-option-group>` with `<sl-option-group>`. If you used `<sl-select-option-group>`, please make sure to rename the `heading` property to `label` since that is different in `<sl-option-group>`.
+
+Make sure you have those custom elements loaded. If not, you can import them from the `@sl-design-system/listbox` package.
 
 Various improvements:
 - Add `clearable` property for clearing the selection

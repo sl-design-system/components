@@ -402,17 +402,17 @@
       },
       "selected": {
         "bold": {
-          "value": "{color.foreground.accent.green.bold}",
+          "value": "{color.foreground.accent.purple.bold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "onBold": {
-          "value": "{color.foreground.accent.green.onBold}",
+          "value": "{color.foreground.accent.purple.onBold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "plain": {
-          "value": "{color.foreground.accent.green.plain}",
+          "value": "{color.foreground.accent.purple.plain}",
           "type": "color",
           "description": "Used as selected foreground color on white backgrounds."
         }
@@ -742,7 +742,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.foreground.inverted}",
+          "value": "{color.foreground.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },
@@ -802,7 +802,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.palette.green.600}",
+        "value": "{color.background.accent.purple.bold}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },
@@ -1044,23 +1044,23 @@
       },
       "selected": {
         "subtle": {
-          "value": "{color.background.accent.green.subtle}",
+          "value": "{color.background.accent.purple.subtle}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
         },
         "bold": {
-          "value": "{color.background.accent.green.bold}",
+          "value": "{color.background.accent.purple.bold}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.green.interactive.bold}",
+            "value": "{color.background.accent.purple.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.green.interactive.plain}",
+            "value": "{color.background.accent.purple.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }

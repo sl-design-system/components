@@ -473,6 +473,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
       tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
 
+    const showingMenu = !!this.showMenu;
+
     this.showMenu = this.vertical
       ? tablist.scrollHeight > scroller.offsetHeight
       : tablist.scrollWidth > scroller.offsetWidth;
@@ -500,7 +502,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.menuItems = undefined;
     }
 
-    if (this.selectedTab) {
+    // If the visibility of the menu has changed, we need to wait for the next callback
+    // of the ResizeObserver to scroll the selected tab into view. Showing/hiding the
+    // menu button *will* trigger that callback. If we don't, then the selected tab
+    // may not be fully visible.
+    if (showingMenu === this.showMenu && this.selectedTab) {
       this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
     }
 

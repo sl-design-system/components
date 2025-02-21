@@ -120,7 +120,7 @@
 }
 
 [part='container'] {
-  background: var(--sl-elevation-surface-raised-default); // Sticky tabs should not have a transparent background
+  background: inherit; // Sticky tabs should not have a transparent background
   border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   display: flex;
   inline-size: 100%;

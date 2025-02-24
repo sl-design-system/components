@@ -2,40 +2,40 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 // eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
-  faArrowUpRightFromSquare,
   faBadgeCheck as FarBadgeCheck,
-  faBellExclamation as farBellExclamation,
-  faBold as farBold,
+  faArrowUpRightFromSquare,
   faBug,
   faCode,
   faCopy,
   faFileEdit,
   faFloppyDisk,
-  faGrid as farGrid,
   faGear,
-  faGear as farGear,
-  faItalic as farItalic,
-  faListUl as farListUl,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
   faTrash,
   faTruckFast,
-  faUnderline as farUnderline,
-  faXmark
+  faXmark,
+  faBellExclamation as farBellExclamation,
+  faBold as farBold,
+  faGear as farGear,
+  faGrid as farGrid,
+  faItalic as farItalic,
+  faListUl as farListUl,
+  faUnderline as farUnderline
 } from '@fortawesome/pro-regular-svg-icons';
 import {
   faBadgeCheck as FasBadgeCheck,
-  faBellExclamation as fasBellExclamation,
-  faBold as fasBold,
   faEnvelope,
-  faGrid as fasGrid,
-  faGear as fasGear,
   faHandBackPointUp,
-  faItalic as fasItalic,
-  faListUl as fasListUl,
   faSchool,
   faScreenUsers,
+  faBellExclamation as fasBellExclamation,
+  faBold as fasBold,
+  faGear as fasGear,
+  faGrid as fasGrid,
+  faItalic as fasItalic,
+  faListUl as fasListUl,
   faUnderline as fasUnderline
 } from '@fortawesome/pro-solid-svg-icons';
 import '@oddbird/popover-polyfill';
@@ -55,8 +55,9 @@ import '@sl-design-system/grid/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/inline-message/register.js';
-import { MessageDialog } from '@sl-design-system/message-dialog';
+import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/menu/register.js';
+import { MessageDialog } from '@sl-design-system/message-dialog';
 import '@sl-design-system/message-dialog/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/progress-bar/register.js';
@@ -67,8 +68,8 @@ import '@sl-design-system/select/register.js';
 import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/spinner/register.js';
 import '@sl-design-system/switch/register.js';
-import '@sl-design-system/tag/register.js';
 import '@sl-design-system/tabs/register.js';
+import '@sl-design-system/tag/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/toggle-button/register.js';

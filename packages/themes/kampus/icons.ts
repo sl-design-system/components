@@ -71,12 +71,6 @@ export const icons = {
     description: 'icon.core.chevron-right',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M299.3 244.7c6.2 6.2 6.2 16.4 0 22.6l-192 192c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6L265.4 256 84.7 75.3c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0l192 192z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
-  'chevron-up': {
-    value: 'chevron-up',
-    type: 'Icons',
-    description: 'icon.core.chevron-up',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M244.7 116.7c6.2-6.2 16.4-6.2 22.6 0l192 192c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L256 150.6 75.3 331.3c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l192-192z" fill="var(--sl-icon-fill-default)"></path></svg>'
-  },
   'circle-check-solid': {
     value: 'circle-check',
     type: 'Icons',
@@ -94,6 +88,18 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.circle',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'circle-xmark': {
+    value: 'circle-xmark',
+    type: 'Icons',
+    description: 'icon.core.circle-xmark',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 32a224 224 0 1 1 0 448 224 224 0 1 1 0-448zm0 480A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM180.7 180.7c-6.2 6.2-6.2 16.4 0 22.6L233.4 256l-52.7 52.7c-6.2 6.2-6.2 16.4 0 22.6s16.4 6.2 22.6 0L256 278.6l52.7 52.7c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6L278.6 256l52.7-52.7c6.2-6.2 6.2-16.4 0-22.6s-16.4-6.2-22.6 0L256 233.4l-52.7-52.7c-6.2-6.2-16.4-6.2-22.6 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'circle-xmark-solid': {
+    value: 'circle-xmark',
+    type: 'Icons',
+    description: 'icon.core.circle-xmark-solid',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'content-has-audio': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g fill-rule="evenodd" clip-rule="evenodd"><path d="M1.333 8a6.667 6.667 0 1 1 13.334 0v4.167a.533.533 0 0 1-1.067 0V8A5.6 5.6 0 0 0 2.4 8v4.167a.533.533 0 0 1-1.067 0z"/><path d="M5.133 13.1v-2.867a.5.5 0 0 0-1 0V13.1a.5.5 0 0 0 1 0m-.5-4.433a1.567 1.567 0 0 0-1.566 1.566V13.1a1.567 1.567 0 1 0 3.133 0v-2.867a1.567 1.567 0 0 0-1.567-1.566m7.234 4.433v-2.867a.5.5 0 0 0-1 0V13.1a.5.5 0 1 0 1 0m-.5-4.433A1.567 1.567 0 0 0 9.8 10.233V13.1a1.566 1.566 0 1 0 3.133 0v-2.867a1.567 1.567 0 0 0-1.566-1.566"/></g></svg>'
@@ -176,7 +182,7 @@ export const icons = {
   minus: {
     value: 'minus',
     type: 'Icons',
-    description: 'icon.core.minus-solid',
+    description: 'icon.core.minus',
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M432 256c0 8.8-7.2 16-16 16L32 272c-8.8 0-16-7.2-16-16s7.2-16 16-16l384 0c8.8 0 16 7.2 16 16z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'non-cas': {
@@ -209,7 +215,7 @@ export const icons = {
   plus: {
     value: 'plus',
     type: 'Icons',
-    description: 'icon.core.plus-solid',
+    description: 'icon.core.plus',
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M240 64c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 176L32 240c-8.8 0-16 7.2-16 16s7.2 16 16 16l176 0 0 176c0 8.8 7.2 16 16 16s16-7.2 16-16l0-176 176 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-176 0 0-176z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   programs: {

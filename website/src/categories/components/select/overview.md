@@ -10,12 +10,12 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-select>
-  <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
-  <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
-  <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
-  <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
-  <sl-select-option disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-select-option>
-  <sl-select-option><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-select-option>
+  <sl-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-option>
+  <sl-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-option>
+  <sl-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-option>
+  <sl-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-option>
+  <sl-option disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-option>
+  <sl-option><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-option>
 </sl-select>
 
 </div>
@@ -25,12 +25,12 @@ eleventyNavigation:
 ```html
 
 <sl-select>
-  <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
-  <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
-  <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
-  <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
-  <sl-select-option disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-select-option>
-  <sl-select-option><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-select-option>
+  <sl-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-option>
+  <sl-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-option>
+  <sl-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-option>
+  <sl-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-option>
+  <sl-option disabled><sl-avatar uniqueProfileId="bla"></sl-avatar></sl-option>
+  <sl-option><sl-avatar uniqueProfileId="xxs"></sl-avatar></sl-option>
 </sl-select>
 
 ```

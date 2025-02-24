@@ -114,7 +114,7 @@ export default {
 export const Basic: Story = {
   args: {
     body: () => html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
-    label: 'Label',
+    label: 'Settings',
     menuItems: () => html`
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>

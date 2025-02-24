@@ -9,7 +9,7 @@ import {
 } from '@sl-design-system/shared';
 import { SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import styles from './menu-item.scss.js';
 import { Menu } from './menu.js';
 
@@ -20,6 +20,7 @@ declare global {
 }
 
 export type MenuItemVariant = 'default' | 'danger';
+export type MenuItemEmphasis = 'subtle' | 'bold';
 
 /**
  * Menu item component for use inside a menu.
@@ -72,6 +73,12 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @internal The sub menu, if present. */
   @state() submenu?: Menu;
 
+  /** @internal The emphasis, inherited from the menu. */
+  @property({ reflect: true }) emphasis?: MenuItemEmphasis;
+
+  /** @internal The sub menu, if present. */
+  @query('[part="wrapper"]') wrapper?: HTMLElement;
+
   /** The variant of the menu item. */
   @property({ reflect: true }) variant?: MenuItemVariant;
 
@@ -95,6 +102,14 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       } else {
         this.#shortcut.unbind();
       }
+    }
+
+    if (changes.has('selectable')) {
+      const selectMode = this.parentElement?.matches('[selects="single"]') ? 'menuitemradio' : 'menuitemcheckbox';
+      this.role = this.selectable ? selectMode : 'menuitem';
+    }
+    if (changes.has('selected')) {
+      this.setAttribute('aria-checked', (this.selected || false).toString());
     }
   }
 
@@ -136,8 +151,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
        */
       setTimeout(() => this.#showSubMenu(), 100);
     } else if (this.selectable) {
-      this.selected = !this.selected;
-      this.selectEvent.emit(this.selected);
+      const selectModeSingle = this.parentElement?.matches('[selects="single"]');
+      if (!selectModeSingle || (selectModeSingle && !this.selected)) {
+        this.selected = !this.selected;
+        this.selectEvent.emit(this.selected);
+      }
     }
   }
 
@@ -190,6 +208,12 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     if (this.submenu) {
       this.submenu.anchorElement = this;
       this.submenu.offset = MenuItem.submenuOffset;
+      this.wrapper?.setAttribute('aria-haspopup', 'true');
+      this.wrapper?.setAttribute('aria-controls', this.submenu.id);
+
+      this.submenu.addEventListener('beforetoggle', () => {
+        this.setAttribute('aria-expanded', (!this.submenu?.matches(':popover-open')).toString());
+      });
     }
   }
 
@@ -206,6 +230,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #hideSubMenu(): void {
+    if (!this.submenu) {
+      return;
+    }
     this.submenu?.hidePopover();
   }
 

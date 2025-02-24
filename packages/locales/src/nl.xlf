@@ -174,9 +174,35 @@
   <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
   <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
 </trans-unit>
+<trans-unit id="s08cb5d07b56d33a7">
+  <source>wk</source>
+  <target>wk</target>
+</trans-unit>
+<trans-unit id="s62931b2a50168976">
+  <source>Previous month</source>
+  <target>Vorige maand</target>
+</trans-unit>
+<trans-unit id="s46d6587089bd0356">
+  <source>Next month</source>
+  <target>Volgende maand</target>
+</trans-unit>
+<trans-unit id="s575e795c45e2d97e">
+  <source>Go back</source>
+</trans-unit>
+<trans-unit id="sc831e57f94e6d73e">
+  <source>Go forward</source>
+</trans-unit>
+<trans-unit id="s138a3b1a1217f2ca">
+  <source>Show calendar</source>
+  <target>Toon kalender</target>
+</trans-unit>
 <trans-unit id="sde3919a1e53d2cff">
   <source>Press the delete or backspace key to remove this item</source>
   <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
+</trans-unit>
+<trans-unit id="s680f01021b5e339d">
+  <source>Week</source>
+  <target>Week</target>
 </trans-unit>
 <trans-unit id="sa7c7ba461453bfef">
   <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>

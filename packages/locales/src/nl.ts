@@ -6,8 +6,10 @@ import { str } from '@lit/localize';
 export const templates = {
   s00a84204340a1db4: 'Geselecteerd',
   s078cac19db271b0d: 'Stap omlaag',
+  s08cb5d07b56d33a7: 'wk',
   s091d3d07b5b3076f: 'Ok',
   s129fac0ae1df7c8f: 'waarschuwing',
+  s138a3b1a1217f2ca: 'Toon kalender',
   s13fdff160ffad275: 'Wis tekst',
   s15abf4bcf7cba79f: 'items per pagina',
   s19fe06e3408e53d0: 'succes',
@@ -17,6 +19,7 @@ export const templates = {
   s39bba60b440fcf00: 'verplicht',
   s3dc14a4b8129f989: str`Paginering`,
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
+  s46d6587089bd0356: 'Volgende maand',
   s47319a3cf96f6c33: str`De waarde moet kleiner dan of gelijk aan ${0} zijn.`,
   s4dabcaab8d268abf: 'Items per pagina:',
   s4f6434b4c6326f21: 'Alle velden zijn correct.',
@@ -26,9 +29,11 @@ export const templates = {
   s5e8250fb85d64c23: 'Sluiten',
   s602a5722e101c0d2: 'Alle opties',
   s606beeef09212e6c: str`${0} de opties`,
+  s62931b2a50168976: 'Vorige maand',
   s629576c6b305d539: 'optioneel',
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
   s6580790b036f0c6f: 'actief',
+  s680f01021b5e339d: 'Week',
   s6abb1cd87fe0114e: 'Home',
   s7d09afc329d9995b: str`Pagina ${0} van ${1}`,
   s8079b71872346425: 'Voer een waarde in.',
@@ -66,5 +71,7 @@ export const templates = {
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links',
   sf7290005be5beae6: str`${0}, pagina`,
-  sfc5e976d64c3fb31: 'Voer een geldig getal in.'
+  sfc5e976d64c3fb31: 'Voer een geldig getal in.',
+  s575e795c45e2d97e: 'Go back',
+  sc831e57f94e6d73e: 'Go forward'
 };

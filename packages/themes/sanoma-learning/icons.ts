@@ -1,3 +1,4 @@
+// This is a generated file, do not edit. Edit the core.json or base.json files instead.
 export const icons = {
   'angle-down': {
     value: 'angle-down',
@@ -58,12 +59,6 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.chevron-right',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M305 239c9.4 9.4 9.4 24.6 0 33.9L113 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L79 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L305 239z" fill="var(--sl-icon-fill-default)"></path></svg>'
-  },
-  'chevron-up': {
-    value: 'chevron-up',
-    type: 'Icons',
-    description: 'icon.core.chevron-up',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M239 111c9.4-9.4 24.6-9.4 33.9 0L465 303c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-175-175L81 337c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L239 111z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'circle-check-solid': {
     value: 'circle-check',
@@ -137,12 +132,6 @@ export const icons = {
     description: 'icon.core.menu',
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M0 88C0 74.7 10.7 64 24 64l400 0c13.3 0 24 10.7 24 24s-10.7 24-24 24L24 112C10.7 112 0 101.3 0 88zM0 248c0-13.3 10.7-24 24-24l400 0c13.3 0 24 10.7 24 24s-10.7 24-24 24L24 272c-13.3 0-24-10.7-24-24zM448 408c0 13.3-10.7 24-24 24L24 432c-13.3 0-24-10.7-24-24s10.7-24 24-24l400 0c13.3 0 24 10.7 24 24z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
-  minus: {
-    value: 'minus',
-    type: 'Icons',
-    description: 'icon.core.minus-solid',
-    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M432 256c0 13.3-10.7 24-24 24L40 280c-13.3 0-24-10.7-24-24s10.7-24 24-24l368 0c13.3 0 24 10.7 24 24z" fill="var(--sl-icon-fill-default)"></path></svg>'
-  },
   'octagon-exclamation-solid': {
     value: 'octagon-exclamation',
     type: 'Icons',
@@ -160,12 +149,6 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.pinata',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M112 318.1l0-63.4 25.8 9.9c14.7 5.6 31.1 4.9 45.1-2.2L259.8 224l28.2 0 144 0c44.2 0 80 35.8 80 80l0 13.2-23.3 9.3-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7-19.1-9.6c-8.2-4.1-17.7-4.5-26.2-1.1l-26.7 10.7L112 318.1zm0 35.8l2.4 1.2c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l26.7-10.7 19.1 9.6c8.2 4.1 17.7 4.5 26.2 1.1l11.4-4.6 0 50.5-24 12-17.7-8.8c-9-4.5-19.6-4.5-28.6 0l-16.5 8.3-16.3-10.8c-2.6-1.8-5.7-2.7-8.9-2.7l-176 0c-3.2 0-6.2 .9-8.9 2.7l-16.3 10.8-16.5-8.3c-9-4.5-19.6-4.5-28.6 0L136 414.1l-24-12 0-48.2zm37.3-119.2L34.4 190.6C13.4 179.6 0 157.8 0 133.8L0 128C0 92.7 28.7 64 64 64l112 0 0-32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 166.1-71.4 35.7c-6 3-13.1 3.4-19.3 .9zM112 437.9l9.7 4.8c9 4.5 19.6 4.5 28.6 0l17.7-8.8 16.5 8.3c10.3 5.1 22.5 4.4 32.1-2l7.4-4.9 0 44.8c0 17.7-14.3 32-32 32l-48 0c-17.7 0-32-14.3-32-32l0-42.1zm288-2.7l7.4 4.9c9.6 6.4 21.8 7.1 32.1 2l16.5-8.3 17.7 8.8c9 4.5 19.6 4.5 28.6 0l9.7-4.8 0 42.1c0 17.7-14.3 32-32 32l-48 0c-17.7 0-32-14.3-32-32l0-44.8zM200 144a24 24 0 1 0 -48 0 24 24 0 1 0 48 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
-  },
-  plus: {
-    value: 'plus',
-    type: 'Icons',
-    description: 'icon.core.plus-solid',
-    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M248 72c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 160L40 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l160 0 0 160c0 13.3 10.7 24 24 24s24-10.7 24-24l0-160 160 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-160 0 0-160z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   search: {
     value: 'magnifying-glass',

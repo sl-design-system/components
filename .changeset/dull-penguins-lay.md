@@ -12,8 +12,6 @@ Make sure you have those custom elements loaded. If not, you can import them fro
 
 Various improvements:
 - Add `clearable` property for clearing the selection
-- Add `aria-hidden="true"` to the placeholder content
-- Add `aria-placeholder` to the `<sl-select-button>` when the placeholder is shown
 - Hide the listbox popover when focus leaves the `<sl-select>` component
 - Show the listbox popover immediately; only animate it when closing
 - Focus the actual options in the listbox and don't use `aria-activedescendant`

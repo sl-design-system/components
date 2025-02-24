@@ -2467,6 +2467,16 @@
         "type": "Icons",
         "description": "icon.core.xmark"
       },
+      "circle-xmark": {
+        "value": "circle-xmark",
+        "type": "Icons",
+        "description": "icon.core.circle-xmark"
+      },
+      "circle-xmark-solid": {
+        "value": "circle-xmark",
+        "type": "Icons",
+        "description": "icon.core.circle-xmark-solid"
+      },
       "circle-solid": {
         "value": "circle",
         "type": "Icons",
@@ -2531,6 +2541,16 @@
         "value": "dash",
         "type": "Icons",
         "description": "icon.core.dash-solid"
+      },
+      "plus": {
+        "value": "plus",
+        "type": "Icons",
+        "description": "icon.core.plus"
+      },
+      "minus": {
+        "value": "minus",
+        "type": "Icons",
+        "description": "icon.core.minus"
       }
     },
     "typeset": {

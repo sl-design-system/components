@@ -1,11 +1,11 @@
 import { msg } from '@lit/localize';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type TemplateResult, html, nothing } from 'lit';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-clear': SlClearEvent;
     'sl-search': SlSearchEvent;
   }
 
@@ -13,8 +13,6 @@ declare global {
     'sl-search-field': SearchField;
   }
 }
-
-export type SlClearEvent = CustomEvent<void>;
 
 export type SlSearchEvent = CustomEvent<string>;
 

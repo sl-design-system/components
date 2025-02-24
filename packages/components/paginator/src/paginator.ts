@@ -4,8 +4,9 @@ import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
+import { Option } from '@sl-design-system/listbox';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
-import { Select, SelectOption } from '@sl-design-system/select';
+import { Select } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -49,8 +50,8 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-menu': Menu,
       'sl-menu-button': MenuButton,
       'sl-menu-item': MenuItem,
-      'sl-select': Select,
-      'sl-select-option': SelectOption
+      'sl-option': Option,
+      'sl-select': Select
     };
   }
 
@@ -255,9 +256,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         >
           ${Array.from({ length: this.pageCount }).map(
             (_, index) => html`
-              <sl-select-option aria-label=${msg(str`${index + 1}, page`)} .value=${index}>
-                ${index + 1}
-              </sl-select-option>
+              <sl-option aria-label=${msg(str`${index + 1}, page`)} .value=${index}>${index + 1}</sl-option>
             `
           )}
         </sl-select>

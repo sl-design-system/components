@@ -59,12 +59,6 @@ export const icons = {
     description: 'icon.core.chevron-right',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M305 239c9.4 9.4 9.4 24.6 0 33.9L113 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L79 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L305 239z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
-  'chevron-up': {
-    value: 'chevron-up',
-    type: 'Icons',
-    description: 'icon.core.chevron-up',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M239 111c9.4-9.4 24.6-9.4 33.9 0L465 303c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-175-175L81 337c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L239 111z" fill="var(--sl-icon-fill-default)"></path></svg>'
-  },
   'circle-check-solid': {
     value: 'circle-check',
     type: 'Icons',
@@ -82,6 +76,18 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.circle',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'circle-xmark': {
+    value: 'circle-xmark',
+    type: 'Icons',
+    description: 'icon.core.circle-xmark',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'circle-xmark-solid': {
+    value: 'circle-xmark',
+    type: 'Icons',
+    description: 'icon.core.circle-xmark-solid',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'dash-solid': {
     value: 'dash',
@@ -140,7 +146,7 @@ export const icons = {
   minus: {
     value: 'minus',
     type: 'Icons',
-    description: 'icon.core.minus-solid',
+    description: 'icon.core.minus',
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M432 256c0 13.3-10.7 24-24 24L40 280c-13.3 0-24-10.7-24-24s10.7-24 24-24l368 0c13.3 0 24 10.7 24 24z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'octagon-exclamation-solid': {
@@ -164,7 +170,7 @@ export const icons = {
   plus: {
     value: 'plus',
     type: 'Icons',
-    description: 'icon.core.plus-solid',
+    description: 'icon.core.plus',
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M248 72c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 160L40 232c-13.3 0-24 10.7-24 24s10.7 24 24 24l160 0 0 160c0 13.3 10.7 24 24 24s24-10.7 24-24l0-160 160 0c13.3 0 24-10.7 24-24s-10.7-24-24-24l-160 0 0-160z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   search: {

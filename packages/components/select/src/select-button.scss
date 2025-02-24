@@ -56,7 +56,7 @@
   pointer-events: none;
 }
 
-:host(:focus-visible) {
+:host(:focus) {
   outline-color: var(--sl-color-border-focused);
 }
 

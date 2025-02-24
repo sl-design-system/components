@@ -70,11 +70,10 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   /** Observe changes in size of the container. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
-  /** The original size, before any resize observer logic. */
-  // #originalSize?: PaginatorSize;
+  /** The original width, before any resize observer logic. */
   #originalWidth?: PaginatorWidth;
 
-  /** The current size. */
+  /** The current width. */
   #width?: PaginatorWidth;
 
   get dataSource(): ListDataSource<T> | undefined {
@@ -123,8 +122,6 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
-  // TODO: width instead of size
-
   get width(): PaginatorWidth | undefined {
     return this.#width;
   }
@@ -142,7 +139,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
   /**
    * The size of the paginator.
-   * @default md
+   * @default 'md'
    */
   @property({ reflect: true }) size?: PaginatorSize;
 
@@ -156,7 +153,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    * The fill of the paginator.
    * @default 'ghost'
    */
-  @property({ reflect: true }) fill?: PaginatorVariant; // TODO: really subtle is the default one?, maybe fill instead of variant?
+  @property({ reflect: true }) fill?: PaginatorVariant;
 
   /** @internal The index of the start of the sliding window. */
   @state() windowStart = 0;
@@ -196,7 +193,6 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('width')) {
-      // TODO: plus probably suze change as well
       this.#updateVisibility();
     }
   }
@@ -312,8 +308,6 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  // TODO: variant (fill), emphasis, sizes sm, md, lg???
-
   #onChange(event: SlChangeEvent<number>): void {
     this.#onPageClick(event.detail);
   }
@@ -354,7 +348,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         ];
 
       if (this.#originalWidth) {
-        // We can go smaller than the original size, but never larger
+        // We can go smaller than the original width, but never larger
         if (visiblePages <= PAGINATOR_SIZES[this.#originalWidth]) {
           this.#width = width as PaginatorWidth;
         }

@@ -385,6 +385,10 @@
     "white": {
       "value": "#ffffff",
       "type": "color"
+    },
+    "transparant": {
+      "value": "#00000000",
+      "type": "color"
     }
   },
   "opacity": {

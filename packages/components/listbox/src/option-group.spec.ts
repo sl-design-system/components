@@ -23,9 +23,9 @@ describe('sl-option-group', () => {
     el.label = 'Group label';
     await el.updateComplete;
 
-    const label = el.renderRoot.querySelector('.label');
+    const header = el.renderRoot.querySelector('sl-option-group-header');
 
-    expect(label).to.exist;
-    expect(label).to.have.text('Group label');
+    expect(header).to.exist;
+    expect(header).to.have.text('Group label');
   });
 });

@@ -1,5 +1,18 @@
 # @sl-design-system/button
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1580](https://github.com/sl-design-system/components/pull/1580) [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6) - Improve form integration behavior
+
+  Previously, if you had an `<sl-button>` with `type` `reset` or `submit`, it would call the `<form>`'s `reset()` or `requestSubmit()` methods. With this change, the same behavior now works if you only have an `<sl-form>` element as the parent. If both `<form>` and `<sl-form>` elements are present, then the `<form>` element will take precedence. This makes it a minor change.
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+
 ## 1.0.3
 
 ### Patch Changes

@@ -2,6 +2,7 @@ import { permutateThemes, register, transformLineHeight } from '@tokens-studio/s
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
 import { readFile, writeFile } from 'fs/promises';
+import { log } from 'node:console';
 import { argv } from 'node:process';
 import { join } from 'path';
 import postcss from 'postcss';
@@ -44,10 +45,14 @@ StyleDictionary.registerTransform({
   transitive: true,
   filter: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
   transform: token => {
-    const [_, color, opacity] = token.original?.value?.match(/rgba\((\S+)\s*,\s*(\S+)\)/) ?? [];
+    const [_, color, opacity] = token.original?.value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
-      token.original.value = `color-mix(in srgb, ${color}  calc(${opacity} * 100%), transparent)`;
+      if (opacity.endsWith('%')) {
+        token.original.value = `color-mix(in srgb, ${color} ${opacity}, transparent)`;
+      } else {
+        token.original.value = `color-mix(in srgb, ${color} calc(${opacity} * 100%), transparent)`;
+      }
     }
 
     return token.value;
@@ -112,6 +117,22 @@ const build = async (production = false) => {
 
   const themeBase = join(cwd, '../packages/themes');
 
+  /**
+   * Filter out the `space.<number>` tokens since they are just aliases
+   * for `size.<number>`. We don't want to generate CSS variables for them.
+   *
+   * Commented out for now, until there are no more references to `space.<number>`.
+   */
+  const excludeSpaceTokens = token => {
+    if (token.type !== 'dimension') {
+      return true;
+    } else {
+      const [name, number] = token.path;
+
+      return !(name === 'space' && !Number.isNaN(Number(number)));
+    }
+  };
+
   const configs = Object
     .entries(permutateThemes($themes))
     .map(([name, tokensets]) => {
@@ -120,6 +141,7 @@ const build = async (production = false) => {
       const files = [
         {
           destination: `${themeBase}/${theme}/${variant}.css`,
+          // filter: excludeSpaceTokens,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -132,6 +154,7 @@ const build = async (production = false) => {
         files.push(
           {
             destination: `${themeBase}/${theme}/css/base.css`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -141,6 +164,7 @@ const build = async (production = false) => {
           },
           {
             destination: `${themeBase}/${theme}/scss/base.scss`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -151,6 +175,7 @@ const build = async (production = false) => {
           },
           {
             destination: `${themeBase}/${theme}/css/${variant}.css`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -160,6 +185,7 @@ const build = async (production = false) => {
           },
           {
             destination: `${themeBase}/${theme}/scss/${variant}.scss`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -173,7 +199,7 @@ const build = async (production = false) => {
 
       return {
         log: {
-          // verbosity: 'verbose',
+          verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
           warnings: 'disabled'
         },
         source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),

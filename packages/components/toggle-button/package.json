@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/toggle-button",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Toggle button component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,12 +39,12 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "^1.0.2",
-    "@sl-design-system/shared": "^0.3.2",
-    "@sl-design-system/tooltip": "^1.1.0"
+    "@sl-design-system/shared": "^0.4.0",
+    "@sl-design-system/tooltip": "^1.1.1"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.1.4"
+    "lit": "^3.2.1"
   },
   "peerDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",

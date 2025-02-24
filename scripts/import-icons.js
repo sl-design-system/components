@@ -8,22 +8,21 @@ import { fasl } from '@fortawesome/sharp-light-svg-icons';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { exec } from 'child_process';
-import pkg from 'eslint/use-at-your-own-risk';
+import pkg from 'eslint';
 import fg from 'fast-glob';
 import { promises as fs, existsSync } from 'fs';
 import { basename, join } from 'path';
-import figmaIconPages from './figma-icon-pages.json' assert { type: 'json' };
 
 library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
 
-const { FlatESLint } = pkg
+const { ESLint } = pkg
 
 const cwd = new URL('.', import.meta.url).pathname,
-  eslint = new FlatESLint({ fix: true });
+  eslint = new ESLint({ fix: true });
 
 const {
   default: { icon: coreIcons }
-} = await import('../packages/tokens/src/core.json', { assert: { type: 'json' } });
+} = await import('../packages/tokens/src/core.json', { with: { type: 'json' } });
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -77,7 +76,7 @@ const buildIcons = async theme => {
   // 1. Get icon tokens from `base.json`
   const {
     default: { icon: { style, themeIcons }, text }
-  } = await import(`../packages/tokens/src/${theme}/base.json`, { assert: { type: 'json' } });
+  } = await import(`../packages/tokens/src/${theme}/base.json`, { with: { type: 'json' } });
 
   const icons = {
     ...getFormattedIcons(coreIcons, 'core'),
@@ -104,21 +103,6 @@ const buildIcons = async theme => {
     await fs.mkdir(iconsFolderPath);
   }
 
-  for (const file of await fs.readdir(iconsFolderPath)) {
-    await fs.unlink(join(iconsFolderPath, file));
-  }
-
-  // load all custom icons from figma and store svgs
-  await new Promise((resolve, reject) => {
-    console.log(`Extracting icons from Figma for ${theme}...`);
-    exec(`yarn run figma-export use-config .figmaexportrc.js ${figmaIconPages[theme]} ${theme}`, { cwd }, error => {
-      if (error) {
-        reject(error);
-      }
-
-      resolve();
-    });
-  });
 
   // 3. Convert downloaded icons to appropriate format?
   // We only need the `<path>` data for `<sl-icon>`
@@ -145,8 +129,7 @@ const buildIcons = async theme => {
     source = `export const icons = ${JSON.stringify(sortedIcons)};`,
     results = await eslint.lintText(source, { filePath });
 
-  await FlatESLint.outputFixes(results);
-
+    await ESLint.outputFixes(results);
   await fs.writeFile(filePath, results[0].output);
 };
 
@@ -169,7 +152,8 @@ const exportCoreIcons = async () => {
   // load all custom icons from figma and store svgs
   await new Promise((resolve, reject) => {
     console.log(`Extracting icons from Figma for core...`);
-    exec(`yarn run figma-export use-config .figmaexportrc.js SKFTFiiz7YK9E2TPfCan9o core`, { cwd }, error => {
+    // Pbs7HEwKmwm6wAX9tfjk2N is the page id in figma where the icons are stored
+    exec(`yarn run figma-export use-config .figmaexportrc.js Pbs7HEwKmwm6wAX9tfjk2N`, { cwd }, error => {
       if (error) {
         reject(error);
       }

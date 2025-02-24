@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -29,7 +29,17 @@ let nextUniqueId = 0;
  * @slot textarea - The slot for the textarea element
  */
 @localized()
-export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElementsMixin(LitElement)), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby',
+  'aria-required'
+]) {
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby', 'aria-required'];
+  }
+
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -78,7 +88,7 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
-  /** Placeholder text in the input. */
+  /** Placeholder text in the textarea. */
   @property() placeholder?: string;
 
   /** Whether you can interact with the textarea or if it is just a static, readonly display. */
@@ -99,8 +109,11 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the textarea. */
-  @property({ reflect: true }) size: TextAreaSize = 'md';
+  /**
+   * The size of the textarea.
+   * @default md
+   */
+  @property({ reflect: true }) size?: TextAreaSize;
 
   /** The value for the textarea. */
   @property() override value: string = '';
@@ -158,12 +171,12 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
 
   override render(): TemplateResult {
     return html`
-      <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
       <slot name="suffix">
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}
       </slot>
+      <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
     `;
   }
 
@@ -232,6 +245,8 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     textarea.required = !!this.required;
     textarea.rows = this.rows ?? 2;
     textarea.wrap = this.wrap ?? 'soft';
+
+    this.setAttributesTarget(textarea);
 
     if (typeof this.maxLength === 'number') {
       textarea.setAttribute('maxlength', this.maxLength.toString());

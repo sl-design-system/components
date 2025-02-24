@@ -1,0 +1,33 @@
+:host {
+  align-items: stretch;
+  color: var(--sl-color-border-plain);
+  display: flex;
+  padding-inline-end: calc(var(--sl-size-200) + var(--sl-size-025));
+}
+
+:host([expandable]) {
+  padding-inline-end: 0;
+}
+
+:host([last-node-in-level]) [part='guide']:last-child {
+  align-self: start;
+  block-size: 25%;
+  position: relative;
+
+  &::before {
+    block-size: 100%;
+    border-block-end: var(--sl-size-borderWidth-subtle) solid currentcolor;
+    border-end-start-radius: var(--sl-size-050);
+    border-inline-start: var(--sl-size-borderWidth-subtle) solid currentcolor;
+    content: '';
+    inline-size: var(--sl-size-050);
+    inset: 100% auto auto 0;
+    position: absolute;
+  }
+}
+
+[part='guide'] {
+  background: currentcolor;
+  inline-size: var(--sl-size-borderWidth-subtle);
+  margin-inline-start: var(--sl-size-150);
+}

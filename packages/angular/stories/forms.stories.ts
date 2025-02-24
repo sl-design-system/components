@@ -23,9 +23,9 @@ import { SwitchDirective } from '../src/forms/switch.directive';
 import { TextAreaDirective } from '../src/forms/text-area.directive';
 import { TextFieldDirective } from '../src/forms/text-field.directive';
 import { InlineMessageComponent } from '../src/inline-message/inline-message.component';
+import { OptionComponent } from '../src/listbox/option.component';
 import { RadioGroupComponent } from '../src/radio-group/radio-group.component';
 import { RadioComponent } from '../src/radio-group/radio.component';
-import { SelectOptionComponent } from '../src/select/select-option.component';
 import { SelectComponent } from '../src/select/select.component';
 import { SwitchComponent } from '../src/switch/switch.component';
 import { TextAreaComponent } from '../src/text-area/text-area.component';
@@ -49,9 +49,9 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
 
       <sl-form-field label="Select">
         <sl-select formControlName="select">
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       </sl-form-field>
 
@@ -109,9 +109,9 @@ export class AllFormControlsReactiveComponent {
 
       <sl-form-field label="Select">
         <sl-select formControlName="select" required>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       </sl-form-field>
 
@@ -179,9 +179,9 @@ export class AllFormControlsEmptyReactiveComponent {
 
       <sl-form-field label="Select">
         <sl-select [(ngModel)]="formGroup.select">
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       </sl-form-field>
 
@@ -239,9 +239,9 @@ export class AllFormControlsTemplateComponent {
 
       <sl-form-field label="Select">
         <sl-select [(ngModel)]="formGroup.select" required>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       </sl-form-field>
 
@@ -386,13 +386,13 @@ export default {
         FormFieldComponent,
         FormsModule,
         InlineMessageComponent,
+        OptionComponent,
         RadioComponent,
         RadioGroupComponent,
         RadioGroupDirective,
         ReactiveFormsModule,
         SelectComponent,
         SelectDirective,
-        SelectOptionComponent,
         SwitchComponent,
         SwitchDirective,
         TextFieldComponent,

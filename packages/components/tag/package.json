@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tag",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Tag component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,13 +39,13 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "^1.0.2",
-    "@sl-design-system/shared": "^0.3.2",
-    "@sl-design-system/tooltip": "^1.1.0"
+    "@sl-design-system/shared": "^0.4.0",
+    "@sl-design-system/tooltip": "^1.1.1"
   },
   "devDependencies": {
-    "@lit/localize": "^0.12.1",
+    "@lit/localize": "^0.12.2",
     "@open-wc/scoped-elements": "^3.0.5",
-    "lit": "^3.1.4"
+    "lit": "^3.2.1"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",

@@ -7,7 +7,7 @@
           "type": "fontFamilies"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Roboto",
           "type": "fontFamilies"
         },
         "icon": {
@@ -22,7 +22,7 @@
           "type": "fontWeights"
         },
         "demibold": {
-          "value": "SemiBold",
+          "value": "Medium",
           "type": "fontWeights"
         }
       }
@@ -75,6 +75,69 @@
         },
         "type": "typography"
       }
+    },
+    "icon": {
+      "outline": {
+        "value": {
+          "fontFamily": "{icon.fontFamily.classic}",
+          "fontWeight": "{icon.typeset.fontWeight.icon-regular}"
+        },
+        "type": "typography"
+      },
+      "solid": {
+        "value": {
+          "fontFamily": "{icon.fontFamily.classic}",
+          "fontWeight": "{icon.typeset.fontWeight.icon-solid}"
+        },
+        "type": "typography"
+      }
+    },
+    "heading": {
+      "sm": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.sm}",
+          "lineHeight": "{size.lineHeight.250}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "md": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.md}",
+          "lineHeight": "{size.lineHeight.250}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "lg": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.lg}",
+          "lineHeight": "{size.lineHeight.400}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "xl": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.xl}",
+          "lineHeight": "{size.lineHeight.500}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      },
+      "2xl": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.heading.2xl}",
+          "lineHeight": "{size.lineHeight.600}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}"
+        },
+        "type": "typography"
+      }
     }
   },
   "size": {
@@ -119,13 +182,46 @@
     },
     "borderRadius": {
       "default": {
-        "value": "{size.borderRadius.sm}",
-        "type": "borderRadius"
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius",
+        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+      },
+      "child": {
+        "value": "{border.radius.2xs}/2",
+        "type": "borderRadius",
+        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+      },
+      "full": {
+        "value": "50rem",
+        "type": "borderRadius",
+        "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
+      },
+      "focusRing": {
+        "outside": {
+          "value": "{size.borderRadius.default} + 2",
+          "type": "borderRadius",
+          "description": "Use for focusring outside of component"
+        },
+        "inside": {
+          "value": "{size.borderRadius.default} - 1",
+          "type": "borderRadius",
+          "description": "Use for focusring inside of component when outside focus ring is not possible"
+        }
       }
     },
     "borderWidth": {
       "default": {
-        "value": "{size.010}",
+        "value": "{size.borderWidth.subtle}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for UI elements."
+      },
+      "action": {
+        "value": "{size.borderWidth.subtle}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for action components."
+      },
+      "focusRing": {
+        "value": "{size.borderWidth.bold}",
         "type": "borderWidth"
       }
     },
@@ -163,6 +259,41 @@
           "value": "{size-new.icon.4xl}",
           "type": "fontSizes"
         }
+      }
+    },
+    "outlineWidth": {
+      "default": {
+        "value": "{size.borderWidth.bold}",
+        "type": "borderWidth",
+        "description": "Sets the standard outline width for UI elements."
+      }
+    }
+  },
+  "icon": {
+    "typeset": {
+      "fontWeight": {
+        "regular": {
+          "value": "{icon.typeset.fontWeight.icon-regular}",
+          "type": "fontWeights"
+        },
+        "solid": {
+          "value": "{icon.typeset.fontWeight.icon-solid}",
+          "type": "fontWeights"
+        }
+      }
+    }
+  },
+  "space": {
+    "offset": {
+      "focused": {
+        "value": "{space.025}",
+        "type": "spacing",
+        "description": "Defines the spacing applied when an element is focused."
+      },
+      "default": {
+        "value": "{space.075}",
+        "type": "spacing",
+        "description": "Defines the standard spacing offset."
       }
     }
   }

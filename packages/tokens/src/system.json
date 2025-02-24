@@ -145,6 +145,41 @@
         "value": "{size.full}",
         "type": "borderRadius"
       }
+    },
+    "borderWidth": {
+      "subtle": {
+        "value": "{size.010}",
+        "type": "borderWidth",
+        "description": "A subtle border, applied to UI elements where subtle emphasis is needed."
+      },
+      "bold": {
+        "value": "{size.025}",
+        "type": "borderWidth",
+        "description": "A bold border, applied to UI elements that need to stand out."
+      },
+      "heavy": {
+        "value": "{size.050}",
+        "type": "borderWidth",
+        "description": "A heavy border for impactful elements where heavy emphasis is needed."
+      },
+      "none": {
+        "value": "{size.none}",
+        "type": "borderWidth",
+        "description": "A heavy border for impactful elements where heavy emphasis is needed."
+      }
+    },
+    "outlineWidth": {
+      "default": {
+        "value": "{size.050} - {size.010}",
+        "type": "borderWidth",
+        "description": "Defines the default of outlines for focus indicators."
+      }
+    },
+    "outlineOffset": {
+      "default": {
+        "value": "3px",
+        "type": "spacing"
+      }
     }
   },
   "size-new": {
@@ -192,7 +227,7 @@
             "y": "4",
             "blur": "6",
             "spread": "-1",
-            "color": "rgba( {color.base.black} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.50})",
             "type": "dropShadow"
           },
           {
@@ -200,7 +235,7 @@
             "y": "2",
             "blur": "4",
             "spread": "-1",
-            "color": "rgba( {color.base.black} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.50})",
             "type": "dropShadow"
           }
         ],
@@ -213,7 +248,7 @@
             "y": "8",
             "blur": "15",
             "spread": "-3",
-            "color": "rgba( {color.base.black} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.50})",
             "type": "dropShadow"
           },
           {
@@ -221,7 +256,7 @@
             "y": "6",
             "blur": "4",
             "spread": "-2",
-            "color": "rgba( {color.base.black} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.50})",
             "type": "dropShadow"
           }
         ],
@@ -234,7 +269,7 @@
             "y": "20",
             "blur": "25",
             "spread": "-5",
-            "color": "rgba( {color.base.black} , {opacity.100})",
+            "color": "rgba( {color.palette.black.base} , {opacity.100})",
             "type": "dropShadow"
           },
           {
@@ -242,7 +277,7 @@
             "y": "10",
             "blur": "10",
             "spread": "-5",
-            "color": "rgba( {color.base.black} , {opacity.050})",
+            "color": "rgba( {color.palette.black.base} , {opacity.50})",
             "type": "dropShadow"
           }
         ],
@@ -255,7 +290,7 @@
             "y": "20",
             "blur": "25",
             "spread": "-5",
-            "color": "rgba( {color.base.black} , {opacity.100})",
+            "color": "rgba( {color.palette.black.base} , {opacity.100})",
             "type": "dropShadow"
           }
         ],
@@ -265,54 +300,196 @@
   },
   "space-new": {
     "none": {
-      "value": "{size.none}",
+      "value": "{space.none}",
       "type": "spacing"
     },
     "2xs": {
-      "value": "{size.025}",
+      "value": "{space.025}",
       "type": "spacing"
     },
     "xs": {
-      "value": "{size.050}",
+      "value": "{space.050}",
       "type": "spacing"
     },
     "sm": {
-      "value": "{size.075}",
+      "value": "{space.075}",
       "type": "spacing",
       "description": "Use when components are 'besties'"
     },
     "md": {
-      "value": "{size.100}",
+      "value": "{space.100}",
       "type": "spacing",
       "description": "Use when components are 'family'"
     },
     "lg": {
-      "value": "{size.200}",
+      "value": "{space.200}",
       "type": "spacing",
       "description": "Use when components are 'casual friends'"
     },
     "xl": {
-      "value": "{size.300}",
+      "value": "{space.300}",
       "type": "spacing",
       "description": "Use when components are 'acquaintances'"
     },
     "2xl": {
-      "value": "{size.400}",
+      "value": "{space.400}",
       "type": "spacing",
       "description": "Use when components are 'strangers'"
     },
     "3xl": {
-      "value": "{size.800}",
+      "value": "{space.800}",
       "type": "spacing"
     },
     "input": {
       "vertical": {
-        "value": "{space-new.xs} - {size.borderWidth.default}",
+        "value": "{space-new.xs} - {size.010}",
         "type": "spacing"
       },
       "horizontal": {
-        "value": "{space-new.md} - {size.borderWidth.default}",
+        "value": "{space-new.md} - {size.010}",
         "type": "spacing"
+      }
+    },
+    "grid": {
+      "vertical": {
+        "value": "{space.175}",
+        "type": "spacing"
+      },
+      "horizontal": {
+        "value": "{space.200}",
+        "type": "spacing"
+      }
+    },
+    "toggleButton": {
+      "nonActive": {
+        "sm": {
+          "value": "23px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "35px",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "36px",
+          "type": "spacing"
+        }
+      }
+    }
+  },
+  "color": {
+    "black": {
+      "value": "#000000",
+      "type": "color"
+    },
+    "white": {
+      "value": "#ffffff",
+      "type": "color"
+    }
+  },
+  "opacity": {
+    "light": {
+      "interactive": {
+        "bold": {
+          "idle": {
+            "value": "0%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "20%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "40%",
+            "type": "opacity"
+          }
+        },
+        "plain": {
+          "idle": {
+            "value": "0%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "15%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "25%",
+            "type": "opacity"
+          }
+        }
+      },
+      "muted": {
+        "value": "0%",
+        "type": "opacity"
+      },
+      "subtlest": {
+        "value": "10%",
+        "type": "opacity"
+      },
+      "subtle": {
+        "value": "20%",
+        "type": "opacity"
+      },
+      "moderate": {
+        "value": "80%",
+        "type": "opacity"
+      },
+      "bold": {
+        "value": "100%",
+        "type": "opacity"
+      }
+    },
+    "dark": {
+      "interactive": {
+        "bold": {
+          "idle": {
+            "value": "0%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "20%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "40%",
+            "type": "opacity"
+          }
+        },
+        "plain": {
+          "idle": {
+            "value": "0%",
+            "type": "opacity"
+          },
+          "hover": {
+            "value": "25%",
+            "type": "opacity"
+          },
+          "active": {
+            "value": "35%",
+            "type": "opacity"
+          }
+        }
+      },
+      "muted": {
+        "value": "0%",
+        "type": "opacity"
+      },
+      "subtlest": {
+        "value": "25%",
+        "type": "opacity"
+      },
+      "subtle": {
+        "value": "35%",
+        "type": "opacity"
+      },
+      "moderate": {
+        "value": "80%",
+        "type": "opacity"
+      },
+      "bold": {
+        "value": "100%",
+        "type": "opacity"
       }
     }
   }

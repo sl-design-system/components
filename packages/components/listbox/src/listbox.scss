@@ -1,26 +1,18 @@
 :host {
+  align-items: stretch;
+  contain: layout paint style;
   display: flex;
   flex-direction: column;
-  gap: var(--sl-space-new-2xs);
+  gap: var(--sl-size-025);
   overflow: auto;
-  padding: var(--sl-space-new-md) 0;
-  scroll-padding-block: var(--sl-space-new-md);
+  padding: var(--sl-size-100) 0;
+  scroll-padding-block: var(--sl-size-100);
   scrollbar-width: thin;
-}
-
-::slotted(sl-option) {
-  margin-inline: var(--sl-space-new-md);
-}
-
-::slotted(sl-option-group:not(:first-child)) {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin-block-start: var(--sl-space-new-sm);
-  padding-block-start: var(--sl-space-new-md);
 }
 
 ::slotted(hr) {
   border: 0;
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin: var(--sl-space-new-sm) 0;
+  border-block-start: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
+  margin: var(--sl-size-075) 0;
   padding: 0;
 }

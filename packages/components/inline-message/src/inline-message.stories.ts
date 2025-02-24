@@ -1,3 +1,4 @@
+import { announce } from '@sl-design-system/announcer';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -8,7 +9,7 @@ import { InlineMessage, type InlineMessageVariant } from './inline-message';
 interface Props extends Pick<InlineMessage, 'indismissible' | 'variant'> {
   title: string;
   button: string;
-  body: string | TemplateResult;
+  body: string | (() => TemplateResult);
 }
 type Story = StoryObj<Props>;
 
@@ -40,7 +41,8 @@ export default {
   render: ({ body, button, indismissible, title, variant }) => html`
     <sl-inline-message ?indismissible=${indismissible} .variant=${variant}>
       ${title ? html`<span slot="title">${title}</span>` : nothing}
-      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing} ${body}
+      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing}
+      ${typeof body === 'string' ? body : body()}
     </sl-inline-message>
   `
 } satisfies Meta<Props>;
@@ -54,7 +56,7 @@ export const Basic: Story = {
 export const Details: Story = {
   args: {
     title: 'Inline message title',
-    body: html`
+    body: () => html`
       <style>
         p {
           margin-block: 0 0.5rem;
@@ -92,10 +94,16 @@ export const Dynamic: Story = {
       msg.variant = variant;
 
       buttonBar?.after(msg);
+
+      // Send an announcement with the text from the inline message.
+      announce(title);
     };
 
     const onRemove = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-button-bar')?.nextElementSibling?.remove();
+
+      // Give user feedback the message is closed, either via the announcer or by setting the focus on another element.
+      announce('Message closed');
     };
 
     return html`
@@ -111,6 +119,17 @@ export const Dynamic: Story = {
         <sl-button @click=${onAdd}>Add message</sl-button>
         <sl-button @click=${onRemove}>Remove message</sl-button>
       </sl-button-bar>
+      <h1>Announce changes</h1>
+      <p>
+        In this example app the functions adding and removeing the inline message we use the
+        <code>announce</code> function to announce the message and the fact that the message has been closed to users
+        using a screenreader.
+      </p>
+      <p>
+        When the message is closed using the close button in it (x) the announcement is done by the component itself.
+        The component itself can't announce the showing of the message because it doesn't know if it is present on page
+        load or added dynamically.
+      </p>
     `;
   }
 };
@@ -133,7 +152,7 @@ export const Overflow: Story = {
 export const CustomIcon: Story = {
   args: {
     ...Basic.args,
-    body: html`
+    body: () => html`
       <sl-icon slot="icon" name="face-smile"></sl-icon>
       The main content of the message
     `

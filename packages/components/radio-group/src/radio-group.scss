@@ -1,16 +1,12 @@
 :host {
-  --_direction: column;
-  --_gap: var(--sl-space-group-md);
-
   align-items: start;
   display: flex;
   flex-direction: column;
-  gap: var(--_gap);
+  gap: var(--sl-size-050);
   vertical-align: top;
 }
 
 :host([horizontal]) {
-  --_gap: var(--sl-space-group-lg);
-
   flex-direction: row;
+  gap: var(--sl-size-100);
 }

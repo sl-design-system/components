@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, ObserveAttributesMixin, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -28,7 +28,16 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  */
 @localized()
-export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
+export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
+  'aria-disabled',
+  'aria-label',
+  'aria-labelledby'
+]) {
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label', 'aria-labelledby'];
+  }
+
   /** @internal */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
@@ -73,8 +82,11 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the checkbox. */
-  @property({ reflect: true }) size: CheckboxSize = 'md';
+  /**
+   * The size of the checkbox.
+   * @default md
+   */
+  @property({ reflect: true }) size?: CheckboxSize;
 
   /**
    * The value of the checkbox when the checkbox is checked.
@@ -107,14 +119,14 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       const style = document.createElement('style');
       style.innerHTML = `
         sl-checkbox:has(input:focus-visible)::part(inner) {
-          outline: var(--_focus-outline);
-          transition: var(--_transition);
-          transition-property: background, border-color, color, filter, outline-color;        }
+          outline-color: var(--sl-color-border-focused);
+          transition: 200ms ease-in-out;
+          transition-property: background, border-color, color, outline-color;
+        }
       `;
       this.append(style);
     }
 
-    this.setAttribute('role', 'checkbox');
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
@@ -167,6 +179,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     this.input.focus();
   }
 
+  override blur(): void {
+    this.input.blur();
+  }
+
   override getLocalizedValidationMessage(): string {
     if (!this.validity.customError && this.validity.valueMissing) {
       return msg('Please check this box.');
@@ -180,10 +196,21 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       return;
     }
 
-    event.preventDefault();
+    const label = event.composedPath().find((el): el is HTMLLabelElement => el instanceof HTMLLabelElement);
+    if (label?.parentElement === this) {
+      this.input.click();
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Return early to prevent the checkbox from being toggled twice
+      return;
+    }
+
     event.stopPropagation();
 
     this.checked = !this.checked;
+    this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
     this.updateValidity();
@@ -200,6 +227,8 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
       this.#onClick(event);
     }
   }
@@ -231,7 +260,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
       return;
     }
 
-    const label = nodes.map(node => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() : node)).join(' ');
+    const label = nodes
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent?.trim())
+      .join(' ');
     if (label.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
@@ -249,8 +281,10 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.id ||= `sl-checkbox-${nextUniqueId++}`;
     input.required = !!this.required;
 
-    input.toggleAttribute('checked', !!this.checked);
-    input.toggleAttribute('indeterminate', !!this.indeterminate);
-    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+    input.checked = !!this.checked;
+    input.indeterminate = !!this.indeterminate;
+    input.setAttribute('aria-checked', this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false');
+
+    this.setAttributesTarget(input);
   }
 }

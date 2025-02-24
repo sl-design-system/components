@@ -1,6 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { ArrayDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
@@ -48,7 +48,7 @@ export const Filtered: Story = {
 
 export const FilteredDataSource: Story = {
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.addFilter('filter-profession', 'profession', 'Endo');
     dataSource.addFilter('filter-status', 'status', 'Available');
     dataSource.addFilter('filter-membership', 'membership', ['Regular', 'Premium']);
@@ -82,7 +82,7 @@ export const Custom: Story = {
       return person.profession === 'Gastroenterologist';
     };
 
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.addFilter('custom', filter);
 
     return html`
@@ -120,7 +120,7 @@ export const EmptyValues: Story = {
 
 export const Grouped: Story = {
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
     return html`
@@ -137,7 +137,7 @@ export const Grouped: Story = {
 
 export const OutsideGrid: Story = {
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayDataSource(people as Person[]);
+    const dataSource = new ArrayListDataSource(people as Person[]);
 
     const onInput = ({ target }: Event & { target: TextField }): void => {
       const value = target.value?.toString().trim() ?? '';

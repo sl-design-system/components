@@ -1,3 +1,4 @@
+import { announce } from '@sl-design-system/announcer';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -6,7 +7,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Accordion } from './accordion.js';
 
-export type Props = Pick<Accordion, 'single'> & { items: TemplateResult };
+export type Props = Pick<Accordion, 'single'> & { items(): TemplateResult };
 export type Story = StoryObj<Props>;
 
 export default {
@@ -22,12 +23,12 @@ export default {
       }
     }
   },
-  render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items}</sl-accordion>`
+  render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items()}</sl-accordion>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
   args: {
-    items: html`
+    items: () => html`
       <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
         Embark on a thrilling journey back in time to the age of dinosaurs! Unearth fossils, learn about different
         species, and imagine what life was like when these colossal creatures roamed the Earth. From the mighty
@@ -111,7 +112,7 @@ export const Basic: Story = {
 
 export const Overflow: Story = {
   args: {
-    items: html`
+    items: () => html`
       <sl-accordion-item
         summary="Velit Lorem nostrud anim officia adipisicing dolore incididunt esse."
       ></sl-accordion-item>
@@ -134,7 +135,7 @@ export const Single: Story = {
 
 export const Sticky: Story = {
   args: {
-    items: html`
+    items: () => html`
       <style>
         ::part(summary) {
           position: sticky;
@@ -239,6 +240,7 @@ export const ToggleExternally: Story = {
 
           override render(): TemplateResult {
             return html`
+              <h2>We use the announcer to inform the user, when the accordion is opened/closed externally.</h2>
               <sl-button @click=${this.toggleDino}>Toggle 🦖</sl-button>
               <sl-button @click=${this.toggleAlien}>Toggle 👽</sl-button>
               <p>
@@ -271,11 +273,13 @@ export const ToggleExternally: Story = {
 
           toggleAlien() {
             this.alien = !this.alien;
+            announce(`Accordion Alien ${this.alien ? 'expanded' : 'collapsed'}`);
             this.requestUpdate();
           }
 
           toggleDino() {
             this.dino = !this.dino;
+            announce(`Accordion Dino ${this.dino ? 'expanded' : 'collapsed'}`);
             this.requestUpdate();
           }
 
@@ -302,7 +306,7 @@ export const ToggleExternally: Story = {
 
 export const CustomSummary: Story = {
   args: {
-    items: html`
+    items: () => html`
       <style>
         div[slot] {
           align-items: center;

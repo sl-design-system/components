@@ -1,107 +1,166 @@
-@use 'sass:list';
-
-$sizes: md, lg;
-$variants: default, valid, invalid;
-$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
-
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_border-radius: var(--sl-border-radius-default);
-    --_border-width: var(--sl-border-width-input-border);
-    --_padding-block: var(--sl-space-select-selectbox-block-#{$size});
-    --_padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
-    --_font: var(--sl-text-select-selectbox-text-#{$size});
-    --_gap: var(--sl-space-select-listbox-gap-#{$size});
-  }
-}
-
-@each $variant in $variants {
-  $i: list.index($variants, $variant);
-  $variant-selector: list.nth($variant-selectors, $i);
-
-  :host(#{$variant-selector}:not([disabled])) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-default-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-default-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-default-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-default-placeholder);
-  }
-
-  :host(#{$variant-selector}:not([disabled]):focus-visible) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-focus-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-focus-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-focus-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-focus-placeholder);
-  }
-
-  :host(#{$variant-selector}:not([disabled]):hover) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-hover-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-hover-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-hover-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-hover-placeholder);
-  }
-
-  :host(#{$variant-selector}:not([disabled]):active) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-active-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-active-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-active-foreground);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-active-placeholder);
-  }
-
-  :host(#{$variant-selector}[disabled]) {
-    --_background: var(--sl-color-select-selectbox-#{$variant}-disabled-background);
-    --_border-color: var(--sl-color-select-selectbox-#{$variant}-disabled-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-input-text);
-    --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-disabled-placeholder);
-  }
-}
-
 :host {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+
   align-items: center;
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
-  color: var(--_color);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-input);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
   display: flex;
   flex: 1;
-  font: var(--_font);
-  gap: var(--_gap);
   max-inline-size: 100%;
   min-inline-size: 0;
-  padding-inline-end: var(--_padding-inline);
-  transition: 0.2s ease-in-out;
-  transition-property: background, border, color, filter, outline-color;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding-inline-end: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 0.2s ease-in-out;
+    transition-property: background, border, color, outline-color;
+  }
 }
 
-:host(:focus-visible) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 
-:host([aria-expanded]) sl-icon {
-  rotate: 180deg;
+:host:has(button:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 }
 
-:host([aria-placeholder]) {
-  color: var(--_placeholder-color);
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
+}
+
+:host([show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+
+  border-color: var(--sl-color-border-negative-plain);
+}
+
+:host([show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+
+  border-color: var(--sl-color-border-positive-plain);
+}
+
+:host([disabled]) {
+  background: var(--sl-color-background-disabled);
+  border-color: var(--sl-color-border-input);
+  color: var(--sl-color-foreground-disabled);
+  pointer-events: none;
+}
+
+:host(:focus) {
+  outline-color: var(--sl-color-border-focused);
+}
+
+:host([aria-expanded='true']) {
+  outline-color: var(--sl-color-border-focused);
+
+  .status sl-icon {
+    rotate: 180deg;
+  }
+}
+
+:host([clearable]) {
+  button + .status {
+    border-inline-start: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-subtle);
+    margin-inline-start: 0;
+    padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  }
+}
+
+:host([size='lg']) div {
+  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
+}
+
+.placeholder {
+  color: var(--sl-color-foreground-subtlest);
 }
 
 div {
   flex: 1;
   overflow: hidden;
-  padding-block: var(--_padding-block);
-  padding-inline-start: var(--_padding-inline);
+  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
   pointer-events: none;
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  &:has(sl-select-option) {
+  &:has(sl-option) {
     padding-block: 0;
     padding-inline-start: 0;
   }
 }
 
-sl-icon {
+.status {
+  align-items: center;
+  block-size: 1lh;
+  display: inline-flex;
   flex-shrink: 0;
+  justify-content: center;
+  margin-inline-start: var(--sl-size-050);
   pointer-events: none;
-  transition: rotate 0.2s ease-in-out;
+
+  sl-icon {
+    @media (prefers-reduced-motion: no-preference) {
+      transition: rotate 0.2s ease-in-out;
+    }
+  }
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  aspect-ratio: 1;
+  background: transparent;
+  block-size: calc(1lh + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
+  border: 0;
+  cursor: pointer;
+  display: inline-grid;
+  font: inherit;
+  justify-content: center;
+  margin-inline-start: var(--sl-size-050);
+  outline: 0;
+  padding: 0;
+
+  &:hover {
+    sl-icon[name='circle-xmark'] {
+      opacity: 0;
+    }
+
+    sl-icon[name='circle-xmark-solid'] {
+      opacity: var(--sl-opacity-interactive-reversed-hover);
+    }
+  }
+
+  &:active sl-icon[name='circle-xmark-solid'] {
+    opacity: var(--sl-opacity-interactive-reversed-active);
+  }
+
+  sl-icon {
+    align-items: center;
+    block-size: var(--sl-size-xl);
+    border-radius: var(--sl-size-borderRadius-default);
+    color: var(--sl-color-foreground-secondary-bold);
+    display: inline-flex;
+    grid-area: 1 / 1;
+    inline-size: var(--sl-size-xl);
+    justify-content: center;
+    opacity: var(--sl-opacity-interactive-reversed-idle);
+
+    &[name='circle-xmark-solid'] {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: opacity 0.2s ease-in-out;
+    }
+  }
 }

@@ -1,30 +1,38 @@
 // stylelint-disable color-no-hex
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
-  --_border-color: #eee;
-  --_border-width: 1px;
-  --_border-radius: 3px;
-  --_cell-background: #fff;
-  --_cell-border: 1px solid #eee;
-  --_cell-padding-block: 0.5rem;
-  --_cell-padding-inline: 1rem;
+  --_border-color: var(--sl-color-border-plain);
+  --_border-width: var(--sl-size-borderWidth-subtle);
+  --_border-radius: var(--sl-size-borderRadius-default);
+  --_cell-background: var(--sl-elevation-surface-raised-default-idle);
+  --_cell-border: var(--_border-width) solid var(--_border-color);
+  --_cell-padding-block: var(--sl-size-175);
+  --_cell-padding-inline: var(--sl-size-200);
   --_drag-handle-inline-size: 28px;
   --_dragging-background: #ddeffe;
   --_dragging-border: var(--_border-width) solid #056dc2;
   --_dragging-opacity: 0.8;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
+  --_focus-outline: var(--sl-color-border-focused) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_font: var(--sl-text-body-md-normal);
-  --_group-background: #eee;
-  --_header-background: #f9f9f9;
-  --_header-font-weight: 600;
-  --_header-padding-block: 0.5rem;
-  --_header-padding-inline: 1rem;
-  --_selected-background: #338bff0f;
-  --_striped-background: #f9f9f9;
+  --_group-background: var(--sl-elevation-surface-raised-sunken-idle);
+  --_header-background: var(--sl-elevation-surface-raised-alternative-idle);
+  --_header-padding-block: var(--sl-size-175);
+  --_header-padding-inline: var(--sl-size-200);
+  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+    no-repeat;
+  --_vertical-border-offset: var(--sl-size-100);
+  --_selected-background: var(--sl-color-background-selected-subtle-idle);
+  --_striped-background: var(--sl-elevation-surface-raised-alternative-idle);
 
+  color: var(--sl-color-foreground-plain);
   display: block;
   font: var(--_font);
+  position: relative;
 }
 
 :host([items-group-by]) {
@@ -39,41 +47,147 @@
   --_cell-border: none;
 }
 
+:host([column-divider]) {
+  // this is needed because we need to set the vertical-border-offset separately for the th,
+  // when this is set on a higher level than the `--_vertical-border-offset` var it can't "reach" it.
+  td,
+  th {
+    --_vertical-border-offset: 0px;
+
+    background: var(--_vertical-border), var(--_cell-background);
+
+    &:first-of-type {
+      background: var(--_cell-background);
+    }
+  }
+}
+
+:host([scrollable-start]) {
+  --_vertical-border-end: linear-gradient(var(--_border-color), var(--_border-color)) 100% 100% / var(--_border-width)
+    100% no-repeat;
+
+  table:not(:has(.sticky-start-last))::before {
+    background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
+    content: '';
+    inline-size: 1rem;
+    inset: 0 auto 0 0;
+    position: absolute;
+    z-index: 2; // Make sure we are above the <thead> element
+  }
+
+  :is(td, th).sticky-start-last {
+    background: var(--_vertical-border-end), var(--_cell-background);
+    overflow: visible clip;
+
+    &::after {
+      background: linear-gradient(to right, rgb(79 79 79 / 10%), transparent);
+      content: '';
+      inline-size: 1rem;
+      inset: 0 -1rem 0 auto;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  th.sticky-start-last {
+    background: var(--_vertical-border), var(--_vertical-border-end), var(--_cell-background);
+
+    + th {
+      background: var(--_cell-background);
+    }
+  }
+
+  sl-scrollbar::before {
+    background: var(--sl-color-grid-border);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-subtle);
+    inset: 0 auto 0 calc(var(--sl-size-borderWidth-subtle) * -1);
+    position: absolute;
+  }
+}
+
+:host([scrollable-end]) {
+  table:not(:has(.sticky-end-first))::after {
+    background: linear-gradient(to right, transparent, rgb(79 79 79 / 10%));
+    content: '';
+    inline-size: 1rem;
+    inset: 0 0 0 auto;
+    position: absolute;
+    z-index: 1;
+  }
+
+  :is(td, th).sticky-end-first {
+    --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+      calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+      no-repeat;
+    --_vertical-border-offset: 0px;
+
+    background: var(--_vertical-border), var(--_cell-background);
+    overflow: visible clip;
+
+    &::after {
+      background: linear-gradient(to right, transparent, rgb(79 79 79 / 10%));
+      content: '';
+      inline-size: 1rem;
+      inset: 0 0 0 -1rem;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  sl-scrollbar::after {
+    background: var(--sl-color-grid-border);
+    content: '';
+    inline-size: var(--sl-size-borderWidth-subtle);
+    inset: 0 calc(var(--sl-size-borderWidth-subtle) * -1) 0 auto;
+    position: absolute;
+  }
+}
+
 :host([striped]) tr[part~='even'] {
   --_cell-background: var(--_striped-background);
 }
 
 table {
+  anchor-name: --myanchor;
+  border: var(--_border);
+  border-block-start: 0;
+  border-radius: var(--_border-radius);
   display: flex;
   flex-direction: column;
   inline-size: fit-content;
   min-inline-size: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 thead,
 tbody {
-  border: var(--_border);
-  border-radius: var(--_border-radius);
   box-sizing: border-box;
 }
 
 thead {
-  border-end-end-radius: 0;
-  border-end-start-radius: 0;
+  border-block: var(--_border);
+  border-start-end-radius: var(--_border-radius);
+  border-start-start-radius: var(--_border-radius);
   inset-block-start: 0;
-  max-inline-size: var(--sl-grid-width);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
   overflow-x: hidden;
   position: sticky;
   z-index: 1;
 }
 
 tbody {
-  border-block-start: 0;
-  border-start-end-radius: 0;
-  border-start-start-radius: 0;
-  max-inline-size: var(--sl-grid-width);
+  background-color: var(--sl-elevation-surface-raised-default-idle);
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow: auto clip;
+  overscroll-behavior: contain auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &.drop-target {
     position: relative;
@@ -117,10 +231,6 @@ tr {
     }
   }
 
-  &[part~='selected'] {
-    --_cell-background: var(--_selected-background);
-  }
-
   &.drop-target {
     outline: var(--_drop-target-outline);
     outline-offset: var(--_drop-target-outline-offset);
@@ -134,7 +244,9 @@ td {
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: clip;
+  overflow-clip-margin: content-box
+    calc(var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default));
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
   &:first-of-type:not([part~='drag-handle']) {
@@ -154,8 +266,13 @@ th {
   --_cell-padding-block: var(--_header-padding-block);
   --_cell-padding-inline: var(--_header-padding-inline);
 
+  background: var(--_vertical-border), var(--_cell-background);
   font-weight: var(--_header-font-weight);
   text-align: start;
+
+  &:first-of-type {
+    --_vertical-border: none;
+  }
 }
 
 th[part~='drag-handle'] {
@@ -213,6 +330,21 @@ td[part~='text-field'] {
   font-weight: 600;
 }
 
+:host([clickable-row]) {
+  [part~='row'] {
+    cursor: pointer;
+
+    &:hover {
+      --_cell-background: var(--sl-elevation-surface-raised-default-hover);
+    }
+  }
+
+  tr[part~='row']:active,
+  tr[part~='active'] {
+    --_cell-background: var(--_selected-background);
+  }
+}
+
 .selection-count {
   font-weight: normal;
 }
@@ -228,4 +360,67 @@ td[part~='text-field'] {
   inset-block-start: 0;
   position: absolute;
   z-index: 1;
+}
+
+/* Set some base styles, so it is easy to see */
+a[class^='skip-link'] {
+  background-color: var(--sl-color-background-focused);
+  color: var(--sl-link-focused-idle);
+  display: inline-block;
+  inset-inline-start: calc(anchor(left) + var(--sl-size-100));
+  opacity: 0;
+  padding: var(--sl-size-100) var(--sl-size-200);
+  position: fixed;
+  position-anchor: --myanchor;
+  transition: opacity 0.3s ease-in-out;
+
+  &:focus {
+    opacity: 1;
+    outline: var(--_focus-outline);
+    outline-offset: var(--sl-border-width-focusring-offset);
+    z-index: 2;
+  }
+
+  &:hover {
+    color: var(--sl-link-focused-hover);
+  }
+}
+
+.skip-link-start:focus {
+  inset-block-end: anchor(top);
+  position-try: --start-fallback;
+}
+
+.skip-link-end:focus {
+  inset-block-start: anchor(bottom);
+  position-try: --end-fallback;
+}
+
+@position-try --start-fallback {
+  inset-block: anchor(top) auto;
+}
+
+@position-try --end-fallback {
+  inset-block: auto anchor(bottom);
+}
+
+tfoot {
+  inset-block-end: 0;
+  max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
+  overflow: hidden;
+  position: sticky;
+
+  td {
+    display: flex;
+    flex: 1;
+    max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-subtle) * 2);
+    padding: 0 !important;
+  }
+
+  sl-scrollbar {
+    flex: 1;
+    inline-size: var(--sl-grid-scrollbar-inline-size);
+    margin-inline: var(--sl-grid-scrollbar-margin-inline);
+    position: relative;
+  }
 }

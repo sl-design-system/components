@@ -77,9 +77,9 @@ describe('sl-text-area', () => {
       expect(el.querySelector('textarea')?.value).to.equal('Lorem');
     });
 
-    it('should have a medium size', () => {
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
     });
 
     it('should have a large size when set', async () => {
@@ -322,6 +322,23 @@ describe('sl-text-area', () => {
       await el.updateComplete;
 
       expect(el.valid).to.equal(true);
+    });
+  });
+
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-area aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      textArea = el.querySelector('textarea')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(textArea).to.have.attribute('aria-label', 'my label');
+      expect(textArea).to.have.attribute('aria-disabled', 'true');
     });
   });
 

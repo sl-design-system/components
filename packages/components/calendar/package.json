@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@sl-design-system/button": "^1.0.3",
-    "@sl-design-system/format-date": "^0.0.2",
+    "@sl-design-system/format-date": "^0.0.3",
     "@sl-design-system/icon": "^1.0.2"
   },
   "devDependencies": {

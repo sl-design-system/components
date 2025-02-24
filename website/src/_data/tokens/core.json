@@ -667,11 +667,27 @@
         "value": "{size.2xl}",
         "type": "sizing"
       }
+    },
+    "paginator": {
+      "pageButton": {
+        "minWidth": {
+          "value": "40px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      },
+      "Select": {
+        "minWidth": {
+          "value": "80px",
+          "type": "sizing",
+          "description": "we are using a raw value, needs to be changed to a token in the future"
+        }
+      }
     }
   },
   "space": {
     "none": {
-      "value": "0",
+      "value": "0px",
       "type": "spacing",
       "description": "space.none"
     },
@@ -2065,6 +2081,12 @@
         "value": "{border.width.focusring.default} + {border.width.focusring.offset}",
         "type": "spacing"
       }
+    },
+    "paginator": {
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      }
     }
   },
   "text": {
@@ -2364,7 +2386,7 @@
           "heading": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.heading}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "{icon.typeset.fontSize.md}"
             },
@@ -2445,6 +2467,11 @@
         "type": "Icons",
         "description": "icon.core.xmark"
       },
+      "circle-solid": {
+        "value": "circle",
+        "type": "Icons",
+        "description": "icon.core.circle"
+      },
       "circle-exclamation-solid": {
         "value": "circle-exclamation",
         "type": "Icons",
@@ -2489,6 +2516,21 @@
         "value": "magnifying-glass",
         "type": "Icons",
         "description": "icon.core.search"
+      },
+      "caret-left-solid": {
+        "value": "caret-left",
+        "type": "Icons",
+        "description": "icon.core.caret-left-solid"
+      },
+      "caret-right-solid": {
+        "value": "caret-right",
+        "type": "Icons",
+        "description": "icon.core.caret-right-solid"
+      },
+      "dash-solid": {
+        "value": "dash",
+        "type": "Icons",
+        "description": "icon.core.dash-solid"
       }
     },
     "typeset": {

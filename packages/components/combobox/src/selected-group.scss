@@ -3,6 +3,10 @@
 }
 
 :host([has-groups]) {
+  border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
+  margin-block-end: var(--sl-size-075);
+  padding-block-end: var(--sl-size-100);
+
   .other {
     display: none;
   }
@@ -15,12 +19,16 @@
 }
 
 .group {
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
 }
 
 .other {
-  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin-block-start: var(--sl-space-new-sm);
-  padding-block-start: var(--sl-space-new-lg);
-  padding-inline-start: calc(var(--sl-space-new-2xl) + var(--sl-space-new-md));
+  border-block-start: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-subtle);
+  margin-block: var(--sl-size-075) var(--sl-size-025);
+  padding-block-start: var(--sl-size-175);
+  padding-inline-start: var(--sl-size-300);
+}
+
+sl-option:first-of-type {
+  margin-block-start: var(--sl-size-025);
 }

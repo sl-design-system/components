@@ -30,6 +30,7 @@ describe('sl-menu-button', () => {
     });
 
     it('should not be disabled', () => {
+      expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
     });
 
@@ -49,7 +50,7 @@ describe('sl-menu-button', () => {
       });
 
       it('should be linked to the menu', () => {
-        expect(button.getAttribute('aria-details')).to.equal(menu.id);
+        expect(button.getAttribute('aria-controls')).to.equal(menu.id);
       });
 
       it('should not have a disabled button', () => {
@@ -67,9 +68,9 @@ describe('sl-menu-button', () => {
         expect(el.disabled).to.be.true;
       });
 
-      it('should have a medium size', () => {
-        expect(button).to.have.attribute('size', 'md');
-        expect(button.size).to.equal('md');
+      it('should not have an explicit size', () => {
+        expect(button).not.to.have.attribute('size');
+        expect(button.size).to.be.undefined;
       });
 
       it('should have a different size when set', async () => {
@@ -93,9 +94,9 @@ describe('sl-menu-button', () => {
         expect(button.fill).to.equal('solid');
       });
 
-      it('should have a default variant', () => {
-        expect(button).to.have.attribute('variant', 'default');
-        expect(button.variant).to.equal('default');
+      it('should not have an explicit variant', () => {
+        expect(button).not.to.have.attribute('variant');
+        expect(button.variant).to.be.undefined;
       });
 
       it('should have a different variant when set', async () => {
@@ -265,6 +266,32 @@ describe('sl-menu-button', () => {
 
     it('should not have a selected span', () => {
       expect(button.querySelector('.selected')).not.to.exist;
+    });
+  });
+
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-menu-button aria-label="my label" aria-disabled="true">
+          <span slot="button">Button</span>
+
+          <sl-menu-item>Item 1</sl-menu-item>
+          <sl-menu-item>Item 2</sl-menu-item>
+        </sl-menu-button>
+      `);
+
+      button = el.renderRoot.querySelector('sl-button') as Button;
+      menu = el.renderRoot.querySelector('sl-menu') as Menu;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have a button with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(button).to.have.attribute('aria-label', 'my label');
+      expect(button).to.have.attribute('aria-disabled', 'true');
     });
   });
 });

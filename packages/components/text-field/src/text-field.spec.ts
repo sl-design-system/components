@@ -49,9 +49,9 @@ describe('sl-text-field', () => {
       expect(input.value).to.equal('my value');
     });
 
-    it('should have a medium size', () => {
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
     });
 
     it('should have a large size when set', async () => {
@@ -281,6 +281,23 @@ describe('sl-text-field', () => {
       }
 
       expect(onError).not.to.have.been.called;
+    });
+  });
+
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      input = el.querySelector('input')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(input).to.have.attribute('aria-label', 'my label');
+      expect(input).to.have.attribute('aria-disabled', 'true');
     });
   });
 
@@ -516,8 +533,8 @@ describe('sl-text-field', () => {
       }
 
       /** Format the date as DD-MM-YYYY. */
-      override formatValue(value?: Date): string {
-        return value?.toLocaleDateString() ?? '';
+      override get formattedValue(): string {
+        return this.value?.toLocaleDateString() ?? '';
       }
     }
 

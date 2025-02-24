@@ -2,7 +2,7 @@ import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer
 import { expect, fixture } from '@open-wc/testing';
 import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/avatar/register.js';
-import { FetchDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { html } from 'lit';
 import { Person } from 'tools/example-data/index.js';
 import '../register.js';
@@ -87,6 +87,28 @@ describe('sl-column', () => {
     });
   });
 
+  describe('empty string value', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="foo"></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [{ foo: 'Bar' }, { foo: '' }];
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+    });
+
+    it('should render nothing', () => {
+      const data = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+
+      expect(data).to.deep.equal(['Bar', '']);
+    });
+  });
+
   describe('custom renderer', () => {
     beforeEach(async () => {
       const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
@@ -138,7 +160,7 @@ describe('sl-column', () => {
           <sl-grid-column path="lastName"></sl-grid-column>
         </sl-grid>
       `);
-      el.items = [FetchDataSourcePlaceholder];
+      el.items = [FetchListDataSourcePlaceholder];
       await el.updateComplete;
 
       // Give grid time to render the table structure

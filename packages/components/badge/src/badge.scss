@@ -1,41 +1,106 @@
-@use 'sass:map';
-
-$variants: danger, success, info, warning, accent, neutral, primary;
-
 :host {
   align-items: center;
+  background: var(--sl-color-background-accent-grey-subtle);
   block-size: 1lh;
-  border-radius: var(--sl-border-radius-badge-full);
+  border-radius: var(--sl-size-borderRadius-full);
   box-sizing: border-box;
+  color: var(--sl-color-foreground-accent-grey-bold);
   display: inline-flex;
-  font: var(--sl-text-badge-text-md);
-  gap: var(--sl-space-badge-label-inline-md);
+  font-size: 0.857em;
+  gap: var(--sl-size-025);
+  line-height: 0.8lh;
   min-inline-size: 1lh;
-  padding-inline: var(--sl-space-badge-inline-md);
-  text-transform: var(--sl-text-case-badge-text-transform);
+  padding-inline: var(--sl-size-100);
+  text-transform: uppercase;
   vertical-align: middle;
 }
 
-@each $variant in $variants {
-  :host([variant='#{$variant}']) {
-    background: var(--sl-color-badge-subtle-#{$variant}-background);
-    color: var(--sl-color-badge-subtle-#{$variant}-foreground);
-  }
+:host([color='blue']),
+:host([variant='info']),
+:host([variant='primary']) {
+  background: var(--sl-color-background-accent-blue-subtle);
+  color: var(--sl-color-foreground-accent-blue-bold);
+}
 
-  :host([variant='#{$variant}'][emphasis='bold']) {
-    background: var(--sl-color-badge-bold-#{$variant}-background);
-    color: var(--sl-color-badge-bold-#{$variant}-foreground);
-  }
+:host([color='blue'][emphasis='bold']),
+:host([variant='primary'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-blue-bold);
+  color: var(--sl-color-foreground-accent-blue-onBold);
+}
+
+:host([color='green']),
+:host([variant='success']) {
+  background: var(--sl-color-background-accent-green-subtle);
+  color: var(--sl-color-foreground-accent-green-bold);
+}
+
+:host([color='green'][emphasis='bold']),
+:host([variant='success'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-green-bold);
+  color: var(--sl-color-foreground-accent-green-onBold);
+}
+
+:host([color='orange']) {
+  background: var(--sl-color-background-accent-orange-subtle);
+  color: var(--sl-color-foreground-accent-orange-bold);
+}
+
+:host([color='orange'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-orange-bold);
+  color: var(--sl-color-foreground-accent-orange-onBold);
+}
+
+:host([color='purple']) {
+  background: var(--sl-color-background-accent-purple-subtle);
+  color: var(--sl-color-foreground-accent-purple-bold);
+}
+
+:host([color='purple'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-purple-bold);
+  color: var(--sl-color-foreground-accent-purple-onBold);
+}
+
+:host([color='red']),
+:host([variant='danger']) {
+  background: var(--sl-color-background-accent-red-subtle);
+  color: var(--sl-color-foreground-accent-red-bold);
+}
+
+:host([color='red'][emphasis='bold']),
+:host([variant='danger'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-red-bold);
+  color: var(--sl-color-foreground-accent-red-onBold);
+}
+
+:host([color='teal']) {
+  background: var(--sl-color-background-accent-teal-subtle);
+  color: var(--sl-color-foreground-accent-teal-bold);
+}
+
+:host([color='teal'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-teal-bold);
+  color: var(--sl-color-foreground-accent-teal-onBold);
+}
+
+:host([color='yellow']),
+:host([variant='warning']) {
+  background: var(--sl-color-background-accent-yellow-subtle);
+  color: var(--sl-color-foreground-accent-yellow-bold);
+}
+
+:host([color='yellow'][emphasis='bold']),
+:host([variant='warning'][emphasis='bold']) {
+  background: var(--sl-color-background-accent-yellow-bold);
+  color: var(--sl-color-foreground-accent-yellow-onBold);
 }
 
 :host([size='sm']) {
-  line-height: var(--sl-size-badge-sm);
+  line-height: var(--sl-size-100);
 }
 
 :host([size='lg']) {
-  font: var(--sl-text-badge-text-lg);
-  gap: var(--sl-space-badge-label-inline-lg);
-  padding-inline: var(--sl-space-badge-inline-lg);
+  font-size: 1em;
+  line-height: 1lh;
 
   ::slotted(sl-icon) {
     --sl-icon-container-size: var(--sl-size-icon-xs);
@@ -43,10 +108,15 @@ $variants: danger, success, info, warning, accent, neutral, primary;
   }
 }
 
-:host([size='sm']),
-:host([round]) {
+:host([round]),
+:host([size='sm']) {
   justify-content: center;
   padding-inline: 0;
+}
+
+:host([emphasis='bold']) {
+  background: var(--sl-color-background-accent-grey-bold);
+  color: var(--sl-color-foreground-accent-grey-onBold);
 }
 
 ::slotted(sl-icon) {

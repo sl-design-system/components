@@ -5,54 +5,65 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type Tag } from './tag.js';
 
-type Props = Pick<Tag, 'disabled' | 'emphasis' | 'label' | 'removable' | 'size'> & { maxWidth?: string };
+type Props = Pick<Tag, 'disabled' | 'label' | 'removable' | 'size' | 'variant'> & {
+  maxWidth?: string;
+};
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Feedback & status/Tag',
   tags: ['draft'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-tag:not([disabled])'
+          }
+        ]
+      }
+    }
+  },
   args: {
     disabled: false,
-    emphasis: 'subtle',
     label: 'Tag label',
-    removable: false,
-    size: 'md'
+    removable: false
   },
   argTypes: {
-    emphasis: {
-      control: 'inline-radio',
-      options: ['subtle', 'bold']
-    },
     size: {
       control: 'inline-radio',
       options: ['md', 'lg']
+    },
+    variant: {
+      control: 'inline-radio',
+      options: ['default', 'info']
     }
   },
-  render: ({ disabled, emphasis, label, maxWidth, removable, size }) => html`
+  render: ({ disabled, label, maxWidth, removable, size, variant }) => html`
     <sl-tag
       ?disabled=${disabled}
       ?removable=${removable}
-      emphasis=${ifDefined(emphasis)}
       size=${ifDefined(size)}
       style=${styleMap({ maxWidth })}
-      >${label}</sl-tag
+      variant=${ifDefined(variant)}
     >
+      ${label}
+    </sl-tag>
   `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
-export const Bold: Story = {
+export const Disabled: Story = {
   args: {
-    ...Basic.args,
-    emphasis: 'bold'
+    disabled: true
   }
 };
 
-export const Disabled: Story = {
+export const Info: Story = {
   args: {
-    ...Basic.args,
-    disabled: true
+    variant: 'info'
   }
 };
 
@@ -65,7 +76,6 @@ export const Overflow: Story = {
 
 export const Removable: Story = {
   args: {
-    ...Basic.args,
     removable: true
   }
 };
@@ -74,52 +84,51 @@ export const All: Story = {
   render: () => {
     return html`
       <style>
-        #root-inner {
-          align-items: start;
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-        #root-inner > div {
+        .wrapper {
+          align-items: center;
           display: inline-grid;
+          grid-template-columns: auto 1fr 1fr 1fr 1fr;
           gap: 1rem;
-          grid-template-columns: repeat(5, auto);
-          justify-items: start;
+          justify-items: center;
         }
         span {
-          justify-self: center;
-          grid-column: 1 / -1;
+          justify-self: start;
         }
       </style>
+      <div class="wrapper">
+        <span></span>
+        <span style="justify-self: center; grid-column: 2 / 4">md</span>
+        <span style="justify-self: center; grid-column: 4 / 6">lg</span>
 
-      <div>
-        <span>md</span>
+        <span>Default</span>
         <sl-tag>Label</sl-tag>
-        <sl-tag style="max-inline-size: 100px">Overflow label</sl-tag>
-        <sl-tag removable>Removable</sl-tag>
-        <sl-tag disabled>Disabled</sl-tag>
-        <sl-tag removable disabled>Disabled, removable</sl-tag>
-
-        <sl-tag emphasis="bold">Label</sl-tag>
-        <sl-tag emphasis="bold" style="max-inline-size: 100px">Overflow label</sl-tag>
-        <sl-tag emphasis="bold" removable>Removable</sl-tag>
-        <sl-tag emphasis="bold" disabled>Disabled</sl-tag>
-        <sl-tag emphasis="bold" removable disabled>Disabled, removable</sl-tag>
-      </div>
-
-      <div>
-        <span>lg</span>
+        <sl-tag variant="info">Label</sl-tag>
         <sl-tag size="lg">Label</sl-tag>
-        <sl-tag size="lg" style="max-inline-size: 100px">Overflow label</sl-tag>
-        <sl-tag removable size="lg">Removable</sl-tag>
-        <sl-tag size="lg" disabled>Disabled</sl-tag>
-        <sl-tag removable size="lg" disabled>Disabled, removable</sl-tag>
+        <sl-tag size="lg" variant="info">Label</sl-tag>
 
-        <sl-tag emphasis="bold" size="lg">Label</sl-tag>
-        <sl-tag emphasis="bold" size="lg" style="max-inline-size: 100px">Overflow label</sl-tag>
-        <sl-tag emphasis="bold" removable size="lg">Removable</sl-tag>
-        <sl-tag emphasis="bold" size="lg" disabled>Disabled</sl-tag>
-        <sl-tag emphasis="bold" removable size="lg" disabled>Disabled, removable</sl-tag>
+        <span>Overflow</span>
+        <sl-tag style="max-inline-size: 100px">Overflow label</sl-tag>
+        <sl-tag style="max-inline-size: 100px" variant="info">Overflow label</sl-tag>
+        <sl-tag size="lg" style="max-inline-size: 100px">Overflow label</sl-tag>
+        <sl-tag size="lg" style="max-inline-size: 100px" variant="info">Overflow label</sl-tag>
+
+        <span>Removable</span>
+        <sl-tag removable>Removable</sl-tag>
+        <sl-tag removable variant="info">Removable</sl-tag>
+        <sl-tag removable size="lg">Removable</sl-tag>
+        <sl-tag removable size="lg" variant="info">Removable</sl-tag>
+
+        <span>Disabled</span>
+        <sl-tag disabled>Disabled</sl-tag>
+        <sl-tag disabled variant="info">Disabled</sl-tag>
+        <sl-tag size="lg" disabled>Disabled</sl-tag>
+        <sl-tag size="lg" disabled variant="info">Disabled</sl-tag>
+
+        <span>Removable, disabled</span>
+        <sl-tag removable disabled>Disabled</sl-tag>
+        <sl-tag removable disabled variant="info">Disabled</sl-tag>
+        <sl-tag removable size="lg" disabled>Disabled</sl-tag>
+        <sl-tag removable size="lg" disabled variant="info">Disabled</sl-tag>
       </div>
     `;
   }

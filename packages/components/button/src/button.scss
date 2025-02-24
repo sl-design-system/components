@@ -1,146 +1,226 @@
-$fills: solid, outline, link, ghost;
-$sizes: sm, md, lg;
-$variants: default, primary, success, info, warning, danger;
-
 :host {
-  --_animation: var(--sl-animation-button);
-  --_background: var(--sl-color-button-default-idle-background);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_transition-duration: var(--sl-animation-button-duration);
-  --_transition-easing: var(--sl-animation-button-easing);
+  --_bg-color: var(--sl-color-background-secondary-bold);
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
 
   align-items: center;
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
-  color: var(--_color);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-action) solid var(--sl-color-border-secondary-bold);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
-  font: var(--_font);
-  gap: var(--_label-gap);
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+  gap: var(--sl-size-075);
   justify-content: center;
-  outline-color: transparent;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
-  transform: var(--_transform);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: calc(var(--sl-size-075) - var(--sl-size-borderWidth-action)) var(--sl-size-300);
+  user-select: none;
   vertical-align: middle;
 }
 
-@each $fill in $fills {
-  :host([fill='#{$fill}']) {
-    --_border-width: var(--sl-border-width-button-#{$fill});
-  }
-
-  @each $variant in $variants {
-    :host([fill='#{$fill}'][variant='#{$variant}']:not([popover-opened])) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:not([disabled]):hover) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:not([disabled]):active),
-    :host([fill='#{$fill}'][variant='#{$variant}'][popover-opened]) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
-    }
-
-    :host([fill='#{$fill}'][variant='#{$variant}'][disabled]) {
-      --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
-      --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
-    }
-  }
+:host(:where(:not([fill]), [fill='solid'])) {
+  color: var(--sl-color-foreground-secondary-onBold);
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_border-radius: var(--sl-border-radius-button-#{$size});
-    --_font: var(--sl-text-button-text-#{$size});
-    --_icon-container-size: var(--sl-size-button-icon-#{$size});
-    --_label-gap: var(--sl-space-button-gap-#{$size});
-  }
-
-  :host([size='#{$size}'][fill='link']:not([popover-opened])) {
-    --_font: var(--sl-text-button-link-idle-#{$size});
-  }
-
-  :host([size='#{$size}'][fill='link']:not([disabled]):hover) {
-    --_font: var(--sl-text-button-link-hover-#{$size});
-  }
-
-  :host([size='#{$size}'][fill='link']:not([disabled]):active),
-  :host([size='#{$size}'][fill='link'][popover-opened]) {
-    --_font: var(--sl-text-button-link-active-#{$size});
-  }
-
-  :host([size='#{$size}'][fill='link'][disabled]) {
-    --_font: var(--sl-text-button-link-disabled-#{$size});
-  }
-
-  :host([size='#{$size}'][icon-only]) {
-    --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
-    --_icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
-
-    line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
-  }
-
-  :host([size='#{$size}']) ::slotted(sl-spinner) {
-    --sl-spinner-size: var(--sl-size-spinner-#{$size});
-  }
-
-  @each $fill in $fills {
-    :host([size='#{$size}'][fill='#{$fill}']) {
-      --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size});
-      --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size});
-    }
-
-    :host([size='#{$size}'][fill='#{$fill}'][icon-only]) {
-      --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
-      --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
-    }
-  }
+:host(:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
 }
 
-:host(:focus-visible) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
 }
 
-:host(:where(:active, :focus-visible, :hover)) {
-  transition-duration: var(--_transition-duration);
-  transition-property: background, border-color, color, outline-color;
-  transition-timing-function: var(--_transition-easing);
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+}
+
+:host([variant='primary']) {
+  --_bg-color: var(--sl-color-background-primary-bold);
+  --_bg-mix-color: var(--sl-color-background-primary-interactive-bold);
+
+  border-color: var(--sl-color-border-primary-bold);
+  color: var(--sl-color-foreground-primary-bold);
+}
+
+:host([variant='primary']:where(:not([fill]), [fill='solid'])) {
+  color: var(--sl-color-foreground-primary-onBold);
+}
+
+:host([variant='primary']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-primary-interactive-plain);
+}
+
+:host([variant='success']) {
+  --_bg-color: var(--sl-color-background-positive-bold);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
+
+  border-color: var(--sl-color-border-positive-bold);
+  color: var(--sl-color-foreground-positive-bold);
+}
+
+:host([variant='success']:where(:not([fill]), [fill='solid'])) {
+  color: var(--sl-color-foreground-positive-onBold);
+}
+
+:host([variant='success']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+}
+
+:host([variant='warning']) {
+  --_bg-color: var(--sl-color-background-caution-bold);
+  --_bg-mix-color: var(--sl-color-background-caution-interactive-bold);
+
+  border-color: var(--sl-color-border-caution-bold);
+  color: var(--sl-color-foreground-caution-bold);
+}
+
+:host([variant='warning']:where(:not([fill]), [fill='solid'])) {
+  color: var(--sl-color-foreground-caution-onBold);
+}
+
+:host([variant='warning']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-caution-interactive-plain);
+}
+
+:host([variant='danger']) {
+  --_bg-color: var(--sl-color-background-negative-bold);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
+
+  border-color: var(--sl-color-border-negative-bold);
+  color: var(--sl-color-foreground-negative-bold);
+}
+
+:host([variant='danger']:where(:not([fill]), [fill='solid'])) {
+  color: var(--sl-color-foreground-negative-onBold);
+}
+
+:host([variant='danger']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+}
+
+:host([variant='info']) {
+  --_bg-color: var(--sl-color-background-info-bold);
+  --_bg-mix-color: var(--sl-color-background-info-interactive-bold);
+
+  border-color: var(--sl-color-border-info-bold);
+  color: var(--sl-color-foreground-info-bold);
+}
+
+:host([variant='info']:where(:not([fill]), [fill='solid'])) {
+  color: var(--sl-color-foreground-info-onBold);
+}
+
+:host([variant='info']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
+}
+
+:host([variant='inverted']) {
+  --_bg-color: var(--sl-color-background-inverted-bold);
+  --_bg-mix-color: var(--sl-color-background-inverted-interactive-bold);
+
+  border-color: var(--sl-color-border-inverted);
+  color: var(--sl-color-foreground-inverted-bold);
+}
+
+:host([variant='inverted']:where(:not([fill]), [fill='solid'])) {
+  color: var(--sl-color-foreground-inverted-onBold);
+}
+
+:host([variant='inverted']:where([fill='ghost'], [fill='outline'])) {
+  --_bg-mix-color: var(--sl-color-background-inverted-interactive-plain);
+}
+
+:host(:is(:not([fill]), [fill='ghost'], [fill='link'], [fill='solid'])) {
+  border-color: transparent;
+}
+
+:host([fill='ghost']) {
+  --_bg-color: transparent;
+}
+
+:host([fill='link']) {
+  background: transparent;
+  padding-inline: 0;
+}
+
+:host([fill='link']:hover) {
+  text-decoration: underline;
+}
+
+:host([fill='outline']) {
+  --_bg-color: transparent;
+}
+
+:host([fill='outline']:hover) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+}
+
+:host([fill='outline']:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+}
+
+:host([icon-only]) {
+  aspect-ratio: 1;
+  block-size: calc(1lh + (var(--sl-size-075) - var(--sl-size-borderWidth-action)) * 2);
+  padding: 0;
+}
+
+:host([size='sm']) {
+  padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-action)) var(--sl-size-175);
+}
+
+:host([size='sm'][icon-only]) {
+  block-size: calc(1lh + (var(--sl-size-025) - var(--sl-size-borderWidth-action)) * 2);
+  padding: 0;
+}
+
+:host([size='lg']) {
+  gap: var(--sl-size-100);
+  padding: calc(var(--sl-size-125) - var(--sl-size-borderWidth-action)) var(--sl-size-300);
+}
+
+:host([size='lg'][icon-only]) {
+  block-size: calc(1lh + (var(--sl-size-125) - var(--sl-size-borderWidth-action)) * 2);
+  padding: 0;
+}
+
+:host([shape='pill']) {
+  border-radius: var(--sl-size-borderRadius-full);
 }
 
 :host([disabled]) {
+  color: var(--sl-color-foreground-disabled);
   cursor: default;
   pointer-events: none;
 }
 
-:host([fill='link']:not([disabled]):hover),
-:host([fill='link']:not([disabled]):active) {
-  text-decoration: underline;
+:host([disabled]:where(:not([fill]), [fill='solid'])) {
+  background: var(--sl-color-background-disabled);
+}
+
+:host([disabled]:where([fill='ghost'], [fill='link'], [fill='outline'])) {
+  background: transparent;
+}
+
+:host([disabled][fill='outline']) {
+  border-color: var(--sl-color-border-disabled);
+}
+
+:host(:focus-visible) {
+  outline-color: var(--sl-color-border-focused);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:active, :focus-visible, :hover)) {
+    transition-duration: var(--sl-animation-button-duration);
+    transition-property: background, border-color, color, outline-color;
+    transition-timing-function: var(--sl-animation-button-easing);
+  }
 }
 
 ::slotted(*) {
   // Prevent the icon from ever gaining focus inside the button
   pointer-events: none;
-}
-
-::slotted(sl-icon) {
-  --sl-icon-container-size: var(--_icon-container-size);
-
-  fill: var(--_color);
 }

@@ -110,6 +110,14 @@
   <source>Clear text</source>
   <target>Wis tekst</target>
 </trans-unit>
+<trans-unit id="sefa2cd5631cae9d8">
+  <source>Step up</source>
+  <target>Stap omhoog</target>
+</trans-unit>
+<trans-unit id="s078cac19db271b0d">
+  <source>Step down</source>
+  <target>Stap omlaag</target>
+</trans-unit>
 <trans-unit id="s5d929ff1619ac0c9">
   <source>Search</source>
   <target>Zoeken</target>
@@ -188,10 +196,6 @@
   <source>Show calendar</source>
   <target>Toon kalender</target>
 </trans-unit>
-<trans-unit id="s886db4d476f66522">
-  <source>Selected options</source>
-  <target>Geselecteerde opties</target>
-</trans-unit>
 <trans-unit id="sde3919a1e53d2cff">
   <source>Press the delete or backspace key to remove this item</source>
   <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
@@ -199,6 +203,82 @@
 <trans-unit id="s680f01021b5e339d">
   <source>Week</source>
   <target>Week</target>
+</trans-unit>
+<trans-unit id="sa7c7ba461453bfef">
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> items</target>
+</trans-unit>
+<trans-unit id="s1e55e510d77b5965">
+  <source>Select page number</source>
+  <target>Selecteer paginanummer</target>
+</trans-unit>
+<trans-unit id="sf7290005be5beae6">
+  <source><x id="0" equiv-text="${this.page}"/>, page</source>
+  <target><x id="0" equiv-text="${button.innerText.trim()}"/>, pagina</target>
+</trans-unit>
+<trans-unit id="s88b887b46242ba96">
+  <source>Go to the previous page (<x id="0" equiv-text="${this.page}"/>)</source>
+  <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.activePage - 1}"/>)</target>
+</trans-unit>
+<trans-unit id="sa477d2feda7d475e">
+  <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
+  <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.activePage + 1}"/>)</target>
+</trans-unit>
+<trans-unit id="s7d09afc329d9995b">
+  <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
+  <target>Pagina <x id="0" equiv-text="${this.activePage}"/> van <x id="1" equiv-text="${this.#pages}"/></target>
+</trans-unit>
+<trans-unit id="s9ad43731ebd435aa">
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
+  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> weergegeven</target>
+</trans-unit>
+<trans-unit id="s886db4d476f66522">
+  <source>Selected options</source>
+  <target>Geselecteerde opties</target>
+</trans-unit>
+<trans-unit id="s3dc14a4b8129f989">
+  <source>Pagination</source>
+  <target>Paginering</target>
+</trans-unit>
+<trans-unit id="s4dabcaab8d268abf">
+  <source>Items per page:</source>
+  <target>Items per pagina:</target>
+</trans-unit>
+<trans-unit id="s15abf4bcf7cba79f">
+  <source>items per page</source>
+  <target>items per pagina</target>
+</trans-unit>
+<trans-unit id="s874708ada8e71323">
+  <source>Skip to end of table</source>
+  <target>Naar het einde van de tabel</target>
+</trans-unit>
+<trans-unit id="se952fc198acfa288">
+  <source>Skip to start of table</source>
+  <target>Naar het begin van de tabel</target>
+</trans-unit>
+<trans-unit id="sb2c57b2d347203dd">
+  <source>Show more</source>
+  <target>Meer tonen</target>
+</trans-unit>
+<trans-unit id="sb59d68ed12d46377">
+  <source>Loading</source>
+  <target>Laden</target>
+</trans-unit>
+<trans-unit id="s8f18916860db5d80">
+  <source>Clear selection</source>
+  <target>Selectie wissen</target>
+</trans-unit>
+<trans-unit id="s47319a3cf96f6c33">
+  <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>De waarde moet kleiner dan of gelijk aan <x id="0" equiv-text="${this.max}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sa857aed87918391e">
+  <source>The value must be greater than or equal to <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>De waarde moet groter dan of gelijk aan <x id="0" equiv-text="${this.min}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sfc5e976d64c3fb31">
+  <source>Please enter a valid number.</source>
+  <target>Voer een geldig getal in.</target>
 </trans-unit>
 </body>
 </file>

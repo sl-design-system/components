@@ -37,6 +37,11 @@
   ::slotted(input) {
     padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
   }
+
+  .valid,
+  slot[name='suffix']::slotted(:not(sl-field-button)) {
+    padding-inline-end: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
+  }
 }
 
 :host([disabled]) {
@@ -91,7 +96,7 @@ slot[name='input']::slotted(input) {
   }
 }
 
-.valid-icon {
-  color: var(--sl-color-icon-positive-plain);
+.valid {
+  color: var(--sl-color-foreground-positive-plain);
   padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
 }

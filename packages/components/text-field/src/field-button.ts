@@ -12,8 +12,8 @@ export type FieldButtonSize = 'md' | 'lg';
 
 /**
  * A button that is part of a text field. Use this component if you want to
- * have an inline action inside a text field. For example the clear button
- * in a search field.
+ * have an inline action inside a text field. The clear button in a search field
+ * for example.
  *
  * This component can be used by other design system components that inherit from
  * `TextField`, but also by users of the design system that slot it in their own

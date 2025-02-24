@@ -238,13 +238,15 @@ export class TextField<T extends { toString(): string } = string>
     `;
   }
 
-  /** Renders the suffix slot; can be overridden to customize the suffix. */
+  /**
+   * Renders the suffix slot; can be overridden to customize the suffix. Remember that if
+   * you override this method, it will no longer automatically show the valid checkmark
+   * when the input is valid.
+   */
   renderSuffix(): TemplateResult | typeof nothing {
     return html`
       <slot @slotchange=${this.onSuffixSlotChange} name="suffix">
-        ${this.showValidity === 'valid'
-          ? html`<sl-icon class="valid-icon" name="circle-check-solid"></sl-icon>`
-          : nothing}
+        ${this.showValidity === 'valid' ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>` : nothing}
       </slot>
     `;
   }

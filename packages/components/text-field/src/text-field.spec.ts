@@ -489,6 +489,19 @@ describe('sl-text-field', () => {
 
       expect(form.requestSubmit).to.have.been.calledOnce;
     });
+
+    it('should not call requestSubmit after pressing Enter if readonly', async () => {
+      const form = el.renderRoot.querySelector('sl-form')!;
+
+      spy(form, 'requestSubmit');
+
+      el.renderRoot.querySelector('sl-text-field')?.setAttribute('readonly', '');
+
+      el.renderRoot.querySelector('input')?.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(form.requestSubmit).not.to.have.been.called;
+    });
   });
 
   describe('inheritance', () => {

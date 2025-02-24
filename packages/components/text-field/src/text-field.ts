@@ -51,6 +51,7 @@ export class TextField<T extends { toString(): string } = string>
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-field-button': FieldButton,
       'sl-icon': Icon
     };
   }
@@ -312,7 +313,7 @@ export class TextField<T extends { toString(): string } = string>
 
   protected onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
-    if (!this.disabled && event.key === 'Enter') {
+    if (!this.disabled && !this.readonly && event.key === 'Enter') {
       if (this.form) {
         this.form.requestSubmit();
       } else {

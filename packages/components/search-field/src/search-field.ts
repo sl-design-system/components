@@ -1,8 +1,7 @@
 import { msg } from '@lit/localize';
-import { type ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
-import { FieldButton, TextField } from '@sl-design-system/text-field';
+import { TextField } from '@sl-design-system/text-field';
 import { type TemplateResult, html, nothing } from 'lit';
 
 declare global {
@@ -23,13 +22,6 @@ export type SlSearchEvent = CustomEvent<string>;
  * @slot input - The slot for the input element
  */
 export class SearchField extends TextField {
-  static override get scopedElements(): ScopedElementsMap {
-    return {
-      ...TextField.scopedElements,
-      'sl-field-button': FieldButton
-    };
-  }
-
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeyDown });
 

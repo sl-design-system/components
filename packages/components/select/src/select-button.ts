@@ -7,7 +7,6 @@ import { type EventEmitter, EventsController, event } from '@sl-design-system/sh
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-button.scss.js';
 import { type SelectSize } from './select.js';
 
@@ -69,14 +68,6 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('placeholder') || changes.has('selected')) {
-      if (this.placeholder && !this.selected) {
-        this.setAttribute('aria-placeholder', this.placeholder);
-      } else {
-        this.removeAttribute('aria-placeholder');
-      }
-    }
-
     if (changes.has('required')) {
       if (this.required) {
         this.setAttribute('aria-required', 'true');
@@ -97,12 +88,8 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
       selected = this.selected?.textContent?.trim();
     }
 
-    const showPlaceholder = this.placeholder && !selected;
-
     return html`
-      <div aria-hidden=${ifDefined(showPlaceholder ? true : undefined)} class=${showPlaceholder ? 'placeholder' : ''}>
-        ${selected || this.placeholder || '\u00a0'}
-      </div>
+      <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
       ${!this.disabled && this.clearable && this.selected
         ? html`
             <button @click=${this.#onClick} aria-label=${msg('Clear selection')} tabindex="-1">

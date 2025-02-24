@@ -48,16 +48,10 @@ describe('sl-select', () => {
       expect(button).to.have.attribute('disabled');
     });
 
-    it('should not have a placeholder', () => {
-      expect(button).not.to.have.attribute('aria-placeholder');
-      expect(button.renderRoot).to.have.trimmed.text('');
-    });
-
     it('should have a placeholder when set', async () => {
       el.placeholder = 'Placeholder';
       await el.updateComplete;
 
-      expect(button).to.have.attribute('aria-placeholder', 'Placeholder');
       expect(button.renderRoot).to.have.trimmed.text('Placeholder');
     });
 

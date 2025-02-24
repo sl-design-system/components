@@ -37,8 +37,17 @@
   --_border: var(--sl-color-border-positive-plain);
 }
 
-:host([size='lg']) ::slotted(textarea) {
-  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
+:host([size='lg']) {
+  ::slotted(textarea) {
+    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
+    padding-inline: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+  }
+
+  sl-icon,
+  slot[name='suffix']::slotted(sl-icon) {
+    inset-block-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+    inset-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+  }
 }
 
 :host([disabled]) {
@@ -65,7 +74,7 @@ slot[name='textarea']::slotted(textarea) {
   margin: 0;
   min-block-size: calc(var(--sl-text-area-rows, 3) * 1lh);
   outline: none;
-  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+  padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
   padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
 
   &:focus {
@@ -80,11 +89,11 @@ slot[name='textarea']::slotted(textarea) {
 
 sl-icon,
 slot[name='suffix']::slotted(sl-icon) {
-  inset-block-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  inset-block-start: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
   inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
   position: absolute;
 }
 
-.valid-icon {
+.valid {
   color: var(--sl-color-foreground-positive-plain);
 }

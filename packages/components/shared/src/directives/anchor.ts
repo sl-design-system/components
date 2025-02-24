@@ -8,7 +8,7 @@ import {
   directive
 } from 'lit/directive.js';
 import { Ref } from 'lit/directives/ref.js';
-import { type PositionPopoverOptions, positionPopover, updatePopoverVisibility } from '../popover.js';
+import { type PositionPopoverOptions, positionPopover } from '../popover.js';
 
 declare global {
   interface HTMLElement {
@@ -49,14 +49,12 @@ export class AnchorDirective extends Directive {
     this.#host.addEventListener('beforetoggle', (event: Event) =>
       this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
     );
-    const rootMargin = `-${this.#config?.rootMarginTop ?? 0}px 0px 0px 0px`;
-    this.observer = new IntersectionObserver(
-      entries => updatePopoverVisibility(this.#host, !entries[0].isIntersecting),
-      {
-        threshold: 0,
-        rootMargin
-      }
-    );
+
+    this.observer?.disconnect();
+    this.observer = new IntersectionObserver(entries => this.#onIntersect(entries[0]), {
+      threshold: 0,
+      rootMargin: `-${this.#config?.rootMarginTop ?? 0}px 0px 0px 0px`
+    });
   }
 
   #onBeforeToggle(event: ToggleEvent & { target: HTMLElement }): void {
@@ -83,6 +81,12 @@ export class AnchorDirective extends Directive {
       this.#cleanup();
       this.observer?.disconnect();
       this.#cleanup = undefined;
+    }
+  }
+
+  #onIntersect(entry: IntersectionObserverEntry): void {
+    if (!entry.isIntersecting) {
+      this.#host?.hidePopover();
     }
   }
 }

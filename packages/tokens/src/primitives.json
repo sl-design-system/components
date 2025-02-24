@@ -36,6 +36,10 @@
       "value": "32px",
       "type": "sizing"
     },
+    "450": {
+      "value": "36px",
+      "type": "sizing"
+    },
     "500": {
       "value": "40px",
       "type": "sizing"

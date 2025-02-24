@@ -51,9 +51,9 @@ export class SearchField extends TextField {
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.value && !this.disabled
       ? html`
-          <button @click=${this.#onClick} aria-label=${msg('Clear text')}>
+          <sl-field-button @click=${this.#onClick} aria-label=${msg('Clear text')}>
             <sl-icon name="xmark"></sl-icon>
-          </button>
+          </sl-field-button>
         `
       : nothing;
   }

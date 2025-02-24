@@ -35,9 +35,6 @@ export class NumberField extends LocaleMixin(TextField) {
    */
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
-  /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
-  @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
-
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
       if (this.formatOptions && this.formatOptions.style === 'percent') {
@@ -68,6 +65,9 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /** The amount by which the value will be increased/decreased by a step up/down. */
   @property({ type: Number }) step?: number;
+
+  /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
+  @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
 
   get valueAsNumber() {
     return this.#value;
@@ -130,14 +130,13 @@ export class NumberField extends LocaleMixin(TextField) {
   override renderPrefix(): TemplateResult | typeof nothing {
     return this.stepButtons === 'edges'
       ? html`
-          <button
+          <sl-field-button
             @click=${() => this.stepDown()}
             ?disabled=${this.#isButtonDisabled('down')}
             aria-label=${msg('Step down')}
-            tabindex="-1"
           >
             <sl-icon name="minus" size="md"></sl-icon>
-          </button>
+          </sl-field-button>
         `
       : nothing;
   }
@@ -147,33 +146,30 @@ export class NumberField extends LocaleMixin(TextField) {
       ? this.stepButtons === 'end'
         ? html`
             <div class="step-buttons">
-              <button
+              <sl-field-button
                 @click=${() => this.stepDown()}
                 ?disabled=${this.#isButtonDisabled('down')}
                 aria-label=${msg('Step down')}
-                tabindex="-1"
               >
                 <sl-icon name="minus" size="md"></sl-icon>
-              </button>
-              <button
+              </sl-field-button>
+              <sl-field-button
                 @click=${() => this.stepUp()}
                 ?disabled=${this.#isButtonDisabled('up')}
                 aria-label=${msg('Step up')}
-                tabindex="-1"
               >
                 <sl-icon name="plus" size="md"></sl-icon>
-              </button>
+              </sl-field-button>
             </div>
           `
         : html`
-            <button
+            <sl-field-button
               @click=${() => this.stepUp()}
               ?disabled=${this.#isButtonDisabled('up')}
               aria-label=${msg('Step up')}
-              tabindex="-1"
             >
               <sl-icon name="plus" size="md"></sl-icon>
-            </button>
+            </sl-field-button>
           `
       : nothing;
   }
@@ -211,7 +207,9 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   override onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowUp') {
+    if (this.disabled || this.readonly) {
+      return;
+    } else if (event.key === 'ArrowUp') {
       event.preventDefault();
 
       this.stepUp();

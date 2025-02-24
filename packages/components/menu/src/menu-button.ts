@@ -1,6 +1,12 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
+import {
+  Button,
+  type ButtonFill,
+  type ButtonShape,
+  type ButtonSize,
+  type ButtonVariant
+} from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type PopoverPosition } from '@sl-design-system/shared';
 import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins.js';
@@ -54,27 +60,42 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
   /** @internal The button. */
   @query('sl-button') button!: Button;
 
-  /** Whether the button is disabled; when set no interaction is possible. */
+  /**
+   * Whether the button is disabled; when set no interaction is possible.
+   * @default false
+   */
   @property({ type: Boolean }) disabled?: boolean;
 
-  /** The fill of the button. */
+  /**
+   * The fill of the button.
+   * @default 'outline'
+   */
   @property() fill: ButtonFill = 'outline';
 
   /** @internal The menu. */
   @query('sl-menu') menu!: Menu;
 
-  /** The position of the menu relative to the button. */
+  /**
+   * The position of the menu relative to the button.
+   * @default 'bottom-start'
+   */
   @property() position?: PopoverPosition;
 
   /**
+   * The shape of the button.
+   * @default 'square'
+   */
+  @property() shape?: ButtonShape;
+
+  /**
    * The size of the button.
-   * @default md
+   * @default 'md'
    */
   @property() size?: ButtonSize;
 
   /**
    * The variant of the button.
-   * @default secondary
+   * @default 'secondary'
    */
   @property() variant?: ButtonVariant;
 
@@ -102,6 +123,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         aria-haspopup="menu"
         fill=${ifDefined(this.fill)}
         part="button"
+        shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}
         variant=${ifDefined(this.variant)}
       >

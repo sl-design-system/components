@@ -407,7 +407,7 @@ describe('sl-text-area', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 
       expect(icon).to.exist;
-      expect(icon).to.have.class('valid-icon');
+      expect(icon).to.have.class('valid');
     });
   });
 

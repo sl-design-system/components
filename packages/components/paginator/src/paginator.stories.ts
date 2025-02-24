@@ -264,9 +264,3 @@ export const All: Story = {
     `;
   }
 };
-
-// TODO: change everythere size to width
-// TODO: reset viewport? right now it's not always working in the stories, mobile everywhere?
-// TODO: select `md` and `lg` and `md` as default???
-
-// TODO: add more stories like for emphasis, fill and sizes???

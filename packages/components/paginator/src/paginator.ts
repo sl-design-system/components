@@ -288,7 +288,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-change=${this.#onChange}
           .value=${this.page}
           aria-label=${`${msg(str`${this.page}, page`)}`}
-          size=${this.size ? this.size : 'md'}
+          size=${this.size === 'lg' ? this.size : 'md'}
         >
           ${Array.from({ length: this.pageCount }).map(
             (_, index) => html`

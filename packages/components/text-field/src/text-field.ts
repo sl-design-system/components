@@ -12,6 +12,7 @@ import {
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { FieldButton } from './field-button.js';
 import styles from './text-field.scss.js';
 
 declare global {
@@ -95,6 +96,9 @@ export class TextField<T extends { toString(): string } = string>
    */
   @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
 
+  /** @internal Embedded or slotted field buttons. */
+  @state() fieldButtons: FieldButton[] = [];
+
   /** @internal Used for styling the focus ring of the input. */
   @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
 
@@ -161,11 +165,20 @@ export class TextField<T extends { toString(): string } = string>
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
     style.innerHTML = `
-       sl-text-field:has(input:hover):not(:focus-within) {
-          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-       }
-      `;
+      sl-text-field:has(input:hover):not(:focus-within) {
+        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+    `;
     this.prepend(style);
+  }
+
+  override firstUpdated(changes: PropertyValues): void {
+    super.firstUpdated(changes);
+
+    const buttons = this.renderRoot.querySelectorAll('sl-field-button');
+    if (buttons.length) {
+      this.fieldButtons = [...this.fieldButtons, ...buttons];
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -193,6 +206,13 @@ export class TextField<T extends { toString(): string } = string>
       setTimeout(() => this.updateValidity());
     }
 
+    if (changes.has('disabled') || changes.has('fieldButtons') || changes.has('size')) {
+      this.fieldButtons.forEach(button => {
+        button.size = this.size;
+        button.disabled = this.disabled;
+      });
+    }
+
     if (changes.has('value')) {
       const formattedValue = this.formattedValue;
 
@@ -208,7 +228,7 @@ export class TextField<T extends { toString(): string } = string>
 
   /** Renders the prefix slot; can be overridden to customize the prefix. */
   renderPrefix(): TemplateResult | typeof nothing {
-    return html`<slot name="prefix"></slot>`;
+    return html`<slot @slotchange=${this.onPrefixSlotChange} name="prefix"></slot>`;
   }
 
   /** Render the input slot; separate method so it is composable for child components. */
@@ -221,9 +241,9 @@ export class TextField<T extends { toString(): string } = string>
   /** Renders the suffix slot; can be overridden to customize the suffix. */
   renderSuffix(): TemplateResult | typeof nothing {
     return html`
-      <slot name="suffix">
+      <slot @slotchange=${this.onSuffixSlotChange} name="suffix">
         ${this.showValidity === 'valid'
-          ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
+          ? html`<sl-icon class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}
       </slot>
     `;
@@ -299,6 +319,16 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
+  protected onPrefixSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const button = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is FieldButton => el instanceof FieldButton);
+
+    if (button) {
+      this.fieldButtons = [...this.fieldButtons, button];
+    }
+  }
+
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
@@ -313,6 +343,16 @@ export class TextField<T extends { toString(): string } = string>
     this.input.addEventListener('focus', () => this.onFocus());
     this.updateInputElement(this.input);
     this.setFormControlElement(this.input);
+  }
+
+  protected onSuffixSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const button = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is FieldButton => el instanceof FieldButton);
+
+    if (button) {
+      this.fieldButtons = [...this.fieldButtons, button];
+    }
   }
 
   /** @internal Synchronize the input element with the component properties. */

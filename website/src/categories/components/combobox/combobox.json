@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "combobox",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Combobox",
+      "selector": "sl-combobox"
+    }
+  ]
+}

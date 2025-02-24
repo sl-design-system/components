@@ -1,43 +1,26 @@
 :host {
-  --sl-popover-offset: 6px;
-
   display: flex;
-  outline: none;
   vertical-align: middle;
 }
 
-[part='listbox'] {
-  --sl-popover-min-block-size: 80px;
-
+sl-listbox {
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);
   box-sizing: border-box;
   display: none;
-  flex-direction: column;
-  gap: var(--sl-size-050);
   margin: 0;
-  overflow: hidden auto; // `auto` because of FF issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
-  padding: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  opacity: 0;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+    transition: 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+    transition-behavior: allow-discrete;
+    transition-property: display, opacity;
   }
+}
 
-  @supports not selector(:popover-open) {
-    position: fixed;
-  }
-
-  /* stylelint-disable-next-line selector-class-pattern */
-  &:where(:popover-open, .\\:popover-open) {
-    /* stylelint-disable-next-line max-nesting-depth, scss/at-rule-no-unknown */
-    @starting-style {
-      display: flex;
-      opacity: 0;
-    }
-
-    display: flex;
-    opacity: 1;
-  }
+sl-listbox:popover-open {
+  display: flex;
+  opacity: 1;
 }

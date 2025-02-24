@@ -1,10 +1,13 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { Option } from '@sl-design-system/listbox';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlClearEvent } from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
-import { type SelectOption } from './select-option.js';
 import { type SelectSize } from './select.js';
 
 declare global {
@@ -13,6 +16,7 @@ declare global {
   }
 }
 
+@localized()
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -24,6 +28,15 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
+
+  /** Will display a clear button when an option is selected. */
+  @property({ type: Boolean, reflect: true }) clearable?: boolean;
+
+  /** @internal Emits when the user clicks the clear button. */
+  @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
+
   /** Whether the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -31,13 +44,13 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   @property() placeholder?: string;
 
   /** The selected option. */
-  @property({ attribute: false }) selected?: SelectOption | null;
+  @property({ attribute: false }) selected?: Option | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize;
 
   /** Mirrors the same property on the sl-select parent. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
+  @property({ type: Boolean }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
@@ -48,19 +61,19 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.slot = 'button';
     this.setAttribute('role', 'combobox');
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = this.disabled ? -1 : 0;
-    }
+    this.setAttribute('slot', 'button');
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled')) {
-      this.tabIndex = this.disabled ? -1 : 0;
+    if (changes.has('required')) {
+      if (this.required) {
+        this.setAttribute('aria-required', 'true');
+      } else {
+        this.removeAttribute('aria-required');
+      }
     }
   }
 
@@ -77,7 +90,33 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     return html`
       <div class=${this.placeholder && !selected ? 'placeholder' : ''}>${selected || this.placeholder || '\u00a0'}</div>
-      <sl-icon name="chevron-down"></sl-icon>
+      ${!this.disabled && this.clearable && this.selected
+        ? html`
+            <button @click=${this.#onClick} aria-label=${msg('Clear selection')} tabindex="-1">
+              <sl-icon name="circle-xmark" size="sm"></sl-icon>
+              <sl-icon name="circle-xmark-solid" size="sm"></sl-icon>
+            </button>
+          `
+        : nothing}
+      <span class="status">
+        <sl-icon name="chevron-down"></sl-icon>
+      </span>
     `;
+  }
+
+  #onClick(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.clearEvent.emit();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (!this.disabled && this.clearable && this.selected && ['Backspace', 'Delete'].includes(event.key)) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.clearEvent.emit();
+    }
   }
 }

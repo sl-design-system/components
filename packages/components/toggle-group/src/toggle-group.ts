@@ -1,6 +1,6 @@
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { ToggleButton, type ToggleButtonSize } from '@sl-design-system/toggle-button';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './toggle-group.scss.js';
@@ -11,9 +11,10 @@ declare global {
   }
 }
 
-export type ToggleGroupEmphasis = 'bold' | 'muted' | 'subtle';
+export type ToggleGroupEmphasis = 'bold' | 'subtle';
 export type ToggleGroupFill = 'ghost' | 'outline' | 'solid';
 export type ToggleGroupShape = 'pill' | 'square';
+export type ToggleGroupSize = 'sm' | 'md' | 'lg';
 
 /**
  * A component for visually grouping toggle buttons together. By default, this component ensures that only one button
@@ -57,7 +58,7 @@ export class ToggleGroup extends LitElement {
   @property({ type: Boolean }) multiple?: boolean;
 
   /** Determines the size of all buttons in the group. */
-  @property({ reflect: true }) size?: ToggleButtonSize;
+  @property({ reflect: true }) size?: ToggleGroupSize;
 
   /** The emphasis of the group. */
   @property({ reflect: true }) emphasis?: ToggleGroupEmphasis;

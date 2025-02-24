@@ -22,29 +22,17 @@
   --_separator-color: var(--sl-color-button-default-outline-disabled-border);
 }
 
-:host([fill='ghost']),
-:host([fill='solid']) {
-  background-color: var(--sl-elevation-surface-raised-sunken);
-
-  --_group-border-width: var(--sl-size-borderWidth-none);
-  --_border-width: var(--sl-size-borderWidth-none);
-  --_toggle-group-border: 0px;
-}
-
 :host([shape='pill']) {
   --_border-radius: var(--sl-size-borderRadius-full);
-  --_pill-compensation: calc(var(--sl-space-100) - var(--sl-space-075));
+  --_pill-compensation: calc(var(--sl-space-150) - var(--sl-space-125));
+}
 
-  ::slotted(sl-toggle-button:first-of-type) {
-    --_padding-start: var(--sl-space-150);
-  }
+:host([shape='pill'][size='sm']) {
+  --_pill-compensation: calc(var(--sl-space-100) - var(--sl-space-075));
 }
 
 :host([shape='pill'][size='lg']) {
-  //   --_border-radius: var(--sl-border-radius-button-lg);
-  //   --_paddingInline: var(--sl-space-button-outline-inline-lg);
-  //   --_paddingInline-textOnly: var(--sl-space-button-outline-inline-text-only-lg);
-  --_pill-compensation: calc(var(--sl-space-100) - var(--sl-space-075));
+  --_pill-compensation: calc(var(--sl-space-200) - var(--sl-space-175));
 }
 
 ::slotted(sl-toggle-button) {
@@ -69,12 +57,26 @@
   z-index: 1;
 }
 
+:host([fill='ghost']),
+:host([fill='solid']) {
+  background-color: var(--sl-elevation-surface-raised-sunken);
+
+  --_group-border-width: var(--sl-size-borderWidth-none);
+  --_border-width: var(--sl-size-borderWidth-none);
+  --_toggle-group-border: 0px;
+
+  ::slotted(sl-toggle-button) {
+    margin-inline: -0.5px;
+  }
+}
+
 ::slotted(sl-toggle-button:first-of-type) {
   --_button-border-radius: calc(var(--_border-radius) - var(--sl-border-width-button-outline));
   --_pill-compensation-start: var(--_pill-compensation);
 
   border-end-end-radius: 0;
   border-start-end-radius: 0;
+  margin-inline-start: 0;
 }
 
 ::slotted(sl-toggle-button:last-of-type) {
@@ -83,20 +85,9 @@
 
   border-end-start-radius: 0;
   border-start-start-radius: 0;
+  margin-inline-end: 0;
 
   &::after {
     display: none;
   }
 }
-
-// ::slotted([text-only]) {
-//   --_padding-inline: var(--_paddingInline-textOnly);
-// }
-
-// ::slotted([text-only][pressed]) {
-//   --_padding-inline: calc((var(--_paddingInline-textOnly) * 2 - var(--_icon-size) - var(--sl-space-button-gap-md)) / 2);
-// }
-
-// ::slotted(:not([icon-only], [text-only])) {
-//   --_padding-inline: var(--_paddingInline);
-// }

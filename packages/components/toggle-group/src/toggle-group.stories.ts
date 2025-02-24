@@ -26,7 +26,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type ToggleGroup } from './toggle-group.js';
+import { type ToggleGroup, ToggleGroupEmphasis, ToggleGroupFill } from './toggle-group.js';
 
 type Props = Pick<ToggleGroup, 'disabled' | 'emphasis' | 'fill' | 'multiple' | 'shape' | 'size'> & {
   slot?(): TemplateResult;
@@ -173,7 +173,7 @@ export const TextWithIcons: Story = {
   }
 };
 
-export const All: Story = {
+export const AllFunctionalVariants: Story = {
   render: () => html`
     <style>
       #root-inner {
@@ -382,4 +382,214 @@ export const All: Story = {
       </sl-toggle-group>
     </div>
   `
+};
+
+export const All: Story = {
+  render: () => {
+    const renderRow = (options: {
+      fill: ToggleGroupFill;
+      emphasis: ToggleGroupEmphasis;
+      content?: 'button' | 'text';
+    }) => {
+      const buttons = (buttonoptions: string[]) => {
+        return html`<sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
+            <sl-icon name="far-bold" slot="default"></sl-icon>
+            <sl-icon name="fas-bold" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button aria-label="Italic" ?pressed=${buttonoptions.includes('pressed')}>
+            <sl-icon name="far-italic" slot="default"></sl-icon>
+            <sl-icon name="fas-italic" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button aria-label="Underline">
+            <sl-icon name="far-underline" slot="default"></sl-icon>
+            <sl-icon name="fas-underline" slot="pressed"></sl-icon>
+          </sl-toggle-button>`;
+      };
+      const text = (buttonoptions: string[]) => {
+        return html`<sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
+            Read
+          </sl-toggle-button>
+          <sl-toggle-button aria-label="Italic"> Write </sl-toggle-button>`;
+      };
+      return html`
+        <tr>
+          <th>${options.emphasis} - ${options.fill}</th>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)} size="sm">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group
+              multiple
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              shape="pill"
+              size="sm"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group
+              multiple
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              disabled
+              size="sm"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group
+              multiple
+              disabled
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              shape="pill"
+              size="sm"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)}>
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group
+              multiple
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              shape="pill"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)} disabled>
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group
+              multiple
+              disabled
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              shape="pill"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)} size="lg">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group
+              multiple
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              shape="pill"
+              size="lg"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group
+              multiple
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              disabled
+              size="lg"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group
+              multiple
+              disabled
+              fill=${ifDefined(options.fill)}
+              emphasis=${ifDefined(options.emphasis)}
+              shape="pill"
+              size="lg"
+            >
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+        </tr>
+      `;
+    };
+    return html`<table>
+        <tr>
+          <th>Options</th>
+          <th>Enabled - sm</th>
+          <th>Disabled - sm</th>
+          <th>Pressed - md</th>
+          <th>Disabled - md</th>
+          <th>Pressed - lg</th>
+          <th>Disabled - lg</th>
+        </tr>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'outline'
+        })}
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'outline'
+        })}
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'ghost'
+        })}
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'ghost'
+        })}
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'solid'
+        })}
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'solid'
+        })}
+      </table>
+
+      <table>
+        <tr>
+          <th>Options</th>
+          <th>Enabled - sm</th>
+          <th>Disabled - sm</th>
+          <th>Enabled - md</th>
+          <th>Disabled - md</th>
+          <th>Enabled - lg</th>
+          <th>Disabled - lg</th>
+        </tr>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'outline',
+          content: 'text'
+        })}
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'outline',
+          content: 'text'
+        })}
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'ghost',
+          content: 'text'
+        })}
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'ghost',
+          content: 'text'
+        })}
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'solid',
+          content: 'text'
+        })}
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'solid',
+          content: 'text'
+        })}
+      </table>`;
+  }
 };

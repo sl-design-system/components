@@ -14,7 +14,7 @@ declare global {
 }
 
 export type ToggleButtonFill = 'ghost' | 'outline' | 'solid';
-export type ToggleButtonSize = 'md' | 'lg';
+export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 export type ToggleButtonShape = 'pill' | 'square';
 export type ToggleButtonEmphasis = 'bold' | 'muted' | 'subtle';
 
@@ -144,7 +144,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('defaultIcon') || changes.has('pressedIcon')) {
       [this.defaultIcon, this.pressedIcon].filter(Boolean).forEach(icon => {
-        icon!.size = 'md';
+        icon!.size = this.size === 'sm' ? 'xs' : 'md';
       });
     }
 
@@ -181,7 +181,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       <div part="wrapper">
         <slot @slotchange=${this.#onIconSlotChange} name="default"></slot>
         <slot @slotchange=${this.#onIconSlotChange} name="pressed">
-          <sl-icon name="check-solid" size="md"></sl-icon>
+          <sl-icon name="check-solid" size=${this.size === 'sm' ? 'xs' : 'md'}></sl-icon>
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>

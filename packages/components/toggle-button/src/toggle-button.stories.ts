@@ -42,7 +42,7 @@ export default {
     },
     size: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: ['sm', 'md', 'lg']
     }
   },
   render: ({ disabled, emphasis, fill, icons, label, pressed, shape, size }) => {
@@ -230,6 +230,21 @@ export const All: Story = {
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
+        <span style="grid-row: span 2">sm</span>
+        <span>Outline</span>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'outline',
+          size: 'sm'
+        })}
+
+        <span>Ghost</span>
+        ${renderRow({
+          emphasis: 'muted',
+          fill: 'ghost',
+          size: 'sm'
+        })}
+
         <span style="grid-row: span 2">md</span>
         <span>Outline</span>
         ${renderRow({
@@ -266,6 +281,20 @@ export const All: Story = {
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
+        <span style="grid-row: span 2">sm</span>
+        <span>Outline</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'outline',
+          size: 'sm'
+        })}
+        <span>Ghost</span>
+        ${renderRow({
+          emphasis: 'subtle',
+          fill: 'ghost',
+          size: 'sm'
+        })}
+
         <span style="grid-row: span 2">md</span>
         <span>Outline</span>
         ${renderRow({
@@ -299,6 +328,26 @@ export const All: Story = {
         <span>Pressed</span>
         <span>Disabled</span>
         <span>Disabled + pressed</span>
+
+        <span style="grid-row: span 3">sm</span>
+        <span>Outline</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'outline',
+          size: 'sm'
+        })}
+        <span>Ghost</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'ghost',
+          size: 'sm'
+        })}
+        <span>Solid</span>
+        ${renderRow({
+          emphasis: 'bold',
+          fill: 'solid',
+          size: 'sm'
+        })}
 
         <span style="grid-row: span 3">md</span>
         <span>Outline</span>

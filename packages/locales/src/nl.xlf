@@ -110,6 +110,14 @@
   <source>Clear text</source>
   <target>Wis tekst</target>
 </trans-unit>
+<trans-unit id="sefa2cd5631cae9d8">
+  <source>Step up</source>
+  <target>Stap omhoog</target>
+</trans-unit>
+<trans-unit id="s078cac19db271b0d">
+  <source>Step down</source>
+  <target>Stap omlaag</target>
+</trans-unit>
 <trans-unit id="s5d929ff1619ac0c9">
   <source>Search</source>
   <target>Zoeken</target>
@@ -229,6 +237,22 @@
 <trans-unit id="sb59d68ed12d46377">
   <source>Loading</source>
   <target>Laden</target>
+</trans-unit>
+<trans-unit id="s8f18916860db5d80">
+  <source>Clear selection</source>
+  <target>Selectie wissen</target>
+</trans-unit>
+<trans-unit id="s47319a3cf96f6c33">
+  <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>De waarde moet kleiner dan of gelijk aan <x id="0" equiv-text="${this.max}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sa857aed87918391e">
+  <source>The value must be greater than or equal to <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>De waarde moet groter dan of gelijk aan <x id="0" equiv-text="${this.min}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sfc5e976d64c3fb31">
+  <source>Please enter a valid number.</source>
+  <target>Voer een geldig getal in.</target>
 </trans-unit>
 </body>
 </file>

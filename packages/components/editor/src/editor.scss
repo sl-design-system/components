@@ -1,55 +1,50 @@
 :host {
-  --_background: var(--sl-color-input-text-field-default-default-background);
-  --_border-color: var(--sl-color-input-text-field-default-default-border);
-  --_border-size: var(--sl-border-width-input-border);
-  --_border: var(--_border-size) solid var(--_border-color);
-  --_border-radius: var(--sl-border-radius-default);
-  --_color: var(--sl-color-input-text-field-default-default-input-text);
-  --_cursor: text;
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_font: var(--sl-text-input-text-field-text-md);
-  --_padding-block: 8px;
-  --_padding-inline: 8px;
-  --_transition: 200ms ease-in-out;
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
 
   background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  color: var(--_color);
-  cursor: var(--_cursor);
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: text;
   display: block;
-  font: var(--_font);
-  outline: none;
-  transition: var(--_transition);
-  transition-property: background, border, color, filter, outline-color;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
 }
 
-:host([disabled]) {
-  --_background: var(--sl-color-input-text-field-default-disabled-background);
-  --_border-color: var(--sl-color-input-text-field-default-disabled-border);
-  --_color: var(--sl-color-input-text-field-default-disabled-input-text);
-  --_cursor: default;
-  --_placeholder-color: var(--sl-color-input-text-field-default-disabled-placeholder);
-
-  pointer-events: none;
+:host(:hover:not(:focus-within)) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 
 :host(:focus) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  outline-color: var(--sl-color-border-focused);
+}
+
+:host([disabled]) {
+  background: var(--sl-color-background-disabled);
+  color: var(--sl-color-foreground-disabled);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:hover, :focus-within)) {
+    transition: 200ms ease-in-out;
+    transition-property: background, border, color, outline-color;
+  }
 }
 
 .mount {
   outline: none;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding: var(--sl-size-100);
 }
 
 h1 {
-  margin-block: 0 8px;
+  margin-block: 0 var(--sl-size-100);
 }
 
 p {
-  margin-block: 0 4px;
+  margin-block: 0 var(--sl-size-050);
 }

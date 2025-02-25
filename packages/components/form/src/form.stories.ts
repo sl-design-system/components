@@ -210,9 +210,9 @@ export const All: Story = {
 
       <sl-form-field hint="Hint text" label="Select">
         <sl-select name="select" required>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       </sl-form-field>
 
@@ -240,7 +240,8 @@ export const AllValid: Story = {
       textArea: 'Text area',
       checkbox: 'checked',
       checkboxGroup: ['1'],
-      combobox: 'Option 2',
+      comboboxSingle: 'Option 2',
+      comboboxMultiple: ['Option 1', 'Option 2'],
       radioGroup: '2',
       select: '2',
       switch: 'toggled'

@@ -83,7 +83,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
 
     this.setAttributesTarget(this.button);
 
-    this.button.setAttribute('aria-details', this.menu.id);
+    this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
   }
 
@@ -99,6 +99,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
         aria-expanded="false"
+        aria-haspopup="menu"
         fill=${ifDefined(this.fill)}
         part="button"
         size=${ifDefined(this.size)}
@@ -112,7 +113,7 @@ export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitEl
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
-        part="listbox"
+        part="menu"
       >
         <slot></slot>
       </sl-menu>

@@ -10,6 +10,8 @@ declare global {
   }
 }
 
+export type OptionEmphasis = 'subtle' | 'bold';
+
 /**
  * An option in a list, such as select or combobox.
  *
@@ -27,8 +29,17 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** The value of the option. */
+  #value?: T;
+
   /** Whether this option is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /**
+   * The emphasis style when selected.
+   * @default 'subtle'
+   */
+  @property({ reflect: true }) emphasis?: OptionEmphasis;
 
   /** Whether this option is selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
@@ -37,11 +48,18 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
     return this.#getSlottedTextContent();
   }
 
+  get value(): T {
+    return this.#value ?? (this.textContent as unknown as T);
+  }
+
   /**
-   * The value for this option. If not explicitly set,
-   * it will use the text content as the value.
+   * The value for this option. If not explicitly set, the getter will
+   * return the text content of the option.
    */
-  @property() value?: T;
+  @property()
+  set value(value: T | undefined) {
+    this.#value = value;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -61,8 +79,12 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #getSlottedTextContent(): string {
+    if (!this.shadowRoot) {
+      return '';
+    }
+
     const nodes =
-      this.renderRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ?? Array.from(this.childNodes);
+      this.shadowRoot.querySelector('slot')?.assignedNodes({ flatten: true }) ?? Array.from(this.childNodes);
 
     return nodes
       .filter(node => node.nodeType === Node.TEXT_NODE)

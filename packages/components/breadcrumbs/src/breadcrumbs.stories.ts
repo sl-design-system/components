@@ -5,7 +5,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateResult };
+type Props = Pick<Breadcrumbs, 'inverted' | 'homeUrl' | 'noHome'> & { breadcrumbs(): TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -35,7 +35,7 @@ export default {
 
 export const Basic: Story = {
   args: {
-    breadcrumbs: html`
+    breadcrumbs: () => html`
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
@@ -45,7 +45,7 @@ export const Basic: Story = {
 
 export const Collapse: Story = {
   args: {
-    breadcrumbs: html`
+    breadcrumbs: () => html`
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
@@ -94,7 +94,7 @@ export const NoHome: Story = {
 
 export const Overflow: Story = {
   args: {
-    breadcrumbs: html`
+    breadcrumbs: () => html`
       <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
       <a href="javascript:void(0)"
         >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.</a
@@ -113,17 +113,17 @@ export const All: Story = {
         background: var(--sl-color-palette-grey-900);
       }
     </style>
-    <sl-breadcrumbs no-home>
+    <sl-breadcrumbs aria-label="Breadcrumb trail 1" no-home>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
-    <sl-breadcrumbs>
+    <sl-breadcrumbs aria-label="Breadcrumb trail 2">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
-    <sl-breadcrumbs>
+    <sl-breadcrumbs aria-label="Breadcrumb trail 3">
       <a href="javascript:void(0)">Adipisicing sint excepteur officia voluptate tempor ea veniam veniam duis.</a>
       <a href="javascript:void(0)">
         Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.
@@ -132,7 +132,7 @@ export const All: Story = {
         Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.
       </a>
     </sl-breadcrumbs>
-    <sl-breadcrumbs>
+    <sl-breadcrumbs aria-label="Breadcrumb trail 4">
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
@@ -143,7 +143,7 @@ export const All: Story = {
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
     </sl-breadcrumbs>
-    <sl-breadcrumbs inverted>
+    <sl-breadcrumbs aria-label="Breadcrumb trail 5" inverted>
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>

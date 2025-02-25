@@ -144,7 +144,7 @@ export class AllFormControlsReactiveComponent {
   `
 })
 export class AllFormControlsEmptyReactiveComponent {
-  @ViewChild('form') form!: ElementRef<Form>;
+  @ViewChild('form') form!: FormComponent; //ElementRef<Form>;
 
   formGroup = new FormGroup({
     textField: new FormControl(''),
@@ -156,8 +156,17 @@ export class AllFormControlsEmptyReactiveComponent {
     radioGroup: new FormControl('')
   });
 
+  // ngAfterViewInit(): void {
+  //   console.log('form AfterViewInit', this.form);
+  // }
+
   onClick(): void {
-    this.form.nativeElement.reportValidity();
+    console.log('form', this.form);
+    const formElement = this.form.elRef.nativeElement;
+    // this.form.nativeElement?.reportValidity();
+    // this.form.reportValidity();
+    console.log('form', formElement, this.form.elRef.nativeElement, this.form.el);
+    formElement.reportValidity();
   }
 }
 
@@ -274,7 +283,7 @@ export class AllFormControlsTemplateComponent {
   `
 })
 export class AllFormControlsEmptyTemplateComponent {
-  @ViewChild('form') form!: ElementRef<Form>;
+  @ViewChild('form') form!: ElementRef<Form>; // TODO use FormComponent as well?
 
   formGroup = {
     textField: '',

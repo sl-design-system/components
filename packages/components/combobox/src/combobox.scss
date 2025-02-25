@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+sl-text-field:has(> sl-tag-list) ::slotted(input)::placeholder {
+  color: transparent;
+}
+
 ::slotted(sl-listbox) {
   block-size: fit-content;
   overflow: visible;

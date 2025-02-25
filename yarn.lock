@@ -4863,6 +4863,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/combobox-poc@workspace:packages/components/combobox-poc":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/combobox-poc@workspace:packages/components/combobox-poc"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/listbox": "npm:^0.0.2"
+    "@sl-design-system/text-field": "npm:^1.5.0"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/combobox@workspace:packages/components/combobox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/combobox@workspace:packages/components/combobox"

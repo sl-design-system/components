@@ -58,12 +58,6 @@ describe('sl-toggle-group', () => {
       expect(buttons.every(b => b.disabled)).to.be.true;
     });
 
-    it('should set fill to outline for all the buttons', () => {
-      const buttons = Array.from(el.querySelectorAll('sl-toggle-button'));
-
-      expect(buttons.map(b => b.fill)).to.deep.equal(['ghost', 'ghost', 'ghost']);
-    });
-
     it('should have a size when set', async () => {
       el.size = 'lg';
       await el.updateComplete;

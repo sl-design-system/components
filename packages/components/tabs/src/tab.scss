@@ -99,35 +99,3 @@ slot[name='subtitle']::slotted(*) {
   grid-column: title / -1;
   grid-row: 2;
 }
-
-// :host(.listbox-tab) {
-//   border-radius: var(--_listbox-item-border-radius);
-//   color: var(--_listbox-color);
-//   font: var(--_listbox-font);
-//   justify-content: flex-start;
-//   padding: var(--_listbox-item-padding);
-//   transition: background 300ms;
-
-//   slot[name='subtitle'],
-//   slot[name='icon'],
-//   slot[name='badge'] {
-//     display: none;
-//   }
-// }
-
-// :host(.listbox-tab:hover) {
-//   background-color: var(--sl-color-select-item-hover-background);
-// }
-
-// :host(.listbox-tab:active) {
-//   background-color: var(--sl-color-select-item-active-background);
-// }
-
-// :host(.listbox-tab[selected])::before {
-//   background: var(--_indicator-color);
-//   border-radius: var(--_indicator-listbox-border-radius);
-//   content: '';
-//   inline-size: var(--_indicator-size);
-//   inset: 0 auto 0 0;
-//   position: absolute;
-// }

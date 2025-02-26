@@ -83,13 +83,13 @@ export const IconOnly: Story = {
   args: {
     tabs: () => html`
       <sl-tab>
-        <sl-icon slot="icon" name="far-user"></sl-icon>
+        <sl-icon aria-label="Label for icon" name="far-user" slot="icon"></sl-icon>
       </sl-tab>
       <sl-tab>
-        <sl-icon slot="icon" name="far-sliders"></sl-icon>
+        <sl-icon aria-label="Label for icon" name="far-sliders" slot="icon"></sl-icon>
       </sl-tab>
       <sl-tab disabled>
-        <sl-icon slot="icon" name="far-gear"></sl-icon>
+        <sl-icon aria-label="Label for icon" name="far-gear" slot="icon"></sl-icon>
       </sl-tab>
     `
   }

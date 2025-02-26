@@ -1,12 +1,4 @@
 :host {
-  --_menu-button-inline-padding: calc(
-    var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default)
-  );
-  --_panel-horizontal-padding: var(--sl-space-tab-content-horizontal-block)
-    var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
-  --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
-  --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth, 200px);
-
   background: var(--sl-elevation-surface-raised-default);
   display: flex;
   flex-direction: column;
@@ -54,7 +46,7 @@
     display: inline-flex;
     flex: 0 0 auto;
     flex-direction: column;
-    max-inline-size: var(--_tablist-vertical-max-width);
+    max-inline-size: min(50vw, 200px);
   }
 
   [part='wrapper'] {
@@ -80,7 +72,7 @@
   }
 
   sl-menu-button {
-    padding-block-start: var(--_menu-button-inline-padding);
+    padding-block-start: var(--sl-size-050);
     padding-inline-start: 0;
 
     &::part(button) {
@@ -112,10 +104,6 @@
   ::slotted(sl-tab) {
     flex-shrink: 1;
     justify-content: start;
-  }
-
-  [part='panels'] {
-    padding: var(--_panel-vertical-padding);
   }
 }
 

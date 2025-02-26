@@ -153,5 +153,6 @@ The Combobox provides real-time autocomplete suggestions as users type. This beh
 
 - [Menu](/categories/components/menu/usage)
 - [Select](/categories/components/select/usage)
+- [Tag](/categories/components/tag/usage)
 
 </section>

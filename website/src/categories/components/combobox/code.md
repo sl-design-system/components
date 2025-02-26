@@ -57,6 +57,8 @@ eleventyNavigation:
 
 </section>
 
+<ds-install-info link-in-navigation package="combobox"></ds-install-info>
+
 <section>
 
 ## Listbox
@@ -190,5 +192,4 @@ Do not use both methods at the same time.
 
 </section>
 
-<ds-install-info link-in-navigation package="combobox"></ds-install-info>
 {% include "../component-table.njk" %}

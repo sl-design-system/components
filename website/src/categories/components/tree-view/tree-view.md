@@ -10,5 +10,5 @@ storybookCategory: feedback-status
 eleventyNavigation:
   parent: Components
   key: Tree View
-  status: draft
+  status: planned
 ---

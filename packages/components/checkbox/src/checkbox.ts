@@ -82,8 +82,11 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the checkbox. */
-  @property({ reflect: true }) size: CheckboxSize = 'md';
+  /**
+   * The size of the checkbox.
+   * @default md
+   */
+  @property({ reflect: true }) size?: CheckboxSize;
 
   /**
    * The value of the checkbox when the checkbox is checked.
@@ -116,9 +119,10 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       const style = document.createElement('style');
       style.innerHTML = `
         sl-checkbox:has(input:focus-visible)::part(inner) {
-          outline: var(--_focus-outline);
-          transition: var(--_transition);
-          transition-property: background, border-color, color, filter, outline-color;        }
+          outline-color: var(--sl-color-border-focused);
+          transition: 200ms ease-in-out;
+          transition-property: background, border-color, color, outline-color;
+        }
       `;
       this.append(style);
     }

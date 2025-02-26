@@ -14,6 +14,7 @@ import { All as AllMenu } from '../../../packages/components/menu/src/menu.stori
 import { All as AllMenuButton } from '../../../packages/components/menu/src/menu-button.stories';
 import { All as AllPopover } from '../../../packages/components/popover/src/popover.stories';
 import { All as AllRadioGroup } from '../../../packages/components/radio-group/src/radio-group.stories';
+import { All as AllSearchField } from '../../../packages/components/search-field/src/search-field.stories';
 import { All as AllSelect } from '../../../packages/components/select/src/select.stories';
 import { All as AllSkeleton } from '../../../packages/components/skeleton/src/skeleton.stories';
 import { All as AllSpinner } from '../../../packages/components/spinner/src/spinner.stories';
@@ -75,6 +76,7 @@ export const Menu = { render: AllMenu.render };
 export const MenuButton = { render: AllMenuButton.render };
 export const Popover = { render: AllPopover.render };
 export const RadioGroup = { render: AllRadioGroup.render };
+export const SearchField = { render: AllSearchField.render };
 export const Select = { render: AllSelect.render };
 export const Skeleton = { render: AllSkeleton.render };
 export const Spinner = { render: AllSpinner.render };

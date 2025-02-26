@@ -359,13 +359,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       >
         ${this.multiple && this.selectedItems.length
           ? html`
-              <sl-tag-list
-                aria-label=${msg('Selected options')}
-                size=${ifDefined(this.size)}
-                slot="prefix"
-                stacked
-                .emphasis=${this.disabled ? 'bold' : 'subtle'}
-              >
+              <sl-tag-list aria-label=${msg('Selected options')} size=${ifDefined(this.size)} slot="prefix" stacked>
                 ${repeat(
                   this.selectedItems,
                   item => item,
@@ -373,9 +367,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
                     <sl-tag
                       @sl-remove=${() => this.#onRemove(item)}
                       ?disabled=${this.disabled}
-                      ?focused=${this.focusedTag === item}
                       ?removable=${!this.disabled}
                       aria-hidden="true"
+                      class=${this.focusedTag === item ? 'focused' : ''}
                     >
                       ${item.label}
                     </sl-tag>
@@ -939,13 +933,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         item.selected = true;
 
         this.selectedItems = [...this.selectedItems, item];
-
-        // VoiceOver gets confused after you selected the first item
-        // This is a hack to make it work again
-        if (this.selectedItems.length === 1) {
-          this.input.blur();
-          setTimeout(() => this.input.focus(), 10);
-        }
       }
     } else {
       item.selected = true;
@@ -968,13 +955,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       item.selected = false;
 
       this.selectedItems = this.selectedItems.filter(i => i !== item);
-
-      // VoiceOver gets confused after you deselected the last selected item
-      // This is a hack to make it work again
-      if (this.selectedItems.length === 0) {
-        this.input.blur();
-        setTimeout(() => this.input.focus(), 10);
-      }
 
       if (item.custom) {
         this.#removeCustomOption(item);

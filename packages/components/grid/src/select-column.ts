@@ -1,4 +1,5 @@
-import { Select, SelectOption } from '@sl-design-system/select';
+import { Option } from '@sl-design-system/listbox';
+import { Select } from '@sl-design-system/select';
 import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type TemplateResult, html } from 'lit';
@@ -19,7 +20,7 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.scopedElements = { ...this.scopedElements, 'sl-select': Select, 'sl-select-option': SelectOption };
+    this.scopedElements = { ...this.scopedElements, 'sl-select': Select, 'sl-option': Option };
   }
 
   override renderData(item: T): TemplateResult {
@@ -31,8 +32,8 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
         >
           ${this.options?.map(option =>
             typeof option === 'string'
-              ? html`<sl-select-option .value=${option}>${option}</sl-select-option>`
-              : html`<sl-select-option .value=${option.value}>${option.label}</sl-select-option>`
+              ? html`<sl-option .value=${option}>${option}</sl-option>`
+              : html`<sl-option .value=${option.value}>${option.label}</sl-option>`
           )}
         </sl-select>
       </td>

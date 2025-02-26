@@ -55,6 +55,19 @@ describe('sl-radio-group', () => {
       expect(el.radios?.every(radio => radio.disabled)).to.be.true;
     });
 
+    it('should not set an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
+      expect(el.radios?.every(radio => radio.size === undefined)).to.be.true;
+    });
+
+    it('should set a size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(el.radios?.every(radio => radio.size === 'lg')).to.be.true;
+    });
+
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;
@@ -211,6 +224,25 @@ describe('sl-radio-group', () => {
       expect(radios.at(0)?.tabIndex).to.equal(0);
       expect(radios.at(1)?.checked).to.be.false;
       expect(radios.at(1)?.tabIndex).to.equal(-1);
+
+      radios.at(0)?.focus();
+      await sendKeys({ press: 'Space' });
+
+      expect(radios.at(0)?.checked).to.be.true;
+      expect(radios.at(1)?.checked).to.be.false;
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(1)?.checked).to.be.true;
+    });
+
+    it('should handle left/right arrow keys when in horizontal mode', async () => {
+      const radios = Array.from(el.querySelectorAll('sl-radio'));
+
+      el.horizontal = true;
+      await el.updateComplete;
 
       radios.at(0)?.focus();
       await sendKeys({ press: 'Space' });

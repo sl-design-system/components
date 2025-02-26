@@ -81,6 +81,11 @@ export class TextField<T extends { toString(): string } = string>
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  /** The formatted value, to be used as the input value. */
+  get formattedValue(): string {
+    return this.value?.toString() || '';
+  }
+
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
 
@@ -117,8 +122,11 @@ export class TextField<T extends { toString(): string } = string>
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the input. */
-  @property({ reflect: true }) size: TextFieldSize = 'md';
+  /**
+   * The size of the input.
+   * @default md
+   */
+  @property({ reflect: true }) size?: TextFieldSize;
 
   /**
    * The input type. Only text types are valid here. For other types,
@@ -149,6 +157,15 @@ export class TextField<T extends { toString(): string } = string>
     }
 
     this.setFormControlElement(this.input);
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+       sl-text-field:has(input:hover):not(:focus-within) {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+       }
+      `;
+    this.prepend(style);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -177,10 +194,10 @@ export class TextField<T extends { toString(): string } = string>
     }
 
     if (changes.has('value')) {
-      const formattedValue = this.formatValue(this.value);
+      const formattedValue = this.formattedValue;
 
       if (this.input.value !== formattedValue) {
-        this.input.value = this.formatValue(this.value);
+        this.input.value = formattedValue;
       }
     }
   }
@@ -197,7 +214,7 @@ export class TextField<T extends { toString(): string } = string>
   /** Render the input slot; separate method so it is composable for child components. */
   renderInputSlot(): TemplateResult {
     return html`
-      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+      <slot @keydown=${this.onKeydown} @input=${this.onInput} @slotchange=${this.onSlotChange} name="input"></slot>
     `;
   }
 
@@ -234,20 +251,12 @@ export class TextField<T extends { toString(): string } = string>
     return value as unknown as T;
   }
 
-  /**
-   * Method that formats the value and set's it on the native input element. Override this method
-   * if you want to format the value in a different way.
-   */
-  formatValue(value?: T): string {
-    return value?.toString() || '';
-  }
-
   /** @internal */
   override focus(): void {
     this.input.focus();
   }
 
-  #onBlur(): void {
+  protected onBlur(): void {
     // Only emit the event if we have focus
     if (this.hasFocusRing) {
       this.hasFocusRing = false;
@@ -256,7 +265,7 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
-  #onFocus(): void {
+  protected onFocus(): void {
     // Only emit the event if we don't have focus
     if (!this.hasFocusRing) {
       this.hasFocusRing = true;
@@ -264,7 +273,7 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
-  #onInput({ target }: Event & { target: HTMLInputElement }): void {
+  protected onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
 
     try {
@@ -279,7 +288,7 @@ export class TextField<T extends { toString(): string } = string>
     this.updateValidity();
   }
 
-  #onKeydown(event: KeyboardEvent): void {
+  protected onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
       if (this.form) {
@@ -290,7 +299,7 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 
@@ -300,14 +309,14 @@ export class TextField<T extends { toString(): string } = string>
     }
 
     this.input = inputs.at(0)!;
-    this.input.addEventListener('blur', () => this.#onBlur());
-    this.input.addEventListener('focus', () => this.#onFocus());
+    this.input.addEventListener('blur', () => this.onBlur());
+    this.input.addEventListener('focus', () => this.onFocus());
     this.updateInputElement(this.input);
     this.setFormControlElement(this.input);
   }
 
   /** @internal Synchronize the input element with the component properties. */
-  updateInputElement(input: HTMLInputElement): void {
+  protected updateInputElement(input: HTMLInputElement): void {
     if (!input) {
       return;
     }
@@ -351,6 +360,12 @@ export class TextField<T extends { toString(): string } = string>
       input.setAttribute('pattern', this.pattern);
     } else {
       input.removeAttribute('pattern');
+    }
+
+    if (typeof this.placeholder === 'string') {
+      input.setAttribute('placeholder', this.placeholder);
+    } else {
+      input.setAttribute('placeholder', '');
     }
   }
 }

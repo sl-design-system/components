@@ -13,9 +13,9 @@ export function ObserveAttributesMixin<T extends Constructor<LitElement>>(
   observedAttributes: string[] = []
 ): T & Constructor<ObserveAttributesMixinInterface> {
   class ObserveAttributesImpl extends constructor {
-    #targetElement?: HTMLElement;
+    #targetElement?: Element;
 
-    setAttributesTarget(target: HTMLElement): void {
+    setAttributesTarget(target: Element): void {
       this.#targetElement = target;
     }
 

@@ -1,5 +1,5 @@
 :host {
-  --_direction-color: var(--sl-color-text-disabled);
+  --_direction-color: var(--sl-color-foreground-disabled);
   --_gap: 0.5rem;
 
   cursor: pointer;
@@ -8,7 +8,7 @@
 }
 
 :host([direction]) {
-  --_direction-color: var(--sl-color-text-plain);
+  --_direction-color: var(--sl-color-foreground-plain);
 }
 
 .direction {

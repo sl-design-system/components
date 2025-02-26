@@ -359,6 +359,22 @@
         "value": "{space.200}",
         "type": "spacing"
       }
+    },
+    "toggleButton": {
+      "nonActive": {
+        "sm": {
+          "value": "23px",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "35px",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "36px",
+          "type": "spacing"
+        }
+      }
     }
   },
   "color": {

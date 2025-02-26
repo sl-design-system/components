@@ -118,11 +118,3 @@ export const positionPopover = (
 
   return () => cleanup();
 };
-
-export const updatePopoverVisibility = (host: HTMLElement | undefined, outOfView: boolean): void => {
-  if (outOfView) {
-    host?.style.setProperty('display', 'none');
-  } else {
-    host?.style.removeProperty('display');
-  }
-};

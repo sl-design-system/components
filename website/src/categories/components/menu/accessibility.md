@@ -30,34 +30,18 @@ eleventyNavigation:
 
 ## WAI-ARIA
 
+In the component itself we use multiple aria-attributes to assure the component works well with a range of assistive technologies. For some attributes however it is not possible for the Design System to add a meaningfull value, because it relies on the context or way a component is used. Attributes that we recommend you use in certain scenarios are listed below.
+
 <section>
 
 ### Menu button
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`role`|`'button'`|`sl-button` as part of `sl-menu-button` has a role of button.|no|
-|`aria-expanded`|boolean|Set to `true` if the `sl-menu` is visible (opened), `false` if it is hidden.|no|
-|`aria-details`|string|Used to link the menu element with the button (that triggers the menu component). It contains `id` of the menu element and is added to the button element.|no|
-|`aria-label`|string|Please add when only icon button is used (so no text for the menu button is added).|yes|
-|`aria-disabled`|boolean|Announces the menu button component as disabled with a screen reader. See [Note 1] below.|yes|
-
-{.ds-table .ds-table-align-top}
-
-</div>
-</section>
-
-<section>
-
-### Menu
-
-<div class="ds-table-wrapper">
-
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`|`'menu'`|Declare component as a menu.|no|
+|Attribute|Value|Description|
+|-|-|-|
+|`aria-label`|string|Please add when only icon button is used (so no text for the menu button is added).|
+|`aria-disabled`|boolean|Announces the menu button component as disabled with a screen reader. See [Note 1] below.|
 
 {.ds-table .ds-table-align-top}
 
@@ -70,13 +54,10 @@ eleventyNavigation:
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`|`'menuitem'`|Declare an element as an menu item.|no|
-|`aria-expanded`|boolean|Added when menu item is expandable and connected with another menu element (submenu). Set to `true` if the `sl-menu` (submenu) is visible (opened), `false` if it is hidden.|no|
-|`aria-details`|string|Used to link the menu (submenu) element with the expandable menu item (that triggers the \[sub\]menu). It contains `id` of the menu (submenu) and is added to the menu item element.|no|
-|`aria-disabled`|boolean|Announces the menu item component as disabled with a screen reader. See [Note 1] below.|yes|
-|`aria-label`|string|Can be added when there is no label/text that could be described by. eg. when there is only an icon added.|yes|
+|Attribute|Value|Description|
+|-|-|-|
+|`aria-disabled`|boolean|Announces the menu item component as disabled with a screen reader. See [Note 1] below.|
+|`aria-label`|string|Can be added when there is no label/text that could be described by. eg. when there is only an icon added.|
 
 {.ds-table .ds-table-align-top}
 

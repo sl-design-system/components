@@ -22,7 +22,7 @@ type Props = Pick<
   | 'value'
 > & {
   maxWidth?: string;
-  options?: unknown[] | TemplateResult;
+  options?: unknown[] | (() => TemplateResult);
   optionGroupPath?: string;
   optionLabelPath?: string;
   optionValuePath?: string;
@@ -86,7 +86,7 @@ export default {
           ? nothing
           : html`
               <sl-listbox>
-                ${Array.isArray(options) ? options.map(o => html`<sl-option>${o}</sl-option>`) : options}
+                ${Array.isArray(options) ? options.map(o => html`<sl-option>${o}</sl-option>`) : options?.()}
               </sl-listbox>
             `}
       </sl-combobox>
@@ -123,7 +123,7 @@ export const FilterResults: Story = {
 
 export const Groups: Story = {
   args: {
-    options: html`
+    options: () => html`
       <sl-option-group label="Actions">
         <sl-option>Button</sl-option>
         <sl-option>Button bar</sl-option>
@@ -147,7 +147,7 @@ export const Groups: Story = {
 
 export const RichContent: Story = {
   args: {
-    options: html`
+    options: () => html`
       <style>
         sl-option::part(wrapper) {
           gap: 0.5rem;
@@ -171,7 +171,7 @@ export const RichContent: Story = {
 
 export const Selected: Story = {
   args: {
-    options: html`
+    options: () => html`
       <sl-option>Lorem</sl-option>
       <sl-option>Ipsum</sl-option>
       <sl-option selected>Dolar</sl-option>

@@ -5,7 +5,8 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './listbox.scss.js';
 import { OptionGroupHeader } from './option-group-header.js';
-import { Option } from './option.js';
+import { OptionGroup } from './option-group.js';
+import { Option, type OptionEmphasis } from './option.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -20,6 +21,8 @@ declare global {
     ): HTMLElementTagNameMap[K];
   }
 }
+
+export type ListboxEmphasis = OptionEmphasis;
 
 export type ListboxOption<T, U = T> = {
   id: string;
@@ -62,6 +65,12 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
 
   /** The virtualizer instance when the `options` property is set. */
   #virtualizer?: LitVirtualizer;
+
+  /**
+   * The emphasis of the selected options in the listbox.
+   * @default 'subtle'
+   */
+  @property({ reflect: true }) emphasis?: ListboxEmphasis;
 
   /**
    * Use this property if you want to have full control over how the items
@@ -133,6 +142,10 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   }
 
   override updated(changes: PropertyValues<this>): void {
+    if (changes.has('emphasis')) {
+      this.#propagateEmphasis();
+    }
+
     if (changes.has('items')) {
       if (this.items) {
         this.#virtualizer ||= this.shadowRoot!.createElement('lit-virtualizer');
@@ -162,7 +175,7 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this.#propagateEmphasis}></slot>`;
   }
 
   scrollToIndex(index: number, options?: ScrollIntoViewOptions): void {
@@ -213,12 +226,25 @@ export class Listbox<T = any, U = T> extends ScopedElementsMixin(LitElement) {
     };
   }
 
+  #propagateEmphasis(): void {
+    const slot = this.renderRoot.querySelector('slot');
+
+    slot?.assignedElements({ flatten: true }).forEach(el => {
+      if (el instanceof Option) {
+        el.emphasis = this.emphasis;
+      } else if (el instanceof OptionGroup) {
+        el.querySelectorAll('sl-option').forEach(o => (o.emphasis = this.emphasis));
+      }
+    });
+  }
+
   #renderItem(item: ListboxItem<T, U>, index: number): Element {
     if ('option' in item) {
       const element = this.shadowRoot!.createElement('sl-option');
+      element.emphasis = this.emphasis;
       element.id = item.id;
-      element.selected = item.selected;
       element.innerText = item.label;
+      element.selected = item.selected;
       element.value = item.value;
 
       return element;

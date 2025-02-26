@@ -18,6 +18,18 @@ Icon.register(faPlus, faUniversalAccess);
 export default {
   title: 'Actions/Button',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-button:not([disabled])'
+          }
+        ]
+      }
+    }
+  },
   args: {
     disabled: false,
     icon: 'none',
@@ -101,7 +113,7 @@ export const All: Story = {
           position: relative;
 
           > span:nth-of-type(8) {
-            color: var(--sl-color-text-inverted-bold);
+            color: var(--sl-color-foreground-inverted-bold);
           }
         }
         .inverted-background {

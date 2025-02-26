@@ -10,14 +10,14 @@ eleventyNavigation:
 <div class="ds-example">
 
   <sl-select value="2" style="inline-size: 20rem;" aria-label="Subjects list">
-      <sl-select-option value="1">Biology</sl-select-option>
-      <sl-select-option value="2">Mathematics</sl-select-option>
-      <sl-select-option value="3">English</sl-select-option>
-      <sl-select-option value="4">Music</sl-select-option>
-      <sl-select-option value="5">Geography</sl-select-option>
-      <sl-select-option value="6">History</sl-select-option>
-      <sl-select-option value="7">Physics</sl-select-option>
-      <sl-select-option value="8">Chemistry</sl-select-option>
+      <sl-option value="1">Biology</sl-option>
+      <sl-option value="2">Mathematics</sl-option>
+      <sl-option value="3">English</sl-option>
+      <sl-option value="4">Music</sl-option>
+      <sl-option value="5">Geography</sl-option>
+      <sl-option value="6">History</sl-option>
+      <sl-option value="7">Physics</sl-option>
+      <sl-option value="8">Chemistry</sl-option>
   </sl-select>
 
 </div>
@@ -26,9 +26,9 @@ eleventyNavigation:
 
   ```html
     <sl-select value="2" style="inline-size: 20rem;">
-      <sl-select-option value="1">Biology</sl-select-option>
-      <sl-select-option value="2">Mathematics</sl-select-option>
-      <sl-select-option value="3">English</sl-select-option>
+      <sl-option value="1">Biology</sl-option>
+      <sl-option value="2">Mathematics</sl-option>
+      <sl-option value="3">English</sl-option>
       ...
     </sl-select>
   ```
@@ -44,7 +44,7 @@ eleventyNavigation:
 Use the select component when you need users to select from a predefined list of more than five options. Whether it’s choosing a country, a language, or a course, a select dropdown keeps things organized and user-friendly.
 
 ### Filtering and sorting options
-When designing search interfaces or data tables, consider using select components for filtering or sorting. These components allow users to narrow down search results based on specific criteria. For instance, teachers can filter pupils by grade level or sort the results by relevance or class. 
+When designing search interfaces or data tables, consider using select components for filtering or sorting. These components allow users to narrow down search results based on specific criteria. For instance, teachers can filter pupils by grade level or sort the results by relevance or class.
 
 </section>
 

@@ -2,7 +2,7 @@
   align-items: stretch;
   color: var(--sl-color-border-plain);
   display: flex;
-  padding-inline-end: calc(var(--sl-space-200) + var(--sl-space-025));
+  padding-inline-end: calc(var(--sl-size-200) + var(--sl-size-025));
 }
 
 :host([expandable]) {
@@ -20,7 +20,7 @@
     border-end-start-radius: var(--sl-size-050);
     border-inline-start: var(--sl-size-borderWidth-subtle) solid currentcolor;
     content: '';
-    inline-size: var(--sl-space-050);
+    inline-size: var(--sl-size-050);
     inset: 100% auto auto 0;
     position: absolute;
   }
@@ -29,5 +29,5 @@
 [part='guide'] {
   background: currentcolor;
   inline-size: var(--sl-size-borderWidth-subtle);
-  margin-inline-start: var(--sl-space-150);
+  margin-inline-start: var(--sl-size-150);
 }

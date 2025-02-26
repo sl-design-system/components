@@ -85,6 +85,22 @@ describe('sl-breadcrumbs', () => {
     });
   });
 
+  describe('custom aria label', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-breadcrumbs aria-label="Lorem ipsum">
+          <a href="/docs">Docs</a>
+          <a href="/docs/getting-started">Getting Started</a>
+          <a href="/docs/getting-started/developers">Developers</a>
+        </sl-breadcrumbs>
+      `);
+    });
+
+    it('should not overwrite the custom aria label', () => {
+      expect(el).to.have.attribute('aria-label', 'Lorem ipsum');
+    });
+  });
+
   describe('static no home default', () => {
     beforeEach(async () => {
       Breadcrumbs.noHome = true;

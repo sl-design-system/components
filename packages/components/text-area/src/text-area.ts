@@ -109,8 +109,11 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the textarea. */
-  @property({ reflect: true }) size: TextAreaSize = 'md';
+  /**
+   * The size of the textarea.
+   * @default md
+   */
+  @property({ reflect: true }) size?: TextAreaSize;
 
   /** The value for the textarea. */
   @property() override value: string = '';
@@ -168,12 +171,12 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
 
   override render(): TemplateResult {
     return html`
-      <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
       <slot name="suffix">
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}
       </slot>
+      <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
     `;
   }
 

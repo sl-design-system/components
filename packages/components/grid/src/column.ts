@@ -187,7 +187,7 @@ export class GridColumn<T = any> extends LitElement {
         </td>
       `;
     } else {
-      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data || 'No path set'}</td>`;
+      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data ?? 'No path set'}</td>`;
     }
   }
 

@@ -1,105 +1,77 @@
-@use 'sass:list';
-
-$sizes: sm, md, lg;
-$state-selectors: '', ':where([checked], [indeterminate])';
-$states: unchecked, checked;
-$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
-$variants: default, valid, invalid;
-
 :host {
-  /**
-   * FIXME: These are temporary, until we have actual tokens for the
-   * size of the icon in the checkbox.
-   * See: https://github.com/sl-design-system/components/issues/554
-   */
-  --_icon-size-md: 16px;
-  --_icon-size-lg: 18px;
-  --_border-radius: var(--sl-border-radius-checkbox);
-  --_border-size: var(--sl-border-width-input-border);
-  --_cursor: pointer;
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_path-length: 23;
-  --_stroke-dashoffset: var(--_path-length);
-  --_transition: 200ms ease-in-out;
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+  --_border: var(--sl-color-border-input);
+  --_stroke: var(--sl-color-foreground-selected-onBold);
 
   align-items: start;
-  color: var(--_label-color);
-  cursor: var(--_cursor);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
   display: flex;
-  font: var(--_font);
-  gap: var(--_gap);
-  line-height: var(--_line-height);
+  gap: var(--sl-size-100);
   outline: none;
   position: relative;
-
-  &:is(:active, :hover) .inner {
-    transition: var(--_transition);
-    transition-property: background, border-color, color, filter;
-  }
+  vertical-align: middle;
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_font: var(--sl-text-input-option-#{$size});
-    --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
-    --_icon-size: var(--sl-size-input-option-checkbox-icon-#{$size});
-    --_line-height: var(--sl-text-typeset-line-height-#{$size});
-    --_size: var(--sl-size-input-option-#{$size});
-    --_padding-block: var(--sl-space-input-option-block-#{$size});
-    --_padding-inline: var(--sl-space-input-option-inline-#{$size});
-  }
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
 }
 
-@each $variant in $variants {
-  $i: list.index($variants, $variant);
-  $variant-selector: list.nth($variant-selectors, $i);
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-active);
+}
 
-  @each $state in $states {
-    $j: list.index($states, $state);
-    $state-selector: list.nth($state-selectors, $j);
+:host(:where([checked], [indeterminate])) {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-idle);
+  --_border: var(--sl-color-border-selected);
+}
 
-    :host(#{$variant-selector + $state-selector}) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-default-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
-    }
+:host(:where([checked], [indeterminate]):hover) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-hover);
+}
 
-    :host(#{$variant-selector + $state-selector}:not([disabled]):focus) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
-    }
+:host(:where([checked], [indeterminate]):active) {
+  --_bg-opacity: var(--sl-opacity-light-interactive-bold-active);
+}
 
-    :host(#{$variant-selector + $state-selector}:not([disabled]):hover) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
-    }
+:host([show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
+  --_border: var(--sl-color-border-negative-plain);
+  --_stroke: var(--sl-color-foreground-negative-onBold);
+}
 
-    :host(#{$variant-selector + $state-selector}:not([disabled]):active) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
-    }
+:host(:where([checked], [indeterminate])[show-validity='invalid']) {
+  --_bg-color: var(--sl-color-background-negative-bold);
+  --_bg-mix-color: var(--sl-color-background-negative-interactive-bold);
+}
 
-    :host(#{$variant-selector + $state-selector}[disabled]) {
-      --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
-      --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
-      --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
-      --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
-    }
-  }
+:host([show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-input-plain);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
+  --_border: var(--sl-color-border-positive-plain);
+  --_stroke: var(--sl-color-foreground-positive-onBold);
+}
+
+:host(:where([checked], [indeterminate])[show-validity='valid']) {
+  --_bg-color: var(--sl-color-background-positive-bold);
+  --_bg-mix-color: var(--sl-color-background-positive-interactive-bold);
 }
 
 :host([disabled]) {
-  --_cursor: default;
+  --_border: var(--sl-color-border-input);
+  --_stroke: var(--sl-color-foreground-disabled);
 
+  color: var(--sl-color-foreground-disabled);
   pointer-events: none;
+
+  [part='inner'] {
+    background: var(--sl-color-background-disabled);
+  }
 }
 
 :host([no-label]) {
@@ -109,6 +81,45 @@ $variants: default, valid, invalid;
 
   .label {
     display: none;
+  }
+}
+
+:host([size='sm']) {
+  [part='outer'] {
+    padding-block: 0;
+  }
+
+  [part='inner'] {
+    block-size: var(--sl-size-250);
+  }
+
+  svg {
+    block-size: var(--sl-size-150);
+  }
+
+  [part='label'] {
+    margin-block-start: 0;
+  }
+}
+
+:host([size='lg']) {
+  [part='inner'] {
+    block-size: var(--sl-size-400);
+  }
+
+  svg {
+    block-size: var(--sl-size-250);
+  }
+
+  [part='label'] {
+    margin-block-start: calc((var(--sl-size-500) - 1lh) / 2);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :host(:where(:active, :hover)) [part='inner'] {
+    transition: 200ms ease-in-out;
+    transition-property: background, border-color, color, filter;
   }
 }
 
@@ -122,48 +133,55 @@ $variants: default, valid, invalid;
 }
 
 ::slotted(label) {
-  cursor: var(--_cursor);
+  cursor: pointer;
 }
 
 [part='outer'] {
   display: inline-flex;
-  padding-block: var(--_padding-block);
-  padding-inline-end: var(--_padding-inline);
+  padding-block: var(--sl-size-050);
 }
 
 [part='inner'] {
-  background: var(--_background);
-  border: var(--_border-size) solid var(--_border-color);
-  border-radius: var(--_border-radius);
+  align-items: center;
+  aspect-ratio: 1;
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  block-size: var(--sl-size-300);
+  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border-radius: var(--sl-size-borderRadius-default);
+  box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
-  outline-color: transparent;
-  outline-offset: var(--_focus-outline-offset);
-  padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
+  justify-content: center;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
 }
 
 [part='label'] {
-  line-height: var(--_line-height);
-  margin-block-start: calc((var(--_size) + var(--_padding-block) * 2 - var(--_line-height)) / 2);
+  margin-block-start: calc((var(--sl-size-400) - 1lh) / 2);
 }
 
 svg {
-  block-size: var(--_icon-size);
+  aspect-ratio: 1;
+  block-size: var(--sl-size-200);
   fill: none;
-  inline-size: var(--_icon-size);
 
   &.checked,
   &.indeterminate {
-    --_stroke-dashoffset: 0;
+    path {
+      stroke-dashoffset: 0;
+    }
   }
 }
 
 path {
   stroke: var(--_stroke);
-  stroke-dasharray: var(--_path-length);
-  stroke-dashoffset: var(--_stroke-dashoffset);
+  stroke-dasharray: 23;
+  stroke-dashoffset: 23;
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 3px;
-  transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
+  }
 }

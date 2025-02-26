@@ -7,7 +7,8 @@ import {
   PartType,
   directive
 } from 'lit/directive.js';
-import { type PositionPopoverOptions, positionPopover, updatePopoverVisibility } from '../popover.js';
+import { Ref } from 'lit/directives/ref.js';
+import { type PositionPopoverOptions, positionPopover } from '../popover.js';
 
 declare global {
   interface HTMLElement {
@@ -16,7 +17,7 @@ declare global {
 }
 
 export interface AnchorDirectiveConfig extends PositionPopoverOptions {
-  element?: HTMLElement;
+  element?: Element | Ref<Element>;
 }
 
 export class AnchorDirective extends Directive {
@@ -48,21 +49,25 @@ export class AnchorDirective extends Directive {
     this.#host.addEventListener('beforetoggle', (event: Event) =>
       this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
     );
-    const rootMargin = `-${this.#config?.rootMarginTop ?? 0}px 0px 0px 0px`;
-    this.observer = new IntersectionObserver(
-      entries => updatePopoverVisibility(this.#host, !entries[0].isIntersecting),
-      {
-        threshold: 0,
-        rootMargin
-      }
-    );
+
+    this.observer?.disconnect();
+    this.observer = new IntersectionObserver(entries => this.#onIntersect(entries[0]), {
+      threshold: 0,
+      rootMargin: `-${this.#config?.rootMarginTop ?? 0}px 0px 0px 0px`
+    });
   }
 
   #onBeforeToggle(event: ToggleEvent & { target: HTMLElement }): void {
     if (event.newState === 'open') {
       const host = event.target;
 
-      let anchorElement = this.#config?.element || host.anchorElement;
+      let anchorElement = host.anchorElement;
+      if (this.#config?.element instanceof Element) {
+        anchorElement = this.#config.element;
+      } else if (this.#config?.element) {
+        anchorElement = this.#config.element.value;
+      }
+
       if (!anchorElement && host.hasAttribute('anchor')) {
         anchorElement =
           (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
@@ -76,6 +81,12 @@ export class AnchorDirective extends Directive {
       this.#cleanup();
       this.observer?.disconnect();
       this.#cleanup = undefined;
+    }
+  }
+
+  #onIntersect(entry: IntersectionObserverEntry): void {
+    if (!entry.isIntersecting) {
+      this.#host?.hidePopover();
     }
   }
 }

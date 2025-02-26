@@ -1,12 +1,11 @@
 import { msg } from '@lit/localize';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
-import styles from './search-field.scss.js';
+import { type TemplateResult, html, nothing } from 'lit';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-clear': SlClearEvent;
     'sl-search': SlSearchEvent;
   }
 
@@ -14,8 +13,6 @@ declare global {
     'sl-search-field': SearchField;
   }
 }
-
-export type SlClearEvent = CustomEvent<void>;
 
 export type SlSearchEvent = CustomEvent<string>;
 
@@ -25,9 +22,6 @@ export type SlSearchEvent = CustomEvent<string>;
  * @slot input - The slot for the input element
  */
 export class SearchField extends TextField {
-  /** @internal */
-  static override styles: CSSResultGroup = [TextField.styles, styles];
-
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeyDown });
 
@@ -36,6 +30,19 @@ export class SearchField extends TextField {
 
   /** @internal Emits when the user presses enter. */
   @event({ name: 'sl-search' }) searchEvent!: EventEmitter<SlSearchEvent>;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+       sl-search-field:has(input:hover):not(:focus-within) {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+       }
+      `;
+    this.prepend(style);
+  }
 
   override renderPrefix(): TemplateResult {
     return html`<sl-icon name="search"></sl-icon>`;

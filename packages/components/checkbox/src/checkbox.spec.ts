@@ -44,6 +44,18 @@ describe('sl-checkbox', () => {
       expect(input.checked).to.be.true;
     });
 
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
+    });
+
+    it('should have a size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('size', 'lg');
+    });
+
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;

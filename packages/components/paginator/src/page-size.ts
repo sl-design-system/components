@@ -2,7 +2,8 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
-import { Select, SelectOption } from '@sl-design-system/select';
+import { Option } from '@sl-design-system/listbox';
+import { Select } from '@sl-design-system/select';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -31,8 +32,8 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-label': Label,
-      'sl-select': Select,
-      'sl-select-option': SelectOption
+      'sl-option': Option,
+      'sl-select': Select
     };
   }
 
@@ -107,11 +108,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
         value=${ifDefined(this.pageSize)}
       >
         ${this.pageSizes?.map(
-          size => html`
-            <sl-select-option aria-label=${`${size} ${msg('items per page')}`} .value=${size}>
-              ${size}
-            </sl-select-option>
-          `
+          size => html`<sl-option aria-label=${`${size} ${msg('items per page')}`} .value=${size}>${size}</sl-option>`
         )}
       </sl-select>
     `;

@@ -99,7 +99,8 @@ describe('sl-paginator', () => {
 
     it('should have a select element with all the pages', () => {
       const select = el.renderRoot.querySelector('sl-select'),
-        options = Array.from(select?.querySelectorAll('sl-select-option') ?? []).map(o => o.value);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        options = Array.from(select?.querySelectorAll('sl-option') ?? []).map(o => o.value);
 
       expect(select).to.exist;
       expect(options).to.have.lengthOf(20);

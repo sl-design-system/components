@@ -2,6 +2,7 @@ import { permutateThemes, register, transformLineHeight } from '@tokens-studio/s
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
 import { readFile, writeFile } from 'fs/promises';
+import { log } from 'node:console';
 import { argv } from 'node:process';
 import { join } from 'path';
 import postcss from 'postcss';
@@ -116,6 +117,22 @@ const build = async (production = false) => {
 
   const themeBase = join(cwd, '../packages/themes');
 
+  /**
+   * Filter out the `space.<number>` tokens since they are just aliases
+   * for `size.<number>`. We don't want to generate CSS variables for them.
+   *
+   * Commented out for now, until there are no more references to `space.<number>`.
+   */
+  const excludeSpaceTokens = token => {
+    if (token.type !== 'dimension') {
+      return true;
+    } else {
+      const [name, number] = token.path;
+
+      return !(name === 'space' && !Number.isNaN(Number(number)));
+    }
+  };
+
   const configs = Object
     .entries(permutateThemes($themes))
     .map(([name, tokensets]) => {
@@ -124,6 +141,7 @@ const build = async (production = false) => {
       const files = [
         {
           destination: `${themeBase}/${theme}/${variant}.css`,
+          // filter: excludeSpaceTokens,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -136,6 +154,7 @@ const build = async (production = false) => {
         files.push(
           {
             destination: `${themeBase}/${theme}/css/base.css`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -145,6 +164,7 @@ const build = async (production = false) => {
           },
           {
             destination: `${themeBase}/${theme}/scss/base.scss`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -155,6 +175,7 @@ const build = async (production = false) => {
           },
           {
             destination: `${themeBase}/${theme}/css/${variant}.css`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',
@@ -164,6 +185,7 @@ const build = async (production = false) => {
           },
           {
             destination: `${themeBase}/${theme}/scss/${variant}.scss`,
+            // filter: excludeSpaceTokens,
             format: 'css/variables',
             options: {
               fileHeader: 'sl/legal',

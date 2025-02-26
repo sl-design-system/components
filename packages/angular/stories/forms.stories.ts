@@ -144,7 +144,7 @@ export class AllFormControlsReactiveComponent {
   `
 })
 export class AllFormControlsEmptyReactiveComponent {
-  @ViewChild('form') form!: FormComponent; //ElementRef<Form>;
+  @ViewChild('form') form!: FormComponent;
 
   formGroup = new FormGroup({
     textField: new FormControl(''),
@@ -156,17 +156,8 @@ export class AllFormControlsEmptyReactiveComponent {
     radioGroup: new FormControl('')
   });
 
-  // ngAfterViewInit(): void {
-  //   console.log('form AfterViewInit', this.form);
-  // }
-
   onClick(): void {
-    console.log('form', this.form);
-    const formElement = this.form.elRef.nativeElement;
-    // this.form.nativeElement?.reportValidity();
-    // this.form.reportValidity();
-    console.log('form', formElement, this.form.elRef.nativeElement, this.form.el);
-    formElement.reportValidity();
+    this.form.el.reportValidity();
   }
 }
 
@@ -283,7 +274,7 @@ export class AllFormControlsTemplateComponent {
   `
 })
 export class AllFormControlsEmptyTemplateComponent {
-  @ViewChild('form') form!: ElementRef<Form>; // TODO use FormComponent as well?
+  @ViewChild('form') form!: FormComponent;
 
   formGroup = {
     textField: '',
@@ -296,7 +287,7 @@ export class AllFormControlsEmptyTemplateComponent {
   };
 
   onClick(): void {
-    this.form.nativeElement.reportValidity();
+    this.form.el.reportValidity();
   }
 }
 
@@ -335,7 +326,7 @@ export class AllFormControlsEmptyTemplateComponent {
   `
 })
 export class LoginFormComponent {
-  @ViewChild('form') form!: ElementRef<Form>;
+  @ViewChild('form') form!: FormComponent;
 
   showValidity = false;
 
@@ -365,8 +356,8 @@ export class LoginFormComponent {
 
   onSubmit(): void {
     if (this.formGroup.invalid) {
-      this.form.nativeElement.reportValidity();
-      this.showValidity = this.form.nativeElement.showValidity;
+      this.form.el.reportValidity();
+      this.showValidity = this.form.el.showValidity;
     }
 
     console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup);

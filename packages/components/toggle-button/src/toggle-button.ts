@@ -1,4 +1,5 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { ButtonShape } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -15,7 +16,6 @@ declare global {
 
 export type ToggleButtonFill = 'ghost' | 'outline' | 'solid';
 export type ToggleButtonSize = 'sm' | 'md' | 'lg';
-export type ToggleButtonShape = 'pill' | 'square';
 export type ToggleButtonEmphasis = 'bold' | 'muted' | 'subtle';
 
 /**
@@ -83,7 +83,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) emphasis?: ToggleButtonEmphasis;
 
   /** The size of the button. */
-  @property({ reflect: true }) shape?: ToggleButtonShape;
+  @property({ reflect: true }) shape?: ButtonShape;
 
   /** @internal Emits when the button has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;

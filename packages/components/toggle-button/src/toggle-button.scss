@@ -18,8 +18,8 @@
   color: var(--sl-color-foreground-secondary-bold);
   cursor: pointer;
   display: inline-flex;
-  outline-color: transparent;
-  transform: var(--_transform);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
   vertical-align: middle;
 }
 
@@ -32,8 +32,7 @@
 }
 
 :host(:focus-visible) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  outline-color: var(--sl-color-border-focused);
 }
 
 // selectors based on attributes
@@ -62,6 +61,8 @@
   --_bg-color: var(--sl-color-background-secondary-bold);
   --_bg-mix-color: var(--sl-color-background-secondary-interactive-bold);
   --_border-width: var(--sl-size-borderWidth-none);
+
+  color: var(--sl-color-foreground-secondary-onBold);
 }
 
 :host([emphasis='bold'][fill='solid'][disabled]) {
@@ -111,50 +112,49 @@
 
   align-items: center;
   display: flex;
-  gap: var(--sl-space-new-sm);
+  gap: var(--sl-size-075);
   justify-content: center;
   min-block-size: 1lh;
-  padding: calc(var(--sl-space-075) - var(--_border-compensation))
-    calc(var(--sl-space-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
-    calc(var(--sl-space-075) - var(--_border-compensation))
+  padding: calc(var(--sl-size-075) - var(--_border-compensation))
+    calc(var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-075) - var(--_border-compensation))
     calc(
-      var(--sl-space-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
+      var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
     );
   transition: background var(--_transition-duration) var(--_transition-easing);
 }
 
 :host([text-only]) [part='wrapper'] {
-  --_check-compensation: calc((var(--sl-space-new-sm) + var(--sl-size-icon-md)) / 2);
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-md)) / 2);
 }
 
 :host([size='sm']) [part='wrapper'] {
-  --_font: var(--sl-text-button-text-sm);
-  --_check-compensation: calc((var(--sl-space-new-sm) + var(--sl-size-icon-xs)) / 2);
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-xs)) / 2);
 
-  padding: calc(var(--sl-space-025) - var(--_border-compensation))
-    calc(var(--sl-space-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
-    calc(var(--sl-space-025) - var(--_border-compensation))
+  padding: calc(var(--sl-size-025) - var(--_border-compensation))
+    calc(var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-025) - var(--_border-compensation))
     calc(
-      var(--sl-space-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
+      var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
     );
 }
 
 :host([text-only][size='sm']) [part='wrapper'] {
-  --_check-compensation: calc((var(--sl-space-new-sm) + var(--sl-size-icon-md)) / 2);
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-xs)) / 2);
 }
 
 :host([size='lg']) [part='wrapper'] {
-  --_font: var(--sl-text-button-text-lg);
-  --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-lg);
+  // --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-lg);
 
-  padding: calc(var(--sl-space-125) - var(--_border-compensation))
-    calc(var(--sl-space-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
-    calc(var(--sl-space-125) - var(--_border-compensation))
+  padding: calc(var(--sl-size-125) - var(--_border-compensation))
+    calc(var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-125) - var(--_border-compensation))
     calc(
-      var(--sl-space-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
+      var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
     );
 }
 
+:host([pressed][size='sm']) [part='wrapper'],
 :host([pressed]) [part='wrapper'] {
   --_check-compensation: 0px;
 }
@@ -164,25 +164,25 @@
 
   aspect-ratio: 1;
   line-height: var(--sl-size-new-icon-md);
-  padding: calc(var(--sl-space-125) - var(--_border-compensation))
-    calc(var(--sl-space-125) - var(--_border-compensation) + var(--_pill-compensation-end))
-    calc(var(--sl-space-125) - var(--_border-compensation))
-    calc(var(--sl-space-125) - var(--_border-compensation) + var(--_pill-compensation-start));
+  padding: calc(var(--sl-size-125) - var(--_border-compensation))
+    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-125) - var(--_border-compensation))
+    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_pill-compensation-start));
 }
 
 :host([icon-only][size='sm']) [part='wrapper'] {
   line-height: var(--sl-size-new-icon-xs);
-  padding: calc(var(--sl-space-075) - var(--_border-compensation))
-    calc(var(--sl-space-075) - var(--_border-compensation) + var(--_pill-compensation-end))
-    calc(var(--sl-space-075) - var(--_border-compensation))
-    calc(var(--sl-space-075) - var(--_border-compensation) + var(--_pill-compensation-start));
+  padding: calc(var(--sl-size-075) - var(--_border-compensation))
+    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-075) - var(--_border-compensation))
+    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_pill-compensation-start));
 }
 
 :host([icon-only][size='lg']) [part='wrapper'] {
-  padding: calc(var(--sl-space-200) - var(--_border-compensation))
-    calc(var(--sl-space-200) - var(--_border-compensation) + var(--_pill-compensation-end))
-    calc(var(--sl-space-200) - var(--_border-compensation))
-    calc(var(--sl-space-200) - var(--_border-compensation) + var(--_pill-compensation-start));
+  padding: calc(var(--sl-size-200) - var(--_border-compensation))
+    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-200) - var(--_border-compensation))
+    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_pill-compensation-start));
 }
 
 sl-icon,

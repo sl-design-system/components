@@ -107,8 +107,6 @@ export class ToggleGroup extends LitElement {
       if (typeof this.disabled === 'boolean') {
         button.disabled = this.disabled;
       }
-
-      console.log(this.emphasis, this.fill);
       button.fill = this.fill;
       button.emphasis = this.emphasis;
 

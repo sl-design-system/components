@@ -14,8 +14,6 @@ declare global {
   }
 }
 
-const TAG_LIST_GAP = 4;
-
 /**
  * A tag list component that can contain tags.
  *
@@ -192,21 +190,22 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // Reset visibility of all tags
     this.tags.forEach(tag => (tag.style.display = ''));
 
-    const sizes = this.tags.map(t => t.getBoundingClientRect().width);
+    const gap = parseInt(getComputedStyle(this).gap),
+      sizes = this.tags.map(t => t.getBoundingClientRect().width);
 
     // Calculate the total width of all tags
     let totalTagsWidth = sizes.reduce((acc, size) => acc + size, 0);
-    totalTagsWidth += TAG_LIST_GAP * (this.tags.length - 1);
+    totalTagsWidth += gap * (this.tags.length - 1);
 
     let availableWidth = this.getBoundingClientRect().width;
 
     // We only need to determine visibility if there isn't enough space
     if (totalTagsWidth > availableWidth) {
       // Take the stack into account if there isn't enough space
-      availableWidth -= this.stackInlineSize + TAG_LIST_GAP;
+      availableWidth -= this.stackInlineSize + gap;
 
       for (let i = 0; i < this.tags.length; i++) {
-        totalTagsWidth -= sizes[i] + TAG_LIST_GAP;
+        totalTagsWidth -= sizes[i] + gap;
         this.tags[i].style.display = 'none';
 
         if (totalTagsWidth <= availableWidth) {

@@ -58,11 +58,11 @@ Our combobox comes with multi-selection capabilities that provide a clear overvi
 ## When Not to Use
 Avoid a Combobox when users would benefit more from seeing all options at once for quick selection.
 
-### Fewer Options
-For list of options small than 15 choices, use [Checkbox](/categories/components/checkbox/usage) or [Radio Button](/categories/components/radio-group/usage) instead of a Combobox. These components present all options visible, making them quicker and more intuitive for users to scan and select without additional interactions.
+### Fully Visible Selection:
+For lists with fewer than 5 options and when your interface has plenty of space, choose [Checkbox](/categories/components/checkbox/usage) or [Radio Button](/categories/components/radio-group/usage). These components display every option upfront, enabling users to quickly scan and select without extra clicks.
 
-### Short Lists
-Use a Select instead of a Combobox when the list of options contains fewer than 15 items. The simplicity of a [Select](/categories/components/select/usage) allows users to see all options at once, making it quicker and more straightforward for them to make a choice without the need for search or filtering.
+### Efficient Selection:
+When the options range from 5 to 15 items or when screen space is limited, using a [Select](/categories/components/select/usage) component is ideal. It presents all available choices in a concise, accessible format, keeping your UI clean and straightforward. For lists exceeding 15 options, a combobox becomes beneficial by offering search and filtering capabilities to help users navigate a bigger set of choices.
 
 </section>
 

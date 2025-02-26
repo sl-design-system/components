@@ -12,6 +12,7 @@
   min-inline-size: fit-content;
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: calc(var(--sl-size-outlineOffset-default) * -1);
+  outline-offset: -6px;
   position: relative;
   scroll-snap-align: start;
 
@@ -36,12 +37,6 @@
   z-index: 1; // Ensure element is above any gradient
 }
 
-:host([disabled]) {
-  background: var(--sl-color-background-disabled);
-  color: var(--sl-color-foreground-disabled);
-  pointer-events: none;
-}
-
 :host([selected]) {
   z-index: 1; // Ensure element is above any gradient
 }
@@ -50,9 +45,25 @@
   margin-inline-end: var(--sl-size-100);
 }
 
-:host([has-subtitle]) slot:not([name]) {
-  font-size: 1.2em;
-  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+:host([has-subtitle]) {
+  slot:not([name]) {
+    font-size: 1.2em;
+    font-weight: var(--sl-text-typeset-fontWeight-demibold);
+  }
+
+  slot[name='subtitle']::slotted(*) {
+    color: var(--sl-color-foreground-subtle);
+  }
+}
+
+:host([disabled]) {
+  background: var(--sl-color-background-disabled);
+  color: var(--sl-color-foreground-disabled);
+  pointer-events: none;
+
+  slot[name='subtitle']::slotted(*) {
+    color: inherit;
+  }
 }
 
 [part='outer'] {

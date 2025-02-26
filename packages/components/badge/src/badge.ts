@@ -40,7 +40,7 @@ export class Badge extends LitElement {
 
   /**
    * The size of the badge component.
-   * @default md
+   * @default 'md'
    */
   @property({ reflect: true }) size?: BadgeSize;
 

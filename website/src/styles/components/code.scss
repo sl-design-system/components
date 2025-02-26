@@ -31,6 +31,10 @@ $transition-timing: 300ms;
   min-block-size: 16rem;
   padding: 1.6rem;
   position: relative;
+
+  > * {
+    min-inline-size: 0;
+  }
 }
 
 .ds-example__examples-wrapper {

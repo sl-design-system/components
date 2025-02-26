@@ -76,7 +76,7 @@ Use a Select instead of a Combobox when the list of options contains fewer than 
 |1|Input Field |Acts as the primary area for user interaction. Users can type to search, or view the selected options in this field. |no|
 |2|Indicator |A visual indicator showing the current state of the dropdown (expanded or collapsed) and guiding users to interact with the Combobox. |no|
 |2|Tag List |Displays the chosen options within the input field or as separate tags, ensuring clarity about the current selection. |Yes|
-|3|Menu |Displays available options dynamically. These can be split in groups to make navigation through long lists easier, and the choices will be display at the top. |no|
+|3|Menu |Displays available options dynamically. These can be split in groups to make navigation through long lists easier, and the choices will be displayed at the top. |no|
 
 {.ds-table .ds-table-align-top}
 

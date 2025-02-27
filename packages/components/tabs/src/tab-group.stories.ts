@@ -329,7 +329,7 @@ export const Subtitle: Story = {
         <sl-icon slot="icon" name="star" size="md"></sl-icon>
         Tab 3
         <span slot="subtitle">Tab 3 subtitle</span>
-        <sl-badge slot="badge" size="lg" color="blue">100</sl-badge>
+        <sl-badge color="red" emphasis="bold" slot="badge">100</sl-badge>
       </sl-tab>
       <sl-tab>
         <sl-icon slot="icon" name="star" size="md"></sl-icon>
@@ -367,7 +367,7 @@ export const All: Story = {
         </sl-tab>
         <sl-tab selected>
           Badge tab
-          <sl-badge slot="badge" color="blue">100</sl-badge>
+          <sl-badge color="red" emphasis="bold" slot="badge">100</sl-badge>
         </sl-tab>
         <sl-tab disabled>Disabled tab</sl-tab>
       </sl-tab-group>
@@ -381,7 +381,7 @@ export const All: Story = {
         </sl-tab>
         <sl-tab selected>
           Badge tab
-          <sl-badge slot="badge" color="blue">100</sl-badge>
+          <sl-badge color="red" emphasis="bold" slot="badge">100</sl-badge>
         </sl-tab>
         <sl-tab disabled>Disabled tab</sl-tab>
       </sl-tab-group>
@@ -429,7 +429,7 @@ export const All: Story = {
         <sl-tab selected>
           <sl-icon slot="icon" name="star"></sl-icon>
           Badge tab
-          <sl-badge slot="badge" color="blue">100</sl-badge>
+          <sl-badge color="red" emphasis="bold" slot="badge">100</sl-badge>
           <span slot="subtitle">Subtitle</span>
         </sl-tab>
         <sl-tab disabled>
@@ -447,7 +447,7 @@ export const All: Story = {
         </sl-tab>
         <sl-tab selected>
           Badge tab
-          <sl-badge slot="badge" color="blue">100</sl-badge>
+          <sl-badge color="red" emphasis="bold" slot="badge">100</sl-badge>
         </sl-tab>
         <sl-tab disabled>Disabled tab</sl-tab>
       </sl-tab-group>

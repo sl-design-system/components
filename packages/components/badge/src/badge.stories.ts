@@ -125,9 +125,9 @@ export const All: Story = {
                   <sl-icon name="check"></sl-icon>
                 </sl-badge>
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>
-                  <sl-icon name="check"></sl-icon> Status
+                  <sl-icon name="check"></sl-icon> 100
                 </sl-badge>
-                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>Status</sl-badge>
+                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>100</sl-badge>
               </div>
               <div class="wrapper">
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)} size="lg">8</sl-badge>

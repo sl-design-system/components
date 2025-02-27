@@ -853,7 +853,7 @@
       },
       "info": {
         "subtle": {
-          "value": "{color.background.accent.blue.subtle}",
+          "value": "{color.palette.blue.100}",
           "type": "color",
           "description": "Use for subtle borders on color.background.info background colors."
         },

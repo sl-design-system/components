@@ -102,8 +102,13 @@ export const All: Story = {
           align-items: center;
           display: inline-grid;
           gap: 0.5rem 2rem;
-          grid-template-columns: auto auto 1fr 1fr;
+          grid-template-columns: repeat(4, auto);
           justify-items: center;
+        }
+        .wrapper {
+          align-items: center;
+          display: flex;
+          gap: 0.25rem;
         }
       </style>
       <section>
@@ -123,9 +128,6 @@ export const All: Story = {
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>8</sl-badge>
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>
                   <sl-icon name="check"></sl-icon>
-                </sl-badge>
-                <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>
-                  <sl-icon name="check"></sl-icon> 100
                 </sl-badge>
                 <sl-badge color=${ifDefined(color)} emphasis=${ifDefined(emphasis)}>100</sl-badge>
               </div>

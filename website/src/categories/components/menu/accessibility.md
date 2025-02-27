@@ -30,7 +30,7 @@ eleventyNavigation:
 
 ## WAI-ARIA
 
-In the component itself we use multiple aria-attributes to assure the component works well with a range of assistive technologies. For some attributes however it is not possible for the Design System to add a meaningfull value, because it relies on the context or way a component is used. Attributes that we recommend you use in certain scenarios are listed below.
+{{ 'aria-attributes' | recurringText }}
 
 <section>
 

@@ -31,7 +31,7 @@ eleventyNavigation:
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a combobox component provide essential information to assistive technologies and screen readers. They convey the combobox component's role, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
 ### Input
 

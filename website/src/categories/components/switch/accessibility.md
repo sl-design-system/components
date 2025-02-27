@@ -36,7 +36,7 @@ These keyboard interactions make switch components not only accessible but also 
 
 ## WAI-ARIA
 
-When it comes to ensuring accessibility for switch components, we turn to the power of WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications). Here's how WAI-ARIA contributes:
+{{ 'aria-attributes' | recurringText }}
 
 <div class="ds-table-wrapper">
 

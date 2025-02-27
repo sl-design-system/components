@@ -98,7 +98,9 @@ We use tab to switch between groups and "skip" the separate options in the tab-f
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for radio buttons and groups provide essential information to assistive technologies and screen readers. They convey the radio button's role, state (checked, unchecked, valid and invalid), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
+
+ They convey the radio button's role, state (checked, unchecked, valid and invalid), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
 <sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>
 ### Radio Group  

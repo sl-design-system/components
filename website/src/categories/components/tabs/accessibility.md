@@ -41,7 +41,7 @@ Typically, users can navigate to the tabs using the "Tab" key, once they're in t
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for tabs provide essential information to assistive technologies and screen readers. They convey the tabs's role, state (checked, unchecked, valid and invalid), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
 <sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>
 

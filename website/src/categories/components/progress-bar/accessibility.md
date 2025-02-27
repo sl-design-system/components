@@ -19,7 +19,7 @@ eleventyNavigation:
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a progress bar provide essential information to assistive technologies and screen readers.  
+{{ 'aria-attributes' | recurringText }}
 
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
 |-|-|-|-|

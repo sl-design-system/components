@@ -113,7 +113,7 @@ We use a tab to switch between checkbox groups to enable faster navigation in a 
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a checkbox provide essential information to assistive technologies and screen readers. They convey the checkbox's role, state (checked or unchecked), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
 ### Checkbox
 

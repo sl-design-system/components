@@ -46,19 +46,19 @@ Here's an overview of the common keyboard interactions associated with a tooltip
 
 
 ## WAI-ARIA
-WAI-ARIA Roles, States, and Properties for a tooltip provide essential information to assistive technologies and screen readers. They convey the tooltip's role, state, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+
+{{ 'aria-attributes' | recurringText }}
 
 A tooltip can be linked to another element by either using `aria-describedby` or `aria-labelledby` attributes. The choice between the two depends on the context and the relationship between the tooltip and the anchor element.
 
-<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it can be provided by the developer (yes)</sl-tooltip>
+You can read  more on the difference between the two attributes on in the [MDN article about aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby#:~:text=The%20aria%2Ddescribedby%20attribute%20is%20very%20similar%20to%20the)
 
 <div class="ds-table-wrapper">
 
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
-|-|-|-|-|
-|`role`|`'tooltip'`|Declare our custom component as a tooltip.|no|
-|`aria-describedby`|string|Used to link with the anchor element of the tooltip (element that triggers the tooltip). Should contain `id` of anchor element.|yes|
-|`aria-labelledby`|string|Used to link with the anchor element of the tooltip (element that triggers the tooltip). Should contain `id` of anchor element.|yes|
+|Attribute | Value | Description | 
+|-|-|-|
+|`aria-describedby`|string|Used to link with the anchor element of the tooltip (element that triggers the tooltip). Should contain `id` of anchor element.|
+|`aria-labelledby`|string|Used to link with the anchor element of the tooltip (element that triggers the tooltip). Should contain `id` of anchor element.|
 
 {.ds-table .ds-table-align-top}
 

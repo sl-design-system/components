@@ -38,7 +38,7 @@ Here you can find [an example of how to use the Announcer utility with accordion
 
 ## WAI-ARIA
 
-WAI-ARIA roles, states, and properties for an accordion provide essential information to assistive technologies and screen readers. They convey the accordion's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
 ### Accordion item
 

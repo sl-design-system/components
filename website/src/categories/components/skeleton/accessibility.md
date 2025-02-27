@@ -9,7 +9,7 @@ eleventyNavigation:
 
 ## WAI-Aria
 
-The Skeleton component is only a visual indicator and should be integrated within an element that refers to the loading state.
+{{ 'aria-attributes' | recurringText }}
 
 <div class="ds-table-wrapper">
   

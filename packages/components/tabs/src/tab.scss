@@ -11,8 +11,7 @@
   justify-content: center;
   min-inline-size: fit-content;
   outline: transparent solid var(--sl-size-outlineWidth-default);
-  outline-offset: calc(var(--sl-size-outlineOffset-default) * -1);
-  outline-offset: -6px;
+  outline-offset: calc(var(--sl-size-outlineWidth-default) * -1);
   position: relative;
   scroll-snap-align: start;
 

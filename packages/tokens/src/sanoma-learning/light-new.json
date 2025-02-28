@@ -836,7 +836,7 @@
       },
       "neutral": {
         "subtle": {
-          "value": "{color.background.accent.grey.subtle}",
+          "value": "{color.palette.grey.100}",
           "type": "color",
           "description": "Use for subtle borders on color.background.neutral background colors."
         },
@@ -1015,7 +1015,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.palette.grey.100}",
+        "value": "{color.background.accent.grey.subtlest}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1120,7 +1120,7 @@
       },
       "neutral": {
         "subtlest": {
-          "value": "{color.background.accent.grey.subtlest}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "The subtlest background in the neutral action color."
         },

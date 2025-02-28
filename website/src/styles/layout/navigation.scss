@@ -363,6 +363,11 @@ $short-transition-timing: 200ms;
   color: var(--highlight-color);
 }
 
+.ds-sublist__link sl-badge {
+  font-size: 12px;
+  line-height: 16px;
+}
+
 .ds-sidebar-nav__list {
   color: var(--menu-font-color);
   list-style: none;

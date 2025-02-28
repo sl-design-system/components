@@ -40,7 +40,7 @@ This release includes the last fixes for the issues reported in the accessibilit
 
 ## Breaking changes
 
-- `#sl-design-system/angular` has been updated to support Angular 18. This means support for version 17 has been dropped.
+- `@sl-design-system/angular` has been updated to support Angular 18 and 19. This means support for version 17 has been dropped.
 
 - `@sl-design-system/select` has received a major update. The options and option groups have been removed from the package. You should now use the options and option groups from the `@sl-design-system/listbox` package. The listbox component is a more flexible and powerful component that can be used to create a variety of custom select-like components.
 

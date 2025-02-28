@@ -21,6 +21,10 @@ describe('sl-tag', () => {
       expect(el).to.have.attribute('role', 'list');
     });
 
+    it('should not be disabled', () => {
+      expect(el.disabled).not.to.be.true;
+    });
+
     it('should not have an explicit variant', () => {
       expect(el).not.to.have.attribute('variant');
       expect(el.variant).to.be.undefined;
@@ -76,6 +80,15 @@ describe('sl-tag', () => {
 
     it('should have a stack', () => {
       expect(el.renderRoot.querySelector('.stack')).to.exist;
+    });
+
+    it('should disable the stack tag when the list is disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const tag = el.renderRoot.querySelector('sl-tag');
+
+      expect(tag).to.have.attribute('disabled');
     });
 
     it('should have a tooltip for the stack', () => {

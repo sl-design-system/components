@@ -129,7 +129,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange} part="label"></slot>
-      ${this.removable
+      ${this.removable && !this.disabled
         ? html`
             <button @click=${this.#onRemove} ?disabled=${this.disabled} aria-hidden="true" part="button" tabindex="-1">
               <sl-icon name="xmark"></sl-icon>

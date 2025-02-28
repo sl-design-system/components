@@ -57,6 +57,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     isFocusableElement: (el: Tag) => !el.disabled
   });
 
+  /** Disables interaction with the tag list and renders the stacked tag as disabled. */
+  @property({ type: Boolean }) disabled?: boolean;
+
   /**
    * The size of the tag-list (determines size of tags inside the tag-list).
    * @default 'md'
@@ -135,11 +138,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
             <div class="stack">
               <sl-tag
                 aria-labelledby="tooltip"
+                ?disabled=${this.disabled}
                 size=${ifDefined(this.size)}
                 tabindex="0"
                 variant=${ifDefined(this.variant)}
               >
-                +${Math.min(this.stackSize, 99)}
+                ${Math.min(this.stackSize, 99)}+
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
                 ${msg('List of hidden elements')}:
@@ -183,7 +187,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #updateVisibility(): void {
-    if (!this.stacked || !this.tags) {
+    if (!this.stacked || !this.stack || !this.tags) {
       return;
     }
 
@@ -216,6 +220,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
+    this.stack.style.display = this.stackSize === 0 ? 'none' : '';
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
     this.#rovingTabindexController.clearElementCache();

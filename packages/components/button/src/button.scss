@@ -171,6 +171,10 @@
 :host([size='sm']) {
   padding: calc(var(--sl-size-025) - var(--sl-size-borderWidth-action))
     calc(var(--sl-size-175) - var(--sl-size-borderWidth-action));
+
+  ::slotted(sl-icon) {
+    --sl-icon-size: var(--sl-size-150);
+  }
 }
 
 :host([size='sm'][icon-only]) {

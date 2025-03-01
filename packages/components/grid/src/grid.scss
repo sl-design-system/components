@@ -2,9 +2,9 @@
 :host {
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-border-plain);
-  --_border-width: var(--sl-size-borderWidth-subtle);
+  --_border-width: var(--sl-size-borderWidth-default);
   --_border-radius: var(--sl-size-borderRadius-default);
-  --_cell-background: var(--sl-elevation-surface-raised-default-idle);
+  --_cell-background: var(--sl-elevation-surface-raised-default);
   --_cell-border: var(--_border-width) solid var(--_border-color);
   --_cell-padding-block: var(--sl-size-175);
   --_cell-padding-inline: var(--sl-size-200);
@@ -14,24 +14,22 @@
   --_dragging-opacity: 0.8;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
-  --_focus-outline: var(--sl-color-border-focused) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
+  --_focus-outline-offset: var(--sl-size-outlineOffset-default);
   --_focus-radius: var(--sl-border-radius-focusring-default);
-  --_font: var(--sl-text-body-md-normal);
-  --_group-background: var(--sl-elevation-surface-raised-sunken-idle);
-  --_header-background: var(--sl-elevation-surface-raised-alternative-idle);
+  --_group-background: var(--sl-elevation-surface-raised-sunken);
+  --_header-background: var(--sl-elevation-surface-raised-sunken);
   --_header-padding-block: var(--sl-size-175);
   --_header-padding-inline: var(--sl-size-200);
   --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
     calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
     no-repeat;
   --_vertical-border-offset: var(--sl-size-100);
-  --_selected-background: var(--sl-color-background-selected-subtle-idle);
-  --_striped-background: var(--sl-elevation-surface-raised-alternative-idle);
+  --_selected-background: var(--sl-color-background-selected-subtle);
+  --_striped-background: var(--sl-elevation-surface-raised-alternative);
 
   color: var(--sl-color-foreground-plain);
   display: block;
-  font: var(--_font);
   position: relative;
 }
 
@@ -267,7 +265,7 @@ th {
   --_cell-padding-inline: var(--_header-padding-inline);
 
   background: var(--_vertical-border), var(--_cell-background);
-  font-weight: var(--_header-font-weight);
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
   text-align: start;
 
   &:first-of-type {

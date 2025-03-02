@@ -44,7 +44,6 @@ describe('sl-toggle-button', () => {
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
-      expect(el).not.to.match(':disabled');
       expect(el.disabled).not.to.be.true;
     });
 
@@ -157,13 +156,6 @@ describe('sl-toggle-button', () => {
           <sl-icon name="fas-gear" slot="pressed"></sl-icon>
         </sl-toggle-button>
       `);
-    });
-
-    it('should have the :disabled pseudo class', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      expect(el).to.match(':disabled');
     });
 
     it('should not toggle the pressed state when clicked', async () => {

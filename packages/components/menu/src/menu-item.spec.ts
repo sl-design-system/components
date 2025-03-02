@@ -140,7 +140,7 @@ describe('sl-menu-item', () => {
 
   describe('shortcut', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-menu-item shortcut="$mod+Digit1">Item 1</sl-menu-item> `);
+      el = await fixture(html`<sl-menu-item shortcut="$mod+Digit1">Item 1</sl-menu-item>`);
     });
 
     it('should have a shortcut', () => {
@@ -170,8 +170,8 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
       el.disabled = true;
-
       await el.updateComplete;
+
       await sendKeys({ down: 'Meta' });
       await sendKeys({ press: '1' });
 

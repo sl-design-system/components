@@ -196,6 +196,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onShortcut(event: KeyboardEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
     event.preventDefault();
     event.stopPropagation();
 

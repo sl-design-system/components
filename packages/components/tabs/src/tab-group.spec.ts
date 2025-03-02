@@ -7,7 +7,7 @@ import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
 import { type Tab } from './tab.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-tab-group', () => {
   let el: TabGroup;

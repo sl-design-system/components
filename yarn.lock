@@ -3640,13 +3640,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/virtualizer@npm:^2.0.14":
-  version: 2.0.14
-  resolution: "@lit-labs/virtualizer@npm:2.0.14"
+"@lit-labs/virtualizer@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@lit-labs/virtualizer@npm:2.1.0"
   dependencies:
     lit: "npm:^3.2.0"
     tslib: "npm:^2.0.3"
-  checksum: 10c0/52b1c2b2878bd34fe4947422ace1125db74d1f6c3cc360b0700f25c8c024cfd9349fcbc6c007c4c29cf6c9bfacd0ca011be62050dbef33a370682a5f853c220d
+  checksum: 10c0/70ffa0e5182af4b06e73a5dcd3202bd8e159b2c0ca6241b26a471de815798fdd54c3169f03fc56e38b9db9bba5bfa08d45b716ebee22fd84ea7b9b66da007061
   languageName: node
   linkType: hard
 
@@ -5052,7 +5052,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/grid@workspace:packages/components/grid"
   dependencies:
-    "@lit-labs/virtualizer": "npm:^2.0.14"
+    "@lit-labs/virtualizer": "npm:^2.1.0"
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/checkbox": "npm:^2.0.1"
@@ -5119,7 +5119,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/listbox@workspace:packages/components/listbox"
   dependencies:
-    "@lit-labs/virtualizer": "npm:^2.0.14"
+    "@lit-labs/virtualizer": "npm:^2.1.0"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.0.2"
     lit: "npm:^3.2.1"

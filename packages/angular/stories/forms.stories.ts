@@ -1,11 +1,11 @@
-import { Component, type ElementRef, ViewChild } from '@angular/core';
+import {ChangeDetectionStrategy, Component, type ElementRef, ViewChild} from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  type ValidationErrors
+  type ValidationErrors, Validators
 } from '@angular/forms';
 import { type Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
@@ -364,6 +364,77 @@ export class LoginFormComponent {
   }
 }
 
+@Component({
+  selector: 'sla-onpush-example',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <sl-form #form [formGroup]="formGroup">
+      <sl-form-field>
+        <sl-checkbox formControlName="remember" value="checked">Remember me</sl-checkbox>
+      </sl-form-field>
+
+      <sl-button-bar align="space-between">
+        <sl-button fill="link">Forgot password?</sl-button>
+        <sl-button (click)="onSubmit()" variant="primary">Log in</sl-button>
+      </sl-button-bar>
+    </sl-form>
+
+    <sl-button *ngIf="formGroup.invalid" [attr.disabled]="formGroup.invalid || null" (click)="addComment()">Should be shown when invalid</sl-button>
+
+    <sl-button *ngIf="formGroup.valid" [attr.disabled]="formGroup.invalid || null" (click)="addComment()">Should be shown when valid</sl-button>
+
+
+    <pre>{{ formGroup.value | json}}</pre>
+    <pre>{{ formGroup.status | json}}</pre>
+
+    <pre>{{ test | json}}</pre>
+  `
+})
+export class OnPushExampleComponent {
+  @ViewChild('form') form!: FormComponent;
+
+  showValidity = false;
+
+  test: string[] = [];
+
+  // customUsernameValidator = (control: AbstractControl): ValidationErrors | null => {
+  //   return control.touched && control.value !== 'admin' ? { invalidUsername: true } : null;
+  // };
+
+  formGroup = new FormGroup(
+    {
+      remember: new FormControl('checked', [Validators.required])
+    },
+    // (control: AbstractControl): ValidationErrors | null => {
+    //   const username = control.get('username'),
+    //     password = control.get('password');
+    //
+    //   if (username?.errors || password?.errors) {
+    //     return null;
+    //   } else if (username?.value !== 'admin' || password?.value !== 'admin') {
+    //     return { invalidCredentials: true };
+    //   }
+    //
+    //   return null;
+    // }
+  );
+
+  onSubmit(): void {
+    if (this.formGroup.invalid) {
+      this.form.el.reportValidity();
+      this.showValidity = this.form.el.showValidity;
+    }
+
+    console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup);
+  }
+
+  addComment() {
+    // this.comments.push(new FormControl('', Validators.required));
+    this.test.push('test');
+    console.log('test', this.test);
+  }
+}
+
 export default {
   title: 'Forms',
   decorators: [
@@ -373,7 +444,8 @@ export default {
         AllFormControlsEmptyReactiveComponent,
         AllFormControlsTemplateComponent,
         AllFormControlsEmptyTemplateComponent,
-        LoginFormComponent
+        LoginFormComponent,
+        OnPushExampleComponent
       ],
       imports: [
         ButtonComponent,
@@ -423,4 +495,8 @@ export const AllEmptyTemplate: StoryFn = () => ({
 
 export const Login: StoryFn = () => ({
   template: '<sla-login-form></sla-login-form>'
+});
+
+export const OnPushExample: StoryFn = () => ({
+  template: '<sla-onpush-example></sla-onpush-example>'
 });

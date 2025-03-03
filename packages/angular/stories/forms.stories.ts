@@ -144,7 +144,7 @@ export class AllFormControlsReactiveComponent {
   `
 })
 export class AllFormControlsEmptyReactiveComponent {
-  @ViewChild('form') form!: ElementRef<Form>;
+  @ViewChild('form') form!: FormComponent;
 
   formGroup = new FormGroup({
     textField: new FormControl(''),
@@ -157,7 +157,7 @@ export class AllFormControlsEmptyReactiveComponent {
   });
 
   onClick(): void {
-    this.form.nativeElement.reportValidity();
+    this.form.el.reportValidity();
   }
 }
 
@@ -274,7 +274,7 @@ export class AllFormControlsTemplateComponent {
   `
 })
 export class AllFormControlsEmptyTemplateComponent {
-  @ViewChild('form') form!: ElementRef<Form>;
+  @ViewChild('form') form!: FormComponent;
 
   formGroup = {
     textField: '',
@@ -287,7 +287,7 @@ export class AllFormControlsEmptyTemplateComponent {
   };
 
   onClick(): void {
-    this.form.nativeElement.reportValidity();
+    this.form.el.reportValidity();
   }
 }
 
@@ -326,7 +326,7 @@ export class AllFormControlsEmptyTemplateComponent {
   `
 })
 export class LoginFormComponent {
-  @ViewChild('form') form!: ElementRef<Form>;
+  @ViewChild('form') form!: FormComponent;
 
   showValidity = false;
 
@@ -356,8 +356,8 @@ export class LoginFormComponent {
 
   onSubmit(): void {
     if (this.formGroup.invalid) {
-      this.form.nativeElement.reportValidity();
-      this.showValidity = this.form.nativeElement.showValidity;
+      this.form.el.reportValidity();
+      this.showValidity = this.form.el.showValidity;
     }
 
     console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup);

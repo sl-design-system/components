@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, type ElementRef, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, type ElementRef, ViewChild} from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -30,6 +30,7 @@ import { SelectComponent } from '../src/select/select.component';
 import { SwitchComponent } from '../src/switch/switch.component';
 import { TextAreaComponent } from '../src/text-area/text-area.component';
 import { TextFieldComponent } from '../src/text-field/text-field.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',
@@ -367,6 +368,16 @@ export class LoginFormComponent {
 @Component({
   selector: 'sla-onpush-example',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ButtonBarComponent,
+    ButtonComponent,
+    ReactiveFormsModule,
+    FormComponent,
+    FormFieldComponent,
+    CheckboxComponent,
+    CheckboxDirective],
   template: `
     <sl-form #form [formGroup]="formGroup">
       <sl-form-field>
@@ -375,14 +386,13 @@ export class LoginFormComponent {
 
       <sl-button-bar align="space-between">
         <sl-button fill="link">Forgot password?</sl-button>
-        <sl-button (click)="onSubmit()" variant="primary">Log in</sl-button>
+        <sl-button (click)="onSubmit()" variant="primary">Send</sl-button>
       </sl-button-bar>
     </sl-form>
 
     <sl-button *ngIf="formGroup.invalid" [attr.disabled]="formGroup.invalid || null" (click)="addComment()">Should be shown when invalid</sl-button>
 
     <sl-button *ngIf="formGroup.valid" [attr.disabled]="formGroup.invalid || null" (click)="addComment()">Should be shown when valid</sl-button>
-
 
     <pre>{{ formGroup.value | json}}</pre>
     <pre>{{ formGroup.status | json}}</pre>
@@ -419,19 +429,24 @@ export class OnPushExampleComponent {
     // }
   );
 
+ // constructor(private cdr: ChangeDetectorRef) {}
+
   onSubmit(): void {
     if (this.formGroup.invalid) {
       this.form.el.reportValidity();
+      // this.formGroup.controls.remember.markAsTouched();
       this.showValidity = this.form.el.showValidity;
+      // this.cdr.markForCheck();
     }
 
-    console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup);
+    console.log('onSubmit', this.formGroup.valid, this.formGroup.value, this.formGroup, this.formGroup.get('remember')?.value);
   }
 
   addComment() {
     // this.comments.push(new FormControl('', Validators.required));
     this.test.push('test');
-    console.log('test', this.test);
+    this.form.el.reportValidity();
+    console.log('test', this.test, this.formGroup.get('remember')?.value);
   }
 }
 
@@ -444,8 +459,7 @@ export default {
         AllFormControlsEmptyReactiveComponent,
         AllFormControlsTemplateComponent,
         AllFormControlsEmptyTemplateComponent,
-        LoginFormComponent,
-        OnPushExampleComponent
+        LoginFormComponent
       ],
       imports: [
         ButtonComponent,
@@ -470,7 +484,8 @@ export default {
         TextFieldComponent,
         TextFieldDirective,
         TextAreaComponent,
-        TextAreaDirective
+        TextAreaDirective,
+        OnPushExampleComponent
       ]
     })
   ],

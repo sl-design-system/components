@@ -42,7 +42,7 @@
 }
 
 :host([pressed]) {
-  --_bg-color: var(--sl-color-background-selected-subtlest);
+  --_bg-color: var(--sl-color-background-selected-subtle);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
 
   border-color: var(--sl-color-border-selected);
@@ -64,6 +64,8 @@
 :host([emphasis='bold'][fill='solid'][disabled]) {
   --_bg-mix-color: transparent;
   --_bg-color: var(--sl-color-background-disabled);
+
+  color: var(--sl-color-foreground-disabled);
 }
 
 :host([emphasis='bold'][pressed]) {
@@ -140,8 +142,6 @@
 }
 
 :host([size='lg']) [part='wrapper'] {
-  // --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-lg);
-
   padding: calc(var(--sl-size-125) - var(--_border-compensation))
     calc(var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
     calc(var(--sl-size-125) - var(--_border-compensation))

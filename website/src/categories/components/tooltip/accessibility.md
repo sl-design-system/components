@@ -51,7 +51,7 @@ Here's an overview of the common keyboard interactions associated with a tooltip
 
 A tooltip can be linked to another element by either using `aria-describedby` or `aria-labelledby` attributes. The choice between the two depends on the context and the relationship between the tooltip and the anchor element.
 
-You can read  more on the difference between the two attributes on in the [MDN article about aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby#:~:text=The%20aria%2Ddescribedby%20attribute%20is%20very%20similar%20to%20the)
+You can read  more on the difference between the two attributes in the [MDN article about aria-describedby](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby#:~:text=The%20aria%2Ddescribedby%20attribute%20is%20very%20similar%20to%20the)
 
 <div class="ds-table-wrapper">
 

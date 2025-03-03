@@ -13,6 +13,7 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Feedback & status/Tag',
   tags: ['draft'],
+  component: 'sl-tag',
   parameters: {
     a11y: {
       config: {
@@ -26,20 +27,18 @@ export default {
     }
   },
   args: {
-    disabled: false,
-    label: 'Tag label',
-    removable: false
+    label: 'Tag label'
   },
-  argTypes: {
-    size: {
-      control: 'inline-radio',
-      options: ['md', 'lg']
-    },
-    variant: {
-      control: 'inline-radio',
-      options: ['default', 'info']
-    }
-  },
+  // argTypes: {
+  //   size: {
+  //     control: 'inline-radio',
+  //     options: ['md', 'lg']
+  //   },
+  //   variant: {
+  //     control: 'inline-radio',
+  //     options: ['default', 'info']
+  //   }
+  // },
   render: ({ disabled, label, maxWidth, removable, size, variant }) => html`
     <sl-tag
       ?disabled=${disabled}

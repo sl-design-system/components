@@ -1,11 +1,15 @@
-import type { Preview } from '@storybook/web-components';
+import { setCustomElementsManifest, type Preview } from '@storybook/web-components';
 import '@oddbird/popover-polyfill';
+import { getComponentByTagName, getComponentPublicProperties } from '@wc-toolkit/cem-utilities';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import customElements from '../custom-elements.json';
 import { updateTheme, themes } from './themes.js';
+
+setCustomElementsManifest(customElements);
 
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
@@ -74,6 +78,65 @@ const preview: Preview = {
         { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' },
       ],
       default: 'Default'
+    },
+    controls: {
+      exclude: /^#/,
+      expanded: true
+    },
+    docs: {
+      extractArgTypes: (tagName: string) => {
+        const component = getComponentByTagName(customElements, tagName);
+        if (!component) {
+          return undefined;
+        }
+
+        const properties = getComponentPublicProperties(component);
+
+        return properties
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map(property => {
+            console.log(property);
+
+            const { name, description, type, default: defaultValue } = property;
+
+            let
+              control = 'object',
+              required = false,
+              sbType = type?.text;
+
+            if (sbType?.endsWith(' | undefined')) {
+              sbType = sbType.replace(' | undefined', '');
+            } else {
+              required = true;
+            }
+
+            if (type?.text === 'boolean | undefined') {
+              control = 'boolean';
+            } else if (type?.text === 'string | undefined') {
+              control = 'text';
+            }
+
+            return {
+              name,
+              description,
+              required,
+              control: {
+                type: control
+              },
+              type: { name: sbType },
+              table: {
+                category: 'Properties',
+                defaultValue: {
+                  summary: defaultValue
+                }
+              }
+            };
+          })
+          .reduce((acc, property) => {
+            acc[property.name] = property;
+            return acc;
+          }, {});
+      }
     },
     options: {
       storySort: {

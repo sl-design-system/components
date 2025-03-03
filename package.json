@@ -151,6 +151,17 @@
         "packages/locales/src/*.ts"
       ]
     },
+    "build:metadata": {
+      "command": "cem analyze --config cem-metadata.config.mjs",
+      "clean": false,
+      "files": [
+        "packages/components/**/*.ts",
+        "!packages/components/**/*.{d,spec,stories}.ts"
+      ],
+      "output": [
+        "custom-elements.json"
+      ]
+    },
     "build:themes": {
       "dependencies": [
         "build:themes:code",
@@ -450,6 +461,9 @@
     "@types/chai-as-promised": "^8.0.1",
     "@types/mocha": "^10.0.10",
     "@types/sinon": "^17.0.4",
+    "@wc-toolkit/cem-inheritance": "^1.0.0",
+    "@wc-toolkit/cem-utilities": "^1.0.2",
+    "@wc-toolkit/type-parser": "^1.0.1",
     "@web/dev-server-esbuild": "^1.0.4",
     "@web/test-runner": "^0.20.0",
     "@web/test-runner-commands": "^0.9.0",
@@ -466,7 +480,7 @@
     "sinon": "^19.0.2",
     "storybook": "^8.6.3",
     "stylelint": "^16.15.0",
-    "typescript": "^5.4.5",
+    "typescript": "^5.8.2",
     "vite": "^6.2.0",
     "wireit": "^0.14.11"
   }

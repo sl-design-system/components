@@ -56,13 +56,19 @@ export class Tag extends ScopedElementsMixin(LitElement) {
   /** Either an instanceof of Tooltip, or a cleanup function. */
   #tooltip?: Tooltip | (() => void);
 
-  /** Whether the tag component is disabled, when set no interaction is possible. */
+  /**
+   * Whether the tag component is disabled, when set no interaction is possible.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** @internal The label of the tag component. */
   @state() label = '';
 
-  /** Whether the tag component is removable. */
+  /**
+   * Whether the tag component is removable.
+   * @default false
+   */
   @property({ type: Boolean }) removable?: boolean;
 
   /** @internal Emits when the tag is removed. */

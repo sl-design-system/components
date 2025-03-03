@@ -18,7 +18,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
-type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'size' | 'variant'> & {
+type Props = Pick<MenuButton, 'disabled' | 'fill' | 'position' | 'shape' | 'size' | 'variant'> & {
   alignSelf: string;
   body: string | (() => TemplateResult);
   justifySelf: string;
@@ -74,6 +74,10 @@ export default {
         'left-end'
       ]
     },
+    shape: {
+      control: 'inline-radio',
+      options: ['square', 'pill']
+    },
     size: {
       control: 'inline-radio',
       options: ['md', 'lg']
@@ -87,7 +91,7 @@ export default {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({ alignSelf, body, disabled, fill, justifySelf, label, menuItems, position, size, variant }) => {
+  render: ({ alignSelf, body, disabled, fill, justifySelf, label, menuItems, position, shape, size, variant }) => {
     return html`
       <style>
         #root-inner {
@@ -101,6 +105,7 @@ export default {
         aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
         position=${ifDefined(position)}
+        shape=${ifDefined(shape)}
         size=${ifDefined(size)}
         style=${styleMap({ alignSelf, justifySelf })}
         variant=${ifDefined(variant)}

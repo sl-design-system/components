@@ -317,14 +317,14 @@ export const All: Story = {
 
         <span>Field button</span>
         <sl-text-field aria-label="Text field" placeholder="Placeholder">
-          <button aria-label="Show calendar" slot="suffix">
+          <sl-field-button aria-label="Show calendar" slot="suffix">
             <sl-icon name="far-calendar"></sl-icon>
-          </button>
+          </sl-field-button>
         </sl-text-field>
         <sl-text-field aria-label="Text field" placeholder="Placeholder" size="lg">
-          <button aria-label="Show calendar" slot="suffix">
+          <sl-field-button aria-label="Show calendar" slot="suffix">
             <sl-icon name="far-calendar"></sl-icon>
-          </button>
+          </sl-field-button>
         </sl-text-field>
 
         <span>Readonly</span>

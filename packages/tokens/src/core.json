@@ -2417,6 +2417,11 @@
       }
     },
     "core": {
+      "calendar": {
+        "value": "calendar",
+        "type": "Icons",
+        "description": "icon.core.calendar"
+      },
       "face-smile": {
         "value": "face-smile",
         "type": "Icons",

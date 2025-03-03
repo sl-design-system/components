@@ -1,4 +1,3 @@
-import { faCalendar } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Calendar } from '@sl-design-system/calendar';
@@ -17,8 +16,6 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './date-field.scss.js';
-
-Icon.register(faCalendar);
 
 /**
  * A form component that allows the user to pick a date from a calendar.
@@ -60,7 +57,10 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @property({ type: Object, attribute: 'date-time-format' })
   dateTimeFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
 
-  /** The first day of the week; 0 for Sunday, 1 for Monday. */
+  /**
+   * The first day of the week; 0 for Sunday, 1 for Monday.
+   * @default 1
+   */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
 
   /** @internal Emits when the component gains focus. */
@@ -69,19 +69,29 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** @internal The input element in the light DOM. */
   input!: HTMLInputElement;
 
-  /** The placeholder for the text field. */
+  /**
+   * The placeholder for the text field.
+   * @default undefined
+   */
   @property() placeholder?: string;
 
-  /** Whether the text field is a required field. */
+  /**
+   * Whether the text field is a required field.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
   /**
    * Whether the component is select only. This means you cannot type in the text field,
    * but you can still pick a date via de popover.
+   * @default false
    */
   @property({ type: Boolean, reflect: true, attribute: 'select-only' }) selectOnly?: boolean;
 
-  /** Shows the week numbers. */
+  /**
+   * Shows the week numbers.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
   /** The selected date in the calendar. */
@@ -104,6 +114,15 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     this.setFormControlElement(this.input);
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+      sl-date-field:has(input:hover):not(:focus-within) {
+        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+    `;
+    this.prepend(style);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -141,7 +160,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           aria-label=${msg('Show calendar')}
           slot="suffix"
         >
-          <sl-icon name="far-calendar"></sl-icon>
+          <sl-icon name="calendar"></sl-icon>
         </button>
       </sl-text-field>
 

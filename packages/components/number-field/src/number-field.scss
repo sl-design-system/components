@@ -10,3 +10,16 @@
   display: flex;
   margin-inline-end: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle));
 }
+
+sl-field-button {
+  aspect-ratio: auto;
+  inline-size: auto;
+
+  &.plus {
+    padding-inline: 0 calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+  }
+
+  &.minus {
+    padding-inline: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle)) 0;
+  }
+}

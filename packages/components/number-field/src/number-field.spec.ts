@@ -80,7 +80,7 @@ describe('sl-number-field', () => {
     let input: HTMLInputElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-number-field required></sl-text-area>`);
+      el = await fixture(html`<sl-number-field required></sl-number-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -172,7 +172,7 @@ describe('sl-number-field', () => {
     });
 
     it('should have step buttons', () => {
-      const buttons = el.renderRoot.querySelectorAll('button');
+      const buttons = el.renderRoot.querySelectorAll('sl-field-button');
       expect(buttons).to.have.length(2);
       expect(buttons[0].getAttribute('aria-label')).to.equal('Step down');
       expect(buttons[1].getAttribute('aria-label')).to.equal('Step up');
@@ -183,7 +183,7 @@ describe('sl-number-field', () => {
     });
 
     it('should increase the value when step up button is clicked', async () => {
-      const button = el.renderRoot.querySelector('button[aria-label="Step up"]') as HTMLButtonElement;
+      const button = el.renderRoot.querySelector('sl-field-button[aria-label="Step up"]') as HTMLButtonElement;
 
       expect(button).to.exist;
 
@@ -194,7 +194,7 @@ describe('sl-number-field', () => {
     });
 
     it('should decrease the value when step down button is clicked', async () => {
-      const button = el.renderRoot.querySelector('button[aria-label="Step down"]') as HTMLButtonElement;
+      const button = el.renderRoot.querySelector('sl-field-button[aria-label="Step down"]') as HTMLButtonElement;
 
       expect(button).to.exist;
 
@@ -224,6 +224,19 @@ describe('sl-number-field', () => {
       await el.updateComplete;
 
       expect(el.valueAsNumber).to.equal(9);
+    });
+
+    it('should not change the value when readonly', async () => {
+      el.readonly = true;
+      await el.updateComplete;
+
+      el.focus();
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      expect(el.valueAsNumber).to.equal(10);
     });
   });
 

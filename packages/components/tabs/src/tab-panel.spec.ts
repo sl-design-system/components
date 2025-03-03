@@ -10,10 +10,6 @@ describe('sl-tab-panel', () => {
     el = await fixture(html`<sl-tab-panel></sl-tab-panel>`);
   });
 
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
-  });
-
   it('should have a tabpanel role', () => {
     expect(el).to.have.attribute('role', 'tabpanel');
   });

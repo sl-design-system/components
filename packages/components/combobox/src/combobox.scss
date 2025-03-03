@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+:host([size='lg']) button {
+  block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
+}
+
 ::slotted(sl-listbox) {
   block-size: fit-content;
   overflow: visible;
@@ -65,5 +69,27 @@ sl-tag {
 
     display: block;
     opacity: 1;
+  }
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  aspect-ratio: 1;
+  background: transparent;
+  block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-secondary-bold);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 200ms ease-in-out;
+    transition-property: rotate;
   }
 }

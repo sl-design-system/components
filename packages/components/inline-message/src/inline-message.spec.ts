@@ -5,7 +5,7 @@ import { spy } from 'sinon';
 import '../register.js';
 import { InlineMessage } from './inline-message.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-inline-message', () => {
   let el: InlineMessage;

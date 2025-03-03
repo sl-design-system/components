@@ -9,7 +9,7 @@ import '../register.js';
 import { GridColumnDataRenderer } from './column.js';
 import { type Grid } from './grid.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-column', () => {
   let el: Grid;

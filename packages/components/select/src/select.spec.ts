@@ -236,7 +236,13 @@ describe('sl-select', () => {
 
   describe('disabled', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-select disabled></sl-select>`);
+      el = await fixture(html`
+        <sl-select disabled>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-select>
+      `);
     });
 
     it('should be marked as disabled', () => {

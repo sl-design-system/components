@@ -307,7 +307,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onButtonClick(): void {
-    if (!this.listbox?.matches(':popover-open') && !this.#popoverClosing) {
+    if (this.disabled) {
+      return;
+    } else if (!this.listbox?.matches(':popover-open') && !this.#popoverClosing) {
       this.listbox?.showPopover();
     }
 
@@ -347,7 +349,12 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (!this.listbox?.matches(':popover-open')) {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      return;
+    } else if (!this.listbox?.matches(':popover-open')) {
       if (['ArrowDown', 'Enter', ' '].includes(event.key)) {
         this.#rovingTabindexController.focus();
       } else if (event.key === 'Home') {

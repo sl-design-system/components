@@ -12,7 +12,7 @@ import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;

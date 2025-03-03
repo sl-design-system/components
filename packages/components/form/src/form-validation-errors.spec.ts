@@ -8,7 +8,7 @@ import '../register.js';
 import { FormController } from './form-controller.js';
 import { type FormValidationErrors } from './form-validation-errors.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-form-validation-errors', () => {
   describe('defaults', () => {

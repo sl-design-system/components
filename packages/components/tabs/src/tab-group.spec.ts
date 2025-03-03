@@ -7,7 +7,7 @@ import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
 import { type Tab } from './tab.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-tab-group', () => {
   let el: TabGroup;
@@ -288,7 +288,7 @@ describe('sl-tab-group', () => {
     });
 
     it('should disable the menu items for disabled tabs', () => {
-      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(menuItem => menuItem.disabled);
+      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(menuItem => !!menuItem.disabled);
 
       expect(menuItems).to.eql([false, false, true]);
     });

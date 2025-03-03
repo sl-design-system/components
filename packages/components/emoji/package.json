@@ -45,8 +45,8 @@
   "devDependencies": {
     "@lit/localize": "^0.12.2",
     "@open-wc/scoped-elements": "^3.0.5",
-    "emojibase": "^15.3.1",
-    "emojibase-data": "^15.3.2"
+    "emojibase": "^16.0.0",
+    "emojibase-data": "^16.0.2"
   },
   "peerDependencies": {
     "@lit/localize": "^0.12.1",

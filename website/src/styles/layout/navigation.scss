@@ -1,7 +1,9 @@
 @import './../breakpoints';
 
---transition-timing: 300ms;
---short-transition-timing: 200ms;
+:root {
+  --transition-timing: 300ms;
+  --short-transition-timing: 200ms;
+}
 
 .ds-top-navigation {
   background: var(--top-navbar-color);

@@ -16,7 +16,7 @@ declare global {
 
 export type ToggleButtonFill = 'ghost' | 'outline' | 'solid';
 export type ToggleButtonSize = 'sm' | 'md' | 'lg';
-export type ToggleButtonEmphasis = 'bold' | 'muted' | 'subtle';
+export type ToggleButtonEmphasis = 'bold' | 'subtle';
 
 /**
  * Lets the user toggle between two states.

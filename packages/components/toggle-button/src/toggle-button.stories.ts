@@ -222,59 +222,13 @@ export const All: Story = {
         section div {
           white-space: nowrap;
         }
+        hr {
+          grid-column: span 6;
+          border: 1px solid var(--sl-color-border-disabled);
+          width: 100%;
+        }
       </style>
       <section>
-        <span style="grid-column: span 2">Muted</span>
-        <span>Idle</span>
-        <span>Pressed</span>
-        <span>Disabled</span>
-        <span>Disabled + pressed</span>
-
-        <span style="grid-row: span 2">sm</span>
-        <span>Outline</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'outline',
-          size: 'sm'
-        })}
-
-        <span>Ghost</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'ghost',
-          size: 'sm'
-        })}
-
-        <span style="grid-row: span 2">md</span>
-        <span>Outline</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'outline',
-          size: 'md'
-        })}
-
-        <span>Ghost</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'ghost',
-          size: 'md'
-        })}
-
-        <span style="grid-row: span 2">lg</span>
-        <span>Outline</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'outline',
-          size: 'lg'
-        })}
-
-        <span>Ghost</span>
-        ${renderRow({
-          emphasis: 'muted',
-          fill: 'ghost',
-          size: 'lg'
-        })}
-
         <span style="grid-column: span 2">Subtle</span>
         <span>Idle</span>
         <span>Pressed</span>
@@ -294,8 +248,8 @@ export const All: Story = {
           fill: 'ghost',
           size: 'sm'
         })}
-
-        <span style="grid-row: span 2">md</span>
+        <hr />
+        <span style="grid-row: span 2;">md</span>
         <span>Outline</span>
         ${renderRow({
           emphasis: 'subtle',
@@ -308,6 +262,7 @@ export const All: Story = {
           fill: 'ghost',
           size: 'md'
         })}
+        <hr />
 
         <span style="grid-row: span 2">lg</span>
         <span>Outline</span>
@@ -348,6 +303,7 @@ export const All: Story = {
           fill: 'solid',
           size: 'sm'
         })}
+        <hr />
 
         <span style="grid-row: span 3">md</span>
         <span>Outline</span>
@@ -368,6 +324,7 @@ export const All: Story = {
           fill: 'solid',
           size: 'md'
         })}
+        <hr />
 
         <span style="grid-row: span 3">lg</span>
         <span>Outline</span>
@@ -389,7 +346,7 @@ export const All: Story = {
           size: 'lg'
         })}
       </section>
-      <p>First item on the first row is the default combination of values; muted, outline, md and square shape.</p>
+      <p>First item on the first row is the default combination of values; subtle, outline, md and square shape.</p>
     `;
   }
 };

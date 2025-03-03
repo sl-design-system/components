@@ -8,5 +8,25 @@
 
 .step-buttons {
   display: flex;
-  margin-inline-end: calc(var(--sl-size-025) - var(--sl-size-borderWidth-subtle));
+
+  .plus {
+    padding-inline-start: var(--sl-size-025);
+  }
+
+  .minus {
+    padding-inline-end: var(--sl-size-025);
+  }
+}
+
+sl-field-button {
+  aspect-ratio: auto;
+  inline-size: auto;
+
+  &.plus {
+    padding-inline-end: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+  }
+
+  &.minus {
+    padding-inline-start: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+  }
 }

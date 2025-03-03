@@ -1,7 +1,5 @@
 @import './../breakpoints';
 
-$transition-timing: 300ms;
-
 .ds-code {
   margin: 1.6rem 0 2.4rem;
   position: relative;
@@ -31,10 +29,6 @@ $transition-timing: 300ms;
   min-block-size: 16rem;
   padding: 1.6rem;
   position: relative;
-
-  > * {
-    min-inline-size: 0;
-  }
 }
 
 .ds-example__examples-wrapper {
@@ -204,18 +198,18 @@ pre[class*='language-'] {
 @media screen and (-ms-high-contrast: active) {
   code[class*='language-'],
   pre[class*='language-'] {
-    background: window;
-    color: windowText;
+    background: Canvas;
+    color: CanvasText;
   }
 
   :not(pre) > code[class*='language-'],
   pre[class*='language-'] {
-    background: window;
+    background: Canvas;
   }
 
   .token.important {
     background: highlight;
-    color: window;
+    color: canvas;
     font-weight: normal;
   }
 

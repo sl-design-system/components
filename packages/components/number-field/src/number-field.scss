@@ -23,10 +23,10 @@ sl-field-button {
   inline-size: auto;
 
   &.plus {
-    padding-inline-end: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+    padding-inline-end: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
   }
 
   &.minus {
-    padding-inline-start: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+    padding-inline-start: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
   }
 }

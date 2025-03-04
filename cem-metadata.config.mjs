@@ -3,7 +3,7 @@ import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin } from '
 import { eventDecoratorPlugin } from './scripts/cem-plugin-event-decorator.js';
 
 export default {
-  globs: ['packages/components/accordion/src/accordion.ts'],
+  globs: ['packages/components/**/*.ts'],
   exclude: ['packages/components/**/*.{d,scss,spec,stories}.ts'],
   outdir: '.',
   litelement: true,

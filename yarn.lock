@@ -5419,7 +5419,7 @@ __metadata:
     "@types/sinon": "npm:^17.0.4"
     "@wc-toolkit/cem-inheritance": "npm:^1.0.0"
     "@wc-toolkit/cem-utilities": "npm:^1.0.2"
-    "@wc-toolkit/type-parser": "npm:^1.0.1"
+    "@wc-toolkit/type-parser": "npm:^1.0.2"
     "@web/dev-server-esbuild": "npm:^1.0.4"
     "@web/test-runner": "npm:^0.20.0"
     "@web/test-runner-commands": "npm:^0.9.0"
@@ -7473,10 +7473,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wc-toolkit/type-parser@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@wc-toolkit/type-parser@npm:1.0.1"
-  checksum: 10c0/8e69c57d3e74c0ddf51095fea8e9762e7bc984f755f7a51656be6d4f7276a5c65208d74e5bbc5ae68078814c19e2cdb42a44140dedc4f239bcd41b08feba2f67
+"@wc-toolkit/type-parser@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@wc-toolkit/type-parser@npm:1.0.2"
+  checksum: 10c0/74eb0d597bc5159df4d774c64530214cfcd2ab468662250ce8035da0dd06aecf5d9f5b9d36be7fdb59120a3eabb32ada4cd638ee6208f2ffebcfd7d536ca9de8
   languageName: node
   linkType: hard
 

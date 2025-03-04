@@ -7,7 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { InlineMessage, type InlineMessageVariant } from './inline-message';
 
-interface Props extends Pick<InlineMessage, 'indismissible' | 'variant'> {
+interface Props extends Pick<InlineMessage, 'indismissible' | 'size' | 'variant'> {
   title: string;
   button: string;
   body: string | (() => TemplateResult);
@@ -34,15 +34,19 @@ export default {
         disable: true
       }
     },
+    size: {
+      control: 'inline-radio',
+      options: ['auto', 'sm', 'md', 'lg']
+    },
     variant: {
       control: 'inline-radio',
       options: variants
     }
   },
-  render: ({ body, button, indismissible, title, variant }) => html`
-    <sl-inline-message ?indismissible=${indismissible} variant=${ifDefined(variant)}>
+  render: ({ body, button, indismissible, size, title, variant }) => html`
+    <sl-inline-message ?indismissible=${indismissible} .size=${size ?? 'auto'} variant=${ifDefined(variant)}>
       ${title ? html`<span slot="title">${title}</span>` : nothing}
-      ${button ? html`<sl-button fill="outline" size="sm" slot="action" variant="info">${button}</sl-button>` : nothing}
+      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing}
       ${typeof body === 'string' ? body : body()}
     </sl-inline-message>
   `
@@ -135,6 +139,13 @@ export const Dynamic: Story = {
   }
 };
 
+export const Indismissible: Story = {
+  args: {
+    ...Basic.args,
+    indismissible: true
+  }
+};
+
 export const NoTitle: Story = {
   args: {
     ...Basic.args,
@@ -148,6 +159,45 @@ export const Overflow: Story = {
       'Excepteur officia qui nisi commodo ullamco labore dolor ipsum eu non Lorem. Aute enim quis sit id laboris consequat nisi esse.',
     body: 'Duis laborum consectetur mollit deserunt nostrud anim occaecat elit ipsum laborum. Ad sit in anim aliqua laborum tempor. Labore cupidatat aute magna consectetur ullamco occaecat ea nostrud velit exercitation nulla est anim.'
   }
+};
+
+export const Sizes: Story = {
+  render: ({ variant }) => html`
+    <style>
+      sl-inline-message {
+        margin-block-end: 1rem;
+      }
+    </style>
+    <sl-inline-message size="sm" variant=${ifDefined(variant)}>
+      Small inline message
+      <sl-button fill="outline" slot="action">Action</sl-button>
+    </sl-inline-message>
+    <sl-inline-message size="md" variant=${ifDefined(variant)}>
+      Medium inline message; If set explicitly (unlike auto), it will not grow automatically depending on the amount of
+      content. Sit nostrud id non commodo nostrud voluptate nostrud sunt voluptate adipisicing.
+      <sl-button fill="outline" slot="action">Action</sl-button>
+    </sl-inline-message>
+    <sl-inline-message size="lg" variant=${ifDefined(variant)}>
+      <span slot="title">Inline message title</span>
+      Large inline message
+      <sl-button fill="outline" slot="action">Action</sl-button>
+    </sl-inline-message>
+    <sl-inline-message variant=${ifDefined(variant)}>
+      Auto inline message is the same as md by default
+      <sl-button fill="outline" slot="action">Action</sl-button>
+    </sl-inline-message>
+    <sl-inline-message variant=${ifDefined(variant)}>
+      Auto inline message will grow to large if the content span more than 2 lines; Sit nostrud id non commodo nostrud
+      voluptate nostrud sunt voluptate adipisicing. Aliqua mollit eiusmod sunt enim enim tempor cillum labore commodo
+      duis.
+      <sl-button fill="outline" slot="action">Action</sl-button>
+    </sl-inline-message>
+    <sl-inline-message variant=${ifDefined(variant)}>
+      <span slot="title">Inline message title</span>
+      Auto inline message will switch to large if a title is present.
+      <sl-button fill="outline" slot="action">Action</sl-button>
+    </sl-inline-message>
+  `
 };
 
 export const CustomIcon: Story = {

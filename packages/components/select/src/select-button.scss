@@ -15,7 +15,7 @@
   min-inline-size: 0;
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding-inline-end: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
 
   @media (prefers-reduced-motion: no-preference) {
     transition: 0.2s ease-in-out;
@@ -76,8 +76,17 @@
   }
 }
 
-:host([size='lg']) div {
-  padding-block: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
+:host([size='lg']) {
+  padding-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+
+  div {
+    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
+    padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+  }
+
+  button {
+    block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
+  }
 }
 
 .placeholder {
@@ -87,7 +96,7 @@
 div {
   flex: 1;
   overflow: hidden;
-  padding-block: calc(var(--sl-size-075) - var(--sl-size-borderWidth-subtle));
+  padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
   padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
   pointer-events: none;
   text-overflow: ellipsis;
@@ -120,7 +129,7 @@ button {
   appearance: none;
   aspect-ratio: 1;
   background: transparent;
-  block-size: calc(1lh + (var(--sl-size-050) + var(--sl-size-borderWidth-subtle)) * 2);
+  block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-subtle)) * 2);
   border: 0;
   cursor: pointer;
   display: inline-grid;

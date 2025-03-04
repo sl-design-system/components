@@ -9,7 +9,7 @@ import { spy, stub } from 'sinon';
 import '../register.js';
 import { Paginator } from './paginator.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-paginator', () => {
   let el: Paginator;

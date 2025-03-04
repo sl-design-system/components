@@ -139,17 +139,20 @@ export const Dynamic: Story = {
   }
 };
 
+export const Icon: Story = {
+  args: {
+    ...Basic.args,
+    body: () => html`
+      <sl-icon slot="icon" name="face-smile"></sl-icon>
+      This example showcases how you can slot a different icon than the default one.
+    `
+  }
+};
+
 export const Indismissible: Story = {
   args: {
     ...Basic.args,
     indismissible: true
-  }
-};
-
-export const NoTitle: Story = {
-  args: {
-    ...Basic.args,
-    title: undefined
   }
 };
 
@@ -200,20 +203,10 @@ export const Sizes: Story = {
   `
 };
 
-export const CustomIcon: Story = {
-  args: {
-    ...Basic.args,
-    body: () => html`
-      <sl-icon slot="icon" name="face-smile"></sl-icon>
-      The main content of the message
-    `
-  }
-};
-
 export const All: StoryObj = {
   render: () => html`
     <style>
-      #root-inner {
+      .wrapper {
         display: flex;
         flex-direction: column;
         gap: 1rem;
@@ -224,48 +217,50 @@ export const All: StoryObj = {
         text-transform: capitalize;
       }
     </style>
-    <sl-inline-message indismissible variant="info">The main content of the message</sl-inline-message>
-    <sl-inline-message variant="info">The main content of the message</sl-inline-message>
-    <sl-inline-message variant="info">
-      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
-      The main content of the message
-    </sl-inline-message>
-    <sl-inline-message indismissible variant="info">
-      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
-      The main content of the message
-    </sl-inline-message>
-    <sl-inline-message variant="info">
-      Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
-      Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
-    </sl-inline-message>
-    <sl-inline-message variant="info">
-      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
-      Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
-      Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
-    </sl-inline-message>
-    <sl-inline-message variant="info">
-      <span slot="title">
-        "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
-      </span>
-      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
-      Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non consequat
-      eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
-    </sl-inline-message>
-    ${variants.map(
-      variant => html`
-        <sl-inline-message variant=${variant}>
-          <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
-          The main content of the message
-        </sl-inline-message>
-        <sl-inline-message variant=${variant}>
-          <span slot="title">
-            "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
-          </span>
-          <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
-          Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
-          consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
-        </sl-inline-message>
-      `
-    )}
+    <div class="wrapper">
+      <sl-inline-message indismissible>The main content of the message</sl-inline-message>
+      <sl-inline-message>The main content of the message</sl-inline-message>
+      <sl-inline-message>
+        <sl-button fill="outline" slot="action">Action</sl-button>
+        The main content of the message
+      </sl-inline-message>
+      <sl-inline-message indismissible>
+        <sl-button fill="outline" slot="action">Action</sl-button>
+        The main content of the message
+      </sl-inline-message>
+      <sl-inline-message>
+        Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
+        Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+      </sl-inline-message>
+      <sl-inline-message>
+        <sl-button fill="outline" slot="action">Action</sl-button>
+        Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
+        Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+      </sl-inline-message>
+      <sl-inline-message>
+        <span slot="title">
+          "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+        </span>
+        <sl-button fill="outline" slot="action">Action</sl-button>
+        Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
+        consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+      </sl-inline-message>
+      ${variants.map(
+        variant => html`
+          <sl-inline-message variant=${variant}>
+            <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
+            The main content of the message
+          </sl-inline-message>
+          <sl-inline-message variant=${variant}>
+            <span slot="title">
+              "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+            </span>
+            <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
+            Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
+            consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+          </sl-inline-message>
+        `
+      )}
+    </div>
   `
 };

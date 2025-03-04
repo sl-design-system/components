@@ -33,8 +33,14 @@
   }
 }
 
-:host([no-action]) [part='action'] {
-  display: none;
+:host([no-action]) {
+  [part='action'] {
+    display: none;
+  }
+
+  sl-button {
+    margin-inline-start: auto;
+  }
 }
 
 :host([no-title]) {

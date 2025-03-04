@@ -5,7 +5,7 @@ import '../register.js';
 import { GridFilterColumn } from './filter-column.js';
 import { GridFilter } from './filter.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-grid-filter', () => {
   try {

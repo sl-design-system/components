@@ -46,7 +46,8 @@ describe('sl-paginator-page-size', () => {
     });
 
     it('should have options for possible page sizes', () => {
-      const pageSizes = Array.from(el.renderRoot.querySelectorAll('sl-select-option')).map(o => o.value);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      const pageSizes = Array.from(el.renderRoot.querySelectorAll('sl-option')).map(o => o.value);
 
       expect(pageSizes).to.deep.equal([5, 10, 20]);
     });
@@ -56,7 +57,7 @@ describe('sl-paginator-page-size', () => {
     });
 
     it('should set the page size when you select a different page size', async () => {
-      el.renderRoot.querySelector('sl-select-option')?.click();
+      el.renderRoot.querySelector('sl-option')?.click();
       await el.updateComplete;
 
       expect(el.pageSize).to.equal(5);
@@ -66,7 +67,7 @@ describe('sl-paginator-page-size', () => {
       const onPageSizeChange = spy();
 
       el.addEventListener('sl-page-size-change', onPageSizeChange);
-      el.renderRoot.querySelector('sl-select-option')?.click();
+      el.renderRoot.querySelector('sl-option')?.click();
 
       expect(onPageSizeChange).to.have.been.calledOnce;
       expect(onPageSizeChange).to.have.been.calledWithMatch({ detail: 5 });

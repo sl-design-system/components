@@ -9,7 +9,7 @@ import { spy, stub } from 'sinon';
 import '../register.js';
 import { Paginator } from './paginator.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-paginator', () => {
   let el: Paginator;
@@ -99,7 +99,8 @@ describe('sl-paginator', () => {
 
     it('should have a select element with all the pages', () => {
       const select = el.renderRoot.querySelector('sl-select'),
-        options = Array.from(select?.querySelectorAll('sl-select-option') ?? []).map(o => o.value);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        options = Array.from(select?.querySelectorAll('sl-option') ?? []).map(o => o.value);
 
       expect(select).to.exist;
       expect(options).to.have.lengthOf(20);

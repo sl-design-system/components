@@ -1,11 +1,11 @@
 import { msg } from '@lit/localize';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type TemplateResult, html, nothing } from 'lit';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-clear': SlClearEvent;
     'sl-search': SlSearchEvent;
   }
 
@@ -13,8 +13,6 @@ declare global {
     'sl-search-field': SearchField;
   }
 }
-
-export type SlClearEvent = CustomEvent<void>;
 
 export type SlSearchEvent = CustomEvent<string>;
 
@@ -33,6 +31,19 @@ export class SearchField extends TextField {
   /** @internal Emits when the user presses enter. */
   @event({ name: 'sl-search' }) searchEvent!: EventEmitter<SlSearchEvent>;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+       sl-search-field:has(input:hover):not(:focus-within) {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+       }
+      `;
+    this.prepend(style);
+  }
+
   override renderPrefix(): TemplateResult {
     return html`<sl-icon name="search"></sl-icon>`;
   }
@@ -40,9 +51,9 @@ export class SearchField extends TextField {
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.value && !this.disabled
       ? html`
-          <button @click=${this.#onClick} aria-label=${msg('Clear text')}>
+          <sl-field-button @click=${this.#onClick} aria-label=${msg('Clear text')}>
             <sl-icon name="xmark"></sl-icon>
-          </button>
+          </sl-field-button>
         `
       : nothing;
   }

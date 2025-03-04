@@ -12,9 +12,9 @@ import { spy } from 'sinon';
 import '../register.js';
 import { type ToolBar, type ToolBarItemButton, type ToolBarItemDivider, type ToolBarItemGroup } from './tool-bar.js';
 
-Icon.register(faBell, faGear, fasBell, fasGear);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+Icon.register(faBell, faGear, fasBell, fasGear);
 
 describe('sl-tool-bar', () => {
   let el: ToolBar;

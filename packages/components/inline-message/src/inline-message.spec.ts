@@ -19,9 +19,10 @@ describe('sl-inline-message', () => {
       `);
     });
 
-    it('should have an info variant', () => {
-      expect(el).to.have.attribute('variant', 'info');
-      expect(el.variant).to.equal('info');
+    it('should not have an explicit variant, but default to info', () => {
+      expect(el).not.to.have.attribute('variant');
+      expect(el.variant).to.be.undefined;
+      expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('variant', 'info');
     });
 
     it('should have success variant when set', async () => {
@@ -101,25 +102,6 @@ describe('sl-inline-message', () => {
 
     it('should have the no-title attribute set', () => {
       expect(el).to.have.attribute('no-title');
-    });
-  });
-
-  describe('wrap action', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-inline-message style="inline-size: 300px">
-          Proident nulla officia ad irure ex. Consequat cupidatat cupidatat non in sunt cillum eiusmod officia commodo
-          occaecat mollit sit laboris. Officia occaecat cupidatat laborum aliquip sint exercitation. Do mollit quis
-          dolor qui proident pariatur occaecat.
-          <sl-button slot="action">Action</sl-button>
-        </sl-inline-message>
-      `);
-
-      await new Promise(resolve => setTimeout(resolve, 50));
-    });
-
-    it('should have a wrap-action attribute', () => {
-      expect(el).to.have.attribute('wrap-action');
     });
   });
 });

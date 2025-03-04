@@ -137,7 +137,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
                 aria-labelledby="tooltip"
                 ?disabled=${this.disabled}
                 size=${ifDefined(this.size)}
-                tabindex="0"
                 variant=${ifDefined(this.variant)}
               >
                 ${Math.min(this.stackSize, 99)}+

@@ -1,0 +1,51 @@
+:host {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-secondary-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  background: transparent;
+  block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-secondary-bold);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  outline: 0;
+}
+
+:host([disabled]) {
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+  pointer-events: none;
+}
+
+:host([size='lg']) {
+  block-size: calc(1lh + (var(--sl-size-175) - var(--sl-size-borderWidth-default)) * 2);
+
+  ::slotted(sl-icon) {
+    block-size: var(--sl-size-450);
+  }
+}
+
+:host(:hover) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+}
+
+:host(:active) {
+  --_bg-opacity: var(--sl-opacity-interactive-bold-active);
+}
+
+::slotted(sl-icon) {
+  aspect-ratio: 1;
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  block-size: var(--sl-size-300);
+  border-radius: var(--sl-size-borderRadius-child);
+  inline-size: auto;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 200ms ease-in-out;
+    transition-property: background, color;
+  }
+}

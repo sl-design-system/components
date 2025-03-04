@@ -41,7 +41,7 @@
     "@sl-design-system/icon": "^1.0.2"
   },
   "devDependencies": {
-    "@lit-labs/virtualizer": "^2.0.14",
+    "@lit-labs/virtualizer": "^2.1.0",
     "@open-wc/scoped-elements": "^3.0.5",
     "lit": "^3.2.1"
   },

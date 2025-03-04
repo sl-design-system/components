@@ -6,7 +6,7 @@ import { Grid } from './grid.js';
 import { GridSortColumn } from './sort-column.js';
 import { GridSorter } from './sorter.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-sort-column', () => {
   let el: Grid;

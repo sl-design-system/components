@@ -456,7 +456,12 @@ export const All: Story = {
         </tr>
       `;
     };
-    return html`<table>
+    return html` <style>
+        sl-toggle-group {
+          margin-bottom: 4px;
+        }
+      </style>
+      <table>
         <tr>
           <th>Options</th>
           <th>Enabled - sm</th>

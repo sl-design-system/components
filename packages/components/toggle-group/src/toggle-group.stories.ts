@@ -26,9 +26,9 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type ToggleGroup, ToggleGroupEmphasis, ToggleGroupFill } from './toggle-group.js';
+import { type ToggleGroup, ToggleGroupFill } from './toggle-group.js';
 
-type Props = Pick<ToggleGroup, 'disabled' | 'emphasis' | 'fill' | 'multiple' | 'shape' | 'size'> & {
+type Props = Pick<ToggleGroup, 'disabled' | 'fill' | 'multiple' | 'shape' | 'size'> & {
   slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -64,10 +64,6 @@ export default {
       control: 'inline-radio',
       options: ['md', 'lg']
     },
-    emphasis: {
-      control: 'inline-radio',
-      options: ['muted', 'subtle', 'bold']
-    },
     fill: {
       control: 'inline-radio',
       options: ['ghost', 'outline', 'solid']
@@ -80,12 +76,11 @@ export default {
       table: { disable: true }
     }
   },
-  render: ({ disabled, emphasis, fill, multiple, shape, size, slot }) => {
+  render: ({ disabled, fill, multiple, shape, size, slot }) => {
     return html`
       <sl-toggle-group
         ?disabled=${disabled}
         ?multiple=${multiple}
-        emphasis=${ifDefined(emphasis)}
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
@@ -386,11 +381,7 @@ export const AllFunctionalVariants: Story = {
 
 export const All: Story = {
   render: () => {
-    const renderRow = (options: {
-      fill: ToggleGroupFill;
-      emphasis: ToggleGroupEmphasis;
-      content?: 'button' | 'text';
-    }) => {
+    const renderRow = (options: { fill: ToggleGroupFill; content?: 'button' | 'text' }) => {
       const buttons = (buttonoptions: string[]) => {
         return html`<sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
             <sl-icon name="far-bold" slot="default"></sl-icon>
@@ -413,101 +404,52 @@ export const All: Story = {
       };
       return html`
         <tr>
-          <th>${options.emphasis} - ${options.fill}</th>
+          <th>${options.fill}</th>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)} size="sm">
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} size="sm">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              shape="pill"
-              size="sm"
-            >
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill" size="sm">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
           <td>
-            <sl-toggle-group
-              multiple
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              disabled
-              size="sm"
-            >
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="sm">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              disabled
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              shape="pill"
-              size="sm"
-            >
+            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill" size="sm">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)}>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)}>
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              shape="pill"
-            >
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)} disabled>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled>
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              disabled
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              shape="pill"
-            >
+            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
           <td>
-            <sl-toggle-group multiple fill=${ifDefined(options.fill)} emphasis=${ifDefined(options.emphasis)} size="lg">
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} size="lg">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              shape="pill"
-              size="lg"
-            >
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill" size="lg">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
           <td>
-            <sl-toggle-group
-              multiple
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              disabled
-              size="lg"
-            >
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="lg">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
-            <sl-toggle-group
-              multiple
-              disabled
-              fill=${ifDefined(options.fill)}
-              emphasis=${ifDefined(options.emphasis)}
-              shape="pill"
-              size="lg"
-            >
+            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill" size="lg">
               ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
             </sl-toggle-group>
           </td>
@@ -525,27 +467,9 @@ export const All: Story = {
           <th>Disabled - lg</th>
         </tr>
         ${renderRow({
-          emphasis: 'subtle',
           fill: 'outline'
         })}
         ${renderRow({
-          emphasis: 'bold',
-          fill: 'outline'
-        })}
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'ghost'
-        })}
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'ghost'
-        })}
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'solid'
-        })}
-        ${renderRow({
-          emphasis: 'bold',
           fill: 'solid'
         })}
       </table>
@@ -561,32 +485,10 @@ export const All: Story = {
           <th>Disabled - lg</th>
         </tr>
         ${renderRow({
-          emphasis: 'subtle',
           fill: 'outline',
           content: 'text'
         })}
         ${renderRow({
-          emphasis: 'bold',
-          fill: 'outline',
-          content: 'text'
-        })}
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'ghost',
-          content: 'text'
-        })}
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'ghost',
-          content: 'text'
-        })}
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'solid',
-          content: 'text'
-        })}
-        ${renderRow({
-          emphasis: 'bold',
           fill: 'solid',
           content: 'text'
         })}

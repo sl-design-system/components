@@ -1,7 +1,7 @@
 :host {
-  --_border-color: var(--sl-color-border-neutral-subtle);
+  --_border-color: var(--sl-color-border-bold);
   --_border-radius: var(--sl-size-borderRadius-default);
-  --_group-border-width: var(--sl-border-width-button-outline);
+  --_group-border-width: var(--sl-size-borderWidth-subtle);
   --_border-width: var(--sl-size-borderWidth-subtle);
   --_toggle-group-border: var(--_group-border-width);
   --_separator-color: var(--sl-color-button-default-outline-idle-border);
@@ -53,9 +53,8 @@
   z-index: 1;
 }
 
-:host([fill='ghost']),
 :host([fill='solid']) {
-  background-color: var(--sl-elevation-surface-raised-sunken);
+  // background-color: var(--sl-color-background-neutral-interactive-bold);
 
   --_group-border-width: var(--sl-size-borderWidth-none);
   --_border-width: var(--sl-size-borderWidth-none);

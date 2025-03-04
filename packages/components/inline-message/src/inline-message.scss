@@ -74,13 +74,12 @@ $variants: info, success, warning, danger;
 }
 
 .wrapper {
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  color: var(--_color);
+  background: var(--sl-color-background-info-subtlest);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-info-plain);
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-info-bold);
   display: grid;
-  font: var(--_description-font);
-  gap: 0 var(--_gap);
+  gap: 0 var(--sl-size-200);
   grid-template-columns: auto 1fr auto;
   padding-block: var(--_header-padding-block);
   padding-inline: var(--_padding-inline-start) var(--_padding-inline-end);

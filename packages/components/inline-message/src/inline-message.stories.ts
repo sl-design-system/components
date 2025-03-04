@@ -3,6 +3,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { InlineMessage, type InlineMessageVariant } from './inline-message';
 
@@ -39,9 +40,9 @@ export default {
     }
   },
   render: ({ body, button, indismissible, title, variant }) => html`
-    <sl-inline-message ?indismissible=${indismissible} .variant=${variant}>
+    <sl-inline-message ?indismissible=${indismissible} variant=${ifDefined(variant)}>
       ${title ? html`<span slot="title">${title}</span>` : nothing}
-      ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing}
+      ${button ? html`<sl-button fill="outline" size="sm" slot="action" variant="info">${button}</sl-button>` : nothing}
       ${typeof body === 'string' ? body : body()}
     </sl-inline-message>
   `

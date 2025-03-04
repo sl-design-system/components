@@ -48,13 +48,17 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** These are both needed for calculating the need for wrap-action */
   /** How big is the area for the text in the message without the action */
   #maxInlineSize = 0;
+
   /** The previous width of the message, to check if only the that has changed (changes in height shouldn't trigger a recheck) */
   #previousInlineSize = 0;
 
   /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
 
-  /** Will hide the close button if set. */
+  /**
+   * Will hide the close button if set.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) indismissible?: boolean;
 
   /** @internal If the action is missing, we need to hide the action part. */
@@ -63,7 +67,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal If the title is missing, the content needs to be placed where the title should be. */
   @property({ type: Boolean, attribute: 'no-title', reflect: true }) noTitle = true;
 
-  /** The variant of the inline message. */
+  /**
+   * The variant of the inline message.
+   * @default 'info'
+   */
   @property({ reflect: true }) variant: InlineMessageVariant = 'info';
 
   /** @internal Calculates the height of the title and wraps the button if longer than 1 line. */
@@ -128,7 +135,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 .variant=${this.variant}
                 aria-label=${msg('Close')}
                 fill="ghost"
-                size="lg"
+                size="sm"
               >
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>

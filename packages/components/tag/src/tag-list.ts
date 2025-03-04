@@ -51,7 +51,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
     elements: () => [
-      ...(this.stackTag ? [this.stackTag] : []),
+      ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []),
       ...(this.tags ?? []).filter(t => t.style.display !== 'none' && t.removable)
     ],
     isFocusableElement: (el: Tag) => !el.disabled
@@ -98,9 +98,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'list');
-
-    // Calculate the max inline size of the stack *before* we start the observer
-    // this.#maxStackInlineSize = await this.#getMaxStackInlineSize();
 
     this.#resizeObserver.observe(this);
   }

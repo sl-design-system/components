@@ -193,7 +193,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(entry: ResizeObserverEntry): void {
-    const lineHeight = parseInt(getComputedStyle(this).lineHeight, 10);
+    const lineHeight = parseInt(getComputedStyle(this).lineHeight);
 
     this.contentOverflow = entry.contentRect.height / lineHeight > 2;
   }

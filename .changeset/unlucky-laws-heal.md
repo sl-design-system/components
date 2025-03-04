@@ -6,4 +6,6 @@
 Incorporate the new contextual tokens and add new options:
 - add size `sm`
 - add shape `pill` | `square`
-- add emphasis `bold` | `muted` | `subtle` (muted is not available in toggle group)
+- changed fill `ghost` `to solid`
+
+Toggle button now defaults to `solid` instead of `outline` fill, to match the behaviour of the regular button.

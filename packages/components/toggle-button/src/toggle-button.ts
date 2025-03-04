@@ -14,9 +14,8 @@ declare global {
   }
 }
 
-export type ToggleButtonFill = 'ghost' | 'outline' | 'solid';
+export type ToggleButtonFill = 'outline' | 'solid';
 export type ToggleButtonSize = 'sm' | 'md' | 'lg';
-export type ToggleButtonEmphasis = 'bold' | 'subtle';
 
 /**
  * Lets the user toggle between two states.
@@ -79,10 +78,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** The size of the button. */
   @property({ reflect: true }) size?: ToggleButtonSize;
 
-  /** The size of the button. */
-  @property({ reflect: true }) emphasis?: ToggleButtonEmphasis;
-
-  /** The size of the button. */
+  /** The shape of the button. */
   @property({ reflect: true }) shape?: ButtonShape;
 
   /** @internal Emits when the button has been toggled. */

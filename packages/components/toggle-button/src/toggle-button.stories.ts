@@ -6,9 +6,9 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type ToggleButton, ToggleButtonEmphasis, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
+import { type ToggleButton, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-type Props = Pick<ToggleButton, 'disabled' | 'emphasis' | 'fill' | 'pressed' | 'shape' | 'size'> & {
+type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'shape' | 'size'> & {
   icons(): TemplateResult;
   label: string;
 };
@@ -25,10 +25,6 @@ export default {
     pressed: false
   },
   argTypes: {
-    emphasis: {
-      control: 'inline-radio',
-      options: ['muted', 'subtle', 'bold']
-    },
     fill: {
       control: 'inline-radio',
       options: ['ghost', 'outline', 'solid']
@@ -45,13 +41,12 @@ export default {
       options: ['sm', 'md', 'lg']
     }
   },
-  render: ({ disabled, emphasis, fill, icons, label, pressed, shape, size }) => {
+  render: ({ disabled, fill, icons, label, pressed, shape, size }) => {
     return html`
       <sl-toggle-button
         ?disabled=${disabled}
         ?pressed=${pressed}
         aria-label=${ifDefined(label)}
-        emphasis=${ifDefined(emphasis)}
         fill=${ifDefined(fill)}
         shape=${ifDefined(shape)}
         size=${ifDefined(size)}
@@ -113,21 +108,15 @@ export const Errors: Story = {
 
 export const All: Story = {
   render: () => {
-    const renderRow = (options: { fill: ToggleButtonFill; size: ToggleButtonSize; emphasis: ToggleButtonEmphasis }) => {
+    const renderRow = (options: { fill: ToggleButtonFill; size: ToggleButtonSize }) => {
       return html`
         <div>
-          <sl-toggle-button
-            aria-label="Show settings"
-            fill=${ifDefined(options.fill)}
-            size=${ifDefined(options.size)}
-            emphasis=${ifDefined(options.emphasis)}
-          >
+          <sl-toggle-button aria-label="Show settings" fill=${ifDefined(options.fill)} size=${ifDefined(options.size)}>
             <sl-icon name="far-gear" slot="default"></sl-icon>
             <sl-icon name="fas-gear" slot="pressed"></sl-icon>
           </sl-toggle-button>
           <sl-toggle-button
             aria-label="Show settings"
-            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
             shape="pill"
@@ -139,7 +128,6 @@ export const All: Story = {
         <div>
           <sl-toggle-button
             aria-label="Show settings"
-            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
@@ -149,7 +137,6 @@ export const All: Story = {
           </sl-toggle-button>
           <sl-toggle-button
             aria-label="Show settings"
-            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"
@@ -163,7 +150,6 @@ export const All: Story = {
           <sl-toggle-button
             aria-label="Show settings"
             disabled
-            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
           >
@@ -174,7 +160,6 @@ export const All: Story = {
             aria-label="Show settings"
             disabled
             shape="pill"
-            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             size=${ifDefined(options.size)}
           >
@@ -186,7 +171,6 @@ export const All: Story = {
           <sl-toggle-button
             aria-label="Show settings"
             disabled
-            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             size=${ifDefined(options.size)}
@@ -197,7 +181,6 @@ export const All: Story = {
           <sl-toggle-button
             aria-label="Show settings"
             disabled
-            emphasis=${ifDefined(options.emphasis)}
             fill=${ifDefined(options.fill)}
             pressed
             shape="pill"
@@ -236,113 +219,39 @@ export const All: Story = {
         <span>Disabled + pressed</span>
 
         <span style="grid-row: span 2">sm</span>
-        <span>Outline</span>
+        <span>Solid</span>
         ${renderRow({
-          emphasis: 'subtle',
-          fill: 'outline',
+          fill: 'solid',
           size: 'sm'
         })}
-        <span>Ghost</span>
+        <span>Outline</span>
         ${renderRow({
-          emphasis: 'subtle',
-          fill: 'ghost',
+          fill: 'outline',
           size: 'sm'
         })}
         <hr />
         <span style="grid-row: span 2;">md</span>
-        <span>Outline</span>
+        <span>Solid</span>
         ${renderRow({
-          emphasis: 'subtle',
-          fill: 'outline',
+          fill: 'solid',
           size: 'md'
         })}
-        <span>Ghost</span>
+        <span>Outline</span>
         ${renderRow({
-          emphasis: 'subtle',
-          fill: 'ghost',
+          fill: 'outline',
           size: 'md'
         })}
         <hr />
 
         <span style="grid-row: span 2">lg</span>
-        <span>Outline</span>
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'outline',
-          size: 'lg'
-        })}
-        <span>Ghost</span>
-        ${renderRow({
-          emphasis: 'subtle',
-          fill: 'ghost',
-          size: 'lg'
-        })}
-
-        <span style="grid-column: span 2">Bold</span>
-        <span>Idle</span>
-        <span>Pressed</span>
-        <span>Disabled</span>
-        <span>Disabled + pressed</span>
-
-        <span style="grid-row: span 3">sm</span>
-        <span>Outline</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'outline',
-          size: 'sm'
-        })}
-        <span>Ghost</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'ghost',
-          size: 'sm'
-        })}
         <span>Solid</span>
         ${renderRow({
-          emphasis: 'bold',
           fill: 'solid',
-          size: 'sm'
-        })}
-        <hr />
-
-        <span style="grid-row: span 3">md</span>
-        <span>Outline</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'outline',
-          size: 'md'
-        })}
-        <span>Ghost</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'ghost',
-          size: 'md'
-        })}
-        <span>Solid</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'solid',
-          size: 'md'
-        })}
-        <hr />
-
-        <span style="grid-row: span 3">lg</span>
-        <span>Outline</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'outline',
           size: 'lg'
         })}
-        <span>Ghost</span>
+        <span>Outline</span>
         ${renderRow({
-          emphasis: 'bold',
-          fill: 'ghost',
-          size: 'lg'
-        })}
-        <span>Solid</span>
-        ${renderRow({
-          emphasis: 'bold',
-          fill: 'solid',
+          fill: 'outline',
           size: 'lg'
         })}
       </section>

@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'emphasis' | 'fill' | 'page' | 'pageSize' | 'size' | 'totalItems' | 'width'>;
+type Props = Pick<Paginator, 'emphasis' | 'page' | 'pageSize' | 'size' | 'totalItems' | 'width'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -26,10 +26,6 @@ export default {
       control: 'inline-radio',
       options: ['subtle', 'bold']
     },
-    fill: {
-      control: 'inline-radio',
-      options: ['ghost', 'outline']
-    },
     size: {
       control: 'radio',
       options: ['sm', 'md', 'lg']
@@ -39,14 +35,13 @@ export default {
       options: ['xs', 'sm', 'md', 'lg']
     }
   },
-  render: ({ emphasis, fill, page, pageSize, size, totalItems, width }) => {
+  render: ({ emphasis, page, pageSize, size, totalItems, width }) => {
     return html`
       <sl-paginator
         .page=${page}
         .pageSize=${pageSize}
         .totalItems=${totalItems}
         emphasis=${ifDefined(emphasis)}
-        fill=${ifDefined(fill)}
         size=${ifDefined(size)}
         width=${ifDefined(width)}
       ></sl-paginator>
@@ -143,39 +138,6 @@ export const All: Story = {
               size=${size}
               width="lg"
             ></sl-paginator>
-
-            <span>Outline, width: sm</span>
-            <sl-paginator
-              @sl-page-change=${onPageChange}
-              .page=${page}
-              .pageSize=${pageSize}
-              .totalItems=${totalItems}
-              fill="outline"
-              size=${size}
-              width="sm"
-            ></sl-paginator>
-
-            <span>Outline, width: md</span>
-            <sl-paginator
-              @sl-page-change=${onPageChange}
-              .page=${page}
-              .pageSize=${pageSize}
-              .totalItems=${totalItems}
-              fill="outline"
-              size=${size}
-              width="md"
-            ></sl-paginator>
-
-            <span>Outline, width: lg</span>
-            <sl-paginator
-              @sl-page-change=${onPageChange}
-              .page=${page}
-              .pageSize=${pageSize}
-              .totalItems=${totalItems}
-              fill="outline"
-              size=${size}
-              width="lg"
-            ></sl-paginator>
           </section>
           <h3>Emphasis bold</h3>
           <section>
@@ -219,42 +181,6 @@ export const All: Story = {
               .pageSize=${pageSize}
               .totalItems=${totalItems}
               emphasis="bold"
-              size=${size}
-              width="lg"
-            ></sl-paginator>
-
-            <span>Outline, width: sm</span>
-            <sl-paginator
-              @sl-page-change=${onPageChange}
-              .page=${page}
-              .pageSize=${pageSize}
-              .totalItems=${totalItems}
-              emphasis="bold"
-              fill="outline"
-              size=${size}
-              width="sm"
-            ></sl-paginator>
-
-            <span>Outline, width: md</span>
-            <sl-paginator
-              @sl-page-change=${onPageChange}
-              .page=${page}
-              .pageSize=${pageSize}
-              .totalItems=${totalItems}
-              emphasis="bold"
-              fill="outline"
-              size=${size}
-              width="md"
-            ></sl-paginator>
-
-            <span>Outline, width: lg</span>
-            <sl-paginator
-              @sl-page-change=${onPageChange}
-              .page=${page}
-              .pageSize=${pageSize}
-              .totalItems=${totalItems}
-              emphasis="bold"
-              fill="outline"
               size=${size}
               width="lg"
             ></sl-paginator>

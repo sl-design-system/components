@@ -39,8 +39,6 @@ export type PaginatorWidth = 'xs' | 'sm' | 'md' | 'lg';
 
 export type PaginatorEmphasis = 'subtle' | 'bold';
 
-export type PaginatorVariant = 'ghost' | 'outline';
-
 /**
  * A paginator component used when there is a lot of data that needs to be shown and cannot be shown at once, in one view/page.
  * Can be used separately or together with paginator page size component and/or paginator status component.
@@ -149,12 +147,6 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Number, attribute: 'total-items' }) totalItems = 1;
 
-  /**
-   * The fill of the paginator.
-   * @default 'ghost'
-   */
-  @property({ reflect: true }) fill?: PaginatorVariant;
-
   /** @internal The index of the start of the sliding window. */
   @state() windowStart = 0;
 
@@ -204,7 +196,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         ?disabled=${this.page === 0}
         aria-label=${msg(str`Go to the previous page (${this.page})`)}
         class="nav"
-        fill=${this.fill ? this.fill : 'ghost'}
+        fill="ghost"
         size=${this.size ? this.size : 'md'}
       >
         <sl-icon name="caret-left-solid"></sl-icon>
@@ -214,7 +206,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${() => this.#onPageClick(0)}
         aria-current=${ifDefined(this.page === 0 ? 'page' : undefined)}
         class=${classMap({ current: this.page === 0, page: true })}
-        fill=${this.fill ? this.fill : 'ghost'}
+        fill="ghost"
         size=${this.size ? this.size : 'md'}
       >
         1
@@ -222,11 +214,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
       ${this.windowStart > 0
         ? html`
-            <sl-menu-button
-              aria-label=${msg('Select page number')}
-              fill=${this.fill ? this.fill : 'ghost'}
-              size=${this.size ? this.size : 'md'}
-            >
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${this.size ? this.size : 'md'}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.windowStart + 1 }).map(
                 (_, i) => html`<sl-menu-item @click=${() => this.#onPageClick(i + 1)}>${i + 2}</sl-menu-item>`
@@ -240,7 +228,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             @click=${() => this.#onPageClick(index + 1)}
             aria-current=${ifDefined(this.page === index + 1 ? 'page' : undefined)}
             class=${classMap({ current: this.page === index + 1, page: true })}
-            fill=${this.fill ? this.fill : 'ghost'}
+            fill="ghost"
             size=${this.size ? this.size : 'md'}
             style=${styleMap({
               display: index <= this.windowStart || index >= this.windowEnd ? 'none' : undefined
@@ -252,11 +240,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
       )}
       ${this.windowEnd < this.pageCount - 2
         ? html`
-            <sl-menu-button
-              aria-label=${msg('Select page number')}
-              fill=${this.fill ? this.fill : 'ghost'}
-              size=${this.size ? this.size : 'md'}
-            >
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${this.size ? this.size : 'md'}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
                 (_, i) => html`
@@ -273,7 +257,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${() => this.#onPageClick(this.pageCount - 1)}
         aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
         class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
-        fill=${this.fill ? this.fill : 'ghost'}
+        fill="ghost"
         size=${this.size ? this.size : 'md'}
       >
         ${this.pageCount}
@@ -300,7 +284,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         ?disabled=${this.page === this.pageCount - 1}
         aria-label=${msg(str`Go to the next page (${this.page + 2})`)}
         class="nav"
-        fill=${this.fill ? this.fill : 'ghost'}
+        fill="ghost"
         size=${this.size ? this.size : 'md'}
       >
         <sl-icon name="caret-right-solid"></sl-icon>

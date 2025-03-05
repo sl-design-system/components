@@ -1398,7 +1398,7 @@
             "description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.purple.700}",
+            "value": "{color.palette.purple.600}",
             "type": "color",
             "description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
           },

@@ -70,18 +70,18 @@
 
 :host([clearable]) {
   button + .status {
-    border-inline-start: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-subtle);
+    border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-neutral-subtle);
     margin-inline-start: 0;
-    padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+    padding-inline-start: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   }
 }
 
 :host([size='lg']) {
-  padding-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+  padding-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
 
   div {
-    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
-    padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+    padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
 
   button {
@@ -129,7 +129,7 @@ button {
   appearance: none;
   aspect-ratio: 1;
   background: transparent;
-  block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-subtle)) * 2);
+  block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   border: 0;
   cursor: pointer;
   display: inline-grid;

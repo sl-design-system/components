@@ -16,9 +16,9 @@
 
   &::before {
     block-size: 100%;
-    border-block-end: var(--sl-size-borderWidth-subtle) solid currentcolor;
+    border-block-end: var(--sl-size-borderWidth-default) solid currentcolor;
     border-end-start-radius: var(--sl-size-050);
-    border-inline-start: var(--sl-size-borderWidth-subtle) solid currentcolor;
+    border-inline-start: var(--sl-size-borderWidth-default) solid currentcolor;
     content: '';
     inline-size: var(--sl-size-050);
     inset: 100% auto auto 0;
@@ -28,6 +28,6 @@
 
 [part='guide'] {
   background: currentcolor;
-  inline-size: var(--sl-size-borderWidth-subtle);
+  inline-size: var(--sl-size-borderWidth-default);
   margin-inline-start: var(--sl-size-150);
 }

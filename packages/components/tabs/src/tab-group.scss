@@ -151,7 +151,7 @@
   justify-content: inherit;
   overflow: scroll clip;
   overscroll-behavior-x: contain;
-  scroll-behavior: instant;
+  scroll-behavior: auto;
   scroll-snap-points-x: repeat(100%);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;

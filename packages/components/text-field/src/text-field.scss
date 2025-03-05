@@ -2,11 +2,10 @@
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
-  --_border: var(--sl-color-border-input);
 
   align-items: center;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-input);
   border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
   color: var(--sl-color-foreground-plain);
@@ -15,32 +14,34 @@
   gap: var(--sl-size-100);
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  padding-inline-start: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
   vertical-align: middle;
 }
 
 :host([show-validity='invalid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-negative-interactive-plain);
-  --_border: var(--sl-color-border-negative-plain);
+
+  border-color: var(--sl-color-border-negative-plain);
 }
 
 :host([show-validity='valid']) {
   --_bg-color: var(--sl-color-background-input-plain);
   --_bg-mix-color: var(--sl-color-background-positive-interactive-plain);
-  --_border: var(--sl-color-border-positive-plain);
+
+  border-color: var(--sl-color-border-positive-plain);
 }
 
 :host([size='lg']) {
-  padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+  padding-inline-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
 
   ::slotted(input) {
-    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
+    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
   }
 
   .valid,
   slot[name='suffix']::slotted(:not(sl-field-button)) {
-    padding-inline-end: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
+    padding-inline-end: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
   }
 }
 
@@ -70,7 +71,7 @@
 }
 
 slot[name='suffix']::slotted(:not(sl-field-button)) {
-  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
 }
 
 slot[name='input']::slotted(input) {
@@ -83,7 +84,7 @@ slot[name='input']::slotted(input) {
   margin: 0;
   min-inline-size: 0;
   outline: none;
-  padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
+  padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
   padding-inline: 0;
 
   &:focus {
@@ -98,5 +99,5 @@ slot[name='input']::slotted(input) {
 
 .valid {
   color: var(--sl-color-foreground-positive-plain);
-  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  padding-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
 }

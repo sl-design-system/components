@@ -1,3 +1,4 @@
+// This is a generated file, do not edit. Edit the core.json or base.json files instead.
 export const icons = {
   'angle-down': {
     value: 'angle-down',

@@ -4,7 +4,6 @@ import { RovingTabindexController } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './tag-list.scss.js';
 import { Tag, type TagSize, type TagVariant } from './tag.js';
@@ -41,36 +40,46 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The maximum width of the +99 stack counter; used for calculating the (in)visible tags. */
-  #maxStackInlineSize = 0;
-
   /**
-   * Observe changes to the size of the tag-list so we can determine when to display
-   * a counter with amount of hidden tags.
+   * Observe size changes so we can determine when to display a counter
+   * with the amount of hidden tags.
    */
-  #resizeObserver = new ResizeObserver(() => this.#updateVisibility());
+  #resizeObserver = new ResizeObserver(entries => this.#onResize(entries));
 
   // /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
     elements: () => [
-      ...(this.stackTag ? [this.stackTag] : []),
+      ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []),
       ...(this.tags ?? []).filter(t => t.style.display !== 'none' && t.removable)
     ],
     isFocusableElement: (el: Tag) => !el.disabled
   });
 
-  /** The size of the tag-list (determines size of tags inside the tag-list). Defaults to `md`. */
+  /** Disables interaction with the tag list and renders the stacked tag as disabled. */
+  @property({ type: Boolean }) disabled?: boolean;
+
+  /**
+   * The size of the tag-list (determines size of tags inside the tag-list).
+   * @default 'md'
+   */
   @property() size?: TagSize;
+
+  /** @internal The stack element. */
+  @query('.stack') stack?: HTMLElement;
+
+  /** @internal The inline size of the stack element. */
+  stackInlineSize = 0;
 
   /**
    * This will hide tags that do not fit inside the available space when set. It will also
    * display a counter that indicates the number of hidden tags.
+   * @default false
    */
   @property({ type: Boolean, reflect: true }) stacked?: boolean;
 
-  /** @internal The number of stacked tags. Applicable only in the `stacked` version. */
+  /** @internal The number of stacked tags. Applicable only when `stacked` is set. */
   @state() stackSize = 0;
 
   /** @internal The tag used to display the stack. */
@@ -85,13 +94,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) variant?: TagVariant;
 
-  override async connectedCallback(): Promise<void> {
+  override connectedCallback(): void {
     super.connectedCallback();
 
     this.setAttribute('role', 'list');
-
-    // Calculate the max inline size of the stack *before* we start the observer
-    this.#maxStackInlineSize = await this.#getMaxStackInlineSize();
 
     this.#resizeObserver.observe(this);
   }
@@ -109,8 +115,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       this.tags?.forEach(tag => (tag.size = this.size));
     }
 
-    if (changes.has('stacked') && !this.stacked) {
-      this.tags.forEach(tag => (tag.style.display = ''));
+    if (changes.has('stacked')) {
+      if (this.stacked && this.stack) {
+        this.#resizeObserver.observe(this.stack);
+      } else {
+        this.tags.forEach(tag => (tag.style.display = ''));
+      }
     }
 
     if (changes.has('variant')) {
@@ -120,16 +130,16 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      ${this.stacked && this.stackSize > 0
+      ${this.stacked
         ? html`
-            <div class=${classMap({ stack: true, double: this.stackSize === 2, triple: this.stackSize >= 3 })}>
+            <div class="stack">
               <sl-tag
                 aria-labelledby="tooltip"
+                ?disabled=${this.disabled}
                 size=${ifDefined(this.size)}
-                tabindex="0"
                 variant=${ifDefined(this.variant)}
               >
-                ${this.stackSize > 99 ? '+99' : this.stackSize}
+                +${this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
                 ${msg('List of hidden elements')}:
@@ -145,6 +155,15 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>
     `;
+  }
+
+  #onResize(entries: ResizeObserverEntry[]): void {
+    const stackEntry = entries.find(entry => entry.target === this.stack);
+    if (stackEntry) {
+      this.stackInlineSize = stackEntry.contentRect.width;
+    }
+
+    this.#updateVisibility();
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -164,20 +183,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #updateVisibility(): void {
-    if (!this.stacked || !this.tags) {
+    if (!this.stacked || !this.stack || !this.tags) {
       return;
-    }
-
-    // Hide the stack element while we calculate the visibility of the tags
-    const stack = this.renderRoot.querySelector<HTMLElement>('.stack');
-    if (stack) {
-      stack.style.display = 'none';
     }
 
     // Reset visibility of all tags
     this.tags.forEach(tag => (tag.style.display = ''));
 
-    const gap = parseInt(getComputedStyle(this).getPropertyValue('--_gap') || '0'),
+    const gap = parseInt(getComputedStyle(this).gap),
       sizes = this.tags.map(t => t.getBoundingClientRect().width);
 
     // Calculate the total width of all tags
@@ -189,7 +202,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // We only need to determine visibility if there isn't enough space
     if (totalTagsWidth > availableWidth) {
       // Take the stack into account if there isn't enough space
-      availableWidth -= this.#maxStackInlineSize + gap;
+      availableWidth -= this.stackInlineSize + gap;
 
       for (let i = 0; i < this.tags.length; i++) {
         totalTagsWidth -= sizes[i] + gap;
@@ -201,33 +214,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    // Reset the stack element visibility
-    if (stack) {
-      stack.style.display = '';
-    }
-
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
+    this.stack.style.display = this.stackSize === 0 ? 'none' : '';
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
     this.#rovingTabindexController.clearElementCache();
-  }
-
-  /** This returns the max inline size of the stack (so with a stack size of > 99). */
-  async #getMaxStackInlineSize(): Promise<number> {
-    const oldStackSize = this.stackSize;
-
-    // Set max stack size and wait for the browser to update the DOM
-    this.stackSize = 100;
-    await new Promise(resolve => requestAnimationFrame(resolve));
-
-    // Get the max inline size of the stack
-    const maxStackInlineSize = this.renderRoot.querySelector('.stack')?.getBoundingClientRect()?.width ?? 0;
-
-    // Restore the stack size and wait for the browser to update the DOM
-    this.stackSize = oldStackSize;
-    await new Promise(resolve => requestAnimationFrame(resolve));
-
-    return maxStackInlineSize;
   }
 }

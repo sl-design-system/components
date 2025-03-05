@@ -11,8 +11,6 @@
   border-radius: var(--_border-radius);
   display: inline-flex;
   gap: var(--_border-width);
-
-  // background-color: red;
 }
 
 :host([disabled]) {

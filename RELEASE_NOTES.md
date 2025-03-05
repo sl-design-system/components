@@ -19,6 +19,7 @@ This greatly simplifies the theming system and makes it easier to create new the
 - button-bar
 - checkbox
 - form
+- inline-message
 - radio-group
 - menu
 - number-field
@@ -50,7 +51,7 @@ This release includes the last fixes for the issues reported in the accessibilit
 
 - `@sl-design-system/badge` has a new `color` property that replaces the (now deprecated) `variant` property.
 
-- `@sl-design-system/breadcrumbs` add a new `inverted` property. Use this if you need to display breadcrumbs on a dark background.
+- `@sl-design-system/breadcrumbs` adds a new `inverted` property. Use this if you need to display breadcrumbs on a dark background.
 
 - `@sl-design-system/button` has a new `shape` property that allows for rounded buttons using the `pill` value. It also has a new `inverted` variant for when a button is used in a dark background (or light, depending on light/dark mode). The `default` variant has been renamed to `secondary`. Since this was the default value of the `variant` property, it is not considered a breaking change.
 
@@ -59,6 +60,8 @@ This release includes the last fixes for the issues reported in the accessibilit
 - `@sl-design-system/format-number` provides a new `<sl-format-number>` utility component based on the (Intl.NumberFormat)[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat] API. This component allows you to format numbers in a variety of ways, including currency, percentage, and more.
 
 - `@sl-design-system/grid` includes improvements to horizontal scrolling and allows for sticky columns at the end of the grid.
+
+- `@sl-design-system/inline-message` now has a `size` property that goes down to `sm`. By default the component will automatically switch between `md` and `lg` based on the content.
 
 - `@sl-design-system/number-field` provides the new `<sl-number-field>` component for inputting numbers. Use this when you specifically need to input numbers, and not text. This component provides a number of features, including validation, min/max values, and more.
 

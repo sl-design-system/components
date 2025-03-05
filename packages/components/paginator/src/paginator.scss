@@ -63,6 +63,7 @@
 :host([emphasis='bold']) .current {
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
 
   color: var(--sl-color-foreground-primary-onBold);
 }

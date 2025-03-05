@@ -5,7 +5,7 @@ import '../register.js';
 import { type Listbox, type ListboxItem } from './listbox.js';
 import { type Option } from './option.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-listbox', () => {
   let el: Listbox;

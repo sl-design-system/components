@@ -110,7 +110,7 @@ describe('sl-tag', () => {
       const tag = el.renderRoot.querySelector('sl-tag');
 
       expect(tag).to.exist;
-      expect(tag).to.have.trimmed.text('7+');
+      expect(tag).to.have.trimmed.text('+7');
     });
 
     it('should not have a stack when there is enough space', async () => {
@@ -123,12 +123,12 @@ describe('sl-tag', () => {
     it('should update the stack size when a tag is removed', async () => {
       const tag = el.renderRoot.querySelector('sl-tag');
 
-      expect(tag).to.have.trimmed.text('7+');
+      expect(tag).to.have.trimmed.text('+7');
 
       el.querySelector('sl-tag:last-child')?.remove();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(tag).to.have.trimmed.text('6+');
+      expect(tag).to.have.trimmed.text('+6');
     });
   });
 });

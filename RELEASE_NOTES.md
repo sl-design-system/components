@@ -12,7 +12,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 
 This release adds new contextual tokens for all themes. The old tokens are still here and are still in use. When the old tokens are no longer used throughout the design system, they will be removed.
 
-If you are using our old tokens, now is the time to start using the new tokens! Please contact us if you have any question about this topic.
+If you are using our old tokens, now is the time to start using the new tokens! Please contact us if you have any questions about the new tokens.
 
 This greatly simplifies the theming system and makes it easier to create new themes & maintain existing ones. Some components have already been refactored to use the new tokens. These include:
 - badge
@@ -25,6 +25,7 @@ This greatly simplifies the theming system and makes it easier to create new the
 - radio-group
 - menu
 - number-field
+- paginator
 - search-field
 - select
 - switch

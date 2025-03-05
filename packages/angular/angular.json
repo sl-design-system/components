@@ -40,6 +40,7 @@
             "browserTarget": "angular:build-storybook",
             "ci": true,
             "compodoc": false,
+            "experimentalZoneless": true,
             "open": false,
             "port": 6007
           }
@@ -49,6 +50,7 @@
           "options": {
             "browserTarget": "angular:build-storybook",
             "compodoc": false,
+            "experimentalZoneless": true,
             "outputDir": "../../dist/angular",
             "quiet": true
           }

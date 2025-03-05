@@ -21,7 +21,7 @@ interface NestedDataNode {
   children?: NestedDataNode[];
 }
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 const flatData: FlatDataNode[] = [
   {

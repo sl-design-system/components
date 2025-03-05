@@ -836,7 +836,7 @@
       },
       "neutral": {
         "subtle": {
-          "value": "{color.background.accent.grey.subtle}",
+          "value": "{color.palette.grey.100}",
           "type": "color",
           "description": "Use for subtle borders on color.background.neutral background colors."
         },
@@ -853,7 +853,7 @@
       },
       "info": {
         "subtle": {
-          "value": "{color.background.accent.blue.subtle}",
+          "value": "{color.palette.blue.100}",
           "type": "color",
           "description": "Use for subtle borders on color.background.info background colors."
         },
@@ -1015,7 +1015,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.palette.grey.100}",
+        "value": "{color.background.accent.grey.subtlest}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1120,7 +1120,7 @@
       },
       "neutral": {
         "subtlest": {
-          "value": "{color.background.accent.grey.subtlest}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "The subtlest background in the neutral action color."
         },
@@ -1136,7 +1136,7 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.grey.interactive.bold}",
+            "value": "{color.palette.grey.600}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1615,7 +1615,7 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700}, {opacity.subtle})",
+          "color": "rgba({color.palette.grey.900}, {opacity.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1650,6 +1650,20 @@
         },
         "active": {
           "value": "25%",
+          "type": "opacity"
+        }
+      },
+      "reversed": {
+        "idle": {
+          "value": "80%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "90%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "100%",
           "type": "opacity"
         }
       }

@@ -735,17 +735,19 @@
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/text-field.js |
+| Kind | Name | Declaration | Module | Package               |
+| ---- | ---- | ----------- | ------ | --------------------- |
+| `js` | `*`  | *           |        | ./src/field-button.js |
+| `js` | `*`  | *           |        | ./src/text-field.js   |
 
 # `../packages/components/text-field/register.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-text-field` | TextField   | /packages/components/text-field/src/text-field.js |         |
+| Kind                        | Name              | Declaration | Module                                              | Package |
+| --------------------------- | ----------------- | ----------- | --------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-field-button` | FieldButton | /packages/components/text-field/src/field-button.js |         |
+| `custom-element-definition` | `sl-text-field`   | TextField   | /packages/components/text-field/src/text-field.js   |         |
 
 # `../packages/components/toggle-button/index.ts`:
 
@@ -4469,13 +4471,14 @@
 
 ### Fields
 
-| Name       | Privacy | Type                           | Default     | Description                                                          | Inherited From |
-| ---------- | ------- | ------------------------------ | ----------- | -------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined`         |             | Whether the button is disabled; when set no interaction is possible. |                |
-| `fill`     |         | `ButtonFill`                   | `'outline'` | The fill of the button.                                              |                |
-| `position` |         | `PopoverPosition \| undefined` |             | The position of the menu relative to the button.                     |                |
-| `size`     |         | `ButtonSize \| undefined`      | `'md'`      | The size of the button.                                              |                |
-| `variant`  |         | `ButtonVariant \| undefined`   | `secondary` | The variant of the button.                                           |                |
+| Name       | Privacy | Type                           | Default          | Description                                                          | Inherited From |
+| ---------- | ------- | ------------------------------ | ---------------- | -------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`         | `false`          | Whether the button is disabled; when set no interaction is possible. |                |
+| `fill`     |         | `ButtonFill`                   | `'outline'`      | The fill of the button.                                              |                |
+| `position` |         | `PopoverPosition \| undefined` | `'bottom-start'` | The position of the menu relative to the button.                     |                |
+| `shape`    |         | `ButtonShape \| undefined`     | `'square'`       | The shape of the button.                                             |                |
+| `size`     |         | `ButtonSize \| undefined`      | `'md'`           | The size of the button.                                              |                |
+| `variant`  |         | `ButtonVariant \| undefined`   | `'secondary'`    | The variant of the button.                                           |                |
 
 ### Methods
 
@@ -4492,6 +4495,7 @@
 | `disabled`      | disabled |                |
 | `fill`          | fill     |                |
 | `position`      | position |                |
+| `shape`         | shape    |                |
 | `size`          | size     |                |
 | `variant`       | variant  |                |
 
@@ -4823,11 +4827,13 @@
 | `onFocus`                       | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             | TextField      |
 | `onInput`                       | protected |                                                                                                                                                                                                                                                 | `{ target }: Event & { target: HTMLInputElement }` | `void`                             | TextField      |
 | `onKeydown`                     | protected |                                                                                                                                                                                                                                                 | `event: KeyboardEvent`                             | `void`                             | TextField      |
+| `onPrefixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `onSlotChange`                  | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `onSuffixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   | TextField      |
 | `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   | TextField      |
 | `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` | TextField      |
-| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` | TextField      |
+| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` | TextField      |
 | `reportValidity`                |           | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                                    | `boolean`                          | TextField      |
 | `setAttributesTarget`           |           |                                                                                                                                                                                                                                                 | `target: Element`                                  | `void`                             | TextField      |
 | `setCustomValidity`             |           | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>`               | `void`                             | TextField      |
@@ -4851,10 +4857,10 @@
 | Name              | Field          | Inherited From |
 | ----------------- | -------------- | -------------- |
 | `format-options`  | formatOptions  |                |
-| `step-buttons`    | stepButtons    |                |
 | `max`             | max            |                |
 | `min`             | min            |                |
 | `step`            | step           |                |
+| `step-buttons`    | stepButtons    |                |
 | `valueAsNumber`   | valueAsNumber  |                |
 | `locale`          | locale         | LocaleMixin    |
 | `custom-validity` | customValidity | TextField      |
@@ -5522,11 +5528,13 @@
 | `onFocus`                       | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             | TextField      |
 | `onInput`                       | protected |                                                                                                                                                                                                                                                 | `{ target }: Event & { target: HTMLInputElement }` | `void`                             | TextField      |
 | `onKeydown`                     | protected |                                                                                                                                                                                                                                                 | `event: KeyboardEvent`                             | `void`                             | TextField      |
+| `onPrefixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `onSlotChange`                  | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `onSuffixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
 | `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   | TextField      |
 | `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   | TextField      |
 | `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult`                   | TextField      |
-| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` | TextField      |
+| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` | TextField      |
 | `reportValidity`                |           | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                                    | `boolean`                          | TextField      |
 | `setAttributesTarget`           |           |                                                                                                                                                                                                                                                 | `target: Element`                                  | `void`                             | TextField      |
 | `setCustomValidity`             |           | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>`               | `void`                             | TextField      |
@@ -6631,10 +6639,11 @@
 
 ### Fields
 
-| Name        | Privacy | Type                         | Default | Description                                                   | Inherited From |
-| ----------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------- | -------------- |
-| `alignTabs` |         | `TabsAlignment \| undefined` |         | The alignment of tabs within the wrapper.                     |                |
-| `vertical`  |         | `boolean \| undefined`       |         | Renders the tabs vertically instead of the default horizontal |                |
+| Name         | Privacy | Type                          | Default    | Description                                                                                                                                                                                                                                                                  | Inherited From |
+| ------------ | ------- | ----------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `activation` |         | `TabsActivation \| undefined` | `'manual'` | Determines when the contents of a tab is shown. Auto means the contents will be&#xA;shown when the tab is focused. Manual means the user has to activate the tab first&#xA;by clicking or using the keyboard.&#xA;&#xA;For backwards compatibility, the default is 'manual'. |                |
+| `alignTabs`  |         | `TabsAlignment \| undefined`  | `'start'`  | The alignment of tabs within the wrapper.                                                                                                                                                                                                                                    |                |
+| `vertical`   |         | `boolean \| undefined`        | `false`    | Renders the tabs vertically instead of the default horizontal.                                                                                                                                                                                                               |                |
 
 ### Events
 
@@ -6644,10 +6653,11 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align-tabs` | alignTabs |                |
-| `vertical`   | vertical  |                |
+| Name         | Field      | Inherited From |
+| ------------ | ---------- | -------------- |
+| `activation` | activation |                |
+| `align-tabs` | alignTabs  |                |
+| `vertical`   | vertical   |                |
 
 ### CSS Properties
 
@@ -6734,11 +6744,11 @@
 
 ### Fields
 
-| Name       | Privacy | Type                   | Default | Description                                                                                                                                                       | Inherited From |
-| ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined` |         | Whether the tab item is disabled.                                                                                                                                 |                |
-| `href`     |         | `string \| undefined`  |         | When set, it will render the tab contents in a link tag. Use this when you want to render the tab contents using a router and to make the tab navigatable by URL. |                |
-| `selected` |         | `boolean \| undefined` |         | Whether the tab item is selected.                                                                                                                                 |                |
+| Name       | Privacy | Type                   | Default | Description                                                                                                                                                             | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined` |         | Whether the tab item is disabled.                                                                                                                                       |                |
+| `href`     |         | `string \| undefined`  |         | When set, it will render the tab contents in a link tag. Use this when you&#xA;want to render the tab contents using a router and to make the tab&#xA;navigable by URL. |                |
+| `selected` |         | `boolean \| undefined` | `false` | Indicates if this tab is selected.                                                                                                                                      |                |
 
 ### Attributes
 
@@ -7007,6 +7017,52 @@
 | ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
 | `js` | `TextArea` | TextArea    | /Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts |         |
 
+# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.scss.ts |         |
+
+# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.ts`:
+
+## class: `FieldButton`, `sl-field-button`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                           | Default | Description                                                                                                                      | Inherited From |
+| ---------- | ------- | ------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`         |         | Determines if the button is disabled.                                                                                            |                |
+| `size`     |         | `FieldButtonSize \| undefined` | `'md'`  | The size of the field button. The size will automatically be set&#xA;when the component is embedded/slotted inside a text field. |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled |                |
+| `size`     | size     |                |
+
+### Slots
+
+| Name      | Description               |
+| --------- | ------------------------- |
+| `default` | Add an icon to the button |
+
+<hr/>
+
+## Exports
+
+| Kind | Name          | Declaration | Module                                                                                          | Package |
+| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FieldButton` | FieldButton | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.ts |         |
+
 # `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts`:
 
 ## Exports
@@ -7076,11 +7132,13 @@
 | `onFocus`                       | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             |                        |
 | `onInput`                       | protected |                                                                                                                                                                                                                                                 | `{ target }: Event & { target: HTMLInputElement }` | `void`                             |                        |
 | `onKeydown`                     | protected |                                                                                                                                                                                                                                                 | `event: KeyboardEvent`                             | `void`                             |                        |
+| `onPrefixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                        |
 | `onSlotChange`                  | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                        |
+| `onSuffixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                        |
 | `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   |                        |
 | `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   |                        |
 | `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` |                        |
-| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` |                        |
+| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` |                        |
 | `reportValidity`                |           | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                                    | `boolean`                          | FormControlMixin       |
 | `setAttributesTarget`           |           |                                                                                                                                                                                                                                                 | `target: Element`                                  | `void`                             | ObserveAttributesMixin |
 | `setCustomValidity`             |           | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>`               | `void`                             | FormControlMixin       |
@@ -7170,12 +7228,14 @@
 
 ### Fields
 
-| Name       | Privacy | Type                            | Default | Description                                                                                                           | Inherited From |
-| ---------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined`          |         | Whether the button is disabled; when set no interaction is possible.                                                  |                |
-| `fill`     |         | `ToggleButtonFill \| undefined` |         | The variant of the toggle-button.                                                                                     |                |
-| `pressed`  |         | `boolean`                       | `false` | The pressed state of the button. Set the default value, so the&#xA;\`aria-pressed` attribute is added to the element. |                |
-| `size`     |         | `ToggleButtonSize \| undefined` |         | The size of the button.                                                                                               |                |
+| Name       | Privacy | Type                                | Default | Description                                                                                                           | Inherited From |
+| ---------- | ------- | ----------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`              |         | Whether the button is disabled; when set no interaction is possible.                                                  |                |
+| `emphasis` |         | `ToggleButtonEmphasis \| undefined` |         | The size of the button.                                                                                               |                |
+| `fill`     |         | `ToggleButtonFill \| undefined`     |         | The variant of the toggle-button.                                                                                     |                |
+| `pressed`  |         | `boolean`                           | `false` | The pressed state of the button. Set the default value, so the&#xA;\`aria-pressed` attribute is added to the element. |                |
+| `shape`    |         | `ButtonShape \| undefined`          |         | The size of the button.                                                                                               |                |
+| `size`     |         | `ToggleButtonSize \| undefined`     |         | The size of the button.                                                                                               |                |
 
 ### Events
 
@@ -7191,6 +7251,8 @@
 | `fill`     | fill     |                |
 | `pressed`  | pressed  |                |
 | `size`     | size     |                |
+| `emphasis` | emphasis |                |
+| `shape`    | shape    |                |
 
 ### Slots
 
@@ -7227,11 +7289,14 @@
 
 ### Fields
 
-| Name       | Privacy | Type                            | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       | Inherited From |
-| ---------- | ------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined`          |         | If set, will disable all buttons in the group.                                                                                                                                                                                                                                                                                                                                                    |                |
-| `multiple` |         | `boolean \| undefined`          |         | By default, only a single toggle button inside the group can be active.&#xA;This means that the group will automatically deactivate the other buttons when one is toggled.&#xA;&#xA;When set to true multiple buttons can be active at the same time.&#xA;In this case the group does nothing when a button is toggled.&#xA;Use this mode if you want to handle the toggling of buttons yourself. |                |
-| `size`     |         | `ToggleButtonSize \| undefined` |         | Determines the size of all buttons in the group.                                                                                                                                                                                                                                                                                                                                                  |                |
+| Name       | Privacy | Type                               | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       | Inherited From |
+| ---------- | ------- | ---------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`             |         | If set, will disable all buttons in the group.                                                                                                                                                                                                                                                                                                                                                    |                |
+| `emphasis` |         | `ToggleGroupEmphasis \| undefined` |         | The emphasis of the group.                                                                                                                                                                                                                                                                                                                                                                        |                |
+| `fill`     |         | `ToggleGroupFill \| undefined`     |         | The variant of the toggle-group.                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `multiple` |         | `boolean \| undefined`             |         | By default, only a single toggle button inside the group can be active.&#xA;This means that the group will automatically deactivate the other buttons when one is toggled.&#xA;&#xA;When set to true multiple buttons can be active at the same time.&#xA;In this case the group does nothing when a button is toggled.&#xA;Use this mode if you want to handle the toggling of buttons yourself. |                |
+| `shape`    |         | `ToggleGroupShape \| undefined`    |         | The shaoe of the group.                                                                                                                                                                                                                                                                                                                                                                           |                |
+| `size`     |         | `ToggleGroupSize \| undefined`     |         | Determines the size of all buttons in the group.                                                                                                                                                                                                                                                                                                                                                  |                |
 
 ### Attributes
 
@@ -7240,6 +7305,9 @@
 | `disabled` | disabled |                |
 | `multiple` | multiple |                |
 | `size`     | size     |                |
+| `emphasis` | emphasis |                |
+| `shape`    | shape    |                |
+| `fill`     | fill     |                |
 
 ### Slots
 

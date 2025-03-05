@@ -463,7 +463,7 @@
     "@types/sinon": "^17.0.4",
     "@wc-toolkit/cem-inheritance": "^1.0.0",
     "@wc-toolkit/cem-utilities": "^1.0.2",
-    "@wc-toolkit/type-parser": "^1.0.2",
+    "@wc-toolkit/type-parser": "^1.0.3",
     "@web/dev-server-esbuild": "^1.0.4",
     "@web/test-runner": "^0.20.0",
     "@web/test-runner-commands": "^0.9.0",

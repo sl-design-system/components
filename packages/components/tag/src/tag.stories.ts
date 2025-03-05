@@ -5,8 +5,9 @@ import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
 import { type Tag } from './tag.js';
 
-type Props = Pick<Tag, 'disabled' | 'label' | 'removable' | 'size' | 'variant'> & {
+type Props = Pick<Tag, 'disabled' | 'removable' | 'size' | 'variant'> & {
   maxWidth?: string;
+  text: string;
 };
 type Story = StoryObj<Props>;
 
@@ -27,19 +28,9 @@ export default {
     }
   },
   args: {
-    label: 'Tag label'
+    text: 'Tag label'
   },
-  // argTypes: {
-  //   size: {
-  //     control: 'inline-radio',
-  //     options: ['md', 'lg']
-  //   },
-  //   variant: {
-  //     control: 'inline-radio',
-  //     options: ['default', 'info']
-  //   }
-  // },
-  render: ({ disabled, label, maxWidth, removable, size, variant }) => html`
+  render: ({ disabled, maxWidth, removable, size, text, variant }) => html`
     <sl-tag
       ?disabled=${disabled}
       ?removable=${removable}
@@ -47,7 +38,7 @@ export default {
       style=${styleMap({ maxWidth })}
       variant=${ifDefined(variant)}
     >
-      ${label}
+      ${text}
     </sl-tag>
   `
 } satisfies Meta<Props>;
@@ -68,8 +59,8 @@ export const Info: Story = {
 
 export const Overflow: Story = {
   args: {
-    label: 'This is a very long label which overflows',
-    maxWidth: '200px'
+    maxWidth: '200px',
+    text: 'This is a very long label which overflows'
   }
 };
 

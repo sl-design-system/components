@@ -13,30 +13,15 @@ export default {
     methodAndFieldPlugin('method'),
     methodAndFieldPlugin('field'),
     sortMembersPlugin(),
-    typeParserPlugin({ debug: true })
+    typeParserPlugin()
   ],
 
   // Give the plugin access to the TypeScript type checker
   overrideModuleCreation({ts, globs}) {
-    console.log(globs);
-
     const program = getTsProgram(ts, globs, 'tsconfig.base.json');
 
     return program
       .getSourceFiles()
-      // .filter((sf) => globs.find((glob) => sf.fileName.includes(glob)));
-      .filter(sf => globs.find(glob => sf.fileName.includes(glob.replace('../',''))))
-      .map(sf => {
-        console.log(sf.fileName);
-        return sf;
-      })
-  },
-
-  /** Overrides default module creation: */
-  // overrideModuleCreation: ({ ts, globs }) => {
-    //   const program = getTsProgram(ts, globs, 'tsconfig.cem.json');
-
-    //   return program.getSourceFiles()
-    //     .filter(sf => globs.find(glob => sf.fileName.includes(glob.replace('../',''))));
-  // }
+      .filter(sf => globs.find((glob) => sf.fileName.includes(glob)));
+  }
 }

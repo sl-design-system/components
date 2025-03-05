@@ -1,6 +1,6 @@
 import { setCustomElementsManifest, type Preview } from '@storybook/web-components';
 import '@oddbird/popover-polyfill';
-import { getComponentByTagName, getComponentPublicProperties } from '@wc-toolkit/cem-utilities';
+import { getComponentByTagName, getComponentPublicProperties, removeQuotes } from '@wc-toolkit/cem-utilities';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
@@ -97,10 +97,11 @@ const preview: Preview = {
           .map(property => {
             console.log(property);
 
-            const { name, description, type, default: defaultValue } = property;
+            const { name, description, type, default: defaultValue, parsedType } = property;
 
             let
               control = 'object',
+              options: any[] | undefined = undefined,
               required = false,
               sbType = type?.text;
 
@@ -116,6 +117,16 @@ const preview: Preview = {
               control = 'text';
             }
 
+            if ((parsedType as { text: string })?.text) {
+              const types = (parsedType as { text: string }).text
+                .split(' | ')
+                .filter(type => type !== 'undefined')
+                .map(type => removeQuotes(type));
+
+              control = types.length > 3 ? 'select' : 'inline-radio';
+              options = types;
+            }
+
             return {
               name,
               description,
@@ -123,6 +134,8 @@ const preview: Preview = {
               control: {
                 type: control
               },
+              options,
+              defaultValue: '',
               type: { name: sbType },
               table: {
                 category: 'Properties',

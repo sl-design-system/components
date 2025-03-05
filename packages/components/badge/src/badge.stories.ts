@@ -74,12 +74,18 @@ export const Round: Story = {
 };
 
 export const Variant: Story = {
+  args: {
+    size: 'lg'
+  },
   render: ({ emphasis, size }) => html`
     <style>
       div {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
+      }
+      sl-badge {
+        text-transform: capitalize;
       }
     </style>
     <p>

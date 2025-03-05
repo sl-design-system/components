@@ -64,7 +64,7 @@
   --_bg-color: var(--sl-color-background-selected-bold);
   --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
 
-  color: var(--sl-color-foreground-selected-onBold);
+  color: var(--sl-color-foreground-primary-onBold);
 }
 
 :host([emphasis='bold']) .current:not(:hover, :active) {

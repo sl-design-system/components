@@ -134,6 +134,7 @@
 
 ::slotted(label) {
   cursor: pointer;
+  display: contents;
 }
 
 [part='outer'] {

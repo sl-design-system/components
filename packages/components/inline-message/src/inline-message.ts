@@ -44,6 +44,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Timer used for breaking a possible resize observer loop. */
+  #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
+
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
@@ -94,7 +97,13 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * The size of the inline message.
+   * The size of the inline message. By default this is set to `'auto'` which means the component
+   * will automatically determine the size based on the content. If the content spans more than 2
+   * lines, the size will be set to `'lg'`. If a title is present, the size will be set to `'lg'`.
+   * Otherwise the size will be set to `'md'`.
+   * If you want to explicitly set the size the `'sm'`, `'md'`, or `'lg'`, you can do so. But beware
+   * that some sizes may not work well with the content. `'sm'` and `'md'` for example are not meant
+   * to be used with a title.
    * @default 'auto'
    */
   @property({ reflect: true })
@@ -116,6 +125,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
+
+    if (this.#breakResizeObserverLoop) {
+      clearTimeout(this.#breakResizeObserverLoop);
+      this.#breakResizeObserverLoop = undefined;
+    }
 
     super.disconnectedCallback();
   }
@@ -193,9 +207,15 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(entry: ResizeObserverEntry): void {
-    const lineHeight = parseInt(getComputedStyle(this).lineHeight);
+    const lineHeight = parseInt(getComputedStyle(this).lineHeight),
+      contentOverflow = entry.contentRect.height / lineHeight > 2;
 
-    this.contentOverflow = entry.contentRect.height / lineHeight > 2;
+    if (this.#breakResizeObserverLoop) {
+      return;
+    } else {
+      this.contentOverflow = contentOverflow;
+      this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
+    }
   }
 
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {

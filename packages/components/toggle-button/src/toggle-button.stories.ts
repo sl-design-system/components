@@ -6,9 +6,9 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type ToggleButton } from './toggle-button.js';
+import { type ToggleButton, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'size'> & {
+type Props = Pick<ToggleButton, 'disabled' | 'fill' | 'pressed' | 'shape' | 'size'> & {
   icons(): TemplateResult;
   label: string;
 };
@@ -27,23 +27,28 @@ export default {
   argTypes: {
     fill: {
       control: 'inline-radio',
-      options: ['ghost', 'outline']
+      options: ['outline', 'solid']
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['pill', 'square']
     },
     icons: {
       table: { disable: true }
     },
     size: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: ['sm', 'md', 'lg']
     }
   },
-  render: ({ disabled, fill, icons, label, pressed, size }) => {
+  render: ({ disabled, fill, icons, label, pressed, shape, size }) => {
     return html`
       <sl-toggle-button
         ?disabled=${disabled}
         ?pressed=${pressed}
         aria-label=${ifDefined(label)}
         fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
         size=${ifDefined(size)}
       >
         ${icons?.()}
@@ -103,102 +108,154 @@ export const Errors: Story = {
 
 export const All: Story = {
   render: () => {
+    const renderRow = (options: { fill: ToggleButtonFill; size: ToggleButtonSize }) => {
+      return html`
+        <div>
+          <sl-toggle-button aria-label="Show settings" fill=${ifDefined(options.fill)} size=${ifDefined(options.size)}>
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+            shape="pill"
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            pressed
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            fill=${ifDefined(options.fill)}
+            pressed
+            shape="pill"
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            shape="pill"
+            fill=${ifDefined(options.fill)}
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+        <div>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            fill=${ifDefined(options.fill)}
+            pressed
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button
+            aria-label="Show settings"
+            disabled
+            fill=${ifDefined(options.fill)}
+            pressed
+            shape="pill"
+            size=${ifDefined(options.size)}
+          >
+            <sl-icon name="far-gear" slot="default"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        </div>
+      `;
+    };
     return html`
       <style>
         section {
           align-items: center;
           align-self: start;
           display: inline-grid;
-          gap: 1rem 2rem;
-          grid-template-columns: auto 1fr 1fr 1fr 1fr;
+          gap: 0.5rem 2rem;
+          grid-template-columns: auto auto 1fr 1fr 1fr 1fr;
           justify-items: center;
+        }
+        section div {
+          white-space: nowrap;
+        }
+        hr {
+          grid-column: span 6;
+          border: 1px solid var(--sl-color-border-disabled);
+          width: 100%;
         }
       </style>
       <section>
-        <span>Ghost</span>
+        <span style="grid-column: span 2">Subtle</span>
         <span>Idle</span>
         <span>Pressed</span>
         <span>Disabled</span>
         <span>Disabled + pressed</span>
 
-        <span>md</span>
-        <sl-toggle-button aria-label="Show settings">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-
-        <span>lg</span>
-        <sl-toggle-button aria-label="Show settings" size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-
+        <span style="grid-row: span 2">sm</span>
+        <span>Solid</span>
+        ${renderRow({
+          fill: 'solid',
+          size: 'sm'
+        })}
         <span>Outline</span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        ${renderRow({
+          fill: 'outline',
+          size: 'sm'
+        })}
+        <hr />
+        <span style="grid-row: span 2;">md</span>
+        <span>Solid</span>
+        ${renderRow({
+          fill: 'solid',
+          size: 'md'
+        })}
+        <span>Outline</span>
+        ${renderRow({
+          fill: 'outline',
+          size: 'md'
+        })}
+        <hr />
 
-        <span>md</span>
-        <sl-toggle-button aria-label="Show settings" fill="outline">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" fill="outline" pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" fill="outline" disabled>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled fill="outline" pressed>
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-
-        <span>lg</span>
-        <sl-toggle-button aria-label="Show settings" fill="outline" size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" fill="outline" pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled fill="outline" size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
-        <sl-toggle-button aria-label="Show settings" disabled fill="outline" pressed size="lg">
-          <sl-icon name="far-gear" slot="default"></sl-icon>
-          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
-        </sl-toggle-button>
+        <span style="grid-row: span 2">lg</span>
+        <span>Solid</span>
+        ${renderRow({
+          fill: 'solid',
+          size: 'lg'
+        })}
+        <span>Outline</span>
+        ${renderRow({
+          fill: 'outline',
+          size: 'lg'
+        })}
       </section>
+      <p>First item on the first row is the default combination of values; subtle, outline, md and square shape.</p>
     `;
   }
 };

@@ -1,6 +1,6 @@
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { ToggleButton, type ToggleButtonSize } from '@sl-design-system/toggle-button';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './toggle-group.scss.js';
@@ -10,6 +10,10 @@ declare global {
     'sl-toggle-group': ToggleGroup;
   }
 }
+
+export type ToggleGroupFill = 'outline' | 'solid';
+export type ToggleGroupShape = 'pill' | 'square';
+export type ToggleGroupSize = 'sm' | 'md' | 'lg';
 
 /**
  * A component for visually grouping toggle buttons together. By default, this component ensures that only one button
@@ -53,7 +57,13 @@ export class ToggleGroup extends LitElement {
   @property({ type: Boolean }) multiple?: boolean;
 
   /** Determines the size of all buttons in the group. */
-  @property({ reflect: true }) size?: ToggleButtonSize;
+  @property({ reflect: true }) size?: ToggleGroupSize;
+
+  /** The shaoe of the group. */
+  @property({ reflect: true }) shape?: ToggleGroupShape;
+
+  /** The variant of the toggle-group. */
+  @property({ reflect: true }) fill?: ToggleGroupFill;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -65,7 +75,7 @@ export class ToggleGroup extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled') || changes.has('size')) {
+    if (changes.has('disabled') || changes.has('fill') || changes.has('size')) {
       this.#updateButtonProperties();
     }
   }
@@ -93,8 +103,7 @@ export class ToggleGroup extends LitElement {
       if (typeof this.disabled === 'boolean') {
         button.disabled = this.disabled;
       }
-
-      button.fill = 'ghost';
+      button.fill = this.fill;
 
       if (this.size) {
         button.size = this.size;

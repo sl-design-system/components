@@ -80,7 +80,7 @@ button {
   block-size: calc(1lh + (var(--sl-size-100) - var(--sl-size-borderWidth-default)) * 2);
   border: 0;
   border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-foreground-secondary-bold);
+  color: var(--sl-color-foreground-secondary-plain);
   cursor: pointer;
   display: inline-flex;
   font: inherit;

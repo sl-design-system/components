@@ -6,7 +6,7 @@
 
   align-items: start;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  border: var(--sl-size-borderWidth-subtle) solid var(--_border);
+  border: var(--sl-size-borderWidth-default) solid var(--_border);
   border-radius: var(--sl-size-borderRadius-default);
   color: var(--sl-color-foreground-plain);
   cursor: text;
@@ -39,14 +39,14 @@
 
 :host([size='lg']) {
   ::slotted(textarea) {
-    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-subtle));
-    padding-inline: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+    padding-block: calc(var(--sl-size-175) - var(--sl-size-borderWidth-default));
+    padding-inline: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
 
   sl-icon,
   slot[name='suffix']::slotted(sl-icon) {
-    inset-block-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
-    inset-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-subtle));
+    inset-block-start: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
+    inset-inline-end: calc(var(--sl-size-200) - var(--sl-size-borderWidth-default));
   }
 }
 
@@ -74,8 +74,8 @@ slot[name='textarea']::slotted(textarea) {
   margin: 0;
   min-block-size: calc(var(--sl-text-area-rows, 3) * 1lh);
   outline: none;
-  padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-subtle));
-  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  padding-block: calc(var(--sl-size-100) - var(--sl-size-borderWidth-default));
+  padding-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
 
   &:focus {
     outline: none;
@@ -89,8 +89,8 @@ slot[name='textarea']::slotted(textarea) {
 
 sl-icon,
 slot[name='suffix']::slotted(sl-icon) {
-  inset-block-start: calc(var(--sl-size-125) - var(--sl-size-borderWidth-subtle));
-  inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-subtle));
+  inset-block-start: calc(var(--sl-size-125) - var(--sl-size-borderWidth-default));
+  inset-inline-end: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default));
   position: absolute;
 }
 

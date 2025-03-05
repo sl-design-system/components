@@ -802,7 +802,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.primary.plain}",
+        "value": "{color.border.primary.bold}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },

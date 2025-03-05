@@ -27,7 +27,7 @@ export default {
   argTypes: {
     fill: {
       control: 'inline-radio',
-      options: ['ghost', 'outline', 'solid']
+      options: ['outline', 'solid']
     },
     shape: {
       control: 'inline-radio',

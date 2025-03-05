@@ -53,7 +53,7 @@
   z-index: 1;
 }
 
-:host([fill='solid']) {
+:host(:not([fill='outline'])) {
   --_group-border-width: var(--sl-size-borderWidth-none);
   --_border-width: var(--sl-size-borderWidth-none);
   --_toggle-group-border: 0px;

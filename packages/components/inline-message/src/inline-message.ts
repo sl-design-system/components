@@ -207,13 +207,15 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(entry: ResizeObserverEntry): void {
-    const lineHeight = parseInt(getComputedStyle(this).lineHeight),
-      contentOverflow = entry.contentRect.height / lineHeight > 2;
-
     if (this.#breakResizeObserverLoop) {
       return;
     } else {
-      this.contentOverflow = contentOverflow;
+      const lineHeight = parseInt(getComputedStyle(this).lineHeight);
+
+      this.contentOverflow = entry.contentRect.height / lineHeight > 2;
+
+      // Break the loop if it keeps switching between sizes; workaround is to
+      // just wait a little bit before updating the size again.
       this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
     }
   }

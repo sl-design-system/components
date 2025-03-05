@@ -1,7 +1,9 @@
 @import './../breakpoints';
 
-$transition-timing: 300ms;
-$short-transition-timing: 200ms;
+:root {
+  --transition-timing: 300ms;
+  --short-transition-timing: 200ms;
+}
 
 .ds-top-navigation {
   background: var(--top-navbar-color);
@@ -62,9 +64,9 @@ $short-transition-timing: 200ms;
   opacity: 0.8;
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-transition:
-    background-color $transition-timing ease-in,
+    background-color var(--transition-timing) ease-in,
     background-image 1ms;
-  transition: background-color $transition-timing ease-in;
+  transition: background-color var(--transition-timing) ease-in;
   z-index: 3;
 
   &:hover {
@@ -95,8 +97,8 @@ $short-transition-timing: 200ms;
   position: absolute;
   text-decoration: none;
   transition:
-    backround $transition-timing,
-    color $transition-timing;
+    background var(--transition-timing),
+    color var(--transition-timing);
 
   &:hover {
     background-image: var(--help-icon-hover);
@@ -151,7 +153,7 @@ $short-transition-timing: 200ms;
   cursor: pointer;
   inline-size: 3.2rem;
   margin-inline-end: 0.8rem;
-  transition: $transition-timing linear;
+  transition: var(--transition-timing) linear;
 
   &:hover {
     background-color: var(--menu-button-hover);
@@ -164,7 +166,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation__component-name {
-  animation: append-animate $short-transition-timing linear;
+  animation: append-animate var(--short-transition-timing) linear;
   color: var(--table-text-color);
   font-size: 2rem;
   line-height: 3.2rem;
@@ -195,7 +197,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation__logo {
-  animation: append-animate-up $short-transition-timing linear;
+  animation: append-animate-up var(--short-transition-timing) linear;
   background-image: var(--logo);
   background-position: left;
   background-repeat: no-repeat;
@@ -253,7 +255,7 @@ $short-transition-timing: 200ms;
   padding: 0.8rem 1.6rem 0.8rem 4rem;
   transition:
     box-shadow 200ms linear,
-    background-color $transition-timing linear;
+    background-color var(--transition-timing) linear;
 
   &::placeholder {
     color: var(--search-color);
@@ -408,8 +410,8 @@ $short-transition-timing: 200ms;
   display: inline-flex;
   inline-size: 0.8rem;
   /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-transition: transform $transition-timing ease-in-out;
-  transition: transform $transition-timing ease-in-out;
+  -webkit-transition: transform var(--transition-timing) ease-in-out;
+  transition: transform var(--transition-timing) ease-in-out;
 }
 
 .ds-sidebar-nav__arrow--active {
@@ -418,8 +420,8 @@ $short-transition-timing: 200ms;
   filter: var(--angle-active);
   transform: rotate(90deg);
   /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-transition: transform $transition-timing ease-in-out;
-  transition: transform $transition-timing ease-in-out;
+  -webkit-transition: transform var(--transition-timing) ease-in-out;
+  transition: transform var(--transition-timing) ease-in-out;
 }
 
 .ds-sidebar-nav--searching {
@@ -429,7 +431,7 @@ $short-transition-timing: 200ms;
     margin: 1.6rem;
     overflow-y: auto;
     padding: 0.4rem;
-    transition: background $transition-timing ease-in-out;
+    transition: background var(--transition-timing) ease-in-out;
 
     /* stylelint-disable-next-line max-nesting-depth */
     * {
@@ -455,7 +457,7 @@ $short-transition-timing: 200ms;
 
 .ds-sidebar-nav__results::-webkit-scrollbar-track {
   background: var(--second-background-color);
-  transition: background $transition-timing ease-in-out;
+  transition: background var(--transition-timing) ease-in-out;
 }
 
 .ds-sidebar-nav__results::-webkit-scrollbar-thumb {

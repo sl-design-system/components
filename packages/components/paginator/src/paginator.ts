@@ -197,7 +197,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-label=${msg(str`Go to the previous page (${this.page})`)}
         class="nav"
         fill="ghost"
-        size=${this.size ? this.size : 'md'}
+        size=${this.size ?? 'md'}
       >
         <sl-icon name="caret-left-solid"></sl-icon>
       </sl-button>
@@ -207,14 +207,14 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-current=${ifDefined(this.page === 0 ? 'page' : undefined)}
         class=${classMap({ current: this.page === 0, page: true })}
         fill="ghost"
-        size=${this.size ? this.size : 'md'}
+        size=${this.size ?? 'md'}
       >
         1
       </sl-button>
 
       ${this.windowStart > 0
         ? html`
-            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${this.size ? this.size : 'md'}>
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${this.size ?? 'md'}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.windowStart + 1 }).map(
                 (_, i) => html`<sl-menu-item @click=${() => this.#onPageClick(i + 1)}>${i + 2}</sl-menu-item>`
@@ -229,7 +229,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             aria-current=${ifDefined(this.page === index + 1 ? 'page' : undefined)}
             class=${classMap({ current: this.page === index + 1, page: true })}
             fill="ghost"
-            size=${this.size ? this.size : 'md'}
+            size=${this.size ?? 'md'}
             style=${styleMap({
               display: index <= this.windowStart || index >= this.windowEnd ? 'none' : undefined
             })}
@@ -240,7 +240,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
       )}
       ${this.windowEnd < this.pageCount - 2
         ? html`
-            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${this.size ? this.size : 'md'}>
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${this.size ?? 'md'}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
                 (_, i) => html`
@@ -258,7 +258,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
         class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
         fill="ghost"
-        size=${this.size ? this.size : 'md'}
+        size=${this.size ?? 'md'}
       >
         ${this.pageCount}
       </sl-button>
@@ -285,7 +285,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-label=${msg(str`Go to the next page (${this.page + 2})`)}
         class="nav"
         fill="ghost"
-        size=${this.size ? this.size : 'md'}
+        size=${this.size ?? 'md'}
       >
         <sl-icon name="caret-right-solid"></sl-icon>
       </sl-button>

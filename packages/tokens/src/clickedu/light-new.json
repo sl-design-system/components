@@ -837,12 +837,12 @@
       },
       "neutral": {
         "subtle": {
-          "value": "{color.background.accent.grey.subtle}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "Use for subtle borders on color.background.neutral background colors."
         },
         "plain": {
-          "value": "{color.border.accent.grey.plain}",
+          "value": "{color.palette.grey.100}",
           "type": "color",
           "description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
         },
@@ -1037,7 +1037,7 @@
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
         "interactive": {
-          "value": "{color.background.interactive.plain}",
+          "value": "{color.background.accent.grey.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the input background to indicate the hover state."
         }

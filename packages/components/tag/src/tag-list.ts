@@ -139,7 +139,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
                 size=${ifDefined(this.size)}
                 variant=${ifDefined(this.variant)}
               >
-                ${Math.min(this.stackSize, 99)}+
+                +${this.stackSize}
               </sl-tag>
               <sl-tooltip id="tooltip" position="bottom" max-width="300">
                 ${msg('List of hidden elements')}:

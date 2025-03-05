@@ -7,7 +7,8 @@ import '../register.js';
 import { GridSortColumn } from './sort-column.js';
 import { GridSorter } from './sorter.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
+
 customElements.define('sl-grid-sorter', GridSorter);
 
 describe('sl-grid-sorter', () => {

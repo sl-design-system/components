@@ -50,6 +50,11 @@ const config = {
       <body>
         <script src="/node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
         <script type="module" src="${testFramework}"></script>
+        <style>
+          body {
+            font: var(--sl-text-body-md-normal);
+          }
+        </style>
         <style>${styles}</style>
       </body>
     </html>

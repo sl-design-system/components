@@ -5,7 +5,7 @@ import { html } from 'lit';
 import '../register.js';
 import { type Grid } from './grid.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-column-group', () => {
   let el: Grid;

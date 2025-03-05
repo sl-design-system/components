@@ -104,7 +104,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
         @sl-change=${this.#onChange}
         ?disabled=${!this.pageSizes}
         id="sizes"
-        size="lg"
+        size="md"
         value=${ifDefined(this.pageSize)}
       >
         ${this.pageSizes?.map(

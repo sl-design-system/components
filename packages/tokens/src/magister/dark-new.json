@@ -458,7 +458,7 @@
           "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
         },
         "onBold": {
-          "value": "{color.foreground.accent.grey.onBold}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Use for neutral actions on 'color.background.neutral.bold'"
         }
@@ -742,7 +742,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.foreground.inverted}",
+          "value": "{color.foreground.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },

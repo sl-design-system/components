@@ -12,6 +12,7 @@ import {
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { FieldButton } from './field-button.js';
 import styles from './text-field.scss.js';
 
 declare global {
@@ -50,6 +51,7 @@ export class TextField<T extends { toString(): string } = string>
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-field-button': FieldButton,
       'sl-icon': Icon
     };
   }
@@ -94,6 +96,9 @@ export class TextField<T extends { toString(): string } = string>
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size
    */
   @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
+
+  /** @internal Embedded or slotted field buttons. */
+  @state() fieldButtons: FieldButton[] = [];
 
   /** @internal Used for styling the focus ring of the input. */
   @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
@@ -168,6 +173,15 @@ export class TextField<T extends { toString(): string } = string>
     this.prepend(style);
   }
 
+  override firstUpdated(changes: PropertyValues): void {
+    super.firstUpdated(changes);
+
+    const buttons = this.renderRoot.querySelectorAll('sl-field-button');
+    if (buttons.length) {
+      this.fieldButtons = [...this.fieldButtons, ...buttons];
+    }
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -193,6 +207,13 @@ export class TextField<T extends { toString(): string } = string>
       setTimeout(() => this.updateValidity());
     }
 
+    if (changes.has('disabled') || changes.has('fieldButtons') || changes.has('size')) {
+      this.fieldButtons.forEach(button => {
+        button.size = this.size;
+        button.disabled = this.disabled;
+      });
+    }
+
     if (changes.has('value')) {
       const formattedValue = this.formattedValue;
 
@@ -208,7 +229,7 @@ export class TextField<T extends { toString(): string } = string>
 
   /** Renders the prefix slot; can be overridden to customize the prefix. */
   renderPrefix(): TemplateResult | typeof nothing {
-    return html`<slot name="prefix"></slot>`;
+    return html`<slot @slotchange=${this.onPrefixSlotChange} name="prefix"></slot>`;
   }
 
   /** Render the input slot; separate method so it is composable for child components. */
@@ -218,13 +239,15 @@ export class TextField<T extends { toString(): string } = string>
     `;
   }
 
-  /** Renders the suffix slot; can be overridden to customize the suffix. */
+  /**
+   * Renders the suffix slot; can be overridden to customize the suffix. Remember that if
+   * you override this method, it will no longer automatically show the valid checkmark
+   * when the input is valid.
+   */
   renderSuffix(): TemplateResult | typeof nothing {
     return html`
-      <slot name="suffix">
-        ${this.showValidity === 'valid'
-          ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
-          : nothing}
+      <slot @slotchange=${this.onSuffixSlotChange} name="suffix">
+        ${this.showValidity === 'valid' ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>` : nothing}
       </slot>
     `;
   }
@@ -290,12 +313,22 @@ export class TextField<T extends { toString(): string } = string>
 
   protected onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
-    if (!this.disabled && event.key === 'Enter') {
+    if (!this.disabled && !this.readonly && event.key === 'Enter') {
       if (this.form) {
         this.form.requestSubmit();
       } else {
         closestElementComposed(this, 'sl-form')?.requestSubmit();
       }
+    }
+  }
+
+  protected onPrefixSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const button = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is FieldButton => el instanceof FieldButton);
+
+    if (button) {
+      this.fieldButtons = [...this.fieldButtons, button];
     }
   }
 
@@ -313,6 +346,16 @@ export class TextField<T extends { toString(): string } = string>
     this.input.addEventListener('focus', () => this.onFocus());
     this.updateInputElement(this.input);
     this.setFormControlElement(this.input);
+  }
+
+  protected onSuffixSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const button = event.target
+      .assignedElements({ flatten: true })
+      .find((el): el is FieldButton => el instanceof FieldButton);
+
+    if (button) {
+      this.fieldButtons = [...this.fieldButtons, button];
+    }
   }
 
   /** @internal Synchronize the input element with the component properties. */

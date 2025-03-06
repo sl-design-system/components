@@ -429,7 +429,7 @@
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "onBold": {
-          "value": "{color.foreground.accent.blue.onBold}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
@@ -802,7 +802,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.foreground.disabled}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
@@ -1071,13 +1071,13 @@
           "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
         },
         "bold": {
-          "value": "{color.background.accent.blue.bold}",
+          "value": "{color.palette.blue.500}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.blue.interactive.bold}",
+            "value": "{color.palette.blue.700}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1169,7 +1169,7 @@
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.grey.interactive.plain}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1619,9 +1619,9 @@
         "value": {
           "x": "0",
           "y": "0",
-          "blur": "10",
+          "blur": "8",
           "spread": "0",
-          "color": "rgba({color.palette.grey.050}, {opacity.subtle})",
+          "color": "rgba( {color.palette.grey.000} , {opacity.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",

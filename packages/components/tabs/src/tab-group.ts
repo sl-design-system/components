@@ -124,9 +124,15 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * - we can determine when to display an overflow menu with tab items
    * - we know when we need to reposition the active tab indicator
    */
-  #resizeObserver = new ResizeObserver(() => {
+  #resizeObserver = new ResizeObserver(entries => {
+    const hostResized = entries.some(entry => entry.target === this);
+
+    const tablistResized = entries.some(
+      entry => entry.target instanceof HTMLElement && entry.target.matches('[part="tablist"]')
+    );
+
     this.#shouldAnimate = false;
-    this.#updateSize();
+    this.#updateSize(hostResized, tablistResized);
     this.#shouldAnimate = true;
   });
 
@@ -194,6 +200,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
+
+    // We want to observe the size of the component so we can scroll the selected
+    // tab into view if needed.
+    this.#resizeObserver.observe(this);
 
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
@@ -469,44 +479,47 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #updateSize(): void {
-    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
-      tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
+  #updateSize(hostResized: boolean, tablistResized: boolean): void {
+    if (tablistResized) {
+      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
+        tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
+        showingMenu = !!this.showMenu;
 
-    const showingMenu = !!this.showMenu;
+      this.showMenu = this.vertical
+        ? tablist.scrollHeight > scroller.offsetHeight
+        : tablist.scrollWidth > scroller.offsetWidth;
 
-    this.showMenu = this.vertical
-      ? tablist.scrollHeight > scroller.offsetHeight
-      : tablist.scrollWidth > scroller.offsetWidth;
+      if (this.showMenu) {
+        const menuBtn = this.renderRoot.querySelector('sl-menu-button');
 
-    if (this.showMenu) {
-      const menuBtn = this.renderRoot.querySelector('sl-menu-button');
+        this.#menu = menuBtn?.renderRoot?.querySelector('sl-menu') as Menu;
+        this.#menu?.addEventListener('toggle', () => {
+          this.#rovingTabindexController.clearElementCache();
+        });
 
-      this.#menu = menuBtn?.renderRoot?.querySelector('sl-menu') as Menu;
-      this.#menu?.addEventListener('toggle', () => {
-        this.#rovingTabindexController.clearElementCache();
-      });
+        this.menuItems = this.tabs?.map(tab => {
+          const title = Array.from(tab.childNodes)
+            .filter(node => node instanceof Text || (node instanceof Element && !node.slot))
+            .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
 
-      this.menuItems = this.tabs?.map(tab => {
-        const title = Array.from(tab.childNodes)
-          .filter(node => node instanceof Text || (node instanceof Element && !node.slot))
-          .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
+          const subtitle = Array.from(tab.childNodes)
+            .filter(node => node instanceof Element && node.slot === 'subtitle')
+            .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
 
-        const subtitle = Array.from(tab.childNodes)
-          .filter(node => node instanceof Element && node.slot === 'subtitle')
-          .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
+          return { tab, disabled: tab.disabled, title, subtitle };
+        });
+      } else {
+        this.menuItems = undefined;
+      }
 
-        return { tab, disabled: tab.disabled, title, subtitle };
-      });
-    } else {
-      this.menuItems = undefined;
-    }
-
-    // If the visibility of the menu has changed, we need to wait for the next callback
-    // of the ResizeObserver to scroll the selected tab into view. Showing/hiding the
-    // menu button *will* trigger that callback. If we don't, then the selected tab
-    // may not be fully visible.
-    if (showingMenu === this.showMenu && this.selectedTab) {
+      // If the visibility of the menu has changed, we need to wait for the next callback
+      // of the ResizeObserver to scroll the selected tab into view. Showing/hiding the
+      // menu button *will* trigger that callback. If we don't, then the selected tab
+      // may not be fully visible.
+      if (showingMenu === this.showMenu && this.selectedTab) {
+        this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
+      }
+    } else if (hostResized && this.selectedTab) {
       this.#scrollIntoViewIfNeeded(this.selectedTab, 'instant');
     }
 

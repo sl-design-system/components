@@ -1,3 +1,4 @@
+// This is a generated file, do not edit. Edit the core.json or base.json files instead.
 export const icons = {
   adaptive: {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g><path fill-rule="evenodd" d="M15 2.998a2 2 0 0 1-3.927.533h-.407a1.47 1.47 0 0 0-1.258.712L7.574 7.301a2.53 2.53 0 0 1-.874.872.533.533 0 0 1-.77.502l-.014-.006a1.3 1.3 0 0 0-.569-.138h-.419a2 2 0 1 1 0-1.066h.474a1.47 1.47 0 0 0 1.257-.712l1.835-3.058a2.53 2.53 0 0 1 2.172-1.23h.406a2 2 0 0 1 3.929.533m-1.066 0a.933.933 0 1 1-1.866 0 .933.933 0 0 1 1.866 0M3 8.93a.933.933 0 1 0 0-1.867.933.933 0 0 0 0 1.867M13 9.998a2 2 0 1 0-1.928-2.533h-.005a.533.533 0 0 0 0 1.066h.005a2 2 0 0 0 1.929 1.467m0-1.067a.933.933 0 1 0 0-1.866.933.933 0 0 0 0 1.866" clip-rule="evenodd"/><path d="M8.324 9.923a.533.533 0 0 1-.914.55l-.4-.667a.533.533 0 1 1 .914-.55zM9.475 12.922a.534.534 0 0 0 .183-.732l-.4-.667a.534.534 0 0 0-.915.55l.4.666a.533.533 0 0 0 .732.183M8.734 7.465a.533.533 0 1 0 0 1.066h.4a.533.533 0 1 0 0-1.066z"/><path fill-rule="evenodd" d="M14.507 14.315a2 2 0 1 0-3.434-1.85h-.006a.533.533 0 1 0 0 1.066h.005a2 2 0 0 0 3.435.784m-.847-.657a.933.933 0 1 0-1.32-1.32.933.933 0 0 0 1.32 1.32" clip-rule="evenodd"/></g></svg>'
@@ -118,6 +119,12 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.dash-solid',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M0 256c0-17.7 14.3-32 32-32l448 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'diamond-exclamation-solid': {
+    value: 'diamond-exclamation',
+    type: 'Icons',
+    description: 'icon.core.diamond-exclamation-solid',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M227.7 11.7c15.6-15.6 40.9-15.6 56.6 0l216 216c15.6 15.6 15.6 40.9 0 56.6l-216 216c-15.6 15.6-40.9 15.6-56.6 0l-216-216c-15.6-15.6-15.6-40.9 0-56.6l216-216zM256 128c-13.3 0-24 10.7-24 24l0 112c0 13.3 10.7 24 24 24s24-10.7 24-24l0-112c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'edit-feed': {
     svg: '<svg fill="var(--sl-icon-fill-default)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><g><path d="M2.792 1.7a1 1 0 0 0-1 1v1.467a1 1 0 0 0 1 1h3.634a.533.533 0 1 0 0-1.067H2.859V2.767h8.133a.533.533 0 1 0 0-1.067z"/><path fill-rule="evenodd" d="M7.732 5.127a.67.67 0 0 0-.274.301L6.6 7.312a.4.4 0 0 0 .342.565l2.005.116c.13.008.26-.023.372-.088l4.388-2.534a1 1 0 0 0 .366-1.366l-.6-1.039a1 1 0 0 0-1.366-.366zm.644.86-.402.881.916.053 4.226-2.44-.533-.924-4.207 2.429" clip-rule="evenodd"/><path d="M5.359 7.3h-2.5v1.333h8.533V7.7a.533.533 0 0 1 1.067 0v1a1 1 0 0 1-1 1H2.792a1 1 0 0 1-1-1V7.233a1 1 0 0 1 1-1H5.36a.533.533 0 1 1 0 1.067"/><path fill-rule="evenodd" d="M2.792 10.767a1 1 0 0 0-1 1V13.3a1 1 0 0 0 1 1h8.667a1 1 0 0 0 1-1v-1.533a1 1 0 0 0-1-1zm.067 2.466v-1.4h8.533v1.4z" clip-rule="evenodd"/></g></svg>'

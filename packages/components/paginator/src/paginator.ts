@@ -26,14 +26,18 @@ declare global {
   }
 }
 
-const PAGINATOR_SIZES: { [key in PaginatorSize]: number } = {
+const PAGINATOR_SIZES: { [key in PaginatorWidth]: number } = {
   xs: 6,
   sm: 7,
   md: 9,
   lg: 11
 } as const;
 
-export type PaginatorSize = 'xs' | 'sm' | 'md' | 'lg';
+export type PaginatorSize = 'sm' | 'md' | 'lg';
+
+export type PaginatorWidth = 'xs' | 'sm' | 'md' | 'lg';
+
+export type PaginatorEmphasis = 'subtle' | 'bold';
 
 /**
  * A paginator component used when there is a lot of data that needs to be shown and cannot be shown at once, in one view/page.
@@ -64,11 +68,11 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   /** Observe changes in size of the container. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
-  /** The original size, before any resize observer logic. */
-  #originalSize?: PaginatorSize;
+  /** The original width, before any resize observer logic. */
+  #originalWidth?: PaginatorWidth;
 
-  /** The current size. */
-  #size?: PaginatorSize;
+  /** The current width. */
+  #width?: PaginatorWidth;
 
   get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
@@ -93,6 +97,12 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   /**
+   * The emphasis style.
+   * @default 'subtle'
+   */
+  @property({ reflect: true }) emphasis?: PaginatorEmphasis;
+
+  /**
    * Current page.
    * @default 0
    */
@@ -110,20 +120,26 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
-  get size(): PaginatorSize | undefined {
-    return this.#size;
+  get width(): PaginatorWidth | undefined {
+    return this.#width;
   }
 
   /**
-   * The size of the paginator. This is used to determine how many pages are visible at once.
-   * For `xs` a select component will be used to select the page. For all other sizes,
+   * The width of the paginator. This is used to determine how many pages are visible at once.
+   * For `xs` a select component will be used to select the page. For all other widths,
    * buttons will be used.
    */
   @property({ reflect: true })
-  set size(value: PaginatorSize | undefined) {
-    this.#originalSize = value;
-    this.#size = value;
+  set width(value: PaginatorWidth | undefined) {
+    this.#originalWidth = value;
+    this.#width = value;
   }
+
+  /**
+   * The size of the paginator which determines the size of the elements in it.
+   * @default 'md'
+   */
+  @property({ reflect: true }) size?: PaginatorSize;
 
   /**
    * Total number of items.
@@ -168,7 +184,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
       this.#updateVisibility();
     }
 
-    if (changes.has('size')) {
+    if (changes.has('width')) {
       this.#updateVisibility();
     }
   }
@@ -181,7 +197,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-label=${msg(str`Go to the previous page (${this.page})`)}
         class="nav"
         fill="ghost"
-        size="lg"
+        size=${ifDefined(this.size)}
       >
         <sl-icon name="caret-left-solid"></sl-icon>
       </sl-button>
@@ -191,14 +207,14 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-current=${ifDefined(this.page === 0 ? 'page' : undefined)}
         class=${classMap({ current: this.page === 0, page: true })}
         fill="ghost"
-        size="lg"
+        size=${ifDefined(this.size)}
       >
         1
       </sl-button>
 
       ${this.windowStart > 0
         ? html`
-            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size="lg">
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${ifDefined(this.size)}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.windowStart + 1 }).map(
                 (_, i) => html`<sl-menu-item @click=${() => this.#onPageClick(i + 1)}>${i + 2}</sl-menu-item>`
@@ -213,7 +229,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             aria-current=${ifDefined(this.page === index + 1 ? 'page' : undefined)}
             class=${classMap({ current: this.page === index + 1, page: true })}
             fill="ghost"
-            size="lg"
+            size=${ifDefined(this.size)}
             style=${styleMap({
               display: index <= this.windowStart || index >= this.windowEnd ? 'none' : undefined
             })}
@@ -224,7 +240,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
       )}
       ${this.windowEnd < this.pageCount - 2
         ? html`
-            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size="lg">
+            <sl-menu-button aria-label=${msg('Select page number')} fill="ghost" size=${ifDefined(this.size)}>
               <sl-icon name="ellipsis-down" slot="button"></sl-icon>
               ${Array.from({ length: this.pageCount - this.windowEnd - 2 }).map(
                 (_, i) => html`
@@ -242,7 +258,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-current=${ifDefined(this.page === this.pageCount - 1 ? 'page' : undefined)}
         class=${classMap({ current: this.page === this.pageCount - 1, page: true })}
         fill="ghost"
-        size="lg"
+        size=${ifDefined(this.size)}
       >
         ${this.pageCount}
       </sl-button>
@@ -252,7 +268,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-change=${this.#onChange}
           .value=${this.page}
           aria-label=${`${msg(str`${this.page}, page`)}`}
-          size="lg"
+          size=${this.size === 'lg' ? this.size : 'md'}
         >
           ${Array.from({ length: this.pageCount }).map(
             (_, index) => html`
@@ -269,7 +285,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
         aria-label=${msg(str`Go to the next page (${this.page + 2})`)}
         class="nav"
         fill="ghost"
-        size="lg"
+        size=${ifDefined(this.size)}
       >
         <sl-icon name="caret-right-solid"></sl-icon>
       </sl-button>
@@ -310,21 +326,21 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (buttonSize && gap) {
       const count = Math.floor(entry.contentRect.width / (buttonSize + gap)) - 2,
-        [size, visiblePages] = Object.entries(PAGINATOR_SIZES).find(([, value]) => count <= value) || [
+        [width, visiblePages] = Object.entries(PAGINATOR_SIZES).find(([, value]) => count <= value) || [
           'lg',
           PAGINATOR_SIZES['lg']
         ];
 
-      if (this.#originalSize) {
-        // We can go smaller than the original size, but never larger
-        if (visiblePages <= PAGINATOR_SIZES[this.#originalSize]) {
-          this.#size = size as PaginatorSize;
+      if (this.#originalWidth) {
+        // We can go smaller than the original width, but never larger
+        if (visiblePages <= PAGINATOR_SIZES[this.#originalWidth]) {
+          this.#width = width as PaginatorWidth;
         }
       } else {
-        this.#size = size as PaginatorSize;
+        this.#width = width as PaginatorWidth;
       }
 
-      this.requestUpdate('size');
+      this.requestUpdate('width');
     }
   }
 
@@ -353,7 +369,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
 
   #updateVisibility(): void {
     const { page, pageCount } = this,
-      visiblePageCount = PAGINATOR_SIZES[this.size || 'lg'],
+      visiblePageCount = PAGINATOR_SIZES[this.width || 'lg'],
       count = Math.floor(visiblePageCount / 2);
 
     this.windowStart = Math.min(Math.max(page - count, 0), pageCount - visiblePageCount) || -1;

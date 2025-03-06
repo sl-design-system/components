@@ -1,5 +1,18 @@
 # @sl-design-system/tool-bar
 
+## 0.0.5
+
+### Patch Changes
+
+- [#1688](https://github.com/sl-design-system/components/pull/1688) [`168ac9f`](https://github.com/sl-design-system/components/commit/168ac9f449f4f4094d807fd29810a853f987a2f8) - - Improved wrapping,
+  - Added `aria-label` to the `sl-menu-button`.
+- Updated dependencies [[`67f5b81`](https://github.com/sl-design-system/components/commit/67f5b810558d124289f26e3cc3fb2c59da97bb5f), [`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9), [`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b), [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb), [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768), [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39)]:
+  - @sl-design-system/menu@0.2.0
+  - @sl-design-system/button@1.2.0
+  - @sl-design-system/icon@1.1.0
+  - @sl-design-system/toggle-button@0.0.5
+  - @sl-design-system/toggle-group@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

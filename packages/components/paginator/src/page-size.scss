@@ -3,24 +3,15 @@
   color: var(--sl-color-foreground-plain);
   display: flex;
   flex-wrap: wrap;
-  font: var(--sl-text-new-body-md);
-  font-weight: var(--sl-text-typeset-font-weight-icon-regular);
-  gap: var(--sl-space-paginator-gap);
-  padding: 0;
+  gap: var(--sl-size-100);
   text-wrap: nowrap;
 }
 
 sl-select {
-  min-inline-size: var(--sl-size-paginator-select-min-width);
+  min-inline-size: var(--sl-size-1000);
 }
 
 sl-label label {
   font: inherit;
-}
-
-/** Hiding the aria-live element for the UI, but not for the screen readers. */
-#live {
-  block-size: 0;
-  inline-size: 0;
-  overflow: hidden;
+  font-weight: var(--sl-text-typeset-fontWeight-regular);
 }

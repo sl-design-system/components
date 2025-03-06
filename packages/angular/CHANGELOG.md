@@ -1,5 +1,15 @@
 # @sl-design-system/angular
 
+## 3.0.0
+
+### Major Changes
+
+- [#1682](https://github.com/sl-design-system/components/pull/1682) [`edbc0e4`](https://github.com/sl-design-system/components/commit/edbc0e49ffef09a55248e68f783a6c5a2f1cd44b) - Upgrade to Angular 18 and drop support for 17
+
+### Minor Changes
+
+- [#1794](https://github.com/sl-design-system/components/pull/1794) [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb) - Replace `<sl-select-option>` with `<sl-option>`
+
 ## 2.0.0
 
 ### Major Changes

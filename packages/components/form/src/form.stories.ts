@@ -96,13 +96,14 @@ export const Reset: Story = {
   args: {
     reset: true,
     reportValidity: true,
-    fields: () =>
-      html` <sl-form-field hint="Has value on load" label="Text field">
-          <sl-text-field name="input" placeholder="Placeholder" required value="Value set initially"></sl-text-field>
-        </sl-form-field>
-        <sl-form-field hint="Has no value on load" label="Text field">
-          <sl-text-field name="input2" placeholder="Placeholder" required></sl-text-field>
-        </sl-form-field>`,
+    fields: () => html`
+      <sl-form-field hint="Has value on load" label="Text field">
+        <sl-text-field name="input" placeholder="Placeholder" required value="Value set initially"></sl-text-field>
+      </sl-form-field>
+      <sl-form-field hint="Has no value on load" label="Text field">
+        <sl-text-field name="input2" placeholder="Placeholder" required></sl-text-field>
+      </sl-form-field>
+    `,
     value: {
       input: 'Value set initially'
     }
@@ -158,9 +159,9 @@ export const Value: Story = {
 
 export const All: Story = {
   args: {
-    fields: () => html`
+    fields: ({ disabled }) => html`
       <sl-form-field hint="Hint text" label="Text field">
-        <sl-text-field name="textField" placeholder="Placeholder" required></sl-text-field>
+        <sl-text-field ?disabled=${disabled} name="textField" placeholder="Placeholder" required></sl-text-field>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Date field">
@@ -168,15 +169,15 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Text area">
-        <sl-text-area name="textArea" placeholder="Placeholder" required></sl-text-area>
+        <sl-text-area ?disabled=${disabled} name="textArea" placeholder="Placeholder" required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Checkbox">
-        <sl-checkbox name="checkbox" required value="checked">Checkbox</sl-checkbox>
+        <sl-checkbox ?disabled=${disabled} name="checkbox" required value="checked">Checkbox</sl-checkbox>
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Checkbox group">
-        <sl-checkbox-group name="checkboxGroup" required>
+        <sl-checkbox-group ?disabled=${disabled} name="checkboxGroup" required>
           <sl-checkbox value="0">Check me</sl-checkbox>
           <sl-checkbox value="1">No me</sl-checkbox>
           <sl-checkbox value="2">I was here first</sl-checkbox>
@@ -184,7 +185,7 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Combobox single">
-        <sl-combobox name="comboboxSingle" placeholder="Single select" required>
+        <sl-combobox ?disabled=${disabled} name="comboboxSingle" placeholder="Single select" required>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -195,7 +196,7 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Combobox multiple">
-        <sl-combobox name="comboboxMultiple" multiple placeholder="Multiple select" required>
+        <sl-combobox ?disabled=${disabled} name="comboboxMultiple" multiple placeholder="Multiple select" required>
           <sl-listbox>
             <sl-option>Option 1</sl-option>
             <sl-option>Option 2</sl-option>
@@ -206,7 +207,7 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Radio group">
-        <sl-radio-group name="radioGroup" required>
+        <sl-radio-group ?disabled=${disabled} name="radioGroup" required>
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>
@@ -214,7 +215,7 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Select">
-        <sl-select name="select" required>
+        <sl-select ?disabled=${disabled} name="select" placeholder="Placeholder" required>
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>
@@ -222,9 +223,16 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Switch">
-        <sl-switch name="switch" reverse value="toggled">Toggle me</sl-switch>
+        <sl-switch ?disabled=${disabled} name="switch" reverse value="toggled">Toggle me</sl-switch>
       </sl-form-field>
     `
+  }
+};
+
+export const AllDisabled: Story = {
+  args: {
+    ...All.args,
+    disabled: true
   }
 };
 

@@ -123,12 +123,6 @@ export const All: Story = {
         <sl-tag disabled variant="info">Disabled</sl-tag>
         <sl-tag size="lg" disabled>Disabled</sl-tag>
         <sl-tag size="lg" disabled variant="info">Disabled</sl-tag>
-
-        <span>Removable, disabled</span>
-        <sl-tag removable disabled>Disabled</sl-tag>
-        <sl-tag removable disabled variant="info">Disabled</sl-tag>
-        <sl-tag removable size="lg" disabled>Disabled</sl-tag>
-        <sl-tag removable size="lg" disabled variant="info">Disabled</sl-tag>
       </div>
     `;
   }

@@ -43,43 +43,13 @@ Typically, users can navigate to the tabs using the "Tab" key, once they're in t
 
 {{ 'aria-attributes' | recurringText }}
 
-<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>
-
 ### Tab Group
 
 <div class="ds-table-wrapper">
 
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
-|-|-|-|-|
-|`role`	|`'tablist'`|Makes it clear that element is a container for a set of tabs.|no|
+|Attribute | Value | Description |
+|-|-|-|
 |`aria-labelledby`|string| The purpose of tabs - can be set to the `id` of labelling element.|yes|
-
-{.ds-table .ds-table-align-top}
-
-</div>
-
-### Tab
-
-<div class="ds-table-wrapper">
-
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`|`'tab'`|Declare element as a tab control.|no|
-|`aria-selected`|string|Indicates the tab control is activated or not and its associated panel is displayed or not as well. Set to `true` when a user activates a tab.|no|
-|`aria-controls`|string|It contains `id` of the tab panel element associated with the tab.|no|
-
-{.ds-table .ds-table-align-top}
-
-</div>
-
-### Tab panel
-
-<div class="ds-table-wrapper">
-
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`|`'tabpanel'`|Declare the element as a container for tab panel content.|no|
-|`aria-labelledby`|string|Used to connect tab control with tab panel. Refers to the tab element that controls the panel; contains `id` of the tab control.|no|
 
 {.ds-table .ds-table-align-top}
 

@@ -30,16 +30,13 @@ Here's an overview of the common keyboard interactions associated with a text ar
 
 {{ 'aria-attributes' | recurringText }}
 
-<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it can be provided by the developer (yes)</sl-tooltip>
-
 <div class="ds-table-wrapper">
 
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
-|-|-|-|-|
-|`role`|`'textbox'`|Identifies as an element that allows the input of text.|no|
-|`aria-label`|string|It is used to define a string that labels the action that will be performed when the user interacts with the text area. Needs to be added when the text area is not wrapped with `sl-form-field` and there is no `sl-label`.|yes|
-|`aria-labelledby`|string|Used to connect with single header/element that describes the text area, when there is no label component connected to.|yes|
-|`aria-required`|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required.|yes|
+|Attribute | Value | Description |
+|-|-|-|
+|`aria-label`|string|It is used to define a string that labels the action that will be performed when the user interacts with the text area. Needs to be added when the text area is not wrapped with `sl-form-field` and there is no `sl-label`.|
+|`aria-labelledby`|string|Used to connect with single header/element that describes the text area, when there is no label component connected to.|
+|`aria-required`|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required.|
 |`aria-disabled`|boolean|Announces the text area component as disabled with a screen reader. See [Note 1] below.|yes|
 
 {.ds-table .ds-table-align-top}

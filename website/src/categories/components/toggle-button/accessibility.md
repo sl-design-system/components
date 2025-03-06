@@ -35,12 +35,10 @@ Switching the label to what will happen when the button is pressed, ie. "Hide si
 
 {{ 'aria-attributes' | recurringText }}
 
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`role`	|`button`|Makes it clear that our custom component has the same behavior as a button.|no|
-|`aria-pressed`|boolean|Makes it clear it is a toggle button and not a regular button, and shows the state of the button `true` for `on` and `false` for `off`|no|
-|`aria-label`|string|Used when the describe the function of the button because it is icon-only|yes|
-|`aria-disabled`| boolean|Announces the toggle button as disabled with a screenreader. See [Note 1] below for more explanation| yes|
+|Attribute | Value | Description |
+|-|-|-|
+|`aria-label`|string|Used when the describe the function of the button because it is icon-only|
+|`aria-disabled`| boolean|Announces the toggle button as disabled with a screenreader. See [Note 1] below for more explanation|
 
 {.ds-table .ds-table-align-top}
 

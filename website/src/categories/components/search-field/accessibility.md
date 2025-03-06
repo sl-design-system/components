@@ -34,16 +34,14 @@ Here's an overview of the common keyboard interactions associated with a search 
 
 {{ 'aria-attributes' | recurringText }}
 
-<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it can be provided by the developer (yes)</sl-tooltip>
-
 <div class="ds-table-wrapper">
 
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
-|-|-|-|-|
-|`aria-label`	|string|Defines a string that labels the action that will be performed when the user interacts with the search field. Needs to be added when the search-field is not wrapped with `sl-form-field` and there is no `sl-label`. |yes|
-|`aria-labelledby`|string|Used to connect with single header/element that describes the search field, when there is no label component connected to.|yes|
-|`aria-required`	|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. |yes|
-|`aria-disabled`|boolean|Announces the search field component as disabled with a screen reader. See [Note 1] below.|yes|
+|Attribute | Value | Description |
+|-|-|-|
+|`aria-label`	|string|Defines a string that labels the action that will be performed when the user interacts with the search field. Needs to be added when the search-field is not wrapped with `sl-form-field` and there is no `sl-label`. |
+|`aria-labelledby`|string|Used to connect with single header/element that describes the search field, when there is no label component connected to.|
+|`aria-required`	|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. |
+|`aria-disabled`|boolean|Announces the search field component as disabled with a screen reader. See [Note 1] below.|
 
 {.ds-table .ds-table-align-top}
 

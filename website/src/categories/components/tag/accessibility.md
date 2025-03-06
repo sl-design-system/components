@@ -30,11 +30,9 @@ When the tag is focused and is removable, it can be removed by pressing the `Del
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`role`|`'listitem', 'button'`|Identifies the tag element as a `listitem` when it's used inside the `sl-tag-list` - this role is added automatically. Please provide a role `button` when the tag is interactive, is used to perform an action or is removable and not used inside `sl-tag-list`.|no/yes|
-|`aria-description`|string|Defines a string that describes the action that will be performed when the user interacts with the tag or the purpose/more information about the tag. `aria-description` is added automatically for the `removable` tag to describe the ability to use the keyboard to remove the tag.|no|
-|`aria-labelledby`|string|Used to label the tag that indicates the number of hidden tags, when the tag list overflows. It contains the `id` of the tooltip. The tooltip lists all the hidden tags.|no|
+|Attribute|Value|Description|
+|-|-|-|
+|`role`|`'listitem', 'button'`|Identifies the tag element as a `listitem` when it's used inside the `sl-tag-list` - this role is added automatically. Please provide a role `button` when the tag is interactive, is used to perform an action or is removable and not used inside `sl-tag-list`.|
 
 {.ds-table .ds-table-align-top}
 
@@ -44,11 +42,10 @@ When the tag is focused and is removable, it can be removed by pressing the `Del
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`|`'list'`|Identifies the `tag-list` as a list.|no|
-|`aria-label`|string|String that labels the tag list. Use this to label what the tag list indicates, such as the selected options in a combobox.|yes|
-|`aria-labelledby`|string|Can be used to connect with a single header/element that describes the tag list.|yes|
+|Attribute|Value|Description|
+|-|-|-
+|`aria-label`|string|String that labels the tag list. Use this to label what the tag list indicates, such as the selected options in a combobox.|
+|`aria-labelledby`|string|Can be used to connect with a single header/element that describes the tag list.|
 
 {.ds-table .ds-table-align-top}
 

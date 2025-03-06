@@ -63,7 +63,7 @@
 }
 
 :host([disabled]) {
-  --_border: var(--sl-color-border-input);
+  --_border: var(--sl-color-border-disabled);
   --_stroke: var(--sl-color-foreground-disabled);
 
   color: var(--sl-color-foreground-disabled);

@@ -4,17 +4,17 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
-# March 3, 2025
+# March 2025
 
 ## Noteworthy
 
-### New contextual tokens
+### From Component-Specific Tokens to Contextual Tokens
 
-This release adds new contextual tokens for all themes. The old tokens are still here and are still in use. When the old tokens are no longer used throughout the design system, they will be removed.
+In this release, we've improved our token setup by transitioning from component-specific tokens to contextual tokens. This shift enhances flexibility, ensures consistency across components, and simplifies maintenance. Contextual tokens adapt better to different themes and usage contexts, making the design system more scalable and future-proof. The old tokens are still here and are still in use. When the old tokens are no longer used throughout the design system, they will be removed.
 
 If you are using our old tokens, now is the time to start using the new tokens! Please contact us if you have any questions about the new tokens.
 
-This greatly simplifies the theming system and makes it easier to create new themes & maintain existing ones. Some components have already been refactored to use the new tokens. These include:
+Some components have already been refactored to use the new tokens. These include:
 - badge
 - breadcrumbs
 - button
@@ -37,6 +37,11 @@ This greatly simplifies the theming system and makes it easier to create new the
 - toggle-group
 
 The rest will soon follow.
+
+### Components 2.0 in Figma
+
+We're developing a new Figma library that supports all themes using Figma variables. While your current library still uses the old token setup, the new library is built with contextual tokens. As a result, there may be some inconsistencies between design and code during this transition.
+Some components using the new contextual tokens are already available in the Sanoma Learning theme. If you’d like to test them, feel free to request access. In the coming period, we'll roll out the components in the new library across all themes.
 
 ### Accessibility audit improvements
 

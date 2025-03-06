@@ -1,5 +1,14 @@
 # @sl-design-system/locales
 
+## 0.0.11
+
+### Patch Changes
+
+- [#1497](https://github.com/sl-design-system/components/pull/1497) [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f) - New translations added necessary for `paginator`, `items counter` and `page size` components.
+
+- [#1699](https://github.com/sl-design-system/components/pull/1699) [`abdf56b`](https://github.com/sl-design-system/components/commit/abdf56bf38c97ef5ca6d432f09346f7ad205c507) - - Fixed order of elements for screenreaders.
+  - Fixed an issues that caused the dialog to flicker when the title would wrap with and action button beside it but not wrap when the button is in line with the title.
+
 ## 0.0.10
 
 ### Patch Changes

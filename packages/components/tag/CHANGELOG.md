@@ -1,5 +1,29 @@
 # @sl-design-system/tag
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1813](https://github.com/sl-design-system/components/pull/1813) [`7b2fdc6`](https://github.com/sl-design-system/components/commit/7b2fdc6ee42af1b096b6f019b0f9e9daba5ed950) - Various improvements:
+
+  - Add missing `disabled` property to `<sl-tag-list>` so the stack tag can be disabled
+  - Change design from a visual stack to a regular tag with a `<number>+` text
+  - Use the same size (`24px` for `md`, `36px` for `lg`) that is used elsewhere in the design system
+  - Do not show the remove button when the tag is disabled
+  - Use the new contextual tokens
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refactor styling to use new contextual tokens
+
+### Patch Changes
+
+- [#1642](https://github.com/sl-design-system/components/pull/1642) [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39) - Various improvements:
+  - Add `tabindex="-1"` to remove button
+  - Minor style fixes
+- Updated dependencies [[`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652)]:
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/icon@1.1.0
+  - @sl-design-system/tooltip@1.1.2
+
 ## 0.0.4
 
 ### Patch Changes

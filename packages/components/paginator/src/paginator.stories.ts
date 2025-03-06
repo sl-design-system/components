@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Paginator } from './paginator.js';
 
-type Props = Pick<Paginator, 'page' | 'pageSize' | 'size' | 'totalItems'>;
+type Props = Pick<Paginator, 'emphasis' | 'page' | 'pageSize' | 'size' | 'totalItems' | 'width'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -22,18 +22,28 @@ export default {
     totalItems: 200
   },
   argTypes: {
+    emphasis: {
+      control: 'inline-radio',
+      options: ['subtle', 'bold']
+    },
     size: {
+      control: 'radio',
+      options: ['sm', 'md', 'lg']
+    },
+    width: {
       control: 'radio',
       options: ['xs', 'sm', 'md', 'lg']
     }
   },
-  render: ({ page, pageSize, totalItems, size }) => {
+  render: ({ emphasis, page, pageSize, size, totalItems, width }) => {
     return html`
       <sl-paginator
         .page=${page}
         .pageSize=${pageSize}
         .totalItems=${totalItems}
+        emphasis=${ifDefined(emphasis)}
         size=${ifDefined(size)}
+        width=${ifDefined(width)}
       ></sl-paginator>
     `;
   }
@@ -53,7 +63,14 @@ export const All: Story = {
   args: {
     totalItems: 200
   },
+  parameters: {
+    viewport: {
+      defaultViewport: 'reset'
+    }
+  },
   render: ({ page, pageSize, totalItems }) => {
+    const sizes = ['sm', 'md', 'lg'];
+
     const onPageChange = (event: SlChangeEvent<number>): void => {
       document.querySelectorAll('sl-paginator').forEach(paginator => {
         if (paginator === event.target) return;
@@ -77,43 +94,99 @@ export const All: Story = {
           justify-content: end;
         }
       </style>
-      <section>
-        <span>xs</span>
-        <sl-paginator
-          @sl-page-change=${onPageChange}
-          .page=${page}
-          .pageSize=${pageSize}
-          .totalItems=${totalItems}
-          size="xs"
-        ></sl-paginator>
+      ${sizes.map(
+        size => html`
+          <h2>Size: ${size}</h2>
+          <h3>Emphasis subtle (default)</h3>
+          <section>
+            <span>Ghost, width: xs</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              size=${size}
+              width="xs"
+            ></sl-paginator>
 
-        <span>sm</span>
-        <sl-paginator
-          @sl-page-change=${onPageChange}
-          .page=${page}
-          .pageSize=${pageSize}
-          .totalItems=${totalItems}
-          size="sm"
-        ></sl-paginator>
+            <span>Ghost, width: sm</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              size=${size}
+              width="sm"
+            ></sl-paginator>
 
-        <span>md</span>
-        <sl-paginator
-          @sl-page-change=${onPageChange}
-          .page=${page}
-          .pageSize=${pageSize}
-          .totalItems=${totalItems}
-          size="md"
-        ></sl-paginator>
+            <span>Ghost, width: md</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              size=${size}
+              width="md"
+            ></sl-paginator>
 
-        <span>lg</span>
-        <sl-paginator
-          @sl-page-change=${onPageChange}
-          .page=${page}
-          .pageSize=${pageSize}
-          .totalItems=${totalItems}
-          size="lg"
-        ></sl-paginator>
-      </section>
+            <span>Ghost, width: lg</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              size=${size}
+              width="lg"
+            ></sl-paginator>
+          </section>
+          <h3>Emphasis bold</h3>
+          <section>
+            <span>Ghost, width: xs</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              emphasis="bold"
+              size=${size}
+              width="xs"
+            ></sl-paginator>
+
+            <span>Ghost, width: sm</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              emphasis="bold"
+              size=${size}
+              width="sm"
+            ></sl-paginator>
+
+            <span>Ghost, width: md</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              emphasis="bold"
+              size=${size}
+              width="md"
+            ></sl-paginator>
+
+            <span>Ghost, width: lg</span>
+            <sl-paginator
+              @sl-page-change=${onPageChange}
+              .page=${page}
+              .pageSize=${pageSize}
+              .totalItems=${totalItems}
+              emphasis="bold"
+              size=${size}
+              width="lg"
+            ></sl-paginator>
+          </section>
+        `
+      )}
     `;
   }
 };

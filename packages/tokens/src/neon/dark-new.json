@@ -777,7 +777,7 @@
     },
     "border": {
       "plain": {
-        "value": "{color.border.accent.grey.plain}",
+        "value": "{color.border.accent.grey.faint}",
         "type": "color",
         "description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
       },
@@ -802,7 +802,7 @@
         "description": "Use for focus rings of elements in a focus state."
       },
       "selected": {
-        "value": "{color.border.accent.teal.plain}",
+        "value": "{color.border.accent.teal.bold}",
         "type": "color",
         "description": "Use for borders that emphasize selected states, such as tabs or menu items."
       },

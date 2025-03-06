@@ -777,7 +777,7 @@
     },
     "border": {
       "plain": {
-        "value": "{color.border.accent.grey.plain}",
+        "value": "{color.palette.grey.050}",
         "type": "color",
         "description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
       },

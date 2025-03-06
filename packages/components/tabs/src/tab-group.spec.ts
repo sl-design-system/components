@@ -5,8 +5,9 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
+import { type Tab } from './tab.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-tab-group', () => {
   let el: TabGroup;
@@ -42,7 +43,6 @@ describe('sl-tab-group', () => {
 
     it('should align tabs to start', () => {
       expect(el).not.to.have.attribute('align-tabs');
-      expect(el).to.have.style('--_tabs-alignment', 'start');
       expect(el.alignTabs).to.be.undefined;
     });
 
@@ -52,7 +52,10 @@ describe('sl-tab-group', () => {
         await el.updateComplete;
 
         expect(el).to.have.attribute('align-tabs', align);
-        expect(el).to.have.style('--_tabs-alignment', align);
+        expect(el.renderRoot.querySelector('.fade-container')).to.have.style(
+          'justify-content',
+          align === 'start' ? 'normal' : align
+        );
       });
     });
 
@@ -176,6 +179,46 @@ describe('sl-tab-group', () => {
     });
   });
 
+  describe('activation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group>
+          <sl-tab selected>Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+          <sl-tab>Tab 3</sl-tab>
+        </sl-tab-group>
+      `);
+
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should not have an explicit activation', () => {
+      expect(el.activation).to.be.undefined;
+    });
+
+    it('should default to manual activation', () => {
+      const tab = el.querySelector<Tab>('sl-tab:nth-of-type(2)');
+
+      tab?.focus();
+
+      expect(tab).not.to.have.attribute('selected');
+      expect(tab?.selected).not.to.be.true;
+    });
+
+    it('should have automatic activation when set', async () => {
+      const tab = el.querySelector<Tab>('sl-tab:nth-of-type(2)');
+
+      el.activation = 'auto';
+      await el.updateComplete;
+
+      tab?.focus();
+
+      expect(tab).to.have.attribute('selected');
+      expect(tab?.selected).to.be.true;
+    });
+  });
+
   describe('selected', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -196,7 +239,7 @@ describe('sl-tab-group', () => {
     });
   });
 
-  describe('only tabs', () => {
+  describe('no panels', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-tab-group>
@@ -245,7 +288,7 @@ describe('sl-tab-group', () => {
     });
 
     it('should disable the menu items for disabled tabs', () => {
-      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(menuItem => menuItem.disabled);
+      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(menuItem => !!menuItem.disabled);
 
       expect(menuItems).to.eql([false, false, true]);
     });

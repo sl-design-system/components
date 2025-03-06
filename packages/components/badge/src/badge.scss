@@ -3,15 +3,13 @@
   background: var(--sl-color-background-accent-grey-subtle);
   block-size: 1lh;
   border-radius: var(--sl-size-borderRadius-full);
-  box-sizing: border-box;
   color: var(--sl-color-foreground-accent-grey-bold);
   display: inline-flex;
   font-size: 0.857em;
   gap: var(--sl-size-025);
   line-height: 0.8lh;
   min-inline-size: 1lh;
-  padding-inline: var(--sl-size-100);
-  text-transform: uppercase;
+  padding-inline: var(--sl-size-050);
   vertical-align: middle;
 }
 
@@ -100,7 +98,10 @@
 
 :host([size='lg']) {
   font-size: 1em;
+  gap: var(--sl-size-050);
   line-height: 1lh;
+  min-inline-size: calc(1lh + var(--sl-size-050));
+  padding: var(--sl-size-025) var(--sl-size-100);
 
   ::slotted(sl-icon) {
     --sl-icon-container-size: var(--sl-size-icon-xs);

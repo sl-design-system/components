@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/listbox": "^0.0.2",
-    "@sl-design-system/text-field": "^1.5.0"
+    "@sl-design-system/listbox": "^0.1.0",
+    "@sl-design-system/text-field": "^1.6.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5"

@@ -56,28 +56,52 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the checked state of the checkbox changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<boolean>>;
 
-  /** Determines whether the checkbox is checked or not. */
+  /**
+   * Determines whether the checkbox is checked or not.
+   * @default false
+   */
   @property({ type: Boolean }) checked?: boolean;
 
-  /** Whether the node is disabled. */
+  /**
+   * Whether the node is disabled.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** If true, will render an indicator whether the node is expanded or collapsed. */
+  /**
+   * If true, will render an indicator whether the node is expanded or collapsed.
+   * @default false
+   */
   @property({ type: Boolean }) expandable?: boolean;
 
-  /** Indicates whether the node is expanded or collapsed. */
+  /**
+   * Indicates whether the node is expanded or collapsed.
+   * @default false
+   */
   @property({ type: Boolean }) expanded?: boolean;
 
-  /** Hides the indentation guides when set. */
+  /**
+   * Hides the indentation guides when set.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'hide-guides', reflect: true }) hideGuides?: boolean;
 
-  /** Indeterminate state of the checkbox. Used when not all children are checked. */
+  /**
+   * Indeterminate state of the checkbox. Used when not all children are checked.
+   * @default false
+   */
   @property({ type: Boolean }) indeterminate?: boolean;
 
-  /** Whether this node is the last one on this level; used for styling. */
+  /**
+   * Whether this node is the last one on this level; used for styling.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'last-node-in-level' }) lastNodeInLevel?: boolean;
 
-  /** The depth level of this node, 0 being the root of the tree. */
+  /**
+   * The depth level of this node, 0 being the root of the tree.
+   * @default 0
+   */
   @property({ type: Number }) level = 0;
 
   /** The tree model node. */
@@ -86,10 +110,16 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user clicks a the wrapper part of the tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
-  /** Whether the node is currently selected. */
+  /**
+   * Whether the node is currently selected.
+   * @default false
+   */
   @property({ type: Boolean }) selected?: boolean;
 
-  /** If you are able to select one or more tree nodes (at the same time). */
+  /**
+   * If you are able to select one or more tree nodes (at the same time).
+   * @default undefined
+   */
   @property() selects?: 'single' | 'multiple';
 
   /** @internal Emits when the expanded state changes. */
@@ -101,7 +131,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * - 'placeholder': A placeholder node used for loading children.
    * - 'skeleton': A skeleton node used for loading individual nodes.
    *
-   * @default node
+   * @default 'node'
    */
   @property() type?: TreeNodeType;
 
@@ -169,6 +199,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                     @sl-change=${this.#onChange}
                     ?checked=${this.checked}
                     ?indeterminate=${this.indeterminate}
+                    exportparts="label"
+                    part="checkbox"
                     size="sm"
                   >
                     <input slot="input" tabindex="-1" type="checkbox" />

@@ -396,7 +396,7 @@
         "description": "Use for placeholders and hints."
       },
       "disabled": {
-        "value": "{color.foreground.accent.grey.faint}",
+        "value": "{color.palette.grey.200}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
@@ -792,7 +792,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.foreground.disabled}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
@@ -1026,7 +1026,7 @@
         "description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
       },
       "disabled": {
-        "value": "{color.background.accent.grey.subtle}",
+        "value": "{color.palette.grey.100}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1147,7 +1147,7 @@
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.grey.interactive.plain}",
+            "value": "{color.palette.grey.400}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1351,7 +1351,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.700}",
+              "value": "{color.palette.grey.300}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1539,7 +1539,7 @@
           "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
         },
         "plain": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.accent.teal.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
         }
@@ -1569,7 +1569,7 @@
     "surface": {
       "base": {
         "default": {
-          "value": "{color.palette.grey.050}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
         }

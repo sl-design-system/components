@@ -396,7 +396,7 @@
         "description": "Use for placeholders and hints."
       },
       "disabled": {
-        "value": "{color.foreground.accent.grey.faint}",
+        "value": "{color.palette.grey.200}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
@@ -791,7 +791,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.foreground.disabled}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
@@ -836,7 +836,7 @@
       },
       "neutral": {
         "subtle": {
-          "value": "{color.background.accent.grey.subtle}",
+          "value": "{color.palette.grey.100}",
           "type": "color",
           "description": "Use for subtle borders on color.background.neutral background colors."
         },
@@ -853,7 +853,7 @@
       },
       "info": {
         "subtle": {
-          "value": "{color.background.accent.blue.subtle}",
+          "value": "{color.palette.blue.100}",
           "type": "color",
           "description": "Use for subtle borders on color.background.info background colors."
         },
@@ -1120,7 +1120,7 @@
       },
       "neutral": {
         "subtlest": {
-          "value": "{color.background.accent.grey.subtlest}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "The subtlest background in the neutral action color."
         },
@@ -1130,13 +1130,13 @@
           "description": "A subtle background in the neutral action color."
         },
         "bold": {
-          "value": "{color.palette.grey.100}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "A vibrant background option used for neutral actions."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.grey.interactive.bold}",
+            "value": "{color.palette.grey.600}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1615,7 +1615,7 @@
           "y": "0",
           "blur": "10",
           "spread": "0",
-          "color": "rgba({color.palette.grey.700}, {opacity.subtle})",
+          "color": "rgba({color.palette.grey.900}, {opacity.subtle})",
           "type": "dropShadow"
         },
         "type": "boxShadow",
@@ -1650,6 +1650,20 @@
         },
         "active": {
           "value": "25%",
+          "type": "opacity"
+        }
+      },
+      "reversed": {
+        "idle": {
+          "value": "80%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "90%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "100%",
           "type": "opacity"
         }
       }

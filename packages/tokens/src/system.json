@@ -385,6 +385,10 @@
     "white": {
       "value": "#ffffff",
       "type": "color"
+    },
+    "transparant": {
+      "value": "#00000000",
+      "type": "color"
     }
   },
   "opacity": {
@@ -438,6 +442,22 @@
       "bold": {
         "value": "100%",
         "type": "opacity"
+      }
+    },
+    "interactive": {
+      "reversed": {
+        "idle": {
+          "value": "80%",
+          "type": "opacity"
+        },
+        "hover": {
+          "value": "90%",
+          "type": "opacity"
+        },
+        "active": {
+          "value": "100%",
+          "type": "opacity"
+        }
       }
     },
     "dark": {

@@ -216,7 +216,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
-  /** The size of the combobox. */
+  /**
+   * The size of the combobox.
+   * @default 'md'
+   */
   @property({ reflect: true }) size?: ComboboxSize;
 
   /**
@@ -356,7 +359,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       >
         ${this.multiple && this.selectedItems.length
           ? html`
-              <sl-tag-list aria-label=${msg('Selected options')} size=${ifDefined(this.size)} slot="prefix" stacked>
+              <sl-tag-list
+                ?disabled=${this.disabled}
+                aria-label=${msg('Selected options')}
+                size=${ifDefined(this.size)}
+                slot="prefix"
+                stacked
+              >
                 ${repeat(
                   this.selectedItems,
                   item => item,
@@ -405,6 +414,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     `;
   }
 
+  /** @internal */
   override focus(options?: FocusOptions): void {
     this.input?.focus(options);
   }

@@ -64,27 +64,42 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
   /** @internal Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
-  /** Whether the checkbox is checked. */
+  /**
+   * Whether the checkbox is checked.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
-  /** Whether the checkbox is disabled; when set no interaction is possible. */
+  /**
+   * Whether the checkbox is disabled; when set no interaction is possible.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
-  /** Whether the checkbox has the indeterminate state. */
+  /**
+   * Whether the checkbox has the indeterminate state.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
 
-  /** Whether the checkbox is required. */
+  /**
+   * Whether the checkbox is required.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /** When set will cause the control to show it is valid after reportValidity is called. */
+  /**
+   * When set will cause the control to show it is valid after reportValidity is called.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /**
    * The size of the checkbox.
-   * @default md
+   * @default 'md'
    */
   @property({ reflect: true }) size?: CheckboxSize;
 

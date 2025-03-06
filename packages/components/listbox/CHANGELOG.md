@@ -1,5 +1,38 @@
 # @sl-design-system/listbox
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
+
+- [#1664](https://github.com/sl-design-system/components/pull/1664) [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb) - Use `--sl-size-borderWidth-subtle` instead of the old "default" token
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refactor styling to use new contextual tokens
+
+### Patch Changes
+
+- [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Add ability to render grouped items using lit-virtualizer:
+
+  - New `optionGroupPath` property to specify the path to the group name in the option object
+  - New `<sl-option-group-header>` component to render the group header
+  - Add `items` property for advanced customization of how options are rendered (used in combobox)
+  - Add `scrollToIndex(index: number)` method to scroll to a specific index in the listbox
+
+- [#1709](https://github.com/sl-design-system/components/pull/1709) [`a62dee4`](https://github.com/sl-design-system/components/commit/a62dee4a381450cca44c647a54d850290e5b0f11) - Prepend light DOM elements to the host, instead of `append()`
+
+  The fixes any possible issues where the element is added to the light DOM and Lit itself
+  get's confused and thinks the element is rendered by Lit. This can cause Lit to later
+  in the lifecycle remove the element from the light DOM, which is not what we want.
+
+  By prepending the element to the host, we ensure that the element is not in any scope of Lit.
+  This scope is visible in the DOM as HTML comments.
+
+- [#1626](https://github.com/sl-design-system/components/pull/1626) [`99482e3`](https://github.com/sl-design-system/components/commit/99482e31dfee77fb99bf74a4fe325c3ccc08f6e6) - Add virtual list ability to listbox
+
+- Updated dependencies [[`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee)]:
+  - @sl-design-system/icon@1.1.0
+
 ## 0.0.2
 
 ### Patch Changes

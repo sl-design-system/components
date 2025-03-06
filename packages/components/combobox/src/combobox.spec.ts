@@ -12,7 +12,7 @@ import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
@@ -710,7 +710,7 @@ describe('sl-combobox', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('5');
+        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+5');
 
         const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
         expect(visible).to.deep.equal([false, false, false, false, false, true]);

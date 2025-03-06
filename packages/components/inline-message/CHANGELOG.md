@@ -1,5 +1,24 @@
 # @sl-design-system/inline-message
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1819](https://github.com/sl-design-system/components/pull/1819) [`3e5f4e9`](https://github.com/sl-design-system/components/commit/3e5f4e9786a28237ffab4ca014f487f56c818b56) - Inline message improvements:
+  - Add new `size` property, including a new `sm` size previously not available
+  - Refactor styling to use new contextual tokens
+  - Change danger icon to `diamond-exclamation`
+  - Simplify the component implementation
+
+### Patch Changes
+
+- [#1699](https://github.com/sl-design-system/components/pull/1699) [`abdf56b`](https://github.com/sl-design-system/components/commit/abdf56bf38c97ef5ca6d432f09346f7ad205c507) - - Fixed order of elements for screenreaders.
+  - Fixed an issues that caused the dialog to flicker when the title would wrap with and action button beside it but not wrap when the button is in line with the title.
+- Updated dependencies [[`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0), [`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e)]:
+  - @sl-design-system/button@1.2.0
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/icon@1.1.0
+
 ## 1.0.2
 
 ### Patch Changes

@@ -116,11 +116,12 @@ sl-icon {
 
 sl-checkbox {
   align-items: center;
+  padding-block: var(--sl-size-075);
 
   &::part(label) {
     align-items: center;
     display: inline-flex;
-    gap: var(--sl-size-075);
+    gap: var(--sl-size-050);
     margin: 0;
   }
 }

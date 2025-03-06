@@ -2,7 +2,6 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 // eslint-disable-next-line import/order
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import {
-  faBadgeCheck as FarBadgeCheck,
   faArrowUpRightFromSquare,
   faBug,
   faCode,
@@ -16,6 +15,7 @@ import {
   faTrash,
   faTruckFast,
   faXmark,
+  faBadgeCheck as farBadgeCheck,
   faBellExclamation as farBellExclamation,
   faBold as farBold,
   faGear as farGear,
@@ -25,11 +25,12 @@ import {
   faUnderline as farUnderline
 } from '@fortawesome/pro-regular-svg-icons';
 import {
-  faBadgeCheck as FasBadgeCheck,
   faEnvelope,
   faHandBackPointUp,
   faSchool,
   faScreenUsers,
+  faSparkles,
+  faBadgeCheck as fasBadgeCheck,
   faBellExclamation as fasBellExclamation,
   faBold as fasBold,
   faGear as fasGear,
@@ -47,6 +48,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/card/register.js';
 import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/combobox/register.js';
 import '@sl-design-system/dialog/register.js';
 import '@sl-design-system/drawer/register.js';
 import '@sl-design-system/editor/register.js';
@@ -95,10 +97,11 @@ Icon.register(
   faSchool,
   faScreenUsers,
   faSlack,
+  faSparkles,
   faTrash,
   faTruckFast,
   faXmark,
-  FarBadgeCheck,
+  farBadgeCheck,
   farBellExclamation,
   farBold,
   farGrid,
@@ -106,7 +109,7 @@ Icon.register(
   farItalic,
   farListUl,
   farUnderline,
-  FasBadgeCheck,
+  fasBadgeCheck,
   fasBellExclamation,
   fasBold,
   fasGrid,

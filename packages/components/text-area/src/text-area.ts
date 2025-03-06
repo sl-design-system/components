@@ -172,9 +172,7 @@ export class TextArea extends ObserveAttributesMixin(FormControlMixin(ScopedElem
   override render(): TemplateResult {
     return html`
       <slot name="suffix">
-        ${this.showValidity === 'valid'
-          ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
-          : nothing}
+        ${this.showValidity === 'valid' ? html`<sl-icon class="valid" name="circle-check-solid"></sl-icon>` : nothing}
       </slot>
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
     `;

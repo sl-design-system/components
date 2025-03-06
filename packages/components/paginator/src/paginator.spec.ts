@@ -9,7 +9,7 @@ import { spy, stub } from 'sinon';
 import '../register.js';
 import { Paginator } from './paginator.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-paginator', () => {
   let el: Paginator;
@@ -316,53 +316,53 @@ describe('sl-paginator', () => {
     });
   });
 
-  describe('size', () => {
-    it('should have a large size when there is enough space', async () => {
+  describe('width', () => {
+    it('should have a large width when there is enough space', async () => {
       el = await fixture(html`<sl-paginator total-items="200"></sl-paginator>`);
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el).to.have.attribute('size', 'lg');
-      expect(el.size).to.equal('lg');
+      expect(el).to.have.attribute('width', 'lg');
+      expect(el.width).to.equal('lg');
     });
 
-    it('should have a medium size when there is limited space', async () => {
+    it('should have a medium width when there is limited space', async () => {
       el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 500px;"></sl-paginator>`);
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
+      expect(el).to.have.attribute('width', 'md');
+      expect(el.width).to.equal('md');
     });
 
-    it('should have a small size when there is very limited space', async () => {
+    it('should have a small width when there is very limited space', async () => {
       el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 450px;"></sl-paginator>`);
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el).to.have.attribute('size', 'sm');
-      expect(el.size).to.equal('sm');
+      expect(el).to.have.attribute('width', 'sm');
+      expect(el.width).to.equal('sm');
     });
 
-    it('should have an extra small size when there is very limited space', async () => {
+    it('should have an extra small width when there is very limited space', async () => {
       el = await fixture(html`<sl-paginator total-items="200" style="inline-size: 400px;"></sl-paginator>`);
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el).to.have.attribute('size', 'xs');
-      expect(el.size).to.equal('xs');
+      expect(el).to.have.attribute('width', 'xs');
+      expect(el.width).to.equal('xs');
     });
 
-    it('should not grow larger than the initial set size', async () => {
-      el = await fixture(html`<sl-paginator total-items="200" size="md"></sl-paginator>`);
+    it('should not grow larger than the initial set width', async () => {
+      el = await fixture(html`<sl-paginator total-items="200" width="md"></sl-paginator>`);
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
+      expect(el).to.have.attribute('width', 'md');
+      expect(el.width).to.equal('md');
     });
 
-    it('should shrink smaller than the initial set size', async () => {
-      el = await fixture(html`<sl-paginator total-items="200" size="md" style="inline-size: 400px;"></sl-paginator>`);
+    it('should shrink smaller than the initial set width', async () => {
+      el = await fixture(html`<sl-paginator total-items="200" width="md" style="inline-size: 400px;"></sl-paginator>`);
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el).to.have.attribute('size', 'xs');
-      expect(el.size).to.equal('xs');
+      expect(el).to.have.attribute('width', 'xs');
+      expect(el.width).to.equal('xs');
     });
 
     describe('visible pages', () => {
@@ -372,7 +372,7 @@ describe('sl-paginator', () => {
         await new Promise(resolve => setTimeout(resolve, 100));
       });
 
-      it('should display 10 pages when the size is lg', () => {
+      it('should display 10 pages when the width is lg', () => {
         const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button.page')).filter(
           button => button.style.display !== 'none'
         );
@@ -380,8 +380,8 @@ describe('sl-paginator', () => {
         expect(buttons).to.have.lengthOf(10);
       });
 
-      it('should display 8 pages when the size is md', async () => {
-        el.size = 'md';
+      it('should display 8 pages when the width is md', async () => {
+        el.width = 'md';
         await el.updateComplete;
 
         const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button.page')).filter(
@@ -391,8 +391,8 @@ describe('sl-paginator', () => {
         expect(buttons).to.have.lengthOf(8);
       });
 
-      it('should display 6 pages when the size is sm', async () => {
-        el.size = 'sm';
+      it('should display 6 pages when the width is sm', async () => {
+        el.width = 'sm';
         await el.updateComplete;
 
         const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button.page')).filter(
@@ -402,21 +402,19 @@ describe('sl-paginator', () => {
         expect(buttons).to.have.lengthOf(6);
       });
 
-      it('should display the select instead when the size is xs', async () => {
+      it('should display the select instead when the width is xs', async () => {
         const wrapper = el.renderRoot.querySelector('.wrapper')!;
 
-        // expect(wrapper).not.to.be.displayed;
         expect(getComputedStyle(wrapper).display).to.equal('none');
 
-        el.size = 'xs';
+        el.width = 'xs';
         await el.updateComplete;
 
-        // expect(wrapper).to.be.displayed;
         expect(getComputedStyle(wrapper).display).not.to.equal('none');
       });
 
-      it('should not show any buttons when the size is xs', async () => {
-        el.size = 'xs';
+      it('should not show any buttons when the width is xs', async () => {
+        el.width = 'xs';
         await el.updateComplete;
 
         const buttons = Array.from(el.renderRoot.querySelectorAll<Button>('sl-button')).filter(

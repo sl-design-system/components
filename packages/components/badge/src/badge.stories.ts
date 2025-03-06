@@ -29,7 +29,7 @@ export default {
   args: {
     emphasis: 'subtle',
     icon: false,
-    size: 'md',
+    size: 'lg',
     text: 'Status'
   },
   argTypes: {
@@ -80,6 +80,9 @@ export const Variant: Story = {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
+      }
+      sl-badge {
+        text-transform: capitalize;
       }
     </style>
     <p>

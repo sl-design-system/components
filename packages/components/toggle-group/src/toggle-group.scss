@@ -59,24 +59,24 @@
   --_toggle-group-border: 0px;
 
   ::slotted(sl-toggle-button) {
-    clip-path: inset(0 0.5px);
-    margin-inline: -0.5px;
+    --_group-compensation-start: -0.5px;
+    --_group-compensation-end: -0.5px;
   }
 
   ::slotted(sl-toggle-button:first-of-type) {
-    clip-path: inset(0 0.5px 0 0);
-    margin-inline-start: 0;
+    --_group-compensation-start: var(--_pill-compensation);
+    --_group-compensation-end: -0.5px;
   }
 
   ::slotted(sl-toggle-button:last-of-type) {
-    clip-path: inset(0 0 0 0.5px);
-    margin-inline-end: 0;
+    --_group-compensation-start: -0.5px;
+    --_group-compensation-end: var(--_pill-compensation);
   }
 }
 
 ::slotted(sl-toggle-button:first-of-type) {
   --_button-border-radius: calc(var(--_border-radius) - var(--sl-border-width-button-outline));
-  --_pill-compensation-start: var(--_pill-compensation);
+  --_group-compensation-start: var(--_pill-compensation);
 
   border-end-end-radius: 0;
   border-start-end-radius: 0;
@@ -84,7 +84,7 @@
 
 ::slotted(sl-toggle-button:last-of-type) {
   --_button-border-radius: calc(var(--_border-radius) - var(--sl-border-width-button-outline));
-  --_pill-compensation-end: var(--_pill-compensation);
+  --_group-compensation-end: var(--_pill-compensation);
 
   border-end-start-radius: 0;
   border-start-start-radius: 0;

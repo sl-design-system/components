@@ -412,23 +412,23 @@
         "description": "Use for placeholders and hints."
       },
       "disabled": {
-        "value": "{color.foreground.accent.grey.faint}",
+        "value": "{color.palette.grey.200}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
       "selected": {
         "bold": {
-          "value": "{color.foreground.accent.blue.bold}",
+          "value": "{color.foreground.accent.teal.bold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "onBold": {
-          "value": "{color.foreground.accent.blue.onBold}",
+          "value": "{color.foreground.accent.teal.onBold}",
           "type": "color",
           "description": "Use for text in selected states (e.g., tabs or menu items)."
         },
         "plain": {
-          "value": "{color.foreground.accent.blue.plain}",
+          "value": "{color.foreground.accent.teal.plain}",
           "type": "color",
           "description": "Used as selected foreground color on white backgrounds."
         }
@@ -808,7 +808,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.foreground.disabled}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
@@ -1042,7 +1042,7 @@
         "description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
       },
       "disabled": {
-        "value": "{color.background.accent.grey.subtle}",
+        "value": "{color.palette.grey.100}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1060,23 +1060,23 @@
       },
       "selected": {
         "subtle": {
-          "value": "{color.background.accent.blue.subtle}",
+          "value": "{color.background.accent.teal.subtle}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
         },
         "bold": {
-          "value": "{color.background.primary.bold}",
+          "value": "{color.background.accent.teal.bold}",
           "type": "color",
           "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
         },
         "interactive": {
           "bold": {
-            "value": "{color.background.accent.blue.interactive.bold}",
+            "value": "{color.background.accent.teal.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{color.background.accent.blue.interactive.plain}",
+            "value": "{color.background.accent.teal.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
@@ -1152,7 +1152,7 @@
           "description": "A subtle background in the neutral action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "A vibrant background option used for neutral actions."
         },

@@ -210,7 +210,7 @@ export const All: Story = {
       </sl-form-field>
 
       <sl-form-field hint="Hint text" label="Select">
-        <sl-select ?disabled=${disabled} name="select" required>
+        <sl-select ?disabled=${disabled} name="select" placeholder="Placeholder" required>
           <sl-option value="1">Option 1</sl-option>
           <sl-option value="2">Option 2</sl-option>
           <sl-option value="3">Option 3</sl-option>

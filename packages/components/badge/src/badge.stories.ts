@@ -29,7 +29,7 @@ export default {
   args: {
     emphasis: 'subtle',
     icon: false,
-    size: 'md',
+    size: 'lg',
     text: 'Status'
   },
   argTypes: {
@@ -74,9 +74,6 @@ export const Round: Story = {
 };
 
 export const Variant: Story = {
-  args: {
-    size: 'lg'
-  },
   render: ({ emphasis, size }) => html`
     <style>
       div {

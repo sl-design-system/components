@@ -11,7 +11,7 @@ import {
   type SlFocusEvent,
   type SlSelectEvent
 } from '@sl-design-system/shared/events.js';
-import { TextField } from '@sl-design-system/text-field';
+import { FieldButton, TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -29,6 +29,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-calendar': Calendar,
+      'sl-field-button': FieldButton,
       'sl-icon': Icon,
       'sl-text-field': TextField
     };
@@ -116,13 +117,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.setFormControlElement(this.input);
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
-    const style = document.createElement('style');
-    style.innerHTML = `
-      sl-date-field:has(input:hover):not(:focus-within) {
-        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-      }
-    `;
-    this.prepend(style);
+    // const style = document.createElement('style');
+    // style.innerHTML = `
+    //   sl-date-field:has(input:hover):not(:focus-within) {
+    //     --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+    //   }
+    // `;
+    // this.prepend(style);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -151,17 +152,17 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
-        .placeholder=${this.placeholder}
+        placeholder=${ifDefined(this.placeholder)}
       >
         <slot name="input" slot="input"></slot>
-        <button
+        <sl-field-button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
           aria-label=${msg('Show calendar')}
           slot="suffix"
         >
           <sl-icon name="calendar"></sl-icon>
-        </button>
+        </sl-field-button>
       </sl-text-field>
 
       <slot

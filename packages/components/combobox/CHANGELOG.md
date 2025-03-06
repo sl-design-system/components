@@ -1,5 +1,70 @@
 # @sl-design-system/combobox
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1805](https://github.com/sl-design-system/components/pull/1805) [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb) - Increase the padding for `md` from `32px` to `36px` and for `lg` from `40px` to `48px`.
+
+- [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
+
+- [#1664](https://github.com/sl-design-system/components/pull/1664) [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb) - Use `--sl-size-borderWidth-subtle` instead of the old "default" token
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refactor styling to use new contextual tokens
+
+### Patch Changes
+
+- [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Toggle the listbox when clicking the chevron button
+
+- [#1632](https://github.com/sl-design-system/components/pull/1632) [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9) - Add the ability to render the options using a virtual list:
+
+  You can already render the options yourself by doing
+
+  ```html
+  <sl-combobox>
+    <sl-listbox>
+      <sl-option>Option 1</sl-option>
+      <sl-option>Option 2</sl-option>
+      <sl-option>Option 3</sl-option>
+    </sl-listbox>
+  </sl-combobox>
+  ```
+
+  But for large numbers of options, this can be slow. You can now use the `options` property to have the combobox render the options for you:
+
+  ```html
+  <sl-combobox .options=${['Option 1', 'Option 2', 'Option 3', ...]}></sl-combobox>
+  ```
+
+  You can customize the rendering of each option by using:
+
+  - `optionLabelPath` to specify the path to the label in each option object
+  - `optionValuePath` to specify the path to the value in each option object
+
+  You can also group the options by using `optionGroupPath`. This will group the options by the value of the property specified in `optionGroupPath`. The value is also used as the label for the group.
+
+  There is no difference how the options are rendered in the DOM. You can customize
+  the options in both scenarios by using the `sl-option { ... }` selector.
+
+- [#1642](https://github.com/sl-design-system/components/pull/1642) [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39) - Various combobox fixes:
+
+  - Add `aria-owns` for linking the input to the listbox
+  - Add `aria-posinset` and `aria-setsize` to the listbox options for virtual lists
+  - Add focus style to tags
+  - Remove `aria-current` from the listbox options (invalid usage of the attribute)
+  - Improve keyboard navigation between the input and the tags using the left/right arrow keys
+  - Fix the listbox popover not having the correct size on WebKit
+  - Fix VoiceOver not announcing any option navigation after the first/last selection
+
+- [#1813](https://github.com/sl-design-system/components/pull/1813) [`7b2fdc6`](https://github.com/sl-design-system/components/commit/7b2fdc6ee42af1b096b6f019b0f9e9daba5ed950) - Disable the stack tag when the combobox is disabled
+
+- Updated dependencies [[`7b2fdc6`](https://github.com/sl-design-system/components/commit/7b2fdc6ee42af1b096b6f019b0f9e9daba5ed950), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9), [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9), [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`4e80437`](https://github.com/sl-design-system/components/commit/4e804374c3a02e88b04e4c1df662967740461f7c), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`a62dee4`](https://github.com/sl-design-system/components/commit/a62dee4a381450cca44c647a54d850290e5b0f11), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`99482e3`](https://github.com/sl-design-system/components/commit/99482e31dfee77fb99bf74a4fe325c3ccc08f6e6), [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb), [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e), [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd)]:
+  - @sl-design-system/tag@0.1.0
+  - @sl-design-system/text-field@1.6.0
+  - @sl-design-system/form@1.2.0
+  - @sl-design-system/listbox@0.1.0
+  - @sl-design-system/icon@1.1.0
+
 ## 0.0.3
 
 ### Patch Changes

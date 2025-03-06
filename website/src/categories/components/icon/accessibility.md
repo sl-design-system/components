@@ -10,26 +10,10 @@ eleventyNavigation:
 
 ## Label
 
+In general we recommend using WAI-ARIA attributes when there is no text visible, but in the case of this icon component we've created a `label` attribute for you to set the `aria-label` because whether there is or isn't a label impacts other attributes besides just `aria-label`.
+
+`aria-hidden`	will be set when no label is given, because we assume the icon is purely presentational and we hide it from assistive technology. 
+When there is a label set the `role` attribute will be set to `img` because the icon will be part of the accessibility tree and thus we need to declare it as an image.
+
 The label only needs to be set when there is no accompanying text with the icon, as the assistive technology will read this label as well as the accompanying text. It can however be used in the rare cases the icon adds additional information to the label.
-</section>
-
-
-<section>
-
-## WAI-ARIA
-
-{{ 'aria-attributes' | recurringText }}
-
-<div class="ds-table-wrapper">
-
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`aria-label`|string|Set by using the `label` property on the element.|no|
-|`aria-hidden`|boolean|When no `label` is set we assume the icon is purely presentational and we hide it from assistive technology. |no|
-|`role`|`'img', undefined`|When a `label` is set this means the icon will be part of the accessibility tree and thus we need to declare it as an icon. |no|
-
-{.ds-table .ds-table-align-top}
-
-</div>
-
 </section>

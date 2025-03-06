@@ -47,7 +47,6 @@
 :host([disabled]) {
   --_handle-color: var(--sl-color-foreground-disabled);
 
-  color: var(--sl-color-foreground-disabled);
   cursor: default;
   pointer-events: none;
 

@@ -792,7 +792,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.foreground.disabled}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },

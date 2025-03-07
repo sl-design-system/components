@@ -4,7 +4,7 @@ import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } fr
 import { Icon } from '@sl-design-system/icon';
 import { Listbox, type ListboxItem, Option, OptionGroup, OptionGroupHeader } from '@sl-design-system/listbox';
 import {
-  type EventEmitter,
+  EventEmitter,
   EventsController,
   type Path,
   type PathKeys,
@@ -91,7 +91,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   static viewportMargin = 8;
 
   /** Event controller. */
-  #events = new EventsController(this, { click: this.#onClick });
+  #events = new EventsController(this, { click: this.#onClick, focusout: this.#onFocusout });
 
   /** Message element for when filtering results did not yield any results. */
   #noMatch?: NoMatch;
@@ -462,6 +462,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
   }
 
+  #onFocusout(event: FocusEvent): void {
+    const leavingComponent =
+      !event.relatedTarget || (event.relatedTarget !== this && event.relatedTarget !== this.input);
+
+    if (leavingComponent) {
+      this.wrapper?.hidePopover();
+    }
+  }
+
   #onInput(event: InputEvent): void {
     const value = this.input.value;
 
@@ -586,9 +595,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.#updateCurrent();
       this.#updateFilteredOptions();
 
-      if (this.multiple) {
-        this.input.focus();
-      } else {
+      this.input.focus();
+
+      if (!this.multiple) {
         this.wrapper?.hidePopover();
       }
     }

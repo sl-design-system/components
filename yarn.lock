@@ -3671,7 +3671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/localize@npm:^0.12.0, @lit/localize@npm:^0.12.2":
+"@lit/localize@npm:^0.12.0, @lit/localize@npm:^0.12.1, @lit/localize@npm:^0.12.2":
   version: 0.12.2
   resolution: "@lit/localize@npm:0.12.2"
   dependencies:
@@ -4802,11 +4802,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button@npm:^1.0.0, @sl-design-system/button@npm:^1.0.2, @sl-design-system/button@npm:^1.2.0, @sl-design-system/button@workspace:packages/components/button":
+"@sl-design-system/button@npm:^1.0.0, @sl-design-system/button@npm:^1.0.2, @sl-design-system/button@npm:^1.0.3, @sl-design-system/button@npm:^1.2.0, @sl-design-system/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
   dependencies:
     "@sl-design-system/shared": "npm:^0.5.0"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/calendar@npm:^0.0.0, @sl-design-system/calendar@workspace:packages/components/calendar":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/calendar@workspace:packages/components/calendar"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:^1.0.3"
+    "@sl-design-system/format-date": "npm:^0.0.4"
+    "@sl-design-system/icon": "npm:^1.0.2"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -4893,6 +4910,22 @@ __metadata:
   resolution: "@sl-design-system/data-source@workspace:packages/components/data-source"
   dependencies:
     "@sl-design-system/shared": "npm:^0.5.0"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/date-field@workspace:packages/components/date-field":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/date-field@workspace:packages/components/date-field"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/calendar": "npm:^0.0.0"
+    "@sl-design-system/form": "npm:^1.0.4"
+    "@sl-design-system/icon": "npm:^1.0.2"
+    "@sl-design-system/text-field": "npm:^1.4.0"
+    lit: "npm:^3.1.4"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+    lit: ^3.1.4
   languageName: unknown
   linkType: soft
 
@@ -5018,7 +5051,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/form@npm:^1.2.0, @sl-design-system/form@workspace:packages/components/form":
+"@sl-design-system/form@npm:^1.0.4, @sl-design-system/form@npm:^1.2.0, @sl-design-system/form@workspace:packages/components/form":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"
   dependencies:
@@ -5032,7 +5065,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/format-date@workspace:packages/components/format-date":
+"@sl-design-system/format-date@npm:^0.0.4, @sl-design-system/format-date@workspace:packages/components/format-date":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/format-date@workspace:packages/components/format-date"
   dependencies:
@@ -5074,7 +5107,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/icon@npm:1.1.0, @sl-design-system/icon@npm:^1.0.0, @sl-design-system/icon@npm:^1.1.0, @sl-design-system/icon@workspace:packages/components/icon":
+"@sl-design-system/icon@npm:1.1.0, @sl-design-system/icon@npm:^1.0.0, @sl-design-system/icon@npm:^1.0.2, @sl-design-system/icon@npm:^1.1.0, @sl-design-system/icon@workspace:packages/components/icon":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/icon@workspace:packages/components/icon"
   dependencies:
@@ -5544,7 +5577,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:^1.6.0, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:^1.4.0, @sl-design-system/text-field@npm:^1.6.0, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:
@@ -15389,7 +15422,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:^2.0.0 || ^3.0.0, lit@npm:^3.0.0, lit@npm:^3.2.0, lit@npm:^3.2.1":
+"lit@npm:^2.0.0 || ^3.0.0, lit@npm:^3.0.0, lit@npm:^3.1.4, lit@npm:^3.2.0, lit@npm:^3.2.1":
   version: 3.2.1
   resolution: "lit@npm:3.2.1"
   dependencies:

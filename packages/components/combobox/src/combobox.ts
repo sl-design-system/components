@@ -594,6 +594,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.#toggleSelectedOption(item);
       this.#updateCurrent();
       this.#updateFilteredOptions();
+      this.#updateCreateCustomOption();
 
       this.input.focus();
 

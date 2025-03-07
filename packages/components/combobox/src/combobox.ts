@@ -468,6 +468,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     if (leavingComponent) {
       this.wrapper?.hidePopover();
+
+      // If we are leaving the component and an item has been selected, make sure the input value is correct
+      if (this.selectedItems.length && !this.multiple) {
+        this.#updateTextFieldValue();
+      }
     }
   }
 
@@ -746,6 +751,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           this.listbox?.scrollToIndex(index, { block: 'nearest' });
         } else {
           this.listbox?.scrollIntoView({ block: 'start' });
+        }
+
+        if (this.selectedItems.length) {
+          this.#updateCurrent(this.selectedItems[0]);
         }
       }
     } else {

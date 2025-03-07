@@ -110,7 +110,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <div class="header">
+      <div part="header">
         <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link">
           <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} month="long"></sl-format-date>
           <sl-icon name="fas-caret-down" size="xs"></sl-icon>

@@ -58,7 +58,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     const currentMonth = this.month.getMonth();
 
     return html`
-      <div class="header">
+      <div part="header">
         <span class="current-year">${this.month.getFullYear()}</span>
         <sl-button @click=${this.#onPrevious} aria-label=${msg('Go back')} fill="ghost" variant="primary">
           <sl-icon name="far-chevron-left"></sl-icon>

@@ -39,7 +39,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
 
-  /** @internal The mode the calendar currently is in. */
+  /** @internal The mode the calendar is currently is. */
   @state() mode: 'day' | 'month' | 'year' = 'day';
 
   /** The month that the calendar opens on. */
@@ -72,23 +72,21 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
+      <sl-select-day
+        @sl-select=${this.#onSelect}
+        @sl-toggle=${this.#onToggleMonthYear}
+        ?inert=${this.mode !== 'day'}
+        ?readonly=${this.readonly}
+        ?show-today=${this.showToday}
+        ?show-week-numbers=${this.showWeekNumbers}
+        .month=${this.month}
+        .selected=${this.selected}
+        aria-hidden=${this.mode !== 'day'}
+        first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+        locale=${ifDefined(this.locale)}
+        style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}
+      ></sl-select-day>
       ${choose(this.mode, [
-        [
-          'day',
-          () => html`
-            <sl-select-day
-              @sl-select=${this.#onSelect}
-              @sl-toggle=${this.#onToggleMonthYear}
-              ?readonly=${this.readonly}
-              ?show-today=${this.showToday}
-              ?show-week-numbers=${this.showWeekNumbers}
-              .month=${this.month}
-              .selected=${this.selected}
-              first-day-of-week=${ifDefined(this.firstDayOfWeek)}
-              locale=${ifDefined(this.locale)}
-            ></sl-select-day>
-          `
-        ],
         [
           'month',
           () => html`

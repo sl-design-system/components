@@ -1,42 +1,43 @@
 :host {
   display: inline-flex;
   flex-direction: column;
+  gap: var(--sl-size-025);
 }
 
 :host([show-week-numbers]) {
   .days-of-week {
-    grid-template-columns: repeat(8, 2rem);
+    grid-template-columns: repeat(8, var(--sl-size-400));
   }
 
   .scroller {
-    max-inline-size: calc(8 * 2rem);
+    max-inline-size: calc(8 * var(--sl-size-400));
   }
 }
 
-.header {
+[part='header'] {
   align-items: center;
   display: flex;
 }
 
 .current-month,
 .current-year {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 1.2em;
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
 
   sl-icon {
-    color: var(--sl-color-neutral-muted);
+    color: var(--sl-color-foreground-subtlest);
   }
 }
 
 .current-year {
-  margin-inline: 0.25rem auto;
+  margin-inline: var(--sl-size-050) auto;
 }
 
 .days-of-week {
-  color: var(--sl-color-neutral-subtle);
+  color: var(--sl-color-foreground-subtlest);
   display: grid;
   font-weight: normal;
-  grid-template-columns: repeat(7, 2rem);
+  grid-template-columns: repeat(7, var(--sl-size-400));
   text-transform: uppercase;
 }
 
@@ -46,15 +47,15 @@
 }
 
 .week-number {
-  border-inline-end: 1px solid var(--sl-color-neutral-muted);
-  inline-size: calc(2rem - 1px);
+  border-inline-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-neutral-muted);
+  inline-size: calc(var(--sl-size-400) - var(--sl-size-borderWidth-subtle));
 }
 
 .scroller {
   align-items: start;
   display: flex;
   flex-grow: 1;
-  max-inline-size: calc(7 * 2rem);
+  max-inline-size: calc(7 * var(--sl-size-400));
   outline: none;
   overflow: scroll hidden;
   scroll-snap-type: x mandatory;

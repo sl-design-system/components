@@ -44,6 +44,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   /** Formatter for displaying the value in the input. */
   #formatter?: Intl.DateTimeFormat;
 
+  /**
+   * Flag indicating whether the popover was just closed. We need to know this so we can
+   * properly handle button clicks that close the popover. If the popover was just closed,
+   * we don't want to show it again when the button click event fires.
+   */
+  #popoverJustClosed = false;
+
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -58,6 +65,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   @property({ type: Object, attribute: 'date-time-format' })
   dateTimeFormat: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'numeric', year: 'numeric' };
 
+  /** Whether the date field is disabled; when set no interaction is possible. */
+  @property({ type: Boolean }) override disabled?: boolean;
+
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
    * @default 1
@@ -71,13 +81,19 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   input!: HTMLInputElement;
 
   /**
-   * The placeholder for the text field.
+   * The placeholder for the date field.
    * @default undefined
    */
   @property() placeholder?: string;
 
   /**
-   * Whether the text field is a required field.
+   * Whether the date field is readonly.
+   * @default false
+   */
+  @property({ type: Boolean }) readonly?: boolean;
+
+  /**
+   * Whether the date field is a required field.
    * @default false
    */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
@@ -117,13 +133,13 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     this.setFormControlElement(this.input);
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
-    // const style = document.createElement('style');
-    // style.innerHTML = `
-    //   sl-date-field:has(input:hover):not(:focus-within) {
-    //     --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-    //   }
-    // `;
-    // this.prepend(style);
+    const style = document.createElement('style');
+    style.innerHTML = `
+      sl-date-field:has(input:hover):not(:focus-within)::part(text-field) {
+        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+    `;
+    this.prepend(style);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -151,13 +167,14 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @sl-form-control=${this.#onTextFieldFormControl}
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
-        ?readonly=${this.selectOnly}
+        ?readonly=${this.readonly || this.selectOnly}
+        part="text-field"
         placeholder=${ifDefined(this.placeholder)}
       >
         <slot name="input" slot="input"></slot>
         <sl-field-button
           @click=${this.#onButtonClick}
-          ?disabled=${this.disabled}
+          ?disabled=${this.disabled || this.readonly}
           aria-label=${msg('Show calendar')}
           slot="suffix"
         >
@@ -172,7 +189,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           position: 'bottom-start',
           viewportMargin: DateField.viewportMargin
         })}
+        @beforetoggle=${this.#onBeforeToggle}
         @toggle=${this.#onToggle}
+        name="calendar"
         part="wrapper"
         popover
         tabindex="-1"
@@ -192,8 +211,19 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     `;
   }
 
+  #onBeforeToggle(event: ToggleEvent): void {
+    if (event.newState === 'open') {
+      this.input.setAttribute('aria-expanded', 'true');
+    } else {
+      this.input.setAttribute('aria-expanded', 'false');
+      this.#popoverJustClosed = true;
+    }
+  }
   #onButtonClick(): void {
-    this.wrapper?.showPopover();
+    // Prevents the popover from reopening immediately after it was just closed
+    if (!this.#popoverJustClosed) {
+      this.wrapper?.togglePopover();
+    }
   }
 
   #onChange(event: SlSelectEvent<Date>): void {
@@ -249,7 +279,12 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     event.stopPropagation();
   }
 
-  #onToggle(): void {
+  #onToggle(event: ToggleEvent): void {
+    if (event.newState === 'closed') {
+      this.#popoverJustClosed = false;
+    }
+
+    // Trigger a rerender so the calendar will be rendered
     this.requestUpdate();
   }
 }

@@ -36,16 +36,13 @@ These keyboard interactions make switch components not only accessible but also 
 
 ## WAI-ARIA
 
-When it comes to ensuring accessibility for switch components, we turn to the power of WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications). Here's how WAI-ARIA contributes:
+{{ 'aria-attributes' | recurringText }}
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`aria-checked`|`'true','false'`|The state of the switch.|no|
-|`role`|`'switch'`|Declare our custom component as a switch.|no|
+|Attribute|Value|Description|
+|-|-|-|
 |`aria-label`|string|Can be added when the switch doesn't have a label text or label component connected with.|yes|
-|`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
 |`aria-disabled`|boolean|Announces the switch component as disabled with a screen reader. See [Note 1] below.|yes|
 |`aria-labelledby`|string|When multiple switches are used to connect with single header that describes those switches.|yes|
 

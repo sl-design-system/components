@@ -19,19 +19,14 @@ eleventyNavigation:
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a progress bar provide essential information to assistive technologies and screen readers.  
+{{ 'aria-attributes' | recurringText }}
 
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`role`	|`'progressbar'`|This role indicates that an element represents a progress bar. It is used for both determinate (where progress is measurable, like a percentage) and indeterminate (where progress is ongoing without specific measure) progress bars.|no|
-|`aria-valuemin`|string|Specifies the minimum value of the progress bar - 0 (0%).|no|
-|`aria-valuemax`|string|Specifies the maximum value of the progress bar - 100 (100%).|no|
-|`aria-valuenow`|string|Indicates the current value/progress of the progress bar (as percentage). This attribute is updated dynamically as the progress changes. For example, if the progress is at 50%, aria-valuenow would be set to 50.| no|
-|`aria-live`|`polite`|Announces the state and value update/changes.|no|
-|`aria-busy`|boolean|Set to `true` when the progress bar is in the `indeterminate` state on the aria-live element, otherwise it's set to `false`. You can also set `aria-busy="true"` when you want to connect the progress bar with other element/region on your application (please remember to connect the element/region with the progress bar component by e.g. by `aria-describedby`).|no/yes|
-|`aria-labelledby`|string|Specifies a label or a reference to an element that serves as a label for the progress bar. This helps in associating the progress bar with its descriptive text or label for better understanding. By default, it contains `id` of the label (provided by `label` attribute). You can also connect the component with other label element using its `id` when there is no label attribute.|no/yes|
-|`aria-describedby`|string|Identifies elements that provide additional descriptive information about the progress bar. This can include hints or additional explanations that assistive technologies can present to users. By default, it contains `id` of the slotted helper text. You can also add `aria-describedby="progress-bar-id"` on other element of your application to connect it with the progress bar component.|no/yes|
-|`aria-label`|string|Can be added, when the progress bar has no label attribute.|yes|
+|Attribute | Value | Description |
+|-|-|-|
+|`aria-busy`|boolean|Set internally to `true` when the progress bar is in the `indeterminate` state on the aria-live element, otherwise it's set to `false`. You can also set `aria-busy="true"` when you want to connect the progress bar with other element/region on your application (please remember to connect the element/region with the progress bar component by e.g. by `aria-describedby`).|
+|`aria-labelledby`|string|Specifies a label or a reference to an element that serves as a label for the progress bar. This helps in associating the progress bar with its descriptive text or label for better understanding. By default, it contains `id` of the label (provided by `label` attribute). You can also connect the component with other label element using its `id` when there is no label attribute.|
+|`aria-describedby`|string|Identifies elements that provide additional descriptive information about the progress bar. This can include hints or additional explanations that assistive technologies can present to users. By default, it contains `id` of the slotted helper text. You can also add `aria-describedby="progress-bar-id"` on other element of your application to connect it with the progress bar component.|
+|`aria-label`|string|Can be added, when the progress bar has no label attribute.|
 
 {.ds-table .ds-table-align-top}
 

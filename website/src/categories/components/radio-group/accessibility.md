@@ -98,28 +98,26 @@ We use tab to switch between groups and "skip" the separate options in the tab-f
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for radio buttons and groups provide essential information to assistive technologies and screen readers. They convey the radio button's role, state (checked, unchecked, valid and invalid), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
-<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>
+ They convey the radio button's role, state (checked, unchecked, valid and invalid), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+
 ### Radio Group  
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
-|-|-|-|-|
-|`role`	|`'radiogroup'`|Makes it clear that our custom component is a radio group |no|
-|`aria-labelledby`|string| When different element serves as the label this property can be set to the `id` of that element|yes|
-|`aria-describedby`|string| When the radio group needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation| yes|
-|`aria-disabled`| boolean| Announces the radio group as disabled with a screenreader. See [Note 2] below for more explanation| yes|
+|Attribute | Value | Description |
+|-|-|-|
+|`aria-labelledby`|string| When different element serves as the label this property can be set to the `id` of that element|
+|`aria-describedby`|string| When the radio group needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation| 
+|`aria-disabled`| boolean| Announces the radio group as disabled with a screenreader. See [Note 2] below for more explanation| 
 
 {.ds-table .ds-table-align-top}
 
 ### Radio Button
-|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`	|`'radio'`|Makes it clear that our custom component is a radio button |no |
-|`aria-checked`|`'true','false'`|The state of the radio button.|no|
-|`aria-labelledby`|string| When different element serves as the label this property can be set to the `id` of that element|yes|
-|`aria-label`|string|To be used when you don't have a text label because you want to use images as the options for example|yes|
-|`aria-describedby`|string| When the option needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation| yes|
-|`aria-disabled`| boolean| Announces the option as disabled with a screenreader. See [Note 2] below for more explanation| yes|
+|Attribute | Value | Description |
+|-|-|-|
+|`aria-labelledby`|string| When different element serves as the label this property can be set to the `id` of that element|
+|`aria-label`|string|To be used when you don't have a text label because you want to use images as the options for example|
+|`aria-describedby`|string| When the option needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation| 
+|`aria-disabled`| boolean| Announces the option as disabled with a screenreader. See [Note 2] below for more explanation| 
 
 {.ds-table .ds-table-align-top}
 

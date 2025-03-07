@@ -97,6 +97,12 @@ module.exports = function(eleventyConfig) {
     return metadata.svg[0].buffer.toString();
   });
 
+  eleventyConfig.addLiquidFilter('recurringText', async function(src) {
+    const text = fs.readFileSync(`./src/utilities/recurring-text/${src}.txt`, 'utf8').trim();
+
+    return text;
+  });
+
   eleventyConfig.addCollection('content', collection => {
     return [...collection.getFilteredByGlob('./src/categories/**/*.md')];
   });

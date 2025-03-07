@@ -176,7 +176,7 @@ thead {
 }
 
 tbody {
-  background-color: var(--sl-elevation-surface-raised-default-idle);
+  background-color: var(--sl-elevation-surface-raised-default);
   max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow: auto clip;

@@ -1,5 +1,5 @@
 import { localized, msg } from '@lit/localize';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
@@ -24,6 +24,27 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // eslint-disable-next-line no-unused-private-class-members
+  #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
+    direction: 'grid',
+    directionLength: 7,
+    focusInIndex: elements => {
+      let index = elements.findIndex(el => el.part.contains('selected') && !el.disabled);
+      if (index > -1) {
+        return index;
+      }
+
+      index = elements.findIndex(el => el.part.contains('today') && !el.disabled);
+      if (index > -1) {
+        return index;
+      }
+
+      return elements.findIndex(el => !el.disabled);
+    },
+    elements: (): HTMLButtonElement[] => Array.from(this.renderRoot.querySelectorAll('button')),
+    isFocusableElement: el => !el.disabled
+  });
+
   /** @internal The calendar object. */
   @state() calendar?: Calendar;
 
@@ -43,12 +64,12 @@ export class MonthView extends LocaleMixin(LitElement) {
   @property({ converter: dateConverter }) month?: Date;
 
   /**
-   * Will not use buttons for the days of the month if true.
+   * If set, will not render buttons for each day.
    * @default false
    */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
-  /** You can customize how a day is rendered by setting this property.  */
+  /** You can customize how a day is rendered by providing a custom renderer callback.  */
   @property({ attribute: false }) renderer?: MonthViewRenderer;
 
   /** @internal Emits when the user selects a day. */

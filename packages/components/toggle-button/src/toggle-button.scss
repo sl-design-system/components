@@ -8,8 +8,8 @@
   // these are overwritten in toggle group
   --_border-width: var(--sl-size-borderWidth-none);
   --_button-border-radius: var(--sl-size-borderRadius-default);
-  --_pill-compensation-start: 0px;
-  --_pill-compensation-end: 0px;
+  --_group-compensation-start: 0px;
+  --_group-compensation-end: 0px;
   --_border-compensation: var(--_toggle-group-border, var(--_border-width));
 
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
@@ -94,10 +94,10 @@
   justify-content: center;
   min-block-size: 1lh;
   padding: calc(var(--sl-size-075) - var(--_border-compensation))
-    calc(var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
     calc(var(--sl-size-075) - var(--_border-compensation))
     calc(
-      var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
+      var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
     );
   transition: background var(--_transition-duration) var(--_transition-easing);
 }
@@ -110,10 +110,10 @@
   --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-xs)) / 2);
 
   padding: calc(var(--sl-size-025) - var(--_border-compensation))
-    calc(var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
     calc(var(--sl-size-025) - var(--_border-compensation))
     calc(
-      var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
+      var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
     );
 }
 
@@ -123,10 +123,10 @@
 
 :host([size='lg']) [part='wrapper'] {
   padding: calc(var(--sl-size-125) - var(--_border-compensation))
-    calc(var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
     calc(var(--sl-size-125) - var(--_border-compensation))
     calc(
-      var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_pill-compensation-start)
+      var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
     );
 }
 
@@ -141,24 +141,24 @@
   aspect-ratio: 1;
   line-height: var(--sl-size-new-icon-md);
   padding: calc(var(--sl-size-125) - var(--_border-compensation))
-    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_group-compensation-end))
     calc(var(--sl-size-125) - var(--_border-compensation))
-    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_pill-compensation-start));
+    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_group-compensation-start));
 }
 
 :host([icon-only][size='sm']) [part='wrapper'] {
   line-height: var(--sl-size-new-icon-xs);
   padding: calc(var(--sl-size-075) - var(--_border-compensation))
-    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_group-compensation-end))
     calc(var(--sl-size-075) - var(--_border-compensation))
-    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_pill-compensation-start));
+    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_group-compensation-start));
 }
 
 :host([icon-only][size='lg']) [part='wrapper'] {
   padding: calc(var(--sl-size-200) - var(--_border-compensation))
-    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_pill-compensation-end))
+    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_group-compensation-end))
     calc(var(--sl-size-200) - var(--_border-compensation))
-    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_pill-compensation-start));
+    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_group-compensation-start));
 }
 
 sl-icon,

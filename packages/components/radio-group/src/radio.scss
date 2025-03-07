@@ -67,9 +67,8 @@
 }
 
 :host([disabled]) {
-  --_border: var(--sl-color-border-input);
+  --_border: var(--sl-color-border-disabled);
 
-  color: var(--sl-color-foreground-disabled);
   cursor: default;
   pointer-events: none;
 

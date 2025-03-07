@@ -56,7 +56,6 @@
 }
 
 :host([disabled]) {
-  background: var(--sl-color-background-disabled);
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
 

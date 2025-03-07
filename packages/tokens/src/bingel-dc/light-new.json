@@ -747,7 +747,7 @@
       },
       "inverted": {
         "idle": {
-          "value": "{color.foreground.inverted}",
+          "value": "{color.foreground.inverted.plain}",
           "type": "color",
           "description": "Use for inverted links in idle state."
         },
@@ -797,7 +797,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.border.accent.grey.faint}",
+        "value": "{color.foreground.disabled}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
@@ -1141,7 +1141,7 @@
           "description": "A subtle background in the neutral action color."
         },
         "bold": {
-          "value": "{color.background.accent.grey.bold}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "A vibrant background option used for neutral actions."
         },

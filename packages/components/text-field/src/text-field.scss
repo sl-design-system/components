@@ -47,8 +47,13 @@
 
 :host([disabled]) {
   background: var(--sl-color-background-disabled);
+  border-color: var(--sl-color-border-disabled);
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
+
+  slot[name='input']::slotted(input)::placeholder {
+    color: var(--sl-color-foreground-disabled);
+  }
 }
 
 :host([has-focus-ring]) {

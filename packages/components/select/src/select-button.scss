@@ -51,9 +51,13 @@
 
 :host([disabled]) {
   background: var(--sl-color-background-disabled);
-  border-color: var(--sl-color-border-input);
+  border-color: var(--sl-color-border-disabled);
   color: var(--sl-color-foreground-disabled);
   pointer-events: none;
+
+  .placeholder {
+    color: var(--sl-color-foreground-disabled);
+  }
 }
 
 :host(:focus) {

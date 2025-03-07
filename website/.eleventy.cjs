@@ -98,7 +98,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addLiquidFilter('recurringText', async function(src) {
-    const text = fs.readFileSync(`./src/recurring-text/${src}.txt`, 'utf8').trim();
+    const text = fs.readFileSync(`./src/utilities/recurring-text/${src}.txt`, 'utf8').trim();
 
     return text;
   });

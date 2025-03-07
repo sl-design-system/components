@@ -33,7 +33,7 @@ eleventyNavigation:
 
 |Attribute|Value|Description|
 |-|-|-|
-|`ariaDescribedby`|string|Describes the purpose of the dialog|
+|`aria-describedby`|string|Describes the purpose of the dialog|
 
 {.ds-table .ds-table-align-top}
 

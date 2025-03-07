@@ -5,6 +5,10 @@
 
 :host([disabled]) {
   pointer-events: none;
+
+  [part='wrapper'] {
+    border-color: var(--sl-color-border-disabled);
+  }
 }
 
 :host([size='lg']) button {

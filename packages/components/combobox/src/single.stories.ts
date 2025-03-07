@@ -157,13 +157,13 @@ export const RichContent: Story = {
           margin-inline-start: auto;
         }
       </style>
-      <sl-option value="chapter-1">Chapter 1 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
-      <sl-option value="chapter-2">Chapter 2 <sl-badge emphasis="bold" variant="info">Published</sl-badge></sl-option>
+      <sl-option value="chapter-1">Chapter 1 <sl-badge size="lg" variant="info">Published</sl-badge></sl-option>
+      <sl-option value="chapter-2">Chapter 2 <sl-badge size="lg" variant="info">Published</sl-badge></sl-option>
       <sl-option value="chapter-3">
         Cillum proident reprehenderit amet ipsum labore aliqua ea excepteur enim duis. Nisi eu nulla eiusmod irure ut
         anim aute ex eiusmod nisi do Lorem ut. Pariatur anim tempor in fugiat. Sit ullamco exercitation ipsum et eu nisi
         id minim ut. Labore id fugiat exercitation dolor fugiat non dolore anim et enim ex consequat non Lorem. Lorem
-        quis sint et et. <sl-badge emphasis="bold">Draft</sl-badge>
+        quis sint et et. <sl-badge emphasis="bold" size="lg">Draft</sl-badge>
       </sl-option>
     `
   }

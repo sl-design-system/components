@@ -6,27 +6,8 @@
   padding-block-end: var(--sl-size-100);
 }
 
-:host(:where(:hover, [current])) .container {
-  background: var(--sl-elevation-surface-raised-default-hover);
-}
-
-:host(:active) .container {
-  background: var(--sl-elevation-surface-raised-default-active);
-}
-
-.container {
-  align-items: center;
-  border-radius: var(--sl-size-borderRadius-default);
-  color: var(--sl-color-foreground-plain);
-  cursor: pointer;
-  display: flex;
-  gap: var(--sl-size-100);
+[part='container'] {
   margin-inline: var(--sl-size-100);
-  padding: var(--sl-size-075) var(--sl-size-100);
-
-  &:hover {
-    background: var(--sl-elevation-surface-raised-default-hover);
-  }
 }
 
 sl-icon {

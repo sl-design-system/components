@@ -84,6 +84,7 @@ slot[name='input']::slotted(input) {
   background: none;
   border: 0;
   color: currentcolor;
+  cursor: inherit;
   flex: 1;
   font: inherit;
   margin: 0;

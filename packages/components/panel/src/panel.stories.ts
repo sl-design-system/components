@@ -325,7 +325,7 @@ export const CustomHeading: Story = {
       }
 
       section:first-of-type {
-        background-color: var(--sl-elevation-surface-raised-alternative-idle);
+        background-color: var(--sl-elevation-surface-raised-alternative);
       }
 
       .my-heading {
@@ -406,7 +406,7 @@ export const All: Story = {
       }
 
       section:first-of-type {
-        background-color: var(--sl-elevation-surface-raised-alternative-idle);
+        background-color: var(--sl-elevation-surface-raised-alternative);
       }
 
       .my-heading {

@@ -51,6 +51,9 @@ export default {
     },
     selected: {
       control: 'date'
+    },
+    styles: {
+      table: { disable: true }
     }
   },
   render: ({

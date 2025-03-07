@@ -27,16 +27,25 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal The calendar object. */
   @state() calendar?: Calendar;
 
-  /** The first day of the week; 0 for Sunday, 1 for Monday. */
+  /**
+   * The first day of the week; 0 for Sunday, 1 for Monday.
+   * @default 1
+   */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
-  /** Will only show the days of the current month, not the next or previous, when true. */
+  /**
+   * Will only show the days of the current month, not the next or previous, when true.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'hide-days-other-months' }) hideDaysOtherMonths?: boolean;
 
   /** The current month to display. */
   @property({ converter: dateConverter }) month?: Date;
 
-  /** Will not use buttons for the days of the month if true. */
+  /**
+   * Will not use buttons for the days of the month if true.
+   * @default false
+   */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
   /** You can customize how a day is rendered by setting this property.  */
@@ -48,10 +57,16 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** The selected date. */
   @property({ converter: dateConverter }) selected?: Date;
 
-  /** Highlights today's date when set. */
+  /**
+   * Highlights today's date when set.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'show-today' }) showToday?: boolean;
 
-  /** Will render a column with the week numbers when true. */
+  /**
+   * Will render a column with the week numbers when true.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'show-week-numbers' }) showWeekNumbers?: boolean;
 
   /** @internal The translated days of the week. */

@@ -257,6 +257,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     this.#observer.observe(this);
 
     this.setFormControlElement(this.input);
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+      sl-combobox:has(input:hover):not(:focus-within)::part(text-field) {
+        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+    `;
+    this.prepend(style);
   }
 
   override disconnectedCallback(): void {
@@ -354,6 +363,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
         ?required=${this.required}
+        part="text-field"
         placeholder=${ifDefined(this.multiple && this.selectedItems.length ? undefined : this.placeholder)}
         size=${ifDefined(this.size)}
       >

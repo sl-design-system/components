@@ -207,8 +207,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
     adoptStyles(this.shadowRoot!, [breakpoints, styles, backdrop]);
 
-    // Disable scrolling while the dialog is open
-    document.documentElement.style.overflow = 'hidden';
+    this.#updateDocumentElement(true);
 
     this.inert = false;
     this.dialog?.showModal();
@@ -230,9 +229,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** Close the dialog. */
   close(): void {
-    if (this.dialog?.open) {
-      this.#closeDialogOnAnimationend();
-    }
+    this.dialog?.close();
+
+    // if (this.dialog?.open) {
+    //   this.#closeDialogOnAnimationend();
+    // }
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -247,13 +248,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           event.clientX < rect.left ||
           event.clientX > rect.right))
     ) {
-      this.#closeDialogOnAnimationend(event.target, true);
+      this.dialog?.close();
+      // this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 
   #onClose(): void {
-    // Reenable scrolling after the dialog has closed
-    document.documentElement.style.overflow = '';
+    this.#updateDocumentElement(false);
 
     this.#focusTrap.deactivate();
 
@@ -265,7 +266,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.#closeDialogOnAnimationend(event.target as HTMLElement);
+    this.dialog?.close();
+    // this.#closeDialogOnAnimationend(event.target as HTMLElement);
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
@@ -273,38 +275,34 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
 
       if (!this.disableCancel) {
-        this.#closeDialogOnAnimationend(event.target, true);
+        this.dialog?.close();
+        // this.#closeDialogOnAnimationend(event.target, true);
       }
     }
   }
 
-  #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
-    this.dialog?.addEventListener(
-      'animationend',
-      () => {
-        this.dialog?.removeAttribute('closing');
+  #updateDocumentElement(opening?: boolean): void {
+    if (opening) {
+      const width = window.innerWidth,
+        bodyMargin = 16;
 
-        if (emitCancelEvent) {
-          this.cancelEvent.emit();
-        }
+      const scale = (width - bodyMargin * 2) / width;
 
-        if (target?.matches('sl-button[sl-dialog-close]')) {
-          this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
-        } else {
-          this.dialog?.close();
-        }
-      },
-      { once: true }
-    );
+      // Set the scale and translate values so that the body has a 16px margin on each side
+      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
+      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
 
-    this.#focusTrap.deactivate();
+      // Add class to `<html>` for styling purposes
+      document.documentElement.classList.add('sl-dialog-enter');
 
-    /**
-     * Set the closing attribute, this triggers the closing animation.
-     *
-     * FIXME: We can replace this using `@starting-style` once this is available in all
-     * browsers. See https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
-     */
-    requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
+      // Disable scrolling while the dialog is open
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      // Reenable scrolling after the dialog has closed
+      document.documentElement.style.overflow = '';
+
+      // Remove open class
+      document.documentElement.classList.remove('sl-dialog-enter');
+    }
   }
 }

@@ -160,7 +160,7 @@ const build = async (production = false) => {
               fileHeader: 'sl/legal',
               outputReferences: true
             },
-            filter: filterFiles(['core.json', 'base.json'])
+            filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
           },
           {
             destination: `${themeBase}/${theme}/scss/base.scss`,
@@ -171,7 +171,7 @@ const build = async (production = false) => {
               outputReferences: true,
               selector: '@mixin sl-theme-base'
             },
-            filter: filterFiles(['core.json', 'base.json'])
+            filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
           },
           {
             destination: `${themeBase}/${theme}/css/${variant}.css`,
@@ -181,7 +181,7 @@ const build = async (production = false) => {
               fileHeader: 'sl/legal',
               outputReferences: true
             },
-            filter: filterFiles([`${variant}.json`])
+            filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
           },
           {
             destination: `${themeBase}/${theme}/scss/${variant}.scss`,
@@ -192,7 +192,7 @@ const build = async (production = false) => {
               outputReferences: true,
               selector: `@mixin sl-theme-${variant}`
             },
-            filter: filterFiles([`${variant}.json`])
+            filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
           }
         );
       }

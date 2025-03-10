@@ -276,10 +276,26 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     if (label.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
+      this.#label.id ||= `sl-switch-label-${nextUniqueId++}`;
       this.#label.slot = '';
       this.#label.append(...nodes);
       this.append(this.#label);
     }
+
+    console.log('switch::: in onLabelSlotChange input labels?', this.input, this.input.labels);
+
+    requestAnimationFrame(() => {
+      console.log('switch::: in RAF in onLabelSlotChange input labels?', this.input, this.input.labels);
+
+      if (this.input.labels?.length) {
+        this.input.setAttribute(
+          'aria-labelledby',
+          Array.from(this.input.labels)
+            .map(label => label.id)
+            .join(' ')
+        );
+      }
+    });
   }
 
   #syncInput(input: HTMLInputElement): void {

@@ -1,5 +1,11 @@
 # @sanomalearning/slds-clickedu
 
+## 0.2.1
+
+### Patch Changes
+
+- [#1834](https://github.com/sl-design-system/components/pull/1834) [`584cc4e`](https://github.com/sl-design-system/components/commit/584cc4e50fa27d60c30e91b1c545fb81fb855f0f) - Fix missing contextual tokens in `css/base.css` and `css/<variant>.css` files
+
 ## 0.2.0
 
 ### Minor Changes

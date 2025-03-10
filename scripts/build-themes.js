@@ -181,7 +181,7 @@ const build = async (production = false) => {
               fileHeader: 'sl/legal',
               outputReferences: true
             },
-            filter: filterFiles([`${variant}.json`])
+            filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
           },
           {
             destination: `${themeBase}/${theme}/scss/${variant}.scss`,

@@ -1,5 +1,11 @@
 # @sl-design-system/panel
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1831](https://github.com/sl-design-system/components/pull/1831) [`242c6d0`](https://github.com/sl-design-system/components/commit/242c6d0cd7cb277b1dfbe29eae8f7c9cac7f211a) - Fix transparent backgrounds due to obsolete tokens
+
 ## 0.1.0
 
 ### Minor Changes

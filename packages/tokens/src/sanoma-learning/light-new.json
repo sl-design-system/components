@@ -1584,6 +1584,11 @@
           "type": "color",
           "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         },
+        "inverted": {
+          "value": "{color.palette.grey.900}",
+          "type": "color",
+          "description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+        },
         "alternative": {
           "value": "{color.palette.grey.100}",
           "type": "color",

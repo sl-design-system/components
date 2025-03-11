@@ -175,7 +175,8 @@
       "command": "node scripts/setup-themes.js",
       "clean": false,
       "files": [
-        "scripts/setup-themes.js"
+        "scripts/setup-themes.js",
+        "packages/themes/core/global.css"
       ]
     },
     "build:themes:styles": {

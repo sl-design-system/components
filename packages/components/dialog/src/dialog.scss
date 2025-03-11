@@ -11,7 +11,7 @@ dialog {
   background: var(--sl-elevation-surface-raised-default);
   border: 0;
   border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
-  color: var(--sl-color-text-plain);
+  color: var(--sl-color-foreground-plain);
   flex-direction: column;
   margin: auto auto 0;
   max-block-size: calc(100dvh - var(--sl-size-400));
@@ -19,29 +19,13 @@ dialog {
   overflow: visible;
   padding: 0;
 
-  @media (prefers-reduced-motion: no-preference) {
-    animation: close-mobile 300ms ease-out forwards;
-    transition: display 500ms allow-discrete;
+  @starting-style {
+    display: flex;
+    scale: 1.1;
+  }
 
-    @media (width > 600px) {
-      animation: close-desktop 200ms ease-out forwards;
-
-      &::backdrop {
-        animation: hide-backdrop 200ms ease-out forwards;
-      }
-    }
-
-    &[open] {
-      animation: open-mobile 500ms ease-in forwards;
-
-      @media (width > 600px) {
-        animation: open-desktop 500ms ease-in forwards;
-
-        &::backdrop {
-          animation: show-backdrop 500ms ease-in forwards;
-        }
-      }
-    }
+  &:not(:modal) {
+    scale: 0.7;
   }
 
   @media (width > 600px) {
@@ -57,9 +41,30 @@ dialog {
     outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
   }
+}
 
-  &[open] {
-    display: flex;
+dialog,
+dialog::backdrop {
+  opacity: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 0.2s ease-in-out;
+    transition-behavior: allow-discrete;
+    transition-property: display, opacity, overlay, scale;
+  }
+
+  @supports not (overlay: auto) {
+    transition-duration: 0s;
+  }
+}
+
+dialog[open],
+dialog[open]::backdrop {
+  opacity: 1;
+  transition-duration: 0.5s;
+
+  @starting-style {
+    opacity: 0;
   }
 }
 

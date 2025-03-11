@@ -163,23 +163,28 @@ export class TextField<T extends { toString(): string } = string>
 
     this.setFormControlElement(this.input);
 
-    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
-    const style = document.createElement('style');
-    style.innerHTML = `
+    if (this.tagName === 'SL-TEXT-FIELD') {
+      // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+      const style = document.createElement('style');
+      style.innerHTML = `
       sl-text-field:has(input:hover):not(:focus-within) {
         --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
       }
     `;
-    this.prepend(style);
+      this.prepend(style);
+    }
   }
 
   override firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
 
-    const buttons = this.renderRoot.querySelectorAll('sl-field-button');
-    if (buttons.length) {
-      this.fieldButtons = [...this.fieldButtons, ...buttons];
-    }
+    // Set the `fieldButtons` using a microtask so we do not create a lifecycle loop
+    requestAnimationFrame(() => {
+      const buttons = this.renderRoot.querySelectorAll('sl-field-button');
+      if (buttons.length) {
+        this.fieldButtons = [...this.fieldButtons, ...buttons];
+      }
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {

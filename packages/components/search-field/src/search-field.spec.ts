@@ -18,7 +18,7 @@ describe('sl-search-field', () => {
     });
 
     it('should not have a clear button', () => {
-      expect(el.renderRoot.querySelector('button')).to.not.exist;
+      expect(el.renderRoot.querySelector('sl-field-button')).to.not.exist;
     });
 
     it('should not be disabled', () => {
@@ -54,8 +54,9 @@ describe('sl-search-field', () => {
       expect(el.renderRoot.querySelector('sl-field-button')).to.not.exist;
     });
 
-    it('should clear the input when the clear button is clicked', () => {
+    it('should clear the input when the clear button is clicked', async () => {
       el.renderRoot.querySelector('sl-field-button')?.click();
+      await el.updateComplete;
 
       expect(el.value).to.equal('');
     });

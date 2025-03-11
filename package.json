@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "build": "wireit",
+    "build:themes:setup": "wireit",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "wireit",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
@@ -153,6 +154,7 @@
     },
     "build:themes": {
       "dependencies": [
+        "build:themes:setup",
         "build:themes:code",
         "build:themes:styles"
       ]
@@ -169,6 +171,13 @@
         "packages/themes/**/*.js.map"
       ]
     },
+    "build:themes:setup": {
+      "command": "node scripts/setup-themes.js",
+      "clean": false,
+      "files": [
+        "scripts/setup-themes.js"
+      ]
+    },
     "build:themes:styles": {
       "command": "node scripts/build-themes.js",
       "clean": "if-file-deleted",
@@ -178,6 +187,7 @@
       ],
       "output": [
         "packages/themes/**/*.{css,scss}",
+        "!packages/themes/*/global.css",
         "!packages/themes/*/fonts.css"
       ]
     },

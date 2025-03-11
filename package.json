@@ -23,7 +23,6 @@
   ],
   "scripts": {
     "build": "wireit",
-    "build:themes:setup": "wireit",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "wireit",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",

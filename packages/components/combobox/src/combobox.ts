@@ -479,10 +479,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (leavingComponent) {
       this.wrapper?.hidePopover();
 
-      // If we are leaving the component and an item has been selected, make sure the input value is correct
-      if (this.selectedItems.length && !this.multiple) {
-        this.#updateTextFieldValue();
-      }
+      // If we are leaving the component, make sure the input value reflects the selected items
+      this.#updateTextFieldValue();
     }
   }
 

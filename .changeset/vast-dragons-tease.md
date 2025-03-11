@@ -2,4 +2,6 @@
 '@sl-design-system/text-field': patch
 ---
 
-Fix caret cursor when readonly
+Minor improvements:
+- Do not use the caret cursor when readonly
+- Add a `text-field` CSS part for `<sl-text-field>`

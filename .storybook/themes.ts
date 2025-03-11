@@ -165,7 +165,7 @@ export const themes: Theme[] = [
   }
 ];
 
-const resources: { mode?: HTMLLinkElement, fonts?: HTMLLinkElement[], global: HTMLLinkElement } = {};
+const resources: { mode?: HTMLLinkElement, fonts?: HTMLLinkElement[], global?: HTMLLinkElement } = {};
 
 export const updateTheme = async (themeId: string, mode: Mode = 'light'): Promise<void> => {
   const theme = themes.find(({ id }) => id === themeId);

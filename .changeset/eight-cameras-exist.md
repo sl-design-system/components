@@ -10,5 +10,5 @@ Combobox improvements:
 - Add hidden placeholder for the selected items when in multiple mode
 - Start keyboard navigation on the selected item when in single mode
 - Hide popover when the focus leaves the combobox
-- Reset the text to the selected option when focus leaves the combobox and in single mode
+- Reset the text to the selected option when focus leaves the combobox
 - Show the popover immediately and only fade-out when hiding it

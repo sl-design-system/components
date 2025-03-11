@@ -458,6 +458,30 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('Ipsum');
       });
 
+      it('should reset the input value if no option is select and focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('');
+      });
+
+      it('should reset the input value to the selected option when focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        input.select();
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('Lorem');
+      });
+
       it('should emit an sl-change event with the value after selecting an option', async () => {
         const onChange = spy();
 
@@ -647,6 +671,16 @@ describe('sl-combobox', () => {
         await el.updateComplete;
 
         expect(el.value).to.deep.equal(['Ipsum']);
+      });
+
+      it('should reset the input value if focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('');
       });
 
       it('should emit an sl-change event with the value after selecting an option', async () => {

@@ -26,15 +26,14 @@ Typically, users can navigate to a toggle group using the `Tab` key, once they'r
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a toggle group provide essential information to assistive technologies and screen readers. They convey the toggle group's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
 
-|Attribute | Value | Description                                                                                                                                                                                             | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-|
-|`role`	|`region`| Identifies the toggle group as a significant element of the page and that it should be easily accessible with screen readers.                                                                           |no|
-|`aria-label`|string|The `aria-label` can be added on the toggle group to describe its purpose. Individual button labels, especially in case of icon only buttons, need to be set on button level. More information about accessibility of toggle buttons can be found in <a href="/categories/components/toggle-button/accessibility/" target="_blank">the toggle button documentation</a>. |yes|
-|`aria-labelledby`|string| Can be used to connect with a single (heading) element that describes the toggle group, instead of using`aria-label`, which would duplicate the text.                                                                                        |yes|
-|`aria-disabled`| boolean| Announces the toggle group as disabled with a screen reader. See [Note 1] below for more explanation.                                                                                                   | yes|
+|Attribute | Value | Description |
+|-|-|-|
+|`aria-label`|string|The `aria-label` can be added on the toggle group to describe its purpose. Individual button labels, especially in case of icon only buttons, need to be set on button level. More information about accessibility of toggle buttons can be found in <a href="/categories/components/toggle-button/accessibility/" target="_blank">the toggle button documentation</a>.|
+|`aria-labelledby`|string| Can be used to connect with a single (heading) element that describes the toggle group, instead of using`aria-label`, which would duplicate the text.|
+|`aria-disabled`| boolean| Announces the toggle group as disabled with a screen reader. See [Note 1] below for more explanation.|
 
 {.ds-table .ds-table-align-top}
 

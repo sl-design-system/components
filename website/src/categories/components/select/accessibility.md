@@ -29,20 +29,16 @@ eleventyNavigation:
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a select component provide essential information to assistive technologies and screen readers. They convey the select component's role, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
 ### Select
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`role`|`'combobox'`|Identifies the select-button as a combobox.|no|
-|`role`|`'listbox'`|Identifies the list of options as a listbox.|no|
-|`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
-|`aria-expanded`|boolean|Set to `true` if the listbox (list of options) is visible, `false` if it is hidden.|no|
-|`aria-label`|string|Defines a string that labels the action that will be performed when the user interacts with the select. Needs to be added when the select is not wrapped with `sl-form-field` and there is no `sl-label`.|yes|
-|`aria-labelledby`|string|Used to connect with single header/element that describes the select, when there is no label connected to.|yes|
+|Attribute|Value|Description|
+|-|-|-|
+|`aria-label`|string|Defines a string that labels the action that will be performed when the user interacts with the select. Needs to be added when the select is not wrapped with `sl-form-field` and there is no `sl-label`.|
+|`aria-labelledby`|string|Used to connect with single header/element that describes the select, when there is no label connected to.|
 
 {.ds-table .ds-table-align-top}
 
@@ -52,28 +48,12 @@ WAI-ARIA Roles, States, and Properties for a select component provide essential 
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`|`'group'`|Identifies the `option-group` as a group.|no|
-|`aria-label`|string|String that labels the select options group. Same as `heading` string by default. When there is no `heading` please add your own aria-label string.|no/yes|
-|`aria-labelledby`|string|Can be used to connect with single header/element that describes the select group, when there is no label/`heading` connected to.|yes|
+|Attribute|Value|Description|
+|-|-|-|
+|`aria-label`|string|String that labels the select options group. If `heading` is set this value will be added as the `aria-label`. When there is no `heading` please add your own aria-label string.|
+|`aria-labelledby`|string|Can be used to connect with single header/element that describes the select group, when there is no label/`heading` connected to.|
 
 {.ds-table .ds-table-align-top}
 
 </div>
-
-### Option
-
-<div class="ds-table-wrapper">
-
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
-|-|-|-|-|
-|`role`|`'option'`|Identifies the `option` as an option, which is a part of the listbox/group.|no|
-|`aria-disabled`|boolean|Announces the select option as disabled with a screen reader when there is a `disabled` attribute set.|no|
-|`aria-selected`|boolean|Set to `true` when a select option is selected.|no|
-
-{.ds-table .ds-table-align-top}
-
-</div>
-
 </section>

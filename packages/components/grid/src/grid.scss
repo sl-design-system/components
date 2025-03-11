@@ -176,7 +176,7 @@ thead {
 }
 
 tbody {
-  background-color: var(--sl-elevation-surface-raised-default-idle);
+  background-color: var(--sl-elevation-surface-raised-default);
   max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow: auto clip;
@@ -385,20 +385,24 @@ a[class^='skip-link'] {
 }
 
 .skip-link-start:focus {
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   inset-block-end: anchor(top);
   position-try: --start-fallback;
 }
 
 .skip-link-end:focus {
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
   inset-block-start: anchor(bottom);
   position-try: --end-fallback;
 }
 
 @position-try --start-fallback {
+  /* stylelint-disable-next-line at-rule-descriptor-value-no-unknown */
   inset-block: anchor(top) auto;
 }
 
 @position-try --end-fallback {
+  /* stylelint-disable-next-line at-rule-descriptor-value-no-unknown */
   inset-block: auto anchor(bottom);
 }
 

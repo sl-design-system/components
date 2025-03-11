@@ -24,7 +24,7 @@ When the tag is focused and is removable, it can be removed by pressing the `Del
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a tag and tag-list component provide essential information to assistive technologies and screen readers.
+{{ 'aria-attributes' | recurringText }}
 
 ### Tag
 

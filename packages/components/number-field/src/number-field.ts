@@ -24,10 +24,13 @@ export class NumberField extends LocaleMixin(TextField) {
   static override styles = [TextField.styles, styles];
 
   /** Parser used for user input.  */
-  #parser?: NumberParser;
+  #parser = new NumberParser(this.locale);
+
+  /** The string value. */
+  #value?: string;
 
   /** The number value. */
-  #value?: number;
+  #valueAsNumber?: number;
 
   /**
    * Number formatting options.
@@ -37,7 +40,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
-      if (this.formatOptions && this.formatOptions.style === 'percent') {
+      if (this.formatOptions?.style === 'percent') {
         const percentageValue = this.valueAsNumber * 0.01;
 
         return format(percentageValue, this.locale, this.formatOptions);
@@ -72,23 +75,40 @@ export class NumberField extends LocaleMixin(TextField) {
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
   @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
 
-  get valueAsNumber() {
+  override get value(): string | undefined {
     return this.#value;
   }
 
-  /** The value, as a number. */
+  /** The text value. */
+  @property()
+  override set value(value: string | undefined) {
+    this.#value = value;
+
+    const number = value ? this.#parser.parse(value) : undefined;
+    if (this.valueAsNumber !== number) {
+      this.valueAsNumber = number;
+    }
+  }
+
+  get valueAsNumber() {
+    return this.#valueAsNumber;
+  }
+
+  /** The number value. */
   @property({ type: Number })
   set valueAsNumber(value: number | undefined) {
-    this.#value = value;
-    this.value = value === undefined ? '' : value.toString();
+    this.#valueAsNumber = value;
+
+    // Keep the text value in sync with the number value
+    if (this.#value !== value?.toString()) {
+      this.#value = value?.toString();
+    }
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
-
-    this.#parser = new NumberParser(this.locale, this.formatOptions);
 
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
@@ -103,6 +123,13 @@ export class NumberField extends LocaleMixin(TextField) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
+    if (changes.has('formatOptions') || changes.has('locale')) {
+      this.#parser = new NumberParser(this.locale, this.formatOptions);
+
+      // Trigger an update of the formatted value in the parent class
+      this.requestUpdate('formattedValue');
+    }
+
     if (this.max) {
       this.input.max = this.max.toString();
     }
@@ -111,19 +138,9 @@ export class NumberField extends LocaleMixin(TextField) {
       this.input.min = this.min.toString();
     }
 
-    if (changes.has('formatOptions') || changes.has('locale')) {
-      this.#parser = new NumberParser(this.locale, this.formatOptions);
-      this.requestUpdate('value');
-    }
-
-    if (changes.has('value') && this.value) {
-      const number = this.#convertValueToNumber(this.value);
-      if (number !== this.valueAsNumber) {
-        this.valueAsNumber = number;
-      }
-    }
-
     if (changes.has('value') || changes.has('valueAsNumber')) {
+      this.requestUpdate('formattedValue');
+
       this.#validateInput();
     }
   }
@@ -197,7 +214,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
   override onBlur(): void {
     if (this.rawValue !== undefined && this.rawValue !== '') {
-      this.valueAsNumber = this.#convertValueToNumber(
+      this.valueAsNumber = this.#parser.parse(
         this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
       );
 
@@ -265,9 +282,5 @@ export class NumberField extends LocaleMixin(TextField) {
     } else {
       this.input.setCustomValidity('');
     }
-  }
-
-  #convertValueToNumber(value: string): number | undefined {
-    return this.#parser?.parse(value);
   }
 }

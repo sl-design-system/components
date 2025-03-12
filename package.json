@@ -220,6 +220,7 @@
         "build:components",
         "build:examples",
         "build:locales",
+        "build:themes:setup",
         "build:themes:code",
         "dist:angular",
         "dist:checklist",
@@ -293,7 +294,8 @@
       "clean": "if-file-deleted",
       "output": [
         "packages/themes/**/*.{css,scss}",
-        "!packages/themes/*/fonts.css"
+        "!packages/themes/*/fonts.css",
+        "!packages/themes/*/global.css"
       ]
     },
     "dist:types": {

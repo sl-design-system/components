@@ -308,6 +308,7 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
       this.#label.id ||= `sl-checkbox-label-${nextUniqueId++}`;
+      this.#label.setAttribute('aria-hidden', 'true');
       this.#label.slot = 'label';
       this.#label.append(...nodes);
       this.append(this.#label);

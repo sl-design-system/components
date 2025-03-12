@@ -277,6 +277,7 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
       this.#label.id ||= `sl-switch-label-${nextUniqueId++}`;
+      this.#label.setAttribute('aria-hidden', 'true');
       this.#label.slot = '';
       this.#label.append(...nodes);
       this.append(this.#label);

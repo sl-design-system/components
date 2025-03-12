@@ -1250,9 +1250,6 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     if (this.multiple) {
       this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
       this.input.value = '';
-      // } else if (this.createCustomOption) {
-      //   this.input.value = this.createCustomOption.value as string;
-      //   this.input.setSelectionRange(-1, -1);
     } else {
       const item = this.selectedItems.at(0);
 

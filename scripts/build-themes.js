@@ -240,8 +240,6 @@ const build = async (production = false) => {
       await writeFile(to, result.css, 'utf8');
     }
   }
-
-  console.log([...new Set(configs.map(cfg => cfg.theme))]);
 };
 
 build(argv.includes('--production'));

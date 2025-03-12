@@ -458,6 +458,30 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('Ipsum');
       });
 
+      it('should reset the input value if no option is selected and focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('');
+      });
+
+      it('should reset the input value to the selected option when focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        input.select();
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('Lorem');
+      });
+
       it('should emit an sl-change event with the value after selecting an option', async () => {
         const onChange = spy();
 
@@ -523,6 +547,16 @@ describe('sl-combobox', () => {
         expect(customOptions).to.have.lengthOf(1);
         expect(customOptions.at(0)).to.exist;
         expect(customOptions.at(0)?.value).to.equal('Bar');
+      });
+
+      it('should remove the custom option when focus leaves the component', async () => {
+        input.focus();
+
+        await sendKeys({ type: 'Foo' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+        await sendKeys({ press: 'Tab' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
       });
 
       it('should emit an sl-change event when the custom option is created', async () => {
@@ -647,6 +681,16 @@ describe('sl-combobox', () => {
         await el.updateComplete;
 
         expect(el.value).to.deep.equal(['Ipsum']);
+      });
+
+      it('should reset the input value if focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('');
       });
 
       it('should emit an sl-change event with the value after selecting an option', async () => {
@@ -785,6 +829,16 @@ describe('sl-combobox', () => {
         expect(el.querySelectorAll('sl-combobox-custom-option')).to.have.lengthOf(2);
 
         expect(el.value).to.deep.equal(['Custom 1', 'Custom 2']);
+      });
+
+      it('should remove the custom option when focus leaves the component', async () => {
+        input.focus();
+
+        await sendKeys({ type: 'Foo' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+        await sendKeys({ press: 'Tab' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
       });
     });
 

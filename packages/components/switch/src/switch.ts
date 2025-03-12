@@ -276,10 +276,23 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
     if (label.length > 0) {
       this.#label ||= document.createElement('label');
       this.#label.htmlFor = this.input.id;
+      this.#label.id ||= `sl-switch-label-${nextUniqueId++}`;
+      this.#label.setAttribute('aria-hidden', 'true');
       this.#label.slot = '';
       this.#label.append(...nodes);
       this.append(this.#label);
     }
+
+    requestAnimationFrame(() => {
+      if (this.input.labels?.length) {
+        this.input.setAttribute(
+          'aria-labelledby',
+          Array.from(this.input.labels)
+            .map(label => label.id)
+            .join(' ')
+        );
+      }
+    });
   }
 
   #syncInput(input: HTMLInputElement): void {

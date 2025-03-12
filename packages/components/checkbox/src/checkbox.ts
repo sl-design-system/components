@@ -145,31 +145,6 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
     this.setFormControlElement(this.input);
 
     this.#onLabelSlotChange();
-
-    console.log('before RAF in connectedcallback input labels?', this.input, this.input.labels);
-
-    // requestAnimationFrame(() => {
-    console.log('in connectedcallback input labels?', this.input, this.input.labels);
-    // this.button.setAttribute('aria-controls', this.listbox.id);
-    //
-    // if (this.internals.labels.length) {
-    //   this.button.setAttribute(
-    //     'aria-labelledby',
-    //     Array.from(this.internals.labels)
-    //       .map(label => (label as HTMLLabelElement).id)
-    //       .join(' ')
-    //   );
-    // }
-
-    // if (this.input.labels?.length) {
-    //   this.input.setAttribute(
-    //     'aria-labelledby',
-    //     Array.from(this.input.labels)
-    //       .map(label => (label as HTMLLabelElement).id)
-    //       .join(' ')
-    //   );
-    // }
-    // });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -312,10 +287,7 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
       this.#label.slot = 'label';
       this.#label.append(...nodes);
       this.append(this.#label);
-      // this.input.setAttribute('aria-labelledby', this.#label.id); // TODO: label id
     }
-
-    console.log('in onLabelSlotChange input labels?', this.input, this.input.labels);
 
     requestAnimationFrame(() => {
       if (this.input.labels?.length) {

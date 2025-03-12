@@ -283,11 +283,7 @@ export class Switch<T = unknown> extends ObserveAttributesMixin(FormControlMixin
       this.append(this.#label);
     }
 
-    console.log('switch::: in onLabelSlotChange input labels?', this.input, this.input.labels);
-
     requestAnimationFrame(() => {
-      console.log('switch::: in RAF in onLabelSlotChange input labels?', this.input, this.input.labels);
-
       if (this.input.labels?.length) {
         this.input.setAttribute(
           'aria-labelledby',

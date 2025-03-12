@@ -266,21 +266,21 @@ export class NumberField extends LocaleMixin(TextField) {
     if (this.valueAsNumber !== undefined && !Number.isNaN(this.valueAsNumber)) {
       // check constraints, when it really is a number
       if (this.valueAsNumber > (this.max ?? Infinity)) {
-        this.input.setCustomValidity(msg(str`The value must be less than or equal to ${this.max}.`));
+        this.setCustomValidity(msg(str`The value must be less than or equal to ${this.max}.`));
       } else if (this.valueAsNumber < (this.min ?? -Infinity)) {
-        this.input.setCustomValidity(msg(str`The value must be greater than or equal to ${this.min}.`));
+        this.setCustomValidity(msg(str`The value must be greater than or equal to ${this.min}.`));
       } else {
-        this.input.setCustomValidity('');
+        this.setCustomValidity('');
       }
     } else if (this.rawValue !== '' || this.value !== '') {
       // Set custom validity message for NaN case
       if (this.valueAsNumber === undefined || isNaN(this.valueAsNumber)) {
-        this.input.setCustomValidity(msg('Please enter a valid number.'));
+        this.setCustomValidity(msg('Please enter a valid number.'));
       } else {
-        this.input.setCustomValidity('');
+        this.setCustomValidity('');
       }
     } else {
-      this.input.setCustomValidity('');
+      this.setCustomValidity('');
     }
   }
 }

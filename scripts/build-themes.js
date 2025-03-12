@@ -137,6 +137,7 @@ const build = async (production = false) => {
     .entries(permutateThemes($themes))
     .map(([name, tokensets]) => {
       const [theme, variant] = name.split('/');
+
       const files = [
         {
           destination: `${themeBase}/${theme}/${variant}.css`,

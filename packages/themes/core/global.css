@@ -1,0 +1,11 @@
+a {
+  color: var(--sl-color-link-idle);
+}
+
+a:active {
+  color: var(--sl-color-link-active);
+}
+
+a:hover {
+  color: var(--sl-color-link-hover);
+}

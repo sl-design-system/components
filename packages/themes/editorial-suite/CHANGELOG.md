@@ -1,5 +1,13 @@
 # @sl-design-system/editorial-suite
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1837](https://github.com/sl-design-system/components/pull/1837) [`2a440aa`](https://github.com/sl-design-system/components/commit/2a440aa8c1ce80f9c88bee05c2cd84a9ac597ff1) - Updated selected color etsl (from teal to blue)
+
+- [#1834](https://github.com/sl-design-system/components/pull/1834) [`584cc4e`](https://github.com/sl-design-system/components/commit/584cc4e50fa27d60c30e91b1c545fb81fb855f0f) - Fix missing contextual tokens in `css/base.css` and `css/<variant>.css` files
+
 ## 0.1.0
 
 ### Minor Changes

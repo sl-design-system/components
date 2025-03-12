@@ -18,6 +18,3 @@ const setupAllThemes = async () => {
 };
 
 setupAllThemes();
-
-
-//TODO: global.css bronbestand wordt steeds verwijderd.

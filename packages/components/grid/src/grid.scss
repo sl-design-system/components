@@ -360,15 +360,15 @@ td[part~='text-field'] {
   z-index: 1;
 }
 
-a {
+a[href] {
   color: var(--sl-color-link-idle);
 }
 
-a:active {
+a[href]:active {
   color: var(--sl-color-link-active);
 }
 
-a:hover {
+a[href]:hover {
   color: var(--sl-color-link-hover);
 }
 

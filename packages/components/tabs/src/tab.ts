@@ -59,6 +59,8 @@ export class Tab extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    console.log('changes in tab', changes);
+
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', Boolean(this.selected).toString());
     }
@@ -97,7 +99,7 @@ export class Tab extends LitElement {
     } else if (this.href && ['Enter', ' '].includes(event.key)) {
       this.renderRoot.querySelector('a')?.click();
     }
-  }
+  } // TODO: check with href...
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const hasTitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());

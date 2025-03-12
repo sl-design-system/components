@@ -294,6 +294,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event & { target: HTMLElement }): void {
+    console.log('event on tab click', event, event.target.closest('sl-tab'));
     const tab = event.target.closest('sl-tab');
     if (!tab) {
       return;
@@ -318,6 +319,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #onMenuItemClick(tab: Tab): void {
     this.#updateSelectedTab(tab);
+
+    // Create a synthetic event object with the tab as the target
+    const event = { target: tab } as unknown as Event & { target: HTMLElement };
+
+    this.#onClick(event);
+    // this.#onClick(tab);
   }
 
   #onScroll(scroller: HTMLElement): void {
@@ -423,6 +430,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSelectedTab(selectedTab?: Tab, emitEvent = true): void {
+    console.log('selectedTab', selectedTab, this.selectedTab);
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 

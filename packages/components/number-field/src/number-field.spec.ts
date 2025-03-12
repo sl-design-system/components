@@ -14,7 +14,7 @@ describe('sl-number-field', () => {
     });
 
     it('should have no buttons', () => {
-      expect(el.renderRoot.querySelector('button')).not.to.exist;
+      expect(el.renderRoot.querySelector('sl-field-button')).not.to.exist;
     });
 
     it('should not be disabled', () => {

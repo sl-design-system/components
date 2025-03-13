@@ -4,7 +4,7 @@ import { FormControlMixin, type SlFormControlEvent, type SlUpdateStateEvent } fr
 import { Icon } from '@sl-design-system/icon';
 import { Listbox, type ListboxItem, Option, OptionGroup, OptionGroupHeader } from '@sl-design-system/listbox';
 import {
-  type EventEmitter,
+  EventEmitter,
   EventsController,
   type Path,
   type PathKeys,
@@ -91,7 +91,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   static viewportMargin = 8;
 
   /** Event controller. */
-  #events = new EventsController(this, { click: this.#onClick });
+  #events = new EventsController(this, { click: this.#onClick, focusout: this.#onFocusout });
 
   /** Message element for when filtering results did not yield any results. */
   #noMatch?: NoMatch;
@@ -257,6 +257,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     this.#observer.observe(this);
 
     this.setFormControlElement(this.input);
+
+    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    const style = document.createElement('style');
+    style.innerHTML = `
+      sl-combobox:has(input:hover):not(:focus-within)::part(text-field) {
+        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+    `;
+    this.prepend(style);
   }
 
   override disconnectedCallback(): void {
@@ -354,6 +363,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         ?disabled=${this.disabled}
         ?readonly=${this.selectOnly}
         ?required=${this.required}
+        part="text-field"
         placeholder=${ifDefined(this.multiple && this.selectedItems.length ? undefined : this.placeholder)}
         size=${ifDefined(this.size)}
       >
@@ -462,6 +472,19 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
     }
   }
 
+  #onFocusout(event: FocusEvent): void {
+    const leavingComponent =
+      !event.relatedTarget || (event.relatedTarget !== this && event.relatedTarget !== this.input);
+
+    if (leavingComponent) {
+      this.wrapper?.hidePopover();
+
+      // If we are leaving the component, make sure the input value reflects the selected items
+      this.#updateCreateCustomOption();
+      this.#updateTextFieldValue();
+    }
+  }
+
   #onInput(event: InputEvent): void {
     const value = this.input.value;
 
@@ -508,6 +531,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       } else if (this.currentItem) {
         this.#toggleSelectedOption(this.currentItem);
         this.#updateFilteredOptions();
+        this.#updateCreateCustomOption();
 
         if (!this.multiple) {
           this.wrapper?.hidePopover();
@@ -585,10 +609,11 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.#toggleSelectedOption(item);
       this.#updateCurrent();
       this.#updateFilteredOptions();
+      this.#updateCreateCustomOption();
 
-      if (this.multiple) {
-        this.input.focus();
-      } else {
+      this.input.focus();
+
+      if (!this.multiple) {
         this.wrapper?.hidePopover();
       }
     }
@@ -736,6 +761,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           this.listbox?.scrollToIndex(index, { block: 'nearest' });
         } else {
           this.listbox?.scrollIntoView({ block: 'start' });
+        }
+
+        if (this.selectedItems.length) {
+          this.#updateCurrent(this.selectedItems[0]);
         }
       }
     } else {
@@ -1219,10 +1248,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   /** Update the value in the text field. */
   #updateTextFieldValue(): void {
     if (this.multiple) {
+      this.input.placeholder = this.selectedItems.map(i => i.label).join(', ') || '';
       this.input.value = '';
-    } else if (this.createCustomOption) {
-      this.input.value = this.createCustomOption.value as string;
-      this.input.setSelectionRange(-1, -1);
     } else {
       const item = this.selectedItems.at(0);
 

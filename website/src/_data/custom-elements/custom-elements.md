@@ -835,15 +835,15 @@
 | --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tree` | Tree        | /packages/components/tree/src/tree.js |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.ts`:
 
 ## class: `AccordionItem`, `sl-accordion-item`
 
@@ -900,19 +900,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                           | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `AccordionItem` | AccordionItem | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion-item.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                             | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AccordionItem` | AccordionItem | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.ts`:
 
 ## class: `Accordion`, `sl-accordion`
 
@@ -945,11 +945,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Accordion` | Accordion   | /Users/diana.broeders/Projects/design-system/packages/components/accordion/src/accordion.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Accordion` | Accordion   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announce.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announce.ts`:
 
 ## Functions
 
@@ -961,19 +961,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                     | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `announce` | announce    | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announce.ts |         |
+| Kind | Name       | Declaration | Module                                                                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `announce` | announce    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announce.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.ts`:
 
 ## class: `Announcer`, `sl-announcer`
 
@@ -987,20 +987,20 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                      | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlAnnounceEvent` | SlAnnounceEvent | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.ts |         |
-| `js` | `Announcer`       | Announcer       | /Users/diana.broeders/Projects/design-system/packages/components/announcer/src/announcer.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                        | Package |
+| ---- | ----------------- | --------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlAnnounceEvent` | SlAnnounceEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.ts |         |
+| `js` | `Announcer`       | Announcer       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.ts`:
 
 ## class: `Avatar`, `sl-avatar`
 
@@ -1070,19 +1070,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | /Users/diana.broeders/Projects/design-system/packages/components/avatar/src/avatar.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.ts`:
 
 ## class: `Badge`, `sl-badge`
 
@@ -1120,19 +1120,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                              | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `Badge` | Badge       | /Users/diana.broeders/Projects/design-system/packages/components/badge/src/badge.ts |         |
+| Kind | Name    | Declaration | Module                                                                                | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Badge` | Badge       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.ts`:
 
 ## class: `Breadcrumbs`, `sl-breadcrumbs`
 
@@ -1181,19 +1181,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                          | Package |
-| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Breadcrumbs` | Breadcrumbs | /Users/diana.broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Breadcrumbs` | Breadcrumbs | /Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.ts`:
 
 ## class: `ButtonBar`, `sl-button-bar`
 
@@ -1229,19 +1229,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | /Users/diana.broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                          | Package |
+| ---- | ----------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button/src/button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/button/src/button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/button/src/button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.ts`:
 
 ## class: `Button`, `sl-button`
 
@@ -1283,19 +1283,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Button` | Button      | /Users/diana.broeders/Projects/design-system/packages/components/button/src/button.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Button` | Button      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/card/src/card.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/card/src/card.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/card/src/card.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.ts`:
 
 ## class: `Card`, `sl-card`
 
@@ -1351,19 +1351,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Card` | Card        | /Users/diana.broeders/Projects/design-system/packages/components/card/src/card.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Card` | Card        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.ts`:
 
 ## class: `CheckboxGroup`, `sl-checkbox-group`
 
@@ -1445,19 +1445,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CheckboxGroup` | CheckboxGroup | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                            | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CheckboxGroup` | CheckboxGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.ts`:
 
 ## class: `Checkbox`, `sl-checkbox`
 
@@ -1478,21 +1478,21 @@
 
 | Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
 | ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `checked`           |         | `boolean \| undefined`                       |         | Whether the checkbox is checked.                                                                                                                                                                                                                                                                                                                        |                  |
+| `checked`           |         | `boolean \| undefined`                       | `false` | Whether the checkbox is checked.                                                                                                                                                                                                                                                                                                                        |                  |
 | `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
 | `dirty`             |         | `boolean`                                    | `false` | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                       |         | Whether the checkbox is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                  |                  |
+| `disabled`          |         | `boolean \| undefined`                       | `false` | Whether the checkbox is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                  |                  |
 | `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
 | `formValue`         |         | `unknown`                                    |         | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
-| `indeterminate`     |         | `boolean \| undefined`                       |         | Whether the checkbox has the indeterminate state.                                                                                                                                                                                                                                                                                                       |                  |
+| `indeterminate`     |         | `boolean \| undefined`                       | `false` | Whether the checkbox has the indeterminate state.                                                                                                                                                                                                                                                                                                       |                  |
 | `input`             |         | `HTMLInputElement`                           |         | The input element in the light DOM.                                                                                                                                                                                                                                                                                                                     |                  |
 | `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
 | `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
 | `nativeFormValue`   |         | `FormValue`                                  |         | Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.                                                                                                                                                                                                                                                   | FormControlMixin |
-| `required`          |         | `boolean \| undefined`                       |         | Whether the checkbox is required.                                                                                                                                                                                                                                                                                                                       |                  |
+| `required`          |         | `boolean \| undefined`                       | `false` | Whether the checkbox is required.                                                                                                                                                                                                                                                                                                                       |                  |
 | `showValid`         |         | `boolean`                                    | `false` | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`          |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `CheckboxSize \| undefined`                  | `md`    | The size of the checkbox.                                                                                                                                                                                                                                                                                                                               |                  |
+| `size`              |         | `CheckboxSize \| undefined`                  | `'md'`  | The size of the checkbox.                                                                                                                                                                                                                                                                                                                               |                  |
 | `touched`           |         | `boolean`                                    | `false` | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
 | `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
 | `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
@@ -1560,19 +1560,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | /Users/diana.broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                      | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.ts`:
 
 ## class: `Combobox`, `sl-combobox`
 
@@ -1680,19 +1680,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Combobox` | Combobox    | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/combobox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                      | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Combobox` | Combobox    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.ts`:
 
 ## class: `CreateCustomOption`
 
@@ -1731,19 +1731,19 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                                | Package |
-| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CreateCustomOption` | CreateCustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/create-custom-option.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                                  | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CreateCustomOption` | CreateCustomOption | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.ts`:
 
 ## class: `CustomOption`
 
@@ -1782,19 +1782,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                         | Package |
-| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CustomOption` | CustomOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/custom-option.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                           | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `CustomOption` | CustomOption | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.ts`:
 
 ## class: `GroupedOption`
 
@@ -1835,19 +1835,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GroupedOption` | GroupedOption | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/grouped-option.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                            | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GroupedOption` | GroupedOption | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.ts`:
 
 ## class: `NoMatch`
 
@@ -1873,19 +1873,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `NoMatch` | NoMatch     | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/no-match.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NoMatch` | NoMatch     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.ts`:
 
 ## class: `SelectedGroup`
 
@@ -1927,19 +1927,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectedGroup` | SelectedGroup | /Users/diana.broeders/Projects/design-system/packages/components/combobox/src/selected-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                            | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectedGroup` | SelectedGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/array-list-data-source.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/array-list-data-source.ts`:
 
 ## class: `ArrayListDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                                | Package |
-| ---------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `ListDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.js |         |
+| Name             | Module                                                                                                  | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `ListDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.js |         |
 
 ### Fields
 
@@ -1978,19 +1978,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                                     | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ArrayListDataSource` | ArrayListDataSource | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/array-list-data-source.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                                       | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ArrayListDataSource` | ArrayListDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/array-list-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts`:
 
 ## class: `DataSource`
 
 ### Superclass
 
-| Name          | Module                                                                                          | Package |
-| ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `EventTarget` | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
+| Name          | Module                                                                                            | Package |
+| ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts |         |
 
 ### Fields
 
@@ -2014,20 +2014,20 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
-| `js` | `DataSource`            | DataSource            | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                            | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts |         |
+| `js` | `DataSource`            | DataSource            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts`:
 
 ## class: `FetchListDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                                | Package |
-| ---------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `ListDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.js |         |
+| Name             | Module                                                                                                  | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `ListDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.js |         |
 
 ### Static Fields
 
@@ -2084,22 +2084,22 @@
 
 ## Exports
 
-| Kind | Name                             | Declaration                    | Module                                                                                                     | Package |
-| ---- | -------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FetchListDataSourceEvent`       | FetchListDataSourceEvent       | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
-| `js` | `FetchListDataSourceError`       | FetchListDataSourceError       | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
-| `js` | `FetchListDataSourcePlaceholder` | FetchListDataSourcePlaceholder | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
-| `js` | `FetchListDataSource`            | FetchListDataSource            | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| Kind | Name                             | Declaration                    | Module                                                                                                       | Package |
+| ---- | -------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `FetchListDataSourceEvent`       | FetchListDataSourceEvent       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSourceError`       | FetchListDataSourceError       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSourcePlaceholder` | FetchListDataSourcePlaceholder | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSource`            | FetchListDataSource            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.ts`:
 
 ## class: `ListDataSource`
 
 ### Superclass
 
-| Name         | Module                                                                                           | Package |
-| ------------ | ------------------------------------------------------------------------------------------------ | ------- |
-| `DataSource` | //Users/diana.broeders/Projects/design-system/packages/components/data-source/src/data-source.js |         |
+| Name         | Module                                                                                             | Package |
+| ------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `DataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.js |         |
 
 ### Fields
 
@@ -2140,20 +2140,20 @@
 
 ## Exports
 
-| Kind | Name                            | Declaration                   | Module                                                                                               | Package |
-| ---- | ------------------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `DATA_SOURCE_DEFAULT_PAGE_SIZE` | DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
-| `js` | `ListDataSource`                | ListDataSource                | /Users/diana.broeders/Projects/design-system/packages/components/data-source/src/list-data-source.ts |         |
+| Kind | Name                            | Declaration                   | Module                                                                                                 | Package |
+| ---- | ------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `DATA_SOURCE_DEFAULT_PAGE_SIZE` | DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSource`                | ListDataSource                | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts`:
 
 ## class: `Dialog`, `sl-dialog`
 
@@ -2237,21 +2237,21 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlCancelEvent` | SlCancelEvent | /Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
-| `js` | `SlCloseEvent`  | SlCloseEvent  | /Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
-| `js` | `Dialog`        | Dialog        | /Users/diana.broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                  | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlCancelEvent` | SlCancelEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts |         |
+| `js` | `SlCloseEvent`  | SlCloseEvent  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts |         |
+| `js` | `Dialog`        | Dialog        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.ts`:
 
 ## class: `Drawer`, `sl-drawer`
 
@@ -2309,11 +2309,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | /Users/diana.broeders/Projects/design-system/packages/components/drawer/src/drawer.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/commands.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/commands.ts`:
 
 ## Functions
 
@@ -2325,19 +2325,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `setHTML` | setHTML     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/commands.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `setHTML` | setHTML     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/commands.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.ts`:
 
 ## class: `Editor`, `sl-editor`
 
@@ -2408,11 +2408,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Editor` | Editor      | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/editor.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Editor` | Editor      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/keymap.ts`:
 
 ## Functions
 
@@ -2425,12 +2425,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                  | Package |
+| ---- | ----------------- | --------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/keymap.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts`:
 
 ## Functions
 
@@ -2455,24 +2455,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                    | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                      | Package |
+| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts`:
 
 ## Variables
 
@@ -2496,16 +2496,16 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                  | Package |
+| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `isEmpty`            | isEmpty            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/utils.ts`:
 
 ## Functions
 
@@ -2518,20 +2518,20 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                               | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | /Users/diana.broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                 | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `createContentNode` | createContentNode | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/utils.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.ts`:
 
 ## class: `EllipsizeText`, `sl-ellipsize-text`
 
@@ -2551,19 +2551,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EllipsizeText` | EllipsizeText | /Users/diana.broeders/Projects/design-system/packages/components/ellipsize-text/src/ellipsize-text.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                                  | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EllipsizeText` | EllipsizeText | /Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.ts`:
 
 ## class: `EmojiBrowser`, `sl-emoji-browser`
 
@@ -2614,11 +2614,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiBrowser` | EmojiBrowser | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EmojiBrowser` | EmojiBrowser | /Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-service.ts`:
 
 ## class: `EmojiService`
 
@@ -2635,19 +2635,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiService` | EmojiService | /Users/diana.broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EmojiService` | EmojiService | /Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-service.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/error.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/error.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/error.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.ts`:
 
 ## class: `Error`, `sl-error`
 
@@ -2685,11 +2685,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                             | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `Error` | Error       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/error.ts |         |
+| Kind | Name    | Declaration | Module                                                                               | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Error` | Error       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts`:
 
 ## mixin: `FormControlMixin`
 
@@ -2748,23 +2748,23 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormControlEvent`    | SlFormControlEvent    | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlUpdateStateEvent`    | SlUpdateStateEvent    | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlUpdateValidityEvent` | SlUpdateValidityEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlValidateEvent`       | SlValidateEvent       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `FormControlMixin`      | FormControlMixin      | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                            | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormControlEvent`    | SlFormControlEvent    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlUpdateStateEvent`    | SlUpdateStateEvent    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlUpdateValidityEvent` | SlUpdateValidityEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlValidateEvent`       | SlValidateEvent       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `FormControlMixin`      | FormControlMixin      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-controller.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-controller.ts`:
 
 ## class: `FormController`
 
 ### Superclass
 
-| Name          | Module                                                                                       | Package |
-| ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `EventTarget` | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-controller.ts |         |
+| Name          | Module                                                                                         | Package |
+| ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-controller.ts |         |
 
 ### Fields
 
@@ -2797,19 +2797,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                       | Package |
-| ---- | ---------------- | -------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormController` | FormController | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-controller.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                         | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormController` | FormController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-controller.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.ts`:
 
 ## class: `FormField`, `sl-form-field`
 
@@ -2852,20 +2852,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                  | Package |
-| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
-| `js` | `FormField`        | FormField        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                    | Package |
+| ---- | ------------------ | ---------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.ts |         |
+| `js` | `FormField`        | FormField        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.ts`:
 
 ## class: `FormValidationErrors`, `sl-form-validation-errors`
 
@@ -2894,19 +2894,19 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                              | Package |
-| ---- | ---------------------- | -------------------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormValidationErrors` | FormValidationErrors | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form-validation-errors.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                | Package |
+| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormValidationErrors` | FormValidationErrors | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts`:
 
 ## class: `Form`, `sl-form`
 
@@ -2958,21 +2958,21 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                            | Package |
-| ---- | --------------- | ------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SlResetEvent`  | SlResetEvent  | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
-| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
-| `js` | `Form`          | Form          | /Users/diana.broeders/Projects/design-system/packages/components/form/src/form.ts |         |
+| Kind | Name            | Declaration   | Module                                                                              | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `SlResetEvent`  | SlResetEvent  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts |         |
+| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts |         |
+| `js` | `Form`          | Form          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.ts`:
 
 ## class: `Hint`, `sl-hint`
 
@@ -3004,19 +3004,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Hint` | Hint        | /Users/diana.broeders/Projects/design-system/packages/components/form/src/hint.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Hint` | Hint        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/label.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/form/src/label.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.ts`:
 
 ## class: `Label`, `sl-label`
 
@@ -3048,11 +3048,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                             | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `Label` | Label       | /Users/diana.broeders/Projects/design-system/packages/components/form/src/label.ts |         |
+| Kind | Name    | Declaration | Module                                                                               | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Label` | Label       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format-date.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format-date.ts`:
 
 ## class: `FormatDate`, `sl-format-date`
 
@@ -3129,11 +3129,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                          | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormatDate` | FormatDate  | /Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format-date.ts |         |
+| Kind | Name         | Declaration | Module                                                                                            | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormatDate` | FormatDate  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format-date.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format.ts`:
 
 ## Functions
 
@@ -3145,11 +3145,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                     | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-date/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                       | Package |
+| ---- | -------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format-number.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format-number.ts`:
 
 ## class: `FormatNumber`, `sl-format-number`
 
@@ -3211,11 +3211,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                              | Package |
-| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormatNumber` | FormatNumber | /Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format-number.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormatNumber` | FormatNumber | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format-number.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format.ts`:
 
 ## Functions
 
@@ -3227,19 +3227,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                       | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `format` | format      | /Users/diana.broeders/Projects/design-system/packages/components/format-number/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                         | Package |
+| ---- | -------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/column-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column-group.ts`:
 
 ## class: `GridColumnGroup`, `sl-grid-column-group`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3297,11 +3297,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridColumnGroup` | GridColumnGroup | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column-group.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                      | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridColumnGroup` | GridColumnGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.ts`:
 
 ## class: `GridColumn`, `sl-grid-column`
 
@@ -3366,20 +3366,20 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                              | Package |
-| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
-| `js` | `GridColumn`          | GridColumn          | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.ts |         |
+| `js` | `GridColumn`          | GridColumn          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/drag-handle-column.ts`:
 
 ## class: `GridDragHandleColumn`, `sl-grid-drag-handle-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3436,19 +3436,19 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                          | Package |
-| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                            | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/drag-handle-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter-column.ts`:
 
 ## class: `GridFilterColumn`, `sl-grid-filter-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3512,19 +3512,19 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridFilterColumn` | GridFilterColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                       | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridFilterColumn` | GridFilterColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilter`
 
@@ -3569,21 +3569,21 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                              | Package |
-| ---- | -------------------------- | ------------------------ | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFilterChangeEvent`      | SlFilterChangeEvent      | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `SlFilterValueChangeEvent` | SlFilterValueChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `GridFilter`               | GridFilter               | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFilterChangeEvent`      | SlFilterChangeEvent      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `SlFilterValueChangeEvent` | SlFilterValueChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `GridFilter`               | GridFilter               | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts`:
 
 ## class: `Grid`, `sl-grid`
 
@@ -3660,24 +3660,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                            | Package |
-| ---- | ------------------------- | ----------------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SlActiveItemChangeEvent` | SlActiveItemChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragStartEvent`        | SlDragStartEvent        | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragEndEvent`          | SlDragEndEvent          | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDropEvent`             | SlDropEvent             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlStateChangeEvent`      | SlStateChangeEvent      | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `Grid`                    | Grid                    | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                              | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `SlActiveItemChangeEvent` | SlActiveItemChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragStartEvent`        | SlDragStartEvent        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragEndEvent`          | SlDragEndEvent          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDropEvent`             | SlDropEvent             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlStateChangeEvent`      | SlStateChangeEvent      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `Grid`                    | Grid                    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.ts`:
 
 ## class: `GridGroupHeader`
 
@@ -3720,19 +3720,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridGroupHeader` | GridGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/group-header.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                      | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridGroupHeader` | GridGroupHeader | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/select-column.ts`:
 
 ## class: `GridSelectColumn`, `sl-grid-select-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3791,19 +3791,19 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridSelectColumn` | GridSelectColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/select-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                       | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectColumn` | GridSelectColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/select-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/selection-column.ts`:
 
 ## class: `GridSelectionColumn`, `sl-grid-selection-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3866,19 +3866,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                        | Package |
-| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/selection-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                          | Package |
+| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/selection-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sort-column.ts`:
 
 ## class: `GridSortColumn`, `sl-grid-sort-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3939,19 +3939,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                   | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSortColumn` | GridSortColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sort-column.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                     | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `GridSortColumn` | GridSortColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sort-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
 
@@ -4000,21 +4000,21 @@
 
 ## Exports
 
-| Kind | Name                         | Declaration                | Module                                                                              | Package |
-| ---- | ---------------------------- | -------------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSorterChangeEvent`        | SlSorterChangeEvent        | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `SlSortDirectionChangeEvent` | SlSortDirectionChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `GridSorter`                 | GridSorter                 | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
+| Kind | Name                         | Declaration                | Module                                                                                | Package |
+| ---- | ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSorterChangeEvent`        | SlSorterChangeEvent        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `SlSortDirectionChangeEvent` | SlSortDirectionChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `GridSorter`                 | GridSorter                 | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/text-field-column.ts`:
 
 ## class: `GridTextFieldColumn`, `sl-grid-text-field-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/diana.broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -4071,11 +4071,11 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                         | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                           | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/text-field-column.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/view-model.ts`:
 
 ## class: `GridViewModel`
 
@@ -4113,20 +4113,20 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                  | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
-| `js` | `GridViewModel`      | GridViewModel      | /Users/diana.broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                    | Package |
+| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/view-model.ts |         |
+| `js` | `GridViewModel`      | GridViewModel      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/view-model.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.ts`:
 
 ## class: `Icon`, `sl-icon`
 
@@ -4171,19 +4171,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Icon` | Icon        | /Users/diana.broeders/Projects/design-system/packages/components/icon/src/icon.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.ts`:
 
 ## class: `InlineMessage`, `sl-inline-message`
 
@@ -4201,10 +4201,11 @@
 
 ### Fields
 
-| Name            | Privacy | Type                   | Default  | Description                        | Inherited From |
-| --------------- | ------- | ---------------------- | -------- | ---------------------------------- | -------------- |
-| `indismissible` |         | `boolean \| undefined` |          | Will hide the close button if set. |                |
-| `variant`       |         | `InlineMessageVariant` | `'info'` | The variant of the inline message. |                |
+| Name            | Privacy | Type                                | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Inherited From |
+| --------------- | ------- | ----------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `indismissible` |         | `boolean \| undefined`              | `false`  | If set, will remove the ability to dismiss the inline message by removing&#xA;the close button.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
+| `size`          |         | `InlineMessageSize`                 | `'auto'` | The size of the inline message. By default this is set to `'auto'` which means the component&#xA;will automatically determine the size based on the content. If the content spans more than 2&#xA;lines, the size will be set to `'lg'`. If a title is present, the size will be set to `'lg'`.&#xA;Otherwise the size will be set to `'md'`.&#xA;If you want to explicitly set the size the `'sm'`, `'md'`, or `'lg'`, you can do so. But beware&#xA;that some sizes may not work well with the content. `'sm'` and `'md'` for example are not meant&#xA;to be used with a title. |                |
+| `variant`       |         | `InlineMessageVariant \| undefined` | `'info'` | The variant of the inline message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |                |
 
 ### Events
 
@@ -4217,6 +4218,7 @@
 | Name            | Field         | Inherited From |
 | --------------- | ------------- | -------------- |
 | `indismissible` | indismissible |                |
+| `size`          | size          |                |
 | `variant`       | variant       |                |
 
 ### Slots
@@ -4232,20 +4234,20 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                                | Package |
-| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlDismissEvent` | SlDismissEvent | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
-| `js` | `InlineMessage`  | InlineMessage  | /Users/diana.broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                                  | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlDismissEvent` | SlDismissEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.ts |         |
+| `js` | `InlineMessage`  | InlineMessage  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.ts`:
 
 ## class: `Listbox`, `sl-listbox`
 
@@ -4295,19 +4297,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Listbox` | Listbox     | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/listbox.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Listbox` | Listbox     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.ts`:
 
 ## class: `OptionGroupHeader`
 
@@ -4333,19 +4335,19 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                              | Package |
-| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group-header.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                                | Package |
+| ---- | ------------------- | ----------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.ts`:
 
 ## class: `OptionGroup`, `sl-option-group`
 
@@ -4383,19 +4385,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                       | Package |
-| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `OptionGroup` | OptionGroup | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                         | Package |
+| ---- | ------------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroup` | OptionGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.ts`:
 
 ## class: `Option`, `sl-option`
 
@@ -4440,19 +4442,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                 | Package |
-| ---- | -------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `Option` | Option      | /Users/diana.broeders/Projects/design-system/packages/components/listbox/src/option.ts |         |
+| Kind | Name     | Declaration | Module                                                                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Option` | Option      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.ts`:
 
 ## class: `MenuButton`, `sl-menu-button`
 
@@ -4516,19 +4518,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                   | Package |
-| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuButton` | MenuButton  | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-button.ts |         |
+| Kind | Name         | Declaration | Module                                                                                     | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `MenuButton` | MenuButton  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.ts`:
 
 ## class: `MenuItemGroup`, `sl-menu-item-group`
 
@@ -4563,19 +4565,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItemGroup` | MenuItemGroup | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItemGroup` | MenuItemGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.ts`:
 
 ## class: `MenuItem`, `sl-menu-item`
 
@@ -4634,19 +4636,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItem` | MenuItem    | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu-item.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItem` | MenuItem    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.ts`:
 
 ## class: `Menu`, `sl-menu`
 
@@ -4696,19 +4698,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Menu` | Menu        | /Users/diana.broeders/Projects/design-system/packages/components/menu/src/menu.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Menu` | Menu        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.ts`:
 
 ## class: `MessageDialog`, `sl-message-dialog`
 
@@ -4749,19 +4751,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MessageDialog` | MessageDialog | /Users/diana.broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                                  | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MessageDialog` | MessageDialog | /Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.ts`:
 
 ## class: `NumberField`, `sl-number-field`
 
@@ -4902,11 +4904,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberField` | NumberField | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-field.ts |         |
+| Kind | Name          | Declaration | Module                                                                                              | Package |
+| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberField` | NumberField | /Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-parser.ts`:
 
 ## class: `NumberParser`
 
@@ -4927,19 +4929,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                             | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NumberParser` | NumberParser | /Users/diana.broeders/Projects/design-system/packages/components/number-field/src/number-parser.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                               | Package |
+| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberParser` | NumberParser | /Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-parser.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.ts`:
 
 ## class: `PaginatorPageSize`, `sl-paginator-page-size`
 
@@ -4980,19 +4982,19 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                      | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/page-size.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                        | Package |
+| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.ts`:
 
 ## class: `Paginator`, `sl-paginator`
 
@@ -5013,10 +5015,12 @@
 | Name         | Privacy | Type                             | Default                         | Description                                                                                                                                                                                                                                                                                           | Inherited From |
 | ------------ | ------- | -------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `dataSource` |         | `ListDataSource<T> \| undefined` |                                 | By setting a dataSource, the paginator will listen for changes on the data source&#xA;and control the data source when the user selects a new page in the component. This&#xA;can be very useful when the paginator is used in combination with a data source fed&#xA;component, such as `<sl-grid>`. |                |
+| `emphasis`   |         | `PaginatorEmphasis \| undefined` | `'subtle'`                      | The emphasis style.                                                                                                                                                                                                                                                                                   |                |
 | `page`       |         | `number`                         | `0`                             | Current page.                                                                                                                                                                                                                                                                                         |                |
 | `pageSize`   |         |                                  | `DATA_SOURCE_DEFAULT_PAGE_SIZE` | Items per page. Default to the first item of pageSizes.                                                                                                                                                                                                                                               |                |
-| `size`       |         | `PaginatorSize \| undefined`     |                                 | The size of the paginator. This is used to determine how many pages are visible at once.&#xA;For `xs` a select component will be used to select the page. For all other sizes,&#xA;buttons will be used.                                                                                              |                |
+| `size`       |         | `PaginatorSize \| undefined`     | `'md'`                          | The size of the paginator which determines the size of the elements in it.                                                                                                                                                                                                                            |                |
 | `totalItems` |         | `number`                         | `1`                             | Total number of items.                                                                                                                                                                                                                                                                                |                |
+| `width`      |         | `PaginatorWidth \| undefined`    |                                 | The width of the paginator. This is used to determine how many pages are visible at once.&#xA;For `xs` a select component will be used to select the page. For all other widths,&#xA;buttons will be used.                                                                                            |                |
 
 ### Events
 
@@ -5028,8 +5032,10 @@
 
 | Name          | Field      | Inherited From |
 | ------------- | ---------- | -------------- |
+| `emphasis`    | emphasis   |                |
 | `page`        | page       |                |
 | `page-size`   | pageSize   |                |
+| `width`       | width      |                |
 | `size`        | size       |                |
 | `total-items` | totalItems |                |
 
@@ -5037,19 +5043,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Paginator` | Paginator   | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/paginator.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Paginator` | Paginator   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.ts`:
 
 ## class: `PaginatorStatus`, `sl-paginator-status`
 
@@ -5080,19 +5086,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                   | Package |
-| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `PaginatorStatus` | PaginatorStatus | /Users/diana.broeders/Projects/design-system/packages/components/paginator/src/status.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                     | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `PaginatorStatus` | PaginatorStatus | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.ts`:
 
 ## class: `Panel`, `sl-panel`
 
@@ -5179,19 +5185,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                              | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `Panel` | Panel       | /Users/diana.broeders/Projects/design-system/packages/components/panel/src/panel.ts |         |
+| Kind | Name    | Declaration | Module                                                                                | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Panel` | Panel       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
 
@@ -5231,19 +5237,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | /Users/diana.broeders/Projects/design-system/packages/components/popover/src/popover.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.ts`:
 
 ## class: `ProgressBar`, `sl-progress-bar`
 
@@ -5287,19 +5293,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ProgressBar` | ProgressBar | /Users/diana.broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts |         |
+| Kind | Name          | Declaration | Module                                                                                              | Package |
+| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ProgressBar` | ProgressBar | /Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.ts`:
 
 ## class: `RadioGroup`, `sl-radio-group`
 
@@ -5384,19 +5390,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                          | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts |         |
+| Kind | Name         | Declaration | Module                                                                                            | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
 
@@ -5430,19 +5436,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                                    | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | /Users/diana.broeders/Projects/design-system/packages/components/radio-group/src/radio.ts |         |
+| Kind | Name    | Declaration | Module                                                                                      | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.ts`:
 
 ## class: `Scrollbar`, `sl-scrollbar`
 
@@ -5470,11 +5476,11 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Scrollbar` | Scrollbar   | /Users/diana.broeders/Projects/design-system/packages/components/scrollbar/src/scrollbar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Scrollbar` | Scrollbar   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/search-field/src/search-field.ts`:
 
 ## class: `SearchField`, `sl-search-field`
 
@@ -5596,20 +5602,20 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                            | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSearchEvent` | SlSearchEvent | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
-| `js` | `SearchField`   | SearchField   | /Users/diana.broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                              | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSearchEvent` | SlSearchEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/search-field/src/search-field.ts |         |
+| `js` | `SearchField`   | SearchField   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/search-field/src/search-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.ts`:
 
 ## class: `SelectButton`
 
@@ -5660,19 +5666,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                       | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectButton` | SelectButton | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                         | Package |
+| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectButton` | SelectButton | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.ts`:
 
 ## class: `Select`, `sl-select`
 
@@ -5774,19 +5780,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Select` | Select      | /Users/diana.broeders/Projects/design-system/packages/components/select/src/select.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Select` | Select      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/breakpoints.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/breakpoints.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/browser.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/browser.ts`:
 
 ## Variables
 
@@ -5798,11 +5804,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `isSafari` | isSafari    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/browser.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `isSafari` | isSafari    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/browser.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/config.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/config.ts`:
 
 ## class: `Config`
 
@@ -5817,11 +5823,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Config` | Config      | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/config.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Config` | Config      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/config.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/anchor.ts`:
 
 ## class: `AnchorController`
 
@@ -5846,11 +5852,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `AnchorController` | AnchorController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                              | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorController` | AnchorController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/anchor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/events.ts`:
 
 ## class: `EventsController`
 
@@ -5872,11 +5878,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventsController` | EventsController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                              | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventsController` | EventsController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/events.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-group.ts`:
 
 ## class: `FocusGroupController`
 
@@ -5927,11 +5933,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
-| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `FocusGroupController` | FocusGroupController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                   | Package |
+| ---- | ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FocusGroupController` | FocusGroupController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-trap.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-trap.ts`:
 
 ## class: `FocusTrapController`
 
@@ -5947,19 +5953,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                                | Package |
-| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FocusTrapController` | FocusTrapController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-trap.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                                  | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FocusTrapController` | FocusTrapController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-trap.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/roving-tabindex.ts`:
 
 ## class: `RovingTabindexController`
 
 ### Superclass
 
-| Name                   | Module                                                                                                  | Package |
-| ---------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
-| `FocusGroupController` | //Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.js |         |
+| Name                   | Module                                                                                                    | Package |
+| ---------------------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `FocusGroupController` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-group.js |         |
 
 ### Fields
 
@@ -6009,11 +6015,11 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                                     | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RovingTabindexController` | RovingTabindexController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                                       | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `RovingTabindexController` | RovingTabindexController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/roving-tabindex.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/selection.ts`:
 
 ## class: `SelectionController`
 
@@ -6045,12 +6051,12 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                                               | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts |         |
-| `js` | `SelectionController`    | SelectionController    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                                                 | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/selection.ts |         |
+| `js` | `SelectionController`    | SelectionController    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/selection.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/shortcut.ts`:
 
 ## class: `ShortcutController`
 
@@ -6067,11 +6073,11 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                              | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ShortcutController` | ShortcutController | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                                | Package |
+| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ShortcutController` | ShortcutController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/shortcut.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/css.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/css.ts`:
 
 ## Variables
 
@@ -6083,12 +6089,12 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                             | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `breakpoints`            | breakpoints            | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                               | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `breakpoints`            | breakpoints            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/css.ts |         |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/css.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
@@ -6106,11 +6112,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                         | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `decorateProperty` | decorateProperty | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/base.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/event.ts`:
 
 ## class: `EventEmitter`
 
@@ -6140,12 +6146,12 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                          | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/event.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
 
@@ -6157,11 +6163,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/observe.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
 
@@ -6189,12 +6195,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                           | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `AnchorDirective` | AnchorDirective | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
-| `js` | `anchor`          | anchor          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                             | Package |
+| ---- | ----------------- | --------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorDirective` | AnchorDirective | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/directives/anchor.ts |         |
+| `js` | `anchor`          | anchor          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/directives/anchor.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts`:
 
 ## Functions
 
@@ -6209,62 +6215,62 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                             | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `getScrollParent`        | getScrollParent        | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
-| `js` | `closestElementComposed` | closestElementComposed | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
-| `js` | `closestElementComposed` | closestElementComposed | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
-| `js` | `closestElementComposed` | closestElementComposed | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                               | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `getScrollParent`        | getScrollParent        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts`:
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                                                                     | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `SlBlurEvent` | SlBlurEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/blur.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/blur.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlChangeEvent` | SlChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/change.ts |         |
+| Kind | Name          | Declaration | Module                                                                                       | Package |
+| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlBlurEvent` | SlBlurEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/blur.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts`:
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlClearEvent` | SlClearEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/clear.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/change.ts`:
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFocusEvent` | SlFocusEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/focus.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlChangeEvent` | SlChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/change.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts`:
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSelectEvent` | SlSelectEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/select.ts |         |
-
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/clear.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlToggleEvent` | SlToggleEvent | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlClearEvent` | SlClearEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/clear.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/focus.ts`:
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFocusEvent` | SlFocusEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/focus.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/select.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSelectEvent` | SlSelectEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/select.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/toggle.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlToggleEvent` | SlToggleEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/toggle.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins.ts`:
 
 ## Exports
 
@@ -6275,7 +6281,7 @@
 | `js` | `ObserveAttributesMixinInterface` | ObserveAttributesMixinInterface | ./mixins/observe-attributes-mixin.js |         |
 | `js` | `ObserveAttributesMixin`          | ObserveAttributesMixin          | ./mixins/observe-attributes-mixin.js |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/locale-mixin.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/locale-mixin.ts`:
 
 ## mixin: `LocaleMixin`
 
@@ -6301,11 +6307,11 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                             | Package |
-| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `LocaleMixin` | LocaleMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/locale-mixin.ts |         |
+| Kind | Name          | Declaration | Module                                                                                               | Package |
+| ---- | ------------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `LocaleMixin` | LocaleMixin | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/locale-mixin.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/observe-attributes-mixin.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/observe-attributes-mixin.ts`:
 
 ## mixin: `ObserveAttributesMixin`
 
@@ -6326,11 +6332,11 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                                                         | Package |
-| ---- | ------------------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ObserveAttributesMixin` | ObserveAttributesMixin | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/mixins/observe-attributes-mixin.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                                                           | Package |
+| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ObserveAttributesMixin` | ObserveAttributesMixin | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/observe-attributes-mixin.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts`:
 
 ## Functions
 
@@ -6345,14 +6351,14 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                              | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `setValueByPath`  | setValueByPath  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
+| `js` | `setValueByPath`  | setValueByPath  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/popover.ts`:
 
 ## Functions
 
@@ -6365,12 +6371,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                 | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover` | positionPopover | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                   | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover` | positionPopover | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/popover.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts`:
 
 ## Functions
 
@@ -6388,17 +6394,17 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `capitalize` | capitalize  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `classify`   | classify    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `dasherize`  | dasherize   | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `decamelize` | decamelize  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `humanize`   | humanize    | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `underscore` | underscore  | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| Kind | Name         | Declaration | Module                                                                                  | Package |
+| ---- | ------------ | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `camelize`   | camelize    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `capitalize` | capitalize  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `classify`   | classify    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`  | dasherize   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `decamelize` | decamelize  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `humanize`   | humanize    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `underscore` | underscore  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts`:
 
 ## Functions
 
@@ -6412,21 +6418,21 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                         | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `parseKeybinding`          | parseKeybinding          | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `tinykeys`                 | tinykeys                 | /Users/diana.broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                           | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `parseKeybinding`          | parseKeybinding          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `tinykeys`                 | tinykeys                 | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.ts`:
 
 ## class: `Skeleton`, `sl-skeleton`
 
@@ -6454,19 +6460,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | /Users/diana.broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts |         |
+| Kind | Name       | Declaration | Module                                                                                      | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.ts`:
 
 ## class: `Spinner`, `sl-spinner`
 
@@ -6500,19 +6506,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Spinner` | Spinner     | /Users/diana.broeders/Projects/design-system/packages/components/spinner/src/spinner.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Spinner` | Spinner     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.ts`:
 
 ## class: `Switch`, `sl-switch`
 
@@ -6609,19 +6615,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Switch` | Switch      | /Users/diana.broeders/Projects/design-system/packages/components/switch/src/switch.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Switch` | Switch      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
 
@@ -6687,20 +6693,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                 | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
-| `js` | `TabGroup`         | TabGroup         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                   | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.ts |         |
+| `js` | `TabGroup`         | TabGroup         | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
 
@@ -6720,19 +6726,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.ts`:
 
 ## class: `Tab`, `sl-tab`
 
@@ -6771,19 +6777,19 @@
 
 ## Exports
 
-| Kind | Name  | Declaration | Module                                                                           | Package |
-| ---- | ----- | ----------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `Tab` | Tab         | /Users/diana.broeders/Projects/design-system/packages/components/tabs/src/tab.ts |         |
+| Kind | Name  | Declaration | Module                                                                             | Package |
+| ---- | ----- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.ts`:
 
 ## class: `TagList`, `sl-tag-list`
 
@@ -6801,19 +6807,21 @@
 
 ### Fields
 
-| Name      | Privacy | Type                      | Default     | Description                                                                                                                                           | Inherited From |
-| --------- | ------- | ------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `size`    |         | `TagSize \| undefined`    |             | The size of the tag-list (determines size of tags inside the tag-list). Defaults to `md`.                                                             |                |
-| `stacked` |         | `boolean \| undefined`    |             | This will hide tags that do not fit inside the available space when set. It will also&#xA;display a counter that indicates the number of hidden tags. |                |
-| `variant` |         | `TagVariant \| undefined` | `'neutral'` | The variant of the tag-list and tags inside.                                                                                                          |                |
+| Name       | Privacy | Type                      | Default     | Description                                                                                                                                           | Inherited From |
+| ---------- | ------- | ------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`    |             | Disables interaction with the tag list and renders the stacked tag as disabled.                                                                       |                |
+| `size`     |         | `TagSize \| undefined`    | `'md'`      | The size of the tag-list (determines size of tags inside the tag-list).                                                                               |                |
+| `stacked`  |         | `boolean \| undefined`    | `false`     | This will hide tags that do not fit inside the available space when set. It will also&#xA;display a counter that indicates the number of hidden tags. |                |
+| `variant`  |         | `TagVariant \| undefined` | `'neutral'` | The variant of the tag-list and tags inside.                                                                                                          |                |
 
 ### Attributes
 
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `size`    | size    |                |
-| `stacked` | stacked |                |
-| `variant` | variant |                |
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled |                |
+| `size`     | size     |                |
+| `stacked`  | stacked  |                |
+| `variant`  | variant  |                |
 
 ### Slots
 
@@ -6825,19 +6833,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                               | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `TagList` | TagList     | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag-list.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `TagList` | TagList     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                               | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.ts`:
 
 ## class: `Tag`, `sl-tag`
 
@@ -6857,8 +6865,8 @@
 
 | Name        | Privacy | Type                      | Default     | Description                                                                 | Inherited From |
 | ----------- | ------- | ------------------------- | ----------- | --------------------------------------------------------------------------- | -------------- |
-| `disabled`  |         | `boolean \| undefined`    |             | Whether the tag component is disabled, when set no interaction is possible. |                |
-| `removable` |         | `boolean \| undefined`    |             | Whether the tag component is removable.                                     |                |
+| `disabled`  |         | `boolean \| undefined`    | `false`     | Whether the tag component is disabled, when set no interaction is possible. |                |
+| `removable` |         | `boolean \| undefined`    | `false`     | Whether the tag component is removable.                                     |                |
 | `size`      |         | `TagSize \| undefined`    | `'md'`      | The size of the tag.                                                        |                |
 | `variant`   |         | `TagVariant \| undefined` | `'neutral'` | The variant of the tag.                                                     |                |
 
@@ -6887,20 +6895,20 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                          | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
-| `js` | `Tag`           | Tag           | /Users/diana.broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
+| Kind | Name            | Declaration   | Module                                                                            | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.ts |         |
+| `js` | `Tag`           | Tag           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.ts`:
 
 ## class: `TextArea`, `sl-text-area`
 
@@ -7013,19 +7021,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                      | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextArea` | TextArea    | /Users/diana.broeders/Projects/design-system/packages/components/text-area/src/text-area.ts |         |
+| Kind | Name       | Declaration | Module                                                                                        | Package |
+| ---- | ---------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextArea` | TextArea    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.ts`:
 
 ## class: `FieldButton`, `sl-field-button`
 
@@ -7059,19 +7067,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                          | Package |
-| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FieldButton` | FieldButton | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/field-button.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FieldButton` | FieldButton | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.ts`:
 
 ## class: `TextField`, `sl-text-field`
 
@@ -7198,19 +7206,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextField` | TextField   | /Users/diana.broeders/Projects/design-system/packages/components/text-field/src/text-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                          | Package |
+| ---- | ----------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextField` | TextField   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.ts`:
 
 ## class: `ToggleButton`, `sl-toggle-button`
 
@@ -7228,14 +7236,13 @@
 
 ### Fields
 
-| Name       | Privacy | Type                                | Default | Description                                                                                                           | Inherited From |
-| ---------- | ------- | ----------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined`              |         | Whether the button is disabled; when set no interaction is possible.                                                  |                |
-| `emphasis` |         | `ToggleButtonEmphasis \| undefined` |         | The size of the button.                                                                                               |                |
-| `fill`     |         | `ToggleButtonFill \| undefined`     |         | The variant of the toggle-button.                                                                                     |                |
-| `pressed`  |         | `boolean`                           | `false` | The pressed state of the button. Set the default value, so the&#xA;\`aria-pressed` attribute is added to the element. |                |
-| `shape`    |         | `ButtonShape \| undefined`          |         | The size of the button.                                                                                               |                |
-| `size`     |         | `ToggleButtonSize \| undefined`     |         | The size of the button.                                                                                               |                |
+| Name       | Privacy | Type                            | Default | Description                                                                                                           | Inherited From |
+| ---------- | ------- | ------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`          |         | Whether the button is disabled; when set no interaction is possible.                                                  |                |
+| `fill`     |         | `ToggleButtonFill \| undefined` |         | The variant of the toggle-button.                                                                                     |                |
+| `pressed`  |         | `boolean`                       | `false` | The pressed state of the button. Set the default value, so the&#xA;\`aria-pressed` attribute is added to the element. |                |
+| `shape`    |         | `ButtonShape \| undefined`      |         | The shape of the button.                                                                                              |                |
+| `size`     |         | `ToggleButtonSize \| undefined` |         | The size of the button.                                                                                               |                |
 
 ### Events
 
@@ -7251,7 +7258,6 @@
 | `fill`     | fill     |                |
 | `pressed`  | pressed  |                |
 | `size`     | size     |                |
-| `emphasis` | emphasis |                |
 | `shape`    | shape    |                |
 
 ### Slots
@@ -7265,19 +7271,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                              | Package |
-| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleButton` | ToggleButton | /Users/diana.broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleButton` | ToggleButton | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.ts`:
 
 ## class: `ToggleGroup`, `sl-toggle-group`
 
@@ -7289,14 +7295,13 @@
 
 ### Fields
 
-| Name       | Privacy | Type                               | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       | Inherited From |
-| ---------- | ------- | ---------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined`             |         | If set, will disable all buttons in the group.                                                                                                                                                                                                                                                                                                                                                    |                |
-| `emphasis` |         | `ToggleGroupEmphasis \| undefined` |         | The emphasis of the group.                                                                                                                                                                                                                                                                                                                                                                        |                |
-| `fill`     |         | `ToggleGroupFill \| undefined`     |         | The variant of the toggle-group.                                                                                                                                                                                                                                                                                                                                                                  |                |
-| `multiple` |         | `boolean \| undefined`             |         | By default, only a single toggle button inside the group can be active.&#xA;This means that the group will automatically deactivate the other buttons when one is toggled.&#xA;&#xA;When set to true multiple buttons can be active at the same time.&#xA;In this case the group does nothing when a button is toggled.&#xA;Use this mode if you want to handle the toggling of buttons yourself. |                |
-| `shape`    |         | `ToggleGroupShape \| undefined`    |         | The shaoe of the group.                                                                                                                                                                                                                                                                                                                                                                           |                |
-| `size`     |         | `ToggleGroupSize \| undefined`     |         | Determines the size of all buttons in the group.                                                                                                                                                                                                                                                                                                                                                  |                |
+| Name       | Privacy | Type                            | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       | Inherited From |
+| ---------- | ------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`          |         | If set, will disable all buttons in the group.                                                                                                                                                                                                                                                                                                                                                    |                |
+| `fill`     |         | `ToggleGroupFill \| undefined`  |         | The variant of the toggle-group.                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `multiple` |         | `boolean \| undefined`          |         | By default, only a single toggle button inside the group can be active.&#xA;This means that the group will automatically deactivate the other buttons when one is toggled.&#xA;&#xA;When set to true multiple buttons can be active at the same time.&#xA;In this case the group does nothing when a button is toggled.&#xA;Use this mode if you want to handle the toggling of buttons yourself. |                |
+| `shape`    |         | `ToggleGroupShape \| undefined` |         | The shaoe of the group.                                                                                                                                                                                                                                                                                                                                                                           |                |
+| `size`     |         | `ToggleGroupSize \| undefined`  |         | Determines the size of all buttons in the group.                                                                                                                                                                                                                                                                                                                                                  |                |
 
 ### Attributes
 
@@ -7305,7 +7310,6 @@
 | `disabled` | disabled |                |
 | `multiple` | multiple |                |
 | `size`     | size     |                |
-| `emphasis` | emphasis |                |
 | `shape`    | shape    |                |
 | `fill`     | fill     |                |
 
@@ -7319,19 +7323,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleGroup` | ToggleGroup | /Users/diana.broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                              | Package |
+| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleGroup` | ToggleGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.ts`:
 
 ## class: `ToolBarDivider`, `sl-tool-bar-divider`
 
@@ -7345,19 +7349,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                            | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBarDivider` | ToolBarDivider | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                              | Package |
+| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBarDivider` | ToolBarDivider | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.ts`:
 
 ## class: `ToolBar`, `sl-tool-bar`
 
@@ -7411,11 +7415,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBar` | ToolBar     | /Users/diana.broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBar` | ToolBar     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip-directive.ts`:
 
 ## class: `TooltipDirective`
 
@@ -7453,20 +7457,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TooltipDirective` | TooltipDirective | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
-| `js` | `tooltip`          | tooltip          | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                              | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TooltipDirective` | TooltipDirective | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip-directive.ts |         |
+| `js` | `tooltip`          | tooltip          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip-directive.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
 
@@ -7506,19 +7510,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Tooltip` | Tooltip     | /Users/diana.broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Tooltip` | Tooltip     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/flat-tree-data-source.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/flat-tree-data-source.ts`:
 
 ## class: `FlatTreeDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                         | Package |
-| ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `TreeDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.js |         |
+| Name             | Module                                                                                           | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `TreeDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.js |         |
 
 ### Fields
 
@@ -7564,19 +7568,19 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                             | Package |
-| ---- | -------------------- | ------------------ | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FlatTreeDataSource` | FlatTreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/flat-tree-data-source.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                               | Package |
+| ---- | -------------------- | ------------------ | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FlatTreeDataSource` | FlatTreeDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/flat-tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.ts`:
 
 ## class: `IndentGuides`
 
@@ -7606,19 +7610,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                     | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `IndentGuides` | IndentGuides | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/indent-guides.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                       | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `IndentGuides` | IndentGuides | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/nested-tree-data-source.ts`:
 
 ## class: `NestedTreeDataSource`
 
 ### Superclass
 
-| Name             | Module                                                                                         | Package |
-| ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `TreeDataSource` | //Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.js |         |
+| Name             | Module                                                                                           | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `TreeDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.js |         |
 
 ### Fields
 
@@ -7664,11 +7668,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                               | Package |
-| ---- | ---------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/nested-tree-data-source.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/nested-tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.ts`:
 
 ## class: `TreeDataSource`
 
@@ -7716,19 +7720,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                        | Package |
-| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TreeDataSource` | TreeDataSource | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-data-source.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                          | Package |
+| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeDataSource` | TreeDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.ts`:
 
 ## class: `TreeNode`
 
@@ -7746,20 +7750,20 @@
 
 ### Fields
 
-| Name              | Privacy | Type                                  | Default | Description                                                                                                                                                                                          | Inherited From |
-| ----------------- | ------- | ------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `checked`         |         | `boolean \| undefined`                |         | Determines whether the checkbox is checked or not.                                                                                                                                                   |                |
-| `disabled`        |         | `boolean \| undefined`                |         | Whether the node is disabled.                                                                                                                                                                        |                |
-| `expandable`      |         | `boolean \| undefined`                |         | If true, will render an indicator whether the node is expanded or collapsed.                                                                                                                         |                |
-| `expanded`        |         | `boolean \| undefined`                |         | Indicates whether the node is expanded or collapsed.                                                                                                                                                 |                |
-| `hideGuides`      |         | `boolean \| undefined`                |         | Hides the indentation guides when set.                                                                                                                                                               |                |
-| `indeterminate`   |         | `boolean \| undefined`                |         | Indeterminate state of the checkbox. Used when not all children are checked.                                                                                                                         |                |
-| `lastNodeInLevel` |         | `boolean \| undefined`                |         | Whether this node is the last one on this level; used for styling.                                                                                                                                   |                |
-| `level`           |         | `number`                              | `0`     | The depth level of this node, 0 being the root of the tree.                                                                                                                                          |                |
-| `node`            |         | `TreeDataSourceNode<T> \| undefined`  |         | The tree model node.                                                                                                                                                                                 |                |
-| `selected`        |         | `boolean \| undefined`                |         | Whether the node is currently selected.                                                                                                                                                              |                |
-| `selects`         |         | `'single' \| 'multiple' \| undefined` |         | If you are able to select one or more tree nodes (at the same time).                                                                                                                                 |                |
-| `type`            |         | `TreeNodeType \| undefined`           | `node`  | The type of tree node:&#xA;\- 'node': A regular tree node.&#xA;\- 'placeholder': A placeholder node used for loading children.&#xA;\- 'skeleton': A skeleton node used for loading individual nodes. |                |
+| Name              | Privacy | Type                                  | Default     | Description                                                                                                                                                                                          | Inherited From |
+| ----------------- | ------- | ------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `checked`         |         | `boolean \| undefined`                | `false`     | Determines whether the checkbox is checked or not.                                                                                                                                                   |                |
+| `disabled`        |         | `boolean \| undefined`                | `false`     | Whether the node is disabled.                                                                                                                                                                        |                |
+| `expandable`      |         | `boolean \| undefined`                | `false`     | If true, will render an indicator whether the node is expanded or collapsed.                                                                                                                         |                |
+| `expanded`        |         | `boolean \| undefined`                | `false`     | Indicates whether the node is expanded or collapsed.                                                                                                                                                 |                |
+| `hideGuides`      |         | `boolean \| undefined`                | `false`     | Hides the indentation guides when set.                                                                                                                                                               |                |
+| `indeterminate`   |         | `boolean \| undefined`                | `false`     | Indeterminate state of the checkbox. Used when not all children are checked.                                                                                                                         |                |
+| `lastNodeInLevel` |         | `boolean \| undefined`                | `false`     | Whether this node is the last one on this level; used for styling.                                                                                                                                   |                |
+| `level`           |         | `number`                              | `0`         | The depth level of this node, 0 being the root of the tree.                                                                                                                                          |                |
+| `node`            |         | `TreeDataSourceNode<T> \| undefined`  |             | The tree model node.                                                                                                                                                                                 |                |
+| `selected`        |         | `boolean \| undefined`                | `false`     | Whether the node is currently selected.                                                                                                                                                              |                |
+| `selects`         |         | `'single' \| 'multiple' \| undefined` | `undefined` | If you are able to select one or more tree nodes (at the same time).                                                                                                                                 |                |
+| `type`            |         | `TreeNodeType \| undefined`           | `'node'`    | The type of tree node:&#xA;\- 'node': A regular tree node.&#xA;\- 'placeholder': A placeholder node used for loading children.&#xA;\- 'skeleton': A skeleton node used for loading individual nodes. |                |
 
 ### Methods
 
@@ -7795,19 +7799,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `TreeNode` | TreeNode    | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree-node.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeNode` | TreeNode    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.scss.ts |         |
 
-# `/Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.ts`:
 
 ## class: `Tree`, `sl-tree`
 
@@ -7856,6 +7860,6 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Tree` | Tree        | /Users/diana.broeders/Projects/design-system/packages/components/tree/src/tree.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Tree` | Tree        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.ts |         |

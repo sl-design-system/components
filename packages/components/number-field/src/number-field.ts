@@ -3,7 +3,7 @@ import { format } from '@sl-design-system/format-number/format.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import styles from './number-field.scss.js';
 import { NumberParser } from './number-parser.js';
 
@@ -24,10 +24,13 @@ export class NumberField extends LocaleMixin(TextField) {
   static override styles = [TextField.styles, styles];
 
   /** Parser used for user input.  */
-  #parser?: NumberParser;
+  #parser = new NumberParser(this.locale);
+
+  /** The string value. */
+  #value?: string;
 
   /** The number value. */
-  #value?: number;
+  #valueAsNumber?: number;
 
   /**
    * Number formatting options.
@@ -37,8 +40,9 @@ export class NumberField extends LocaleMixin(TextField) {
 
   override get formattedValue(): string {
     if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
-      if (this.formatOptions && this.formatOptions.style === 'percent') {
+      if (this.formatOptions?.style === 'percent') {
         const percentageValue = this.valueAsNumber * 0.01;
+
         return format(percentageValue, this.locale, this.formatOptions);
       }
 
@@ -51,33 +55,54 @@ export class NumberField extends LocaleMixin(TextField) {
   /**
    * The maximum value that is acceptable and valid.
    * If the value is greater, the control will be invalid.
+   * @default Infinity
    */
   @property({ type: Number }) max?: number;
 
   /**
    * The minimum value that is acceptable and valid.
    * If the value is less, the control will be invalid.
+   * @default -Infinity
    */
   @property({ type: Number }) min?: number;
 
-  /** @internal The raw value of the input. */
-  @state() override rawValue: string = '';
-
-  /** The amount by which the value will be increased/decreased by a step up/down. */
+  /**
+   * The amount by which the value will be increased/decreased by a step up/down.
+   * @default 1
+   */
   @property({ type: Number }) step?: number;
 
   /** Step buttons placement for incrementing / decrementing. No step buttons by default. */
   @property({ reflect: true, attribute: 'step-buttons' }) stepButtons?: NumberFieldButtonsAlignment;
 
-  get valueAsNumber() {
+  override get value(): string | undefined {
     return this.#value;
   }
 
-  /** The value, as a number. */
+  /** The text value. */
+  @property()
+  override set value(value: string | undefined) {
+    this.#value = value;
+
+    const number = value ? this.#parser.parse(value) : undefined;
+    if (this.valueAsNumber !== number) {
+      this.valueAsNumber = number;
+    }
+  }
+
+  get valueAsNumber() {
+    return this.#valueAsNumber;
+  }
+
+  /** The number value. */
   @property({ type: Number })
   set valueAsNumber(value: number | undefined) {
-    this.#value = value;
-    this.value = value === undefined ? '' : value.toString();
+    this.#valueAsNumber = value;
+
+    // Keep the text value in sync with the number value
+    if (this.#value !== value?.toString()) {
+      this.#value = value?.toString();
+    }
   }
 
   override connectedCallback(): void {
@@ -85,20 +110,25 @@ export class NumberField extends LocaleMixin(TextField) {
 
     this.input.setAttribute('inputmode', this.inputMode || 'numeric');
 
-    this.#parser = new NumberParser(this.locale, this.formatOptions);
-
     // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
     const style = document.createElement('style');
     style.innerHTML = `
-       sl-number-field:has(input:hover):not(:focus-within) {
-          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-       }
-      `;
+      sl-number-field:has(input:hover):not(:focus-within) {
+        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+    `;
     this.prepend(style);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('formatOptions') || changes.has('locale')) {
+      this.#parser = new NumberParser(this.locale, this.formatOptions);
+
+      // Trigger an update of the formatted value in the parent class
+      this.requestUpdate('formattedValue');
+    }
 
     if (this.max) {
       this.input.max = this.max.toString();
@@ -108,23 +138,11 @@ export class NumberField extends LocaleMixin(TextField) {
       this.input.min = this.min.toString();
     }
 
-    if (changes.has('locale') || changes.has('formatOptions')) {
-      this.#parser = new NumberParser(this.locale, this.formatOptions);
-      this.requestUpdate('value');
+    if (changes.has('value') || changes.has('valueAsNumber')) {
+      this.requestUpdate('formattedValue');
+
+      this.#validateInput();
     }
-  }
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    if (!this.rawValue && this.value && this.valueAsNumber) {
-      this.rawValue = this.value;
-    } else if (!this.rawValue && this.value && !this.valueAsNumber) {
-      this.rawValue = this.value;
-      this.valueAsNumber = this.#convertValueToNumber(this.rawValue ? this.rawValue : '');
-    }
-
-    this.#validateInput();
   }
 
   override renderPrefix(): TemplateResult | typeof nothing {
@@ -196,7 +214,7 @@ export class NumberField extends LocaleMixin(TextField) {
 
   override onBlur(): void {
     if (this.rawValue !== undefined && this.rawValue !== '') {
-      this.valueAsNumber = this.#convertValueToNumber(
+      this.valueAsNumber = this.#parser.parse(
         this.rawValue ? this.rawValue : this.#value !== undefined ? this.#value.toString() : ''
       );
 
@@ -264,9 +282,5 @@ export class NumberField extends LocaleMixin(TextField) {
     } else {
       this.input.setCustomValidity('');
     }
-  }
-
-  #convertValueToNumber(value: string): number | undefined {
-    return this.#parser?.parse(value);
   }
 }

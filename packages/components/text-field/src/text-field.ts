@@ -83,10 +83,17 @@ export class TextField<T extends { toString(): string } = string>
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  /** @internal Embedded or slotted field buttons. */
+  @state() fieldButtons: FieldButton[] = [];
+
   /** The formatted value, to be used as the input value. */
+  @state()
   get formattedValue(): string {
     return this.value?.toString() || '';
   }
+
+  /** @internal Used for styling the focus ring of the input. */
+  @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -96,12 +103,6 @@ export class TextField<T extends { toString(): string } = string>
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size
    */
   @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
-
-  /** @internal Embedded or slotted field buttons. */
-  @state() fieldButtons: FieldButton[] = [];
-
-  /** @internal Used for styling the focus ring of the input. */
-  @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -163,23 +164,28 @@ export class TextField<T extends { toString(): string } = string>
 
     this.setFormControlElement(this.input);
 
-    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
-    const style = document.createElement('style');
-    style.innerHTML = `
-      sl-text-field:has(input:hover):not(:focus-within) {
-        --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
-      }
-    `;
-    this.prepend(style);
+    if (this.tagName === 'SL-TEXT-FIELD') {
+      // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+      const style = document.createElement('style');
+      style.innerHTML = `
+        sl-text-field:has(input:hover):not(:focus-within) {
+          --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+        }
+      `;
+      this.prepend(style);
+    }
   }
 
   override firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
 
-    const buttons = this.renderRoot.querySelectorAll('sl-field-button');
-    if (buttons.length) {
-      this.fieldButtons = [...this.fieldButtons, ...buttons];
-    }
+    // Set the `fieldButtons` using a microtask so we do not create a lifecycle loop
+    requestAnimationFrame(() => {
+      const buttons = this.renderRoot.querySelectorAll('sl-field-button');
+      if (buttons.length) {
+        this.fieldButtons = [...this.fieldButtons, ...buttons];
+      }
+    });
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -214,7 +220,7 @@ export class TextField<T extends { toString(): string } = string>
       });
     }
 
-    if (changes.has('value')) {
+    if (changes.has('formattedValue') || changes.has('value')) {
       const formattedValue = this.formattedValue;
 
       if (this.input.value !== formattedValue) {

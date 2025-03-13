@@ -31,7 +31,7 @@ export class Tab extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { keydown: this.#onKeydown });
+  #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
 
   /** Whether the tab item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -91,6 +91,7 @@ export class Tab extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    console.log('keydown event in tab', event, this.href, this.renderRoot.querySelector('a'));
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
@@ -100,6 +101,23 @@ export class Tab extends LitElement {
       this.renderRoot.querySelector('a')?.click();
     }
   } // TODO: check with href...
+
+  #onClick(event: Event): void {
+    console.log('onClick event in tab', event, this.href, this.renderRoot.querySelector('a'), event.target);
+
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      return;
+    } else if (this.href) {
+      // event.preventDefault();
+      // event.stopPropagation();
+
+      // TODO: when sl-tab, not sl-menu-item the click is being triggered twice, maybe add another parameter?
+      this.renderRoot.querySelector('a')?.click();
+    }
+  }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const hasTitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());

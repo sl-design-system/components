@@ -277,7 +277,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
                   ${this.menuItems?.map(
                     menuItem => html`
-                      <sl-menu-item @click=${() => this.#onMenuItemClick(menuItem.tab)} ?disabled=${menuItem.disabled}>
+                      <sl-menu-item
+                        @keydown=${this.#onKeydown}
+                        @click=${() => this.#onMenuItemClick(menuItem.tab)}
+                        ?disabled=${menuItem.disabled}
+                      >
                         ${menuItem.title}
                       </sl-menu-item>
                     `
@@ -311,18 +315,29 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
+    console.log('keydown in tab group', event, event.target);
+
+    console.log(
+      'keydown in tab group:::: menuitem tab???',
+      this.tabs,
+      event.target.closest('sl-menu-item'),
+      /*(event.target as TabMenuItem)?.tab ,*/ event.target.closest('sl-tab')
+    );
+    // TODO: keydown on menu item is not being applied?
     if (['Enter', ' '].includes(event.key)) {
       this.#updateSelectedTab(<Tab>event.target);
       this.#scrollToTabPanelStart();
+
+      // event.target.click();
+      //
+      // this.#onClick(event);
     }
   }
 
   #onMenuItemClick(tab: Tab): void {
     this.#updateSelectedTab(tab);
 
-    // Create a synthetic event object with the tab as the target
     const event = { target: tab } as unknown as Event & { target: HTMLElement };
-
     this.#onClick(event);
     // this.#onClick(tab);
   }
@@ -430,7 +445,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSelectedTab(selectedTab?: Tab, emitEvent = true): void {
-    console.log('selectedTab', selectedTab, this.selectedTab);
+    console.log('selectedTab', selectedTab, this.selectedTab, 'emitEvent?', emitEvent);
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
@@ -439,6 +454,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       });
 
       this.selectedTab = selectedTab;
+
+      console.log('selectedTab before click', this.selectedTab);
+
+      this.selectedTab?.click();
 
       if (emitEvent) {
         this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);

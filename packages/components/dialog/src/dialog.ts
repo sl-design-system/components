@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, FocusTrapController, breakpoints, event } from '@sl-design-system/shared';
+import { type EventEmitter, FocusTrapController, event } from '@sl-design-system/shared';
 import {
   type CSSResult,
   type CSSResultGroup,
@@ -63,7 +63,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static override styles: CSSResultGroup = [breakpoints, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** The controller that manages the focus trap within the dialog. */
   #focusTrap = new FocusTrapController(this);
@@ -74,7 +74,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    */
   @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
-  /** Determines whether a close button should be shown in the top right corner. */
+  /**
+   * Determines whether a close button should be shown in the top right corner.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
 
   /** @internal Emits when the dialog has been closed. */
@@ -83,12 +86,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   @query('dialog') dialog?: HTMLDialogElement;
 
-  /** The role for the dialog element. */
+  /**
+   * The role for the dialog element.
+   * @default 'dialog'
+   */
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /**
    * Disables the ability to cancel the dialog by pressing the Escape key
    * or clicking on the backdrop.
+   * @default false
    */
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
 
@@ -205,7 +212,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     `
     );
 
-    adoptStyles(this.shadowRoot!, [breakpoints, styles, backdrop]);
+    adoptStyles(this.shadowRoot!, [styles, backdrop]);
 
     this.#updateDocumentElement(true);
 
@@ -230,10 +237,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** Close the dialog. */
   close(): void {
     this.dialog?.close();
-
-    // if (this.dialog?.open) {
-    //   this.#closeDialogOnAnimationend();
-    // }
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -249,7 +252,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           event.clientX > rect.right))
     ) {
       this.dialog?.close();
-      // this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 
@@ -266,18 +268,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.dialog?.close();
-    // this.#closeDialogOnAnimationend(event.target as HTMLElement);
+    this.close();
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && !this.disableCancel) {
       event.preventDefault();
 
-      if (!this.disableCancel) {
-        this.dialog?.close();
-        // this.#closeDialogOnAnimationend(event.target, true);
-      }
+      this.close();
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/combobox",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Combobox component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -42,7 +42,7 @@
     "@sl-design-system/icon": "^1.1.0",
     "@sl-design-system/listbox": "^0.1.0",
     "@sl-design-system/tag": "^0.1.0",
-    "@sl-design-system/text-field": "^1.6.0"
+    "@sl-design-system/text-field": "^1.6.1"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",

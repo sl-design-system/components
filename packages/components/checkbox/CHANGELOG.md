@@ -1,5 +1,13 @@
 # @sl-design-system/checkbox
 
+## 2.1.1
+
+### Patch Changes
+
+- [#1846](https://github.com/sl-design-system/components/pull/1846) [`4db6380`](https://github.com/sl-design-system/components/commit/4db63809185726e6ec40b4c15a2e927a009d472f) - Accessibility improvements - fix Axe error where component has 2 labels by hiding the internal one from ARIA and instead using `aria-labelledby` on the `<input>`.
+
+  Details about [Axe error can be found here](https://dequeuniversity.com/rules/axe/4.10/form-field-multiple-labels?application=axeAPI).
+
 ## 2.1.0
 
 ### Minor Changes

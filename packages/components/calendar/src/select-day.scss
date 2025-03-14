@@ -37,7 +37,7 @@
   color: var(--sl-color-foreground-subtlest);
   display: grid;
   font-weight: normal;
-  grid-template-columns: repeat(7, var(--sl-size-400));
+  grid-template-columns: repeat(7, var(--sl-size-450));
 }
 
 .day-of-week,
@@ -47,7 +47,7 @@
 
 .week-number {
   border-inline-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-neutral-muted);
-  inline-size: calc(var(--sl-size-400) - var(--sl-size-borderWidth-subtle));
+  inline-size: calc(var(--sl-size-450) - var(--sl-size-borderWidth-subtle));
 }
 
 .scroller {

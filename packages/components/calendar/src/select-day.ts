@@ -40,6 +40,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Ignore snap events before initialized. */

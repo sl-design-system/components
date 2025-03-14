@@ -174,6 +174,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
           ?disabled=${this.disabled || this.readonly}
           aria-label=${msg('Toggle calendar')}
           slot="suffix"
+          tabindex=${this.disabled ? '-1' : '0'}
         >
           <sl-icon name="calendar"></sl-icon>
         </sl-field-button>
@@ -274,6 +275,11 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   #onToggle(event: ToggleEvent): void {
     if (event.newState === 'closed') {
       this.#popoverJustClosed = false;
+    } else {
+      // Wait for the calendar to render in the popover
+      requestAnimationFrame(() => {
+        this.renderRoot.querySelector('sl-calendar')?.focus();
+      });
     }
 
     // Trigger a rerender so the calendar will be rendered

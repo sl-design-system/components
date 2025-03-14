@@ -25,6 +25,9 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal Emits when the user selects a year. */

@@ -192,10 +192,6 @@
 <trans-unit id="sc831e57f94e6d73e">
   <source>Go forward</source>
 </trans-unit>
-<trans-unit id="s138a3b1a1217f2ca">
-  <source>Show calendar</source>
-  <target>Toon kalender</target>
-</trans-unit>
 <trans-unit id="sde3919a1e53d2cff">
   <source>Press the delete or backspace key to remove this item</source>
   <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
@@ -279,6 +275,18 @@
 <trans-unit id="sfc5e976d64c3fb31">
   <source>Please enter a valid number.</source>
   <target>Voer een geldig getal in.</target>
+</trans-unit>
+<trans-unit id="se1a9c804f6e98131">
+  <source>Previous year</source>
+  <target>Vorig jaar</target>
+</trans-unit>
+<trans-unit id="sda6fb6b9cc156f91">
+  <source>Next year</source>
+  <target>Volgend jaar</target>
+</trans-unit>
+<trans-unit id="sf3fe911c549b0fcd">
+  <source>Toggle calendar</source>
+  <target>Toon kalender</target>
 </trans-unit>
 </body>
 </file>

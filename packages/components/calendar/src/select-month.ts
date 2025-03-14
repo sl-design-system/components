@@ -25,6 +25,9 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** The month/year to display. */

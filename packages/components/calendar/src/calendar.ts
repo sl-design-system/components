@@ -31,6 +31,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** @internal */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal Emits when the value changes. */

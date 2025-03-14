@@ -295,12 +295,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
       </div>
     `;
-  }
+  } // @click=${this.#onClick}
 
   #onClick(event: Event & { target: HTMLElement }): void {
-    console.log('event on tab click', event, event.target.closest('sl-tab'));
     const tab = event.target.closest('sl-tab');
-    if (!tab) {
+    console.log(
+      'events123',
+      event.target,
+      event.currentTarget,
+      event.composedPath(),
+      event.target === event.currentTarget
+    );
+
+    console.log('event on tab click1', event, event.target.closest('sl-tab'), 'tab selected???', tab?.selected);
+    // const tab = event.target.closest('sl-tab');
+    if (!tab /*|| tab.selected*/) {
       return;
     }
 
@@ -325,6 +334,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     );
     // TODO: keydown on menu item is not being applied?
     if (['Enter', ' '].includes(event.key)) {
+      // event.preventDefault();
+      // event.stopPropagation();
+
       this.#updateSelectedTab(<Tab>event.target);
       this.#scrollToTabPanelStart();
 
@@ -335,10 +347,16 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onMenuItemClick(tab: Tab): void {
-    this.#updateSelectedTab(tab);
+    // this.#updateSelectedTab(tab);
+    // tab.click();
+    if (tab.href) {
+      tab.renderRoot.querySelector('a')?.click();
+    }
 
-    const event = { target: tab } as unknown as Event & { target: HTMLElement };
-    this.#onClick(event);
+    console.log(tab);
+
+    // const event = { target: tab } as unknown as Event & { target: HTMLElement };
+    // this.#onClick(event);
     // this.#onClick(tab);
   }
 
@@ -368,11 +386,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.tabs = event.target.assignedElements({ flatten: true }).filter((el): el is Tab => el instanceof Tab);
     this.tabs.forEach((tab, index) => {
       tab.id ||= `${this.#idPrefix}-tab-${index + 1}`;
+      // tab.addEventListener('click', () => this.#onClick);
     });
 
     const selectedTab = this.tabs.find(tab => tab.selected);
     if (selectedTab) {
-      this.#updateSelectedTab(selectedTab, false);
+      this.#updateSelectedTab(selectedTab, false); // TODO: false is necessary here?
     }
 
     this.#rovingTabindexController.clearElementCache();
@@ -457,7 +476,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
       console.log('selectedTab before click', this.selectedTab);
 
-      this.selectedTab?.click();
+      // this.selectedTab?.click();
 
       if (emitEvent) {
         this.tabChangeEvent.emit(selectedTab ? (this.tabs?.indexOf(selectedTab) ?? 0) : -1);

@@ -6,11 +6,11 @@
 
 :host([show-week-numbers]) {
   .days-of-week {
-    grid-template-columns: repeat(8, var(--sl-size-400));
+    grid-template-columns: repeat(8, var(--sl-size-450));
   }
 
   .scroller {
-    max-inline-size: calc(8 * var(--sl-size-400));
+    max-inline-size: calc(8 * var(--sl-size-450));
   }
 }
 
@@ -38,7 +38,6 @@
   display: grid;
   font-weight: normal;
   grid-template-columns: repeat(7, var(--sl-size-400));
-  text-transform: uppercase;
 }
 
 .day-of-week,
@@ -55,7 +54,7 @@
   align-items: start;
   display: flex;
   flex-grow: 1;
-  max-inline-size: calc(7 * var(--sl-size-400));
+  max-inline-size: calc(7 * var(--sl-size-450));
   outline: none;
   overflow: scroll hidden;
   scroll-snap-type: x mandatory;

@@ -1,4 +1,4 @@
-import { localized, msg } from '@lit/localize';
+import { localized } from '@lit/localize';
 import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
@@ -61,6 +61,9 @@ export class MonthView extends LocaleMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'hide-days-other-months' }) hideDaysOtherMonths?: boolean;
 
+  /** @internal The localized "week of year" label. */
+  @state() localizedWeekOfYear?: string;
+
   /**
    * The maximum date selectable in the month.
    * @default undefined
@@ -107,12 +110,18 @@ export class MonthView extends LocaleMixin(LitElement) {
   @state() weekDays: Array<{ long: string; short: string }> = [];
 
   override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('locale') || changes.has('firstDayOfWeek')) {
+    if (changes.has('firstDayOfWeek') || changes.has('locale')) {
       const { locale, firstDayOfWeek } = this,
         longDays = getWeekdayNames({ firstDayOfWeek, locale, style: 'long' }),
         shortDays = getWeekdayNames({ firstDayOfWeek, locale, style: 'short' });
 
       this.weekDays = longDays.map((day, i) => ({ long: day, short: shortDays[i] }));
+    }
+
+    if (changes.has('locale') || changes.has('showWeekNumbers')) {
+      this.localizedWeekOfYear = new Intl.DisplayNames(this.locale, { style: 'short', type: 'dateTimeField' }).of(
+        'weekOfYear'
+      );
     }
 
     if (changes.has('max') || changes.has('min') || changes.has('month')) {
@@ -144,7 +153,7 @@ export class MonthView extends LocaleMixin(LitElement) {
     return html`
       <thead part="header">
         <tr>
-          ${this.showWeekNumbers ? html`<th part="week-number">${msg('wk')}</th>` : nothing}
+          ${this.showWeekNumbers ? html`<th part="week-number">${this.localizedWeekOfYear}</th>` : nothing}
           ${this.weekDays.map(day => html`<th aria-label=${day.long} part="week-day">${day.short}</th>`)}
         </tr>
       </thead>

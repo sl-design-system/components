@@ -6,7 +6,6 @@ import { str } from '@lit/localize';
 export const templates = {
   s00a84204340a1db4: 'Geselecteerd',
   s078cac19db271b0d: 'Stap omlaag',
-  s08cb5d07b56d33a7: 'wk',
   s091d3d07b5b3076f: 'Ok',
   s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',

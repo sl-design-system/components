@@ -50,6 +50,9 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
+  /** @internal The localized "week of year" label. */
+  @state() localizedWeekOfYear?: string;
+
   /**
    * The maximum date selectable in the month.
    * @default undefined
@@ -112,6 +115,12 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       this.weekDays = longDays.map((day, i) => ({ long: day, short: shortDays[i] }));
     }
 
+    if (changes.has('locale') || changes.has('showWeekNumbers')) {
+      this.localizedWeekOfYear = new Intl.DisplayNames(this.locale, { style: 'short', type: 'dateTimeField' }).of(
+        'weekOfYear'
+      );
+    }
+
     if (changes.has('month') && this.month) {
       this.displayMonth = this.month;
       this.nextMonth = new Date(this.month.getFullYear(), this.month.getMonth() + 1);
@@ -139,7 +148,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       </div>
       <div class="days-of-week">
         ${this.showWeekNumbers
-          ? html`<span class="week-number" aria-label=${msg('Week')}>${msg('wk')}</span>`
+          ? html`<span class="week-number" aria-label=${msg('Week')}>${this.localizedWeekOfYear}</span>`
           : nothing}
         ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
       </div>

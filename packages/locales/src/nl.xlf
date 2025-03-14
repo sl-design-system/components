@@ -174,10 +174,6 @@
   <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
   <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
 </trans-unit>
-<trans-unit id="s08cb5d07b56d33a7">
-  <source>wk</source>
-  <target>wk</target>
-</trans-unit>
 <trans-unit id="s62931b2a50168976">
   <source>Previous month</source>
   <target>Vorige maand</target>

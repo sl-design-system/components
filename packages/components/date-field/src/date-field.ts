@@ -150,8 +150,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
     }
 
     if (changes.has('value')) {
-      console.log('value', this.value);
-
       this.input.value = this.value && this.#formatter ? this.#formatter.format(this.value) : '';
     }
   }
@@ -166,6 +164,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         @sl-update-state=${this.#onTextFieldUpdateState}
         ?disabled=${this.disabled}
         ?readonly=${this.readonly || this.selectOnly}
+        ?required=${this.required}
         part="text-field"
         placeholder=${ifDefined(this.placeholder)}
       >
@@ -173,7 +172,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
         <sl-field-button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled || this.readonly}
-          aria-label=${msg('Show calendar')}
+          aria-label=${msg('Toggle calendar')}
           slot="suffix"
         >
           <sl-icon name="calendar"></sl-icon>
@@ -218,6 +217,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.#popoverJustClosed = true;
     }
   }
+
   #onButtonClick(): void {
     // Prevents the popover from reopening immediately after it was just closed
     if (!this.#popoverJustClosed) {
@@ -231,6 +231,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
 
     this.value = event.detail;
     this.changeEvent.emit(this.value);
+
+    this.updateState({ dirty: true });
+    this.updateValidity();
 
     setTimeout(() => {
       this.wrapper?.hidePopover();

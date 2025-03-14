@@ -5,6 +5,7 @@ import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './month-view.scss.js';
 import { type Calendar, type Day, createCalendar, getWeekdayNames, isSameDate } from './utils.js';
 
@@ -151,7 +152,11 @@ export class MonthView extends LocaleMixin(LitElement) {
       template =
         this.readonly || !day.currentMonth
           ? html`<span .part=${parts}>${day.date.getDate()}</span>`
-          : html`<button .part=${parts}>${day.date.getDate()}</button>`;
+          : html`
+              <button .part=${parts} aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}>
+                ${day.date.getDate()}
+              </button>
+            `;
     }
 
     return html`<td @click=${(event: Event) => this.#onClick(event, day)}>${template}</td>`;

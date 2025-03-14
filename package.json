@@ -474,7 +474,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "lit": "^3.2.1",
-    "playwright": "^1.50.1",
+    "playwright": "^1.51.0",
     "sinon": "^19.0.2",
     "storybook": "^8.6.4",
     "stylelint": "^16.15.0",

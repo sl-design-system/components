@@ -1,6 +1,6 @@
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html } from 'lit';
+import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type NumberField } from './number-field.js';
@@ -23,7 +23,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
-  slot?(): TemplateResult;
+  reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
 
@@ -35,6 +35,12 @@ export default {
     label: 'Number'
   },
   argTypes: {
+    hint: {
+      table: { disable: true }
+    },
+    label: {
+      table: { disable: true }
+    },
     locale: {
       control: 'inline-radio',
       options: ['de', 'en', 'es', 'fi', 'it', 'nl', 'no', 'pl', 'sv']
@@ -59,6 +65,7 @@ export default {
     min,
     placeholder,
     readonly,
+    reportValidity,
     required,
     size,
     step,
@@ -88,9 +95,13 @@ export default {
             step-buttons=${ifDefined(stepButtons)}
           ></sl-number-field>
         </sl-form-field>
-        <sl-button-bar>
-          <sl-button @click=${onClick}>Report validity</sl-button>
-        </sl-button-bar>
+        ${reportValidity
+          ? html`
+              <sl-button-bar>
+                <sl-button @click=${onClick}>Report validity</sl-button>
+              </sl-button-bar>
+            `
+          : nothing}
       </sl-form>
     `;
   }
@@ -141,6 +152,7 @@ export const MinMax: Story = {
     hint: 'The number must be between 0 and 10.',
     max: 10,
     min: 0,
+    reportValidity: true,
     valueAsNumber: 50
   }
 };
@@ -157,6 +169,7 @@ export const Required: Story = {
   args: {
     hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
     max: 10,
+    reportValidity: true,
     required: true
   }
 };
@@ -175,7 +188,7 @@ export const StepButtonsEdges: Story = {
   }
 };
 
-export const OnBlur: Story = {
+export const ValidateOnBlur: Story = {
   render: ({ min }) => {
     const onBlur = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();

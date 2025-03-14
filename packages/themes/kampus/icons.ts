@@ -36,6 +36,18 @@ export const icons = {
     description: 'icon.core.breadcrumb-separator',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M312.2 2.3c7.6 4.5 10 14.4 5.5 22l-288 480c-4.5 7.6-14.4 10-22 5.5s-10-14.4-5.5-22l288-480c4.5-7.6 14.4-10 22-5.5z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
+  calendar: {
+    value: 'calendar',
+    type: 'Icons',
+    description: 'icon.core.calendar',
+    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M112 0c8.8 0 16 7.2 16 16l0 48 192 0 0-48c0-8.8 7.2-16 16-16s16 7.2 16 16l0 48 32 0c35.3 0 64 28.7 64 64l0 32 0 32 0 256c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 192l0-32 0-32C0 92.7 28.7 64 64 64l32 0 0-48c0-8.8 7.2-16 16-16zM416 192L32 192l0 256c0 17.7 14.3 32 32 32l320 0c17.7 0 32-14.3 32-32l0-256zM384 96L64 96c-17.7 0-32 14.3-32 32l0 32 384 0 0-32c0-17.7-14.3-32-32-32z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'caret-down-solid': {
+    value: 'caret-down',
+    type: 'Icons',
+    description: 'icon.core.caret-down-solid',
+    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   'caret-left-solid': {
     value: 'caret-left',
     type: 'Icons',
@@ -65,6 +77,12 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.chevron-down',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M267.3 395.3c-6.2 6.2-16.4 6.2-22.6 0l-192-192c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L256 361.4 436.7 180.7c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6l-192 192z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'chevron-left': {
+    value: 'chevron-left',
+    type: 'Icons',
+    description: 'icon.core.chevron-left',
+    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M20.7 267.3c-6.2-6.2-6.2-16.4 0-22.6l192-192c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6L54.6 256 235.3 436.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0l-192-192z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'chevron-right': {
     value: 'chevron-right',

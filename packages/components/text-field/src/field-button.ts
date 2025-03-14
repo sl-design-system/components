@@ -1,3 +1,4 @@
+import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './field-button.scss.js';
@@ -25,6 +26,9 @@ export class FieldButton extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
+
   /** Determines if the button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
@@ -43,5 +47,15 @@ export class FieldButton extends LitElement {
 
   override render(): TemplateResult {
     return html`<slot></slot>`;
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled) {
+      return;
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+
+      this.click();
+    }
   }
 }

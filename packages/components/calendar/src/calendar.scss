@@ -1,0 +1,11 @@
+:host {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+}
+
+sl-select-day,
+sl-select-month,
+sl-select-year {
+  grid-area: 1 / 1;
+  inline-size: 100%;
+}

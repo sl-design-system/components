@@ -1,0 +1,11 @@
+a[href] {
+  color: var(--sl-color-link-idle);
+}
+
+a[href]:active {
+  color: var(--sl-color-link-active);
+}
+
+a[href]:hover {
+  color: var(--sl-color-link-hover);
+}

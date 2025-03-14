@@ -360,10 +360,22 @@ td[part~='text-field'] {
   z-index: 1;
 }
 
+a[href] {
+  color: var(--sl-color-link-idle);
+}
+
+a[href]:active {
+  color: var(--sl-color-link-active);
+}
+
+a[href]:hover {
+  color: var(--sl-color-link-hover);
+}
+
 /* Set some base styles, so it is easy to see */
 a[class^='skip-link'] {
-  background-color: var(--sl-color-background-focused);
-  color: var(--sl-link-focused-idle);
+  background-color: var(--sl-color-background-accent-yellow-bold);
+  color: var(--sl-color-foreground-accent-yellow-onBold);
   display: inline-block;
   inset-inline-start: calc(anchor(left) + var(--sl-size-100));
   opacity: 0;

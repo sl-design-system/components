@@ -6,6 +6,7 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.scss.js';
 
 declare global {
@@ -43,7 +44,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div class="header">
+      <div part="header">
         <span class="current-range">${this.years.at(0)}-${this.years.at(-1)}</span>
         <sl-button @click=${this.#onPrevious} aria-label=${msg('Go back')} fill="ghost" variant="primary">
           <sl-icon name="far-chevron-left"></sl-icon>
@@ -60,6 +61,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
                 @click=${() => this.#onClick(year)}
                 .fill=${this.year === year ? 'solid' : 'ghost'}
                 .variant=${this.year === year ? 'primary' : 'default'}
+                aria-pressed=${ifDefined(this.year === year ? 'true' : undefined)}
               >
                 ${year}
               </sl-button>

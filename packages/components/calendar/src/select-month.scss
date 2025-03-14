@@ -1,12 +1,14 @@
 :host {
+  box-sizing: border-box;
   display: inline-flex;
   flex-direction: column;
+  gap: var(--sl-size-100);
+  padding: var(--sl-size-075);
 }
 
 [part='header'] {
   align-items: center;
   display: flex;
-  margin-block-end: var(--sl-size-100);
 }
 
 .current-year {

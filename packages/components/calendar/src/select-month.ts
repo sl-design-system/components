@@ -7,6 +7,7 @@ import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-month.scss.js';
 
 declare global {
@@ -60,10 +61,10 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     return html`
       <div part="header">
         <span class="current-year">${this.month.getFullYear()}</span>
-        <sl-button @click=${this.#onPrevious} aria-label=${msg('Go back')} fill="ghost" variant="primary">
+        <sl-button @click=${this.#onPrevious} aria-label=${msg('Previous year')} fill="ghost" variant="primary">
           <sl-icon name="far-chevron-left"></sl-icon>
         </sl-button>
-        <sl-button @click=${this.#onNext} aria-label=${msg('Go forward')} fill="ghost" variant="primary">
+        <sl-button @click=${this.#onNext} aria-label=${msg('Next year')} fill="ghost" variant="primary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </div>
@@ -76,6 +77,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 .fill=${currentMonth === value ? 'solid' : 'ghost'}
                 .variant=${currentMonth === value ? 'primary' : 'default'}
                 aria-label=${long}
+                aria-pressed=${ifDefined(currentMonth === value ? 'true' : undefined)}
               >
                 ${short}
               </sl-button>

@@ -58,7 +58,7 @@ button {
 
 [part~='previous-month'],
 [part~='next-month'] {
-  color: var(--sl-color-foreground-subtlest);
+  color: var(--sl-color-foreground-disabled);
 }
 
 [part~='highlight'] {
@@ -85,11 +85,6 @@ button {
 [part~='week-number'] {
   color: var(--sl-color-foreground-subtlest);
   font-weight: normal;
-  text-transform: uppercase;
-}
-
-[part~='week-day'] {
-  font-size: 0.86em;
 }
 
 [part~='week-number'] {

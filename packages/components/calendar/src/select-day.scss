@@ -1,7 +1,6 @@
 :host {
   display: inline-flex;
   flex-direction: column;
-  gap: var(--sl-size-025);
 }
 
 :host([show-week-numbers]) {
@@ -10,13 +9,15 @@
   }
 
   .scroller {
-    max-inline-size: calc(8 * var(--sl-size-450));
+    max-inline-size: calc(8 * var(--sl-size-450) + var(--sl-size-100));
   }
 }
 
 [part='header'] {
   align-items: center;
   display: flex;
+  padding-block-start: var(--sl-size-075);
+  padding-inline: var(--sl-size-075);
 }
 
 .current-month,
@@ -38,6 +39,7 @@
   display: grid;
   font-weight: normal;
   grid-template-columns: repeat(7, var(--sl-size-450));
+  padding-inline: var(--sl-size-075);
 }
 
 .day-of-week,
@@ -54,9 +56,10 @@
   align-items: start;
   display: flex;
   flex-grow: 1;
-  max-inline-size: calc(7 * var(--sl-size-450));
+  max-inline-size: calc(7 * var(--sl-size-450) + var(--sl-size-100));
   outline: none;
   overflow: scroll hidden;
+  padding-block: var(--sl-size-050);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
@@ -68,6 +71,7 @@ sl-button {
 sl-month-view {
   flex-shrink: 0;
   inline-size: 100%;
+  padding-inline: var(--sl-size-050);
   scroll-snap-align: start;
   scroll-snap-stop: always;
 

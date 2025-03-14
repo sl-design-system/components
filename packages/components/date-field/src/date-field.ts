@@ -159,8 +159,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   override render(): TemplateResult {
     return html`
       <sl-text-field
-        @input=${this.#onInput}
-        @keydown=${this.#onKeydown}
         @sl-blur=${this.#onTextFieldBlur}
         @sl-change=${this.#onTextFieldChange}
         @sl-focus=${this.#onTextFieldFocus}
@@ -238,16 +236,6 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
       this.wrapper?.hidePopover();
       this.input.focus();
     }, 500);
-  }
-
-  #onInput(event: InputEvent): void {
-    console.log('input', event);
-
-    this.wrapper?.showPopover();
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    console.log('keydown', event.key);
   }
 
   #onTextFieldBlur(event: SlBlurEvent): void {

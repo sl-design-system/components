@@ -1,5 +1,22 @@
 # @sl-design-system/combobox
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1833](https://github.com/sl-design-system/components/pull/1833) [`b37b9a2`](https://github.com/sl-design-system/components/commit/b37b9a26dd9b0b0fe2f412a08803e75168cc4f1c) - Combobox improvements:
+  - Show hover style on combobox, similar to text-field
+  - Remove create-custom-option when you select an option
+  - Use built-in plus icon instead of importing it
+  - Fix styling of `<sl-combobox-create-custom-option>`
+  - Add hidden placeholder for the selected items when in multiple mode
+  - Start keyboard navigation on the selected item when in single mode
+  - Hide popover when the focus leaves the combobox
+  - Reset the text to the selected option when focus leaves the combobox
+  - Show the popover immediately and only fade-out when hiding it
+- Updated dependencies [[`94ec687`](https://github.com/sl-design-system/components/commit/94ec687d8d37f12dd569c902dd777b965ae3a029), [`b37b9a2`](https://github.com/sl-design-system/components/commit/b37b9a26dd9b0b0fe2f412a08803e75168cc4f1c)]:
+  - @sl-design-system/text-field@1.6.1
+
 ## 0.1.0
 
 ### Minor Changes

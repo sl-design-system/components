@@ -1,5 +1,11 @@
 # @sanomalearning/slds-bingel-int
 
+## 0.2.2
+
+### Patch Changes
+
+- [#1842](https://github.com/sl-design-system/components/pull/1842) [`b5c43d4`](https://github.com/sl-design-system/components/commit/b5c43d44a7d0ecebd9e72cdebd3a5c6ce56d2a70) - added global.css with global link styling
+
 ## 0.2.1
 
 ### Patch Changes

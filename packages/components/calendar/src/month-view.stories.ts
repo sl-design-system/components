@@ -12,6 +12,8 @@ type Props = Pick<
   | 'firstDayOfWeek'
   | 'hideDaysOtherMonths'
   | 'locale'
+  | 'max'
+  | 'min'
   | 'month'
   | 'readonly'
   | 'renderer'
@@ -41,13 +43,17 @@ export default {
       control: 'inline-radio',
       options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
     },
+    max: {
+      control: 'date'
+    },
+    min: {
+      control: 'date'
+    },
     month: {
       control: 'date'
     },
     renderer: {
-      table: {
-        disable: true
-      }
+      table: { disable: true }
     },
     selected: {
       control: 'date'
@@ -59,6 +65,8 @@ export default {
   render: ({
     firstDayOfWeek,
     hideDaysOtherMonths,
+    max,
+    min,
     month,
     locale,
     readonly,
@@ -82,6 +90,8 @@ export default {
       ?show-week-numbers=${showWeekNumbers}
       first-day-of-week=${ifDefined(firstDayOfWeek)}
       locale=${ifDefined(locale)}
+      max=${ifDefined(max?.toISOString())}
+      min=${ifDefined(min?.toISOString())}
       month=${ifDefined(month?.toISOString())}
       selected=${ifDefined(selected?.toISOString())}
       .renderer=${renderer}
@@ -100,6 +110,14 @@ export const FirstDayOfWeek: Story = {
 export const HideDaysOtherMonths: Story = {
   args: {
     hideDaysOtherMonths: true
+  }
+};
+
+export const MinMax: Story = {
+  args: {
+    month: new Date(2025, 0, 1),
+    max: new Date(2025, 0, 20),
+    min: new Date(2025, 0, 10)
   }
 };
 

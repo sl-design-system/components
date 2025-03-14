@@ -61,6 +61,18 @@ export class MonthView extends LocaleMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'hide-days-other-months' }) hideDaysOtherMonths?: boolean;
 
+  /**
+   * The maximum date selectable in the month.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) max?: Date;
+
+  /**
+   * The minimum date selectable in the month.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) min?: Date;
+
   /** The current month to display. */
   @property({ converter: dateConverter }) month?: Date;
 
@@ -103,10 +115,10 @@ export class MonthView extends LocaleMixin(LitElement) {
       this.weekDays = longDays.map((day, i) => ({ long: day, short: shortDays[i] }));
     }
 
-    if (changes.has('month')) {
-      const { firstDayOfWeek, showToday } = this;
+    if (changes.has('max') || changes.has('min') || changes.has('month')) {
+      const { firstDayOfWeek, max, min, showToday } = this;
 
-      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, showToday });
+      this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
     }
   }
 
@@ -150,7 +162,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       const parts = this.getDayParts(day).join(' ');
 
       template =
-        this.readonly || !day.currentMonth
+        this.readonly || !day.currentMonth || day.unselectable
           ? html`<span .part=${parts}>${day.date.getDate()}</span>`
           : html`
               <button .part=${parts} aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}>
@@ -169,6 +181,7 @@ export class MonthView extends LocaleMixin(LitElement) {
       day.nextMonth ? 'next-month' : '',
       day.previousMonth ? 'previous-month' : '',
       day.today ? 'today' : '',
+      day.unselectable ? 'unselectable' : '',
       this.selected && isSameDate(day.date, this.selected) ? 'selected' : ''
     ].filter(part => part !== '');
   };

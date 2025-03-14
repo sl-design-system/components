@@ -52,12 +52,13 @@ button {
   aspect-ratio: 1;
   color: var(--sl-color-foreground-plain);
   display: inline-flex;
-  inline-size: 2rem;
+  inline-size: var(--sl-size-400);
   justify-content: center;
 }
 
 [part~='previous-month'],
-[part~='next-month'] {
+[part~='next-month'],
+[part~='unselectable'] {
   color: var(--sl-color-foreground-disabled);
 }
 
@@ -69,8 +70,8 @@ button {
 }
 
 [part~='today'] {
-  border: 1px solid var(--sl-color-border-neutral-plain);
-  border-radius: 50%;
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-plain);
+  border-radius: var(--sl-size-borderRadius-full);
 }
 
 [part~='selected'] {
@@ -88,7 +89,7 @@ button {
 }
 
 [part~='week-number'] {
-  border-inline-end: 1px solid var(--sl-color-border-plain);
-  inline-size: calc(2rem - 1px);
+  border-inline-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  inline-size: calc(var(--sl-size-400) - var(--sl-size-010));
   text-align: center;
 }

@@ -81,6 +81,18 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
   input!: HTMLInputElement;
 
   /**
+   * The maximum date selectable in the calendar.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) max?: Date;
+
+  /**
+   * The minimum date selectable in the calendar.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) min?: Date;
+
+  /**
    * The placeholder for the date field.
    * @default undefined
    */
@@ -202,6 +214,8 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                 ?show-week-numbers=${this.showWeekNumbers}
                 first-day-of-week=${ifDefined(this.firstDayOfWeek)}
                 locale=${ifDefined(this.locale)}
+                max=${ifDefined(this.max?.toISOString())}
+                min=${ifDefined(this.min?.toISOString())}
                 show-today
               ></sl-calendar>
             `

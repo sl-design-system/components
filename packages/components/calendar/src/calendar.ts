@@ -42,6 +42,18 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek?: number;
 
+  /**
+   * The maximum date selectable in the calendar.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) max?: Date;
+
+  /**
+   * The minimum date selectable in the calendar.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) min?: Date;
+
   /** @internal The mode the calendar is currently is. */
   @state() mode: 'day' | 'month' | 'year' = 'day';
 
@@ -87,6 +99,8 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         aria-hidden=${this.mode !== 'day'}
         first-day-of-week=${ifDefined(this.firstDayOfWeek)}
         locale=${ifDefined(this.locale)}
+        max=${ifDefined(this.max?.toISOString())}
+        min=${ifDefined(this.min?.toISOString())}
         style=${ifDefined(this.mode === 'day' ? undefined : 'visibility: hidden')}
       ></sl-select-day>
       ${choose(this.mode, [

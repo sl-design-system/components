@@ -8,7 +8,7 @@ table {
 
 td,
 th {
-  padding: 0;
+  padding: var(--sl-size-025);
 }
 
 button {
@@ -86,6 +86,10 @@ button {
   color: var(--sl-color-foreground-subtlest);
   font-weight: normal;
   text-transform: uppercase;
+}
+
+[part~='week-day'] {
+  font-size: 0.86em;
 }
 
 [part~='week-number'] {

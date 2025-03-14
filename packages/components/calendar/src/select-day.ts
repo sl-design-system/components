@@ -54,6 +54,18 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   /** The first day of the week; 0 for Sunday, 1 for Monday. */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;
 
+  /**
+   * The maximum date selectable in the month.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) max?: Date;
+
+  /**
+   * The minimum date selectable in the month.
+   * @default undefined
+   */
+  @property({ converter: dateConverter }) min?: Date;
+
   /** The month that is shown. */
   @property({ converter: dateConverter }) month?: Date;
 
@@ -150,6 +162,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .selected=${this.selected}
           aria-hidden="true"
           inert
+          max=${ifDefined(this.max?.toISOString())}
+          min=${ifDefined(this.min?.toISOString())}
           locale=${ifDefined(this.locale)}
         ></sl-month-view>
         <sl-month-view
@@ -161,6 +175,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           .month=${this.month}
           .selected=${this.selected}
           locale=${ifDefined(this.locale)}
+          max=${ifDefined(this.max?.toISOString())}
+          min=${ifDefined(this.min?.toISOString())}
         ></sl-month-view>
         <sl-month-view
           ?readonly=${this.readonly}
@@ -172,6 +188,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           aria-hidden="true"
           inert
           locale=${ifDefined(this.locale)}
+          max=${ifDefined(this.max?.toISOString())}
+          min=${ifDefined(this.min?.toISOString())}
         ></sl-month-view>
       </div>
     `;

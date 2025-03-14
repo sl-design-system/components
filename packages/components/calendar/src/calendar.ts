@@ -54,7 +54,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
    */
   @property({ converter: dateConverter }) min?: Date;
 
-  /** @internal The mode the calendar is currently is. */
+  /** @internal The mode the calendar is currently in. */
   @state() mode: 'day' | 'month' | 'year' = 'day';
 
   /** The month that the calendar opens on. */

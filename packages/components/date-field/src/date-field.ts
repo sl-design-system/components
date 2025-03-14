@@ -92,6 +92,9 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
    */
   @property({ converter: dateConverter }) min?: Date;
 
+  /** The current month to display. */
+  @property({ converter: dateConverter }) month?: Date;
+
   /**
    * The placeholder for the date field.
    * @default undefined
@@ -216,6 +219,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                 locale=${ifDefined(this.locale)}
                 max=${ifDefined(this.max?.toISOString())}
                 min=${ifDefined(this.min?.toISOString())}
+                month=${ifDefined(this.month?.toISOString())}
                 show-today
               ></sl-calendar>
             `

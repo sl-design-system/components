@@ -6,7 +6,7 @@ import { type Calendar } from './calendar.js';
 
 type Props = Pick<
   Calendar,
-  'firstDayOfWeek' | 'locale' | 'month' | 'readonly' | 'selected' | 'showToday' | 'showWeekNumbers'
+  'firstDayOfWeek' | 'locale' | 'max' | 'min' | 'month' | 'readonly' | 'selected' | 'showToday' | 'showWeekNumbers'
 >;
 type Story = StoryObj<Props>;
 
@@ -26,6 +26,12 @@ export default {
       control: 'inline-radio',
       options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
     },
+    max: {
+      control: 'date'
+    },
+    min: {
+      control: 'date'
+    },
     month: {
       control: 'date'
     },
@@ -33,7 +39,7 @@ export default {
       control: 'date'
     }
   },
-  render: ({ firstDayOfWeek, locale, month, readonly, selected, showToday, showWeekNumbers }) => {
+  render: ({ firstDayOfWeek, locale, max, min, month, readonly, selected, showToday, showWeekNumbers }) => {
     return html`
       <sl-calendar
         ?readonly=${readonly}
@@ -41,6 +47,8 @@ export default {
         ?show-week-numbers=${showWeekNumbers}
         first-day-of-week=${ifDefined(firstDayOfWeek)}
         locale=${ifDefined(locale)}
+        max=${ifDefined(max?.toISOString())}
+        min=${ifDefined(min?.toISOString())}
         month=${ifDefined(month?.toISOString())}
         selected=${ifDefined(selected?.toISOString())}
       ></sl-calendar>
@@ -53,6 +61,14 @@ export const Basic: Story = {};
 export const FirstDayOfWeek: Story = {
   args: {
     firstDayOfWeek: 0
+  }
+};
+
+export const MinMax: Story = {
+  args: {
+    month: new Date(2025, 0, 1),
+    max: new Date(2025, 0, 20),
+    min: new Date(2025, 0, 10)
   }
 };
 

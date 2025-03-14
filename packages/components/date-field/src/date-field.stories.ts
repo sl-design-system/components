@@ -10,6 +10,7 @@ type Props = Pick<
   | 'locale'
   | 'max'
   | 'min'
+  | 'month'
   | 'placeholder'
   | 'readonly'
   | 'required'
@@ -47,6 +48,15 @@ export default {
       control: 'inline-radio',
       options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
     },
+    max: {
+      control: 'date'
+    },
+    min: {
+      control: 'date'
+    },
+    month: {
+      control: 'date'
+    },
     slot: {
       table: { disable: true }
     },
@@ -61,6 +71,7 @@ export default {
     locale,
     max,
     min,
+    month,
     placeholder,
     readonly,
     reportValidity,
@@ -87,6 +98,7 @@ export default {
             locale=${ifDefined(locale)}
             max=${ifDefined(max?.toISOString())}
             min=${ifDefined(min?.toISOString())}
+            month=${ifDefined(month?.toISOString())}
             placeholder=${ifDefined(placeholder)}
             style="width: fit-content"
           >
@@ -110,6 +122,14 @@ export const Basic: Story = {};
 export const Disabled: Story = {
   args: {
     disabled: true
+  }
+};
+
+export const MinMax: Story = {
+  args: {
+    month: new Date(2025, 0, 1),
+    max: new Date(2025, 0, 20),
+    min: new Date(2025, 0, 10)
   }
 };
 

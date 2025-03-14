@@ -396,7 +396,7 @@
         "description": "Use for placeholders and hints."
       },
       "disabled": {
-        "value": "{color.palette.grey.200}",
+        "value": "{color.palette.grey.400}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
@@ -836,7 +836,7 @@
       },
       "neutral": {
         "subtle": {
-          "value": "{color.palette.grey.100}",
+          "value": "{color.palette.grey.200}",
           "type": "color",
           "description": "Use for subtle borders on color.background.neutral background colors."
         },
@@ -1015,7 +1015,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.palette.grey.100}",
+        "value": "{color.palette.grey.050}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
@@ -1130,7 +1130,7 @@
           "description": "A subtle background in the neutral action color."
         },
         "bold": {
-          "value": "{color.palette.grey.050}",
+          "value": "{color.background.accent.grey.bold}",
           "type": "color",
           "description": "A vibrant background option used for neutral actions."
         },
@@ -1340,12 +1340,12 @@
           },
           "interactive": {
             "bold": {
-              "value": "{color.palette.grey.400}",
+              "value": "{color.palette.grey.500}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.200}",
+              "value": "{color.palette.grey.500}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }

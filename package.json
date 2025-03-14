@@ -153,6 +153,7 @@
     },
     "build:themes": {
       "dependencies": [
+        "build:themes:setup",
         "build:themes:code",
         "build:themes:styles"
       ]
@@ -169,6 +170,14 @@
         "packages/themes/**/*.js.map"
       ]
     },
+    "build:themes:setup": {
+      "command": "node scripts/setup-themes.js",
+      "clean": false,
+      "files": [
+        "scripts/setup-themes.js",
+        "packages/themes/core/global.css"
+      ]
+    },
     "build:themes:styles": {
       "command": "node scripts/build-themes.js",
       "clean": "if-file-deleted",
@@ -178,6 +187,7 @@
       ],
       "output": [
         "packages/themes/**/*.{css,scss}",
+        "!packages/themes/*/global.css",
         "!packages/themes/*/fonts.css"
       ]
     },
@@ -210,6 +220,7 @@
         "build:components",
         "build:examples",
         "build:locales",
+        "build:themes:setup",
         "build:themes:code",
         "dist:angular",
         "dist:checklist",
@@ -283,7 +294,8 @@
       "clean": "if-file-deleted",
       "output": [
         "packages/themes/**/*.{css,scss}",
-        "!packages/themes/*/fonts.css"
+        "!packages/themes/*/fonts.css",
+        "!packages/themes/*/global.css"
       ]
     },
     "dist:types": {

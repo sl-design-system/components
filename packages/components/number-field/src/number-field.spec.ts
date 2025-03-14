@@ -14,7 +14,7 @@ describe('sl-number-field', () => {
     });
 
     it('should have no buttons', () => {
-      expect(el.renderRoot.querySelector('button')).not.to.exist;
+      expect(el.renderRoot.querySelector('sl-field-button')).not.to.exist;
     });
 
     it('should not be disabled', () => {
@@ -260,6 +260,44 @@ describe('sl-number-field', () => {
     it('should have a valid input', () => {
       expect(input.matches(':invalid')).to.be.false;
       expect(input.validity.valid).to.be.true;
+    });
+  });
+
+  describe('validation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-number-field></sl-number-field>`);
+    });
+
+    it('should validate the value on blur', async () => {
+      spy(el, 'setCustomValidity');
+
+      el.focus();
+      await sendKeys({ type: 'asdf' });
+      await sendKeys({ press: 'Tab' });
+
+      expect(el.setCustomValidity).to.have.been.calledOnce;
+    });
+
+    it('should set a custom validity if valueAsNumber is not a number', async () => {
+      el.valueAsNumber = NaN;
+      el.focus();
+      await sendKeys({ press: 'Tab' });
+
+      expect(el.validationMessage).to.equal('Please enter a valid number.');
+    });
+
+    it('should reset the custom validity if the value is valid', async () => {
+      el.valueAsNumber = NaN;
+      el.focus();
+      await sendKeys({ press: 'Tab' });
+
+      expect(el.validationMessage).to.equal('Please enter a valid number.');
+
+      el.focus();
+      await sendKeys({ type: '123' });
+      await sendKeys({ press: 'Tab' });
+
+      expect(el.validationMessage).to.equal('');
     });
   });
 });

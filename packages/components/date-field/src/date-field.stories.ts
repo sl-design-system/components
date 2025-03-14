@@ -4,7 +4,10 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type DateField } from './date-field.js';
 
-type Props = Pick<DateField, 'disabled' | 'placeholder' | 'readonly' | 'selectOnly' | 'showWeekNumbers' | 'value'>;
+type Props = Pick<
+  DateField,
+  'disabled' | 'locale' | 'placeholder' | 'readonly' | 'selectOnly' | 'showWeekNumbers' | 'value'
+>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -18,17 +21,22 @@ export default {
     showWeekNumbers: false
   },
   argTypes: {
+    locale: {
+      control: 'inline-radio',
+      options: ['de', 'en-GB', 'es', 'fi', 'fr', 'it', 'nl', 'nl-BE', 'no', 'pl', 'sv']
+    },
     value: {
       control: 'date'
     }
   },
-  render: ({ disabled, placeholder, readonly, selectOnly, showWeekNumbers, value }) => html`
+  render: ({ disabled, locale, placeholder, readonly, selectOnly, showWeekNumbers, value }) => html`
     <sl-date-field
       ?disabled=${disabled}
       ?readonly=${readonly}
       ?select-only=${selectOnly}
       ?show-week-numbers=${showWeekNumbers}
       .value=${value}
+      locale=${ifDefined(locale)}
       placeholder=${ifDefined(placeholder)}
       style="width: fit-content"
     ></sl-date-field>

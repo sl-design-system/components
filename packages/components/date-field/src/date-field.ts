@@ -203,6 +203,7 @@ export class DateField extends LocaleMixin(FormControlMixin(ScopedElementsMixin(
                 .selected=${this.value}
                 ?show-week-numbers=${this.showWeekNumbers}
                 first-day-of-week=${ifDefined(this.firstDayOfWeek)}
+                locale=${ifDefined(this.locale)}
                 show-today
               ></sl-calendar>
             `

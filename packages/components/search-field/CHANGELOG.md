@@ -1,5 +1,14 @@
 # @sl-design-system/search-field
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1840](https://github.com/sl-design-system/components/pull/1840) [`94ec687`](https://github.com/sl-design-system/components/commit/94ec687d8d37f12dd569c902dd777b965ae3a029) - Fix `updated()` lifecycle loop warnings in the console
+
+- Updated dependencies [[`94ec687`](https://github.com/sl-design-system/components/commit/94ec687d8d37f12dd569c902dd777b965ae3a029), [`b37b9a2`](https://github.com/sl-design-system/components/commit/b37b9a26dd9b0b0fe2f412a08803e75168cc4f1c)]:
+  - @sl-design-system/text-field@1.6.1
+
 ## 0.1.0
 
 ### Minor Changes

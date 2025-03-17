@@ -1,5 +1,13 @@
 # @sl-design-system/select
 
+## 2.0.1
+
+### Patch Changes
+
+- [#1857](https://github.com/sl-design-system/components/pull/1857) [`0251830`](https://github.com/sl-design-system/components/commit/025183019319ffe77e665224c2e545a4a67e8c8b) - Bug fixes:
+  1. Fix the `focusout` event handler too eagerly closing the dropdown
+  2. Fix `<sl-option>`s that were added after the initial rendering of the component not being accessible via keyboard navigation
+
 ## 2.0.0
 
 ### Major Changes

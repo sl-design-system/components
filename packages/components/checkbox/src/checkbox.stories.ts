@@ -281,6 +281,16 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
+export const NullValue: Story = {
+  args: {
+    hint: 'This story has an async validator. You need to select the middle option to make the field valid. It will wait 2 seconds before validating.',
+    reportValidity: true,
+    slot: () => {
+      return html` <sl-checkbox required .value=${null}>I agree to all terms &amp; conditions</sl-checkbox> `;
+    }
+  }
+};
+
 export const All: Story = {
   render: () => {
     return html`

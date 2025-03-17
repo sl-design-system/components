@@ -31,7 +31,7 @@ export class Tab extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { /*click: this.#onClick,*/ keydown: this.#onKeydown });
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Whether the tab item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -58,8 +58,6 @@ export class Tab extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('changes in tab', changes);
 
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', Boolean(this.selected).toString());
@@ -91,7 +89,6 @@ export class Tab extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('keydown event in tab', event, this.href, this.renderRoot.querySelector('a'));
     if (this.disabled) {
       event.preventDefault();
       event.stopPropagation();
@@ -99,28 +96,8 @@ export class Tab extends LitElement {
       return;
     } else if (this.href && ['Enter', ' '].includes(event.key)) {
       this.renderRoot.querySelector('a')?.click();
-    } // TODO: maybe detect whether it was clicked already? if so, don't click again...
-  } // TODO: check with href...
-
-  // #onClick(event: Event): void {
-  //   console.log('onClick event in tab', event, this.href, this.renderRoot.querySelector('a'), event.target);
-  //
-  //   if (this.disabled) {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //
-  //     return;
-  //   } else if (this.href) {
-  //     // event.preventDefault();
-  //     // event.stopPropagation();
-  //
-  //     // TODO: detect current link and if it's the same, don't click again???
-  //
-  //     // TODO: when sl-tab, not sl-menu-item the click is being triggered twice, maybe add another parameter?
-  //     this.renderRoot.querySelector('a')?.click();
-  //    // (this.renderRoot.querySelector('a') as HTMLAnchorElement).target;
-  //   }
-  // }
+    }
+  }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const hasTitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());

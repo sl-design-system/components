@@ -1576,6 +1576,11 @@
           "type": "color",
           "description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         }
+      },
+      "shadow": {
+        "value": "{color.transparant}",
+        "type": "color",
+        "description": "Used as color for shadows."
       }
     }
   },

@@ -1,4 +1,5 @@
 import { localized } from '@lit/localize';
+import { format } from '@sl-design-system/format-date';
 import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
@@ -168,13 +169,18 @@ export class MonthView extends LocaleMixin(LitElement) {
     } else if (this.hideDaysOtherMonths && (day.nextMonth || day.previousMonth)) {
       return html`<td></td>`;
     } else {
-      const parts = this.getDayParts(day).join(' ');
+      const parts = this.getDayParts(day).join(' '),
+        ariaLabel = `${day.date.getDate()}, ${format(day.date, this.locale, { weekday: 'long' })} ${format(day.date, this.locale, { month: 'long', year: 'numeric' })}`;
 
       template =
         this.readonly || !day.currentMonth || day.unselectable
-          ? html`<span .part=${parts}>${day.date.getDate()}</span>`
+          ? html`<span .part=${parts} aria-label=${ariaLabel}>${day.date.getDate()}</span>`
           : html`
-              <button .part=${parts} aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}>
+              <button
+                .part=${parts}
+                aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}
+                aria-label=${ariaLabel}
+              >
                 ${day.date.getDate()}
               </button>
             `;

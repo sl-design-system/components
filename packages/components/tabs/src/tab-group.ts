@@ -299,16 +299,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #onClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
-    console.log(
-      'events123',
-      event.target,
-      event.currentTarget,
-      event.composedPath(),
-      event.target === event.currentTarget
-    );
 
-    console.log('event on tab click1', event, event.target.closest('sl-tab'), 'tab selected???', tab?.selected);
-    // const tab = event.target.closest('sl-tab');
     if (!tab) {
       return;
     }
@@ -324,12 +315,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    console.log(
-      'keydown in tab group:::: menuitem tab???',
-      this.tabs,
-      event.target.closest('sl-menu-item'),
-      /*(event.target as TabMenuItem)?.tab ,*/ event.target.closest('sl-tab')
-    );
     if (['Enter', ' '].includes(event.key)) {
       this.#updateSelectedTab(<Tab>event.target);
       this.#scrollToTabPanelStart();
@@ -337,9 +322,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onMenuItemClick(tab: Tab): void {
-    console.log('menu item click', tab);
-    // this.#updateSelectedTab(tab);
-    // tab.click();
     if (tab.href) {
       tab.renderRoot.querySelector('a')?.click();
     }

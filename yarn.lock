@@ -4820,7 +4820,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@npm:^2.1.0, @sl-design-system/checkbox@workspace:packages/components/checkbox":
+"@sl-design-system/checkbox@npm:^2.1.0, @sl-design-system/checkbox@npm:^2.1.1, @sl-design-system/checkbox@workspace:packages/components/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
@@ -4880,7 +4880,7 @@ __metadata:
     "@sl-design-system/icon": "npm:^1.1.0"
     "@sl-design-system/listbox": "npm:^0.1.0"
     "@sl-design-system/tag": "npm:^0.1.0"
-    "@sl-design-system/text-field": "npm:^1.6.0"
+    "@sl-design-system/text-field": "npm:^1.6.1"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
@@ -5055,16 +5055,16 @@ __metadata:
     "@lit-labs/virtualizer": "npm:^2.1.0"
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/checkbox": "npm:^2.1.0"
+    "@sl-design-system/checkbox": "npm:^2.1.1"
     "@sl-design-system/data-source": "npm:^0.1.0"
     "@sl-design-system/ellipsize-text": "npm:^0.0.1"
     "@sl-design-system/icon": "npm:^1.1.0"
     "@sl-design-system/popover": "npm:^1.2.0"
     "@sl-design-system/scrollbar": "npm:^0.1.0"
-    "@sl-design-system/select": "npm:^2.0.0"
+    "@sl-design-system/select": "npm:^2.0.1"
     "@sl-design-system/shared": "npm:^0.5.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
-    "@sl-design-system/text-field": "npm:^1.6.0"
+    "@sl-design-system/text-field": "npm:^1.6.1"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.13
@@ -5269,7 +5269,7 @@ __metadata:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/format-number": "npm:^0.0.1"
     "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/text-field": "npm:^1.6.0"
+    "@sl-design-system/text-field": "npm:^1.6.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
@@ -5404,13 +5404,13 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/text-field": "npm:^1.6.0"
+    "@sl-design-system/text-field": "npm:^1.6.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/select@npm:^2.0.0, @sl-design-system/select@workspace:packages/components/select":
+"@sl-design-system/select@npm:^2.0.0, @sl-design-system/select@npm:^2.0.1, @sl-design-system/select@workspace:packages/components/select":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
@@ -5544,7 +5544,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:^1.6.0, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:^1.6.0, @sl-design-system/text-field@npm:^1.6.1, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:

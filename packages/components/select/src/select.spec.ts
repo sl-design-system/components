@@ -234,6 +234,60 @@ describe('sl-select', () => {
     });
   });
 
+  describe('groups', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option-group label="Group 1">
+            <sl-option value="1">Option 1</sl-option>
+            <sl-option value="2">Option 2</sl-option>
+            <sl-option value="3">Option 3</sl-option>
+          </sl-option-group>
+          <sl-option-group label="Group 2">
+            <sl-option value="4">Option 4</sl-option>
+          </sl-option-group>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+    });
+
+    it('should handle keyboard navigation across all nested options', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(el.value).to.equal('4');
+    });
+
+    it('should be able to navigate options that were added later', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      const option = document.createElement('sl-option');
+      option.innerText = 'Option 5';
+      option.value = '5';
+
+      el.querySelector<HTMLElement>('sl-option-group:last-of-type')!.appendChild(option);
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(el.value).to.equal('5');
+    });
+  });
+
   describe('disabled', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -563,6 +617,26 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       const selectedOption = el.querySelectorAll('sl-option')[1];
+
+      expect(selectedOption).to.have.attribute('selected');
+      expect(selectedOption).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should be able to navigate options that were added later', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      el.appendChild(document.createElement('sl-option')).innerText = 'Option 4';
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      const selectedOption = el.querySelectorAll('sl-option')[3];
 
       expect(selectedOption).to.have.attribute('selected');
       expect(selectedOption).to.have.attribute('aria-selected', 'true');

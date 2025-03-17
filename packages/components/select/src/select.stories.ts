@@ -462,3 +462,49 @@ export const All: Story = {
     `;
   }
 };
+
+export const DelayedOptions: Story = {
+  render: () => {
+    const addOptions = (event: Event & { target: HTMLElement }): void => {
+      const select = event.target.nextElementSibling;
+
+      for (let i = 0; i < 5; i++) {
+        const option = document.createElement('sl-option');
+        option.innerText = `Option ${i + 1}`;
+        select?.appendChild(option);
+      }
+    };
+
+    const addOptionsToGroup = (event: Event & { target: HTMLElement }): void => {
+      const select = event.target.nextElementSibling;
+
+      for (let i = 0; i < 5; i++) {
+        const option = document.createElement('sl-option');
+        option.innerText = `Option ${i + 1}`;
+        select?.querySelector('sl-option-group')?.appendChild(option);
+      }
+    };
+
+    return html`
+      <style>
+        .wrapper {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      </style>
+      <div class="wrapper">
+        <sl-button @click=${addOptions}>Add options</sl-button>
+        <sl-select placeholder="Just options">
+          <sl-option>First</sl-option>
+        </sl-select>
+        <sl-button @click=${addOptionsToGroup}>Add options to group</sl-button>
+        <sl-select placeholder="Options in group">
+          <sl-option-group label="Group">
+            <sl-option>First</sl-option>
+          </sl-option-group>
+        </sl-select>
+      </div>
+    `;
+  }
+};

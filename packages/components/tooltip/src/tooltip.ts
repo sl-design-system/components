@@ -151,6 +151,7 @@ export class Tooltip extends LitElement {
 
     this.setAttribute('popover', 'manual');
     this.setAttribute('role', 'tooltip');
+    this.setAttribute('aria-hidden', 'true'); // Prevent the tooltip from being read by screen readers multiple times
 
     const root = this.getRootNode() as HTMLElement;
 

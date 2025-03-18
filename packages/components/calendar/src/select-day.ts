@@ -5,7 +5,7 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import { type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type SlChangeEvent, type SlSelectEvent, SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -172,6 +172,7 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           locale=${ifDefined(this.locale)}
         ></sl-month-view>
         <sl-month-view
+          @sl-change=${this.#onChange}
           @sl-select=${this.#onSelect}
           ?readonly=${this.readonly}
           ?show-today=${this.showToday}
@@ -198,6 +199,20 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         ></sl-month-view>
       </div>
     `;
+  }
+
+  async #onChange(event: SlChangeEvent<Date>): Promise<void> {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
+
+    // Wait for the month views to rerender before focusing the day
+    await this.updateComplete;
+
+    requestAnimationFrame(() => {
+      this.renderRoot.querySelector<MonthView>('sl-month-view:nth-child(2)')?.focusDay(event.detail);
+    });
   }
 
   #onPrevious(): void {

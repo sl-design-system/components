@@ -8,6 +8,7 @@ export interface Day {
   focused?: boolean;
   future?: boolean;
   highlight?: boolean;
+  lastDayOfMonth?: boolean;
   nextMonth?: boolean;
   past?: boolean;
   previousMonth?: boolean;
@@ -248,13 +249,15 @@ export function createDay(
 ): Day {
   const today = normalizeDateTime(new Date()),
     currentMonth = relativeMonth.getMonth(),
-    isToday = showToday && isSameDate(date, today);
+    isToday = showToday && isSameDate(date, today),
+    lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
   return {
     ariaCurrent: isToday ? 'date' : undefined,
     currentMonth: date.getMonth() === currentMonth,
     date,
     future: date > today,
+    lastDayOfMonth: date.getDate() === lastDayOfMonth,
     nextMonth: date.getMonth() > currentMonth,
     past: date < today,
     previousMonth: date.getMonth() < currentMonth,

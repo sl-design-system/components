@@ -129,6 +129,7 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     if (!this.selected || !isSameDate(this.selected, event.detail)) {
+      this.month = new Date(event.detail.getFullYear(), event.detail.getMonth());
       this.selected = new Date(event.detail);
       this.changeEvent.emit(this.selected);
     }

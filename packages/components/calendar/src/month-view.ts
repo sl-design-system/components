@@ -2,7 +2,7 @@ import { localized } from '@lit/localize';
 import { format } from '@sl-design-system/format-date';
 import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
-import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
+import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -26,7 +26,6 @@ export class MonthView extends LocaleMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  // eslint-disable-next-line no-unused-private-class-members
   #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
     direction: 'grid',
     directionLength: 7,
@@ -49,6 +48,9 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /** @internal The calendar object. */
   @state() calendar?: Calendar;
+
+  /** @internal Emits when the user uses the keyboard to navigate to the next/previous month. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Date>>;
 
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
@@ -130,6 +132,10 @@ export class MonthView extends LocaleMixin(LitElement) {
 
       this.calendar = createCalendar(this.month ?? new Date(), { firstDayOfWeek, max, min, showToday });
     }
+
+    if (changes.has('month')) {
+      this.#rovingTabindexController.clearElementCache();
+    }
   }
 
   override render(): TemplateResult {
@@ -177,6 +183,7 @@ export class MonthView extends LocaleMixin(LitElement) {
           ? html`<span .part=${parts} aria-label=${ariaLabel}>${day.date.getDate()}</span>`
           : html`
               <button
+                @keydown=${(event: KeyboardEvent) => this.#onKeydown(event, day)}
                 .part=${parts}
                 aria-current=${ifDefined(parts.includes('selected') ? 'date' : undefined)}
                 aria-label=${ariaLabel}
@@ -186,7 +193,9 @@ export class MonthView extends LocaleMixin(LitElement) {
             `;
     }
 
-    return html`<td @click=${(event: Event) => this.#onClick(event, day)}>${template}</td>`;
+    return html`
+      <td @click=${(event: Event) => this.#onClick(event, day)} data-date=${day.date.toISOString()}>${template}</td>
+    `;
   }
 
   /** Returns an array of part names for a day. */
@@ -201,8 +210,34 @@ export class MonthView extends LocaleMixin(LitElement) {
     ].filter(part => part !== '');
   };
 
+  focusDay(day: Date): void {
+    const button = this.renderRoot.querySelector<HTMLButtonElement>(`td[data-date="${day.toISOString()}"] button`)!;
+
+    this.#rovingTabindexController.clearElementCache();
+    this.#rovingTabindexController.focusToElement(button);
+  }
+
   #onClick(event: Event, day: Day): void {
     if (event.target instanceof HTMLButtonElement && !event.target.disabled) {
+      this.selectEvent.emit(day.date);
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent, day: Day): void {
+    if (event.key === 'ArrowLeft' && day.currentMonth && day.date.getDate() === 1) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth(), 0));
+    } else if (event.key === 'ArrowRight' && day.currentMonth && day.lastDayOfMonth) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.changeEvent.emit(new Date(day.date.getFullYear(), day.date.getMonth() + 1, 1));
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      event.stopPropagation();
+
       this.selectEvent.emit(day.date);
     }
   }

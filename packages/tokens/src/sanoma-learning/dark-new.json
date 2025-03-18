@@ -95,39 +95,39 @@
       },
       "grey": {
         "100": {
-          "value": "#454545",
+          "value": "#393F46",
           "type": "color"
         },
         "150": {
-          "value": "#4f4f4f",
+          "value": "#59636E",
           "type": "color"
         },
         "200": {
-          "value": "#5d5d5d",
+          "value": "#818B98",
           "type": "color"
         },
         "300": {
-          "value": "#6d6d6d",
+          "value": "#C8D1DA",
           "type": "color"
         },
         "400": {
-          "value": "#888888",
+          "value": "#D0D9E0",
           "type": "color"
         },
         "500": {
-          "value": "#b0b0b0",
+          "value": "#DAE0E7",
           "type": "color"
         },
         "600": {
-          "value": "#d1d1d1",
+          "value": "#E0E6EA",
           "type": "color"
         },
         "700": {
-          "value": "#e7e7e7",
+          "value": "#F0F2F5",
           "type": "color"
         },
         "800": {
-          "value": "#f6f6f6",
+          "value": "#F6F8FA",
           "type": "color"
         },
         "900": {
@@ -135,7 +135,7 @@
           "type": "color"
         },
         "050": {
-          "value": "#3d3d3d",
+          "value": "#25292F",
           "type": "color"
         },
         "000": {
@@ -947,12 +947,12 @@
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },
           "plain": {
-            "value": "{color.palette.grey.150}",
+            "value": "{color.palette.grey.100}",
             "type": "color",
             "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.400}",
+            "value": "{color.palette.grey.200}",
             "type": "color",
             "description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
           },
@@ -1054,7 +1054,7 @@
       },
       "input": {
         "plain": {
-          "value": "rgba({color.palette.grey.900}, 5%)",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
@@ -1362,7 +1362,7 @@
             "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
           "bold": {
-            "value": "{color.palette.grey.600}",
+            "value": "{color.palette.grey.300}",
             "type": "color",
             "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
           },
@@ -1605,32 +1605,11 @@
           "type": "color",
           "description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         }
-      }
-    },
-    "shadow": {
-      "overflow": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "15",
-          "spread": "0",
-          "color": "rgba({color.palette.grey.050}, {opacity.subtlest})",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "Use to create a shadow when the content scrolls under other content."
       },
-      "overlay": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "8",
-          "spread": "0",
-          "color": "rgba( {color.palette.grey.000} , {opacity.subtle})",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
+      "shadow": {
+        "value": "{color.transparant}",
+        "type": "color",
+        "description": "Used as color for shadows."
       }
     }
   },

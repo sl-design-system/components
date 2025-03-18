@@ -1556,8 +1556,8 @@
         }
       },
       "raised": {
-        "idle": {
-          "value": "{color.palette.grey.000}",
+        "default": {
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         },
@@ -1576,32 +1576,11 @@
           "type": "color",
           "description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         }
-      }
-    },
-    "shadow": {
-      "overflow": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "15",
-          "spread": "0",
-          "color": "rgba({color.palette.grey.700}, {opacity.light.subtlest})",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "Use to create a shadow when the content scrolls under other content."
       },
-      "overlay": {
-        "value": {
-          "x": "0",
-          "y": "0",
-          "blur": "10",
-          "spread": "0",
-          "color": "rgba({color.palette.grey.700}, {opacity.light.subtle})",
-          "type": "dropShadow"
-        },
-        "type": "boxShadow",
-        "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
+      "shadow": {
+        "value": "{color.transparant}",
+        "type": "color",
+        "description": "Used as color for shadows."
       }
     }
   },

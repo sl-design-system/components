@@ -4812,12 +4812,12 @@
   },
   "skeleton-copy": {
     "plain": {
-      "value": "{color.background.accent.grey.subtlest}",
+      "value": "{sanoma-learning.color.background.accent.grey.subtlest}",
       "type": "color",
       "description": "Use for skeleton loading states."
     },
     "subtle": {
-      "value": "{color.background.accent.grey.subtle}",
+      "value": "{sanoma-learning.color.background.accent.grey.subtle}",
       "type": "color",
       "description": "Use for the pulse or shimmer effect in skeleton loading states."
     }

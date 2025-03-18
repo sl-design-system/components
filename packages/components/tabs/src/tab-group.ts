@@ -277,11 +277,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
                   ${this.menuItems?.map(
                     menuItem => html`
-                      <sl-menu-item
-                        @keydown=${this.#onKeydown}
-                        @click=${() => this.#onMenuItemClick(menuItem.tab)}
-                        ?disabled=${menuItem.disabled}
-                      >
+                      <sl-menu-item @click=${() => this.#onMenuItemClick(menuItem.tab)} ?disabled=${menuItem.disabled}>
                         ${menuItem.title}
                       </sl-menu-item>
                     `

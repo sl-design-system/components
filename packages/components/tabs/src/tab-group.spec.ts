@@ -328,4 +328,47 @@ describe('sl-tab-group', () => {
       expect(menuButton).to.exist;
     });
   });
+
+  describe('links with menu button', () => {
+    let tab: Tab;
+    let link: HTMLAnchorElement;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group style="width: 50px">
+          <sl-tab href="javascript:void(0)">One</sl-tab>
+          <sl-tab href="javascript:void(0)">Two</sl-tab>
+          <sl-tab disabled href="javascript:void(0)">Disabled</sl-tab>
+          <sl-tab href="javascript:void(0)">Four</sl-tab>
+        </sl-tab-group>
+      `);
+
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      tab = el.querySelector('sl-tab')!;
+      link = tab.renderRoot.querySelector('a')!;
+    });
+
+    it('should have a menu button', async () => {
+      await el.updateComplete;
+
+      const menuButton = el.renderRoot.querySelector('sl-menu-button');
+
+      expect(menuButton).to.exist;
+    });
+
+    it('should click the tab link when the user clicks the menu item', () => {
+      const onClick = spy();
+
+      link.addEventListener('click', onClick);
+
+      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
+        menuItems = menuButton!.querySelectorAll('sl-menu-item');
+
+      menuItems[0].click();
+
+      expect(onClick).to.have.been.called;
+    });
+  });
 });

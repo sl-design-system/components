@@ -32,28 +32,28 @@
     "body": {
       "sm": {
         "value": {
-          "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-          "fontSize": "{sanoma-learning.size.text.body.sm}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.sm}",
           "lineHeight": "{size.lineHeight.200}",
-          "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.regular}"
+          "fontWeight": "{text.typeset.fontWeight.regular}"
         },
         "type": "typography"
       },
       "md": {
         "value": {
-          "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-          "fontSize": "{sanoma-learning.size.text.body.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.md}",
           "lineHeight": "{size.lineHeight.250}",
-          "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.regular}"
+          "fontWeight": "{text.typeset.fontWeight.regular}"
         },
         "type": "typography"
       },
       "lg": {
         "value": {
-          "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-          "fontSize": "{sanoma-learning.size.text.body.lg}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.lg}",
           "lineHeight": "{size.lineHeight.300}",
-          "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.regular}"
+          "fontWeight": "{text.typeset.fontWeight.regular}"
         },
         "type": "typography"
       }
@@ -61,16 +61,16 @@
     "input": {
       "md": {
         "value": {
-          "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-          "fontSize": "{sanoma-learning.size.text.body.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.md}",
           "lineHeight": "{size.lineHeight.300}"
         },
         "type": "typography"
       },
       "lg": {
         "value": {
-          "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-          "fontSize": "{sanoma-learning.size.text.body.md}",
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontSize": "{size.text.body.md}",
           "lineHeight": "{size.lineHeight.400}"
         },
         "type": "typography"

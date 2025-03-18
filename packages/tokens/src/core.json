@@ -2362,8 +2362,8 @@
       "text": {
         "md": {
           "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}"
           },
@@ -2371,8 +2371,8 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}",
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.md}",
             "lineHeight": "{text.typeset.lineHeight.md}"
           },
@@ -2385,8 +2385,8 @@
         "mobile": {
           "heading": {
             "value": {
-              "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.heading}",
-              "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "{icon.typeset.fontSize.md}"
             },
@@ -2394,8 +2394,8 @@
           },
           "subheading": {
             "value": {
-              "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-              "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}",
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "{icon.typeset.fontSize.sm}"
             },

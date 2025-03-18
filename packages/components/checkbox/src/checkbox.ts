@@ -114,7 +114,12 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
   }
 
   override set formValue(value: T | null) {
+    console.log('value in checkbox setter', value, this.value, this.checked);
     this.checked = value === this.value || (this.value === undefined && value === true);
+    console.log('value in checkbox setter---AFTER checked set', value, this.value, this.checked);
+    // if (value === null) {
+    //   this.checked = false;
+    // }
   }
 
   override connectedCallback(): void {
@@ -227,6 +232,7 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
     this.checked = !this.checked;
     this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
+    console.log('change event emitted', this.formValue);
     this.updateState({ dirty: true });
     this.updateValidity();
   }

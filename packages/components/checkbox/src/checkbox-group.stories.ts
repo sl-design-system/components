@@ -161,6 +161,19 @@ export const CustomValidity: Story = {
   }
 };
 
+export const NullValue: Story = {
+  render: () => {
+    return html`
+      <sl-form>
+        <sl-checkbox-group aria-label="Choose at least one option">
+          <sl-checkbox .value=${null}> check me </sl-checkbox>
+          <sl-checkbox .value=${456}> check me maybe? </sl-checkbox>
+        </sl-checkbox-group>
+      </sl-form>
+    `;
+  }
+}; // <sl-checkbox required .value=${null}>I agree to all terms &amp; conditions</sl-checkbox>
+
 export const CustomAsyncValidity: Story = {
   args: {
     hint: 'This story has an async validator. You need to select the middle option to make the field valid. It will wait 2 seconds before validating.',

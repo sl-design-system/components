@@ -136,10 +136,28 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     if (changes.has('value')) {
       this.#observer.disconnect();
       this.boxes?.forEach((box, index) => {
-        if (box.value !== undefined) {
+        console.log('box in value change', box, index, this.value);
+        if (box.value === null /*this.value?.at(index) === null*/) {
+          console.log(
+            '1111IN IF: box in value change',
+            box,
+            index,
+            this.value,
+            this.value?.includes(box.value),
+            box.checked
+          );
+          box.checked = false;
+          // box.formValue = this.value?.at(index) ?? null;
+        } else if (/*box.value !== undefined*/ box.value != null) {
+          //  box.value != null)
+          console.log('IN IF: box in value change', box, index, this.value, this.value?.includes(box.value));
           box.checked = this.value?.includes(box.value) ?? false;
         } else {
-          box.formValue = this.value?.at(index) ?? null;
+          console.log('IN ELSE: box in value change', box, index, this.value);
+          box.formValue = this.value?.at(index) ?? null; // TODO: maybe ?? false instead of ?? null
+          // if (this.value?.at(index) === null) {
+          //   box.checked = false;
+          // }
         }
       });
       this.#observer.observe(this, OBSERVER_OPTIONS);
@@ -195,6 +213,8 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     this.#rovingTabindexController.clearElementCache();
 
     this.#observer.disconnect();
+
+    console.log('boxes on slotchange', this.boxes);
 
     this.boxes?.forEach((box, index) => {
       box.name = this.name;

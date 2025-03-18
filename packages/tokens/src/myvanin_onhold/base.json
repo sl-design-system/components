@@ -878,7 +878,7 @@
         "fontIcon": {
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.icon-solid}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "15"
@@ -887,7 +887,7 @@
           },
           "lg": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.icon-solid}",
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "18"
@@ -1072,7 +1072,7 @@
         "fontIcon": {
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.icon-solid}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "15"
@@ -1081,7 +1081,7 @@
           },
           "lg": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.icon-solid}",
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "18"
@@ -1211,7 +1211,7 @@
         "icon": {
           "sm": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
               "lineHeight": "{text.typeset.lineHeight.xxs}",
               "fontSize": "13"
@@ -1220,7 +1220,7 @@
           },
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
               "lineHeight": "{text.typeset.lineHeight.xs}",
               "fontSize": "{text.typeset.fontSize.md}"
@@ -1229,7 +1229,7 @@
           },
           "lg": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "{text.typeset.fontSize.lg}"
@@ -1352,7 +1352,7 @@
       "icon": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
             "fontSize": "{text.typeset.fontSize.md}",
             "fontWeight": "{icon.style.outline}"
           },
@@ -1360,7 +1360,7 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -1368,7 +1368,7 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{text.typeset.fontSize.xl}"
           },
@@ -1376,7 +1376,7 @@
         },
         "xl": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{text.typeset.fontSize.2xl}"
           },
@@ -1384,7 +1384,7 @@
         },
         "2xl": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{icon.typeset.fontSize.2xl}"
           },
@@ -1392,7 +1392,7 @@
         },
         "3xl": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{icon.typeset.fontSize.2xl}"
           },
@@ -1400,7 +1400,7 @@
         },
         "4xl": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.icon}",
+            "fontFamily": "{sanomalearning.text-new.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{icon.typeset.fontSize.4xl}"
           },

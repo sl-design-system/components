@@ -177,13 +177,7 @@ export class Tooltip extends LitElement {
   override render(): TemplateResult {
     return html`
       <slot></slot>
-      <div class="arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="6">
-          <path
-            d="M14.48 5.411c.384.374.938.588 1.52.589H0c.582-.001 1.136-.215 1.52-.589L6.475.59c.807-.785 2.241-.785 3.048 0L14.48 5.41Z"
-          />
-        </svg>
-      </div>
+      <div class="arrow"></div>
     `;
   }
 }

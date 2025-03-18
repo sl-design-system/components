@@ -1,28 +1,21 @@
 :host {
-  --_arrow-block-size: 6px;
-  --_arrow-inline-size: 16px;
-  --_background: var(--sl-color-tooltip-background);
-  --_border-radius: var(--sl-border-radius-default);
-  --_border: 0;
-  --_color: var(--sl-color-tooltip-foreground);
-  --_font: var(--sl-text-tooltip-text-tip);
+  --_arrow-block-size: 5px;
+  --_arrow-inline-size: 10px;
   --_max-width: var(--sl-tooltip-max-width, auto);
-  --_padding-block: var(--sl-space-tooltip-block);
-  --_padding-inline: var(--sl-space-tooltip-inline);
 
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
+  background: var(--sl-elevation-surface-raised-inverted);
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
   box-sizing: border-box;
-  color: var(--_color);
+  color: var(--sl-color-foreground-inverted-plain);
   font: var(--_font);
   margin: 0;
   max-inline-size: var(--_max-width);
   opacity: 0;
   overflow: visible;
   overflow-wrap: break-word;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding-block: var(--sl-size-100);
+  padding-inline: var(--sl-size-150);
 
   @media (prefers-reduced-motion: no-preference) {
     transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
@@ -37,14 +30,26 @@
    */
   @supports not selector(:popover-open) {
     background: var(--_background) !important;
-    border: var(--_border) !important;
     color: var(--_color) !important;
     margin: 0 !important;
     overflow: visible !important;
-    padding-block: var(--_padding-block) !important;
-    padding-inline: var(--_padding-inline) !important;
+    padding-block: var(--sl-size-100) !important;
+    padding-inline: var(--sl-size-150) !important;
     position: fixed;
   }
+}
+
+.arrow {
+  background-color: inherit;
+  block-size: var(--_arrow-block-size);
+
+  // z-index: -1;
+  clip-path: polygon(0 100%, 100% 100%, 50% 0);
+  display: flex;
+  inline-size: var(--_arrow-inline-size);
+  inset-block-end: calc(var(--_arrow-block-size) * -1);
+  position: absolute;
+  scale: 1 -1;
 }
 
 /* stylelint-disable-next-line selector-class-pattern */
@@ -59,38 +64,20 @@
 }
 
 :host([actual-placement^='bottom']) .arrow {
+  clip-path: polygon(50% 100%, 100% 0, 0 0);
   inset-block-start: calc(var(--_arrow-block-size) * -1);
 }
 
 :host([actual-placement^='left']) .arrow {
-  inset-inline-end: calc(var(--_arrow-inline-size) * -1);
-
-  svg {
-    rotate: 90deg;
-    transform-origin: left;
-    translate: calc(var(--_arrow-block-size) / 2) calc(var(--_arrow-inline-size) / -2);
-  }
+  block-size: var(--_arrow-inline-size);
+  clip-path: polygon(0 100%, 100% 50%, 0 0);
+  inline-size: var(--_arrow-block-size);
+  inset-inline-end: calc(var(--_arrow-block-size) * -1);
 }
 
 :host([actual-placement^='right']) .arrow {
-  inset-inline-start: calc(var(--_arrow-inline-size) * -1);
-
-  svg {
-    rotate: -90deg;
-    transform-origin: right;
-    translate: calc(var(--_arrow-block-size) / -2) calc(var(--_arrow-inline-size) / -2);
-  }
-}
-
-:host([actual-placement^='top']) .arrow {
-  inset-block-end: calc(var(--_arrow-block-size) * -1);
-  scale: 1 -1;
-}
-
-.arrow {
-  block-size: var(--_arrow-block-size);
-  display: flex;
-  fill: var(--_background);
-  inline-size: var(--_arrow-inline-size);
-  position: absolute;
+  block-size: var(--_arrow-inline-size);
+  clip-path: polygon(100% 100%, 100% 0, 0 50%);
+  inline-size: var(--_arrow-block-size);
+  inset-inline-start: calc(var(--_arrow-block-size) * -1);
 }

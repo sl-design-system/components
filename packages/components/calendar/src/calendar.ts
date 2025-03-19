@@ -141,6 +141,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     this.month = new Date(event.detail.getFullYear(), event.detail.getMonth(), this.month!.getDate());
     this.mode = 'day';
+
+    requestAnimationFrame(() => {
+      this.renderRoot.querySelector('sl-select-day')?.focus();
+    });
   }
 
   #onSelectYear(event: SlSelectEvent<Date>): void {
@@ -149,6 +153,10 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
     this.month = new Date(event.detail.getFullYear(), this.month!.getMonth(), this.month!.getDate());
     this.mode = 'day';
+
+    requestAnimationFrame(() => {
+      this.renderRoot.querySelector('sl-select-day')?.focus();
+    });
   }
 
   #onToggleMonthYear(event: SlToggleEvent<'month' | 'year'>): void {
@@ -156,5 +164,9 @@ export class Calendar extends LocaleMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     this.mode = event.detail;
+
+    requestAnimationFrame(() => {
+      this.renderRoot.querySelector(event.detail === 'month' ? 'sl-select-month' : 'sl-select-year')?.focus();
+    });
   }
 }

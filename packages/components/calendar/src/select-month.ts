@@ -2,7 +2,13 @@ import { msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, LocaleMixin, RovingTabindexController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  LocaleMixin,
+  RovingTabindexController,
+  event
+} from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -31,11 +37,18 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { keydown: this.#onKeydown });
+
+  // eslint-disable-next-line no-unused-private-class-members
   #rovingTabindexController = new RovingTabindexController(this, {
     direction: 'grid',
     directionLength: 3,
-    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('sl-button')),
-    focusInIndex: elements => elements.findIndex(el => el.hasAttribute('aria-pressed')),
+    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('ol sl-button')),
+    focusInIndex: elements => {
+      const index = elements.findIndex(el => el.hasAttribute('aria-pressed'));
+
+      return index === -1 ? 0 : index;
+    },
     listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol')!
   });
 
@@ -47,12 +60,6 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   /** @internal Emits when the user selects a month. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
-
-  override firstUpdated(changes: PropertyValues<this>): void {
-    super.firstUpdated(changes);
-
-    this.renderRoot.querySelector<HTMLElement>('sl-button[aria-pressed]')?.focus();
-  }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -105,6 +112,7 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
                 @click=${() => this.#onClick(value)}
                 .fill=${currentMonth === value ? 'solid' : 'ghost'}
                 .variant=${currentMonth === value ? 'primary' : 'default'}
+                ?autofocus=${currentMonth === value}
                 aria-label=${long}
                 aria-pressed=${ifDefined(currentMonth === value ? 'true' : undefined)}
               >
@@ -119,6 +127,15 @@ export class SelectMonth extends LocaleMixin(ScopedElementsMixin(LitElement)) {
 
   #onClick(month: number): void {
     this.selectEvent.emit(new Date(this.month.getFullYear(), month));
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.selectEvent.emit(this.month);
+    }
   }
 
   #onNext(): void {

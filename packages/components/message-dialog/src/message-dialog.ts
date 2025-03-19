@@ -12,7 +12,8 @@ declare global {
   }
 }
 
-export interface MessageDialogConfig<T = unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface MessageDialogConfig<T = any> {
   title?: string;
   subtitle?: string;
   message: string | TemplateResult;
@@ -20,7 +21,8 @@ export interface MessageDialogConfig<T = unknown> {
   disableCancel?: boolean;
 }
 
-export interface MessageDialogButton<T = unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface MessageDialogButton<T = any> {
   action?(): void;
   autofocus?: boolean;
   fill?: ButtonFill;
@@ -39,7 +41,8 @@ export interface MessageDialogButton<T = unknown> {
  * ```
  */
 @localized()
-export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -90,7 +93,8 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
    * @param config - The configuration for the dialog.
    * @returns A promise that resolves with the value of the button that was clicked, or `undefined` if the dialog was closed.
    */
-  static async show<T = unknown>(config: MessageDialogConfig<T>): Promise<T | undefined> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static async show<T = any>(config: MessageDialogConfig<T>): Promise<T | undefined> {
     return await new Promise<T | undefined>(resolve => {
       config.buttons = config.buttons?.map(button => {
         const action = button.action;

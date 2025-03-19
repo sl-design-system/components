@@ -26,7 +26,7 @@ type Props = Pick<
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Date & Time/Format date',
+  title: 'Utilities/Format date',
   tags: ['draft'],
   args: {
     fallback: 'invalid date',

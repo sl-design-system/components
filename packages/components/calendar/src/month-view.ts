@@ -28,6 +28,7 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   #rovingTabindexController = new RovingTabindexController<HTMLButtonElement>(this, {
     direction: 'grid',
+    // NOTE: If we add the ability to toggle the weekend days, we'll need to update this value.
     directionLength: 7,
     focusInIndex: elements => {
       let index = elements.findIndex(el => el.part.contains('selected') && !el.disabled);
@@ -54,6 +55,10 @@ export class MonthView extends LocaleMixin(LitElement) {
 
   /**
    * The first day of the week; 0 for Sunday, 1 for Monday.
+   *
+   * NOTE: Remove this property once `Intl.Locale.prototype.getWeekInfo` is widely available.
+   * See https://caniuse.com/mdn-javascript_builtins_intl_locale_getweekinfo
+   *
    * @default 1
    */
   @property({ type: Number, attribute: 'first-day-of-week' }) firstDayOfWeek = 1;

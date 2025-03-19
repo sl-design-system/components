@@ -174,20 +174,6 @@
   <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
   <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
 </trans-unit>
-<trans-unit id="s62931b2a50168976">
-  <source>Previous month</source>
-  <target>Vorige maand</target>
-</trans-unit>
-<trans-unit id="s46d6587089bd0356">
-  <source>Next month</source>
-  <target>Volgende maand</target>
-</trans-unit>
-<trans-unit id="s575e795c45e2d97e">
-  <source>Go back</source>
-</trans-unit>
-<trans-unit id="sc831e57f94e6d73e">
-  <source>Go forward</source>
-</trans-unit>
 <trans-unit id="sde3919a1e53d2cff">
   <source>Press the delete or backspace key to remove this item</source>
   <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
@@ -272,17 +258,33 @@
   <source>Please enter a valid number.</source>
   <target>Voer een geldig getal in.</target>
 </trans-unit>
-<trans-unit id="se1a9c804f6e98131">
-  <source>Previous year</source>
-  <target>Vorig jaar</target>
-</trans-unit>
-<trans-unit id="sda6fb6b9cc156f91">
-  <source>Next year</source>
-  <target>Volgend jaar</target>
-</trans-unit>
 <trans-unit id="sf3fe911c549b0fcd">
   <source>Toggle calendar</source>
   <target>Toon kalender</target>
+</trans-unit>
+<trans-unit id="s49a14735332eb6fc">
+  <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Vorige maand, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="s794261719626d49c">
+  <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Volgende maand, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="s16cec004919b8ee1">
+  <source>Previous year, <x id="0" equiv-text="${currentYear - 1}"/></source>
+  <target>Vorig jaar, <x id="0" equiv-text="${currentYear - 1}"/></target>
+</trans-unit>
+<trans-unit id="s80cb08af5e5de981">
+  <source>Next year, <x id="0" equiv-text="${currentYear + 1}"/></source>
+  <target>Volgend jaar, <x id="0" equiv-text="${currentYear + 1}"/></target>
+</trans-unit>
+<trans-unit id="sc25ef986c3661767">
+  <source>Go back 12 years</source>
+  <target>Ga 12 jaar vooruit</target>
+</trans-unit>
+<trans-unit id="sc7514d59540bf727">
+  <source>Go forward 12 years</source>
+  <target>Ga 12 jaar terug</target>
 </trans-unit>
 </body>
 </file>

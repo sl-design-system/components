@@ -2,9 +2,9 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './select-year.scss.js';
@@ -30,6 +30,15 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // eslint-disable-next-line no-unused-private-class-members
+  #rovingTabindexController = new RovingTabindexController(this, {
+    direction: 'grid',
+    directionLength: 3,
+    elements: (): HTMLElement[] => Array.from(this.renderRoot.querySelectorAll('sl-button')),
+    focusInIndex: elements => elements.findIndex(el => el.hasAttribute('aria-pressed')),
+    listenerScope: (): HTMLElement => this.renderRoot.querySelector('ol')!
+  });
+
   /** @internal Emits when the user selects a year. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Date>>;
 
@@ -45,14 +54,20 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     this.#setYears(this.year - 5, this.year + 6);
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.renderRoot.querySelector<HTMLElement>('sl-button[aria-pressed]')?.focus();
+  }
+
   override render(): TemplateResult {
     return html`
       <div part="header">
         <span class="current-range">${this.years.at(0)}-${this.years.at(-1)}</span>
-        <sl-button @click=${this.#onPrevious} aria-label=${msg('Go back')} fill="ghost" variant="primary">
+        <sl-button @click=${this.#onPrevious} aria-label=${msg('Go back 12 years')} fill="ghost" variant="primary">
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
-        <sl-button @click=${this.#onNext} aria-label=${msg('Go forward')} fill="ghost" variant="primary">
+        <sl-button @click=${this.#onNext} aria-label=${msg('Go forward 12 years')} fill="ghost" variant="primary">
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </div>

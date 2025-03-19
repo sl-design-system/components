@@ -1,7 +1,7 @@
-import { msg } from '@lit/localize';
+import { msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
-import { FormatDate } from '@sl-design-system/format-date';
+import { FormatDate, format } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, LocaleMixin, event } from '@sl-design-system/shared';
 import { dateConverter } from '@sl-design-system/shared/converters.js';
@@ -139,10 +139,24 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
           <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
           <sl-icon name="caret-down-solid" size="xs"></sl-icon>
         </sl-button>
-        <sl-button @click=${this.#onPrevious} aria-label=${msg('Previous month')} fill="ghost" variant="primary">
+        <sl-button
+          @click=${this.#onPrevious}
+          aria-label=${msg(
+            str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`
+          )}
+          fill="ghost"
+          variant="primary"
+        >
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
-        <sl-button @click=${this.#onNext} aria-label=${msg('Next month')} fill="ghost" variant="primary">
+        <sl-button
+          @click=${this.#onNext}
+          aria-label=${msg(
+            str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`
+          )}
+          fill="ghost"
+          variant="primary"
+        >
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </div>

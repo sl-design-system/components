@@ -137,27 +137,31 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
       this.#observer.disconnect();
       this.boxes?.forEach((box, index) => {
         console.log('box in value change', box, index, this.value);
-        if (box.value === null /*this.value?.at(index) === null*/) {
-          console.log(
-            '1111IN IF: box in value change',
-            box,
-            index,
-            this.value,
-            this.value?.includes(box.value),
-            box.checked
-          );
-          box.checked = false;
-          // box.formValue = this.value?.at(index) ?? null;
-        } else if (/*box.value !== undefined*/ box.value != null) {
+        // if (box.value === null /*this.value?.at(index) === null*/) {
+        //   console.log(
+        //     '1111IN IF: box in value change',
+        //     box,
+        //     index,
+        //     this.value,
+        //     this.value?.includes(box.value),
+        //     box.checked,
+        //     '..............',
+        //     this.value?.at(index)
+        //   );
+        //   // box.checked = false;
+        //   // box.formValue = this.value?.at(index) ?? null;
+        // } else
+          if (/*box.value !== undefined*/ box.value != null) {
           //  box.value != null)
-          console.log('IN IF: box in value change', box, index, this.value, this.value?.includes(box.value));
-          box.checked = this.value?.includes(box.value) ?? false;
+          console.log('IN IF: box in value change', box, index, this.value, this.value?.includes(box.value), this.value?.at(index));
+         // box.checked = this.value?.includes(box.value) ?? false;
         } else {
           console.log('IN ELSE: box in value change', box, index, this.value);
-          box.formValue = this.value?.at(index) ?? null; // TODO: maybe ?? false instead of ?? null
-          // if (this.value?.at(index) === null) {
-          //   box.checked = false;
-          // }
+            // box.checked = this.value?.includes(box.value) ?? false;
+          // box.formValue = this.value?.at(index) ?? null; // TODO: maybe ?? false instead of ?? null or just ''???
+          if (this.value?.at(index) === null) {
+            box.checked = false;
+          }
         }
       });
       this.#observer.observe(this, OBSERVER_OPTIONS);

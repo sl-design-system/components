@@ -110,6 +110,7 @@ export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMix
   @property() override value?: T;
 
   override get formValue(): T | null {
+    console.log('getter formValue', this.value, this.checked ? ((this.value ?? true) as T) : null);
     return this.checked ? ((this.value ?? true) as T) : null;
   }
 

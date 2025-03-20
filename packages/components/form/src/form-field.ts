@@ -112,6 +112,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    console.log('control in form-field', this.control, this.control?.value);
+
     if (!this.#customError) {
       if (changes.has('error')) {
         if (this.error) {

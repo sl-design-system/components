@@ -135,25 +135,52 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('value')) {
+      // this.#observer.disconnect();
+      // this.boxes?.forEach((box, index) => {
+      //   console.log('box in value change', box, index, this.value, 'box value:::', box.value); // checl whether is null the box value?
+      //   // if (box.value === null /*this.value?.at(index) === null*/) {
+      //   //   console.log(
+      //   //     '1111IN IF: box in value change',
+      //   //     box,
+      //   //     index,
+      //   //     this.value,
+      //   //     this.value?.includes(box.value),
+      //   //     box.checked,
+      //   //     '..............',
+      //   //     this.value?.at(index)
+      //   //   );
+      //   //   // box.checked = false;
+      //   //   // box.formValue = this.value?.at(index) ?? null;
+      //   // } else
+      //   if (/*box.value !== undefined*/ box.value != null) {
+      //     //  box.value != null)
+      //     console.log(
+      //       'IN IF: box in value change',
+      //       box,
+      //       index,
+      //       this.value,
+      //       this.value?.includes(box.value),
+      //       this.value?.at(index)
+      //     );
+      //     // box.checked = this.value?.includes(box.value) ?? false;
+      //   } else {
+      //     console.log('IN ELSE: box in value change', box, index, this.value);
+      //     // box.checked = this.value?.includes(box.value) ?? false;
+      //     // box.formValue = this.value?.at(index) ?? null; // TODO: maybe ?? false instead of ?? null or just ''???
+      //     if (this.value?.at(index) === null) {
+      //       box.checked = false;
+      //     }
+      //   }
+      // });
+      // this.#observer.observe(this, OBSERVER_OPTIONS);
+
       this.#observer.disconnect();
       this.boxes?.forEach((box, index) => {
-        console.log('box in value change', box, index, this.value);
-        // if (box.value === null /*this.value?.at(index) === null*/) {
-        //   console.log(
-        //     '1111IN IF: box in value change',
-        //     box,
-        //     index,
-        //     this.value,
-        //     this.value?.includes(box.value),
-        //     box.checked,
-        //     '..............',
-        //     this.value?.at(index)
-        //   );
-        //   // box.checked = false;
-        //   // box.formValue = this.value?.at(index) ?? null;
-        // } else
-        if (/*box.value !== undefined*/ box.value != null) {
-          //  box.value != null)
+        console.log('box in value change', box, index, this.value, 'box value:::', box.value);
+
+        const newValue = this.value?.at(index) ?? null;
+        console.log('newValue ????? box.formValue !== newValue', newValue, box.formValue, box.formValue !== newValue);
+        if (box.value != null) {
           console.log(
             'IN IF: box in value change',
             box,
@@ -162,13 +189,14 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
             this.value?.includes(box.value),
             this.value?.at(index)
           );
-          // box.checked = this.value?.includes(box.value) ?? false;
+          box.checked = this.value?.includes(box.value) ?? false;
         } else {
           console.log('IN ELSE: box in value change', box, index, this.value);
-          // box.checked = this.value?.includes(box.value) ?? false;
-          // box.formValue = this.value?.at(index) ?? null; // TODO: maybe ?? false instead of ?? null or just ''???
-          if (this.value?.at(index) === null) {
-            box.checked = false;
+          // box.formValue = this.value?.at(index) ?? null;
+          const newValue = this.value?.at(index) ?? null;
+          // to prevent unnecessary updates
+          if (box.formValue !== newValue) {
+            box.formValue = newValue;
           }
         }
       });

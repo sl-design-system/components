@@ -112,7 +112,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   override get formValue(): T | null {
     console.log('getter formValue', this.value, this.checked ? ((this.value ?? true) as T) : null);
-    return this.checked ? ((this.value ?? true) as T) : null;
+    return this.checked ? ((this.value ?? '') /*true*/ as T) : null; // TODO: maybe '' instead of true? to have it consistent with checkbox group!
   }
 
   override set formValue(value: T | null) {
@@ -234,7 +234,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
     this.checked = !this.checked;
     this.input.checked = this.checked;
     this.changeEvent.emit(this.formValue);
-    console.log('change event emitted', this.formValue);
+    console.log('change event emitted', this.formValue); // TODO: why true and not '' when null and checked? difference between checkbox and checkbox group
     this.updateState({ dirty: true });
     this.updateValidity();
   }

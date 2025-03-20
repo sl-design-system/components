@@ -21,7 +21,8 @@ const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], a
  * @slot default - A list of `sl-checkbox` elements.
  */
 @localized()
-export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   /** @internal */
   static formAssociated = true;
 
@@ -151,13 +152,20 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
         //   // box.checked = false;
         //   // box.formValue = this.value?.at(index) ?? null;
         // } else
-          if (/*box.value !== undefined*/ box.value != null) {
+        if (/*box.value !== undefined*/ box.value != null) {
           //  box.value != null)
-          console.log('IN IF: box in value change', box, index, this.value, this.value?.includes(box.value), this.value?.at(index));
-         // box.checked = this.value?.includes(box.value) ?? false;
+          console.log(
+            'IN IF: box in value change',
+            box,
+            index,
+            this.value,
+            this.value?.includes(box.value),
+            this.value?.at(index)
+          );
+          // box.checked = this.value?.includes(box.value) ?? false;
         } else {
           console.log('IN ELSE: box in value change', box, index, this.value);
-            // box.checked = this.value?.includes(box.value) ?? false;
+          // box.checked = this.value?.includes(box.value) ?? false;
           // box.formValue = this.value?.at(index) ?? null; // TODO: maybe ?? false instead of ?? null or just ''???
           if (this.value?.at(index) === null) {
             box.checked = false;

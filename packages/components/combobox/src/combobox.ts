@@ -258,11 +258,18 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
     this.setFormControlElement(this.input);
 
-    // This is a workaround, because :has is not working in Safari and Firefox with :host element as it works in Chrome
+    /**
+     * Light DOM styling workarounds:
+     * - `:host(:has())` in all browsers, https://github.com/w3c/csswg-drafts/issues/11859
+     * - `::slotted(input)::placeholder` in Safari, https://bugs.webkit.org/show_bug.cgi?id=223814
+     */
     const style = document.createElement('style');
     style.innerHTML = `
       sl-combobox:has(input:hover):not(:focus-within)::part(text-field) {
         --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+      }
+      sl-combobox[has-selected-items] input::placeholder {
+        color: transparent;
       }
     `;
     this.prepend(style);
@@ -317,9 +324,15 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       this.#updateSelectedItems();
     }
 
-    if (changes.has('selectedItems') && this.items.length) {
-      this.#updateTextFieldValue();
-      this.#updateValue();
+    if (changes.has('selectedItems')) {
+      // Workaround for Safari not allowing `::slotted(input)::placeholder`
+      // See https://bugs.webkit.org/show_bug.cgi?id=223814
+      this.toggleAttribute('has-selected-items', this.multiple && this.selectedItems.length > 0);
+
+      if (this.items.length) {
+        this.#updateTextFieldValue();
+        this.#updateValue();
+      }
     }
   }
 

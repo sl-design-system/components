@@ -216,7 +216,7 @@ export class TextField<T extends { toString(): string } = string>
     if (changes.has('disabled') || changes.has('fieldButtons') || changes.has('size')) {
       this.fieldButtons.forEach(button => {
         button.size = this.size;
-        button.disabled = this.disabled;
+        button.disabled ??= this.disabled;
       });
     }
 

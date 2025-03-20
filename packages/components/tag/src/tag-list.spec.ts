@@ -114,6 +114,9 @@ describe('sl-tag', () => {
     });
 
     it('should not have a stack when there is enough space', async () => {
+      // Give the `#breakResizeObserverLoop` time to do its thing
+      await new Promise(resolve => setTimeout(resolve, 201));
+
       el.style.inlineSize = '2000px';
       await new Promise(resolve => setTimeout(resolve, 100));
 

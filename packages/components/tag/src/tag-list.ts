@@ -170,13 +170,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       stackInlineSize = stackEntry?.contentRect.width;
 
     if (stackInlineSize && stackInlineSize !== this.stackInlineSize) {
-      this.stackInlineSize = stackEntry.contentRect.width;
+      this.stackInlineSize = stackInlineSize;
 
       // Reset the timeout, so it always ends with visible stack
       if (this.#breakResizeObserverLoop) {
         clearTimeout(this.#breakResizeObserverLoop);
-
-        this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
       }
     } else if (this.#breakResizeObserverLoop) {
       return;

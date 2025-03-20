@@ -13,8 +13,7 @@
           },
           "icon": {
             "value": "{icon.typeset.fontFamily.classic}",
-            "type": "fontFamilies",
-            "description": "bingel-dc.text-new.typeset.fontFamily.fontIcon"
+            "type": "fontFamilies"
           }
         },
         "fontWeight": {

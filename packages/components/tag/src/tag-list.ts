@@ -40,6 +40,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Timer used for breaking a possible resize observer loop. */
+  #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
+
   /**
    * Observe size changes so we can determine when to display a counter
    * with the amount of hidden tags.
@@ -105,6 +108,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   override disconnectedCallback(): void {
     this.#resizeObserver.disconnect();
 
+    if (this.#breakResizeObserverLoop) {
+      clearTimeout(this.#breakResizeObserverLoop);
+      this.#breakResizeObserverLoop = undefined;
+    }
+
     super.disconnectedCallback();
   }
 
@@ -158,12 +166,27 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   #onResize(entries: ResizeObserverEntry[]): void {
-    const stackEntry = entries.find(entry => entry.target === this.stack);
-    if (stackEntry) {
+    const stackEntry = entries.find(entry => entry.target === this.stack),
+      stackInlineSize = stackEntry?.contentRect.width;
+
+    if (stackInlineSize && stackInlineSize !== this.stackInlineSize) {
       this.stackInlineSize = stackEntry.contentRect.width;
+
+      // Reset the timeout, so it always ends with visible stack
+      if (this.#breakResizeObserverLoop) {
+        clearTimeout(this.#breakResizeObserverLoop);
+
+        this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
+      }
+    } else if (this.#breakResizeObserverLoop) {
+      return;
     }
 
     this.#updateVisibility();
+
+    // Break the loop if it keeps switching between stack visibility; workaround
+    // is to just wait a little bit before updating the visibility again.
+    this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {

@@ -8,7 +8,8 @@ declare global {
   }
 }
 
-export class GridColumnGroup<T = unknown> extends GridColumn<T> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridColumnGroup<T = any> extends GridColumn<T> {
   #width?: number;
 
   /** The nested columns in the group. */

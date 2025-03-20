@@ -33,7 +33,8 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  * @slot default - A list of `sl-radio` elements.
  */
 @localized()
-export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
   /** @internal */
   static formAssociated = true;
 

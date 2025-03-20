@@ -1,5 +1,16 @@
 # @sl-design-system/grid
 
+## 0.3.2
+
+### Patch Changes
+
+- [#1842](https://github.com/sl-design-system/components/pull/1842) [`b5c43d4`](https://github.com/sl-design-system/components/commit/b5c43d44a7d0ecebd9e72cdebd3a5c6ce56d2a70) - Fixed link colours, both for the skip table link and for links in the table
+
+- Updated dependencies [[`4db6380`](https://github.com/sl-design-system/components/commit/4db63809185726e6ec40b4c15a2e927a009d472f), [`0251830`](https://github.com/sl-design-system/components/commit/025183019319ffe77e665224c2e545a4a67e8c8b), [`94ec687`](https://github.com/sl-design-system/components/commit/94ec687d8d37f12dd569c902dd777b965ae3a029), [`b37b9a2`](https://github.com/sl-design-system/components/commit/b37b9a26dd9b0b0fe2f412a08803e75168cc4f1c)]:
+  - @sl-design-system/checkbox@2.1.1
+  - @sl-design-system/select@2.0.1
+  - @sl-design-system/text-field@1.6.1
+
 ## 0.3.1
 
 ### Patch Changes

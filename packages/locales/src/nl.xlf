@@ -178,6 +178,10 @@
   <source>Press the delete or backspace key to remove this item</source>
   <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
 </trans-unit>
+<trans-unit id="s680f01021b5e339d">
+  <source>Week</source>
+  <target>Week</target>
+</trans-unit>
 <trans-unit id="sa7c7ba461453bfef">
   <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> items</target>
@@ -253,6 +257,34 @@
 <trans-unit id="sfc5e976d64c3fb31">
   <source>Please enter a valid number.</source>
   <target>Voer een geldig getal in.</target>
+</trans-unit>
+<trans-unit id="sf3fe911c549b0fcd">
+  <source>Toggle calendar</source>
+  <target>Toon kalender</target>
+</trans-unit>
+<trans-unit id="s49a14735332eb6fc">
+  <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Vorige maand, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="s794261719626d49c">
+  <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+  <target>Volgende maand, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
+</trans-unit>
+<trans-unit id="s16cec004919b8ee1">
+  <source>Previous year, <x id="0" equiv-text="${currentYear - 1}"/></source>
+  <target>Vorig jaar, <x id="0" equiv-text="${currentYear - 1}"/></target>
+</trans-unit>
+<trans-unit id="s80cb08af5e5de981">
+  <source>Next year, <x id="0" equiv-text="${currentYear + 1}"/></source>
+  <target>Volgend jaar, <x id="0" equiv-text="${currentYear + 1}"/></target>
+</trans-unit>
+<trans-unit id="sc25ef986c3661767">
+  <source>Go back 12 years</source>
+  <target>Ga 12 jaar vooruit</target>
+</trans-unit>
+<trans-unit id="sc7514d59540bf727">
+  <source>Go forward 12 years</source>
+  <target>Ga 12 jaar terug</target>
 </trans-unit>
 </body>
 </file>

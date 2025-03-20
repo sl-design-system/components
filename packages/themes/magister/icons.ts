@@ -24,6 +24,18 @@ export const icons = {
     description: 'icon.core.breadcrumb-separator',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M305 239c9.4 9.4 9.4 24.6 0 33.9L113 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L79 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L305 239z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
+  calendar: {
+    value: 'calendar',
+    type: 'Icons',
+    description: 'icon.core.calendar',
+    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M152 24c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L64 64C28.7 64 0 92.7 0 128l0 16 0 48L0 448c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-256 0-48 0-16c0-35.3-28.7-64-64-64l-40 0 0-40c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 40L152 64l0-40zM48 192l352 0 0 256c0 8.8-7.2 16-16 16L64 464c-8.8 0-16-7.2-16-16l0-256z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'caret-down-solid': {
+    value: 'caret-down',
+    type: 'Icons',
+    description: 'icon.core.caret-down-solid',
+    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   'caret-left-solid': {
     value: 'caret-left',
     type: 'Icons',
@@ -53,6 +65,12 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.chevron-down',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M239 401c9.4 9.4 24.6 9.4 33.9 0L465 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L81 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L239 401z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
+  'chevron-left': {
+    value: 'chevron-left',
+    type: 'Icons',
+    description: 'icon.core.chevron-left',
+    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M15 239c-9.4 9.4-9.4 24.6 0 33.9L207 465c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9L65.9 256 241 81c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L15 239z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   'chevron-right': {
     value: 'chevron-right',

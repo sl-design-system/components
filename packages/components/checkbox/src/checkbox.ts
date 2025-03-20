@@ -28,7 +28,8 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  */
 @localized()
-export class Checkbox<T = unknown> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(LitElement), [
   'aria-disabled',
   'aria-label',
   'aria-labelledby'

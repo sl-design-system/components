@@ -6,35 +6,36 @@ $lg-breakpoint: 900px;
 }
 
 dialog {
-  --_padding: var(--sl-size-200);
-
   background: var(--sl-elevation-surface-raised-default);
   border: 0;
-  border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  box-sizing: border-box;
   color: var(--sl-color-foreground-plain);
   flex-direction: column;
+  gap: var(--sl-size-200);
   margin: auto auto 0;
   max-block-size: calc(100dvh - var(--sl-size-400));
   min-inline-size: 100dvw;
   overflow: visible;
-  padding: 0;
+  padding: var(--sl-size-300);
 
-  @starting-style {
+  &[open] {
     display: flex;
-    scale: 1.1;
-  }
-
-  &:not(:modal) {
-    scale: 0.7;
   }
 
   @media (width > 600px) {
-    --_padding: var(--sl-size-300);
-
-    border-radius: var(--sl-size-borderRadius-default);
     margin: auto;
     max-inline-size: calc(100dvw - var(--sl-size-600));
     min-inline-size: auto;
+
+    @starting-style {
+      display: flex;
+      scale: 1.1;
+    }
+
+    &:not(:modal) {
+      scale: 0.7;
+    }
   }
 
   &:focus-visible {
@@ -43,30 +44,72 @@ dialog {
   }
 }
 
-dialog,
-dialog::backdrop {
-  opacity: 0;
-
+@media (width <= 600px) {
   @media (prefers-reduced-motion: no-preference) {
-    transition: 0.2s ease-in-out;
-    transition-behavior: allow-discrete;
-    transition-property: display, opacity, overlay, scale;
+    dialog,
+    dialog::backdrop {
+      transition: 0.2s ease-in-out;
+      transition-behavior: allow-discrete;
+      transition-property: display, opacity, overlay, translate;
+
+      @supports not (overlay: auto) {
+        transition-duration: 0s;
+      }
+    }
   }
 
-  @supports not (overlay: auto) {
-    transition-duration: 0s;
+  dialog {
+    border: 0;
+    border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
+
+    // Exit animation
+    &:not(:modal) {
+      translate: 0 100%;
+    }
+
+    // Enter animation
+    @starting-style {
+      display: flex;
+      translate: 0 100%;
+    }
   }
-}
 
-dialog[open],
-dialog[open]::backdrop {
-  opacity: 1;
-  transition-duration: 0.5s;
-
-  @starting-style {
+  dialog::backdrop {
     opacity: 0;
   }
+
+  dialog[open]::backdrop {
+    opacity: 1;
+    transition-duration: 0.5s;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
 }
+
+// dialog,
+// dialog::backdrop {
+//   @media (prefers-reduced-motion: no-preference) {
+//     transition: 0.2s ease-in-out;
+//     transition-behavior: allow-discrete;
+//     transition-property: display, opacity, overlay, scale, translate;
+//   }
+
+//   @supports not (overlay: auto) {
+//     transition-duration: 0s;
+//   }
+// }
+
+// dialog[open],
+// dialog[open]::backdrop {
+//   opacity: 1;
+//   transition-duration: 0.5s;
+
+//   @starting-style {
+//     opacity: 0;
+//   }
+// }
 
 [part='header'] {
   align-items: start;
@@ -90,6 +133,8 @@ slot[name='title'] {
 
   &::slotted(*) {
     margin: 0;
+    padding-inline-end: calc(var(--sl-size-450) / 2);
+    text-box: trim-both cap alphabetic;
     text-wrap: balance;
   }
 }
@@ -103,8 +148,9 @@ slot[name='subtitle'] {
   }
 }
 
-[part='header-bar'] {
-  flex-shrink: 0;
+sl-button {
+  inset: var(--sl-size-100) var(--sl-size-100) auto auto;
+  position: absolute;
 }
 
 [part='body'] {
@@ -120,112 +166,10 @@ slot[name='subtitle'] {
 
 [part='footer-bar'] {
   align-items: stretch;
-  flex-direction: column-reverse;
+  flex-direction: column;
 
   @media (width > 600px) {
     align-items: center;
     flex-direction: row;
-  }
-}
-
-// // This is for the non-mobile styling. The default styling is for mobile.
-// @media (min-width: $md-breakpoint) {
-//   :host {
-//     --_body-gap: var(--sl-space-dialog-desktop-body-gap);
-//     --_border-radius: var(--sl-border-radius-dialog-desktop);
-//     --_margin-bottom-container: var(--sl-space-dialog-desktop-container-padding-bottom);
-//     --_margin-container-inline: var(--sl-space-dialog-desktop-container-inline);
-//     --_margin-top-container: var(--sl-space-dialog-desktop-container-padding-top);
-//     --_max-inline-size: var(
-//       --sl-dialog-max-inline-size,
-//       calc(100dvw - var(--sl-space-dialog-desktop-container-inline) * 2)
-//     );
-//     --_padding-block: var(--sl-space-dialog-desktop-body-block);
-//     --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
-//   }
-
-//   dialog {
-//     inline-size: fit-content;
-//     margin: auto;
-//     max-block-size: min(
-//       100% - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
-//     );
-//     max-inline-size: min(
-//       var(--_max-inline-size),
-//       100% - 2 * var(--_margin-container-inline) - 2 * var(--_padding-inline)
-//     );
-//     min-inline-size: var(--_min-inline-size);
-//   }
-// }
-
-@keyframes show-backdrop {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0.75;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes hide-backdrop {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes open-desktop {
-  from {
-    filter: blur(10px);
-    opacity: 0;
-    scale: 1.1;
-  }
-
-  to {
-    filter: blur(0);
-    opacity: 1;
-    scale: 1;
-  }
-}
-
-@keyframes close-desktop {
-  from {
-    display: flex;
-    opacity: 1;
-    scale: 1;
-  }
-
-  to {
-    opacity: 0;
-    scale: 0.9;
-  }
-}
-
-@keyframes open-mobile {
-  from {
-    translate: 0 100%;
-  }
-
-  to {
-    translate: 0;
-  }
-}
-
-@keyframes close-mobile {
-  from {
-    display: flex;
-    translate: 0;
-  }
-
-  to {
-    translate: 0 100%;
   }
 }

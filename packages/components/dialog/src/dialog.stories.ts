@@ -191,11 +191,13 @@ export const Lazy: Story = {
 };
 
 export const Mobile: Story = {
-  ...Basic,
   parameters: {
     viewport: {
-      defaultViewport: 'iphone13'
+      defaultViewport: 'iphone6'
     }
+  },
+  args: {
+    body: 'The dialog behaves differently on mobile. It will animate in from the bottom of the screen. The contents behind the dialog will scale down to give the appearance if the dialog being on top.'
   }
 };
 

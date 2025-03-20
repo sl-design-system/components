@@ -142,18 +142,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           <slot name="title" id="title">${title}</slot>
           <slot name="subtitle">${subtitle}</slot>
         </div>
-        <slot name="header-actions">
-          <sl-button-bar part="header-bar">
-            <slot name="header-buttons"></slot>
-            ${this.closeButton
-              ? html`
-                  <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
-                    <sl-icon name="xmark"></sl-icon>
-                  </sl-button>
-                `
-              : nothing}
-          </sl-button-bar>
-        </slot>
+        ${this.closeButton
+          ? html`
+              <sl-button @click=${this.#onCloseClick} aria-label=${msg('Close')} fill="ghost" variant="default">
+                <sl-icon name="xmark"></sl-icon>
+              </sl-button>
+            `
+          : nothing}
       </slot>
     `;
   }

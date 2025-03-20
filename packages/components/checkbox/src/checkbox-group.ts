@@ -21,7 +21,8 @@ const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], a
  * @slot default - A list of `sl-checkbox` elements.
  */
 @localized()
-export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   /** @internal */
   static formAssociated = true;
 

@@ -12,7 +12,8 @@ declare global {
 
 export type RadioButtonSize = 'md' | 'lg';
 
-export class Radio<T = unknown> extends LitElement {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class Radio<T = any> extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 

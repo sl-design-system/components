@@ -5,7 +5,8 @@ export interface FormControllerOptions {
   selector: string;
 }
 
-export class FormController<T extends Record<string, unknown> = Record<string, unknown>>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class FormController<T extends Record<string, any> = Record<string, any>>
   extends EventTarget
   implements ReactiveController
 {

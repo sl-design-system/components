@@ -15,7 +15,8 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectColumn<T = any> extends GridColumn<T> {
   /** The options for the select. */
-  @property({ type: Array }) options?: Array<{ label: string; value: unknown }> | string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @property({ type: Array }) options?: Array<{ label: string; value: any }> | string[];
 
   override connectedCallback(): void {
     super.connectedCallback();

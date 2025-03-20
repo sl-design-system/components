@@ -8,7 +8,8 @@ declare global {
 
 export type DataSourceFilterFunction<Model> = (item: Model, index: number, array: Model[]) => boolean;
 
-export type DataSourceFilterByFunction<Model = unknown> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DataSourceFilterByFunction<Model = any> = {
   filter: DataSourceFilterFunction<Model>;
   value?: string | string[];
 };
@@ -19,11 +20,13 @@ export type DataSourceFilter<Model> = DataSourceFilterByFunction<Model> | DataSo
 
 export type DataSourceSortDirection = 'asc' | 'desc';
 
-export type DataSourceSortFunction<Model = unknown> = (a: Model, b: Model) => number;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DataSourceSortFunction<Model = any> = (a: Model, b: Model) => number;
 
 export type DataSourceSortByPath<Model> = { id?: string; path: PathKeys<Model>; direction: DataSourceSortDirection };
 
-export type DataSourceSortByFunction<Model = unknown> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type DataSourceSortByFunction<Model = any> = {
   id?: string;
   sorter: DataSourceSortFunction<Model>;
   direction: DataSourceSortDirection;

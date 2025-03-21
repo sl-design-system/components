@@ -396,7 +396,7 @@
         "description": "Use for placeholders and hints."
       },
       "disabled": {
-        "value": "{color.palette.grey.400}",
+        "value": "{color.palette.grey.500}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
@@ -1015,7 +1015,7 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.palette.grey.050}",
+        "value": "{color.palette.grey.100}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },

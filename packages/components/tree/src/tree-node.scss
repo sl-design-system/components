@@ -1,6 +1,8 @@
 :host {
-  --_bg-color: var(--sl-color-background-input-plain);
-  --_bg-mix-color: var(--sl-color-background-input-interactive);
+  --_bg-color: var(--sl-color-background-input-plain); // TODO: what's the token?
+  --_bg-mix-color: var(
+    --sl-color-background-neutral-interactive-plain
+  ); // var(--sl-color-background-input-interactive);
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 
   align-items: center;
@@ -21,7 +23,7 @@
 }
 
 :host(:hover) {
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover); // var(--sl-opacity-light-interactive-plain-hover);
 
   @media (hover: hover) {
     sl-button-bar {

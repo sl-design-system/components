@@ -171,18 +171,20 @@ export const NullValue: Story = {
         </sl-checkbox-group>
       </sl-form>
 
-      <sl-form-field hint="helper text" label="Example label">
-        <sl-checkbox-group label="Example label">
+      <sl-form-field hint="This is an example with null value" label="Label">
+        <sl-checkbox-group label="Label">
           <sl-checkbox .value=${null}>Option 1</sl-checkbox>
-          <sl-checkbox .value=${1}>Option 2</sl-checkbox>
+          <sl-checkbox .value=${undefined}>Option 2</sl-checkbox>
           <sl-checkbox value="2">Option 3</sl-checkbox>
           <sl-checkbox .value=${null}>Option 4</sl-checkbox>
+          <sl-checkbox>Option 2</sl-checkbox>
         </sl-checkbox-group>
       </sl-form-field>
     `;
   }
 }; // <sl-checkbox required .value=${null}>I agree to all terms &amp; conditions</sl-checkbox>
 // TODO: test null before loading values?
+// TODO: show form value (checkbox group) below?
 
 export const CustomAsyncValidity: Story = {
   args: {

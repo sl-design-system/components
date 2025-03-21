@@ -162,13 +162,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /** The value used when submitting the form. */
     get formValue(): unknown {
-      console.log('getter formValue in form-control', this.value);
       return this.value;
     }
 
     @property({ attribute: false })
     set formValue(value: unknown) {
-      console.log('setter formValue in form-control', this.value);
       this.value = value;
     }
 
@@ -204,7 +202,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /** Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.  */
     get nativeFormValue(): FormValue {
-      console.log('formValue in form-control', this.value, this.formValue);
       if (
         this.formValue === null ||
         this.formValue === undefined ||
@@ -478,7 +475,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
-      console.log('formControlElement in setFormControlElement', this.#formControlElement);
     }
   }
 

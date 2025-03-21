@@ -1028,12 +1028,12 @@
         },
         "inverted": {
           "subtlest": {
-            "value": "rgba( {sanoma-learning.color.palette.grey.000}, {opacity.subtlest})",
+            "value": "rgba( {sanoma-learning.color.palette.grey.000}, {sanoma-learning.opacity.subtlest})",
             "type": "color",
             "description": "The subtlest inverted background option."
           },
           "subtle": {
-            "value": "rgba({sanoma-learning.color.palette.grey.000}, {opacity.subtle})",
+            "value": "rgba({sanoma-learning.color.palette.grey.000}, {sanoma-learning.opacity.subtle})",
             "type": "color",
             "description": "A subtle inverted background option."
           },
@@ -1319,12 +1319,12 @@
         "accent": {
           "blue": {
             "subtlest": {
-              "value": "rgba({sanoma-learning.color.background.accent.blue.bold}, {opacity.subtlest})",
+              "value": "rgba({sanoma-learning.color.background.accent.blue.bold}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.background.accent.blue.bold}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.background.accent.blue.bold}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1348,12 +1348,12 @@
           },
           "green": {
             "subtlest": {
-              "value": "rgba( {sanoma-learning.color.palette.green.400}, {opacity.subtlest})",
+              "value": "rgba( {sanoma-learning.color.palette.green.400}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.palette.green.400}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.palette.green.400}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1377,12 +1377,12 @@
           },
           "grey": {
             "subtlest": {
-              "value": "rgba( {sanoma-learning.color.palette.grey.700}, {opacity.subtlest})",
+              "value": "rgba( {sanoma-learning.color.palette.grey.700}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.palette.grey.700}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.palette.grey.700}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1406,12 +1406,12 @@
           },
           "orange": {
             "subtlest": {
-              "value": "rgba( {sanoma-learning.color.palette.orange.400}, {opacity.subtlest})",
+              "value": "rgba( {sanoma-learning.color.palette.orange.400}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.palette.orange.400}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.palette.orange.400}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1435,12 +1435,12 @@
           },
           "purple": {
             "subtlest": {
-              "value": "rgba( {sanoma-learning.color.palette.purple.400}, {opacity.subtlest})",
+              "value": "rgba( {sanoma-learning.color.palette.purple.400}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.palette.purple.400}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.palette.purple.400}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1464,12 +1464,12 @@
           },
           "red": {
             "subtlest": {
-              "value": "rgba( {sanoma-learning.color.palette.red.400}, {opacity.subtlest})",
+              "value": "rgba( {sanoma-learning.color.palette.red.400}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.palette.red.400}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.palette.red.400}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1493,12 +1493,12 @@
           },
           "teal": {
             "subtlest": {
-              "value": "rgba( {sanoma-learning.color.palette.teal.400}, {opacity.subtlest})",
+              "value": "rgba( {sanoma-learning.color.palette.teal.400}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.palette.teal.400}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.palette.teal.400}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1522,12 +1522,12 @@
           },
           "yellow": {
             "subtlest": {
-              "value": "rgba( {sanoma-learning.color.palette.yellow.400}, {opacity.subtlest})",
+              "value": "rgba( {sanoma-learning.color.palette.yellow.400}, {sanoma-learning.opacity.subtlest})",
               "type": "color",
               "description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({sanoma-learning.color.palette.yellow.400}, {opacity.subtle})",
+              "value": "rgba({sanoma-learning.color.palette.yellow.400}, {sanoma-learning.opacity.subtle})",
               "type": "color",
               "description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
@@ -1554,7 +1554,7 @@
     },
     "blanket": {
       "plain": {
-        "value": "rgba({sanoma-learning.color.palette.grey.900}, {opacity.light.moderate})",
+        "value": "rgba({sanoma-learning.color.palette.grey.900}, {sanoma-learning.opacity.moderate})",
         "type": "color",
         "description": "Use for screen overlay that appears with dialogs or drawers."
       }
@@ -1605,7 +1605,7 @@
             "y": "0",
             "blur": "15",
             "spread": "0",
-            "color": "rgba({sanoma-learning.color.palette.grey.700}, {opacity.subtlest})",
+            "color": "rgba({sanoma-learning.color.palette.grey.700}, {sanoma-learning.opacity.subtlest})",
             "type": "dropShadow"
           },
           "type": "boxShadow",
@@ -1617,7 +1617,7 @@
             "y": "0",
             "blur": "10",
             "spread": "0",
-            "color": "rgba({sanoma-learning.color.palette.grey.900}, {opacity.subtle})",
+            "color": "rgba({sanoma-learning.color.palette.grey.900}, {sanoma-learning.opacity.subtle})",
             "type": "dropShadow"
           },
           "type": "boxShadow",

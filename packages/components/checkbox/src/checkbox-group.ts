@@ -137,10 +137,14 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
     if (changes.has('value')) {
       this.#observer.disconnect();
       this.boxes?.forEach((box, index) => {
-        if (box.value !== undefined) {
+        if (box.value != null) {
           box.checked = this.value?.includes(box.value) ?? false;
         } else {
-          box.formValue = this.value?.at(index) ?? null;
+          const newValue = this.value?.at(index) ?? null;
+          // to prevent unnecessary updates
+          if (box.formValue !== newValue) {
+            box.formValue = newValue;
+          }
         }
       });
       this.#observer.observe(this, OBSERVER_OPTIONS);

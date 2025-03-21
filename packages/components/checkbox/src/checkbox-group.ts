@@ -201,8 +201,6 @@ export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
 
     this.#observer.disconnect();
 
-    console.log('boxes on slotchange', this.boxes);
-
     this.boxes?.forEach((box, index) => {
       box.name = this.name;
 

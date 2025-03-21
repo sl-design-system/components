@@ -1,5 +1,15 @@
 # @sl-design-system/message-dialog
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1866](https://github.com/sl-design-system/components/pull/1866) [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb) - Replace generic `unknown` type with `any` to be more forgiving
+
+- Updated dependencies []:
+  - @sl-design-system/button@1.2.1
+  - @sl-design-system/dialog@1.2.1
+
 ## 1.0.0
 
 ### Major Changes

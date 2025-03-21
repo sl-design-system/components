@@ -1,5 +1,19 @@
 # @sl-design-system/grid
 
+## 0.3.3
+
+### Patch Changes
+
+- [#1866](https://github.com/sl-design-system/components/pull/1866) [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb) - Replace generic `unknown` type with `any` to be more forgiving
+
+- Updated dependencies [[`fa0b85d`](https://github.com/sl-design-system/components/commit/fa0b85d46c08018cd43de432c3a9705e7aede2c8), [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb)]:
+  - @sl-design-system/shared@0.6.0
+  - @sl-design-system/data-source@0.1.1
+  - @sl-design-system/checkbox@2.1.2
+  - @sl-design-system/popover@1.2.1
+  - @sl-design-system/select@2.0.2
+  - @sl-design-system/text-field@1.6.2
+
 ## 0.3.2
 
 ### Patch Changes

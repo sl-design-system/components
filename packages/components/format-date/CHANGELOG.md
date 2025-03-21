@@ -1,5 +1,16 @@
 # @sl-design-system/format-date
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1593](https://github.com/sl-design-system/components/pull/1593) [`fa0b85d`](https://github.com/sl-design-system/components/commit/fa0b85d46c08018cd43de432c3a9705e7aede2c8) - Export the `format()` method
+
+### Patch Changes
+
+- Updated dependencies [[`fa0b85d`](https://github.com/sl-design-system/components/commit/fa0b85d46c08018cd43de432c3a9705e7aede2c8), [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb)]:
+  - @sl-design-system/shared@0.6.0
+
 ## 0.0.4
 
 ### Patch Changes

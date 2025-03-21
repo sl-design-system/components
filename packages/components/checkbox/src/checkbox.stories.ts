@@ -281,16 +281,6 @@ export const CustomAsyncValidity: Story = {
   }
 };
 
-export const NullValue: Story = {
-  render: () => {
-    return html`
-      <sl-form>
-        <sl-checkbox .value=${null}> check me </sl-checkbox>
-      </sl-form>
-    `;
-  }
-}; // <sl-checkbox required .value=${null}>I agree to all terms &amp; conditions</sl-checkbox>
-
 export const All: Story = {
   render: () => {
     return html`

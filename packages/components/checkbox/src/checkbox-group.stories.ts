@@ -172,14 +172,12 @@ export const NullValue: Story = {
       </sl-form>
 
       <sl-form-field hint="helper text" label="Example label">
-            <sl-checkbox-group
-              label="Example label"
-            >
-                <sl-checkbox value=${null}>Option 1</sl-checkbox>
-                <sl-checkbox .value=${1}>Option 2</sl-checkbox>
-                <sl-checkbox value="2">Option 3</sl-checkbox>
-                <sl-checkbox disabled value="3">Option 4</sl-checkbox>
-            </sl-checkbox-group>
+        <sl-checkbox-group label="Example label">
+          <sl-checkbox .value=${null}>Option 1</sl-checkbox>
+          <sl-checkbox .value=${1}>Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
+          <sl-checkbox .value=${null}>Option 4</sl-checkbox>
+        </sl-checkbox-group>
       </sl-form-field>
     `;
   }

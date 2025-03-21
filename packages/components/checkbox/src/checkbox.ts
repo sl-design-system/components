@@ -112,7 +112,8 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   override get formValue(): T | null {
     console.log('getter formValue', this.value, this.checked ? ((this.value ?? true) as T) : null);
-    return this.checked ? ((this.value ?? '') /*true*/ as T) : null; // TODO: maybe '' instead of true? to have it consistent with checkbox group!
+    // return this.checked ? ((this.value ?? '') /*true*/ as T) : null; // TODO: maybe '' instead of true? to have it consistent with checkbox group!
+    return this.checked ? ((this.value ?? true) as T) : null;
   }
 
   override set formValue(value: T | null) {

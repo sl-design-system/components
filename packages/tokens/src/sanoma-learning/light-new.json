@@ -1136,7 +1136,7 @@
         },
         "interactive": {
           "bold": {
-            "value": "{color.palette.grey.600}",
+            "value": "{color.background.accent.grey.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
@@ -1287,7 +1287,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.background.accent.blue.bold}",
+              "value": "{color.palette.accent.300}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1324,12 +1324,12 @@
         },
         "grey": {
           "subtlest": {
-            "value": "rgba( {color.palette.grey.700}, {opacity.subtlest})",
+            "value": "rgba( {color.palette.grey.400}, {opacity.subtlest})",
             "type": "color",
             "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.grey.700}, {opacity.subtle})",
+            "value": "rgba({color.palette.grey.400}, {opacity.subtle})",
             "type": "color",
             "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },

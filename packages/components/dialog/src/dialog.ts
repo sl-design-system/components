@@ -3,7 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, FocusTrapController, event } from '@sl-design-system/shared';
+import { type EventEmitter, FocusTrapController, MediaController, event } from '@sl-design-system/shared';
 import {
   type CSSResult,
   type CSSResultGroup,
@@ -67,6 +67,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** The controller that manages the focus trap within the dialog. */
   #focusTrap = new FocusTrapController(this);
+
+  /** Responsive behavior utility. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #media = new MediaController(this);
 
   /**
    * @internal Emits when the dialog has been cancelled. This happens when the

@@ -12,12 +12,11 @@ dialog {
   box-sizing: border-box;
   color: var(--sl-color-foreground-plain);
   flex-direction: column;
-  gap: var(--sl-size-200);
   margin: auto auto 0;
   max-block-size: calc(100dvh - var(--sl-size-400));
   min-inline-size: 100dvw;
   overflow: visible;
-  padding: var(--sl-size-300);
+  padding: 0;
 
   &[open] {
     display: flex;
@@ -115,8 +114,8 @@ dialog {
   align-items: start;
   display: flex;
   justify-content: space-between;
-  padding-block-start: var(--_padding);
-  padding-inline: var(--_padding);
+  padding-block-start: var(--sl-size-300);
+  padding-inline: var(--sl-size-300);
 }
 
 [part='titles'] {
@@ -155,13 +154,12 @@ sl-button {
 
 [part='body'] {
   overflow: auto;
-  padding-block: var(--_padding);
-  padding-inline: var(--_padding);
+  padding: var(--sl-size-200) var(--sl-size-300);
 }
 
 [part='footer'] {
-  padding-block-end: var(--_padding);
-  padding-inline: var(--_padding);
+  padding-block-end: var(--sl-size-300);
+  padding-inline: var(--sl-size-300);
 }
 
 [part='footer-bar'] {

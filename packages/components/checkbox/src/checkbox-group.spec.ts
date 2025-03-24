@@ -308,6 +308,38 @@ describe('sl-checkbox-group', () => {
     });
   });
 
+  describe('null/undefined values', () => {
+    let el: CheckboxGroup;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox .value=${null}>Option 1</sl-checkbox>
+          <sl-checkbox .value=${undefined}>Option 2</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+    });
+
+    it('should have proper values', () => {
+      expect(el.querySelectorAll('sl-checkbox')[0].value).to.equal(null);
+      expect(el.querySelectorAll('sl-checkbox')[1].value).to.equal(undefined);
+    });
+
+    it('should have a value of true when the checkbox with null value is checked', async () => {
+      el.querySelector('sl-checkbox')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.value).to.deep.equal([true, null]);
+    });
+
+    it('should have a value of true when the checkbox with undefined value is checked', async () => {
+      el.querySelectorAll('sl-checkbox')[1]?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.value).to.deep.equal([null, true]);
+    });
+  });
+
   describe('form integration', () => {
     let el: FormIntegrationTestComponent;
 

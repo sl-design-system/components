@@ -179,12 +179,12 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       >
         ${this.renderer?.(item) ??
         html`
-          ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+          ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
           <span>${item.label}</span>
         `}
       </sl-tree-node>
     `;
-  }
+  } // TODO: check a11y
 
   scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
     const index = this.dataSource?.items.indexOf(node) ?? -1;
@@ -194,6 +194,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onChange(event: SlChangeEvent<boolean>, node: TreeDataSourceNode<T>): void {
+    console.log('event on change', event, node);
     if (event.detail) {
       this.dataSource?.select(node);
     } else {

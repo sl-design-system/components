@@ -242,6 +242,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * toggle the expanded state.
    */
   #onClick(event: Event): void {
+    console.log('on click event on tree node', event, event.target, this.checked); // TODO: or maybe onchange instead of onclick?
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
     const insideWrapper = !!event

@@ -29,5 +29,5 @@
 [part='guide'] {
   background: currentcolor;
   inline-size: var(--sl-size-borderWidth-default);
-  margin-inline-start: var(--sl-size-150);
+  margin-inline: var(--sl-size-150) var(--sl-size-050); // TODO: 10px? so 16px in total, including line, merge to one margin-inline?
 }

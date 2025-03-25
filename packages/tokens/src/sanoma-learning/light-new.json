@@ -791,7 +791,7 @@
         "description": "Use for borders on bold backgrounds."
       },
       "disabled": {
-        "value": "{color.foreground.disabled}",
+        "value": "{color.border.accent.grey.faint}",
         "type": "color",
         "description": "Use for borders of elements in a disabled state."
       },
@@ -931,7 +931,7 @@
         },
         "grey": {
           "faint": {
-            "value": "{color.palette.grey.100}",
+            "value": "{color.palette.grey.150}",
             "type": "color",
             "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
           },

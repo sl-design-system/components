@@ -550,7 +550,7 @@
       "accent": {
         "blue": {
           "plain": {
-            "value": "{color.palette.blue.400}",
+            "value": "{color.background.accent.blue.bold}",
             "type": "color",
             "description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -567,7 +567,7 @@
         },
         "green": {
           "plain": {
-            "value": "{color.palette.green.400}",
+            "value": "{color.background.accent.green.bold}",
             "type": "color",
             "description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -621,7 +621,7 @@
         },
         "orange": {
           "plain": {
-            "value": "{color.palette.orange.400}",
+            "value": "{color.background.accent.orange.bold}",
             "type": "color",
             "description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -638,7 +638,7 @@
         },
         "purple": {
           "plain": {
-            "value": "{color.palette.purple.500}",
+            "value": "{color.background.accent.purple.bold}",
             "type": "color",
             "description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -655,7 +655,7 @@
         },
         "red": {
           "plain": {
-            "value": "{color.palette.red.500}",
+            "value": "{color.background.accent.red.bold}",
             "type": "color",
             "description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -672,7 +672,7 @@
         },
         "teal": {
           "plain": {
-            "value": "{color.palette.teal.300}",
+            "value": "{color.background.accent.teal.bold}",
             "type": "color",
             "description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -689,7 +689,7 @@
         },
         "yellow": {
           "plain": {
-            "value": "{color.palette.yellow.300}",
+            "value": "{color.palette.yellow.600}",
             "type": "color",
             "description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
           },
@@ -1001,7 +1001,7 @@
         },
         "yellow": {
           "plain": {
-            "value": "{color.background.accent.yellow.bold}",
+            "value": "{color.foreground.accent.yellow.plain}",
             "type": "color",
             "description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
           },

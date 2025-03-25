@@ -220,7 +220,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         )}
       </div>
     `;
-  }
+  } // TODO: separate slot for badges or not?
 
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;

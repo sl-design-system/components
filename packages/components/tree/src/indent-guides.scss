@@ -20,10 +20,10 @@
     border-end-start-radius: var(--sl-size-050);
     border-inline-start: var(--sl-size-borderWidth-default) solid currentcolor;
     content: '';
-    inline-size: var(--sl-size-050);
+    inline-size: 8px; // var(--sl-size-050);
     inset: 100% auto auto 0;
     position: absolute;
-  }
+  } // TODO: use token color?
 }
 
 [part='guide'] {

@@ -14,6 +14,7 @@
   display: flex;
   gap: var(--sl-size-075);
   inline-size: 100%;
+  margin-block: var(--sl-size-025); // TODO: necessary?
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
   scroll-margin-block: var(--sl-size-100);
@@ -51,6 +52,7 @@
   --_bg-mix-color: var(
     --sl-color-background-selected-interactive-plain
   ); // var(--sl-color-background-selected-interactive-bold);
+
   --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle); // var(--sl-opacity-light-interactive-bold-idle);
 
   color: var(--sl-color-foreground-bold); // var(--sl-color-foreground-selected-onBold);
@@ -80,6 +82,7 @@
 
 sl-indent-guides {
   align-self: stretch;
+  margin-block: calc(var(--sl-size-025) * -1);
 }
 
 .expander {
@@ -95,6 +98,8 @@ sl-indent-guides {
   display: flex;
   flex: 1;
   gap: var(--sl-size-075);
+  justify-content: space-between;
+  padding-inline-end: var(--sl-size-050);
 }
 
 [part='content'] {
@@ -106,9 +111,9 @@ sl-indent-guides {
   padding-inline: 0 var(--sl-size-100);
 }
 
-::slotted(*) {
-  flex: 1;
-}
+// ::slotted(*) {
+//  flex: 1; // TODO: it breaks badges, is it really necessary?
+// }
 
 ::slotted(sl-icon) {
   flex: 0 1;
@@ -137,9 +142,13 @@ sl-checkbox {
 
 sl-button-bar {
   display: none;
-  margin-inline: auto var(--sl-size-050);
+  margin-inline-start: auto;
+
+  // margin-inline: auto var(--sl-size-050);
 }
 
 sl-skeleton {
   block-size: 1lh;
 }
+
+// TODO: margin-inline: auto var(--sl-size-050); for aside slot?

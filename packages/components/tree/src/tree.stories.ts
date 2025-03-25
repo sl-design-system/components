@@ -1,4 +1,5 @@
 import { faFile, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { Badge } from '@sl-design-system/badge';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ButtonBar } from '@sl-design-system/button-bar';
@@ -385,7 +386,7 @@ export const Scrolling: Story = {
   }
 };
 
-export const CustomRenderer: Story = {
+export const CustomRendererWithActionButtons: Story = {
   args: {
     ...FlatDataSource.args,
     renderer: node => {
@@ -410,3 +411,32 @@ export const CustomRenderer: Story = {
     }
   }
 };
+
+export const CustomRendererWithBadges: Story = {
+  args: {
+    ...FlatDataSource.args,
+    renderer: node => {
+      const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      return html`
+        ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+        <span>${node.label}</span>
+
+        <sl-badge color="blue" slot="aside">99</sl-badge>
+      `;
+    },
+    scopedElements: {
+      'sl-badge': Badge,
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
+    }
+  }
+};
+
+// <sl-button fill="ghost" size="sm" slot="actions">
+//   <sl-icon name="far-pen"></sl-icon>
+//   </sl-button>
+//   <sl-button fill="ghost" size="sm" slot="actions">
+//   <sl-icon name="far-trash"></sl-icon>
+//   </sl-button>

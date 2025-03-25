@@ -396,7 +396,7 @@
         "description": "Use for placeholders and hints."
       },
       "disabled": {
-        "value": "{color.palette.grey.400}",
+        "value": "{color.palette.grey.500}",
         "type": "color",
         "description": "Use for text in a disabled state."
       },
@@ -1015,13 +1015,13 @@
     },
     "background": {
       "disabled": {
-        "value": "{color.palette.grey.050}",
+        "value": "{color.palette.grey.100}",
         "type": "color",
         "description": "Use for backgrounds of elements in disabled state."
       },
       "input": {
         "plain": {
-          "value": "{color.palette.grey.050}",
+          "value": "{color.palette.grey.000}",
           "type": "color",
           "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
         },
@@ -1345,7 +1345,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.500}",
+              "value": "{color.palette.grey.400}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }

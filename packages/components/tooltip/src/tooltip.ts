@@ -216,7 +216,6 @@ export class Tooltip extends LitElement {
       insetInlineStart;
 
     if (actualPlacement.startsWith('top') || actualPlacement.startsWith('bottom')) {
-      // insetBlockStart = Math.floor(Math.min(tooltipRect.top, anchorRect.top));
       anchorInsetBlockStart = Math.floor(anchorRect.left - tooltipRect.left);
       inlineSize = Math.ceil(Math.max(tooltipRect.width, anchorRect.width));
       insetInlineStart = Math.ceil(Math.min(tooltipRect.left, anchorRect.left));
@@ -232,8 +231,22 @@ export class Tooltip extends LitElement {
       polygon = `${anchorInsetBlockStart}px 0, ${anchorInsetBlockStart + anchorRect.width}px 0, 100% 100%, 0 100%`;
       insetBlockStart = anchorRect.bottom - 1;
     }
+    if (actualPlacement.startsWith('left') || actualPlacement.startsWith('right')) {
+      blockSize = Math.ceil(Math.max(tooltipRect.height, anchorRect.height)) + 2;
+      insetBlockStart = Math.min(anchorRect.top, tooltipRect.top) - 1;
+      anchorInsetBlockStart = anchorRect.top;
+    }
 
-    console.log(tooltipRect, anchorRect, insetBlockStart, blockSize, anchorInsetBlockStart);
+    if (actualPlacement.startsWith('right')) {
+      inlineSize = Math.ceil(tooltipRect.left - anchorRect.right) + 2;
+      insetInlineStart = Math.ceil(Math.min(tooltipRect.left, anchorRect.right)) - 1;
+      const anchorSideBlockStart = Math.max(anchorRect.top - tooltipRect.top, 0);
+      polygon = `0 ${anchorSideBlockStart}px , 100% ${Math.max(tooltipRect.top - anchorRect.top, 0)}px,
+                 100% 100%, 0 ${anchorSideBlockStart + anchorRect.height}px`;
+      console.log(anchorRect.top - tooltipRect.top, polygon);
+    }
+
+    // console.log(tooltipRect, anchorRect, insetBlockStart, blockSize, anchorInsetBlockStart);
     // let inlineSize = 0,
     //   inset = '',
     //   polygon = '';

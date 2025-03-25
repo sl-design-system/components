@@ -13,7 +13,7 @@
   --_border-compensation: var(--_toggle-group-border, var(--_border-width));
 
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-  border: var(--_border-width) solid var(--sl-color-border-neutral-bold);
+  border: var(--_border-width) solid var(--sl-color-border-plain);
   border-radius: var(--_button-border-radius);
   color: var(--sl-color-foreground-neutral-bold);
   cursor: pointer;
@@ -48,11 +48,11 @@
 }
 
 :host([pressed]) {
-  --_bg-color: var(--sl-color-background-selected-subtle);
-  --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
 
   border-color: var(--sl-color-border-selected);
-  color: var(--sl-color-foreground-selected-bold);
+  color: var(--sl-color-foreground-selected-onBold);
 }
 
 :host([disabled]),

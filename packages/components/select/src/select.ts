@@ -80,6 +80,9 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState?: T;
 
+  /** Detect when options are added to the host, or a nested option group and clear the cache. */
+  #observer = new MutationObserver(() => this.#rovingTabindexController.clearElementCache());
+
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
 
@@ -192,8 +195,16 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     this.setFormControlElement(this);
     this.setAttributesTarget(this.button);
 
+    this.#observer.observe(this, { childList: true, subtree: true });
+
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   /** @ignore Stores the initial state of the select */
@@ -332,9 +343,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
 
   #onFocusout(event: FocusEvent): void {
     const leavingComponent =
-      !event.relatedTarget ||
-      (event.relatedTarget !== this.button &&
-        (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this));
+      event.relatedTarget !== this.button &&
+      (!(event.relatedTarget instanceof Element) || event.relatedTarget?.closest('sl-select') !== this);
 
     if (leavingComponent) {
       if (this.listbox?.matches(':popover-open')) {

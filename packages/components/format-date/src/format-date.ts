@@ -12,7 +12,6 @@ declare global {
 /**
  * A format date component for formatting date and time.
  *
- *
  * @slot default - A place for the fallback when there is no valid date/time applied.
  */
 export class FormatDate extends LocaleMixin(LitElement) {
@@ -32,6 +31,7 @@ export class FormatDate extends LocaleMixin(LitElement) {
    */
   static timeStyle: Intl.DateTimeFormatOptions['timeStyle'] = 'medium';
 
+  /** The date object. */
   #date?: Date;
 
   /**

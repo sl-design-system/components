@@ -295,6 +295,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #onClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab');
+
     if (!tab) {
       return;
     }
@@ -317,6 +318,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onMenuItemClick(tab: Tab): void {
+    if (tab.href) {
+      tab.renderRoot.querySelector('a')?.click();
+    }
+
     this.#updateSelectedTab(tab);
   }
 

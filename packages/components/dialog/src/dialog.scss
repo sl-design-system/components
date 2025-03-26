@@ -22,21 +22,6 @@ dialog {
     display: flex;
   }
 
-  @media (width > 600px) {
-    margin: auto;
-    max-inline-size: calc(100dvw - var(--sl-size-600));
-    min-inline-size: auto;
-
-    @starting-style {
-      display: flex;
-      scale: 1.1;
-    }
-
-    &:not(:modal) {
-      scale: 0.7;
-    }
-  }
-
   &:focus-visible {
     outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
@@ -44,19 +29,6 @@ dialog {
 }
 
 @media (width <= 600px) {
-  @media (prefers-reduced-motion: no-preference) {
-    dialog,
-    dialog::backdrop {
-      transition: 0.2s ease-in-out;
-      transition-behavior: allow-discrete;
-      transition-property: display, opacity, overlay, translate;
-
-      @supports not (overlay: auto) {
-        transition-duration: 0s;
-      }
-    }
-  }
-
   dialog {
     border: 0;
     border-radius: var(--sl-size-borderRadius-default) var(--sl-size-borderRadius-default) 0 0;
@@ -85,30 +57,66 @@ dialog {
       opacity: 0;
     }
   }
+
+  @media (prefers-reduced-motion: no-preference) {
+    dialog,
+    dialog::backdrop {
+      transition: 0.2s ease-in-out;
+      transition-behavior: allow-discrete;
+      transition-property: display, opacity, overlay, translate;
+
+      @supports not (overlay: auto) {
+        transition-duration: 0s;
+      }
+    }
+  }
 }
 
-// dialog,
-// dialog::backdrop {
-//   @media (prefers-reduced-motion: no-preference) {
-//     transition: 0.2s ease-in-out;
-//     transition-behavior: allow-discrete;
-//     transition-property: display, opacity, overlay, scale, translate;
-//   }
+@media (width > 600px) {
+  dialog {
+    margin: auto;
+    max-inline-size: calc(100dvw - var(--sl-size-600));
+    min-inline-size: auto;
 
-//   @supports not (overlay: auto) {
-//     transition-duration: 0s;
-//   }
-// }
+    // Exit animation
+    &:not(:modal) {
+      opacity: 0;
+      scale: 0.7;
+    }
 
-// dialog[open],
-// dialog[open]::backdrop {
-//   opacity: 1;
-//   transition-duration: 0.5s;
+    // Enter animation
+    @starting-style {
+      display: flex;
+      scale: 1.1;
+    }
+  }
 
-//   @starting-style {
-//     opacity: 0;
-//   }
-// }
+  dialog::backdrop {
+    opacity: 0;
+  }
+
+  dialog[open]::backdrop {
+    opacity: 1;
+    transition-duration: 0.5s;
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    dialog,
+    dialog::backdrop {
+      transition: 0.4s ease-in-out;
+      transition-behavior: allow-discrete;
+      transition-property: display, opacity, overlay, scale;
+
+      @supports not (overlay: auto) {
+        transition-duration: 0s;
+      }
+    }
+  }
+}
 
 [part='header'] {
   align-items: start;

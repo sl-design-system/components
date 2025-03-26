@@ -228,6 +228,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onChange(event: SlChangeEvent<boolean>): void {
+    console.log('on change event on tree node', event, event.detail);
     event.preventDefault();
     event.stopPropagation();
 

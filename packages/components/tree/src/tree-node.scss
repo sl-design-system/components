@@ -12,11 +12,13 @@
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: flex;
-  gap: var(--sl-size-075);
+
+  // gap: var(--sl-size-075);
   inline-size: 100%;
   margin-block: var(--sl-size-025); // TODO: necessary?
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
+  padding-inline-start: var(--sl-size-050); // 4px;
   scroll-margin-block: var(--sl-size-100);
 
   @media (prefers-reduced-motion: no-preference) {
@@ -91,6 +93,7 @@ sl-indent-guides {
   display: inline-flex;
   inline-size: 24px;
   justify-content: center;
+  margin-inline-end: var(--sl-size-025);
 }
 
 [part='wrapper'] {
@@ -105,7 +108,7 @@ sl-indent-guides {
 [part='content'] {
   align-items: center;
   display: flex;
-  gap: var(--sl-size-075);
+  gap: var(--sl-size-025); // var(--sl-size-075);
   line-height: 20px; // TODO: change...
   padding-block: var(--sl-size-075);
   padding-inline: 0 var(--sl-size-100);
@@ -117,6 +120,7 @@ sl-indent-guides {
 
 ::slotted(sl-icon) {
   flex: 0 1;
+  padding: 3px;
   vertical-align: bottom;
 }
 
@@ -130,12 +134,13 @@ sl-icon {
 
 sl-checkbox {
   align-items: center;
+  gap: var(--sl-size-075);
   padding-block: var(--sl-size-075);
 
   &::part(label) {
     align-items: center;
     display: inline-flex;
-    gap: var(--sl-size-050);
+    gap: var(--sl-size-025); // var(--sl-size-050);
     margin: 0;
   }
 }

@@ -78,10 +78,8 @@ export class Popover extends LitElement {
         <slot></slot>
       </div>
       <div class="arrow" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" clip-rule="evenodd" viewBox="0 0 16 6">
-          <path
-            d="M14.48 5.911c.196.191.429.338.685.434.266.104.549.156.835.155H0c.424.002.841-.116 1.202-.339.114-.073.221-.156.317-.25l1.239-1.205L3.998 3.5l1.239-1.205 1.239-1.206c.202-.196.443-.343.703-.441C7.441.549 7.72.499 8 .5c.28 0 .56.049.82.148.261.098.501.245.703.441l1.239 1.206L12.001 3.5l1.239 1.206 1.24 1.205"
-          />
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" clip-rule="evenodd" viewBox="0 0 20 11">
+          <path d="M0 11 20 11 10 1 0 11" paint-order="stroke" />
         </svg>
       </div>
     `;

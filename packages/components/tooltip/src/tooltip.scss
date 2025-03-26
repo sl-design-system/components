@@ -82,15 +82,6 @@
   inset-inline-start: calc(var(--_arrow-block-size) * -1);
 }
 
-:host:hover .safe-triangle {
-  display: block;
-}
-
 .safe-triangle {
-  // display: none;
   position: fixed;
-
-  &:hover + [part='wrapper'] {
-    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-  }
 }

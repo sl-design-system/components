@@ -397,10 +397,8 @@ export const All: Story = {
           </sl-toggle-button>`;
       };
       const text = (buttonoptions: string[]) => {
-        return html`<sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
-            Read
-          </sl-toggle-button>
-          <sl-toggle-button aria-label="Italic"> Write </sl-toggle-button>`;
+        return html`<sl-toggle-button ?pressed=${buttonoptions.includes('pressed')}>Read</sl-toggle-button>
+          <sl-toggle-button>Write</sl-toggle-button>`;
       };
       return html`
         <tr>

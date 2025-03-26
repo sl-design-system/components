@@ -66,6 +66,10 @@
   pointer-events: none;
 }
 
+:host([disabled][pressed]) {
+  --_bg-color: var(--sl-color-background-disabled);
+}
+
 :host(:where(:active, :focus-visible, :hover)) {
   transition-duration: var(--_transition-duration);
   transition-property: border-color, color, outline-color;

@@ -18912,25 +18912,5 @@
       "text.tag.label.lg": "S:b88d11c9bfff8a6dd30ec4bf909ac831e8bb786c,"
     },
     "$figmaVariableReferences": {}
-  },
-  {
-    "id": "3e95e3d145400de446a87f8c6c1267ed940a966b",
-    "name": "light",
-    "$figmaStyleReferences": {},
-    "selectedTokenSets": {
-      "primitives": "source",
-      "system": "source"
-    },
-    "group": "xxx-yyy"
-  },
-  {
-    "id": "5255c80ae6939c6693377d035443b9925ecf2f03",
-    "name": "dark",
-    "$figmaStyleReferences": {},
-    "selectedTokenSets": {
-      "primitives": "source",
-      "system": "source"
-    },
-    "group": "xxx-yyy"
   }
 ]

@@ -4,6 +4,7 @@
   --_icon-color: currentcolor;
 
   display: block;
+  font-weight: normal; // when using 'inherit' it inherits from the table header, which is bold
   inline-size: 100%;
 }
 
@@ -27,24 +28,24 @@ sl-popover {
 
 header {
   align-items: center;
+  background: var(--sl-elevation-surface-raised-default);
   border-block-end: 1px solid var(--sl-color-elevation-border-raised);
   display: flex;
+  font-weight: var(--sl-font-weight-semibold);
   gap: 0.5rem;
+  inset-block-start: calc(var(--sl-size-300) * -1);
   justify-content: space-between;
-  padding-block: 0.25rem;
-  padding-inline: 0.5rem;
+  margin-block: calc(var(--sl-size-300) * -1) var(--sl-size-200);
+  padding-block-start: var(--sl-size-300);
+  position: sticky;
+  z-index: 1;
 }
 
 h1 {
-  font: var(--sl-text-body-md-normal);
+  font: var(--sl-text-body-md-demibold);
   margin: 0;
 
   span {
     text-transform: lowercase;
   }
-}
-
-sl-checkbox-group,
-sl-text-field {
-  margin: 0.5rem;
 }

@@ -95,6 +95,50 @@ export const NoDescribedBy: Story = {
   }
 };
 
+export const VerticalOverflow: Story = {
+  args: {
+    body: () => {
+      return html`Lorem<br />
+        ipsum<br />
+        dolor<br />
+        sit<br />
+        amet,<br />
+        qui<br />
+        deserunt<br />
+        esse<br />
+        minim<br />
+        cillum<br />
+        nostrud<br />
+        exercitation<br />
+        veniam<br />
+        consequat<br />
+        pariatur<br />
+        exercitation<br />
+        laborum<br />
+        nostrud<br />
+        culpa<br />
+        sunt<br />
+        exercitation<br />
+        pariatur.<br />
+        Nisi<br />
+        ipsum<br />
+        est<br />
+        ullamco<br />
+        nostrud<br />
+        sit<br />
+        pariatur.<br />
+        Ex<br />
+        nisi<br />
+        ipsum<br />
+        et<br />
+        est<br />
+        nulla<br />
+        ex<br />
+        ex.`;
+    }
+  }
+};
+
 export const RichContent: Story = {
   args: {
     body: () => {
@@ -158,7 +202,7 @@ export const All: Story = {
       </div>
 
       <div>
-        <sl-button id="anchor2" variant="primary" style="width: 72px">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
+        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
         <sl-popover anchor="anchor2" popover="manual" position="right">Right <br> example</sl-popover>
         <sl-popover anchor="anchor2" popover="manual" position="right-start">Right <br> start <br> example</sl-popover>
         <sl-popover anchor="anchor2" popover="manual" position="right-end">Right <br> end <br> example</sl-popover>

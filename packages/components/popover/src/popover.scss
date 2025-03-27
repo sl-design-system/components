@@ -6,13 +6,13 @@
   border: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);
-  box-sizing: border-box;
+  box-sizing: content-box;
   color: var(--sl-color-foreground-plain);
   margin: 0;
   max-inline-size: var(--sl-popover-max-inline-size, 80vw);
   opacity: 0;
   overflow: visible;
-  padding: var(--sl-size-300);
+  padding: 0;
 
   @media (prefers-reduced-motion: no-preference) {
     transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
@@ -34,6 +34,13 @@
     padding: var(--sl-size-100) var(--sl-size-150) !important;
     position: fixed;
   }
+}
+
+.container {
+  box-sizing: border-box;
+  max-block-size: inherit;
+  overflow: auto;
+  padding: var(--sl-size-300);
 }
 
 /* stylelint-disable-next-line selector-class-pattern */

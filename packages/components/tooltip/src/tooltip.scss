@@ -42,8 +42,6 @@
 .arrow {
   background-color: inherit;
   block-size: var(--_arrow-block-size);
-
-  // z-index: -1;
   clip-path: polygon(0 100%, 100% 100%, 50% 0);
   display: flex;
   inline-size: var(--_arrow-inline-size);

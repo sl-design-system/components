@@ -74,5 +74,8 @@ export const templates = {
   sf3fe911c549b0fcd: 'Toon kalender',
   sf677da98fa27f9b6: 'Meer links',
   sf7290005be5beae6: str`${0}, pagina`,
-  sfc5e976d64c3fb31: 'Voer een geldig getal in.'
+  sfc5e976d64c3fb31: 'Voer een geldig getal in.',
+  sa50a6326530d8a0d: 'Show less',
+  s32925d8a3ec3ff42: str`${0} of `,
+  s125a86b2f45bbb25: str`${0} items`
 };

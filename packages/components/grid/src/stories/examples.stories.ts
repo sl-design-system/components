@@ -1,12 +1,12 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
+import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import '@sl-design-system/filter/register.js';
 import '@sl-design-system/form/register.js';
 import { type SlSearchEvent } from '@sl-design-system/search-field';
 import '@sl-design-system/search-field/register.js';
-import { ArrayDataSource } from '@sl-design-system/shared';
 import '@sl-design-system/tabs/register.js';
 import { type StoryObj } from '@storybook/web-components';
 import { type CSSResultGroup, LitElement, type TemplateResult, css, html } from 'lit';
@@ -171,7 +171,7 @@ export const Filtering: Story = {
         }
       `;
 
-      @state() dataSource = new ArrayDataSource(people as Person[]);
+      @state() dataSource = new ArrayListDataSource(people as Person[]);
 
       override render(): TemplateResult {
         return html`

@@ -2,8 +2,8 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
+import { type ListDataSource } from '@sl-design-system/data-source';
 import { FormField, Label } from '@sl-design-system/form';
-import { type DataSource } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -38,7 +38,7 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** The source of information for this component. */
-  #dataSource?: DataSource<T>;
+  #dataSource?: ListDataSource<T>;
 
   /** The filter options. */
   #options: FilterOption[] = [];
@@ -49,7 +49,7 @@ export class FilterGroup<T = unknown> extends ScopedElementsMixin(LitElement) {
 
   /** The data source used for displaying the filter status. */
   @property({ attribute: false })
-  set dataSource(value: DataSource | undefined) {
+  set dataSource(value: ListDataSource | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onUpdate);
     }

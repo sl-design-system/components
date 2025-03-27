@@ -1,13 +1,14 @@
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { type DataSource, type DataSourceFilterByPath, getNameByPath } from '@sl-design-system/shared';
+import { type DataSource, type DataSourceFilterByPath } from '@sl-design-system/data-source';
+import { getNameByPath } from '@sl-design-system/shared';
 import { Tag, TagList } from '@sl-design-system/tag';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import styles from './status.scss.js';
 
-type ActiveFilter = { id: string } & DataSourceFilterByPath;
+type ActiveFilter<T> = { id: string } & DataSourceFilterByPath<T>;
 
 /**
  * Displays the current filter status.
@@ -48,7 +49,7 @@ export class FilterStatus<T = unknown> extends ScopedElementsMixin(LitElement) {
   @state() filteredCount?: number;
 
   /** @internal The active filters. */
-  @state() filters?: ActiveFilter[];
+  @state() filters?: Array<ActiveFilter<T>>;
 
   /** @internal The total number of items in the data source. */
   @state() totalCount = 0;
@@ -87,10 +88,10 @@ export class FilterStatus<T = unknown> extends ScopedElementsMixin(LitElement) {
     this.totalCount = this.dataSource?.size ?? 0;
 
     if (this.dataSource?.filters.size) {
-      this.filteredCount = this.dataSource?.filteredItems.length ?? 0;
+      this.filteredCount = this.dataSource?.items.length ?? 0;
 
       this.filters = Array.from(this.dataSource.filters.entries())
-        .filter((filter): filter is [string, DataSourceFilterByPath] => Object.hasOwn(filter[1], 'path'))
+        .filter((filter): filter is [string, DataSourceFilterByPath<T>] => Object.hasOwn(filter[1], 'path'))
         .map(([id, filter]) => ({ id, ...filter }));
     } else {
       this.filteredCount = undefined;

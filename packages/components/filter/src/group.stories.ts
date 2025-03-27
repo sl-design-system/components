@@ -1,11 +1,13 @@
+import { ArrayListDataSource, type ListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { ArrayDataSource, type DataSource } from '@sl-design-system/shared';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 import { type FilterGroup } from './group.js';
 
-type Props = Pick<FilterGroup, 'label' | 'options' | 'path'> & { dataSource?(people: Person[]): DataSource<Person> };
+type Props = Pick<FilterGroup, 'label' | 'options' | 'path'> & {
+  dataSource?(people: Person[]): ListDataSource<Person>;
+};
 type Story = StoryObj<Props>;
 
 export default {
@@ -32,7 +34,7 @@ export default {
 
 export const Basic: Story = {
   args: {
-    dataSource: people => new ArrayDataSource(people),
+    dataSource: people => new ArrayListDataSource(people),
     label: 'Membership',
     options: ['Regular', 'Premium', 'VIP'],
     path: 'membership'
@@ -43,7 +45,7 @@ export const Filtered: Story = {
   args: {
     ...Basic.args,
     dataSource: people => {
-      const dataSource = new ArrayDataSource(people);
+      const dataSource = new ArrayListDataSource(people);
       dataSource.addFilter('membership-Regular', 'membership', 'Regular');
       dataSource.addFilter('membership-Premium', 'membership', 'Premium');
       dataSource.update();

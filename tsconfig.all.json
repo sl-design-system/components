@@ -35,6 +35,7 @@
     { "path": "./packages/components/editor" },
     { "path": "./packages/components/ellipsize-text" },
     { "path": "./packages/components/emoji" },
+    { "path": "./packages/components/filter" },
     { "path": "./packages/components/form" },
     { "path": "./packages/components/format-date" },
     { "path": "./packages/components/format-number" },

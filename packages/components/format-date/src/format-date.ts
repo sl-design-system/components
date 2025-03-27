@@ -1,7 +1,7 @@
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { format } from './format';
+import { format } from './format.js';
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -1,5 +1,6 @@
 import { msg } from '@lit/localize';
-import { type Constructor, type EventEmitter, event } from '@sl-design-system/shared';
+import { type Constructor } from '@open-wc/dedupe-mixin';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type PropertyValues, type ReactiveElement } from 'lit';
 import { property } from 'lit/decorators.js';
 

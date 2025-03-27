@@ -1,5 +1,5 @@
-import { LitElement } from 'lit';
-import { Constructor } from '../types.js';
+import { type Constructor } from '@open-wc/dedupe-mixin';
+import { type ReactiveElement } from 'lit';
 
 export interface ObserveAttributesMixinInterface {
   setAttributesTarget(target: HTMLElement): void;
@@ -8,7 +8,7 @@ export interface ObserveAttributesMixinInterface {
 /**
  * Mixin that is used to rewrite aria attributes in the component (based on the observedAttributes) to the focusable target element.
  */
-export function ObserveAttributesMixin<T extends Constructor<LitElement>>(
+export function ObserveAttributesMixin<T extends Constructor<ReactiveElement>>(
   constructor: T,
   observedAttributes: string[] = []
 ): T & Constructor<ObserveAttributesMixinInterface> {

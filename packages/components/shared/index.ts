@@ -17,4 +17,3 @@ export * from './src/mixins.js';
 export * from './src/path.js';
 export * from './src/popover.js';
 export * from './src/string.js';
-export * from './src/types.js';

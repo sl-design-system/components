@@ -1,5 +1,17 @@
 # @sl-design-system/checkbox
 
+## 2.1.2
+
+### Patch Changes
+
+- [#1882](https://github.com/sl-design-system/components/pull/1882) [`2eb8a85`](https://github.com/sl-design-system/components/commit/2eb8a857761c43c5be1ba06c5dc4a82a0c6c7151) - Fix the issue with infinite loop when there is a null value. Prevent unnecessary updates, when the value changes in the checkbox-group.
+
+- [#1866](https://github.com/sl-design-system/components/pull/1866) [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb) - Replace generic `unknown` type with `any` to be more forgiving
+
+- Updated dependencies [[`fa0b85d`](https://github.com/sl-design-system/components/commit/fa0b85d46c08018cd43de432c3a9705e7aede2c8), [`0db4860`](https://github.com/sl-design-system/components/commit/0db48604f9cbae73af25a08437a806dc7566273e), [`eaca9d2`](https://github.com/sl-design-system/components/commit/eaca9d24a6086d7a60dc5efc5332f16e80485d36), [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb)]:
+  - @sl-design-system/shared@0.6.0
+  - @sl-design-system/form@1.2.1
+
 ## 2.1.1
 
 ### Patch Changes

@@ -1886,21 +1886,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:7.25.0":
+"@babel/runtime@npm:7.25.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4":
   version: 7.25.0
   resolution: "@babel/runtime@npm:7.25.0"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10c0/bd3faf246170826cef2071a94d7b47b49d532351360ecd17722d03f6713fd93a3eb3dbd9518faa778d5e8ccad7392a7a604e56bd37aaad3f3aa68d619ccd983d
-  languageName: node
-  linkType: hard
-
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.8.4":
-  version: 7.24.6
-  resolution: "@babel/runtime@npm:7.24.6"
-  dependencies:
-    regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/224ad205de33ea28979baaec89eea4c4d4e9482000dd87d15b97859365511cdd4d06517712504024f5d33a5fb9412f9b91c96f1d923974adf9359e1575cde049
   languageName: node
   linkType: hard
 
@@ -3573,13 +3564,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/sourcemap-codec@npm:^1.4.15":
-  version: 1.4.15
-  resolution: "@jridgewell/sourcemap-codec@npm:1.4.15"
-  checksum: 10c0/0c6b5ae663087558039052a626d2d7ed5208da36cfd707dcc5cea4a07cfc918248403dcb5989a8f7afaf245ce0573b7cc6fd94c4a30453bd10e44d9363940ba5
-  languageName: node
-  linkType: hard
-
 "@jridgewell/trace-mapping@npm:^0.3.12, @jridgewell/trace-mapping@npm:^0.3.20, @jridgewell/trace-mapping@npm:^0.3.24, @jridgewell/trace-mapping@npm:^0.3.25, @jridgewell/trace-mapping@npm:^0.3.9":
   version: 0.3.25
   resolution: "@jridgewell/trace-mapping@npm:0.3.25"
@@ -4280,13 +4264,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.21.0"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-android-arm-eabi@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.22.4"
@@ -4298,13 +4275,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.34.6"
   conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-android-arm64@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-android-arm64@npm:4.21.0"
-  conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
@@ -4322,13 +4292,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.21.0"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-darwin-arm64@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-darwin-arm64@npm:4.22.4"
@@ -4340,13 +4303,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-darwin-arm64@npm:4.34.6"
   conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-darwin-x64@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-darwin-x64@npm:4.21.0"
-  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -4378,13 +4334,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.21.0"
-  conditions: os=linux & cpu=arm & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-arm-gnueabihf@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.22.4"
@@ -4396,13 +4345,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.34.6"
   conditions: os=linux & cpu=arm & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-arm-musleabihf@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.21.0"
-  conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
@@ -4420,13 +4362,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.21.0"
-  conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-arm64-gnu@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.22.4"
@@ -4438,13 +4373,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.34.6"
   conditions: os=linux & cpu=arm64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-arm64-musl@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.21.0"
-  conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
@@ -4469,13 +4397,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-powerpc64le-gnu@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.21.0"
-  conditions: os=linux & cpu=ppc64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-powerpc64le-gnu@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.22.4"
@@ -4487,13 +4408,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.34.6"
   conditions: os=linux & cpu=ppc64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-riscv64-gnu@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.21.0"
-  conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -4511,13 +4425,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-s390x-gnu@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.21.0"
-  conditions: os=linux & cpu=s390x & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-s390x-gnu@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.22.4"
@@ -4529,13 +4436,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.34.6"
   conditions: os=linux & cpu=s390x & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-x64-gnu@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.21.0"
-  conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -4553,13 +4453,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-musl@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.21.0"
-  conditions: os=linux & cpu=x64 & libc=musl
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-x64-musl@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-linux-x64-musl@npm:4.22.4"
@@ -4571,13 +4464,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-linux-x64-musl@npm:4.34.6"
   conditions: os=linux & cpu=x64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-win32-arm64-msvc@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.21.0"
-  conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
@@ -4595,13 +4481,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-ia32-msvc@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.21.0"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-win32-ia32-msvc@npm:4.22.4":
   version: 4.22.4
   resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.22.4"
@@ -4613,13 +4492,6 @@ __metadata:
   version: 4.34.6
   resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.34.6"
   conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-win32-x64-msvc@npm:4.21.0":
-  version: 4.21.0
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.21.0"
-  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -4799,7 +4671,7 @@ __metadata:
   resolution: "@sl-design-system/accordion@workspace:packages/components/accordion"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -4847,13 +4719,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/announcer@npm:^0.0.1, @sl-design-system/announcer@workspace:packages/components/announcer":
+"@sl-design-system/announcer@npm:^0.0.2, @sl-design-system/announcer@workspace:packages/components/announcer":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/announcer@workspace:packages/components/announcer"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -4869,8 +4741,8 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/badge": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/tooltip": "npm:^1.1.2"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/tooltip": "npm:^1.1.3"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -4930,22 +4802,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/button@npm:^1.0.0, @sl-design-system/button@npm:^1.0.2, @sl-design-system/button@npm:^1.0.3, @sl-design-system/button@npm:^1.2.0, @sl-design-system/button@workspace:packages/components/button":
+"@sl-design-system/button@npm:^1.0.0, @sl-design-system/button@npm:^1.2.0, @sl-design-system/button@npm:^1.2.1, @sl-design-system/button@workspace:packages/components/button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/button@workspace:packages/components/button"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/calendar@npm:^0.0.0, @sl-design-system/calendar@workspace:packages/components/calendar":
+"@sl-design-system/calendar@npm:^0.0.1, @sl-design-system/calendar@workspace:packages/components/calendar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/calendar@workspace:packages/components/calendar"
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.0.3"
-    "@sl-design-system/format-date": "npm:^0.0.4"
+    "@sl-design-system/button": "npm:^1.2.1"
+    "@sl-design-system/format-date": "npm:^0.1.0"
     "@sl-design-system/icon": "npm:^1.0.2"
     lit: "npm:^3.1.4"
   peerDependencies:
@@ -4965,13 +4837,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@npm:^2.1.0, @sl-design-system/checkbox@npm:^2.1.1, @sl-design-system/checkbox@workspace:packages/components/checkbox":
+"@sl-design-system/checkbox@npm:^2.1.0, @sl-design-system/checkbox@npm:^2.1.2, @sl-design-system/checkbox@workspace:packages/components/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
-    "@sl-design-system/form": "npm:^1.2.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/form": "npm:^1.2.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
   languageName: unknown
@@ -5021,11 +4893,11 @@ __metadata:
   resolution: "@sl-design-system/combobox@workspace:packages/components/combobox"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/form": "npm:^1.2.0"
+    "@sl-design-system/form": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/listbox": "npm:^0.1.0"
-    "@sl-design-system/tag": "npm:^0.1.0"
-    "@sl-design-system/text-field": "npm:^1.6.1"
+    "@sl-design-system/listbox": "npm:^0.1.1"
+    "@sl-design-system/tag": "npm:^0.1.1"
+    "@sl-design-system/text-field": "npm:^1.6.2"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
@@ -5033,11 +4905,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/data-source@npm:^0.1.0, @sl-design-system/data-source@workspace:packages/components/data-source":
+"@sl-design-system/data-source@npm:^0.1.1, @sl-design-system/data-source@workspace:packages/components/data-source":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/data-source@workspace:packages/components/data-source"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -5046,10 +4918,10 @@ __metadata:
   resolution: "@sl-design-system/date-field@workspace:packages/components/date-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/calendar": "npm:^0.0.0"
-    "@sl-design-system/form": "npm:^1.0.4"
+    "@sl-design-system/calendar": "npm:^0.0.1"
+    "@sl-design-system/form": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.0.2"
-    "@sl-design-system/text-field": "npm:^1.4.0"
+    "@sl-design-system/text-field": "npm:^1.6.2"
     lit: "npm:^3.1.4"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
@@ -5057,16 +4929,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/dialog@npm:^1.0.3, @sl-design-system/dialog@workspace:packages/components/dialog":
+"@sl-design-system/dialog@npm:^1.2.1, @sl-design-system/dialog@workspace:packages/components/dialog":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/dialog@workspace:packages/components/dialog"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.2.0"
+    "@sl-design-system/button": "npm:^1.2.1"
     "@sl-design-system/button-bar": "npm:^1.2.0"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5089,8 +4961,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/editor@workspace:packages/components/editor"
   dependencies:
-    "@sl-design-system/form": "npm:^1.2.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/form": "npm:^1.2.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
     prosemirror-commands: "npm:^1.5.2"
     prosemirror-history: "npm:^1.4.0"
     prosemirror-inputrules: "npm:^1.4.0"
@@ -5136,9 +5008,9 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.2.0"
+    "@sl-design-system/button": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
     emojibase: "npm:^16.0.0"
     emojibase-data: "npm:^16.0.2"
   peerDependencies:
@@ -5185,9 +5057,9 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.2.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/tag": "npm:^0.1.0"
+    "@sl-design-system/button": "npm:^1.2.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/tag": "npm:^0.1.1"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -5196,33 +5068,33 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/form@npm:^1.0.4, @sl-design-system/form@npm:^1.2.0, @sl-design-system/form@workspace:packages/components/form":
+"@sl-design-system/form@npm:^1.2.0, @sl-design-system/form@npm:^1.2.1, @sl-design-system/form@workspace:packages/components/form":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/inline-message": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/inline-message": "npm:^1.1.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/format-date@npm:^0.0.4, @sl-design-system/format-date@workspace:packages/components/format-date":
+"@sl-design-system/format-date@npm:^0.1.0, @sl-design-system/format-date@workspace:packages/components/format-date":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/format-date@workspace:packages/components/format-date"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/format-number@npm:^0.0.1, @sl-design-system/format-number@workspace:packages/components/format-number":
+"@sl-design-system/format-number@npm:^0.0.2, @sl-design-system/format-number@workspace:packages/components/format-number":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/format-number@workspace:packages/components/format-number"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -5233,16 +5105,16 @@ __metadata:
     "@lit-labs/virtualizer": "npm:^2.1.0"
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/checkbox": "npm:^2.1.1"
-    "@sl-design-system/data-source": "npm:^0.1.0"
+    "@sl-design-system/checkbox": "npm:^2.1.2"
+    "@sl-design-system/data-source": "npm:^0.1.1"
     "@sl-design-system/ellipsize-text": "npm:^0.0.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/popover": "npm:^1.2.0"
+    "@sl-design-system/popover": "npm:^1.2.1"
     "@sl-design-system/scrollbar": "npm:^0.1.0"
-    "@sl-design-system/select": "npm:^2.0.1"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/select": "npm:^2.0.2"
+    "@sl-design-system/shared": "npm:^0.6.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
-    "@sl-design-system/text-field": "npm:^1.6.1"
+    "@sl-design-system/text-field": "npm:^1.6.2"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.13
@@ -5262,15 +5134,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/inline-message@npm:^1.1.0, @sl-design-system/inline-message@workspace:packages/components/inline-message":
+"@sl-design-system/inline-message@npm:^1.1.1, @sl-design-system/inline-message@workspace:packages/components/inline-message":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/inline-message@workspace:packages/components/inline-message"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.2.0"
+    "@sl-design-system/button": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5293,7 +5165,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/listbox@npm:^0.1.0, @sl-design-system/listbox@workspace:packages/components/listbox":
+"@sl-design-system/listbox@npm:^0.1.1, @sl-design-system/listbox@workspace:packages/components/listbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/listbox@workspace:packages/components/listbox"
   dependencies:
@@ -5313,7 +5185,7 @@ __metadata:
   resolution: "@sl-design-system/lit-examples@workspace:examples/lit"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -5343,15 +5215,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/menu@npm:^0.2.0, @sl-design-system/menu@workspace:packages/components/menu":
+"@sl-design-system/menu@npm:^0.2.1, @sl-design-system/menu@workspace:packages/components/menu":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/menu@workspace:packages/components/menu"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.2.0"
+    "@sl-design-system/button": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5364,8 +5236,8 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.0.2"
-    "@sl-design-system/dialog": "npm:^1.0.3"
+    "@sl-design-system/button": "npm:^1.2.1"
+    "@sl-design-system/dialog": "npm:^1.2.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5445,9 +5317,9 @@ __metadata:
   resolution: "@sl-design-system/number-field@workspace:packages/components/number-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/format-number": "npm:^0.0.1"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/text-field": "npm:^1.6.1"
+    "@sl-design-system/format-number": "npm:^0.0.2"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/text-field": "npm:^1.6.2"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
@@ -5459,13 +5331,13 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/announcer": "npm:^0.0.1"
-    "@sl-design-system/button": "npm:^1.2.0"
-    "@sl-design-system/form": "npm:^1.2.0"
+    "@sl-design-system/announcer": "npm:^0.0.2"
+    "@sl-design-system/button": "npm:^1.2.1"
+    "@sl-design-system/form": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/menu": "npm:^0.2.0"
-    "@sl-design-system/select": "npm:^2.0.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/menu": "npm:^0.2.1"
+    "@sl-design-system/select": "npm:^2.0.2"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
@@ -5479,19 +5351,19 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/tool-bar": "npm:^0.0.5"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/tool-bar": "npm:^0.0.6"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/popover@npm:^1.2.0, @sl-design-system/popover@workspace:packages/components/popover":
+"@sl-design-system/popover@npm:^1.2.0, @sl-design-system/popover@npm:^1.2.1, @sl-design-system/popover@workspace:packages/components/popover":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -5515,8 +5387,8 @@ __metadata:
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
-    "@sl-design-system/form": "npm:^1.2.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/form": "npm:^1.2.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
   languageName: unknown
@@ -5581,30 +5453,30 @@ __metadata:
   resolution: "@sl-design-system/search-field@workspace:packages/components/search-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/text-field": "npm:^1.6.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/text-field": "npm:^1.6.2"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/select@npm:^2.0.0, @sl-design-system/select@npm:^2.0.1, @sl-design-system/select@workspace:packages/components/select":
+"@sl-design-system/select@npm:^2.0.0, @sl-design-system/select@npm:^2.0.2, @sl-design-system/select@workspace:packages/components/select":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/form": "npm:^1.2.0"
+    "@sl-design-system/form": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/listbox": "npm:^0.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/listbox": "npm:^0.1.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/shared@npm:^0.5.0, @sl-design-system/shared@workspace:packages/components/shared":
+"@sl-design-system/shared@npm:^0.6.0, @sl-design-system/shared@workspace:packages/components/shared":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/shared@workspace:packages/components/shared"
   dependencies:
@@ -5663,9 +5535,9 @@ __metadata:
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/form": "npm:^1.2.0"
+    "@sl-design-system/form": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
@@ -5678,23 +5550,23 @@ __metadata:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/menu": "npm:^0.2.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/menu": "npm:^0.2.1"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@lit/localize": ^0.12.1
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tag@npm:^0.1.0, @sl-design-system/tag@workspace:packages/components/tag":
+"@sl-design-system/tag@npm:^0.1.1, @sl-design-system/tag@workspace:packages/components/tag":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tag@workspace:packages/components/tag"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/tooltip": "npm:^1.1.2"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/tooltip": "npm:^1.1.3"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -5716,35 +5588,35 @@ __metadata:
   resolution: "@sl-design-system/text-area@workspace:packages/components/text-area"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/form": "npm:^1.2.0"
+    "@sl-design-system/form": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:^1.4.0, @sl-design-system/text-field@npm:^1.6.0, @sl-design-system/text-field@npm:^1.6.1, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:^1.6.0, @sl-design-system/text-field@npm:^1.6.2, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/form": "npm:^1.2.0"
+    "@sl-design-system/form": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/toggle-button@npm:^0.0.5, @sl-design-system/toggle-button@workspace:packages/components/toggle-button":
+"@sl-design-system/toggle-button@npm:^0.0.6, @sl-design-system/toggle-button@workspace:packages/components/toggle-button":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-button@workspace:packages/components/toggle-button"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/tooltip": "npm:^1.1.2"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/tooltip": "npm:^1.1.3"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
@@ -5752,13 +5624,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/toggle-group@npm:^0.0.5, @sl-design-system/toggle-group@workspace:packages/components/toggle-group":
+"@sl-design-system/toggle-group@npm:^0.0.6, @sl-design-system/toggle-group@workspace:packages/components/toggle-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/toggle-group@workspace:packages/components/toggle-group"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/shared": "npm:^0.5.0"
-    "@sl-design-system/toggle-button": "npm:^0.0.5"
+    "@sl-design-system/shared": "npm:^0.6.0"
+    "@sl-design-system/toggle-button": "npm:^0.0.6"
     lit: "npm:^3.2.1"
   peerDependencies:
     lit: ^3.1.4
@@ -5771,27 +5643,27 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tool-bar@npm:^0.0.5, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
+"@sl-design-system/tool-bar@npm:^0.0.6, @sl-design-system/tool-bar@workspace:packages/components/tool-bar":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tool-bar@workspace:packages/components/tool-bar"
   dependencies:
     "@lit/localize": "npm:^0.12.2"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:^1.2.0"
+    "@sl-design-system/button": "npm:^1.2.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/menu": "npm:^0.2.0"
-    "@sl-design-system/toggle-button": "npm:^0.0.5"
-    "@sl-design-system/toggle-group": "npm:^0.0.5"
+    "@sl-design-system/menu": "npm:^0.2.1"
+    "@sl-design-system/toggle-button": "npm:^0.0.6"
+    "@sl-design-system/toggle-group": "npm:^0.0.6"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tooltip@npm:^1.1.1, @sl-design-system/tooltip@npm:^1.1.2, @sl-design-system/tooltip@workspace:packages/components/tooltip":
+"@sl-design-system/tooltip@npm:^1.1.1, @sl-design-system/tooltip@npm:^1.1.2, @sl-design-system/tooltip@npm:^1.1.3, @sl-design-system/tooltip@workspace:packages/components/tooltip":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tooltip@workspace:packages/components/tooltip"
   dependencies:
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
   languageName: unknown
   linkType: soft
 
@@ -5801,10 +5673,10 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/button-bar": "npm:^1.2.0"
-    "@sl-design-system/checkbox": "npm:^2.1.0"
-    "@sl-design-system/data-source": "npm:^0.1.0"
+    "@sl-design-system/checkbox": "npm:^2.1.2"
+    "@sl-design-system/data-source": "npm:^0.1.1"
     "@sl-design-system/icon": "npm:^1.1.0"
-    "@sl-design-system/shared": "npm:^0.5.0"
+    "@sl-design-system/shared": "npm:^0.6.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
     "@sl-design-system/spinner": "npm:^1.0.1"
     lit: "npm:^3.2.1"
@@ -6713,21 +6585,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/http-proxy@npm:^1.17.15":
+"@types/http-proxy@npm:^1.17.15, @types/http-proxy@npm:^1.17.8":
   version: 1.17.15
   resolution: "@types/http-proxy@npm:1.17.15"
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/e2bf2fcdf23c88141b8d2c85ed5e5418b62ef78285884a2b5a717af55f4d9062136aa475489d10292093343df58fb81975f34bebd6b9df322288fd9821cbee07
-  languageName: node
-  linkType: hard
-
-"@types/http-proxy@npm:^1.17.8":
-  version: 1.17.12
-  resolution: "@types/http-proxy@npm:1.17.12"
-  dependencies:
-    "@types/node": "npm:*"
-  checksum: 10c0/06719371ece6bdf9fd28b90b03bd56e48ffca675dfaadca81ae12ca18db6e77e70a509537ebfa3b2c37810d77dc52e5a3190c09bc490668dde7e384c7b579090
   languageName: node
   linkType: hard
 
@@ -9256,14 +9119,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "chalk@npm:5.3.0"
-  checksum: 10c0/8297d436b2c0f95801103ff2ef67268d362021b8210daf8ddbe349695333eb3610a71122172ff3b0272f1ef2cf7cc2c41fdaa4715f52e49ffe04c56340feed09
-  languageName: node
-  linkType: hard
-
-"chalk@npm:^5.4.1":
+"chalk@npm:^5.3.0, chalk@npm:^5.4.1":
   version: 5.4.1
   resolution: "chalk@npm:5.4.1"
   checksum: 10c0/b23e88132c702f4855ca6d25cb5538b1114343e41472d5263ee8a37cccfccd9c4216d111e1097c6a27830407a1dc81fecdf2a56f2c63033d4dbbd88c10b0dcef
@@ -10406,15 +10262,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:^4.3.6, debug@npm:^4.3.7, debug@npm:~4.3.1, debug@npm:~4.3.2":
-  version: 4.3.7
-  resolution: "debug@npm:4.3.7"
+"debug@npm:4, debug@npm:^4.0.0, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4, debug@npm:^4.3.6, debug@npm:^4.3.7, debug@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "debug@npm:4.4.0"
   dependencies:
     ms: "npm:^2.1.3"
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 10c0/1471db19c3b06d485a622d62f65947a19a23fbd0dd73f7fd3eafb697eec5360cde447fb075919987899b1a2096e85d35d4eb5a4de09a57600ac9cf7e6c8e768b
+  checksum: 10c0/db94f1a182bf886f57b4755f85b3a74c39b5114b9377b7ab375dc2cfa3454f09490cc6c30f829df3fc8042bc8b8995f6567ce5cd96f3bc3688bd24027197d9de
   languageName: node
   linkType: hard
 
@@ -10427,15 +10283,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "debug@npm:4.4.0"
+"debug@npm:~4.3.1, debug@npm:~4.3.2":
+  version: 4.3.7
+  resolution: "debug@npm:4.3.7"
   dependencies:
     ms: "npm:^2.1.3"
   peerDependenciesMeta:
     supports-color:
       optional: true
-  checksum: 10c0/db94f1a182bf886f57b4755f85b3a74c39b5114b9377b7ab375dc2cfa3454f09490cc6c30f829df3fc8042bc8b8995f6567ce5cd96f3bc3688bd24027197d9de
+  checksum: 10c0/1471db19c3b06d485a622d62f65947a19a23fbd0dd73f7fd3eafb697eec5360cde447fb075919987899b1a2096e85d35d4eb5a4de09a57600ac9cf7e6c8e768b
   languageName: node
   linkType: hard
 
@@ -10681,14 +10537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"detect-libc@npm:^2.0.0, detect-libc@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "detect-libc@npm:2.0.2"
-  checksum: 10c0/a9f4ffcd2701525c589617d98afe5a5d0676c8ea82bcc4ed6f3747241b79f781d36437c59a5e855254c864d36a3e9f8276568b6b531c28d6e53b093a15703f11
-  languageName: node
-  linkType: hard
-
-"detect-libc@npm:^2.0.1":
+"detect-libc@npm:^2.0.0, detect-libc@npm:^2.0.1, detect-libc@npm:^2.0.2":
   version: 2.0.3
   resolution: "detect-libc@npm:2.0.3"
   checksum: 10c0/88095bda8f90220c95f162bf92cad70bd0e424913e655c20578600e35b91edc261af27531cf160a331e185c0ced93944bc7e09939143225f56312d7fd800fdb7
@@ -15474,14 +15323,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lilconfig@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "lilconfig@npm:3.1.2"
-  checksum: 10c0/f059630b1a9bddaeba83059db00c672b64dc14074e9f232adce32b38ca1b5686ab737eb665c5ba3c32f147f0002b4bee7311ad0386a9b98547b5623e87071fbe
-  languageName: node
-  linkType: hard
-
-"lilconfig@npm:^3.1.3":
+"lilconfig@npm:^3.1.2, lilconfig@npm:^3.1.3":
   version: 3.1.3
   resolution: "lilconfig@npm:3.1.3"
   checksum: 10c0/f5604e7240c5c275743561442fbc5abf2a84ad94da0f5adc71d25e31fa8483048de3dcedcb7a44112a942fed305fd75841cdf6c9681c7f640c63f1049e9a5dcc
@@ -15916,7 +15758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:0.30.11":
+"magic-string@npm:0.30.11, magic-string@npm:^0.30.0, magic-string@npm:^0.30.5":
   version: 0.30.11
   resolution: "magic-string@npm:0.30.11"
   dependencies:
@@ -15931,15 +15773,6 @@ __metadata:
   dependencies:
     sourcemap-codec: "npm:^1.4.8"
   checksum: 10c0/37f5e01a7e8b19a072091f0b45ff127cda676232d373ce2c551a162dd4053c575ec048b9cbb4587a1f03adb6c5d0fd0dd49e8ab070cd2c83a4992b2182d9cb56
-  languageName: node
-  linkType: hard
-
-"magic-string@npm:^0.30.0, magic-string@npm:^0.30.5":
-  version: 0.30.8
-  resolution: "magic-string@npm:0.30.8"
-  dependencies:
-    "@jridgewell/sourcemap-codec": "npm:^1.4.15"
-  checksum: 10c0/51a1f06f678c082aceddfb5943de9b6bdb88f2ea1385a1c2adf116deb73dfcfa50df6c222901d691b529455222d4d68d0b28be5689ac6f69b3baa3462861f922
   languageName: node
   linkType: hard
 
@@ -16409,7 +16242,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.6.0":
+"memfs@npm:^4.6.0, memfs@npm:^4.9.3":
   version: 4.15.0
   resolution: "memfs@npm:4.15.0"
   dependencies:
@@ -16418,18 +16251,6 @@ __metadata:
     tree-dump: "npm:^1.0.1"
     tslib: "npm:^2.0.0"
   checksum: 10c0/be161036983ad517b8a6cb5e4493e6e0f1cc44024bc2135d51d9b28e823bb6a68bb00233900a1e9b93e942e8f581747f432b2224eb26c0045d97f8c84d25bd27
-  languageName: node
-  linkType: hard
-
-"memfs@npm:^4.9.3":
-  version: 4.11.1
-  resolution: "memfs@npm:4.11.1"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.0.3"
-    "@jsonjoy.com/util": "npm:^1.3.0"
-    tree-dump: "npm:^1.0.1"
-    tslib: "npm:^2.0.0"
-  checksum: 10c0/738f3ba7204d7f0a5bc09ae9f62d4151e0bbb14b5f5c2bb39c59e93d1b6da1bfc0c94240f23f450538578a331d1458da995b4976aee889da0fac2219322e8377
   languageName: node
   linkType: hard
 
@@ -20362,7 +20183,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.18.0, rollup@npm:^4.30.1":
+"rollup@npm:^4.18.0, rollup@npm:^4.20.0, rollup@npm:^4.30.1, rollup@npm:^4.4.0":
   version: 4.34.6
   resolution: "rollup@npm:4.34.6"
   dependencies:
@@ -20431,69 +20252,6 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 10c0/0d55e43754698996de5dea5e76041ea20d11d810e159e74d021e16fef23a3dbb456f77e04afdb0a85891905c3f92d5cefa64ade5581a9e31839fec3a101d7626
-  languageName: node
-  linkType: hard
-
-"rollup@npm:^4.20.0, rollup@npm:^4.4.0":
-  version: 4.21.0
-  resolution: "rollup@npm:4.21.0"
-  dependencies:
-    "@rollup/rollup-android-arm-eabi": "npm:4.21.0"
-    "@rollup/rollup-android-arm64": "npm:4.21.0"
-    "@rollup/rollup-darwin-arm64": "npm:4.21.0"
-    "@rollup/rollup-darwin-x64": "npm:4.21.0"
-    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.21.0"
-    "@rollup/rollup-linux-arm-musleabihf": "npm:4.21.0"
-    "@rollup/rollup-linux-arm64-gnu": "npm:4.21.0"
-    "@rollup/rollup-linux-arm64-musl": "npm:4.21.0"
-    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.21.0"
-    "@rollup/rollup-linux-riscv64-gnu": "npm:4.21.0"
-    "@rollup/rollup-linux-s390x-gnu": "npm:4.21.0"
-    "@rollup/rollup-linux-x64-gnu": "npm:4.21.0"
-    "@rollup/rollup-linux-x64-musl": "npm:4.21.0"
-    "@rollup/rollup-win32-arm64-msvc": "npm:4.21.0"
-    "@rollup/rollup-win32-ia32-msvc": "npm:4.21.0"
-    "@rollup/rollup-win32-x64-msvc": "npm:4.21.0"
-    "@types/estree": "npm:1.0.5"
-    fsevents: "npm:~2.3.2"
-  dependenciesMeta:
-    "@rollup/rollup-android-arm-eabi":
-      optional: true
-    "@rollup/rollup-android-arm64":
-      optional: true
-    "@rollup/rollup-darwin-arm64":
-      optional: true
-    "@rollup/rollup-darwin-x64":
-      optional: true
-    "@rollup/rollup-linux-arm-gnueabihf":
-      optional: true
-    "@rollup/rollup-linux-arm-musleabihf":
-      optional: true
-    "@rollup/rollup-linux-arm64-gnu":
-      optional: true
-    "@rollup/rollup-linux-arm64-musl":
-      optional: true
-    "@rollup/rollup-linux-powerpc64le-gnu":
-      optional: true
-    "@rollup/rollup-linux-riscv64-gnu":
-      optional: true
-    "@rollup/rollup-linux-s390x-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-musl":
-      optional: true
-    "@rollup/rollup-win32-arm64-msvc":
-      optional: true
-    "@rollup/rollup-win32-ia32-msvc":
-      optional: true
-    "@rollup/rollup-win32-x64-msvc":
-      optional: true
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 10c0/984beb858da245c5e3a9027d6d87e67ad6443f1b46eab07685b861d9e49da5856693265c62a6f8262c36d11c9092713a96a9124f43e6de6698eb84d77118496a
   languageName: node
   linkType: hard
 
@@ -22096,7 +21854,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:5.31.6":
+"terser@npm:5.31.6, terser@npm:^5.10.0, terser@npm:^5.26.0":
   version: 5.31.6
   resolution: "terser@npm:5.31.6"
   dependencies:
@@ -22107,20 +21865,6 @@ __metadata:
   bin:
     terser: bin/terser
   checksum: 10c0/b17d02b65a52a5041430572b3c514475820f5e7590fa93773c0f5b4be601ccf3f6d745bf5a79f3ee58187cf85edf61c24ddf4345783839fccb44c9c8fa9b427e
-  languageName: node
-  linkType: hard
-
-"terser@npm:^5.10.0, terser@npm:^5.26.0":
-  version: 5.29.2
-  resolution: "terser@npm:5.29.2"
-  dependencies:
-    "@jridgewell/source-map": "npm:^0.3.3"
-    acorn: "npm:^8.8.2"
-    commander: "npm:^2.20.0"
-    source-map-support: "npm:~0.5.20"
-  bin:
-    terser: bin/terser
-  checksum: 10c0/a6f1e26725e3dc99943d7173a3fca8bee21418a3ff39f37053fecd6a988b5341432d535721642807e9c24604aff64410577e9aed3200d9345c89b176b0ba3d65
   languageName: node
   linkType: hard
 
@@ -23623,22 +23367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.13.0, ws@npm:^8.2.3":
-  version: 8.18.0
-  resolution: "ws@npm:8.18.0"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ">=5.0.2"
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 10c0/25eb33aff17edcb90721ed6b0eb250976328533ad3cd1a28a274bd263682e7296a6591ff1436d6cbc50fa67463158b062f9d1122013b361cec99a05f84680e06
-  languageName: node
-  linkType: hard
-
-"ws@npm:^8.16.0, ws@npm:^8.18.1":
+"ws@npm:^8.13.0, ws@npm:^8.16.0, ws@npm:^8.18.1, ws@npm:^8.2.3":
   version: 8.18.1
   resolution: "ws@npm:8.18.1"
   peerDependencies:
@@ -23696,16 +23425,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.2.2":
-  version: 2.5.0
-  resolution: "yaml@npm:2.5.0"
-  bin:
-    yaml: bin.mjs
-  checksum: 10c0/771a1df083c8217cf04ef49f87244ae2dd7d7457094425e793b8f056159f167602ce172aa32d6bca21f787d24ec724aee3cecde938f6643564117bd151452631
-  languageName: node
-  linkType: hard
-
-"yaml@npm:^2.7.0":
+"yaml@npm:^2.2.2, yaml@npm:^2.7.0":
   version: 2.7.0
   resolution: "yaml@npm:2.7.0"
   bin:

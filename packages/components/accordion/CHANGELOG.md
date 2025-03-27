@@ -1,5 +1,12 @@
 # @sl-design-system/accordion
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`fa0b85d`](https://github.com/sl-design-system/components/commit/fa0b85d46c08018cd43de432c3a9705e7aede2c8), [`eaca9d2`](https://github.com/sl-design-system/components/commit/eaca9d24a6086d7a60dc5efc5332f16e80485d36), [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb)]:
+  - @sl-design-system/shared@0.6.0
+
 ## 1.1.3
 
 ### Patch Changes

@@ -10,6 +10,7 @@ import { type Popover } from './popover.js';
 type Props = Pick<Popover, 'position'> & {
   alignSelf: string;
   body: string | (() => TemplateResult);
+  maxWidth: number;
   noDescribedby: boolean;
   justifySelf: string;
 };
@@ -31,6 +32,9 @@ export default {
     },
     body: {
       table: { disable: true }
+    },
+    maxWidth: {
+      control: 'number'
     },
     justifySelf: {
       control: 'inline-radio',
@@ -54,7 +58,7 @@ export default {
       ]
     }
   },
-  render: ({ alignSelf, justifySelf, body, position, noDescribedby }) => {
+  render: ({ alignSelf, justifySelf, body, maxWidth, position, noDescribedby }) => {
     const onClick = (): void => {
       const popover = document.querySelector('sl-popover') as HTMLElement;
       popover.togglePopover();
@@ -66,6 +70,9 @@ export default {
           display: grid;
           height: calc(100dvh - 2rem);
           place-items: center;
+        }
+        sl-popover {
+          --sl-popover-max-inline-size: ${maxWidth ? `${maxWidth}px` : 'none'};
         }
       </style>
       <sl-button
@@ -82,7 +89,26 @@ export default {
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {};
+export const Basic: Story = {
+  args: {
+    maxWidth: 400,
+    body: () => {
+      const onClick = (): void => {
+        return;
+      };
+      return html`
+        <header style="font:var(--sl-text-new-heading-sm);">Hello! I am a popover!</header>
+        <section>
+          <p>
+            I'm a lightweight and flexible UI element that appears on top of other content. I am often used to display
+            additional information, actions, or contextual content without disrupting the main flow of the interface.
+          </p>
+        </section>
+        <sl-button @click=${onClick} variant="primary">Button</sl-button>
+      `;
+    }
+  }
+};
 
 export const NoDescribedBy: Story = {
   args: {

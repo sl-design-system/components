@@ -48,6 +48,10 @@ export class Option<T = any> extends ScopedElementsMixin(LitElement) {
     return this.#getSlottedTextContent();
   }
 
+  override set textContent(textContent: string) {
+    super.textContent = textContent;
+  }
+
   get value(): T {
     return this.#value ?? (this.textContent as unknown as T);
   }

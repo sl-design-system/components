@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/date-field",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Date field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,10 +38,10 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/calendar": "^0.0.0",
-    "@sl-design-system/form": "^1.0.4",
+    "@sl-design-system/calendar": "^0.0.1",
+    "@sl-design-system/form": "^1.2.1",
     "@sl-design-system/icon": "^1.0.2",
-    "@sl-design-system/text-field": "^1.4.0"
+    "@sl-design-system/text-field": "^1.6.2"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5",

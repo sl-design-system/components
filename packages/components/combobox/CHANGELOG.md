@@ -1,5 +1,18 @@
 # @sl-design-system/combobox
 
+## 0.1.2
+
+### Patch Changes
+
+- [#1869](https://github.com/sl-design-system/components/pull/1869) [`0b9a134`](https://github.com/sl-design-system/components/commit/0b9a134a6d1752f40245e72e9e01fc918b09a5a6) - Various fixes:
+  - Fix the placeholder being visible in Safari when multiple values are selected
+  - Fix resize observer loop on FF when it keeps toggling the stack visibility
+- Updated dependencies [[`0db4860`](https://github.com/sl-design-system/components/commit/0db48604f9cbae73af25a08437a806dc7566273e), [`eaca9d2`](https://github.com/sl-design-system/components/commit/eaca9d24a6086d7a60dc5efc5332f16e80485d36), [`4b68034`](https://github.com/sl-design-system/components/commit/4b680344816bb1cefb66a6bc9fac7f9501f18ace), [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb)]:
+  - @sl-design-system/form@1.2.1
+  - @sl-design-system/listbox@0.1.1
+  - @sl-design-system/tag@0.1.1
+  - @sl-design-system/text-field@1.6.2
+
 ## 0.1.1
 
 ### Patch Changes

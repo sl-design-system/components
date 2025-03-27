@@ -1,5 +1,5 @@
 {
-  "kampus": {
+  "I-C": {
     "text-new": {
       "typeset": {
         "fontFamily": {
@@ -30,28 +30,28 @@
       "body": {
         "sm": {
           "value": {
-            "fontFamily": "{kampus.size.text-new-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.body.sm}",
+            "fontFamily": "{I-C.size.text-new-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.body.sm}",
             "lineHeight": "{size.lineHeight.200}",
-            "fontWeight": "{kampus.size.text-new-new.typeset.fontWeight.regular}"
+            "fontWeight": "{I-C.size.text-new-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "md": {
           "value": {
-            "fontFamily": "{kampus.size.text-new-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.body.md}",
+            "fontFamily": "{I-C.size.text-new-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{kampus.size.text-new-new.typeset.fontWeight.regular}"
+            "fontWeight": "{I-C.size.text-new-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{kampus.size.text-new-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.body.lg}",
+            "fontFamily": "{I-C.size.text-new-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.body.lg}",
             "lineHeight": "{size.lineHeight.300}",
-            "fontWeight": "{kampus.size.text-new-new.typeset.fontWeight.regular}"
+            "fontWeight": "{I-C.size.text-new-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         }
@@ -59,16 +59,16 @@
       "input": {
         "md": {
           "value": {
-            "fontFamily": "{kampus.size.text-new-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.body.md}",
+            "fontFamily": "{I-C.size.text-new-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.300}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{kampus.size.text-new-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.body.md}",
+            "fontFamily": "{I-C.size.text-new-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "type": "typography"
@@ -93,53 +93,53 @@
       "heading": {
         "sm": {
           "value": {
-            "fontFamily": "{kampus.text-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.heading.sm}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.heading.sm}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{kampus.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "md": {
           "value": {
-            "fontFamily": "{kampus.text-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.heading.md}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.heading.md}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{kampus.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{kampus.text-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.heading.lg}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.heading.lg}",
             "lineHeight": "{size.lineHeight.400}",
-            "fontWeight": "{kampus.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "xl": {
           "value": {
-            "fontFamily": "{kampus.text-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.heading.xl}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.heading.xl}",
             "lineHeight": "{size.lineHeight.500}",
-            "fontWeight": "{kampus.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "2xl": {
           "value": {
-            "fontFamily": "{kampus.text-new.typeset.fontFamily.body}",
-            "fontSize": "{kampus.size.text-new.heading.2xl}",
+            "fontFamily": "{I-C.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-C.size.text-new.heading.2xl}",
             "lineHeight": "{size.lineHeight.600}",
-            "fontWeight": "{kampus.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-C.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         }
       }
     },
     "size": {
-      "text": {
+      "text-new": {
         "body": {
           "sm": {
             "value": "{size.font.150}",
@@ -196,12 +196,12 @@
         },
         "focusRing": {
           "outside": {
-            "value": "{kampus.size.borderRadius.default} + 2",
+            "value": "{I-C.size.borderRadius.default} + 2",
             "type": "borderRadius",
             "description": "Use for focusring outside of component"
           },
           "inside": {
-            "value": "{kampus.size.borderRadius.default} - 1",
+            "value": "{I-C.size.borderRadius.default} - 1",
             "type": "borderRadius",
             "description": "Use for focusring inside of component when outside focus ring is not possible"
           }

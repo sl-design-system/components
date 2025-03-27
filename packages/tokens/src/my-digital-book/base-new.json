@@ -1,5 +1,5 @@
 {
-  "my-digital-book": {
+  "II-A": {
     "text-new": {
       "typeset": {
         "fontFamily": {
@@ -30,28 +30,28 @@
       "body": {
         "sm": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.body.sm}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.body.sm}",
             "lineHeight": "{size.lineHeight.200}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.regular}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "md": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.body.md}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.regular}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.body.lg}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.body.lg}",
             "lineHeight": "{size.lineHeight.300}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.regular}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         }
@@ -59,16 +59,16 @@
       "input": {
         "md": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.body.md}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.300}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.body.md}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "type": "typography"
@@ -93,46 +93,46 @@
       "heading": {
         "sm": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.heading.sm}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.heading.sm}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "md": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.heading.md}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.heading.md}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.heading.lg}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.heading.lg}",
             "lineHeight": "{size.lineHeight.400}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "xl": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.heading.xl}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.heading.xl}",
             "lineHeight": "{size.lineHeight.500}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "2xl": {
           "value": {
-            "fontFamily": "{my-digital-book.text-new.typeset.fontFamily.body}",
-            "fontSize": "{my-digital-book.size.text-new.heading.2xl}",
+            "fontFamily": "{II-A.text-new.typeset.fontFamily.body}",
+            "fontSize": "{II-A.size.text-new.heading.2xl}",
             "lineHeight": "{size.lineHeight.600}",
-            "fontWeight": "{my-digital-book.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{II-A.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         }
@@ -196,12 +196,12 @@
         },
         "focusRing": {
           "outside": {
-            "value": "{my-digital-book.size.borderRadius.default} + 2",
+            "value": "{II-A.size.borderRadius.default} + 2",
             "type": "borderRadius",
             "description": "Use for focusring outside of component"
           },
           "inside": {
-            "value": "{my-digital-book.size.borderRadius.default} - 1",
+            "value": "{II-A.size.borderRadius.default} - 1",
             "type": "borderRadius",
             "description": "Use for focusring inside of component when outside focus ring is not possible"
           }

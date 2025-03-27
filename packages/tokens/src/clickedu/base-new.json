@@ -1,5 +1,5 @@
 {
-  "clickedu": {
+  "I-B": {
     "text-new": {
       "typeset": {
         "fontFamily": {
@@ -30,28 +30,28 @@
       "body": {
         "sm": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.body.sm}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.sm}",
             "lineHeight": "{size.lineHeight.200}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.regular}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "md": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.body.md}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.regular}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.body.lg}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.lg}",
             "lineHeight": "{size.lineHeight.300}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.regular}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         }
@@ -59,16 +59,16 @@
       "input": {
         "md": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.body.md}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.300}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.body.md}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "type": "typography"
@@ -93,46 +93,46 @@
       "heading": {
         "sm": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.heading.sm}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.heading.sm}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "md": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.heading.md}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.heading.md}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.heading.lg}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.heading.lg}",
             "lineHeight": "{size.lineHeight.400}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "xl": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.heading.xl}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.heading.xl}",
             "lineHeight": "{size.lineHeight.500}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         },
         "2xl": {
           "value": {
-            "fontFamily": "{clickedu.text-new.typeset.fontFamily.body}",
-            "fontSize": "{clickedu.size.text-new.heading.2xl}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.heading.2xl}",
             "lineHeight": "{size.lineHeight.600}",
-            "fontWeight": "{clickedu.text-new.typeset.fontWeight.demibold}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.demibold}"
           },
           "type": "typography"
         }
@@ -196,12 +196,12 @@
         },
         "focusRing": {
           "outside": {
-            "value": "{clickedu.size.borderRadius.default} + 2",
+            "value": "{I-B.size.borderRadius.default} + 2",
             "type": "borderRadius",
             "description": "Use for focusring outside of component"
           },
           "inside": {
-            "value": "{clickedu.size.borderRadius.default} - 1",
+            "value": "{I-B.size.borderRadius.default} - 1",
             "type": "borderRadius",
             "description": "Use for focusring inside of component when outside focus ring is not possible"
           }

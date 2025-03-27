@@ -13,10 +13,6 @@ describe('sl-tab', () => {
       el = await fixture(html`<sl-tab></sl-tab>`);
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
     it('should have a tab role', () => {
       expect(el).to.have.attribute('role', 'tab');
     });
@@ -37,17 +33,17 @@ describe('sl-tab', () => {
       expect(el).to.have.attribute('disabled');
     });
 
-    it('should not be selected', () => {
-      expect(el).not.to.have.attribute('aria-selected');
-      expect(el.selected).not.to.be.true;
-    });
+    it('should not emit keydown events when disabled', async () => {
+      const onKeydown = spy();
 
-    it('should be selected when set', async () => {
-      el.setAttribute('selected', '');
+      el.addEventListener('keydown', onKeydown);
+      el.disabled = true;
       await el.updateComplete;
 
-      expect(el).to.have.attribute('aria-selected', 'true');
-      expect(el.selected).to.be.true;
+      el.focus();
+      await sendKeys({ type: 'asdf' });
+
+      expect(onKeydown).not.to.have.been.called;
     });
 
     it('should not render a link', () => {
@@ -89,11 +85,21 @@ describe('sl-tab', () => {
   });
 
   describe('href', () => {
+    let tab: Tab;
     let link: HTMLAnchorElement;
 
     beforeEach(async () => {
-      el = await fixture(html`<sl-tab href="javascript:void(0)"></sl-tab>`);
-      link = el.renderRoot.querySelector('a')!;
+      el = await fixture(html`
+        <sl-tab-group>
+          <sl-tab href="javascript:void(0)"></sl-tab>
+        </sl-tab-group>
+      `);
+
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      tab = el.querySelector('sl-tab')!;
+      link = tab.renderRoot.querySelector('a')!;
     });
 
     it('should render a link', () => {
@@ -101,46 +107,39 @@ describe('sl-tab', () => {
       expect(link).to.have.property('href', 'javascript:void(0)');
     });
 
-    it('should activate the link when pressing Enter', async () => {
-      const onClick = spy(link, 'click');
+    it('should have link with role "presentation"', () => {
+      expect(link).to.have.attribute('role', 'presentation');
+    });
 
-      el.focus();
+    it('should have a link with tabindex of -1', () => {
+      expect(link).to.have.attribute('tabindex', '-1');
+    });
+
+    it('should not render a link when the tab is disabled', async () => {
+      tab.disabled = true;
+      await tab.updateComplete;
+
+      expect(tab.renderRoot.querySelector('a')).not.to.exist;
+    });
+
+    it('should click the link when the user presses Enter', async () => {
+      const onClick = spy();
+
+      link.addEventListener('click', onClick);
+      tab.focus();
       await sendKeys({ press: 'Enter' });
 
-      expect(onClick).to.have.been.calledOnce;
+      expect(onClick).to.have.been.called;
     });
 
-    it('should not activate the link when disabled and pressing Enter', async () => {
-      el.disabled = true;
-      await el.updateComplete;
+    it('should click the link when the user presses Space', async () => {
+      const onClick = spy();
 
-      const onClick = spy(link, 'click');
-
-      el.focus();
-      await sendKeys({ press: 'Enter' });
-
-      expect(onClick).not.to.have.been.called;
-    });
-
-    it('should activate the link when pressing Space', async () => {
-      const onClick = spy(link, 'click');
-
-      el.focus();
+      link.addEventListener('click', onClick);
+      tab.focus();
       await sendKeys({ press: 'Space' });
 
-      expect(onClick).to.have.been.calledOnce;
-    });
-
-    it('should not activate the link when disabled and pressing Space', async () => {
-      el.disabled = true;
-      await el.updateComplete;
-
-      const onClick = spy(link, 'click');
-
-      el.focus();
-      await sendKeys({ press: 'Space' });
-
-      expect(onClick).not.to.have.been.called;
+      expect(onClick).to.have.been.called;
     });
   });
 });

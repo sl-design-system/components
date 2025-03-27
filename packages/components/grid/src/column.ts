@@ -1,6 +1,14 @@
-import { type EventEmitter, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import { FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import {
+  type EventEmitter,
+  type PathKeys,
+  dasherize,
+  event,
+  getNameByPath,
+  getValueByPath
+} from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { type Grid } from './grid.js';
 
 declare global {
@@ -20,10 +28,12 @@ export type GridColumnAlignment = 'start' | 'center' | 'end';
 export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
 
 /** Custom renderer type for column cells. */
-export type GridColumnDataRenderer<T> = (model: T) => string | undefined | TemplateResult;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnDataRenderer<T = any> = (model: T) => string | undefined | TemplateResult;
 
 /** Custom type for providing parts to a cell. */
-export type GridColumnParts<T> = (model: T) => string | undefined;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnParts<T = any> = (model: T) => string | undefined;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
@@ -62,6 +72,9 @@ export class GridColumn<T = any> extends LitElement {
   /** @internal Emits when the column definition has changed. */
   @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
+  /** This will ellipsize the text in the `<td>` elements when it overflows. */
+  @property({ type: Boolean, attribute: 'ellipsize-text' }) ellipsizeText?: boolean;
+
   /** The parent grid instance. */
   @property({ attribute: false })
   set grid(value: Grid<T> | undefined) {
@@ -86,7 +99,7 @@ export class GridColumn<T = any> extends LitElement {
   @property() header?: string | GridColumnHeaderRenderer;
 
   /** The path to the value for this column. */
-  @property() path?: string;
+  @property() path?: PathKeys<T>;
 
   /** Custom parts to be set on the `<td>` so it can be styled externally. */
   @property() parts?: string | GridColumnParts<T>;
@@ -101,7 +114,13 @@ export class GridColumn<T = any> extends LitElement {
   @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
   /** Whether this column is sticky when the user scrolls horizontally. */
-  @property({ type: Boolean, reflect: true }) sticky?: boolean;
+  @property({ type: Boolean }) sticky?: boolean;
+
+  /** Whether this column is the first or last sticky column. */
+  @state() stickyOrder?: 'first' | 'last';
+
+  /** The position where the column should be sticky: at the start of the grid, or at the end. */
+  @state() stickyPosition?: 'start' | 'end';
 
   set width(value: number | undefined) {
     this.#width = value;
@@ -142,22 +161,47 @@ export class GridColumn<T = any> extends LitElement {
   stateChanged(): void {}
 
   renderHeader(): TemplateResult {
-    const parts = ['header', ...this.getParts()];
+    const classes = this.getClasses(),
+      parts = ['header', ...this.getParts()];
 
-    return html`<th part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
+    return html`<th class=${classes.join(' ')} part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
   }
 
   renderData(item: T): TemplateResult {
-    const parts = ['data', ...this.getParts(item)];
+    const classes = this.getClasses(item),
+      parts = ['data', ...this.getParts(item)];
 
-    return html`
-      <td part=${parts.join(' ')}>
-        ${this.renderer ? this.renderer(item) : this.path ? getValueByPath(item, this.path) : 'No path set'}
-      </td>
-    `;
+    let data: unknown;
+    if (this.renderer) {
+      data = this.renderer(item);
+    } else if (item === FetchListDataSourcePlaceholder) {
+      data = html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
+    } else if (this.path) {
+      data = getValueByPath(item, this.path);
+    }
+
+    if (this.ellipsizeText && typeof data === 'string') {
+      return html`
+        <td class=${classes.join(' ')} part=${parts.join(' ')}>
+          <sl-ellipsize-text>${data}</sl-ellipsize-text>
+        </td>
+      `;
+    } else {
+      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data ?? 'No path set'}</td>`;
+    }
   }
 
   renderStyles(): CSSResult | void {}
+
+  getClasses(_item?: T): string[] {
+    const classes: string[] = [];
+
+    if (this.sticky && this.stickyOrder && this.stickyPosition) {
+      classes.push(`sticky-${this.stickyPosition}-${this.stickyOrder}`);
+    }
+
+    return classes;
+  }
 
   getParts(item?: T): string[] {
     let parts: string[] = [];
@@ -165,8 +209,11 @@ export class GridColumn<T = any> extends LitElement {
     if (typeof this.parts === 'string') {
       parts = this.parts.split(' ');
     } else if (typeof this.parts === 'function' && item) {
-      // TODO: what does this do? How can parts ever be a function? According to the typing this should not be possible.
       parts = this.parts(item)?.split(' ') ?? [];
+    }
+
+    if (item === FetchListDataSourcePlaceholder) {
+      parts.push('placeholder');
     }
 
     if (this.path) {

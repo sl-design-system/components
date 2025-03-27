@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type SlFormControlEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
+import '@sl-design-system/listbox/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
@@ -9,44 +10,33 @@ import { SelectButton } from './select-button.js';
 import { Select } from './select.js';
 
 describe('sl-select', () => {
-  let el: Select;
-
-  describe('empty', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-select></sl-select>`);
-    });
-
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
-
-    it('should have a button', () => {
-      expect(el.querySelector('sl-select-button')).to.exist;
-    });
-  });
+  let el: Select, button: SelectButton;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-select>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       `);
+
+      button = el.querySelector('sl-select-button')!;
     });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
+    it('should have a button', () => {
+      expect(button).to.exist;
     });
 
     it('should have a tabindex of 0', () => {
-      expect(el.querySelector('sl-select-button')).to.have.attribute('tabindex', '0');
+      expect(button).to.have.attribute('tabindex', '0');
     });
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
+      expect(button).not.to.have.attribute('disabled');
     });
 
     it('should be disabled when set', async () => {
@@ -55,31 +45,30 @@ describe('sl-select', () => {
 
       expect(el).to.have.attribute('disabled');
       expect(el.disabled).to.be.true;
-    });
-
-    it('should not have a placeholder', () => {
-      expect(el.querySelector('sl-select-button')).not.to.have.attribute('aria-placeholder');
+      expect(button).to.have.attribute('disabled');
     });
 
     it('should have a placeholder when set', async () => {
       el.placeholder = 'Placeholder';
       await el.updateComplete;
 
-      expect(el.querySelector('sl-select-button')).to.have.attribute('aria-placeholder', 'Placeholder');
+      expect(button.renderRoot).to.have.trimmed.text('Placeholder');
     });
 
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
       expect(el.required).not.to.be.true;
       expect(el.internals.ariaRequired).not.to.equal('true');
+      expect(button).not.to.have.attribute('aria-required');
     });
 
     it('should be required when set', async () => {
       el.required = true;
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.have.attribute('required');
       expect(el.internals.ariaRequired).to.equal('true');
+      expect(button).to.have.attribute('aria-required', 'true');
     });
 
     it('should be valid by default', () => {
@@ -102,11 +91,19 @@ describe('sl-select', () => {
       expect(el.value).to.be.undefined;
     });
 
+    it('should have set aria-selected to false on all options', () => {
+      const allNotSelected = Array.from(el.querySelectorAll('sl-option')).every(
+        option => option.getAttribute('aria-selected') === 'false'
+      );
+
+      expect(allNotSelected).to.be.true;
+    });
+
     it('should have a selected option after setting a value', async () => {
       el.value = '2';
       await el.updateComplete;
 
-      expect(el.querySelector('sl-select-option[value="2"]')).to.have.attribute('selected');
+      expect(el.querySelector('sl-option[value="2"]')).to.have.attribute('aria-selected', 'true');
     });
 
     it('should have a value after selection', async () => {
@@ -115,7 +112,7 @@ describe('sl-select', () => {
       button?.click();
       await el.updateComplete;
 
-      el.querySelector('sl-select-option')?.click();
+      el.querySelector('sl-option')?.click();
       await el.updateComplete;
 
       expect(el.value).to.equal('1');
@@ -129,7 +126,7 @@ describe('sl-select', () => {
       el.querySelector<SelectButton>('sl-select-button')?.click();
       await el.updateComplete;
 
-      el.querySelector('sl-select-option')?.click();
+      el.querySelector('sl-option')?.click();
       await el.updateComplete;
 
       expect(el.dirty).to.be.true;
@@ -143,7 +140,7 @@ describe('sl-select', () => {
       el.querySelector<SelectButton>('sl-select-button')?.click();
       await el.updateComplete;
 
-      el.querySelector('sl-select-option')?.click();
+      el.querySelector('sl-option')?.click();
       await el.updateComplete;
 
       expect(onUpdateState).to.have.been.calledOnce;
@@ -178,7 +175,7 @@ describe('sl-select', () => {
       el.querySelector<SelectButton>('sl-select-button')?.click();
       await el.updateComplete;
 
-      el.querySelector('sl-select-option')?.click();
+      el.querySelector('sl-option')?.click();
       await el.updateComplete;
 
       expect(onChange).to.have.been.calledOnce;
@@ -223,7 +220,7 @@ describe('sl-select', () => {
       const onValidate = spy();
 
       el.addEventListener('sl-validate', onValidate);
-      el.querySelector('sl-select-option')?.click();
+      el.querySelector('sl-option')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
       expect(onValidate).to.have.been.calledOnce;
@@ -233,13 +230,73 @@ describe('sl-select', () => {
       el.value = '2';
       await el.updateComplete;
 
-      expect(el.querySelector('sl-select-option[value="2"]')).to.have.attribute('selected');
+      expect(el.querySelector('sl-option[value="2"]')).to.have.attribute('selected');
+    });
+  });
+
+  describe('groups', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option-group label="Group 1">
+            <sl-option value="1">Option 1</sl-option>
+            <sl-option value="2">Option 2</sl-option>
+            <sl-option value="3">Option 3</sl-option>
+          </sl-option-group>
+          <sl-option-group label="Group 2">
+            <sl-option value="4">Option 4</sl-option>
+          </sl-option-group>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+    });
+
+    it('should handle keyboard navigation across all nested options', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(el.value).to.equal('4');
+    });
+
+    it('should be able to navigate options that were added later', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      const option = document.createElement('sl-option');
+      option.innerText = 'Option 5';
+      option.value = '5';
+
+      el.querySelector<HTMLElement>('sl-option-group:last-of-type')!.appendChild(option);
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(el.value).to.equal('5');
     });
   });
 
   describe('disabled', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-select disabled></sl-select>`);
+      el = await fixture(html`
+        <sl-select disabled>
+          <sl-option>Option 1</sl-option>
+          <sl-option>Option 2</sl-option>
+          <sl-option>Option 3</sl-option>
+        </sl-select>
+      `);
     });
 
     it('should be marked as disabled', () => {
@@ -256,7 +313,7 @@ describe('sl-select', () => {
       button?.click();
       await el.updateComplete;
 
-      expect(button).not.to.have.attribute('aria-expanded');
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
 
     it('should not toggle the expanded state on enter', async () => {
@@ -266,7 +323,7 @@ describe('sl-select', () => {
       await sendKeys({ press: 'Enter' });
       await el.updateComplete;
 
-      expect(button).not.to.have.attribute('aria-expanded');
+      expect(button).to.have.attribute('aria-expanded', 'false');
     });
   });
 
@@ -274,9 +331,9 @@ describe('sl-select', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-select required>
-          <sl-select-option value="1">Option 1</sl-select-option>
-          <sl-select-option value="2">Option 2</sl-select-option>
-          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
         </sl-select>
       `);
     });
@@ -289,7 +346,7 @@ describe('sl-select', () => {
       el.querySelector<SelectButton>('sl-select-button')?.click();
       await el.updateComplete;
 
-      el.querySelector('sl-select-option')?.click();
+      el.querySelector('sl-option')?.click();
       await el.updateComplete;
 
       expect(el.valid).to.be.true;
@@ -346,7 +403,7 @@ describe('sl-select', () => {
       el.querySelector<SelectButton>('sl-select-button')?.click();
       await el.updateComplete;
 
-      el.querySelector('sl-select-option')?.click();
+      el.querySelector('sl-option')?.click();
       await el.updateComplete;
 
       expect(el.validationMessage).to.equal('Custom validation message');
@@ -361,9 +418,9 @@ describe('sl-select', () => {
         form = await fixture(html`
           <form>
             <sl-select value="2">
-              <sl-select-option value="1">Option 1</sl-select-option>
-              <sl-select-option value="2">Option 2</sl-select-option>
-              <sl-select-option value="3">Option 3</sl-select-option>
+              <sl-option value="1">Option 1</sl-option>
+              <sl-option value="2">Option 2</sl-option>
+              <sl-option value="3">Option 3</sl-option>
             </sl-select>
           </form>
         `);
@@ -375,7 +432,7 @@ describe('sl-select', () => {
         el.querySelector<SelectButton>('sl-select-button')?.click();
         await el.updateComplete;
 
-        el.querySelector('sl-select-option')?.click();
+        el.querySelector('sl-option')?.click();
         await el.updateComplete;
 
         expect(el.value).to.equal('1');
@@ -391,7 +448,7 @@ describe('sl-select', () => {
         el.querySelector<SelectButton>('sl-select-button')?.click();
         await el.updateComplete;
 
-        el.querySelector('sl-select-option')?.click();
+        el.querySelector('sl-option')?.click();
         await el.updateComplete;
 
         el.addEventListener('sl-change', onChange);
@@ -406,9 +463,9 @@ describe('sl-select', () => {
         form = await fixture(html`
           <form>
             <sl-select>
-              <sl-select-option value="1">Option 1</sl-select-option>
-              <sl-select-option value="2">Option 2</sl-select-option>
-              <sl-select-option value="3">Option 3</sl-select-option>
+              <sl-option value="1">Option 1</sl-option>
+              <sl-option value="2">Option 2</sl-option>
+              <sl-option value="3">Option 3</sl-option>
             </sl-select>
           </form>
         `);
@@ -420,7 +477,7 @@ describe('sl-select', () => {
         el.querySelector<SelectButton>('sl-select-button')?.click();
         await el.updateComplete;
 
-        el.querySelector('sl-select-option')?.click();
+        el.querySelector('sl-option')?.click();
         await el.updateComplete;
 
         expect(el.value).to.equal('1');
@@ -436,7 +493,7 @@ describe('sl-select', () => {
         el.querySelector<SelectButton>('sl-select-button')?.click();
         await el.updateComplete;
 
-        el.querySelector('sl-select-option')?.click();
+        el.querySelector('sl-option')?.click();
         await el.updateComplete;
 
         el.addEventListener('sl-change', onChange);
@@ -457,9 +514,9 @@ describe('sl-select', () => {
         return html`
           <sl-form-field label="Label">
             <sl-select @sl-form-control=${this.onFormControl}>
-              <sl-select-option>Option 1</sl-select-option>
-              <sl-select-option>Option 2</sl-select-option>
-              <sl-select-option>Option 3</sl-select-option>
+              <sl-option>Option 1</sl-option>
+              <sl-option>Option 2</sl-option>
+              <sl-option>Option 3</sl-option>
             </sl-select>
           </sl-form-field>
         `;
@@ -488,6 +545,101 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot!.activeElement).to.equal(button);
+    });
+  });
+
+  describe('keyboard interactions', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-select>
+          <sl-option value="1">Option 1</sl-option>
+          <sl-option value="2">Option 2</sl-option>
+          <sl-option value="3">Option 3</sl-option>
+        </sl-select>
+      `);
+
+      button = el.querySelector('sl-select-button')!;
+    });
+
+    it('should open the popover on ArrowDown key', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should close the popover on Escape key', async () => {
+      button.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      await sendKeys({ press: 'Escape' });
+      await el.updateComplete;
+
+      expect(button).to.have.attribute('aria-expanded', 'false');
+    });
+
+    it('should close the popover when focus leaves the select', async () => {
+      const listbox = el.renderRoot.querySelector('sl-listbox');
+
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      expect(listbox).to.match(':popover-open');
+
+      await sendKeys({ press: 'Tab' });
+      await el.updateComplete;
+
+      expect(listbox).not.to.match(':popover-open');
+    });
+
+    it('should focus the button after the popover closes', async () => {
+      button.focus();
+
+      // Open popover
+      await sendKeys({ press: 'ArrowDown' });
+
+      // Select the first option
+      await sendKeys({ press: 'Enter' });
+
+      expect(document.activeElement).to.equal(button);
+    });
+
+    it('should navigate options with ArrowDown key', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      await sendKeys({ press: 'ArrowDown' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      const selectedOption = el.querySelectorAll('sl-option')[1];
+
+      expect(selectedOption).to.have.attribute('selected');
+      expect(selectedOption).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should be able to navigate options that were added later', async () => {
+      button.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      await el.updateComplete;
+
+      el.appendChild(document.createElement('sl-option')).innerText = 'Option 4';
+
+      // Give the MutationObserver time to fire
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      await sendKeys({ press: 'ArrowUp' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      const selectedOption = el.querySelectorAll('sl-option')[3];
+
+      expect(selectedOption).to.have.attribute('selected');
+      expect(selectedOption).to.have.attribute('aria-selected', 'true');
     });
   });
 });

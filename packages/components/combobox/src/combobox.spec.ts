@@ -12,7 +12,7 @@ import { type Combobox } from './combobox.js';
 import { type CustomOption } from './custom-option.js';
 import { type SelectedGroup } from './selected-group.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
 
 describe('sl-combobox', () => {
   let el: Combobox, input: HTMLInputElement;
@@ -96,6 +96,26 @@ describe('sl-combobox', () => {
       expect(input).to.have.attribute('placeholder', 'Placeholder');
     });
 
+    it('should have a button', () => {
+      const button = el.renderRoot.querySelector('button[slot="suffix"]');
+
+      expect(button).to.exist;
+      expect(button).to.contain('sl-icon[name="chevron-down"]');
+    });
+
+    it('should toggle the popover when clicking the button', () => {
+      const button = el.renderRoot.querySelector<HTMLElement>('button[slot="suffix"]'),
+        wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+
+      expect(wrapper?.matches(':popover-open')).to.be.false;
+
+      button?.click();
+      expect(wrapper?.matches(':popover-open')).to.be.true;
+
+      button?.click();
+      expect(wrapper?.matches(':popover-open')).to.be.false;
+    });
+
     it('should not be select only', () => {
       expect(el.selectOnly).not.to.be.true;
     });
@@ -110,7 +130,7 @@ describe('sl-combobox', () => {
 
     it('should not be required', () => {
       expect(el.required).not.to.be.true;
-      expect(el.internals.ariaRequired).not.to.equal('true');
+      expect(input).not.to.have.attribute('required');
     });
 
     it('should be required when set', async () => {
@@ -118,7 +138,7 @@ describe('sl-combobox', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('required');
-      expect(el.internals.ariaRequired).to.equal('true');
+      expect(input).to.have.attribute('required');
     });
 
     it('should be pristine', () => {
@@ -191,31 +211,34 @@ describe('sl-combobox', () => {
       expect(onBlur).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-change event when selecting an option', () => {
+    it('should emit an sl-change event when selecting an option', async () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
       input.click();
       el.querySelector('sl-option')?.click();
+      await el.updateComplete;
 
       expect(onChange).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-validate event when calling reportValidity', () => {
+    it('should emit an sl-validate event when calling reportValidity', async () => {
       const onValidate = spy();
 
       el.addEventListener('sl-validate', onValidate);
       el.reportValidity();
+      await el.updateComplete;
 
       expect(onValidate).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-validate event when selecting an option', () => {
+    it('should emit an sl-validate event when selecting an option', async () => {
       const onValidate = spy();
 
       el.addEventListener('sl-validate', onValidate);
       input.click();
       el.querySelector('sl-option')?.click();
+      await el.updateComplete;
 
       expect(onValidate).to.have.been.calledOnce;
     });
@@ -276,7 +299,7 @@ describe('sl-combobox', () => {
       const createCustomOption = el.querySelector('sl-combobox-create-custom-option');
 
       expect(createCustomOption).to.exist;
-      expect(createCustomOption).to.have.attribute('aria-current', 'true');
+      expect(createCustomOption).to.have.attribute('current');
       expect(createCustomOption?.value).to.equal('Custom value');
     });
 
@@ -316,8 +339,8 @@ describe('sl-combobox', () => {
 
       expect(customOption).to.exist;
       expect(customOption).to.match('sl-combobox-custom-option');
-      expect(customOption).to.have.attribute('aria-current', 'true');
       expect(customOption).to.have.attribute('aria-selected', 'true');
+      expect(customOption).to.have.attribute('current');
       expect(customOption?.value).to.equal('Custom value');
       expect(el.value).to.equal('Custom value');
     });
@@ -332,8 +355,8 @@ describe('sl-combobox', () => {
 
       expect(customOption).to.exist;
       expect(customOption).to.match('sl-combobox-custom-option');
-      expect(customOption).to.have.attribute('aria-current', 'true');
       expect(customOption).to.have.attribute('aria-selected', 'true');
+      expect(customOption).to.have.attribute('current');
       expect(customOption?.value).to.equal('Custom value');
       expect(el.value).to.equal('Custom value');
     });
@@ -435,6 +458,30 @@ describe('sl-combobox', () => {
         expect(el.value).to.equal('Ipsum');
       });
 
+      it('should reset the input value if no option is selected and focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('');
+      });
+
+      it('should reset the input value to the selected option when focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-option')?.click();
+        await el.updateComplete;
+
+        input.select();
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('Lorem');
+      });
+
       it('should emit an sl-change event with the value after selecting an option', async () => {
         const onChange = spy();
 
@@ -500,6 +547,16 @@ describe('sl-combobox', () => {
         expect(customOptions).to.have.lengthOf(1);
         expect(customOptions.at(0)).to.exist;
         expect(customOptions.at(0)?.value).to.equal('Bar');
+      });
+
+      it('should remove the custom option when focus leaves the component', async () => {
+        input.focus();
+
+        await sendKeys({ type: 'Foo' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+        await sendKeys({ press: 'Tab' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
       });
 
       it('should emit an sl-change event when the custom option is created', async () => {
@@ -585,6 +642,18 @@ describe('sl-combobox', () => {
         expect(el.multiple).to.be.true;
       });
 
+      it('should not have a placeholder when there is a selection', async () => {
+        el.placeholder = 'Placeholder';
+        await el.updateComplete;
+
+        expect(input).to.have.attribute('placeholder', 'Placeholder');
+
+        el.value = ['Lorem'];
+        await el.updateComplete;
+
+        expect(input).to.have.attribute('placeholder', '');
+      });
+
       it('should set the value when an option is selected', async () => {
         input.click();
         await el.updateComplete;
@@ -606,12 +675,22 @@ describe('sl-combobox', () => {
         el.value = ['Lorem', 'Ipsum'];
         await el.updateComplete;
 
-        expect(options.map(o => o.hasAttribute('aria-selected'))).to.deep.equal([true, true, false]);
+        expect(options.map(o => o.getAttribute('aria-selected') === 'true')).to.deep.equal([true, true, false]);
 
         options.at(0)?.click();
         await el.updateComplete;
 
         expect(el.value).to.deep.equal(['Ipsum']);
+      });
+
+      it('should reset the input value if focus leaves the component', async () => {
+        input.click();
+        await el.updateComplete;
+
+        await sendKeys({ type: 'foo' });
+        await sendKeys({ press: 'Tab' });
+
+        expect(input.value).to.equal('');
       });
 
       it('should emit an sl-change event with the value after selecting an option', async () => {
@@ -675,7 +754,7 @@ describe('sl-combobox', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('5');
+        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+5');
 
         const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
         expect(visible).to.deep.equal([false, false, false, false, false, true]);
@@ -705,14 +784,14 @@ describe('sl-combobox', () => {
         input.click();
 
         // Verify the first option is selected
-        expect(el.querySelector('sl-option')).to.have.attribute('aria-selected');
+        expect(el.querySelector('sl-option')).to.have.attribute('aria-selected', 'true');
 
         // Click the remove button in the tag
         el.renderRoot.querySelector('sl-tag')?.renderRoot.querySelector('button')?.click();
         await el.updateComplete;
 
         // Verify the option is no longer selected
-        expect(el.querySelector('sl-option')).not.to.have.attribute('aria-selected');
+        expect(el.querySelector('sl-option')).to.have.attribute('aria-selected', 'false');
 
         // Verify the tag was removed
         expect(el.value).to.deep.equal([]);
@@ -750,6 +829,16 @@ describe('sl-combobox', () => {
         expect(el.querySelectorAll('sl-combobox-custom-option')).to.have.lengthOf(2);
 
         expect(el.value).to.deep.equal(['Custom 1', 'Custom 2']);
+      });
+
+      it('should remove the custom option when focus leaves the component', async () => {
+        input.focus();
+
+        await sendKeys({ type: 'Foo' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).to.exist;
+
+        await sendKeys({ press: 'Tab' });
+        expect(el.querySelector('sl-combobox-create-custom-option')).not.to.exist;
       });
     });
 
@@ -876,15 +965,16 @@ describe('sl-combobox', () => {
         expect(selectedGroup).to.exist;
         expect(selectedGroup).to.have.attribute('aria-label', 'Selected');
 
-        const options = Array.from(selectedGroup.renderRoot.querySelectorAll('sl-option')).map(o => o.value as string);
+        const options = Array.from(selectedGroup.querySelectorAll('sl-combobox-grouped-option')).map(o => o.innerText);
         expect(options).to.deep.equal(['Option 1', 'Option 2']);
       });
 
-      it('should have a label for all the unselected options', () => {
-        const otherLabel = selectedGroup.renderRoot.querySelector('.other');
+      it('should have group headers for both the selected and unselected options', () => {
+        const headers = selectedGroup.renderRoot.querySelectorAll('sl-option-group-header');
 
-        expect(otherLabel).to.exist;
-        expect(otherLabel).to.have.trimmed.text('All options');
+        expect(headers).to.have.lengthOf(2);
+        expect(headers.item(0)).to.have.trimmed.text('Selected');
+        expect(headers.item(1)).to.have.trimmed.text('All options');
       });
     });
   });

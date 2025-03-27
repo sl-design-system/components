@@ -73,7 +73,7 @@ export default {
     cardIcon
   }) => html`
     <sl-card .orientation=${orientation}>
-      ${media && imageUrl ? html`<img slot="media" src=${imageUrl} />` : nothing}
+      ${media && imageUrl ? html`<img slot="media" src=${imageUrl} alt="Picture of ${title}" />` : nothing}
       ${cardIcon ? html`<sl-icon .name=${cardIcon} slot="icon"></sl-icon>` : nothing}
       <h2>${title}</h2>
       ${subheaderContent
@@ -108,25 +108,26 @@ const titles = [
 ];
 
 const bodyCopy = [
-  `Immerse yourself in the vibrant hues of Nyhavn, Copenhagen's iconic waterfront. This picturesque scene,
-  adorned with colorful facades and historic ships, invites you to explore the charm of Danish culture against
-  the backdrop of serene canals.`,
-  `Discover the allure of Nyhavn, Copenhagen's waterfront gem, where historic charm meets vibrant hues in every
+  html`Immerse yourself in the vibrant hues of Nyhavn, Copenhagen's iconic waterfront. This picturesque scene, adorned
+  with colorful facades and historic ships, invites you to explore the charm of Danish culture against the backdrop of
+  serene canals.`,
+  html`Discover the allure of Nyhavn, Copenhagen's waterfront gem, where historic charm meets vibrant hues in every
   corner.`,
-  `Copenhagen's skyline is a testament to architectural brilliance, seamlessly blending historic landmarks with
-  contemporary design. Wander through a cityscape where each building tells a unique story, creating a harmonious
-  fusion of past and present.`,
-  `Delight in the enchanting allure of Copenhagen, where timeless elegance meets modern vibrancy. Explore the city's
+  html`Copenhagen's skyline is a testament to architectural brilliance, seamlessly blending historic landmarks with
+  contemporary design. Wander through a cityscape where each building tells a unique story, creating a harmonious fusion
+  of past and present.`,
+  html`Delight in the enchanting allure of Copenhagen, where timeless elegance meets modern vibrancy. Explore the city's
   rich tapestry of culture, history, and architectural beauty at every turn.`,
-  `Nyhavn, the picturesque waterfront district of Copenhagen, beckons visitors with its timeless charm and vibrant atmosphere.
-  Flanked by rows of colorful townhouses dating back to the 17th century, this iconic area exudes a sense of history and character.
-  As you stroll along the cobblestone streets, the scent of freshly baked pastries mingles with the salty breeze from the harbor,
-  creating a sensory symphony that captivates all who wander here.
-  Yet Nyhavn is not merely a relic of the past; it's a lively hub of activity, where locals and tourists alike gather to enjoy the
-  numerous cafes, bars, and restaurants lining the quayside. From leisurely boat tours along the picturesque canals to lively outdoor
-  concerts and events, there's always something happening in Nyhavn. Whether you're sipping a cold beer by the water's edge or admiring
-  the sunset painting the sky in hues of pink and gold, Nyhavn offers a quintessentially Danish experience that is both timeless and
-  unforgettable.`
+  html`Nyhavn, the picturesque waterfront district of Copenhagen, beckons visitors with its timeless charm and vibrant
+    atmosphere. Flanked by rows of colorful townhouses dating back to the 17th century, this iconic area exudes a sense
+    of history and character. As you stroll along the cobblestone streets, the scent of freshly
+    <a href="https://junothebakery.com/" target="_blank">baked pastries</a> mingles with the salty breeze from the
+    harbor, creating a sensory symphony that captivates all who wander here. Yet Nyhavn is not merely a relic of the
+    past; it's a lively hub of activity, where locals and tourists alike gather to enjoy the numerous cafes, bars, and
+    restaurants lining the quayside. From leisurely boat tours along the picturesque canals to lively outdoor concerts
+    and events, there's always something happening in Nyhavn. Whether you're sipping a cold beer by the water's edge or
+    admiring the sunset painting the sky in hues of pink and gold, Nyhavn offers a quintessentially Danish experience
+    that is both timeless and unforgettable.`
 ];
 
 export const FlexboxFullWidthResponsive: Story = {

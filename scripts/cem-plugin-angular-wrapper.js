@@ -20,6 +20,7 @@ function getComponentEvents(component, eventMap) {
 function generateComponent(imports, component, events) {
   return `import { Component, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
 ${imports.join('\n')}
+import { ElementRef } from '@angular/core';
 import { CePassthrough } from '@sl-design-system/angular';
 
 @Component({
@@ -31,7 +32,7 @@ export class ${component.name}Component extends CePassthrough<${component.name}>
 ${component.members
   ?.filter(member => member.kind === 'field' && !member.privacy && !member.static && !member.name.endsWith('Event'))
   .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n') ?? ''}
-${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}}
+${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}\n  constructor(elRef: ElementRef<${component.name}>) {\n    super(elRef);\n  }\n}
 `;
 };
 

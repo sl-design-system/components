@@ -1,5 +1,65 @@
 # @sanomalearning/slds-magister
 
+## 0.2.2
+
+### Patch Changes
+
+- [#1842](https://github.com/sl-design-system/components/pull/1842) [`b5c43d4`](https://github.com/sl-design-system/components/commit/b5c43d44a7d0ecebd9e72cdebd3a5c6ce56d2a70) - added global.css with global link styling
+
+## 0.2.1
+
+### Patch Changes
+
+- [#1834](https://github.com/sl-design-system/components/pull/1834) [`584cc4e`](https://github.com/sl-design-system/components/commit/584cc4e50fa27d60c30e91b1c545fb81fb855f0f) - Fix missing contextual tokens in `css/base.css` and `css/<variant>.css` files
+
+## 0.2.0
+
+### Minor Changes
+
+- [#1710](https://github.com/sl-design-system/components/pull/1710) [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e) - Overhaul of how (custom) icons are maintained in figma and exported to be used in the packages.
+
+  The following icons have changed:
+
+  - `circle` has been renamed to `circle-solid`
+
+  The following icons have been added:
+
+  - `badge-available`
+  - `badge-away`
+  - `badge-donotdisturb`
+  - `badge-offline`
+  - `error`
+  - `info`
+
+  The following items have been removed (mainly in cleaning up, they were never meant to be there)
+
+  - `svg-sort`
+  - `svg-sort-down`
+  - `svg-sort-up`
+
+- [#1607](https://github.com/sl-design-system/components/pull/1607) [`e184512`](https://github.com/sl-design-system/components/commit/e1845127a49819b7ab8d5a0a6a246576195cbe81) - Add new contextual tokens
+
+  This adds new contextual tokens for all themes. The old tokens are still here and are still in use. When the old tokens are no longer used throughout the design system, they will be removed. If you are starting something new, please use the new contextual tokens.
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refine new contextual tokens further
+
+### Patch Changes
+
+- [#1497](https://github.com/sl-design-system/components/pull/1497) [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f) - New paginator tokens, new `ellipsis-down` icon.
+
+- [#1772](https://github.com/sl-design-system/components/pull/1772) [`f27bb8a`](https://github.com/sl-design-system/components/commit/f27bb8a1e588b2e9b40fa49cd97e5188a7fbbf17) - Fixed wrong text colour in switch component
+
+- Updated dependencies [[`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee)]:
+  - @sl-design-system/icon@1.1.0
+
+## 0.1.18
+
+### Patch Changes
+
+- [#1587](https://github.com/sl-design-system/components/pull/1587) [`79261ab`](https://github.com/sl-design-system/components/commit/79261abc96b1bf92653face858436d6d051e454d) - updated background color with primary.25
+
+- [#1592](https://github.com/sl-design-system/components/pull/1592) [`ea2fc26`](https://github.com/sl-design-system/components/commit/ea2fc26b12e3a4a75f1b0e2ec294f2295a923830) - Replaced background tokens with color.palette.white.base
+
 ## 0.1.17
 
 ### Patch Changes

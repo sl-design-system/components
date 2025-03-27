@@ -2410,7 +2410,7 @@
   "icon": {
     "style": {
       "outline": {
-        "value": "{text.typeset.fontWeight.icon-regular}",
+        "value": "{text.typeset.fontWeight.icon-light}",
         "type": "fontWeights"
       },
       "solid": {

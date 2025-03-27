@@ -1,4 +1,5 @@
-import { type DataSource, getStringByPath, getValueByPath } from '@sl-design-system/shared';
+import { type ListDataSource } from '@sl-design-system/data-source';
+import { getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
@@ -15,7 +16,7 @@ export class GridViewModelGroup {
 export class GridViewModel<T = any> {
   #columnDefinitions: Array<GridColumn<T>> = [];
   #columns: Array<GridColumn<T>> = [];
-  #dataSource?: DataSource<T>;
+  #dataSource?: ListDataSource<T>;
   #grid: Grid<T>;
   #groups = new Map<string, boolean>();
   #headerRows: Array<Array<GridColumn<T>>> = [[]];
@@ -37,11 +38,11 @@ export class GridViewModel<T = any> {
     return this.#columns;
   }
 
-  get dataSource(): DataSource<T> | undefined {
+  get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
 
-  set dataSource(dataSource: DataSource<T> | undefined) {
+  set dataSource(dataSource: ListDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.update);
     }
@@ -72,7 +73,7 @@ export class GridViewModel<T = any> {
       const groupByPath = this.#dataSource.groupBy.path,
         groups: string[] = [];
 
-      this.#rows = this.#dataSource.filteredItems
+      this.#rows = this.#dataSource.items
         .map(item => {
           const value = getStringByPath(item, groupByPath);
 
@@ -97,7 +98,7 @@ export class GridViewModel<T = any> {
         }
       });
     } else {
-      this.#rows = this.#dataSource?.filteredItems ?? [];
+      this.#rows = this.#dataSource?.items ?? [];
     }
 
     this.#grid.requestUpdate('view');
@@ -136,7 +137,23 @@ export class GridViewModel<T = any> {
       return 'none';
     } else {
       const groupByPath = this.#dataSource?.groupBy?.path,
-        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
+        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath!) === value);
+
+      const some = items?.some(item => this.#grid.selection.isSelected(item)),
+        all = items?.every(item => this.#grid.selection.isSelected(item));
+
+      return all ? 'all' : some ? 'some' : 'none';
+    }
+  }
+
+  getActiveRow(value?: string): 'all' | 'some' | 'none' {
+    if (this.#grid.selection.areAllSelected()) {
+      return 'all';
+    } else if (this.#grid.selection.size === 0) {
+      return 'none';
+    } else {
+      const groupByPath = this.#dataSource?.groupBy?.path,
+        items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath!) === value);
 
       const some = items?.some(item => this.#grid.selection.isSelected(item)),
         all = items?.every(item => this.#grid.selection.isSelected(item));
@@ -156,12 +173,15 @@ export class GridViewModel<T = any> {
 
   /** Returns the left offset, taking any sticky columns into account. */
   getStickyColumnOffset(index: number): number {
-    return this.#columnDefinitions
-      .slice(0, index)
-      .filter(col => !col.hidden)
-      .reduce((acc, { width = 0 }) => {
-        return acc + width;
-      }, 0);
+    let columns: Array<GridColumn<T>>;
+
+    if (this.#columns[index].stickyPosition === 'end') {
+      columns = this.#columnDefinitions.slice(index, this.#columnDefinitions.length - 1).reverse();
+    } else {
+      columns = this.#columnDefinitions.slice(0, index);
+    }
+
+    return columns.filter(col => !col.hidden).reduce((acc, { width = 0 }) => acc + width, 0);
   }
 
   /** Returns whether the item is fixed (not draggable). */

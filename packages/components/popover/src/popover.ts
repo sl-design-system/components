@@ -43,14 +43,14 @@ export class Popover extends LitElement {
 
   /**
    * The position of popover relative to its anchor.
-   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
+   * @default bottom
    */
   @property() position?: PopoverPosition = 'bottom';
 
   /**
    * When the contents of your popover is too long to be read inline this should be set to true so the user
    * can navigate to the popover content themselves. `aria-details` is always set, regardless of this property.
-   * Read more about this on the accessibility tab.
+   * Read more about this in the [accessibility documentation](https://sanomalearning.design/categories/components/popover/accessibility/).
    */
   @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;
 
@@ -80,8 +80,6 @@ export class Popover extends LitElement {
       <div class="arrow" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" clip-rule="evenodd" viewBox="0 0 16 6">
           <path
-            fill="var(--_background)"
-            stroke="var(--_border-color)"
             d="M14.48 5.911c.196.191.429.338.685.434.266.104.549.156.835.155H0c.424.002.841-.116 1.202-.339.114-.073.221-.156.317-.25l1.239-1.205L3.998 3.5l1.239-1.205 1.239-1.206c.202-.196.443-.343.703-.441C7.441.549 7.72.499 8 .5c.28 0 .56.049.82.148.261.098.501.245.703.441l1.239 1.206L12.001 3.5l1.239 1.206 1.24 1.205"
           />
         </svg>

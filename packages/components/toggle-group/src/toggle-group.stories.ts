@@ -26,9 +26,11 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type ToggleGroup } from './toggle-group.js';
+import { type ToggleGroup, ToggleGroupFill } from './toggle-group.js';
 
-type Props = Pick<ToggleGroup, 'disabled' | 'multiple' | 'size'> & { slot?(): TemplateResult };
+type Props = Pick<ToggleGroup, 'disabled' | 'fill' | 'multiple' | 'shape' | 'size'> & {
+  slot?(): TemplateResult;
+};
 type Story = StoryObj<Props>;
 
 Icon.register(
@@ -52,7 +54,7 @@ Icon.register(
 
 export default {
   title: 'Actions/Toggle group',
-  tags: ['draft'],
+  tags: ['preview'],
   args: {
     disabled: false,
     multiple: false
@@ -62,13 +64,28 @@ export default {
       control: 'inline-radio',
       options: ['md', 'lg']
     },
+    fill: {
+      control: 'inline-radio',
+      options: ['outline', 'solid']
+    },
+    shape: {
+      control: 'inline-radio',
+      options: ['pill', 'square']
+    },
     slot: {
       table: { disable: true }
     }
   },
-  render: ({ disabled, multiple, size, slot }) => {
+  render: ({ disabled, fill, multiple, shape, size, slot }) => {
     return html`
-      <sl-toggle-group ?disabled=${disabled} ?multiple=${multiple} size=${ifDefined(size)}>${slot?.()}</sl-toggle-group>
+      <sl-toggle-group
+        ?disabled=${disabled}
+        ?multiple=${multiple}
+        fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
+        >${slot?.()}</sl-toggle-group
+      >
     `;
   }
 } satisfies Meta<Props>;
@@ -151,7 +168,7 @@ export const TextWithIcons: Story = {
   }
 };
 
-export const All: Story = {
+export const AllFunctionalVariants: Story = {
   render: () => html`
     <style>
       #root-inner {
@@ -360,4 +377,126 @@ export const All: Story = {
       </sl-toggle-group>
     </div>
   `
+};
+
+export const All: Story = {
+  render: () => {
+    const renderRow = (options: { fill: ToggleGroupFill; content?: 'button' | 'text' }) => {
+      const buttons = (buttonoptions: string[]) => {
+        return html`<sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
+            <sl-icon name="far-bold" slot="default"></sl-icon>
+            <sl-icon name="fas-bold" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button aria-label="Italic" ?pressed=${buttonoptions.includes('pressed')}>
+            <sl-icon name="far-italic" slot="default"></sl-icon>
+            <sl-icon name="fas-italic" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button aria-label="Underline">
+            <sl-icon name="far-underline" slot="default"></sl-icon>
+            <sl-icon name="fas-underline" slot="pressed"></sl-icon>
+          </sl-toggle-button>`;
+      };
+      const text = (buttonoptions: string[]) => {
+        return html`<sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
+            Read
+          </sl-toggle-button>
+          <sl-toggle-button aria-label="Italic"> Write </sl-toggle-button>`;
+      };
+      return html`
+        <tr>
+          <th>${options.fill}</th>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} size="sm">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill" size="sm">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="sm">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill" size="sm">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)}>
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled>
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} size="lg">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} shape="pill" size="lg">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+          <td>
+            <sl-toggle-group multiple fill=${ifDefined(options.fill)} disabled size="lg">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+            <sl-toggle-group multiple disabled fill=${ifDefined(options.fill)} shape="pill" size="lg">
+              ${options.content === 'text' ? text(['pressed']) : buttons(['pressed'])}
+            </sl-toggle-group>
+          </td>
+        </tr>
+      `;
+    };
+    return html` <style>
+        sl-toggle-group {
+          margin-bottom: 4px;
+        }
+      </style>
+      <table>
+        <tr>
+          <th>Options</th>
+          <th>Enabled - sm</th>
+          <th>Disabled - sm</th>
+          <th>Pressed - md</th>
+          <th>Disabled - md</th>
+          <th>Pressed - lg</th>
+          <th>Disabled - lg</th>
+        </tr>
+        ${renderRow({
+          fill: 'outline'
+        })}
+        ${renderRow({
+          fill: 'solid'
+        })}
+      </table>
+
+      <table>
+        <tr>
+          <th>Options</th>
+          <th>Enabled - sm</th>
+          <th>Disabled - sm</th>
+          <th>Enabled - md</th>
+          <th>Disabled - md</th>
+          <th>Enabled - lg</th>
+          <th>Disabled - lg</th>
+        </tr>
+        ${renderRow({
+          fill: 'outline',
+          content: 'text'
+        })}
+        ${renderRow({
+          fill: 'solid',
+          content: 'text'
+        })}
+      </table>`;
+  }
 };

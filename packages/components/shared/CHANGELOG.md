@@ -1,5 +1,51 @@
 # @sl-design-system/shared
 
+## 0.5.0
+
+### Minor Changes
+
+- [#1794](https://github.com/sl-design-system/components/pull/1794) [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb) - Move `SlClearEvent` to shared package to avoid conflicts
+
+- [#1794](https://github.com/sl-design-system/components/pull/1794) [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb) - Add support for passing a `Ref` to the `anchor()` directive
+
+- [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Add new `focusToElement` method to `FocusGroupController`
+
+  This allows you to focus on a specific element within a focus group. This is
+  useful when you want to focus on a specific element within a focus group, but still
+  maintain the roving tabindex behavior.
+
+### Patch Changes
+
+- [#1667](https://github.com/sl-design-system/components/pull/1667) [`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d) - Fix flaky unit tests due to focus-trap
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Refactor `getValueByPath` and related functions to properly infer type
+
+- [#1637](https://github.com/sl-design-system/components/pull/1637) [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6) - Add new `ObserveAttributesMixin` mixin that can be used to rewrite aria attributes to the right element.
+
+- [#1659](https://github.com/sl-design-system/components/pull/1659) [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75) - Add FocusTrapController that can be used to trap focus within an element (component).
+
+- [#1616](https://github.com/sl-design-system/components/pull/1616) [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960) - Improved accessibilty of the table;
+  - Added aria-rowindex and aria-rowcount;
+  - Improved keyboardnavigation, including skip table links
+  - Changed the way selecting works; active row by clicking on the entire row and selecting a row by checking the checkbox
+
+## 0.4.0
+
+### Minor Changes
+
+- [#1575](https://github.com/sl-design-system/components/pull/1575) [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9) - Migrate `DataSource` and `ArrayDataSource` to dedicated `@sl-design-system/data-source` package.
+
+  Since these are only used in the grid component, and that component is still in draft, migrating
+  this code into its own package is not considered a breaking change.
+
+- [#1580](https://github.com/sl-design-system/components/pull/1580) [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6) - Add new `closestElementComposed` DOM utility method
+
+  This new utility method is a wrapper around `HTMLElement.prototype.closest` that also considers the composed tree. This makes it easier to find the closest ancestor that matches a given selector, even if the element is in a shadow tree.
+
+### Patch Changes
+
+- [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Fix `RovingTabindexController` to correctly navigate between light & shadow DOM elements
+
 ## 0.3.2
 
 ### Patch Changes

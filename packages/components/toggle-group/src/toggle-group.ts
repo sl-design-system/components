@@ -1,6 +1,6 @@
 import { RovingTabindexController } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { ToggleButton, type ToggleButtonSize } from '@sl-design-system/toggle-button';
+import { ToggleButton } from '@sl-design-system/toggle-button';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './toggle-group.scss.js';
@@ -11,11 +11,16 @@ declare global {
   }
 }
 
+export type ToggleGroupFill = 'outline' | 'solid';
+export type ToggleGroupShape = 'pill' | 'square';
+export type ToggleGroupSize = 'sm' | 'md' | 'lg';
+
 /**
  * A component for visually grouping toggle buttons together. By default, this component ensures that only one button
  * in the group is active at a time. This behavior can be disabled by setting the `multiple` property.
  *
- * @slot default - The default slot.
+ * @slot default - The default slot for toggle buttons.
+ * For toggle group there is a possibility to use toggle buttons with text only.
  */
 export class ToggleGroup extends LitElement {
   /** @internal */
@@ -42,17 +47,23 @@ export class ToggleGroup extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
-   * By default, only a single toggle button inside the group can be active. This means
-   * that the group will automatically deactivate the other buttons when one is toggled.
+   * By default, only a single toggle button inside the group can be active.
+   * This means that the group will automatically deactivate the other buttons when one is toggled.
    *
-   * If you toggle this property, then multiple buttons can be active at the same time.
-   * In this case the group does nothing when a button is toggled. Use this mode if you want to
-   * handle the toggling of buttons yourself.
+   * When set to true multiple buttons can be active at the same time.
+   * In this case the group does nothing when a button is toggled.
+   * Use this mode if you want to handle the toggling of buttons yourself.
    */
   @property({ type: Boolean }) multiple?: boolean;
 
   /** Determines the size of all buttons in the group. */
-  @property({ reflect: true }) size?: ToggleButtonSize;
+  @property({ reflect: true }) size?: ToggleGroupSize;
+
+  /** The shaoe of the group. */
+  @property({ reflect: true }) shape?: ToggleGroupShape;
+
+  /** The variant of the toggle-group. */
+  @property({ reflect: true }) fill?: ToggleGroupFill;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -64,7 +75,7 @@ export class ToggleGroup extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled') || changes.has('size')) {
+    if (changes.has('disabled') || changes.has('fill') || changes.has('size')) {
       this.#updateButtonProperties();
     }
   }
@@ -92,8 +103,7 @@ export class ToggleGroup extends LitElement {
       if (typeof this.disabled === 'boolean') {
         button.disabled = this.disabled;
       }
-
-      button.fill = 'ghost';
+      button.fill = this.fill;
 
       if (this.size) {
         button.size = this.size;

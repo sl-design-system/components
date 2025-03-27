@@ -9,7 +9,7 @@ export class TooltipDirective extends AsyncDirective {
   tooltip?: Tooltip | (() => void);
 
   override disconnected(): void {
-    if (this.tooltip instanceof Tooltip) {
+    if (this.tooltip instanceof HTMLElement) {
       this.tooltip.remove();
     } else if (this.tooltip) {
       this.tooltip();
@@ -36,18 +36,13 @@ export class TooltipDirective extends AsyncDirective {
   }
 
   #setup(): void {
-    this.tooltip ||= Tooltip.lazy(
-      this.part!.element,
-      tooltip => {
+    if (this.part!.element)
+      this.tooltip ||= Tooltip.lazy(this.part!.element, tooltip => {
         if (this.isConnected) {
           this.tooltip = tooltip;
           this.renderContent();
         }
-      },
-      {
-        context: this.part!.element.shadowRoot ?? document
-      }
-    );
+      });
   }
 }
 

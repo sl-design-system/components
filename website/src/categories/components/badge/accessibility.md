@@ -24,12 +24,14 @@ Ensure that the badge’s meaning is clear even without color cues.
 
 ## WAI-ARIA
 
+{{ 'aria-attributes' | recurringText }}
+
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`role`|`'status'`|For badges that represent live status updates. This helps screen readers announce the badge appropriately.|yes|
-|`aria-label`|string|Description of the badge, you can add it when needed and contains important information. Sometimes adding `tabindex` can be necessary, when you want to make it tabbable.|yes|
+|Attribute|Value|Description|
+|-|-|-|
+|`role`|`'status'`|For badges that represent live status updates. This helps screen readers announce the badge appropriately.|
+|`aria-label`|string|Description of the badge, you can add it when needed and contains important information.|
 
 {.ds-table .ds-table-align-top}
 

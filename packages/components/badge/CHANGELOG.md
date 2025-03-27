@@ -1,5 +1,23 @@
 # @sl-design-system/badge
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1812](https://github.com/sl-design-system/components/pull/1812) [`9b639ea`](https://github.com/sl-design-system/components/commit/9b639eacedd763e9eac4d50eb570736a1bd7dfee) - Design tweaks:
+
+  - Do not uppercase all the text
+  - Make the `lg` version `24px` tall
+  - Use different padding depending on the size
+
+- [#1712](https://github.com/sl-design-system/components/pull/1712) [`752b27e`](https://github.com/sl-design-system/components/commit/752b27e1ed16550c44680c67b011ef5505c83776) - Add new `color` property and deprecate the `variant` property
+
+  This change introduces a new `color` property to the `Badge` component. This better
+  matches how the badge component is used. The `variant` property is now deprecated and
+  will be removed in the next major version.
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refactor styling to use new contextual tokens
+
 ## 1.0.0
 
 ### Major Changes

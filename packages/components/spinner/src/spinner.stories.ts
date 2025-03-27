@@ -10,7 +10,7 @@ type Story = StoryObj<Props>;
 
 const sizes: SpinnerSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const variants: SpinnerVariant[] = ['accent', 'info', 'danger', 'success', 'warning'];
-const buttonVariants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
+const buttonVariants: ButtonVariant[] = ['primary', 'secondary', 'success', 'warning', 'danger'];
 const buttonSizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
 const sizeName = (size: string): string => {

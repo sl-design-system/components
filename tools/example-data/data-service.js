@@ -45,6 +45,7 @@ export async function getPeople(options) {
 
   return {
     people,
-    hierarchyLevelSize
+    hierarchyLevelSize,
+    total: allPeople.length
   };
 }

@@ -1,5 +1,32 @@
 # @sl-design-system/toggle-button
 
+## 0.0.5
+
+### Patch Changes
+
+- [#1602](https://github.com/sl-design-system/components/pull/1602) [`6866dd0`](https://github.com/sl-design-system/components/commit/6866dd0f47f7decf2938e62edc8e3f6a865e6f6b) - Fixed toggling `text-only` attribute.
+
+- [#1807](https://github.com/sl-design-system/components/pull/1807) [`b0ac221`](https://github.com/sl-design-system/components/commit/b0ac22130da66c4f1ce68bf008a4e22a456ea768) - Incorporate the new contextual tokens and add new options:
+
+  - add size `sm`
+  - add shape `pill` | `square`
+  - changed fill `ghost` `to solid`
+
+  Toggle button now defaults to `solid` instead of `outline` fill, to match the behaviour of the regular button.
+
+- Updated dependencies [[`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652)]:
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/icon@1.1.0
+  - @sl-design-system/tooltip@1.1.2
+
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`3ce1a3b`](https://github.com/sl-design-system/components/commit/3ce1a3b2c7c185ae6499b7dad22056d4de96a3a0), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/tooltip@1.1.1
+  - @sl-design-system/shared@0.4.0
+
 ## 0.0.3
 
 ### Patch Changes

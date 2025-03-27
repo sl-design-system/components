@@ -2,9 +2,7 @@
 title: Select code
 tags: code
 APIdescription: {
-  sl-select: "Select component has a range of properties, attributes etc. to define the experience in different use cases, and it can be used as the replacement of the HTML native select element.",
-  sl-select-option: "Select option component offers settings for various scenarios, and it is a part of the select component representing each selectable element.",
-  sl-select-option-group: "Select option group component provides properties to define the experience in different use cases, and it is a kind of wrapper for multiple select options, can be used optionally to improve readability."
+  sl-select: "Select component has a range of properties, attributes etc. to define the experience in different use cases, and it can be used as the replacement of the HTML native select element."
 }
 eleventyNavigation:
   parent: Select
@@ -15,20 +13,20 @@ eleventyNavigation:
 <div class="ds-example">
   <div class="ds-example__examples-wrapper">
   <sl-select style="inline-size: 30rem;" aria-label="List of available subjects">
-    <sl-select-option-group heading="Languages">
-      <sl-select-option>English</sl-select-option>
-      <sl-select-option>German</sl-select-option>
-      <sl-select-option>French</sl-select-option>
-      <sl-select-option>Spanish</sl-select-option>
-      <sl-select-option>Chinese</sl-select-option>
-    </sl-select-option-group>
-    <sl-select-option>Music</sl-select-option>
-    <sl-select-option-group heading="Science">
-      <sl-select-option>Biology</sl-select-option>
-      <sl-select-option>Chemistry</sl-select-option>
-      <sl-select-option>Physics</sl-select-option>
-      <sl-select-option>Computer Science</sl-select-option>
-    </sl-select-option-group>
+    <sl-option-group heading="Languages">
+      <sl-option>English</sl-option>
+      <sl-option>German</sl-option>
+      <sl-option>French</sl-option>
+      <sl-option>Spanish</sl-option>
+      <sl-option>Chinese</sl-option>
+    </sl-option-group>
+    <sl-option>Music</sl-option>
+    <sl-option-group heading="Science">
+      <sl-option>Biology</sl-option>
+      <sl-option>Chemistry</sl-option>
+      <sl-option>Physics</sl-option>
+      <sl-option>Computer Science</sl-option>
+    </sl-option-group>
   </sl-select>
   </div>
 </div>
@@ -37,17 +35,17 @@ eleventyNavigation:
 
   ```html
   <sl-select>
-    <sl-select-option-group heading="Languages">
-      <sl-select-option>English</sl-select-option>
-      <sl-select-option>German</sl-select-option>
+    <sl-option-group heading="Languages">
+      <sl-option>English</sl-option>
+      <sl-option>German</sl-option>
       ...
-    </sl-select-option-group>
-    <sl-select-option>Music</sl-select-option>
-    <sl-select-option-group heading="Science">
-      <sl-select-option>Biology</sl-select-option>
-      <sl-select-option>Chemistry</sl-select-option>
+    </sl-option-group>
+    <sl-option>Music</sl-option>
+    <sl-option-group heading="Science">
+      <sl-option>Biology</sl-option>
+      <sl-option>Chemistry</sl-option>
       ...
-    </sl-select-option-group>
+    </sl-option-group>
   </sl-select>
   ```
 

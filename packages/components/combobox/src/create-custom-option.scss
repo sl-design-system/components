@@ -1,31 +1,13 @@
 :host {
-  border-block-end: var(--sl-color-elevation-border-raised) solid var(--sl-size-borderWidth-default);
-  margin-block-end: var(--sl-space-new-sm);
-  padding-block-end: var(--sl-space-new-md);
-  user-select: none;
+  border-block-end: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);
+  inline-size: 100%;
+  margin-block-end: var(--sl-size-075);
+  margin-inline: 0;
+  padding-block-end: var(--sl-size-100);
 }
 
-:host([aria-current]) .container {
-  background: var(--sl-color-action-background-accent-subtle-hover);
-}
-
-:host(:active) .container {
-  background: var(--sl-color-action-background-accent-subtle-active);
-}
-
-.container {
-  align-items: center;
-  border-radius: var(--sl-size-border-radius-default);
-  color: var(--sl-color-text-default);
-  cursor: pointer;
-  display: flex;
-  gap: var(--sl-space-new-md);
-  margin-inline: var(--sl-space-new-md);
-  padding: var(--sl-space-new-sm) var(--sl-space-new-md);
-
-  &:hover {
-    background: var(--sl-color-action-background-accent-subtle-hover);
-  }
+[part='container'] {
+  margin-inline: var(--sl-size-100);
 }
 
 sl-icon {

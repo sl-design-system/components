@@ -49,9 +49,9 @@ describe('sl-text-field', () => {
       expect(input.value).to.equal('my value');
     });
 
-    it('should have a medium size', () => {
-      expect(el).to.have.attribute('size', 'md');
-      expect(el.size).to.equal('md');
+    it('should not have an explicit size', () => {
+      expect(el).not.to.have.attribute('size');
+      expect(el.size).to.be.undefined;
     });
 
     it('should have a large size when set', async () => {
@@ -284,6 +284,23 @@ describe('sl-text-field', () => {
     });
   });
 
+  describe('aria attributes', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-field aria-label="my label" aria-disabled="true"></sl-checkbox>`);
+      input = el.querySelector('input')!;
+
+      // Give time to rewrite arias
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should have an input with proper arias', () => {
+      expect(el).not.to.have.attribute('aria-label', 'my label');
+      expect(el).not.to.have.attribute('aria-disabled', 'true');
+      expect(input).to.have.attribute('aria-label', 'my label');
+      expect(input).to.have.attribute('aria-disabled', 'true');
+    });
+  });
+
   describe('invalid', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-field required></sl-text-field>`);
@@ -429,9 +446,11 @@ describe('sl-text-field', () => {
 
       override render(): TemplateResult {
         return html`
-          <sl-form-field label="Label">
-            <sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>
-          </sl-form-field>
+          <sl-form>
+            <sl-form-field label="Label">
+              <sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>
+            </sl-form-field>
+          </sl-form>
         `;
       }
     }
@@ -458,6 +477,30 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(el.shadowRoot!.activeElement).to.equal(input);
+    });
+
+    it('should call requestSubmit after pressing Enter in the text-field', async () => {
+      const form = el.renderRoot.querySelector('sl-form')!;
+
+      spy(form, 'requestSubmit');
+
+      el.renderRoot.querySelector('input')?.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(form.requestSubmit).to.have.been.calledOnce;
+    });
+
+    it('should not call requestSubmit after pressing Enter if readonly', async () => {
+      const form = el.renderRoot.querySelector('sl-form')!;
+
+      spy(form, 'requestSubmit');
+
+      el.renderRoot.querySelector('sl-text-field')?.setAttribute('readonly', '');
+
+      el.renderRoot.querySelector('input')?.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(form.requestSubmit).not.to.have.been.called;
     });
   });
 
@@ -503,8 +546,8 @@ describe('sl-text-field', () => {
       }
 
       /** Format the date as DD-MM-YYYY. */
-      override formatValue(value?: Date): string {
-        return value?.toLocaleDateString() ?? '';
+      override get formattedValue(): string {
+        return this.value?.toLocaleDateString() ?? '';
       }
     }
 

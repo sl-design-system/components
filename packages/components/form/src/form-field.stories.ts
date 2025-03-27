@@ -99,9 +99,9 @@ export const Select: Story = {
   args: {
     slot: () => html`
       <sl-select required>
-        <sl-select-option value="1">Option 1</sl-select-option>
-        <sl-select-option value="2">Option 2</sl-select-option>
-        <sl-select-option value="3">Option 3</sl-select-option>
+        <sl-option value="1">Option 1</sl-option>
+        <sl-option value="2">Option 2</sl-option>
+        <sl-option value="3">Option 3</sl-option>
       </sl-select>
     `
   }

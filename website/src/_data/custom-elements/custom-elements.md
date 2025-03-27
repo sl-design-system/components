@@ -16,6 +16,23 @@
 | `custom-element-definition` | `sl-accordion`      | Accordion     | /packages/components/accordion/src/accordion.js      |         |
 | `custom-element-definition` | `sl-accordion-item` | AccordionItem | /packages/components/accordion/src/accordion-item.js |         |
 
+# `../packages/components/announcer/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package            |
+| ---- | ---- | ----------- | ------ | ------------------ |
+| `js` | `*`  | *           |        | ./src/announce.js  |
+| `js` | `*`  | *           |        | ./src/announcer.js |
+
+# `../packages/components/announcer/register.ts`:
+
+## Exports
+
+| Kind                        | Name           | Declaration | Module                                          | Package |
+| --------------------------- | -------------- | ----------- | ----------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-announcer` | Announcer   | /packages/components/announcer/src/announcer.js |         |
+
 # `../packages/components/avatar/index.ts`:
 
 ## Exports
@@ -130,6 +147,33 @@
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
 
+# `../packages/components/combobox/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./src/combobox.js |
+
+# `../packages/components/combobox/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                        | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-combobox` | Combobox    | /packages/components/combobox/src/combobox.js |         |
+
+# `../packages/components/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                         |
+| ---- | ---- | ----------- | ------ | ------------------------------- |
+| `js` | `*`  | *           |        | ./src/array-list-data-source.js |
+| `js` | `*`  | *           |        | ./src/data-source.js            |
+| `js` | `*`  | *           |        | ./src/fetch-list-data-source.js |
+| `js` | `*`  | *           |        | ./src/list-data-source.js       |
+
 # `../packages/components/dialog/index.ts`:
 
 ## Exports
@@ -177,6 +221,22 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
+
+# `../packages/components/ellipsize-text/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                 |
+| ---- | ---- | ----------- | ------ | ----------------------- |
+| `js` | `*`  | *           |        | ./src/ellipsize-text.js |
+
+# `../packages/components/ellipsize-text/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                                    | Package |
+| --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-ellipsize-text` | EllipsizeText | /packages/components/ellipsize-text/src/ellipsize-text.js |         |
 
 # `../packages/components/emoji/index.ts`:
 
@@ -238,6 +298,22 @@
 | Kind                        | Name             | Declaration | Module                                           | Package |
 | --------------------------- | ---------------- | ----------- | ------------------------------------------------ | ------- |
 | `custom-element-definition` | `sl-format-date` | FormatDate  | /packages/components/format-date/src/format-date |         |
+
+# `../packages/components/format-number/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./src/format-number.js |
+
+# `../packages/components/format-number/register.ts`:
+
+## Exports
+
+| Kind                        | Name               | Declaration  | Module                                                  | Package |
+| --------------------------- | ------------------ | ------------ | ------------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-format-number` | FormatNumber | /packages/components/format-number/src/format-number.js |         |
 
 # `../packages/components/grid/index.ts`:
 
@@ -304,6 +380,27 @@
 | --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-inline-message` | InlineMessage | /packages/components/inline-message/src/inline-message.js |         |
 
+# `../packages/components/listbox/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                      |
+| ---- | ---- | ----------- | ------ | ---------------------------- |
+| `js` | `*`  | *           |        | ./src/listbox.js             |
+| `js` | `*`  | *           |        | ./src/option.js              |
+| `js` | `*`  | *           |        | ./src/option-group.js        |
+| `js` | `*`  | *           |        | ./src/option-group-header.js |
+
+# `../packages/components/listbox/register.ts`:
+
+## Exports
+
+| Kind                        | Name              | Declaration | Module                                           | Package |
+| --------------------------- | ----------------- | ----------- | ------------------------------------------------ | ------- |
+| `custom-element-definition` | `sl-listbox`      | Listbox     | /packages/components/listbox/src/listbox.js      |         |
+| `custom-element-definition` | `sl-option-group` | OptionGroup | /packages/components/listbox/src/option-group.js |         |
+| `custom-element-definition` | `sl-option`       | Option      | /packages/components/listbox/src/option.js       |         |
+
 # `../packages/components/menu/index.ts`:
 
 ## Exports
@@ -341,6 +438,42 @@
 | Kind                        | Name                | Declaration   | Module                                                    | Package |
 | --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-message-dialog` | MessageDialog | /packages/components/message-dialog/src/message-dialog.js |         |
+
+# `../packages/components/number-field/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package               |
+| ---- | ---- | ----------- | ------ | --------------------- |
+| `js` | `*`  | *           |        | ./src/number-field.js |
+
+# `../packages/components/number-field/register.ts`:
+
+## Exports
+
+| Kind                        | Name              | Declaration | Module                                                | Package |
+| --------------------------- | ----------------- | ----------- | ----------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-number-field` | NumberField | /packages/components/number-field/src/number-field.js |         |
+
+# `../packages/components/paginator/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package            |
+| ---- | ---- | ----------- | ------ | ------------------ |
+| `js` | `*`  | *           |        | ./src/paginator.js |
+| `js` | `*`  | *           |        | ./src/page-size.js |
+| `js` | `*`  | *           |        | ./src/status.js    |
+
+# `../packages/components/paginator/register.ts`:
+
+## Exports
+
+| Kind                        | Name                     | Declaration       | Module                                          | Package |
+| --------------------------- | ------------------------ | ----------------- | ----------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-paginator`           | Paginator         | /packages/components/paginator/src/paginator.js |         |
+| `custom-element-definition` | `sl-paginator-page-size` | PaginatorPageSize | /packages/components/paginator/src/page-size.js |         |
+| `custom-element-definition` | `sl-paginator-status`    | PaginatorStatus   | /packages/components/paginator/src/status.js    |         |
 
 # `../packages/components/panel/index.ts`:
 
@@ -408,6 +541,30 @@
 | `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
 | `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
 
+# `../packages/components/scrollbar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package            |
+| ---- | ---- | ----------- | ------ | ------------------ |
+| `js` | `*`  | *           |        | ./src/scrollbar.js |
+
+# `../packages/components/scrollbar/register.ts`:
+
+## Exports
+
+| Kind                        | Name           | Declaration | Module                                          | Package |
+| --------------------------- | -------------- | ----------- | ----------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-scrollbar` | Scrollbar   | /packages/components/scrollbar/src/scrollbar.js |         |
+
+# `../packages/components/search-field/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package               |
+| ---- | ---- | ----------- | ------ | --------------------- |
+| `js` | `*`  | *           |        | ./src/search-field.js |
+
 # `../packages/components/search-field/register.ts`:
 
 ## Exports
@@ -420,49 +577,44 @@
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package                      |
-| ---- | ---- | ----------- | ------ | ---------------------------- |
-| `js` | `*`  | *           |        | ./src/select.js              |
-| `js` | `*`  | *           |        | ./src/select-option.js       |
-| `js` | `*`  | *           |        | ./src/select-option-group.js |
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/select.js |
 
 # `../packages/components/select/register.ts`:
 
 ## Exports
 
-| Kind                        | Name                     | Declaration       | Module                                                 | Package |
-| --------------------------- | ------------------------ | ----------------- | ------------------------------------------------------ | ------- |
-| `custom-element-definition` | `sl-select`              | Select            | /packages/components/select/src/select.js              |         |
-| `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
-| `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-select` | Select      | /packages/components/select/src/select.js |         |
 
 # `../packages/components/shared/index.ts`:
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package                                |
-| ---- | ---- | ----------- | ------ | -------------------------------------- |
-| `js` | `*`  | *           |        | ./src/browser.js                       |
-| `js` | `*`  | *           |        | ./src/config.js                        |
-| `js` | `*`  | *           |        | ./src/controllers/anchor.js            |
-| `js` | `*`  | *           |        | ./src/controllers/events.js            |
-| `js` | `*`  | *           |        | ./src/controllers/focus-group.js       |
-| `js` | `*`  | *           |        | ./src/controllers/roving-tabindex.js   |
-| `js` | `*`  | *           |        | ./src/controllers/selection.js         |
-| `js` | `*`  | *           |        | ./src/controllers/shortcut.js          |
-| `js` | `*`  | *           |        | ./src/css.js                           |
-| `js` | `*`  | *           |        | ./src/data-source/array-data-source.js |
-| `js` | `*`  | *           |        | ./src/data-source/data-source.js       |
-| `js` | `*`  | *           |        | ./src/decorators/base.js               |
-| `js` | `*`  | *           |        | ./src/decorators/event.js              |
-| `js` | `*`  | *           |        | ./src/decorators/observe.js            |
-| `js` | `*`  | *           |        | ./src/dom.js                           |
-| `js` | `*`  | *           |        | ./src/directives/anchor.js             |
-| `js` | `*`  | *           |        | ./src/mixins.js                        |
-| `js` | `*`  | *           |        | ./src/path.js                          |
-| `js` | `*`  | *           |        | ./src/popover.js                       |
-| `js` | `*`  | *           |        | ./src/string.js                        |
-| `js` | `*`  | *           |        | ./src/types.js                         |
+| Kind | Name | Declaration | Module | Package                              |
+| ---- | ---- | ----------- | ------ | ------------------------------------ |
+| `js` | `*`  | *           |        | ./src/browser.js                     |
+| `js` | `*`  | *           |        | ./src/config.js                      |
+| `js` | `*`  | *           |        | ./src/controllers/anchor.js          |
+| `js` | `*`  | *           |        | ./src/controllers/events.js          |
+| `js` | `*`  | *           |        | ./src/controllers/focus-group.js     |
+| `js` | `*`  | *           |        | ./src/controllers/focus-trap.js      |
+| `js` | `*`  | *           |        | ./src/controllers/roving-tabindex.js |
+| `js` | `*`  | *           |        | ./src/controllers/selection.js       |
+| `js` | `*`  | *           |        | ./src/controllers/shortcut.js        |
+| `js` | `*`  | *           |        | ./src/css.js                         |
+| `js` | `*`  | *           |        | ./src/decorators/base.js             |
+| `js` | `*`  | *           |        | ./src/decorators/event.js            |
+| `js` | `*`  | *           |        | ./src/decorators/observe.js          |
+| `js` | `*`  | *           |        | ./src/dom.js                         |
+| `js` | `*`  | *           |        | ./src/directives/anchor.js           |
+| `js` | `*`  | *           |        | ./src/mixins.js                      |
+| `js` | `*`  | *           |        | ./src/path.js                        |
+| `js` | `*`  | *           |        | ./src/popover.js                     |
+| `js` | `*`  | *           |        | ./src/string.js                      |
+| `js` | `*`  | *           |        | ./src/types.js                       |
 
 # `../packages/components/shared/src/events.ts`:
 
@@ -472,6 +624,7 @@
 | ---- | --------------- | ------------- | ------------------ | ------- |
 | `js` | `SlBlurEvent`   | SlBlurEvent   | ./events/blur.js   |         |
 | `js` | `SlChangeEvent` | SlChangeEvent | ./events/change.js |         |
+| `js` | `SlClearEvent`  | SlClearEvent  | ./events/clear.js  |         |
 | `js` | `SlFocusEvent`  | SlFocusEvent  | ./events/focus.js  |         |
 | `js` | `SlSelectEvent` | SlSelectEvent | ./events/select.js |         |
 | `js` | `SlToggleEvent` | SlToggleEvent | ./events/toggle.js |         |
@@ -582,17 +735,19 @@
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/text-field.js |
+| Kind | Name | Declaration | Module | Package               |
+| ---- | ---- | ----------- | ------ | --------------------- |
+| `js` | `*`  | *           |        | ./src/field-button.js |
+| `js` | `*`  | *           |        | ./src/text-field.js   |
 
 # `../packages/components/text-field/register.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-text-field` | TextField   | /packages/components/text-field/src/text-field.js |         |
+| Kind                        | Name              | Declaration | Module                                              | Package |
+| --------------------------- | ----------------- | ----------- | --------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-field-button` | FieldButton | /packages/components/text-field/src/field-button.js |         |
+| `custom-element-definition` | `sl-text-field`   | TextField   | /packages/components/text-field/src/text-field.js   |         |
 
 # `../packages/components/toggle-button/index.ts`:
 
@@ -626,6 +781,15 @@
 | --------------------------- | ----------------- | ----------- | ----------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-toggle-group` | ToggleGroup | /packages/components/toggle-group/src/toggle-group.js |         |
 
+# `../packages/components/tool-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                   |
+| ---- | ---- | ----------- | ------ | ------------------------- |
+| `js` | `*`  | *           |        | ./src/tool-bar.js         |
+| `js` | `*`  | *           |        | ./src/tool-bar-divider.js |
+
 # `../packages/components/tool-bar/register.ts`:
 
 ## Exports
@@ -652,15 +816,34 @@
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion-item.scss.ts`:
+# `../packages/components/tree/index.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion-item.scss.ts |         |
+| Kind | Name | Declaration | Module | Package                          |
+| ---- | ---- | ----------- | ------ | -------------------------------- |
+| `js` | `*`  | *           |        | ./src/flat-tree-data-source.js   |
+| `js` | `*`  | *           |        | ./src/nested-tree-data-source.js |
+| `js` | `*`  | *           |        | ./src/tree-data-source.js        |
+| `js` | `*`  | *           |        | ./src/tree.js                    |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion-item.ts`:
+# `../packages/components/tree/register.ts`:
+
+## Exports
+
+| Kind                        | Name      | Declaration | Module                                | Package |
+| --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
+| `custom-element-definition` | `sl-tree` | Tree        | /packages/components/tree/src/tree.js |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.ts`:
 
 ## class: `AccordionItem`, `sl-accordion-item`
 
@@ -717,19 +900,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                           | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `AccordionItem` | AccordionItem | /Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion-item.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                             | Package |
+| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AccordionItem` | AccordionItem | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion-item.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.ts`:
 
 ## class: `Accordion`, `sl-accordion`
 
@@ -762,19 +945,62 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                      | Package |
-| ---- | ----------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Accordion` | Accordion   | /Users/Diana.Broeders/Projects/design-system/packages/components/accordion/src/accordion.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Accordion` | Accordion   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/accordion/src/accordion.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announce.ts`:
+
+## Functions
+
+| Name       | Description                                                                                                                                                                                                                                                                                                                                  | Parameters                                          | Return |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | ------ |
+| `announce` | Sends a notification to the live aria.&#xA;Please be aware that sending messages too soon after each other can cause the screenreader&#xA;to stop reading the earlier messages, or even skip them, when a new message is sent.&#xA;If you want to send multiple messages in a row, consider using a single message with all the information. | `message: string, urgency: 'polite' \| 'assertive'` | `void` |
+
+<hr/>
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts |         |
+| Kind | Name       | Declaration | Module                                                                                       | Package |
+| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `announce` | announce    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announce.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.ts`:
+
+## class: `Announcer`, `sl-announcer`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                                                        | Package |
+| ---- | ----------------- | --------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlAnnounceEvent` | SlAnnounceEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.ts |         |
+| `js` | `Announcer`       | Announcer       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/announcer/src/announcer.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.ts`:
 
 ## class: `Avatar`, `sl-avatar`
 
@@ -844,19 +1070,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | /Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/avatar/src/avatar.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.ts`:
 
 ## class: `Badge`, `sl-badge`
 
@@ -868,16 +1094,18 @@
 
 ### Fields
 
-| Name       | Privacy | Type            | Default     | Description                                      | Inherited From |
-| ---------- | ------- | --------------- | ----------- | ------------------------------------------------ | -------------- |
-| `emphasis` |         | `BadgeEmphasis` | `'subtle'`  | The emphasis of the badge; defaults to 'subtle'. |                |
-| `size`     |         | `BadgeSize`     | `'md'`      | The size of the badge component.                 |                |
-| `variant`  |         | `BadgeVariant`  | `'neutral'` | The variant of the badge.                        |                |
+| Name       | Privacy | Type                         | Default   | Description                                                                            | Inherited From |
+| ---------- | ------- | ---------------------------- | --------- | -------------------------------------------------------------------------------------- | -------------- |
+| `color`    |         | `BadgeColor \| undefined`    | `grey`    | The color of the badge.                                                                |                |
+| `emphasis` |         | `BadgeEmphasis \| undefined` | `subtle`  | The emphasis of the badge.                                                             |                |
+| `size`     |         | `BadgeSize \| undefined`     | `'md'`    | The size of the badge component.                                                       |                |
+| `variant`  |         | `BadgeVariant \| undefined`  | `neutral` | The variant of the badge. This property is deprecated. Use the color property instead. |                |
 
 ### Attributes
 
 | Name       | Field    | Inherited From |
 | ---------- | -------- | -------------- |
+| `color`    | color    |                |
 | `emphasis` | emphasis |                |
 | `size`     | size     |                |
 | `variant`  | variant  |                |
@@ -892,19 +1120,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                              | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `Badge` | Badge       | /Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.ts |         |
+| Kind | Name    | Declaration | Module                                                                                | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Badge` | Badge       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/badge/src/badge.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.ts`:
 
 ## class: `Breadcrumbs`, `sl-breadcrumbs`
 
@@ -929,19 +1157,19 @@
 
 ### Fields
 
-| Name                | Privacy | Type           | Default | Description                                                                                                                                                                                                                                                                                          | Inherited From |
-| ------------------- | ------- | -------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `breadcrumbs`       |         | `Breadcrumb[]` | `[]`    | The slotted breadcrumbs.                                                                                                                                                                                                                                                                             |                |
-| `collapseThreshold` |         | `number`       | `3`     | The threshold for when breadcrumbs should be collapsed into a menu.                                                                                                                                                                                                                                  |                |
-| `homeUrl`           |         |                |         | The url for the home link, defaults to the root url.&#xA;&#xA;If you want to change the default value for all future instances of the component, you can change the static property.&#xA;If you want to change the property of an already created instance, you need to change this property.        |                |
-| `noHome`            |         |                |         | When true doesn't show a home link as the first breadcrumb.&#xA;&#xA;If you want to change the default value for all future instances of the component, you can change the static property.&#xA;If you want to change the property of an already created instance, you need to change this property. |                |
+| Name       | Privacy | Type                   | Default | Description                                                                                                                                                                                                                                                                                          | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `homeUrl`  |         |                        |         | The url for the home link, defaults to the root url.&#xA;&#xA;If you want to change the default value for all future instances of the component, you can change the static property.&#xA;If you want to change the property of an already created instance, you need to change this property.        |                |
+| `inverted` |         | `boolean \| undefined` |         | Set this to true to invert the color of the breadcrumbs. This should be used&#xA;when the breadcrumbs are displayed on a dark background.                                                                                                                                                            |                |
+| `noHome`   |         |                        |         | When true doesn't show a home link as the first breadcrumb.&#xA;&#xA;If you want to change the default value for all future instances of the component, you can change the static property.&#xA;If you want to change the property of an already created instance, you need to change this property. |                |
 
 ### Attributes
 
-| Name       | Field   | Inherited From |
-| ---------- | ------- | -------------- |
-| `home-url` | homeUrl |                |
-| `no-home`  | noHome  |                |
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `inverted` | inverted |                |
+| `home-url` | homeUrl  |                |
+| `no-home`  | noHome   |                |
 
 ### Slots
 
@@ -953,19 +1181,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                          | Package |
-| ---- | ------------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `Breadcrumbs` | Breadcrumbs | /Users/Diana.Broeders/Projects/design-system/packages/components/breadcrumbs/src/breadcrumbs.ts |         |
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Breadcrumbs` | Breadcrumbs | /Users/jeroen.zwartepoorte/Projects/components/packages/components/breadcrumbs/src/breadcrumbs.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.ts`:
 
 ## class: `ButtonBar`, `sl-button-bar`
 
@@ -979,7 +1207,7 @@
 
 | Name      | Privacy | Type                          | Default | Description                                     | Inherited From |
 | --------- | ------- | ----------------------------- | ------- | ----------------------------------------------- | -------------- |
-| `align`   |         | `ButtonBarAlign \| undefined` |         | The alignment of the buttons within the bar.    |                |
+| `align`   |         | `ButtonBarAlign \| undefined` | `start` | The alignment of the buttons within the bar.    |                |
 | `reverse` |         | `boolean \| undefined`        |         | When set to true, the button order is reversed. |                |
 | `size`    |         | `ButtonSize \| undefined`     |         | Determines the size of all buttons in the bar.  |                |
 
@@ -991,14 +1219,6 @@
 | `reverse` | reverse |                |
 | `size`    | size    |                |
 
-### CSS Properties
-
-| Name                        | Default | Description                                                                                                                                                                                                                                                                                                                                                                                               |
-| --------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sl-button-bar-align`     |         | The alignment of the buttons within the bar. Possible values: `start`, `center`, `end`, `space-between`. By default it is `start`. You can use it eg. for mobile version (together with `--sl-button-bar-direction-row`).                                                                                                                                                                                 |
-| `--sl-button-bar-direction` |         | The flex direction of the button container.                                                                                                                                                                                                                                                                                                                                                               |
-| `--sl-button-bar-vertical`  |         | Vertical (column) direction - you can set <code>--sl-ON</code> or <code>`--sl-OFF`</code> when needed (eg. only for mobile version); by default it is OFF. Some more information can be found in the <a href="https://lea.verou.me/blog/2020/10/the-var-space-hack-to-toggle-multiple-values-with-one-custom-property/" target="_blank">article about using multiple values with one custom property</a>. |
-
 ### Slots
 
 | Name      | Description                       |
@@ -1009,19 +1229,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | /Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                          | Package |
+| ---- | ----------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button-bar/src/button-bar.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.ts`:
 
 ## class: `Button`, `sl-button`
 
@@ -1033,13 +1253,14 @@
 
 ### Fields
 
-| Name       | Privacy | Type                   | Default     | Description                                                                                                        | Inherited From |
-| ---------- | ------- | ---------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `disabled` |         | `boolean \| undefined` |             | Whether the button is disabled; when set no interaction is possible.                                               |                |
-| `fill`     |         | `ButtonFill`           | `'solid'`   | The fill of the button.                                                                                            |                |
-| `size`     |         | `ButtonSize`           | `'md'`      | The size of the button.                                                                                            |                |
-| `type`     |         | `ButtonType`           | `'button'`  | The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons. |                |
-| `variant`  |         | `ButtonVariant`        | `'default'` | The variant of the button.                                                                                         |                |
+| Name       | Privacy | Type                         | Default     | Description                                                                                                        | Inherited From |
+| ---------- | ------- | ---------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled` |         | `boolean \| undefined`       |             | Whether the button is disabled; when set no interaction is possible.                                               |                |
+| `fill`     |         | `ButtonFill \| undefined`    | `solid`     | The fill of the button.                                                                                            |                |
+| `shape`    |         | `ButtonShape \| undefined`   | `square`    | The shape of the button.                                                                                           |                |
+| `size`     |         | `ButtonSize \| undefined`    | `'md'`      | The size of the button.                                                                                            |                |
+| `type`     |         | `ButtonType \| undefined`    | `button`    | The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons. |                |
+| `variant`  |         | `ButtonVariant \| undefined` | `secondary` | The variant of the button.                                                                                         |                |
 
 ### Attributes
 
@@ -1047,6 +1268,7 @@
 | ---------- | -------- | -------------- |
 | `disabled` | disabled |                |
 | `fill`     | fill     |                |
+| `shape`    | shape    |                |
 | `size`     | size     |                |
 | `type`     | type     |                |
 | `variant`  | variant  |                |
@@ -1061,19 +1283,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Button` | Button      | /Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Button` | Button      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/button/src/button.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/card/src/card.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/card/src/card.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/card/src/card.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.ts`:
 
 ## class: `Card`, `sl-card`
 
@@ -1129,19 +1351,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Card` | Card        | /Users/Diana.Broeders/Projects/design-system/packages/components/card/src/card.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Card` | Card        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/card/src/card.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.ts`:
 
 ## class: `CheckboxGroup`, `sl-checkbox-group`
 
@@ -1187,7 +1409,6 @@
 | `focus`                         |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                  |
 | `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin |
 | `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`    | FormControlMixin |
 | `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin |
 
 ### Events
@@ -1224,19 +1445,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                          | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `CheckboxGroup` | CheckboxGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                            | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CheckboxGroup` | CheckboxGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox-group.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.ts`:
 
 ## class: `Checkbox`, `sl-checkbox`
 
@@ -1248,29 +1469,30 @@
 
 ### Mixins
 
-| Name               | Module | Package                |
-| ------------------ | ------ | ---------------------- |
-| `FormControlMixin` |        | @sl-design-system/form |
+| Name                     | Module | Package                  |
+| ------------------------ | ------ | ------------------------ |
+| `ObserveAttributesMixin` |        | @sl-design-system/shared |
+| `FormControlMixin`       |        | @sl-design-system/form   |
 
 ### Fields
 
 | Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
 | ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `checked`           |         | `boolean \| undefined`                       |         | Whether the checkbox is checked.                                                                                                                                                                                                                                                                                                                        |                  |
+| `checked`           |         | `boolean \| undefined`                       | `false` | Whether the checkbox is checked.                                                                                                                                                                                                                                                                                                                        |                  |
 | `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
 | `dirty`             |         | `boolean`                                    | `false` | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                       |         | Whether the checkbox is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                  |                  |
+| `disabled`          |         | `boolean \| undefined`                       | `false` | Whether the checkbox is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                  |                  |
 | `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
 | `formValue`         |         | `unknown`                                    |         | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
-| `indeterminate`     |         | `boolean \| undefined`                       |         | Whether the checkbox has the indeterminate state.                                                                                                                                                                                                                                                                                                       |                  |
+| `indeterminate`     |         | `boolean \| undefined`                       | `false` | Whether the checkbox has the indeterminate state.                                                                                                                                                                                                                                                                                                       |                  |
 | `input`             |         | `HTMLInputElement`                           |         | The input element in the light DOM.                                                                                                                                                                                                                                                                                                                     |                  |
 | `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
 | `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
 | `nativeFormValue`   |         | `FormValue`                                  |         | Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.                                                                                                                                                                                                                                                   | FormControlMixin |
-| `required`          |         | `boolean \| undefined`                       |         | Whether the checkbox is required.                                                                                                                                                                                                                                                                                                                       |                  |
+| `required`          |         | `boolean \| undefined`                       | `false` | Whether the checkbox is required.                                                                                                                                                                                                                                                                                                                       |                  |
 | `showValid`         |         | `boolean`                                    | `false` | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`          |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `CheckboxSize`                               | `'md'`  | The size of the checkbox.                                                                                                                                                                                                                                                                                                                               |                  |
+| `size`              |         | `CheckboxSize \| undefined`                  | `'md'`  | The size of the checkbox.                                                                                                                                                                                                                                                                                                                               |                  |
 | `touched`           |         | `boolean`                                    | `false` | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
 | `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
 | `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
@@ -1280,13 +1502,14 @@
 
 ### Methods
 
-| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From   |
-| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------- |
-| `focus`                         |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                  |
-| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin |
-| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`    | FormControlMixin |
-| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From         |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------------- |
+| `blur`                          |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                        |
+| `focus`                         |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                        |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin       |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin       |
+| `setAttributesTarget`           |         |                                                                                                                                                                                                                                                 | `target: Element`                    | `void`    | ObserveAttributesMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin       |
 
 ### Events
 
@@ -1304,6 +1527,9 @@
 
 | Name              | Field          | Inherited From   |
 | ----------------- | -------------- | ---------------- |
+| `aria-disabled`   |                |                  |
+| `aria-label`      |                |                  |
+| `aria-labelledby` |                |                  |
 | `checked`         | checked        |                  |
 | `disabled`        | disabled       |                  |
 | `indeterminate`   | indeterminate  |                  |
@@ -1334,19 +1560,600 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                      | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/checkbox/src/checkbox.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.ts`:
+
+## class: `Combobox`, `sl-combobox`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `FormControlMixin`    |        | @sl-design-system/form                  |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name                 | Privacy | Type                                                 | Default  | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| -------------------- | ------- | ---------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `allowCustomValues`  |         | `boolean \| undefined`                               |          | Will allow custom values not in the listbox when set.                                                                                                                                                                                                                                                                                                   |                  |
+| `autocomplete`       |         | `'off' \| 'inline' \| 'list' \| 'both' \| undefined` | `'both'` | The behavior of the combobox when it comes to suggesting options based on user input.&#xA;\- 'off': Suggest is off&#xA;\- 'inline': Only suggest options inside the input&#xA;\- 'list': Filter options in the list based on user input&#xA;\- 'both': Use both inline and list suggestions                                                             |                  |
+| `customValidity`     |         | `string \| undefined`                                |          | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `dirty`              |         | `boolean`                                            | `false`  | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | FormControlMixin |
+| `disabled`           |         | `boolean \| undefined`                               |          | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                |                  |
+| `filterResults`      |         | `boolean \| undefined`                               |          | When set, will filter the results in the listbox based on user input.                                                                                                                                                                                                                                                                                   |                  |
+| `form`               |         | `HTMLFormElement \| null`                            |          | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `formValue`          |         | `unknown`                                            |          | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
+| `groupSelected`      |         | `boolean \| undefined`                               |          | When set will group all the selected options at the top of the listbox.                                                                                                                                                                                                                                                                                 |                  |
+| `labels`             |         | `` `NodeListOf<HTMLLabelElement>` \| null ``         |          | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `multiple`           |         | `boolean \| undefined`                               |          | Will allow the selection of multiple options if true.                                                                                                                                                                                                                                                                                                   |                  |
+| `name`               |         | `string \| undefined`                                |          | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `nativeFormValue`    |         | `FormValue`                                          |          | Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.                                                                                                                                                                                                                                                   | FormControlMixin |
+| `optionGroupPath`    |         | `PathKeys<T> \| undefined`                           |          | The path to use for grouping the options.                                                                                                                                                                                                                                                                                                               |                  |
+| `optionLabelPath`    |         | `PathKeys<T> \| undefined`                           |          | The path to use for the label of the option.                                                                                                                                                                                                                                                                                                            |                  |
+| `optionSelectedPath` |         | `PathKeys<T> \| undefined`                           |          | The path to use for the selected state of the option.                                                                                                                                                                                                                                                                                                   |                  |
+| `optionValuePath`    |         | `PathKeys<T> \| undefined`                           |          | The path to use for the value of the option.                                                                                                                                                                                                                                                                                                            |                  |
+| `options`            |         | `T[] \| undefined`                                   |          | There are 2 ways to provide options to the combobox:&#xA;1\. By using this `options` property to provide an array of options.&#xA;2\. By rendering a listbox element in the light DOM and populate it with `<sl-option>` elements.&#xA;&#xA;This options property is used to provide options for the first method.                                      |                  |
+| `placeholder`        |         | `string \| undefined`                                |          | Placeholder text in the input.                                                                                                                                                                                                                                                                                                                          |                  |
+| `required`           |         | `boolean \| undefined`                               |          | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
+| `selectOnly`         |         | `boolean \| undefined`                               |          | Whether the component is select only. This means you cannot type in the text field,&#xA;but you can still select options.                                                                                                                                                                                                                               |                  |
+| `showValid`          |         | `boolean`                                            | `false`  | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `showValidity`       |         | `'valid' \| 'invalid' \| undefined`                  |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`               |         | `ComboboxSize \| undefined`                          | `'md'`   | The size of the combobox.                                                                                                                                                                                                                                                                                                                               |                  |
+| `touched`            |         | `boolean`                                            | `false`  | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
+| `valid`              |         | `boolean`                                            |          | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage`  |         | `string`                                             |          | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`           |         | `ValidityState`                                      |          | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `validityState`      |         | `'valid' \| 'invalid' \| 'pending'`                  |          | Returns the current validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `value`              |         | `unknown \| undefined`                               |          | The value of the combobox. If `multiple` selection is enabled, then this&#xA;will be an array of values. Otherwise, it will be a single value.                                                                                                                                                                                                          | FormControlMixin |
+
+### Methods
+
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin |
+
+### Events
+
+| Name                 | Type                                   | Description                                                                                  | Inherited From   |
+| -------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------- |
+| `sl-blur`            | `SlBlurEvent`                          | Emits when the focus leaves the component.                                                   |                  |
+| `sl-change`          | `SlChangeEvent<U \| U[] \| undefined>` | Emits when the value changes.                                                                |                  |
+| `sl-focus`           | `SlFocusEvent`                         | Emits when the component gains focus.                                                        |                  |
+| `sl-form-control`    | `SlFormControlEvent`                   | Emits when the form control is added to the DOM.                                             | FormControlMixin |
+| `sl-update-state`    | `SlUpdateStateEvent`                   | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | FormControlMixin |
+| `sl-update-validity` | `SlUpdateValidityEvent`                | Emits when the validity of the form control changes.                                         | FormControlMixin |
+| `sl-validate`        | `SlValidateEvent`                      | Emits when the form control can be validated.                                                | FormControlMixin |
+
+### Attributes
+
+| Name                   | Field              | Inherited From   |
+| ---------------------- | ------------------ | ---------------- |
+| `allow-custom-values`  | allowCustomValues  |                  |
+| `autocomplete`         | autocomplete       |                  |
+| `disabled`             | disabled           |                  |
+| `filter-results`       | filterResults      |                  |
+| `group-selected`       | groupSelected      |                  |
+| `multiple`             | multiple           |                  |
+| `option-group-path`    | optionGroupPath    |                  |
+| `option-label-path`    | optionLabelPath    |                  |
+| `option-selected-path` | optionSelectedPath |                  |
+| `option-value-path`    | optionValuePath    |                  |
+| `options`              | options            |                  |
+| `placeholder`          | placeholder        |                  |
+| `select-only`          | selectOnly         |                  |
+| `required`             | required           |                  |
+| `show-valid`           | showValid          |                  |
+| `size`                 | size               |                  |
+| `value`                | value              |                  |
+| `custom-validity`      | customValidity     | FormControlMixin |
+| `name`                 | name               | FormControlMixin |
+| `show-validity`        | showValidity       | FormControlMixin |
+
+### Slots
+
+| Name      | Description                       |
+| --------- | --------------------------------- |
+| `default` | The input field                   |
+| `options` | Contains the listbox with options |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                                                                      | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Combobox` | Combobox    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/combobox.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.ts`:
+
+## class: `CreateCustomOption`
+
+### Superclass
+
+| Name     | Module | Package                   |
+| -------- | ------ | ------------------------- |
+| `Option` |        | @sl-design-system/listbox |
+
+### Fields
+
+| Name          | Privacy | Type                          | Default    | Description                                                                                                  | Inherited From |
+| ------------- | ------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled`    |         | `boolean \| undefined`        |            | Whether this option is disabled.                                                                             | Option         |
+| `emphasis`    |         | `OptionEmphasis \| undefined` | `'subtle'` | The emphasis style when selected.                                                                            | Option         |
+| `selected`    |         | `boolean \| undefined`        |            | Whether this option is selected.                                                                             | Option         |
+| `textContent` |         | `string`                      |            |                                                                                                              | Option         |
+| `value`       |         | `T`                           |            | The value for this option. If not explicitly set, the getter will&#xA;return the text content of the option. | Option         |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled | Option         |
+| `emphasis` | emphasis | Option         |
+| `selected` | selected | Option         |
+| `value`    | value    | Option         |
+
+### Slots
+
+| Name      | Description         |
+| --------- | ------------------- |
+| `default` | The option's label. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                 | Declaration        | Module                                                                                                  | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CreateCustomOption` | CreateCustomOption | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/create-custom-option.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.ts`:
+
+## class: `CustomOption`
+
+### Superclass
+
+| Name     | Module | Package                   |
+| -------- | ------ | ------------------------- |
+| `Option` |        | @sl-design-system/listbox |
+
+### Fields
+
+| Name          | Privacy | Type                          | Default    | Description                                                                                                  | Inherited From |
+| ------------- | ------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled`    |         | `boolean \| undefined`        |            | Whether this option is disabled.                                                                             | Option         |
+| `emphasis`    |         | `OptionEmphasis \| undefined` | `'subtle'` | The emphasis style when selected.                                                                            | Option         |
+| `selected`    |         | `boolean \| undefined`        |            | Whether this option is selected.                                                                             | Option         |
+| `textContent` |         | `string`                      |            |                                                                                                              | Option         |
+| `value`       |         | `T`                           |            | The value for this option. If not explicitly set, the getter will&#xA;return the text content of the option. | Option         |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled | Option         |
+| `emphasis` | emphasis | Option         |
+| `selected` | selected | Option         |
+| `value`    | value    | Option         |
+
+### Slots
+
+| Name      | Description         |
+| --------- | ------------------- |
+| `default` | The option's label. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                           | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `CustomOption` | CustomOption | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/custom-option.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.ts`:
+
+## class: `GroupedOption`
+
+### Superclass
+
+| Name     | Module | Package                   |
+| -------- | ------ | ------------------------- |
+| `Option` |        | @sl-design-system/listbox |
+
+### Fields
+
+| Name          | Privacy | Type                          | Default    | Description                                                                                                  | Inherited From |
+| ------------- | ------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled`    |         | `boolean \| undefined`        |            | Whether this option is disabled.                                                                             | Option         |
+| `emphasis`    |         | `OptionEmphasis \| undefined` | `'subtle'` | The emphasis style when selected.                                                                            | Option         |
+| `group`       |         | `string \| undefined`         |            | The group this option belongs to.                                                                            |                |
+| `selected`    |         | `boolean \| undefined`        |            | Whether this option is selected.                                                                             | Option         |
+| `textContent` |         | `string`                      |            |                                                                                                              | Option         |
+| `value`       |         | `T`                           |            | The value for this option. If not explicitly set, the getter will&#xA;return the text content of the option. | Option         |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `group`    | group    |                |
+| `disabled` | disabled | Option         |
+| `emphasis` | emphasis | Option         |
+| `selected` | selected | Option         |
+| `value`    | value    | Option         |
+
+### Slots
+
+| Name      | Description         |
+| --------- | ------------------- |
+| `default` | The option's label. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                            | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GroupedOption` | GroupedOption | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/grouped-option.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.ts`:
+
+## class: `NoMatch`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name    | Privacy | Type                  | Default | Description                                | Inherited From |
+| ------- | ------- | --------------------- | ------- | ------------------------------------------ | -------------- |
+| `value` |         | `string \| undefined` |         | The string that did not yield any matches. |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `value` | value |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NoMatch` | NoMatch     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/no-match.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.ts`:
+
+## class: `SelectedGroup`
+
+### Superclass
+
+| Name          | Module | Package                   |
+| ------------- | ------ | ------------------------- |
+| `OptionGroup` |        | @sl-design-system/listbox |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name            | Privacy | Type                        | Default | Description                                | Inherited From |
+| --------------- | ------- | --------------------------- | ------- | ------------------------------------------ | -------------- |
+| `currentOption` |         | `ComboboxItem \| undefined` |         | The current option.                        |                |
+| `hasGroups`     |         | `boolean \| undefined`      |         | Indicates whether the options are grouped. |                |
+| `label`         |         | `string \| undefined`       |         | The optional label for the group.          | OptionGroup    |
+| `options`       |         | `ComboboxItem[]`            | `[]`    | The selected options to be displayed.      |                |
+
+### Attributes
+
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `has-groups` | hasGroups |                |
+| `label`      | label     | OptionGroup    |
+
+### Slots
+
+| Name      | Description         |
+| --------- | ------------------- |
+| `default` | The option's label. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                            | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectedGroup` | SelectedGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/combobox/src/selected-group.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/array-list-data-source.ts`:
+
+## class: `ArrayListDataSource`
+
+### Superclass
+
+| Name             | Module                                                                                                  | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `ListDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.js |         |
+
+### Fields
+
+| Name         | Privacy | Type                                    | Default | Description                                 | Inherited From |
+| ------------ | ------- | --------------------------------------- | ------- | ------------------------------------------- | -------------- |
+| `filters`    |         | `Map<string, DataSourceFilter<Model>>`  |         |                                             | DataSource     |
+| `groupBy`    |         | `ListDataSourceGroupBy<T> \| undefined` |         |                                             | ListDataSource |
+| `items`      |         | `ViewModel[]`                           |         | The filtered & sorted array of view models. | DataSource     |
+| `page`       |         | `number`                                |         |                                             | ListDataSource |
+| `pageSize`   |         | `number`                                |         |                                             | ListDataSource |
+| `pagination` |         | `boolean`                               |         |                                             | ListDataSource |
+| `size`       |         | `number`                                |         | Total number of items in this data source.  | DataSource     |
+| `sort`       |         | `DataSourceSort<Model> \| undefined`    |         |                                             | DataSource     |
+
+### Methods
+
+| Name            | Privacy | Description                                                                                                                                                                                                                                                                         | Parameters                                                                                 | Return | Inherited From |
+| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------ | -------------- |
+| `addFilter`     |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrFilter: T, value: string \| string[]`                                   | `void` | DataSource     |
+| `removeFilter`  |         |                                                                                                                                                                                                                                                                                     | `id: string`                                                                               | `void` | DataSource     |
+| `removeGroupBy` |         | Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.                                                                                                                                                                                       |                                                                                            | `void` | ListDataSource |
+| `removeSort`    |         |                                                                                                                                                                                                                                                                                     |                                                                                            | `void` | DataSource     |
+| `reorder`       |         | Reorder the item in the data source.                                                                                                                                                                                                                                                | `item: U, relativeItem: U, position: 'before' \| 'after'`                                  |        | ListDataSource |
+| `setGroupBy`    |         | Group the items by the given path. Optionally, you can provide a sorter and direction.&#xA;&#xA;This is part of the DataSource interface, because it changes how the data is sorted. You&#xA;may want to pass the groupBy attribute to the server, so it can sort the data for you. | `path: PathKeys<T>, sorter: DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void` | ListDataSource |
+| `setPage`       |         |                                                                                                                                                                                                                                                                                     | `page: number`                                                                             | `void` | ListDataSource |
+| `setPageSize`   |         |                                                                                                                                                                                                                                                                                     | `pageSize: number`                                                                         | `void` | ListDataSource |
+| `setSort`       |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrSorter: U, direction: DataSourceSortDirection`                          | `void` | DataSource     |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                  | Declaration         | Module                                                                                                       | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ArrayListDataSource` | ArrayListDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/array-list-data-source.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts`:
+
+## class: `DataSource`
+
+### Superclass
+
+| Name          | Module                                                                                            | Package |
+| ------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts |         |
+
+### Fields
+
+| Name      | Privacy | Type                                   | Default | Description                                 | Inherited From |
+| --------- | ------- | -------------------------------------- | ------- | ------------------------------------------- | -------------- |
+| `filters` |         | `Map<string, DataSourceFilter<Model>>` |         |                                             |                |
+| `items`   |         | `ViewModel[]`                          |         | The filtered & sorted array of view models. |                |
+| `size`    |         | `number`                               |         | Total number of items in this data source.  |                |
+| `sort`    |         | `DataSourceSort<Model> \| undefined`   |         |                                             |                |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
+| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
+| `addFilter`    |         |             | `id: string, pathOrFilter: T, value: string \| string[]`          | `void` |                |
+| `removeFilter` |         |             | `id: string`                                                      | `void` |                |
+| `removeSort`   |         |             |                                                                   | `void` |                |
+| `setSort`      |         |             | `id: string, pathOrSorter: T, direction: DataSourceSortDirection` | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                    | Declaration           | Module                                                                                            | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `DataSourceUpdateEvent` | DataSourceUpdateEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts |         |
+| `js` | `DataSource`            | DataSource            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts`:
+
+## class: `FetchListDataSource`
+
+### Superclass
+
+| Name             | Module                                                                                                  | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `ListDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.js |         |
+
+### Static Fields
+
+| Name          | Privacy | Type     | Default | Description                                                    | Inherited From |
+| ------------- | ------- | -------- | ------- | -------------------------------------------------------------- | -------------- |
+| `defaultSize` |         | `number` | `10`    | The default size of the item collection if not explicitly set. |                |
+
+### Fields
+
+| Name          | Privacy | Type                                    | Default | Description                                        | Inherited From |
+| ------------- | ------- | --------------------------------------- | ------- | -------------------------------------------------- | -------------- |
+| `fetchPage`   |         | `FetchListDataSourceCallback<T>`        |         | The callback for retrieving data.                  |                |
+| `filters`     |         | `Map<string, DataSourceFilter<Model>>`  |         |                                                    | DataSource     |
+| `groupBy`     |         | `ListDataSourceGroupBy<T> \| undefined` |         |                                                    | ListDataSource |
+| `items`       |         | `ViewModel[]`                           |         | The filtered & sorted array of view models.        | DataSource     |
+| `page`        |         | `number`                                |         |                                                    | ListDataSource |
+| `pageSize`    |         | `number`                                |         |                                                    | ListDataSource |
+| `pagination`  |         | `boolean`                               |         |                                                    | ListDataSource |
+| `placeholder` |         | `FetchListDataSourcePlaceholder<T>`     |         | Returns placeholder data for items not yet loaded. |                |
+| `size`        |         | `number`                                |         | Total number of items in this data source.         | DataSource     |
+| `sort`        |         | `DataSourceSort<Model> \| undefined`    |         |                                                    | DataSource     |
+
+### Methods
+
+| Name              | Privacy | Description                                                                                                                                                                                                                                                                         | Parameters                                                                                 | Return                               | Inherited From |
+| ----------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------ | -------------- |
+| `addFilter`       |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrFilter: T, value: string \| string[]`                                   | `void`                               | DataSource     |
+| `getFetchOptions` |         | Override this function if you are extending the `FetchDataSource` class to&#xA;provide any additional options you may need when `fetchPage` is called.                                                                                                                              | `page: number, pageSize: number`                                                           | `FetchListDataSourceCallbackOptions` |                |
+| `removeFilter`    |         |                                                                                                                                                                                                                                                                                     | `id: string`                                                                               | `void`                               | DataSource     |
+| `removeGroupBy`   |         | Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.                                                                                                                                                                                       |                                                                                            | `void`                               | ListDataSource |
+| `removeSort`      |         |                                                                                                                                                                                                                                                                                     |                                                                                            | `void`                               | DataSource     |
+| `reorder`         |         | Reorder the item in the data source.                                                                                                                                                                                                                                                | `item: U, relativeItem: U, position: 'before' \| 'after'`                                  |                                      | ListDataSource |
+| `setGroupBy`      |         | Group the items by the given path. Optionally, you can provide a sorter and direction.&#xA;&#xA;This is part of the DataSource interface, because it changes how the data is sorted. You&#xA;may want to pass the groupBy attribute to the server, so it can sort the data for you. | `path: PathKeys<T>, sorter: DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void`                               | ListDataSource |
+| `setPage`         |         |                                                                                                                                                                                                                                                                                     | `page: number`                                                                             | `void`                               | ListDataSource |
+| `setPageSize`     |         |                                                                                                                                                                                                                                                                                     | `pageSize: number`                                                                         | `void`                               | ListDataSource |
+| `setSort`         |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrSorter: U, direction: DataSourceSortDirection`                          | `void`                               | DataSource     |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Variables
+
+| Name                             | Description                                                   | Type |
+| -------------------------------- | ------------------------------------------------------------- | ---- |
+| `FetchListDataSourceError`       |                                                               |      |
+| `FetchListDataSourcePlaceholder` | Symbol used as a placeholder for items that are being loaded. |      |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                             | Declaration                    | Module                                                                                                       | Package |
+| ---- | -------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `FetchListDataSourceEvent`       | FetchListDataSourceEvent       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSourceError`       | FetchListDataSourceError       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSourcePlaceholder` | FetchListDataSourcePlaceholder | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+| `js` | `FetchListDataSource`            | FetchListDataSource            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/fetch-list-data-source.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.ts`:
+
+## class: `ListDataSource`
+
+### Superclass
+
+| Name         | Module                                                                                             | Package |
+| ------------ | -------------------------------------------------------------------------------------------------- | ------- |
+| `DataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/data-source.js |         |
+
+### Fields
+
+| Name         | Privacy | Type                                    | Default | Description                                 | Inherited From |
+| ------------ | ------- | --------------------------------------- | ------- | ------------------------------------------- | -------------- |
+| `filters`    |         | `Map<string, DataSourceFilter<Model>>`  |         |                                             | DataSource     |
+| `groupBy`    |         | `ListDataSourceGroupBy<T> \| undefined` |         |                                             |                |
+| `items`      |         | `ViewModel[]`                           |         | The filtered & sorted array of view models. | DataSource     |
+| `page`       |         | `number`                                |         |                                             |                |
+| `pageSize`   |         | `number`                                |         |                                             |                |
+| `pagination` |         | `boolean`                               |         |                                             |                |
+| `size`       |         | `number`                                |         | Total number of items in this data source.  | DataSource     |
+| `sort`       |         | `DataSourceSort<Model> \| undefined`    |         |                                             | DataSource     |
+
+### Methods
+
+| Name            | Privacy | Description                                                                                                                                                                                                                                                                         | Parameters                                                                                 | Return | Inherited From |
+| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------ | -------------- |
+| `addFilter`     |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrFilter: T, value: string \| string[]`                                   | `void` | DataSource     |
+| `removeFilter`  |         |                                                                                                                                                                                                                                                                                     | `id: string`                                                                               | `void` | DataSource     |
+| `removeGroupBy` |         | Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.                                                                                                                                                                                       |                                                                                            | `void` |                |
+| `removeSort`    |         |                                                                                                                                                                                                                                                                                     |                                                                                            | `void` | DataSource     |
+| `reorder`       |         | Reorder the item in the data source.                                                                                                                                                                                                                                                | `item: U, relativeItem: U, position: 'before' \| 'after'`                                  |        |                |
+| `setGroupBy`    |         | Group the items by the given path. Optionally, you can provide a sorter and direction.&#xA;&#xA;This is part of the DataSource interface, because it changes how the data is sorted. You&#xA;may want to pass the groupBy attribute to the server, so it can sort the data for you. | `path: PathKeys<T>, sorter: DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void` |                |
+| `setPage`       |         |                                                                                                                                                                                                                                                                                     | `page: number`                                                                             | `void` |                |
+| `setPageSize`   |         |                                                                                                                                                                                                                                                                                     | `pageSize: number`                                                                         | `void` |                |
+| `setSort`       |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrSorter: U, direction: DataSourceSortDirection`                          | `void` | DataSource     |
+
+<hr/>
+
+## Variables
+
+| Name                            | Description                                   | Type     |
+| ------------------------------- | --------------------------------------------- | -------- |
+| `DATA_SOURCE_DEFAULT_PAGE_SIZE` | The default page size, if not explicitly set. | `number` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                            | Declaration                   | Module                                                                                                 | Package |
+| ---- | ------------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `DATA_SOURCE_DEFAULT_PAGE_SIZE` | DATA_SOURCE_DEFAULT_PAGE_SIZE | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.ts |         |
+| `js` | `ListDataSource`                | ListDataSource                | /Users/jeroen.zwartepoorte/Projects/components/packages/components/data-source/src/list-data-source.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts`:
 
 ## class: `Dialog`, `sl-dialog`
 
@@ -1372,16 +2179,20 @@
 
 ### Methods
 
-| Name        | Privacy | Description                                                    | Parameters | Return | Inherited From |
-| ----------- | ------- | -------------------------------------------------------------- | ---------- | ------ | -------------- |
-| `close`     |         | Close the dialog.                                              |            | `void` |                |
-| `showModal` |         | Show the dialog as a modal, in the top layer, with a backdrop. |            | `void` |                |
+| Name            | Privacy | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Parameters        | Return                             | Inherited From |
+| --------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | ---------------------------------- | -------------- |
+| `close`         |         | Close the dialog.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                   | `void`                             |                |
+| `renderActions` |         | Override this method to customize the actions in the footer of the dialog.&#xA;&#xA;Only use this when extending the `Dialog` class. If you are using&#xA;the `<sl-dialog>` custom element, use the slots.                                                                                                                                                                                                                                                                                                                                                                                                   |                   | `TemplateResult \| typeof nothing` |                |
+| `renderBody`    |         | Override this method to customize the body of the dialog.&#xA;&#xA;Only use this when extending the `Dialog` class. If you are using&#xA;the `<sl-dialog>` custom element, use the slots.                                                                                                                                                                                                                                                                                                                                                                                                                    |                   | `TemplateResult`                   |                |
+| `renderFooter`  |         | Override this method to customize the footer of the dialog. If you only&#xA;want to add action buttons, see the `renderActions` method.&#xA;&#xA;Only use this when extending the `Dialog` class. If you are using&#xA;the `<sl-dialog>` custom element, use the slots.                                                                                                                                                                                                                                                                                                                                      |                   | `TemplateResult`                   |                |
+| `renderHeader`  |         | Override this method to customize the header of the dialog. If you only&#xA;want to customize the title, you can use the `title` and `subtitle` arguments&#xA;and call `super.renderHeader('My title', 'My subtitle')` to render the default&#xA;header.&#xA;&#xA;Beware when customizing the header: the `<dialog>` element is labelled by&#xA;the element with ID `title`. If you override this method, make sure to include&#xA;an element with ID `title` in the header.&#xA;&#xA;Only use this when extending the `Dialog` class. If you are using&#xA;the `<sl-dialog>` custom element, use the slots. | `title, subtitle` | `TemplateResult`                   |                |
+| `showModal`     |         | Show the dialog as a modal, in the top layer, with a backdrop.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                   | `void`                             |                |
 
 ### Events
 
 | Name        | Type            | Description                                                                                                                                | Inherited From |
 | ----------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `sl-cancel` | `SlCancelEvent` | Emits when the cancel has been cancelled. This happens when the user closes&#xA;the dialog using the escape key or clicks on the backdrop. |                |
+| `sl-cancel` | `SlCancelEvent` | Emits when the dialog has been cancelled. This happens when the&#xA;user closes the dialog using the escape key or clicks on the backdrop. |                |
 | `sl-close`  | `SlCloseEvent`  | Emits when the dialog has been closed.                                                                                                     |                |
 
 ### Attributes
@@ -1426,21 +2237,21 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlCancelEvent` | SlCancelEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
-| `js` | `SlCloseEvent`  | SlCloseEvent  | /Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
-| `js` | `Dialog`        | Dialog        | /Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                  | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlCancelEvent` | SlCancelEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts |         |
+| `js` | `SlCloseEvent`  | SlCloseEvent  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts |         |
+| `js` | `Dialog`        | Dialog        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/dialog/src/dialog.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.ts`:
 
 ## class: `Drawer`, `sl-drawer`
 
@@ -1498,11 +2309,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | /Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/drawer/src/drawer.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/commands.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/commands.ts`:
 
 ## Functions
 
@@ -1514,19 +2325,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `setHTML` | setHTML     | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/commands.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `setHTML` | setHTML     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/commands.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.ts`:
 
 ## class: `Editor`, `sl-editor`
 
@@ -1573,7 +2384,6 @@
 | `createState`                   |         |                                                                                                                                                                                                                                                 |                                      | `EditorState`                      |                  |
 | `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`                           | FormControlMixin |
 | `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean`                          | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`                             | FormControlMixin |
 | `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`                             | FormControlMixin |
 
 ### Events
@@ -1598,11 +2408,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Editor` | Editor      | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Editor` | Editor      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/editor.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/keymap.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/keymap.ts`:
 
 ## Functions
 
@@ -1615,12 +2425,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                  | Package |
+| ---- | ----------------- | --------------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/keymap.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts`:
 
 ## Functions
 
@@ -1645,24 +2455,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                    | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                      | Package |
+| ---- | ------------------------- | ----------------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/list-utils.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts`:
 
 ## Variables
 
@@ -1686,16 +2496,16 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                  | Package |
+| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `isEmpty`            | isEmpty            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/schema.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/utils.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/utils.ts`:
 
 ## Functions
 
@@ -1708,20 +2518,52 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                               | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                 | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `createContentNode` | createContentNode | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/editor/src/utils.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.ts`:
+
+## class: `EllipsizeText`, `sl-ellipsize-text`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                                  | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EllipsizeText` | EllipsizeText | /Users/jeroen.zwartepoorte/Projects/components/packages/components/ellipsize-text/src/ellipsize-text.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.ts`:
 
 ## class: `EmojiBrowser`, `sl-emoji-browser`
 
@@ -1772,11 +2614,11 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiBrowser` | EmojiBrowser | /Users/Diana.Broeders/Projects/design-system/packages/components/emoji/src/emoji-browser.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EmojiBrowser` | EmojiBrowser | /Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-browser.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-service.ts`:
 
 ## class: `EmojiService`
 
@@ -1793,19 +2635,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EmojiService` | EmojiService | /Users/Diana.Broeders/Projects/design-system/packages/components/emoji/src/emoji-service.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EmojiService` | EmojiService | /Users/jeroen.zwartepoorte/Projects/components/packages/components/emoji/src/emoji-service.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.ts`:
 
 ## class: `Error`, `sl-error`
 
@@ -1843,11 +2685,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                             | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `Error` | Error       | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.ts |         |
+| Kind | Name    | Declaration | Module                                                                               | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Error` | Error       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/error.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts`:
 
 ## mixin: `FormControlMixin`
 
@@ -1883,7 +2725,6 @@
 | ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | -------------- |
 | `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  |                |
 | `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` |                |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`    |                |
 | `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    |                |
 
 ### Events
@@ -1907,23 +2748,23 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                                                                          | Package |
-| ---- | ----------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormControlEvent`    | SlFormControlEvent    | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlUpdateStateEvent`    | SlUpdateStateEvent    | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlUpdateValidityEvent` | SlUpdateValidityEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `SlValidateEvent`       | SlValidateEvent       | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
-| `js` | `FormControlMixin`      | FormControlMixin      | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                            | Package |
+| ---- | ----------------------- | --------------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormControlEvent`    | SlFormControlEvent    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlUpdateStateEvent`    | SlUpdateStateEvent    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlUpdateValidityEvent` | SlUpdateValidityEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `SlValidateEvent`       | SlValidateEvent       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
+| `js` | `FormControlMixin`      | FormControlMixin      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-control-mixin.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-controller.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-controller.ts`:
 
 ## class: `FormController`
 
 ### Superclass
 
-| Name          | Module                                                                                       | Package |
-| ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `EventTarget` | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-controller.ts |         |
+| Name          | Module                                                                                         | Package |
+| ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `EventTarget` | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-controller.ts |         |
 
 ### Fields
 
@@ -1956,19 +2797,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                       | Package |
-| ---- | ---------------- | -------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormController` | FormController | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-controller.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                         | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormController` | FormController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-controller.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.ts`:
 
 ## class: `FormField`, `sl-form-field`
 
@@ -2011,20 +2852,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                  | Package |
-| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
-| `js` | `FormField`        | FormField        | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                    | Package |
+| ---- | ------------------ | ---------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFormFieldEvent` | SlFormFieldEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.ts |         |
+| `js` | `FormField`        | FormField        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-field.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-validation-errors.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-validation-errors.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-validation-errors.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.ts`:
 
 ## class: `FormValidationErrors`, `sl-form-validation-errors`
 
@@ -2053,19 +2894,19 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                              | Package |
-| ---- | ---------------------- | -------------------- | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormValidationErrors` | FormValidationErrors | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-validation-errors.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                | Package |
+| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormValidationErrors` | FormValidationErrors | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form-validation-errors.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts`:
 
 ## class: `Form`, `sl-form`
 
@@ -2085,6 +2926,7 @@
 | `fields`       |         | `FormField[]`                      | `[]`    | The fields in the form.                                                                       |                |
 | `invalid`      |         | `boolean`                          |         | Whether the form is invalid.                                                                  |                |
 | `pristine`     |         | `boolean`                          |         | A form is marked pristine as long as the user hasn't modified anything in the form.           |                |
+| `resetEvent`   |         | `EventEmitter<SlResetEvent>`       |         |                                                                                               |                |
 | `showValidity` |         | `boolean`                          |         | Indicates whether to show validity state.                                                     |                |
 | `touched`      |         | `boolean`                          |         | A form is marked touched once the user has triggered a blur event on a form control.          |                |
 | `untouched`    |         | `boolean`                          |         | A form is marked untouched as long as the user hasn't trigger a blur event on a form control. |                |
@@ -2095,8 +2937,16 @@
 
 | Name             | Privacy | Description                                                                                   | Parameters | Return    | Inherited From |
 | ---------------- | ------- | --------------------------------------------------------------------------------------------- | ---------- | --------- | -------------- |
-| `reportValidity` |         | Calls `reportValidity()` on all form controls.                                                |            | `boolean` |                |
+| `reportValidity` |         | Calls `reportValidity()` on all form controls and returns if they are all valid.              |            | `boolean` |                |
+| `requestSubmit`  |         | If the form is valid, it will emit an `sl-submit` event.                                      |            | `void`    |                |
 | `reset`          |         | Puts all the initial values of the form controls back and updates the validity of all fields. |            | `void`    |                |
+
+### Events
+
+| Name        | Type            | Description                             | Inherited From |
+| ----------- | --------------- | --------------------------------------- | -------------- |
+| `sl-reset`  | `SlResetEvent`  | Emits when the form has been reset.     |                |
+| `sl-submit` | `SlSubmitEvent` | Emits when the form is to be submitted. |                |
 
 ### Attributes
 
@@ -2108,19 +2958,21 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Form` | Form        | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.ts |         |
+| Kind | Name            | Declaration   | Module                                                                              | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `SlResetEvent`  | SlResetEvent  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts |         |
+| `js` | `SlSubmitEvent` | SlSubmitEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts |         |
+| `js` | `Form`          | Form          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/form.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.ts`:
 
 ## class: `Hint`, `sl-hint`
 
@@ -2152,19 +3004,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Hint` | Hint        | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Hint` | Hint        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/hint.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.ts`:
 
 ## class: `Label`, `sl-label`
 
@@ -2196,31 +3048,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                             | Package |
-| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `Label` | Label       | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.ts |         |
+| Kind | Name    | Declaration | Module                                                                               | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `Label` | Label       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/form/src/label.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/path.ts`:
-
-## Functions
-
-| Name             | Description | Parameters                           | Return                    |
-| ---------------- | ----------- | ------------------------------------ | ------------------------- |
-| `getValueByPath` |             | `obj: T, path: P`                    | `Path<T, P> \| undefined` |
-| `setValueByPath` |             | `obj: T, path: string, value: any`   | `void`                    |
-| `setValueByPath` |             | `obj: T, path: P, value: Path<T, P>` | `void`                    |
-
-<hr/>
-
-## Exports
-
-| Kind | Name             | Declaration    | Module                                                                            | Package |
-| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `getValueByPath` | getValueByPath | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/path.ts |         |
-| `js` | `setValueByPath` | setValueByPath | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/path.ts |         |
-| `js` | `setValueByPath` | setValueByPath | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/path.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/format-date/src/format-date.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format-date.ts`:
 
 ## class: `FormatDate`, `sl-format-date`
 
@@ -2297,11 +3129,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                          | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `FormatDate` | FormatDate  | /Users/Diana.Broeders/Projects/design-system/packages/components/format-date/src/format-date.ts |         |
+| Kind | Name         | Declaration | Module                                                                                            | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormatDate` | FormatDate  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format-date.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/format-date/src/format.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format.ts`:
 
 ## Functions
 
@@ -2313,19 +3145,101 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                     | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `format` | format      | /Users/Diana.Broeders/Projects/design-system/packages/components/format-date/src/format.ts |         |
+| Kind | Name     | Declaration | Module                                                                                       | Package |
+| ---- | -------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-date/src/format.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format-number.ts`:
+
+## class: `FormatNumber`, `sl-format-number`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name          | Module | Package                            |
+| ------------- | ------ | ---------------------------------- |
+| `LocaleMixin` |        | @sl-design-system/shared/mixins.js |
+
+### Fields
+
+| Name                       | Privacy | Type                                                          | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Inherited From |
+| -------------------------- | ------- | ------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `currency`                 |         | `string \| undefined`                                         |         | The currency to use in currency formatting.                                                                                                                                                                                                                                                                                                                                                                                                                                          |                |
+| `currencyDisplay`          |         | `'code' \| 'symbol' \| 'narrowSymbol' \| 'name' \| undefined` |         | How to display the currency.                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
+| `formatOptions`            |         | `Intl.NumberFormatOptions \| undefined`                       |         | Use this if you need access to advanced formatting options not provided via properties.                                                                                                                                                                                                                                                                                                                                                                                              |                |
+| `locale`                   |         | `string`                                                      |         | The component's locale.                                                                                                                                                                                                                                                                                                                                                                                                                                                              | LocaleMixin    |
+| `maximumFractionDigits`    |         | `number \| undefined`                                         |         | The maximum number of fraction digits to use. Possible values are from 0 to 100; the default for&#xA;plain number formatting is the larger of minimumFractionDigits and 3; the default for currency&#xA;formatting is the larger of minimumFractionDigits and the number of minor unit digits provided&#xA;by the ISO 4217 currency code list (2 if the list doesn't provide that information); the default&#xA;for percent formatting is the larger of minimumFractionDigits and 0. |                |
+| `maximumSignificantDigits` |         | `number \| undefined`                                         |         | The maximum number of significant digits to use. Possible values are from 1 to 21; the default is 21.                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `minimumFractionDigits`    |         | `number \| undefined`                                         |         | The minimum number of fraction digits to use. Possible values are from 0 to 100; the default for&#xA;plain number and percent formatting is 0; the default for currency formatting is the number of&#xA;minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide&#xA;that information).                                                                                                                                                          |                |
+| `minimumIntegerDigits`     |         | `number \| undefined`                                         |         | The minimum number of integer digits to use. A value with a smaller number of integer digits&#xA;than this number will be left-padded with zeros (to the specified length) when formatted.&#xA;Possible values are from 1 to 21; the default is 1.                                                                                                                                                                                                                                   |                |
+| `minimumSignificantDigits` |         | `number \| undefined`                                         |         | The minimum number of significant digits to use. Possible values are from 1 to 21; the default is 1.                                                                                                                                                                                                                                                                                                                                                                                 |                |
+| `notation`                 |         | `Intl.NumberFormatOptions['notation'] \| undefined`           |         | The formatting that should be displayed for the number.                                                                                                                                                                                                                                                                                                                                                                                                                              |                |
+| `number`                   |         | `number \| undefined`                                         |         | The number to format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `numberStyle`              |         | `'decimal' \| 'currency' \| 'percent' \| 'unit' \| undefined` |         | The style used for formatting. If unspecified, defaults to 'decimal'.                                                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `signDisplay`              |         | `Intl.NumberFormatOptions['signDisplay'] \| undefined`        |         | When to display the sign for the number.                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
+| `unit`                     |         | `string \| undefined`                                         |         | The unit to use in unit formatting.                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `unitDisplay`              |         | `Intl.NumberFormatOptions['unitDisplay'] \| undefined`        |         | How to display the unit.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
+| `useGrouping`              |         | `boolean \| undefined`                                        |         | Whether to use grouping separators, such as thousands separators.&#xA;If you need more control than just true/false, use `formatOptions`.                                                                                                                                                                                                                                                                                                                                            |                |
+
+### Attributes
+
+| Name                         | Field                    | Inherited From |
+| ---------------------------- | ------------------------ | -------------- |
+| `currency`                   | currency                 |                |
+| `currency-display`           | currencyDisplay          |                |
+| `format-options`             | formatOptions            |                |
+| `minimum-integer-digits`     | minimumIntegerDigits     |                |
+| `minimum-fraction-digits`    | minimumFractionDigits    |                |
+| `maximum-fraction-digits`    | maximumFractionDigits    |                |
+| `minimum-significant-digits` | minimumSignificantDigits |                |
+| `maximum-significant-digits` | maximumSignificantDigits |                |
+| `notation`                   | notation                 |                |
+| `number`                     | number                   |                |
+| `number-style`               | numberStyle              |                |
+| `sign-display`               | signDisplay              |                |
+| `unit`                       | unit                     |                |
+| `unit-display`               | unitDisplay              |                |
+| `use-grouping`               | useGrouping              |                |
+| `locale`                     | locale                   | LocaleMixin    |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormatNumber` | FormatNumber | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format-number.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format.ts`:
+
+## Functions
+
+| Name     | Description | Parameters                                                                       | Return   |
+| -------- | ----------- | -------------------------------------------------------------------------------- | -------- |
+| `format` |             | `value: number, locale: Intl.LocalesArgument, options: Intl.NumberFormatOptions` | `string` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                                                                         | Package |
+| ---- | -------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `format` | format      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/format-number/src/format.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column-group.ts`:
 
 ## class: `GridColumnGroup`, `sl-grid-column-group`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -2334,20 +3248,24 @@
 | `align`          |         | `GridColumnAlignment \| undefined`                |         | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
 | `autoWidth`      |         | `boolean \| undefined`                            |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
 | `columns`        |         | `Array<GridColumn<T>>`                            | `[]`    | The nested columns in the group.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `ellipsizeText`  |         | `boolean \| undefined`                            |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `grid`           |         | `Grid<T> \| undefined`                            |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `grow`           |         | `number`                                          | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
 | `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |         | The label for the column header. Can contain custom HTML.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `path`           |         | `string \| undefined`                             |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `path`           |         | `PathKeys<T> \| undefined`                        |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
 | `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
 | `sticky`         |         | `boolean \| undefined`                            |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `stickyOrder`    |         | `'first' \| 'last' \| undefined`                  |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | GridColumn     |
+| `stickyPosition` |         | `'start' \| 'end' \| undefined`                   |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | GridColumn     |
 | `width`          |         | `number \| undefined`                             |         | The width of the group column is either manually specified, or the sum of the nested columns.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
 | Name           | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`   |         |                                                                                                                                                                | `_item: T` | `string[]`          | GridColumn     |
 | `getParts`     |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
 | `itemsChanged` |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
 | `renderData`   |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    | GridColumn     |
@@ -2363,26 +3281,27 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `align`          | align         | GridColumn     |
+| `auto-width`     | autoWidth     | GridColumn     |
+| `ellipsize-text` | ellipsizeText | GridColumn     |
+| `grow`           | grow          | GridColumn     |
+| `header`         | header        | GridColumn     |
+| `path`           | path          | GridColumn     |
+| `parts`          | parts         | GridColumn     |
+| `sticky`         | sticky        | GridColumn     |
+| `width`          | width         | GridColumn     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridColumnGroup` | GridColumnGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column-group.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                      | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridColumnGroup` | GridColumnGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column-group.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.ts`:
 
 ## class: `GridColumn`, `sl-grid-column`
 
@@ -2398,20 +3317,24 @@
 | ---------------- | ------- | ------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `align`          |         | `GridColumnAlignment \| undefined`                |         | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
 | `autoWidth`      |         | `boolean \| undefined`                            |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. |                |
+| `ellipsizeText`  |         | `boolean \| undefined`                            |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
 | `grid`           |         | `Grid<T> \| undefined`                            |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
 | `grow`           |         | `number`                                          | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |                |
 | `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |         | The label for the column header. Can contain custom HTML.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
 | `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
-| `path`           |         | `string \| undefined`                             |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
+| `path`           |         | `PathKeys<T> \| undefined`                        |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
 | `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |                |
 | `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
 | `sticky`         |         | `boolean \| undefined`                            |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                |
+| `stickyOrder`    |         | `'first' \| 'last' \| undefined`                  |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                |
+| `stickyPosition` |         | `'start' \| 'end' \| undefined`                   |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |                |
 | `width`          |         | `number \| undefined`                             |         | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |                |
 
 ### Methods
 
 | Name           | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`   |         |                                                                                                                                                                | `_item: T` | `string[]`          |                |
 | `getParts`     |         |                                                                                                                                                                | `item: T`  | `string[]`          |                |
 | `itemsChanged` |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              |                |
 | `renderData`   |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    |                |
@@ -2427,35 +3350,36 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     |                |
-| `auto-width` | autoWidth |                |
-| `grow`       | grow      |                |
-| `header`     | header    |                |
-| `path`       | path      |                |
-| `parts`      | parts     |                |
-| `sticky`     | sticky    |                |
-| `width`      | width     |                |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `align`          | align         |                |
+| `auto-width`     | autoWidth     |                |
+| `ellipsize-text` | ellipsizeText |                |
+| `grow`           | grow          |                |
+| `header`         | header        |                |
+| `path`           | path          |                |
+| `parts`          | parts         |                |
+| `sticky`         | sticky        |                |
+| `width`          | width         |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                              | Package |
-| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
-| `js` | `GridColumn`          | GridColumn          | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlColumnUpdateEvent` | SlColumnUpdateEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.ts |         |
+| `js` | `GridColumn`          | GridColumn          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/drag-handle-column.ts`:
 
 ## class: `GridDragHandleColumn`, `sl-grid-drag-handle-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -2463,20 +3387,24 @@
 | ---------------- | ------- | ------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `align`          |         | `GridColumnAlignment \| undefined`                |         | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
 | `autoWidth`      |         | `boolean \| undefined`                            |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `ellipsizeText`  |         | `boolean \| undefined`                            |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `grid`           |         | `Grid<T> \| undefined`                            |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `grow`           |         | `number`                                          | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
 | `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |         | The label for the column header. Can contain custom HTML.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `path`           |         | `string \| undefined`                             |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `path`           |         | `PathKeys<T> \| undefined`                        |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
 | `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
 | `sticky`         |         | `boolean \| undefined`                            |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `stickyOrder`    |         | `'first' \| 'last' \| undefined`                  |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | GridColumn     |
+| `stickyPosition` |         | `'start' \| 'end' \| undefined`                   |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | GridColumn     |
 | `width`          |         | `number \| undefined`                             |         | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
 | Name           | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`   |         |                                                                                                                                                                | `_item: T` | `string[]`          | GridColumn     |
 | `getParts`     |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
 | `itemsChanged` |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
 | `renderData`   |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    | GridColumn     |
@@ -2492,34 +3420,35 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `align`          | align         | GridColumn     |
+| `auto-width`     | autoWidth     | GridColumn     |
+| `ellipsize-text` | ellipsizeText | GridColumn     |
+| `grow`           | grow          | GridColumn     |
+| `header`         | header        | GridColumn     |
+| `path`           | path          | GridColumn     |
+| `parts`          | parts         | GridColumn     |
+| `sticky`         | sticky        | GridColumn     |
+| `width`          | width         | GridColumn     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                          | Package |
-| ---- | ---------------------- | -------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/drag-handle-column.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                            | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridDragHandleColumn` | GridDragHandleColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/drag-handle-column.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter-column.ts`:
 
 ## class: `GridFilterColumn`, `sl-grid-filter-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -2527,6 +3456,7 @@
 | ----------------- | ------- | ------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `align`           |         | `GridColumnAlignment \| undefined`                |         | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
 | `autoWidth`       |         | `boolean \| undefined`                            |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `ellipsizeText`   |         | `boolean \| undefined`                            |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `filter`          |         | `DataSourceFilterFunction<T> \| undefined`        |         | The filter function if you want to do custom filtering.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                |
 | `grid`            |         | `Grid<T> \| undefined`                            |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `grow`            |         | `number`                                          | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
@@ -2535,10 +3465,12 @@
 | `mode`            |         | `select \| text`                                  |         | The mode for the filter:&#xA;\- `select`: The filter will allow you to select from a list of options. If none&#xA;are provided, the filter will create a list of options based on the column's values&#xA;\- `text`: The filter will be a text field.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |                |
 | `options`         |         | `GridFilterOption[] \| undefined`                 |         | The options you can choose from to filter. If not provided,&#xA;the filter will be a text field.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
 | `parts`           |         | `string \| GridColumnParts<T> \| undefined`       |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `path`            |         | `string \| undefined`                             |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `path`            |         | `PathKeys<T> \| undefined`                        |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `renderer`        |         | `GridColumnDataRenderer<T> \| undefined`          |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
 | `scopedElements`  |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
 | `sticky`          |         | `boolean \| undefined`                            |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `stickyOrder`     |         | `'first' \| 'last' \| undefined`                  |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | GridColumn     |
+| `stickyPosition`  |         | `'start' \| 'end' \| undefined`                   |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | GridColumn     |
 | `value`           |         | `string \| string[] \| undefined`                 |         | The value for this filter column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                |
 | `width`           |         | `number \| undefined`                             |         | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
@@ -2546,6 +3478,7 @@
 
 | Name           | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`   |         |                                                                                                                                                                | `_item: T` | `string[]`          | GridColumn     |
 | `getParts`     |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
 | `itemsChanged` |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
 | `renderData`   |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    | GridColumn     |
@@ -2561,36 +3494,37 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `mode`       | mode      |                |
-| `value`      | value     |                |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `mode`           | mode          |                |
+| `value`          | value         |                |
+| `align`          | align         | GridColumn     |
+| `auto-width`     | autoWidth     | GridColumn     |
+| `ellipsize-text` | ellipsizeText | GridColumn     |
+| `grow`           | grow          | GridColumn     |
+| `header`         | header        | GridColumn     |
+| `path`           | path          | GridColumn     |
+| `parts`          | parts         | GridColumn     |
+| `sticky`         | sticky        | GridColumn     |
+| `width`          | width         | GridColumn     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridFilterColumn` | GridFilterColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                       | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridFilterColumn` | GridFilterColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter-column.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilter`
 
@@ -2614,7 +3548,7 @@
 | `filter`  |         | `DataSourceFilterFunction<T> \| undefined` |         | The custom filter                   |                |
 | `mode`    |         | `GridFilterMode \| undefined`              |         | The mode of the filter.             |                |
 | `options` |         | `GridFilterOption[] \| undefined`          |         | The filter options.                 |                |
-| `path`    |         | `string \| undefined`                      |         | The path to the field to filter on. |                |
+| `path`    |         | `PathKeys<T> \| undefined`                 |         | The path to the field to filter on. |                |
 | `value`   |         | `string \| string[] \| undefined`          |         |                                     |                |
 
 ### Events
@@ -2635,21 +3569,21 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                              | Package |
-| ---- | -------------------------- | ------------------------ | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFilterChangeEvent`      | SlFilterChangeEvent      | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `SlFilterValueChangeEvent` | SlFilterValueChangeEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
-| `js` | `GridFilter`               | GridFilter               | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFilterChangeEvent`      | SlFilterChangeEvent      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `SlFilterValueChangeEvent` | SlFilterValueChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts |         |
+| `js` | `GridFilter`               | GridFilter               | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/filter.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts`:
 
 ## class: `Grid`, `sl-grid`
 
@@ -2670,9 +3604,11 @@
 | Name                  | Privacy | Type                                              | Default                            | Description                                                                                                                                                                                                                                                              | Inherited From |
 | --------------------- | ------- | ------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
 | `activeItem`          |         | `T \| undefined`                                  |                                    | The active item in the grid.                                                                                                                                                                                                                                             |                |
-| `dataSource`          |         | `DataSource \| undefined`                         |                                    | Provide your own implementation for getting the data.                                                                                                                                                                                                                    |                |
+| `clickableRow`        |         | `boolean \| undefined`                            |                                    | Whether a row can be set active by clicking anywhere in the row.                                                                                                                                                                                                         |                |
+| `dataSource`          |         | `ListDataSource<T> \| undefined`                  |                                    | Provide your own implementation for getting the data.                                                                                                                                                                                                                    |                |
 | `draggableRows`       |         | `GridDraggableRows \| undefined`                  |                                    | Whether you can drag rows in the grid. If you use the drag-handle column,&#xA;then this property is automatically set by the column to 'between'.                                                                                                                        |                |
 | `dropFilter`          |         | `GridDropFilter \| undefined`                     |                                    | Determines if or what kind of drop target the given item is:&#xA;\- boolean: the item is valid drop target based on the draggableRows value&#xA;\- 'between': the item is a valid drop target between&#xA;\- 'on-top': the item is a valid drop target to drop on top of |                |
+| `ellipsizeText`       |         | `boolean \| undefined`                            |                                    | This will ellipsize the text in the `<td>` elements if it overflows.                                                                                                                                                                                                     |                |
 | `groupHeaderRenderer` |         | `GridGroupHeaderRenderer \| undefined`            |                                    | Custom renderer for group headers.                                                                                                                                                                                                                                       |                |
 | `itemParts`           |         | `GridItemParts<T> \| undefined`                   |                                    | Custom parts to be set on the `<tr>` so it can be styled externally.                                                                                                                                                                                                     |                |
 | `items`               |         | `T[] \| undefined`                                |                                    | An array of items to be displayed in the grid.                                                                                                                                                                                                                           |                |
@@ -2681,7 +3617,9 @@
 | `scopedElements`      |         | `Record<string, typeof HTMLElement> \| undefined` |                                    | The custom elements used for rendering this grid. This can be used if you want to render&#xA;custom elements in the group header. Custom elements that you want to render in the columns&#xA;can be registered via the `scopedElements` property on the column.          |                |
 | `selection`           |         |                                                   | `new SelectionController<T>(this)` | Selection manager.                                                                                                                                                                                                                                                       |                |
 | `striped`             |         | `boolean \| undefined`                            |                                    | Uses alternating background colors for the rows when set.                                                                                                                                                                                                                |                |
+| `table`               |         | `HTMLTableElement`                                |                                    | The table element.                                                                                                                                                                                                                                                       |                |
 | `tbody`               |         | `HTMLTableSectionElement`                         |                                    | The table body element.                                                                                                                                                                                                                                                  |                |
+| `tfoot`               |         | `HTMLTableSectionElement`                         |                                    | The table foot element.                                                                                                                                                                                                                                                  |                |
 | `thead`               |         | `HTMLTableSectionElement`                         |                                    | The table head element.                                                                                                                                                                                                                                                  |                |
 | `view`                |         |                                                   | `new GridViewModel<T>(this)`       | The model used for rendering the grid.                                                                                                                                                                                                                                   |                |
 
@@ -2711,6 +3649,8 @@
 | Name             | Field         | Inherited From |
 | ---------------- | ------------- | -------------- |
 | `draggable-rows` | draggableRows |                |
+| `clickable-row`  | clickableRow  |                |
+| `ellipsize-text` | ellipsizeText |                |
 | `items`          | items         |                |
 | `no-border`      | noBorder      |                |
 | `no-row-border`  | noRowBorder   |                |
@@ -2720,24 +3660,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                            | Package |
-| ---- | ------------------------- | ----------------------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `SlActiveItemChangeEvent` | SlActiveItemChangeEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragStartEvent`        | SlDragStartEvent        | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDragEndEvent`          | SlDragEndEvent          | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlDropEvent`             | SlDropEvent             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `SlStateChangeEvent`      | SlStateChangeEvent      | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
-| `js` | `Grid`                    | Grid                    | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                              | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `SlActiveItemChangeEvent` | SlActiveItemChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragStartEvent`        | SlDragStartEvent        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDragEndEvent`          | SlDragEndEvent          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlDropEvent`             | SlDropEvent             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `SlStateChangeEvent`      | SlStateChangeEvent      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
+| `js` | `Grid`                    | Grid                    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/grid.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/group-header.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/group-header.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/group-header.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.ts`:
 
 ## class: `GridGroupHeader`
 
@@ -2780,19 +3720,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridGroupHeader` | GridGroupHeader | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/group-header.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                      | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridGroupHeader` | GridGroupHeader | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/group-header.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/select-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/select-column.ts`:
 
 ## class: `GridSelectColumn`, `sl-grid-select-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -2800,21 +3740,25 @@
 | ---------------- | ------- | ------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `align`          |         | `GridColumnAlignment \| undefined`                                  |         | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
 | `autoWidth`      |         | `boolean \| undefined`                                              |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `ellipsizeText`  |         | `boolean \| undefined`                                              |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `grid`           |         | `Grid<T> \| undefined`                                              |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `grow`           |         | `number`                                                            | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
 | `header`         |         | `string \| GridColumnHeaderRenderer \| undefined`                   |         | The label for the column header. Can contain custom HTML.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `options`        |         | `Array<{ label: string; value: unknown }> \| string[] \| undefined` |         | The options for the select.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |                |
 | `parts`          |         | `string \| GridColumnParts<T> \| undefined`                         |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `path`           |         | `string \| undefined`                                               |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `path`           |         | `PathKeys<T> \| undefined`                                          |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`                            |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
 | `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined`                   |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
 | `sticky`         |         | `boolean \| undefined`                                              |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `stickyOrder`    |         | `'first' \| 'last' \| undefined`                                    |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | GridColumn     |
+| `stickyPosition` |         | `'start' \| 'end' \| undefined`                                     |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | GridColumn     |
 | `width`          |         | `number \| undefined`                                               |         | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
 | Name           | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`   |         |                                                                                                                                                                | `_item: T` | `string[]`          | GridColumn     |
 | `getParts`     |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
 | `itemsChanged` |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
 | `renderData`   |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    | GridColumn     |
@@ -2830,35 +3774,36 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `options`    | options   |                |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `options`        | options       |                |
+| `align`          | align         | GridColumn     |
+| `auto-width`     | autoWidth     | GridColumn     |
+| `ellipsize-text` | ellipsizeText | GridColumn     |
+| `grow`           | grow          | GridColumn     |
+| `header`         | header        | GridColumn     |
+| `path`           | path          | GridColumn     |
+| `parts`          | parts         | GridColumn     |
+| `sticky`         | sticky        | GridColumn     |
+| `width`          | width         | GridColumn     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                     | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `GridSelectColumn` | GridSelectColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/select-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                       | Package |
+| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectColumn` | GridSelectColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/select-column.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/selection-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/selection-column.ts`:
 
 ## class: `GridSelectionColumn`, `sl-grid-selection-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -2867,21 +3812,25 @@
 | `align`          |         | `GridColumnAlignment \| undefined`                |         | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
 | `autoSelect`     |         | `boolean \| undefined`                            |         | When true, the active rows get selected automatically.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |                |
 | `autoWidth`      |         | `boolean \| undefined`                            |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `ellipsizeText`  |         | `boolean \| undefined`                            |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `grid`           |         | `Grid<T> \| undefined`                            |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `grow`           |         | `number`                                          | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
 | `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |         | The label for the column header. Can contain custom HTML.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `path`           |         | `string \| undefined`                             |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `path`           |         | `PathKeys<T> \| undefined`                        |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
 | `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
 | `selectAll`      |         | `boolean \| undefined`                            |         | When true, all items are selected.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
 | `sticky`         |         | `boolean \| undefined`                            |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `stickyOrder`    |         | `'first' \| 'last' \| undefined`                  |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | GridColumn     |
+| `stickyPosition` |         | `'start' \| 'end' \| undefined`                   |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | GridColumn     |
 | `width`          |         | `number \| undefined`                             |         | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
 | Name                    | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`            |         |                                                                                                                                                                | `_item: T` | `string[]`          | GridColumn     |
 | `getParts`              |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
 | `getSelectedCount`      |         |                                                                                                                                                                |            | `number`            |                |
 | `itemsChanged`          |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
@@ -2899,36 +3848,37 @@
 
 ### Attributes
 
-| Name          | Field      | Inherited From |
-| ------------- | ---------- | -------------- |
-| `auto-select` | autoSelect |                |
-| `select-all`  | selectAll  |                |
-| `align`       | align      | GridColumn     |
-| `auto-width`  | autoWidth  | GridColumn     |
-| `grow`        | grow       | GridColumn     |
-| `header`      | header     | GridColumn     |
-| `path`        | path       | GridColumn     |
-| `parts`       | parts      | GridColumn     |
-| `sticky`      | sticky     | GridColumn     |
-| `width`       | width      | GridColumn     |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `auto-select`    | autoSelect    |                |
+| `select-all`     | selectAll     |                |
+| `align`          | align         | GridColumn     |
+| `auto-width`     | autoWidth     | GridColumn     |
+| `ellipsize-text` | ellipsizeText | GridColumn     |
+| `grow`           | grow          | GridColumn     |
+| `header`         | header        | GridColumn     |
+| `path`           | path          | GridColumn     |
+| `parts`          | parts         | GridColumn     |
+| `sticky`         | sticky        | GridColumn     |
+| `width`          | width         | GridColumn     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                        | Package |
-| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/selection-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                          | Package |
+| ---- | --------------------- | ------------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/selection-column.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sort-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sort-column.ts`:
 
 ## class: `GridSortColumn`, `sl-grid-sort-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -2938,21 +3888,25 @@
 | `ariaSorting`    |         | `'ascending' \| 'descending' \| undefined`        |         | The direction of the sorting                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |                |
 | `autoWidth`      |         | `boolean \| undefined`                            |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
 | `direction`      |         | `DataSourceSortDirection \| undefined`            |         | The direction this columns should be sorted in.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `ellipsizeText`  |         | `boolean \| undefined`                            |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `grid`           |         | `Grid<T> \| undefined`                            |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `grow`           |         | `number`                                          | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
 | `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |         | The label for the column header. Can contain custom HTML.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `path`           |         | `string \| undefined`                             |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `path`           |         | `PathKeys<T> \| undefined`                        |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
 | `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
 | `sorter`         |         | `DataSourceSortFunction<T> \| undefined`          |         | If you want to provide a custom sort function, you can via this property.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
 | `sticky`         |         | `boolean \| undefined`                            |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `stickyOrder`    |         | `'first' \| 'last' \| undefined`                  |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | GridColumn     |
+| `stickyPosition` |         | `'start' \| 'end' \| undefined`                   |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | GridColumn     |
 | `width`          |         | `number \| undefined`                             |         | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
 | Name           | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`   |         |                                                                                                                                                                | `_item: T` | `string[]`          | GridColumn     |
 | `getParts`     |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
 | `itemsChanged` |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
 | `renderData`   |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    | GridColumn     |
@@ -2968,35 +3922,36 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `direction`  | direction |                |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `direction`      | direction     |                |
+| `align`          | align         | GridColumn     |
+| `auto-width`     | autoWidth     | GridColumn     |
+| `ellipsize-text` | ellipsizeText | GridColumn     |
+| `grow`           | grow          | GridColumn     |
+| `header`         | header        | GridColumn     |
+| `path`           | path          | GridColumn     |
+| `parts`          | parts         | GridColumn     |
+| `sticky`         | sticky        | GridColumn     |
+| `width`          | width         | GridColumn     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                   | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridSortColumn` | GridSortColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sort-column.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                     | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `GridSortColumn` | GridSortColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sort-column.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
 
@@ -3045,21 +4000,21 @@
 
 ## Exports
 
-| Kind | Name                         | Declaration                | Module                                                                              | Package |
-| ---- | ---------------------------- | -------------------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSorterChangeEvent`        | SlSorterChangeEvent        | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `SlSortDirectionChangeEvent` | SlSortDirectionChangeEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
-| `js` | `GridSorter`                 | GridSorter                 | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
+| Kind | Name                         | Declaration                | Module                                                                                | Package |
+| ---- | ---------------------------- | -------------------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSorterChangeEvent`        | SlSorterChangeEvent        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `SlSortDirectionChangeEvent` | SlSortDirectionChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts |         |
+| `js` | `GridSorter`                 | GridSorter                 | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/sorter.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/text-field-column.ts`:
 
 ## class: `GridTextFieldColumn`, `sl-grid-text-field-column`
 
 ### Superclass
 
-| Name         | Module                                                                               | Package |
-| ------------ | ------------------------------------------------------------------------------------ | ------- |
-| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
+| Name         | Module                                                                                 | Package |
+| ------------ | -------------------------------------------------------------------------------------- | ------- |
+| `GridColumn` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -3067,20 +4022,24 @@
 | ---------------- | ------- | ------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `align`          |         | `GridColumnAlignment \| undefined`                |         | The alignment of the content within the column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | GridColumn     |
 | `autoWidth`      |         | `boolean \| undefined`                            |         | Automatically sets the width of the column based on the column contents when this is set to `true`.&#xA;&#xA;For performance reasons the column width is calculated automatically only once when the grid items&#xA;are rendered for the first time and the calculation only considers the rows which are currently&#xA;rendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell&#xA;content changes, the column width might not match the contents anymore.&#xA;&#xA;Hidden columns are ignored in the calculation and their widths are not automatically updated when&#xA;you show a column that was initially hidden.&#xA;&#xA;You can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.&#xA;&#xA;The column width may still grow larger when `grow` is not 0. | GridColumn     |
+| `ellipsizeText`  |         | `boolean \| undefined`                            |         | This will ellipsize the text in the `<td>` elements when it overflows.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `grid`           |         | `Grid<T> \| undefined`                            |         | The parent grid instance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `grow`           |         | `number`                                          | `1`     | The ratio with which the column will grow relative to the other columns.&#xA;A ratio of 0 means the column width is fixed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | GridColumn     |
 | `header`         |         | `string \| GridColumnHeaderRenderer \| undefined` |         | The label for the column header. Can contain custom HTML.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | GridColumn     |
 | `parts`          |         | `string \| GridColumnParts<T> \| undefined`       |         | Custom parts to be set on the `<td>` so it can be styled externally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
-| `path`           |         | `string \| undefined`                             |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
+| `path`           |         | `PathKeys<T> \| undefined`                        |         | The path to the value for this column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | GridColumn     |
 | `renderer`       |         | `GridColumnDataRenderer<T> \| undefined`          |         | Renderer function for the column value of each cell.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | GridColumn     |
 | `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this column. Since the rendering the column cells is done&#xA;in the parent grid component, the custom elements need to be registered in the parent grid.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | GridColumn     |
 | `sticky`         |         | `boolean \| undefined`                            |         | Whether this column is sticky when the user scrolls horizontally.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | GridColumn     |
+| `stickyOrder`    |         | `'first' \| 'last' \| undefined`                  |         | Whether this column is the first or last sticky column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | GridColumn     |
+| `stickyPosition` |         | `'start' \| 'end' \| undefined`                   |         | The position where the column should be sticky: at the start of the grid, or at the end.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | GridColumn     |
 | `width`          |         | `number \| undefined`                             |         | Width of the cells for this column in pixels.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | GridColumn     |
 
 ### Methods
 
 | Name           | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
 | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getClasses`   |         |                                                                                                                                                                | `_item: T` | `string[]`          | GridColumn     |
 | `getParts`     |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
 | `itemsChanged` |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
 | `renderData`   |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    | GridColumn     |
@@ -3096,44 +4055,46 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align`      | align     | GridColumn     |
-| `auto-width` | autoWidth | GridColumn     |
-| `grow`       | grow      | GridColumn     |
-| `header`     | header    | GridColumn     |
-| `path`       | path      | GridColumn     |
-| `parts`      | parts     | GridColumn     |
-| `sticky`     | sticky    | GridColumn     |
-| `width`      | width     | GridColumn     |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `align`          | align         | GridColumn     |
+| `auto-width`     | autoWidth     | GridColumn     |
+| `ellipsize-text` | ellipsizeText | GridColumn     |
+| `grow`           | grow          | GridColumn     |
+| `header`         | header        | GridColumn     |
+| `path`           | path          | GridColumn     |
+| `parts`          | parts         | GridColumn     |
+| `sticky`         | sticky        | GridColumn     |
+| `width`          | width         | GridColumn     |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                                                         | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/text-field-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                           | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `GridTextFieldColumn` | GridTextFieldColumn | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/text-field-column.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/view-model.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/view-model.ts`:
 
 ## class: `GridViewModel`
 
 ### Fields
 
-| Name                | Privacy | Type                          | Default | Description                                                                               | Inherited From |
-| ------------------- | ------- | ----------------------------- | ------- | ----------------------------------------------------------------------------------------- | -------------- |
-| `columnDefinitions` |         | `Array<GridColumn<T>>`        |         | Sets the available columns. Not all columns may be rendered, depending on the view state. |                |
-| `columns`           |         | `Array<GridColumn<T>>`        |         | Returns an array of visible columns.                                                      |                |
-| `dataSource`        |         | `DataSource<T> \| undefined`  |         |                                                                                           |                |
-| `groups`            |         | `string[]`                    |         |                                                                                           |                |
-| `headerRows`        |         | `Array<Array<GridColumn<T>>>` |         |                                                                                           |                |
-| `rows`              |         | `T[]`                         |         |                                                                                           |                |
+| Name                | Privacy | Type                             | Default | Description                                                                               | Inherited From |
+| ------------------- | ------- | -------------------------------- | ------- | ----------------------------------------------------------------------------------------- | -------------- |
+| `columnDefinitions` |         | `Array<GridColumn<T>>`           |         | Sets the available columns. Not all columns may be rendered, depending on the view state. |                |
+| `columns`           |         | `Array<GridColumn<T>>`           |         | Returns an array of visible columns.                                                      |                |
+| `dataSource`        |         | `ListDataSource<T> \| undefined` |         |                                                                                           |                |
+| `groups`            |         | `string[]`                       |         |                                                                                           |                |
+| `headerRows`        |         | `Array<Array<GridColumn<T>>>`    |         |                                                                                           |                |
+| `rows`              |         | `T[]`                            |         |                                                                                           |                |
 
 ### Methods
 
 | Name                    | Privacy | Description                                                      | Parameters                                                             | Return                      | Inherited From |
 | ----------------------- | ------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------- | -------------- |
+| `getActiveRow`          |         |                                                                  | `value: string`                                                        | `'all' \| 'some' \| 'none'` |                |
 | `getGroupSelection`     |         | Returns the selected state of the group.                         | `value: string`                                                        | `'all' \| 'some' \| 'none'` |                |
 | `getGroupState`         |         | Returns true if the group is expanded, false if collapsed.       | `value: string`                                                        | `boolean`                   |                |
 | `getItemAtIndex`        |         |                                                                  | `index: number`                                                        | `T`                         |                |
@@ -3152,20 +4113,20 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                  | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
-| `js` | `GridViewModel`      | GridViewModel      | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/view-model.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                    | Package |
+| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridViewModelGroup` | GridViewModelGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/view-model.ts |         |
+| `js` | `GridViewModel`      | GridViewModel      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/grid/src/view-model.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.ts`:
 
 ## class: `Icon`, `sl-icon`
 
@@ -3210,19 +4171,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Icon` | Icon        | /Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/icon/src/icon.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.ts`:
 
 ## class: `InlineMessage`, `sl-inline-message`
 
@@ -3240,10 +4201,11 @@
 
 ### Fields
 
-| Name            | Privacy | Type                   | Default  | Description                        | Inherited From |
-| --------------- | ------- | ---------------------- | -------- | ---------------------------------- | -------------- |
-| `indismissible` |         | `boolean \| undefined` |          | Will hide the close button if set. |                |
-| `variant`       |         | `InlineMessageVariant` | `'info'` | The variant of the inline message. |                |
+| Name            | Privacy | Type                                | Default  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Inherited From |
+| --------------- | ------- | ----------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `indismissible` |         | `boolean \| undefined`              | `false`  | If set, will remove the ability to dismiss the inline message by removing&#xA;the close button.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
+| `size`          |         | `InlineMessageSize`                 | `'auto'` | The size of the inline message. By default this is set to `'auto'` which means the component&#xA;will automatically determine the size based on the content. If the content spans more than 2&#xA;lines, the size will be set to `'lg'`. If a title is present, the size will be set to `'lg'`.&#xA;Otherwise the size will be set to `'md'`.&#xA;If you want to explicitly set the size the `'sm'`, `'md'`, or `'lg'`, you can do so. But beware&#xA;that some sizes may not work well with the content. `'sm'` and `'md'` for example are not meant&#xA;to be used with a title. |                |
+| `variant`       |         | `InlineMessageVariant \| undefined` | `'info'` | The variant of the inline message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |                |
 
 ### Events
 
@@ -3256,6 +4218,7 @@
 | Name            | Field         | Inherited From |
 | --------------- | ------------- | -------------- |
 | `indismissible` | indismissible |                |
+| `size`          | size          |                |
 | `variant`       | variant       |                |
 
 ### Slots
@@ -3271,22 +4234,22 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                                | Package |
-| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlDismissEvent` | SlDismissEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
-| `js` | `InlineMessage`  | InlineMessage  | /Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                                  | Package |
+| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlDismissEvent` | SlDismissEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.ts |         |
+| `js` | `InlineMessage`  | InlineMessage  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/inline-message/src/inline-message.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.ts`:
 
-## class: `MenuButton`, `sl-menu-button`
+## class: `Listbox`, `sl-listbox`
 
 ### Superclass
 
@@ -3302,23 +4265,241 @@
 
 ### Fields
 
-| Name       | Privacy | Type                           | Default     | Description                                                          | Inherited From |
-| ---------- | ------- | ------------------------------ | ----------- | -------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined`         |             | Whether the button is disabled; when set no interaction is possible. |                |
-| `fill`     |         | `ButtonFill`                   | `'outline'` | The fill of the button.                                              |                |
-| `position` |         | `PopoverPosition \| undefined` |             | The position of the menu relative to the button.                     |                |
-| `size`     |         | `ButtonSize`                   | `'md'`      | The size of the button.                                              |                |
-| `variant`  |         | `ButtonVariant`                | `'default'` | The variant of the button.                                           |                |
+| Name                 | Privacy | Type                                    | Default    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Inherited From |
+| -------------------- | ------- | --------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `emphasis`           |         | `ListboxEmphasis \| undefined`          | `'subtle'` | The emphasis of the selected options in the listbox.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                |
+| `items`              |         | `Array<ListboxItem<T, U>> \| undefined` |            | Use this property if you want to have full control over how the items&#xA;are rendered using lit-virtualizer. You are expected to provide an&#xA;array of ListboxItem<T, U> and most likely will also want to provide a&#xA;custom `renderer`.&#xA;&#xA;Only use this property if you know what you are doing. If you are unsure&#xA;about using this property, use the `options` property instead.                                                                                                                                                                                                                                                                                                                                                                                                                                        |                |
+| `optionGroupPath`    |         | `PathKeys<T> \| undefined`              |            | The path to the property to use to group the options.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                |
+| `optionLabelPath`    |         | `PathKeys<T> \| undefined`              |            | The path to the property to use for the label.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
+| `optionSelectedPath` |         | `PathKeys<T> \| undefined`              |            | The path to the property to use for the selected state.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |                |
+| `optionValuePath`    |         | `PathKeys<T> \| undefined`              |            | The path to the property to use for the value.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
+| `options`            |         | `T[] \| undefined`                      |            | Use this property to set an array of options to render. When you set this&#xA;property, the component will render the options using a virtualizer. This means&#xA;that it only renders the options that are visible in the viewport, which allows&#xA;it to handle a large number of options efficiently.&#xA;&#xA;When using this property, you can also provide paths to the properties to use for&#xA;the label, value, selected state, and group. This allows you to render options&#xA;that are objects and have nested properties. See `optionGroupPath`, `optionLabelPath`,&#xA;\`optionSelectedPath`, and `optionValuePath` for more information.&#xA;&#xA;If you don't need virtualization, you can omit this property and render the&#xA;options declaratively using the default slot and `<sl-option>` and `<sl-option-group>`. |                |
+| `renderer`           |         | `ListboxRenderer<T> \| undefined`       |            | By setting this property, you can customize how an option in the `options` array is rendered.&#xA;By default, this will render the option as an `<sl-option>`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |                |
+
+### Methods
+
+| Name            | Privacy | Description | Parameters                                      | Return | Inherited From |
+| --------------- | ------- | ----------- | ----------------------------------------------- | ------ | -------------- |
+| `scrollToIndex` |         |             | `index: number, options: ScrollIntoViewOptions` | `void` |                |
+
+### Attributes
+
+| Name                   | Field              | Inherited From |
+| ---------------------- | ------------------ | -------------- |
+| `emphasis`             | emphasis           |                |
+| `options`              | options            |                |
+| `option-group-path`    | optionGroupPath    |                |
+| `option-label-path`    | optionLabelPath    |                |
+| `option-selected-path` | optionSelectedPath |                |
+| `option-value-path`    | optionValuePath    |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Listbox` | Listbox     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/listbox.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.ts`:
+
+## class: `OptionGroupHeader`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name      | Privacy | Type                   | Default | Description                                | Inherited From |
+| --------- | ------- | ---------------------- | ------- | ------------------------------------------ | -------------- |
+| `divider` |         | `boolean \| undefined` |         | Will render a horizontal divider when set. |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `divider` | divider |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                | Declaration       | Module                                                                                                | Package |
+| ---- | ------------------- | ----------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroupHeader` | OptionGroupHeader | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group-header.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.ts`:
+
+## class: `OptionGroup`, `sl-option-group`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name    | Privacy | Type                  | Default | Description                       | Inherited From |
+| ------- | ------- | --------------------- | ------- | --------------------------------- | -------------- |
+| `label` |         | `string \| undefined` |         | The optional label for the group. |                |
+
+### Attributes
+
+| Name    | Field | Inherited From |
+| ------- | ----- | -------------- |
+| `label` | label |                |
+
+### Slots
+
+| Name      | Description         |
+| --------- | ------------------- |
+| `default` | The option's label. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name          | Declaration | Module                                                                                         | Package |
+| ---- | ------------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `OptionGroup` | OptionGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option-group.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.ts`:
+
+## class: `Option`, `sl-option`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name          | Privacy | Type                          | Default    | Description                                                                                                  | Inherited From |
+| ------------- | ------- | ----------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled`    |         | `boolean \| undefined`        |            | Whether this option is disabled.                                                                             |                |
+| `emphasis`    |         | `OptionEmphasis \| undefined` | `'subtle'` | The emphasis style when selected.                                                                            |                |
+| `selected`    |         | `boolean \| undefined`        |            | Whether this option is selected.                                                                             |                |
+| `textContent` |         | `string`                      |            |                                                                                                              |                |
+| `value`       |         | `T`                           |            | The value for this option. If not explicitly set, the getter will&#xA;return the text content of the option. |                |
 
 ### Attributes
 
 | Name       | Field    | Inherited From |
 | ---------- | -------- | -------------- |
 | `disabled` | disabled |                |
-| `fill`     | fill     |                |
-| `position` | position |                |
-| `size`     | size     |                |
-| `variant`  | variant  |                |
+| `emphasis` | emphasis |                |
+| `selected` | selected |                |
+| `value`    | value    |                |
+
+### Slots
+
+| Name      | Description         |
+| --------- | ------------------- |
+| `default` | The option's label. |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                                                                   | Package |
+| ---- | -------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `Option` | Option      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/listbox/src/option.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.ts`:
+
+## class: `MenuButton`, `sl-menu-button`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                     | Module | Package                                 |
+| ------------------------ | ------ | --------------------------------------- |
+| `ObserveAttributesMixin` |        | @sl-design-system/shared/mixins.js      |
+| `ScopedElementsMixin`    |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name       | Privacy | Type                           | Default          | Description                                                          | Inherited From |
+| ---------- | ------- | ------------------------------ | ---------------- | -------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`         | `false`          | Whether the button is disabled; when set no interaction is possible. |                |
+| `fill`     |         | `ButtonFill`                   | `'outline'`      | The fill of the button.                                              |                |
+| `position` |         | `PopoverPosition \| undefined` | `'bottom-start'` | The position of the menu relative to the button.                     |                |
+| `shape`    |         | `ButtonShape \| undefined`     | `'square'`       | The shape of the button.                                             |                |
+| `size`     |         | `ButtonSize \| undefined`      | `'md'`           | The size of the button.                                              |                |
+| `variant`  |         | `ButtonVariant \| undefined`   | `'secondary'`    | The variant of the button.                                           |                |
+
+### Methods
+
+| Name                  | Privacy | Description | Parameters        | Return | Inherited From         |
+| --------------------- | ------- | ----------- | ----------------- | ------ | ---------------------- |
+| `setAttributesTarget` |         |             | `target: Element` | `void` | ObserveAttributesMixin |
+
+### Attributes
+
+| Name            | Field    | Inherited From |
+| --------------- | -------- | -------------- |
+| `aria-disabled` |          |                |
+| `aria-label`    |          |                |
+| `disabled`      | disabled |                |
+| `fill`          | fill     |                |
+| `position`      | position |                |
+| `shape`         | shape    |                |
+| `size`          | size     |                |
+| `variant`       | variant  |                |
 
 ### CSS Parts
 
@@ -3337,19 +4518,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                   | Package |
-| ---- | ------------ | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuButton` | MenuButton  | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-button.ts |         |
+| Kind | Name         | Declaration | Module                                                                                     | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `MenuButton` | MenuButton  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-button.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.ts`:
 
 ## class: `MenuItemGroup`, `sl-menu-item-group`
 
@@ -3384,19 +4565,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItemGroup` | MenuItemGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItemGroup` | MenuItemGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item-group.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.ts`:
 
 ## class: `MenuItem`, `sl-menu-item`
 
@@ -3455,19 +4636,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `MenuItem` | MenuItem    | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu-item.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `MenuItem` | MenuItem    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu-item.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                 | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.ts`:
 
 ## class: `Menu`, `sl-menu`
 
@@ -3481,6 +4662,7 @@
 
 | Name       | Privacy | Type                                  | Default         | Description                                                                                                                                                                                                  | Inherited From |
 | ---------- | ------- | ------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `emphasis` |         | `MenuEmphasis \| undefined`           | `'subtle'`      | The emphasis of the menu.                                                                                                                                                                                    |                |
 | `offset`   |         | `number \| undefined`                 |                 | The offset of the menu to its anchor. This is a property on this instance so that it can be overridden&#xA;by the menu item in case of a nested menu.&#xA;You should not need to set this property yourself. |                |
 | `position` |         | `PopoverPosition \| undefined`        | `'right-start'` | The position of the menu relative to its anchor.                                                                                                                                                             |                |
 | `selects`  |         | `'single' \| 'multiple' \| undefined` |                 | Determines whether if and how many menu items can be selected.                                                                                                                                               |                |
@@ -3498,13 +4680,13 @@
 | `offset`   | offset   |                |
 | `position` | position |                |
 | `selects`  | selects  |                |
+| `emphasis` | emphasis |                |
 
-### CSS Properties
+### CSS Parts
 
-| Name                        | Default | Description                          |
-| --------------------------- | ------- | ------------------------------------ |
-| `--sl-menu-max-inline-size` |         | The maximum inline size of the menu. |
-| `--sl-menu-min-inline-size` |         | The minimum inline size of the menu. |
+| Name   | Description                                                                               |
+| ------ | ----------------------------------------------------------------------------------------- |
+| `menu` | The sl-menu element, use this to set for example a min and/or max inline size of the menu |
 
 ### Slots
 
@@ -3516,19 +4698,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                                                            | Package |
-| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
-| `js` | `Menu` | Menu        | /Users/Diana.Broeders/Projects/design-system/packages/components/menu/src/menu.ts |         |
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Menu` | Menu        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/menu/src/menu.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                       | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.ts`:
 
 ## class: `MessageDialog`, `sl-message-dialog`
 
@@ -3569,19 +4751,354 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `MessageDialog` | MessageDialog | /Users/Diana.Broeders/Projects/design-system/packages/components/message-dialog/src/message-dialog.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                                  | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `MessageDialog` | MessageDialog | /Users/jeroen.zwartepoorte/Projects/components/packages/components/message-dialog/src/message-dialog.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/panel/src/panel.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                   | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/panel/src/panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/panel/src/panel.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.ts`:
+
+## class: `NumberField`, `sl-number-field`
+
+### Superclass
+
+| Name        | Module | Package                      |
+| ----------- | ------ | ---------------------------- |
+| `TextField` |        | @sl-design-system/text-field |
+
+### Mixins
+
+| Name          | Module | Package                            |
+| ------------- | ------ | ---------------------------------- |
+| `LocaleMixin` |        | @sl-design-system/shared/mixins.js |
+
+### Fields
+
+| Name                | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From |
+| ------------------- | ------- | --------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `autocomplete`      |         | `string \| undefined`                                           |          | Specifies which type of data the browser can use to pre-fill the input.                                                                                                                                                                                                                                                                                 | TextField      |
+| `customValidity`    |         | `string \| undefined`                                           |          | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | TextField      |
+| `dirty`             |         | `boolean`                                                       | `false`  | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | TextField      |
+| `disabled`          |         | `boolean \| undefined`                                          |          | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                | TextField      |
+| `form`              |         | `HTMLFormElement \| null`                                       |          | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | TextField      |
+| `formValue`         |         | `unknown`                                                       |          | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | TextField      |
+| `formatOptions`     |         | `Intl.NumberFormatOptions \| undefined`                         |          | Number formatting options.                                                                                                                                                                                                                                                                                                                              |                |
+| `formattedValue`    |         | `string`                                                        |          | The formatted value, to be used as the input value.                                                                                                                                                                                                                                                                                                     | TextField      |
+| `input`             |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                                                                                                                                                                     | TextField      |
+| `inputSize`         |         | `number \| undefined`                                           |          | The size attribute of the input element.                                                                                                                                                                                                                                                                                                                | TextField      |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                    |          | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | TextField      |
+| `locale`            |         | `string`                                                        |          | The component's locale.                                                                                                                                                                                                                                                                                                                                 | LocaleMixin    |
+| `max`               |         | `number \| undefined`                                           |          | The maximum value that is acceptable and valid.&#xA;If the value is greater, the control will be invalid.                                                                                                                                                                                                                                               |                |
+| `maxLength`         |         | `number \| undefined`                                           |          | Maximum length (number of characters).                                                                                                                                                                                                                                                                                                                  | TextField      |
+| `min`               |         | `number \| undefined`                                           |          | The minimum value that is acceptable and valid.&#xA;If the value is less, the control will be invalid.                                                                                                                                                                                                                                                  |                |
+| `minLength`         |         | `number \| undefined`                                           |          | Minimum length (number of characters).                                                                                                                                                                                                                                                                                                                  | TextField      |
+| `name`              |         | `string \| undefined`                                           |          | The name of the form control.                                                                                                                                                                                                                                                                                                                           | TextField      |
+| `nativeFormValue`   |         | `FormValue`                                                     |          | Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.                                                                                                                                                                                                                                                   | TextField      |
+| `pattern`           |         | `string \| undefined`                                           |          | This will validate the value of the input using the given pattern.                                                                                                                                                                                                                                                                                      | TextField      |
+| `placeholder`       |         | `string \| undefined`                                           |          | Placeholder text in the input.                                                                                                                                                                                                                                                                                                                          | TextField      |
+| `rawValue`          |         | `string`                                                        | `''`     | The raw (string) value of the input.                                                                                                                                                                                                                                                                                                                    | TextField      |
+| `readonly`          |         | `boolean \| undefined`                                          |          | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                                                                                                                                                                    | TextField      |
+| `required`          |         | `boolean \| undefined`                                          |          | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             | TextField      |
+| `showValid`         |         | `boolean`                                                       | `false`  | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | TextField      |
+| `showValidity`      |         | `'valid' \| 'invalid' \| undefined`                             |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | TextField      |
+| `size`              |         | `TextFieldSize \| undefined`                                    | `md`     | The size of the input.                                                                                                                                                                                                                                                                                                                                  | TextField      |
+| `step`              |         | `number \| undefined`                                           |          | The amount by which the value will be increased/decreased by a step up/down.                                                                                                                                                                                                                                                                            |                |
+| `stepButtons`       |         | `NumberFieldButtonsAlignment \| undefined`                      |          | Step buttons placement for incrementing / decrementing. No step buttons by default.                                                                                                                                                                                                                                                                     |                |
+| `touched`           |         | `boolean`                                                       | `false`  | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | TextField      |
+| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                                                                                                                   | TextField      |
+| `valid`             |         | `boolean`                                                       |          | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | TextField      |
+| `validationMessage` |         | `string`                                                        |          | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | TextField      |
+| `validity`          |         | `ValidityState`                                                 |          | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | TextField      |
+| `validityState`     |         | `'valid' \| 'invalid' \| 'pending'`                             |          | Returns the current validity state.                                                                                                                                                                                                                                                                                                                     | TextField      |
+| `value`             |         | `unknown \| undefined`                                          |          | The value for this form control.                                                                                                                                                                                                                                                                                                                        | TextField      |
+| `valueAsNumber`     |         |                                                                 |          | The value, as a number.                                                                                                                                                                                                                                                                                                                                 |                |
+
+### Methods
+
+| Name                            | Privacy   | Description                                                                                                                                                                                                                                     | Parameters                                         | Return                             | Inherited From |
+| ------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ---------------------------------- | -------------- |
+| `getLocalizedValidationMessage` |           | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                                    | `string`                           | TextField      |
+| `onBlur`                        | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             | TextField      |
+| `onFocus`                       | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             | TextField      |
+| `onInput`                       | protected |                                                                                                                                                                                                                                                 | `{ target }: Event & { target: HTMLInputElement }` | `void`                             | TextField      |
+| `onKeydown`                     | protected |                                                                                                                                                                                                                                                 | `event: KeyboardEvent`                             | `void`                             | TextField      |
+| `onPrefixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `onSlotChange`                  | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `onSuffixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   | TextField      |
+| `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   | TextField      |
+| `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` | TextField      |
+| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` | TextField      |
+| `reportValidity`                |           | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                                    | `boolean`                          | TextField      |
+| `setAttributesTarget`           |           |                                                                                                                                                                                                                                                 | `target: Element`                                  | `void`                             | TextField      |
+| `setCustomValidity`             |           | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>`               | `void`                             | TextField      |
+| `stepDown`                      |           | Decreases the current value by the `step` amount.                                                                                                                                                                                               | `decrement: number`                                | `void`                             |                |
+| `stepUp`                        |           | Increases the current value by the `step` amount.                                                                                                                                                                                               | `increment: number`                                | `void`                             |                |
+
+### Events
+
+| Name                 | Type                            | Description                                                                                  | Inherited From |
+| -------------------- | ------------------------------- | -------------------------------------------------------------------------------------------- | -------------- |
+| `sl-form-control`    | `SlFormControlEvent`            | Emits when the form control is added to the DOM.                                             | TextField      |
+| `sl-update-state`    | `SlUpdateStateEvent`            | Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. | TextField      |
+| `sl-update-validity` | `SlUpdateValidityEvent`         | Emits when the validity of the form control changes.                                         | TextField      |
+| `sl-validate`        | `SlValidateEvent`               | Emits when the form control can be validated.                                                | TextField      |
+| `sl-blur`            | `SlBlurEvent`                   | Emits when the focus leaves the component.                                                   | TextField      |
+| `sl-change`          | `SlChangeEvent<T \| undefined>` | Emits when the value changes.                                                                | TextField      |
+| `sl-focus`           | `SlFocusEvent`                  | Emits when the component gains focus.                                                        | TextField      |
+
+### Attributes
+
+| Name              | Field          | Inherited From |
+| ----------------- | -------------- | -------------- |
+| `format-options`  | formatOptions  |                |
+| `max`             | max            |                |
+| `min`             | min            |                |
+| `step`            | step           |                |
+| `step-buttons`    | stepButtons    |                |
+| `valueAsNumber`   | valueAsNumber  |                |
+| `locale`          | locale         | LocaleMixin    |
+| `custom-validity` | customValidity | TextField      |
+| `name`            | name           | TextField      |
+| `show-validity`   | showValidity   | TextField      |
+| `aria-disabled`   |                | TextField      |
+| `aria-label`      |                | TextField      |
+| `aria-labelledby` |                | TextField      |
+| `aria-required`   |                | TextField      |
+| `autocomplete`    | autocomplete   | TextField      |
+| `disabled`        | disabled       | TextField      |
+| `input-size`      | inputSize      | TextField      |
+| `maxlength`       | maxLength      | TextField      |
+| `minlength`       | minLength      | TextField      |
+| `pattern`         | pattern        | TextField      |
+| `placeholder`     | placeholder    | TextField      |
+| `readonly`        | readonly       | TextField      |
+| `required`        | required       | TextField      |
+| `show-valid`      | showValid      | TextField      |
+| `size`            | size           | TextField      |
+| `type`            | type           | TextField      |
+| `value`           | value          | TextField      |
+
+### CSS Parts
+
+| Name      | Description         |
+| --------- | ------------------- |
+| `wrapper` | The input's wrapper |
+
+### Slots
+
+| Name     | Description                    |
+| -------- | ------------------------------ |
+| `prefix` | Content shown before the input |
+| `input`  | The slot for the input element |
+| `suffix` | Content shown after the input  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name          | Declaration | Module                                                                                              | Package |
+| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberField` | NumberField | /Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-field.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-parser.ts`:
+
+## class: `NumberParser`
+
+### Fields
+
+| Name      | Privacy | Type                       | Default   | Description | Inherited From |
+| --------- | ------- | -------------------------- | --------- | ----------- | -------------- |
+| `locale`  |         | `Intl.LocalesArgument`     | `locale`  |             |                |
+| `options` |         | `Intl.NumberFormatOptions` | `options` |             |                |
+
+### Methods
+
+| Name    | Privacy | Description | Parameters      | Return                | Inherited From |
+| ------- | ------- | ----------- | --------------- | --------------------- | -------------- |
+| `parse` |         |             | `value: string` | `number \| undefined` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                               | Package |
+| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `NumberParser` | NumberParser | /Users/jeroen.zwartepoorte/Projects/components/packages/components/number-field/src/number-parser.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.ts`:
+
+## class: `PaginatorPageSize`, `sl-paginator-page-size`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name         | Privacy | Type                             | Default                         | Description                                                                                                                                                                                                                                                                                           | Inherited From |
+| ------------ | ------- | -------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `dataSource` |         | `ListDataSource<T> \| undefined` |                                 | By setting a dataSource, the paginator will listen for changes on the data source&#xA;and control the data source when the user selects a new page in the component. This&#xA;can be very useful when the paginator is used in combination with a data source fed&#xA;component, such as `<sl-grid>`. |                |
+| `pageSize`   |         |                                  | `DATA_SOURCE_DEFAULT_PAGE_SIZE` | Items per page.                                                                                                                                                                                                                                                                                       |                |
+| `pageSizes`  |         | `number[] \| undefined`          |                                 | Available page sizes.                                                                                                                                                                                                                                                                                 |                |
+
+### Events
+
+| Name                  | Type                    | Description                                         | Inherited From |
+| --------------------- | ----------------------- | --------------------------------------------------- | -------------- |
+| `sl-page-size-change` | `SlChangeEvent<number>` | Emits when the page size has been selected/changed. |                |
+
+### Attributes
+
+| Name         | Field     | Inherited From |
+| ------------ | --------- | -------------- |
+| `page-size`  | pageSize  |                |
+| `page-sizes` | pageSizes |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                | Declaration       | Module                                                                                        | Package |
+| ---- | ------------------- | ----------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `PaginatorPageSize` | PaginatorPageSize | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/page-size.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.ts`:
+
+## class: `Paginator`, `sl-paginator`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name         | Privacy | Type                             | Default                         | Description                                                                                                                                                                                                                                                                                           | Inherited From |
+| ------------ | ------- | -------------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `dataSource` |         | `ListDataSource<T> \| undefined` |                                 | By setting a dataSource, the paginator will listen for changes on the data source&#xA;and control the data source when the user selects a new page in the component. This&#xA;can be very useful when the paginator is used in combination with a data source fed&#xA;component, such as `<sl-grid>`. |                |
+| `emphasis`   |         | `PaginatorEmphasis \| undefined` | `'subtle'`                      | The emphasis style.                                                                                                                                                                                                                                                                                   |                |
+| `page`       |         | `number`                         | `0`                             | Current page.                                                                                                                                                                                                                                                                                         |                |
+| `pageSize`   |         |                                  | `DATA_SOURCE_DEFAULT_PAGE_SIZE` | Items per page. Default to the first item of pageSizes.                                                                                                                                                                                                                                               |                |
+| `size`       |         | `PaginatorSize \| undefined`     | `'md'`                          | The size of the paginator which determines the size of the elements in it.                                                                                                                                                                                                                            |                |
+| `totalItems` |         | `number`                         | `1`                             | Total number of items.                                                                                                                                                                                                                                                                                |                |
+| `width`      |         | `PaginatorWidth \| undefined`    |                                 | The width of the paginator. This is used to determine how many pages are visible at once.&#xA;For `xs` a select component will be used to select the page. For all other widths,&#xA;buttons will be used.                                                                                            |                |
+
+### Events
+
+| Name             | Type                    | Description                           | Inherited From |
+| ---------------- | ----------------------- | ------------------------------------- | -------------- |
+| `sl-page-change` | `SlChangeEvent<number>` | Emits when the page has been changed. |                |
+
+### Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `emphasis`    | emphasis   |                |
+| `page`        | page       |                |
+| `page-size`   | pageSize   |                |
+| `width`       | width      |                |
+| `size`        | size       |                |
+| `total-items` | totalItems |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Paginator` | Paginator   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/paginator.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.ts`:
+
+## class: `PaginatorStatus`, `sl-paginator-status`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name         | Privacy | Type                             | Default                         | Description                                                                                                                                                               | Inherited From |
+| ------------ | ------- | -------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `dataSource` |         | `ListDataSource<T> \| undefined` |                                 | By setting a dataSource, the component will listen for changes on the data source&#xA;and control the data source when the user selects a new page size in the component. |                |
+| `page`       |         | `number`                         | `0`                             | Current page.                                                                                                                                                             |                |
+| `pageSize`   |         |                                  | `DATA_SOURCE_DEFAULT_PAGE_SIZE` | Items per page.                                                                                                                                                           |                |
+| `totalItems` |         | `number`                         | `1`                             | Total number of items.                                                                                                                                                    |                |
+
+### Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `page`        | page       |                |
+| `page-size`   | pageSize   |                |
+| `total-items` | totalItems |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                                                     | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `PaginatorStatus` | PaginatorStatus | /Users/jeroen.zwartepoorte/Projects/components/packages/components/paginator/src/status.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.ts`:
 
 ## class: `Panel`, `sl-panel`
 
@@ -3599,11 +5116,15 @@
 
 ### Fields
 
-| Name          | Privacy | Type                   | Default | Description                                                                                                                                                                  | Inherited From |
-| ------------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `collapsed`   |         | `boolean \| undefined` |         | Indicates whether the panel is collapsed or expanded .                                                                                                                       |                |
-| `collapsible` |         | `boolean \| undefined` |         | Indicates whether the panel can be collapsed.                                                                                                                                |                |
-| `heading`     |         | `string \| undefined`  |         | The heading shown in the header. Use this property if your heading is a string. If you need&#xA;more flexibility, such as an icon or other elements, use the `heading` slot. |                |
+| Name              | Privacy | Type                           | Default       | Description                                                                                                                                                                        | Inherited From |
+| ----------------- | ------- | ------------------------------ | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `collapsed`       |         | `boolean \| undefined`         |               | Indicates whether the panel is collapsed or expanded .                                                                                                                             |                |
+| `collapsible`     |         | `boolean \| undefined`         |               | Indicates whether the panel can be collapsed.                                                                                                                                      |                |
+| `elevation`       |         | `PanelElevation \| undefined`  |               | The elevation style of the panel.                                                                                                                                                  |                |
+| `heading`         |         | `string \| undefined`          |               | The heading shown in the header. Use this property if your heading is a string. If you need&#xA;more flexibility, such as an icon or other elements, use the `heading` slot.       |                |
+| `noBorder`        |         | `boolean \| undefined`         |               | Hide the border around the panel when true.                                                                                                                                        |                |
+| `subheading`      |         | `string \| undefined`          |               | The heading shown in the header. Use this property if your subheading is a string. If you need&#xA;more flexibility, such as an icon or other elements, use the `subheading` slot. |                |
+| `togglePlacement` |         | `TogglePlacement \| undefined` | `` `start` `` | The placement of the toggle button when it's collapsible.                                                                                                                          |                |
 
 ### Methods
 
@@ -3620,48 +5141,63 @@
 
 ### Attributes
 
-| Name          | Field       | Inherited From |
-| ------------- | ----------- | -------------- |
-| `collapsed`   | collapsed   |                |
-| `collapsible` | collapsible |                |
-| `heading`     | heading     |                |
+| Name               | Field           | Inherited From |
+| ------------------ | --------------- | -------------- |
+| `collapsed`        | collapsed       |                |
+| `collapsible`      | collapsible     |                |
+| `elevation`        | elevation       |                |
+| `heading`          | heading         |                |
+| `no-border`        | noBorder        |                |
+| `subheading`       | subheading      |                |
+| `toggle-placement` | togglePlacement |                |
+
+### CSS Properties
+
+| Name                         | Default | Description                                                                                                                                                                                                    |
+| ---------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--sl-panel-content-padding` |         | The padding for the panel content, e.g. set to 0 to have content without any padding.                                                                                                                          |
+| `--sl-panel-titles-order`    |         | The order of the titles (heading and subheading) - `column` by default, so the subheading is below the heading. Can be used `column-reverse` as well to have subheading above the heading when it's necessary. |
 
 ### CSS Parts
 
-| Name      | Description                         |
-| --------- | ----------------------------------- |
-| `header`  | The header of the panel.            |
-| `wrapper` | The wrapper around the heading.     |
-| `body`    | The body of the panel.              |
-| `inner`   | The inner container of the panel.   |
-| `content` | The content container of the panel. |
+| Name      | Description                                   |
+| --------- | --------------------------------------------- |
+| `header`  | The header of the panel.                      |
+| `wrapper` | The wrapper around the heading.               |
+| `body`    | The body of the panel.                        |
+| `inner`   | The inner container of the panel.             |
+| `content` | The content container of the panel.           |
+| `titles`  | The container for the heading and subheading. |
 
 ### Slots
 
-| Name      | Description                                                               |
-| --------- | ------------------------------------------------------------------------- |
-| `heading` | The panel's heading. Use this is the `heading` property does not suffice. |
-| `aside`   | Additional content to show in the header; replaces the button bar.        |
-| `actions` | The panel's actions; will slot in a button bar by default.                |
-| `default` | The panel's content.                                                      |
+| Name         | Description                                                                      |
+| ------------ | -------------------------------------------------------------------------------- |
+| `heading`    | The panel's heading. Use this if the `heading` property does not suffice.        |
+| `aside`      | Additional content to show in the header; replaces the button bar.               |
+| `actions`    | The panel's actions; will slot in a button bar by default.                       |
+| `default`    | The panel's content.                                                             |
+| `prefix`     | Content to show before the heading.                                              |
+| `subheading` | The panel's subheading. Use this if the `subheading` property is not sufficient. |
+| `suffix`     | Content to show after the heading.                                               |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                              | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `Panel` | Panel       | /Users/Diana.Broeders/Projects/design-system/packages/components/panel/src/panel.ts |         |
+| Kind | Name    | Declaration | Module                                                                                | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Panel` | Panel       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/panel/src/panel.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
 
@@ -3673,10 +5209,10 @@
 
 ### Fields
 
-| Name            | Privacy | Type                                                                                                                                                                 | Default    | Description                                                                                                                                                                                                                                                              | Inherited From |
-| --------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `noDescribedby` |         | `boolean \| undefined`                                                                                                                                               |            | When the contents of your popover is too long to be read inline this should be set to true so the user&#xA;can navigate to the popover content themselves. `aria-details` is always set, regardless of this property.&#xA;Read more about this on the accessibility tab. |                |
-| `position`      |         | `'top' \| 'right' \| 'bottom' \| 'left' \| 'top-start' \| 'top-end' \| 'right-start' \| 'right-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end'` | `'bottom'` | The position of popover relative to its anchor.                                                                                                                                                                                                                          |                |
+| Name            | Privacy | Type                           | Default    | Description                                                                                                                                                                                                                                                                                                                                                      | Inherited From |
+| --------------- | ------- | ------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `noDescribedby` |         | `boolean \| undefined`         |            | When the contents of your popover is too long to be read inline this should be set to true so the user&#xA;can navigate to the popover content themselves. `aria-details` is always set, regardless of this property.&#xA;Read more about this in the [accessibility documentation](https://sanomalearning.design/categories/components/popover/accessibility/). |                |
+| `position`      |         | `PopoverPosition \| undefined` | `'bottom'` | The position of popover relative to its anchor.                                                                                                                                                                                                                                                                                                                  |                |
 
 ### Attributes
 
@@ -3701,19 +5237,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | /Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/popover/src/popover.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.ts`:
 
 ## class: `ProgressBar`, `sl-progress-bar`
 
@@ -3757,19 +5293,19 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ProgressBar` | ProgressBar | /Users/Diana.Broeders/Projects/design-system/packages/components/progress-bar/src/progress-bar.ts |         |
+| Kind | Name          | Declaration | Module                                                                                              | Package |
+| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ProgressBar` | ProgressBar | /Users/jeroen.zwartepoorte/Projects/components/packages/components/progress-bar/src/progress-bar.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.ts`:
 
 ## class: `RadioGroup`, `sl-radio-group`
 
@@ -3801,7 +5337,7 @@
 | `required`          |         | `boolean \| undefined`                       |         | Whether the user is required to select an option in the group.                                                                                                                                                                                                                                                                                          |                  |
 | `showValid`         |         | `boolean`                                    | `false` | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`          |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `RadioButtonSize \| undefined`               |         | The size of the radio buttons in the group.                                                                                                                                                                                                                                                                                                             |                  |
+| `size`              |         | `RadioButtonSize \| undefined`               | `md`    | The size of the radio buttons in the group.                                                                                                                                                                                                                                                                                                             |                  |
 | `touched`           |         | `boolean`                                    | `false` | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
 | `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
 | `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
@@ -3816,7 +5352,6 @@
 | `focus`                         |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                  |
 | `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin |
 | `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`    | FormControlMixin |
 | `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin |
 
 ### Events
@@ -3855,19 +5390,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                          | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts |         |
+| Kind | Name         | Declaration | Module                                                                                            | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio-group.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
 
@@ -3879,13 +5414,13 @@
 
 ### Fields
 
-| Name           | Privacy | Type                      | Default | Description                                          | Inherited From |
-| -------------- | ------- | ------------------------- | ------- | ---------------------------------------------------- | -------------- |
-| `checked`      |         | `boolean \| undefined`    |         | Whether the radio button is checked.                 |                |
-| `disabled`     |         | `boolean \| undefined`    |         | Whether this radio button is disabled.               |                |
-| `showValidity` |         | `FormControlShowValidity` |         | Indicates if the radio button shows it is (in)valid. |                |
-| `size`         |         | `RadioButtonSize`         | `'md'`  | The size of the radio button.                        |                |
-| `value`        |         | `T \| undefined`          |         | The value for this radio button.                     |                |
+| Name           | Privacy | Type                           | Default | Description                                          | Inherited From |
+| -------------- | ------- | ------------------------------ | ------- | ---------------------------------------------------- | -------------- |
+| `checked`      |         | `boolean \| undefined`         |         | Whether the radio button is checked.                 |                |
+| `disabled`     |         | `boolean \| undefined`         |         | Whether this radio button is disabled.               |                |
+| `showValidity` |         | `FormControlShowValidity`      |         | Indicates if the radio button shows it is (in)valid. |                |
+| `size`         |         | `RadioButtonSize \| undefined` | `md`    | The size of the radio button.                        |                |
+| `value`        |         | `T \| undefined`               |         | The value for this radio button.                     |                |
 
 ### Attributes
 
@@ -3901,27 +5436,51 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                                                                    | Package |
-| ---- | ------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.ts |         |
+| Kind | Name    | Declaration | Module                                                                                      | Package |
+| ---- | ------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | /Users/jeroen.zwartepoorte/Projects/components/packages/components/radio-group/src/radio.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/search-field/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package               |
-| ---- | ---- | ----------- | ------ | --------------------- |
-| `js` | `*`  | *           |        | ./src/search-field.js |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/search-field/src/search-field.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/search-field/src/search-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/search-field/src/search-field.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.ts`:
+
+## class: `Scrollbar`, `sl-scrollbar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                             | Default | Description                                                                                               | Inherited From |
+| ---------- | ------- | -------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- | -------------- |
+| `scroller` |         | `string \| Element \| undefined` |         | The scroll container; either the DOM id of an element within&#xA;the same context, or the element itself. |                |
+| `vertical` |         | `boolean \| undefined`           |         | Set to true if you want the scrollbar to have a vertical orientation.                                     |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `scroller` | scroller |                |
+| `vertical` | vertical |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Scrollbar` | Scrollbar   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/scrollbar/src/scrollbar.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/search-field/src/search-field.ts`:
 
 ## class: `SearchField`, `sl-search-field`
 
@@ -3935,12 +5494,13 @@
 
 | Name                | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From |
 | ------------------- | ------- | --------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `autocomplete`      |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.                                                                                                                                                                                                                                                                                 | TextField      |
+| `autocomplete`      |         | `string \| undefined`                                           |          | Specifies which type of data the browser can use to pre-fill the input.                                                                                                                                                                                                                                                                                 | TextField      |
 | `customValidity`    |         | `string \| undefined`                                           |          | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | TextField      |
 | `dirty`             |         | `boolean`                                                       | `false`  | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | TextField      |
 | `disabled`          |         | `boolean \| undefined`                                          |          | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                | TextField      |
 | `form`              |         | `HTMLFormElement \| null`                                       |          | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | TextField      |
 | `formValue`         |         | `unknown`                                                       |          | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | TextField      |
+| `formattedValue`    |         | `string`                                                        |          | The formatted value, to be used as the input value.                                                                                                                                                                                                                                                                                                     | TextField      |
 | `input`             |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                                                                                                                                                                     | TextField      |
 | `inputSize`         |         | `number \| undefined`                                           |          | The size attribute of the input element.                                                                                                                                                                                                                                                                                                                | TextField      |
 | `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                    |          | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | TextField      |
@@ -3955,7 +5515,7 @@
 | `required`          |         | `boolean \| undefined`                                          |          | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             | TextField      |
 | `showValid`         |         | `boolean`                                                       | `false`  | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | TextField      |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`                             |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | TextField      |
-| `size`              |         | `TextFieldSize`                                                 | `'md'`   | The size of the input.                                                                                                                                                                                                                                                                                                                                  | TextField      |
+| `size`              |         | `TextFieldSize \| undefined`                                    | `md`     | The size of the input.                                                                                                                                                                                                                                                                                                                                  | TextField      |
 | `touched`           |         | `boolean`                                                       | `false`  | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | TextField      |
 | `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                                                                                                                   | TextField      |
 | `valid`             |         | `boolean`                                                       |          | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | TextField      |
@@ -3966,18 +5526,24 @@
 
 ### Methods
 
-| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return                             | Inherited From |
-| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ---------------------------------- | -------------- |
-| `clear`                         |         | Clears the value in the input element.                                                                                                                                                                                                          |                                      | `void`                             |                |
-| `formatValue`                   |         | Method that formats the value and set's it on the native input element. Override this method&#xA;if you want to format the value in a different way.                                                                                            | `value: T`                           | `string`                           | TextField      |
-| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`                           | TextField      |
-| `parseValue`                    |         | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                      | `T \| undefined`                   | TextField      |
-| `renderInputSlot`               |         | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                      | `TemplateResult`                   | TextField      |
-| `renderPrefix`                  |         | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                      | `TemplateResult`                   | TextField      |
-| `renderSuffix`                  |         | Renders the suffix slot; can be overridden to customize the suffix.                                                                                                                                                                             |                                      | `TemplateResult \| typeof nothing` | TextField      |
-| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean`                          | TextField      |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`                             | TextField      |
-| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`                             | TextField      |
+| Name                            | Privacy   | Description                                                                                                                                                                                                                                     | Parameters                                         | Return                             | Inherited From |
+| ------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ---------------------------------- | -------------- |
+| `clear`                         |           | Clears the value in the input element.                                                                                                                                                                                                          |                                                    | `void`                             |                |
+| `getLocalizedValidationMessage` |           | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                                    | `string`                           | TextField      |
+| `onBlur`                        | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             | TextField      |
+| `onFocus`                       | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             | TextField      |
+| `onInput`                       | protected |                                                                                                                                                                                                                                                 | `{ target }: Event & { target: HTMLInputElement }` | `void`                             | TextField      |
+| `onKeydown`                     | protected |                                                                                                                                                                                                                                                 | `event: KeyboardEvent`                             | `void`                             | TextField      |
+| `onPrefixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `onSlotChange`                  | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `onSuffixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             | TextField      |
+| `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   | TextField      |
+| `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   | TextField      |
+| `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult`                   | TextField      |
+| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` | TextField      |
+| `reportValidity`                |           | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                                    | `boolean`                          | TextField      |
+| `setAttributesTarget`           |           |                                                                                                                                                                                                                                                 | `target: Element`                                  | `void`                             | TextField      |
+| `setCustomValidity`             |           | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>`               | `void`                             | TextField      |
 
 ### Events
 
@@ -4000,6 +5566,10 @@
 | `custom-validity` | customValidity | TextField      |
 | `name`            | name           | TextField      |
 | `show-validity`   | showValidity   | TextField      |
+| `aria-disabled`   |                | TextField      |
+| `aria-label`      |                | TextField      |
+| `aria-labelledby` |                | TextField      |
+| `aria-required`   |                | TextField      |
 | `autocomplete`    | autocomplete   | TextField      |
 | `disabled`        | disabled       | TextField      |
 | `input-size`      | inputSize      | TextField      |
@@ -4032,21 +5602,20 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                            | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlClearEvent`  | SlClearEvent  | /Users/Diana.Broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
-| `js` | `SlSearchEvent` | SlSearchEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
-| `js` | `SearchField`   | SearchField   | /Users/Diana.Broeders/Projects/design-system/packages/components/search-field/src/search-field.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                              | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSearchEvent` | SlSearchEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/search-field/src/search-field.ts |         |
+| `js` | `SearchField`   | SearchField   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/search-field/src/search-field.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.ts`:
 
 ## class: `SelectButton`
 
@@ -4064,22 +5633,32 @@
 
 ### Fields
 
-| Name           | Privacy | Type                                | Default | Description                                                | Inherited From |
-| -------------- | ------- | ----------------------------------- | ------- | ---------------------------------------------------------- | -------------- |
-| `disabled`     |         | `boolean \| undefined`              |         | Whether the button is disabled.                            |                |
-| `placeholder`  |         | `string \| undefined`               |         | The placeholder for when there is no selected option.s     |                |
-| `selected`     |         | `SelectOption \| null \| undefined` |         | The selected option.                                       |                |
-| `showValid`    |         | `boolean \| undefined`              |         | Indicates whether the control should indicate it is valid. |                |
-| `showValidity` |         | `FormControlShowValidity`           |         | Mirrors the same property on the sl-select parent.         |                |
-| `size`         |         | `SelectSize \| undefined`           | `'md'`  | The size of the parent select.                             |                |
+| Name           | Privacy | Type                          | Default | Description                                                | Inherited From |
+| -------------- | ------- | ----------------------------- | ------- | ---------------------------------------------------------- | -------------- |
+| `clearable`    |         | `boolean \| undefined`        |         | Will display a clear button when an option is selected.    |                |
+| `disabled`     |         | `boolean \| undefined`        |         | Whether the button is disabled.                            |                |
+| `placeholder`  |         | `string \| undefined`         |         | The placeholder for when there is no selected option.s     |                |
+| `required`     |         | `boolean \| undefined`        |         | Mirrors the same property on the sl-select parent.         |                |
+| `selected`     |         | `Option \| null \| undefined` |         | The selected option.                                       |                |
+| `showValid`    |         | `boolean \| undefined`        |         | Indicates whether the control should indicate it is valid. |                |
+| `showValidity` |         | `FormControlShowValidity`     |         | Mirrors the same property on the sl-select parent.         |                |
+| `size`         |         | `SelectSize \| undefined`     |         | The size of the parent select.                             |                |
+
+### Events
+
+| Name       | Type           | Description                                  | Inherited From |
+| ---------- | -------------- | -------------------------------------------- | -------------- |
+| `sl-clear` | `SlClearEvent` | Emits when the user clicks the clear button. |                |
 
 ### Attributes
 
 | Name            | Field        | Inherited From |
 | --------------- | ------------ | -------------- |
+| `clearable`     | clearable    |                |
 | `disabled`      | disabled     |                |
 | `placeholder`   | placeholder  |                |
 | `size`          | size         |                |
+| `required`      | required     |                |
 | `show-valid`    | showValid    |                |
 | `show-validity` | showValidity |                |
 
@@ -4087,105 +5666,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                       | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectButton` | SelectButton | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                         | Package |
+| ---- | -------------- | ------------ | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectButton` | SelectButton | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select-button.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.scss.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.ts`:
-
-## class: `SelectOptionGroup`, `sl-select-option-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name      | Privacy | Type                  | Default | Description                | Inherited From |
-| --------- | ------- | --------------------- | ------- | -------------------------- | -------------- |
-| `heading` |         | `string \| undefined` |         | The heading for the group. |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `heading` | heading |                |
-
-### Slots
-
-| Name      | Description                         |
-| --------- | ----------------------------------- |
-| `default` | List of `sl-select-option` elements |
-
-<hr/>
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.scss.ts`:
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                                                             | Package |
-| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectOptionGroup` | SelectOptionGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.scss.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.ts`:
-
-## class: `SelectOption`, `sl-select-option`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name       | Privacy | Type                   | Default | Description                                         | Inherited From |
-| ---------- | ------- | ---------------------- | ------- | --------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined` |         | Whether the option item is disabled.                |                |
-| `selected` |         | `boolean \| undefined` |         | Whether the option item is selected.                |                |
-| `value`    |         | `T \| undefined`       |         | The value for the option item, to be used in forms. |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `disabled` | disabled |                |
-| `selected` | selected |                |
-| `value`    | value    |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                                                       | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SelectOption` | SelectOption | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.scss.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.ts`:
 
 ## class: `Select`, `sl-select`
 
@@ -4197,16 +5690,18 @@
 
 ### Mixins
 
-| Name                  | Module | Package                                 |
-| --------------------- | ------ | --------------------------------------- |
-| `FormControlMixin`    |        | @sl-design-system/form                  |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+| Name                     | Module | Package                                 |
+| ------------------------ | ------ | --------------------------------------- |
+| `ObserveAttributesMixin` |        | @sl-design-system/shared                |
+| `FormControlMixin`       |        | @sl-design-system/form                  |
+| `ScopedElementsMixin`    |        | @open-wc/scoped-elements/lit-element.js |
 
 ### Fields
 
 | Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
 | ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
 | `button`            |         | `SelectButton`                               |         | The button in the light DOM.                                                                                                                                                                                                                                                                                                                            |                  |
+| `clearable`         |         | `boolean \| undefined`                       |         | Will display a clear button when an option is selected.                                                                                                                                                                                                                                                                                                 |                  |
 | `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
 | `dirty`             |         | `boolean`                                    | `false` | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | FormControlMixin |
 | `disabled`          |         | `boolean \| undefined`                       |         | Whether the select is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                    |                  |
@@ -4220,7 +5715,7 @@
 | `rootMarginTop`     |         | `number`                                     | `0`     | The number of pixels from the top of the viewport the select should be hidden on scroll.&#xA;Use this when there is a sticky header you don't want dropdowns to fall on top of.                                                                                                                                                                         |                  |
 | `showValid`         |         | `boolean`                                    | `false` | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`          |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `SelectSize`                                 | `'md'`  | The size of the select.                                                                                                                                                                                                                                                                                                                                 |                  |
+| `size`              |         | `SelectSize \| undefined`                    | `md`    | The size of the select.                                                                                                                                                                                                                                                                                                                                 |                  |
 | `touched`           |         | `boolean`                                    | `false` | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
 | `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
 | `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
@@ -4230,12 +5725,13 @@
 
 ### Methods
 
-| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From   |
-| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------- |
-| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin |
-| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`    | FormControlMixin |
-| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From         |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------------- |
+| `focus`                         |         |                                                                                                                                                                                                                                                 | `options: FocusOptions`              | `void`    |                        |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin       |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin       |
+| `setAttributesTarget`           |         |                                                                                                                                                                                                                                                 | `target: Element`                    | `void`    | ObserveAttributesMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin       |
 
 ### Events
 
@@ -4251,18 +5747,22 @@
 
 ### Attributes
 
-| Name              | Field          | Inherited From   |
-| ----------------- | -------------- | ---------------- |
-| `disabled`        | disabled       |                  |
-| `placeholder`     | placeholder    |                  |
-| `required`        | required       |                  |
-| `show-valid`      | showValid      |                  |
-| `size`            | size           |                  |
-| `hide-margin-top` | rootMarginTop  |                  |
-| `value`           | value          |                  |
-| `custom-validity` | customValidity | FormControlMixin |
-| `name`            | name           | FormControlMixin |
-| `show-validity`   | showValidity   | FormControlMixin |
+| Name               | Field          | Inherited From   |
+| ------------------ | -------------- | ---------------- |
+| `aria-describedby` |                |                  |
+| `aria-label`       |                |                  |
+| `aria-labelledby`  |                |                  |
+| `clearable`        | clearable      |                  |
+| `disabled`         | disabled       |                  |
+| `placeholder`      | placeholder    |                  |
+| `required`         | required       |                  |
+| `show-valid`       | showValid      |                  |
+| `size`             | size           |                  |
+| `hide-margin-top`  | rootMarginTop  |                  |
+| `value`            | value          |                  |
+| `custom-validity`  | customValidity | FormControlMixin |
+| `name`             | name           | FormControlMixin |
+| `show-validity`    | showValidity   | FormControlMixin |
 
 ### CSS Parts
 
@@ -4272,27 +5772,27 @@
 
 ### Slots
 
-| Name      | Description                           |
-| --------- | ------------------------------------- |
-| `default` | Place for `sl-select-option` elements |
+| Name      | Description                                          |
+| --------- | ---------------------------------------------------- |
+| `default` | Place for `sl-option` and `sl-option-group` elements |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Select` | Select      | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Select` | Select      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/select/src/select.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/breakpoints.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                          | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/breakpoints.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/browser.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/browser.ts`:
 
 ## Variables
 
@@ -4304,11 +5804,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `isSafari` | isSafari    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/browser.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `isSafari` | isSafari    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/browser.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/config.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/config.ts`:
 
 ## class: `Config`
 
@@ -4323,11 +5823,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Config` | Config      | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/config.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Config` | Config      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/config.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/anchor.ts`:
 
 ## class: `AnchorController`
 
@@ -4352,11 +5852,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `AnchorController` | AnchorController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                              | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorController` | AnchorController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/anchor.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/events.ts`:
 
 ## class: `EventsController`
 
@@ -4378,11 +5878,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventsController` | EventsController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                              | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventsController` | EventsController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/events.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-group.ts`:
 
 ## class: `FocusGroupController`
 
@@ -4393,7 +5893,7 @@
 | `cachedElements`     | protected | `T[] \| undefined` |         |             |                |
 | `currentIndex`       |           | `number`           |         |             |                |
 | `direction`          |           | `DirectionTypes`   |         |             |                |
-| `directionLength`    |           | `number`           | `5`     |             |                |
+| `directionLength`    |           |                    |         |             |                |
 | `elementEnterAction` |           |                    |         |             |                |
 | `elements`           |           | `T[]`              |         |             |                |
 | `focusInElement`     |           | `T`                |         |             |                |
@@ -4408,41 +5908,64 @@
 
 ### Methods
 
-| Name                         | Privacy | Description | Parameters              | Return    | Inherited From |
-| ---------------------------- | ------- | ----------- | ----------------------- | --------- | -------------- |
-| `acceptsEventCode`           |         |             | `code: string`          | `boolean` |                |
-| `addEventListeners`          |         |             |                         | `void`    |                |
-| `clearElementCache`          |         |             | `offset`                | `void`    |                |
-| `focus`                      |         |             | `options: FocusOptions` | `void`    |                |
-| `focusToElement`             |         |             | `elementIndex: number`  | `void`    |                |
-| `hostConnected`              |         |             |                         | `void`    |                |
-| `hostContainsFocus`          |         |             |                         | `void`    |                |
-| `hostDisconnected`           |         |             |                         | `void`    |                |
-| `hostNoLongerContainsFocus`  |         |             |                         | `void`    |                |
-| `isEventWithinListenerScope` |         |             | `event: Event`          | `boolean` |                |
-| `isRelatedTargetAnElement`   |         |             | `event: FocusEvent`     | `boolean` |                |
-| `manage`                     |         |             |                         | `void`    |                |
-| `removeEventListeners`       |         |             |                         | `void`    |                |
-| `setCurrentIndexCircularly`  |         |             | `diff: number`          | `void`    |                |
-| `unmanage`                   |         |             |                         | `void`    |                |
+| Name                         | Privacy | Description | Parameters                                                    | Return    | Inherited From |
+| ---------------------------- | ------- | ----------- | ------------------------------------------------------------- | --------- | -------------- |
+| `acceptsEventCode`           |         |             | `code: string`                                                | `boolean` |                |
+| `addEventListeners`          |         |             |                                                               | `void`    |                |
+| `clearElementCache`          |         |             | `offset`                                                      | `void`    |                |
+| `focus`                      |         |             | `options: FocusOptions`                                       | `void`    |                |
+| `focusToElement`             |         |             | `element: T`                                                  | `void`    |                |
+| `focusToElement`             |         |             | `elementIndex: number`                                        | `void`    |                |
+| `focusToElement`             |         |             | `elementOrIndex: T \| number`                                 | `void`    |                |
+| `hostConnected`              |         |             |                                                               | `void`    |                |
+| `hostContainsFocus`          |         |             |                                                               | `void`    |                |
+| `hostDisconnected`           |         |             |                                                               | `void`    |                |
+| `hostNoLongerContainsFocus`  |         |             |                                                               | `void`    |                |
+| `isEventWithinListenerScope` |         |             | `event: Event`                                                | `boolean` |                |
+| `isFocusMovingOutOfScope`    |         |             | `event: FocusEvent`                                           | `boolean` |                |
+| `manage`                     |         |             |                                                               | `void`    |                |
+| `removeEventListeners`       |         |             |                                                               | `void`    |                |
+| `setCurrentIndexCircularly`  |         |             | `diff: number`                                                | `void`    |                |
+| `unmanage`                   |         |             |                                                               | `void`    |                |
+| `updateWithVirtualizer`      |         |             | `{ elements }: FocusGroupConfig<T>, event: RangeChangedEvent` | `void`    |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
-| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `FocusGroupController` | FocusGroupController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                   | Package |
+| ---- | ---------------------- | -------------------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FocusGroupController` | FocusGroupController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-group.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-trap.ts`:
+
+## class: `FocusTrapController`
+
+### Methods
+
+| Name               | Privacy | Description | Parameters             | Return | Inherited From |
+| ------------------ | ------- | ----------- | ---------------------- | ------ | -------------- |
+| `activate`         |         |             | `element: HTMLElement` | `void` |                |
+| `deactivate`       |         |             |                        | `void` |                |
+| `hostDisconnected` |         |             |                        | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                  | Declaration         | Module                                                                                                  | Package |
+| ---- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FocusTrapController` | FocusTrapController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-trap.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/roving-tabindex.ts`:
 
 ## class: `RovingTabindexController`
 
 ### Superclass
 
-| Name                   | Module                                                                                                  | Package |
-| ---------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
-| `FocusGroupController` | //Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.js |         |
+| Name                   | Module                                                                                                    | Package |
+| ---------------------- | --------------------------------------------------------------------------------------------------------- | ------- |
+| `FocusGroupController` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/focus-group.js |         |
 
 ### Fields
 
@@ -4451,7 +5974,7 @@
 | `cachedElements`     | protected | `T[] \| undefined` |         |             | FocusGroupController |
 | `currentIndex`       |           | `number`           |         |             | FocusGroupController |
 | `direction`          |           | `DirectionTypes`   |         |             | FocusGroupController |
-| `directionLength`    |           | `number`           | `5`     |             | FocusGroupController |
+| `directionLength`    |           |                    |         |             | FocusGroupController |
 | `elementEnterAction` |           |                    |         |             | FocusGroupController |
 | `elements`           |           | `T[]`              |         |             | FocusGroupController |
 | `focusInElement`     |           | `T`                |         |             | FocusGroupController |
@@ -4466,36 +5989,37 @@
 
 ### Methods
 
-| Name                         | Privacy | Description | Parameters                                           | Return    | Inherited From       |
-| ---------------------------- | ------- | ----------- | ---------------------------------------------------- | --------- | -------------------- |
-| `acceptsEventCode`           |         |             | `code: string`                                       | `boolean` | FocusGroupController |
-| `addEventListeners`          |         |             |                                                      | `void`    | FocusGroupController |
-| `clearElementCache`          |         |             | `offset`                                             | `void`    | FocusGroupController |
-| `focus`                      |         |             | `options: FocusOptions`                              | `void`    | FocusGroupController |
-| `focusToElement`             |         |             | `elementIndex: number`                               | `void`    | FocusGroupController |
-| `hostConnected`              |         |             |                                                      | `void`    | FocusGroupController |
-| `hostContainsFocus`          |         |             |                                                      | `void`    | FocusGroupController |
-| `hostDisconnected`           |         |             |                                                      | `void`    | FocusGroupController |
-| `hostNoLongerContainsFocus`  |         |             |                                                      | `void`    | FocusGroupController |
-| `hostUpdated`                |         |             |                                                      | `void`    |                      |
-| `isEventWithinListenerScope` |         |             | `event: Event`                                       | `boolean` | FocusGroupController |
-| `isRelatedTargetAnElement`   |         |             | `event: FocusEvent`                                  | `boolean` | FocusGroupController |
-| `manage`                     |         |             |                                                      | `void`    | FocusGroupController |
-| `manageTabindexes`           |         |             |                                                      | `void`    |                      |
-| `removeEventListeners`       |         |             |                                                      | `void`    | FocusGroupController |
-| `setCurrentIndexCircularly`  |         |             | `diff: number`                                       | `void`    | FocusGroupController |
-| `unmanage`                   |         |             |                                                      | `void`    | FocusGroupController |
-| `updateTabindexes`           |         |             | `getTabIndex: (el: HTMLElement) => UpdateTabIndexes` | `void`    |                      |
+| Name                         | Privacy | Description | Parameters                                                    | Return    | Inherited From       |
+| ---------------------------- | ------- | ----------- | ------------------------------------------------------------- | --------- | -------------------- |
+| `acceptsEventCode`           |         |             | `code: string`                                                | `boolean` | FocusGroupController |
+| `addEventListeners`          |         |             |                                                               | `void`    | FocusGroupController |
+| `clearElementCache`          |         |             | `offset`                                                      | `void`    | FocusGroupController |
+| `focus`                      |         |             | `options: FocusOptions`                                       | `void`    | FocusGroupController |
+| `focusToElement`             |         |             | `element: T`                                                  | `void`    | FocusGroupController |
+| `hostConnected`              |         |             |                                                               | `void`    | FocusGroupController |
+| `hostContainsFocus`          |         |             |                                                               | `void`    | FocusGroupController |
+| `hostDisconnected`           |         |             |                                                               | `void`    | FocusGroupController |
+| `hostNoLongerContainsFocus`  |         |             |                                                               | `void`    | FocusGroupController |
+| `hostUpdated`                |         |             |                                                               | `void`    |                      |
+| `isEventWithinListenerScope` |         |             | `event: Event`                                                | `boolean` | FocusGroupController |
+| `isFocusMovingOutOfScope`    |         |             | `event: FocusEvent`                                           | `boolean` | FocusGroupController |
+| `manage`                     |         |             |                                                               | `void`    | FocusGroupController |
+| `manageTabindexes`           |         |             |                                                               | `void`    |                      |
+| `removeEventListeners`       |         |             |                                                               | `void`    | FocusGroupController |
+| `setCurrentIndexCircularly`  |         |             | `diff: number`                                                | `void`    | FocusGroupController |
+| `unmanage`                   |         |             |                                                               | `void`    | FocusGroupController |
+| `updateTabindexes`           |         |             | `getTabIndex: (el: HTMLElement) => UpdateTabIndexes`          | `void`    |                      |
+| `updateWithVirtualizer`      |         |             | `{ elements }: FocusGroupConfig<T>, event: RangeChangedEvent` | `void`    | FocusGroupController |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                                     | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `RovingTabindexController` | RovingTabindexController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                                       | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `RovingTabindexController` | RovingTabindexController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/roving-tabindex.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/selection.ts`:
 
 ## class: `SelectionController`
 
@@ -4509,28 +6033,30 @@
 
 ### Methods
 
-| Name                 | Privacy | Description | Parameters | Return    | Inherited From |
-| -------------------- | ------- | ----------- | ---------- | --------- | -------------- |
-| `areAllSelected`     |         |             |            | `boolean` |                |
-| `areSomeSelected`    |         |             |            | `boolean` |                |
-| `deselect`           |         |             | `item: T`  | `void`    |                |
-| `deselectAll`        |         |             |            | `void`    |                |
-| `isSelectAllToggled` |         |             |            | `boolean` |                |
-| `isSelected`         |         |             | `item: T`  | `boolean` |                |
-| `select`             |         |             | `item: T`  | `void`    |                |
-| `selectAll`          |         |             |            | `void`    |                |
-| `toggle`             |         |             | `item: T`  | `void`    |                |
+| Name                 | Privacy | Description | Parameters             | Return           | Inherited From |
+| -------------------- | ------- | ----------- | ---------------------- | ---------------- | -------------- |
+| `areAllSelected`     |         |             |                        | `boolean`        |                |
+| `areSomeSelected`    |         |             |                        | `boolean`        |                |
+| `deselect`           |         |             | `item: T`              | `void`           |                |
+| `deselectAll`        |         |             |                        | `void`           |                |
+| `isActive`           |         |             | `item: T`              | `boolean`        |                |
+| `isSelectAllToggled` |         |             |                        | `boolean`        |                |
+| `isSelected`         |         |             | `item: T`              | `boolean`        |                |
+| `select`             |         |             | `item: T`              | `void`           |                |
+| `selectAll`          |         |             |                        | `void`           |                |
+| `toggle`             |         |             | `item: T`              | `void`           |                |
+| `toggleActive`       |         |             | `item: T \| undefined` | `T \| undefined` |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                                               | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts |         |
-| `js` | `SelectionController`    | SelectionController    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                                                 | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `SlSelectionChangeEvent` | SlSelectionChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/selection.ts |         |
+| `js` | `SelectionController`    | SelectionController    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/selection.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/shortcut.ts`:
 
 ## class: `ShortcutController`
 
@@ -4547,11 +6073,11 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                                                                              | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ShortcutController` | ShortcutController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/shortcut.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                                | Package |
+| ---- | -------------------- | ------------------ | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ShortcutController` | ShortcutController | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/controllers/shortcut.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/css.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/css.ts`:
 
 ## Variables
 
@@ -4563,100 +6089,12 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                                                             | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `breakpoints`            | breakpoints            | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                               | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `breakpoints`            | breakpoints            | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/css.ts |         |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/css.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/array-data-source.ts`:
-
-## class: `ArrayDataSource`
-
-### Superclass
-
-| Name         | Module                                                                                                  | Package |
-| ------------ | ------------------------------------------------------------------------------------------------------- | ------- |
-| `DataSource` | //Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.js |         |
-
-### Fields
-
-| Name            | Privacy | Type                                | Default | Description                                | Inherited From |
-| --------------- | ------- | ----------------------------------- | ------- | ------------------------------------------ | -------------- |
-| `filteredItems` |         | `T[]`                               |         | The filtered & sorted array of items.      | DataSource     |
-| `filters`       |         | `Map<string, DataSourceFilter<T>>`  |         |                                            | DataSource     |
-| `groupBy`       |         | `DataSourceGroupBy<T> \| undefined` |         |                                            | DataSource     |
-| `items`         |         | `T[]`                               |         | The array of all items.                    | DataSource     |
-| `size`          |         | `number`                            |         | Total number of items in this data source. | DataSource     |
-| `sort`          |         | `DataSourceSort<T> \| undefined`    |         |                                            | DataSource     |
-
-### Methods
-
-| Name            | Privacy | Description                                                                                                                                                                                                                                                                         | Parameters                                                                            | Return | Inherited From |
-| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`     |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrFilter: U, value: string \| string[]`                              | `void` | DataSource     |
-| `removeFilter`  |         |                                                                                                                                                                                                                                                                                     | `id: string`                                                                          | `void` | DataSource     |
-| `removeGroupBy` |         | Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.                                                                                                                                                                                       |                                                                                       | `void` | DataSource     |
-| `removeSort`    |         |                                                                                                                                                                                                                                                                                     |                                                                                       | `void` | DataSource     |
-| `reorder`       |         | Reorder the item in the data source.                                                                                                                                                                                                                                                | `item: T, relativeItem: T, position: 'before' \| 'after'`                             |        | DataSource     |
-| `setGroupBy`    |         | Group the items by the given path. Optionally, you can provide a sorter and direction.&#xA;&#xA;This is part of the DataSource interface, because it changes how the data is sorted. You&#xA;may want to pass the groupBy attribute to the server, so it can sort the data for you. | `path: string, sorter: DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void` | DataSource     |
-| `setSort`       |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrSorter: U, direction: DataSourceSortDirection`                     | `void` | DataSource     |
-
-### Events
-
-| Name        | Type          | Description | Inherited From |
-| ----------- | ------------- | ----------- | -------------- |
-| `sl-update` | `CustomEvent` |             |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                                                                                       | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/array-data-source.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.ts`:
-
-## class: `DataSource`
-
-### Superclass
-
-| Name          | Module                                                                                                 | Package |
-| ------------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `EventTarget` | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.ts |         |
-
-### Fields
-
-| Name            | Privacy | Type                                | Default | Description                                | Inherited From |
-| --------------- | ------- | ----------------------------------- | ------- | ------------------------------------------ | -------------- |
-| `filteredItems` |         | `T[]`                               |         | The filtered & sorted array of items.      |                |
-| `filters`       |         | `Map<string, DataSourceFilter<T>>`  |         |                                            |                |
-| `groupBy`       |         | `DataSourceGroupBy<T> \| undefined` |         |                                            |                |
-| `items`         |         | `T[]`                               |         | The array of all items.                    |                |
-| `size`          |         | `number`                            |         | Total number of items in this data source. |                |
-| `sort`          |         | `DataSourceSort<T> \| undefined`    |         |                                            |                |
-
-### Methods
-
-| Name            | Privacy | Description                                                                                                                                                                                                                                                                         | Parameters                                                                            | Return | Inherited From |
-| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`     |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrFilter: U, value: string \| string[]`                              | `void` |                |
-| `removeFilter`  |         |                                                                                                                                                                                                                                                                                     | `id: string`                                                                          | `void` |                |
-| `removeGroupBy` |         | Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.                                                                                                                                                                                       |                                                                                       | `void` |                |
-| `removeSort`    |         |                                                                                                                                                                                                                                                                                     |                                                                                       | `void` |                |
-| `reorder`       |         | Reorder the item in the data source.                                                                                                                                                                                                                                                | `item: T, relativeItem: T, position: 'before' \| 'after'`                             |        |                |
-| `setGroupBy`    |         | Group the items by the given path. Optionally, you can provide a sorter and direction.&#xA;&#xA;This is part of the DataSource interface, because it changes how the data is sorted. You&#xA;may want to pass the groupBy attribute to the server, so it can sort the data for you. | `path: string, sorter: DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void` |                |
-| `setSort`       |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrSorter: U, direction: DataSourceSortDirection`                     | `void` |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                                                                                 | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `DataSource` | DataSource  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
@@ -4674,11 +6112,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                         | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                           | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `decorateProperty` | decorateProperty | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/base.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/event.ts`:
 
 ## class: `EventEmitter`
 
@@ -4708,12 +6146,12 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                          | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                            | Package |
+| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/event.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
 
@@ -4725,11 +6163,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts |         |
+| Kind | Name      | Declaration | Module                                                                                              | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/decorators/observe.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
 
@@ -4757,77 +6195,93 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                                           | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `AnchorDirective` | AnchorDirective | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
-| `js` | `anchor`          | anchor          | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                             | Package |
+| ---- | ----------------- | --------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorDirective` | AnchorDirective | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/directives/anchor.ts |         |
+| `js` | `anchor`          | anchor          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/directives/anchor.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/dom.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts`:
 
 ## Functions
 
-| Name              | Description                                               | Parameters         | Return |
-| ----------------- | --------------------------------------------------------- | ------------------ | ------ |
-| `getScrollParent` | Returns the first scrollable parent of the given element. | `element: Element` |        |
+| Name                     | Description                                                                                | Parameters                        | Return                             |
+| ------------------------ | ------------------------------------------------------------------------------------------ | --------------------------------- | ---------------------------------- |
+| `closestElementComposed` |                                                                                            | `element: Node, selector: K`      | `HTMLElementTagNameMap[K] \| null` |
+| `closestElementComposed` |                                                                                            | `element: Node, selector: string` | `E \| null`                        |
+| `closestElementComposed` | Returns the closest element that matches the selector, across all&#xA;parent shadow roots. | `element: Node, selector: string` | `Element \| null`                  |
+| `getScrollParent`        | Returns the first scrollable parent of the given element.                                  | `element: Element`                |                                    |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                                             | Package |
-| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------- | ------- |
-| `js` | `getScrollParent` | getScrollParent | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/dom.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                               | Package |
+| ---- | ------------------------ | ---------------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `getScrollParent`        | getScrollParent        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
+| `js` | `closestElementComposed` | closestElementComposed | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/dom.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/blur.ts`:
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                                                                     | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `SlBlurEvent` | SlBlurEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/blur.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/change.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/blur.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlChangeEvent` | SlChangeEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/change.ts |         |
+| Kind | Name          | Declaration | Module                                                                                       | Package |
+| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlBlurEvent` | SlBlurEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/blur.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/focus.ts`:
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                                                      | Package |
-| ---- | -------------- | ------------ | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlFocusEvent` | SlFocusEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/focus.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/select.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/change.ts`:
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlSelectEvent` | SlSelectEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/select.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlChangeEvent` | SlChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/change.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts`:
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                                                                       | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlToggleEvent` | SlToggleEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/events/toggle.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/mixins.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/clear.ts`:
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                   | Package |
-| ---- | ------------- | ----------- | ------------------------ | ------- |
-| `js` | `Locale`      | Locale      | ./mixins/locale-mixin.js |         |
-| `js` | `LocaleMixin` | LocaleMixin | ./mixins/locale-mixin.js |         |
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlClearEvent` | SlClearEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/clear.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/mixins/locale-mixin.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/focus.ts`:
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                        | Package |
+| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlFocusEvent` | SlFocusEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/focus.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/select.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlSelectEvent` | SlSelectEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/select.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/toggle.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                                                         | Package |
+| ---- | --------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlToggleEvent` | SlToggleEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/events/toggle.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins.ts`:
+
+## Exports
+
+| Kind | Name                              | Declaration                     | Module                               | Package |
+| ---- | --------------------------------- | ------------------------------- | ------------------------------------ | ------- |
+| `js` | `Locale`                          | Locale                          | ./mixins/locale-mixin.js             |         |
+| `js` | `LocaleMixin`                     | LocaleMixin                     | ./mixins/locale-mixin.js             |         |
+| `js` | `ObserveAttributesMixinInterface` | ObserveAttributesMixinInterface | ./mixins/observe-attributes-mixin.js |         |
+| `js` | `ObserveAttributesMixin`          | ObserveAttributesMixin          | ./mixins/observe-attributes-mixin.js |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/locale-mixin.ts`:
 
 ## mixin: `LocaleMixin`
 
@@ -4853,53 +6307,76 @@
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                             | Package |
-| ---- | ------------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `LocaleMixin` | LocaleMixin | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/mixins/locale-mixin.ts |         |
+| Kind | Name          | Declaration | Module                                                                                               | Package |
+| ---- | ------------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `LocaleMixin` | LocaleMixin | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/locale-mixin.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/observe-attributes-mixin.ts`:
 
-## Functions
+## mixin: `ObserveAttributesMixin`
 
-| Name              | Description | Parameters                              | Return    |
-| ----------------- | ----------- | --------------------------------------- | --------- |
-| `getNameByPath`   |             | `path: string`                          | `string`  |
-| `getStringByPath` |             | `object: unknown, path`                 | `string`  |
-| `getValueByPath`  |             | `object: unknown, path`                 | `unknown` |
-| `setValueByPath`  |             | `object: unknown, path, value: unknown` | `void`    |
+### Parameters
 
-<hr/>
+| Name                 | Type       | Default | Description |
+| -------------------- | ---------- | ------- | ----------- |
+| `constructor`        | `T`        |         |             |
+| `observedAttributes` | `string[]` | `[]`    |             |
 
-## Exports
+### Methods
 
-| Kind | Name              | Declaration     | Module                                                                              | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-| `js` | `setValueByPath`  | setValueByPath  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts`:
-
-## Functions
-
-| Name                      | Description | Parameters                                                               | Return         |
-| ------------------------- | ----------- | ------------------------------------------------------------------------ | -------------- |
-| `isPopoverOpen`           |             | `element: HTMLElement`                                                   | `boolean`      |
-| `positionPopover`         |             | `element: HTMLElement, anchor: Element, options: PositionPopoverOptions` | `(() => void)` |
-| `updatePopoverVisibility` |             | `host: HTMLElement \| undefined, outOfView: boolean`                     | `void`         |
+| Name                  | Privacy | Description | Parameters        | Return | Inherited From |
+| --------------------- | ------- | ----------- | ----------------- | ------ | -------------- |
+| `setAttributesTarget` |         |             | `target: Element` | `void` |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                                                                 | Package |
-| ---- | ------------------------- | ----------------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `isPopoverOpen`           | isPopoverOpen           | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover`         | positionPopover         | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
-| `js` | `updatePopoverVisibility` | updatePopoverVisibility | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                                                           | Package |
+| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ObserveAttributesMixin` | ObserveAttributesMixin | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/mixins/observe-attributes-mixin.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts`:
+
+## Functions
+
+| Name              | Description | Parameters                                        | Return       |
+| ----------------- | ----------- | ------------------------------------------------- | ------------ |
+| `getNameByPath`   |             | `path: string`                                    | `string`     |
+| `getStringByPath` |             | `obj: T, path: P`                                 | `string`     |
+| `getValueByPath`  |             | `obj: T, path: P`                                 | `Path<T, P>` |
+| `setValueByPath`  |             | `obj: T, path: P, value: Path<T, P> \| undefined` | `void`       |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
+| `js` | `setValueByPath`  | setValueByPath  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/path.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/popover.ts`:
+
+## Functions
+
+| Name              | Description | Parameters                                                               | Return         |
+| ----------------- | ----------- | ------------------------------------------------------------------------ | -------------- |
+| `isPopoverOpen`   |             | `element: HTMLElement`                                                   | `boolean`      |
+| `positionPopover` |             | `element: HTMLElement, anchor: Element, options: PositionPopoverOptions` | `(() => void)` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                                                   | Package |
+| ---- | ----------------- | --------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `isPopoverOpen`   | isPopoverOpen   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover` | positionPopover | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/popover.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts`:
 
 ## Functions
 
@@ -4917,17 +6394,17 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                                                | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `capitalize` | capitalize  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `classify`   | classify    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `dasherize`  | dasherize   | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `decamelize` | decamelize  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `humanize`   | humanize    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
-| `js` | `underscore` | underscore  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| Kind | Name         | Declaration | Module                                                                                  | Package |
+| ---- | ------------ | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `camelize`   | camelize    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `capitalize` | capitalize  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `classify`   | classify    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`  | dasherize   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `decamelize` | decamelize  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `humanize`   | humanize    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
+| `js` | `underscore` | underscore  | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/string.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts`:
 
 ## Functions
 
@@ -4941,21 +6418,21 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                                                         | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `parseKeybinding`          | parseKeybinding          | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `tinykeys`                 | tinykeys                 | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/vendor/tinykeys.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                           | Package |
+| ---- | -------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `parseKeybinding`          | parseKeybinding          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `createKeybindingsHandler` | createKeybindingsHandler | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
+| `js` | `tinykeys`                 | tinykeys                 | /Users/jeroen.zwartepoorte/Projects/components/packages/components/shared/src/vendor/tinykeys.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.ts`:
 
 ## class: `Skeleton`, `sl-skeleton`
 
@@ -4983,19 +6460,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                    | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | /Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts |         |
+| Kind | Name       | Declaration | Module                                                                                      | Package |
+| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/skeleton/src/skeleton.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.ts`:
 
 ## class: `Spinner`, `sl-spinner`
 
@@ -5029,19 +6506,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Spinner` | Spinner     | /Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Spinner` | Spinner     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/spinner/src/spinner.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                     | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.ts`:
 
 ## class: `Switch`, `sl-switch`
 
@@ -5053,10 +6530,11 @@
 
 ### Mixins
 
-| Name                  | Module | Package                                 |
-| --------------------- | ------ | --------------------------------------- |
-| `FormControlMixin`    |        | @sl-design-system/form                  |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+| Name                     | Module | Package                                 |
+| ------------------------ | ------ | --------------------------------------- |
+| `ObserveAttributesMixin` |        | @sl-design-system/shared                |
+| `FormControlMixin`       |        | @sl-design-system/form                  |
+| `ScopedElementsMixin`    |        | @open-wc/scoped-elements/lit-element.js |
 
 ### Fields
 
@@ -5070,14 +6548,14 @@
 | `formValue`         |         | `unknown`                                    |         | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
 | `iconOff`           |         | `string \| undefined`                        |         | Custom icon in "off" state.                                                                                                                                                                                                                                                                                                                             |                  |
 | `iconOn`            |         | `string \| undefined`                        |         | Custom icon in "on" state.                                                                                                                                                                                                                                                                                                                              |                  |
-| `internals`         |         |                                              |         |                                                                                                                                                                                                                                                                                                                                                         |                  |
+| `input`             |         | `HTMLInputElement`                           |         | The input element in the light DOM.                                                                                                                                                                                                                                                                                                                     |                  |
 | `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
 | `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
 | `nativeFormValue`   |         | `FormValue`                                  |         | Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.                                                                                                                                                                                                                                                   | FormControlMixin |
 | `reverse`           |         | `boolean \| undefined`                       |         | Whether the toggle should be shown *after* the text.                                                                                                                                                                                                                                                                                                    |                  |
 | `showValid`         |         | `boolean`                                    | `false` | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | FormControlMixin |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`          |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `SwitchSize`                                 | `'md'`  | The size of the switch.                                                                                                                                                                                                                                                                                                                                 |                  |
+| `size`              |         | `SwitchSize \| undefined`                    | `md`    | The size of the switch.                                                                                                                                                                                                                                                                                                                                 |                  |
 | `touched`           |         | `boolean`                                    | `false` | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
 | `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
 | `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
@@ -5087,12 +6565,14 @@
 
 ### Methods
 
-| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From   |
-| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------- |
-| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin |
-| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`    | FormControlMixin |
-| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From         |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------------- |
+| `blur`                          |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                        |
+| `focus`                         |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                        |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin       |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin       |
+| `setAttributesTarget`           |         |                                                                                                                                                                                                                                                 | `target: Element`                    | `void`    | ObserveAttributesMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin       |
 
 ### Events
 
@@ -5110,6 +6590,9 @@
 
 | Name              | Field          | Inherited From   |
 | ----------------- | -------------- | ---------------- |
+| `aria-disabled`   |                |                  |
+| `aria-label`      |                |                  |
+| `aria-labelledby` |                |                  |
 | `checked`         | checked        |                  |
 | `disabled`        | disabled       |                  |
 | `icon-off`        | iconOff        |                  |
@@ -5123,27 +6606,28 @@
 
 ### Slots
 
-| Name      | Description                                                                                                |
-| --------- | ---------------------------------------------------------------------------------------------------------- |
-| `default` | Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc. |
+| Name      | Description                                                                                              |
+| --------- | -------------------------------------------------------------------------------------------------------- |
+| `default` | Text label of the switch. Technically there are no limits what can be put here; text, images, icons etc. |
+| `input`   | The slot for the input element                                                                           |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                                                                | Package |
-| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `Switch` | Switch      | /Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.ts |         |
+| Kind | Name     | Declaration | Module                                                                                  | Package |
+| ---- | -------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Switch` | Switch      | /Users/jeroen.zwartepoorte/Projects/components/packages/components/switch/src/switch.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
 
@@ -5161,10 +6645,11 @@
 
 ### Fields
 
-| Name        | Privacy | Type                         | Default | Description                                                   | Inherited From |
-| ----------- | ------- | ---------------------------- | ------- | ------------------------------------------------------------- | -------------- |
-| `alignTabs` |         | `TabsAlignment \| undefined` |         | The alignment of tabs within the wrapper.                     |                |
-| `vertical`  |         | `boolean \| undefined`       |         | Renders the tabs vertically instead of the default horizontal |                |
+| Name         | Privacy | Type                          | Default    | Description                                                                                                                                                                                                                                                                  | Inherited From |
+| ------------ | ------- | ----------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `activation` |         | `TabsActivation \| undefined` | `'manual'` | Determines when the contents of a tab is shown. Auto means the contents will be&#xA;shown when the tab is focused. Manual means the user has to activate the tab first&#xA;by clicking or using the keyboard.&#xA;&#xA;For backwards compatibility, the default is 'manual'. |                |
+| `alignTabs`  |         | `TabsAlignment \| undefined`  | `'start'`  | The alignment of tabs within the wrapper.                                                                                                                                                                                                                                    |                |
+| `vertical`   |         | `boolean \| undefined`        | `false`    | Renders the tabs vertically instead of the default horizontal.                                                                                                                                                                                                               |                |
 
 ### Events
 
@@ -5174,10 +6659,11 @@
 
 ### Attributes
 
-| Name         | Field     | Inherited From |
-| ------------ | --------- | -------------- |
-| `align-tabs` | alignTabs |                |
-| `vertical`   | vertical  |                |
+| Name         | Field      | Inherited From |
+| ------------ | ---------- | -------------- |
+| `activation` | activation |                |
+| `align-tabs` | alignTabs  |                |
+| `vertical`   | vertical   |                |
 
 ### CSS Properties
 
@@ -5207,20 +6693,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                 | Package |
-| ---- | ------------------ | ---------------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
-| `js` | `TabGroup`         | TabGroup         | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                   | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `SlTabChangeEvent` | SlTabChangeEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.ts |         |
+| `js` | `TabGroup`         | TabGroup         | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-group.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
 
@@ -5240,19 +6726,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                 | Package |
-| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts |         |
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab-panel.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.ts`:
 
 ## class: `Tab`, `sl-tab`
 
@@ -5264,11 +6750,11 @@
 
 ### Fields
 
-| Name       | Privacy | Type                   | Default | Description                                                                                                                                                       | Inherited From |
-| ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `disabled` |         | `boolean \| undefined` |         | Whether the tab item is disabled.                                                                                                                                 |                |
-| `href`     |         | `string \| undefined`  |         | When set, it will render the tab contents in a link tag. Use this when you want to render the tab contents using a router and to make the tab navigatable by URL. |                |
-| `selected` |         | `boolean \| undefined` |         | Whether the tab item is selected.                                                                                                                                 |                |
+| Name       | Privacy | Type                   | Default | Description                                                                                                                                                             | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined` |         | Whether the tab item is disabled.                                                                                                                                       |                |
+| `href`     |         | `string \| undefined`  |         | When set, it will render the tab contents in a link tag. Use this when you&#xA;want to render the tab contents using a router and to make the tab&#xA;navigable by URL. |                |
+| `selected` |         | `boolean \| undefined` | `false` | Indicates if this tab is selected.                                                                                                                                      |                |
 
 ### Attributes
 
@@ -5291,19 +6777,19 @@
 
 ## Exports
 
-| Kind | Name  | Declaration | Module                                                                           | Package |
-| ---- | ----- | ----------- | -------------------------------------------------------------------------------- | ------- |
-| `js` | `Tab` | Tab         | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.ts |         |
+| Kind | Name  | Declaration | Module                                                                             | Package |
+| ---- | ----- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tabs/src/tab.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag-list.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag-list.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag-list.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.ts`:
 
 ## class: `TagList`, `sl-tag-list`
 
@@ -5321,19 +6807,21 @@
 
 ### Fields
 
-| Name       | Privacy | Type                       | Default | Description                                                                                                                                  | Inherited From |
-| ---------- | ------- | -------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `emphasis` |         | `TagEmphasis \| undefined` |         | The emphasis of the tag-list and tags inside. Defaults to 'subtle'.                                                                          |                |
-| `size`     |         | `TagSize \| undefined`     |         | The size of the tag-list (determines size of tags inside the tag-list). Defaults to `md`.                                                    |                |
-| `stacked`  |         | `boolean \| undefined`     |         | Whether there should be a stacked version shown when there is not enough space.&#xA;The list doesn't wrap when `stacked` version is applied. |                |
+| Name       | Privacy | Type                      | Default     | Description                                                                                                                                           | Inherited From |
+| ---------- | ------- | ------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`    |             | Disables interaction with the tag list and renders the stacked tag as disabled.                                                                       |                |
+| `size`     |         | `TagSize \| undefined`    | `'md'`      | The size of the tag-list (determines size of tags inside the tag-list).                                                                               |                |
+| `stacked`  |         | `boolean \| undefined`    | `false`     | This will hide tags that do not fit inside the available space when set. It will also&#xA;display a counter that indicates the number of hidden tags. |                |
+| `variant`  |         | `TagVariant \| undefined` | `'neutral'` | The variant of the tag-list and tags inside.                                                                                                          |                |
 
 ### Attributes
 
 | Name       | Field    | Inherited From |
 | ---------- | -------- | -------------- |
-| `emphasis` | emphasis |                |
+| `disabled` | disabled |                |
 | `size`     | size     |                |
 | `stacked`  | stacked  |                |
+| `variant`  | variant  |                |
 
 ### Slots
 
@@ -5345,19 +6833,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                               | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `TagList` | TagList     | /Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag-list.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `TagList` | TagList     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag-list.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                               | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.ts`:
 
 ## class: `Tag`, `sl-tag`
 
@@ -5375,12 +6863,12 @@
 
 ### Fields
 
-| Name        | Privacy | Type                       | Default | Description                                                                 | Inherited From |
-| ----------- | ------- | -------------------------- | ------- | --------------------------------------------------------------------------- | -------------- |
-| `disabled`  |         | `boolean \| undefined`     |         | Whether the tag component is disabled, when set no interaction is possible. |                |
-| `emphasis`  |         | `TagEmphasis \| undefined` |         | The emphasis of the tag; defaults to 'subtle'.                              |                |
-| `removable` |         | `boolean \| undefined`     |         | Whether the tag component is removable.                                     |                |
-| `size`      |         | `TagSize \| undefined`     |         | The size of the tag. Defaults to `md`.                                      |                |
+| Name        | Privacy | Type                      | Default     | Description                                                                 | Inherited From |
+| ----------- | ------- | ------------------------- | ----------- | --------------------------------------------------------------------------- | -------------- |
+| `disabled`  |         | `boolean \| undefined`    | `false`     | Whether the tag component is disabled, when set no interaction is possible. |                |
+| `removable` |         | `boolean \| undefined`    | `false`     | Whether the tag component is removable.                                     |                |
+| `size`      |         | `TagSize \| undefined`    | `'md'`      | The size of the tag.                                                        |                |
+| `variant`   |         | `TagVariant \| undefined` | `'neutral'` | The variant of the tag.                                                     |                |
 
 ### Events
 
@@ -5393,9 +6881,9 @@
 | Name        | Field     | Inherited From |
 | ----------- | --------- | -------------- |
 | `disabled`  | disabled  |                |
-| `emphasis`  | emphasis  |                |
 | `removable` | removable |                |
 | `size`      | size      |                |
+| `variant`   | variant   |                |
 
 ### Slots
 
@@ -5407,20 +6895,20 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                                          | Package |
-| ---- | --------------- | ------------- | ------------------------------------------------------------------------------- | ------- |
-| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
-| `js` | `Tag`           | Tag           | /Users/Diana.Broeders/Projects/design-system/packages/components/tag/src/tag.ts |         |
+| Kind | Name            | Declaration   | Module                                                                            | Package |
+| ---- | --------------- | ------------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `SlRemoveEvent` | SlRemoveEvent | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.ts |         |
+| `js` | `Tag`           | Tag           | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tag/src/tag.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/text-area/src/text-area.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/text-area/src/text-area.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/text-area/src/text-area.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.ts`:
 
 ## class: `TextArea`, `sl-text-area`
 
@@ -5432,10 +6920,11 @@
 
 ### Mixins
 
-| Name                  | Module | Package                                 |
-| --------------------- | ------ | --------------------------------------- |
-| `FormControlMixin`    |        | @sl-design-system/form                  |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+| Name                     | Module | Package                                 |
+| ------------------------ | ------ | --------------------------------------- |
+| `ObserveAttributesMixin` |        | @sl-design-system/shared                |
+| `FormControlMixin`       |        | @sl-design-system/form                  |
+| `ScopedElementsMixin`    |        | @open-wc/scoped-elements/lit-element.js |
 
 ### Fields
 
@@ -5452,14 +6941,14 @@
 | `minLength`         |         | `number \| undefined`                                            |              | Minimum length (number of characters).                                                                                                                                                                                                                                                                                                                  |                  |
 | `name`              |         | `string \| undefined`                                            |              | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
 | `nativeFormValue`   |         | `FormValue`                                                      |              | Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.                                                                                                                                                                                                                                                   | FormControlMixin |
-| `placeholder`       |         | `string \| undefined`                                            |              | Placeholder text in the input.                                                                                                                                                                                                                                                                                                                          |                  |
+| `placeholder`       |         | `string \| undefined`                                            |              | Placeholder text in the textarea.                                                                                                                                                                                                                                                                                                                       |                  |
 | `readonly`          |         | `boolean \| undefined`                                           |              | Whether you can interact with the textarea or if it is just a static, readonly display.                                                                                                                                                                                                                                                                 |                  |
 | `required`          |         | `boolean \| undefined`                                           |              | Whether the textarea is a required field.                                                                                                                                                                                                                                                                                                               |                  |
 | `resize`            |         | `ResizeType`                                                     | `'vertical'` | The way the textarea can be resized.                                                                                                                                                                                                                                                                                                                    |                  |
 | `rows`              |         | `number \| undefined`                                            |              | The number of rows the textarea should initially have.&#xA;If not set, the browser defaults to 2 rows.                                                                                                                                                                                                                                                  |                  |
 | `showValid`         |         | `boolean`                                                        | `false`      | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`                              |              | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `TextAreaSize`                                                   | `'md'`       | The size of the textarea.                                                                                                                                                                                                                                                                                                                               |                  |
+| `size`              |         | `TextAreaSize \| undefined`                                      | `md`         | The size of the textarea.                                                                                                                                                                                                                                                                                                                               |                  |
 | `textarea`          |         | `HTMLTextAreaElement`                                            |              | The textarea in the light DOM.                                                                                                                                                                                                                                                                                                                          |                  |
 | `touched`           |         | `boolean`                                                        | `false`      | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
 | `valid`             |         | `boolean`                                                        |              | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
@@ -5471,13 +6960,13 @@
 
 ### Methods
 
-| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From   |
-| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------- |
-| `focus`                         |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                  |
-| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin |
-| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`    | FormControlMixin |
-| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return    | Inherited From         |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- | ---------------------- |
+| `focus`                         |         |                                                                                                                                                                                                                                                 |                                      | `void`    |                        |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`  | FormControlMixin       |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean` | FormControlMixin       |
+| `setAttributesTarget`           |         |                                                                                                                                                                                                                                                 | `target: Element`                    | `void`    | ObserveAttributesMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`    | FormControlMixin       |
 
 ### Events
 
@@ -5495,6 +6984,10 @@
 
 | Name              | Field          | Inherited From   |
 | ----------------- | -------------- | ---------------- |
+| `aria-disabled`   |                |                  |
+| `aria-label`      |                |                  |
+| `aria-labelledby` |                |                  |
+| `aria-required`   |                |                  |
 | `autocomplete`    | autocomplete   |                  |
 | `disabled`        | disabled       |                  |
 | `maxlength`       | maxLength      |                  |
@@ -5528,19 +7021,65 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                                                                      | Package |
-| ---- | ---------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextArea` | TextArea    | /Users/Diana.Broeders/Projects/design-system/packages/components/text-area/src/text-area.ts |         |
+| Kind | Name       | Declaration | Module                                                                                        | Package |
+| ---- | ---------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextArea` | TextArea    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-area/src/text-area.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                 | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.ts`:
+
+## class: `FieldButton`, `sl-field-button`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name       | Privacy | Type                           | Default | Description                                                                                                                      | Inherited From |
+| ---------- | ------- | ------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`         |         | Determines if the button is disabled.                                                                                            |                |
+| `size`     |         | `FieldButtonSize \| undefined` | `'md'`  | The size of the field button. The size will automatically be set&#xA;when the component is embedded/slotted inside a text field. |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled |                |
+| `size`     | size     |                |
+
+### Slots
+
+| Name      | Description               |
+| --------- | ------------------------- |
+| `default` | Add an icon to the button |
+
+<hr/>
+
+## Exports
+
+| Kind | Name          | Declaration | Module                                                                                            | Package |
+| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FieldButton` | FieldButton | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/field-button.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.ts`:
 
 ## class: `TextField`, `sl-text-field`
 
@@ -5552,21 +7091,23 @@
 
 ### Mixins
 
-| Name                  | Module | Package                                 |
-| --------------------- | ------ | --------------------------------------- |
-| `FormControlMixin`    |        | @sl-design-system/form                  |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+| Name                     | Module | Package                                 |
+| ------------------------ | ------ | --------------------------------------- |
+| `ObserveAttributesMixin` |        | @sl-design-system/shared                |
+| `FormControlMixin`       |        | @sl-design-system/form                  |
+| `ScopedElementsMixin`    |        | @open-wc/scoped-elements/lit-element.js |
 
 ### Fields
 
 | Name                | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
 | ------------------- | ------- | --------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `autocomplete`      |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.                                                                                                                                                                                                                                                                                 |                  |
+| `autocomplete`      |         | `string \| undefined`                                           |          | Specifies which type of data the browser can use to pre-fill the input.                                                                                                                                                                                                                                                                                 |                  |
 | `customValidity`    |         | `string \| undefined`                                           |          | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
 | `dirty`             |         | `boolean`                                                       | `false`  | A control is dirty if the user has changed the value in the UI.                                                                                                                                                                                                                                                                                         | FormControlMixin |
 | `disabled`          |         | `boolean \| undefined`                                          |          | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                |                  |
 | `form`              |         | `HTMLFormElement \| null`                                       |          | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
 | `formValue`         |         | `unknown`                                                       |          | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
+| `formattedValue`    |         | `string`                                                        |          | The formatted value, to be used as the input value.                                                                                                                                                                                                                                                                                                     |                  |
 | `input`             |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                                                                                                                                                                     |                  |
 | `inputSize`         |         | `number \| undefined`                                           |          | The size attribute of the input element.                                                                                                                                                                                                                                                                                                                |                  |
 | `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                    |          | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
@@ -5581,7 +7122,7 @@
 | `required`          |         | `boolean \| undefined`                                          |          | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
 | `showValid`         |         | `boolean`                                                       | `false`  | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
 | `showValidity`      |         | `'valid' \| 'invalid' \| undefined`                             |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `TextFieldSize`                                                 | `'md'`   | The size of the input.                                                                                                                                                                                                                                                                                                                                  |                  |
+| `size`              |         | `TextFieldSize \| undefined`                                    | `md`     | The size of the input.                                                                                                                                                                                                                                                                                                                                  |                  |
 | `touched`           |         | `boolean`                                                       | `false`  | A control is marked touched once the user has triggered a blur event on it.                                                                                                                                                                                                                                                                             | FormControlMixin |
 | `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                                                                                                                   |                  |
 | `valid`             |         | `boolean`                                                       |          | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
@@ -5592,17 +7133,23 @@
 
 ### Methods
 
-| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters                           | Return                             | Inherited From   |
-| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ---------------------------------- | ---------------- |
-| `formatValue`                   |         | Method that formats the value and set's it on the native input element. Override this method&#xA;if you want to format the value in a different way.                                                                                            | `value: T`                           | `string`                           |                  |
-| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                      | `string`                           | FormControlMixin |
-| `parseValue`                    |         | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                      | `T \| undefined`                   |                  |
-| `renderInputSlot`               |         | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                      | `TemplateResult`                   |                  |
-| `renderPrefix`                  |         | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                      | `TemplateResult \| typeof nothing` |                  |
-| `renderSuffix`                  |         | Renders the suffix slot; can be overridden to customize the suffix.                                                                                                                                                                             |                                      | `TemplateResult \| typeof nothing` |                  |
-| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                      | `boolean`                          | FormControlMixin |
-| `reset`                         |         |                                                                                                                                                                                                                                                 | `value: unknown`                     | `void`                             | FormControlMixin |
-| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>` | `void`                             | FormControlMixin |
+| Name                            | Privacy   | Description                                                                                                                                                                                                                                     | Parameters                                         | Return                             | Inherited From         |
+| ------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | ---------------------------------- | ---------------------- |
+| `getLocalizedValidationMessage` |           | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                                                    | `string`                           | FormControlMixin       |
+| `onBlur`                        | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             |                        |
+| `onFocus`                       | protected |                                                                                                                                                                                                                                                 |                                                    | `void`                             |                        |
+| `onInput`                       | protected |                                                                                                                                                                                                                                                 | `{ target }: Event & { target: HTMLInputElement }` | `void`                             |                        |
+| `onKeydown`                     | protected |                                                                                                                                                                                                                                                 | `event: KeyboardEvent`                             | `void`                             |                        |
+| `onPrefixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                        |
+| `onSlotChange`                  | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                        |
+| `onSuffixSlotChange`            | protected |                                                                                                                                                                                                                                                 | `event: Event & { target: HTMLSlotElement }`       | `void`                             |                        |
+| `parseValue`                    |           | Method that converts the string value in the input to the specified type T. Override this method&#xA;if you want to convert the value in a different way. Throw an error if the value is invalid.                                               | `value: string`                                    | `T \| undefined`                   |                        |
+| `renderInputSlot`               |           | Render the input slot; separate method so it is composable for child components.                                                                                                                                                                |                                                    | `TemplateResult`                   |                        |
+| `renderPrefix`                  |           | Renders the prefix slot; can be overridden to customize the prefix.                                                                                                                                                                             |                                                    | `TemplateResult \| typeof nothing` |                        |
+| `renderSuffix`                  |           | Renders the suffix slot; can be overridden to customize the suffix. Remember that if&#xA;you override this method, it will no longer automatically show the valid checkmark&#xA;when the input is valid.                                        |                                                    | `TemplateResult \| typeof nothing` |                        |
+| `reportValidity`                |           | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                                                    | `boolean`                          | FormControlMixin       |
+| `setAttributesTarget`           |           |                                                                                                                                                                                                                                                 | `target: Element`                                  | `void`                             | ObserveAttributesMixin |
+| `setCustomValidity`             |           | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string \| Promise<string>`               | `void`                             | FormControlMixin       |
 
 ### Events
 
@@ -5620,6 +7167,10 @@
 
 | Name              | Field          | Inherited From   |
 | ----------------- | -------------- | ---------------- |
+| `aria-disabled`   |                |                  |
+| `aria-label`      |                |                  |
+| `aria-labelledby` |                |                  |
+| `aria-required`   |                |                  |
 | `autocomplete`    | autocomplete   |                  |
 | `disabled`        | disabled       |                  |
 | `input-size`      | inputSize      |                  |
@@ -5655,19 +7206,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                                                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TextField` | TextField   | /Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                          | Package |
+| ---- | ----------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextField` | TextField   | /Users/jeroen.zwartepoorte/Projects/components/packages/components/text-field/src/text-field.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.ts`:
 
 ## class: `ToggleButton`, `sl-toggle-button`
 
@@ -5690,6 +7241,7 @@
 | `disabled` |         | `boolean \| undefined`          |         | Whether the button is disabled; when set no interaction is possible.                                                  |                |
 | `fill`     |         | `ToggleButtonFill \| undefined` |         | The variant of the toggle-button.                                                                                     |                |
 | `pressed`  |         | `boolean`                       | `false` | The pressed state of the button. Set the default value, so the&#xA;\`aria-pressed` attribute is added to the element. |                |
+| `shape`    |         | `ButtonShape \| undefined`      |         | The shape of the button.                                                                                              |                |
 | `size`     |         | `ToggleButtonSize \| undefined` |         | The size of the button.                                                                                               |                |
 
 ### Events
@@ -5706,6 +7258,7 @@
 | `fill`     | fill     |                |
 | `pressed`  | pressed  |                |
 | `size`     | size     |                |
+| `shape`    | shape    |                |
 
 ### Slots
 
@@ -5718,19 +7271,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                                                              | Package |
-| ---- | -------------- | ------------ | --------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleButton` | ToggleButton | /Users/Diana.Broeders/Projects/design-system/packages/components/toggle-button/src/toggle-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleButton` | ToggleButton | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-button/src/toggle-button.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.ts`:
 
 ## class: `ToggleGroup`, `sl-toggle-group`
 
@@ -5742,11 +7295,13 @@
 
 ### Fields
 
-| Name       | Privacy | Type                            | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                        | Inherited From |
-| ---------- | ------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `disabled` |         | `boolean \| undefined`          |         | If set, will disable all buttons in the group.                                                                                                                                                                                                                                                                                                                                                                     |                |
-| `multiple` |         | `boolean \| undefined`          |         | By default, only a single toggle button inside the group can be active. This means&#xA;that the group will automatically deactivate the other buttons when one is toggled.&#xA;&#xA;If you toggle this property, then multiple buttons can be active at the same time.&#xA;In this case the group does nothing when a button is toggled. Use this mode if you want to&#xA;handle the toggling of buttons yourself. |                |
-| `size`     |         | `ToggleButtonSize \| undefined` |         | Determines the size of all buttons in the group.                                                                                                                                                                                                                                                                                                                                                                   |                |
+| Name       | Privacy | Type                            | Default | Description                                                                                                                                                                                                                                                                                                                                                                                       | Inherited From |
+| ---------- | ------- | ------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined`          |         | If set, will disable all buttons in the group.                                                                                                                                                                                                                                                                                                                                                    |                |
+| `fill`     |         | `ToggleGroupFill \| undefined`  |         | The variant of the toggle-group.                                                                                                                                                                                                                                                                                                                                                                  |                |
+| `multiple` |         | `boolean \| undefined`          |         | By default, only a single toggle button inside the group can be active.&#xA;This means that the group will automatically deactivate the other buttons when one is toggled.&#xA;&#xA;When set to true multiple buttons can be active at the same time.&#xA;In this case the group does nothing when a button is toggled.&#xA;Use this mode if you want to handle the toggling of buttons yourself. |                |
+| `shape`    |         | `ToggleGroupShape \| undefined` |         | The shaoe of the group.                                                                                                                                                                                                                                                                                                                                                                           |                |
+| `size`     |         | `ToggleGroupSize \| undefined`  |         | Determines the size of all buttons in the group.                                                                                                                                                                                                                                                                                                                                                  |                |
 
 ### Attributes
 
@@ -5755,39 +7310,32 @@
 | `disabled` | disabled |                |
 | `multiple` | multiple |                |
 | `size`     | size     |                |
+| `shape`    | shape    |                |
+| `fill`     | fill     |                |
 
 ### Slots
 
-| Name      | Description       |
-| --------- | ----------------- |
-| `default` | The default slot. |
+| Name      | Description                                                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------------ |
+| `default` | The default slot for toggle buttons. For toggle group there is a possibility to use toggle buttons with text only. |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name          | Declaration | Module                                                                                            | Package |
-| ---- | ------------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToggleGroup` | ToggleGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/toggle-group/src/toggle-group.ts |         |
+| Kind | Name          | Declaration | Module                                                                                              | Package |
+| ---- | ------------- | ----------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToggleGroup` | ToggleGroup | /Users/jeroen.zwartepoorte/Projects/components/packages/components/toggle-group/src/toggle-group.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                   |
-| ---- | ---- | ----------- | ------ | ------------------------- |
-| `js` | `*`  | *           |        | ./src/tool-bar.js         |
-| `js` | `*`  | *           |        | ./src/tool-bar-divider.js |
-
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                                 | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.ts`:
 
 ## class: `ToolBarDivider`, `sl-tool-bar-divider`
 
@@ -5801,19 +7349,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                                                                            | Package |
-| ---- | ---------------- | -------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBarDivider` | ToolBarDivider | /Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar-divider.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                              | Package |
+| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBarDivider` | ToolBarDivider | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar-divider.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.ts`:
 
 ## class: `ToolBar`, `sl-tool-bar`
 
@@ -5867,11 +7415,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                    | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
-| `js` | `ToolBar` | ToolBar     | /Users/Diana.Broeders/Projects/design-system/packages/components/tool-bar/src/tool-bar.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ToolBar` | ToolBar     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tool-bar/src/tool-bar.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip-directive.ts`:
 
 ## class: `TooltipDirective`
 
@@ -5909,20 +7457,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                                                            | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
-| `js` | `TooltipDirective` | TooltipDirective | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
-| `js` | `tooltip`          | tooltip          | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                              | Package |
+| ---- | ------------------ | ---------------- | --------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TooltipDirective` | TooltipDirective | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip-directive.ts |         |
+| `js` | `tooltip`          | tooltip          | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip-directive.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
-| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.scss.ts |         |
 
-# `/Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts`:
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
 
@@ -5962,6 +7510,356 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                                                  | Package |
-| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
-| `js` | `Tooltip` | Tooltip     | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                    | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Tooltip` | Tooltip     | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tooltip/src/tooltip.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/flat-tree-data-source.ts`:
+
+## class: `FlatTreeDataSource`
+
+### Superclass
+
+| Name             | Module                                                                                           | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `TreeDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.js |         |
+
+### Fields
+
+| Name        | Privacy | Type                                   | Default | Description                                                           | Inherited From |
+| ----------- | ------- | -------------------------------------- | ------- | --------------------------------------------------------------------- | -------------- |
+| `filters`   |         | `Map<string, DataSourceFilter<Model>>` |         |                                                                       | DataSource     |
+| `items`     |         | `ViewModel[]`                          |         | The filtered & sorted array of view models.                           | DataSource     |
+| `nodes`     |         | `Array<TreeDataSourceNode<T>>`         |         | A hierarchical representation of the items in the tree.               | TreeDataSource |
+| `selection` |         |                                        |         | The current selection of tree node(s).                                | TreeDataSource |
+| `selects`   |         |                                        |         | Indicates whether the tree model allows single or multiple selection. | TreeDataSource |
+| `size`      |         | `number`                               |         | Total number of items in this data source.                            | DataSource     |
+| `sort`      |         | `DataSourceSort<Model> \| undefined`   |         |                                                                       | DataSource     |
+
+### Methods
+
+| Name                  | Privacy | Description                                                                                                                                                                                                                                                   | Parameters                                                        | Return                         | Inherited From |
+| --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------ | -------------- |
+| `addFilter`           |         |                                                                                                                                                                                                                                                               | `id: string, pathOrFilter: T, value: string \| string[]`          | `void`                         | DataSource     |
+| `collapse`            |         | Collapses a tree node.                                                                                                                                                                                                                                        | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `collapseAll`         |         | Collapses all expandable tree nodes.                                                                                                                                                                                                                          |                                                                   | `void`                         | TreeDataSource |
+| `collapseDescendants` |         | Collapses all descendants of a given tree node.                                                                                                                                                                                                               | `node: TreeDataSourceNode<T>`                                     | `void`                         | TreeDataSource |
+| `deselect`            |         | Deselects the given node and any children.                                                                                                                                                                                                                    | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `deselectAll`         |         | Deselects all nodes in the tree.                                                                                                                                                                                                                              |                                                                   | `void`                         | TreeDataSource |
+| `expand`              |         | Expands a tree node.                                                                                                                                                                                                                                          | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `expandAll`           |         | Expands all expandable tree nodes.                                                                                                                                                                                                                            |                                                                   | `Promise<void>`                | TreeDataSource |
+| `expandDescendants`   |         | Expands all descendants of a given tree node.                                                                                                                                                                                                                 | `node: TreeDataSourceNode<T>`                                     | `void`                         | TreeDataSource |
+| `removeFilter`        |         |                                                                                                                                                                                                                                                               | `id: string`                                                      | `void`                         | DataSource     |
+| `removeSort`          |         |                                                                                                                                                                                                                                                               |                                                                   | `void`                         | DataSource     |
+| `select`              |         | Selects the given node and any children.                                                                                                                                                                                                                      | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `selectAll`           |         | Selects all nodes in the tree.                                                                                                                                                                                                                                |                                                                   | `void`                         | TreeDataSource |
+| `setSort`             |         |                                                                                                                                                                                                                                                               | `id: string, pathOrSorter: T, direction: DataSourceSortDirection` | `void`                         | DataSource     |
+| `toViewArray`         |         | Flattens the tree nodes to an array based on the expansion state.                                                                                                                                                                                             |                                                                   | `Array<TreeDataSourceNode<T>>` | TreeDataSource |
+| `toggle`              |         | Toggles the expansion state of a tree node. You can optionally force the&#xA;state to a specific value using the `force` parameter. The `emitEvent`&#xA;parameter determines whether the model should emit an `sl-update` event&#xA;after changing the state. | `node: TreeDataSourceNode<T>, force: boolean, emitEvent: boolean` | `void`                         | TreeDataSource |
+| `toggleDescendants`   |         | Toggles the expansion state of all descendants of a given tree node.                                                                                                                                                                                          | `node: TreeDataSourceNode<T>, force: boolean`                     | `void`                         | TreeDataSource |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                 | Declaration        | Module                                                                                               | Package |
+| ---- | -------------------- | ------------------ | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FlatTreeDataSource` | FlatTreeDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/flat-tree-data-source.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.ts`:
+
+## class: `IndentGuides`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name              | Privacy | Type                   | Default | Description                                                        | Inherited From |
+| ----------------- | ------- | ---------------------- | ------- | ------------------------------------------------------------------ | -------------- |
+| `expandable`      |         | `boolean \| undefined` |         | Wether the parent tree node is expandable.                         |                |
+| `lastNodeInLevel` |         | `boolean \| undefined` |         | Whether this node is the last one on this level; used for styling. |                |
+| `level`           |         | `number`               | `0`     | Level of indentation.                                              |                |
+
+### Attributes
+
+| Name                 | Field           | Inherited From |
+| -------------------- | --------------- | -------------- |
+| `expandable`         | expandable      |                |
+| `last-node-in-level` | lastNodeInLevel |                |
+| `level`              | level           |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                                                       | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `IndentGuides` | IndentGuides | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/indent-guides.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/nested-tree-data-source.ts`:
+
+## class: `NestedTreeDataSource`
+
+### Superclass
+
+| Name             | Module                                                                                           | Package |
+| ---------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `TreeDataSource` | //Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.js |         |
+
+### Fields
+
+| Name        | Privacy | Type                                   | Default | Description                                                           | Inherited From |
+| ----------- | ------- | -------------------------------------- | ------- | --------------------------------------------------------------------- | -------------- |
+| `filters`   |         | `Map<string, DataSourceFilter<Model>>` |         |                                                                       | DataSource     |
+| `items`     |         | `ViewModel[]`                          |         | The filtered & sorted array of view models.                           | DataSource     |
+| `nodes`     |         | `Array<TreeDataSourceNode<T>>`         |         | A hierarchical representation of the items in the tree.               | TreeDataSource |
+| `selection` |         |                                        |         | The current selection of tree node(s).                                | TreeDataSource |
+| `selects`   |         |                                        |         | Indicates whether the tree model allows single or multiple selection. | TreeDataSource |
+| `size`      |         | `number`                               |         | Total number of items in this data source.                            | DataSource     |
+| `sort`      |         | `DataSourceSort<Model> \| undefined`   |         |                                                                       | DataSource     |
+
+### Methods
+
+| Name                  | Privacy | Description                                                                                                                                                                                                                                                   | Parameters                                                        | Return                         | Inherited From |
+| --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------ | -------------- |
+| `addFilter`           |         |                                                                                                                                                                                                                                                               | `id: string, pathOrFilter: T, value: string \| string[]`          | `void`                         | DataSource     |
+| `collapse`            |         | Collapses a tree node.                                                                                                                                                                                                                                        | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `collapseAll`         |         | Collapses all expandable tree nodes.                                                                                                                                                                                                                          |                                                                   | `void`                         | TreeDataSource |
+| `collapseDescendants` |         | Collapses all descendants of a given tree node.                                                                                                                                                                                                               | `node: TreeDataSourceNode<T>`                                     | `void`                         | TreeDataSource |
+| `deselect`            |         | Deselects the given node and any children.                                                                                                                                                                                                                    | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `deselectAll`         |         | Deselects all nodes in the tree.                                                                                                                                                                                                                              |                                                                   | `void`                         | TreeDataSource |
+| `expand`              |         | Expands a tree node.                                                                                                                                                                                                                                          | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `expandAll`           |         | Expands all expandable tree nodes.                                                                                                                                                                                                                            |                                                                   | `Promise<void>`                | TreeDataSource |
+| `expandDescendants`   |         | Expands all descendants of a given tree node.                                                                                                                                                                                                                 | `node: TreeDataSourceNode<T>`                                     | `void`                         | TreeDataSource |
+| `removeFilter`        |         |                                                                                                                                                                                                                                                               | `id: string`                                                      | `void`                         | DataSource     |
+| `removeSort`          |         |                                                                                                                                                                                                                                                               |                                                                   | `void`                         | DataSource     |
+| `select`              |         | Selects the given node and any children.                                                                                                                                                                                                                      | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         | TreeDataSource |
+| `selectAll`           |         | Selects all nodes in the tree.                                                                                                                                                                                                                                |                                                                   | `void`                         | TreeDataSource |
+| `setSort`             |         |                                                                                                                                                                                                                                                               | `id: string, pathOrSorter: T, direction: DataSourceSortDirection` | `void`                         | DataSource     |
+| `toViewArray`         |         | Flattens the tree nodes to an array based on the expansion state.                                                                                                                                                                                             |                                                                   | `Array<TreeDataSourceNode<T>>` | TreeDataSource |
+| `toggle`              |         | Toggles the expansion state of a tree node. You can optionally force the&#xA;state to a specific value using the `force` parameter. The `emitEvent`&#xA;parameter determines whether the model should emit an `sl-update` event&#xA;after changing the state. | `node: TreeDataSourceNode<T>, force: boolean, emitEvent: boolean` | `void`                         | TreeDataSource |
+| `toggleDescendants`   |         | Toggles the expansion state of all descendants of a given tree node.                                                                                                                                                                                          | `node: TreeDataSourceNode<T>, force: boolean`                     | `void`                         | TreeDataSource |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `NestedTreeDataSource` | NestedTreeDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/nested-tree-data-source.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.ts`:
+
+## class: `TreeDataSource`
+
+### Superclass
+
+| Name         | Module | Package                       |
+| ------------ | ------ | ----------------------------- |
+| `DataSource` |        | @sl-design-system/data-source |
+
+### Fields
+
+| Name        | Privacy | Type                                   | Default | Description                                                           | Inherited From |
+| ----------- | ------- | -------------------------------------- | ------- | --------------------------------------------------------------------- | -------------- |
+| `filters`   |         | `Map<string, DataSourceFilter<Model>>` |         |                                                                       | DataSource     |
+| `items`     |         | `ViewModel[]`                          |         | The filtered & sorted array of view models.                           | DataSource     |
+| `nodes`     |         | `Array<TreeDataSourceNode<T>>`         |         | A hierarchical representation of the items in the tree.               |                |
+| `selection` |         |                                        |         | The current selection of tree node(s).                                |                |
+| `selects`   |         |                                        |         | Indicates whether the tree model allows single or multiple selection. |                |
+| `size`      |         | `number`                               |         | Total number of items in this data source.                            | DataSource     |
+| `sort`      |         | `DataSourceSort<Model> \| undefined`   |         |                                                                       | DataSource     |
+
+### Methods
+
+| Name                  | Privacy | Description                                                                                                                                                                                                                                                   | Parameters                                                        | Return                         | Inherited From |
+| --------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------ | -------------- |
+| `addFilter`           |         |                                                                                                                                                                                                                                                               | `id: string, pathOrFilter: T, value: string \| string[]`          | `void`                         | DataSource     |
+| `collapse`            |         | Collapses a tree node.                                                                                                                                                                                                                                        | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         |                |
+| `collapseAll`         |         | Collapses all expandable tree nodes.                                                                                                                                                                                                                          |                                                                   | `void`                         |                |
+| `collapseDescendants` |         | Collapses all descendants of a given tree node.                                                                                                                                                                                                               | `node: TreeDataSourceNode<T>`                                     | `void`                         |                |
+| `deselect`            |         | Deselects the given node and any children.                                                                                                                                                                                                                    | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         |                |
+| `deselectAll`         |         | Deselects all nodes in the tree.                                                                                                                                                                                                                              |                                                                   | `void`                         |                |
+| `expand`              |         | Expands a tree node.                                                                                                                                                                                                                                          | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         |                |
+| `expandAll`           |         | Expands all expandable tree nodes.                                                                                                                                                                                                                            |                                                                   | `Promise<void>`                |                |
+| `expandDescendants`   |         | Expands all descendants of a given tree node.                                                                                                                                                                                                                 | `node: TreeDataSourceNode<T>`                                     | `void`                         |                |
+| `removeFilter`        |         |                                                                                                                                                                                                                                                               | `id: string`                                                      | `void`                         | DataSource     |
+| `removeSort`          |         |                                                                                                                                                                                                                                                               |                                                                   | `void`                         | DataSource     |
+| `select`              |         | Selects the given node and any children.                                                                                                                                                                                                                      | `node: TreeDataSourceNode<T>, emitEvent`                          | `void`                         |                |
+| `selectAll`           |         | Selects all nodes in the tree.                                                                                                                                                                                                                                |                                                                   | `void`                         |                |
+| `setSort`             |         |                                                                                                                                                                                                                                                               | `id: string, pathOrSorter: T, direction: DataSourceSortDirection` | `void`                         | DataSource     |
+| `toViewArray`         |         | Flattens the tree nodes to an array based on the expansion state.                                                                                                                                                                                             |                                                                   | `Array<TreeDataSourceNode<T>>` |                |
+| `toggle`              |         | Toggles the expansion state of a tree node. You can optionally force the&#xA;state to a specific value using the `force` parameter. The `emitEvent`&#xA;parameter determines whether the model should emit an `sl-update` event&#xA;after changing the state. | `node: TreeDataSourceNode<T>, force: boolean, emitEvent: boolean` | `void`                         |                |
+| `toggleDescendants`   |         | Toggles the expansion state of all descendants of a given tree node.                                                                                                                                                                                          | `node: TreeDataSourceNode<T>, force: boolean`                     | `void`                         |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name             | Declaration    | Module                                                                                          | Package |
+| ---- | ---------------- | -------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeDataSource` | TreeDataSource | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-data-source.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.ts`:
+
+## class: `TreeNode`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name              | Privacy | Type                                  | Default     | Description                                                                                                                                                                                          | Inherited From |
+| ----------------- | ------- | ------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `checked`         |         | `boolean \| undefined`                | `false`     | Determines whether the checkbox is checked or not.                                                                                                                                                   |                |
+| `disabled`        |         | `boolean \| undefined`                | `false`     | Whether the node is disabled.                                                                                                                                                                        |                |
+| `expandable`      |         | `boolean \| undefined`                | `false`     | If true, will render an indicator whether the node is expanded or collapsed.                                                                                                                         |                |
+| `expanded`        |         | `boolean \| undefined`                | `false`     | Indicates whether the node is expanded or collapsed.                                                                                                                                                 |                |
+| `hideGuides`      |         | `boolean \| undefined`                | `false`     | Hides the indentation guides when set.                                                                                                                                                               |                |
+| `indeterminate`   |         | `boolean \| undefined`                | `false`     | Indeterminate state of the checkbox. Used when not all children are checked.                                                                                                                         |                |
+| `lastNodeInLevel` |         | `boolean \| undefined`                | `false`     | Whether this node is the last one on this level; used for styling.                                                                                                                                   |                |
+| `level`           |         | `number`                              | `0`         | The depth level of this node, 0 being the root of the tree.                                                                                                                                          |                |
+| `node`            |         | `TreeDataSourceNode<T> \| undefined`  |             | The tree model node.                                                                                                                                                                                 |                |
+| `selected`        |         | `boolean \| undefined`                | `false`     | Whether the node is currently selected.                                                                                                                                                              |                |
+| `selects`         |         | `'single' \| 'multiple' \| undefined` | `undefined` | If you are able to select one or more tree nodes (at the same time).                                                                                                                                 |                |
+| `type`            |         | `TreeNodeType \| undefined`           | `'node'`    | The type of tree node:&#xA;\- 'node': A regular tree node.&#xA;\- 'placeholder': A placeholder node used for loading children.&#xA;\- 'skeleton': A skeleton node used for loading individual nodes. |                |
+
+### Methods
+
+| Name     | Privacy | Description | Parameters | Return | Inherited From |
+| -------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `toggle` |         |             | `expanded` | `void` |                |
+
+### Events
+
+| Name        | Type                                   | Description                                                     | Inherited From |
+| ----------- | -------------------------------------- | --------------------------------------------------------------- | -------------- |
+| `sl-change` | `SlChangeEvent<boolean>`               | Emits when the checked state of the checkbox changes.           |                |
+| `sl-select` | `SlSelectEvent<TreeDataSourceNode<T>>` | Emits when the user clicks a the wrapper part of the tree node. |                |
+| `sl-toggle` | `SlToggleEvent<boolean>`               | Emits when the expanded state changes.                          |                |
+
+### Attributes
+
+| Name                 | Field           | Inherited From |
+| -------------------- | --------------- | -------------- |
+| `checked`            | checked         |                |
+| `disabled`           | disabled        |                |
+| `expandable`         | expandable      |                |
+| `expanded`           | expanded        |                |
+| `hide-guides`        | hideGuides      |                |
+| `indeterminate`      | indeterminate   |                |
+| `last-node-in-level` | lastNodeInLevel |                |
+| `level`              | level           |                |
+| `selected`           | selected        |                |
+| `selects`            | selects         |                |
+| `type`               | type            |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                                                                   | Package |
+| ---- | ---------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `TreeNode` | TreeNode    | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree-node.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.scss.ts |         |
+
+# `/Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.ts`:
+
+## class: `Tree`, `sl-tree`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name             | Privacy | Type                                              | Default | Description                                                                                                                                                                                                                                                                                                               | Inherited From |
+| ---------------- | ------- | ------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `dataSource`     |         |                                                   |         | The model for the tree.                                                                                                                                                                                                                                                                                                   |                |
+| `hideGuides`     |         | `boolean \| undefined`                            |         | Hides the indentation guides when set.                                                                                                                                                                                                                                                                                    |                |
+| `layoutComplete` |         |                                                   |         | Use this if you want to wait until lit-virtualizer has finished the rendering&#xA;the tree nodes. This can be useful in unit tests for example.                                                                                                                                                                           |                |
+| `renderer`       |         | `TreeItemRenderer<T> \| undefined`                |         | Custom renderer function for tree items.                                                                                                                                                                                                                                                                                  |                |
+| `scopedElements` |         | `Record<string, typeof HTMLElement> \| undefined` |         | The custom elements used for rendering this tree. If you are using a custom renderer&#xA;to render the tree nodes, any custom elements you use in the renderer need to be specified&#xA;via this property. Otherwise those custom elements will not initialize, since the tree&#xA;uses a Scoped Custom Element Registry. |                |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters                                                    | Return           | Inherited From |
+| -------------- | ------- | ----------- | ------------------------------------------------------------- | ---------------- | -------------- |
+| `renderItem`   |         |             | `item: TreeDataSourceNode<T>`                                 | `TemplateResult` |                |
+| `scrollToNode` |         |             | `node: TreeDataSourceNode<T>, options: ScrollIntoViewOptions` | `void`           |                |
+
+### Events
+
+| Name        | Type                                   | Description                              | Inherited From |
+| ----------- | -------------------------------------- | ---------------------------------------- | -------------- |
+| `sl-select` | `SlSelectEvent<TreeDataSourceNode<T>>` | Emits when the user selects a tree node. |                |
+
+### Attributes
+
+| Name          | Field      | Inherited From |
+| ------------- | ---------- | -------------- |
+| `hide-guides` | hideGuides |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name   | Declaration | Module                                                                              | Package |
+| ---- | ------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Tree` | Tree        | /Users/jeroen.zwartepoorte/Projects/components/packages/components/tree/src/tree.ts |         |

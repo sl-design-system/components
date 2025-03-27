@@ -28,24 +28,26 @@ declare global {
  */
 export class Tab extends LitElement {
   /** @internal */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Whether the tab item is disabled. */
-  @property({ reflect: true, type: Boolean }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /**
-   * When set, it will render the tab contents in a link tag. Use this when you want to render the tab contents using a router and to make the tab navigatable by URL.
+   * When set, it will render the tab contents in a link tag. Use this when you
+   * want to render the tab contents using a router and to make the tab
+   * navigable by URL.
    */
   @property() href?: string;
 
-  /** Whether the tab item is selected. */
-  @property({ reflect: true, type: Boolean }) selected?: boolean;
+  /**
+   * Indicates if this tab is selected.
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true }) selected?: boolean;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -54,32 +56,30 @@ export class Tab extends LitElement {
     this.slot ||= 'tabs';
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('selected')) {
+      this.setAttribute('aria-selected', Boolean(this.selected).toString());
+    }
+  }
+
   override render(): TemplateResult {
-    return this.href
-      ? html`<a href=${this.href}>${this.renderContent()}</a>`
-      : html`<div .tabIndex=${this.selected ? 0 : -1} class="wrapper">${this.renderContent()}</div>`;
+    return this.href && !this.disabled
+      ? html`<a href=${this.href} part="outer" role="presentation" tabindex="-1">${this.renderContent()}</a>`
+      : html`<div part="outer">${this.renderContent()}</div>`;
   }
 
   /** @ignore */
   renderContent(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onIconSlotChange} name="icon" part="icon"></slot>
-      <div class="content">
-        <span class="title">
-          <slot @slotchange=${this.#onSlotChange}></slot>
-          <slot name="badge" part="badge"></slot>
-        </span>
+      <div part="inner">
+        <slot @slotchange=${this.#onIconSlotChange} name="icon" part="icon"></slot>
+        <slot @slotchange=${this.#onSlotChange} part="title"></slot>
+        <slot name="badge" part="badge"></slot>
         <slot @slotchange=${this.#onSubtitleSlotChange} name="subtitle" part="subtitle"></slot>
       </div>
     `;
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('selected')) {
-      this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-    }
   }
 
   #onIconSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -89,26 +89,24 @@ export class Tab extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (!this.href || this.disabled) {
-      return;
-    } else if (event.key === 'Enter' || event.key === ' ') {
+    if (this.disabled) {
       event.preventDefault();
+      event.stopPropagation();
 
-      // Enter automatically triggers a click event, but space does not
-      this.renderRoot.querySelector<HTMLElement>('a[href]')?.click();
+      return;
+    } else if (this.href && ['Enter', ' '].includes(event.key)) {
+      this.renderRoot.querySelector('a')?.click();
     }
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const nodes = event.target.assignedNodes({ flatten: true }),
-      hasTitle = nodes.some(node => !!node.textContent?.trim());
+    const hasTitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());
 
     this.toggleAttribute('has-title', hasTitle);
   }
 
   #onSubtitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    const nodes = event.target.assignedNodes({ flatten: true }),
-      hasSubtitle = nodes.some(node => !!node.textContent?.trim());
+    const hasSubtitle = event.target.assignedNodes({ flatten: true }).some(node => !!node.textContent?.trim());
 
     this.toggleAttribute('has-subtitle', hasSubtitle);
   }

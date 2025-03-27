@@ -1,5 +1,6 @@
 import { msg } from '@lit/localize';
-import { type Constructor, type EventEmitter, event } from '@sl-design-system/shared';
+import { type Constructor } from '@open-wc/dedupe-mixin';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type PropertyValues, type ReactiveElement } from 'lit';
 import { property } from 'lit/decorators.js';
 
@@ -334,8 +335,15 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       return valid;
     }
 
+    /** @internal Reset the form control state */
     reset(value: unknown): void {
+      this.dirty = false;
       this.formValue = value;
+      this.report = false;
+      this.showValidity = undefined;
+      this.touched = false;
+
+      this.updateValidity();
     }
 
     /**

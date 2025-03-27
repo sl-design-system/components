@@ -31,16 +31,8 @@ Here are key considerations to make the spinner usable for all users, including 
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for an spinner provide essential information to assistive technologies and screen readers. They convey the spinner's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+{{ 'aria-attributes' | recurringText }}
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|
-|`role`| `'presentation'` | The spinner itself it not sementically relevant, so we use this to remove meaning. See [Note 1] below for more explanation.| no |
-|`aria-hidden`| `true` | The spinner itself it not sementically relevant, so we use this to hide is from assitive technology. See [Note 1] below for more explanation.| no |
-
-{.ds-table .ds-table-align-top}
-
-**Notes:** 
-1. The spinner itself doesn't have meaning for screenreaders; you can't use it to communicate that the loading is complete. Therefore we hide it for screenreaders, but you can set some properties on the container where the content is being loaded. You can for example use `aria-busy=true` on a container that is an `aria-live` region to indicate an element is being modified and that assistive technologies may want to wait until the changes are complete before informing the user about the update. 
+The spinner itself doesn't have meaning for screenreaders; you can't use it to communicate that the loading is complete. Therefore we hide it for screenreaders using `role` and `aria-hidden` attributes, but you can set some properties on the container where the content is being loaded. You can for example use `aria-busy=true` on a container that is an `aria-live` region to indicate an element is being modified and that assistive technologies may want to wait until the changes are complete before informing the user about the update. 
 Live regions (even those set to `polite`) should be used sparingly because you don't want to disturb the user too much. They should be used only in important cases where the user is waiting for feedback on an action they carried out, or when an error or warning that has an impact on the user experience occurs.
 </section>

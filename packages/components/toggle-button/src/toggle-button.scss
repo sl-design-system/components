@@ -1,134 +1,69 @@
 :host {
-  --_background: var(--sl-color-button-default-ghost-idle-background);
-  --_border-color: var(--sl-color-button-default-ghost-idle-border);
-  --_button-border-radius: var(--sl-border-radius-button-icon-only-md);
-  --_border-width: var(--sl-border-width-button-ghost);
-  --_color: var(--sl-color-button-default-ghost-idle-foreground);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_font: var(--sl-text-button-text-md);
-  --_label-gap: var(--sl-space-button-gap-md);
-  --_padding-block: var(--sl-space-button-ghost-icon-only-md);
-  --_padding-inline: var(--sl-space-button-ghost-icon-only-md);
+  --_bg-color: var(--sl-color-background-neutral-bold);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-bold);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
-  --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-md);
 
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
+  // these are overwritten in toggle group
+  --_border-width: var(--sl-size-borderWidth-none);
+  --_button-border-radius: var(--sl-size-borderRadius-default);
+  --_group-compensation-start: 0px;
+  --_group-compensation-end: 0px;
+  --_border-compensation: var(--_toggle-group-border, var(--_border-width));
+
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  border: var(--_border-width) solid var(--sl-color-border-neutral-bold);
   border-radius: var(--_button-border-radius);
-  color: var(--_color);
+  color: var(--sl-color-foreground-neutral-bold);
   cursor: pointer;
   display: inline-flex;
-  font: var(--_font);
-  outline-color: transparent;
-  transform: var(--_transform);
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
   vertical-align: middle;
 }
 
 :host(:hover) {
-  --_background: var(--sl-color-button-default-ghost-hover-background);
-  --_border-color: var(--sl-color-button-default-ghost-hover-border);
-  --_color: var(--sl-color-button-default-ghost-hover-foreground);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
 :host(:active) {
-  --_background: var(--sl-color-button-default-ghost-active-background);
-  --_border-color: var(--sl-color-button-default-ghost-active-border);
-  --_color: var(--sl-color-button-default-ghost-active-foreground);
-}
-
-:host([pressed]) {
-  --_background: var(--sl-color-button-default-ghost-selected-idle-background);
-  --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
-  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
-}
-
-:host([pressed]:hover) {
-  --_background: var(--sl-color-button-default-ghost-selected-hover-background);
-  --_border-color: var(--sl-color-button-default-ghost-selected-hover-border);
-  --_color: var(--sl-color-button-default-ghost-selected-hover-foreground);
-}
-
-:host([pressed]:active) {
-  --_background: var(--sl-color-button-default-ghost-selected-active-background);
-  --_border-color: var(--sl-color-button-default-ghost-selected-active-border);
-  --_color: var(--sl-color-button-default-ghost-selected-active-foreground);
-}
-
-:host([disabled]) {
-  --_background: var(--sl-color-button-default-ghost-disabled-background);
-  --_color: var(--sl-color-button-default-ghost-disabled-foreground);
-
-  cursor: default;
-  pointer-events: none;
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host(:focus-visible) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  outline-color: var(--sl-color-border-focused);
+}
+
+// selectors based on attributes
+
+:host([shape='pill']) {
+  --_button-border-radius: var(--sl-size-borderRadius-full);
 }
 
 :host([fill='outline']) {
-  --_border-width: var(--sl-border-width-button-outline);
-  --_background: var(--sl-color-button-default-outline-idle-background);
-  --_border-color: var(--sl-color-button-default-outline-idle-border);
-  --_color: var(--sl-color-button-default-outline-idle-foreground);
-  --_padding-block: var(--sl-space-button-outline-icon-only-md);
-  --_padding-inline: var(--sl-space-button-outline-icon-only-md);
+  --_border-width: var(--sl-size-borderWidth-action);
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
 }
 
-:host([fill='outline']:hover) {
-  --_background: var(--sl-color-button-default-outline-hover-background);
-  --_border-color: var(--sl-color-button-default-outline-hover-border);
-  --_color: var(--sl-color-button-default-outline-hover-foreground);
+:host([pressed]) {
+  --_bg-color: var(--sl-color-background-selected-subtle);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+
+  border-color: var(--sl-color-border-selected);
+  color: var(--sl-color-foreground-selected-bold);
 }
 
-:host([fill='outline']:active) {
-  --_background: var(--sl-color-button-default-outline-active-background);
-  --_border-color: var(--sl-color-button-default-outline-active-border);
-  --_color: var(--sl-color-button-default-outline-active-foreground);
-}
+:host([disabled]),
+:host([disabled][pressed]) {
+  --_bg-color: transparent;
+  --_bg-mix-color: transparent;
 
-:host([fill='outline'][pressed]) {
-  --_background: var(--sl-color-button-default-outline-selected-idle-background);
-  --_border-color: var(--sl-color-button-default-outline-selected-idle-border);
-  --_color: var(--sl-color-button-default-outline-selected-idle-foreground);
-}
-
-:host([fill='outline'][pressed]:hover) {
-  --_background: var(--sl-color-button-default-outline-selected-hover-background);
-  --_border-color: var(--sl-color-button-default-outline-selected-hover-border);
-  --_color: var(--sl-color-button-default-outline-selected-hover-foreground);
-}
-
-:host([fill='outline'][pressed]:active) {
-  --_background: var(--sl-color-button-default-outline-selected-active-background);
-  --_border-color: var(--sl-color-button-default-outline-selected-active-border);
-  --_color: var(--sl-color-button-default-outline-selected-active-foreground);
-}
-
-:host([fill='outline'][disabled]) {
-  --_background: var(--sl-color-button-default-outline-disabled-background);
-  --_border-color: var(--sl-color-button-default-outline-disabled-border);
-  --_color: var(--sl-color-button-default-outline-disabled-foreground);
-}
-
-:host([icon-only]) [part='wrapper'] {
-  aspect-ratio: 1;
-}
-
-:host([size='lg']) {
-  --_button-border-radius: var(--sl-border-radius-button-icon-only-lg);
-  --_font: var(--sl-text-button-text-lg);
-  --_padding-block: var(--sl-space-button-ghost-icon-only-lg);
-  --_padding-inline: var(--sl-space-button-ghost-icon-only-lg);
-  --sl-icon-container-size: var(--sl-size-button-icon-container-icon-only-lg);
-}
-
-:host([fill='outline'][size='lg']) {
-  --_padding-block: var(--sl-space-button-outline-icon-only-lg);
-  --_padding-inline: var(--sl-space-button-outline-icon-only-lg);
+  border-color: var(--sl-color-border-disabled);
+  color: var(--sl-color-foreground-disabled);
+  cursor: default;
+  pointer-events: none;
 }
 
 :host(:where(:active, :focus-visible, :hover)) {
@@ -144,24 +79,90 @@
 
 :host([error]),
 :host([error][pressed]) {
-  --_background: var(--sl-color-button-danger-solid-idle-background);
-  --_border-color: var(--sl-color-button-danger-solid-idle-background);
-  --_color: var(--sl-color-button-danger-solid-idle-foreground);
+  --_bg-color: var(--sl-color-background-accent-red-bold);
+  --_bg-mix-color: var(--sl-color-background-accent-red-interactive-bold);
+
+  color: var(--sl-color-foreground-selected-onBold);
 }
 
 [part='wrapper'] {
+  --_check-compensation: 0px;
+
   align-items: center;
   display: flex;
-  gap: var(--_label-gap);
+  gap: var(--sl-size-075);
   justify-content: center;
   min-block-size: 1lh;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding: calc(var(--sl-size-075) - var(--_border-compensation))
+    calc(var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(var(--sl-size-075) - var(--_border-compensation))
+    calc(
+      var(--sl-size-200) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
+    );
   transition: background var(--_transition-duration) var(--_transition-easing);
+}
+
+:host([text-only]) [part='wrapper'] {
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-md)) / 2);
+}
+
+:host([size='sm']) [part='wrapper'] {
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-xs)) / 2);
+
+  padding: calc(var(--sl-size-025) - var(--_border-compensation))
+    calc(var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(var(--sl-size-025) - var(--_border-compensation))
+    calc(
+      var(--sl-size-175) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
+    );
+}
+
+:host([text-only][size='sm']) [part='wrapper'] {
+  --_check-compensation: calc((var(--sl-size-075) + var(--sl-size-icon-xs)) / 2);
+}
+
+:host([size='lg']) [part='wrapper'] {
+  padding: calc(var(--sl-size-125) - var(--_border-compensation))
+    calc(var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(var(--sl-size-125) - var(--_border-compensation))
+    calc(
+      var(--sl-size-300) + var(--_check-compensation) - var(--_border-compensation) + var(--_group-compensation-start)
+    );
+}
+
+:host([pressed][size='sm']) [part='wrapper'],
+:host([pressed]) [part='wrapper'] {
+  --_check-compensation: 0px;
+}
+
+:host([icon-only]) [part='wrapper'] {
+  --_check-compensation: 0px;
+
+  aspect-ratio: 1;
+  line-height: var(--sl-size-new-icon-md);
+  padding: calc(var(--sl-size-125) - var(--_border-compensation))
+    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(var(--sl-size-125) - var(--_border-compensation))
+    calc(var(--sl-size-125) - var(--_border-compensation) + var(--_group-compensation-start));
+}
+
+:host([icon-only][size='sm']) [part='wrapper'] {
+  line-height: var(--sl-size-new-icon-xs);
+  padding: calc(var(--sl-size-075) - var(--_border-compensation))
+    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(var(--sl-size-075) - var(--_border-compensation))
+    calc(var(--sl-size-075) - var(--_border-compensation) + var(--_group-compensation-start));
+}
+
+:host([icon-only][size='lg']) [part='wrapper'] {
+  padding: calc(var(--sl-size-200) - var(--_border-compensation))
+    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_group-compensation-end))
+    calc(var(--sl-size-200) - var(--_border-compensation))
+    calc(var(--sl-size-200) - var(--_border-compensation) + var(--_group-compensation-start));
 }
 
 sl-icon,
 ::slotted(sl-icon) {
-  fill: var(--_color);
+  fill: currentcolor;
   pointer-events: none; // Prevent the icon from ever gaining focus inside the button
 }

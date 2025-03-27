@@ -1,8 +1,15 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
+import {
+  Button,
+  type ButtonFill,
+  type ButtonShape,
+  type ButtonSize,
+  type ButtonVariant
+} from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type PopoverPosition } from '@sl-design-system/shared';
+import { ObserveAttributesMixin } from '@sl-design-system/shared/mixins.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -26,7 +33,15 @@ declare global {
  * @slot button - Any content for the button should be slotted here.
  */
 @localized()
-export class MenuButton extends ScopedElementsMixin(LitElement) {
+export class MenuButton extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
+  'aria-disabled',
+  'aria-label'
+]) {
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-disabled', 'aria-label'];
+  }
+
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -45,28 +60,51 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** @internal The button. */
   @query('sl-button') button!: Button;
 
-  /** Whether the button is disabled; when set no interaction is possible. */
+  /**
+   * Whether the button is disabled; when set no interaction is possible.
+   * @default false
+   */
   @property({ type: Boolean }) disabled?: boolean;
 
-  /** The fill of the button. */
+  /**
+   * The fill of the button.
+   * @default 'outline'
+   */
   @property() fill: ButtonFill = 'outline';
 
   /** @internal The menu. */
   @query('sl-menu') menu!: Menu;
 
-  /** The position of the menu relative to the button. */
+  /**
+   * The position of the menu relative to the button.
+   * @default 'bottom-start'
+   */
   @property() position?: PopoverPosition;
 
-  /** The size of the button. */
-  @property() size: ButtonSize = 'md';
+  /**
+   * The shape of the button.
+   * @default 'square'
+   */
+  @property() shape?: ButtonShape;
 
-  /** The variant of the button. */
-  @property() variant: ButtonVariant = 'default';
+  /**
+   * The size of the button.
+   * @default 'md'
+   */
+  @property() size?: ButtonSize;
+
+  /**
+   * The variant of the button.
+   * @default 'secondary'
+   */
+  @property() variant?: ButtonVariant;
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    this.button.setAttribute('aria-details', this.menu.id);
+    this.setAttributesTarget(this.button);
+
+    this.button.setAttribute('aria-controls', this.menu.id);
     this.menu.anchorElement = this.button;
   }
 
@@ -82,8 +120,10 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         @keydown=${this.#onKeydown}
         ?disabled=${this.disabled}
         aria-expanded="false"
+        aria-haspopup="menu"
         fill=${ifDefined(this.fill)}
         part="button"
+        shape=${ifDefined(this.shape)}
         size=${ifDefined(this.size)}
         variant=${ifDefined(this.variant)}
       >
@@ -95,7 +135,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
-        part="listbox"
+        part="menu"
       >
         <slot></slot>
       </sl-menu>

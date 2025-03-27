@@ -1,5 +1,60 @@
 # @sl-design-system/dialog
 
+## 1.2.0
+
+### Minor Changes
+
+- [#1679](https://github.com/sl-design-system/components/pull/1679) [`aefe4ec`](https://github.com/sl-design-system/components/commit/aefe4ecebafaf538b9bf129f66216413173686fe) - Refactor styling to use contextual tokens.
+
+  This also removes the CSS custom properties for the responsive behavior. It now
+  just sets the `flex-direction` and `align-items` directly from dialog.
+
+  ```css
+  @media (width <= 600px) {
+    sl-button-bar {
+      align-items: stretch;
+      flex-direction: column-reverse;
+    }
+  }
+  ```
+
+### Patch Changes
+
+- [#1659](https://github.com/sl-design-system/components/pull/1659) [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75) - Accessibility improvement: add focus-trap to the dialog component.
+
+- [#1667](https://github.com/sl-design-system/components/pull/1667) [`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d) - Fix bug where you could still close a dialog with `disableCancel` by pressing
+  the Escape key twice. This is because when you press the Escape key, both the
+  `cancel` _and_ `close` events are fired. With this fix, we no longer rely
+  on the `cancel` event from the dialog itself, but handle the keydown event ourselves.
+- Updated dependencies [[`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0), [`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e), [`aefe4ec`](https://github.com/sl-design-system/components/commit/aefe4ecebafaf538b9bf129f66216413173686fe)]:
+  - @sl-design-system/button@1.2.0
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/icon@1.1.0
+  - @sl-design-system/button-bar@1.2.0
+
+## 1.1.0
+
+### Minor Changes
+
+- [#1576](https://github.com/sl-design-system/components/pull/1576) [`b3619c7`](https://github.com/sl-design-system/components/commit/b3619c75d92f72d1db06146c93b98a3a5f86c035) - Improve ability to `extends Dialog`
+
+  This change improves the ability to extend the Dialog component by splitting the `render()` method into smaller methods. This makes it easier to override specific parts of the Dialog component:
+
+  - `renderHeader(title: string, subtitle: string)`
+  - `renderBody()`
+  - `renderFooter()`
+  - `renderActions()`
+
+  The `renderHeader` method is slightly different. If all you want to do is add a title or subtitle to the header, you can override the method and call `return super.renderHeader('My title', 'My subtitle')`.
+
+  To be clear: the above API is only meant to be used when you are _extending_ the `Dialog` class. If you are using the `<sl-dialog>` element in your HTML, than you can still use the `header`, `body`, and `footer` slots as before.
+
+### Patch Changes
+
+- Updated dependencies [[`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/button@1.1.0
+  - @sl-design-system/shared@0.4.0
+
 ## 1.0.4
 
 ### Patch Changes

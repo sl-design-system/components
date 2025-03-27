@@ -1,5 +1,128 @@
 # @sl-design-system/grid
 
+## 0.3.2
+
+### Patch Changes
+
+- [#1842](https://github.com/sl-design-system/components/pull/1842) [`b5c43d4`](https://github.com/sl-design-system/components/commit/b5c43d44a7d0ecebd9e72cdebd3a5c6ce56d2a70) - Fixed link colours, both for the skip table link and for links in the table
+
+- Updated dependencies [[`4db6380`](https://github.com/sl-design-system/components/commit/4db63809185726e6ec40b4c15a2e927a009d472f), [`0251830`](https://github.com/sl-design-system/components/commit/025183019319ffe77e665224c2e545a4a67e8c8b), [`94ec687`](https://github.com/sl-design-system/components/commit/94ec687d8d37f12dd569c902dd777b965ae3a029), [`b37b9a2`](https://github.com/sl-design-system/components/commit/b37b9a26dd9b0b0fe2f412a08803e75168cc4f1c)]:
+  - @sl-design-system/checkbox@2.1.1
+  - @sl-design-system/select@2.0.1
+  - @sl-design-system/text-field@1.6.1
+
+## 0.3.1
+
+### Patch Changes
+
+- [#1831](https://github.com/sl-design-system/components/pull/1831) [`242c6d0`](https://github.com/sl-design-system/components/commit/242c6d0cd7cb277b1dfbe29eae8f7c9cac7f211a) - Fix transparent backgrounds due to obsolete tokens
+
+## 0.3.0
+
+### Minor Changes
+
+- [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
+
+- [#1653](https://github.com/sl-design-system/components/pull/1653) [`f15d75c`](https://github.com/sl-design-system/components/commit/f15d75c6c3765b797f0bed57c5d1f2855cab4f7e) - Improve horizontal scrolling experience:
+
+  - Add shadows to the left and right of the grid when it is scrollable
+  - Add the new `<sl-scrollbar>` when the grid is horizontally scrollable
+  - Make sure the scrollbar is always visible (sticky at the bottom of the grid)
+  - Position the scrollbar relative to the sticky columns
+  - Add ability to use sticky columns at the end of the grid
+
+- [#1664](https://github.com/sl-design-system/components/pull/1664) [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb) - Use `--sl-size-borderWidth-subtle` instead of the old "default" token
+
+- [#1607](https://github.com/sl-design-system/components/pull/1607) [`e184512`](https://github.com/sl-design-system/components/commit/e1845127a49819b7ab8d5a0a6a246576195cbe81) - Refactor styling to use the new contextual tokens
+
+- [#1794](https://github.com/sl-design-system/components/pull/1794) [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb) - Replace `<sl-select-option>` with `<sl-option>`
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refactor styling to use new contextual tokens
+
+### Patch Changes
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Refactor `getValueByPath` and related functions to properly infer type
+
+- [#1680](https://github.com/sl-design-system/components/pull/1680) [`6076acd`](https://github.com/sl-design-system/components/commit/6076acd410b435f7c9d041f296040c4f2221c0a5) - Fix timing bug where the column width was never calculated
+
+- [#1817](https://github.com/sl-design-system/components/pull/1817) [`ac0da6a`](https://github.com/sl-design-system/components/commit/ac0da6a50899a937176a1c53a4fc59eb65aa0df7) - Style fixes to align with new tokens
+
+- [#1609](https://github.com/sl-design-system/components/pull/1609) [`515e2fb`](https://github.com/sl-design-system/components/commit/515e2fbbda7ecee92392b8ddf9f98c335fe32cf6) - Added tokens for grid
+
+- [#1616](https://github.com/sl-design-system/components/pull/1616) [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960) - Improved accessibilty of the table;
+
+  - Added aria-rowindex and aria-rowcount;
+  - Improved keyboardnavigation, including skip table links
+  - Changed the way selecting works; active row by clicking on the entire row and selecting a row by checking the checkbox
+
+- [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Fix incorrect type import using absolute path
+
+- [#1695](https://github.com/sl-design-system/components/pull/1695) [`88a3ffa`](https://github.com/sl-design-system/components/commit/88a3ffa9901e3efc886ab3979662b2a8194dc924) - Fixed the positioning of the skip table links when the table was near and edge of the viewport, causing the link to render outside the viewport.
+
+- [#1788](https://github.com/sl-design-system/components/pull/1788) [`8ee707a`](https://github.com/sl-design-system/components/commit/8ee707ad3baf733ee37f5734395db6ab2369ab27) - Fix bug where a path with an empty string value renders as "No path set"
+
+- [#1676](https://github.com/sl-design-system/components/pull/1676) [`1b9463f`](https://github.com/sl-design-system/components/commit/1b9463fd91d5e3d99918868fbbd231b425a2a16d) - Fix custom sorting to make it working with `path` on the `sl-grid-sort-column`.
+
+- [#1550](https://github.com/sl-design-system/components/pull/1550) [`ac23d84`](https://github.com/sl-design-system/components/commit/ac23d848177945256fd34f94045361485a79e80d) - Changed the way selection works; there are now 2 distinct functionalities; selecting one or more rows with checkboxes, for bulk actions for example and clicking and highlighting an entire row as a way of selecting it for a detailed view for example
+
+- [#1693](https://github.com/sl-design-system/components/pull/1693) [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51) - Refactor existing data sources into list specific datasources, clearing
+  the way to add `TreeDataSource` in the `@sl-design-system/tree` package.
+
+  - The base `DataSource` class has support for sorting and filtering
+  - Grouping and pagination has been moved to the `ListDataSource` class
+  - `ArrayDataSource` and `FetchDataSource` have been renamed to `ArrayListDataSource` and `FetchListDataSource` respectively
+
+- [#1642](https://github.com/sl-design-system/components/pull/1642) [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39) - Replace `--sl-color-text-default` with `--sl-color-text-plain`
+
+- Updated dependencies [[`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9), [`1a9604e`](https://github.com/sl-design-system/components/commit/1a9604e1fc70a6382a3545dafee527d7d674179d), [`7a62e08`](https://github.com/sl-design-system/components/commit/7a62e08afbcd5768277164a8075939c3d8c17667), [`de95129`](https://github.com/sl-design-system/components/commit/de951293157d273600e9f5bd97dd25cb21ce6d69), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`ac0da6a`](https://github.com/sl-design-system/components/commit/ac0da6a50899a937176a1c53a4fc59eb65aa0df7), [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`4e80437`](https://github.com/sl-design-system/components/commit/4e804374c3a02e88b04e4c1df662967740461f7c), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`8b16a0f`](https://github.com/sl-design-system/components/commit/8b16a0fe9f7fbbbb76f92d112d94bf4c5e1d0995), [`b413dae`](https://github.com/sl-design-system/components/commit/b413dae4961f8b1a4ee8e45ab9a421af455ffc51), [`1b9463f`](https://github.com/sl-design-system/components/commit/1b9463fd91d5e3d99918868fbbd231b425a2a16d), [`a62dee4`](https://github.com/sl-design-system/components/commit/a62dee4a381450cca44c647a54d850290e5b0f11), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`f15d75c`](https://github.com/sl-design-system/components/commit/f15d75c6c3765b797f0bed57c5d1f2855cab4f7e), [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd), [`dd63dd8`](https://github.com/sl-design-system/components/commit/dd63dd88f83f81316dd133b2eb9383454dae0b2f)]:
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/text-field@1.6.0
+  - @sl-design-system/select@2.0.0
+  - @sl-design-system/checkbox@2.1.0
+  - @sl-design-system/data-source@0.1.0
+  - @sl-design-system/popover@1.2.0
+  - @sl-design-system/icon@1.1.0
+  - @sl-design-system/scrollbar@0.1.0
+
+## 0.2.0
+
+### Minor Changes
+
+- [#1575](https://github.com/sl-design-system/components/pull/1575) [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9) - Migrate `DataSource` and `ArrayDataSource` to dedicated `@sl-design-system/data-source` package.
+
+  Since these are only used in the grid component, and that component is still in draft, migrating
+  this code into its own package is not considered a breaking change.
+
+### Patch Changes
+
+- [#1567](https://github.com/sl-design-system/components/pull/1567) [`f8c6b86`](https://github.com/sl-design-system/components/commit/f8c6b8609ed138033cb76a475a9301c1a523a85a) - Add `ellipsizeText` property to grid and column
+
+  When set on either `<sl-grid>` or `<sl-grid-column>` (or any of their variants), the `ellipsizeText` property
+  will render the table data using the `<sl-ellipsize-text>` component, which truncates text with an ellipsis when it
+  overflows its container. This is useful for tables with long text that would otherwise cause row height to grow.
+  The component also automatically adds a tooltip to the truncated text so that it can still be viewed.
+
+- [#1575](https://github.com/sl-design-system/components/pull/1575) [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9) - Automatically render an `<sl-skeleton>` component in each `<td>` element
+
+  When an item to be rendered equals `FetchDataSourcePlaceholder`, the column will render a
+  skeleton component instead of the item itself. This will help users understand that the
+  data is being fetched and will be displayed soon.
+
+  You have the option to customize the skeleton component by passing custom `renderer` function
+  to the column component. See Storybook for an example.
+
+  You will automatically get this behavior if you use the `FetchDataSource` (from the
+  `@sl-design-system/data-source` package) with the grid.
+
+- Updated dependencies [[`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`f8c6b86`](https://github.com/sl-design-system/components/commit/f8c6b8609ed138033cb76a475a9301c1a523a85a)]:
+  - @sl-design-system/text-field@1.5.0
+  - @sl-design-system/shared@0.4.0
+  - @sl-design-system/data-source@0.0.1
+  - @sl-design-system/checkbox@2.0.1
+  - @sl-design-system/ellipsize-text@0.0.1
+  - @sl-design-system/popover@1.1.1
+  - @sl-design-system/select@1.1.2
+
 ## 0.1.15
 
 ### Patch Changes

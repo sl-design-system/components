@@ -49,8 +49,17 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
   ```
 
 </div>
-</section>  
+</section>
 <ds-install-info link-in-navigation package="dialog"></ds-install-info>
+
+<section>
+
+## Responsive behavior
+
+The button-bar component in the footer will automatically stack the buttons vertically when the viewport is smaller than 600px. This behavior is enabled by default.
+
+</section>
+
 <section>
 
 ## Migrating to SLDS Dialog

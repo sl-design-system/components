@@ -1,5 +1,69 @@
 # @sl-design-system/select
 
+## 2.0.1
+
+### Patch Changes
+
+- [#1857](https://github.com/sl-design-system/components/pull/1857) [`0251830`](https://github.com/sl-design-system/components/commit/025183019319ffe77e665224c2e545a4a67e8c8b) - Bug fixes:
+  1. Fix the `focusout` event handler too eagerly closing the dropdown
+  2. Fix `<sl-option>`s that were added after the initial rendering of the component not being accessible via keyboard navigation
+
+## 2.0.0
+
+### Major Changes
+
+- [#1794](https://github.com/sl-design-system/components/pull/1794) [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb) - BREAKING: Remove `<sl-select-option>` and `<sl-select-option-group>` and use `<sl-option>` and `<sl-option-group>` from the `@sl-design-system/listbox` package instead.
+
+  This change was made to align the select component with the listbox component. The listbox component is a more flexible and powerful component that can be used to create a variety of custom select-like components.
+
+  To update your code, replace all instances of `<sl-select-option>` with `<sl-option>` and `<sl-select-option-group>` with `<sl-option-group>`. If you used `<sl-select-option-group>`, please make sure to rename the `heading` property to `label` since that is different in `<sl-option-group>`.
+
+  Make sure you have those custom elements loaded. If not, you can import them from the `@sl-design-system/listbox` package.
+
+  Various improvements:
+
+  - Add `clearable` property for clearing the selection
+  - Hide the listbox popover when focus leaves the `<sl-select>` component
+  - Show the listbox popover immediately; only animate it when closing
+  - Focus the actual options in the listbox and don't use `aria-activedescendant`
+
+### Minor Changes
+
+- [#1805](https://github.com/sl-design-system/components/pull/1805) [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb) - Increase the padding for `md` from `32px` to `36px` and for `lg` from `40px` to `48px`.
+
+- [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
+
+- [#1713](https://github.com/sl-design-system/components/pull/1713) [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e) - Refactor styling to use new contextual tokens
+
+### Patch Changes
+
+- [#1711](https://github.com/sl-design-system/components/pull/1711) [`b413dae`](https://github.com/sl-design-system/components/commit/b413dae4961f8b1a4ee8e45ab9a421af455ffc51) - Fix NVDA accessibility issues (moving aria attributes to the `sl-select-button` and adding missing aria attributes).
+
+- [#1709](https://github.com/sl-design-system/components/pull/1709) [`a62dee4`](https://github.com/sl-design-system/components/commit/a62dee4a381450cca44c647a54d850290e5b0f11) - Prepend light DOM elements to the host, instead of `append()`
+
+  The fixes any possible issues where the element is added to the light DOM and Lit itself
+  get's confused and thinks the element is rendered by Lit. This can cause Lit to later
+  in the lifecycle remove the element from the light DOM, which is not what we want.
+
+  By prepending the element to the host, we ensure that the element is not in any scope of Lit.
+  This scope is visible in the DOM as HTML comments.
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Fix `ShadowRoot.createElement` type definition to properly match `document.createElement`
+
+- Updated dependencies [[`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`7e8a441`](https://github.com/sl-design-system/components/commit/7e8a441b053715b896bb7ef775d4a24a93a5a9dd), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9), [`e68df34`](https://github.com/sl-design-system/components/commit/e68df344917a8d0bdc6a4c92f59079a247c6e7a9), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`a62dee4`](https://github.com/sl-design-system/components/commit/a62dee4a381450cca44c647a54d850290e5b0f11), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`99482e3`](https://github.com/sl-design-system/components/commit/99482e31dfee77fb99bf74a4fe325c3ccc08f6e6), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb), [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e)]:
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/form@1.2.0
+  - @sl-design-system/listbox@0.1.0
+  - @sl-design-system/icon@1.1.0
+
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+  - @sl-design-system/form@1.1.0
+
 ## 1.1.1
 
 ### Patch Changes

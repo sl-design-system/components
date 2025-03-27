@@ -1,0 +1,94 @@
+:host {
+  display: inline-flex;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td,
+th {
+  padding: var(--sl-size-025);
+}
+
+button {
+  appearance: none;
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-plain);
+  cursor: pointer;
+  font: inherit;
+  outline: transparent solid var(--sl-size-outlineWidth-default);
+  outline-offset: var(--sl-size-outlineOffset-default);
+  padding: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 0.2s ease-in-out;
+    transition-property: background, border-radius, color;
+  }
+
+  &:hover {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+  }
+
+  &:active {
+    --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+  }
+
+  &:focus-visible {
+    outline-color: var(--sl-color-border-focused);
+  }
+}
+
+[part~='day'] {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-info-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
+
+  align-items: center;
+  aspect-ratio: 1;
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  display: inline-flex;
+  inline-size: var(--sl-size-400);
+  justify-content: center;
+}
+
+[part~='previous-month'],
+[part~='next-month'],
+[part~='unselectable'] {
+  color: var(--sl-color-foreground-disabled);
+}
+
+[part~='highlight'] {
+  --_bg-color: var(--sl-color-background-info-subtle);
+
+  border-radius: 50%;
+  color: var(--sl-color-foreground-info-plain);
+}
+
+[part~='today'] {
+  border: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-neutral-plain);
+  border-radius: var(--sl-size-borderRadius-full);
+}
+
+[part~='selected'] {
+  --_bg-color: var(--sl-color-background-selected-bold);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-bold);
+
+  border-radius: var(--sl-size-borderRadius-default);
+  color: var(--sl-color-foreground-selected-onBold);
+}
+
+[part~='week-day'],
+[part~='week-number'] {
+  color: var(--sl-color-foreground-subtlest);
+  font-weight: normal;
+}
+
+[part~='week-number'] {
+  border-inline-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+  inline-size: calc(var(--sl-size-400) - var(--sl-size-010));
+  text-align: center;
+}

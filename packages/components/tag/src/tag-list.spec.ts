@@ -21,18 +21,22 @@ describe('sl-tag', () => {
       expect(el).to.have.attribute('role', 'list');
     });
 
-    it('should not have emphasis', () => {
-      expect(el).not.to.have.attribute('emphasis');
-      expect(el.size).to.be.undefined;
+    it('should not be disabled', () => {
+      expect(el.disabled).not.to.be.true;
     });
 
-    it('should propagate the emphasis to the tags', async () => {
-      el.emphasis = 'bold';
+    it('should not have an explicit variant', () => {
+      expect(el).not.to.have.attribute('variant');
+      expect(el.variant).to.be.undefined;
+    });
+
+    it('should propagate the variant to the tags', async () => {
+      el.variant = 'info';
       await el.updateComplete;
 
-      const emphasis = Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.emphasis);
+      const variant = Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.variant);
 
-      expect(emphasis).to.deep.equal(['bold', 'bold', 'bold']);
+      expect(variant).to.deep.equal(['info', 'info', 'info']);
     });
 
     it('should not have size', () => {
@@ -78,12 +82,21 @@ describe('sl-tag', () => {
       expect(el.renderRoot.querySelector('.stack')).to.exist;
     });
 
+    it('should disable the stack tag when the list is disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      const tag = el.renderRoot.querySelector('sl-tag');
+
+      expect(tag).to.have.attribute('disabled');
+    });
+
     it('should have a tooltip for the stack', () => {
       const tag = el.renderRoot.querySelector('sl-tag'),
         tooltip = el.renderRoot.querySelector('sl-tooltip');
 
       expect(tooltip).to.exist;
-      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-describedby'));
+      expect(tooltip?.id).to.equal(tag?.getAttribute('aria-labelledby'));
 
       const tagContent = tooltip!.textContent?.trim();
 
@@ -97,25 +110,28 @@ describe('sl-tag', () => {
       const tag = el.renderRoot.querySelector('sl-tag');
 
       expect(tag).to.exist;
-      expect(tag).to.have.trimmed.text('7');
+      expect(tag).to.have.trimmed.text('+7');
     });
 
     it('should not have a stack when there is enough space', async () => {
+      // Give the `#breakResizeObserverLoop` time to do its thing
+      await new Promise(resolve => setTimeout(resolve, 201));
+
       el.style.inlineSize = '2000px';
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.renderRoot.querySelector('.stack')).not.to.exist;
+      expect(el.renderRoot.querySelector('.stack')).to.not.be.displayed;
     });
 
     it('should update the stack size when a tag is removed', async () => {
       const tag = el.renderRoot.querySelector('sl-tag');
 
-      expect(tag).to.have.trimmed.text('7');
+      expect(tag).to.have.trimmed.text('+7');
 
       el.querySelector('sl-tag:last-child')?.remove();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(tag).to.have.trimmed.text('6');
+      expect(tag).to.have.trimmed.text('+6');
     });
   });
 });

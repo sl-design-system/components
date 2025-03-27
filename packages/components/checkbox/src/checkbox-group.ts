@@ -21,7 +21,8 @@ const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], a
  * @slot default - A list of `sl-checkbox` elements.
  */
 @localized()
-export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class CheckboxGroup<T = any> extends FormControlMixin(LitElement) {
   /** @internal */
   static formAssociated = true;
 
@@ -45,6 +46,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
+    direction: 'vertical',
     focusInIndex: (elements: Checkbox[]) => elements.findIndex(el => !el.disabled),
     elements: () => this.boxes || [],
     isFocusableElement: (el: Checkbox) => !el.disabled
@@ -135,10 +137,14 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     if (changes.has('value')) {
       this.#observer.disconnect();
       this.boxes?.forEach((box, index) => {
-        if (box.value !== undefined) {
+        if (box.value != null) {
           box.checked = this.value?.includes(box.value) ?? false;
         } else {
-          box.formValue = this.value?.at(index) ?? null;
+          const newValue = this.value?.at(index) ?? null;
+          // to prevent unnecessary updates
+          if (box.formValue !== newValue) {
+            box.formValue = newValue;
+          }
         }
       });
       this.#observer.observe(this, OBSERVER_OPTIONS);

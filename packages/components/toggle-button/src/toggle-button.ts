@@ -1,4 +1,5 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { ButtonShape } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -13,8 +14,8 @@ declare global {
   }
 }
 
-export type ToggleButtonFill = 'ghost' | 'outline';
-export type ToggleButtonSize = 'md' | 'lg';
+export type ToggleButtonFill = 'outline' | 'solid';
+export type ToggleButtonSize = 'sm' | 'md' | 'lg';
 
 /**
  * Lets the user toggle between two states.
@@ -77,6 +78,9 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
   /** The size of the button. */
   @property({ reflect: true }) size?: ToggleButtonSize;
 
+  /** The shape of the button. */
+  @property({ reflect: true }) shape?: ButtonShape;
+
   /** @internal Emits when the button has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
@@ -131,12 +135,12 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('defaultIcon') || changes.has('hasText') || changes.has('pressedIcon')) {
       this.toggleAttribute('icon-only', !this.hasText && !!this.defaultIcon && !!this.pressedIcon);
-      this.toggleAttribute('text-only', this.hasText && !this.defaultIcon && !this.pressedIcon);
+      this.toggleAttribute('text-only', !!this.hasText && !this.defaultIcon && !this.pressedIcon);
     }
 
     if (changes.has('defaultIcon') || changes.has('pressedIcon')) {
       [this.defaultIcon, this.pressedIcon].filter(Boolean).forEach(icon => {
-        icon!.size = 'md';
+        icon!.size = this.size === 'sm' ? 'xs' : 'md';
       });
     }
 
@@ -173,7 +177,7 @@ export class ToggleButton extends ScopedElementsMixin(LitElement) {
       <div part="wrapper">
         <slot @slotchange=${this.#onIconSlotChange} name="default"></slot>
         <slot @slotchange=${this.#onIconSlotChange} name="pressed">
-          <sl-icon name="check-solid" size="md"></sl-icon>
+          <sl-icon name="check-solid" size=${this.size === 'sm' ? 'xs' : 'md'}></sl-icon>
         </slot>
         <slot @slotchange=${this.#onSlotChange}></slot>
       </div>

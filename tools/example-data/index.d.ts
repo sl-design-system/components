@@ -11,6 +11,7 @@ export type Person = {
 export interface People {
   hierarchyLevelSize: number;
   people: Person[];
+  total: number;
 }
 
 export interface Options {

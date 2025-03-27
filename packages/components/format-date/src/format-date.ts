@@ -1,7 +1,7 @@
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { format } from './format';
+import { format } from './format.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,7 +11,6 @@ declare global {
 
 /**
  * A format date component for formatting date and time.
- *
  *
  * @slot default - A place for the fallback when there is no valid date/time applied.
  */
@@ -32,6 +31,7 @@ export class FormatDate extends LocaleMixin(LitElement) {
    */
   static timeStyle: Intl.DateTimeFormatOptions['timeStyle'] = 'medium';
 
+  /** The date object. */
   #date?: Date;
 
   /**

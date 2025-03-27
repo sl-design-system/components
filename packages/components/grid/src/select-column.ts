@@ -1,5 +1,6 @@
-import { Select, SelectOption } from '@sl-design-system/select';
-import { getValueByPath, setValueByPath } from '@sl-design-system/shared';
+import { Option } from '@sl-design-system/listbox';
+import { Select } from '@sl-design-system/select';
+import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -14,25 +15,26 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectColumn<T = any> extends GridColumn<T> {
   /** The options for the select. */
-  @property({ type: Array }) options?: Array<{ label: string; value: unknown }> | string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @property({ type: Array }) options?: Array<{ label: string; value: any }> | string[];
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.scopedElements = { ...this.scopedElements, 'sl-select': Select, 'sl-select-option': SelectOption };
+    this.scopedElements = { ...this.scopedElements, 'sl-select': Select, 'sl-option': Option };
   }
 
   override renderData(item: T): TemplateResult {
     return html`
-      <td part="data select">
+      <td part="data select delegate-focus">
         <sl-select
           @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item)}
-          .value=${getValueByPath(item, this.path)}
+          .value=${getValueByPath(item, this.path!)}
         >
           ${this.options?.map(option =>
             typeof option === 'string'
-              ? html`<sl-select-option .value=${option}>${option}</sl-select-option>`
-              : html`<sl-select-option .value=${option.value}>${option.label}</sl-select-option>`
+              ? html`<sl-option .value=${option}>${option}</sl-option>`
+              : html`<sl-option .value=${option.value}>${option.label}</sl-option>`
           )}
         </sl-select>
       </td>
@@ -40,6 +42,6 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
   }
 
   #onChange(event: SlChangeEvent, item: T): void {
-    setValueByPath(item, this.path, event.detail);
+    setValueByPath(item, this.path!, event.detail as Path<T, PathKeys<T>>);
   }
 }

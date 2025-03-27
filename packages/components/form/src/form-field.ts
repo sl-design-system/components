@@ -19,7 +19,10 @@ declare global {
 
   interface ShadowRoot {
     // Workaround for missing type in @open-wc/scoped-elements
-    createElement(tagName: string): HTMLElement;
+    createElement<K extends keyof HTMLElementTagNameMap>(
+      tagName: K,
+      options?: ElementCreationOptions
+    ): HTMLElementTagNameMap[K];
   }
 }
 
@@ -116,12 +119,17 @@ export class FormField extends ScopedElementsMixin(LitElement) {
           this.#error.innerText = this.error;
 
           if (!this.#error.parentElement) {
-            this.append(this.#error);
+            this.prepend(this.#error);
           }
         } else {
+          const describedby = this.control?.formControlElement.getAttribute('aria-describedby');
+          if (describedby) {
+            const ids = describedby.split(' ').filter(id => id !== this.#error!.id);
+            this.control?.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+          }
+
           this.#error?.remove();
           this.#error = undefined;
-          this.control?.formControlElement.removeAttribute('aria-describedby');
         }
       }
     }
@@ -132,12 +140,17 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.#hint.innerText = this.hint;
 
         if (!this.#hint.parentElement) {
-          this.append(this.#hint);
+          this.prepend(this.#hint);
         }
       } else {
+        const describedby = this.control?.formControlElement.getAttribute('aria-describedby');
+        if (describedby) {
+          const ids = describedby.split(' ').filter(id => id !== this.#hint!.id);
+          this.control?.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+        }
+
         this.#hint?.remove();
         this.#hint = undefined;
-        this.control?.formControlElement.removeAttribute('aria-describedby');
       }
     }
 
@@ -182,7 +195,16 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
 
       if (this.control) {
-        this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);
+        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
+        if (describedby) {
+          const ids = describedby.split(' ');
+          if (!ids.includes(this.#error.id)) {
+            ids.push(this.#error.id);
+            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+          }
+        } else {
+          this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);
+        }
       }
     } else {
       this.#label = undefined;
@@ -201,7 +223,16 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       this.#hint.id ||= `sl-form-field-hint-${nextUniqueId++}`;
 
       if (this.control) {
-        this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
+        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
+        if (describedby) {
+          const ids = describedby.split(' ');
+          if (!ids.includes(this.#hint.id)) {
+            ids.push(this.#hint.id);
+            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+          }
+        } else {
+          this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
+        }
       }
     } else {
       this.#label = undefined;
@@ -247,7 +278,16 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       }
 
       if (this.#hint) {
-        this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
+        const describedby = this.control.formControlElement.getAttribute('aria-describedby');
+        if (describedby) {
+          const ids = describedby.split(' ');
+          if (!ids.includes(this.#hint.id)) {
+            ids.push(this.#hint.id);
+            this.control.formControlElement.setAttribute('aria-describedby', ids.join(' '));
+          }
+        } else {
+          this.control.formControlElement.setAttribute('aria-describedby', this.#hint.id);
+        }
       }
 
       if (this.#label) {

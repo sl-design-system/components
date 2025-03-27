@@ -12,8 +12,8 @@ type Props = Pick<
   Avatar,
   'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'size' | 'vertical'
 > & {
-  badge?: TemplateResult;
-  fallback?: TemplateResult;
+  badge?(): TemplateResult;
+  fallback?(): TemplateResult;
   maxWidth?: string;
   subheading?: string;
   tabIndex?: number;
@@ -81,7 +81,7 @@ export default {
         style=${ifDefined(maxWidth ? `max-width: ${maxWidth}` : undefined)}
         tabindex=${ifDefined(tabIndex)}
       >
-        ${subheading} ${badge ?? nothing} ${fallback ?? nothing}
+        ${subheading} ${badge?.() ?? nothing} ${fallback?.() ?? nothing}
       </sl-avatar>
     `;
   }
@@ -91,9 +91,9 @@ export const Basic: Story = {};
 
 export const Badge: Story = {
   args: {
-    badge: html`<sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning" size="lg"
-      >1</sl-badge
-    >`,
+    badge: () => html`
+      <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning" size="lg"> 1 </sl-badge>
+    `,
     size: 'xl'
   }
 };
@@ -101,7 +101,7 @@ export const Badge: Story = {
 export const FallbackContent: Story = {
   args: {
     displayName: 'Bluebell Secondary School',
-    fallback: html`<sl-icon name="far-school" slot="fallback"></sl-icon>`,
+    fallback: () => html`<sl-icon name="far-school" slot="fallback"></sl-icon>`,
     pictureUrl: undefined,
     size: 'xl',
     subheading: '1432 students'

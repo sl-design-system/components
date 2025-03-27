@@ -1,4 +1,9 @@
 import { Avatar } from '@sl-design-system/avatar';
+import {
+  FetchListDataSource,
+  FetchListDataSourceError,
+  FetchListDataSourcePlaceholder
+} from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -16,11 +21,11 @@ export default {
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
-  }
+  },
+  loaders: [async () => ({ people: (await getPeople()).people })]
 };
 
 export const Simple: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
@@ -46,7 +51,6 @@ export const Few: Story = {
 };
 
 export const Small: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} style="width: 300px">
       <sl-grid-column path="firstName"></sl-grid-column>
@@ -56,7 +60,6 @@ export const Small: Story = {
 };
 
 export const ColumnGroups: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <sl-grid .items=${people} striped>
       <sl-grid-column-group header="Name">
@@ -76,8 +79,78 @@ export const ColumnGroups: Story = {
   `
 };
 
+export const EllipsizeTextAllColumns: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} style="max-inline-size: 500px" ellipsize-text column-divider>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="address.street"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+      <sl-grid-column path="membership"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const EllipsizeTextSingleColumn: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} style="max-inline-size: 800px" column-divider>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="address.street" ellipsize-text></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+      <sl-grid-column path="membership"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const SkipLinks: Story = {
+  render: (_, { loaded: { people } }) => {
+    const linkRenderer: GridColumnDataRenderer<Person> = ({ email }) => {
+      return html`<a href="mailto:${email}">${email}</a>`;
+    };
+
+    const menuButtonRenderer: GridColumnDataRenderer<Person> = person => {
+      const onClick = () => {
+        console.log('Menu item for person clicked', person);
+      };
+
+      return html`
+        <sl-menu-button fill="ghost">
+          <sl-icon slot="button" name="ellipsis"></sl-icon>
+          <sl-menu-item @click=${onClick}>Do something with this person</sl-menu-item>
+          <sl-menu-item @click=${onClick}>Something else</sl-menu-item>
+          <hr />
+          <sl-menu-item @click=${onClick}>Delete person</sl-menu-item>
+        </sl-menu-button>
+      `;
+    };
+    return html`
+      <h1>Some data for your information:</h1>
+      <sl-grid .items=${people} column-divider>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email" .renderer=${linkRenderer}></sl-grid-column>
+        <sl-grid-column path="address.city"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+        <sl-grid-column
+          header=""
+          .renderer=${menuButtonRenderer}
+          grow="0"
+          width="64"
+          .scopedElements=${{
+            'sl-icon': Icon,
+            'sl-menu-button': MenuButton,
+            'sl-menu-item': MenuItem
+          }}
+        ></sl-grid-column>
+      </sl-grid>
+      <p>A paragraph that follows the table, with a <a href="#">link</a> in it.</p>
+    `;
+  }
+};
+
 export const CustomRenderers: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
       return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
@@ -121,7 +194,6 @@ export const CustomRenderers: Story = {
 };
 
 export const CustomHeader: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
     <style>
       sl-grid::part(first-name),
@@ -172,4 +244,111 @@ export const CustomHeader: Story = {
       </sl-grid-column>
     </sl-grid>
   `
+};
+
+export const LazyLoad: Story = {
+  render: () => {
+    interface Quote {
+      id: string;
+      quote: string;
+      author: string;
+    }
+
+    interface QuotesResponse {
+      quotes: Quote[];
+      total: number;
+      skip: number;
+      limit: number;
+    }
+
+    const dataSource = new FetchListDataSource<Quote>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const response = await fetch(`https://dummyjson.com/quotes?skip=${page * pageSize}&limit=${pageSize}`);
+
+        if (response.ok) {
+          const { quotes, total } = (await response.json()) as QuotesResponse;
+
+          return { items: quotes, totalItems: total };
+        } else {
+          throw new FetchListDataSourceError('Failed to fetch data', response);
+        }
+      }
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
+        <sl-grid-column path="quote" grow="3"></sl-grid-column>
+        <sl-grid-column path="author"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const Skeleton: Story = {
+  render: () => {
+    const dataSource = new FetchListDataSource<Person>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+
+        // Simulate a slow response
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        return { items: people, totalItems: total };
+      },
+      size: Math.floor(window.innerHeight / 30)
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="id"></sl-grid-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const CustomSkeleton: Story = {
+  render: () => {
+    const avatarRenderer: GridColumnDataRenderer<Person> = item => {
+      if (typeof item === 'symbol' && item === FetchListDataSourcePlaceholder) {
+        return html`
+          <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
+            <sl-skeleton
+              style="aspect-ratio: 1; block-size: var(--sl-size-300); inline-size: auto"
+              variant="circle"
+            ></sl-skeleton>
+            <sl-skeleton style="block-size: 18px; inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>
+          </div>
+        `;
+      } else {
+        const { firstName, lastName } = item;
+
+        return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
+      }
+    };
+
+    const dataSource = new FetchListDataSource<Person>({
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+
+        // Simulate a slow response
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        return { items: people, totalItems: total };
+      },
+      size: Math.floor(window.innerHeight / 30)
+    });
+
+    return html`
+      <sl-grid .dataSource=${dataSource} .scopedElements=${{ 'sl-avatar': Avatar }}>
+        <sl-grid-column grow="0" path="id" width="50"></sl-grid-column>
+        <sl-grid-column header="Student" .renderer=${avatarRenderer}></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };

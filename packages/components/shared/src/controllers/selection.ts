@@ -20,6 +20,9 @@ export class SelectionController<T = any> {
    */
   #selection = new Set<T>();
 
+  /** The active item. There can only be one active item at a time.*/
+  #active?: T | null;
+
   /** The total number of items in the selection. */
   size = 0;
 
@@ -33,6 +36,15 @@ export class SelectionController<T = any> {
   constructor(host: ReactiveControllerHost & Element, options?: Partial<SelectionControllerOptions>) {
     this.#host = host;
     this.multiple = !!options?.multiple;
+  }
+
+  toggleActive(item: T | undefined): T | undefined {
+    if (this.#active === item) {
+      this.#active = undefined;
+    } else {
+      this.#active = item;
+    }
+    return this.#active;
   }
 
   select(item: T): void {
@@ -103,6 +115,10 @@ export class SelectionController<T = any> {
     } else {
       return this.#selection.has(item);
     }
+  }
+
+  isActive(item: T): boolean {
+    return this.#active === item;
   }
 
   isSelectAllToggled(): boolean {

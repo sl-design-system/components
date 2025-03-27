@@ -1,61 +1,74 @@
-import { faPinata } from '@fortawesome/pro-regular-svg-icons';
-import '@sl-design-system/button-bar/register.js';
+import { faPlus, faUniversalAccess } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Button, type ButtonFill, type ButtonSize, type ButtonVariant } from './button.js';
+import { type Button } from './button.js';
 
-interface Props extends Pick<Button, 'disabled' | 'fill' | 'size' | 'variant'> {
+interface Props extends Pick<Button, 'disabled' | 'fill' | 'shape' | 'size' | 'variant'> {
   icon: string;
   text: string;
 }
-
 type Story = StoryObj<Props>;
 
-const fills: ButtonFill[] = ['solid', 'outline', 'link', 'ghost'];
-const variants: ButtonVariant[] = ['default', 'primary', 'success', 'info', 'warning', 'danger'];
-const disabledStates = [false, true];
-const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
-
-Icon.register(faPinata);
+Icon.register(faPlus, faUniversalAccess);
 
 export default {
   title: 'Actions/Button',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-button:not([disabled])'
+          }
+        ]
+      }
+    }
+  },
   args: {
-    text: 'Button',
+    disabled: false,
     icon: 'none',
-    size: 'md',
-    fill: 'solid',
-    variant: 'default',
-    disabled: false
+    text: 'Button'
   },
   argTypes: {
-    size: {
+    fill: {
       control: 'inline-radio',
-      options: sizes
+      options: ['solid', 'outline', 'link', 'ghost']
     },
     icon: {
       control: 'inline-radio',
       options: ['start', 'end', 'none']
     },
-    fill: {
+    shape: {
       control: 'inline-radio',
-      options: fills
+      options: ['square', 'pill']
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg']
     },
     variant: {
       control: 'radio',
-      options: variants
+      options: ['primary', 'secondary', 'success', 'info', 'warning', 'danger', 'inverted']
     }
   },
-  render: ({ fill, size, text, variant, icon, disabled }) => {
+  render: ({ disabled, fill, icon, shape, size, text, variant }) => {
     const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
     const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
 
     return html`
-      <sl-button .fill=${fill} .size=${size} .variant=${variant} ?disabled=${disabled}>
+      <sl-button
+        ?disabled=${disabled}
+        fill=${ifDefined(fill)}
+        shape=${ifDefined(shape)}
+        size=${ifDefined(size)}
+        variant=${ifDefined(variant)}
+      >
         ${startIcon}${text}${endIcon}
       </sl-button>
     `;
@@ -64,171 +77,272 @@ export default {
 
 export const Basic: Story = {};
 
-export const All: Story = {
-  render: () => {
-    return html` <style>
-        sl-button-bar {
-          margin-block-end: 8px;
-        }
-        table {
-          border-collapse: collapse;
-        }
-
-        th {
-          text-transform: capitalize;
-        }
-        th,
-        td {
-          padding: 4px 8px;
-        }
-        thead td {
-          text-align: center;
-        }
-
-        tbody td:nth-of-type(6n) {
-          border-right: 2px solid #dedede;
-          padding-right: 24px;
-        }
-        tbody td:nth-of-type(6n + 1):not(:first-of-type) {
-          padding-left: 24px;
-        }
-        tbody td:last-of-type {
-          border: none;
-        }
-      </style>
-      <h2>sizes:</h2>
-      ${sizes.map(
-        size => html`
-          <sl-button-bar>
-            <sl-button fill="solid" .size=${size} variant="primary"><sl-icon name="face-smile"></sl-icon></sl-button>
-            <sl-button fill="solid" .size=${size} variant="primary"
-              ><sl-icon name="face-smile"></sl-icon> Icon ${size}</sl-button
-            >
-            <sl-button fill="solid" .size=${size} variant="primary"
-              >Icon ${size}<sl-icon name="face-smile"></sl-icon
-            ></sl-button>
-            <sl-button fill="solid" .size=${size} variant="primary">${size}</sl-button>
-          </sl-button-bar>
-        `
-      )}
-      <h2>Variants:</h2>
-      <table>
-        <thead>
-          <tr>
-            <td></td>
-            ${fills.map(fill => html`<th colspan="6">${fill}</th>`)}
-          </tr>
-          <tr>
-            <td></td>
-            ${fills.map(() =>
-              disabledStates.map(
-                disabledState => html`
-                  <td colspan="3" class=${disabledState ? 'sb-disabled' : ''}>
-                    ${disabledState ? 'Disabled' : 'Enabled'}
-                  </td>
-                `
-              )
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          ${variants.map(
-            variant => html`
-              <tr>
-                <th>${variant}</th>
-                ${fills.map(fill =>
-                  disabledStates.map(
-                    disabledState =>
-                      html` <td class=${disabledState ? 'sb-disabled' : ''}>
-                          <sl-button
-                            .fill=${fill}
-                            size="md"
-                            ?disabled=${disabledState}
-                            .variant=${variant}
-                            data-mock-state
-                            >Label
-                          </sl-button>
-                        </td>
-                        <td class=${disabledState ? 'sb-disabled' : ''}>
-                          <sl-button
-                            .fill=${fill}
-                            size="md"
-                            ?disabled=${disabledState}
-                            .variant=${variant}
-                            data-mock-state
-                          >
-                            <sl-icon name="face-smile"></sl-icon> Label
-                          </sl-button>
-                        </td>
-                        <td class=${disabledState ? 'sb-disabled' : ''}>
-                          <sl-button
-                            .fill=${fill}
-                            size="md"
-                            ?disabled=${disabledState}
-                            .variant=${variant}
-                            data-mock-state
-                          >
-                            <sl-icon name="face-smile"></sl-icon>
-                          </sl-button>
-                        </td>`
-                  )
-                )}
-              </tr>
-            `
-          )}
-        </tbody>
-      </table>`;
+export const Disabled: Story = {
+  args: {
+    disabled: true
   }
 };
 
-export const Sizes: Story = {
-  argTypes: {
-    size: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: ({ fill, variant }) => html`
-    <style>
-      .grid {
-        display: inline-grid;
-        gap: 1rem;
-        grid-template-columns: repeat(4, max-content);
-        justify-items: start;
-      }
-    </style>
-    <div class="grid">
-      ${sizes.map(
-        size => html`
-          <sl-button .fill=${fill} .size=${size} .variant=${variant}><sl-icon name="face-smile"></sl-icon></sl-button>
-          <sl-button .fill=${fill} .size=${size} .variant=${variant}
-            ><sl-icon name="face-smile"></sl-icon> Icon ${size}</sl-button
-          >
-          <sl-button .fill=${fill} .size=${size} .variant=${variant}
-            >Icon ${size}<sl-icon name="face-smile"></sl-icon
-          ></sl-button>
-          <sl-button .fill=${fill} .size=${size} .variant=${variant}>${size}</sl-button>
-        `
-      )}
-    </div>
-  `
+export const Pill: Story = {
+  args: {
+    shape: 'pill'
+  }
 };
 
-export const AlignmentIssues: Story = {
-  argTypes: {
-    size: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: ({ fill, variant }) => {
+export const All: Story = {
+  render: () => {
     return html`
-      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button>
-      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button><br />
-      <span>Some random text</span>
-      <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button>
+      <style>
+        .sizes {
+          align-items: center;
+          align-self: start;
+          display: inline-grid;
+          gap: 1rem 2rem;
+          grid-template-columns: auto 1fr 1fr 1fr 1fr;
+          justify-items: center;
+          margin-block-end: 2rem;
+          position: relative;
+        }
+        .variants {
+          align-items: center;
+          align-self: start;
+          display: inline-grid;
+          gap: 1rem 2rem;
+          grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+          justify-items: center;
+          position: relative;
+
+          > span:nth-of-type(8) {
+            color: var(--sl-color-foreground-inverted-bold);
+          }
+        }
+        .inverted-background {
+          background: var(--sl-color-palette-grey-900);
+          grid-column: 8 / 9;
+          grid-row: 1 / 6;
+          inset: -1rem;
+          position: absolute;
+          z-index: -1;
+        }
+      </style>
+      <section class="sizes">
+        <span></span>
+        <span>Square text</span>
+        <span>Square icon</span>
+        <span>Pill text</span>
+        <span>Pill icon</span>
+
+        <span>Small</span>
+        <sl-button fill="outline" size="sm">Button</sl-button>
+        <sl-button aria-label="Add" fill="outline" size="sm">
+          <sl-icon name="far-plus"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" shape="pill" size="sm">Button</sl-button>
+        <sl-button aria-label="Add" fill="outline" shape="pill" size="sm">
+          <sl-icon name="far-plus"></sl-icon>
+        </sl-button>
+
+        <span>Medium</span>
+        <sl-button fill="outline">Button</sl-button>
+        <sl-button aria-label="Add" fill="outline">
+          <sl-icon name="far-plus"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" shape="pill">Button</sl-button>
+        <sl-button aria-label="Add" fill="outline" shape="pill">
+          <sl-icon name="far-plus"></sl-icon>
+        </sl-button>
+
+        <span>Large</span>
+        <sl-button fill="outline" size="lg">Button</sl-button>
+        <sl-button aria-label="Add" fill="outline" size="lg">
+          <sl-icon name="far-plus"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" shape="pill" size="lg">Button</sl-button>
+        <sl-button aria-label="Add" fill="outline" shape="pill" size="lg">
+          <sl-icon name="far-plus"></sl-icon>
+        </sl-button>
+      </section>
+      <section class="variants">
+        <span></span>
+        <span>Primary</span>
+        <span>Secondary</span>
+        <span>Success</span>
+        <span>Warning</span>
+        <span>Danger</span>
+        <span>Info</span>
+        <span>Inverted</span>
+        <span>Disabled</span>
+
+        <span>Outline</span>
+        <sl-button fill="outline" variant="primary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" variant="secondary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" variant="success">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" variant="warning">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" variant="danger">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" variant="info">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="outline" variant="inverted">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button disabled fill="outline">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Solid</span>
+        <sl-button variant="primary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="secondary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="success">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="warning">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="danger">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="info">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button variant="inverted">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button disabled>
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Ghost</span>
+        <sl-button fill="ghost" variant="primary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" variant="secondary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" variant="success">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" variant="warning">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" variant="danger">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" variant="info">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" variant="inverted">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button disabled fill="ghost">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <span>Link</span>
+        <sl-button fill="link" variant="primary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="link" variant="secondary">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="link" variant="success">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="link" variant="warning">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="link" variant="danger">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="link" variant="info">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button fill="link" variant="inverted">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+        <sl-button disabled fill="link">
+          <sl-icon name="far-universal-access"></sl-icon>
+          Button
+          <sl-icon name="far-universal-access"></sl-icon>
+        </sl-button>
+
+        <div class="inverted-background"></div>
+      </section>
     `;
   }
 };

@@ -131,9 +131,13 @@ export const All: Story = {
       </style>
       <section class="copyable">
         ${icons
-          // .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
+          .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
           .map(i => html`<sl-icon .name=${i} size="2xl" .label=${i} title=${i}></sl-icon>`)}
       </section>
+      <p>
+        When switching themes while on this page it could be not all theme icons are loaded correctly, please refresh
+        the page to make sure you are seeing the correct icons
+      </p>
     `;
   }
 };
@@ -177,6 +181,10 @@ export const AllIcons: Story = {
               ></sl-icon>`
           )}
       </section>
+      <p>
+        When switching themes while on this page it could be not all theme icons are loaded correctly, please refresh
+        the page to make sure you are seeing the correct icons
+      </p>
     `;
   }
 };

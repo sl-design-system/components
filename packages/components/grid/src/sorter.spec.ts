@@ -1,13 +1,14 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { ArrayListDataSource, DataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { ArrayDataSource, DataSource } from '@sl-design-system/shared';
 import { html } from 'lit';
 import '../register.js';
 import { GridSortColumn } from './sort-column.js';
 import { GridSorter } from './sorter.js';
 
-setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
+
 customElements.define('sl-grid-sorter', GridSorter);
 
 describe('sl-grid-sorter', () => {
@@ -15,7 +16,7 @@ describe('sl-grid-sorter', () => {
   const items = [{ name: 'John' }, { name: 'Jane' }, { name: 'Jimmy' }, { name: 'Jane' }];
 
   const column = new GridSortColumn();
-  const dataSource = new ArrayDataSource(items) as DataSource;
+  const dataSource = new ArrayListDataSource(items) as DataSource;
   dataSource.setSort('', 'name', 'asc');
 
   describe('defaults', () => {

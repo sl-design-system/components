@@ -1,5 +1,29 @@
 # @sl-design-system/tooltip
 
+## 1.1.2
+
+### Patch Changes
+
+- [#1624](https://github.com/sl-design-system/components/pull/1624) [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652) - Fix `ShadowRoot.createElement` type definition to properly match `document.createElement`
+
+- Updated dependencies [[`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51)]:
+  - @sl-design-system/shared@0.5.0
+
+## 1.1.1
+
+### Patch Changes
+
+- [#1599](https://github.com/sl-design-system/components/pull/1599) [`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b) - Fix logic to not just link based on `aria-describedby`, but also on `aria-labelledby`
+
+- [#1588](https://github.com/sl-design-system/components/pull/1588) [`3ce1a3b`](https://github.com/sl-design-system/components/commit/3ce1a3b2c7c185ae6499b7dad22056d4de96a3a0) - Make the lazy tooltip smarter when it comes to determining which context to use to create the `<sl-tooltip>` element
+
+  With this change, when the tooltip is lazily created, it checks if the target element has a shadow root. If it does, it uses the shadow root to create the tooltip custom element. If it doesn't, it uses the root node of the target element. If there is no parent custom element, then `getRootNode()` will return the document, so it will do `document.createElement('sl-tooltip')`.
+
+  After `createElement('sl-tooltip')` it then checks if the tooltip has a shadow root itself. If it doesn't, it means the tooltip custom element wasn't defined. When that happens, it will log a warning on the console.
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+
 ## 1.1.0
 
 ### Minor Changes

@@ -16,7 +16,14 @@ const config = {
     'packages/components/**/src/**/*.spec.ts',
   ],
 
-  browsers: [playwrightLauncher({ product: 'chromium' })],
+  browsers: [
+    playwrightLauncher({
+      product: 'chromium',
+      createBrowserContext({ browser }) {
+        return browser.newContext({ locale: 'en' });
+      }
+    })
+  ],
   plugins: [a11ySnapshotPlugin(), esbuildPlugin({ ts: true, tsconfig: './tsconfig.base.json' })],
 
   filterBrowserLogs: ({ type, args }) => {
@@ -43,6 +50,11 @@ const config = {
       <body>
         <script src="/node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
         <script type="module" src="${testFramework}"></script>
+        <style>
+          body {
+            font: var(--sl-text-body-md-normal);
+          }
+        </style>
         <style>${styles}</style>
       </body>
     </html>

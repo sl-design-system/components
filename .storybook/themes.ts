@@ -165,9 +165,9 @@ export const themes: Theme[] = [
   }
 ];
 
-const resources: { mode?: HTMLLinkElement, fonts?: HTMLLinkElement[] } = {};
+const resources: { mode?: HTMLLinkElement, fonts?: HTMLLinkElement[], global?: HTMLLinkElement } = {};
 
-export const updateTheme = (themeId: string, mode: Mode): void => {
+export const updateTheme = async (themeId: string, mode: Mode = 'light'): Promise<void> => {
   const theme = themes.find(({ id }) => id === themeId);
   if (!theme) {
     return;
@@ -176,6 +176,10 @@ export const updateTheme = (themeId: string, mode: Mode): void => {
   resources.mode ??= document.head.appendChild(document.createElement('link'));
   resources.mode.href = `/themes/${themeId}/${mode}.css`;
   resources.mode.rel = 'stylesheet';
+
+  resources.global ??= document.head.appendChild(document.createElement('link'));
+  resources.global.href = `/themes/${themeId}/global.css`;
+  resources.global.rel = 'stylesheet';
 
   if (theme.fonts) {
     resources.fonts = theme.fonts.map(font => {
@@ -187,5 +191,9 @@ export const updateTheme = (themeId: string, mode: Mode): void => {
     });
   }
 
-  theme.setup();
+  await Promise.allSettled([
+    new Promise(resolve => resources.mode!.onload = resolve),
+    ...(resources.fonts?.map(font => new Promise(resolve => font.onload = resolve)) ?? []),
+    theme.setup()
+  ])
 };

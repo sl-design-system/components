@@ -3,7 +3,6 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type CheckboxGroup } from './checkbox-group.js';
 
@@ -18,6 +17,23 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Form/Checkbox group',
   tags: ['stable'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            selector: 'sl-checkbox-group:not([disabled])'
+          },
+          {
+            // ElementInternals is used to set the role
+            id: 'aria-prohibited-attr',
+            enabled: false
+          }
+        ]
+      }
+    }
+  },
   args: {
     label: 'Label',
     size: 'md'
@@ -42,7 +58,7 @@ export default {
           ${slot?.() ??
           html`
             <sl-checkbox-group
-              disabled=${ifDefined(disabled)}
+              ?disabled=${disabled}
               ?required=${required}
               .label=${label}
               .size=${size}
@@ -111,6 +127,18 @@ export const WithoutValues: Story = {
       <sl-checkbox>Option 3</sl-checkbox>
     `,
     value: ['on', null, null]
+  }
+};
+
+export const NoLabel: Story = {
+  render: () => {
+    return html`
+      <sl-checkbox-group aria-label="Choose at least one option">
+        <sl-checkbox value="1">One</sl-checkbox>
+        <sl-checkbox value="2">Two</sl-checkbox>
+        <sl-checkbox value="3">Three</sl-checkbox>
+      </sl-checkbox-group>
+    `;
   }
 };
 

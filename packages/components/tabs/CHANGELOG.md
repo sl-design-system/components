@@ -1,5 +1,44 @@
 # @sl-design-system/tabs
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1791](https://github.com/sl-design-system/components/pull/1791) [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9) - Replace `--sl-size-borderWidth-subtle` with `--sl-size-borderWidth-default`
+
+- [#1798](https://github.com/sl-design-system/components/pull/1798) [`99a9ad9`](https://github.com/sl-design-system/components/commit/99a9ad9503a6dcf1b92838e46aafd2f1c5d3dc58) - Tabs improvements
+
+  Features:
+
+  - Refactor styling to use new contextual tokens
+  - Add activation property for auto or manual activation (see https://www.w3.org/WAI/ARIA/apg/patterns/tabs/)
+  - Simplify `<sl-tab>` styling using grid layout; makes the tab more flexible
+
+  Fixes:
+
+  - Scroll to the focused tab when using the keyboard
+  - Make sure the selected tab is fully visible on initial render and doesn't smooth scroll
+  - Fix bug where the RovingTabIndexController on `<sl-tab-group>` caused the inability to focus anything other than a tab
+  - Fix bug where the `<a href>` could get focus when pressing TAB when the `<sl-tab>` had focus
+
+### Patch Changes
+
+- [#1637](https://github.com/sl-design-system/components/pull/1637) [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6) - Fix accessibility issues:
+  - Fix NVDA accessibility issues: tab component with only one focusable element, that contains role and aria attributes
+  - Fix keyboard navigation.
+- Updated dependencies [[`67f5b81`](https://github.com/sl-design-system/components/commit/67f5b810558d124289f26e3cc3fb2c59da97bb5f), [`6309452`](https://github.com/sl-design-system/components/commit/63094521a7b262bd80c1a9a377086093d2844a8d), [`cab0938`](https://github.com/sl-design-system/components/commit/cab093898b324073801945fc3771eec2014d6652), [`133b883`](https://github.com/sl-design-system/components/commit/133b883234d911dabe37bd3c8acef26afea20fe9), [`389d0e2`](https://github.com/sl-design-system/components/commit/389d0e2a982dd40b4e3a04cf3b1d8b34204236a0), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`40cc538`](https://github.com/sl-design-system/components/commit/40cc538648e6ed5ac453fbe708bae8761caaab5e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`c19862e`](https://github.com/sl-design-system/components/commit/c19862e56455c3d8e27a9afc33bf684f89b04b75), [`bbcb7f7`](https://github.com/sl-design-system/components/commit/bbcb7f7cd48e22fa1e61f24ba645a4131b0c75ee), [`b1e3b74`](https://github.com/sl-design-system/components/commit/b1e3b741e78400e3755ddaa0c5c4fdeed2e3f960), [`e0b5ae4`](https://github.com/sl-design-system/components/commit/e0b5ae44fd61afd603927522fc8024c6ae7829bb), [`94e2a7b`](https://github.com/sl-design-system/components/commit/94e2a7bf1ccaaa9d547654603554cc6bdfdf66fb), [`4e57f9c`](https://github.com/sl-design-system/components/commit/4e57f9c60835a07db45f74fde73a3bf13b6abe51), [`849b154`](https://github.com/sl-design-system/components/commit/849b1544bcc7cc60de1eb37ec282f2e467efc7eb), [`01abf58`](https://github.com/sl-design-system/components/commit/01abf5833d364a76dbdf4e0df0587d0fbec3848e), [`c4a93fb`](https://github.com/sl-design-system/components/commit/c4a93fba6f40b8e843a169117dfdd331a5d9d6e6), [`cef2371`](https://github.com/sl-design-system/components/commit/cef2371d5868439edbba8156bf38c167b72f0f39)]:
+  - @sl-design-system/menu@0.2.0
+  - @sl-design-system/shared@0.5.0
+  - @sl-design-system/icon@1.1.0
+
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`4714b36`](https://github.com/sl-design-system/components/commit/4714b36f1387d4d1731a310b621caf5a33be105b), [`ebe4c8a`](https://github.com/sl-design-system/components/commit/ebe4c8a32e85b753e2aa752a13b2dc23616bf1a9), [`33fd543`](https://github.com/sl-design-system/components/commit/33fd5432f1499051071662aaca9974c212304bc6)]:
+  - @sl-design-system/shared@0.4.0
+  - @sl-design-system/menu@0.1.3
+
 ## 1.0.0
 
 ### Major Changes

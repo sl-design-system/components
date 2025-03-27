@@ -9,16 +9,112 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-  Find out what's happening in the world of Sanoma Learning Design System.
+  Find out what's happening in the world of Sanoma Learning's Design System.
   </p>
 </div>
 </header>
 
-
 <section class="ds-subpage-section">
 
 <div class="ds-subpage-section__wrapper">
+<section>
   
+## SL Design System Update
+<small>January 2025</small>
+
+
+Below are the updates we made last month. Everything will be available after the release.
+
+
+### New Components
+- [Proof of Concept of Tree](https://storybook.sanomalearning.design/?path=/story/navigation-tree--flat-data-source) <ds-status status="draft"></ds-status>
+- [Panel](https://storybook.sanomalearning.design/?path=/story/layout-panel--basic) <ds-status status="draft"></ds-status>
+
+### Improvements & Maintenance
+- [Make it possible to use paginator component with FetchDataSource](https://storybook.sanomalearning.design/?path=/story/grid-pagination--data-source-2) 
+- [Added pill-shaped buttons and implemented new contextual tokens in the button component](https://storybook.sanomalearning.design/?path=/story/actions-button--all)
+- [Implemented new contextual tokens in the badge component](https://storybook.sanomalearning.design/?path=/story/feedback-status-badge--all)
+
+### Solved Accessibility Issues
+- [Accessibility features are not correctly marked/missing in the select element](https://github.com/sl-design-system/components/issues/1490)
+- [Accordion with external toggle give no status for a screen reader](https://github.com/sl-design-system/components/issues/1559)
+- [Inline messages reading order is unconventional](https://github.com/sl-design-system/components/issues/1558)
+- [Fix skip table links when at viewport edge](https://github.com/sl-design-system/components/issues/1689)
+  
+</section>
+<section>
+  
+## Accessibility Audit, new components and further updates
+<small>December 2024</small>
+
+### Accessibility Audit
+Accessibility is a core focus for us, and we recently conducted an accessibility audit with an external agency to evaluate all our components. We're pleased to report that only a few accessibility issues were identified during the audit. You can view the complete audit overview [here](https://github.com/orgs/sl-design-system/projects/2/views/63). Our goal is to resolve all identified issues by January 2025.
+
+### Timeline New Components
+Last period, we did a survey where all products using the SL Design System participated to figure out which components should have the highest priority. In the survey, we showed all requested components and asked about their UX impact, how high they are on the roadmap, and what the requirements are. We used the 'RICE' framework to calculate the priority for each request. Turns out, the Number Field, Tree View, Date Picker, and Time Picker are the big winners.
+
+[Here](https://github.com/orgs/sl-design-system/projects/5) you can find the timeline for the design and development of the new components.
+
+### Contextual Tokens and Unified Figma Library
+The past period, the team has been working hard on contextual tokens. Right now, the SL Design System is using component-specific tokens. By making our tokens contextual instead of component-specific, we’re improving UI consistency across all products. 
+
+We’re currently refactoring our components in code to use the new contextual token setup. At the same time, there are some big changes coming in Figma. Right now, every product has its own Figma library with SL Design System components. The goal is to have a single Figma library with one theme that works for all products. Designers will be able to switch between themes directly in this library using Figma Variables.
+
+In the end, this will make the SL Design System team more efficient—less maintenance and more time to focus on new components, patterns, and enhancements. For products, it means more consistent UI design overall.
+
+### New Components
+- [Paginator](https://storybook.sanomalearning.design/?path=/story/navigation-paginator--all) <ds-status status="draft"></ds-status>
+
+### Solved Bug Reports
+- [Rendering the correct column widths when the data grid contains only a few elements](https://github.com/sl-design-system/components/issues/1677)
+- [DATA-SOURCE is missing a declaration file](https://github.com/sl-design-system/components/issues/1678)
+- [Numeric sort behavior in Grid](https://github.com/sl-design-system/components/issues/1651)
+- [Custom sort function in Grid](https://github.com/sl-design-system/components/issues/1643)
+- [Improve performance of large option sets in Grid](https://github.com/sl-design-system/components/issues/1604)
+
+### Solved Figma Issues
+- [FA icon disappears / changes to text inside button component](https://github.com/sl-design-system/components/issues/1482)
+
+### Accessibility Improvements
+- [Create an aria live container on page](https://github.com/sl-design-system/components/issues/1597)
+- [Tabs aren't correctly marked for screen reader](https://github.com/sl-design-system/components/issues/1560)
+- [Switch is not correctly marked for screen reader](https://github.com/sl-design-system/components/issues/1561)
+- [Checkbox has redundant aria role and property](https://github.com/sl-design-system/components/issues/1553)
+  
+</section>
+<section>
+  
+## New Components, Bug fixes, and enhancements
+<small>September 2024</small>
+
+### Update in Figma
+To simplify things, we’ve created a new Formfield component that includes a label, description, validation message, and a slot for the form control itself. This makes it easier for the Design System team to manage everything, while you only need to use one component for all your form controls!
+
+- Older Components: The old form controls (Label, Hint/Helper, Checkbox, Radio Button, Switch, Text Input, Text Area) are now marked as "[DEPRECATED]" and hidden from the library. These should no longer be used in new designs.
+- New Components: We’ve introduced new versions of these form controls with improved functionality, labeled with "-NEW" at the end for easy identification.
+- Formfield Component: We’ve added a new Formfield component that wraps the updated controls for more consistency. This should now be your go-to component for forms.
+You can find these updates in the Formfield folder in the assets panel.
+
+### New components and status changes
+- [Combo box](https://storybook.sanomalearning.design/?path=/story/form-combobox--all) <ds-status status="draft"></ds-status>
+- [Tag](https://storybook.sanomalearning.design/?path=/story/navigation-tab-group--basic) <ds-status status="preview"></ds-status>
+- [Made toggle group available in all themes](https://storybook.sanomalearning.design/?path=/story/actions-toggle-group--all) <ds-status status="draft"></ds-status>
+- [Tab group](https://storybook.sanomalearning.design/?path=/story/navigation-tab-group--basic) <ds-status status="stable"></ds-status>
+- [Toggle group](https://storybook.sanomalearning.design/?path=/story/navigation-tab-group--basic) <ds-status status="draft"></ds-status>
+- [Toggle button](https://storybook.sanomalearning.design/?path=/story/actions-toggle-group--all) <ds-status status="preview"></ds-status>
+
+### Solved Bug reports
+- [Various grid fixes](https://github.com/sl-design-system/components/blob/main/packages/components/grid/CHANGELOG.md)
+- [Clicking a label doesn't always focus the form control](https://github.com/sl-design-system/components/pull/1536)
+- [Slow Font Awesome icon load](https://github.com/sl-design-system/components/pull/1483)
+
+### Enhancements
+- [Added reset for forms](https://github.com/sl-design-system/components/pull/1500)
+- [Added 4XL Avatar size](https://storybook.sanomalearning.design/?path=/story/media-avatar--all)
+- [Various menu improvements](https://github.com/sl-design-system/components/pull/1474)
+
+</section>
+
 <section>
   
 ## New Components and Key Bugfixes Rolled Out, Including Tool-Bar, Checkbox Group, and Enhanced Styling

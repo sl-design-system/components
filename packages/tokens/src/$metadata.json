@@ -76,11 +76,6 @@
     "myvanin_onhold/base",
     "myvanin_onhold/light",
     "sanoma-utbildning_onhold/base",
-    "sanoma-utbildning_onhold/light",
-    "xxx-yyy/base-yyy",
-    "xxx-yyy/base-xxx",
-    "xxx-yyy/light-yyy",
-    "xxx-yyy/light-xxx",
-    "xxx-yyy/dark-xxx"
+    "sanoma-utbildning_onhold/light"
   ]
 }

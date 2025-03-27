@@ -6,19 +6,7 @@
       "primitives": "source",
       "system": "source",
       "sanoma-learning/light-new": "enabled",
-      "sanoma-learning/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "sanoma-learning/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "color.button.primary.solid.idle.background": "S:2f9fdfd75c2818be3fdb08028fdf631256953179,",
@@ -2009,19 +1997,7 @@
       "primitives": "source",
       "system": "source",
       "sanoma-learning/dark-new": "enabled",
-      "sanoma-learning/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "sanoma-learning/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:f2be7390d679f6cc122793ce786e3a7d91816e81,",
@@ -3808,19 +3784,7 @@
       "primitives": "source",
       "system": "source",
       "bingel-dc/light-new": "enabled",
-      "bingel-dc/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "bingel-dc/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:d862768937bd0d35b24f98a85118629fc7b35cb2,",
@@ -4856,19 +4820,7 @@
       "primitives": "source",
       "system": "source",
       "bingel-int/light-new": "enabled",
-      "bingel-int/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "bingel-int/base-new": "enabled"
     },
     "$figmaStyleReferences": {},
     "$figmaVariableReferences": {},
@@ -4881,19 +4833,7 @@
       "primitives": "source",
       "system": "source",
       "clickedu/light-new": "enabled",
-      "clickedu/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "clickedu/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:3b0db99b398be113b810c4d06983807c3508ac71,",
@@ -6001,19 +5941,7 @@
       "primitives": "source",
       "system": "source",
       "editorial-suite/light-new": "enabled",
-      "editorial-suite/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "editorial-suite/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:aba733b77a7f068303c7457e6e99dbb5ed81197b,",
@@ -7140,19 +7068,7 @@
       "primitives": "source",
       "system": "source",
       "itslearning/light-new": "enabled",
-      "itslearning/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "itslearning/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "color.palette.primary.50": "S:81f94c85600eb5a455519aebf2265c864fd0e529,",
@@ -8105,19 +8021,7 @@
       "primitives": "source",
       "system": "source",
       "kampus/light-new": "enabled",
-      "kampus/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "kampus/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:7cb020135af0657671582951d6d62d40e24b3b79,",
@@ -9321,19 +9225,7 @@
       "primitives": "source",
       "system": "source",
       "magister/light-new": "enabled",
-      "magister/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "magister/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:82656f62deb7a1ab8ab83d1dea04aa3b9e2958e5,",
@@ -10486,19 +10378,7 @@
       "primitives": "source",
       "system": "source",
       "magister/dark-new": "enabled",
-      "magister/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "magister/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e490577a117b657a4f6379ec6fb83921546a29b0,",
@@ -11616,19 +11496,7 @@
       "primitives": "source",
       "system": "source",
       "max/light-new": "enabled",
-      "max/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "max/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:61d892acbfb0957e4286e168a9878f3f663f438d,",
@@ -12489,19 +12357,7 @@
       "primitives": "source",
       "system": "source",
       "my-digital-book/light-new": "enabled",
-      "my-digital-book/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "my-digital-book/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "color.palette.primary.50": "S:cdb7d124a79a506da585c0c0140098dc9d5bf08d,",
@@ -13479,19 +13335,7 @@
       "primitives": "source",
       "system": "source",
       "neon/light-new": "enabled",
-      "neon/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "neon/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:e99a01cb7c691ea3724529a5ed35448899c014a7,",
@@ -14603,19 +14447,7 @@
       "primitives": "source",
       "system": "source",
       "neon/dark-new": "enabled",
-      "neon/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "neon/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:5cf7b392afc2f205a80bd6a89cbca492a5117ec1,",
@@ -15689,19 +15521,7 @@
       "primitives": "source",
       "system": "source",
       "teas/light-new": "enabled",
-      "teas/base-new": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "teas/base-new": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:a18cd22854d1f77c00da09d143ce5cb088117cd8,",
@@ -17041,19 +16861,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "myvanin_onhold/base": "enabled",
-      "myvanin_onhold/light": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "myvanin_onhold/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:844b3b45196aa5c197d73f037991b434d324a546,",
@@ -18082,19 +17890,7 @@
     "selectedTokenSets": {
       "core": "enabled",
       "sanoma-utbildning_onhold/base": "enabled",
-      "sanoma-utbildning_onhold/light": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "sanoma-utbildning_onhold/light": "enabled"
     },
     "$figmaStyleReferences": {
       "body.background": "S:79b9af311a01f8ef1c33b3ceb9d60096a469431d,",
@@ -19123,21 +18919,7 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
-      "system": "source",
-      "xxx-yyy/base-xxx": "enabled",
-      "xxx-yyy/light-xxx": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "system": "source"
     },
     "group": "xxx-yyy"
   },
@@ -19147,21 +18929,7 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
-      "system": "source",
-      "xxx-yyy/base-xxx": "enabled",
-      "xxx-yyy/dark-xxx": "enabled",
-      "I/A/base-new": "disabled",
-      "I/A/theme-new": "disabled",
-      "I/B/base-new": "disabled",
-      "I/B/theme-new": "disabled",
-      "I/C/theme-new": "disabled",
-      "I/C/base-new": "disabled",
-      "II/C/theme-new": "disabled",
-      "II/C/base-new": "disabled",
-      "II/B/theme-new": "disabled",
-      "II/B/base-new": "disabled",
-      "II/A/theme-new": "disabled",
-      "II/A/base-new": "disabled"
+      "system": "source"
     },
     "group": "xxx-yyy"
   }

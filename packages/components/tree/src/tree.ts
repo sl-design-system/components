@@ -205,6 +205,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    console.log('event on keydown', event, event.target, event.key);
     if (!(event.target instanceof TreeNode)) {
       return;
     }

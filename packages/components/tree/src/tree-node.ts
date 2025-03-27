@@ -145,6 +145,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    console.log('updated tree node changes', changes);
+
     if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
       if (this.selects === 'multiple') {
         this.setAttribute('aria-checked', this.checked ? 'true' : this.indeterminate ? 'mixed' : 'false');
@@ -243,7 +245,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * toggle the expanded state.
    */
   #onClick(event: Event): void {
-    console.log('on click event on tree node', event, event.target, this.checked); // TODO: or maybe onchange instead of onclick?
+    console.log('on click event on tree node', event, event.target, this.checked, 'selected?', this.selected); // TODO: or maybe onchange instead of onclick?
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
     const insideWrapper = !!event
@@ -251,11 +253,23 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
+    console.log('inside wrapper? in on click', insideWrapper);
+
     if (insideWrapper) {
       event.preventDefault();
 
-      this.selected = this.selects === 'single' ? true : this.selected;
-      this.selectEvent.emit(this.node!);
+      if (this.selects === 'multiple') {
+        this.checked = !this.checked;
+        this.indeterminate = false;
+        this.changeEvent.emit(this.checked);
+      } else {
+        this.selected = this.selects === 'single' ? true : this.selected;
+        this.selectEvent.emit(this.node!);
+      }
+
+      // this.selected = this.selects === 'single' ? true : this.selected;
+      // this.selectEvent.emit(this.node!);
+      console.log('selected? inside wrapper', this.selected, this.selects);
     } else if (this.expandable) {
       this.toggle();
     }
@@ -263,7 +277,8 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction */
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' || event.key === ' ') {
+      // TODO: make sure that space needs to be used same way as enter here due to a11y
       event.preventDefault();
 
       if (this.selects === 'multiple') {

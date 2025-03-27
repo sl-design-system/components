@@ -387,13 +387,27 @@ export const Scrolling: Story = {
 };
 
 export const CustomRendererWithActionButtons: Story = {
+  // const storyArgs = {
+  //   ...FlatDataSource.args,
+  //   ...FlatDataSource.args.dataSource?.selects: 'single',
+  // }
   args: {
-    ...FlatDataSource.args,
+    // ...FlatDataSource.args,
+    // selects: 'single',
+    dataSource: new FlatTreeDataSource(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      selects: 'single' // TODO: make separate story with selection single/multiple and action buttons
+    }),
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
 
       return html`
-        ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
         <sl-button fill="ghost" size="sm" slot="actions">
@@ -419,7 +433,7 @@ export const CustomRendererWithBadges: Story = {
       const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
 
       return html`
-        ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
         <sl-badge color="blue" slot="aside">99</sl-badge>

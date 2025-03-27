@@ -2,7 +2,9 @@
   align-items: stretch;
   color: var(--sl-color-border-plain);
   display: flex;
-  padding-inline-end: 26px; // TODO: 24px + 2px gap... //calc(var(--sl-size-200) + var(--sl-size-025));
+  padding-inline-end: calc(
+    var(--sl-size-300) + var(--sl-size-025)
+  ); // 26px; // TODO: 24px + 2px gap... //calc(var(--sl-size-200) + var(--sl-size-025));
   // margin-left: 4px;
 }
 

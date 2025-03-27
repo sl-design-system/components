@@ -13,6 +13,8 @@
     "sanoma-learning/base-new",
     "sanoma-learning/light-new",
     "sanoma-learning/dark-new",
+    "I/A/1/sanoma-learning/base-new",
+    "I/A/1/sanoma-learning/light-new",
     "bingel-dc/base",
     "bingel-dc/light",
     "bingel-dc/base-new",
@@ -64,6 +66,11 @@
     "myvanin_onhold/base",
     "myvanin_onhold/light",
     "sanoma-utbildning_onhold/base",
-    "sanoma-utbildning_onhold/light"
+    "sanoma-utbildning_onhold/light",
+    "xxx-yyy/base-yyy",
+    "xxx-yyy/base-xxx",
+    "xxx-yyy/light-yyy",
+    "xxx-yyy/light-xxx",
+    "xxx-yyy/dark-xxx"
   ]
 }

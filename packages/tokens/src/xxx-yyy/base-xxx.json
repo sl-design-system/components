@@ -1,139 +1,85 @@
 {
-  "sanoma-learning": {
+  "xxx": {
     "text-new": {
       "typeset": {
         "fontFamily": {
           "heading": {
-            "value": "The Message",
+            "value": "{yyy.text-new.typeset.fontFamily.heading}",
             "type": "fontFamilies"
           },
           "body": {
-            "value": "Roboto",
+            "value": "{yyy.text-new.typeset.fontFamily.body}",
             "type": "fontFamilies"
           },
           "icon": {
-            "value": "{icon.typeset.fontFamily.classic}",
+            "value": "{yyy.text-new.typeset.fontFamily.icon}",
             "type": "fontFamilies"
           }
         },
         "fontWeight": {
           "regular": {
-            "value": "Regular",
+            "value": "{yyy.text-new.typeset.fontWeight.regular}",
             "type": "fontWeights"
           },
           "demibold": {
-            "value": "Medium",
+            "value": "{yyy.text-new.typeset.fontWeight.demibold}",
             "type": "fontWeights"
           }
         }
       },
       "body": {
         "sm": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.body.sm}",
-            "lineHeight": "{size.lineHeight.200}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.regular}"
-          },
+          "value": "{yyy.text-new.body.sm}",
           "type": "typography"
         },
         "md": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.body.md}",
-            "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.regular}"
-          },
+          "value": "{yyy.text-new.body.md}",
           "type": "typography"
         },
         "lg": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.body.lg}",
-            "lineHeight": "{size.lineHeight.300}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.regular}"
-          },
+          "value": "{yyy.text-new.body.lg}",
           "type": "typography"
         }
       },
       "input": {
         "md": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.body.md}",
-            "lineHeight": "{size.lineHeight.300}"
-          },
+          "value": "{yyy.text-new.input.md}",
           "type": "typography"
         },
         "lg": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.body.md}",
-            "lineHeight": "{size.lineHeight.400}"
-          },
+          "value": "{yyy.text-new.input.lg}",
           "type": "typography"
         }
       },
       "icon": {
         "outline": {
-          "value": {
-            "fontFamily": "{icon.fontFamily.classic}",
-            "fontWeight": "{icon.typeset.fontWeight.icon-regular}"
-          },
+          "value": "{yyy.text-new.icon.outline}",
           "type": "typography"
         },
         "solid": {
-          "value": {
-            "fontFamily": "{icon.fontFamily.classic}",
-            "fontWeight": "{icon.typeset.fontWeight.icon-solid}"
-          },
+          "value": "{yyy.text-new.icon.solid}",
           "type": "typography"
         }
       },
       "heading": {
         "sm": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.heading.sm}",
-            "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}"
-          },
+          "value": "{yyy.text-new.heading.sm}",
           "type": "typography"
         },
         "md": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.heading.md}",
-            "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}"
-          },
+          "value": "{yyy.text-new.heading.md}",
           "type": "typography"
         },
         "lg": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.heading.lg}",
-            "lineHeight": "{size.lineHeight.400}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}"
-          },
+          "value": "{yyy.text-new.heading.lg}",
           "type": "typography"
         },
         "xl": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.heading.xl}",
-            "lineHeight": "{size.lineHeight.500}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}"
-          },
+          "value": "{yyy.text-new.heading.xl}",
           "type": "typography"
         },
         "2xl": {
-          "value": {
-            "fontFamily": "{sanoma-learning.text-new.typeset.fontFamily.body}",
-            "fontSize": "{sanoma-learning.size.text-new.heading.2xl}",
-            "lineHeight": "{size.lineHeight.600}",
-            "fontWeight": "{sanoma-learning.text-new.typeset.fontWeight.demibold}"
-          },
+          "value": "{yyy.text-new.heading.2xl}",
           "type": "typography"
         }
       }
@@ -180,28 +126,28 @@
       },
       "borderRadius": {
         "default": {
-          "value": "{size.borderRadius.sm}",
+          "value": "{yyy.size.borderRadius.default}",
           "type": "borderRadius",
           "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },
         "child": {
-          "value": "{size.borderRadius.sm} / 2",
+          "value": "{sanoma-learning.size.borderRadius.child}",
           "type": "borderRadius",
           "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },
         "full": {
-          "value": "{size.borderRadius.full}",
+          "value": "{sanoma-learning.size.borderRadius.full}",
           "type": "borderRadius",
           "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
         },
         "focusRing": {
           "outside": {
-            "value": "{sanoma-learning.size.borderRadius.default} + 2px",
+            "value": "{yyy.size.borderRadius.focusRing.outside}",
             "type": "borderRadius",
             "description": "Use for focusring outside of component"
           },
           "inside": {
-            "value": "{sanoma-learning.size.borderRadius.default} - 1px",
+            "value": "{yyy.size.borderRadius.focusRing.inside}",
             "type": "borderRadius",
             "description": "Use for focusring inside of component when outside focus ring is not possible"
           }
@@ -209,17 +155,17 @@
       },
       "borderWidth": {
         "default": {
-          "value": "{size.borderWidth.subtle}",
+          "value": "{yyy.size.borderWidth.default}",
           "type": "borderWidth",
           "description": "Sets the standard border width for UI elements."
         },
         "action": {
-          "value": "{size.borderWidth.subtle}",
+          "value": "{yyy.size.borderWidth.action}",
           "type": "borderWidth",
           "description": "Sets the standard border width for action components."
         },
         "focusRing": {
-          "value": "{size.borderWidth.bold}",
+          "value": "{yyy.size.borderWidth.focusRing}",
           "type": "borderWidth"
         }
       },
@@ -261,7 +207,7 @@
       },
       "outlineWidth": {
         "default": {
-          "value": "{size.borderWidth.bold}",
+          "value": "{yyy.size.outlineWidth.default}",
           "type": "borderWidth",
           "description": "Sets the standard outline width for UI elements."
         }
@@ -284,12 +230,12 @@
     "space": {
       "offset": {
         "focused": {
-          "value": "{space.025}",
+          "value": "{yyy.space.offset.focused}",
           "type": "spacing",
           "description": "Defines the spacing applied when an element is focused."
         },
         "default": {
-          "value": "{space.075}",
+          "value": "{yyy.space.offset.default}",
           "type": "spacing",
           "description": "Defines the standard spacing offset."
         }

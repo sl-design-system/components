@@ -93,8 +93,6 @@ export class AllFormControlsReactiveComponent {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      console.log('Setting options');
-
       this.options.set([
         { label: 'Option 1', value: '1' },
         { label: 'Option 2', value: '2' },

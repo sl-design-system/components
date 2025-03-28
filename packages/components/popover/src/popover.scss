@@ -84,5 +84,5 @@
   inline-size: var(--_arrow-inline-size);
   position: absolute;
   stroke: var(--sl-color-border-plain);
-  stroke-width: 2px;
+  stroke-width: calc(var(--sl-size-borderWidth-default) * 2);
 }

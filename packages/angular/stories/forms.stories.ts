@@ -1,4 +1,4 @@
-import { Component, type ElementRef, ViewChild } from '@angular/core';
+import { Component, ViewChild, type WritableSignal, signal } from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -7,7 +7,6 @@ import {
   ReactiveFormsModule,
   type ValidationErrors
 } from '@angular/forms';
-import { type Form } from '@sl-design-system/form';
 import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
 import { ButtonComponent } from '../src/button/button.component';
 import { ButtonBarComponent } from '../src/button-bar/button-bar.component';
@@ -40,7 +39,7 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
       </sl-form-field>
 
       <sl-form-field label="Textarea">
-        <sl-text-area formControlName="textarea"></sl-text-area>
+        <sl-text-area formControlName="textArea"></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -49,9 +48,9 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
 
       <sl-form-field label="Select">
         <sl-select formControlName="select">
-          <sl-option value="1">Option 1</sl-option>
-          <sl-option value="2">Option 2</sl-option>
-          <sl-option value="3">Option 3</sl-option>
+          @for (option of options(); track option.value) {
+            <sl-option [value]="option.value">{{ option.label }}</sl-option>
+          }
         </sl-select>
       </sl-form-field>
 
@@ -81,14 +80,26 @@ import { TextFieldComponent } from '../src/text-field/text-field.component';
 })
 export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
-    textField: new FormControl('Text field'),
-    textArea: new FormControl('Text area'),
     checkbox: new FormControl('checked'),
+    checkboxGroup: new FormControl(['2', '1', '0']),
+    radioGroup: new FormControl('1'),
     select: new FormControl('1'),
     switch: new FormControl('toggled'),
-    checkboxGroup: new FormControl(['2', '1', '0']),
-    radioGroup: new FormControl('1')
+    textArea: new FormControl('Text area'),
+    textField: new FormControl('Text field')
   });
+
+  options: WritableSignal<Array<{ label: string; value: string }>> = signal([]);
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.options.set([
+        { label: 'Option 1', value: '1' },
+        { label: 'Option 2', value: '2' },
+        { label: 'Option 3', value: '3' }
+      ]);
+    }, 500);
+  }
 }
 
 @Component({
@@ -109,9 +120,7 @@ export class AllFormControlsReactiveComponent {
 
       <sl-form-field label="Select">
         <sl-select formControlName="select" required>
-          <sl-option value="1">Option 1</sl-option>
-          <sl-option value="2">Option 2</sl-option>
-          <sl-option value="3">Option 3</sl-option>
+          <sl-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</sl-option>
         </sl-select>
       </sl-form-field>
 
@@ -147,14 +156,20 @@ export class AllFormControlsEmptyReactiveComponent {
   @ViewChild('form') form!: FormComponent;
 
   formGroup = new FormGroup({
-    textField: new FormControl(''),
-    textArea: new FormControl(''),
     checkbox: new FormControl(false),
+    checkboxGroup: new FormControl([]),
+    radioGroup: new FormControl(''),
     select: new FormControl(''),
     switch: new FormControl(false),
-    checkboxGroup: new FormControl([]),
-    radioGroup: new FormControl('')
+    textArea: new FormControl(''),
+    textField: new FormControl('')
   });
+
+  options = [
+    { label: 'Option 1', value: '1' },
+    { label: 'Option 2', value: '2' },
+    { label: 'Option 3', value: '3' }
+  ];
 
   onClick(): void {
     this.form.el.reportValidity();

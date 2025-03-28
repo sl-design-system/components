@@ -402,6 +402,8 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
   }
 
   #onSlotchange(): void {
+    this.#verifyRegisteredListboxElements();
+
     this.options.forEach(option => option.setAttribute('aria-selected', 'false'));
 
     if (this.value !== undefined && this.value !== null) {
@@ -480,5 +482,15 @@ export class Select<T = any> extends ObserveAttributesMixin(FormControlMixin(Sco
     );
 
     this.updateValidity();
+  }
+
+  #verifyRegisteredListboxElements(): void {
+    const option = this.querySelector('sl-option');
+
+    if (option && !(option instanceof Option)) {
+      console.warn(
+        'sl-option elements must be registered as custom elements via the @sl-design-system/listbox package'
+      );
+    }
   }
 }

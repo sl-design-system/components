@@ -1,5 +1,19 @@
 # @sl-design-system/shared
 
+## 0.6.0
+
+### Minor Changes
+
+- [#1593](https://github.com/sl-design-system/components/pull/1593) [`fa0b85d`](https://github.com/sl-design-system/components/commit/fa0b85d46c08018cd43de432c3a9705e7aede2c8) - Add date converters
+
+### Patch Changes
+
+- [#1904](https://github.com/sl-design-system/components/pull/1904) [`eaca9d2`](https://github.com/sl-design-system/components/commit/eaca9d24a6086d7a60dc5efc5332f16e80485d36) - Use `Constructor` type from `@open-wc/dedupe-mixin`
+
+  This fixes a bug in the `d.ts` files where the `Constructor` type was not being imported correctly.
+
+- [#1866](https://github.com/sl-design-system/components/pull/1866) [`fe3c562`](https://github.com/sl-design-system/components/commit/fe3c562d4e18ab93e9209aaab1a604774cfba5fb) - Replace generic `unknown` type with `any` to be more forgiving
+
 ## 0.5.0
 
 ### Minor Changes

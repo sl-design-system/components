@@ -1,5 +1,11 @@
 # @sl-design-system/listbox
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1912](https://github.com/sl-design-system/components/pull/1912) [`4b68034`](https://github.com/sl-design-system/components/commit/4b680344816bb1cefb66a6bc9fac7f9501f18ace) - Add missing `textContent` setter
+
 ## 0.1.0
 
 ### Minor Changes

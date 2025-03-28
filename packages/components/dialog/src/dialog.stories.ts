@@ -18,7 +18,8 @@ type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
   footerButtons?(props: Props): TemplateResult;
   headerButtons?(props: Props): TemplateResult;
   maxWidth: string;
-  reverse: boolean;
+  primaryActions?(): TemplateResult;
+  secondaryActions?(): TemplateResult;
   subtitle: string;
   title: string;
 };
@@ -42,7 +43,18 @@ export default {
     }
   },
   render: args => {
-    const { body, closeButton, disableCancel, footerButtons, headerButtons, maxWidth, subtitle, title } = args;
+    const {
+      body,
+      closeButton,
+      disableCancel,
+      footerButtons,
+      headerButtons,
+      maxWidth,
+      primaryActions,
+      secondaryActions,
+      subtitle,
+      title
+    } = args;
 
     const onClick = (event: Event & { target: HTMLElement }): void => {
       (event.target.nextElementSibling as Dialog).showModal();
@@ -102,13 +114,8 @@ export default {
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
         <span slot="title">${title}</span>
         ${subtitle ? html`<span slot="subtitle">${subtitle}</span>` : nothing} ${body?.()}
-        ${headerButtons ? headerButtons(args) : nothing}
-        ${footerButtons
-          ? footerButtons(args)
-          : html`
-              <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-              <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
-            `}
+        ${headerButtons ? headerButtons(args) : nothing} ${primaryActions ? primaryActions() : nothing}
+        ${secondaryActions ? secondaryActions() : nothing} ${footerButtons ? footerButtons(args) : nothing}
       </sl-dialog>
     `;
   }
@@ -116,8 +123,15 @@ export default {
 
 export const Basic: Story = {
   args: {
-    closeButton: true,
-    subtitle: 'Subtitle'
+    body: () =>
+      'This is an example of a basic dialog. It has a title, a body, and primary actions in the form of a cancel button and action button.',
+    primaryActions: () => html`
+      <sl-button slot="primary-actions" sl-dialog-close>Cancel</sl-button>
+      <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
+    `,
+    secondaryActions: () => html`
+      <sl-button slot="secondary-actions" sl-dialog-close variant="danger">Delete</sl-button>
+    `
   }
 };
 
@@ -148,7 +162,6 @@ export const FooterButtons: Story = {
       <sl-button fill="outline" slot="actions" variant="primary" sl-dialog-close>Action 2</sl-button>
       <sl-button slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
     `,
-    reverse: false,
     title: 'Dialog with extra footer buttons'
   }
 };

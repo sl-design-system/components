@@ -8,6 +8,7 @@ import {
   type CSSResult,
   type CSSResultGroup,
   LitElement,
+  type PropertyValues,
   type TemplateResult,
   adoptStyles,
   html,
@@ -69,7 +70,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   #focusTrap = new FocusTrapController(this);
 
   /** Responsive behavior utility. */
-  // eslint-disable-next-line no-unused-private-class-members
   #media = new MediaController(this);
 
   /**
@@ -109,6 +109,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    this.#updatePrimaryButtons();
+  }
+
   override render(): TemplateResult {
     return html`
       <dialog
@@ -144,7 +150,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       <slot name="header">
         <div part="titles">
           <slot name="title" id="title">${title}</slot>
-          <slot name="subtitle">${subtitle}</slot>
+          ${this.#media.mobile ? nothing : html`<slot name="subtitle">${subtitle}</slot>`}
+          ${this.#media.mobile
+            ? html`
+                <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
+                  ${this.renderPrimaryActions()}
+                </slot>
+              `
+            : nothing}
         </div>
         ${this.closeButton
           ? html`
@@ -189,6 +202,33 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * the `<sl-dialog>` custom element, use the slots.
    */
   renderActions(): TemplateResult | typeof nothing {
+    return html`
+      <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
+      ${this.#media.mobile
+        ? nothing
+        : html`
+            <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">${this.renderPrimaryActions()}</slot>
+          `}
+    `;
+  }
+
+  /**
+   * Override this method to customize the primary actions in the footer of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderPrimaryActions(): TemplateResult | typeof nothing {
+    return nothing;
+  }
+
+  /**
+   * Override this method to customize the secondary actions in the footer of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderSecondaryActions(): TemplateResult | typeof nothing {
     return nothing;
   }
 
@@ -300,6 +340,23 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
       // Remove open class
       document.documentElement.classList.remove('sl-dialog-enter');
+    }
+  }
+
+  #updatePrimaryButtons(): void {
+    const primaryButtons = this.renderRoot
+      .querySelector<HTMLSlotElement>('slot[name="primary-actions"]')
+      ?.assignedElements({
+        flatten: true
+      });
+
+    console.log(primaryButtons);
+
+    if (primaryButtons?.length === 2) {
+      primaryButtons[0].setAttribute('fill', this.#media.mobile ? 'link' : 'outline');
+      primaryButtons[1].setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
+    } else {
+      primaryButtons?.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
     }
   }
 }

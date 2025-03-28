@@ -13,7 +13,13 @@
 }
 
 :host([disabled]) {
+  background: var(--sl-color-background-disabled);
+
   --_border-color: var(--sl-color-border-disabled);
+
+  ::slotted(sl-toggle-button[pressed]) {
+    --_bg-color: var(--sl-color-background-neutral-bold);
+  }
 }
 
 :host([shape='pill']) {

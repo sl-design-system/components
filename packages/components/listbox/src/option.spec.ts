@@ -59,6 +59,12 @@ describe('sl-option', () => {
       expect(icon).to.exist;
       expect(icon).to.have.style('visibility', 'visible');
     });
+
+    it('should support setting the value via the text content', () => {
+      el.textContent = 'Option 2';
+
+      expect(el.value).to.equal('Option 2');
+    });
   });
 
   describe('with value', () => {

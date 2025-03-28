@@ -1,4 +1,4 @@
-import { faFile, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { faFileLines, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import { Badge } from '@sl-design-system/badge';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
@@ -37,7 +37,7 @@ export interface LazyNestedDataNode {
   children?: LazyNestedDataNode[] | Promise<LazyNestedDataNode[]> | Array<Promise<LazyNestedDataNode>>;
 }
 
-Icon.register(faFile, faFolder, faFolderOpen, faPen, faTrash);
+Icon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
 
 export const flatData: FlatDataNode[] = [
   {
@@ -243,7 +243,7 @@ export default {
 export const FlatDataSource: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
@@ -257,7 +257,7 @@ export const NestedDataSource: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
@@ -269,7 +269,7 @@ export const NestedDataSource: Story = {
 export const SingleSelect: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
@@ -285,7 +285,7 @@ export const MultiSelect: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
@@ -386,6 +386,8 @@ export const Scrolling: Story = {
   }
 };
 
+// TODO: single/multiple selection with action buttons
+
 export const CustomRendererWithActionButtons: Story = {
   // const storyArgs = {
   //   ...FlatDataSource.args,
@@ -395,7 +397,7 @@ export const CustomRendererWithActionButtons: Story = {
     // ...FlatDataSource.args,
     // selects: 'single',
     dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
@@ -404,16 +406,26 @@ export const CustomRendererWithActionButtons: Story = {
       selects: 'single' // TODO: make separate story with selection single/multiple and action buttons
     }),
     renderer: node => {
-      const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      const onClickEdit = (event: Event) => {
+        event.stopPropagation();
+        console.log('Edit clicked', node, event);
+      };
+
+      const onClickRemove = (event: Event) => {
+        event.stopPropagation();
+        console.log('Remove clicked', node, event);
+      };
 
       return html`
         ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
-        <sl-button fill="ghost" size="sm" slot="actions">
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
-        <sl-button fill="ghost" size="sm" slot="actions">
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
           <sl-icon name="far-trash"></sl-icon>
         </sl-button>
       `;
@@ -430,7 +442,7 @@ export const CustomRendererWithBadges: Story = {
   args: {
     ...FlatDataSource.args,
     renderer: node => {
-      const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
 
       return html`
         ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
@@ -454,3 +466,104 @@ export const CustomRendererWithBadges: Story = {
 //   <sl-button fill="ghost" size="sm" slot="actions">
 //   <sl-icon name="far-trash"></sl-icon>
 //   </sl-button>
+
+export const SingleSelectWithActionButtons: Story = {
+  // const storyArgs = {
+  //   ...FlatDataSource.args,
+  //   ...FlatDataSource.args.dataSource?.selects: 'single',
+  // }
+  args: {
+    // ...FlatDataSource.args,
+    // selects: 'single',
+    dataSource: new FlatTreeDataSource(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      selects: 'single' // TODO: make separate story with selection single/multiple and action buttons
+    }),
+    renderer: node => {
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      const onClickEdit = (event: Event) => {
+        event.stopPropagation();
+        console.log('Edit clicked', node, event);
+      };
+
+      const onClickRemove = (event: Event) => {
+        event.stopPropagation();
+        console.log('Remove clicked', node, event);
+      };
+
+      return html`
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+        <span>${node.label}</span>
+
+        <sl-button tabindex="0" fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+        <sl-button tabindex="0" fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
+          <sl-icon name="far-trash"></sl-icon>
+        </sl-button>
+      `;
+    },
+    scopedElements: {
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
+    }
+  }
+};
+
+export const MultiSelectWithActionButtons: Story = {
+  // TODO: maybe this case is not necessary?
+  // const storyArgs = {
+  //   ...FlatDataSource.args,
+  //   ...FlatDataSource.args.dataSource?.selects: 'single',
+  // }
+  args: {
+    // ...FlatDataSource.args,
+    // selects: 'single',
+    dataSource: new FlatTreeDataSource(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      selects: 'multiple' // TODO: make separate story with selection single/multiple and action buttons
+    }),
+    renderer: node => {
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      const onClickEdit = (event: Event) => {
+        event.stopPropagation();
+        console.log('Edit clicked', node, event);
+      };
+
+      const onClickRemove = (event: Event) => {
+        event.stopPropagation();
+        console.log('Remove clicked', node, event);
+      };
+
+      return html`
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+        <span>${node.label}</span>
+
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
+          <sl-icon name="far-trash"></sl-icon>
+        </sl-button>
+      `;
+    },
+    scopedElements: {
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
+    }
+  }
+};

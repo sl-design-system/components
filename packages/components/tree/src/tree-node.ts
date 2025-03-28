@@ -277,6 +277,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction */
   #onKeydown(event: KeyboardEvent): void {
+    console.log('on keydown event on tree node', event, event.target, event.key, document.activeElement); // TODO: detect slotted action buttons?
     if (event.key === 'Enter' || event.key === ' ') {
       // TODO: make sure that space needs to be used same way as enter here due to a11y
       event.preventDefault();
@@ -305,6 +306,15 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         this.toggle();
       } else if (!this.expandable) {
         event.preventDefault();
+      }
+    }
+    if (event.key === 'Tab') {
+      // const actionButtons = event.target.querySelectorAll('[slot="actions"] sl-button');
+      const actionButtons = (event.target as HTMLElement)?.querySelectorAll('[slot="actions"]');
+      console.log('action buttons when tab on keydown in TREE NODE', actionButtons, event.target); // TODO: problems with action buttons not always visible?
+      if (actionButtons.length > 0) {
+        event.preventDefault();
+        (actionButtons[0] as HTMLElement).focus();
       }
     }
   }

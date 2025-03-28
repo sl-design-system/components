@@ -1,5 +1,11 @@
 # @sl-design-system/tooltip
 
+## 1.1.4
+
+### Patch Changes
+
+- [#1905](https://github.com/sl-design-system/components/pull/1905) [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5) - Refactored tooltip and popover to use new tokens
+
 ## 1.1.3
 
 ### Patch Changes

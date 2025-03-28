@@ -1,5 +1,14 @@
 # @sl-design-system/toggle-button
 
+## 0.0.7
+
+### Patch Changes
+
+- [#1902](https://github.com/sl-design-system/components/pull/1902) [`c4c3ba2`](https://github.com/sl-design-system/components/commit/c4c3ba21ef185ff2fa08f7ed0f04dc17029c2d6b) - Improved contrast between selected and unselected toggle button
+
+- Updated dependencies [[`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5)]:
+  - @sl-design-system/tooltip@1.1.4
+
 ## 0.0.6
 
 ### Patch Changes

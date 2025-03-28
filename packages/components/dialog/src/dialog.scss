@@ -174,14 +174,14 @@ slot[name='subtitle'] {
 }
 
 slot[name='primary-actions'] {
-  &::slotted(sl-button:first-of-type) {
+  &::slotted(sl-button:nth-child(1 of [slot='primary-actions'])) {
     @media (width <= 600px) {
       grid-area: 1 / 1;
       inline-size: fit-content;
     }
   }
 
-  &::slotted(sl-button:last-of-type) {
+  &::slotted(sl-button:nth-child(2 of [slot='primary-actions'])) {
     @media (width <= 600px) {
       grid-area: 1 / 3;
       inline-size: fit-content;
@@ -190,7 +190,7 @@ slot[name='primary-actions'] {
   }
 }
 
-slot[name='secondary-actions']::slotted(:last-of-type) {
+slot[name='secondary-actions']::slotted(:nth-last-child(1 of [slot='secondary-actions'])) {
   @media (width > 600px) {
     margin-inline-end: auto;
   }

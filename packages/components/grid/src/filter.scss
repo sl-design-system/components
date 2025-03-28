@@ -25,6 +25,7 @@ sl-popover {
   font-weight: var(
     --sl-text-typeset-fontWeight-regular
   ); // when using 'inherit' it inherits from the table header, which is bold
+
   padding: 0;
 }
 
@@ -34,13 +35,13 @@ header {
   border-block-end: 1px solid var(--sl-color-elevation-border-raised);
   display: flex;
   font-weight: var(--sl-font-weight-semibold);
-  gap: 0.5rem;
+  gap: var(--sl-size-100);
   inset-block-start: calc(var(--sl-size-300) * -1);
   justify-content: space-between;
   margin-block: calc(var(--sl-size-300) * -1) var(--sl-size-200);
   padding-block-start: var(--sl-size-300);
   position: sticky;
-  z-index: 1;
+  z-index: 1; // needed for the sticky positioning to work
 }
 
 h1 {

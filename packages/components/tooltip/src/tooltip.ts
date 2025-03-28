@@ -136,10 +136,10 @@ export class Tooltip extends LitElement {
       this.anchorElement = target as HTMLElement;
 
       this.showPopover();
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         //timeout is needed because otherwise the actualPlacement is not set yet
         this.#calculateSafeTriangle();
-      }, 10);
+      });
     }
   };
 

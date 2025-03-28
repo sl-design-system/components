@@ -3,11 +3,12 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, FocusTrapController, breakpoints, event } from '@sl-design-system/shared';
+import { type EventEmitter, FocusTrapController, MediaController, event } from '@sl-design-system/shared';
 import {
   type CSSResult,
   type CSSResultGroup,
   LitElement,
+  type PropertyValues,
   type TemplateResult,
   adoptStyles,
   html,
@@ -63,10 +64,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static override styles: CSSResultGroup = [breakpoints, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** The controller that manages the focus trap within the dialog. */
   #focusTrap = new FocusTrapController(this);
+
+  /** Responsive behavior utility. */
+  #media = new MediaController(this);
 
   /**
    * @internal Emits when the dialog has been cancelled. This happens when the
@@ -74,7 +78,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    */
   @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
-  /** Determines whether a close button should be shown in the top right corner. */
+  /**
+   * Determines whether a close button should be shown in the top right corner.
+   * @default false
+   */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
 
   /** @internal Emits when the dialog has been closed. */
@@ -83,12 +90,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   @query('dialog') dialog?: HTMLDialogElement;
 
-  /** The role for the dialog element. */
+  /**
+   * The role for the dialog element.
+   * @default 'dialog'
+   */
   @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
 
   /**
    * Disables the ability to cancel the dialog by pressing the Escape key
    * or clicking on the backdrop.
+   * @default false
    */
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
 
@@ -96,6 +107,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.inert = true;
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    this.#updatePrimaryButtons();
   }
 
   override render(): TemplateResult {
@@ -133,20 +150,22 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       <slot name="header">
         <div part="titles">
           <slot name="title" id="title">${title}</slot>
-          <slot name="subtitle">${subtitle}</slot>
+          ${this.#media.mobile ? nothing : html`<slot name="subtitle">${subtitle}</slot>`}
+          ${this.#media.mobile
+            ? html`
+                <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">
+                  ${this.renderPrimaryActions()}
+                </slot>
+              `
+            : nothing}
         </div>
-        <slot name="header-actions">
-          <sl-button-bar part="header-bar">
-            <slot name="header-buttons"></slot>
-            ${this.closeButton
-              ? html`
-                  <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
-                    <sl-icon name="xmark"></sl-icon>
-                  </sl-button>
-                `
-              : nothing}
-          </sl-button-bar>
-        </slot>
+        ${this.closeButton
+          ? html`
+              <sl-button @click=${this.#onCloseClick} aria-label=${msg('Close')} fill="ghost" variant="default">
+                <sl-icon name="xmark"></sl-icon>
+              </sl-button>
+            `
+          : nothing}
       </slot>
     `;
   }
@@ -183,6 +202,33 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * the `<sl-dialog>` custom element, use the slots.
    */
   renderActions(): TemplateResult | typeof nothing {
+    return html`
+      <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
+      ${this.#media.mobile
+        ? nothing
+        : html`
+            <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">${this.renderPrimaryActions()}</slot>
+          `}
+    `;
+  }
+
+  /**
+   * Override this method to customize the primary actions in the footer of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderPrimaryActions(): TemplateResult | typeof nothing {
+    return nothing;
+  }
+
+  /**
+   * Override this method to customize the secondary actions in the footer of the dialog.
+   *
+   * Only use this when extending the `Dialog` class. If you are using
+   * the `<sl-dialog>` custom element, use the slots.
+   */
+  renderSecondaryActions(): TemplateResult | typeof nothing {
     return nothing;
   }
 
@@ -205,10 +251,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     `
     );
 
-    adoptStyles(this.shadowRoot!, [breakpoints, styles, backdrop]);
+    adoptStyles(this.shadowRoot!, [styles, backdrop]);
 
-    // Disable scrolling while the dialog is open
-    document.documentElement.style.overflow = 'hidden';
+    this.#updateDocumentElement(true);
 
     this.inert = false;
     this.dialog?.showModal();
@@ -230,9 +275,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** Close the dialog. */
   close(): void {
-    if (this.dialog?.open) {
-      this.#closeDialogOnAnimationend();
-    }
+    this.dialog?.close();
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -247,13 +290,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           event.clientX < rect.left ||
           event.clientX > rect.right))
     ) {
-      this.#closeDialogOnAnimationend(event.target, true);
+      this.dialog?.close();
     }
   }
 
   #onClose(): void {
-    // Reenable scrolling after the dialog has closed
-    document.documentElement.style.overflow = '';
+    this.#updateDocumentElement(false);
 
     this.#focusTrap.deactivate();
 
@@ -265,46 +307,56 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.preventDefault();
     event.stopPropagation();
 
-    this.#closeDialogOnAnimationend(event.target as HTMLElement);
+    this.close();
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && !this.disableCancel) {
       event.preventDefault();
 
-      if (!this.disableCancel) {
-        this.#closeDialogOnAnimationend(event.target, true);
-      }
+      this.close();
     }
   }
 
-  #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
-    this.dialog?.addEventListener(
-      'animationend',
-      () => {
-        this.dialog?.removeAttribute('closing');
+  #updateDocumentElement(opening?: boolean): void {
+    if (opening) {
+      const width = window.innerWidth,
+        bodyMargin = 16;
 
-        if (emitCancelEvent) {
-          this.cancelEvent.emit();
-        }
+      const scale = (width - bodyMargin * 2) / width;
 
-        if (target?.matches('sl-button[sl-dialog-close]')) {
-          this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
-        } else {
-          this.dialog?.close();
-        }
-      },
-      { once: true }
-    );
+      // Set the scale and translate values so that the body has a 16px margin on each side
+      document.documentElement.style.setProperty('--sl-dialog-scale', scale.toString());
+      document.documentElement.style.setProperty('--sl-dialog-translate', `0 ${bodyMargin}px`);
 
-    this.#focusTrap.deactivate();
+      // Add class to `<html>` for styling purposes
+      document.documentElement.classList.add('sl-dialog-enter');
 
-    /**
-     * Set the closing attribute, this triggers the closing animation.
-     *
-     * FIXME: We can replace this using `@starting-style` once this is available in all
-     * browsers. See https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
-     */
-    requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
+      // Disable scrolling while the dialog is open
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      // Reenable scrolling after the dialog has closed
+      document.documentElement.style.overflow = '';
+
+      // Remove open class
+      document.documentElement.classList.remove('sl-dialog-enter');
+    }
+  }
+
+  #updatePrimaryButtons(): void {
+    const primaryButtons = this.renderRoot
+      .querySelector<HTMLSlotElement>('slot[name="primary-actions"]')
+      ?.assignedElements({
+        flatten: true
+      });
+
+    console.log(primaryButtons);
+
+    if (primaryButtons?.length === 2) {
+      primaryButtons[0].setAttribute('fill', this.#media.mobile ? 'link' : 'outline');
+      primaryButtons[1].setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
+    } else {
+      primaryButtons?.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
+    }
   }
 }

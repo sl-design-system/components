@@ -125,7 +125,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     // Group the items by first filtering them and then sorting
     if (this.groupBy) {
-      const ascending = this.groupBy.direction === 'asc';
+      const ascending = this.groupBy.direction !== 'desc'; // should be ascending by default
 
       let sortFn: DataSourceSortFunction<T>;
 

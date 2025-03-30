@@ -106,11 +106,15 @@ export default {
             translate: 0;
           }
         }
-        sl-dialog {
-          ${maxWidth ? `--sl-dialog-max-inline-size: ${maxWidth}` : ''};
-        }
+        ${maxWidth
+          ? `
+              sl-dialog::part(dialog) {
+                max-inline-size: ${maxWidth};
+              }
+            `
+          : nothing}
       </style>
-      <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
+      <sl-button @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
         <span slot="title">${title}</span>
         ${subtitle ? html`<span slot="subtitle">${subtitle}</span>` : nothing} ${body?.()}
@@ -124,14 +128,25 @@ export default {
 export const Basic: Story = {
   args: {
     body: () =>
-      'This is an example of a basic dialog. It has a title, a body, and primary actions in the form of a cancel button and action button.',
+      'This is an example of a basic dialog. It has a title, a body, primary actions in the form of a cancel button and action button and a secondary action in the form of a delete button.',
     primaryActions: () => html`
       <sl-button slot="primary-actions" sl-dialog-close>Cancel</sl-button>
       <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
     `,
     secondaryActions: () => html`
-      <sl-button slot="secondary-actions" sl-dialog-close variant="danger">Delete</sl-button>
+      <sl-button fill="outline" slot="secondary-actions" sl-dialog-close variant="primary">Secondary action</sl-button>
     `
+  }
+};
+
+export const CloseButton: Story = {
+  args: {
+    body: () => 'This dialog has a close button. Use this blah die blah die blah.',
+    closeButton: true,
+    primaryActions: () => html`
+      <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
+    `,
+    title: 'Close button'
   }
 };
 
@@ -139,49 +154,10 @@ export const DisableCancel: Story = {
   args: {
     body: () =>
       'You cannot close me by pressing the Escape key, or clicking the backdrop. This dialog also has no close button. The only way to close it is by clicking one of the action buttons.',
-    closeButton: false,
     disableCancel: true,
-    maxWidth: '300px',
-    title: 'Disable cancel and close button'
-  }
-};
-
-export const Empty: Story = {
-  args: {
-    body: () =>
-      'Since there are no elements inside the dialog that are focusable, the dialog itself should have focus.',
-    closeButton: false,
-    footerButtons: () => html`Nothing here`
-  }
-};
-
-export const FooterButtons: Story = {
-  args: {
-    footerButtons: () => html`
-      <sl-button fill="ghost" slot="actions" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-      <sl-button fill="outline" slot="actions" variant="primary" sl-dialog-close>Action 2</sl-button>
-      <sl-button slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
-    `,
-    title: 'Dialog with extra footer buttons'
-  }
-};
-
-export const HeaderButtons: Story = {
-  args: {
-    headerButtons: () => {
-      const onClick = (event: Event & { target: HTMLElement }): void => {
-        event.target.closest('sl-dialog')?.close();
-      };
-
-      return html`
-        <sl-button @click=${onClick} slot="header-buttons">Button 1</sl-button>
-        <sl-button @click=${onClick} slot="header-buttons">Button 2</sl-button>
-        <sl-button @click=${onClick} aria-label="Close" fill="ghost" slot="header-buttons">
-          <sl-icon name="far-burst"></sl-icon>
-        </sl-button>
-      `;
-    },
-    title: 'Dialog with extra header buttons'
+    maxWidth: 'min(400px, 80vw)',
+    primaryActions: () => html`<sl-button slot="primary-actions" sl-dialog-close>Close</sl-button>`,
+    title: 'Disable cancel'
   }
 };
 
@@ -190,14 +166,10 @@ export const Lazy: Story = {
     const onClick = async (event: Event & { target: HTMLElement }) => {
       const dialog = document.createElement('sl-dialog');
       dialog.innerHTML = `
-        <span slot="title">Title</span>
-        Hello world!
+        <span slot="title">Lazy dialog</span>
+        This dialog is not created until you click the button. It is added to the DOM in the click event handler, and removed in the close event handler.
       `;
-      dialog.addEventListener('sl-close', () => {
-        console.log('Dialog closed');
-
-        dialog.remove();
-      });
+      dialog.addEventListener('sl-close', () => dialog.remove());
 
       event.target.insertAdjacentElement('afterend', dialog);
       await dialog.updateComplete;
@@ -211,10 +183,11 @@ export const Lazy: Story = {
 export const Mobile: Story = {
   parameters: {
     viewport: {
-      defaultViewport: 'iphone6'
+      defaultViewport: 'iphone5'
     }
   },
   args: {
+    ...Basic.args,
     body: () =>
       'The dialog behaves differently on mobile. It will animate in from the bottom of the screen. The contents behind the dialog will scale down to give the appearance if the dialog being on top.'
   }
@@ -237,12 +210,25 @@ export const MobileScrolling: Story = {
           <sl-text-field name="email" placeholder="Enter your email address" type="email"></sl-text-field>
         </sl-form-field>
 
+        <sl-form-field label="Address">
+          <sl-text-field name="address" placeholder="Address"></sl-text-field>
+        </sl-form-field>
+
+        <sl-form-field label="City">
+          <sl-text-field name="city" placeholder="City"></sl-text-field>
+        </sl-form-field>
+
         <sl-form-field label="Description">
           <sl-text-area></sl-text-area>
         </sl-form-field>
-
-        <sl-button fill="solid" variant="danger">Delete account</sl-button>
       </sl-form>
+    `,
+    primaryActions: () => html`
+      <sl-button slot="primary-actions" sl-dialog-close>Cancel</sl-button>
+      <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Save</sl-button>
+    `,
+    secondaryActions: () => html`
+      <sl-button slot="secondary-actions" sl-dialog-close variant="danger">Delete account</sl-button>
     `,
     title: 'Edit account'
   }

@@ -177,7 +177,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * the `<sl-dialog>` custom element, use the slots.
    */
   renderBody(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`
+      <slot></slot>
+      ${this.#media.mobile ? html`<slot name="secondary-actions">${this.renderSecondaryActions()}</slot>` : nothing}
+    `;
   }
 
   /**
@@ -190,7 +193,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   renderFooter(): TemplateResult {
     return html`
       <slot name="footer">
-        <sl-button-bar align="end" part="footer-bar"><slot name="actions">${this.renderActions()}</slot></sl-button-bar>
+        <sl-button-bar align="end" part="footer-bar">
+          <slot name="actions">${this.#media.mobile ? nothing : this.renderActions()}</slot>
+        </sl-button-bar>
       </slot>
     `;
   }
@@ -204,11 +209,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   renderActions(): TemplateResult | typeof nothing {
     return html`
       <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
-      ${this.#media.mobile
-        ? nothing
-        : html`
-            <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">${this.renderPrimaryActions()}</slot>
-          `}
+      <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">${this.renderPrimaryActions()}</slot>
     `;
   }
 
@@ -311,10 +312,14 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (event.key === 'Escape' && !this.disableCancel) {
+    if (event.key === 'Escape') {
       event.preventDefault();
 
-      this.close();
+      if (this.disableCancel) {
+        event.stopPropagation();
+      } else {
+        this.close();
+      }
     }
   }
 
@@ -344,19 +349,16 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #updatePrimaryButtons(): void {
-    const primaryButtons = this.renderRoot
-      .querySelector<HTMLSlotElement>('slot[name="primary-actions"]')
-      ?.assignedElements({
+    const buttons =
+      this.renderRoot.querySelector<HTMLSlotElement>('slot[name="primary-actions"]')?.assignedElements({
         flatten: true
-      });
+      }) ?? [];
 
-    console.log(primaryButtons);
-
-    if (primaryButtons?.length === 2) {
-      primaryButtons[0].setAttribute('fill', this.#media.mobile ? 'link' : 'outline');
-      primaryButtons[1].setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
+    if (buttons.length > 1) {
+      buttons.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'outline');
+      buttons.at(-1)?.setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
     } else {
-      primaryButtons?.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
+      buttons.at(0)?.setAttribute('fill', this.#media.mobile ? 'link' : 'solid');
     }
   }
 }

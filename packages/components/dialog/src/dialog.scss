@@ -115,6 +115,11 @@ dialog {
   justify-content: space-between;
   padding-block-start: var(--sl-size-300);
   padding-inline: var(--sl-size-300);
+
+  @media (width <= 600px) {
+    padding-block-start: var(--sl-size-100);
+    padding-inline: var(--sl-size-200);
+  }
 }
 
 [part='titles'] {
@@ -164,6 +169,15 @@ slot[name='subtitle'] {
   }
 }
 
+slot[name='secondary-actions'] {
+  @media (width <= 600px) {
+    display: flex;
+    gap: var(--sl-size-100);
+    justify-content: stretch;
+    margin-block: var(--sl-size-200) var(--sl-size-100);
+  }
+}
+
 ::slotted(sl-button:nth-child(1 of [slot='primary-actions'])) {
   @media (width <= 600px) {
     grid-area: 1 / 1;
@@ -180,6 +194,10 @@ slot[name='subtitle'] {
 }
 
 ::slotted(:nth-last-child(1 of [slot='secondary-actions'])) {
+  @media (width <= 600px) {
+    flex: 1;
+  }
+
   @media (width > 600px) {
     margin-inline-end: auto;
   }
@@ -193,11 +211,19 @@ sl-button {
 [part='body'] {
   overflow: auto;
   padding: var(--sl-size-200) var(--sl-size-300);
+
+  @media (width <= 600px) {
+    padding: var(--sl-size-100) var(--sl-size-200);
+  }
 }
 
 [part='footer'] {
   padding-block-end: var(--sl-size-300);
   padding-inline: var(--sl-size-300);
+
+  @media (width <= 600px) {
+    display: none;
+  }
 }
 
 [part='footer-bar'] {

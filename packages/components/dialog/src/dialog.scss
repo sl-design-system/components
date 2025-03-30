@@ -1,8 +1,5 @@
-$md-breakpoint: 600px;
-$lg-breakpoint: 900px;
-
 :host {
-  display: block;
+  display: contents;
 }
 
 dialog {
@@ -20,11 +17,23 @@ dialog {
 
   &[open] {
     display: flex;
+
+    &::backdrop {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
   }
 
   &:focus-visible {
     outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
     outline-offset: var(--sl-size-outlineOffset-default);
+  }
+
+  &::backdrop {
+    opacity: 0;
   }
 }
 
@@ -45,17 +54,8 @@ dialog {
     }
   }
 
-  dialog::backdrop {
-    opacity: 0;
-  }
-
   dialog[open]::backdrop {
-    opacity: 1;
     transition-duration: 0.5s;
-
-    @starting-style {
-      opacity: 0;
-    }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -91,17 +91,8 @@ dialog {
     }
   }
 
-  dialog::backdrop {
-    opacity: 0;
-  }
-
   dialog[open]::backdrop {
-    opacity: 1;
     transition-duration: 0.5s;
-
-    @starting-style {
-      opacity: 0;
-    }
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -173,24 +164,22 @@ slot[name='subtitle'] {
   }
 }
 
-slot[name='primary-actions'] {
-  &::slotted(sl-button:nth-child(1 of [slot='primary-actions'])) {
-    @media (width <= 600px) {
-      grid-area: 1 / 1;
-      inline-size: fit-content;
-    }
-  }
-
-  &::slotted(sl-button:nth-child(2 of [slot='primary-actions'])) {
-    @media (width <= 600px) {
-      grid-area: 1 / 3;
-      inline-size: fit-content;
-      justify-self: end;
-    }
+::slotted(sl-button:nth-child(1 of [slot='primary-actions'])) {
+  @media (width <= 600px) {
+    grid-area: 1 / 1;
+    inline-size: fit-content;
   }
 }
 
-slot[name='secondary-actions']::slotted(:nth-last-child(1 of [slot='secondary-actions'])) {
+::slotted(sl-button:nth-child(2 of [slot='primary-actions'])) {
+  @media (width <= 600px) {
+    grid-area: 1 / 3;
+    inline-size: fit-content;
+    justify-self: end;
+  }
+}
+
+::slotted(:nth-last-child(1 of [slot='secondary-actions'])) {
   @media (width > 600px) {
     margin-inline-end: auto;
   }

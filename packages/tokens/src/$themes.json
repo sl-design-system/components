@@ -1,101 +1,182 @@
 [
   {
-    "id": "d4a55ff6b56152f826168af5befeb7f7011d2204",
-    "name": "-tokens",
+    "id": "50a270de38e65d1e3aeec5ee2c7eb0d7d35c991c",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "sanoma-learning/base-new": "source",
+      "sanoma-learning/light-new": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/A/base-new": "source",
+      "I/A/theme-new": "source"
+    },
+    "group": "sanoma-learning"
+  },
+  {
+    "id": "666ef7666b8056ca85a16ed6d745f98e9b5be1c6",
+    "name": "dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
       "system": "source",
       "-tokens/base-new": "enabled",
       "-tokens/theme-new": "enabled",
-      "I/base-new": "disabled",
-      "I/theme-new": "disabled",
-      "II/base-new": "disabled",
-      "II/theme-new": "disabled"
-    }
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/A/base-new": "source",
+      "I/A/theme-new": "source",
+      "sanoma-learning/base-new": "source",
+      "sanoma-learning/dark-new": "source"
+    },
+    "group": "sanoma-learning"
   },
   {
-    "id": "54ee99ab2a505bafe9e06105ed840596da0bebaa",
-    "name": "A",
+    "id": "c9e93837d24d8b2fcc8393c8f834396923e92475",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/A/base-new": "source",
+      "I/A/theme-new": "source",
+      "bingel-dc/base-new": "source",
+      "bingel-dc/light-new": "source",
+      "system": "source",
+      "primitives": "source"
+    },
+    "group": "bingel-dc"
+  },
+  {
+    "id": "f727e5b772ee9416bda03359963afc2fd6bd9593",
+    "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
       "system": "source",
-      "I/base-new": "enabled",
-      "I/theme-new": "enabled",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
       "I/A/base-new": "source",
-      "I/A/theme-new": "source"
+      "I/A/theme-new": "source",
+      "bingel-int/base-new": "source",
+      "bingel-int/light-new": "source",
+      "I/base-new": "source",
+      "I/theme-new": "source"
     },
-    "group": "I"
+    "group": "bingel-int"
   },
   {
-    "id": "de0e779af2ec6a9e99b8f2e1a960129166585221",
-    "name": "B",
+    "id": "faefcc781d119542a33301e704f800dcf715c0b8",
+    "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "I/base-new": "enabled",
-      "I/theme-new": "enabled",
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
       "I/B/base-new": "source",
       "I/B/theme-new": "source",
-      "primitives": "source",
-      "system": "source"
+      "clickedu/base-new": "source",
+      "clickedu/light-new": "source",
+      "I/base-new": "source",
+      "I/theme-new": "source"
     },
-    "group": "I"
+    "group": "click-edu"
   },
   {
-    "id": "71e1ece30f689db2d3ae38b438c3ca1d32656c45",
-    "name": "C",
+    "id": "11e67e19e2395c4537437c8613fe87d8266c207f",
+    "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
       "system": "source",
-      "I/base-new": "enabled",
-      "I/theme-new": "enabled",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/B/base-new": "source",
+      "I/B/theme-new": "source",
+      "editorial-suite/base-new": "source",
+      "editorial-suite/light-new": "source"
+    },
+    "group": "editorial-suite"
+  },
+  {
+    "id": "2b82e2cd2da2077f7abff2b708598b748dd46ef5",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/B/base-new": "source",
+      "I/B/theme-new": "source",
+      "itslearning/base-new": "source",
+      "itslearning/light-new": "source"
+    },
+    "group": "its-learning"
+  },
+  {
+    "id": "1191fb0e1432f3a6a235bb681b9167da9b788a63",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
       "I/C/base-new": "source",
-      "I/C/theme-new": "source"
+      "I/C/theme-new": "source",
+      "kampus/base-new": "source",
+      "kampus/light-new": "source"
     },
-    "group": "I"
+    "group": "kampus"
   },
   {
-    "id": "0a19ce58422bf1fee86be270650a483f89e64039",
-    "name": "A",
+    "id": "1ec50508c9385f26efe450dff5630c2fdc4f1253",
+    "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
       "system": "source",
-      "II/base-new": "enabled",
-      "II/theme-new": "enabled",
-      "II/A/base-new": "source",
-      "II/A/theme-new": "source"
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/C/base-new": "source",
+      "I/C/theme-new": "source",
+      "magister/base-new": "source",
+      "magister/light-new": "source"
     },
-    "group": "II"
+    "group": "magister"
   },
   {
-    "id": "bb77e6432d45ae423486d8005fb922744b891528",
-    "name": "B",
+    "id": "88736d82bb56d973bf3b585994682fcdf38716e8",
+    "name": "dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
       "system": "source",
-      "II/base-new": "enabled",
-      "II/theme-new": "enabled",
-      "II/B/base-new": "source",
-      "II/B/theme-new": "source"
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/C/base-new": "source",
+      "I/C/theme-new": "source",
+      "magister/base-new": "source",
+      "magister/dark-new": "source"
     },
-    "group": "II"
-  },
-  {
-    "id": "cdbabbe07f68cf05c98ad3d8b1d5d3da4be9a424",
-    "name": "C",
-    "$figmaStyleReferences": {},
-    "selectedTokenSets": {
-      "primitives": "source",
-      "system": "source",
-      "II/base-new": "enabled",
-      "II/theme-new": "enabled",
-      "II/C/base-new": "source",
-      "II/C/theme-new": "source"
-    },
-    "group": "II"
+    "group": "magister"
   }
 ]

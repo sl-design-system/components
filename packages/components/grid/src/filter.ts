@@ -88,6 +88,9 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** The path to the field to filter on. */
   @property() path?: PathKeys<T>;
 
+  /** The label as it needs to be shown in the popover filter, use this when it . */
+  @property({ type: String, attribute: 'heading-label' }) headingLabel?: string;
+
   set value(value: string | string[] | undefined) {
     if (this.mode !== 'text') {
       this.#value = Array.isArray(value) ? value : (value?.split(',') ?? []);
@@ -129,6 +132,21 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
+  getFilterHeaderValue(): string {
+    let header = this.column.header;
+    if (typeof header !== 'string' && header !== undefined) {
+      const div = document.createElement('div');
+      div.innerHTML = (header as unknown as TemplateResult).strings[0];
+      const textNodes = Array.from(div.childNodes)
+        .filter(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim())
+        .map(node => node.textContent?.trim());
+      header = textNodes.join(' ');
+    }
+    return (
+      this.headingLabel || header?.toString().toLocaleLowerCase() || getNameByPath(this.column.path).toLocaleLowerCase()
+    );
+  }
+
   override render(): TemplateResult {
     return html`
       <sl-button @click=${this.#onClick} class="toggle" id="anchor" fill="link">
@@ -137,9 +155,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       </sl-button>
       <sl-popover anchor="anchor" position="bottom">
         <header>
-          <h1 id="title">
-            ${msg('Filter by')} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
-          </h1>
+          <h1 id="title">${msg('Filter by')} <span>${this.getFilterHeaderValue()}</span></h1>
           <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
             <sl-icon name="xmark"></sl-icon>
           </sl-button>

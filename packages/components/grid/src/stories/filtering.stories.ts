@@ -2,8 +2,10 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
+import { Icon } from '@sl-design-system/icon';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { state } from 'lit/decorators.js';
@@ -90,8 +92,16 @@ export const Custom: Story = {
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-filter-column path="status"></sl-grid-filter-column>
-        <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+        <sl-grid-filter-column path="membership" heading-label="DUO membership status"></sl-grid-filter-column>
+        <sl-grid-filter-column
+          path="status"
+          .header=${html`
+            Status
+            <sl-icon aria-describedby="tooltip" name="info"></sl-icon>
+            <sl-tooltip id="tooltip">Status is based on current calendar activity</sl-tooltip>
+          `}
+          .scopedElements=${{ 'sl-icon': Icon, 'sl-tooltip': Tooltip }}
+        ></sl-grid-filter-column>
       </sl-grid>
     `;
   }

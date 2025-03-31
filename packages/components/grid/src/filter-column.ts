@@ -50,7 +50,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   @property({ type: String }) value?: string | string[];
 
   /** The value for this filter column. */
-  @property({ type: String, attribute: 'heading-label' }) headingLabel?: string;
+  @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -105,7 +105,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
           .options=${this.options ?? this.internalOptions}
           .path=${this.path}
           .value=${this.value}
-          .headingLabel=${this.headingLabel}
+          .filterLabel=${this.filterLabel}
         >
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-filter>

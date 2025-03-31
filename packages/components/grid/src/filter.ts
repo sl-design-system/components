@@ -89,7 +89,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   @property() path?: PathKeys<T>;
 
   /** The label as it needs to be shown in the popover filter, use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
-  @property({ type: String, attribute: 'heading-label' }) headingLabel?: string;
+  @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   set value(value: string | string[] | undefined) {
     if (this.mode !== 'text') {
@@ -143,7 +143,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       header = textNodes.join(' ');
     }
     return (
-      this.headingLabel || header?.toString().toLocaleLowerCase() || getNameByPath(this.column.path).toLocaleLowerCase()
+      this.filterLabel || header?.toString().toLocaleLowerCase() || getNameByPath(this.column.path).toLocaleLowerCase()
     );
   }
 

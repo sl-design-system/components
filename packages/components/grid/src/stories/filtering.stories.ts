@@ -92,7 +92,7 @@ export const Custom: Story = {
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-filter-column path="membership" heading-label="DUO membership status"></sl-grid-filter-column>
+        <sl-grid-filter-column path="membership" filter-label="DUO membership status"></sl-grid-filter-column>
         <sl-grid-filter-column
           path="status"
           .header=${html`

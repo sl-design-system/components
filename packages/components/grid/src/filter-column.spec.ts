@@ -40,7 +40,7 @@ describe('sl-grid-filter-column', () => {
         <sl-grid .items=${ITEMS}>
           <sl-grid-filter-column path="profession"></sl-grid-filter-column>
           <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
-          <sl-grid-filter-column path="membership" heading-label="Membership"></sl-grid-filter-column>
+          <sl-grid-filter-column path="membership" filter-label="Membership"></sl-grid-filter-column>
         </sl-grid>
       `);
       await el.updateComplete;

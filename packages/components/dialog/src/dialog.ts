@@ -126,7 +126,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         part="dialog"
       >
         <div part="header">${this.renderHeader()}</div>
-        <div part="body">${this.renderBody()}</div>
+        <div @scroll=${this.#onScroll} part="body">${this.renderBody()}</div>
         <div part="footer">${this.renderFooter()}</div>
       </dialog>
     `;
@@ -321,6 +321,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         this.close();
       }
     }
+  }
+
+  #onScroll(event: Event & { target: HTMLElement }): void {
+    const { clientHeight, scrollTop, scrollHeight } = event.target;
+
+    // Toggle sticky header when scrolling down
+    this.renderRoot.querySelector('[part="header"]')?.toggleAttribute('sticky', scrollTop > 0);
+
+    // Toggle sticky footer when not at bottom
+    this.renderRoot
+      .querySelector('[part="footer"]')
+      ?.toggleAttribute('sticky', scrollTop + clientHeight < scrollHeight);
   }
 
   #updateDocumentElement(opening?: boolean): void {

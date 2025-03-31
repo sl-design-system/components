@@ -111,14 +111,19 @@ dialog {
 
 [part='header'] {
   align-items: start;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  padding-block-start: var(--sl-size-300);
+  padding-block: var(--sl-size-300) var(--sl-size-200);
   padding-inline: var(--sl-size-300);
 
   @media (width <= 600px) {
-    padding-block-start: var(--sl-size-100);
-    padding-inline: var(--sl-size-200);
+    padding: var(--sl-size-050) var(--sl-size-200);
+  }
+
+  &[sticky] {
+    border-block-end: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+    box-shadow: var(--sl-elevation-shadow-overflow);
   }
 }
 
@@ -214,15 +219,22 @@ sl-button {
 
   @media (width <= 600px) {
     padding: var(--sl-size-100) var(--sl-size-200);
+    scrollbar-width: thin;
   }
 }
 
 [part='footer'] {
-  padding-block-end: var(--sl-size-300);
+  box-sizing: border-box;
+  padding-block: var(--sl-size-200) var(--sl-size-300);
   padding-inline: var(--sl-size-300);
 
   @media (width <= 600px) {
     display: none;
+  }
+
+  &[sticky] {
+    border-block-start: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);
+    box-shadow: var(--sl-elevation-shadow-overflow);
   }
 }
 

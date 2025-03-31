@@ -17,6 +17,10 @@
   inline-size: 100%;
   justify-content: space-between;
   padding-inline: var(--_header-padding-inline);
+
+  sl-icon[name$='filter'] {
+    margin-inline-start: auto;
+  }
 }
 
 sl-popover {
@@ -47,8 +51,4 @@ header {
 h1 {
   font: var(--sl-text-body-md-demibold);
   margin: 0;
-
-  span {
-    text-transform: lowercase;
-  }
 }

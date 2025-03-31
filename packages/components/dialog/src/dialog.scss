@@ -165,15 +165,6 @@ slot[name='title'] {
   }
 }
 
-slot[name='subtitle'] {
-  font-size: 1.15em;
-  font-weight: var(--sl-text-typeset-fontWeight-demibold);
-
-  &::slotted(*) {
-    margin: 0;
-  }
-}
-
 slot[name='secondary-actions'] {
   @media (width <= 600px) {
     display: flex;
@@ -215,7 +206,7 @@ sl-button {
 
 [part='body'] {
   overflow: auto;
-  padding: var(--sl-size-200) var(--sl-size-300);
+  padding-inline: var(--sl-size-300);
 
   @media (width <= 600px) {
     padding: var(--sl-size-100) var(--sl-size-200);

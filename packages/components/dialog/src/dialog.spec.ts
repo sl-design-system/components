@@ -341,12 +341,12 @@ describe('sl-dialog', () => {
       expect(renderHeader).to.have.been.calledOnce;
     });
 
-    it('should render the given title and subtitle passed to renderHeader()', async () => {
+    it('should render the given title passed to renderHeader()', async () => {
       customElements.define(
         'inherited-dialog-with-custom-title',
         class extends Dialog {
           override renderHeader(): TemplateResult {
-            return super.renderHeader('Title', 'Subtitle');
+            return super.renderHeader('Title');
           }
         }
       );
@@ -358,10 +358,6 @@ describe('sl-dialog', () => {
       const title = el.renderRoot.querySelector('slot[name="title"]');
       expect(title).to.exist;
       expect(title).to.have.text('Title');
-
-      const subtitle = el.renderRoot.querySelector('slot[name="subtitle"]');
-      expect(subtitle).to.exist;
-      expect(subtitle).to.have.text('Subtitle');
     });
 
     it('should call renderBody during render', async () => {

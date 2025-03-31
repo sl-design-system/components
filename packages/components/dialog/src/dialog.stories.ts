@@ -62,50 +62,6 @@ export default {
 
     return html`
       <style>
-        html {
-          background: var(--sl-color-palette-grey-800);
-
-          @media (width <= 600px) {
-            @media (prefers-reduced-motion: no-preference) {
-              body {
-                animation: dialog-leave 300ms ease-out forwards;
-              }
-
-              &.sl-dialog-enter body {
-                animation: dialog-enter 500ms ease-in forwards;
-              }
-            }
-          }
-        }
-        body {
-          background: var(--sl-elevation-surface-base-default);
-          min-block-size: 100dvh;
-          transform-origin: top;
-        }
-        @keyframes dialog-enter {
-          from {
-            border-radius: 0px;
-            scale: 1;
-            translate: 0;
-          }
-          to {
-            border-radius: 6px;
-            scale: var(--sl-dialog-scale);
-            translate: var(--sl-dialog-translate);
-          }
-        }
-        @keyframes dialog-leave {
-          from {
-            border-radius: 6px;
-            scale: var(--sl-dialog-scale);
-            translate: var(--sl-dialog-translate);
-          }
-          to {
-            border-radius: 0px;
-            scale: 1;
-            translate: 0;
-          }
-        }
         ${maxWidth
           ? `
               sl-dialog::part(dialog) {
@@ -231,17 +187,6 @@ export const MobileScrolling: Story = {
       <sl-button slot="secondary-actions" sl-dialog-close variant="danger">Delete account</sl-button>
     `,
     title: 'Edit account'
-  }
-};
-
-export const Overflow: Story = {
-  args: {
-    body: () =>
-      'Incididunt nisi id anim anim amet. Nostrud do laboris ex culpa tempor nisi consectetur qui eu adipisicing nostrud. Ut cillum pariatur esse est voluptate. Ullamco dolore cupidatat anim aliquip veniam exercitation. Consectetur enim eiusmod nisi veniam eu magna qui sunt anim laborum culpa laboris anim. Incididunt elit est sint irure anim laborum aliquip laboris sint. Qui ullamco culpa ipsum aliquip officia aute velit nostrud nisi pariatur sit dolor et. Non pariatur adipisicing ad magna veniam magna qui et irure qui. Duis proident voluptate aute tempor do laboris cupidatat et laborum enim ea labore duis voluptate.',
-    title:
-      'Nisi magna dolor ullamco voluptate irure adipisicing mollit ipsum ipsum irure. Non sunt occaecat mollit cillum pariatur enim ipsum aliquip do ex fugiat.',
-    subtitle:
-      'Esse exercitation do nisi nostrud sunt ea labore qui id laborum dolor cupidatat consequat excepteur. In aute veniam ullamco esse culpa id voluptate labore irure commodo aliquip amet Lorem. Quis tempor amet ea culpa non sint excepteur irure. Ad ipsum excepteur sunt sunt cillum Lorem. Fugiat consequat est ad qui Lorem Lorem. Ad cupidatat id mollit nostrud velit cillum eiusmod.'
   }
 };
 

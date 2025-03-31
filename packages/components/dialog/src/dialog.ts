@@ -38,7 +38,7 @@ export type SlCloseEvent = CustomEvent<void>;
  *
  * @csspart dialog - The dialog element
  * @csspart header - The dialog header
- * @csspart titles - The container of the title and subtitle
+ * @csspart titles - The container for the title
  * @csspart header-bar - The button bar in the header
  * @csspart body - The body of the dialog
  * @csspart footer - The dialog footer
@@ -50,7 +50,6 @@ export type SlCloseEvent = CustomEvent<void>;
  * @slot header - Header content for the dialog
  * @slot header-buttons - More space for buttons for the dialog's header
  * @slot title - The title of the dialog
- * @slot subtitle - The subtitle of the dialog
  */
 @localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
@@ -134,9 +133,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /**
    * Override this method to customize the header of the dialog. If you only
-   * want to customize the title, you can use the `title` and `subtitle` arguments
-   * and call `super.renderHeader('My title', 'My subtitle')` to render the default
-   * header.
+   * want to customize the title, you can use the `title` argument and call
+   * `super.renderHeader('My title')` to render the default header.
    *
    * Beware when customizing the header: the `<dialog>` element is labelled by
    * the element with ID `title`. If you override this method, make sure to include
@@ -145,12 +143,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * Only use this when extending the `Dialog` class. If you are using
    * the `<sl-dialog>` custom element, use the slots.
    */
-  renderHeader(title = '', subtitle = ''): TemplateResult {
+  renderHeader(title = ''): TemplateResult {
     return html`
       <slot name="header">
         <div part="titles">
           <slot name="title" id="title">${title}</slot>
-          ${this.#media.mobile ? nothing : html`<slot name="subtitle">${subtitle}</slot>`}
           ${this.#media.mobile
             ? html`
                 <slot @slotchange=${this.#updatePrimaryButtons} name="primary-actions">

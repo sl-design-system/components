@@ -118,8 +118,15 @@ export class Tooltip extends LitElement {
     );
   };
 
-  #onHide = ({ target }: Event): void => {
-    if (this.#matchesAnchor(target as Element)) {
+  #onHide = (event: Event): void => {
+    let toTooltip = false;
+    let fromTooltip = false;
+    if (event instanceof PointerEvent) {
+      toTooltip = (event.relatedTarget as Element)?.nodeName === 'SL-TOOLTIP';
+      fromTooltip =
+        (event.target as Element)?.nodeName === 'SL-TOOLTIP' && !this.#matchesAnchor(event.relatedTarget as Element);
+    }
+    if ((this.#matchesAnchor(event.target as Element) && !toTooltip) || fromTooltip) {
       this.hidePopover();
     }
   };
@@ -127,7 +134,12 @@ export class Tooltip extends LitElement {
   #onShow = ({ target }: Event): void => {
     if (this.#matchesAnchor(target as HTMLElement)) {
       this.anchorElement = target as HTMLElement;
+
       this.showPopover();
+      requestAnimationFrame(() => {
+        //timeout is needed because otherwise the actualPlacement is not set yet
+        this.#calculateSafeTriangle();
+      });
     }
   };
 
@@ -151,6 +163,7 @@ export class Tooltip extends LitElement {
 
     this.setAttribute('popover', 'manual');
     this.setAttribute('role', 'tooltip');
+    this.setAttribute('aria-hidden', 'true'); // Prevent the tooltip from being read by screen readers multiple times
 
     const root = this.getRootNode() as HTMLElement;
 
@@ -177,13 +190,79 @@ export class Tooltip extends LitElement {
   override render(): TemplateResult {
     return html`
       <slot></slot>
-      <div class="arrow">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="6">
-          <path
-            d="M14.48 5.411c.384.374.938.588 1.52.589H0c.582-.001 1.136-.215 1.52-.589L6.475.59c.807-.785 2.241-.785 3.048 0L14.48 5.41Z"
-          />
-        </svg>
-      </div>
+      <div class="arrow"></div>
+      <div class="safe-triangle"></div>
     `;
+  }
+
+  /**
+   * Calculate a "safe triangle" for the submenu to a user can safely move his cursor
+   * from the trigger to the submenu without the submenu closing.
+   * See https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
+   */
+  #calculateSafeTriangle(): void {
+    const actualPlacement = this.getAttribute('actual-placement');
+
+    if (!actualPlacement || !this.anchorElement) {
+      return;
+    }
+
+    const tooltipRect = this.getBoundingClientRect(),
+      anchorRect = this.anchorElement.getBoundingClientRect();
+    let insetBlockStart,
+      blockSize,
+      inlineSize,
+      polygon,
+      anchorInsetBlockStart = 0,
+      insetInlineStart,
+      anchorSideBlockStart = 0,
+      tootltipSideBlockStart = 0;
+
+    if (actualPlacement.startsWith('top') || actualPlacement.startsWith('bottom')) {
+      anchorInsetBlockStart = Math.floor(anchorRect.left - tooltipRect.left);
+      inlineSize = Math.ceil(Math.max(tooltipRect.width, anchorRect.width));
+      insetInlineStart = Math.ceil(Math.min(tooltipRect.left, anchorRect.left));
+    }
+
+    if (actualPlacement.startsWith('top')) {
+      blockSize = Math.ceil(anchorRect.top - tooltipRect.bottom) + 2;
+      insetBlockStart = tooltipRect.bottom - 1;
+      polygon = `0% 0%, 100% 0, ${anchorInsetBlockStart + anchorRect.width}px 100%, ${anchorInsetBlockStart}px 100%`;
+    }
+
+    if (actualPlacement.startsWith('bottom')) {
+      blockSize = Math.ceil(tooltipRect.top - anchorRect.bottom) + 2;
+      insetBlockStart = anchorRect.bottom - 1;
+      polygon = `${anchorInsetBlockStart}px 0, ${anchorInsetBlockStart + anchorRect.width}px 0, 100% 100%, 0 100%`;
+    }
+
+    if (actualPlacement.startsWith('left') || actualPlacement.startsWith('right')) {
+      blockSize = Math.ceil(Math.max(tooltipRect.height, anchorRect.height)) + 2;
+      insetBlockStart = Math.min(anchorRect.top, tooltipRect.top) - 1;
+      anchorInsetBlockStart = anchorRect.top;
+      anchorSideBlockStart = Math.max(anchorRect.top - tooltipRect.top, 0);
+      tootltipSideBlockStart = Math.max(tooltipRect.top - anchorRect.top, 0);
+    }
+
+    if (actualPlacement.startsWith('right')) {
+      insetInlineStart = Math.ceil(Math.min(tooltipRect.left, anchorRect.right)) - 1;
+      inlineSize = Math.ceil(tooltipRect.left - anchorRect.right) + 2;
+      polygon = `0 ${anchorSideBlockStart}px , 100% ${tootltipSideBlockStart}px,
+                 100% ${tootltipSideBlockStart + tooltipRect.height + 2}px, 0 ${anchorSideBlockStart + anchorRect.height + 2}px`;
+    }
+
+    if (actualPlacement.startsWith('left')) {
+      insetInlineStart = Math.ceil(Math.min(tooltipRect.right, anchorRect.left)) - 1;
+      inlineSize = Math.ceil(anchorRect.left - tooltipRect.right) + 2;
+      polygon = `0 ${tootltipSideBlockStart}px , 100% ${anchorSideBlockStart}px,
+                 100% ${anchorSideBlockStart + anchorRect.height + 2}px, 0 ${tootltipSideBlockStart + tooltipRect.height + 2}px`;
+    }
+
+    const inset = `${insetBlockStart}px auto auto ${insetInlineStart}px`;
+    const safeTriangle = this.renderRoot.querySelector<HTMLElement>('.safe-triangle')!;
+    safeTriangle.style.blockSize = `${blockSize}px`;
+    safeTriangle.style.clipPath = `polygon(${polygon})`;
+    safeTriangle.style.inlineSize = `${inlineSize}px`;
+    safeTriangle.style.inset = inset;
   }
 }

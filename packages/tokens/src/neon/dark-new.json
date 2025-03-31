@@ -1562,7 +1562,7 @@
       },
       "raised": {
         "default": {
-          "value": "{color.palette.grey.000}",
+          "value": "{color.palette.grey.050}",
           "type": "color",
           "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         },
@@ -1575,7 +1575,17 @@
           "value": "rgba({color.palette.grey.900}, 5%)",
           "type": "color",
           "description": "Background for components that create a sunken effect, typically used for grouping related items."
+        },
+        "inverted": {
+          "value": "{color.palette.grey.300}",
+          "type": "color",
+          "description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
         }
+      },
+      "shadow": {
+        "value": "{color.transparant}",
+        "type": "color",
+        "description": "Used as color for shadows."
       }
     }
   },

@@ -1,19 +1,86 @@
 [
   {
-    "id": "50a270de38e65d1e3aeec5ee2c7eb0d7d35c991c",
-    "name": "light",
+    "id": "9471274a3324cc25d9e4dec843148ecba28ecc0e",
+    "name": "-tokens",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "primitives": "source",
       "system": "source",
-      "sanoma-learning/base-new": "source",
-      "sanoma-learning/light-new": "source",
       "-tokens/base-new": "enabled",
-      "-tokens/theme-new": "enabled",
+      "-tokens/theme-new": "enabled"
+    },
+    "group": "-tokens"
+  },
+  {
+    "id": "a71070ffd5e0ff389ca027af60388304be004e9a",
+    "name": "I",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
       "I/base-new": "source",
-      "I/theme-new": "source",
+      "I/theme-new": "source"
+    },
+    "group": "base"
+  },
+  {
+    "id": "c8cb98198a3678b5409aa43d9780897803fc341a",
+    "name": "A",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
       "I/A/base-new": "source",
       "I/A/theme-new": "source"
+    },
+    "group": "I"
+  },
+  {
+    "id": "a92a9c88bcf75556c43bc67aad7a824b13c7c06b",
+    "name": "sanoma-learning",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "sanoma-learning/base-new": "source",
+      "sanoma-learning/theme-new": "source"
+    },
+    "group": "I-A"
+  },
+  {
+    "id": "c99c292c22c5aa0fb9b17da275f642cd39419d9e",
+    "name": "bingel-dc",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "bingel-dc/base-new": "source",
+      "bingel-dc/theme-new": "source"
+    },
+    "group": "I-A"
+  },
+  {
+    "id": "ee85d66224c1aec43544a068327497388057a816",
+    "name": "bingel-int",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "bingel-int/base-new": "source",
+      "bingel-int/theme-new": "source"
+    },
+    "group": "I-A"
+  },
+  {
+    "id": "b45d16d3de2f6c58baef51dc1fddb6fbb1d53286",
+    "name": "clickedu",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "sanoma-learning/base-new": "source",
+      "sanoma-learning/theme-new": "source",
+      "sanoma-learning/light-new": "source",
+      "clickedu/base-new": "source",
+      "clickedu/theme-new": "source"
+    },
+    "group": "I-B"
+  },
+  {
+    "id": "50a270de38e65d1e3aeec5ee2c7eb0d7d35c991c",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "sanoma-learning/light-new": "source",
+      "clickedu/theme-new": "disabled"
     },
     "group": "sanoma-learning"
   },
@@ -22,16 +89,8 @@
     "name": "dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "primitives": "source",
-      "system": "source",
-      "-tokens/base-new": "enabled",
-      "-tokens/theme-new": "enabled",
-      "I/base-new": "source",
-      "I/theme-new": "source",
-      "I/A/base-new": "source",
-      "I/A/theme-new": "source",
-      "sanoma-learning/base-new": "source",
-      "sanoma-learning/dark-new": "source"
+      "sanoma-learning/dark-new": "source",
+      "clickedu/theme-new": "disabled"
     },
     "group": "sanoma-learning"
   },
@@ -40,16 +99,8 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "-tokens/base-new": "enabled",
-      "-tokens/theme-new": "enabled",
-      "I/base-new": "source",
-      "I/theme-new": "source",
-      "I/A/base-new": "source",
-      "I/A/theme-new": "source",
-      "bingel-dc/base-new": "source",
       "bingel-dc/light-new": "source",
-      "system": "source",
-      "primitives": "source"
+      "clickedu/theme-new": "disabled"
     },
     "group": "bingel-dc"
   },
@@ -58,16 +109,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "primitives": "source",
-      "system": "source",
-      "-tokens/base-new": "enabled",
-      "-tokens/theme-new": "enabled",
-      "I/A/base-new": "source",
-      "I/A/theme-new": "source",
-      "bingel-int/base-new": "source",
-      "bingel-int/light-new": "source",
-      "I/base-new": "source",
-      "I/theme-new": "source"
+      "bingel-int/light-new": "source"
     },
     "group": "bingel-int"
   },
@@ -76,16 +118,11 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "primitives": "source",
-      "system": "source",
-      "-tokens/base-new": "enabled",
-      "-tokens/theme-new": "enabled",
       "I/B/base-new": "source",
       "I/B/theme-new": "source",
       "clickedu/base-new": "source",
       "clickedu/light-new": "source",
-      "I/base-new": "source",
-      "I/theme-new": "source"
+      "clickedu/theme-new": "source"
     },
     "group": "click-edu"
   },
@@ -103,7 +140,11 @@
       "I/B/base-new": "source",
       "I/B/theme-new": "source",
       "editorial-suite/base-new": "source",
-      "editorial-suite/light-new": "source"
+      "editorial-suite/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "editorial-suite"
   },
@@ -121,7 +162,11 @@
       "I/B/base-new": "source",
       "I/B/theme-new": "source",
       "itslearning/base-new": "source",
-      "itslearning/light-new": "source"
+      "itslearning/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "its-learning"
   },
@@ -139,7 +184,11 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "kampus/base-new": "source",
-      "kampus/light-new": "source"
+      "kampus/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "kampus"
   },
@@ -157,7 +206,11 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "magister/base-new": "source",
-      "magister/light-new": "source"
+      "magister/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "magister"
   },
@@ -175,7 +228,11 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "magister/base-new": "source",
-      "magister/dark-new": "source"
+      "magister/dark-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "magister"
   },
@@ -193,7 +250,11 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "max/base-new": "source",
-      "max/light-new": "source"
+      "max/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "max"
   },
@@ -211,7 +272,11 @@
       "II/A/base-new": "source",
       "II/A/theme-new": "source",
       "my-digital-book/base-new": "source",
-      "my-digital-book/light-new": "source"
+      "my-digital-book/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "my-digital-book"
   },
@@ -229,7 +294,11 @@
       "II/A/base-new": "source",
       "II/A/theme-new": "source",
       "neon/base-new": "source",
-      "neon/light-new": "source"
+      "neon/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "neon"
   },
@@ -247,7 +316,11 @@
       "II/A/base-new": "source",
       "II/A/theme-new": "source",
       "neon/base-new": "source",
-      "neon/dark-new": "source"
+      "neon/dark-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
     },
     "group": "neon"
   },
@@ -265,7 +338,21 @@
       "II/B/base-new": "source",
       "II/B/theme-new": "source",
       "teas/base-new": "source",
-      "teas/light-new": "source"
+      "teas/light-new": "source",
+      "sanoma-learning/theme-new": "disabled",
+      "bingel-dc/theme-new": "disabled",
+      "bingel-int/theme-new": "disabled",
+      "clickedu/theme-new": "disabled"
+    },
+    "group": "teas"
+  },
+  {
+    "id": "896dcae43fc8a06e4931b55171745668b7e6a065",
+    "name": "clickedu",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "clickedu/base-new": "source",
+      "clickedu/theme-new": "source"
     },
     "group": "teas"
   }

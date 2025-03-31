@@ -49,7 +49,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   /** The value for this filter column. */
   @property({ type: String }) value?: string | string[];
 
-  /** The value for this filter column. */
+  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   override connectedCallback(): void {

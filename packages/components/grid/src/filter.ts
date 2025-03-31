@@ -88,7 +88,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** The path to the field to filter on. */
   @property() path?: PathKeys<T>;
 
-  /** The label as it needs to be shown in the popover filter, use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   set value(value: string | string[] | undefined) {

@@ -22,10 +22,6 @@
   <source>required</source>
   <target>verplicht</target>
 </trans-unit>
-<trans-unit id="sca81470958a97fc4">
-  <source>Filter by</source>
-  <target>Filter op</target>
-</trans-unit>
 <trans-unit id="s5e8250fb85d64c23">
   <source>Close</source>
   <target>Sluiten</target>
@@ -184,7 +180,7 @@
 </trans-unit>
 <trans-unit id="sa7c7ba461453bfef">
   <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> items</target>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> items</target>
 </trans-unit>
 <trans-unit id="s1e55e510d77b5965">
   <source>Select page number</source>
@@ -192,23 +188,23 @@
 </trans-unit>
 <trans-unit id="sf7290005be5beae6">
   <source><x id="0" equiv-text="${this.page}"/>, page</source>
-  <target><x id="0" equiv-text="${button.innerText.trim()}"/>, pagina</target>
+  <target><x id="0" equiv-text="${this.page}"/>, pagina</target>
 </trans-unit>
 <trans-unit id="s88b887b46242ba96">
   <source>Go to the previous page (<x id="0" equiv-text="${this.page}"/>)</source>
-  <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.activePage - 1}"/>)</target>
+  <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.page}"/>)</target>
 </trans-unit>
 <trans-unit id="sa477d2feda7d475e">
   <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
-  <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.activePage + 1}"/>)</target>
+  <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.page + 2}"/>)</target>
 </trans-unit>
 <trans-unit id="s7d09afc329d9995b">
   <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
-  <target>Pagina <x id="0" equiv-text="${this.activePage}"/> van <x id="1" equiv-text="${this.#pages}"/></target>
+  <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> van <x id="1" equiv-text="${this.pageCount}"/></target>
 </trans-unit>
 <trans-unit id="s9ad43731ebd435aa">
   <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.total}"/> weergegeven</target>
+  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
 </trans-unit>
 <trans-unit id="s886db4d476f66522">
   <source>Selected options</source>
@@ -285,6 +281,14 @@
 <trans-unit id="sc7514d59540bf727">
   <source>Go forward 12 years</source>
   <target>Ga 12 jaar terug</target>
+</trans-unit>
+<trans-unit id="sa76539707f54b1b6">
+  <source>Filter by <x id="0" equiv-text="${this.getFilterHeaderValue()}"/></source>
+  <target>Filter op <x id="0" equiv-text="${this.getFilterHeaderValue()}"/></target>
+</trans-unit>
+<trans-unit id="s085c6223e17edc0a">
+  <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
+  <target>van <x id="0" equiv-text="${this.pageCount}"/> pagina's</target>
 </trans-unit>
 </body>
 </file>

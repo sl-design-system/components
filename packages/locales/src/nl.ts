@@ -6,6 +6,7 @@ import { str } from '@lit/localize';
 export const templates = {
   s00a84204340a1db4: 'Geselecteerd',
   s078cac19db271b0d: 'Stap omlaag',
+  s085c6223e17edc0a: str`van ${0} pagina's`,
   s091d3d07b5b3076f: 'Ok',
   s129fac0ae1df7c8f: 'waarschuwing',
   s13fdff160ffad275: 'Wis tekst',
@@ -48,6 +49,7 @@ export const templates = {
   s9f7452dd75d54d31: 'fout',
   sa447e2f801a7eb2d: 'Kies een optie.',
   sa477d2feda7d475e: str`Ga naar de volgende pagina (${0})`,
+  sa76539707f54b1b6: str`Filter op ${0}`,
   sa7c7ba461453bfef: str`${0} - ${1} van ${2} items`,
   sa857aed87918391e: str`De waarde moet groter dan of gelijk aan ${0} zijn.`,
   sa996297f6a208e98: 'Kruimelpad',
@@ -60,7 +62,6 @@ export const templates = {
   sc7514d59540bf727: 'Ga 12 jaar terug',
   sc94053131f85fc8a: 'Vink dit vakje aan.',
   sc95c7150ab686f99: 'Voer een correcte waarde in.',
-  sca81470958a97fc4: 'Filter op',
   sd0b6082239185272: 'Selecteer alles',
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
   sd711c88b851db6c9: 'De volgende velden zijn incorrect:',

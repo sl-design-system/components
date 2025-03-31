@@ -7,7 +7,95 @@
       "primitives": "source",
       "system": "source",
       "-tokens/base-new": "enabled",
-      "-tokens/theme-new": "enabled"
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "disabled",
+      "I/theme-new": "disabled",
+      "II/base-new": "disabled",
+      "II/theme-new": "disabled"
     }
+  },
+  {
+    "id": "54ee99ab2a505bafe9e06105ed840596da0bebaa",
+    "name": "A",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "I/base-new": "enabled",
+      "I/theme-new": "enabled",
+      "I/A/base-new": "source",
+      "I/A/theme-new": "source"
+    },
+    "group": "I"
+  },
+  {
+    "id": "de0e779af2ec6a9e99b8f2e1a960129166585221",
+    "name": "B",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "I/base-new": "enabled",
+      "I/theme-new": "enabled",
+      "I/B/base-new": "source",
+      "I/B/theme-new": "source",
+      "primitives": "source",
+      "system": "source"
+    },
+    "group": "I"
+  },
+  {
+    "id": "71e1ece30f689db2d3ae38b438c3ca1d32656c45",
+    "name": "C",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "I/base-new": "enabled",
+      "I/theme-new": "enabled",
+      "I/C/base-new": "source",
+      "I/C/theme-new": "source"
+    },
+    "group": "I"
+  },
+  {
+    "id": "0a19ce58422bf1fee86be270650a483f89e64039",
+    "name": "A",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "II/base-new": "enabled",
+      "II/theme-new": "enabled",
+      "II/A/base-new": "source",
+      "II/A/theme-new": "source"
+    },
+    "group": "II"
+  },
+  {
+    "id": "bb77e6432d45ae423486d8005fb922744b891528",
+    "name": "B",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "II/base-new": "enabled",
+      "II/theme-new": "enabled",
+      "II/B/base-new": "source",
+      "II/B/theme-new": "source"
+    },
+    "group": "II"
+  },
+  {
+    "id": "cdbabbe07f68cf05c98ad3d8b1d5d3da4be9a424",
+    "name": "C",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "II/base-new": "enabled",
+      "II/theme-new": "enabled",
+      "II/C/base-new": "source",
+      "II/C/theme-new": "source"
+    },
+    "group": "II"
   }
 ]

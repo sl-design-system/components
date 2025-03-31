@@ -1,85 +1,85 @@
 {
-  "I": {
+  "base": {
     "text-new": {
       "typeset": {
         "fontFamily": {
           "heading": {
-            "value": "{I-A.text-new.typeset.fontFamily.heading}",
+            "value": "{II.text-new.typeset.fontFamily.heading}",
             "type": "fontFamilies"
           },
           "body": {
-            "value": "{I-A.text-new.typeset.fontFamily.body}",
+            "value": "{II.text-new.typeset.fontFamily.body}",
             "type": "fontFamilies"
           },
           "icon": {
-            "value": "{I-A.text-new.typeset.fontFamily.icon}",
+            "value": "{II.text-new.typeset.fontFamily.icon}",
             "type": "fontFamilies"
           }
         },
         "fontWeight": {
           "regular": {
-            "value": "{I-A.text-new.typeset.fontWeight.regular}",
+            "value": "{II.text-new.typeset.fontWeight.regular}",
             "type": "fontWeights"
           },
           "demibold": {
-            "value": "{I-A.text-new.typeset.fontWeight.demibold}",
+            "value": "{II.text-new.typeset.fontWeight.demibold}",
             "type": "fontWeights"
           }
         }
       },
       "body": {
         "sm": {
-          "value": "{I-A.text-new.body.sm}",
+          "value": "{II.text-new.body.sm}",
           "type": "typography"
         },
         "md": {
-          "value": "{I-A.text-new.body.md}",
+          "value": "{II.text-new.body.md}",
           "type": "typography"
         },
         "lg": {
-          "value": "{I-A.text-new.body.lg}",
+          "value": "{II.text-new.body.lg}",
           "type": "typography"
         }
       },
       "input": {
         "md": {
-          "value": "{I-A.text-new.input.md}",
+          "value": "{II.text-new.input.md}",
           "type": "typography"
         },
         "lg": {
-          "value": "{I-A.text-new.input.lg}",
+          "value": "{II.text-new.input.lg}",
           "type": "typography"
         }
       },
       "icon": {
         "outline": {
-          "value": "{I-A.text-new.icon.outline}",
+          "value": "{II.text-new.icon.outline}",
           "type": "typography"
         },
         "solid": {
-          "value": "{I-A.text-new.icon.solid}",
+          "value": "{II.text-new.icon.solid}",
           "type": "typography"
         }
       },
       "heading": {
         "sm": {
-          "value": "{I-A.text-new.heading.sm}",
+          "value": "{II.text-new.heading.sm}",
           "type": "typography"
         },
         "md": {
-          "value": "{I-A.text-new.heading.md}",
+          "value": "{II.text-new.heading.md}",
           "type": "typography"
         },
         "lg": {
-          "value": "{I-A.text-new.heading.lg}",
+          "value": "{II.text-new.heading.lg}",
           "type": "typography"
         },
         "xl": {
-          "value": "{I-A.text-new.heading.xl}",
+          "value": "{II.text-new.heading.xl}",
           "type": "typography"
         },
         "2xl": {
-          "value": "{I-A.text-new.heading.2xl}",
+          "value": "{II.text-new.heading.2xl}",
           "type": "typography"
         }
       }
@@ -88,66 +88,66 @@
       "text-new": {
         "body": {
           "sm": {
-            "value": "{I-A.size.text-new.body.sm}",
+            "value": "{II.size.text-new.body.sm}",
             "type": "fontSizes"
           },
           "md": {
-            "value": "{I-A.size.text-new.body.md}",
+            "value": "{II.size.text-new.body.md}",
             "type": "fontSizes",
             "description": "default text size for body"
           },
           "lg": {
-            "value": "{I-A.size.text-new.body.lg}",
+            "value": "{II.size.text-new.body.lg}",
             "type": "fontSizes"
           }
         },
         "heading": {
           "sm": {
-            "value": "{I-A.size.text-new.heading.sm}",
+            "value": "{II.size.text-new.heading.sm}",
             "type": "fontSizes"
           },
           "md": {
-            "value": "{I-A.size.text-new.heading.md}",
+            "value": "{II.size.text-new.heading.md}",
             "type": "fontSizes"
           },
           "lg": {
-            "value": "{I-A.size.text-new.heading.lg}",
+            "value": "{II.size.text-new.heading.lg}",
             "type": "fontSizes"
           },
           "xl": {
-            "value": "{I-A.size.text-new.heading.xl}",
+            "value": "{II.size.text-new.heading.xl}",
             "type": "fontSizes"
           },
           "2xl": {
-            "value": "{I-A.size.text-new.heading.2xl}",
+            "value": "{II.size.text-new.heading.2xl}",
             "type": "fontSizes"
           }
         }
       },
       "borderRadius": {
         "default": {
-          "value": "{I-A.size.borderRadius.default}",
+          "value": "{II.size.borderRadius.default}",
           "type": "borderRadius",
           "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },
         "child": {
-          "value": "{I-A.size.borderRadius.child}",
+          "value": "{II.size.borderRadius.child}",
           "type": "borderRadius",
           "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
         },
         "full": {
-          "value": "{I-A.size.borderRadius.full}",
+          "value": "{II.size.borderRadius.full}",
           "type": "borderRadius",
           "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
         },
         "focusRing": {
           "outside": {
-            "value": "{I-A.size.borderRadius.focusRing.outside}",
+            "value": "{II.size.borderRadius.focusRing.outside}",
             "type": "borderRadius",
             "description": "Use for focusring outside of component"
           },
           "inside": {
-            "value": "{I-A.size.borderRadius.focusRing.inside}",
+            "value": "{II.size.borderRadius.focusRing.inside}",
             "type": "borderRadius",
             "description": "Use for focusring inside of component when outside focus ring is not possible"
           }
@@ -155,59 +155,59 @@
       },
       "borderWidth": {
         "default": {
-          "value": "{I-A.size.borderWidth.default}",
+          "value": "{II.size.borderWidth.default}",
           "type": "borderWidth",
           "description": "Sets the standard border width for UI elements."
         },
         "action": {
-          "value": "{I-A.size.borderWidth.action}",
+          "value": "{II.size.borderWidth.action}",
           "type": "borderWidth",
           "description": "Sets the standard border width for action components."
         },
         "focusRing": {
-          "value": "{I-A.size.borderWidth.focusRing}",
+          "value": "{II.size.borderWidth.focusRing}",
           "type": "borderWidth"
         }
       },
       "icon": {
         "font": {
           "xs": {
-            "value": "{I-A.size.icon.font.xs}",
+            "value": "{II.size.icon.font.xs}",
             "type": "fontSizes"
           },
           "sm": {
-            "value": "{I-A.size.icon.font.sm}",
+            "value": "{II.size.icon.font.sm}",
             "type": "fontSizes"
           },
           "md": {
-            "value": "{I-A.size.icon.font.md}",
+            "value": "{II.size.icon.font.md}",
             "type": "fontSizes"
           },
           "lg": {
-            "value": "{I-A.size.icon.font.lg}",
+            "value": "{II.size.icon.font.lg}",
             "type": "fontSizes"
           },
           "xl": {
-            "value": "{I-A.size.icon.font.xl}",
+            "value": "{II.size.icon.font.xl}",
             "type": "fontSizes"
           },
           "2xl": {
-            "value": "{I-A.size.icon.font.2xl}",
+            "value": "{II.size.icon.font.2xl}",
             "type": "fontSizes"
           },
           "3xl": {
-            "value": "{I-A.size.icon.font.3xl}",
+            "value": "{II.size.icon.font.3xl}",
             "type": "fontSizes"
           },
           "4xl": {
-            "value": "{I-A.size.icon.font.4xl}",
+            "value": "{II.size.icon.font.4xl}",
             "type": "fontSizes"
           }
         }
       },
       "outlineWidth": {
         "default": {
-          "value": "{I-A.size.outlineWidth.default}",
+          "value": "{II.size.outlineWidth.default}",
           "type": "borderWidth",
           "description": "Sets the standard outline width for UI elements."
         }
@@ -230,12 +230,12 @@
     "space": {
       "offset": {
         "focused": {
-          "value": "{I-A.space.offset.focused}",
+          "value": "{II.space.offset.focused}",
           "type": "spacing",
           "description": "Defines the spacing applied when an element is focused."
         },
         "default": {
-          "value": "{I-A.space.offset.default}",
+          "value": "{II.space.offset.default}",
           "type": "spacing",
           "description": "Defines the standard spacing offset."
         }

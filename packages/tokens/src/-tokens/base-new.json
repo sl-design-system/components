@@ -1,0 +1,243 @@
+{
+  "text-new": {
+    "typeset": {
+      "fontFamily": {
+        "heading": {
+          "value": "{base.text-new.typeset.fontFamily.heading}",
+          "type": "fontFamilies"
+        },
+        "body": {
+          "value": "{base.text-new.typeset.fontFamily.body}",
+          "type": "fontFamilies"
+        },
+        "icon": {
+          "value": "{base.text-new.typeset.fontFamily.icon}",
+          "type": "fontFamilies"
+        }
+      },
+      "fontWeight": {
+        "regular": {
+          "value": "{base.text-new.typeset.fontWeight.regular}",
+          "type": "fontWeights"
+        },
+        "demibold": {
+          "value": "{base.text-new.typeset.fontWeight.demibold}",
+          "type": "fontWeights"
+        }
+      }
+    },
+    "body": {
+      "sm": {
+        "value": "{base.text-new.body.sm}",
+        "type": "typography"
+      },
+      "md": {
+        "value": "{base.text-new.body.md}",
+        "type": "typography"
+      },
+      "lg": {
+        "value": "{base.text-new.body.lg}",
+        "type": "typography"
+      }
+    },
+    "input": {
+      "md": {
+        "value": "{base.text-new.input.md}",
+        "type": "typography"
+      },
+      "lg": {
+        "value": "{base.text-new.input.lg}",
+        "type": "typography"
+      }
+    },
+    "icon": {
+      "outline": {
+        "value": "{base.text-new.icon.outline}",
+        "type": "typography"
+      },
+      "solid": {
+        "value": "{base.text-new.icon.solid}",
+        "type": "typography"
+      }
+    },
+    "heading": {
+      "sm": {
+        "value": "{base.text-new.heading.sm}",
+        "type": "typography"
+      },
+      "md": {
+        "value": "{base.text-new.heading.md}",
+        "type": "typography"
+      },
+      "lg": {
+        "value": "{base.text-new.heading.lg}",
+        "type": "typography"
+      },
+      "xl": {
+        "value": "{base.text-new.heading.xl}",
+        "type": "typography"
+      },
+      "2xl": {
+        "value": "{base.text-new.heading.2xl}",
+        "type": "typography"
+      }
+    }
+  },
+  "size": {
+    "text-new": {
+      "body": {
+        "sm": {
+          "value": "{base.size.text-new.body.sm}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{base.size.text-new.body.md}",
+          "type": "fontSizes",
+          "description": "default text size for body"
+        },
+        "lg": {
+          "value": "{base.size.text-new.body.lg}",
+          "type": "fontSizes"
+        }
+      },
+      "heading": {
+        "sm": {
+          "value": "{base.size.text-new.heading.sm}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{base.size.text-new.heading.md}",
+          "type": "fontSizes"
+        },
+        "lg": {
+          "value": "{base.size.text-new.heading.lg}",
+          "type": "fontSizes"
+        },
+        "xl": {
+          "value": "{base.size.text-new.heading.xl}",
+          "type": "fontSizes"
+        },
+        "2xl": {
+          "value": "{base.size.text-new.heading.2xl}",
+          "type": "fontSizes"
+        }
+      }
+    },
+    "borderRadius": {
+      "default": {
+        "value": "{base.size.borderRadius.default}",
+        "type": "borderRadius",
+        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+      },
+      "child": {
+        "value": "{base.size.borderRadius.child}",
+        "type": "borderRadius",
+        "description": "The standard border radius for most components. Use for elements that need subtle rounding without emphasizing their shape."
+      },
+      "full": {
+        "value": "{base.size.borderRadius.full}",
+        "type": "borderRadius",
+        "description": "Use for pill-shaped elements like badges, and circular rounding for components with equal width and height, such as icon buttons and avatars."
+      },
+      "focusRing": {
+        "outside": {
+          "value": "{base.size.borderRadius.focusRing.outside}",
+          "type": "borderRadius",
+          "description": "Use for focusring outside of component"
+        },
+        "inside": {
+          "value": "{base.size.borderRadius.focusRing.inside}",
+          "type": "borderRadius",
+          "description": "Use for focusring inside of component when outside focus ring is not possible"
+        }
+      }
+    },
+    "borderWidth": {
+      "default": {
+        "value": "{base.size.borderWidth.default}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for UI elements."
+      },
+      "action": {
+        "value": "{base.size.borderWidth.action}",
+        "type": "borderWidth",
+        "description": "Sets the standard border width for action components."
+      },
+      "focusRing": {
+        "value": "{base.size.borderWidth.focusRing}",
+        "type": "borderWidth"
+      }
+    },
+    "icon": {
+      "font": {
+        "xs": {
+          "value": "{base.size.icon.font.xs}",
+          "type": "fontSizes"
+        },
+        "sm": {
+          "value": "{base.size.icon.font.sm}",
+          "type": "fontSizes"
+        },
+        "md": {
+          "value": "{base.size.icon.font.md}",
+          "type": "fontSizes"
+        },
+        "lg": {
+          "value": "{base.size.icon.font.lg}",
+          "type": "fontSizes"
+        },
+        "xl": {
+          "value": "{base.size.icon.font.xl}",
+          "type": "fontSizes"
+        },
+        "2xl": {
+          "value": "{base.size.icon.font.2xl}",
+          "type": "fontSizes"
+        },
+        "3xl": {
+          "value": "{base.size.icon.font.3xl}",
+          "type": "fontSizes"
+        },
+        "4xl": {
+          "value": "{base.size.icon.font.4xl}",
+          "type": "fontSizes"
+        }
+      }
+    },
+    "outlineWidth": {
+      "default": {
+        "value": "{base.size.outlineWidth.default}",
+        "type": "borderWidth",
+        "description": "Sets the standard outline width for UI elements."
+      }
+    }
+  },
+  "icon": {
+    "typeset": {
+      "fontWeight": {
+        "regular": {
+          "value": "{icon.typeset.fontWeight.icon-regular}",
+          "type": "fontWeights"
+        },
+        "solid": {
+          "value": "{icon.typeset.fontWeight.icon-solid}",
+          "type": "fontWeights"
+        }
+      }
+    }
+  },
+  "space": {
+    "offset": {
+      "focused": {
+        "value": "{base.space.offset.focused}",
+        "type": "spacing",
+        "description": "Defines the spacing applied when an element is focused."
+      },
+      "default": {
+        "value": "{base.space.offset.default}",
+        "type": "spacing",
+        "description": "Defines the standard spacing offset."
+      }
+    }
+  }
+}

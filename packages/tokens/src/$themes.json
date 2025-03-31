@@ -178,5 +178,95 @@
       "magister/dark-new": "source"
     },
     "group": "magister"
+  },
+  {
+    "id": "01dcc3e0ba25da04da66766ab7ed614c6efb06ef",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "I/base-new": "source",
+      "I/theme-new": "source",
+      "I/C/base-new": "source",
+      "I/C/theme-new": "source",
+      "max/base-new": "source",
+      "max/light-new": "source"
+    },
+    "group": "max"
+  },
+  {
+    "id": "bcd89d290cc55c5a6313a4a60b1b717a2b46f62e",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "II/base-new": "source",
+      "II/theme-new": "source",
+      "II/A/base-new": "source",
+      "II/A/theme-new": "source",
+      "my-digital-book/base-new": "source",
+      "my-digital-book/light-new": "source"
+    },
+    "group": "my-digital-book"
+  },
+  {
+    "id": "74a2539e776fabf6fffcb1112e0d5d78ae37d493",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "II/base-new": "source",
+      "II/theme-new": "source",
+      "II/A/base-new": "source",
+      "II/A/theme-new": "source",
+      "neon/base-new": "source",
+      "neon/light-new": "source"
+    },
+    "group": "neon"
+  },
+  {
+    "id": "c2f231db98ffdebb0627e2e192aac6538fcba089",
+    "name": "dark",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "II/base-new": "source",
+      "II/theme-new": "source",
+      "II/A/base-new": "source",
+      "II/A/theme-new": "source",
+      "neon/base-new": "source",
+      "neon/dark-new": "source"
+    },
+    "group": "neon"
+  },
+  {
+    "id": "08d8498fe5282a8452d594e024403a91ce0695de",
+    "name": "light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "primitives": "source",
+      "system": "source",
+      "-tokens/base-new": "enabled",
+      "-tokens/theme-new": "enabled",
+      "II/base-new": "source",
+      "II/theme-new": "source",
+      "II/B/base-new": "source",
+      "II/B/theme-new": "source",
+      "teas/base-new": "source",
+      "teas/light-new": "source"
+    },
+    "group": "teas"
   }
 ]

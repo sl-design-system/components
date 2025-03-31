@@ -151,16 +151,32 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ${virtualize({
           items: this.dataSource?.items,
           keyFunction: (item: TreeDataSourceNode<T>) => item.id,
-          renderItem: (item: TreeDataSourceNode<T>) => this.renderItem(item)
+          renderItem: (item: TreeDataSourceNode<T>) => this.renderGroup(item) //this.renderItem(item)
         })}
       </div>
+    `;
+  }
+
+  renderGroup(item: TreeDataSourceNode<T>): TemplateResult {
+    console.log('item in render group', item, item.children?.length, 'label?', item.label);
+    // ${item.children?.length && item.level > 0 ?
+    return html`
+      ${item.children?.length && item.level > 0
+        ? html` ${this.renderItem(item)}
+            <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
+        : this.renderItem(item)}
     `;
   }
 
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
 
+    console.log('has children?, item', item, item.children?.length, item.children);
+
+    // TODO: maybe renderGroup first and then renderItem?
+
     return html`
+      ${item.children?.length && item.level > 0 ? html`<div role="group" class="123"></div>` : nothing}
       <sl-tree-node
         @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
         @sl-toggle=${() => this.#onToggle(item)}
@@ -184,7 +200,64 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         `}
       </sl-tree-node>
     `;
+
+    // ${item.children?.length
+    //   ? html`
+    //         <div role="group">
+    //           ${item.children.map(child => this.renderItem(child))}
+    //         </div>
+    //       `
+    //   : nothing}
+
+    // return html`
+    //   ${item.children?.length && item.level > 0 ? html`<div role="group">
+    //     <sl-tree-node
+    //     @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
+    //     @sl-toggle=${() => this.#onToggle(item)}
+    //     ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
+    //     ?expandable=${item.expandable}
+    //     ?expanded=${item.expanded}
+    //     ?hide-guides=${this.hideGuides}
+    //     ?indeterminate=${item.indeterminate}
+    //     ?last-node-in-level=${item.lastNodeInLevel}
+    //     ?selected=${this.dataSource?.selects === 'single' && item.selected}
+    //     .level=${item.level}
+    //     .node=${item}
+    //     .selects=${this.dataSource?.selects}
+    //     .type=${item.type}
+    //     aria-level=${item.level}
+    //   >
+    //     ${this.renderer?.(item) ??
+    //   html`
+    //       ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+    //       <span>${item.label}</span>
+    //     `}
+    //   </sl-tree-node>
+    //   </div>` : html`<sl-tree-node
+    //     @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
+    //     @sl-toggle=${() => this.#onToggle(item)}
+    //     ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
+    //     ?expandable=${item.expandable}
+    //     ?expanded=${item.expanded}
+    //     ?hide-guides=${this.hideGuides}
+    //     ?indeterminate=${item.indeterminate}
+    //     ?last-node-in-level=${item.lastNodeInLevel}
+    //     ?selected=${this.dataSource?.selects === 'single' && item.selected}
+    //     .level=${item.level}
+    //     .node=${item}
+    //     .selects=${this.dataSource?.selects}
+    //     .type=${item.type}
+    //     aria-level=${item.level}
+    //   >
+    //     ${this.renderer?.(item) ??
+    //   html`
+    //       ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+    //       <span>${item.label}</span>
+    //     `}
+    //   </sl-tree-node>`}
+    // `;
   } // TODO: check a11y
+  // TODO: should have wrapper with role group when it's expandable?
 
   scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
     const index = this.dataSource?.items.indexOf(node) ?? -1;
@@ -213,7 +286,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     // Expands all siblings that are at the same level as the current node.
     // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
 
-    if (event.key === 'Tab') {
+    /* if (event.key === 'Tab') {
       // this.#rovingTabindexController.clearElementCache();
       // const actionButtons = event.target.querySelectorAll('[slot="actions"] sl-button');
       const actionButtons = event.target.querySelectorAll('[slot="actions"]');
@@ -222,7 +295,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         event.preventDefault();
         (actionButtons[0] as HTMLElement).focus();
       }
-    } else if (event.key === '*') {
+    } else */ if (event.key === '*') {
       event.preventDefault(); // TODO: breaks tab when action buttons are visible?
 
       const treeNode = event.target.node as TreeDataSourceNode<T>,

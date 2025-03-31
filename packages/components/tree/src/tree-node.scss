@@ -36,8 +36,9 @@
     sl-button-bar {
       // TODO: only visible on hover?
       display: flex;
-      position: static;
-      visibility: visible;
+
+      // position: static;
+      // visibility: visible;
     }
   }
 }
@@ -79,8 +80,21 @@
 
   sl-button-bar {
     display: flex;
-    position: static;
-    visibility: visible;
+
+    // position: static;
+    // visibility: visible;
+  }
+}
+
+:host(:focus-within) {
+  // outline-color: var(--sl-color-border-focused);
+  // z-index: 1;
+
+  sl-button-bar {
+    display: flex;
+
+    // position: static;
+    // visibility: visible;
   }
 }
 
@@ -159,10 +173,11 @@ sl-checkbox {
 }
 
 sl-button-bar {
-  // display: none;
+  display: none;
   margin-inline-start: auto;
-  position: absolute;
-  visibility: hidden;
+
+  // position: absolute;
+  // visibility: hidden;
 
   // margin-inline: auto var(--sl-size-050);
 }

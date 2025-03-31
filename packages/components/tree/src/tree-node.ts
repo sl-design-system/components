@@ -208,6 +208,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
                     <input slot="input" tabindex="-1" type="checkbox" />
                     <slot></slot>
                   </sl-checkbox>
+                  <slot name="aside"> </slot>
                 `
               : html`
                   <div part="content">
@@ -222,7 +223,15 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         )}
       </div>
     `;
-  } // TODO: separate slot for badges or not?
+  }
+
+  //   ${this.children
+  //     ? html`
+  //           <div role="group" class="test">
+  //             <slot name="children"></slot>
+  //           </div>
+  //         `
+  // : nothing}
 
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;
@@ -308,14 +317,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         event.preventDefault();
       }
     }
-    if (event.key === 'Tab') {
-      // const actionButtons = event.target.querySelectorAll('[slot="actions"] sl-button');
-      const actionButtons = (event.target as HTMLElement)?.querySelectorAll('[slot="actions"]');
-      console.log('action buttons when tab on keydown in TREE NODE', actionButtons, event.target); // TODO: problems with action buttons not always visible?
-      if (actionButtons.length > 0) {
-        event.preventDefault();
-        (actionButtons[0] as HTMLElement).focus();
-      }
-    }
+    // if (event.key === 'Tab') {
+    //   // const actionButtons = event.target.querySelectorAll('[slot="actions"] sl-button');
+    //   const actionButtons = (event.target as HTMLElement)?.querySelectorAll('[slot="actions"]');
+    //   console.log('action buttons when tab on keydown in TREE NODE', actionButtons, event.target); // TODO: problems with action buttons not always visible?
+    //   if (actionButtons.length > 0) {
+    //     event.preventDefault();
+    //     (actionButtons[0] as HTMLElement).focus();
+    //   }
+    // }
   }
 }

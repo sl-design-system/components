@@ -501,10 +501,10 @@ export const SingleSelectWithActionButtons: Story = {
         ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
-        <sl-button tabindex="0" fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
-        <sl-button tabindex="0" fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
           <sl-icon name="far-trash"></sl-icon>
         </sl-button>
       `;
@@ -517,15 +517,8 @@ export const SingleSelectWithActionButtons: Story = {
   }
 };
 
-export const MultiSelectWithActionButtons: Story = {
-  // TODO: maybe this case is not necessary?
-  // const storyArgs = {
-  //   ...FlatDataSource.args,
-  //   ...FlatDataSource.args.dataSource?.selects: 'single',
-  // }
+export const MultiSelectWithBadges: Story = {
   args: {
-    // ...FlatDataSource.args,
-    // selects: 'single',
     dataSource: new FlatTreeDataSource(flatData, {
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
@@ -538,29 +531,15 @@ export const MultiSelectWithActionButtons: Story = {
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
 
-      const onClickEdit = (event: Event) => {
-        event.stopPropagation();
-        console.log('Edit clicked', node, event);
-      };
-
-      const onClickRemove = (event: Event) => {
-        event.stopPropagation();
-        console.log('Remove clicked', node, event);
-      };
-
       return html`
         ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
-          <sl-icon name="far-pen"></sl-icon>
-        </sl-button>
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
-          <sl-icon name="far-trash"></sl-icon>
-        </sl-button>
+        <sl-badge color="blue" slot="aside">99</sl-badge>
       `;
     },
     scopedElements: {
+      'sl-badge': Badge,
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-icon': Icon

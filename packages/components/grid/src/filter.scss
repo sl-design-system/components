@@ -17,6 +17,10 @@
   inline-size: 100%;
   justify-content: space-between;
   padding-inline: var(--_header-padding-inline);
+
+  sl-icon[name$='filter'] {
+    margin-inline-start: auto;
+  }
 }
 
 sl-popover {

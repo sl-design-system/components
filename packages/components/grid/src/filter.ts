@@ -1,6 +1,6 @@
 import { faFilter } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
@@ -133,18 +133,24 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   getFilterHeaderValue(): string {
-    let header = this.column.header;
+    if (this.filterLabel) {
+      return this.filterLabel;
+    }
+
+    const header = this.column.header;
+    if (typeof header === 'string') {
+      return header?.toString().toLocaleLowerCase();
+    }
     if (typeof header !== 'string' && header !== undefined) {
       const div = document.createElement('div');
       div.innerHTML = (header as unknown as TemplateResult).strings[0];
       const textNodes = Array.from(div.childNodes)
         .filter(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim())
         .map(node => node.textContent?.trim());
-      header = textNodes.join(' ');
+      return textNodes.join(' ').toString().toLocaleLowerCase();
     }
-    return (
-      this.filterLabel || header?.toString().toLocaleLowerCase() || getNameByPath(this.column.path).toLocaleLowerCase()
-    );
+
+    return getNameByPath(this.column.path).toLocaleLowerCase();
   }
 
   override render(): TemplateResult {
@@ -155,7 +161,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       </sl-button>
       <sl-popover anchor="anchor" position="bottom">
         <header>
-          <h1 id="title">${msg('Filter by')} <span>${this.getFilterHeaderValue()}</span></h1>
+          <h1 id="title">${msg(str`Filter by ${this.getFilterHeaderValue()}`)}</h1>
           <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
             <sl-icon name="xmark"></sl-icon>
           </sl-button>

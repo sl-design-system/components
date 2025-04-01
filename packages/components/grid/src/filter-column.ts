@@ -49,6 +49,9 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   /** The value for this filter column. */
   @property({ type: String }) value?: string | string[];
 
+  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -102,6 +105,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
           .options=${this.options ?? this.internalOptions}
           .path=${this.path}
           .value=${this.value}
+          .filterLabel=${this.filterLabel}
         >
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-filter>

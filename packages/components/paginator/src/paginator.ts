@@ -276,7 +276,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
             `
           )}
         </sl-select>
-        <span>of ${this.pageCount} pages</span>
+        <span>${msg(str`of ${this.pageCount} pages`)}</span>
       </div>
 
       <sl-button

@@ -11,11 +11,11 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-spinner size="sm"></sl-spinner>
-<sl-spinner variant="accent" size="md"></sl-spinner>
-<sl-spinner variant="info" size="lg"></sl-spinner>
-<sl-spinner variant="danger" size="xl"></sl-spinner>
-<sl-spinner variant="warning" size="2xl"></sl-spinner>
-<sl-spinner variant="success" size="3xl"></sl-spinner>
+<sl-spinner size="md"></sl-spinner>
+<sl-spinner size="lg"></sl-spinner>
+<sl-spinner size="xl"></sl-spinner>
+<sl-spinner size="2xl"></sl-spinner>
+<sl-spinner size="3xl"></sl-spinner>
 
 </div>
 
@@ -23,11 +23,11 @@ eleventyNavigation:
   
   ```html
   <sl-spinner size="sm"></sl-spinner>
-  <sl-spinner variant="accent" size="md"></sl-spinner>
-  <sl-spinner variant="info" size="lg"></sl-spinner>
-  <sl-spinner variant="danger" size="xl"></sl-spinner>
-  <sl-spinner variant="warning" size="2xl"></sl-spinner>
-  <sl-spinner variant="success" size="3xl"></sl-spinner>
+  <sl-spinner size="md"></sl-spinner>
+  <sl-spinner size="lg"></sl-spinner>
+  <sl-spinner size="xl"></sl-spinner>
+  <sl-spinner size="2xl"></sl-spinner>
+  <sl-spinner size="3xl"></sl-spinner>
   ```
 
 </div>

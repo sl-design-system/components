@@ -31,8 +31,6 @@ export default {
   title: 'Overlay/Dialog',
   tags: ['stable'],
   args: {
-    body: () =>
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac augue neque. Nunc sed ex ut neque lacinia rutrum nec vitae mi. Donec dictum urna elit, et feugiat nunc fringilla nec. Maecenas nisi lorem, facilisis nec libero ut, hendrerit ultricies orci. Vivamus massa ligula, ultricies quis odio a, scelerisque tincidunt lorem. Morbi quis pulvinar augue. Nunc eros magna, laoreet vitae ornare at, iaculis quis diam. Duis odio urna, viverra ut ex mattis, egestas tincidunt enim. Praesent ac ex tincidunt, hendrerit sem et, aliquam metus. Nunc quis nisi nulla. Sed nibh ante, posuere eu volutpat vitae, elementum ut leo. Ut aliquet tincidunt tellus, ut molestie urna ultrices in. Suspendisse potenti. Nunc non nunc eu nibh venenatis vestibulum. Maecenas rutrum nibh lacus. Fusce sodales purus ut arcu hendrerit, non interdum nulla suscipit. Duis vitae felis facilisis, eleifend ipsum ut, condimentum est. Nullam metus massa, venenatis vitae suscipit in, feugiat quis turpis. In pellentesque velit at sagittis mattis. Nam ut tellus elit.',
     closeButton: false,
     disableCancel: false,
     title: 'Title'
@@ -117,6 +115,26 @@ export const DisableCancel: Story = {
   }
 };
 
+export const Inheritance: Story = {
+  render: () => {
+    console.log('FormInDialog', FormInDialog.styles);
+    try {
+      customElements.define('example-form-in-dialog', FormInDialog);
+    } catch {
+      /* empty */
+    }
+
+    const onClick = (event: Event & { target: HTMLElement }) => {
+      (event.target.nextElementSibling as FormInDialog)?.showModal();
+    };
+
+    return html`
+      <sl-button @click=${onClick}>Show Dialog</sl-button>
+      <example-form-in-dialog></example-form-in-dialog>
+    `;
+  }
+};
+
 export const Lazy: Story = {
   render: () => {
     const onClick = async (event: Event & { target: HTMLElement }) => {
@@ -187,25 +205,6 @@ export const MobileScrolling: Story = {
       <sl-button slot="secondary-actions" sl-dialog-close variant="danger">Delete account</sl-button>
     `,
     title: 'Edit account'
-  }
-};
-
-export const CustomComponent: Story = {
-  render: () => {
-    try {
-      customElements.define('example-form-in-dialog', FormInDialog);
-    } catch {
-      /* empty */
-    }
-
-    const onClick = (event: Event & { target: HTMLElement }) => {
-      (event.target.nextElementSibling as FormInDialog)?.showModal();
-    };
-
-    return html`
-      <sl-button @click=${onClick}>Show Dialog</sl-button>
-      <example-form-in-dialog></example-form-in-dialog>
-    `;
   }
 };
 

@@ -199,7 +199,7 @@ slot[name='secondary-actions'] {
   }
 }
 
-sl-button {
+sl-button.sl-close {
   inset: var(--sl-size-100) var(--sl-size-100) auto auto;
   position: absolute;
 }
@@ -218,10 +218,6 @@ sl-button {
   box-sizing: border-box;
   padding-block: var(--sl-size-200) var(--sl-size-300);
   padding-inline: var(--sl-size-300);
-
-  @media (width <= 600px) {
-    display: none;
-  }
 
   &[sticky] {
     border-block-start: var(--sl-size-borderWidth-subtle) solid var(--sl-color-border-plain);

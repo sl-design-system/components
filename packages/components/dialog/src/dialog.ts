@@ -39,17 +39,15 @@ export type SlCloseEvent = CustomEvent<void>;
  * @csspart dialog - The dialog element
  * @csspart header - The dialog header
  * @csspart titles - The container for the title
- * @csspart header-bar - The button bar in the header
  * @csspart body - The body of the dialog
  * @csspart footer - The dialog footer
  * @csspart footer-bar - The button bar in the footer
  * @cssprop --sl-dialog-max-inline-size - The maximum width of the dialog
- * @slot actions - Area where action buttons are placed
- * @slot default - Body content for the dialog
- * @slot footer - Footer content for the dialog
  * @slot header - Header content for the dialog
- * @slot header-buttons - More space for buttons for the dialog's header
  * @slot title - The title of the dialog
+ * @slot footer - Footer content for the dialog
+ * @slot primary-actions - Area where action buttons are placed
+ * @slot secondary-actions - Area where secondary action buttons are placed
  */
 @localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
@@ -126,7 +124,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       >
         <div part="header">${this.renderHeader()}</div>
         <div @scroll=${this.#onScroll} part="body">${this.renderBody()}</div>
-        <div part="footer">${this.renderFooter()}</div>
+        ${this.#media.mobile ? nothing : html`<div part="footer">${this.renderFooter()}</div>`}
       </dialog>
     `;
   }
@@ -158,7 +156,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         </div>
         ${this.closeButton
           ? html`
-              <sl-button @click=${this.#onCloseClick} aria-label=${msg('Close')} fill="ghost" variant="default">
+              <sl-button
+                @click=${this.#onCloseClick}
+                aria-label=${msg('Close')}
+                class="sl-close"
+                fill="ghost"
+                variant="default"
+              >
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>
             `
@@ -176,7 +180,13 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   renderBody(): TemplateResult {
     return html`
       <slot></slot>
-      ${this.#media.mobile ? html`<slot name="secondary-actions">${this.renderSecondaryActions()}</slot>` : nothing}
+      ${this.#media.mobile
+        ? html`
+            <sl-button-bar part="footer-bar">
+              <slot name="secondary-actions">${this.renderSecondaryActions()}</slot>
+            </sl-button-bar>
+          `
+        : nothing}
     `;
   }
 
@@ -191,7 +201,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="footer">
         <sl-button-bar align="end" part="footer-bar">
-          <slot name="actions">${this.#media.mobile ? nothing : this.renderActions()}</slot>
+          ${this.#media.mobile ? nothing : this.renderActions()}
         </sl-button-bar>
       </slot>
     `;

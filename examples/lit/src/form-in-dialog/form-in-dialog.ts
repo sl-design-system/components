@@ -18,7 +18,7 @@ export class FormInDialog extends Dialog {
   }
 
   /** @internal */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [Dialog.styles, styles];
 
   /** Controller for managing form state. */
   #form = new FormController(this);
@@ -42,10 +42,10 @@ export class FormInDialog extends Dialog {
     `;
   }
 
-  override renderActions(): TemplateResult {
+  override renderPrimaryActions(): TemplateResult {
     return html`
-      <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
-      <sl-button @click=${this.#onSave} slot="actions" variant="primary">Save</sl-button>
+      <sl-button sl-dialog-close>Cancel</sl-button>
+      <sl-button @click=${this.#onSave} variant="primary">Save</sl-button>
     `;
   }
 

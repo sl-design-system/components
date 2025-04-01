@@ -117,7 +117,6 @@ export const DisableCancel: Story = {
 
 export const Inheritance: Story = {
   render: () => {
-    console.log('FormInDialog', FormInDialog.styles);
     try {
       customElements.define('example-form-in-dialog', FormInDialog);
     } catch {

@@ -1,6 +1,6 @@
-import { type LitElement } from 'lit';
+import { type Constructor } from '@open-wc/dedupe-mixin';
+import { type ReactiveElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { type Constructor } from '../types.js';
 
 export interface Locale {
   locale?: string;
@@ -8,11 +8,11 @@ export interface Locale {
 
 let documentLanguage = document.documentElement.lang || navigator.language;
 
-const connectedElements = new Set<LitElement>();
+const connectedElements = new Set<ReactiveElement>();
 const documentElementObserver = new MutationObserver(() => {
   documentLanguage = document.documentElement.lang || navigator.language;
 
-  [...connectedElements.keys()].forEach((el: LitElement) => {
+  [...connectedElements.keys()].forEach((el: ReactiveElement) => {
     if (typeof el.requestUpdate === 'function') {
       el.requestUpdate();
     }
@@ -25,7 +25,7 @@ documentElementObserver.observe(document.documentElement, {
   attributeFilter: ['lang']
 });
 
-export function LocaleMixin<T extends Constructor<LitElement>>(constructor: T): T & Constructor<Locale> {
+export function LocaleMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<Locale> {
   class LocaleImpl extends constructor {
     #locale?: string;
 

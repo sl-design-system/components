@@ -10,6 +10,7 @@ import { type Popover } from './popover.js';
 type Props = Pick<Popover, 'position'> & {
   alignSelf: string;
   body: string | (() => TemplateResult);
+  maxWidth: number;
   noDescribedby: boolean;
   justifySelf: string;
 };
@@ -31,6 +32,9 @@ export default {
     },
     body: {
       table: { disable: true }
+    },
+    maxWidth: {
+      control: 'number'
     },
     justifySelf: {
       control: 'inline-radio',
@@ -54,7 +58,7 @@ export default {
       ]
     }
   },
-  render: ({ alignSelf, justifySelf, body, position, noDescribedby }) => {
+  render: ({ alignSelf, justifySelf, body, maxWidth, position, noDescribedby }) => {
     const onClick = (): void => {
       const popover = document.querySelector('sl-popover') as HTMLElement;
       popover.togglePopover();
@@ -66,6 +70,9 @@ export default {
           display: grid;
           height: calc(100dvh - 2rem);
           place-items: center;
+        }
+        sl-popover {
+          --sl-popover-max-inline-size: ${maxWidth ? `${maxWidth}px` : 'none'};
         }
       </style>
       <sl-button
@@ -82,7 +89,26 @@ export default {
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {};
+export const Basic: Story = {
+  args: {
+    maxWidth: 400,
+    body: () => {
+      const onClick = (): void => {
+        return;
+      };
+      return html`
+        <header style="font:var(--sl-text-new-heading-sm);">Hello! I am a popover!</header>
+        <section>
+          <p>
+            I'm a lightweight and flexible UI element that appears on top of other content. I am often used to display
+            additional information, actions, or contextual content without disrupting the main flow of the interface.
+          </p>
+        </section>
+        <sl-button @click=${onClick} variant="primary">Button</sl-button>
+      `;
+    }
+  }
+};
 
 export const NoDescribedBy: Story = {
   args: {
@@ -91,6 +117,50 @@ export const NoDescribedBy: Story = {
       return html`Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam consequat
       pariatur exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum est ullamco nostrud sit
       pariatur. Ex nisi ipsum et est nulla ex ex.`;
+    }
+  }
+};
+
+export const VerticalOverflow: Story = {
+  args: {
+    body: () => {
+      return html`Lorem<br />
+        ipsum<br />
+        dolor<br />
+        sit<br />
+        amet,<br />
+        qui<br />
+        deserunt<br />
+        esse<br />
+        minim<br />
+        cillum<br />
+        nostrud<br />
+        exercitation<br />
+        veniam<br />
+        consequat<br />
+        pariatur<br />
+        exercitation<br />
+        laborum<br />
+        nostrud<br />
+        culpa<br />
+        sunt<br />
+        exercitation<br />
+        pariatur.<br />
+        Nisi<br />
+        ipsum<br />
+        est<br />
+        ullamco<br />
+        nostrud<br />
+        sit<br />
+        pariatur.<br />
+        Ex<br />
+        nisi<br />
+        ipsum<br />
+        et<br />
+        est<br />
+        nulla<br />
+        ex<br />
+        ex.`;
     }
   }
 };
@@ -158,7 +228,7 @@ export const All: Story = {
       </div>
 
       <div>
-        <sl-button id="anchor2" variant="primary" style="width: 72px">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
+        <sl-button id="anchor2" variant="primary" style="width: 72px; padding: 24px;">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
         <sl-popover anchor="anchor2" popover="manual" position="right">Right <br> example</sl-popover>
         <sl-popover anchor="anchor2" popover="manual" position="right-start">Right <br> start <br> example</sl-popover>
         <sl-popover anchor="anchor2" popover="manual" position="right-end">Right <br> end <br> example</sl-popover>

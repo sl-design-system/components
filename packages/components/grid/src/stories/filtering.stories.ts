@@ -2,6 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
+import { Icon } from '@sl-design-system/icon';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -27,7 +28,7 @@ export const Basic: Story = {
     <sl-grid .items=${people}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-filter-column mode="text" path="profession"></sl-grid-filter-column>
+      <sl-grid-filter-column path="profession"></sl-grid-filter-column>
       <sl-grid-filter-column path="status"></sl-grid-filter-column>
       <sl-grid-filter-column path="membership"></sl-grid-filter-column>
     </sl-grid>
@@ -90,8 +91,12 @@ export const Custom: Story = {
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-filter-column path="status"></sl-grid-filter-column>
-        <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+        <sl-grid-filter-column path="membership" filter-label="DUO membership status"></sl-grid-filter-column>
+        <sl-grid-filter-column
+          path="status"
+          .header=${html`<sl-icon name="calendar"></sl-icon> Status`}
+          .scopedElements=${{ 'sl-icon': Icon }}
+        ></sl-grid-filter-column>
       </sl-grid>
     `;
   }

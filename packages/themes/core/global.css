@@ -4,11 +4,11 @@ html {
   @media (width <= 600px) {
     @media (prefers-reduced-motion: no-preference) {
       body {
-        animation: sl-dialog-leave 300ms ease-out forwards;
+        animation: sl-dialog-leave 0.2s ease-out forwards;
       }
 
       &.sl-dialog-enter body {
-        animation: sl-dialog-enter 500ms ease-in forwards;
+        animation: sl-dialog-enter 0.2s ease-in forwards;
       }
     }
   }

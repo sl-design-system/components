@@ -463,7 +463,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Arboria",
+          "value": "Open Sans",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },

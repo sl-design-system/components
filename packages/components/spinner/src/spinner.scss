@@ -1,8 +1,6 @@
 :host {
+  // this is a css var because we offer this as part of the api
   --sl-spinner-size: var(--sl-size-200);
-  --_color: currentcolor;
-  --_rotate-duration: calc(var(--_spin-duration) * 4);
-  --_shadow-opacity: var(--sl-opacity-subtle);
   --_spin-duration: 20s;
 
   block-size: var(--sl-spinner-size);
@@ -46,11 +44,19 @@
 
 svg {
   g.slow {
-    animation: spin var(--_rotate-duration) linear infinite;
+    animation: spin calc(var(--_spin-duration) * 4) linear infinite;
   }
 
   g.fast {
     animation: spin var(--_spin-duration) cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
+  }
+
+  path {
+    fill: currentcolor;
+  }
+
+  path.track {
+    opacity: var(--sl-opacity-subtle);
   }
 }
 

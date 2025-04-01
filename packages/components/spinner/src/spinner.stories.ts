@@ -2,6 +2,7 @@ import { type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Spinner, type SpinnerSize } from './spinner.js';
 
@@ -37,9 +38,6 @@ const sizeName = (size: string): string => {
 export default {
   title: 'Feedback & status/Spinner',
   tags: ['stable'],
-  args: {
-    size: 'md'
-  },
   argTypes: {
     size: {
       control: 'inline-radio',
@@ -50,7 +48,7 @@ export default {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
-  render: ({ size }) => html` <sl-spinner .size=${size}></sl-spinner> `
+  render: ({ size }) => html` <sl-spinner size=${ifDefined(size)}></sl-spinner> `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};

@@ -138,7 +138,11 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('role', 'treeitem');
+    // this.setAttribute('role', 'treeitem');
+
+    /** We cannot use treeitem role, due to a11y issues with tree role and no group role. */
+    this.setAttribute('role', 'row');
+    // this.setAttribute('role', 'gridcell');
     this.tabIndex = 0;
   }
 
@@ -172,55 +176,57 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-indent-guides
-        ?expandable=${this.expandable}
-        ?last-node-in-level=${this.lastNodeInLevel}
-        .level=${this.level}
-      ></sl-indent-guides>
-      ${this.expandable
-        ? html`
-            <div class="expander">
-              <sl-icon name="chevron-right" size="xs"></sl-icon>
-            </div>
-          `
-        : nothing}
-      <div part="wrapper">
-        ${choose(
-          this.type,
-          [
-            ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading')}`],
+      <div role="gridcell" class="abcd">
+        <sl-indent-guides
+          ?expandable=${this.expandable}
+          ?last-node-in-level=${this.lastNodeInLevel}
+          .level=${this.level}
+        ></sl-indent-guides>
+        ${this.expandable
+          ? html`
+              <div class="expander">
+                <sl-icon name="chevron-right" size="xs"></sl-icon>
+              </div>
+            `
+          : nothing}
+        <div part="wrapper">
+          ${choose(
+            this.type,
             [
-              'skeleton',
-              () => html`<sl-skeleton style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>`
-            ]
-          ],
-          () =>
-            this.selects === 'multiple'
-              ? html`
-                  <sl-checkbox
-                    @sl-change=${this.#onChange}
-                    ?checked=${this.checked}
-                    ?indeterminate=${this.indeterminate}
-                    exportparts="label"
-                    part="checkbox"
-                    size="sm"
-                  >
-                    <input slot="input" tabindex="-1" type="checkbox" />
-                    <slot></slot>
-                  </sl-checkbox>
-                  <slot name="aside"> </slot>
-                `
-              : html`
-                  <div part="content">
-                    <slot></slot>
-                  </div>
-                  <slot name="aside">
-                    <sl-button-bar part="button-bar">
-                      <slot name="actions"></slot>
-                    </sl-button-bar>
-                  </slot>
-                `
-        )}
+              ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading')}`],
+              [
+                'skeleton',
+                () => html`<sl-skeleton style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>`
+              ]
+            ],
+            () =>
+              this.selects === 'multiple'
+                ? html`
+                    <sl-checkbox
+                      @sl-change=${this.#onChange}
+                      ?checked=${this.checked}
+                      ?indeterminate=${this.indeterminate}
+                      exportparts="label"
+                      part="checkbox"
+                      size="sm"
+                    >
+                      <input slot="input" tabindex="-1" type="checkbox" />
+                      <slot></slot>
+                    </sl-checkbox>
+                    <slot name="aside"> </slot>
+                  `
+                : html`
+                    <div part="content">
+                      <slot></slot>
+                    </div>
+                    <slot name="aside">
+                      <sl-button-bar part="button-bar">
+                        <slot name="actions"></slot>
+                      </sl-button-bar>
+                    </slot>
+                  `
+          )}
+        </div>
       </div>
     `;
   }

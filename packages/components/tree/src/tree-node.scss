@@ -103,6 +103,10 @@
   pointer-events: none;
 }
 
+[role='gridcell'] {
+  display: flex;
+}
+
 sl-indent-guides {
   align-self: stretch;
   margin-block: calc(var(--sl-size-025) * -1);

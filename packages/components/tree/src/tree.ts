@@ -97,12 +97,18 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
-  #renderedItems = new Set<string>();
+  //  #renderedItems = new Set<string>();
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.role = 'tree';
+    // this.role = 'tree';
+
+    /** Role `treegrid` is used instead of `tree`,
+     * because `tree` role is not fully accessible without `group` role inside,
+     * and we cannot implement groups due to virtualizer usage
+     * */
+    // this.role = 'treegrid';
   }
 
   override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
@@ -124,14 +130,20 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('dataSource')) {
-      this.#renderedItems.clear();
+      // this.#renderedItems.clear();
+
+      const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+      console.log('wrapper', wrapper);
 
       if (this.dataSource?.selects === 'multiple') {
-        this.setAttribute('aria-multiselectable', 'true');
+        // this.setAttribute('aria-multiselectable', 'true');
+        wrapper?.setAttribute('aria-multiselectable', 'true');
       } else if (this.dataSource?.selects === 'single') {
-        this.setAttribute('aria-multiselectable', 'false');
+        // this.setAttribute('aria-multiselectable', 'false');
+        wrapper?.setAttribute('aria-multiselectable', 'false');
       } else {
-        this.removeAttribute('aria-multiselectable');
+        // this.removeAttribute('aria-multiselectable');
+        wrapper?.removeAttribute('aria-multiselectable');
       }
     }
 
@@ -153,11 +165,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         @rangeChanged=${this.#onRangeChanged}
         @sl-select=${this.#onSelect}
         part="wrapper"
+        role="treegrid"
       >
         ${virtualize({
           items: this.dataSource?.items,
           keyFunction: (item: TreeDataSourceNode<T>) => item.id,
-          renderItem: (item: TreeDataSourceNode<T>) => this.renderGroup(item) //this.renderItem(item)
+          // renderItem: (item: TreeDataSourceNode<T>) => this.renderGroup(item) //this.renderItem(item)
+          renderItem: (item: TreeDataSourceNode<T>) => this.renderItem(item)
         })}
       </div>
     `;
@@ -174,36 +188,36 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   //   `;
   // }
 
-  renderGroup(item: TreeDataSourceNode<T>): TemplateResult {
-    console.log('item in render group', item, item.children?.length, 'label?', item.label);
-    console.log('this.#renderedItems', this.#renderedItems);
-    if (this.#renderedItems.has(item.id as string)) {
-      return html`aaa`; // nothing; // or handle the case where the item is already rendered
-    }
-
-    this.#renderedItems.add(item.id as string);
-
-    //   return html`
-    //   ${item.children?.length && item.level > 0
-    //     ? html` ${this.renderItem(item)}
-    //         <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
-    //     : this.renderItem(item)}
-    // `;
-
-    //   return html`
-    //   ${this.renderItem(item)}
-    //   ${item.children?.length && item.level > 0
-    //     ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
-    //     : nothing}
-    // `;
-
-    return html`
-      ${this.renderItem(item)}
-      ${item.children?.length /*&& item.level > 0*/
-        ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
-        : nothing}
-    `;
-  }
+  // renderGroup(item: TreeDataSourceNode<T>): TemplateResult {
+  //   console.log('item in render group', item, item.children?.length, 'label?', item.label);
+  //   console.log('this.#renderedItems', this.#renderedItems);
+  //   if (this.#renderedItems.has(item.id as string)) {
+  //     return html`aaa`; // nothing; // or handle the case where the item is already rendered
+  //   }
+  //
+  //   this.#renderedItems.add(item.id as string);
+  //
+  //   //   return html`
+  //   //   ${item.children?.length && item.level > 0
+  //   //     ? html` ${this.renderItem(item)}
+  //   //         <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
+  //   //     : this.renderItem(item)}
+  //   // `;
+  //
+  //   //   return html`
+  //   //   ${this.renderItem(item)}
+  //   //   ${item.children?.length && item.level > 0
+  //   //     ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
+  //   //     : nothing}
+  //   // `;
+  //
+  //   return html`
+  //     ${this.renderItem(item)}
+  //     ${item.children?.length /*&& item.level > 0*/
+  //       ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
+  //       : nothing}
+  //   `;
+  // }
 
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
@@ -213,7 +227,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     // TODO: maybe renderGroup first and then renderItem?
 
     return html`
-      ${item.children?.length && item.level > 0 ? html`<div role="group" class="123"></div>` : nothing}
       <sl-tree-node
         @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
         @sl-toggle=${() => this.#onToggle(item)}

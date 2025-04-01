@@ -235,6 +235,7 @@ export default {
         .dataSource=${dataSource}
         .renderer=${renderer}
         .scopedElements=${scopedElements}
+        aria-label="Tree label"
       ></sl-tree>
     `;
   }

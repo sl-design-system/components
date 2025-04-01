@@ -97,6 +97,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
+  #renderedItems = new Set<string>();
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -122,6 +124,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('dataSource')) {
+      this.#renderedItems.clear();
+
       if (this.dataSource?.selects === 'multiple') {
         this.setAttribute('aria-multiselectable', 'true');
       } else if (this.dataSource?.selects === 'single') {
@@ -141,6 +145,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    // this.#renderedItems.clear();
+
     return html`
       <div
         @keydown=${this.#onKeydown}
@@ -157,14 +163,45 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  // renderGroup(item: TreeDataSourceNode<T>): TemplateResult {
+  //   console.log('item in render group', item, item.children?.length, 'label?', item.label);
+  //   // ${item.children?.length && item.level > 0 ?
+  //   return html`
+  //     ${item.children?.length && item.level > 0
+  //       ? html` ${this.renderItem(item)}
+  //           <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
+  //       : this.renderItem(item)}
+  //   `;
+  // }
+
   renderGroup(item: TreeDataSourceNode<T>): TemplateResult {
     console.log('item in render group', item, item.children?.length, 'label?', item.label);
-    // ${item.children?.length && item.level > 0 ?
+    console.log('this.#renderedItems', this.#renderedItems);
+    if (this.#renderedItems.has(item.id as string)) {
+      return html`aaa`; // nothing; // or handle the case where the item is already rendered
+    }
+
+    this.#renderedItems.add(item.id as string);
+
+    //   return html`
+    //   ${item.children?.length && item.level > 0
+    //     ? html` ${this.renderItem(item)}
+    //         <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
+    //     : this.renderItem(item)}
+    // `;
+
+    //   return html`
+    //   ${this.renderItem(item)}
+    //   ${item.children?.length && item.level > 0
+    //     ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
+    //     : nothing}
+    // `;
+
     return html`
-      ${item.children?.length && item.level > 0
-        ? html` ${this.renderItem(item)}
-            <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
-        : this.renderItem(item)}
+      ${this.renderItem(item)}
+      ${item.children?.length /*&& item.level > 0*/
+        ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
+        : nothing}
     `;
   }
 

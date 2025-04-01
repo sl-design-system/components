@@ -7,7 +7,15 @@
       "primitives": "source",
       "system": "source",
       "-tokens/base-new": "enabled",
-      "-tokens/theme-new": "enabled"
+      "-tokens/theme-new": "enabled",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "-tokens"
   },
@@ -17,7 +25,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "I/base-new": "source",
-      "I/theme-new": "source"
+      "I/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "base"
   },
@@ -27,7 +43,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "II/base-new": "source",
-      "II/theme-new": "source"
+      "II/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "base"
   },
@@ -37,7 +61,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "I/A/base-new": "source",
-      "I/A/theme-new": "source"
+      "I/A/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "I"
   },
@@ -47,7 +79,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "I/B/base-new": "source",
-      "I/B/theme-new": "source"
+      "I/B/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "I"
   },
@@ -57,7 +97,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "I/C/base-new": "source",
-      "I/C/theme-new": "source"
+      "I/C/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "I"
   },
@@ -67,7 +115,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "II/A/base-new": "source",
-      "II/A/theme-new": "source"
+      "II/A/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "II"
   },
@@ -77,7 +133,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "sanoma-learning/base-new": "source",
-      "sanoma-learning/theme-new": "source"
+      "sanoma-learning/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "I-A"
   },
@@ -87,7 +151,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "bingel-dc/base-new": "source",
-      "bingel-dc/theme-new": "source"
+      "bingel-dc/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "I-A"
   },
@@ -97,7 +169,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "bingel-int/base-new": "source",
-      "bingel-int/theme-new": "source"
+      "bingel-int/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "I-A"
   },
@@ -107,7 +187,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "clickedu/base-new": "source",
-      "clickedu/theme-new": "source"
+      "clickedu/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "I-B"
   },
@@ -116,7 +204,15 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "sanoma-learning/light-new": "source"
+      "sanoma-learning/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "sanoma-learning"
   },
@@ -125,7 +221,15 @@
     "name": "dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "sanoma-learning/dark-new": "source"
+      "sanoma-learning/dark-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "sanoma-learning"
   },
@@ -134,7 +238,15 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "bingel-dc/light-new": "source"
+      "bingel-dc/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "bingel-dc"
   },
@@ -143,7 +255,15 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "bingel-int/light-new": "source"
+      "bingel-int/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "bingel-int"
   },
@@ -156,7 +276,15 @@
       "I/B/theme-new": "source",
       "clickedu/base-new": "source",
       "clickedu/light-new": "source",
-      "clickedu/theme-new": "source"
+      "clickedu/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "click-edu"
   },
@@ -174,7 +302,15 @@
       "I/B/base-new": "source",
       "I/B/theme-new": "source",
       "editorial-suite/base-new": "source",
-      "editorial-suite/light-new": "source"
+      "editorial-suite/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "editorial-suite"
   },
@@ -192,7 +328,15 @@
       "I/B/base-new": "source",
       "I/B/theme-new": "source",
       "itslearning/base-new": "source",
-      "itslearning/light-new": "source"
+      "itslearning/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "its-learning"
   },
@@ -210,7 +354,15 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "kampus/base-new": "source",
-      "kampus/light-new": "source"
+      "kampus/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "kampus"
   },
@@ -228,7 +380,15 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "magister/base-new": "source",
-      "magister/light-new": "source"
+      "magister/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "magister"
   },
@@ -246,7 +406,15 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "magister/base-new": "source",
-      "magister/dark-new": "source"
+      "magister/dark-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "magister"
   },
@@ -264,7 +432,15 @@
       "I/C/base-new": "source",
       "I/C/theme-new": "source",
       "max/base-new": "source",
-      "max/light-new": "source"
+      "max/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "max"
   },
@@ -282,7 +458,15 @@
       "II/A/base-new": "source",
       "II/A/theme-new": "source",
       "my-digital-book/base-new": "source",
-      "my-digital-book/light-new": "source"
+      "my-digital-book/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "my-digital-book"
   },
@@ -300,7 +484,15 @@
       "II/A/base-new": "source",
       "II/A/theme-new": "source",
       "neon/base-new": "source",
-      "neon/light-new": "source"
+      "neon/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "neon"
   },
@@ -318,7 +510,15 @@
       "II/A/base-new": "source",
       "II/A/theme-new": "source",
       "neon/base-new": "source",
-      "neon/dark-new": "source"
+      "neon/dark-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "neon"
   },
@@ -336,7 +536,15 @@
       "II/B/base-new": "source",
       "II/B/theme-new": "source",
       "teas/base-new": "source",
-      "teas/light-new": "source"
+      "teas/light-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "teas"
   },
@@ -346,7 +554,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "clickedu/base-new": "source",
-      "clickedu/theme-new": "source"
+      "clickedu/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "teas"
   },
@@ -356,7 +572,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "II/B/base-new": "source",
-      "II/B/theme-new": "source"
+      "II/B/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "II"
   },
@@ -366,7 +590,15 @@
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "II/C/base-new": "source",
-      "II/C/theme-new": "source"
+      "II/C/theme-new": "source",
+      "editorial-suite/theme-new": "disabled",
+      "itslearning/theme-new": "disabled",
+      "kampus/theme-new": "disabled",
+      "magister/theme-new": "disabled",
+      "max/theme-new": "disabled",
+      "my-digital-book/theme-new": "disabled",
+      "neon/theme-new": "disabled",
+      "teas/theme-new": "disabled"
     },
     "group": "II"
   }

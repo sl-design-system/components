@@ -1,550 +1,546 @@
 {
-  "my-digital-book": {
+  "I-B": {
     "color": {
       "palette": {
         "blue": {
           "100": {
-            "value": "#B3D1F3",
+            "value": "{editorial-suite.color.palette.blue.100}",
             "type": "color"
           },
           "150": {
-            "value": "#A3C3E7",
+            "value": "{editorial-suite.color.palette.blue.150}",
             "type": "color"
           },
           "200": {
-            "value": "#82ADDE",
+            "value": "{editorial-suite.color.palette.blue.200}",
             "type": "color"
           },
           "300": {
-            "value": "#528ED3",
+            "value": "{editorial-suite.color.palette.blue.300}",
             "type": "color"
           },
           "400": {
-            "value": "#2878D2",
+            "value": "{editorial-suite.color.palette.blue.400}",
             "type": "color"
           },
           "500": {
-            "value": "#1E68BC",
+            "value": "{editorial-suite.color.palette.blue.500}",
             "type": "color"
           },
           "600": {
-            "value": "#174F90",
+            "value": "{editorial-suite.color.palette.blue.600}",
             "type": "color"
           },
           "700": {
-            "value": "#103764",
+            "value": "{editorial-suite.color.palette.blue.700}",
             "type": "color"
           },
           "800": {
-            "value": "#002044",
+            "value": "{editorial-suite.color.palette.blue.800}",
             "type": "color"
           },
           "900": {
-            "value": "#091F38",
+            "value": "{editorial-suite.color.palette.blue.900}",
             "type": "color"
           },
           "050": {
-            "value": "#E8F3FF",
+            "value": "{editorial-suite.color.palette.blue.050}",
             "type": "color"
           }
         },
         "green": {
           "100": {
-            "value": "#ADE0CE",
+            "value": "{editorial-suite.color.palette.green.100}",
             "type": "color"
           },
           "150": {
-            "value": "#82D1B4",
+            "value": "{editorial-suite.color.palette.green.150}",
             "type": "color"
           },
           "200": {
-            "value": "#58C19B",
+            "value": "{editorial-suite.color.palette.green.200}",
             "type": "color"
           },
           "300": {
-            "value": "#2DB181",
+            "value": "{editorial-suite.color.palette.green.300}",
             "type": "color"
           },
           "400": {
-            "value": "#03A168",
+            "value": "{editorial-suite.color.palette.green.400}",
             "type": "color"
           },
           "500": {
-            "value": "#028656",
+            "value": "{editorial-suite.color.palette.green.500}",
             "type": "color"
           },
           "600": {
-            "value": "#026B45",
+            "value": "{editorial-suite.color.palette.green.600}",
             "type": "color"
           },
           "700": {
-            "value": "#015033",
+            "value": "{editorial-suite.color.palette.green.700}",
             "type": "color"
           },
           "800": {
-            "value": "#013422",
+            "value": "{editorial-suite.color.palette.green.800}",
             "type": "color"
           },
           "900": {
-            "value": "#001910",
+            "value": "{editorial-suite.color.palette.green.900}",
             "type": "color"
           },
           "050": {
-            "value": "#D7F0E7",
+            "value": "{editorial-suite.color.palette.green.050}",
             "type": "color"
           }
         },
         "grey": {
           "100": {
-            "value": "#EEEEEE",
+            "value": "{editorial-suite.color.palette.grey.100}",
             "type": "color"
           },
           "150": {
-            "value": "#CACBCB",
+            "value": "{editorial-suite.color.palette.grey.150}",
             "type": "color"
           },
           "200": {
-            "value": "#BFBFBF",
+            "value": "{editorial-suite.color.palette.grey.200}",
             "type": "color"
           },
           "300": {
-            "value": "#9D9F9F",
+            "value": "{editorial-suite.color.palette.grey.300}",
             "type": "color"
           },
           "400": {
-            "value": "#8D8D8D",
+            "value": "{editorial-suite.color.palette.grey.400}",
             "type": "color"
           },
           "500": {
-            "value": "#717272",
+            "value": "{editorial-suite.color.palette.grey.500}",
             "type": "color"
           },
           "600": {
-            "value": "#5D5D5D",
+            "value": "{editorial-suite.color.palette.grey.600}",
             "type": "color"
           },
           "700": {
-            "value": "#444545",
+            "value": "{editorial-suite.color.palette.grey.700}",
             "type": "color"
           },
           "800": {
-            "value": "#323232",
+            "value": "{editorial-suite.color.palette.grey.800}",
             "type": "color"
           },
           "900": {
-            "value": "#181818",
-            "type": "color"
-          },
-          "000": {
-            "value": "#FFFFFF",
+            "value": "{editorial-suite.color.palette.grey.900}",
             "type": "color"
           },
           "050": {
-            "value": "#F6F8F8",
+            "value": "{editorial-suite.color.palette.grey.050}",
             "type": "color"
           }
         },
         "orange": {
           "100": {
-            "value": "#ffe3d5",
+            "value": "{editorial-suite.color.palette.orange.100}",
             "type": "color"
           },
           "150": {
-            "value": "#ffc3a9",
+            "value": "{editorial-suite.color.palette.orange.150}",
             "type": "color"
           },
           "200": {
-            "value": "#fe9a73",
+            "value": "{editorial-suite.color.palette.orange.200}",
             "type": "color"
           },
           "300": {
-            "value": "#fd663a",
+            "value": "{editorial-suite.color.palette.orange.300}",
             "type": "color"
           },
           "400": {
-            "value": "#fb471f",
+            "value": "{editorial-suite.color.palette.orange.400}",
             "type": "color"
           },
           "500": {
-            "value": "#ec240a",
+            "value": "{editorial-suite.color.palette.orange.500}",
             "type": "color"
           },
           "600": {
-            "value": "#c3160b",
+            "value": "{editorial-suite.color.palette.orange.600}",
             "type": "color"
           },
           "700": {
-            "value": "#9b1411",
+            "value": "{editorial-suite.color.palette.orange.700}",
             "type": "color"
           },
           "800": {
-            "value": "#7d1411",
+            "value": "{editorial-suite.color.palette.orange.800}",
             "type": "color"
           },
           "900": {
-            "value": "#430708",
+            "value": "{editorial-suite.color.palette.orange.900}",
             "type": "color"
           },
           "050": {
-            "value": "#fff3ed",
+            "value": "{editorial-suite.color.palette.orange.050}",
             "type": "color"
           }
         },
         "purple": {
           "100": {
-            "value": "#ece7ff",
+            "value": "{editorial-suite.color.palette.purple.100}",
             "type": "color"
           },
           "150": {
-            "value": "#d9d2ff",
+            "value": "{editorial-suite.color.palette.purple.150}",
             "type": "color"
           },
           "200": {
-            "value": "#bfaeff",
+            "value": "{editorial-suite.color.palette.purple.200}",
             "type": "color"
           },
           "300": {
-            "value": "#9f80ff",
+            "value": "{editorial-suite.color.palette.purple.300}",
             "type": "color"
           },
           "400": {
-            "value": "#824dff",
+            "value": "{editorial-suite.color.palette.purple.400}",
             "type": "color"
           },
           "500": {
-            "value": "#7b33ff",
+            "value": "{editorial-suite.color.palette.purple.500}",
             "type": "color"
           },
           "600": {
-            "value": "#6616eb",
+            "value": "{editorial-suite.color.palette.purple.600}",
             "type": "color"
           },
           "700": {
-            "value": "#5512c5",
+            "value": "{editorial-suite.color.palette.purple.700}",
             "type": "color"
           },
           "800": {
-            "value": "#4711a1",
+            "value": "{editorial-suite.color.palette.purple.800}",
             "type": "color"
           },
           "900": {
-            "value": "#29076e",
+            "value": "{editorial-suite.color.palette.purple.900}",
             "type": "color"
           },
           "050": {
-            "value": "#f4f2ff",
+            "value": "{editorial-suite.color.palette.purple.050}",
             "type": "color"
           }
         },
         "red": {
           "100": {
-            "value": "#ffdfdf",
+            "value": "{editorial-suite.color.palette.red.100}",
             "type": "color"
           },
           "150": {
-            "value": "#ffc5c5",
+            "value": "{editorial-suite.color.palette.red.150}",
             "type": "color"
           },
           "200": {
-            "value": "#ff9c9c",
+            "value": "{editorial-suite.color.palette.red.200}",
             "type": "color"
           },
           "300": {
-            "value": "#ff6464",
+            "value": "{editorial-suite.color.palette.red.300}",
             "type": "color"
           },
           "400": {
-            "value": "#ff3333",
+            "value": "{editorial-suite.color.palette.red.400}",
             "type": "color"
           },
           "500": {
-            "value": "#ed1111",
+            "value": "{editorial-suite.color.palette.red.500}",
             "type": "color"
           },
           "600": {
-            "value": "#c90c0c",
+            "value": "{editorial-suite.color.palette.red.600}",
             "type": "color"
           },
           "700": {
-            "value": "#a60e0e",
+            "value": "{editorial-suite.color.palette.red.700}",
             "type": "color"
           },
           "800": {
-            "value": "#891313",
+            "value": "{editorial-suite.color.palette.red.800}",
             "type": "color"
           },
           "900": {
-            "value": "#4b0404",
+            "value": "{editorial-suite.color.palette.red.900}",
             "type": "color"
           },
           "050": {
-            "value": "#fff1f1",
+            "value": "{editorial-suite.color.palette.red.050}",
             "type": "color"
           }
         },
         "teal": {
           "100": {
-            "value": "#c5fffa",
+            "value": "{editorial-suite.color.palette.teal.100}",
             "type": "color"
           },
           "150": {
-            "value": "#8bfff5",
+            "value": "{editorial-suite.color.palette.teal.150}",
             "type": "color"
           },
           "200": {
-            "value": "#4afef0",
+            "value": "{editorial-suite.color.palette.teal.200}",
             "type": "color"
           },
           "300": {
-            "value": "#15ece2",
+            "value": "{editorial-suite.color.palette.teal.300}",
             "type": "color"
           },
           "400": {
-            "value": "#00d0c9",
+            "value": "{editorial-suite.color.palette.teal.400}",
             "type": "color"
           },
           "500": {
-            "value": "#00a8a5",
+            "value": "{editorial-suite.color.palette.teal.500}",
             "type": "color"
           },
           "600": {
-            "value": "#008080",
+            "value": "{editorial-suite.color.palette.teal.600}",
             "type": "color"
           },
           "700": {
-            "value": "#066769",
+            "value": "{editorial-suite.color.palette.teal.700}",
             "type": "color"
           },
           "800": {
-            "value": "#0a5757",
+            "value": "{editorial-suite.color.palette.teal.800}",
             "type": "color"
           },
           "900": {
-            "value": "#003235",
+            "value": "{editorial-suite.color.palette.teal.900}",
             "type": "color"
           },
           "050": {
-            "value": "#eefffc",
+            "value": "{editorial-suite.color.palette.teal.050}",
             "type": "color"
           }
         },
         "yellow": {
           "100": {
-            "value": "#fff7c5",
+            "value": "{editorial-suite.color.palette.yellow.100}",
             "type": "color"
           },
           "150": {
-            "value": "#fff085",
+            "value": "{editorial-suite.color.palette.yellow.150}",
             "type": "color"
           },
           "200": {
-            "value": "#ffe146",
+            "value": "{editorial-suite.color.palette.yellow.200}",
             "type": "color"
           },
           "300": {
-            "value": "#ffcf1b",
+            "value": "{editorial-suite.color.palette.yellow.300}",
             "type": "color"
           },
           "400": {
-            "value": "#ffae00",
+            "value": "{editorial-suite.color.palette.yellow.400}",
             "type": "color"
           },
           "500": {
-            "value": "#e28400",
+            "value": "{editorial-suite.color.palette.yellow.500}",
             "type": "color"
           },
           "600": {
-            "value": "#bb5c02",
+            "value": "{editorial-suite.color.palette.yellow.600}",
             "type": "color"
           },
           "700": {
-            "value": "#984708",
+            "value": "{editorial-suite.color.palette.yellow.700}",
             "type": "color"
           },
           "800": {
-            "value": "#7c3a0b",
+            "value": "{editorial-suite.color.palette.yellow.800}",
             "type": "color"
           },
           "900": {
-            "value": "#481d00",
+            "value": "{editorial-suite.color.palette.yellow.900}",
             "type": "color"
           },
           "050": {
-            "value": "#fffdea",
+            "value": "{editorial-suite.color.palette.yellow.050}",
             "type": "color"
           }
         }
       },
       "foreground": {
         "subtlest": {
-          "value": "{my-digital-book.color.foreground.accent.grey.subtlest}",
+          "value": "{editorial-suite.color.foreground.subtlest}",
           "type": "color",
           "description": "Use for placeholders and hints."
         },
         "subtle": {
-          "value": "{my-digital-book.color.foreground.accent.grey.subtle}",
+          "value": "{editorial-suite.color.foreground.subtle}",
           "type": "color",
-          "description": "Use for labels and subheadings."
+          "description": "Use for subheadings."
         },
         "plain": {
-          "value": "{my-digital-book.color.foreground.accent.grey.plain}",
+          "value": "{editorial-suite.color.foreground.plain}",
           "type": "color",
           "description": "Use for body copy and menu items."
         },
         "bold": {
-          "value": "{my-digital-book.color.foreground.accent.grey.bold}",
+          "value": "{editorial-suite.color.foreground.bold}",
           "type": "color",
-          "description": "Use for headers."
+          "description": "Use for headers and labels."
         },
         "inverted": {
           "plain": {
-            "value": "{my-digital-book.color.palette.grey.000}",
+            "value": "{editorial-suite.color.foreground.inverted.plain}",
             "type": "color",
             "description": "Use for plain inverted text."
           },
           "bold": {
-            "value": "{my-digital-book.color.palette.grey.000}",
+            "value": "{editorial-suite.color.foreground.inverted.bold}",
             "type": "color",
             "description": "Use for inverted text on 'color.background.inverted.subtlest', and 'color.background.inverted.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.palette.grey.900}",
+            "value": "{editorial-suite.color.foreground.inverted.onBold}",
             "type": "color",
             "description": "Use for inverted text on 'color.background.inverted.bold'."
           }
         },
         "disabled": {
-          "value": "{my-digital-book.color.palette.grey.200}",
+          "value": "{editorial-suite.color.foreground.disabled}",
           "type": "color",
           "description": "Use for text in a disabled state."
         },
         "selected": {
+          "plain": {
+            "value": "{editorial-suite.color.foreground.selected.plain}",
+            "type": "color",
+            "description": "Used as selected foreground color on white backgrounds."
+          },
           "bold": {
-            "value": "{my-digital-book.color.foreground.accent.blue.bold}",
+            "value": "{editorial-suite.color.foreground.selected.bold}",
             "type": "color",
             "description": "Use for text in selected states (e.g., tabs or menu items)."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.blue.onBold}",
+            "value": "{editorial-suite.color.foreground.selected.onBold}",
             "type": "color",
             "description": "Use for text in selected states (e.g., tabs or menu items)."
-          },
-          "plain": {
-            "value": "{my-digital-book.color.foreground.accent.blue.plain}",
-            "type": "color",
-            "description": "Used as selected foreground color on white backgrounds."
           }
         },
         "brand": {
-          "value": "{my-digital-book.color.palette.blue.800}",
+          "value": "{editorial-suite.color.foreground.brand}",
           "type": "color",
           "description": "Use for non-interactive brand-reinforcing text."
         },
         "primary": {
           "bold": {
-            "value": "{my-digital-book.color.palette.blue.800}",
+            "value": "{editorial-suite.color.foreground.primary.bold}",
             "type": "color",
             "description": "Use for primary actions on 'color.background.primary.muted' and 'color.background.primary.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.blue.onBold}",
+            "value": "{editorial-suite.color.foreground.primary.onBold}",
             "type": "color",
             "description": "Use for primary actions on 'color.background.primary.bold'"
           }
         },
         "secondary": {
           "bold": {
-            "value": "{my-digital-book.color.foreground.accent.blue.bold}",
+            "value": "{editorial-suite.color.foreground.secondary.bold}",
             "type": "color",
             "description": "Use for secondary actions on 'color.background.secondary.muted' and 'color.background.secondary.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.blue.onBold}",
+            "value": "{editorial-suite.color.foreground.secondary.onBold}",
             "type": "color",
             "description": "Use for secondary actions on 'color.background.secondary.bold'"
           }
         },
         "neutral": {
           "plain": {
-            "value": "{my-digital-book.color.foreground.accent.grey.subtlest}",
+            "value": "{editorial-suite.color.foreground.neutral.plain}",
             "type": "color",
             "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           },
           "bold": {
-            "value": "{my-digital-book.color.foreground.accent.grey.bold}",
+            "value": "{editorial-suite.color.foreground.neutral.bold}",
             "type": "color",
             "description": "Use for neutral actions on 'color.background.neutral.muted' and 'color.background.secondary.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.grey.onBold}",
+            "value": "{editorial-suite.color.foreground.neutral.onBold}",
             "type": "color",
             "description": "Use for neutral actions on 'color.background.neutral.bold'"
           }
         },
         "info": {
           "plain": {
-            "value": "{my-digital-book.color.foreground.accent.blue.plain}",
+            "value": "{editorial-suite.color.foreground.info.plain}",
             "type": "color",
             "description": "Use for text that communicates informative messages the user needs to be aware of on neutral backgrounds."
           },
           "bold": {
-            "value": "{my-digital-book.color.foreground.accent.blue.bold}",
+            "value": "{editorial-suite.color.foreground.info.bold}",
             "type": "color",
             "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.muted' and 'color.background.info.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.blue.onBold}",
+            "value": "{editorial-suite.color.foreground.info.onBold}",
             "type": "color",
             "description": "Use for text that communicates informative messages the user needs to be aware of on info backgrounds, such as 'color.background.info.bold'."
           }
         },
         "positive": {
           "plain": {
-            "value": "{my-digital-book.color.foreground.accent.green.plain}",
+            "value": "{editorial-suite.color.foreground.positive.plain}",
             "type": "color",
             "description": "Use for text that communicates a favorable outcome on neutral backgrounds.'"
           },
           "bold": {
-            "value": "{my-digital-book.color.foreground.accent.green.bold}",
+            "value": "{editorial-suite.color.foreground.positive.bold}",
             "type": "color",
             "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.muted', and 'color.background.positive.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.green.onBold}",
+            "value": "{editorial-suite.color.foreground.positive.onBold}",
             "type": "color",
             "description": "Use for text that communicates a favorable outcome on positive backgrounds, such as 'color.background.positive.bold'."
           }
         },
         "caution": {
           "plain": {
-            "value": "{my-digital-book.color.foreground.accent.orange.plain}",
+            "value": "{editorial-suite.color.foreground.caution.plain}",
             "type": "color",
             "description": "Use for text that communicates caution to prevent mistakes or errors on neutral backgrounds."
           },
           "bold": {
-            "value": "{my-digital-book.color.foreground.accent.orange.bold}",
+            "value": "{editorial-suite.color.foreground.caution.bold}",
             "type": "color",
             "description": "Use for text that communicates caution to prevent mistakes or errors on caution backgrounds, such as 'color.background.caution.muted', and 'color.background.caution.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.orange.onBold}",
+            "value": "{editorial-suite.color.foreground.caution.onBold}",
             "type": "color",
             "description": "Use for text that communicates caution to prevent mistakes or errors on 'color.background.caution.bold'."
           }
         },
         "negative": {
           "plain": {
-            "value": "{my-digital-book.color.foreground.accent.red.plain}",
+            "value": "{editorial-suite.color.foreground.negative.plain}",
             "type": "color",
             "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on neutral backgrounds."
           },
           "bold": {
-            "value": "{my-digital-book.color.foreground.accent.red.bold}",
+            "value": "{editorial-suite.color.foreground.negative.bold}",
             "type": "color",
             "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.muted', and 'color.background.negative.subtle'."
           },
           "onBold": {
-            "value": "{my-digital-book.color.foreground.accent.red.onBold}",
+            "value": "{editorial-suite.color.foreground.negative.onBold}",
             "type": "color",
             "description": "Use for text that communicates negative or serious error states (e.g., validation errors or irreversible actions) on 'color.background.negative.bold'."
           }
@@ -552,156 +548,156 @@
         "accent": {
           "blue": {
             "plain": {
-              "value": "{my-digital-book.color.palette.blue.500}",
+              "value": "{editorial-suite.color.foreground.accent.blue.plain}",
               "type": "color",
               "description": "Use for blue text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.blue.600}",
+              "value": "{editorial-suite.color.foreground.accent.blue.bold}",
               "type": "color",
               "description": "Use for blue text on 'color.background.accent.blue.muted' or 'color.background.accent.blue.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.inverted.plain}",
+              "value": "{editorial-suite.color.foreground.accent.blue.onBold}",
               "type": "color",
               "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
           "green": {
             "plain": {
-              "value": "{my-digital-book.color.palette.green.500}",
+              "value": "{editorial-suite.color.foreground.accent.green.plain}",
               "type": "color",
               "description": "Use for green text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.green.700}",
+              "value": "{editorial-suite.color.foreground.accent.green.bold}",
               "type": "color",
               "description": "Use for green text on 'color.background.accent.green.muted' or 'color.background.accent.green.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.inverted.plain}",
+              "value": "{editorial-suite.color.foreground.accent.green.onBold}",
               "type": "color",
               "description": "Use for text on 'color.background.accent.green.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
           "grey": {
             "faint": {
-              "value": "{my-digital-book.color.palette.grey.300}",
+              "value": "{editorial-suite.color.foreground.accent.grey.faint}",
               "type": "color",
               "description": "Use for faint text on neutral backgrounds, providing low contrast. Not intended for primary content, as it does not meet WCAG 2.2 AA contrast requirements. Use sparingly where accessibility isn't a critical concern."
             },
             "subtlest": {
-              "value": "{my-digital-book.color.palette.grey.500}",
+              "value": "{editorial-suite.color.foreground.accent.grey.subtlest}",
               "type": "color",
               "description": "Use for muted grey text for purely stylistic purposes with no specific meaning."
             },
             "subtle": {
-              "value": "{my-digital-book.color.palette.grey.600}",
+              "value": "{editorial-suite.color.foreground.accent.grey.subtle}",
               "type": "color",
               "description": "Use for subtle grey text for purely stylistic purposes with no specific meaning."
             },
             "plain": {
-              "value": "{my-digital-book.color.palette.grey.700}",
+              "value": "{editorial-suite.color.foreground.accent.grey.plain}",
               "type": "color",
               "description": "Use for plain grey text for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.grey.900}",
+              "value": "{editorial-suite.color.foreground.accent.grey.bold}",
               "type": "color",
               "description": "Use for bold grey text for purely stylistic purposes with no specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.bold}",
+              "value": "{editorial-suite.color.foreground.accent.grey.onBold}",
               "type": "color",
               "description": "Use for text on 'color.background.accent.grey.bold', when used purely for stylistic purposes without specific meaning."
             },
             "onInverted": {
-              "value": "{my-digital-book.color.foreground.bold}",
+              "value": "{editorial-suite.color.foreground.accent.grey.onInverted}",
               "type": "color",
               "description": "Use for text on 'color.background.inverted', when used purely for stylistic purposes without specific meaning."
             }
           },
           "orange": {
             "plain": {
-              "value": "{my-digital-book.color.palette.orange.600}",
+              "value": "{editorial-suite.color.foreground.accent.orange.plain}",
               "type": "color",
               "description": "Use for orange text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.orange.700}",
+              "value": "{editorial-suite.color.foreground.accent.orange.bold}",
               "type": "color",
               "description": "Use for orange text on 'color.background.accent.orange.muted' or 'color.background.accent.orange.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.inverted.plain}",
+              "value": "{editorial-suite.color.foreground.accent.orange.onBold}",
               "type": "color",
               "description": "Use for text on 'color.background.accent.orange.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
           "purple": {
             "plain": {
-              "value": "{my-digital-book.color.palette.purple.500}",
+              "value": "{editorial-suite.color.foreground.accent.purple.plain}",
               "type": "color",
               "description": "Use for purple text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.purple.700}",
+              "value": "{editorial-suite.color.foreground.accent.purple.bold}",
               "type": "color",
               "description": "Use for purple text on 'color.background.accent.purple.muted' or 'color.background.accent.purple.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.inverted.plain}",
+              "value": "{editorial-suite.color.foreground.accent.purple.onBold}",
               "type": "color",
               "description": "Use for text on 'color.background.accent.purple.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
           "red": {
             "plain": {
-              "value": "{my-digital-book.color.palette.red.600}",
+              "value": "{editorial-suite.color.foreground.accent.red.plain}",
               "type": "color",
               "description": "Use for red text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.red.700}",
+              "value": "{editorial-suite.color.foreground.accent.red.bold}",
               "type": "color",
               "description": "Use for red text on 'color.background.accent.red.muted' or 'color.background.accent.red.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.inverted.plain}",
+              "value": "{editorial-suite.color.foreground.accent.red.onBold}",
               "type": "color",
               "description": "Use for text on 'color.background.accent.red.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
           "teal": {
             "plain": {
-              "value": "{my-digital-book.color.palette.teal.600}",
+              "value": "{editorial-suite.color.foreground.accent.teal.plain}",
               "type": "color",
               "description": "Use for teal text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.teal.700}",
+              "value": "{editorial-suite.color.foreground.accent.teal.bold}",
               "type": "color",
               "description": "Use for teal text on 'color.background.accent.teal.muted' or 'color.background.accent.teal.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.inverted.plain}",
+              "value": "{editorial-suite.color.foreground.accent.teal.onBold}",
               "type": "color",
-              "description": "Use for text on 'color.background.accent.blue.bold', when used purely for stylistic purposes without specific meaning."
+              "description": "Use for text on 'color.background.accent.teal.bold', when used purely for stylistic purposes without specific meaning."
             }
           },
           "yellow": {
             "plain": {
-              "value": "{my-digital-book.color.palette.yellow.600}",
+              "value": "{editorial-suite.color.foreground.accent.yellow.plain}",
               "type": "color",
               "description": "Use for yellow text on neutral backgrounds for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.yellow.700}",
+              "value": "{editorial-suite.color.foreground.accent.yellow.bold}",
               "type": "color",
               "description": "Use for yellow text on 'color.background.accent.yellow.muted' or 'color.background.accent.yellow.subtle', when used purely for stylistic purposes without specific meaning."
             },
             "onBold": {
-              "value": "{my-digital-book.color.foreground.bold}",
+              "value": "{editorial-suite.color.foreground.accent.yellow.onBold}",
               "type": "color",
               "description": "Use for text on 'color.background.accent.yellow.bold', when used purely for stylistic purposes without specific meaning."
             }
@@ -710,67 +706,67 @@
       },
       "link": {
         "idle": {
-          "value": "{my-digital-book.color.foreground.accent.blue.plain}",
+          "value": "{editorial-suite.color.link.idle}",
           "type": "color",
           "description": "Use for links in their default or hovered state."
         },
         "hover": {
-          "value": "{my-digital-book.color.foreground.accent.blue.bold}",
+          "value": "{editorial-suite.color.link.hover}",
           "type": "color",
           "description": "Use for links in hover state."
         },
         "active": {
-          "value": "{my-digital-book.color.palette.blue.700}",
+          "value": "{editorial-suite.color.link.active}",
           "type": "color",
           "description": "Use for links in active state."
         },
         "muted": {
           "idle": {
-            "value": "{my-digital-book.color.foreground.accent.grey.subtlest}",
+            "value": "{editorial-suite.color.link.muted.idle}",
             "type": "color",
             "description": "Use for muted links in idle state."
           },
           "hover": {
-            "value": "{my-digital-book.color.link.hover}",
+            "value": "{editorial-suite.color.link.muted.hover}",
             "type": "color",
             "description": "Use for muted links in hover state."
           },
           "active": {
-            "value": "{my-digital-book.color.link.active}",
+            "value": "{editorial-suite.color.link.muted.active}",
             "type": "color",
             "description": "Use for muted links in active state."
           }
         },
         "inverted": {
           "idle": {
-            "value": "{my-digital-book.color.foreground.inverted.plain}",
+            "value": "{editorial-suite.color.link.inverted.idle}",
             "type": "color",
             "description": "Use for inverted links in idle state."
           },
           "hover": {
-            "value": "{my-digital-book.color.palette.blue.100}",
+            "value": "{editorial-suite.color.link.inverted.hover}",
             "type": "color",
             "description": "Use for inverted links in hover state."
           },
           "active": {
-            "value": "{my-digital-book.color.palette.blue.150}",
+            "value": "{editorial-suite.color.link.inverted.active}",
             "type": "color",
             "description": "Use for inverted links in active state."
           }
         },
         "focused": {
           "idle": {
-            "value": "{my-digital-book.color.palette.blue.700}",
+            "value": "{editorial-suite.color.link.focused.idle}",
             "type": "color",
             "description": "Used for the linkcolor of navigation aids in idle state, such as skip links, when they are focused or visible."
           },
           "hover": {
-            "value": "{my-digital-book.color.palette.blue.800}",
+            "value": "{editorial-suite.color.link.focused.hover}",
             "type": "color",
             "description": "Used for the linkcolor of navigation aids in hovered state, such as skip links, when they are focused or visible."
           },
           "active": {
-            "value": "{my-digital-book.color.palette.blue.900}",
+            "value": "{editorial-suite.color.link.focused.active}",
             "type": "color",
             "description": "Used for the linkcolor of navigation aids in pressed state, such as skip links, when they are focused or visible."
           }
@@ -778,130 +774,130 @@
       },
       "border": {
         "plain": {
-          "value": "{my-digital-book.color.border.accent.grey.plain}",
+          "value": "{editorial-suite.color.border.plain}",
           "type": "color",
           "description": "Use to visually group or seperate UI elements, such as card, tabs or side panel dividers."
         },
         "bold": {
-          "value": "{my-digital-book.color.border.accent.grey.bold}",
+          "value": "{editorial-suite.color.border.bold}",
           "type": "color",
           "description": "A neutral border option that passes min 3:1 contrast ratios."
         },
         "inverted": {
-          "value": "{my-digital-book.color.palette.grey.000}",
+          "value": "{editorial-suite.color.border.inverted}",
           "type": "color",
           "description": "Use for borders on bold backgrounds."
         },
         "disabled": {
-          "value": "{my-digital-book.color.foreground.disabled}",
+          "value": "{editorial-suite.color.border.disabled}",
           "type": "color",
           "description": "Use for borders of elements in a disabled state."
         },
         "input": {
-          "value": "{my-digital-book.color.border.bold}",
+          "value": "{editorial-suite.color.border.input}",
           "type": "color",
           "description": "Use for borders of form UI elements, such as text fields, checkboxes and, radio buttons."
         },
         "selected": {
-          "value": "{my-digital-book.color.border.primary.bold}",
+          "value": "{editorial-suite.color.border.selected}",
           "type": "color",
           "description": "Use for borders that emphasize selected states, such as tabs or menu items."
         },
         "focused": {
-          "value": "{my-digital-book.color.palette.blue.400}",
+          "value": "{editorial-suite.color.border.focused}",
           "type": "color",
           "description": "Use for focus rings of elements in a focus state."
         },
         "primary": {
           "plain": {
-            "value": "{my-digital-book.color.border.accent.blue.plain}",
+            "value": "{editorial-suite.color.border.primary.plain}",
             "type": "color",
             "description": "Use for borders that highlight primary actions or messages on elevation.surface background colors."
           },
           "bold": {
-            "value": "{my-digital-book.color.palette.blue.800}",
+            "value": "{editorial-suite.color.border.primary.bold}",
             "type": "color",
             "description": "Use for borders that highlight primary actions or messages on muted, subtlest and subtle background colors."
           }
         },
         "secondary": {
           "plain": {
-            "value": "{my-digital-book.color.border.accent.grey.plain}",
+            "value": "{editorial-suite.color.border.secondary.plain}",
             "type": "color",
             "description": "Use for borders that highlight secondary actions or messages on elevation.surface background colors."
           },
           "bold": {
-            "value": "{my-digital-book.color.background.secondary.bold}",
+            "value": "{editorial-suite.color.border.secondary.bold}",
             "type": "color",
             "description": "Use for borders that highlight secondary actions or messages on muted, subtlest and subtle background colors."
           }
         },
         "neutral": {
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.grey.subtle}",
+            "value": "{editorial-suite.color.border.neutral.subtle}",
             "type": "color",
-            "description": "Use for subtle borders on color.background.neutral background colors."
+            "description": "Use for subtle borders onbackground.neutral background colors."
           },
           "plain": {
-            "value": "{my-digital-book.color.border.accent.grey.plain}",
+            "value": "{editorial-suite.color.border.neutral.plain}",
             "type": "color",
             "description": "Use for borders that highlight neutral actions or messages on elevation.surface background colors."
           },
           "bold": {
-            "value": "{my-digital-book.color.border.accent.grey.bold}",
+            "value": "{editorial-suite.color.border.neutral.bold}",
             "type": "color",
             "description": "Use for borders that highlight neutral actions or messages on muted, subtlest and subtle background colors."
           }
         },
         "info": {
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.blue.subtle}",
+            "value": "{editorial-suite.color.border.info.subtle}",
             "type": "color",
-            "description": "Use for subtle borders on color.background.info background colors."
+            "description": "Use for subtle borders onbackground.info background colors."
           },
           "plain": {
-            "value": "{my-digital-book.color.border.accent.blue.plain}",
+            "value": "{editorial-suite.color.border.info.plain}",
             "type": "color",
             "description": "Use for borders that highlight informative actions or messages on elevation.surface background colors."
           },
           "bold": {
-            "value": "{my-digital-book.color.border.accent.blue.bold}",
+            "value": "{editorial-suite.color.border.info.bold}",
             "type": "color",
             "description": "Use for borders that highlight informative actions or messages on muted, subtlest and subtle background colors."
           }
         },
         "positive": {
           "plain": {
-            "value": "{my-digital-book.color.border.accent.green.plain}",
+            "value": "{editorial-suite.color.border.positive.plain}",
             "type": "color",
             "description": "Use for borders that highlight a favorable outcome on elevation.surface background colors."
           },
           "bold": {
-            "value": "{my-digital-book.color.border.accent.green.bold}",
+            "value": "{editorial-suite.color.border.positive.bold}",
             "type": "color",
             "description": "Use for borders that highlight a favorable outcome on muted, subtlest and subtle background colors."
           }
         },
         "caution": {
           "plain": {
-            "value": "{my-digital-book.color.border.accent.orange.plain}",
+            "value": "{editorial-suite.color.border.caution.plain}",
             "type": "color",
             "description": "Use for borders that highlight caution to help prevent mistakes or errors on elevation.surface background colors."
           },
           "bold": {
-            "value": "{my-digital-book.color.border.accent.orange.bold}",
+            "value": "{editorial-suite.color.border.caution.bold}",
             "type": "color",
             "description": "Use for borders that highlight caution to help prevent mistakes or errors on muted, subtlest and subtle background colors."
           }
         },
         "negative": {
           "plain": {
-            "value": "{my-digital-book.color.border.accent.red.plain}",
+            "value": "{editorial-suite.color.border.negative.plain}",
             "type": "color",
             "description": "Use for borders that highlight negative or serious error states on elevation.surface background colors."
           },
           "bold": {
-            "value": "{my-digital-book.color.border.accent.red.bold}",
+            "value": "{editorial-suite.color.border.negative.bold}",
             "type": "color",
             "description": "Use for borders that highlight negative or serious error states on muted, subtlest and subtle background colors."
           }
@@ -909,106 +905,106 @@
         "accent": {
           "blue": {
             "plain": {
-              "value": "{my-digital-book.color.background.accent.blue.bold}",
+              "value": "{editorial-suite.color.border.accent.blue.plain}",
               "type": "color",
               "description": "Use for plain blue borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.foreground.accent.blue.bold}",
+              "value": "{editorial-suite.color.border.accent.blue.bold}",
               "type": "color",
               "description": "Use for bold blue borders for purely stylistic purposes with no specific meaning."
             }
           },
           "green": {
             "plain": {
-              "value": "{my-digital-book.color.background.accent.green.bold}",
+              "value": "{editorial-suite.color.border.accent.green.plain}",
               "type": "color",
               "description": "Use for plain green borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.foreground.accent.green.bold}",
+              "value": "{editorial-suite.color.border.accent.green.bold}",
               "type": "color",
               "description": "Use for bold green borders for purely stylistic purposes with no specific meaning."
             }
           },
           "grey": {
             "faint": {
-              "value": "{my-digital-book.color.palette.grey.150}",
+              "value": "{editorial-suite.color.border.accent.grey.faint}",
               "type": "color",
               "description": "Use for faint grey borders for purely stylistic purposes with no specific meaning."
             },
             "plain": {
-              "value": "{my-digital-book.color.palette.grey.150}",
+              "value": "{editorial-suite.color.border.accent.grey.plain}",
               "type": "color",
               "description": "Use for plain grey borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.grey.400}",
+              "value": "{editorial-suite.color.border.accent.grey.bold}",
               "type": "color",
               "description": "Use for bold grey borders for purely stylistic purposes with no specific meaning."
             },
             "heavy": {
-              "value": "{my-digital-book.color.palette.grey.900}",
+              "value": "{editorial-suite.color.border.accent.grey.heavy}",
               "type": "color",
               "description": "Use for heavy grey borders for purely stylistic purposes with no specific meaning."
             }
           },
           "orange": {
             "plain": {
-              "value": "{my-digital-book.color.background.accent.orange.bold}",
+              "value": "{editorial-suite.color.border.accent.orange.plain}",
               "type": "color",
               "description": "Use for plain orange borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.foreground.accent.orange.bold}",
+              "value": "{editorial-suite.color.border.accent.orange.bold}",
               "type": "color",
               "description": "Use for bold orange borders for purely stylistic purposes with no specific meaning."
             }
           },
           "purple": {
             "plain": {
-              "value": "{my-digital-book.color.background.accent.purple.bold}",
+              "value": "{editorial-suite.color.border.accent.purple.plain}",
               "type": "color",
               "description": "Use for plain purple borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.foreground.accent.purple.bold}",
+              "value": "{editorial-suite.color.border.accent.purple.bold}",
               "type": "color",
               "description": "Use for bold purple borders for purely stylistic purposes with no specific meaning."
             }
           },
           "red": {
             "plain": {
-              "value": "{my-digital-book.color.background.accent.red.bold}",
+              "value": "{editorial-suite.color.border.accent.red.plain}",
               "type": "color",
               "description": "Use for plain red borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.foreground.accent.red.bold}",
+              "value": "{editorial-suite.color.border.accent.red.bold}",
               "type": "color",
               "description": "Use for bold red borders for purely stylistic purposes with no specific meaning."
             }
           },
           "teal": {
             "plain": {
-              "value": "{my-digital-book.color.background.accent.teal.bold}",
+              "value": "{editorial-suite.color.border.accent.teal.plain}",
               "type": "color",
               "description": "Use for plain teal borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.foreground.accent.teal.bold}",
+              "value": "{editorial-suite.color.border.accent.teal.bold}",
               "type": "color",
               "description": "Use for bold teal borders for purely stylistic purposes with no specific meaning."
             }
           },
           "yellow": {
             "plain": {
-              "value": "{my-digital-book.color.background.accent.yellow.bold}",
+              "value": "{editorial-suite.color.border.accent.yellow.plain}",
               "type": "color",
               "description": "Use for plain yellow borders for purely stylistic purposes with no specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.foreground.accent.yellow.bold}",
+              "value": "{editorial-suite.color.border.accent.yellow.bold}",
               "type": "color",
               "description": "Use for bold yellow borders for purely stylistic purposes with no specific meaning."
             }
@@ -1017,85 +1013,85 @@
       },
       "background": {
         "subtle": {
-          "value": "{my-digital-book.color.background.accent.grey.subtle}",
+          "value": "{editorial-suite.color.background.subtle}",
           "type": "color",
           "description": "Use for backgrounds of elements in a neutral state with subtle emphasis."
         },
         "bold": {
-          "value": "{my-digital-book.color.border.bold}",
+          "value": "{editorial-suite.color.background.bold}",
           "type": "color",
           "description": "Use for backgrounds of elements in a neutral state that require a bold emphasis or a minimum color contrast of 3:1, such as switch backgrounds."
         },
         "inverted": {
           "subtlest": {
-            "value": "rgba( {my-digital-book.color.palette.grey.000}, {my-digital-book.opacity.subtlest})",
+            "value": "{editorial-suite.color.background.inverted.subtlest}",
             "type": "color",
             "description": "The subtlest inverted background option."
           },
           "subtle": {
-            "value": "rgba({my-digital-book.color.palette.grey.000}, {my-digital-book.opacity.subtle})",
+            "value": "{editorial-suite.color.background.inverted.subtle}",
             "type": "color",
             "description": "A subtle inverted background option."
           },
           "bold": {
-            "value": "{my-digital-book.color.palette.grey.000}",
+            "value": "{editorial-suite.color.background.inverted.bold}",
             "type": "color",
             "description": "A solid inverted background option."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.palette.grey.600}",
+              "value": "{editorial-suite.color.background.inverted.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.palette.grey.050}",
+              "value": "{editorial-suite.color.background.inverted.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
           }
         },
         "disabled": {
-          "value": "{my-digital-book.color.palette.grey.100}",
+          "value": "{editorial-suite.color.background.disabled}",
           "type": "color",
           "description": "Use for backgrounds of elements in disabled state."
         },
         "input": {
           "plain": {
-            "value": "{my-digital-book.color.palette.grey.000}",
+            "value": "{editorial-suite.color.background.input.plain}",
             "type": "color",
             "description": "Use for backgrounds of form UI elements, such as text fields, checkboxes, and radio buttons."
           },
           "interactive": {
-            "value": "{my-digital-book.color.background.accent.blue.interactive.plain}",
+            "value": "{editorial-suite.color.background.input.interactive}",
             "type": "color",
             "description": "Used as transparent layer on top of the input background to indicate the hover state."
           }
         },
         "selected": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.blue.subtlest}",
+            "value": "{editorial-suite.color.background.selected.subtlest}",
             "type": "color",
             "description": "The subtlest background in the primary action color."
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.blue.subtle}",
+            "value": "{editorial-suite.color.background.selected.subtle}",
             "type": "color",
             "description": "Use for backgrounds of elements in selected state with subtle emphasis, such as in opened dropdowns."
           },
           "bold": {
-            "value": "{my-digital-book.color.background.primary.bold}",
+            "value": "{editorial-suite.color.background.selected.bold}",
             "type": "color",
             "description": "Use for backgrounds of elements in selected state with bold emphasis, such as in opened dropdowns."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.background.accent.blue.interactive.bold}",
+              "value": "{editorial-suite.color.background.selected.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.blue.interactive.plain}",
+              "value": "{editorial-suite.color.background.selected.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1103,40 +1099,40 @@
         },
         "interactive": {
           "bold": {
-            "value": "{my-digital-book.color.background.accent.blue.interactive.bold}",
+            "value": "{editorial-suite.color.background.interactive.bold}",
             "type": "color",
             "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
           },
           "plain": {
-            "value": "{my-digital-book.color.background.accent.blue.interactive.plain}",
+            "value": "{editorial-suite.color.background.interactive.plain}",
             "type": "color",
             "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
           }
         },
         "primary": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.blue.subtlest}",
+            "value": "{editorial-suite.color.background.primary.subtlest}",
             "type": "color",
-            "description": "The subtlest background in the primary action color."
+            "description": "The subtlest background in the primary action"
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.blue.subtle}",
+            "value": "{editorial-suite.color.background.primary.subtle}",
             "type": "color",
-            "description": "A subtle background in the primary action color."
+            "description": "A subtle background in the primary action"
           },
           "bold": {
-            "value": "{my-digital-book.color.palette.blue.800}",
+            "value": "{editorial-suite.color.background.primary.bold}",
             "type": "color",
             "description": "A vibrant background option used for primary actions."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.palette.blue.200}",
+              "value": "{editorial-suite.color.background.primary.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.blue.interactive.plain}",
+              "value": "{editorial-suite.color.background.primary.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1144,28 +1140,28 @@
         },
         "secondary": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.blue.subtlest}",
+            "value": "{editorial-suite.color.background.secondary.subtlest}",
             "type": "color",
-            "description": "The subtlest background in the secondary action color."
+            "description": "The subtlest background in the secondary action"
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.blue.subtle}",
+            "value": "{editorial-suite.color.background.secondary.subtle}",
             "type": "color",
-            "description": "A subtle background in the secondary action color."
+            "description": "A subtle background in the secondary action"
           },
           "bold": {
-            "value": "{my-digital-book.color.background.accent.blue.bold}",
+            "value": "{editorial-suite.color.background.secondary.bold}",
             "type": "color",
             "description": "A vibrant background option used for secondary actions."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.background.accent.blue.interactive.bold}",
+              "value": "{editorial-suite.color.background.secondary.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.blue.interactive.plain}",
+              "value": "{editorial-suite.color.background.secondary.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1173,28 +1169,28 @@
         },
         "neutral": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.grey.subtlest}",
+            "value": "{editorial-suite.color.background.neutral.subtlest}",
             "type": "color",
-            "description": "The subtlest background in the neutral action color."
+            "description": "The subtlest background in the neutral action"
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.grey.subtle}",
+            "value": "{editorial-suite.color.background.neutral.subtle}",
             "type": "color",
-            "description": "A subtle background in the neutral action color."
+            "description": "A subtle background in the neutral action"
           },
           "bold": {
-            "value": "{my-digital-book.color.palette.grey.100}",
+            "value": "{editorial-suite.color.background.neutral.bold}",
             "type": "color",
             "description": "A vibrant background option used for neutral actions."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.background.accent.grey.interactive.bold}",
+              "value": "{editorial-suite.color.background.neutral.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.grey.interactive.plain}",
+              "value": "{editorial-suite.color.background.neutral.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1202,28 +1198,28 @@
         },
         "info": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.blue.subtlest}",
+            "value": "{editorial-suite.color.background.info.subtlest}",
             "type": "color",
-            "description": "The subtlest background for informative messages."
+            "description": "The subtlest background in the info action"
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.blue.subtle}",
+            "value": "{editorial-suite.color.background.info.subtle}",
             "type": "color",
-            "description": "A subtle background for informative messages."
+            "description": "A subtle background in the info action"
           },
           "bold": {
-            "value": "{my-digital-book.color.background.accent.blue.bold}",
+            "value": "{editorial-suite.color.background.info.bold}",
             "type": "color",
-            "description": "Use for the background of actions with bold emphasis related to informative messages."
+            "description": "A vibrant background option used for info actions."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.background.accent.blue.interactive.bold}",
+              "value": "{editorial-suite.color.background.info.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.blue.interactive.plain}",
+              "value": "{editorial-suite.color.background.info.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1231,28 +1227,28 @@
         },
         "positive": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.green.subtlest}",
+            "value": "{editorial-suite.color.background.positive.subtlest}",
             "type": "color",
-            "description": "The subtlest background option for communicating a positive outcome."
+            "description": "The subtlest background in the positive action"
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.green.subtle}",
+            "value": "{editorial-suite.color.background.positive.subtle}",
             "type": "color",
-            "description": "A subtle background option for communicating a positive outcome."
+            "description": "A subtle background in the positive action"
           },
           "bold": {
-            "value": "{my-digital-book.color.background.accent.green.bold}",
+            "value": "{editorial-suite.color.background.positive.bold}",
             "type": "color",
-            "description": "Use for the background of actions with bold emphasis related to messages that communicate a positive outcome."
+            "description": "A vibrant background option used for positive actions."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.background.accent.green.interactive.bold}",
+              "value": "{editorial-suite.color.background.positive.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.green.interactive.plain}",
+              "value": "{editorial-suite.color.background.positive.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1260,28 +1256,28 @@
         },
         "caution": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.orange.subtlest}",
+            "value": "{editorial-suite.color.background.caution.subtlest}",
             "type": "color",
-            "description": "The subtlest background option to communicate caution to prevent errors."
+            "description": "The subtlest background in the caution action"
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.orange.subtle}",
+            "value": "{editorial-suite.color.background.caution.subtle}",
             "type": "color",
-            "description": "A subtle background option to communicate caution to prevent errors."
+            "description": "A subtle background in the caution action"
           },
           "bold": {
-            "value": "{my-digital-book.color.background.accent.orange.bold}",
+            "value": "{editorial-suite.color.background.caution.bold}",
             "type": "color",
-            "description": "Use for the background of actions with bold emphasis related to messages that communicate caution."
+            "description": "A vibrant background option used for caution actions."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.background.accent.orange.interactive.bold}",
+              "value": "{editorial-suite.color.background.caution.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.orange.interactive.plain}",
+              "value": "{editorial-suite.color.background.caution.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1289,28 +1285,28 @@
         },
         "negative": {
           "subtlest": {
-            "value": "{my-digital-book.color.background.accent.red.subtlest}",
+            "value": "{editorial-suite.color.background.negative.subtlest}",
             "type": "color",
-            "description": "The subtlest background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+            "description": "The subtlest background in the negative action"
           },
           "subtle": {
-            "value": "{my-digital-book.color.background.accent.red.subtle}",
+            "value": "{editorial-suite.color.background.negative.subtle}",
             "type": "color",
-            "description": "A subtle background option to communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+            "description": "A subtle background in the negative action"
           },
           "bold": {
-            "value": "{my-digital-book.color.background.accent.red.bold}",
+            "value": "{editorial-suite.color.background.negative.bold}",
             "type": "color",
-            "description": "Use for the background of actions with bold emphasis related to messages that communicate negative or serious error states (e.g., validation errors or irreversible actions)."
+            "description": "A vibrant background option used for negative actions."
           },
           "interactive": {
             "bold": {
-              "value": "{my-digital-book.color.background.accent.red.interactive.bold}",
+              "value": "{editorial-suite.color.background.negative.interactive.bold}",
               "type": "color",
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{my-digital-book.color.background.accent.red.interactive.plain}",
+              "value": "{editorial-suite.color.background.negative.interactive.plain}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }
@@ -1319,28 +1315,28 @@
         "accent": {
           "blue": {
             "subtlest": {
-              "value": "rgba({my-digital-book.color.background.accent.blue.bold}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.blue.subtlest}",
               "type": "color",
               "description": "The subtlest blue background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.background.accent.blue.bold}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.blue.subtle}",
               "type": "color",
               "description": "A subtle blue background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.blue.500}",
+              "value": "{editorial-suite.color.background.accent.blue.bold}",
               "type": "color",
               "description": "A vibrant blue background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.blue.900}",
+                "value": "{editorial-suite.color.background.accent.blue.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.blue.300}",
+                "value": "{editorial-suite.color.background.accent.blue.interactive.plain}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
@@ -1348,28 +1344,28 @@
           },
           "green": {
             "subtlest": {
-              "value": "rgba( {my-digital-book.color.palette.green.400}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.green.subtlest}",
               "type": "color",
               "description": "The subtlest green background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.palette.green.400}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.green.subtle}",
               "type": "color",
               "description": "A subtle green background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.green.600}",
+              "value": "{editorial-suite.color.background.accent.green.bold}",
               "type": "color",
               "description": "A vibrant green background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.green.900}",
+                "value": "{editorial-suite.color.background.accent.green.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.green.400}",
+                "value": "{editorial-suite.color.background.accent.green.interactive.plain}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
@@ -1377,28 +1373,28 @@
           },
           "grey": {
             "subtlest": {
-              "value": "rgba( {my-digital-book.color.palette.grey.700}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.grey.subtlest}",
               "type": "color",
               "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.palette.grey.700}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.grey.subtle}",
               "type": "color",
               "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.grey.150}",
+              "value": "{editorial-suite.color.background.accent.grey.bold}",
               "type": "color",
               "description": "A vibrant grey background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.grey.800}",
+                "value": "{editorial-suite.color.background.accent.grey.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.grey.600}",
+                "value": "{editorial-suite.color.background.accent.grey.interactive.plain}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
@@ -1406,28 +1402,28 @@
           },
           "orange": {
             "subtlest": {
-              "value": "rgba( {my-digital-book.color.palette.orange.400}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.orange.subtlest}",
               "type": "color",
               "description": "The subtlest orange background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.palette.orange.400}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.orange.subtle}",
               "type": "color",
               "description": "A subtle orange background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.orange.600}",
+              "value": "{editorial-suite.color.background.accent.orange.bold}",
               "type": "color",
               "description": "A vibrant orange background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.orange.900}",
+                "value": "{editorial-suite.color.background.accent.orange.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.orange.300}",
+                "value": "{editorial-suite.color.background.accent.orange.interactive.plain}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
@@ -1435,28 +1431,28 @@
           },
           "purple": {
             "subtlest": {
-              "value": "rgba( {my-digital-book.color.palette.purple.400}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.purple.subtlest}",
               "type": "color",
               "description": "The subtlest purple background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.palette.purple.400}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.purple.subtle}",
               "type": "color",
               "description": "A subtle purple background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.purple.600}",
+              "value": "{editorial-suite.color.background.accent.purple.bold}",
               "type": "color",
               "description": "A vibrant purple background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.purple.900}",
+                "value": "{editorial-suite.color.background.accent.purple.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.purple.300}",
+                "value": "{editorial-suite.color.background.accent.purple.interactive.plain}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
@@ -1464,28 +1460,28 @@
           },
           "red": {
             "subtlest": {
-              "value": "rgba( {my-digital-book.color.palette.red.400}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.red.subtlest}",
               "type": "color",
               "description": "The subtlest red background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.palette.red.400}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.red.subtle}",
               "type": "color",
               "description": "A subtle red background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.red.600}",
+              "value": "{editorial-suite.color.background.accent.red.bold}",
               "type": "color",
               "description": "A vibrant red background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.red.900}",
+                "value": "{editorial-suite.color.background.accent.red.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.red.300}",
+                "value": "{editorial-suite.color.background.accent.red.interactive.plain}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
@@ -1493,59 +1489,59 @@
           },
           "teal": {
             "subtlest": {
-              "value": "rgba( {my-digital-book.color.palette.teal.400}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.teal.subtlest}",
               "type": "color",
               "description": "The subtlest teal background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.palette.teal.400}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.teal.subtle}",
               "type": "color",
               "description": "A subtle teal background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.teal.600}",
+              "value": "{editorial-suite.color.background.accent.teal.bold}",
               "type": "color",
               "description": "A vibrant teal background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.teal.900}",
+                "value": "{editorial-suite.color.background.accent.teal.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.teal.300}",
+                "value": "{editorial-suite.color.background.accent.teal.interactive.plain}",
                 "type": "color",
-                "description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+                "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
             }
           },
           "yellow": {
             "subtlest": {
-              "value": "rgba( {my-digital-book.color.palette.yellow.400}, {my-digital-book.opacity.subtlest})",
+              "value": "{editorial-suite.color.background.accent.yellow.subtlest}",
               "type": "color",
               "description": "The subtlest yellow background option for interactive elements, applied purely for stylistic purposes without specific meaning."
             },
             "subtle": {
-              "value": "rgba({my-digital-book.color.palette.yellow.400}, {my-digital-book.opacity.subtle})",
+              "value": "{editorial-suite.color.background.accent.yellow.subtle}",
               "type": "color",
               "description": "A subtle yellow background option in idle state, applied purely for stylistic purposes without specific meaning."
             },
             "bold": {
-              "value": "{my-digital-book.color.palette.yellow.400}",
+              "value": "{editorial-suite.color.background.accent.yellow.bold}",
               "type": "color",
               "description": "A vibrant yellow background option, applied purely for stylistic purposes without specific meaning."
             },
             "interactive": {
               "bold": {
-                "value": "{my-digital-book.color.palette.yellow.800}",
+                "value": "{editorial-suite.color.background.accent.yellow.interactive.bold}",
                 "type": "color",
                 "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
               },
               "plain": {
-                "value": "{my-digital-book.color.palette.yellow.400}",
+                "value": "{editorial-suite.color.background.accent.yellow.interactive.plain}",
                 "type": "color",
-                "description": "Used as transparent layer on top of the subtlest and subtle background to indicate the hover and pressed state."
+                "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
               }
             }
           }
@@ -1554,19 +1550,19 @@
     },
     "blanket": {
       "plain": {
-        "value": "rgba({my-digital-book.color.palette.grey.900}, {my-digital-book.opacity.moderate})",
+        "value": "{editorial-suite.blanket.plain}",
         "type": "color",
         "description": "Use for screen overlay that appears with dialogs or drawers."
       }
     },
     "skeleton": {
       "subtle": {
-        "value": "{my-digital-book.color.background.accent.grey.subtle}",
+        "value": "{editorial-suite.skeleton.subtle}",
         "type": "color",
         "description": "Use for the pulse or shimmer effect in skeleton loading states."
       },
       "plain": {
-        "value": "{my-digital-book.color.background.accent.grey.subtlest}",
+        "value": "{editorial-suite.skeleton.plain}",
         "type": "color",
         "description": "Use for skeleton loading states."
       }
@@ -1575,24 +1571,24 @@
       "surface": {
         "base": {
           "default": {
-            "value": "{my-digital-book.color.palette.grey.000}",
+            "value": "{editorial-suite.elevation.surface.base.default}",
             "type": "color",
             "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
           }
         },
         "raised": {
           "default": {
-            "value": "{my-digital-book.color.palette.grey.000}",
+            "value": "{editorial-suite.elevation.surface.raised.default}",
             "type": "color",
             "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
           },
           "alternative": {
-            "value": "{my-digital-book.color.palette.grey.100}",
+            "value": "{editorial-suite.elevation.surface.raised.alternative}",
             "type": "color",
             "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
           },
           "sunken": {
-            "value": "{my-digital-book.color.palette.grey.050}",
+            "value": "{editorial-suite.elevation.surface.raised.sunken}",
             "type": "color",
             "description": "Background for components that create a sunken effect, typically used for grouping related items."
           }
@@ -1600,26 +1596,12 @@
       },
       "shadow": {
         "overflow": {
-          "value": {
-            "x": "0",
-            "y": "0",
-            "blur": "15",
-            "spread": "0",
-            "color": "rgba({my-digital-book.color.palette.grey.700}, {my-digital-book.opacity.subtlest})",
-            "type": "dropShadow"
-          },
+          "value": "{editorial-suite.elevation.shadow.overflow}",
           "type": "boxShadow",
           "description": "Use to create a shadow when the content scrolls under other content."
         },
         "overlay": {
-          "value": {
-            "x": "0",
-            "y": "0",
-            "blur": "10",
-            "spread": "0",
-            "color": "rgba({my-digital-book.color.palette.grey.700}, {my-digital-book.opacity.subtle})",
-            "type": "dropShadow"
-          },
+          "value": "{editorial-suite.elevation.shadow.overlay}",
           "type": "boxShadow",
           "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
         }
@@ -1627,65 +1609,65 @@
     },
     "opacity": {
       "muted": {
-        "value": "0%",
+        "value": "{editorial-suite.opacity.muted}",
         "type": "opacity"
       },
       "subtlest": {
-        "value": "10%",
+        "value": "{editorial-suite.opacity.subtlest}",
         "type": "opacity"
       },
       "subtle": {
-        "value": "20%",
+        "value": "{editorial-suite.opacity.subtle}",
         "type": "opacity"
       },
       "moderate": {
-        "value": "80%",
+        "value": "{editorial-suite.opacity.moderate}",
         "type": "opacity"
       },
       "bold": {
-        "value": "100%",
+        "value": "{editorial-suite.opacity.bold}",
         "type": "opacity"
       },
       "interactive": {
         "bold": {
           "idle": {
-            "value": "0%",
+            "value": "{editorial-suite.opacity.interactive.bold.idle}",
             "type": "opacity"
           },
           "hover": {
-            "value": "20%",
+            "value": "{editorial-suite.opacity.interactive.bold.hover}",
             "type": "opacity"
           },
           "active": {
-            "value": "40%",
+            "value": "{editorial-suite.opacity.interactive.bold.active}",
             "type": "opacity"
           }
         },
         "plain": {
           "idle": {
-            "value": "0%",
+            "value": "{editorial-suite.opacity.interactive.plain.idle}",
             "type": "opacity"
           },
           "hover": {
-            "value": "15%",
+            "value": "{editorial-suite.opacity.interactive.plain.hover}",
             "type": "opacity"
           },
           "active": {
-            "value": "25%",
+            "value": "{editorial-suite.opacity.interactive.plain.active}",
             "type": "opacity"
           }
         },
         "reversed": {
           "idle": {
-            "value": "80%",
+            "value": "{editorial-suite.opacity.interactive.reversed.idle}",
             "type": "opacity"
           },
           "hover": {
-            "value": "90%",
+            "value": "{editorial-suite.opacity.interactive.reversed.hover}",
             "type": "opacity"
           },
           "active": {
-            "value": "100%",
+            "value": "{editorial-suite.opacity.interactive.reversed.active}",
             "type": "opacity"
           }
         }

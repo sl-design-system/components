@@ -51,12 +51,6 @@ describe('sl-message-dialog', () => {
 
       await sendKeys({ press: 'Escape' });
 
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.renderRoot.querySelector('dialog')?.dispatchEvent(new Event('animationend'));
-
-      // Wait for component to stabilize
-      await new Promise(resolve => setTimeout(resolve));
-
       expect(callback).to.have.been.calledWith(undefined);
     });
 

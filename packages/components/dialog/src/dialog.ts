@@ -273,22 +273,30 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   /** Close the dialog. */
   close(): void {
-    this.dialog?.close();
+    if (this.dialog?.open) {
+      this.dialog?.close();
+    }
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
     const rect = this.dialog!.getBoundingClientRect();
 
-    // Check if the user clicked on the sl-dialog-close button or on the backdrop
+    // Check if the user clicked on the sl-dialog-close button
+    if (event.target.matches('sl-button[sl-dialog-close]')) {
+      this.close();
+      return;
+    }
+
+    // Check if the user clicked on the backdrop
     if (
-      event.target.matches('sl-button[sl-dialog-close]') ||
-      (!this.disableCancel &&
-        (event.clientY < rect.top ||
-          event.clientY > rect.bottom ||
-          event.clientX < rect.left ||
-          event.clientX > rect.right))
+      !this.disableCancel &&
+      (event.clientY < rect.top ||
+        event.clientY > rect.bottom ||
+        event.clientX < rect.left ||
+        event.clientX > rect.right)
     ) {
-      this.dialog?.close();
+      this.cancelEvent.emit();
+      this.close();
     }
   }
 
@@ -315,6 +323,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       if (this.disableCancel) {
         event.stopPropagation();
       } else {
+        this.cancelEvent.emit();
         this.close();
       }
     }

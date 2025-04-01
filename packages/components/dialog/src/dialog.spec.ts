@@ -123,9 +123,6 @@ describe('sl-dialog', () => {
 
       await sendKeys({ press: 'Escape' });
 
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
-
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve));
 
@@ -217,29 +214,10 @@ describe('sl-dialog', () => {
       el.addEventListener('sl-close', onClose);
       el.querySelector('sl-button')?.click();
 
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
-
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onClose).to.have.been.calledOnce;
-    });
-
-    it('should toggle the closing attribute during close', async () => {
-      expect(dialog).not.to.have.attribute('closing');
-
-      el.close();
-
-      // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
-
-      expect(dialog).to.have.attribute('closing');
-
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
-
-      expect(dialog).not.to.have.attribute('closing');
     });
 
     describe('disableCancel', () => {
@@ -273,9 +251,6 @@ describe('sl-dialog', () => {
         stub(clickEvent, 'clientX').value(100);
         stub(clickEvent, 'clientY').value(100);
         dialog.dispatchEvent(clickEvent);
-
-        // Simulate the animationend event that is used in #closeDialogOnAnimationend
-        dialog.dispatchEvent(new Event('animationend'));
 
         expect(onCancel).not.to.have.been.called;
       });

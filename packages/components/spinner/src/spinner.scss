@@ -1,11 +1,8 @@
-$sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
-$variants: default, 'white', accent, info, danger, success, warning;
-
 :host {
-  --sl-spinner-size: var(--sl-size-spinner-md);
+  --sl-spinner-size: var(--sl-size-200);
   --_color: currentcolor;
   --_rotate-duration: calc(var(--_spin-duration) * 4);
-  --_shadow-opacity: var(--sl-opacity-spinner-shadow);
+  --_shadow-opacity: var(--sl-opacity-subtle);
   --_spin-duration: 20s;
 
   block-size: var(--sl-spinner-size);
@@ -19,16 +16,32 @@ $variants: default, 'white', accent, info, danger, success, warning;
   }
 }
 
-@each $variant in $variants {
-  :host([variant='#{$variant}']) {
-    --_color: var(--sl-color-spinner-#{$variant});
-  }
+:host([size='xs']) {
+  --sl-spinner-size: var(--sl-size-150);
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --sl-spinner-size: var(--sl-size-spinner-#{$size});
-  }
+:host([size='sm']) {
+  --sl-spinner-size: var(--sl-size-175);
+}
+
+:host([size='lg']) {
+  --sl-spinner-size: var(--sl-size-250);
+}
+
+:host([size='xl']) {
+  --sl-spinner-size: var(--sl-size-300);
+}
+
+:host([size='2xl']) {
+  --sl-spinner-size: var(--sl-size-400);
+}
+
+:host([size='3xl']) {
+  --sl-spinner-size: var(--sl-size-600);
+}
+
+:host([size='4xl']) {
+  --sl-spinner-size: var(--sl-size-800);
 }
 
 svg {

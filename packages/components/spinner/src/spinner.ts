@@ -8,8 +8,7 @@ declare global {
   }
 }
 
-export type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning';
+export type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /**
  * Let the user know you are processing their data or that the (part of the) page is loading.
@@ -26,9 +25,6 @@ export class Spinner extends LitElement {
 
   /** The size of the spinner. Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: SpinnerSize;
-
-  /** The spinner variant. */
-  @property({ reflect: true }) variant?: SpinnerVariant;
 
   override connectedCallback(): void {
     super.connectedCallback();

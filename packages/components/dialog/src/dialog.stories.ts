@@ -59,15 +59,15 @@ export default {
     };
 
     return html`
-      <style>
-        ${maxWidth
-          ? `
+      ${maxWidth
+        ? html`
+            <style>
               sl-dialog::part(dialog) {
                 max-inline-size: ${maxWidth};
               }
-            `
-          : nothing}
-      </style>
+            </style>
+          `
+        : nothing}
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
         <span slot="title">${title}</span>

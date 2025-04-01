@@ -6,6 +6,7 @@ async function getDataset(fileName, count) {
   if (!datasetCache[fileName]) {
     datasetCache[fileName] = (await import(`./data/${fileName.split('.')[0]}.json`)).default;
   }
+
   return datasetCache[fileName].slice(0, count).map(item => {
     // Create deep clones to avoid sharing the same item instances between examples
     return { ...item };

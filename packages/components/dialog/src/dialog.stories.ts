@@ -141,6 +141,7 @@ export const Lazy: Story = {
       dialog.innerHTML = `
         <span slot="title">Lazy dialog</span>
         This dialog is not created until you click the button. It is added to the DOM in the click event handler, and removed in the close event handler.
+        <sl-button slot="primary-actions" sl-dialog-close variant="primary">Close</sl-button>
       `;
       dialog.addEventListener('sl-close', () => dialog.remove());
 

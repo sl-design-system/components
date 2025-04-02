@@ -2,10 +2,7 @@
   align-items: stretch;
   color: var(--sl-color-border-plain);
   display: flex;
-  padding-inline-end: calc(
-    var(--sl-size-300) + var(--sl-size-025)
-  ); // 26px; // TODO: 24px + 2px gap... //calc(var(--sl-size-200) + var(--sl-size-025));
-  // margin-left: 4px;
+  padding-inline-end: calc(var(--sl-size-300) + var(--sl-size-025)); // 26px;
 }
 
 :host([expandable]) {
@@ -32,8 +29,5 @@
 [part='guide'] {
   background: currentcolor;
   inline-size: var(--sl-size-borderWidth-default);
-
-  // margin-inline: var(--sl-size-150) var(--sl-size-050); // TODO: 10px? so 16px in total, including line, merge to one margin-inline?
-  // padding-left: 4px;
   margin-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default)) var(--sl-size-050); // 11px var(--sl-size-050); // 15px var(--sl-size-050);
 }

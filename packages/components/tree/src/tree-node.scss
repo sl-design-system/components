@@ -36,9 +36,6 @@
     sl-button-bar {
       // TODO: only visible on hover?
       display: flex;
-
-      // position: static;
-      // visibility: visible;
     }
   }
 }
@@ -80,21 +77,12 @@
 
   sl-button-bar {
     display: flex;
-
-    // position: static;
-    // visibility: visible;
   }
 }
 
 :host(:focus-within) {
-  // outline-color: var(--sl-color-border-focused);
-  // z-index: 1;
-
   sl-button-bar {
     display: flex;
-
-    // position: static;
-    // visibility: visible;
   }
 }
 

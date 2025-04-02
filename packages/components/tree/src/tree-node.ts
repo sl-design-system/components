@@ -149,7 +149,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('updated tree node changes', changes);
+    console.log('updated tree node changes', changes, this.children); // TODO: change posinset and setsize on changes
 
     if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
       if (this.selects === 'multiple') {
@@ -176,7 +176,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div role="gridcell" class="abcd">
+      <div id=${`${this.id}-cell`} role="gridcell" aria-colindex="1" class="abcd">
         <sl-indent-guides
           ?expandable=${this.expandable}
           ?last-node-in-level=${this.lastNodeInLevel}

@@ -1,11 +1,6 @@
-$sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
-$variants: default, 'white', accent, info, danger, success, warning;
-
 :host {
-  --sl-spinner-size: var(--sl-size-spinner-md);
-  --_color: currentcolor;
-  --_rotate-duration: calc(var(--_spin-duration) * 4);
-  --_shadow-opacity: var(--sl-opacity-spinner-shadow);
+  // this is a css var because we offer this as part of the api
+  --sl-spinner-size: var(--sl-size-200);
   --_spin-duration: 20s;
 
   block-size: var(--sl-spinner-size);
@@ -19,25 +14,49 @@ $variants: default, 'white', accent, info, danger, success, warning;
   }
 }
 
-@each $variant in $variants {
-  :host([variant='#{$variant}']) {
-    --_color: var(--sl-color-spinner-#{$variant});
-  }
+:host([size='xs']) {
+  --sl-spinner-size: var(--sl-size-150);
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --sl-spinner-size: var(--sl-size-spinner-#{$size});
-  }
+:host([size='sm']) {
+  --sl-spinner-size: var(--sl-size-175);
+}
+
+:host([size='lg']) {
+  --sl-spinner-size: var(--sl-size-250);
+}
+
+:host([size='xl']) {
+  --sl-spinner-size: var(--sl-size-300);
+}
+
+:host([size='2xl']) {
+  --sl-spinner-size: var(--sl-size-400);
+}
+
+:host([size='3xl']) {
+  --sl-spinner-size: var(--sl-size-600);
+}
+
+:host([size='4xl']) {
+  --sl-spinner-size: var(--sl-size-800);
 }
 
 svg {
   g.slow {
-    animation: spin var(--_rotate-duration) linear infinite;
+    animation: spin calc(var(--_spin-duration) * 4) linear infinite;
   }
 
   g.fast {
     animation: spin var(--_spin-duration) cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
+  }
+
+  path {
+    fill: currentcolor;
+  }
+
+  path.track {
+    opacity: var(--sl-opacity-subtle);
   }
 }
 

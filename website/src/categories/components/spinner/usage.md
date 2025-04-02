@@ -10,14 +10,14 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-spinner variant="accent" size="xl"></sl-spinner>
+<sl-spinner size="xl"></sl-spinner>
 
 </div>
 
 <div class="ds-code">
   
   ```html
-  <sl-spinner variant="accent" size="xl"></sl-spinner>
+  <sl-spinner size="xl"></sl-spinner>
   ```
 
 </div>
@@ -66,28 +66,6 @@ Avoid using a spinner when content is dynamically loaded or refreshed, use a [sk
 </section>
 
 
-
-<section>
-
-## Variants
-
-Spinner come in various versions, each suited for specific situations:
-
-  - **Default:** The standard spinner appearance is suitable for general use cases without specific emphasis or contextual meaning.
-
-  - **Accent:** Used to highlight spinners in areas that require additional attention or emphasis, typically to draw focus to important actions or processes within the interface.
-
-  - **Info:** Utilized to indicate spinners associated with informational content or actions, providing users with feedback on ongoing processes or informative updates.
-
-  - **Success:** Used to indicate successful actions or processes, showing users that an operation is successful or that progress will have a positive outcome.
-
-  - **Warning:** Associated with warning or cautionary messages or actions, alerting users to potential issues or risks that require their attention or further action to mitigate.
-
-  - **Danger:** Reserved for spinners that indicate potentially critical actions, alerting users to processes that may have negative consequences if not handled carefully or resolved promptly.
-
-</section>
-
-
 <section>
 
 ## Figma Options
@@ -97,7 +75,6 @@ With these options, you can tweak the appearance of the spinner in Figma. They a
 |Item|Options|Description|
 |-|-|-|
 |Size|`xs` `sm` `md` `lg` `xl` `2xl` `3xl`|Indicates the size of the spinner. If not specified the default value is `medium`.|
-|Variant|`default` `light` `accent` `info` `success` `warning` `danger`|Indicates the variant of the spinner.|
 
 {.ds-table .ds-table-align-top}
 

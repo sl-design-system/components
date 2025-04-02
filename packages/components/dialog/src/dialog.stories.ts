@@ -223,10 +223,9 @@ export const All: Story = {
       <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
       <sl-dialog close-button disable-cancel>
         <span slot="title">Title</span>
-        <span slot="subtitle">Subtitle</span>
         Body text
-        <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-        <sl-button slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
+        <sl-button slot="primary-actions" sl-dialog-close autofocus>Cancel</sl-button>
+        <sl-button slot="primary-actions" variant="primary" sl-dialog-close>Action</sl-button>
       </sl-dialog>
     `;
   }

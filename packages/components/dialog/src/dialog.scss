@@ -54,10 +54,6 @@ dialog {
     }
   }
 
-  dialog[open]::backdrop {
-    transition-duration: 0.5s;
-  }
-
   @media (prefers-reduced-motion: no-preference) {
     dialog,
     dialog::backdrop {
@@ -68,6 +64,10 @@ dialog {
       @supports not (overlay: auto) {
         transition-duration: 0s;
       }
+    }
+
+    dialog[open]::backdrop {
+      transition-duration: 0.5s;
     }
   }
 }
@@ -91,10 +91,6 @@ dialog {
     }
   }
 
-  dialog[open]::backdrop {
-    transition-duration: 0.5s;
-  }
-
   @media (prefers-reduced-motion: no-preference) {
     dialog,
     dialog::backdrop {
@@ -105,6 +101,10 @@ dialog {
       @supports not (overlay: auto) {
         transition-duration: 0s;
       }
+    }
+
+    dialog[open]::backdrop {
+      transition-duration: 0.5s;
     }
   }
 }

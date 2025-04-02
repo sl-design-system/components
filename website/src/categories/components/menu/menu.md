@@ -6,7 +6,7 @@ shortDescription: A menu provides relevant actions based on the user's current s
 layout: "categories/components/components.njk"
 tags: component
 packageName: menu
-storybookCategory: overlay
+storybookCategory: actions-menu
 eleventyNavigation:
   parent: Components
   key: Menu

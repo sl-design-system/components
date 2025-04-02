@@ -94,8 +94,8 @@ $variants: success, warning, error;
 .container {
   align-items: stretch;
   background: var(--_bar-background);
-  block-size: var(--_bar-thickness);
-  border-radius: var(--_border-radius);
+  block-size: var(--sl-size-050);
+  border-radius: var(--sl-border-radius-full);
   display: flex;
   inline-size: 100%;
   overflow: hidden;
@@ -104,7 +104,7 @@ $variants: success, warning, error;
 
 .progress {
   background: var(--_progress-background);
-  border-radius: var(--_border-radius);
+  border-radius: var(--sl-border-radius-full);
   transform-origin: left;
   transition:
     400ms transform,

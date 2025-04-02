@@ -15,7 +15,7 @@ type Props = Pick<CheckboxGroup, 'disabled' | 'required' | 'size' | 'value'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Form/Checkbox group',
+  title: 'Form/Checkbox/Checkbox group',
   tags: ['stable'],
   parameters: {
     a11y: {

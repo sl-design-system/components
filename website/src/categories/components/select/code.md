@@ -13,7 +13,7 @@ eleventyNavigation:
 <div class="ds-example">
   <div class="ds-example__examples-wrapper">
   <sl-select style="inline-size: 30rem;" aria-label="List of available subjects">
-    <sl-option-group heading="Languages">
+    <sl-option-group label="Languages">
       <sl-option>English</sl-option>
       <sl-option>German</sl-option>
       <sl-option>French</sl-option>
@@ -21,7 +21,7 @@ eleventyNavigation:
       <sl-option>Chinese</sl-option>
     </sl-option-group>
     <sl-option>Music</sl-option>
-    <sl-option-group heading="Science">
+    <sl-option-group label="Science">
       <sl-option>Biology</sl-option>
       <sl-option>Chemistry</sl-option>
       <sl-option>Physics</sl-option>
@@ -35,13 +35,13 @@ eleventyNavigation:
 
   ```html
   <sl-select>
-    <sl-option-group heading="Languages">
+    <sl-option-group label="Languages">
       <sl-option>English</sl-option>
       <sl-option>German</sl-option>
       ...
     </sl-option-group>
     <sl-option>Music</sl-option>
-    <sl-option-group heading="Science">
+    <sl-option-group label="Science">
       <sl-option>Biology</sl-option>
       <sl-option>Chemistry</sl-option>
       ...

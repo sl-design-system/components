@@ -1,6 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
+import { SlSubmitEvent } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
 import {
   CompositeForm as CompositeFormComponent,
@@ -14,12 +15,11 @@ import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { type SlSubmitEvent } from './form.js';
 
 type Story = StoryObj;
 
 export default {
-  title: 'Form/Examples'
+  title: 'Examples/Form'
 };
 
 export const LogIn: Story = {

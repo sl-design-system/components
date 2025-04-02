@@ -1,15 +1,13 @@
 html {
   background: var(--sl-color-palette-grey-800);
 
-  @media (width <= 600px) {
-    @media (prefers-reduced-motion: no-preference) {
-      body {
-        animation: sl-dialog-leave 0.2s ease-out forwards;
-      }
+  @media (width <= 600px) and (prefers-reduced-motion: no-preference) {
+    body {
+      animation: sl-dialog-leave 0.2s ease-out forwards;
+    }
 
-      &.sl-dialog-enter body {
-        animation: sl-dialog-enter 0.2s ease-in forwards;
-      }
+    &.sl-dialog-enter body {
+      animation: sl-dialog-enter 0.2s ease-in forwards;
     }
   }
 }

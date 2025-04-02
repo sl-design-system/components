@@ -124,7 +124,7 @@ describe('sl-dialog', () => {
       await sendKeys({ press: 'Escape' });
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(onCancel).to.have.been.calledOnce;
     });
@@ -146,9 +146,6 @@ describe('sl-dialog', () => {
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
-
       expect(onCancel).to.have.been.calledOnce;
     });
 
@@ -157,9 +154,6 @@ describe('sl-dialog', () => {
 
       el.addEventListener('sl-close', onClose);
       el.close();
-
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 50));
@@ -184,9 +178,6 @@ describe('sl-dialog', () => {
       stub(clickEvent, 'clientY').value(100);
       dialog.dispatchEvent(clickEvent);
 
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
-
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 50));
 
@@ -198,9 +189,6 @@ describe('sl-dialog', () => {
 
       el.addEventListener('sl-close', onClose);
       el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
-
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
       await new Promise(resolve => setTimeout(resolve, 50));
@@ -215,7 +203,7 @@ describe('sl-dialog', () => {
       el.querySelector('sl-button')?.click();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -271,11 +259,8 @@ describe('sl-dialog', () => {
       el.showModal();
       el.close();
 
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.dispatchEvent(new Event('animationend'));
-
-      // Wait for the component to stabilize
-      await new Promise(resolve => setTimeout(resolve, 50));
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 10));
     });
 
     it('should be inert', () => {
@@ -363,7 +348,7 @@ describe('sl-dialog', () => {
       customElements.define(
         'inherited-dialog-with-custom-actions',
         class extends Dialog {
-          override renderActions(): TemplateResult {
+          override renderPrimaryActions(): TemplateResult {
             return html`<sl-button>Custom action</sl-button>`;
           }
         }
@@ -376,7 +361,7 @@ describe('sl-dialog', () => {
       const button = el.renderRoot.querySelector('sl-button');
       expect(button).to.exist;
       expect(button).to.have.text('Custom action');
-      expect(button?.parentElement).to.match('slot[name="actions"]');
+      expect(button?.parentElement).to.match('slot[name="primary-actions"]');
     });
   });
 });

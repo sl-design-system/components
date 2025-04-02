@@ -3,7 +3,13 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, FocusTrapController, MediaController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  FocusTrapController,
+  MediaController,
+  event
+} from '@sl-design-system/shared';
 import {
   type CSSResult,
   type CSSResultGroup,
@@ -63,6 +69,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
+
   /** The controller that manages the focus trap within the dialog. */
   #focusTrap = new FocusTrapController(this);
 
@@ -115,9 +124,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <dialog
-        @click=${this.#onClick}
+        @click=${this.#onBackdropClick}
         @close=${this.#onClose}
-        @keydown=${this.#onKeydown}
         aria-labelledby="title"
         role=${ifDefined(this.dialogRole === 'dialog' ? undefined : this.dialogRole)}
         part="dialog"
@@ -288,14 +296,8 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onClick(event: PointerEvent & { target: HTMLElement }): void {
+  #onBackdropClick(event: MouseEvent): void {
     const rect = this.dialog!.getBoundingClientRect();
-
-    // Check if the user clicked on the sl-dialog-close button
-    if (event.target.matches('sl-button[sl-dialog-close]')) {
-      this.close();
-      return;
-    }
 
     // Check if the user clicked on the backdrop
     if (
@@ -305,7 +307,17 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         event.clientX < rect.left ||
         event.clientX > rect.right)
     ) {
+      event.preventDefault();
+      event.stopPropagation();
+
       this.cancelEvent.emit();
+      this.close();
+    }
+  }
+
+  #onClick(event: MouseEvent): void {
+    // Check if the user clicked on the sl-dialog-close button
+    if (event.target instanceof HTMLElement && event.target.matches('sl-button[sl-dialog-close]')) {
       this.close();
     }
   }
@@ -318,7 +330,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.inert = true;
 
     // Wait until all animations have finished before emitting the close event
-    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(animation => animation.finished) ?? []);
+    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
 
     this.closeEvent.emit();
   }
@@ -330,7 +342,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.close();
   }
 
-  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
+  #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Escape') {
       event.preventDefault();
 

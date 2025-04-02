@@ -20,7 +20,7 @@ type Props = Pick<
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Form/Checkbox',
+  title: 'Form/Checkbox/Checkbox',
   tags: ['stable'],
   parameters: {
     a11y: {

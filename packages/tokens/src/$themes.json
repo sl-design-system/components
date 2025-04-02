@@ -163,7 +163,7 @@
   },
   {
     "id": "5e3b5fee07f11186d106bf7ea66952c92a8d49af",
-    "name": "Magister",
+    "name": "magister",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "magister/base-new": "source",

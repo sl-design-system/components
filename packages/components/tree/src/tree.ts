@@ -238,7 +238,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       item.parent?.childrenCount
     );
     console.log('datasource in render item', this.dataSource);
-    // TODO: maybe renderGroup first and then renderItem?
 
     return html`
       <sl-tree-node
@@ -262,6 +261,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
           : `${String(item.id)}-cell`}
         aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
+        role="row"
       >
         ${this.renderer?.(item) ??
         html`
@@ -270,62 +270,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         `}
       </sl-tree-node>
     `;
-
-    // ${item.children?.length
-    //   ? html`
-    //         <div role="group">
-    //           ${item.children.map(child => this.renderItem(child))}
-    //         </div>
-    //       `
-    //   : nothing}
-
-    // return html`
-    //   ${item.children?.length && item.level > 0 ? html`<div role="group">
-    //     <sl-tree-node
-    //     @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
-    //     @sl-toggle=${() => this.#onToggle(item)}
-    //     ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
-    //     ?expandable=${item.expandable}
-    //     ?expanded=${item.expanded}
-    //     ?hide-guides=${this.hideGuides}
-    //     ?indeterminate=${item.indeterminate}
-    //     ?last-node-in-level=${item.lastNodeInLevel}
-    //     ?selected=${this.dataSource?.selects === 'single' && item.selected}
-    //     .level=${item.level}
-    //     .node=${item}
-    //     .selects=${this.dataSource?.selects}
-    //     .type=${item.type}
-    //     aria-level=${item.level}
-    //   >
-    //     ${this.renderer?.(item) ??
-    //   html`
-    //       ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-    //       <span>${item.label}</span>
-    //     `}
-    //   </sl-tree-node>
-    //   </div>` : html`<sl-tree-node
-    //     @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
-    //     @sl-toggle=${() => this.#onToggle(item)}
-    //     ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
-    //     ?expandable=${item.expandable}
-    //     ?expanded=${item.expanded}
-    //     ?hide-guides=${this.hideGuides}
-    //     ?indeterminate=${item.indeterminate}
-    //     ?last-node-in-level=${item.lastNodeInLevel}
-    //     ?selected=${this.dataSource?.selects === 'single' && item.selected}
-    //     .level=${item.level}
-    //     .node=${item}
-    //     .selects=${this.dataSource?.selects}
-    //     .type=${item.type}
-    //     aria-level=${item.level}
-    //   >
-    //     ${this.renderer?.(item) ??
-    //   html`
-    //       ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
-    //       <span>${item.label}</span>
-    //     `}
-    //   </sl-tree-node>`}
-    // `;
   }
 
   scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {

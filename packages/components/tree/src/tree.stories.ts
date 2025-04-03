@@ -387,8 +387,6 @@ export const Scrolling: Story = {
   }
 };
 
-// TODO: single/multiple selection with action buttons
-
 export const CustomRendererWithActionButtons: Story = {
   // const storyArgs = {
   //   ...FlatDataSource.args,

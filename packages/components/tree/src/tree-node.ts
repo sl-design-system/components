@@ -141,7 +141,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
     // this.setAttribute('role', 'treeitem');
 
     /** We cannot use treeitem role, due to a11y issues with tree role and no group role. */
-    this.setAttribute('role', 'row');
+    // this.setAttribute('role', 'row');
     // this.setAttribute('role', 'gridcell');
     this.tabIndex = 0;
   }
@@ -149,7 +149,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('updated tree node changes', changes, this.children); // TODO: change posinset and setsize on changes
+    console.log('updated tree node changes', changes, this.children);
 
     if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
       if (this.selects === 'multiple') {

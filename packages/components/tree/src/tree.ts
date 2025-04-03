@@ -127,9 +127,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (this.dataSource?.nodes) {
       console.log('data source size in firstUpdated', this.dataSource.size, this.dataSource.nodes);
-     // const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-     // wrapper?.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
-       this.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
+      // const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+      // wrapper?.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
+      this.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
     }
   }
 
@@ -228,7 +228,15 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
 
-    console.log('has children?, item', item, item.children?.length, item.children, 'parent?', item.parent?.children, item.parent?.childrenCount);
+    console.log(
+      'has children?, item',
+      item,
+      item.children?.length,
+      item.children,
+      'parent?',
+      item.parent?.children,
+      item.parent?.childrenCount
+    );
     console.log('datasource in render item', this.dataSource);
     // TODO: maybe renderGroup first and then renderItem?
 
@@ -249,7 +257,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         .selects=${this.dataSource?.selects}
         .type=${item.type}
         aria-level=${item.level + 1}
-        aria-owns=${ item.children ? [`${item.id}-cell`, ...item.children.map(child => child.id)].join(' ') : `${item.id}-cell`}
+        aria-owns=${item.children
+          ? [`${String(item.id)}-cell`, ...item.children.map(child => String(child.id))].join(' ')
+          : `${String(item.id)}-cell`}
         aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
       >
@@ -316,8 +326,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     //     `}
     //   </sl-tree-node>`}
     // `;
-  } // TODO: check a11y
-  // TODO: should have wrapper with role group when it's expandable?
+  }
 
   scrollToNode(node: TreeDataSourceNode<T>, options?: ScrollIntoViewOptions): void {
     const index = this.dataSource?.items.indexOf(node) ?? -1;
@@ -345,17 +354,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     // Expands all siblings that are at the same level as the current node.
     // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
-
-    /* if (event.key === 'Tab') {
-      // this.#rovingTabindexController.clearElementCache();
-      // const actionButtons = event.target.querySelectorAll('[slot="actions"] sl-button');
-      const actionButtons = event.target.querySelectorAll('[slot="actions"]');
-      console.log('action buttons when tab on keydown', actionButtons, event.target);
-      if (actionButtons.length > 0) {
-        event.preventDefault();
-        (actionButtons[0] as HTMLElement).focus();
-      }
-    } else */ if (event.key === '*') {
+    if (event.key === '*') {
       event.preventDefault(); // TODO: breaks tab when action buttons are visible?
 
       const treeNode = event.target.node as TreeDataSourceNode<T>,

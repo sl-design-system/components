@@ -2,7 +2,7 @@
   align-items: stretch;
   color: var(--sl-color-border-plain);
   display: flex;
-  padding-inline-end: calc(var(--sl-size-300) + var(--sl-size-025)); // 26px;
+  padding-inline-end: calc(var(--sl-size-300) + var(--sl-size-025));
 }
 
 :host([expandable]) {
@@ -16,18 +16,18 @@
 
   &::before {
     block-size: 100%;
-    border-block-end: var(--sl-size-borderWidth-default) solid currentcolor;
+    border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
     border-end-start-radius: var(--sl-size-050);
-    border-inline-start: var(--sl-size-borderWidth-default) solid currentcolor;
+    border-inline-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
     content: '';
-    inline-size: var(--sl-size-100); // 8px; // var(--sl-size-050);
+    inline-size: var(--sl-size-100);
     inset: 100% auto auto 0;
     position: absolute;
-  } // TODO: use token color?
+  }
 }
 
 [part='guide'] {
-  background: currentcolor;
+  background: var(--sl-color-border-plain);
   inline-size: var(--sl-size-borderWidth-default);
-  margin-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default)) var(--sl-size-050); // 11px var(--sl-size-050); // 15px var(--sl-size-050);
+  margin-inline: calc(var(--sl-size-150) - var(--sl-size-borderWidth-default)) var(--sl-size-050);
 }

@@ -176,7 +176,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div id=${`${this.id}-cell`} role="gridcell" aria-colindex="1" class="abcd">
+      <div id=${`${this.id}-cell`} role="gridcell" aria-colindex="1">
         <sl-indent-guides
           ?expandable=${this.expandable}
           ?last-node-in-level=${this.lastNodeInLevel}
@@ -268,7 +268,18 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
-    console.log('inside wrapper? in on click', insideWrapper);
+    // const insideWrapper = event.composedPath().some(el => el === wrapper);
+
+    // const insideWrapper = wrapper?.contains(event.target as Node);
+
+    console.log(
+      'inside wrapper? in on click',
+      insideWrapper,
+      wrapper,
+      event.composedPath().filter((el): el is HTMLElement => el instanceof HTMLElement),
+      'target???',
+      event.target
+    );
 
     if (insideWrapper) {
       event.preventDefault();
@@ -281,9 +292,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         this.selected = this.selects === 'single' ? true : this.selected;
         this.selectEvent.emit(this.node!);
       }
-
-      // this.selected = this.selects === 'single' ? true : this.selected;
-      // this.selectEvent.emit(this.node!);
       console.log('selected? inside wrapper', this.selected, this.selects);
     } else if (this.expandable) {
       this.toggle();
@@ -323,14 +331,5 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         event.preventDefault();
       }
     }
-    // if (event.key === 'Tab') {
-    //   // const actionButtons = event.target.querySelectorAll('[slot="actions"] sl-button');
-    //   const actionButtons = (event.target as HTMLElement)?.querySelectorAll('[slot="actions"]');
-    //   console.log('action buttons when tab on keydown in TREE NODE', actionButtons, event.target); // TODO: problems with action buttons not always visible?
-    //   if (actionButtons.length > 0) {
-    //     event.preventDefault();
-    //     (actionButtons[0] as HTMLElement).focus();
-    //   }
-    // }
   }
 }

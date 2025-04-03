@@ -1,13 +1,7 @@
 :host {
-  --_bg-color: var(
-    --sl-elevation-surface-base-default
-  ); // var(--sl-color-background-input-plain); // TODO: what's the token?
-
-  --_bg-mix-color: var(
-    --sl-color-background-neutral-interactive-plain
-  ); // var(--sl-color-background-input-interactive);
-
-  --_bg-opacity: var(--sl-opacity-interactive-plain-idle); // var(--sl-opacity-light-interactive-plain-idle);
+  --_bg-color: var(--sl-elevation-surface-base-default);
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-idle);
 
   align-items: center;
   background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
@@ -15,13 +9,11 @@
   color: var(--sl-color-foreground-plain);
   cursor: pointer;
   display: flex;
-
-  // gap: var(--sl-size-075);
   inline-size: 100%;
-  margin-block: var(--sl-size-025); // TODO: necessary?
+  margin-block: var(--sl-size-025);
   outline: transparent solid var(--sl-size-outlineWidth-default);
   outline-offset: var(--sl-size-outlineOffset-default);
-  padding-inline-start: var(--sl-size-050); // 4px;
+  padding-inline-start: var(--sl-size-050);
   scroll-margin-block: var(--sl-size-100);
 
   @media (prefers-reduced-motion: no-preference) {
@@ -30,11 +22,10 @@
 }
 
 :host(:hover) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover); // var(--sl-opacity-light-interactive-plain-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 
   @media (hover: hover) {
     sl-button-bar {
-      // TODO: only visible on hover?
       display: flex;
     }
   }
@@ -53,22 +44,17 @@
 }
 
 :host([selected]) {
-  --_bg-color: var(--sl-color-background-selected-subtlest); // var(--sl-color-background-selected-bold);
-  --_bg-mix-color: var(
-    --sl-color-background-selected-interactive-plain
-  ); // var(--sl-color-background-selected-interactive-bold);
-
-  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle); // var(--sl-opacity-light-interactive-bold-idle);
-
-  color: var(--sl-color-foreground-bold); // var(--sl-color-foreground-selected-onBold);
+  --_bg-color: var(--sl-color-background-selected-subtlest);
+  --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
 }
 
 :host([selected]:hover) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-hover); // var(--sl-opacity-light-interactive-bold-hover);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
 }
 
 :host([selected]:active) {
-  --_bg-opacity: var(--sl-opacity-interactive-plain-active); // var(--sl-opacity-light-interactive-bold-active);
+  --_bg-opacity: var(--sl-opacity-interactive-plain-active);
 }
 
 :host(:focus-visible) {
@@ -93,6 +79,7 @@
 
 [role='gridcell'] {
   display: flex;
+  inline-size: 100%;
 }
 
 sl-indent-guides {
@@ -101,15 +88,31 @@ sl-indent-guides {
 }
 
 .expander {
+  --_bg-color: transparent;
+  --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+  --_bg-opacity: var(--sl-opacity-interactive-bold-idle);
+
   align-items: center;
-  align-self: stretch;
+  align-self: center;
+  background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+  block-size: var(--sl-size-300);
+  border-radius: var(--sl-size-borderRadius-default);
   display: inline-flex;
-  inline-size: var(--sl-size-300); // 24px;
+  inline-size: var(--sl-size-300);
   justify-content: center;
   margin-inline-end: var(--sl-size-025);
 
   sl-icon {
     color: var(--sl-color-foreground-bold);
+  }
+
+  &:hover {
+    --_bg-mix-color: var(--sl-color-background-neutral-interactive-plain);
+    --_bg-opacity: var(--sl-opacity-interactive-bold-hover);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: background 200ms ease-in-out;
+    }
   }
 }
 
@@ -125,19 +128,12 @@ sl-indent-guides {
 [part='content'] {
   align-items: center;
   display: flex;
-  gap: var(--sl-size-025); // var(--sl-size-075);
-  // line-height: 20px; // TODO: change...
+  gap: var(--sl-size-025);
   padding-block: var(--sl-size-075);
   padding-inline: 0 var(--sl-size-100);
 }
 
-// ::slotted(*) {
-//  flex: 1; // TODO: it breaks badges, is it really necessary?
-// }
-
 ::slotted(sl-icon) {
-  // flex: 0 1;
-  // padding: 3px;
   --sl-icon-container-size: 20px;
 
   vertical-align: bottom;
@@ -159,7 +155,7 @@ sl-checkbox {
   &::part(label) {
     align-items: center;
     display: inline-flex;
-    gap: var(--sl-size-025); // var(--sl-size-050);
+    gap: var(--sl-size-025);
     margin: 0;
   }
 }
@@ -167,15 +163,8 @@ sl-checkbox {
 sl-button-bar {
   display: none;
   margin-inline-start: auto;
-
-  // position: absolute;
-  // visibility: hidden;
-
-  // margin-inline: auto var(--sl-size-050);
 }
 
 sl-skeleton {
   block-size: 1lh;
 }
-
-// TODO: margin-inline: auto var(--sl-size-050); for aside slot?

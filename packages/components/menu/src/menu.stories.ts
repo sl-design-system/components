@@ -40,7 +40,7 @@ Icon.register(
 );
 
 export default {
-  title: 'Overlay/Menu',
+  title: 'Actions/Menu/Menu',
   tags: ['draft'],
   args: {
     maxWidth: '200px',

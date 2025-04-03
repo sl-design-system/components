@@ -1554,25 +1554,25 @@
           }
         }
       }
-    }
-  },
-  "blanket": {
-    "plain": {
-      "value": "rgba({color.palette.grey.900}, {opacity.dark.moderate})",
-      "type": "color",
-      "description": "Use for screen overlay that appears with dialogs or drawers."
-    }
-  },
-  "skeleton": {
-    "plain": {
-      "value": "{color.background.accent.grey.subtlest}",
-      "type": "color",
-      "description": "Use for skeleton loading states."
     },
-    "subtle": {
-      "value": "{color.background.accent.grey.subtle}",
-      "type": "color",
-      "description": "Use for the pulse or shimmer effect in skeleton loading states."
+    "blanket": {
+      "plain": {
+        "value": "rgba({color.palette.grey.900}, {opacity.dark.moderate})",
+        "type": "color",
+        "description": "Use for screen overlay that appears with dialogs or drawers."
+      }
+    },
+    "skeleton": {
+      "plain": {
+        "value": "{color.background.accent.grey.subtlest}",
+        "type": "color",
+        "description": "Use for skeleton loading states."
+      },
+      "subtle": {
+        "value": "{color.background.accent.grey.subtle}",
+        "type": "color",
+        "description": "Use for the pulse or shimmer effect in skeleton loading states."
+      }
     }
   },
   "elevation": {

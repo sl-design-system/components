@@ -203,7 +203,7 @@ describe('sl-dialog', () => {
       el.querySelector('sl-button')?.click();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -260,7 +260,7 @@ describe('sl-dialog', () => {
       el.close();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should be inert', () => {

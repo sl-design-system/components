@@ -40,7 +40,7 @@ describe('sl-grid-filter-column', () => {
         <sl-grid .items=${ITEMS}>
           <sl-grid-filter-column path="profession"></sl-grid-filter-column>
           <sl-grid-filter-column mode="text" path="status"></sl-grid-filter-column>
-          <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+          <sl-grid-filter-column path="membership" filter-label="Membership"></sl-grid-filter-column>
         </sl-grid>
       `);
       await el.updateComplete;
@@ -96,7 +96,7 @@ describe('sl-grid-filter-column', () => {
         filter?.renderRoot.querySelector('sl-popover')?.querySelector('#title')?.textContent?.trim()
       );
 
-      expect(titles).to.eql(['Filter by Profession', 'Filter by Status', 'Filter by Membership']);
+      expect(titles).to.eql(['Filter by profession', 'Filter by status', 'Filter by Membership']);
     });
 
     it('should have filter buttons and popovers with filter options', () => {

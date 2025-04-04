@@ -1,5 +1,5 @@
+import { type Constructor } from '@open-wc/dedupe-mixin';
 import { type ReactiveElement } from 'lit';
-import { type Constructor } from '../types.js';
 
 // From the TC39 Decorators proposal
 export interface ClassDescriptor {

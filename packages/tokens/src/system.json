@@ -220,81 +220,39 @@
   },
   "elevation": {
     "shadow": {
-      "sm": {
-        "value": [
-          {
-            "x": "0",
-            "y": "4",
-            "blur": "6",
-            "spread": "-1",
-            "color": "rgba( {color.palette.black.base} , {opacity.50})",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "2",
-            "blur": "4",
-            "spread": "-1",
-            "color": "rgba( {color.palette.black.base} , {opacity.50})",
-            "type": "dropShadow"
-          }
-        ],
-        "type": "boxShadow"
+      "overflow": {
+        "value": {
+          "x": "0",
+          "y": "0",
+          "blur": "15",
+          "spread": "0",
+          "color": "rgba({elevation.surface.shadow}, {opacity.subtlest})",
+          "type": "dropShadow"
+        },
+        "type": "boxShadow",
+        "description": "Use to create a shadow when the content scrolls under other content."
       },
-      "md": {
+      "overlay": {
         "value": [
           {
             "x": "0",
-            "y": "8",
-            "blur": "15",
+            "y": "6",
+            "blur": "12",
             "spread": "-3",
-            "color": "rgba( {color.palette.black.base} , {opacity.50})",
+            "color": "rgba({elevation.surface.shadow}, 4%)",
             "type": "dropShadow"
           },
           {
             "x": "0",
             "y": "6",
-            "blur": "4",
-            "spread": "-2",
-            "color": "rgba( {color.palette.black.base} , {opacity.50})",
+            "blur": "18",
+            "spread": "0",
+            "color": "rgba({elevation.surface.shadow}, 12%)",
             "type": "dropShadow"
           }
         ],
-        "type": "boxShadow"
-      },
-      "lg": {
-        "value": [
-          {
-            "x": "0",
-            "y": "20",
-            "blur": "25",
-            "spread": "-5",
-            "color": "rgba( {color.palette.black.base} , {opacity.100})",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "10",
-            "blur": "10",
-            "spread": "-5",
-            "color": "rgba( {color.palette.black.base} , {opacity.50})",
-            "type": "dropShadow"
-          }
-        ],
-        "type": "boxShadow"
-      },
-      "xl": {
-        "value": [
-          {
-            "x": "0",
-            "y": "20",
-            "blur": "25",
-            "spread": "-5",
-            "color": "rgba( {color.palette.black.base} , {opacity.100})",
-            "type": "dropShadow"
-          }
-        ],
-        "type": "boxShadow"
+        "type": "boxShadow",
+        "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
       }
     }
   },

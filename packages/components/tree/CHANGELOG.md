@@ -1,5 +1,13 @@
 # @sl-design-system/tree
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`f4e2875`](https://github.com/sl-design-system/components/commit/f4e2875883fd0b8501fa346c17e775a317b85926), [`6432836`](https://github.com/sl-design-system/components/commit/6432836922f8e2f733cd71868f6ffa9ce70ba65e)]:
+  - @sl-design-system/data-source@0.1.2
+  - @sl-design-system/spinner@2.0.0
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @sl-design-system/popover
 
+## 1.2.2
+
+### Patch Changes
+
+- [#1905](https://github.com/sl-design-system/components/pull/1905) [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5) - Refactored tooltip and popover to use new tokens
+
+- [#1905](https://github.com/sl-design-system/components/pull/1905) [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5) - Fixed issue that caused text to flow out of the popover when it was too large
+
 ## 1.2.1
 
 ### Patch Changes

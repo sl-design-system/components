@@ -1,5 +1,13 @@
 # @sl-design-system/progress-bar
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1935](https://github.com/sl-design-system/components/pull/1935) [`1cc26a2`](https://github.com/sl-design-system/components/commit/1cc26a23132b3f657bf6d08829a4a8bf733428d0) - - Refactored to use new contextual tokens
+  - Moved sub label (in main slot) above the progress bar
+  - The text in the main slot in `error` variant is no longer the danger color. To communicate errors you can use the new `error` slot. That is placed underneath the progressbar and shown in a contrasting colour.
+
 ## 0.0.2
 
 ### Patch Changes

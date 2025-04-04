@@ -1,5 +1,13 @@
 # @sl-design-system/spinner
 
+## 2.0.0
+
+### Major Changes
+
+- [#1928](https://github.com/sl-design-system/components/pull/1928) [`6432836`](https://github.com/sl-design-system/components/commit/6432836922f8e2f733cd71868f6ffa9ce70ba65e) - - Removes the `variant` attribute; you can now only set the color of the spinner by changing the text color of the container (or the spinner itself) by css.
+  - Adds the 4xl size
+  - refactored to use new token structure
+
 ## 1.0.1
 
 ### Patch Changes

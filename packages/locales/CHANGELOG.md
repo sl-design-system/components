@@ -1,5 +1,11 @@
 # @sl-design-system/locales
 
+## 0.0.12
+
+### Patch Changes
+
+- [#1926](https://github.com/sl-design-system/components/pull/1926) [`3766da5`](https://github.com/sl-design-system/components/commit/3766da571ddde0baea8daf63bd0d18a94b333a9d) - Fixed incorrect variables in Dutch translations, added missing translation
+
 ## 0.0.11
 
 ### Patch Changes

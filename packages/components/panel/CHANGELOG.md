@@ -1,5 +1,12 @@
 # @sl-design-system/panel
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/tool-bar@0.0.7
+
 ## 0.1.2
 
 ### Patch Changes

@@ -10,7 +10,7 @@ dialog {
   color: var(--sl-color-foreground-plain);
   flex-direction: column;
   gap: var(--sl-size-200);
-  inline-size: fit-content(30rem);
+  inline-size: 30rem;
   margin: auto;
   max-block-size: calc(100dvh - var(--sl-size-400));
   max-inline-size: calc(100dvw - var(--sl-size-600));

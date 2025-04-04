@@ -86,13 +86,22 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      ${this.label
-        ? html`
-            <div id="label" class="label">
-              ${this.label} ${this.variant ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
-            </div>
-          `
-        : nothing}
+      <div>
+        ${this.label
+          ? html`
+              <div id="label" class="label">
+                ${this.label} ${this.variant ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+              </div>
+            `
+          : nothing}
+        <div id="helper" class="helper">
+          <slot></slot>
+          <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
+            ${msg('state')}: ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`}
+          </span>
+          ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+        </div>
+      </div>
       <div
         aria-labelledby=${ifDefined(this.label ? 'label' : undefined)}
         aria-describedby="helper"
@@ -104,16 +113,10 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       >
         <div
           class="progress"
-          style=${styleMap({ transform: !this.indeterminate || this.variant ? `scaleX(${this.value / 100})` : '' })}
+          style=${styleMap({ width: !this.indeterminate || this.variant ? `${this.value}%` : '' })}
         ></div>
       </div>
-      <div id="helper" class="helper">
-        <slot></slot>
-        <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
-          ${msg('state')}: ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`}
-        </span>
-        ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
-      </div>
+      <slot name="error"></slot>
     `;
   }
 

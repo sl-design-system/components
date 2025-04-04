@@ -38,7 +38,7 @@ export default {
   render: ({ indeterminate, variant, value, label, slot }) => {
     return html`
       <sl-progress-bar ?indeterminate=${indeterminate} .value=${value} .label=${label} .variant=${variant}>
-        ${slot?.() ?? html`<span>Uploaded ${value}% of 100%</span>`}
+        ${slot?.() ?? html`Uploaded ${value}% of 100%`}
       </sl-progress-bar>
     `;
   }
@@ -201,36 +201,33 @@ export const All: StoryObj = {
       }
     </style>
     <h2>With label</h2>
-    <sl-progress-bar value="20" label="Progress bar label in the default variant">
-      <span>20% of 100%</span>
-    </sl-progress-bar>
+    <sl-progress-bar value="20" label="Progress bar label in the default variant"> 20% of 100% </sl-progress-bar>
     <sl-progress-bar value="100" label="Progress bar label in the success variant" variant="success">
-      <span>File downloaded</span>
+      File downloaded
     </sl-progress-bar>
     <sl-progress-bar value="40" label="Progress bar label in the warning variant" variant="warning">
-      <span>40% of 100%</span>
+      40% of 100%
     </sl-progress-bar>
     <sl-progress-bar value="50" label="Progress bar label in the error variant" variant="error">
-      <span>50% of 100%</span>
+      50% of 100%
     </sl-progress-bar>
     <sl-progress-bar indeterminate label="Progress bar label in the indeterminate state">
-      <span>Preparing download</span>
+      Preparing download
     </sl-progress-bar>
     <h2>No label</h2>
-    <sl-progress-bar value="20" aria-label="Progress bar label in the default variant">
-      <span>20% of 100%</span>
-    </sl-progress-bar>
+    <sl-progress-bar value="20" aria-label="Progress bar label in the default variant"> 20% of 100% </sl-progress-bar>
     <sl-progress-bar value="100" variant="success" aria-label="Progress bar label in the success variant">
-      <span>File uploaded</span>
+      File uploaded
     </sl-progress-bar>
     <sl-progress-bar value="40" variant="warning" aria-label="Progress bar label in the warning variant">
-      <span>40% of 100%</span>
+      40% of 100%
     </sl-progress-bar>
     <sl-progress-bar value="50" variant="error" aria-label="Progress bar label in the error variant">
-      <span>50% of 100%</span>
+      50% of 100%
+      <span slot="error">This is a <strong>custom</strong> error</span>
     </sl-progress-bar>
     <sl-progress-bar indeterminate aria-label="Progress bar label in the indeterminate state">
-      <span>Preparing download</span>
+      Preparing download
     </sl-progress-bar>
   `
 };

@@ -10,6 +10,7 @@ import {
   MediaController,
   event
 } from '@sl-design-system/shared';
+import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -17,7 +18,6 @@ import styles from './dialog.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-cancel': SlCancelEvent;
     'sl-close': SlCloseEvent;
   }
 
@@ -26,7 +26,6 @@ declare global {
   }
 }
 
-export type SlCancelEvent = CustomEvent<void>;
 export type SlCloseEvent = CustomEvent<void>;
 
 /**

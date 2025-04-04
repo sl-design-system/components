@@ -4,6 +4,7 @@ import { Button, type ButtonFill, type ButtonVariant } from '@sl-design-system/b
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Dialog } from '@sl-design-system/dialog';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -119,7 +120,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal Emits when the dialog is cancelled. */
-  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<CustomEvent<void>>;
+  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
   /** The configuration of the message dialog. */
   @property({ attribute: false }) config?: MessageDialogConfig<T>;

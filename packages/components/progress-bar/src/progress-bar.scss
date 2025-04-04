@@ -1,54 +1,56 @@
 $variants: success, warning, error;
 
 :host {
-  --_bar-background: var(--sl-color-progressbar-background);
-  --_bar-thickness: var(--sl-size-progressbar);
-  --_border-radius: var(--sl-border-radius-full);
-  --_gap: var(--sl-space-progressbar-vertical-gap);
-  --_helper-color: var(--sl-color-input-helper-text-default);
-  --_helper-color-error: var(--sl-color-progressbar-error-track);
-  --_helper-font: var(--sl-text-input-field-label-hint-md);
   --_indeterminate-duration: 20s;
-  --_label-color: var(--sl-color-input-field-label-text-default);
-  --_label-font: var(--sl-text-input-field-label-label-md);
-  --_label-gap: var(--sl-space-progressbar-horizontal-gap);
-  --_progress-background: var(--sl-color-progressbar-active-track);
-  --_icon-fill: var(--sl-color-progressbar-active-track);
+  --_fill-color: var(--sl-color-border-selected);
+
+  // --_progress-background: var(--sl-color-progressbar-active-track);
+  // --_icon-fill: var(--sl-color-progressbar-active-track);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
   }
 
-  color: var(--_helper-color);
   display: flex;
   flex-direction: column;
-  font: var(--_helper-font);
-  gap: var(--_gap);
+  gap: var(--sl-space-050);
 }
 
-@each $variant in $variants {
-  :host([variant='#{$variant}']:not([indeterminate])) {
-    --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
-    --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
-  }
+// @each $variant in $variants {
+//   :host([variant='#{$variant}']:not([indeterminate])) {
+//     --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
+//     --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
+//   }
 
-  :host([variant='#{$variant}'][indeterminate]) .progress {
-    --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
-    --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
+//   :host([variant='#{$variant}'][indeterminate]) .progress {
+//     --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
+//     --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
 
-    animation: none;
-    inline-size: 100%;
-  }
+//     animation: none;
+//     inline-size: 100%;
+//   }
 
-  :host([variant='#{$variant}'][indeterminate]) {
-    .label sl-icon {
-      --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
-    }
+//   :host([variant='#{$variant}'][indeterminate]) {
+//     .label sl-icon {
+//       --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
+//     }
 
-    .helper sl-icon {
-      --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
-    }
-  }
+//     .helper sl-icon {
+//       --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
+//     }
+//   }
+// }
+
+:host([variant='success']) {
+  --_fill-color: var(--sl-color-border-positive-plain);
+}
+
+:host([variant='warning']) {
+  --_fill-color: var(--sl-color-border-caution-plain);
+}
+
+:host([variant='error']) {
+  --_fill-color: var(--sl-color-border-negative-plain);
 }
 
 :host([indeterminate]) .progress {
@@ -60,40 +62,32 @@ $variants: success, warning, error;
   inline-size: 100%;
 }
 
-:host([variant='error']) ::slotted(*) {
-  color: var(--_helper-color-error);
+.label {
+  color: var(--sl-color-foreground-bold);
+  display: flex;
+  font: var(--sl-text-new-heading-sm);
+  gap: var(--sl-space-100);
+  justify-content: space-between;
 }
 
-.label {
-  color: var(--_label-color);
-  display: flex;
-  font: var(--_label-font);
-  gap: var(--_label-gap);
-  justify-content: space-between;
-
-  sl-icon {
-    --sl-icon-fill-default: var(--_icon-fill);
-  }
+sl-icon {
+  --sl-icon-fill-default: var(--_fill-color);
 }
 
 .helper {
+  color: var(--sl-color-foreground-subtlest);
   display: flex;
-  gap: var(--_label-gap);
+  gap: var(--sl-space-100);
   justify-content: space-between;
-
-  sl-icon {
-    --sl-icon-fill-default: var(--_icon-fill);
-  }
 }
 
-::slotted(*) {
-  color: var(--_helper-color);
-  font: var(--_helper-font);
+slot[name='error'] {
+  color: var(--sl-color-foreground-negative-plain);
 }
 
 .container {
   align-items: stretch;
-  background: var(--_bar-background);
+  background: var(--sl-color-border-plain);
   block-size: var(--sl-size-050);
   border-radius: var(--sl-border-radius-full);
   display: flex;
@@ -103,7 +97,7 @@ $variants: success, warning, error;
 }
 
 .progress {
-  background: var(--_progress-background);
+  background: var(--_fill-color);
   border-radius: var(--sl-border-radius-full);
   transform-origin: left;
   transition:

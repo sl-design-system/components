@@ -228,6 +228,7 @@ export const All: StoryObj = {
     </sl-progress-bar>
     <sl-progress-bar value="50" variant="error" aria-label="Progress bar label in the error variant">
       <span>50% of 100%</span>
+      <span slot="error">This is a <strong>custom</strong> error</span>
     </sl-progress-bar>
     <sl-progress-bar indeterminate aria-label="Progress bar label in the indeterminate state">
       <span>Preparing download</span>

@@ -1,11 +1,6 @@
-$variants: success, warning, error;
-
 :host {
   --_indeterminate-duration: 20s;
   --_fill-color: var(--sl-color-border-selected);
-
-  // --_progress-background: var(--sl-color-progressbar-active-track);
-  // --_icon-fill: var(--sl-color-progressbar-active-track);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
@@ -15,31 +10,6 @@ $variants: success, warning, error;
   flex-direction: column;
   gap: var(--sl-space-050);
 }
-
-// @each $variant in $variants {
-//   :host([variant='#{$variant}']:not([indeterminate])) {
-//     --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
-//     --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
-//   }
-
-//   :host([variant='#{$variant}'][indeterminate]) .progress {
-//     --_progress-background: var(--sl-color-progressbar-#{$variant}-track);
-//     --_icon-fill: var(--sl-color-progressbar-#{$variant}-track);
-
-//     animation: none;
-//     inline-size: 100%;
-//   }
-
-//   :host([variant='#{$variant}'][indeterminate]) {
-//     .label sl-icon {
-//       --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
-//     }
-
-//     .helper sl-icon {
-//       --sl-icon-fill-default: var(--sl-color-progressbar-#{$variant}-track);
-//     }
-//   }
-// }
 
 :host([variant='success']) {
   --_fill-color: var(--sl-color-border-positive-plain);

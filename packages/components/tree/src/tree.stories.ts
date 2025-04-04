@@ -421,10 +421,10 @@ export const CustomRendererWithActionButtons: Story = {
         ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">
           <sl-icon name="far-trash"></sl-icon>
         </sl-button>
       `;
@@ -500,10 +500,10 @@ export const SingleSelectWithActionButtons: Story = {
         ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit}>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
-        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove}>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">
           <sl-icon name="far-trash"></sl-icon>
         </sl-button>
       `;

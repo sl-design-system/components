@@ -2,7 +2,7 @@ import { type RangeChangedEvent } from '@lit-labs/virtualizer';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
+import {type EventEmitter, RovingTabindexController, event, ObserveAttributesMixin} from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
@@ -26,7 +26,10 @@ export type TreeItemRenderer<T = any> = (item: TreeDataSourceNode<T>) => Templat
  * to visualize.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
+export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -35,6 +38,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-spinner': Spinner,
       'sl-tree-node': TreeNode
     };
+  }
+
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-label', 'aria-labelledby'];
   }
 
   /** @internal */
@@ -106,7 +114,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
      * because `tree` role is not fully accessible without `group` role inside,
      * and we cannot implement groups due to virtualizer usage
      * */
-    this.role = 'treegrid';
+    // this.role = 'treegrid';
   }
 
   override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
@@ -114,6 +122,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
     this.#virtualizer = wrapper[virtualizerRef];
+
+    this.setAttributesTarget(wrapper);
 
     await this.layoutComplete;
 
@@ -133,15 +143,18 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     // aria-rowcount=${this.dataSource?.items.length || 0}
 
-    if (this.dataSource?.items) {
-      this.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '0');
-    }
+    // if (this.dataSource?.items) {
+    //   // this.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '-1');
+    //   wrapper?.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '-1'); // TODO: we don't have total amount of items
+    // }
 
     if (this.dataSource?.nodes) {
       console.log('data source size in firstUpdated', this.dataSource.size, this.dataSource.nodes);
       // const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
       // wrapper?.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
-      this.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
+      // this.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
+      wrapper?.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
+      wrapper?.setAttribute('aria-controls', this.dataSource.nodes.map(child => child.id).join(' ') || '');
     }
   }
 
@@ -155,14 +168,14 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       console.log('wrapper', wrapper);
 
       if (this.dataSource?.selects === 'multiple') {
-        this.setAttribute('aria-multiselectable', 'true');
-        // wrapper?.setAttribute('aria-multiselectable', 'true');
+        // this.setAttribute('aria-multiselectable', 'true');
+        wrapper?.setAttribute('aria-multiselectable', 'true');
       } else if (this.dataSource?.selects === 'single') {
-        this.setAttribute('aria-multiselectable', 'false');
-        // wrapper?.setAttribute('aria-multiselectable', 'false');
+        // this.setAttribute('aria-multiselectable', 'false');
+        wrapper?.setAttribute('aria-multiselectable', 'false');
       } else {
-        this.removeAttribute('aria-multiselectable');
-        // wrapper?.removeAttribute('aria-multiselectable');
+        // this.removeAttribute('aria-multiselectable');
+        wrapper?.removeAttribute('aria-multiselectable');
       }
     }
 
@@ -182,6 +195,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         @rangeChanged=${this.#onRangeChanged}
         @sl-select=${this.#onSelect}
         part="wrapper"
+        role="treegrid"
       >
         ${virtualize({
           items: this.dataSource?.items,
@@ -206,6 +220,10 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     );
     console.log('datasource in render item', this.dataSource);
 
+    /**
+     * Aria-label is added to improve a11y for Safari and VO - without it the content of each row is not being read.
+     * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements.
+     * */
     return html`
       <sl-tree-node
         id=${item.id}
@@ -222,10 +240,10 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         .node=${item}
         .selects=${this.dataSource?.selects}
         .type=${item.type}
+        aria-controls=${item.children?.map(child => child.id).join(' ') || `${item.id}-cell`}
+        aria-label=${item.label}
         aria-level=${item.level + 1}
-        aria-owns=${item.children
-          ? [`${String(item.id)}-cell`, ...item.children.map(child => String(child.id))].join(' ')
-          : `${String(item.id)}-cell`}
+        aria-owns=${item.children?.map(child => child.id).join(' ') || `${item.id}-cell`}
         aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
         aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}

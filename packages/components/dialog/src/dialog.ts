@@ -10,17 +10,7 @@ import {
   MediaController,
   event
 } from '@sl-design-system/shared';
-import {
-  type CSSResult,
-  type CSSResultGroup,
-  LitElement,
-  type PropertyValues,
-  type TemplateResult,
-  adoptStyles,
-  html,
-  nothing,
-  unsafeCSS
-} from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './dialog.scss.js';
@@ -253,21 +243,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     if (this.dialog?.open) {
       return;
     }
-
-    /**
-     * Workaround for the backdrop background: the backdrop doesn't inherit
-     * from the :root, so we cannot use tokens for the background-color.
-     * This needs to be removed in the future when the bug has been fixed:
-     * https://drafts.csswg.org/css-position-4/#backdrop
-     */
-    const backdrop: CSSResult = unsafeCSS(
-      `::backdrop {
-        background-color: ${getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')};
-      }
-    `
-    );
-
-    adoptStyles(this.shadowRoot!, [styles, backdrop]);
 
     this.#updateDocumentElement(true);
 

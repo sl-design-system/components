@@ -21,8 +21,7 @@ dialog {
     display: flex;
 
     &::backdrop {
-      // background: var(--sl-body-surface-overlay);
-      background: var(--sl-blanket-plain);
+      background: var(--sl-color-blanket-plain);
       opacity: 1;
 
       @starting-style {

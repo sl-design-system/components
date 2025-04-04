@@ -19,7 +19,6 @@ dialog {
     display: flex;
 
     &::backdrop {
-      background: var(--sl-color-blanket-plain);
       opacity: 1;
 
       @starting-style {
@@ -78,6 +77,10 @@ dialog {
     margin: auto;
     max-inline-size: calc(100dvw - var(--sl-size-600));
     min-inline-size: auto;
+
+    &::backdrop {
+      background: var(--sl-color-blanket-plain);
+    }
 
     // Exit animation
     &:not(:modal) {

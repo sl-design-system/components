@@ -21,6 +21,11 @@ const config = {
       product: 'chromium',
       createBrowserContext({ browser }) {
         return browser.newContext({ locale: 'en' });
+      },
+      async createPage({ context }) {
+        const page = await context.newPage();
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        return page;
       }
     })
   ],

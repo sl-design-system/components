@@ -1,9 +1,13 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonVariant } from '@sl-design-system/button';
+import { ButtonBar } from '@sl-design-system/button-bar';
 import { Dialog } from '@sl-design-system/dialog';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './message-dialog.scss.js';
 
 declare global {
@@ -15,7 +19,6 @@ declare global {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface MessageDialogConfig<T = any> {
   title?: string;
-  subtitle?: string;
   message: string | TemplateResult;
   buttons?: Array<MessageDialogButton<T>>;
   disableCancel?: boolean;
@@ -48,7 +51,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
     return {
       ...Dialog.scopedElements,
       'sl-button': Button,
-      'sl-dialog': Dialog
+      'sl-button-bar': ButtonBar
     };
   }
 
@@ -110,49 +113,111 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
       const dialog = document.createElement('sl-message-dialog');
       dialog.config = config;
       dialog.addEventListener('sl-cancel', () => resolve(undefined));
-      dialog.addEventListener('sl-close', () => dialog.remove());
 
       document.body.appendChild(dialog);
       void dialog.updateComplete.then(() => dialog.showModal());
     });
   }
 
+  /** @internal Emits when the dialog is cancelled. */
+  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
+
   /** The configuration of the message dialog. */
   @property({ attribute: false }) config?: MessageDialogConfig<T>;
 
+  /** @internal */
+  @query('dialog') dialog?: HTMLDialogElement;
+
   override render(): TemplateResult {
-    const { buttons, disableCancel, message, title, subtitle } = this.config ?? {};
+    const { buttons, message, title } = this.config ?? {};
 
     return html`
-      <sl-dialog .disableCancel=${disableCancel} dialog-role="alertdialog">
-        <div slot="title">${title}</div>
-        ${subtitle ? html`<div slot="subtitle">${subtitle}</div>` : nothing}
+      <dialog
+        @cancel=${this.#onCancel}
+        @click=${this.#onClick}
+        @keydown=${this.#onKeydown}
+        aria-labelledby="title"
+        role="alertdialog"
+      >
+        <h1 id="title">${title}</h1>
         <p>${message}</p>
-        ${buttons?.map(
-          button => html`
-            <sl-button
-              @click=${() => button.action?.()}
-              ?autofocus=${button.autofocus}
-              .fill=${button.fill ?? 'solid'}
-              .variant=${button.variant ?? 'default'}
-              slot="actions"
-              sl-dialog-close
-            >
-              ${button.text}
-            </sl-button>
-          `
-        )}
-      </sl-dialog>
+        <sl-button-bar align="end">
+          ${buttons?.map(
+            button => html`
+              <sl-button
+                @click=${() => this.#onButtonClick(button)}
+                ?autofocus=${button.autofocus}
+                fill=${ifDefined(button.fill)}
+                variant=${ifDefined(button.variant)}
+              >
+                ${button.text}
+              </sl-button>
+            `
+          )}
+        </sl-button-bar>
+      </dialog>
     `;
   }
 
   /** Show the message dialog as a modal, in the top layer, with a backdrop. */
   showModal(): void {
-    this.renderRoot.querySelector<Dialog>('sl-dialog')?.showModal();
+    this.dialog?.showModal();
   }
 
   /** Close the message dialog. */
   close(): void {
-    this.renderRoot.querySelector<Dialog>('sl-dialog')?.close();
+    this.dialog?.close();
+  }
+
+  async #onButtonClick(button: MessageDialogButton): Promise<void> {
+    this.dialog?.close();
+
+    // Wait until all animations have finished before triggering the action
+    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+
+    button.action?.();
+  }
+
+  async #onCancel(): Promise<void> {
+    // Wait for close animation to start
+    await new Promise(resolve => setTimeout(resolve));
+
+    // Wait until all animations have finished before triggering the action
+    await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+
+    this.cancelEvent.emit();
+  }
+
+  async #onClick(event: PointerEvent): Promise<void> {
+    if (this.config?.disableCancel) {
+      return;
+    }
+
+    const rect = this.dialog!.getBoundingClientRect();
+
+    // Check if the user clicked on the backdrop
+    if (
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom ||
+      event.clientX < rect.left ||
+      event.clientX > rect.right
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.dialog?.close();
+
+      // Wait until all animations have finished before triggering the action
+      await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
+
+      this.cancelEvent.emit();
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && this.config?.disableCancel) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
   }
 }

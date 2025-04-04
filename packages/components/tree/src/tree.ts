@@ -97,8 +97,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
-  //  #renderedItems = new Set<string>();
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -123,6 +121,20 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       const node = this.dataSource.selection.keys().next().value as TreeDataSourceNode<T>;
 
       this.scrollToNode(node, { block: 'center' });
+    }
+
+    console.log(
+      'data source in firstUpdated',
+      this.dataSource,
+      this.dataSource?.items,
+      this.dataSource?.size,
+      this.dataSource?.nodes
+    );
+
+    // aria-rowcount=${this.dataSource?.items.length || 0}
+
+    if (this.dataSource?.items) {
+      this.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '0');
     }
 
     if (this.dataSource?.nodes) {
@@ -164,8 +176,6 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    // this.#renderedItems.clear();
-
     return html`
       <div
         @keydown=${this.#onKeydown}
@@ -176,54 +186,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ${virtualize({
           items: this.dataSource?.items,
           keyFunction: (item: TreeDataSourceNode<T>) => item.id,
-          // renderItem: (item: TreeDataSourceNode<T>) => this.renderGroup(item) //this.renderItem(item)
           renderItem: (item: TreeDataSourceNode<T>) => this.renderItem(item)
         })}
       </div>
     `;
   } // role="treegrid"
-
-  // renderGroup(item: TreeDataSourceNode<T>): TemplateResult {
-  //   console.log('item in render group', item, item.children?.length, 'label?', item.label);
-  //   // ${item.children?.length && item.level > 0 ?
-  //   return html`
-  //     ${item.children?.length && item.level > 0
-  //       ? html` ${this.renderItem(item)}
-  //           <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
-  //       : this.renderItem(item)}
-  //   `;
-  // }
-
-  // renderGroup(item: TreeDataSourceNode<T>): TemplateResult {
-  //   console.log('item in render group', item, item.children?.length, 'label?', item.label);
-  //   console.log('this.#renderedItems', this.#renderedItems);
-  //   if (this.#renderedItems.has(item.id as string)) {
-  //     return html`aaa`; // nothing; // or handle the case where the item is already rendered
-  //   }
-  //
-  //   this.#renderedItems.add(item.id as string);
-  //
-  //   //   return html`
-  //   //   ${item.children?.length && item.level > 0
-  //   //     ? html` ${this.renderItem(item)}
-  //   //         <div role="group" class="123">${item.children.map(child => this.renderItem(child))}</div>`
-  //   //     : this.renderItem(item)}
-  //   // `;
-  //
-  //   //   return html`
-  //   //   ${this.renderItem(item)}
-  //   //   ${item.children?.length && item.level > 0
-  //   //     ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
-  //   //     : nothing}
-  //   // `;
-  //
-  //   return html`
-  //     ${this.renderItem(item)}
-  //     ${item.children?.length /*&& item.level > 0*/
-  //       ? html`<div role="group" class="123">${item.children.map(child => this.renderGroup(child))}</div>`
-  //       : nothing}
-  //   `;
-  // }
 
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
@@ -261,6 +228,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
           : `${String(item.id)}-cell`}
         aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
+        aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
         role="row"
       >
         ${this.renderer?.(item) ??

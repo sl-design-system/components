@@ -72,6 +72,8 @@ export class NestedTreeDataSource<T = any> extends TreeDataSource<T> {
   override update(): void {
     this.#viewNodes = this.toViewArray();
 
+    console.log(' this.#viewNodes in nested tree data source', this.#viewNodes);
+
     this.dispatchEvent(new CustomEvent('sl-update'));
   }
 

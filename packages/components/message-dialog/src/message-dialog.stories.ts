@@ -30,20 +30,24 @@ export default {
 export const Alert: Story = {
   args: {
     onClick: async ({ message, title }) => await MessageDialog.alert(message as string, title),
-    message: 'This is an alert message.'
+    message:
+      'This is an alert message. Use this to alert the user about something. This is the design system equivalent of calling window.alert().'
   }
 };
 
 export const Confirm: Story = {
   args: {
     onClick: async ({ message, title }) => await MessageDialog.confirm(message as string, title),
-    message: 'This is a confirmation message.'
+    message:
+      'This is a confirmation message. The message dialog contains a "Cancel" and "OK" button by default. You can customize this using the buttons property.'
   }
 };
 
 export const Mobile: Story = {
   args: {
-    onClick: async ({ buttons, message, title }) => await MessageDialog.show({ buttons, message, title }),
+    onClick: async ({ buttons, message, title }): Promise<void> => {
+      await MessageDialog.show({ buttons, message, title });
+    },
     title: 'Allow "SLDS" to make your application look sooooo much better?',
     message: 'The SL Design System is an amazing tool that will make your app look so much better.',
     buttons: [
@@ -60,7 +64,9 @@ export const Mobile: Story = {
 
 export const CustomButtons: Story = {
   args: {
-    onClick: async ({ buttons, message, title }) => await MessageDialog.show({ buttons, message, title }),
+    onClick: async ({ buttons, message, title }) => {
+      await MessageDialog.show({ buttons, message, title });
+    },
     title: 'Custom buttons',
     message:
       'This is a message with custom buttons. Are you sure you want to press any buttons?. Mollit tempor reprehenderit non ad do. Minim enim enim officia fugiat nisi officia eiusmod amet minim cupidatat irure laborum nulla. Dolore anim consectetur culpa ex officia aliqua non minim. Veniam sunt minim anim occaecat labore excepteur duis elit irure sunt. Veniam amet quis amet consectetur non ea commodo dolore.',
@@ -73,8 +79,9 @@ export const CustomButtons: Story = {
 
 export const CustomMessage: Story = {
   args: {
-    onClick: async ({ message, title }) =>
-      await MessageDialog.show({ message, title, buttons: [{ text: 'OK', variant: 'primary' }] }),
+    onClick: async ({ message, title }) => {
+      await MessageDialog.show({ message, title, buttons: [{ text: 'OK', variant: 'primary' }] });
+    },
     title: 'Custom message',
     message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`
   }

@@ -19,6 +19,7 @@ dialog {
     display: flex;
 
     &::backdrop {
+      background: var(--sl-blanket-plain);
       opacity: 1;
 
       @starting-style {

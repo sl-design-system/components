@@ -1,39 +1,91 @@
-@media (width <= 600px) {
-  sl-dialog {
-    --_subtitle-font: var(--sl-text-dialog-message-mobile-subheading);
-    --_title-font: var(--sl-text-dialog-message-mobile-heading);
+:host {
+  display: contents;
+}
 
-    &::part(dialog) {
-      --_max-inline-size: calc(
-        100dvw - var(--sl-space-dialog-message-mobile-container-padding-left) - var(
-            --sl-space-dialog-message-mobile-container-padding-right
-          )
-      );
+dialog {
+  background: var(--sl-elevation-surface-raised-default);
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  box-sizing: border-box;
+  color: var(--sl-color-foreground-plain);
+  flex-direction: column;
+  gap: var(--sl-size-200);
+  inline-size: fit-content(30rem);
+  margin: auto;
+  max-block-size: calc(100dvh - var(--sl-size-400));
+  max-inline-size: calc(100dvw - var(--sl-size-600));
+  overflow: visible;
+  padding: var(--sl-size-300) var(--sl-size-300);
 
-      margin: auto;
-      min-inline-size: min(var(--sl-size-dialog-message-mobile-min), var(--_max-inline-size));
-    }
+  &[open] {
+    display: flex;
 
-    &::part(titles) {
-      align-items: center;
-      text-align: center;
-    }
+    &::backdrop {
+      // background: var(--sl-body-surface-overlay);
+      background: var(--sl-blanket-plain);
+      opacity: 1;
 
-    &::part(body) {
-      text-align: center;
-    }
-
-    &::part(footer-bar) {
-      --sl-button-bar-vertical: var(--sl-OFF);
+      @starting-style {
+        opacity: 0;
+      }
     }
   }
+
+  &:focus-visible {
+    outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
+    outline-offset: var(--sl-size-outlineOffset-default);
+  }
+
+  &::backdrop {
+    opacity: 0;
+  }
+
+  // Exit animation
+  &:not(:modal) {
+    opacity: 0;
+    scale: 0.7;
+  }
+
+  // Enter animation
+  @starting-style {
+    display: flex;
+    scale: 1.1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog,
+  dialog::backdrop {
+    transition: 0.4s ease-in-out;
+    transition-behavior: allow-discrete;
+    transition-property: display, opacity, overlay, scale;
+
+    @supports not (overlay: auto) {
+      transition-duration: 0s;
+    }
+  }
+
+  dialog[open]::backdrop {
+    transition-duration: 0.5s;
+  }
+}
+
+h1 {
+  color: var(--sl-color-foreground-bold);
+  font-size: 1.7em;
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+  line-height: 1.42em;
+  margin-block: 0;
+  text-box: trim-both cap alphabetic;
 }
 
 p {
   margin-block: 0;
 }
 
-sl-button {
-  flex: 1;
-  text-align: center;
+@media (width <= 600px) {
+  sl-button {
+    flex: 1;
+    text-align: center;
+  }
 }

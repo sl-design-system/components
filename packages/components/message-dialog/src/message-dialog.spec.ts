@@ -173,7 +173,6 @@ describe('sl-message-dialog', () => {
     beforeEach(async () => {
       promise = MessageDialog.show({
         title: 'Title',
-        subtitle: 'Subtitle',
         message: html`This is a message with <strong>HTML</strong>!`,
         buttons: [
           { text: 'No, run away!', fill: 'outline', value: 'NO', variant: 'primary' },

@@ -64,23 +64,25 @@ export const Mobile: Story = {
 
 export const CustomButtons: Story = {
   args: {
-    onClick: async ({ buttons, message, title }) => {
-      await MessageDialog.show({ buttons, message, title });
-    },
-    title: 'Custom buttons',
-    message:
-      'This is a message with custom buttons. Are you sure you want to press any buttons?. Mollit tempor reprehenderit non ad do. Minim enim enim officia fugiat nisi officia eiusmod amet minim cupidatat irure laborum nulla. Dolore anim consectetur culpa ex officia aliqua non minim. Veniam sunt minim anim occaecat labore excepteur duis elit irure sunt. Veniam amet quis amet consectetur non ea commodo dolore.',
     buttons: [
       { text: 'No, run away!', fill: 'outline', value: 'NO', variant: 'primary' },
       { text: "Yes, I don't care what it does", value: 'YES', variant: 'danger' }
-    ]
+    ],
+    disableCancel: true,
+    onClick: async args => {
+      await MessageDialog.show(args);
+    },
+    title: 'Custom buttons',
+    message:
+      'This is a message with custom buttons. Are you sure you want to press any buttons?. Mollit tempor reprehenderit non ad do. Minim enim enim officia fugiat nisi officia eiusmod amet minim cupidatat irure laborum nulla. Dolore anim consectetur culpa ex officia aliqua non minim. Veniam sunt minim anim occaecat labore excepteur duis elit irure sunt. Veniam amet quis amet consectetur non ea commodo dolore.'
   }
 };
 
 export const CustomMessage: Story = {
   args: {
-    onClick: async ({ message, title }) => {
-      await MessageDialog.show({ message, title, buttons: [{ text: 'OK', variant: 'primary' }] });
+    disableCancel: true,
+    onClick: async args => {
+      await MessageDialog.show({ ...args, buttons: [{ text: 'OK', variant: 'primary' }] });
     },
     title: 'Custom message',
     message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`

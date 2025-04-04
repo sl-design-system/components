@@ -1,5 +1,4 @@
 import { expect } from '@open-wc/testing';
-import { type Dialog } from '@sl-design-system/dialog';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
@@ -7,7 +6,7 @@ import '../register.js';
 import { MessageDialog } from './message-dialog.js';
 
 describe('sl-message-dialog', () => {
-  let dialog: Dialog, promise: Promise<unknown>;
+  let dialog: HTMLDialogElement, promise: Promise<unknown>;
 
   afterEach(() => document.querySelector('sl-message-dialog')?.remove());
 
@@ -18,15 +17,20 @@ describe('sl-message-dialog', () => {
       const messageDialog = document.querySelector('sl-message-dialog')!;
       await messageDialog.updateComplete;
 
-      dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
+      dialog = messageDialog.renderRoot.querySelector('dialog')!;
     });
 
     it('should have an alertdialog role on the native dialog', () => {
-      expect(dialog.renderRoot.querySelector('dialog')).to.have.attribute('role', 'alertdialog');
+      expect(dialog).to.have.attribute('role', 'alertdialog');
+    });
+
+    it('should have a dialog that is labelled by a heading', () => {
+      expect(dialog).to.have.attribute('aria-labelledby', 'title');
+      expect(dialog.querySelector('h1')).to.have.id('title');
     });
 
     it('should have an "Alert" title', () => {
-      expect(dialog.querySelector('[slot="title"]')).to.have.text('Alert');
+      expect(dialog.querySelector('h1')).to.have.text('Alert');
     });
 
     it('should have a message', () => {
@@ -51,6 +55,9 @@ describe('sl-message-dialog', () => {
 
       await sendKeys({ press: 'Escape' });
 
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 50));
+
       expect(callback).to.have.been.calledWith(undefined);
     });
 
@@ -73,11 +80,11 @@ describe('sl-message-dialog', () => {
       const messageDialog = document.querySelector('sl-message-dialog')!;
       await messageDialog.updateComplete;
 
-      dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
+      dialog = messageDialog.renderRoot.querySelector('dialog')!;
     });
 
     it('should have a custom title', () => {
-      expect(dialog.querySelector('[slot="title"]')).to.have.text('Custom title');
+      expect(dialog.querySelector('h1')).to.have.text('Custom title');
     });
   });
 
@@ -88,15 +95,15 @@ describe('sl-message-dialog', () => {
       const messageDialog = document.querySelector('sl-message-dialog')!;
       await messageDialog.updateComplete;
 
-      dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
+      dialog = messageDialog.renderRoot.querySelector('dialog')!;
     });
 
     it('should have an alertdialog role on the native dialog', () => {
-      expect(dialog.renderRoot.querySelector('dialog')).to.have.attribute('role', 'alertdialog');
+      expect(dialog).to.have.attribute('role', 'alertdialog');
     });
 
     it('should have an "Confirm" title', () => {
-      expect(dialog.querySelector('[slot="title"]')).to.have.text('Confirm');
+      expect(dialog.querySelector('h1')).to.have.text('Confirm');
     });
 
     it('should have a message', () => {
@@ -121,9 +128,6 @@ describe('sl-message-dialog', () => {
       promise.then(callback);
 
       await sendKeys({ press: 'Escape' });
-
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.renderRoot.querySelector('dialog')?.dispatchEvent(new Event('animationend'));
 
       // Wait for component to stabilize
       await new Promise(resolve => setTimeout(resolve));
@@ -161,11 +165,11 @@ describe('sl-message-dialog', () => {
       const messageDialog = document.querySelector('sl-message-dialog')!;
       await messageDialog.updateComplete;
 
-      dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
+      dialog = messageDialog.renderRoot.querySelector('dialog')!;
     });
 
     it('should have a custom title', () => {
-      expect(dialog.querySelector('[slot="title"]')).to.have.text('Custom title');
+      expect(dialog.querySelector('h1')).to.have.text('Custom title');
     });
   });
 
@@ -184,19 +188,15 @@ describe('sl-message-dialog', () => {
       const messageDialog = document.querySelector('sl-message-dialog')!;
       await messageDialog.updateComplete;
 
-      dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
+      dialog = messageDialog.renderRoot.querySelector('dialog')!;
     });
 
     it('should have an alertdialog role on the native dialog', () => {
-      expect(dialog.renderRoot.querySelector('dialog')).to.have.attribute('role', 'alertdialog');
+      expect(dialog).to.have.attribute('role', 'alertdialog');
     });
 
     it('should have a title', () => {
-      expect(dialog.querySelector('[slot="title"]')).to.have.text('Title');
-    });
-
-    it('should have a subtitle', () => {
-      expect(dialog.querySelector('[slot="subtitle"]')).to.have.text('Subtitle');
+      expect(dialog.querySelector('h1')).to.have.text('Title');
     });
 
     it('should have a custom message', () => {
@@ -224,11 +224,8 @@ describe('sl-message-dialog', () => {
 
       await sendKeys({ press: 'Escape' });
 
-      // Simulate the animationend event that is used in #closeDialogOnAnimationend
-      dialog.renderRoot.querySelector('dialog')?.dispatchEvent(new Event('animationend'));
-
       // Wait for component to stabilize
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(callback).not.to.have.been.called;
     });
@@ -239,7 +236,7 @@ describe('sl-message-dialog', () => {
       promise.then(callback);
 
       dialog.querySelector<HTMLElement>('sl-button')?.click();
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(callback).to.have.been.calledWith('NO');
     });
@@ -250,7 +247,7 @@ describe('sl-message-dialog', () => {
       promise.then(callback);
 
       dialog.querySelector<HTMLElement>('sl-button[variant="danger"]')?.click();
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(callback).to.have.been.calledWith('YES');
     });

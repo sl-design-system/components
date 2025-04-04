@@ -91,13 +91,6 @@ describe('sl-dialog', () => {
 
       expect(dialog.showModal).not.to.have.been.called;
     });
-
-    it('should add a workaround for styling the backdrop', () => {
-      const stylesheet = el.shadowRoot?.adoptedStyleSheets?.at(-1);
-
-      expect(stylesheet?.cssRules).to.have.lengthOf(1);
-      expect(stylesheet?.cssRules[0].cssText).to.match(/^::backdrop/);
-    });
   });
 
   describe('closing', () => {

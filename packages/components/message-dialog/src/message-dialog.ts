@@ -131,7 +131,13 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
     const { buttons, message, title } = this.config ?? {};
 
     return html`
-      <dialog @cancel=${this.#onCancel} @click=${this.#onClick} aria-labelledby="title" role="alertdialog">
+      <dialog
+        @cancel=${this.#onCancel}
+        @click=${this.#onClick}
+        @keydown=${this.#onKeydown}
+        aria-labelledby="title"
+        role="alertdialog"
+      >
         <h1 id="title">${title}</h1>
         <p>${message}</p>
         <sl-button-bar align="end">
@@ -182,6 +188,10 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   async #onClick(event: PointerEvent): Promise<void> {
+    if (this.config?.disableCancel) {
+      return;
+    }
+
     const rect = this.dialog!.getBoundingClientRect();
 
     // Check if the user clicked on the backdrop
@@ -200,6 +210,13 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
       await Promise.allSettled(this.dialog?.getAnimations({ subtree: true }).map(a => a.finished) ?? []);
 
       this.cancelEvent.emit();
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && this.config?.disableCancel) {
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 }

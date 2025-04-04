@@ -84,6 +84,7 @@ p {
 
 @media (width <= 600px) {
   sl-button {
+    align-self: stretch;
     flex: 1;
     text-align: center;
   }

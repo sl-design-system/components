@@ -1,5 +1,17 @@
 # @sl-design-system/grid
 
+## 0.3.4
+
+### Patch Changes
+
+- [#1926](https://github.com/sl-design-system/components/pull/1926) [`3766da5`](https://github.com/sl-design-system/components/commit/3766da571ddde0baea8daf63bd0d18a94b333a9d) - Adds the `filter-label` option to `sl-grid-filter-column` in order to control what is shown in the heading of the filter popover.
+
+- [#1905](https://github.com/sl-design-system/components/pull/1905) [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5) - Improved styling of filter popovers
+
+- Updated dependencies [[`f4e2875`](https://github.com/sl-design-system/components/commit/f4e2875883fd0b8501fa346c17e775a317b85926), [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5), [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5)]:
+  - @sl-design-system/data-source@0.1.2
+  - @sl-design-system/popover@1.2.2
+
 ## 0.3.3
 
 ### Patch Changes

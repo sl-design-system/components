@@ -1043,6 +1043,11 @@
         }
       },
       "selected": {
+        "subtlest": {
+          "value": "{color.background.accent.purple.subtlest}",
+          "type": "color",
+          "description": "The subtlest background in the primary action color."
+        },
         "subtle": {
           "value": "{color.background.accent.purple.subtle}",
           "type": "color",

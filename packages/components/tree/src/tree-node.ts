@@ -138,12 +138,18 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.setAttribute('role', 'treeitem');
+    // this.setAttribute('role', 'treeitem');
+
+    /** We cannot use treeitem role, due to a11y issues with tree role and no group role. */
+    // this.setAttribute('role', 'row');
+    // this.setAttribute('role', 'gridcell');
     this.tabIndex = 0;
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    console.log('updated tree node changes', changes, this.children);
 
     if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
       if (this.selects === 'multiple') {
@@ -170,57 +176,68 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-indent-guides
-        ?expandable=${this.expandable}
-        ?last-node-in-level=${this.lastNodeInLevel}
-        .level=${this.level}
-      ></sl-indent-guides>
-      ${this.expandable
-        ? html`
-            <div class="expander">
-              <sl-icon name="chevron-right" size="xs"></sl-icon>
-            </div>
-          `
-        : nothing}
-      <div part="wrapper">
-        ${choose(
-          this.type,
-          [
-            ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading')}`],
+      <div id=${`${this.id}-cell`} role="gridcell" aria-colindex="1">
+        <sl-indent-guides
+          ?expandable=${this.expandable}
+          ?last-node-in-level=${this.lastNodeInLevel}
+          .level=${this.level}
+        ></sl-indent-guides>
+        ${this.expandable
+          ? html`
+              <div class="expander">
+                <sl-icon name="chevron-right" size="xs"></sl-icon>
+              </div>
+            `
+          : nothing}
+        <div part="wrapper">
+          ${choose(
+            this.type,
             [
-              'skeleton',
-              () => html`<sl-skeleton style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>`
-            ]
-          ],
-          () =>
-            this.selects === 'multiple'
-              ? html`
-                  <sl-checkbox
-                    @sl-change=${this.#onChange}
-                    ?checked=${this.checked}
-                    ?indeterminate=${this.indeterminate}
-                    exportparts="label"
-                    part="checkbox"
-                    size="sm"
-                  >
-                    <input slot="input" tabindex="-1" type="checkbox" />
-                    <slot></slot>
-                  </sl-checkbox>
-                `
-              : html`
-                  <div part="content">
-                    <slot></slot>
-                  </div>
-                  <slot name="aside">
-                    <sl-button-bar part="button-bar">
-                      <slot name="actions"></slot>
-                    </sl-button-bar>
-                  </slot>
-                `
-        )}
+              ['placeholder', () => html`<sl-spinner></sl-spinner>${msg('Loading')}`],
+              [
+                'skeleton',
+                () => html`<sl-skeleton style="inline-size: ${Math.max(20, Math.random() * 60)}%"></sl-skeleton>`
+              ]
+            ],
+            () =>
+              this.selects === 'multiple'
+                ? html`
+                    <sl-checkbox
+                      @sl-change=${this.#onChange}
+                      ?checked=${this.checked}
+                      ?indeterminate=${this.indeterminate}
+                      exportparts="label"
+                      part="checkbox"
+                      size="sm"
+                    >
+                      <input slot="input" tabindex="-1" type="checkbox" />
+                      <slot></slot>
+                    </sl-checkbox>
+                    <slot name="aside"> </slot>
+                  `
+                : html`
+                    <div part="content">
+                      <slot></slot>
+                    </div>
+                    <slot name="aside">
+                      <sl-button-bar part="button-bar">
+                        <slot name="actions"></slot>
+                      </sl-button-bar>
+                    </slot>
+                  `
+          )}
+        </div>
       </div>
     `;
   }
+
+  //   ${this.children
+  //     ? html`
+  //           <div role="group" class="test">
+  //             <slot name="children"></slot>
+  //           </div>
+  //         `
+  // : nothing}
 
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;
@@ -228,6 +245,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onChange(event: SlChangeEvent<boolean>): void {
+    console.log('on change event on tree node', event, event.detail);
     event.preventDefault();
     event.stopPropagation();
 
@@ -242,6 +260,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * toggle the expanded state.
    */
   #onClick(event: Event): void {
+    console.log('on click event on tree node', event, event.target, this.checked, 'selected?', this.selected); // TODO: or maybe onchange instead of onclick?
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
     const insideWrapper = !!event
@@ -249,11 +268,31 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
 
+    // const insideWrapper = event.composedPath().some(el => el === wrapper);
+
+    // const insideWrapper = wrapper?.contains(event.target as Node);
+
+    console.log(
+      'inside wrapper? in on click',
+      insideWrapper,
+      wrapper,
+      event.composedPath().filter((el): el is HTMLElement => el instanceof HTMLElement),
+      'target???',
+      event.target
+    );
+
     if (insideWrapper) {
       event.preventDefault();
 
-      this.selected = this.selects === 'single' ? true : this.selected;
-      this.selectEvent.emit(this.node!);
+      if (this.selects === 'multiple') {
+        this.checked = !this.checked;
+        this.indeterminate = false;
+        this.changeEvent.emit(this.checked);
+      } else {
+        this.selected = this.selects === 'single' ? true : this.selected;
+        this.selectEvent.emit(this.node!);
+      }
+      console.log('selected? inside wrapper', this.selected, this.selects);
     } else if (this.expandable) {
       this.toggle();
     }
@@ -261,7 +300,9 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction */
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
+    console.log('on keydown event on tree node', event, event.target, event.key, document.activeElement); // TODO: detect slotted action buttons?
+    if (event.key === 'Enter' || event.key === ' ') {
+      // TODO: make sure that space needs to be used same way as enter here due to a11y
       event.preventDefault();
 
       if (this.selects === 'multiple') {

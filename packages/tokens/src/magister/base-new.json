@@ -4,7 +4,7 @@
       "typeset": {
         "fontFamily": {
           "heading": {
-            "value": "Arboria",
+            "value": "Open Sans",
             "type": "fontFamilies"
           },
           "body": {

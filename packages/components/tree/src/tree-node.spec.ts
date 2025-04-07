@@ -18,10 +18,13 @@ describe('sl-tree-node', () => {
           <span>Lorem</span>
         </sl-tree-node>
       `);
+
+      await new Promise(resolve => setTimeout(resolve, 500));
     });
 
-    it('should have a treeitem role', () => {
-      expect(el).to.have.attribute('role', 'treeitem');
+    it('should have a row role', () => {
+      console.log('eeeel test', el);
+      expect(el).to.have.attribute('role', 'row');
     });
 
     it('should not be checked', () => {

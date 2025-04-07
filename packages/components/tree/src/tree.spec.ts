@@ -92,8 +92,9 @@ describe('sl-tree', () => {
       el = await fixture(html`<sl-tree></sl-tree>`);
     });
 
-    it('should have a tree role', () => {
-      expect(el).to.have.attribute('role', 'tree');
+    it('should have a treegrid role', () => {
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
+      expect(wrapper).to.have.attribute('role', 'treegrid');
     });
 
     it('should not hide the indentation guides', () => {

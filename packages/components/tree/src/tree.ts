@@ -2,7 +2,7 @@ import { type RangeChangedEvent } from '@lit-labs/virtualizer';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import {type EventEmitter, RovingTabindexController, event, ObserveAttributesMixin} from '@sl-design-system/shared';
+import { type EventEmitter, ObserveAttributesMixin, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
@@ -133,28 +133,15 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       this.scrollToNode(node, { block: 'center' });
     }
 
-    console.log(
-      'data source in firstUpdated',
-      this.dataSource,
-      this.dataSource?.items,
-      this.dataSource?.size,
-      this.dataSource?.nodes
-    );
-
-    // aria-rowcount=${this.dataSource?.items.length || 0}
-
     // if (this.dataSource?.items) {
     //   // this.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '-1');
     //   wrapper?.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '-1'); // TODO: we don't have total amount of items
     // }
 
     if (this.dataSource?.nodes) {
-      console.log('data source size in firstUpdated', this.dataSource.size, this.dataSource.nodes);
-      // const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-      // wrapper?.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
       // this.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
-      wrapper?.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
-      wrapper?.setAttribute('aria-controls', this.dataSource.nodes.map(child => child.id).join(' ') || '');
+      wrapper?.setAttribute('aria-owns', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
+      wrapper?.setAttribute('aria-controls', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
     }
   }
 
@@ -162,10 +149,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     super.willUpdate(changes);
 
     if (changes.has('dataSource')) {
-      // this.#renderedItems.clear();
-
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
-      console.log('wrapper', wrapper);
 
       if (this.dataSource?.selects === 'multiple') {
         // this.setAttribute('aria-multiselectable', 'true');
@@ -204,25 +188,14 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         })}
       </div>
     `;
-  } // role="treegrid"
+  }
 
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
 
-    console.log(
-      'has children?, item',
-      item,
-      item.children?.length,
-      item.children,
-      'parent?',
-      item.parent?.children,
-      item.parent?.childrenCount
-    );
-    console.log('datasource in render item', this.dataSource);
-
     /**
      * Aria-label is added to improve a11y for Safari and VO - without it the content of each row is not being read.
-     * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements.
+     * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements insteda of aria-owns and aria-controls.
      * */
     return html`
       <sl-tree-node
@@ -240,14 +213,13 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         .node=${item}
         .selects=${this.dataSource?.selects}
         .type=${item.type}
-        aria-controls=${item.children?.map(child => child.id).join(' ') || `${item.id}-cell`}
+        aria-controls=${item.children?.map(child => String(child.id)).join(' ') || `${String(item.id)}-cell`}
         aria-label=${item.label}
         aria-level=${item.level + 1}
-        aria-owns=${item.children?.map(child => child.id).join(' ') || `${item.id}-cell`}
+        aria-owns=${item.children?.map(child => String(child.id)).join(' ') || `${String(item.id)}-cell`}
         aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
         aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
-        role="row"
       >
         ${this.renderer?.(item) ??
         html`
@@ -266,7 +238,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   #onChange(event: SlChangeEvent<boolean>, node: TreeDataSourceNode<T>): void {
-    console.log('event on change', event, node);
     if (event.detail) {
       this.dataSource?.select(node);
     } else {
@@ -277,7 +248,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('event on keydown in tree', event, event.target, event.key, !(event.target instanceof TreeNode));
     if (!(event.target instanceof TreeNode)) {
       return;
     }

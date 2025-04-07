@@ -140,16 +140,14 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
     // this.setAttribute('role', 'treeitem');
 
-    /** We cannot use treeitem role, due to a11y issues with tree role and no group role. */
-    // this.setAttribute('role', 'row');
-    // this.setAttribute('role', 'gridcell');
+    /** We cannot use treeitem role, due to a11y issues with tree role and no group role and Virtualizer. */
+    this.setAttribute('role', 'row');
+
     this.tabIndex = 0;
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    console.log('updated tree node changes', changes, this.children);
 
     if (changes.has('checked') || changes.has('indeterminate') || changes.has('selected') || changes.has('selects')) {
       if (this.selects === 'multiple') {
@@ -245,7 +243,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onChange(event: SlChangeEvent<boolean>): void {
-    console.log('on change event on tree node', event, event.detail);
     event.preventDefault();
     event.stopPropagation();
 
@@ -260,26 +257,12 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
    * toggle the expanded state.
    */
   #onClick(event: Event): void {
-    console.log('on click event on tree node', event, event.target, this.checked, 'selected?', this.selected); // TODO: or maybe onchange instead of onclick?
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
     const insideWrapper = !!event
       .composedPath()
       .filter((el): el is HTMLElement => el instanceof HTMLElement)
       .find(el => el === wrapper);
-
-    // const insideWrapper = event.composedPath().some(el => el === wrapper);
-
-    // const insideWrapper = wrapper?.contains(event.target as Node);
-
-    console.log(
-      'inside wrapper? in on click',
-      insideWrapper,
-      wrapper,
-      event.composedPath().filter((el): el is HTMLElement => el instanceof HTMLElement),
-      'target???',
-      event.target
-    );
 
     if (insideWrapper) {
       event.preventDefault();
@@ -292,7 +275,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
         this.selected = this.selects === 'single' ? true : this.selected;
         this.selectEvent.emit(this.node!);
       }
-      console.log('selected? inside wrapper', this.selected, this.selects);
     } else if (this.expandable) {
       this.toggle();
     }
@@ -300,9 +282,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction */
   #onKeydown(event: KeyboardEvent): void {
-    console.log('on keydown event on tree node', event, event.target, event.key, document.activeElement); // TODO: detect slotted action buttons?
     if (event.key === 'Enter' || event.key === ' ') {
-      // TODO: make sure that space needs to be used same way as enter here due to a11y
       event.preventDefault();
 
       if (this.selects === 'multiple') {

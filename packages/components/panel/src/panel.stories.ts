@@ -329,9 +329,7 @@ export const All: Story = {
             <h3>No border</h3>
             <sl-panel no-border .elevation=${elevation}>Panel without header that can contain anything.</sl-panel>
             <sl-panel no-border .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel no-border .elevation=${elevation} heading="Panel heading" subheading="Panel subheading"
-              >Panel content</sl-panel
-            >
+            <sl-panel no-border .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
             <sl-panel no-border .elevation=${elevation} heading="Panel heading">
               Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
@@ -389,7 +387,6 @@ export const All: Story = {
               no-border
               .elevation=${elevation}
               heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
-              subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
               faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
@@ -402,9 +399,7 @@ export const All: Story = {
             <h3>With border</h3>
             <sl-panel .elevation=${elevation}>Panel content without header</sl-panel>
             <sl-panel .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel heading" subheading="Panel subheading"
-              >Panel content</sl-panel
-            >
+            <sl-panel .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
             <sl-panel .elevation=${elevation} heading="Panel heading">
               Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
@@ -458,7 +453,6 @@ export const All: Story = {
             <sl-panel
               .elevation=${elevation}
               heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-              subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
             >
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
               faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.

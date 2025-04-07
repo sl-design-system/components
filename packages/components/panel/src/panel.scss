@@ -1,6 +1,7 @@
 :host {
   --sl-panel-content-padding: var(--sl-space-new-lg);
-  --sl-panel-titles-order: column;
+
+  // --sl-panel-titles-order: column;
 
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-default);
@@ -55,7 +56,7 @@
 
 [part='titles'] {
   display: flex;
-  flex-direction: var(--sl-panel-titles-order); // TODO: not necessary?
+  flex-direction: column; // var(--sl-panel-titles-order); TODO: not necessary?
   gap: var(--sl-space-new-sm);
 }
 
@@ -87,13 +88,6 @@ slot[name='heading']::slotted(*) {
 slot[name='heading'] {
   display: block;
 }
-
-// slot[name='subheading'],
-// slot[name='subheading']::slotted(*) {
-//  color: var(--sl-color-foreground-bold);
-//  font-size: 1em;
-//  line-height: 1.5em;
-// }
 
 slot[name='aside'] {
   grid-area: aside;

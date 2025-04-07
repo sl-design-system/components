@@ -31,7 +31,6 @@ export type TogglePlacement = 'start' | 'end';
  * @csspart titles - The container for the heading
  *
  * @cssprop --sl-panel-content-padding - The padding for the panel content, e.g. set to 0 to have content without any padding.
- * @cssprop --sl-panel-titles-order - The order of the titles (heading and subheading) - `column` by default, so the subheading is below the heading. Can be used `column-reverse` as well to have subheading above the heading when it's necessary.
  *
  * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
  * @slot aside - Additional content to show in the header; replaces the button bar.

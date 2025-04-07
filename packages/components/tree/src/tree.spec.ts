@@ -263,6 +263,22 @@ describe('sl-tree', () => {
       expect(guides).to.have.lengthOf(5);
       expect(guides.map(g => g.level)).to.deep.equal([0, 0, 1, 2, 2]);
     });
+
+    it('should render the tree nodes with proper ARIA attributes', () => {
+      const nodes = Array.from(el.renderRoot.querySelectorAll('sl-tree-node'));
+
+      expect(nodes.map(g => g.ariaLabel)).to.deep.equal([
+        'Actions',
+        'Navigation',
+        'Tree',
+        'Flat Data Source',
+        'Nested Data Source'
+      ]);
+      expect(nodes.map(g => g.ariaLevel)).to.deep.equal(['1', '1', '2', '3', '3']);
+      expect(nodes.map(g => g.ariaPosInSet)).to.deep.equal(['1', '1', '1', '1', '2']);
+      expect(nodes.map(g => g.ariaRowIndex)).to.deep.equal(['1', '2', '3', '4', '5']);
+      expect(nodes.map(g => g.ariaSetSize)).to.deep.equal(['2', '2', '1', '2', '2']);
+    });
   });
 
   describe('using nested data', () => {

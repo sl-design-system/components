@@ -91,6 +91,10 @@ describe('sl-tree-node', () => {
       expect(el.type).to.be.undefined;
     });
 
+    it('should have a content with gridcell role', () => {
+      expect(el.renderRoot.querySelector('div')).to.have.attribute('role', 'gridcell');
+    });
+
     it('should render a spinner when type "placeholder"', async () => {
       el.type = 'placeholder';
       await el.updateComplete;
@@ -229,10 +233,18 @@ describe('sl-tree-node', () => {
       expect(el).to.have.attribute('aria-selected', 'true');
     });
 
-    it('should set the selected state by using the keyboard', async () => {
+    it('should set the selected state when pressing enter', async () => {
       el.focus();
 
       await sendKeys({ press: 'Enter' });
+
+      expect(el).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should set the selected state when pressing space', async () => {
+      el.focus();
+
+      await sendKeys({ press: 'Space' });
 
       expect(el).to.have.attribute('aria-selected', 'true');
     });

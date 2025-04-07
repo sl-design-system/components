@@ -1,4 +1,6 @@
 :host {
+  --sl-message-dialog-inline-size: 30rem;
+
   display: contents;
 }
 
@@ -10,7 +12,7 @@ dialog {
   color: var(--sl-color-foreground-plain);
   flex-direction: column;
   gap: var(--sl-size-200);
-  inline-size: 30rem;
+  inline-size: var(--sl-message-dialog-inline-size);
   margin: auto;
   max-block-size: calc(100dvh - var(--sl-size-400));
   max-inline-size: calc(100dvw - var(--sl-size-600));
@@ -43,6 +45,10 @@ dialog {
   &:not(:modal) {
     opacity: 0;
     scale: 0.7;
+
+    @supports not (overlay: auto) {
+      transition-duration: 0s;
+    }
   }
 
   // Enter animation
@@ -58,10 +64,6 @@ dialog {
     transition: 0.4s ease-in-out;
     transition-behavior: allow-discrete;
     transition-property: display, opacity, overlay, scale;
-
-    @supports not (overlay: auto) {
-      transition-duration: 0s;
-    }
   }
 
   dialog[open]::backdrop {

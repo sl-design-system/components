@@ -30,28 +30,28 @@
       "body": {
         "sm": {
           "value": {
-            "fontFamily": "{I-B.text-new..typeset.fontFamily.body}",
-            "fontSize": "{I-B.size.text-new..body.sm}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.sm}",
             "lineHeight": "{size.lineHeight.200}",
-            "fontWeight": "{I-B.text-new..typeset.fontWeight.regular}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "md": {
           "value": {
-            "fontFamily": "{I-B.text-new..typeset.fontFamily.body}",
-            "fontSize": "{I-B.size.text-new..body.md}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.250}",
-            "fontWeight": "{I-B.text-new..typeset.fontWeight.regular}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{I-B.text-new..typeset.fontFamily.body}",
-            "fontSize": "{I-B.size.text-new..body.lg}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.lg}",
             "lineHeight": "{size.lineHeight.300}",
-            "fontWeight": "{I-B.text-new..typeset.fontWeight.regular}"
+            "fontWeight": "{I-B.text-new.typeset.fontWeight.regular}"
           },
           "type": "typography"
         }
@@ -59,16 +59,16 @@
       "input": {
         "md": {
           "value": {
-            "fontFamily": "{I-B.text-new..typeset.fontFamily.body}",
-            "fontSize": "{I-B.size.text-new..body.md}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.300}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{I-B.text-new..typeset.fontFamily.body}",
-            "fontSize": "{I-B.size.text-new..body.md}",
+            "fontFamily": "{I-B.text-new.typeset.fontFamily.body}",
+            "fontSize": "{I-B.size.text-new.body.md}",
             "lineHeight": "{size.lineHeight.400}"
           },
           "type": "typography"

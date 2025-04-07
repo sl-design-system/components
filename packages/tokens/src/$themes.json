@@ -4,8 +4,8 @@
     "name": "-tokens",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "primitives": "source",
-      "system": "source",
+      "primitives": "enabled",
+      "system": "enabled",
       "-tokens/base-new": "enabled",
       "-tokens/theme-new": "enabled"
     },
@@ -16,8 +16,8 @@
     "name": "I",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "I/base-new": "source",
-      "I/theme-new": "source"
+      "I/base-new": "enabled",
+      "I/theme-new": "enabled"
     },
     "group": "base"
   },
@@ -26,8 +26,8 @@
     "name": "II",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "II/base-new": "source",
-      "II/theme-new": "source"
+      "II/base-new": "enabled",
+      "II/theme-new": "enabled"
     },
     "group": "base"
   },
@@ -36,8 +36,8 @@
     "name": "A",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "I/A/base-new": "source",
-      "I/A/theme-new": "source"
+      "I/A/base-new": "enabled",
+      "I/A/theme-new": "enabled"
     },
     "group": "I"
   },
@@ -46,8 +46,8 @@
     "name": "B",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "I/B/base-new": "source",
-      "I/B/theme-new": "source"
+      "I/B/base-new": "enabled",
+      "I/B/theme-new": "enabled"
     },
     "group": "I"
   },
@@ -56,8 +56,8 @@
     "name": "C",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "I/C/base-new": "source",
-      "I/C/theme-new": "source"
+      "I/C/base-new": "enabled",
+      "I/C/theme-new": "enabled"
     },
     "group": "I"
   },
@@ -66,8 +66,8 @@
     "name": "A",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "II/A/base-new": "source",
-      "II/A/theme-new": "source"
+      "II/A/base-new": "enabled",
+      "II/A/theme-new": "enabled"
     },
     "group": "II"
   },
@@ -76,8 +76,8 @@
     "name": "B",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "II/B/base-new": "source",
-      "II/B/theme-new": "source"
+      "II/B/base-new": "enabled",
+      "II/B/theme-new": "enabled"
     },
     "group": "II"
   },
@@ -86,8 +86,8 @@
     "name": "C",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "II/C/base-new": "source",
-      "II/C/theme-new": "source"
+      "II/C/base-new": "enabled",
+      "II/C/theme-new": "enabled"
     },
     "group": "II"
   },
@@ -96,8 +96,8 @@
     "name": "sanoma-learning",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "sanoma-learning/base-new": "source",
-      "sanoma-learning/theme-new": "source"
+      "sanoma-learning/base-new": "enabled",
+      "sanoma-learning/theme-new": "enabled"
     },
     "group": "I-A"
   },
@@ -106,8 +106,8 @@
     "name": "bingel-dc",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "bingel-dc/base-new": "source",
-      "bingel-dc/theme-new": "source"
+      "bingel-dc/base-new": "enabled",
+      "bingel-dc/theme-new": "enabled"
     },
     "group": "I-A"
   },
@@ -116,8 +116,8 @@
     "name": "bingel-int",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "bingel-int/base-new": "source",
-      "bingel-int/theme-new": "source"
+      "bingel-int/base-new": "enabled",
+      "bingel-int/theme-new": "enabled"
     },
     "group": "I-A"
   },
@@ -126,8 +126,8 @@
     "name": "clickedu",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "clickedu/base-new": "source",
-      "clickedu/theme-new": "source"
+      "clickedu/base-new": "enabled",
+      "clickedu/theme-new": "enabled"
     },
     "group": "I-B"
   },
@@ -136,8 +136,8 @@
     "name": "editorial-suite",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "editorial-suite/base-new": "source",
-      "editorial-suite/theme-new": "source"
+      "editorial-suite/base-new": "enabled",
+      "editorial-suite/theme-new": "enabled"
     },
     "group": "I-B"
   },
@@ -146,8 +146,8 @@
     "name": "itslearning",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "itslearning/base-new": "source",
-      "itslearning/theme-new": "source"
+      "itslearning/base-new": "enabled",
+      "itslearning/theme-new": "enabled"
     },
     "group": "I-B"
   },
@@ -156,8 +156,8 @@
     "name": "kampus",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "kampus/base-new": "source",
-      "kampus/theme-new": "source"
+      "kampus/base-new": "enabled",
+      "kampus/theme-new": "enabled"
     },
     "group": "I-C"
   },
@@ -166,8 +166,8 @@
     "name": "magister",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "magister/base-new": "source",
-      "magister/theme-new": "source"
+      "magister/base-new": "enabled",
+      "magister/theme-new": "enabled"
     },
     "group": "I-C"
   },
@@ -176,8 +176,8 @@
     "name": "max",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "magister/base-new": "source",
-      "magister/theme-new": "source"
+      "magister/base-new": "enabled",
+      "magister/theme-new": "enabled"
     },
     "group": "I-C"
   },
@@ -186,17 +186,37 @@
     "name": "my-digital-book",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "my-digital-book/base-new": "source",
-      "my-digital-book/theme-new": "source"
+      "my-digital-book/base-new": "enabled",
+      "my-digital-book/theme-new": "enabled"
     },
     "group": "II-A"
+  },
+  {
+    "id": "3c484190b80730d1f98912bde88c2e959df7dd65",
+    "name": "neon",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "neon/base-new": "enabled",
+      "neon/theme-new": "enabled"
+    },
+    "group": "II-A"
+  },
+  {
+    "id": "cdab347676b3ea2cbc5b073ef8e4bc3eafaf5561",
+    "name": "teas",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "teas/base-new": "enabled",
+      "teas/theme-new": "enabled"
+    },
+    "group": "II-B"
   },
   {
     "id": "50a270de38e65d1e3aeec5ee2c7eb0d7d35c991c",
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "sanoma-learning/light-new": "source"
+      "sanoma-learning/light-new": "enabled"
     },
     "group": "sanoma-learning"
   },
@@ -205,7 +225,7 @@
     "name": "dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "sanoma-learning/dark-new": "source"
+      "sanoma-learning/dark-new": "enabled"
     },
     "group": "sanoma-learning"
   },
@@ -214,7 +234,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "bingel-dc/light-new": "source"
+      "bingel-dc/light-new": "enabled"
     },
     "group": "bingel-dc"
   },
@@ -223,7 +243,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "bingel-int/light-new": "source"
+      "bingel-int/light-new": "enabled"
     },
     "group": "bingel-int"
   },
@@ -232,7 +252,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "clickedu/light-new": "source"
+      "clickedu/light-new": "enabled"
     },
     "group": "click-edu"
   },
@@ -241,7 +261,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "editorial-suite/light-new": "source"
+      "editorial-suite/light-new": "enabled"
     },
     "group": "editorial-suite"
   },
@@ -250,7 +270,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "itslearning/light-new": "source"
+      "itslearning/light-new": "enabled"
     },
     "group": "its-learning"
   },
@@ -259,7 +279,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "kampus/light-new": "source"
+      "kampus/light-new": "enabled"
     },
     "group": "kampus"
   },
@@ -268,7 +288,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "magister/light-new": "source"
+      "magister/light-new": "enabled"
     },
     "group": "magister"
   },
@@ -277,7 +297,7 @@
     "name": "dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "magister/dark-new": "source"
+      "magister/dark-new": "enabled"
     },
     "group": "magister"
   },
@@ -286,7 +306,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "max/light-new": "source"
+      "max/light-new": "enabled"
     },
     "group": "max"
   },
@@ -295,7 +315,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "my-digital-book/light-new": "source"
+      "my-digital-book/light-new": "enabled"
     },
     "group": "my-digital-book"
   },
@@ -304,7 +324,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "neon/light-new": "source"
+      "neon/light-new": "enabled"
     },
     "group": "neon"
   },
@@ -313,7 +333,7 @@
     "name": "dark",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "neon/dark-new": "source"
+      "neon/dark-new": "enabled"
     },
     "group": "neon"
   },
@@ -322,7 +342,7 @@
     "name": "light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
-      "teas/light-new": "source"
+      "teas/light-new": "enabled"
     },
     "group": "teas"
   }

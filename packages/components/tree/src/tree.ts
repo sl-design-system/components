@@ -108,8 +108,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // this.role = 'tree';
-
     /** Role `treegrid` is used instead of `tree`,
      * because `tree` role is not fully accessible without `group` role inside,
      * and we cannot implement groups due to virtualizer usage
@@ -173,6 +171,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   override render(): TemplateResult {
+    /** Role `treegrid` is used instead of `tree`,
+     * because `tree` role is not fully accessible without `group` role inside,
+     * and we cannot implement groups due to Virtualizer usage.
+     * */
     return html`
       <div
         @keydown=${this.#onKeydown}

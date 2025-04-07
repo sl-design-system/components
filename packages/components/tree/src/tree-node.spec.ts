@@ -18,12 +18,9 @@ describe('sl-tree-node', () => {
           <span>Lorem</span>
         </sl-tree-node>
       `);
-
-      await new Promise(resolve => setTimeout(resolve, 500));
     });
 
     it('should have a row role', () => {
-      console.log('eeeel test', el);
       expect(el).to.have.attribute('role', 'row');
     });
 

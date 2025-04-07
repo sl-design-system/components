@@ -388,13 +388,7 @@ export const Scrolling: Story = {
 };
 
 export const CustomRendererWithActionButtons: Story = {
-  // const storyArgs = {
-  //   ...FlatDataSource.args,
-  //   ...FlatDataSource.args.dataSource?.selects: 'single',
-  // }
   args: {
-    // ...FlatDataSource.args,
-    // selects: 'single',
     dataSource: new FlatTreeDataSource(flatData, {
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
@@ -402,19 +396,17 @@ export const CustomRendererWithActionButtons: Story = {
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'single' // TODO: make separate story with selection single/multiple and action buttons
+      selects: 'single'
     }),
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
 
       const onClickEdit = (event: Event) => {
         event.stopPropagation();
-        console.log('Edit clicked', node, event);
       };
 
       const onClickRemove = (event: Event) => {
         event.stopPropagation();
-        console.log('Remove clicked', node, event);
       };
 
       return html`
@@ -459,21 +451,8 @@ export const CustomRendererWithBadges: Story = {
   }
 };
 
-// <sl-button fill="ghost" size="sm" slot="actions">
-//   <sl-icon name="far-pen"></sl-icon>
-//   </sl-button>
-//   <sl-button fill="ghost" size="sm" slot="actions">
-//   <sl-icon name="far-trash"></sl-icon>
-//   </sl-button>
-
 export const SingleSelectWithActionButtons: Story = {
-  // const storyArgs = {
-  //   ...FlatDataSource.args,
-  //   ...FlatDataSource.args.dataSource?.selects: 'single',
-  // }
   args: {
-    // ...FlatDataSource.args,
-    // selects: 'single',
     dataSource: new FlatTreeDataSource(flatData, {
       getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
@@ -481,19 +460,17 @@ export const SingleSelectWithActionButtons: Story = {
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'single' // TODO: make separate story with selection single/multiple and action buttons
+      selects: 'single'
     }),
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
 
       const onClickEdit = (event: Event) => {
         event.stopPropagation();
-        console.log('Edit clicked', node, event);
       };
 
       const onClickRemove = (event: Event) => {
         event.stopPropagation();
-        console.log('Remove clicked', node, event);
       };
 
       return html`
@@ -525,7 +502,7 @@ export const MultiSelectWithBadges: Story = {
       getLevel: ({ level }) => level,
       isExpandable: ({ expandable }) => expandable,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
-      selects: 'multiple' // TODO: make separate story with selection single/multiple and action buttons
+      selects: 'multiple'
     }),
     renderer: node => {
       const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;

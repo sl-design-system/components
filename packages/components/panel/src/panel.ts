@@ -28,7 +28,7 @@ export type TogglePlacement = 'start' | 'end';
  * @csspart body - The body of the panel.
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
- * @csspart titles - The container for the heading and subheading.
+ * @csspart titles - The container for the heading
  *
  * @cssprop --sl-panel-content-padding - The padding for the panel content, e.g. set to 0 to have content without any padding.
  * @cssprop --sl-panel-titles-order - The order of the titles (heading and subheading) - `column` by default, so the subheading is below the heading. Can be used `column-reverse` as well to have subheading above the heading when it's necessary.
@@ -38,7 +38,6 @@ export type TogglePlacement = 'start' | 'end';
  * @slot actions - The panel's actions; will slot in a button bar by default.
  * @slot default - The panel's content.
  * @slot prefix - Content to show before the heading.
- * @slot subheading - The panel's subheading. Use this if the `subheading` property is not sufficient.
  * @slot suffix - Content to show after the heading.
  */
 @localized()
@@ -73,11 +72,11 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** Hide the border around the panel when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
-  /**
-   * The heading shown in the header. Use this property if your subheading is a string. If you need
-   * more flexibility, such as an icon or other elements, use the `subheading` slot.
-   */
-  @property() subheading?: string;
+  // /**
+  //  * The heading shown in the header. Use this property if your subheading is a string. If you need
+  //  * more flexibility, such as an icon or other elements, use the `subheading` slot.
+  //  */
+  // @property() subheading?: string;
 
   /** The placement of the toggle button when it's collapsible.
    * @default `start`
@@ -90,7 +89,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('heading') || changes.has('subheading') || changes.has('collapsible')) {
+    if (changes.has('heading') /*|| changes.has('subheading')*/ || changes.has('collapsible')) {
       this.#onHeaderSlotChange();
     }
   }
@@ -141,7 +140,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       <slot name="prefix"></slot>
       <div part="titles">
         <slot id="heading" name="heading">${this.heading}</slot>
-        <slot name="subheading">${this.subheading}</slot>
       </div>
       <slot name="suffix"></slot>
     `;
@@ -172,6 +170,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
           )
       );
 
-    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.subheading && !this.collapsible);
+    this.toggleAttribute('no-header', !hasContent && !this.heading /*&& !this.subheading*/ && !this.collapsible);
   }
 }

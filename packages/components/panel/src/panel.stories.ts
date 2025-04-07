@@ -4,10 +4,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Panel, PanelElevation, type TogglePlacement } from './panel.js';
 
-type Props = Pick<
-  Panel,
-  'collapsed' | 'collapsible' | 'elevation' | 'heading' | 'noBorder' | 'subheading' | 'togglePlacement'
-> & {
+type Props = Pick<Panel, 'collapsed' | 'collapsible' | 'elevation' | 'heading' | 'noBorder' | 'togglePlacement'> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
   prefix?(): string | TemplateResult;
@@ -105,7 +102,6 @@ export default {
     heading,
     noBorder,
     prefix,
-    subheading,
     suffix,
     togglePlacement
   }) => {
@@ -116,7 +112,6 @@ export default {
         .heading=${heading}
         .elevation=${elevation}
         .noBorder=${noBorder}
-        .subheading=${subheading}
         .togglePlacement=${togglePlacement}
       >
         ${actions?.()}${content?.()}${prefix?.()}${suffix?.()}
@@ -129,8 +124,7 @@ export const Basic: Story = {
   args: {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
     content: () => html`<span>Panel content</span>`,
-    heading: 'Panel heading',
-    subheading: 'Panel subheading'
+    heading: 'Panel heading'
   }
 };
 
@@ -139,8 +133,7 @@ export const WithPrefix: Story = {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
     content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
-    heading: 'Panel heading',
-    subheading: 'Panel subheading'
+    heading: 'Panel heading'
   }
 };
 
@@ -149,8 +142,7 @@ export const WithSuffix: Story = {
     actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
     content: () => html`<span>Panel content</span>`,
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
-    heading: 'Panel heading',
-    subheading: 'Panel subheading'
+    heading: 'Panel heading'
   }
 };
 
@@ -173,8 +165,6 @@ export const OverflowHeading: Story = {
     ...Basic.args,
     heading:
       'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
-    subheading:
-      'Panel subheading. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.',
     content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'
   }
 };
@@ -200,14 +190,6 @@ export const WithoutActions: Story = {
     ...OverflowHeading.args,
     actions: undefined
   }
-};
-
-export const TitlesReversed: Story = {
-  render: () => html`
-    <sl-panel style="--sl-panel-titles-order: column-reverse" heading="Panel heading" subheading="Panel subheading">
-      Panel with subheading above the heading
-    </sl-panel>
-  `
 };
 
 export const NoPaddingContent: Story = {
@@ -300,87 +282,6 @@ export const NoHeader: Story = {
       </div>
     `
   }
-};
-
-export const CustomHeading: Story = {
-  render: ({ elevation }) => html`
-    <style>
-      #root-inner,
-      div {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        inline-size: 100%;
-      }
-
-      .examples {
-        gap: 1.62rem;
-      }
-
-      section {
-        display: flex;
-        gap: 3rem;
-        align-items: start;
-        padding: 1rem;
-      }
-
-      section:first-of-type {
-        background-color: var(--sl-elevation-surface-raised-alternative);
-      }
-
-      .my-heading {
-        font-size: 1.3rem;
-        font-weight: 600;
-        gap: 16px;
-      }
-
-      .badges {
-        flex-direction: row;
-        gap: 8px;
-      }
-    </style>
-    <h2>Custom, slotted heading</h2>
-    <section>
-      <div class="examples">
-        <sl-panel
-          .elevation=${elevation}
-          subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-        >
-          <div class="my-heading" slot="heading">
-            <div class="badges">
-              <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-              <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-            </div>
-            Custom, slotted heading
-          </div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-          faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-        </sl-panel>
-        <sl-panel
-          .elevation=${elevation}
-          collapsible
-          collapsed
-          subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-        >
-          <div class="my-heading" slot="heading">
-            <div class="badges">
-              <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-              <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-            </div>
-            Custom, slotted heading (collapsible)
-          </div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-          faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-        </sl-panel>
-      </div>
-    </section>
-  `
 };
 
 export const All: Story = {

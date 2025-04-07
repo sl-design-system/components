@@ -105,16 +105,6 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    /** Role `treegrid` is used instead of `tree`,
-     * because `tree` role is not fully accessible without `group` role inside,
-     * and we cannot implement groups due to virtualizer usage
-     * */
-    // this.role = 'treegrid';
-  }
-
   override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changes);
 
@@ -131,13 +121,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       this.scrollToNode(node, { block: 'center' });
     }
 
-    // if (this.dataSource?.items) {
-    //   // this.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '-1');
-    //   wrapper?.setAttribute('aria-rowcount', `${this.dataSource?.items.length}` || '-1'); // TODO: we don't have total amount of items
-    // }
-
     if (this.dataSource?.nodes) {
-      // this.setAttribute('aria-owns', this.dataSource.nodes.map(child => child.id).join(' ') || '');
       wrapper?.setAttribute('aria-owns', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
       wrapper?.setAttribute('aria-controls', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
     }
@@ -150,13 +134,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
       const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
 
       if (this.dataSource?.selects === 'multiple') {
-        // this.setAttribute('aria-multiselectable', 'true');
         wrapper?.setAttribute('aria-multiselectable', 'true');
       } else if (this.dataSource?.selects === 'single') {
-        // this.setAttribute('aria-multiselectable', 'false');
         wrapper?.setAttribute('aria-multiselectable', 'false');
       } else {
-        // this.removeAttribute('aria-multiselectable');
         wrapper?.removeAttribute('aria-multiselectable');
       }
     }
@@ -197,7 +178,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
 
     /**
      * Aria-label is added to improve a11y for Safari and VO - without it the content of each row is not being read.
-     * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements insteda of aria-owns and aria-controls.
+     * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements instead of aria-owns and aria-controls.
      * */
     return html`
       <sl-tree-node
@@ -257,7 +238,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     // Expands all siblings that are at the same level as the current node.
     // See https://www.w3.org/WAI/ARIA/apg/patterns/treeview/#keyboardinteraction
     if (event.key === '*') {
-      event.preventDefault(); // TODO: breaks tab when action buttons are visible?
+      event.preventDefault();
 
       const treeNode = event.target.node as TreeDataSourceNode<T>,
         siblings = treeNode.parent?.children ?? this.dataSource?.items;

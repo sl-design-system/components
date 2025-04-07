@@ -138,9 +138,7 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // this.setAttribute('role', 'treeitem');
-
-    /** We cannot use treeitem role, due to a11y issues with tree role and no group role and Virtualizer. */
+    /** We cannot use treeitem role, due to a11y issues with tree role and no group role with Virtualizer. */
     this.setAttribute('role', 'row');
 
     this.tabIndex = 0;
@@ -228,14 +226,6 @@ export class TreeNode<T = any> extends ScopedElementsMixin(LitElement) {
       </div>
     `;
   }
-
-  //   ${this.children
-  //     ? html`
-  //           <div role="group" class="test">
-  //             <slot name="children"></slot>
-  //           </div>
-  //         `
-  // : nothing}
 
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;

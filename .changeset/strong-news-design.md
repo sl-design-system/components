@@ -3,4 +3,4 @@
 ---
 
 - Use new contextual tokens for styling,
-- Improve a11y.
+- Improve a11y (including role `treegrid` with children of role `row` and `gridcell`).

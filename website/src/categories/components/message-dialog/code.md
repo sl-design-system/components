@@ -9,7 +9,7 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-  <sl-button id="message-button">Show message</sl-button>
+  <sl-button id="message-button" variant="primary">Show message</sl-button>
   <script>
     document.querySelector('#message-button')?.addEventListener('click', () => {
       MessageDialog.show({

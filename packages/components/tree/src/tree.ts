@@ -152,10 +152,11 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
   }
 
   override render(): TemplateResult {
-    /** Role `treegrid` is used instead of `tree`,
+    /**
+     * Role `treegrid` is used instead of `tree`,
      * because `tree` role is not fully accessible without `group` role inside,
      * and we cannot implement groups due to Virtualizer usage.
-     * */
+     */
     return html`
       <div
         @keydown=${this.#onKeydown}
@@ -179,7 +180,7 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     /**
      * Aria-label is added to improve a11y for Safari and VO - without it the content of each row is not being read.
      * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements instead of aria-owns and aria-controls.
-     * */
+     */
     return html`
       <sl-tree-node
         id=${item.id}
@@ -200,9 +201,9 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         aria-label=${item.label}
         aria-level=${item.level + 1}
         aria-owns=${item.children?.map(child => String(child.id)).join(' ') || `${String(item.id)}-cell`}
-        aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
         aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
+        aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
       >
         ${this.renderer?.(item) ??
         html`

@@ -196,8 +196,10 @@ export default {
       config: {
         rules: [
           {
-            /** The rule is disabled due to unnecessary Storybook a11y bug.
-             * The role `treegrid` has children with proper role `row`, but the error appears even that (but it should not). */
+            /**
+             * The rule is disabled due to unnecessary Storybook a11y bug.
+             * The role `treegrid` has children with proper role `row`, but the error appears even that (but it should not).
+             */
             id: 'aria-required-children',
             enabled: false
           }

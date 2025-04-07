@@ -3,13 +3,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import {
-  type EventEmitter,
-  EventsController,
-  FocusTrapController,
-  MediaController,
-  event
-} from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, MediaController, event } from '@sl-design-system/shared';
 import { type SlCancelEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
@@ -60,9 +54,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { click: this.#onClick, keydown: this.#onKeydown });
-
-  /** The controller that manages the focus trap within the dialog. */
-  #focusTrap = new FocusTrapController(this);
 
   /** Responsive behavior utility. */
   #media = new MediaController(this);
@@ -256,10 +247,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       if (focusable && this.shadowRoot?.activeElement !== focusable) {
         focusable.focus();
       }
-
-      if (this.dialog) {
-        this.#focusTrap.activate(this.dialog);
-      }
     });
   }
 
@@ -298,8 +285,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
 
   async #onClose(): Promise<void> {
     this.#updateDocumentElement(false);
-
-    this.#focusTrap.deactivate();
 
     this.inert = true;
 

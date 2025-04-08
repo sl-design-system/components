@@ -1,5 +1,14 @@
 # @sl-design-system/avatar
 
+## 1.1.4
+
+### Patch Changes
+
+- Updated dependencies [[`6072e05`](https://github.com/sl-design-system/components/commit/6072e05d3d8e2c928608071fcbd4cf6f21daf70c), [`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad), [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5)]:
+  - @sl-design-system/badge@1.1.1
+  - @sl-design-system/shared@0.7.0
+  - @sl-design-system/tooltip@1.1.4
+
 ## 1.1.3
 
 ### Patch Changes

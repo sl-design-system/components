@@ -1,5 +1,11 @@
 # @sl-design-system/badge
 
+## 1.1.1
+
+### Patch Changes
+
+- [#1933](https://github.com/sl-design-system/components/pull/1933) [`6072e05`](https://github.com/sl-design-system/components/commit/6072e05d3d8e2c928608071fcbd4cf6f21daf70c) - Fixed horizontal alignment.
+
 ## 1.1.0
 
 ### Minor Changes

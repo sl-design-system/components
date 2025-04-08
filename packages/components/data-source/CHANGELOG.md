@@ -1,5 +1,14 @@
 # @sl-design-system/data-source
 
+## 0.1.2
+
+### Patch Changes
+
+- [#1923](https://github.com/sl-design-system/components/pull/1923) [`f4e2875`](https://github.com/sl-design-system/components/commit/f4e2875883fd0b8501fa346c17e775a317b85926) - Fixes default sorting order when list is grouped
+
+- Updated dependencies [[`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad)]:
+  - @sl-design-system/shared@0.7.0
+
 ## 0.1.1
 
 ### Patch Changes

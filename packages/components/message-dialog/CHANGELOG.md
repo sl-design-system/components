@@ -1,5 +1,21 @@
 # @sl-design-system/message-dialog
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1836](https://github.com/sl-design-system/components/pull/1836) [`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad) - Refactor message-dialog to use contextual tokens
+  - Remove the `subtitle` attribute from `MessageDialogConfig` (this is a non-breaking change)
+  - Use new contextual tokens for styling
+  - Use a plain `<dialog>` instead of inheriting from `<sl-dialog>`
+  - Use same desktop animations as `<sl-dialog>`
+
+### Patch Changes
+
+- Updated dependencies [[`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad)]:
+  - @sl-design-system/dialog@2.0.0
+  - @sl-design-system/button@1.2.2
+
 ## 1.0.1
 
 ### Patch Changes

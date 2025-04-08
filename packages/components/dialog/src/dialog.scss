@@ -102,7 +102,7 @@ dialog {
   @media (prefers-reduced-motion: no-preference) {
     dialog,
     dialog::backdrop {
-      transition: 0.4s ease-in-out;
+      transition: 0.3s ease-in-out;
       transition-behavior: allow-discrete;
       transition-property: display, opacity, overlay, scale;
     }

@@ -67,14 +67,14 @@
   gap: var(--sl-space-new-lg);
   grid-template-areas: 'wrapper aside';
   grid-template-columns: 1fr minmax(0, auto);
-  padding: var(--sl-space-new-lg);
+  padding: var(--sl-size-200); // var(--sl-space-new-lg);
 }
 
 [part='wrapper'] {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sl-space-new-lg);
+  gap: var(--sl-size-200); // var(--sl-space-new-lg);
   grid-area: wrapper;
 }
 

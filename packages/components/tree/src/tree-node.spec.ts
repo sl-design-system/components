@@ -20,8 +20,8 @@ describe('sl-tree-node', () => {
       `);
     });
 
-    it('should have a treeitem role', () => {
-      expect(el).to.have.attribute('role', 'treeitem');
+    it('should have a row role', () => {
+      expect(el).to.have.attribute('role', 'row');
     });
 
     it('should not be checked', () => {
@@ -89,6 +89,10 @@ describe('sl-tree-node', () => {
 
     it('should not have a type', () => {
       expect(el.type).to.be.undefined;
+    });
+
+    it('should have a content with gridcell role', () => {
+      expect(el.renderRoot.querySelector('div')).to.have.attribute('role', 'gridcell');
     });
 
     it('should render a spinner when type "placeholder"', async () => {
@@ -229,10 +233,18 @@ describe('sl-tree-node', () => {
       expect(el).to.have.attribute('aria-selected', 'true');
     });
 
-    it('should set the selected state by using the keyboard', async () => {
+    it('should set the selected state when pressing enter', async () => {
       el.focus();
 
       await sendKeys({ press: 'Enter' });
+
+      expect(el).to.have.attribute('aria-selected', 'true');
+    });
+
+    it('should set the selected state when pressing space', async () => {
+      el.focus();
+
+      await sendKeys({ press: 'Space' });
 
       expect(el).to.have.attribute('aria-selected', 'true');
     });

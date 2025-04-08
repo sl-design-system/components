@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
+import '@sl-design-system/button/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { type LitElement, type TemplateResult, html } from 'lit';
 import { spy, stub } from 'sinon';

@@ -1,5 +1,13 @@
 # @sl-design-system/search-field
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad)]:
+  - @sl-design-system/shared@0.7.0
+  - @sl-design-system/text-field@1.6.3
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,3 +1,7 @@
-:host {
-  display: block;
+dialog {
+  inline-size: 500px;
+}
+
+sl-form {
+  padding-block: var(--sl-size-100);
 }

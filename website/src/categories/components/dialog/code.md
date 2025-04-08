@@ -17,7 +17,7 @@ tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit 
 Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur
 anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
 magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
-<sl-button slot="actions" sl-dialog-close autofocus>Close</sl-button>
+<sl-button slot="primary-actions" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>
 
 </div>
@@ -32,7 +32,7 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 <sl-dialog id="dialog-example">
     <span slot="title">Dialog title</span>
     Dolore nulla ad magna nostrud cillum...
-    <sl-button slot="actions" sl-dialog-close autofocus>Close</sl-button>
+    <sl-button slot="primary-actions" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>
 
 <!--Event binding-->

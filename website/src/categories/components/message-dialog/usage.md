@@ -8,7 +8,7 @@ eleventyNavigation:
 
 <section>
 <div class="ds-example">
-  <sl-button>Show message</sl-button>
+  <sl-button variant="primary">Show message</sl-button>
   <script>
     document.querySelector('sl-button')?.addEventListener('click', () => {
       MessageDialog.alert('This is a message dialog');
@@ -19,7 +19,7 @@ eleventyNavigation:
 <div class="ds-code">
 
 ```html
-  <sl-button>Show message</sl-button>
+  <sl-button variant="primary">Show message</sl-button>
   <script type="module">
     import { MessageDialog } from '@sl-design-system/message-dialog';
 

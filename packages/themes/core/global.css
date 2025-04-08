@@ -1,3 +1,24 @@
+html {
+  background: var(--sl-color-palette-grey-800);
+
+  @media (width <= 600px) and (prefers-reduced-motion: no-preference) {
+    body {
+      animation: sl-dialog-leave 0.2s ease-out forwards;
+    }
+
+    &.sl-dialog-enter body {
+      animation: sl-dialog-enter 0.2s ease-in forwards;
+    }
+  }
+}
+
+body {
+  background: var(--sl-elevation-surface-base-default);
+  color: var(--sl-color-foreground-plain);
+  min-block-size: 100dvh;
+  transform-origin: top;
+}
+
 a[href] {
   color: var(--sl-color-link-idle);
 }
@@ -8,4 +29,32 @@ a[href]:active {
 
 a[href]:hover {
   color: var(--sl-color-link-hover);
+}
+
+@keyframes sl-dialog-enter {
+  from {
+    border-radius: 0;
+    scale: 1;
+    translate: 0;
+  }
+
+  to {
+    border-radius: var(--sl-size-borderRadius-default);
+    scale: var(--sl-dialog-scale);
+    translate: var(--sl-dialog-translate);
+  }
+}
+
+@keyframes sl-dialog-leave {
+  from {
+    border-radius: var(--sl-size-borderRadius-default);
+    scale: var(--sl-dialog-scale);
+    translate: var(--sl-dialog-translate);
+  }
+
+  to {
+    border-radius: 0;
+    scale: 1;
+    translate: 0;
+  }
 }

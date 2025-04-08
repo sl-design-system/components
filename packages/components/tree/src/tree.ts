@@ -8,6 +8,7 @@ import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { TreeDataSource, type TreeDataSourceNode } from './tree-data-source.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
@@ -180,6 +181,8 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
     /**
      * Aria-label is added to improve a11y for Safari and VO - without it the content of each row is not being read.
      * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements instead of aria-owns and aria-controls.
+     * Aria-owns and aria-controls are not working properly with shadow DOM boundary,
+     * in the future we will need to add ariaControlsElements and ariaOwnsElements to sl-tree-node (for the gridcell inside).
      */
     return html`
       <sl-tree-node
@@ -197,10 +200,10 @@ export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(Li
         .node=${item}
         .selects=${this.dataSource?.selects}
         .type=${item.type}
-        aria-controls=${item.children?.map(child => String(child.id)).join(' ') || `${String(item.id)}-cell`}
+        aria-controls=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
         aria-label=${item.label}
         aria-level=${item.level + 1}
-        aria-owns=${item.children?.map(child => String(child.id)).join(' ') || `${String(item.id)}-cell`}
+        aria-owns=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
         aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
         aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
         aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}

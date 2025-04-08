@@ -16,6 +16,7 @@ The release notes are ordered by the date the release was made. From latest, to 
 
 - `popover` uses the new contextual tokens
 - `tooltip` uses the new contextual tokens
+- `tree` uses the new contextual tokens
 
 ## Bug fixes
 

@@ -2,12 +2,13 @@ import { type RangeChangedEvent } from '@lit-labs/virtualizer';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type EventEmitter, ObserveAttributesMixin, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { Spinner } from '@sl-design-system/spinner';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { TreeDataSource, type TreeDataSourceNode } from './tree-data-source.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
@@ -26,7 +27,10 @@ export type TreeItemRenderer<T = any> = (item: TreeDataSourceNode<T>) => Templat
  * to visualize.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
+export class Tree<T = any> extends ObserveAttributesMixin(ScopedElementsMixin(LitElement), [
+  'aria-label',
+  'aria-labelledby'
+]) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -35,6 +39,11 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-spinner': Spinner,
       'sl-tree-node': TreeNode
     };
+  }
+
+  /** @internal */
+  static override get observedAttributes(): string[] {
+    return [...super.observedAttributes, 'aria-label', 'aria-labelledby'];
   }
 
   /** @internal */
@@ -97,17 +106,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user selects a tree node. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<TreeDataSourceNode<T>>>;
 
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.role = 'tree';
-  }
-
   override async firstUpdated(changes: PropertyValues<this>): Promise<void> {
     super.firstUpdated(changes);
 
     const wrapper = this.renderRoot.querySelector('[part="wrapper"]') as VirtualizerHostElement;
     this.#virtualizer = wrapper[virtualizerRef];
+
+    this.setAttributesTarget(wrapper);
 
     await this.layoutComplete;
 
@@ -116,18 +121,25 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
       this.scrollToNode(node, { block: 'center' });
     }
+
+    if (this.dataSource?.nodes) {
+      wrapper?.setAttribute('aria-owns', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
+      wrapper?.setAttribute('aria-controls', this.dataSource?.nodes.map(child => String(child.id)).join(' ') || '');
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
     if (changes.has('dataSource')) {
+      const wrapper = this.renderRoot.querySelector('[part="wrapper"]');
+
       if (this.dataSource?.selects === 'multiple') {
-        this.setAttribute('aria-multiselectable', 'true');
+        wrapper?.setAttribute('aria-multiselectable', 'true');
       } else if (this.dataSource?.selects === 'single') {
-        this.setAttribute('aria-multiselectable', 'false');
+        wrapper?.setAttribute('aria-multiselectable', 'false');
       } else {
-        this.removeAttribute('aria-multiselectable');
+        wrapper?.removeAttribute('aria-multiselectable');
       }
     }
 
@@ -141,12 +153,18 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    /**
+     * Role `treegrid` is used instead of `tree`,
+     * because `tree` role is not fully accessible without `group` role inside,
+     * and we cannot implement groups due to Virtualizer usage.
+     */
     return html`
       <div
         @keydown=${this.#onKeydown}
         @rangeChanged=${this.#onRangeChanged}
         @sl-select=${this.#onSelect}
         part="wrapper"
+        role="treegrid"
       >
         ${virtualize({
           items: this.dataSource?.items,
@@ -160,8 +178,15 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   renderItem(item: TreeDataSourceNode<T>): TemplateResult {
     const icon = item.expanded ? item.expandedIcon : item.icon;
 
+    /**
+     * Aria-label is added to improve a11y for Safari and VO - without it the content of each row is not being read.
+     * Maybe we will be able to use in the future: ariaControlsElements and/or ariaOwnsElements instead of aria-owns and aria-controls.
+     * Aria-owns and aria-controls are not working properly with shadow DOM boundary,
+     * in the future we will need to add ariaControlsElements and ariaOwnsElements to sl-tree-node (for the gridcell inside).
+     */
     return html`
       <sl-tree-node
+        id=${item.id}
         @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, item)}
         @sl-toggle=${() => this.#onToggle(item)}
         ?checked=${this.dataSource?.selects === 'multiple' && item.selected}
@@ -175,11 +200,17 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         .node=${item}
         .selects=${this.dataSource?.selects}
         .type=${item.type}
-        aria-level=${item.level}
+        aria-controls=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
+        aria-label=${item.label}
+        aria-level=${item.level + 1}
+        aria-owns=${ifDefined(item.children?.map(child => String(child.id)).join(' '))}
+        aria-posinset=${item.parent?.children ? item.parent.children?.indexOf(item) + 1 : 1}
+        aria-rowindex=${this.dataSource ? this.dataSource.items?.indexOf(item) + 1 : 1}
+        aria-setsize=${item.parent ? item.parent.children?.length : this.dataSource?.size}
       >
         ${this.renderer?.(item) ??
         html`
-          ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+          ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
           <span>${item.label}</span>
         `}
       </sl-tree-node>

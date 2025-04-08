@@ -7,6 +7,7 @@
   display: inline-flex;
   font-size: 0.857em;
   gap: var(--sl-size-025);
+  justify-content: center;
   line-height: 0.8lh;
   min-inline-size: 1lh;
   padding-inline: var(--sl-size-050);
@@ -111,7 +112,6 @@
 
 :host([round]),
 :host([size='sm']) {
-  justify-content: center;
   padding-inline: 0;
 }
 

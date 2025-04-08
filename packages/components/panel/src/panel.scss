@@ -5,7 +5,7 @@
 
   background: var(--sl-elevation-surface-raised-default);
   border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-default);
-  border-radius: var(--sl-size-borderRadius-md);
+  border-radius: var(--sl-size-borderRadius-default); // var(--sl-size-borderRadius-md);
   display: flex;
   flex-direction: column;
 }
@@ -67,7 +67,7 @@
   gap: var(--sl-space-new-lg);
   grid-template-areas: 'wrapper aside';
   grid-template-columns: 1fr minmax(0, auto);
-  padding: var(--sl-size-200); // var(--sl-space-new-lg);
+  padding: var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
 }
 
 [part='wrapper'] {
@@ -81,8 +81,9 @@
 slot[name='heading'],
 slot[name='heading']::slotted(*) {
   color: var(--sl-color-foreground-bold);
-  font-size: 1.5em;
-  line-height: 1.5em;
+  font-size: 1.2em; // 16px and base is 14px // 1.5em;
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+  line-height: 1lh; // 1.5em;
 }
 
 slot[name='heading'] {
@@ -115,6 +116,7 @@ sl-tool-bar {
 }
 
 [part='content'] {
+  color: var(--sl-color-foreground-plain);
   padding: var(--sl-panel-content-padding);
 }
 
@@ -129,3 +131,5 @@ sl-icon {
 sl-icon.upside-down {
   transform: scaleY(-1);
 }
+
+// TODO: density plain and comfortable ???

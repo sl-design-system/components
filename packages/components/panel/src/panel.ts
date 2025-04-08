@@ -16,6 +16,8 @@ declare global {
   }
 }
 
+export type PanelDensity = 'plain' | 'comfortable';
+
 export type PanelElevation = 'none' | 'raised' | 'sunken';
 
 export type TogglePlacement = 'start' | 'end';
@@ -58,6 +60,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   /** Indicates whether the panel can be collapsed. */
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
+
+  /**
+   * The density of the panel.
+   * @default plain
+   */
+  @property({ reflect: true }) density?: PanelDensity;
 
   /** The elevation style of the panel. */
   @property({ reflect: true }) elevation?: PanelElevation;

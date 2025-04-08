@@ -277,8 +277,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: MouseEvent): void {
-    // Check if the user clicked on the sl-dialog-close button
-    if (event.target instanceof HTMLElement && event.target.matches('sl-button[sl-dialog-close]')) {
+    const button = event.composedPath().find((el): el is Button => el instanceof Button);
+
+    if (button?.hasAttribute('sl-dialog-close')) {
       this.close();
     }
   }

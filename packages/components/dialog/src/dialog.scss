@@ -165,6 +165,7 @@ slot[name='title'] {
     @media (width <= 600px) {
       grid-area: 1 / 2;
       justify-self: center;
+      padding-inline-end: 0;
     }
   }
 }

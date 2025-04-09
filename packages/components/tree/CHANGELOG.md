@@ -1,5 +1,17 @@
 # @sl-design-system/tree
 
+## 0.1.2
+
+### Patch Changes
+
+- [#1933](https://github.com/sl-design-system/components/pull/1933) [`6072e05`](https://github.com/sl-design-system/components/commit/6072e05d3d8e2c928608071fcbd4cf6f21daf70c) - - Use new contextual tokens for styling,
+  - Improve a11y (including role `treegrid` with children of role `row` and `gridcell`).
+- Updated dependencies [[`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad), [`f4e2875`](https://github.com/sl-design-system/components/commit/f4e2875883fd0b8501fa346c17e775a317b85926), [`6432836`](https://github.com/sl-design-system/components/commit/6432836922f8e2f733cd71868f6ffa9ce70ba65e)]:
+  - @sl-design-system/shared@0.7.0
+  - @sl-design-system/data-source@0.1.2
+  - @sl-design-system/spinner@2.0.0
+  - @sl-design-system/checkbox@2.1.3
+
 ## 0.1.1
 
 ### Patch Changes

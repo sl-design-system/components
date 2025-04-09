@@ -1,5 +1,15 @@
 # @sl-design-system/shared
 
+## 0.7.0
+
+### Minor Changes
+
+- [#1836](https://github.com/sl-design-system/components/pull/1836) [`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad) - - Remove the `FocusTrapController` and related `focus-trap` dependency
+
+  This was only used within `<sl-dialog>`. That component no longer uses this functionality. Because this was internal API, it's not seen as a breaking change.
+
+  - Add new `MediaController` class to help manage media queries
+
 ## 0.6.0
 
 ### Minor Changes

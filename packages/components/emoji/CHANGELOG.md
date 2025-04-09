@@ -1,5 +1,13 @@
 # @sl-design-system/emoji
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad)]:
+  - @sl-design-system/shared@0.7.0
+  - @sl-design-system/button@1.2.2
+
 ## 0.0.5
 
 ### Patch Changes

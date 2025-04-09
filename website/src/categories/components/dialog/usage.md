@@ -17,7 +17,7 @@ tempor veniam eu fugiat fugiat. Fugiat mollit sint labore adipisicing do mollit 
 Pariatur amet occaecat dolor consectetur aliqua mollit est aliquip irure cupidatat. Reprehenderit consectetur
 anim sunt voluptate dolor aute non enim aliqua sit. Occaecat irure ullamco aliquip minim labore occaecat dolor
 magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
-<sl-button slot="actions" sl-dialog-close autofocus>Close</sl-button>
+<sl-button slot="primary-actions" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>
 
 </div>
@@ -32,7 +32,7 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 <sl-dialog id="dialog-example">
     <span slot="title">Dialog title</span>
     Dolore nulla ad magna nostrud cillum...
-    <sl-button slot="actions" sl-dialog-close autofocus>Close</sl-button>
+    <sl-button slot="primary-actions" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>
   ```
 
@@ -46,11 +46,11 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 The following guidance describes when to use the Dialog component.
 
 ### Critical information
-  
+
 Use dialogs to present critical information or ask for decisions. For instance, when confirming a high-risk action (e.g., deleting data), a dialog ensures user attention.
 
 ### Short tasks
-  
+
 For quick tasks that don’t warrant a full page transition, use dialogs. They allow users to stay within the context of their current workflow.
 
 </section>
@@ -62,11 +62,11 @@ For quick tasks that don’t warrant a full page transition, use dialogs. They a
 The following guidance describes when not to use the Dialog component.
 
 ### Complex data
-  
+
 Don’t overload dialogs with extensive data or complex interactions. Keep them concise.
 
 ### Premature triggers
-  
+
 Only show dialogs when the user explicitly triggers them. Avoid interrupting the user unnecessarily.
 
 </section>
@@ -98,7 +98,7 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the dialog to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Options|Description|
 |-|-|-|
 |Device|`desktop` `mobile`| Select the device for your prototype to ensure an optimal layout.|
@@ -113,19 +113,19 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 {.ds-table .ds-table-align-top}
 
 </div>
-  
+
 </section>
 
 <section>
-  
+
 ## Behavior
 
 ### Height
 As content is injected into the dialog, the dialog grows vertically to accommodate the information passed to it.
 
 ### Content overflow
-When content exceeds the vertical space, it overflows and becomes scrollable. 
-  
+When content exceeds the vertical space, it overflows and becomes scrollable.
+
 </section>
 
 <script>

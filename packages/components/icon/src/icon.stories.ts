@@ -114,7 +114,7 @@ export default {
 type Story = StoryObj<Props>;
 
 export const Basic: Story = {};
-export const Inheritance: Story = {
+export const SizeInheritance: Story = {
   args: {
     headingSize: 28
   },
@@ -124,11 +124,31 @@ export const Inheritance: Story = {
     }
   },
   render: ({ headingSize }) => {
-    return html` <h1 style="font-size:${headingSize}px"><sl-icon name="info"> </sl-icon> Inheritance</h1>
-      <p>An icon should inherit the font size and color of its parent element.</p>
+    return html` <p>
+        When an explicit font size is set to the parent of the icon, or if a user uses (text) zoom in the browser the
+        icon will use the maximum value of either the set icon size or 1cap of the current font-size.
+      </p>
+      <h1 style="font-size:${headingSize}px"><sl-icon name="info"> </sl-icon> Inheritance</h1>
       <sl-button variant="primary" style="font-size:${headingSize}px">
         <sl-icon name="info"></sl-icon> Agree
-      </sl-button>`;
+      </sl-button>
+      <p>
+        The icons above have no explicit size set, so they will default to the height of the <code>md</code> size icon.
+        When the font-size (or zoom) is increased to the point where the <code>cap</code> size (the height of the
+        capitals in the font) is larger than the 16px<sup>*</sup> of the <code>md</code>-icon the icon will become
+        larger, to meet the size of <code>1cap</code>.
+      </p>
+      <p>
+        You can of course still set the size of the icon by using the size property, that will impact the minimum size
+        of the icon; it will grow to be 1cap high when zommed in or when the text size increases, as you can see in the
+        example below.
+      </p>
+      <sl-button variant="primary" style="flex-direction:column;">
+        <sl-icon name="info" size="2xl"></sl-icon>Agree
+      </sl-button>
+      <p>
+        <small>* = 16px is at time of writing the size of the <code>md</code> icon in the Sanoma Learning theme.</small>
+      </p>`;
   }
 };
 

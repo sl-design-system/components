@@ -1,5 +1,19 @@
 # @sanomalearning/slds-magister
 
+## 0.2.3
+
+### Patch Changes
+
+- [#1836](https://github.com/sl-design-system/components/pull/1836) [`ab33cc8`](https://github.com/sl-design-system/components/commit/ab33cc86cc01480fb20206be689f9bbdb62bf0ad) - Add missing `color` prefix to `blanket` token
+
+- [#1933](https://github.com/sl-design-system/components/pull/1933) [`6072e05`](https://github.com/sl-design-system/components/commit/6072e05d3d8e2c928608071fcbd4cf6f21daf70c) - Add missing `selected - subtlest` tokens.
+
+- [#1905](https://github.com/sl-design-system/components/pull/1905) [`cfcd262`](https://github.com/sl-design-system/components/commit/cfcd262dd65859170196af041f1f6bdceefaf4f5) - Refactored tooltip and popover to use new tokens
+
+- [#1927](https://github.com/sl-design-system/components/pull/1927) [`0b2d135`](https://github.com/sl-design-system/components/commit/0b2d135db336f993e7961e3ec5e532a3deb078f0) - Changes header font from Arboria to Open Sans
+
+- [#1902](https://github.com/sl-design-system/components/pull/1902) [`c4c3ba2`](https://github.com/sl-design-system/components/commit/c4c3ba21ef185ff2fa08f7ed0f04dc17029c2d6b) - Improved contrast between selected and unselected toggle button
+
 ## 0.2.2
 
 ### Patch Changes

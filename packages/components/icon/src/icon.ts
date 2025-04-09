@@ -31,10 +31,9 @@ const isIconDefinition = (icon: IconDefinition | IconLibrary): icon is IconDefin
  *   <sl-icon name="unicorn"></sl-icon>
  * ```
  *
- * @cssprop --sl-icon-container-size - The size of the icon container, defaults to md
  * @cssprop --sl-icon-fill-accent - Accent color, only used for multicolor icons
  * @cssprop --sl-icon-fill-default - Default fill color
- * @cssprop --sl-icon-size - The size of the svg element, defaults to md
+ * @cssprop --sl-icon-size - The size of the icon, defaults to md
  */
 export class Icon extends LitElement {
   /** @internal */

@@ -1,4 +1,5 @@
-import { faFile, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { faFileLines, faFolder, faFolderOpen, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { Badge } from '@sl-design-system/badge';
 import { Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { ButtonBar } from '@sl-design-system/button-bar';
@@ -36,7 +37,7 @@ export interface LazyNestedDataNode {
   children?: LazyNestedDataNode[] | Promise<LazyNestedDataNode[]> | Array<Promise<LazyNestedDataNode>>;
 }
 
-Icon.register(faFile, faFolder, faFolderOpen, faPen, faTrash);
+Icon.register(faFileLines, faFolder, faFolderOpen, faPen, faTrash);
 
 export const flatData: FlatDataNode[] = [
   {
@@ -190,6 +191,22 @@ export default {
   title: 'Navigation/Tree',
   tags: ['draft'],
   excludeStories: ['flatData', 'nestedData'],
+  parameters: {
+    a11y: {
+      config: {
+        rules: [
+          {
+            /**
+             * The rule is disabled due to unnecessary Storybook a11y bug.
+             * The role `treegrid` has children with proper role `row`, but the error appears even then (but it should not).
+             */
+            id: 'aria-required-children',
+            enabled: false
+          }
+        ]
+      }
+    }
+  },
   args: {
     hideGuides: false,
     dataSource: undefined
@@ -234,6 +251,7 @@ export default {
         .dataSource=${dataSource}
         .renderer=${renderer}
         .scopedElements=${scopedElements}
+        aria-label="Tree label"
       ></sl-tree>
     `;
   }
@@ -242,7 +260,7 @@ export default {
 export const FlatDataSource: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
@@ -256,7 +274,7 @@ export const NestedDataSource: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpandable: ({ children }) => !!children,
@@ -268,7 +286,7 @@ export const NestedDataSource: Story = {
 export const SingleSelect: Story = {
   args: {
     dataSource: new FlatTreeDataSource(flatData, {
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       getLevel: ({ level }) => level,
@@ -284,7 +302,7 @@ export const MultiSelect: Story = {
   args: {
     dataSource: new NestedTreeDataSource(nestedData, {
       getChildren: ({ children }) => children,
-      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
       getId: item => item.id,
       getLabel: ({ name }) => name,
       isExpanded: ({ name }) => ['tree', 'src'].includes(name),
@@ -385,25 +403,135 @@ export const Scrolling: Story = {
   }
 };
 
-export const CustomRenderer: Story = {
+export const CustomRendererWithActionButtons: Story = {
   args: {
-    ...FlatDataSource.args,
+    dataSource: new FlatTreeDataSource(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      selects: 'single'
+    }),
     renderer: node => {
-      const icon = node.label.includes('.') ? 'far-file' : `far-folder${node.expanded ? '-open' : ''}`;
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      const onClickEdit = (event: Event) => {
+        event.stopPropagation();
+      };
+
+      const onClickRemove = (event: Event) => {
+        event.stopPropagation();
+      };
 
       return html`
-        ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
         <span>${node.label}</span>
 
-        <sl-button fill="ghost" size="sm" slot="actions">
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">
           <sl-icon name="far-pen"></sl-icon>
         </sl-button>
-        <sl-button fill="ghost" size="sm" slot="actions">
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">
           <sl-icon name="far-trash"></sl-icon>
         </sl-button>
       `;
     },
     scopedElements: {
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
+    }
+  }
+};
+
+export const CustomRendererWithBadges: Story = {
+  args: {
+    ...FlatDataSource.args,
+    renderer: node => {
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      return html`
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+        <span>${node.label}</span>
+
+        <sl-badge color="blue" slot="aside">99</sl-badge>
+      `;
+    },
+    scopedElements: {
+      'sl-badge': Badge,
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
+    }
+  }
+};
+
+export const SingleSelectWithActionButtons: Story = {
+  args: {
+    dataSource: new FlatTreeDataSource(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      selects: 'single'
+    }),
+    renderer: node => {
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      const onClickEdit = (event: Event) => {
+        event.stopPropagation();
+      };
+
+      const onClickRemove = (event: Event) => {
+        event.stopPropagation();
+      };
+
+      return html`
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+        <span>${node.label}</span>
+
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickEdit} aria-label="Edit">
+          <sl-icon name="far-pen"></sl-icon>
+        </sl-button>
+        <sl-button fill="ghost" size="sm" slot="actions" @click=${onClickRemove} aria-label="Remove">
+          <sl-icon name="far-trash"></sl-icon>
+        </sl-button>
+      `;
+    },
+    scopedElements: {
+      'sl-button': Button,
+      'sl-button-bar': ButtonBar,
+      'sl-icon': Icon
+    }
+  }
+};
+
+export const MultiSelectWithBadges: Story = {
+  args: {
+    dataSource: new FlatTreeDataSource(flatData, {
+      getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file-lines' : `far-folder${expanded ? '-open' : ''}`),
+      getId: item => item.id,
+      getLabel: ({ name }) => name,
+      getLevel: ({ level }) => level,
+      isExpandable: ({ expandable }) => expandable,
+      isExpanded: ({ name }) => ['tree', 'src'].includes(name),
+      selects: 'multiple'
+    }),
+    renderer: node => {
+      const icon = node.label.includes('.') ? 'far-file-lines' : `far-folder${node.expanded ? '-open' : ''}`;
+
+      return html`
+        ${icon ? html`<sl-icon size="sm" .name=${icon}></sl-icon>` : nothing}
+        <span>${node.label}</span>
+
+        <sl-badge color="blue" slot="aside">99</sl-badge>
+      `;
+    },
+    scopedElements: {
+      'sl-badge': Badge,
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-icon': Icon

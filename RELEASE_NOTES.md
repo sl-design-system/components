@@ -4,6 +4,27 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# April 8, 2025
+
+## Breaking changes
+
+- `dialog` has been refactored to better work on mobile. This involves new `primary-actions` and `secondary-actions` slots. It also means that the `subtitle` property has been removed from the dialog configuration options.
+
+- `spinner` uses the new contextual tokens. The `variant` property has been removed. It now uses the text color of the parent element.
+
+## New features
+
+- `popover` uses the new contextual tokens
+- `tooltip` uses the new contextual tokens
+- `tree` uses the new contextual tokens
+
+## Bug fixes
+
+- `data-source` Fix default sorting order when list is grouped
+- `paginator` Fix translations
+- `popover` Fix overflowing text in certain scenarios
+- `toggle-button` Improved contrast between selected and unselected state
+
 # March 27, 2025
 
 ## New features

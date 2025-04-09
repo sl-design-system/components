@@ -9,7 +9,7 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-  <sl-button id="message-button">Show message</sl-button>
+  <sl-button id="message-button" variant="primary">Show message</sl-button>
   <script>
     document.querySelector('#message-button')?.addEventListener('click', () => {
       MessageDialog.show({
@@ -17,7 +17,7 @@ eleventyNavigation:
         message: 'This is a message with custom buttons. Are you sure you want to press any buttons?',
         buttons: [
           { text: 'No, run away!', autofocus: true, fill: 'outline', value: 'NO', variant: 'primary' },
-          { text: `Yes, I don't care what it does`, value: 'YES', variant: 'danger' }
+          { text: `Yes, press it!`, value: 'YES', variant: 'danger' }
         ]
       });
     });
@@ -36,7 +36,7 @@ eleventyNavigation:
         message: 'This is a message with custom buttons. Are you sure you want to press any buttons?',
         buttons: [
           { text: 'No, run away!', autofocus: true, fill: 'outline', value: 'NO', variant: 'primary' },
-          { text: `Yes, I don't care what it does`, value: 'YES', variant: 'danger' }
+          { text: `Yes, press it!`, value: 'YES', variant: 'danger' }
         ]
       });
 
@@ -81,7 +81,6 @@ The method returns a promise that resolves with `true` if the user clicks "OK", 
 The `MessageDialog.show()` API is the most flexible of the three. It allows you to pass a configuration object with the following properties:
 
 - `title` (string): The title of the dialog.
-- `subtitle` (string): The subtitle of the dialog.
 - `message` (string): The message of the dialog.
 - `buttons` (array): An array of button objects. Each button object can have the following properties:
   - `autofocus` (boolean): Whether the button should get focus when the dialog opens.

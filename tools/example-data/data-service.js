@@ -1,4 +1,5 @@
 let peopleImages;
+let studentImages;
 
 const datasetCache = {};
 
@@ -14,6 +15,25 @@ async function getDataset(fileName, count) {
 
 export async function getCountries(count = Infinity) {
   return await getDataset('countries.json', count);
+}
+
+export async function getStudents(count = Infinity) {
+  if (!studentImages) {
+    // Reuse the people images for students as well
+    studentImages = (await import('./data/people-images.json')).default;
+  }
+
+  const students = await getDataset('students.json', count);
+  const schools = await getDataset('schools.json');
+
+  return students.map((student, index) => {
+    const school = schools.find(school => school.id === student.schoolId);
+    return {
+      ...student,
+      avatar: studentImages[index % studentImages.length],
+      school // Add the complete school object
+    };
+  });
 }
 
 export async function getPeople(options) {

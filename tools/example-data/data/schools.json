@@ -1,0 +1,30 @@
+[
+  {
+    "id": "school-1",
+    "name": "Riverside High School",
+    "address": "123 Education Lane",
+    "city": "Riverside",
+    "postalCode": "90210"
+  },
+  {
+    "id": "school-2",
+    "name": "Oakwood Academy",
+    "address": "456 Scholar Avenue",
+    "city": "Oakwood",
+    "postalCode": "60601"
+  },
+  {
+    "id": "school-3",
+    "name": "Pinecrest Institute",
+    "address": "789 Learning Road",
+    "city": "Pinecrest",
+    "postalCode": "20500"
+  },
+  {
+    "id": "school-4",
+    "name": "Maple Grove School",
+    "address": "101 Wisdom Street",
+    "city": "Maple Grove",
+    "postalCode": "33401"
+  }
+]

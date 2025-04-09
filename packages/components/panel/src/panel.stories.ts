@@ -2,9 +2,12 @@ import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type Panel, PanelElevation, type TogglePlacement } from './panel.js';
+import { type Panel, type PanelDensity, PanelElevation, type TogglePlacement } from './panel.js';
 
-type Props = Pick<Panel, 'collapsed' | 'collapsible' | 'elevation' | 'heading' | 'noBorder' | 'togglePlacement'> & {
+type Props = Pick<
+  Panel,
+  'collapsed' | 'collapsible' | 'density' | 'elevation' | 'heading' | 'noBorder' | 'togglePlacement'
+> & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
   prefix?(): string | TemplateResult;
@@ -12,9 +15,11 @@ type Props = Pick<Panel, 'collapsed' | 'collapsible' | 'elevation' | 'heading' |
 };
 type Story = StoryObj<Props>;
 
-const togglePlacements: TogglePlacement[] = ['start', 'end'];
+const densities: PanelDensity[] = ['plain', 'comfortable'];
 
 const elevations: PanelElevation[] = ['none', 'raised', 'sunken'];
+
+const togglePlacements: TogglePlacement[] = ['start', 'end'];
 
 const users: Array<{ name: string; picture?: string; days: number; since: string; signal: string }> = [
   {
@@ -64,6 +69,7 @@ export default {
   tags: ['draft'],
   args: {
     collapsible: false,
+    density: 'plain',
     elevation: 'none',
     noBorder: false,
     togglePlacement: 'start'
@@ -77,6 +83,10 @@ export default {
     },
     content: {
       table: { disable: true }
+    },
+    density: {
+      control: 'radio',
+      options: densities
     },
     elevation: {
       control: 'radio',
@@ -98,6 +108,7 @@ export default {
     collapsed,
     collapsible,
     content,
+    density,
     elevation,
     heading,
     noBorder,
@@ -109,8 +120,9 @@ export default {
       <sl-panel
         ?collapsed=${collapsible && collapsed}
         ?collapsible=${collapsible}
-        .heading=${heading}
+        .density=${density}
         .elevation=${elevation}
+        .heading=${heading}
         .noBorder=${noBorder}
         .togglePlacement=${togglePlacement}
       >
@@ -164,8 +176,9 @@ export const OverflowHeading: Story = {
   args: {
     ...Basic.args,
     heading:
-      'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
-    content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'
+      'Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us. Let the journey begin.',
+    content: () =>
+      'Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore different countries and their cultures, and understand how the world works. Take fun quizzes, track your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with tools designed to help you learn and explore.'
   }
 };
 
@@ -173,13 +186,13 @@ export const OverflowActions: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button fill="outline" slot="actions">Action 1</sl-button>
-      <sl-button fill="outline" slot="actions">Action 2</sl-button>
-      <sl-button fill="outline" slot="actions">Action 3</sl-button>
-      <sl-button fill="outline" slot="actions">Action 4</sl-button>
-      <sl-button fill="outline" slot="actions">Action 5</sl-button>
-      <sl-button fill="outline" slot="actions">Action 6</sl-button>
-      <sl-button fill="outline" slot="actions">Action 7</sl-button>
+      <sl-button fill="ghost" slot="actions">Action 1</sl-button>
+      <sl-button fill="ghost" slot="actions">Action 2</sl-button>
+      <sl-button fill="ghost" slot="actions">Action 3</sl-button>
+      <sl-button fill="ghost" slot="actions">Action 4</sl-button>
+      <sl-button fill="ghost" slot="actions">Action 5</sl-button>
+      <sl-button fill="ghost" slot="actions">Action 6</sl-button>
+      <sl-button fill="ghost" slot="actions">Action 7</sl-button>
     `,
     content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
   }

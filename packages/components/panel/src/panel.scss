@@ -1,21 +1,44 @@
 :host {
-  --sl-panel-content-padding: var(--sl-space-new-lg);
+  --sl-panel-content-padding: var(--sl-size-200);
 
   // --sl-panel-titles-order: column;
 
   background: var(--sl-elevation-surface-raised-default);
-  border: var(--sl-color-border-bold) solid var(--sl-size-borderWidth-default);
+  border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
   border-radius: var(--sl-size-borderRadius-default); // var(--sl-size-borderRadius-md);
   display: flex;
   flex-direction: column;
+}
+
+:host([density='comfortable']) {
+  // background: var(--sl-elevation-surface-raised-sunken);
+  --sl-panel-content-padding: 24px;
+
+  [part='header'] {
+    padding: 10px 24px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+  }
 }
 
 :host([no-border]) {
   border: 0;
 }
 
+:host([density='comfortable'][collapsible]) {
+  // background: var(--sl-elevation-surface-raised-sunken);
+
+  [part='header'] {
+    padding: 10px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+  }
+}
+
+:host([density='comfortable'][collapsible][toggle-placement='end']) {
+  [part='header'] {
+    padding-inline-start: 24px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+  }
+}
+
 :host([elevation='raised']) {
-  background: var(--sl-elevation-surface-raised-alternative);
+  background: var(--sl-elevation-surface-raised-default);
 }
 
 :host([elevation='sunken']) {
@@ -32,6 +55,7 @@
   [part='header'] {
     grid-template-areas: 'toggle wrapper aside';
     grid-template-columns: auto minmax(auto, 1fr) minmax(40px, auto);
+    padding: 6px;
   }
 }
 
@@ -39,14 +63,15 @@
   [part='header'] {
     grid-template-areas: 'wrapper aside toggle';
     grid-template-columns: 1fr minmax(0, auto) auto;
+    padding-inline-start: 16px;
   }
 }
 
-:host([no-padding]) {
-  [part='content'] {
-    padding: 0;
-  }
-}
+// :host([no-padding]) {
+//  [part='content'] {
+//    padding: 0;
+//  }
+// }
 
 :host([no-header]) {
   [part='header'] {
@@ -64,10 +89,10 @@
   align-items: center;
   display: grid;
   flex: 1;
-  gap: var(--sl-space-new-lg);
+  gap: 6px; // var(--sl-space-new-lg);
   grid-template-areas: 'wrapper aside';
   grid-template-columns: 1fr minmax(0, auto);
-  padding: var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+  padding: 6px 16px; // var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
 }
 
 [part='wrapper'] {
@@ -83,7 +108,8 @@ slot[name='heading']::slotted(*) {
   color: var(--sl-color-foreground-bold);
   font-size: 1.2em; // 16px and base is 14px // 1.5em;
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
-  line-height: 1lh; // 1.5em;
+  line-height: 1lh; // 36px; //1lh; // 1.5em;
+  padding-block: 8px;
 }
 
 slot[name='heading'] {
@@ -107,7 +133,7 @@ sl-tool-bar {
   grid-template-rows: 1fr;
 
   @media (prefers-reduced-motion: no-preference) {
-    transition: grid-template-rows 300ms ease-in-out;
+    transition: grid-template-rows 300ms cubic-bezier(0.5, 1.5, 0.75, 0); // ease-in-out;
   }
 }
 
@@ -117,7 +143,7 @@ sl-tool-bar {
 
 [part='content'] {
   color: var(--sl-color-foreground-plain);
-  padding: var(--sl-panel-content-padding);
+  padding: 0 var(--sl-panel-content-padding) var(--sl-panel-content-padding);
 }
 
 sl-icon {
@@ -132,4 +158,4 @@ sl-icon.upside-down {
   transform: scaleY(-1);
 }
 
-// TODO: density plain and comfortable ???
+// TODO: min-height instead of padding-block in the header? what about overflow?

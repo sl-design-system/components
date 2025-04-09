@@ -1,6 +1,6 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
+import { Button, ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -71,6 +71,12 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) elevation?: PanelElevation;
 
   /**
+   * The fill of the button in the tool-bar.
+   * @default 'ghost'
+   */
+  @property() fill: ButtonFill = 'ghost';
+
+  /**
    * The heading shown in the header. Use this property if your heading is a string. If you need
    * more flexibility, such as an icon or other elements, use the `heading` slot.
    */
@@ -127,8 +133,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
-          <sl-tool-bar align="end" no-border>
-            <slot name="actions"></slot>
+          <sl-tool-bar align="end" no-border fill=${ifDefined(this.fill)}>
+            <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
           </sl-tool-bar>
         </slot>
       </div>
@@ -178,5 +184,10 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       );
 
     this.toggleAttribute('no-header', !hasContent && !this.heading /*&& !this.subheading*/ && !this.collapsible);
+  }
+
+  #onActionsSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true });
+    console.log('elements in actions slot change', elements);
   }
 }

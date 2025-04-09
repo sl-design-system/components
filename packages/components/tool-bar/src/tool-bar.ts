@@ -1,13 +1,14 @@
 import { faEllipsisVertical } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
+import { Button, type ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem, MenuItemGroup } from '@sl-design-system/menu';
 import { ToggleButton } from '@sl-design-system/toggle-button';
 import { ToggleGroup } from '@sl-design-system/toggle-group';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { ToolBarDivider } from './tool-bar-divider.js';
 import styles from './tool-bar.scss.js';
 
@@ -82,6 +83,12 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
   /** @internal True when the tool-bar is empty. */
   @property({ type: Boolean, reflect: true }) empty?: boolean;
 
+  /**
+   * The fill of the button.
+   * @default 'outline'
+   */
+  @property() fill: ButtonFill = 'outline';
+
   /** @internal The tool bar items. */
   @state() items: ToolBarItem[] = [];
 
@@ -135,7 +142,7 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       ${this.menuItems.length
         ? html`
-            <sl-menu-button aria-label=${msg('Show more')}>
+            <sl-menu-button fill=${ifDefined(this.fill)} aria-label=${msg('Show more')}>
               <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>

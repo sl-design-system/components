@@ -12,6 +12,7 @@ import { Icon, type IconSize } from './icon.js';
 
 interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
   icons: string[];
+  headingSize?: number;
 }
 
 const sizeName = (size: string): string => {
@@ -99,6 +100,13 @@ export default {
           </section>
         `
       )}
+
+      <h3>Icon based on text size</h3>
+      <p>
+        <sl-icon name="info"></sl-icon> This icon is based on the text size and scales when text-only zoom is used. The
+        minimum size of the icon however is defined by the size set on the icon (or md by default). It can never get
+        smaller than the indicated size.
+      </p>
     `;
   }
 } satisfies Meta<Props>;
@@ -106,6 +114,21 @@ export default {
 type Story = StoryObj<Props>;
 
 export const Basic: Story = {};
+export const Inheritance: Story = {
+  args: {
+    headingSize: 28
+  },
+  argTypes: {
+    headingSize: {
+      control: { type: 'range', min: 14, max: 64, step: 1 }
+    }
+  },
+  render: ({ headingSize }) => {
+    return html` <h1 style="font-size:${headingSize}px"><sl-icon name="info"> </sl-icon> Inheritance</h1>
+      <p>An icon should inherit the font size and color of its parent element.</p>
+      <sl-button variant="primary"> <sl-icon name="info"></sl-icon> Agree </sl-button>`;
+  }
+};
 
 export const All: Story = {
   render: () => {

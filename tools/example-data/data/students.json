@@ -5,7 +5,8 @@
     "infix": "",
     "lastName": "Johnson",
     "initials": "EJ",
-    "schoolId": "school-1"
+    "schoolId": "school-1",
+    "gender": "female"
   },
   {
     "id": "1002",
@@ -13,7 +14,8 @@
     "infix": "van",
     "lastName": "Smith",
     "initials": "LS",
-    "schoolId": "school-2"
+    "schoolId": "school-2",
+    "gender": "male"
   },
   {
     "id": "1003",
@@ -21,7 +23,8 @@
     "infix": "de",
     "lastName": "Williams",
     "initials": "OW",
-    "schoolId": "school-3"
+    "schoolId": "school-3",
+    "gender": "female"
   },
   {
     "id": "1004",
@@ -29,7 +32,8 @@
     "infix": "",
     "lastName": "Brown",
     "initials": "NB",
-    "schoolId": "school-1"
+    "schoolId": "school-1",
+    "gender": "male"
   },
   {
     "id": "1005",
@@ -37,7 +41,8 @@
     "infix": "van der",
     "lastName": "Jones",
     "initials": "AJ",
-    "schoolId": "school-2"
+    "schoolId": "school-2",
+    "gender": "female"
   },
   {
     "id": "1006",
@@ -45,7 +50,8 @@
     "infix": "",
     "lastName": "Miller",
     "initials": "EM",
-    "schoolId": "school-3"
+    "schoolId": "school-3",
+    "gender": "male"
   },
   {
     "id": "1007",
@@ -53,7 +59,8 @@
     "infix": "de la",
     "lastName": "Davis",
     "initials": "SD",
-    "schoolId": "school-4"
+    "schoolId": "school-4",
+    "gender": "female"
   },
   {
     "id": "1008",
@@ -61,7 +68,8 @@
     "infix": "",
     "lastName": "Wilson",
     "initials": "LW",
-    "schoolId": "school-1"
+    "schoolId": "school-1",
+    "gender": "male"
   },
   {
     "id": "1009",
@@ -69,7 +77,8 @@
     "infix": "van",
     "lastName": "Anderson",
     "initials": "IA",
-    "schoolId": "school-2"
+    "schoolId": "school-2",
+    "gender": "female"
   },
   {
     "id": "1010",
@@ -77,7 +86,8 @@
     "infix": "",
     "lastName": "Taylor",
     "initials": "MT",
-    "schoolId": "school-4"
+    "schoolId": "school-4",
+    "gender": "male"
   },
   {
     "id": "1011",
@@ -85,7 +95,8 @@
     "infix": "",
     "lastName": "Thomas",
     "initials": "MT",
-    "schoolId": "school-3"
+    "schoolId": "school-3",
+    "gender": "female"
   },
   {
     "id": "1012",
@@ -93,7 +104,8 @@
     "infix": "van der",
     "lastName": "Moore",
     "initials": "JM",
-    "schoolId": "school-1"
+    "schoolId": "school-1",
+    "gender": "male"
   },
   {
     "id": "1013",
@@ -101,7 +113,8 @@
     "infix": "",
     "lastName": "Jackson",
     "initials": "CJ",
-    "schoolId": "school-2"
+    "schoolId": "school-2",
+    "gender": "female"
   },
   {
     "id": "1014",
@@ -109,7 +122,8 @@
     "infix": "de",
     "lastName": "White",
     "initials": "AW",
-    "schoolId": "school-4"
+    "schoolId": "school-4",
+    "gender": "male"
   },
   {
     "id": "1015",
@@ -117,6 +131,7 @@
     "infix": "",
     "lastName": "Harris",
     "initials": "AH",
-    "schoolId": "school-3"
+    "schoolId": "school-3",
+    "gender": "female"
   }
 ]

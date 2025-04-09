@@ -126,7 +126,9 @@ export const Inheritance: Story = {
   render: ({ headingSize }) => {
     return html` <h1 style="font-size:${headingSize}px"><sl-icon name="info"> </sl-icon> Inheritance</h1>
       <p>An icon should inherit the font size and color of its parent element.</p>
-      <sl-button variant="primary"> <sl-icon name="info"></sl-icon> Agree </sl-button>`;
+      <sl-button variant="primary" style="font-size:${headingSize}px">
+        <sl-icon name="info"></sl-icon> Agree
+      </sl-button>`;
   }
 };
 

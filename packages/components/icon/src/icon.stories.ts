@@ -140,7 +140,7 @@ export const SizeInheritance: Story = {
       </p>
       <p>
         You can of course still set the size of the icon by using the size property, that will impact the minimum size
-        of the icon; it will grow to be 1cap high when zommed in or when the text size increases, as you can see in the
+        of the icon; it will grow to be 1cap high when zoomed in or when the text size increases, as you can see in the
         example below.
       </p>
       <sl-button variant="primary" style="flex-direction:column;">

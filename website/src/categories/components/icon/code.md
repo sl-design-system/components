@@ -72,4 +72,14 @@ Where you import and register the icon is up to you, but it is advised to do thi
 
 </section>
 
+<section>
+
+## Sizing
+
+The size set in the `size` attribute is technically a "minimum size"; when a font size deviating from the body-text is set to the parent of the icon, or if a user uses (text) zoom in the browser the icon will use the maximum value of either the set icon size or 1cap of the current font-size.
+
+When icons have no explicit size set, they will default to the height of the <code>md</code> size icon.
+When the font-size (or zoom) is increased to the point where the <code>cap</code> size (the height of the capitals in the font) is larger than the 16px<sup>*</sup> of the <code>md</code>-icon the icon will become larger, to meet the size of <code>1cap</code>.
+</section>
+
 {% include "../component-table.njk" %}

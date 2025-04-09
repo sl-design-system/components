@@ -20,6 +20,7 @@ export type Student = {
   id: string;
   studentNumber: string;
   firstName: string;
+  infix: string;
   lastName: string;
   dateOfBirth: string;
   email: string;

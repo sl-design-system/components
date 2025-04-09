@@ -30,5 +30,21 @@
     "city": "Amsterdam",
     "postalCode": "1015 CJ",
     "country": "Netherlands"
+  },
+  {
+    "id": "school-5",
+    "name": "Instituto Cervantes",
+    "address": "Calle de Alcalá 49",
+    "city": "Madrid",
+    "postalCode": "28014",
+    "country": "Spain"
+  },
+  {
+    "id": "school-6",
+    "name": "Colegio San Isidro",
+    "address": "Rambla de Catalunya 23",
+    "city": "Barcelona",
+    "postalCode": "08007",
+    "country": "Spain"
   }
 ]

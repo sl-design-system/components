@@ -23,7 +23,7 @@ export async function getStudents(options) {
     studentImages = (await import('./data/student-images.json')).default;
   }
 
-  const allStudents = await getDataset('students.json', count),
+  const allStudents = await getDataset('students.json'),
     schools = await getDataset('schools.json');
 
   let students = [...allStudents];

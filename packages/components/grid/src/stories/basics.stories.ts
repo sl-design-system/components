@@ -4,7 +4,7 @@ import {
   FetchListDataSourceError,
   FetchListDataSourcePlaceholder
 } from '@sl-design-system/data-source';
-import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -22,25 +22,24 @@ export default {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  loaders: [async () => ({ people: (await getPeople()).people })]
+  loaders: [async () => ({ students: (await getStudents()).students })]
 };
 
-export const Simple: Story = {
-  render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people}>
+export const Basic: Story = {
+  render: (_, { loaded: { students } }) => html`
+    <sl-grid .items=${students}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-column path="email"></sl-grid-column>
-      <sl-grid-column path="address.phone"></sl-grid-column>
-      <sl-grid-column path="profession"></sl-grid-column>
+      <sl-grid-column path="gender"></sl-grid-column>
+      <sl-grid-column header="School" path="school.name"></sl-grid-column>
     </sl-grid>
   `
 };
 
 export const Few: Story = {
-  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
-  render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people}>
+  loaders: [async () => ({ students: (await getStudents({ count: 10 })).students })],
+  render: (_, { loaded: { students } }) => html`
+    <sl-grid .items=${students}>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
@@ -105,13 +104,13 @@ export const EllipsizeTextSingleColumn: Story = {
 
 export const SkipLinks: Story = {
   render: (_, { loaded: { people } }) => {
-    const linkRenderer: GridColumnDataRenderer<Person> = ({ email }) => {
+    const linkRenderer: GridColumnDataRenderer<Student> = ({ email }) => {
       return html`<a href="mailto:${email}">${email}</a>`;
     };
 
-    const menuButtonRenderer: GridColumnDataRenderer<Person> = person => {
+    const menuButtonRenderer: GridColumnDataRenderer<Student> = student => {
       const onClick = () => {
-        console.log('Menu item for person clicked', person);
+        console.log('Menu item for person clicked', student);
       };
 
       return html`
@@ -152,13 +151,13 @@ export const SkipLinks: Story = {
 
 export const CustomRenderers: Story = {
   render: (_, { loaded: { people } }) => {
-    const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
+    const avatarRenderer: GridColumnDataRenderer<Student> = ({ firstName, lastName }) => {
       return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
     };
 
-    const menuButtonRenderer: GridColumnDataRenderer<Person> = person => {
+    const menuButtonRenderer: GridColumnDataRenderer<Student> = student => {
       const onClick = () => {
-        console.log('Menu item for person clicked', person);
+        console.log('Menu item for student clicked', student);
       };
 
       return html`
@@ -288,15 +287,15 @@ export const LazyLoad: Story = {
 
 export const Skeleton: Story = {
   render: () => {
-    const dataSource = new FetchListDataSource<Person>({
+    const dataSource = new FetchListDataSource<Student>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
-        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+        const { students, total } = await getStudents({ count: pageSize, startIndex: (page - 1) * pageSize });
 
         // Simulate a slow response
         await new Promise(resolve => setTimeout(resolve, 5000));
 
-        return { items: people, totalItems: total };
+        return { items: students, totalItems: total };
       },
       size: Math.floor(window.innerHeight / 30)
     });
@@ -313,7 +312,7 @@ export const Skeleton: Story = {
 
 export const CustomSkeleton: Story = {
   render: () => {
-    const avatarRenderer: GridColumnDataRenderer<Person> = item => {
+    const avatarRenderer: GridColumnDataRenderer<Student> = item => {
       if (typeof item === 'symbol' && item === FetchListDataSourcePlaceholder) {
         return html`
           <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
@@ -331,15 +330,15 @@ export const CustomSkeleton: Story = {
       }
     };
 
-    const dataSource = new FetchListDataSource<Person>({
+    const dataSource = new FetchListDataSource<Student>({
       pageSize: 30,
       fetchPage: async ({ page, pageSize }) => {
-        const { people, total } = await getPeople({ count: pageSize, startIndex: (page - 1) * pageSize });
+        const { students, total } = await getStudents({ count: pageSize, startIndex: (page - 1) * pageSize });
 
         // Simulate a slow response
         await new Promise(resolve => setTimeout(resolve, 5000));
 
-        return { items: people, totalItems: total };
+        return { items: students, totalItems: total };
       },
       size: Math.floor(window.innerHeight / 30)
     });

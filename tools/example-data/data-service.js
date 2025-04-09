@@ -37,7 +37,7 @@ export async function getStudents(options) {
 
     return {
       ...studentWithoutExcludedProps,
-      avatar: studentImages[avatarId],
+      pictureUrl: studentImages[avatarId]?.image,
       school: schools.find(school => school.id === schoolId)
     };
   });

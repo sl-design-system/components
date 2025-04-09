@@ -5,6 +5,7 @@ import {
   FetchListDataSourcePlaceholder
 } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
+import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Tooltip } from '@sl-design-system/tooltip';
@@ -26,14 +27,39 @@ export default {
 };
 
 export const Basic: Story = {
-  render: (_, { loaded: { students } }) => html`
-    <sl-grid .items=${students}>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-column path="gender"></sl-grid-column>
-      <sl-grid-column header="School" path="school.name"></sl-grid-column>
-    </sl-grid>
-  `
+  render: (_, { loaded: { students } }) => {
+    const avatarRenderer: GridColumnDataRenderer<Student> = ({ firstName, infix, lastName, pictureUrl }) => {
+      return html`
+        <sl-avatar
+          .displayName=${[firstName, infix, lastName].join(' ')}
+          .pictureUrl=${pictureUrl}
+          size="sm"
+        ></sl-avatar>
+      `;
+    };
+
+    const dateOfBirthRenderer: GridColumnDataRenderer<Student> = ({ dateOfBirth }) => {
+      return html`<sl-format-date .date=${dateOfBirth}></sl-format-date>`;
+    };
+
+    return html`
+      <sl-grid .items=${students}>
+        <sl-grid-column header="Nr." path="studentNumber"></sl-grid-column>
+        <sl-grid-column
+          grow="3"
+          header="Student"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
+        <sl-grid-column
+          header="Date of birth"
+          .renderer=${dateOfBirthRenderer}
+          .scopedElements=${{ 'sl-format-date': FormatDate }}
+        ></sl-grid-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const Few: Story = {

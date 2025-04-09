@@ -1,30 +1,34 @@
 [
   {
     "id": "school-1",
-    "name": "Riverside High School",
-    "address": "123 Education Lane",
-    "city": "Riverside",
-    "postalCode": "90210"
+    "name": "Gymnasium Sankt Georg",
+    "address": "Schillerstraße 23",
+    "city": "München",
+    "postalCode": "80336",
+    "country": "Germany"
   },
   {
     "id": "school-2",
-    "name": "Oakwood Academy",
-    "address": "456 Scholar Avenue",
-    "city": "Oakwood",
-    "postalCode": "60601"
+    "name": "Lycée Victor Hugo",
+    "address": "14 Rue des Écoles",
+    "city": "Paris",
+    "postalCode": "75005",
+    "country": "France"
   },
   {
     "id": "school-3",
-    "name": "Pinecrest Institute",
-    "address": "789 Learning Road",
-    "city": "Pinecrest",
-    "postalCode": "20500"
+    "name": "Collegio San Marco",
+    "address": "Via Roma 45",
+    "city": "Milano",
+    "postalCode": "20121",
+    "country": "Italy"
   },
   {
     "id": "school-4",
-    "name": "Maple Grove School",
-    "address": "101 Wisdom Street",
-    "city": "Maple Grove",
-    "postalCode": "33401"
+    "name": "Koninklijk Atheneum",
+    "address": "Keizersgracht 117",
+    "city": "Amsterdam",
+    "postalCode": "1015 CJ",
+    "country": "Netherlands"
   }
 ]

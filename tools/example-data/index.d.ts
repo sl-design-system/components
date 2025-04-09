@@ -18,11 +18,12 @@ export type School = {
 
 export type Student = {
   id: string;
+  studentNumber: string;
   firstName: string;
   lastName: string;
+  dateOfBirth: string;
   email: string;
-  grade: number;
-  avatar: string;
+  pictureUrl: string;
   school: School;
 };
 

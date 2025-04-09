@@ -17,23 +17,35 @@ export async function getCountries(count = Infinity) {
   return await getDataset('countries.json', count);
 }
 
-export async function getStudents(count = Infinity) {
+export async function getStudents(options) {
   if (!studentImages) {
-    // Reuse the people images for students as well
-    studentImages = (await import('./data/people-images.json')).default;
+    // Load student-specific images
+    studentImages = (await import('./data/student-images.json')).default;
   }
 
-  const students = await getDataset('students.json', count);
-  const schools = await getDataset('schools.json');
+  const allStudents = await getDataset('students.json', count),
+    schools = await getDataset('schools.json');
 
-  return students.map((student, index) => {
-    const school = schools.find(school => school.id === student.schoolId);
+  let students = [...allStudents];
+
+  const startIndex = options?.startIndex || 0;
+  const count = options?.count ? startIndex + options.count : undefined;
+
+  students = students.slice(startIndex, count);
+  students = students.map(student => {
+    const { avatarId, schoolId, ...studentWithoutExcludedProps } = student;
+
     return {
-      ...student,
-      avatar: studentImages[index % studentImages.length],
-      school // Add the complete school object
+      ...studentWithoutExcludedProps,
+      avatar: studentImages[avatarId],
+      school: schools.find(school => school.id === schoolId)
     };
   });
+
+  return {
+    students,
+    total: allStudents.length
+  };
 }
 
 export async function getPeople(options) {
@@ -45,11 +57,6 @@ export async function getPeople(options) {
 
   let people = [...allPeople];
 
-  if (options?.managerId !== undefined) {
-    people = people.filter(person => person.managerId == options?.managerId);
-  }
-
-  const hierarchyLevelSize = people.length;
   const startIndex = options?.startIndex || 0;
   const count = options?.count ? startIndex + options.count : undefined;
 
@@ -57,14 +64,12 @@ export async function getPeople(options) {
   people = people.map((person, index) => {
     return {
       ...person,
-      pictureUrl: peopleImages[index % peopleImages.length],
-      manager: allPeople.some(p => p.managerId === person.id)
+      pictureUrl: peopleImages[index % peopleImages.length]
     };
   });
 
   return {
     people,
-    hierarchyLevelSize,
     total: allPeople.length
   };
 }

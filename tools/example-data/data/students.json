@@ -6,7 +6,8 @@
     "lastName": "Johnson",
     "initials": "EJ",
     "schoolId": "school-1",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0905011.jpg"
   },
   {
     "id": "1002",
@@ -15,7 +16,8 @@
     "lastName": "Smith",
     "initials": "LS",
     "schoolId": "school-2",
-    "gender": "male"
+    "gender": "male",
+    "avatarId": "v3_0221775.jpg"
   },
   {
     "id": "1003",
@@ -24,7 +26,8 @@
     "lastName": "Williams",
     "initials": "OW",
     "schoolId": "school-3",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0843664.jpg"
   },
   {
     "id": "1004",
@@ -33,7 +36,8 @@
     "lastName": "Brown",
     "initials": "NB",
     "schoolId": "school-1",
-    "gender": "male"
+    "gender": "male",
+    "avatarId": "v3_0771612.jpg"
   },
   {
     "id": "1005",
@@ -42,7 +46,8 @@
     "lastName": "Jones",
     "initials": "AJ",
     "schoolId": "school-2",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0057072.jpg"
   },
   {
     "id": "1006",
@@ -51,7 +56,8 @@
     "lastName": "Miller",
     "initials": "EM",
     "schoolId": "school-3",
-    "gender": "male"
+    "gender": "male",
+    "avatarId": "v3_0204255.jpg"
   },
   {
     "id": "1007",
@@ -60,7 +66,8 @@
     "lastName": "Davis",
     "initials": "SD",
     "schoolId": "school-4",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0119173.jpg"
   },
   {
     "id": "1008",
@@ -69,7 +76,8 @@
     "lastName": "Wilson",
     "initials": "LW",
     "schoolId": "school-1",
-    "gender": "male"
+    "gender": "male",
+    "avatarId": "v3_0138259.jpg"
   },
   {
     "id": "1009",
@@ -78,7 +86,8 @@
     "lastName": "Anderson",
     "initials": "IA",
     "schoolId": "school-2",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0152269.jpg"
   },
   {
     "id": "1010",
@@ -87,7 +96,8 @@
     "lastName": "Taylor",
     "initials": "MT",
     "schoolId": "school-4",
-    "gender": "male"
+    "gender": "male",
+    "avatarId": "v3_0188950.jpg"
   },
   {
     "id": "1011",
@@ -96,7 +106,8 @@
     "lastName": "Thomas",
     "initials": "MT",
     "schoolId": "school-3",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0263488.jpg"
   },
   {
     "id": "1012",
@@ -105,7 +116,8 @@
     "lastName": "Moore",
     "initials": "JM",
     "schoolId": "school-1",
-    "gender": "male"
+    "gender": "male",
+    "avatarId": "v3_0269654.jpg"
   },
   {
     "id": "1013",
@@ -114,7 +126,8 @@
     "lastName": "Jackson",
     "initials": "CJ",
     "schoolId": "school-2",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0271264.jpg"
   },
   {
     "id": "1014",
@@ -123,7 +136,8 @@
     "lastName": "White",
     "initials": "AW",
     "schoolId": "school-4",
-    "gender": "male"
+    "gender": "male",
+    "avatarId": "v3_0310819.jpg"
   },
   {
     "id": "1015",
@@ -132,6 +146,7 @@
     "lastName": "Harris",
     "initials": "AH",
     "schoolId": "school-3",
-    "gender": "female"
+    "gender": "female",
+    "avatarId": "v3_0334061.jpg"
   }
 ]

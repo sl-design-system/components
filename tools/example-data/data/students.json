@@ -17,7 +17,7 @@
     "infix": "van",
     "lastName": "Dijk",
     "initials": "LD",
-    "schoolId": "school-2",
+    "schoolId": "school-4",
     "gender": "male",
     "avatarId": "v3_0221775.jpg",
     "studentNumber": "FR20230002",
@@ -29,9 +29,9 @@
     "infix": "de",
     "lastName": "Vries",
     "initials": "CV",
-    "schoolId": "school-3",
+    "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0843664.jpg",
+    "avatarId": "v3_0935103.jpg",
     "studentNumber": "IT20230003",
     "dateOfBirth": "2007-11-03"
   },
@@ -53,7 +53,7 @@
     "infix": "van der",
     "lastName": "Berg",
     "initials": "AB",
-    "schoolId": "school-2",
+    "schoolId": "school-4",
     "gender": "female",
     "avatarId": "v3_0057072.jpg",
     "studentNumber": "FR20230005",
@@ -101,7 +101,7 @@
     "infix": "van",
     "lastName": "Leeuwen",
     "initials": "EL",
-    "schoolId": "school-2",
+    "schoolId": "school-4",
     "gender": "female",
     "avatarId": "v3_0152269.jpg",
     "studentNumber": "NL20230009",
@@ -137,7 +137,7 @@
     "infix": "van der",
     "lastName": "Moore",
     "initials": "JM",
-    "schoolId": "school-1",
+    "schoolId": "school-4",
     "gender": "male",
     "avatarId": "v3_0269654.jpg",
     "studentNumber": "NL20230012",
@@ -187,7 +187,7 @@
     "initials": "LW",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0412581.jpg",
+    "avatarId": "v3_0416757.jpg",
     "studentNumber": "DE20230016",
     "dateOfBirth": "2009-05-17"
   },
@@ -199,7 +199,7 @@
     "initials": "EL",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0427890.jpg",
+    "avatarId": "v3_0425287.jpg",
     "studentNumber": "FR20230017",
     "dateOfBirth": "2008-09-23"
   },
@@ -211,7 +211,7 @@
     "initials": "GB",
     "schoolId": "school-3",
     "gender": "male",
-    "avatarId": "v3_0432145.jpg",
+    "avatarId": "v3_0433443.jpg",
     "studentNumber": "IT20230018",
     "dateOfBirth": "2010-03-14"
   },
@@ -223,7 +223,7 @@
     "initials": "SH",
     "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0456218.jpg",
+    "avatarId": "v3_0448897.jpg",
     "studentNumber": "NL20230019",
     "dateOfBirth": "2007-08-05"
   },
@@ -235,7 +235,7 @@
     "initials": "HF",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0465123.jpg",
+    "avatarId": "v3_0458142.jpg",
     "studentNumber": "DE20230020",
     "dateOfBirth": "2009-12-11"
   },
@@ -247,7 +247,7 @@
     "initials": "IC",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0478932.jpg",
+    "avatarId": "v3_0643474.jpg",
     "studentNumber": "FR20230021",
     "dateOfBirth": "2008-02-27"
   },
@@ -259,7 +259,7 @@
     "initials": "MR",
     "schoolId": "school-3",
     "gender": "male",
-    "avatarId": "v3_0482367.jpg",
+    "avatarId": "v3_0481195.jpg",
     "studentNumber": "IT20230022",
     "dateOfBirth": "2007-11-19"
   },
@@ -271,7 +271,7 @@
     "initials": "AM",
     "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0491536.jpg",
+    "avatarId": "v3_0489587.jpg",
     "studentNumber": "NL20230023",
     "dateOfBirth": "2010-01-08"
   },
@@ -283,7 +283,7 @@
     "initials": "MB",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0507891.jpg",
+    "avatarId": "v3_0495172.jpg",
     "studentNumber": "DE20230024",
     "dateOfBirth": "2009-04-22"
   },
@@ -295,7 +295,7 @@
     "initials": "LP",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0512478.jpg",
+    "avatarId": "v3_0512116.jpg",
     "studentNumber": "FR20230025",
     "dateOfBirth": "2008-07-30"
   },
@@ -307,7 +307,7 @@
     "initials": "LF",
     "schoolId": "school-3",
     "gender": "male",
-    "avatarId": "v3_0526391.jpg",
+    "avatarId": "v3_0514912.jpg",
     "studentNumber": "IT20230026",
     "dateOfBirth": "2007-10-15"
   },
@@ -319,7 +319,7 @@
     "initials": "NV",
     "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0534782.jpg",
+    "avatarId": "v3_0523138.jpg",
     "studentNumber": "NL20230027",
     "dateOfBirth": "2009-06-03"
   },
@@ -331,7 +331,7 @@
     "initials": "JH",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0543216.jpg",
+    "avatarId": "v3_0545600.jpg",
     "studentNumber": "DE20230028",
     "dateOfBirth": "2008-11-29"
   },
@@ -343,7 +343,7 @@
     "initials": "CM",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0557843.jpg",
+    "avatarId": "v3_0575096.jpg",
     "studentNumber": "FR20230029",
     "dateOfBirth": "2010-04-16"
   },
@@ -355,7 +355,7 @@
     "initials": "AE",
     "schoolId": "school-3",
     "gender": "male",
-    "avatarId": "v3_0562379.jpg",
+    "avatarId": "v3_0585505.jpg",
     "studentNumber": "IT20230030",
     "dateOfBirth": "2007-05-24"
   },
@@ -367,7 +367,7 @@
     "initials": "LB",
     "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0573481.jpg",
+    "avatarId": "v3_0280160.jpg",
     "studentNumber": "NL20230031",
     "dateOfBirth": "2009-08-13"
   },
@@ -379,7 +379,7 @@
     "initials": "DW",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0581793.jpg",
+    "avatarId": "v3_0082549.jpg",
     "studentNumber": "DE20230032",
     "dateOfBirth": "2008-03-07"
   },
@@ -391,7 +391,7 @@
     "initials": "JD",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0592634.jpg",
+    "avatarId": "v3_0593294.jpg",
     "studentNumber": "FR20230033",
     "dateOfBirth": "2007-09-26"
   },
@@ -403,7 +403,7 @@
     "initials": "MR",
     "schoolId": "school-3",
     "gender": "male",
-    "avatarId": "v3_0602148.jpg",
+    "avatarId": "v3_0593518.jpg",
     "studentNumber": "IT20230034",
     "dateOfBirth": "2010-02-02"
   },
@@ -415,7 +415,7 @@
     "initials": "EG",
     "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0617853.jpg",
+    "avatarId": "v3_0596399.jpg",
     "studentNumber": "NL20230035",
     "dateOfBirth": "2009-07-19"
   },
@@ -427,7 +427,7 @@
     "initials": "MS",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0623517.jpg",
+    "avatarId": "v3_0601321.jpg",
     "studentNumber": "DE20230036",
     "dateOfBirth": "2008-01-31"
   },
@@ -439,7 +439,7 @@
     "initials": "ML",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0635824.jpg",
+    "avatarId": "v3_0608732.jpg",
     "studentNumber": "FR20230037",
     "dateOfBirth": "2010-06-09"
   },
@@ -451,7 +451,7 @@
     "initials": "LM",
     "schoolId": "school-3",
     "gender": "male",
-    "avatarId": "v3_0642391.jpg",
+    "avatarId": "v3_0630688.jpg",
     "studentNumber": "IT20230038",
     "dateOfBirth": "2007-12-21"
   },
@@ -463,7 +463,7 @@
     "initials": "FD",
     "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0656942.jpg",
+    "avatarId": "v3_0609648.jpg",
     "studentNumber": "NL20230039",
     "dateOfBirth": "2009-03-28"
   },
@@ -475,7 +475,7 @@
     "initials": "NK",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0668374.jpg",
+    "avatarId": "v3_0644295.jpg",
     "studentNumber": "DE20230040",
     "dateOfBirth": "2008-08-12"
   },
@@ -487,7 +487,7 @@
     "initials": "CM",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0674923.jpg",
+    "avatarId": "v3_0614267.jpg",
     "studentNumber": "FR20230041",
     "dateOfBirth": "2007-04-05"
   },
@@ -499,7 +499,7 @@
     "initials": "GC",
     "schoolId": "school-3",
     "gender": "male",
-    "avatarId": "v3_0682516.jpg",
+    "avatarId": "v3_0679935.jpg",
     "studentNumber": "IT20230042",
     "dateOfBirth": "2009-10-27"
   },
@@ -511,7 +511,7 @@
     "initials": "SL",
     "schoolId": "school-4",
     "gender": "female",
-    "avatarId": "v3_0691375.jpg",
+    "avatarId": "v3_0624878.jpg",
     "studentNumber": "NL20230043",
     "dateOfBirth": "2008-05-10"
   },
@@ -523,7 +523,7 @@
     "initials": "FM",
     "schoolId": "school-1",
     "gender": "male",
-    "avatarId": "v3_0704862.jpg",
+    "avatarId": "v3_0220045.jpg",
     "studentNumber": "DE20230044",
     "dateOfBirth": "2010-01-23"
   },
@@ -535,7 +535,7 @@
     "initials": "ML",
     "schoolId": "school-2",
     "gender": "female",
-    "avatarId": "v3_0713549.jpg",
+    "avatarId": "v3_0626806.jpg",
     "studentNumber": "FR20230045",
     "dateOfBirth": "2009-11-07"
   },
@@ -547,7 +547,7 @@
     "initials": "JH",
     "schoolId": "school-5",
     "gender": "male",
-    "avatarId": "v3_0722648.jpg",
+    "avatarId": "v3_0892152.jpg",
     "studentNumber": "ES20230046",
     "dateOfBirth": "2008-06-14"
   },
@@ -559,7 +559,7 @@
     "initials": "CR",
     "schoolId": "school-6",
     "gender": "female",
-    "avatarId": "v3_0735219.jpg",
+    "avatarId": "v3_0780270.jpg",
     "studentNumber": "ES20230047",
     "dateOfBirth": "2009-09-08"
   },
@@ -571,7 +571,7 @@
     "initials": "PG",
     "schoolId": "school-5",
     "gender": "male",
-    "avatarId": "v3_0747531.jpg",
+    "avatarId": "v3_0511564.jpg",
     "studentNumber": "ES20230048",
     "dateOfBirth": "2007-10-30"
   }

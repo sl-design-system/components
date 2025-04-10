@@ -1,8 +1,9 @@
 import { localized, msg } from '@lit/localize';
 import { type DataSourceFilterFunction, FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { type Path, type PathKeys, getNameByPath, getValueByPath } from '@sl-design-system/shared';
-import { type TemplateResult, html } from 'lit';
+import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { type Ref, createRef, ref } from 'lit/directives/ref.js';
 import { GridColumn } from './column.js';
 import { GridFilter } from './filter.js';
 
@@ -24,6 +25,9 @@ let nextUniqueId = 0;
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridFilterColumn<T = any> extends GridColumn<T> {
+  /** Reference to the rendered `<sl-grid-filter>` element. */
+  #filterRef: Ref<GridFilter> = createRef();
+
   /** The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
 
@@ -60,6 +64,18 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
 
     this.id ||= `grid-filter-${nextUniqueId++}`;
     this.scopedElements = { ...this.scopedElements, 'sl-grid-filter': GridFilter };
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('options') && this.#filterRef.value) {
+      this.#filterRef.value.options = this.options;
+    }
+
+    if (changes.has('value') && this.#filterRef.value) {
+      this.#filterRef.value.value = this.value;
+    }
   }
 
   override itemsChanged(): void {
@@ -103,6 +119,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
     return html`
       <th part=${parts.join(' ')}>
         <sl-grid-filter
+          ${ref(this.#filterRef)}
           .column=${this}
           .filterLabel=${this.filterLabel}
           .labelPath=${this.labelPath}

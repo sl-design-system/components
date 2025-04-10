@@ -8,16 +8,41 @@ export type Person = {
   manager?: boolean;
 };
 
+export type School = {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  country: string;
+};
+
+export type Student = {
+  id: string;
+  studentNumber: string;
+  firstName: string;
+  infix: string;
+  lastName: string;
+  dateOfBirth: string;
+  email: string;
+  pictureUrl: string;
+  school: School;
+};
+
+export interface Students {
+  students: Student[];
+  total: number;
+}
+
 export interface People {
-  hierarchyLevelSize: number;
   people: Person[];
   total: number;
 }
 
 export interface Options {
   count?: number;
-  managerId?: string;
   startIndex?: number;
 }
 
 export declare function getPeople(options?: Options): Promise<People>;
+
+export declare function getStudents(options?: Options): Promise<Students>;

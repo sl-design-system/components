@@ -3,7 +3,7 @@
   --sl-icon-fill-default: currentcolor;
   --sl-icon-size: var(--sl-size-200);
 
-  block-size: max(1cap, var(--sl-icon-size));
+  aspect-ratio: 1 / 1;
   display: inline-grid;
   inline-size: max(1cap, var(--sl-icon-size));
   outline: none;
@@ -48,6 +48,6 @@
 }
 
 svg {
-  block-size: 100%;
+  aspect-ratio: 1 / 1;
   inline-size: 100%;
 }

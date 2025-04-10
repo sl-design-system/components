@@ -101,7 +101,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       }
     }
 
-    this.#items = new Array<T>(length);
+    this.#items = Array.from({ length });
     this.#pages = {};
     this.#proxy = this.#createProxy(this.#items);
 

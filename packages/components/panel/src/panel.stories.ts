@@ -1,4 +1,19 @@
+import {
+  faBackpack,
+  faBook,
+  faCopy,
+  faGear,
+  faList,
+  faPaste,
+  faPen,
+  faRocket,
+  faShare,
+  faTableCells,
+  faTrash
+} from '@fortawesome/pro-regular-svg-icons';
+import { faPeople } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
+import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -63,6 +78,21 @@ const users: Array<{ name: string; picture?: string; days: number; since: string
     signal: 'no data'
   }
 ];
+
+Icon.register(
+  faBackpack,
+  faBook,
+  faCopy,
+  faGear,
+  faList,
+  faPaste,
+  faPen,
+  faShare,
+  faPeople,
+  faRocket,
+  faTableCells,
+  faTrash
+);
 
 export default {
   title: 'Layout/Panel',
@@ -134,7 +164,8 @@ export default {
 
 export const Basic: Story = {
   args: {
-    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
     heading: 'Panel heading'
   }
@@ -142,7 +173,8 @@ export const Basic: Story = {
 
 export const WithPrefix: Story = {
   args: {
-    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
     prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
     heading: 'Panel heading'
@@ -151,7 +183,8 @@ export const WithPrefix: Story = {
 
 export const WithSuffix: Story = {
   args: {
-    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
     heading: 'Panel heading'
@@ -186,13 +219,14 @@ export const OverflowActions: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button fill="ghost" slot="actions">Action 1</sl-button>
-      <sl-button fill="ghost" slot="actions">Action 2</sl-button>
-      <sl-button fill="ghost" slot="actions">Action 3</sl-button>
-      <sl-button fill="ghost" slot="actions">Action 4</sl-button>
-      <sl-button fill="ghost" slot="actions">Action 5</sl-button>
-      <sl-button fill="ghost" slot="actions">Action 6</sl-button>
-      <sl-button fill="ghost" slot="actions">Action 7</sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Paste"><sl-icon name="far-paste"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="List"><sl-icon name="far-list"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Settings"><sl-icon name="far-gear"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>
     `,
     content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
   }
@@ -319,10 +353,6 @@ export const All: Story = {
         padding: 1rem;
       }
 
-      section:first-of-type {
-        background-color: var(--sl-elevation-surface-raised-alternative);
-      }
-
       .my-heading {
         font-size: 1.3rem;
         font-weight: 600;
@@ -345,7 +375,9 @@ export const All: Story = {
             <sl-panel no-border .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
             <sl-panel no-border .elevation=${elevation} heading="Panel heading">
               Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
+              <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                ><sl-icon name="far-trash"></sl-icon
+              ></sl-button>
             </sl-panel>
             <sl-panel no-border .elevation=${elevation} collapsible heading="Panel heading">Panel content</sl-panel>
             <sl-panel
@@ -387,6 +419,7 @@ export const All: Story = {
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel no-border .elevation=${elevation} collapsible collapsed heading="Panel heading with prefix">
+              <sl-icon slot="prefix" name="far-backpack"></sl-icon>
               <sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
               Panel content
               <sl-button fill="outline" slot="actions">Action</sl-button>
@@ -460,7 +493,7 @@ export const All: Story = {
             </sl-panel>
             <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading with suffix">
               <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
-              Panel content
+              Panel content with icon...
               <sl-button fill="outline" slot="actions">Action</sl-button>
             </sl-panel>
             <sl-panel

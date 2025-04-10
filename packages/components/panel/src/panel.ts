@@ -36,7 +36,7 @@ export type TogglePlacement = 'start' | 'end';
  *
  * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
  * @slot aside - Additional content to show in the header; replaces the button bar.
- * @slot actions - The panel's actions; will slot in a button bar by default.
+ * @slot actions - The panel's actions; will slot in a tool bar by default.
  * @slot default - The panel's content.
  * @slot prefix - Content to show before the heading.
  * @slot suffix - Content to show after the heading.
@@ -189,5 +189,11 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   #onActionsSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true });
     console.log('elements in actions slot change', elements);
+
+    elements.forEach(el => {
+      if (el instanceof Button) {
+        el.fill = this.fill;
+      }
+    });
   }
 }

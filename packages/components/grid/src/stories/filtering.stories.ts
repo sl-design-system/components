@@ -11,7 +11,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import '../../register.js';
-import { type GridColumnDataRenderer } from '../column.js';
+import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -28,16 +28,6 @@ export default {
 export const Basic: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
-    const avatarRenderer: GridColumnDataRenderer<Student> = ({ firstName, infix, lastName, pictureUrl }) => {
-      return html`
-        <sl-avatar
-          .displayName=${[firstName, infix, lastName].join(' ')}
-          .pictureUrl=${pictureUrl}
-          size="sm"
-        ></sl-avatar>
-      `;
-    };
-
     return html`
       <sl-grid .items=${students}>
         <sl-grid-column
@@ -46,45 +36,38 @@ export const Basic: Story = {
           .scopedElements=${{ 'sl-avatar': Avatar }}
         ></sl-grid-column>
         <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
-        <sl-grid-filter-column header="School" path="school.name"></sl-grid-filter-column>
+        <sl-grid-filter-column header="School" path="school.name" value="Collegio San Marco"></sl-grid-filter-column>
       </sl-grid>
     `;
   }
 };
 
-export const Filtered: Story = {
-  render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people}>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-filter-column mode="text" path="profession" value="Endo"></sl-grid-filter-column>
-      <sl-grid-filter-column path="status" value="Available"></sl-grid-filter-column>
-      <sl-grid-filter-column path="membership" value="Regular,Premium"></sl-grid-filter-column>
-    </sl-grid>
-  `
-};
-
-export const FilteredDataSource: Story = {
-  render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayListDataSource(people as Person[]);
-    dataSource.addFilter('filter-profession', 'profession', 'Endo');
-    dataSource.addFilter('filter-status', 'status', 'Available');
-    dataSource.addFilter('filter-membership', 'membership', ['Regular', 'Premium']);
+export const DataSource: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[]);
+    dataSource.addFilter('filter-school', 'school.id', 'school-1');
 
     return html`
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-filter-column id="filter-profession" mode="text" path="profession"></sl-grid-filter-column>
-        <sl-grid-filter-column id="filter-status" path="status"></sl-grid-filter-column>
-        <sl-grid-filter-column id="filter-membership" path="membership"></sl-grid-filter-column>
+        <sl-grid-column
+          header="Student"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
+        <sl-grid-filter-column
+          id="filter-school"
+          header="School"
+          label-path="school.name"
+          path="school.id"
+        ></sl-grid-filter-column>
       </sl-grid>
     `;
   }
 };
 export const FilteringWithSelection: Story = {
-  render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people}>
+  render: (_, { loaded: { students } }) => html`
+    <sl-grid .items=${students}>
       <sl-grid-selection-column></sl-grid-selection-column>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>

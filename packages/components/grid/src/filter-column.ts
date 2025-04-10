@@ -1,5 +1,5 @@
 import { localized, msg } from '@lit/localize';
-import { type DataSourceFilterFunction } from '@sl-design-system/data-source';
+import { type DataSourceFilterFunction, FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
 import { type Path, type PathKeys, getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -30,6 +30,12 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   /** The filter function if you want to do custom filtering. */
   @state() filter?: DataSourceFilterFunction<T>;
 
+  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
+
+  /** The path to use for the displayed value in the column. */
+  @property({ attribute: 'label-path' }) labelPath?: PathKeys<T>;
+
   /**
    * The mode for the filter:
    * - `select`: The filter will allow you to select from a list of options. If none
@@ -49,9 +55,6 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
   /** The value for this filter column. */
   @property({ type: String }) value?: string | string[];
 
-  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
-  @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -66,10 +69,10 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
       const dataSource = this.grid?.dataSource;
 
       // No options were provided, so we'll create a list of options based on the column's values
-      this.internalOptions = dataSource?.items
+      this.internalOptions = dataSource?.originalItems
         ?.reduce((acc, item) => {
           let value = getValueByPath(item, this.path!),
-            label = value?.toString() ?? '';
+            label = (this.labelPath ? getValueByPath(item, this.labelPath)?.toString() : value?.toString()) ?? '';
 
           if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
             label = msg('Blank');
@@ -101,15 +104,24 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
       <th part=${parts.join(' ')}>
         <sl-grid-filter
           .column=${this}
+          .filterLabel=${this.filterLabel}
+          .labelPath=${this.labelPath}
           .mode=${this.mode || 'select'}
           .options=${this.options ?? this.internalOptions}
           .path=${this.path}
           .value=${this.value}
-          .filterLabel=${this.filterLabel}
         >
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-filter>
       </th>
     `;
+  }
+
+  override getDisplayValue(item: T): unknown {
+    if (this.renderer || item === FetchListDataSourcePlaceholder || !this.labelPath) {
+      return super.getDisplayValue(item);
+    } else {
+      return getValueByPath(item, this.labelPath);
+    }
   }
 }

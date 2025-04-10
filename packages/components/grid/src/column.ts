@@ -169,16 +169,8 @@ export class GridColumn<T = any> extends LitElement {
 
   renderData(item: T): TemplateResult {
     const classes = this.getClasses(item),
+      data = this.getDisplayValue(item),
       parts = ['data', ...this.getParts(item)];
-
-    let data: unknown;
-    if (this.renderer) {
-      data = this.renderer(item);
-    } else if (item === FetchListDataSourcePlaceholder) {
-      data = html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
-    } else if (this.path) {
-      data = getValueByPath(item, this.path);
-    }
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
@@ -201,6 +193,18 @@ export class GridColumn<T = any> extends LitElement {
     }
 
     return classes;
+  }
+
+  getDisplayValue(item: T): unknown {
+    if (this.renderer) {
+      return this.renderer(item);
+    } else if (item === FetchListDataSourcePlaceholder) {
+      return html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
+    } else if (this.path) {
+      return getValueByPath(item, this.path);
+    }
+
+    return undefined;
   }
 
   getParts(item?: T): string[] {

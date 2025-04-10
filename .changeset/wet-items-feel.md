@@ -5,4 +5,4 @@
 '@sl-design-system/tag': patch
 ---
 
-removed --sl-icon-container-size; the container now alwas has the same size as the icon. Use margin or an extra wrapper to create extra space around the icon when necessary.
+Removed `--sl-icon-container-size`; the container now always has the same size as the icon. Use margin or an extra wrapper to create extra space around the icon when necessary.

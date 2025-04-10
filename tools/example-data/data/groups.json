@@ -1,0 +1,62 @@
+[
+  {
+    "id": "group-1",
+    "name": "1A",
+    "schoolId": "school-1"
+  },
+  {
+    "id": "group-2",
+    "name": "1B",
+    "schoolId": "school-1"
+  },
+  {
+    "id": "group-3",
+    "name": "1A",
+    "schoolId": "school-2"
+  },
+  {
+    "id": "group-4",
+    "name": "1B",
+    "schoolId": "school-2"
+  },
+  {
+    "id": "group-5",
+    "name": "1A",
+    "schoolId": "school-3"
+  },
+  {
+    "id": "group-6",
+    "name": "1B",
+    "schoolId": "school-3"
+  },
+  {
+    "id": "group-7",
+    "name": "1A",
+    "schoolId": "school-4"
+  },
+  {
+    "id": "group-8",
+    "name": "1B",
+    "schoolId": "school-4"
+  },
+  {
+    "id": "group-9",
+    "name": "1A",
+    "schoolId": "school-5"
+  },
+  {
+    "id": "group-10",
+    "name": "1B",
+    "schoolId": "school-5"
+  },
+  {
+    "id": "group-11",
+    "name": "1A",
+    "schoolId": "school-6"
+  },
+  {
+    "id": "group-12",
+    "name": "1B",
+    "schoolId": "school-6"
+  }
+]

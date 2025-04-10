@@ -1,7 +1,8 @@
+import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
@@ -10,6 +11,7 @@ import { LitElement, type TemplateResult, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
 import '../../register.js';
+import { type GridColumnDataRenderer } from '../column.js';
 
 type Story = StoryObj;
 
@@ -24,15 +26,30 @@ export default {
 } satisfies Meta;
 
 export const Basic: Story = {
-  render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people}>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-filter-column path="profession"></sl-grid-filter-column>
-      <sl-grid-filter-column path="status"></sl-grid-filter-column>
-      <sl-grid-filter-column path="membership"></sl-grid-filter-column>
-    </sl-grid>
-  `
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const avatarRenderer: GridColumnDataRenderer<Student> = ({ firstName, infix, lastName, pictureUrl }) => {
+      return html`
+        <sl-avatar
+          .displayName=${[firstName, infix, lastName].join(' ')}
+          .pictureUrl=${pictureUrl}
+          size="sm"
+        ></sl-avatar>
+      `;
+    };
+
+    return html`
+      <sl-grid .items=${students}>
+        <sl-grid-column
+          header="Student"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
+        <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
+        <sl-grid-filter-column header="School" path="school.name"></sl-grid-filter-column>
+      </sl-grid>
+    `;
+  }
 };
 
 export const Filtered: Story = {

@@ -178,6 +178,8 @@ export class GridColumn<T = any> extends LitElement {
       data = html`<sl-skeleton style="inline-size: ${Math.max(Math.random() * 100, 30)}%"></sl-skeleton>`;
     } else if (this.path) {
       data = getValueByPath(item, this.path);
+    } else {
+      data = 'No path set';
     }
 
     if (this.ellipsizeText && typeof data === 'string') {
@@ -187,7 +189,7 @@ export class GridColumn<T = any> extends LitElement {
         </td>
       `;
     } else {
-      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data ?? 'No path set'}</td>`;
+      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data}</td>`;
     }
   }
 

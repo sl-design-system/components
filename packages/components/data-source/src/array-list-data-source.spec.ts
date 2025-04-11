@@ -19,6 +19,10 @@ describe('ArrayListDataSource', () => {
       expect(ds.items).to.deep.equal(people);
     });
 
+    it('should have the original items', () => {
+      expect(ds.originalItems).to.deep.equal(people);
+    });
+
     it('should have a size', () => {
       expect(ds.size).to.equal(people.length);
     });
@@ -114,6 +118,14 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.deep.equal(people);
+    });
+
+    it('should still have the original items when filtered', () => {
+      ds.addFilter('id', 'profession', 'Gastroenterologist');
+      ds.update();
+
+      expect(ds.items).to.have.length(2);
+      expect(ds.originalItems).to.deep.equal(people);
     });
   });
 

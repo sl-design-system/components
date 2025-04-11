@@ -1,0 +1,50 @@
+[
+  {
+    "id": "school-1",
+    "name": "Gymnasium Sankt Georg",
+    "address": "Schillerstraße 23",
+    "city": "München",
+    "postalCode": "80336",
+    "country": "Germany"
+  },
+  {
+    "id": "school-2",
+    "name": "Lycée Victor Hugo",
+    "address": "14 Rue des Écoles",
+    "city": "Paris",
+    "postalCode": "75005",
+    "country": "France"
+  },
+  {
+    "id": "school-3",
+    "name": "Collegio San Marco",
+    "address": "Via Roma 45",
+    "city": "Milano",
+    "postalCode": "20121",
+    "country": "Italy"
+  },
+  {
+    "id": "school-4",
+    "name": "Koninklijk Atheneum",
+    "address": "Keizersgracht 117",
+    "city": "Amsterdam",
+    "postalCode": "1015 CJ",
+    "country": "Netherlands"
+  },
+  {
+    "id": "school-5",
+    "name": "Instituto Cervantes",
+    "address": "Calle de Alcalá 49",
+    "city": "Madrid",
+    "postalCode": "28014",
+    "country": "Spain"
+  },
+  {
+    "id": "school-6",
+    "name": "Colegio San Isidro",
+    "address": "Rambla de Catalunya 23",
+    "city": "Barcelona",
+    "postalCode": "08007",
+    "country": "Spain"
+  }
+]

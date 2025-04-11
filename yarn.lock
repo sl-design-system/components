@@ -4714,7 +4714,7 @@ __metadata:
     storybook: "npm:^8.6.7"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.4.5"
-    wireit: "npm:^0.14.11"
+    wireit: "npm:^0.14.12"
     zone.js: "npm:~0.14.10"
   languageName: unknown
   linkType: soft
@@ -4876,7 +4876,7 @@ __metadata:
     storybook-addon-pseudo-states: "npm:^4.0.2"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.4.5"
-    wireit: "npm:^0.14.11"
+    wireit: "npm:^0.14.12"
   languageName: unknown
   linkType: soft
 
@@ -5267,7 +5267,7 @@ __metadata:
     stylelint: "npm:^16.15.0"
     typescript: "npm:^5.4.5"
     vite: "npm:^6.2.2"
-    wireit: "npm:^0.14.11"
+    wireit: "npm:^0.14.12"
   languageName: unknown
   linkType: soft
 
@@ -5696,7 +5696,7 @@ __metadata:
     slugify: "npm:^1.6.6"
     tiny-glob: "npm:^0.2.9"
     typescript: "npm:^5.4.5"
-    wireit: "npm:^0.14.11"
+    wireit: "npm:^0.14.12"
   languageName: unknown
   linkType: soft
 
@@ -23215,9 +23215,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wireit@npm:^0.14.11":
-  version: 0.14.11
-  resolution: "wireit@npm:0.14.11"
+"wireit@npm:^0.14.12":
+  version: 0.14.12
+  resolution: "wireit@npm:0.14.12"
   dependencies:
     brace-expansion: "npm:^4.0.0"
     chokidar: "npm:^3.5.3"
@@ -23226,7 +23226,7 @@ __metadata:
     proper-lockfile: "npm:^4.1.2"
   bin:
     wireit: bin/wireit.js
-  checksum: 10c0/f923c9a28aee9932e12b8f3b43ba9ea8fdb510bc02b39bd6fecfd55cd59f31098895f8dfa2d6aba3fd2375320f729d2f556b0d0150fa1627553cb3ed7ac5b891
+  checksum: 10c0/2bc3aabb9cdfe2318d44ee953123bd5f6e1bb7645bd12757791aa2aaf93a1ee0963e6a046012c7956d0d655d637923c41177752b3f84f2c63d81941413c99157
   languageName: node
   linkType: hard
 

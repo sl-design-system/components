@@ -44,13 +44,11 @@ export const SelectionColumn: Story = {
   },
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: ({ selectAll }, { loaded: { people } }) => {
-    const onSelectionChange = ({ detail: selection }: CustomEvent<SelectionController>): void => {
+    const onSelectionChange = ({ detail: { selected, size } }: CustomEvent<SelectionController>): void => {
       const p = document.querySelector<HTMLParagraphElement>('.selection')!;
 
-      if (selection.areAllSelected()) {
-        p.innerText = `${selection.size} of ${selection.size} selected`;
-      } else if (selection.areSomeSelected()) {
-        p.innerText = `${selection.selection.size} of ${selection.size} selected`;
+      if (selected) {
+        p.innerText = `${selected} of ${size} selected`;
       } else {
         p.innerText = 'No selection';
       }

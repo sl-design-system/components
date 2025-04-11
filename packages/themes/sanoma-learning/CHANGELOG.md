@@ -1,5 +1,11 @@
 # @sanomalearning/slds-sanoma-learning
 
+## 0.4.4
+
+### Patch Changes
+
+- [#1957](https://github.com/sl-design-system/components/pull/1957) [`8a08521`](https://github.com/sl-design-system/components/commit/8a08521ce3396630669fbc0c888e4a4d96aeaee5) - Fix interactive bold token value
+
 ## 0.4.3
 
 ### Patch Changes

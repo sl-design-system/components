@@ -68,6 +68,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     return this.#proxy;
   }
 
+  get originalItems(): T[] {
+    return this.#items;
+  }
+
   get size(): number {
     return this.#size;
   }

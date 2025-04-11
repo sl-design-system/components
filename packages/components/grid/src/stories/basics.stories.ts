@@ -13,6 +13,7 @@ import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
 import { type GridColumnDataRenderer } from '../column.js';
+import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -28,16 +29,6 @@ export default {
 
 export const Basic: Story = {
   render: (_, { loaded: { students } }) => {
-    const avatarRenderer: GridColumnDataRenderer<Student> = ({ firstName, infix, lastName, pictureUrl }) => {
-      return html`
-        <sl-avatar
-          .displayName=${[firstName, infix, lastName].join(' ')}
-          .pictureUrl=${pictureUrl}
-          size="sm"
-        ></sl-avatar>
-      `;
-    };
-
     const dateOfBirthRenderer: GridColumnDataRenderer<Student> = ({ dateOfBirth }) => {
       return html`<sl-format-date .date=${dateOfBirth}></sl-format-date>`;
     };
@@ -149,16 +140,6 @@ export const Header: Story = {
 
 export const MenuButton: Story = {
   render: (_, { loaded: { students } }) => {
-    const avatarRenderer: GridColumnDataRenderer<Student> = ({ firstName, infix, lastName, pictureUrl }) => {
-      return html`
-        <sl-avatar
-          .displayName=${[firstName, infix, lastName].join(' ')}
-          .pictureUrl=${pictureUrl}
-          size="sm"
-        ></sl-avatar>
-      `;
-    };
-
     const menuButtonRenderer: GridColumnDataRenderer<Student> = student => {
       const onClick = () => {
         console.log('Menu item for student clicked', student);

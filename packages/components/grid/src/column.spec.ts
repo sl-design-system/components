@@ -144,9 +144,7 @@ describe('sl-column', () => {
           <sl-grid-column
             header="Person"
             .renderer=${avatarRenderer}
-            .scopedElements=${{
-              'sl-avatar': Avatar
-            }}
+            .scopedElements=${{ 'sl-avatar': Avatar }}
           ></sl-grid-column>
           <sl-grid-column path="age" parts="number"></sl-grid-column>
         </sl-grid>

@@ -16,6 +16,12 @@ export type School = {
   country: string;
 };
 
+export type Group = {
+  id: string;
+  name: string;
+  schoolId: string;
+};
+
 export type Student = {
   id: string;
   studentNumber: string;
@@ -25,6 +31,7 @@ export type Student = {
   dateOfBirth: string;
   email: string;
   pictureUrl: string;
+  group?: Group;
   school: School;
 };
 

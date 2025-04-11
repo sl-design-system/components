@@ -24,6 +24,7 @@ export async function getStudents(options) {
   }
 
   const allStudents = await getDataset('students.json'),
+    groups = await getDataset('groups.json'),
     schools = await getDataset('schools.json');
 
   let students = [...allStudents];
@@ -37,6 +38,7 @@ export async function getStudents(options) {
 
     return {
       ...studentWithoutExcludedProps,
+      group: groups.find(group => group.id === student.groupId),
       pictureUrl: studentImages[avatarId]?.image,
       school: schools.find(school => school.id === schoolId)
     };

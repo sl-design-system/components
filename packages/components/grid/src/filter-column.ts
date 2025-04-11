@@ -90,7 +90,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
           let value = getValueByPath(item, this.path!),
             label = (this.labelPath ? getValueByPath(item, this.labelPath)?.toString() : value?.toString()) ?? '';
 
-          if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
+          if (value === null || value === undefined || value?.toString().trim() === '') {
             label = msg('Blank');
             value = '' as Path<T, PathKeys<T>>;
           }

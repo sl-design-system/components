@@ -62,7 +62,7 @@ export const Horizontal: Story = {
       const count = document.querySelectorAll('sl-grid-column').length,
         column = document.createElement('sl-grid-column');
 
-      column.path = columns[count];
+      column.path = columns[count - 1];
       document.querySelector('sl-grid')?.appendChild(column);
     };
 

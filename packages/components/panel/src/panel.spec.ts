@@ -25,6 +25,10 @@ describe('sl-panel', () => {
       expect(el).not.to.have.attribute('collapsed');
     });
 
+    it('should not have has-actions attribute', () => {
+      expect(el).not.to.have.attribute('has-actions');
+    });
+
     it('should not render the wrapper as a button', () => {
       const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
 
@@ -224,6 +228,10 @@ describe('sl-panel', () => {
       expect(elements).to.have.lengthOf(1);
       expect(elements?.at(0)).to.match('sl-button');
       expect(elements?.at(0)).to.have.text('Action');
+    });
+
+    it('should have has-actions attribute', () => {
+      expect(el).to.have.attribute('has-actions');
     });
 
     it('should slot the content into the default slot', () => {

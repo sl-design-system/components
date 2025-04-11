@@ -1,6 +1,6 @@
 import { localized } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
+import { Button, ButtonFill } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
@@ -16,6 +16,8 @@ declare global {
   }
 }
 
+export type PanelDensity = 'plain' | 'comfortable';
+
 export type PanelElevation = 'none' | 'raised' | 'sunken';
 
 export type TogglePlacement = 'start' | 'end';
@@ -28,17 +30,15 @@ export type TogglePlacement = 'start' | 'end';
  * @csspart body - The body of the panel.
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
- * @csspart titles - The container for the heading and subheading.
+ * @csspart titles - The container for the heading.
  *
  * @cssprop --sl-panel-content-padding - The padding for the panel content, e.g. set to 0 to have content without any padding.
- * @cssprop --sl-panel-titles-order - The order of the titles (heading and subheading) - `column` by default, so the subheading is below the heading. Can be used `column-reverse` as well to have subheading above the heading when it's necessary.
  *
  * @slot heading - The panel's heading. Use this if the `heading` property does not suffice.
  * @slot aside - Additional content to show in the header; replaces the button bar.
- * @slot actions - The panel's actions; will slot in a button bar by default.
+ * @slot actions - The panel's actions; will slot in a tool bar by default.
  * @slot default - The panel's content.
  * @slot prefix - Content to show before the heading.
- * @slot subheading - The panel's subheading. Use this if the `subheading` property is not sufficient.
  * @slot suffix - Content to show after the heading.
  */
 @localized()
@@ -61,8 +61,23 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** Indicates whether the panel can be collapsed. */
   @property({ type: Boolean, reflect: true }) collapsible?: boolean;
 
+  /**
+   * The density of the panel.
+   * @default plain
+   */
+  @property({ reflect: true }) density?: PanelDensity;
+
+  /** Will render a horizontal divider when set. */
+  @property({ type: Boolean, reflect: true }) divider?: boolean;
+
   /** The elevation style of the panel. */
   @property({ reflect: true }) elevation?: PanelElevation;
+
+  /**
+   * The fill of the button in the tool-bar.
+   * @default 'ghost'
+   */
+  @property() fill: ButtonFill = 'ghost';
 
   /**
    * The heading shown in the header. Use this property if your heading is a string. If you need
@@ -72,12 +87,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   /** Hide the border around the panel when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
-
-  /**
-   * The heading shown in the header. Use this property if your subheading is a string. If you need
-   * more flexibility, such as an icon or other elements, use the `subheading` slot.
-   */
-  @property() subheading?: string;
 
   /** The placement of the toggle button when it's collapsible.
    * @default `start`
@@ -90,7 +99,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('heading') || changes.has('subheading') || changes.has('collapsible')) {
+    if (changes.has('heading') || changes.has('collapsible')) {
       this.#onHeaderSlotChange();
     }
   }
@@ -121,8 +130,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
             `
           : html`<div part="wrapper">${this.renderHeading()}</div>`}
         <slot name="aside">
-          <sl-tool-bar align="end" no-border>
-            <slot name="actions"></slot>
+          <sl-tool-bar align="end" no-border fill=${ifDefined(this.fill)}>
+            <slot @slotchange=${this.#onActionsSlotChange} name="actions"></slot>
           </sl-tool-bar>
         </slot>
       </div>
@@ -141,7 +150,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
       <slot name="prefix"></slot>
       <div part="titles">
         <slot id="heading" name="heading">${this.heading}</slot>
-        <slot name="subheading">${this.subheading}</slot>
       </div>
       <slot name="suffix"></slot>
     `;
@@ -172,6 +180,18 @@ export class Panel extends ScopedElementsMixin(LitElement) {
           )
       );
 
-    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.subheading && !this.collapsible);
+    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.collapsible);
+  }
+
+  #onActionsSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true });
+
+    elements.forEach(el => {
+      if (el instanceof Button) {
+        el.fill = this.fill;
+      }
+    });
+
+    this.toggleAttribute('has-actions', elements.length > 0);
   }
 }

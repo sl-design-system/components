@@ -79,6 +79,9 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the value of the filter has changed. */
   @event({ name: 'sl-filter-value-change' }) filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
 
+  /** The path to use for the displayed value in the column. */
+  @property({ attribute: 'label-path' }) labelPath?: PathKeys<T>;
+
   /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;
 
@@ -91,6 +94,11 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
+  get value(): string | string[] | undefined {
+    return this.#value;
+  }
+
+  @property({ attribute: false })
   set value(value: string | string[] | undefined) {
     if (this.mode !== 'text') {
       this.#value = Array.isArray(value) ? value : (value?.split(',') ?? []);
@@ -99,12 +107,6 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     this.active = Array.isArray(this.#value) ? this.#value.length > 0 : !!this.#value;
-    this.requestUpdate('value');
-  }
-
-  @property({ attribute: false })
-  get value(): string | string[] | undefined {
-    return this.#value;
   }
 
   override connectedCallback(): void {
@@ -132,27 +134,6 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     super.disconnectedCallback();
   }
 
-  getFilterHeaderValue(): string {
-    if (this.filterLabel) {
-      return this.filterLabel;
-    }
-
-    const header = this.column.header;
-    if (typeof header === 'string') {
-      return header?.toString().toLocaleLowerCase();
-    }
-    if (typeof header !== 'string' && header !== undefined) {
-      const div = document.createElement('div');
-      div.innerHTML = (header as unknown as TemplateResult).strings[0];
-      const textNodes = Array.from(div.childNodes)
-        .filter(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim())
-        .map(node => node.textContent?.trim());
-      return textNodes.join(' ').toString().toLocaleLowerCase();
-    }
-
-    return getNameByPath(this.column.path).toLocaleLowerCase();
-  }
-
   override render(): TemplateResult {
     return html`
       <sl-button @click=${this.#onClick} class="toggle" id="anchor" fill="link">
@@ -161,7 +142,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       </sl-button>
       <sl-popover anchor="anchor" position="bottom">
         <header>
-          <h1 id="title">${msg(str`Filter by ${this.getFilterHeaderValue()}`)}</h1>
+          <h1 id="title">${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}</h1>
           <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
             <sl-icon name="xmark"></sl-icon>
           </sl-button>
@@ -230,5 +211,26 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   #onInput(event: Event & { target: HTMLInputElement }): void {
     this.value = event.target.value.trim();
     this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
+  }
+
+  #getFilterHeaderValue(): string {
+    if (this.filterLabel) {
+      return this.filterLabel;
+    }
+
+    const header = this.column.header;
+
+    if (typeof header === 'string') {
+      return header?.toString().toLocaleLowerCase();
+    } else if (header !== undefined) {
+      const div = document.createElement('div');
+      div.innerHTML = (header as unknown as TemplateResult).strings[0];
+      const textNodes = Array.from(div.childNodes)
+        .filter(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim())
+        .map(node => node.textContent?.trim());
+      return textNodes.join(' ').toString().toLocaleLowerCase();
+    }
+
+    return getNameByPath(this.column.path).toLocaleLowerCase();
   }
 }

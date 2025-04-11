@@ -30,7 +30,7 @@ export type TogglePlacement = 'start' | 'end';
  * @csspart body - The body of the panel.
  * @csspart inner - The inner container of the panel.
  * @csspart content - The content container of the panel.
- * @csspart titles - The container for the heading
+ * @csspart titles - The container for the heading.
  *
  * @cssprop --sl-panel-content-padding - The padding for the panel content, e.g. set to 0 to have content without any padding.
  *

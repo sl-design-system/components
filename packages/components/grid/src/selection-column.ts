@@ -59,7 +59,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   renderSelectionHeader(): TemplateResult {
     return html`
       <th part="header active-selection">
-        <span class="selection-count">${msg(str`${this.getSelectedCount()} selected`)}</span>
+        <span class="selection-count">${msg(str`${this.grid?.selection.selected} selected`)}</span>
         <slot name="selection-header"></slot>
       </th>
     `;
@@ -78,22 +78,6 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         ></sl-checkbox>
       </td>
     `;
-  }
-
-  getSelectedCount(): number {
-    const { selection } = this.grid!,
-      size = this.grid?.dataSource?.items.length ?? 0;
-
-    let result = 0;
-    if (selection.areAllSelected()) {
-      result = size;
-    } else if (selection.isSelectAllToggled()) {
-      result = size - selection.selection.size;
-    } else {
-      result = selection.selection.size;
-    }
-
-    return result;
   }
 
   #onToggleSelect(item: T, checked: boolean): void {

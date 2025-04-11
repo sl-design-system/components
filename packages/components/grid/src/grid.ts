@@ -407,10 +407,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   renderHeader(): TemplateResult {
     const rows = this.view.headerRows,
       selectionColumn = rows.at(-1)?.find((col): col is GridSelectionColumn<T> => col instanceof GridSelectionColumn),
-      showSelectionHeader =
-        selectionColumn &&
-        this.selection.size > 0 &&
-        (this.selection.areSomeSelected() || this.selection.areAllSelected());
+      showSelectionHeader = selectionColumn && this.selection.selected > 0;
+
     return html`
       ${rows.slice(0, -1).map(
         row => html`

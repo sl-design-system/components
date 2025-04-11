@@ -9,6 +9,10 @@ export type SlSelectionChangeEvent<T> = CustomEvent<{ selection: SelectionContro
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SelectionController<T = any> {
+  /** The active item. There can only be one active item at a time.*/
+  #active?: T | null;
+
+  /** The host element. */
   #host: ReactiveControllerHost & Element;
 
   /** Whether all items are selected or not. */
@@ -20,31 +24,32 @@ export class SelectionController<T = any> {
    */
   #selection = new Set<T>();
 
-  /** The active item. There can only be one active item at a time.*/
-  #active?: T | null;
-
-  /** The total number of items in the selection. */
-  size = 0;
-
   /** Whether more than 1 item can be selected at a time. */
   multiple = false;
 
+  /**
+   * Returns the number of selected items. This may not match the size of the selection
+   * Set. Depending on the selectAll state, the selection may only contain unselected items.
+   */
+  get selected(): number {
+    if (this.#selectAll) {
+      return this.size - this.#selection.size;
+    } else {
+      return this.#selection.size;
+    }
+  }
+
+  /** Depending on the selectAll state, this may contain selected or unselected items. */
   get selection(): Set<T> {
     return this.#selection;
   }
 
+  /** The total number of items in the selection. */
+  size = 0;
+
   constructor(host: ReactiveControllerHost & Element, options?: Partial<SelectionControllerOptions>) {
     this.#host = host;
     this.multiple = !!options?.multiple;
-  }
-
-  toggleActive(item: T | undefined): T | undefined {
-    if (this.#active === item) {
-      this.#active = undefined;
-    } else {
-      this.#active = item;
-    }
-    return this.#active;
   }
 
   select(item: T): void {
@@ -91,6 +96,12 @@ export class SelectionController<T = any> {
     }
   }
 
+  toggleActive(item: T | undefined): T | undefined {
+    this.#active = this.#active === item ? undefined : item;
+
+    return this.#active;
+  }
+
   areAllSelected(): boolean {
     if (this.#selectAll) {
       return this.#selection.size === 0;
@@ -109,16 +120,16 @@ export class SelectionController<T = any> {
     }
   }
 
+  isActive(item: T): boolean {
+    return this.#active === item;
+  }
+
   isSelected(item: T): boolean {
     if (this.#selectAll) {
       return !this.#selection.has(item);
     } else {
       return this.#selection.has(item);
     }
-  }
-
-  isActive(item: T): boolean {
-    return this.#active === item;
   }
 
   isSelectAllToggled(): boolean {

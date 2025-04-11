@@ -32,7 +32,7 @@
 [part='wrapper'] {
   display: flex;
   flex: 1;
-  gap: 1rem;
+  gap: var(--sl-size-050);
   min-inline-size: 0;
   padding: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
 }

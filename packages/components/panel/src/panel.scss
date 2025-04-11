@@ -1,22 +1,32 @@
 :host {
   --sl-panel-content-padding: var(--sl-size-200);
 
-  // --sl-panel-titles-order: column;
-
-  background: transparent; // var(--sl-elevation-surface-raised-default);
+  background: transparent;
   border: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-subtle);
-  border-radius: var(--sl-size-borderRadius-default); // var(--sl-size-borderRadius-md);
+  border-radius: var(--sl-size-borderRadius-default);
   display: flex;
   flex-direction: column;
 }
 
+:host([divider]) {
+  [part='content'] {
+    border-block-start: var(--sl-color-border-plain) solid var(--sl-size-borderWidth-default);
+    padding-block-start: var(--sl-size-125);
+  }
+}
+
 :host([density='comfortable']) {
-  // background: var(--sl-elevation-surface-raised-sunken);
-  --sl-panel-content-padding: 24px;
+  --sl-panel-content-padding: var(--sl-size-300);
 
   [part='header'] {
-    min-block-size: 56px;
-    padding: 0 24px; // 10px 24px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+    min-block-size: var(--sl-size-700); // 56px;
+    padding: 0 var(--sl-size-300);
+  }
+}
+
+:host([density='comfortable'][divider]) {
+  [part='content'] {
+    padding-block-start: var(--sl-size-200);
   }
 }
 
@@ -28,13 +38,15 @@
   // background: var(--sl-elevation-surface-raised-sunken);
 
   [part='header'] {
-    padding: 10px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+    padding: 0 var(--sl-size-125); // 0 10px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
   }
 }
 
 :host([density='comfortable'][collapsible][toggle-placement='end']) {
   [part='header'] {
-    padding-inline-start: 24px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+    padding-inline-start: var(
+      --sl-size-300
+    ); // 24px; // 10px 24px; // 10px 16px; //var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
   }
 }
 
@@ -56,8 +68,8 @@
 :host([collapsible]) {
   [part='header'] {
     grid-template-areas: 'toggle wrapper aside';
-    grid-template-columns: auto minmax(auto, 1fr) minmax(40px, auto);
-    padding: 0 6px;
+    grid-template-columns: auto minmax(auto, 1fr) minmax(var(--sl-size-500), auto);
+    padding: 0 var(--sl-size-075); // 0 6px;
   }
 }
 
@@ -65,20 +77,18 @@
   [part='header'] {
     grid-template-areas: 'wrapper aside toggle';
     grid-template-columns: 1fr minmax(0, auto) auto;
-    padding-inline-start: 16px;
+    padding-inline-start: var(--sl-size-200); // 16px;
   }
 }
-
-// :host([no-padding]) {
-//  [part='content'] {
-//    padding: 0;
-//  }
-// }
 
 :host([no-header]) {
   [part='header'] {
     min-block-size: 0;
     padding: 0;
+  }
+
+  slot[name='heading'] {
+    display: none;
   }
 }
 
@@ -92,18 +102,18 @@
   align-items: center;
   display: grid;
   flex: 1;
-  gap: 6px; // var(--sl-space-new-lg);
+  gap: var(--sl-size-075); // 6px; // var(--sl-space-new-lg);
   grid-template-areas: 'wrapper aside';
-  grid-template-columns: 1fr minmax(0, auto);
-  min-block-size: 48px;
-  padding: 0 16px; // 6px 16px; // var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
+  grid-template-columns: 2fr minmax(0, 1fr); // 1fr minmax(0, auto);
+  min-block-size: var(--sl-size-600); // 48px;
+  padding: 0 var(--sl-size-200); // 0 16px; // 6px 16px; // var(--sl-size-075); // 6px for plain density var(--sl-size-200); // var(--sl-space-new-lg);
 }
 
 [part='wrapper'] {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sl-size-200); // var(--sl-space-new-lg);
+  gap: var(--sl-size-075); // 6px; // var(--sl-size-200); // var(--sl-space-new-lg);
   grid-area: wrapper;
 }
 
@@ -113,7 +123,7 @@ slot[name='heading']::slotted(*) {
   font-size: 1.2em; // 16px and base is 14px // 1.5em;
   font-weight: var(--sl-text-typeset-fontWeight-demibold);
   line-height: 1lh; // 36px; //1lh; // 1.5em;
-  padding-block: 8px;
+  padding-block: var(--sl-size-100); // 8px;
 }
 
 slot[name='heading'] {
@@ -161,5 +171,3 @@ sl-icon {
 sl-icon.upside-down {
   transform: scaleY(-1);
 }
-
-// TODO: min-height instead of padding-block in the header? what about overflow?

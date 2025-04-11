@@ -67,6 +67,9 @@ export class Panel extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) density?: PanelDensity;
 
+  /** Will render a horizontal divider when set. */
+  @property({ type: Boolean, reflect: true }) divider?: boolean;
+
   /** The elevation style of the panel. */
   @property({ reflect: true }) elevation?: PanelElevation;
 

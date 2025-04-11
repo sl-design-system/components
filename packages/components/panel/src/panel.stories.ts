@@ -3,13 +3,16 @@ import {
   faBook,
   faCopy,
   faGear,
+  faLink,
   faList,
+  faLock,
   faPaste,
   faPen,
   faRocket,
   faShare,
   faTableCells,
-  faTrash
+  faTrash,
+  faUnlock
 } from '@fortawesome/pro-regular-svg-icons';
 import { faPeople } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
@@ -21,7 +24,7 @@ import { type Panel, type PanelDensity, PanelElevation, type TogglePlacement } f
 
 type Props = Pick<
   Panel,
-  'collapsed' | 'collapsible' | 'density' | 'elevation' | 'heading' | 'noBorder' | 'togglePlacement'
+  'collapsed' | 'collapsible' | 'density' | 'divider' | 'elevation' | 'heading' | 'noBorder' | 'togglePlacement'
 > & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
@@ -84,6 +87,8 @@ Icon.register(
   faBook,
   faCopy,
   faGear,
+  faLink,
+  faLock,
   faList,
   faPaste,
   faPen,
@@ -91,7 +96,8 @@ Icon.register(
   faPeople,
   faRocket,
   faTableCells,
-  faTrash
+  faTrash,
+  faUnlock
 );
 
 export default {
@@ -100,6 +106,7 @@ export default {
   args: {
     collapsible: false,
     density: 'plain',
+    divider: false,
     elevation: 'none',
     noBorder: false,
     togglePlacement: 'start'
@@ -139,6 +146,7 @@ export default {
     collapsible,
     content,
     density,
+    divider,
     elevation,
     heading,
     noBorder,
@@ -150,6 +158,7 @@ export default {
       <sl-panel
         ?collapsed=${collapsible && collapsed}
         ?collapsible=${collapsible}
+        ?divider=${divider}
         .density=${density}
         .elevation=${elevation}
         .heading=${heading}
@@ -176,7 +185,7 @@ export const WithPrefix: Story = {
     actions: () =>
       html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
-    prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
+    prefix: () => html`<sl-icon slot="prefix" name="far-backpack"></sl-icon>`,
     heading: 'Panel heading'
   }
 };
@@ -225,6 +234,9 @@ export const OverflowActions: Story = {
       <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="List"><sl-icon name="far-list"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Link"><sl-icon name="far-link"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Lock"><sl-icon name="far-lock"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Unlock"><sl-icon name="far-unlock"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Settings"><sl-icon name="far-gear"></sl-icon></sl-button>
       <sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>
     `,
@@ -343,6 +355,9 @@ export const All: Story = {
 
       .examples {
         gap: 1.62rem;
+        border: 3px dashed #9747ff;
+        border-radius: 0.5rem;
+        padding: 1rem;
       }
 
       section {
@@ -368,144 +383,365 @@ export const All: Story = {
       elevation => html`
         <h2>Elevation: ${elevation}</h2>
         <section>
-          <div class="examples">
-            <h3>No border</h3>
-            <sl-panel no-border .elevation=${elevation}>Panel without header that can contain anything.</sl-panel>
-            <sl-panel no-border .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel no-border .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel no-border .elevation=${elevation} heading="Panel heading">
-              Panel content
-              <sl-button fill="ghost" slot="actions" aria-label="Remove"
-                ><sl-icon name="far-trash"></sl-icon
-              ></sl-button>
-            </sl-panel>
-            <sl-panel no-border .elevation=${elevation} collapsible heading="Panel heading">Panel content</sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              collapsible
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-              >Panel content</sl-panel
-            >
-            <sl-panel no-border .elevation=${elevation} collapsible collapsed heading="Panel heading">
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-            >
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel no-border .elevation=${elevation} collapsible collapsed heading="Panel heading with prefix">
-              <sl-icon slot="prefix" name="far-backpack"></sl-icon>
-              <sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel no-border .elevation=${elevation} collapsible collapsed heading="Panel heading with suffix">
-              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
+          <div>
+            <h3>1. No border</h3>
+            ${densities.map(
+              density => html`
+                <h4>Density: ${density}</h4>
+                <div class="examples">
+                  <sl-panel no-border .density=${density} .elevation=${elevation}
+                    >Panel without header that can contain anything.</sl-panel
+                  >
+                  <sl-panel no-border .density=${density} .elevation=${elevation} heading="Panel heading"
+                    >Panel content</sl-panel
+                  >
+                  <sl-panel no-border .density=${density} .elevation=${elevation} heading="Panel heading">
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel no-border .density=${density} .elevation=${elevation} collapsible heading="Panel heading"
+                    >Panel content</sl-panel
+                  >
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    divider
+                    heading="Panel heading"
+                    >Panel content with divider</sl-panel
+                  >
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    heading="Panel heading - toggle on the right"
+                    toggle-placement="end"
+                    >Panel content</sl-panel
+                  >
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Panel heading"
+                  >
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Panel heading - toggle on the right"
+                    toggle-placement="end"
+                  >
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us."
+                  >
+                    Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore
+                    different countries and their cultures, and understand how the world works. Take fun quizzes, track
+                    your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with
+                    tools designed to help you learn and explore.
+                    <sl-button fill="ghost" slot="actions" aria-label="Share"
+                      ><sl-icon name="far-share"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Settings"
+                      ><sl-icon name="far-gear"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Panel heading with prefix"
+                  >
+                    <sl-icon slot="prefix" name="far-backpack"></sl-icon>
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Panel heading with suffix"
+                  >
+                    <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    heading="Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us. Let the journey begin."
+                  >
+                    Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore
+                    different countries and their cultures, and understand how the world works. Take fun quizzes, track
+                    your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with
+                    tools designed to help you learn and explore.
+                    <sl-button fill="ghost" slot="actions" aria-label="Edit"
+                      ><sl-icon name="far-pen"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Copy"
+                      ><sl-icon name="far-copy"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Paste"
+                      ><sl-icon name="far-paste"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Book"
+                      ><sl-icon name="far-book"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Share"
+                      ><sl-icon name="far-share"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="List"
+                      ><sl-icon name="far-list"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Settings"
+                      ><sl-icon name="far-gear"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    no-border
+                    .density=${density}
+                    .elevation=${elevation}
+                    divider
+                    heading="Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us. Let the journey begin."
+                  >
+                    Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore
+                    different countries and their cultures, and understand how the world works. Take fun quizzes, track
+                    your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with
+                    tools designed to help you learn and explore.
+                    <sl-button fill="ghost" slot="actions" aria-label="Edit"
+                      ><sl-icon name="far-pen"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Copy"
+                      ><sl-icon name="far-copy"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Paste"
+                      ><sl-icon name="far-paste"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Book"
+                      ><sl-icon name="far-book"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Share"
+                      ><sl-icon name="far-share"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="List"
+                      ><sl-icon name="far-list"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Settings"
+                      ><sl-icon name="far-gear"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                </div>
+              `
+            )}
           </div>
           <div>
-            <h3>With border</h3>
-            <sl-panel .elevation=${elevation}>Panel content without header</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel heading">
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible heading="Panel heading">Panel content</sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-              >Panel content</sl-panel
-            >
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading">
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-            >
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading=" Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading with prefix">
-              <sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading with suffix">
-              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
-              Panel content with icon...
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
+            <h3>2. With border</h3>
+            ${densities.map(
+              density => html`
+                <h4>Density: ${density}</h4>
+                <div class="examples">
+                  <sl-panel .density=${density} .elevation=${elevation}
+                    >Panel without header that can contain anything.</sl-panel
+                  >
+                  <sl-panel .density=${density} .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
+                  <sl-panel .density=${density} .elevation=${elevation} heading="Panel heading">
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel .density=${density} .elevation=${elevation} collapsible heading="Panel heading"
+                    >Panel content</sl-panel
+                  >
+                  <sl-panel .density=${density} .elevation=${elevation} collapsible divider heading="Panel heading"
+                    >Panel content with divider</sl-panel
+                  >
+                  <sl-panel
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    heading="Panel heading - toggle on the right"
+                    toggle-placement="end"
+                    >Panel content</sl-panel
+                  >
+                  <sl-panel .density=${density} .elevation=${elevation} collapsible collapsed heading="Panel heading">
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Panel heading - toggle on the right"
+                    toggle-placement="end"
+                  >
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us."
+                  >
+                    Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore
+                    different countries and their cultures, and understand how the world works. Take fun quizzes, track
+                    your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with
+                    tools designed to help you learn and explore.
+                    <sl-button fill="ghost" slot="actions" aria-label="Share"
+                      ><sl-icon name="far-share"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Settings"
+                      ><sl-icon name="far-gear"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Panel heading with prefix"
+                  >
+                    <sl-icon slot="prefix" name="far-backpack"></sl-icon>
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    .density=${density}
+                    .elevation=${elevation}
+                    collapsible
+                    collapsed
+                    heading="Panel heading with suffix"
+                  >
+                    <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
+                    Panel content
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    .density=${density}
+                    .elevation=${elevation}
+                    heading="Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us. Let the journey begin."
+                  >
+                    Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore
+                    different countries and their cultures, and understand how the world works. Take fun quizzes, track
+                    your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with
+                    tools designed to help you learn and explore.
+                    <sl-button fill="ghost" slot="actions" aria-label="Edit"
+                      ><sl-icon name="far-pen"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Copy"
+                      ><sl-icon name="far-copy"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Paste"
+                      ><sl-icon name="far-paste"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Book"
+                      ><sl-icon name="far-book"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Share"
+                      ><sl-icon name="far-share"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="List"
+                      ><sl-icon name="far-list"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Settings"
+                      ><sl-icon name="far-gear"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                  <sl-panel
+                    .density=${density}
+                    .elevation=${elevation}
+                    divider
+                    heading="Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us. Let the journey begin."
+                  >
+                    Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore
+                    different countries and their cultures, and understand how the world works. Take fun quizzes, track
+                    your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with
+                    tools designed to help you learn and explore.
+                    <sl-button fill="ghost" slot="actions" aria-label="Edit"
+                      ><sl-icon name="far-pen"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Copy"
+                      ><sl-icon name="far-copy"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Paste"
+                      ><sl-icon name="far-paste"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Book"
+                      ><sl-icon name="far-book"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Share"
+                      ><sl-icon name="far-share"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="List"
+                      ><sl-icon name="far-list"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Settings"
+                      ><sl-icon name="far-gear"></sl-icon
+                    ></sl-button>
+                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
+                      ><sl-icon name="far-trash"></sl-icon
+                    ></sl-button>
+                  </sl-panel>
+                </div>
+              `
+            )}
           </div>
         </section>
       `

@@ -331,8 +331,8 @@ export const NoHeader: Story = {
         }
 
         img {
-          width: 40rem;
-          height: 40rem;
+          max-height: 40rem;
+          aspect-ratio: 3 / 4;
         }
       </style>
       <div>
@@ -357,7 +357,7 @@ export const All: Story = {
         gap: 1.62rem;
         border: 3px dashed #9747ff;
         border-radius: 0.5rem;
-        padding: 1rem;
+        padding: 1.5rem;
       }
 
       section {

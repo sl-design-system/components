@@ -88,12 +88,6 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   /** Hide the border around the panel when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
-  // /**
-  //  * The heading shown in the header. Use this property if your subheading is a string. If you need
-  //  * more flexibility, such as an icon or other elements, use the `subheading` slot.
-  //  */
-  // @property() subheading?: string;
-
   /** The placement of the toggle button when it's collapsible.
    * @default `start`
    * */
@@ -191,12 +185,13 @@ export class Panel extends ScopedElementsMixin(LitElement) {
 
   #onActionsSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true });
-    console.log('elements in actions slot change', elements);
 
     elements.forEach(el => {
       if (el instanceof Button) {
         el.fill = this.fill;
       }
     });
+
+    this.toggleAttribute('has-actions', elements.length > 0);
   }
 }

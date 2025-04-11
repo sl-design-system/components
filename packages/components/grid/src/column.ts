@@ -160,6 +160,12 @@ export class GridColumn<T = any> extends LitElement {
    */
   stateChanged(): void {}
 
+  /**
+   * This method renders the `<th>` element and all the related attributes, classes and content.
+   * Override this method if you want to customize how a header is rendered. Do not override this
+   * if you only want to change the classes, contents or parts of the header. See this specific
+   * methods for that.
+   */
   renderHeader(): TemplateResult {
     const classes = this.getClasses(),
       parts = ['header', ...this.getParts()];
@@ -167,6 +173,12 @@ export class GridColumn<T = any> extends LitElement {
     return html`<th class=${classes.join(' ')} part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
   }
 
+  /**
+   * This method renders the `<td>` element and all the related attributes, classes and content.
+   * Override this method if you want to customize how a cell is rendered. Do not override this
+   * if you only want to change the classes, contents or parts of the cell. See this specific
+   * methods for that.
+   */
   renderData(item: T): TemplateResult {
     const classes = this.getClasses(item),
       data = this.getDisplayValue(item),
@@ -183,8 +195,14 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
+  /** Override this method to provide internal styling for a cell. */
   renderStyles(): CSSResult | void {}
 
+  /**
+   * Returns an array of strings that are set as class attribute on the `<td>` element.
+   * This is used for styling the cells internally. Override this method if you want to add
+   * custom classes to the cells.
+   */
   getClasses(_item?: T): string[] {
     const classes: string[] = [];
 
@@ -195,6 +213,16 @@ export class GridColumn<T = any> extends LitElement {
     return classes;
   }
 
+  /**
+   * Returns the display value for the given item. This is used to render the cell content.
+   * The logic here is as follows:
+   * 1. If a renderer is set, it will be used to render the cell content.
+   * 2. If the item is a placeholder, a skeleton will be returned.
+   * 3. If a path is set, the value will be retrieved from the item using the path.
+   * 4. If no path is set, the value 'No path set' will be returned.
+   *
+   * Override this method if you want to change the way the cell content is rendered.
+   */
   getDisplayValue(item: T): unknown {
     if (this.renderer) {
       return this.renderer(item);
@@ -207,6 +235,11 @@ export class GridColumn<T = any> extends LitElement {
     }
   }
 
+  /**
+   * Returns an array of strings that are set as part attributes on the `<td>` element.
+   * This is used for styling the cells externally. Override this method if you want to add
+   * custom parts to the cells.
+   */
   getParts(item?: T): string[] {
     let parts: string[] = [];
 

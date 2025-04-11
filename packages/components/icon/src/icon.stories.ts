@@ -12,6 +12,7 @@ import { Icon, type IconSize } from './icon.js';
 
 interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
   icons: string[];
+  headingSize?: number;
 }
 
 const sizeName = (size: string): string => {
@@ -99,6 +100,13 @@ export default {
           </section>
         `
       )}
+
+      <h3>Icon based on text size</h3>
+      <p>
+        <sl-icon name="info"></sl-icon> This icon is based on the text size and scales when text-only zoom is used. The
+        minimum size of the icon however is defined by the size set on the icon (or md by default). It can never get
+        smaller than the indicated size.
+      </p>
     `;
   }
 } satisfies Meta<Props>;
@@ -106,6 +114,43 @@ export default {
 type Story = StoryObj<Props>;
 
 export const Basic: Story = {};
+export const SizeInheritance: Story = {
+  args: {
+    headingSize: 28
+  },
+  argTypes: {
+    headingSize: {
+      control: { type: 'range', min: 14, max: 64, step: 1 }
+    }
+  },
+  render: ({ headingSize }) => {
+    return html` <p>
+        When an explicit font size is set to the parent of the icon, or if a user uses (text) zoom in the browser the
+        icon will use the maximum value of either the set icon size or 1cap of the current font-size.
+      </p>
+      <h1 style="font-size:${headingSize}px"><sl-icon name="info"> </sl-icon> Inheritance</h1>
+      <sl-button variant="primary" style="font-size:${headingSize}px">
+        <sl-icon name="info"></sl-icon> Agree
+      </sl-button>
+      <p>
+        The icons above have no explicit size set, so they will default to the height of the <code>md</code> size icon.
+        When the font-size (or zoom) is increased to the point where the <code>cap</code> size (the height of the
+        capitals in the font) is larger than the 16px<sup>*</sup> of the <code>md</code>-icon the icon will become
+        larger, to meet the size of <code>1cap</code>.
+      </p>
+      <p>
+        You can of course still set the size of the icon by using the size property, that will impact the minimum size
+        of the icon; it will grow to be 1cap high when zoomed in or when the text size increases, as you can see in the
+        example below.
+      </p>
+      <sl-button variant="primary" style="flex-direction:column;">
+        <sl-icon name="info" size="2xl"></sl-icon>Agree
+      </sl-button>
+      <p>
+        <small>* = 16px is at time of writing the size of the <code>md</code> icon in the Sanoma Learning theme.</small>
+      </p>`;
+  }
+};
 
 export const All: Story = {
   render: () => {

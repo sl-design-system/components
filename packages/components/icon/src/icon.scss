@@ -1,27 +1,53 @@
-$sizes: 2xs, xs, sm, md, lg, xl, 2xl, 3xl, 4xl;
-
 :host {
-  --sl-icon-container-size: var(--sl-size-icon-md);
   --sl-icon-fill-accent: var(--sl-color-palette-accent-300);
   --sl-icon-fill-default: currentcolor;
-  --sl-icon-size: var(--sl-size-icon-md);
+  --sl-icon-size: var(--sl-size-200);
 
-  block-size: var(--sl-icon-container-size, unset);
+  aspect-ratio: 1 / 1;
   display: inline-grid;
-  inline-size: var(--sl-icon-container-size, unset);
+  inline-size: max(1cap, var(--sl-icon-size));
   outline: none;
   place-content: center;
   translate: 0;
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --sl-icon-container-size: var(--sl-size-icon-#{$size});
-    --sl-icon-size: var(--sl-size-icon-#{$size});
-  }
+:host([size='2xs']) {
+  --sl-icon-size: var(--sl-size-125);
+}
+
+:host([size='xs']) {
+  --sl-icon-size: var(--sl-size-150);
+}
+
+:host([size='sm']) {
+  --sl-icon-size: var(--sl-size-175);
+}
+
+:host([size='md']) {
+  --sl-icon-size: var(--sl-size-200);
+}
+
+:host([size='lg']) {
+  --sl-icon-size: var(--sl-size-250);
+}
+
+:host([size='xl']) {
+  --sl-icon-size: var(--sl-size-300);
+}
+
+:host([size='2xl']) {
+  --sl-icon-size: var(--sl-size-400);
+}
+
+:host([size='3xl']) {
+  --sl-icon-size: var(--sl-size-600);
+}
+
+:host([size='4xl']) {
+  --sl-icon-size: var(--sl-size-800);
 }
 
 svg {
-  block-size: var(--sl-icon-size);
-  inline-size: var(--sl-icon-size);
+  aspect-ratio: 1 / 1;
+  inline-size: 100%;
 }

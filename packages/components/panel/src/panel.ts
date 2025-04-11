@@ -99,7 +99,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('heading') /*|| changes.has('subheading')*/ || changes.has('collapsible')) {
+    if (changes.has('heading') || changes.has('collapsible')) {
       this.#onHeaderSlotChange();
     }
   }
@@ -180,7 +180,7 @@ export class Panel extends ScopedElementsMixin(LitElement) {
           )
       );
 
-    this.toggleAttribute('no-header', !hasContent && !this.heading /*&& !this.subheading*/ && !this.collapsible);
+    this.toggleAttribute('no-header', !hasContent && !this.heading && !this.collapsible);
   }
 
   #onActionsSlotChange(event: Event & { target: HTMLSlotElement }): void {

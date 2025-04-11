@@ -35,6 +35,7 @@
   gap: var(--sl-size-050);
   min-inline-size: 0;
   padding: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+  padding-inline-end: 0;
 }
 
 sl-menu-button {

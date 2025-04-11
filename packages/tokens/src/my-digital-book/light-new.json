@@ -1340,7 +1340,7 @@
             "description": "The subtlest grey background option for interactive elements, applied purely for stylistic purposes without specific meaning."
           },
           "subtle": {
-            "value": "rgba({color.palette.grey.700}, {opacity.light.subtle})",
+            "value": "rgba({color.palette.grey.500}, {opacity.light.subtle})",
             "type": "color",
             "description": "A subtle grey background option in idle state, applied purely for stylistic purposes without specific meaning."
           },
@@ -1356,7 +1356,7 @@
               "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
             },
             "plain": {
-              "value": "{color.palette.grey.600}",
+              "value": "{color.palette.grey.200}",
               "type": "color",
               "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
             }

@@ -544,6 +544,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       `calc(var(--sl-grid-width) - ${scrollbarMarginInlineStart + scrollbarMarginInlineEnd + 2}px)`
     );
 
+    // Manually trigger the scrollbar to update its thumb size since the scrollbar
+    // is monitoring the `<tbody>` element and the width of that may not have changed,
+    // only the contents of the element may have changed width.
+    this.renderRoot.querySelector('sl-scrollbar')?.updateThumbSize();
+
+    // Update the scrollbar position
+    this.#onScroll();
+
     this.requestUpdate();
   }
 
@@ -758,6 +766,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#virtualizer?._layout?._metricsCache?.clear();
   }
 
+  #onScroll(): void {
+    const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
+
+    this.scrollbar = scrollWidth > offsetWidth;
+    this.thead.scrollLeft = scrollLeft;
+
+    this.toggleAttribute('scrollable', this.scrollbar);
+    this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
+    this.toggleAttribute('scrollable-end', this.scrollbar && Math.round(scrollLeft) < scrollWidth - offsetWidth);
+  }
+
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
     // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
     event.preventDefault();
@@ -769,17 +788,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (!('anchorName' in document.documentElement.style)) {
       positionPopover(e.target, position === 'top' ? this.thead : this.tfoot, { position: `${position}-start` });
     }
-  }
-
-  #onScroll(): void {
-    const { offsetWidth, scrollLeft, scrollWidth } = this.tbody;
-
-    this.scrollbar = scrollWidth > offsetWidth;
-    this.thead.scrollLeft = scrollLeft;
-
-    this.toggleAttribute('scrollable', this.scrollbar);
-    this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
-    this.toggleAttribute('scrollable-end', this.scrollbar && scrollLeft < scrollWidth - offsetWidth);
   }
 
   async #onSlotChange(event: Event & { target: HTMLSlotElement }): Promise<void> {
@@ -835,7 +843,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // needs time for the slotchange event to fire.
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
+    // Update the column definitions
     this.view.columnDefinitions = columns;
+
+    // Recalculate the column widths
+    await this.recalculateColumnWidths();
   }
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {

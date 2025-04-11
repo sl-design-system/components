@@ -1,5 +1,14 @@
 # @sl-design-system/data-source
 
+## 0.1.3
+
+### Patch Changes
+
+- [#1957](https://github.com/sl-design-system/components/pull/1957) [`8a08521`](https://github.com/sl-design-system/components/commit/8a08521ce3396630669fbc0c888e4a4d96aeaee5) - Add an `originalItems` property to `ListDataSource` for access to the unfiltered, unsorted items
+
+- Updated dependencies [[`0a45fb2`](https://github.com/sl-design-system/components/commit/0a45fb23105fce305650c96c5962afe0bb10b930)]:
+  - @sl-design-system/shared@0.7.1
+
 ## 0.1.2
 
 ### Patch Changes

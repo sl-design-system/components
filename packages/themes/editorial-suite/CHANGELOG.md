@@ -1,5 +1,11 @@
 # @sl-design-system/editorial-suite
 
+## 0.1.4
+
+### Patch Changes
+
+- [#1965](https://github.com/sl-design-system/components/pull/1965) [`cae9352`](https://github.com/sl-design-system/components/commit/cae9352f9d9fef34ef29fec1a475d0e4225d69e3) - Tweak hover/pressed state colors
+
 ## 0.1.3
 
 ### Patch Changes

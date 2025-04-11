@@ -353,11 +353,12 @@ export const All: Story = {
         gap: 1.5rem;
       }
 
-      .examples {
-        gap: 1.62rem;
-        border: 3px dashed #9747ff;
+      sl-panel.examples::part(content) {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
         border-radius: 0.5rem;
-        padding: 1.5rem;
+        padding: 2rem;
       }
 
       section {
@@ -388,7 +389,7 @@ export const All: Story = {
             ${densities.map(
               density => html`
                 <h4>Density: ${density}</h4>
-                <div class="examples">
+                <sl-panel elevation="raised" no-border class="examples">
                   <sl-panel no-border .density=${density} .elevation=${elevation}
                     >Panel without header that can contain anything.</sl-panel
                   >
@@ -429,20 +430,6 @@ export const All: Story = {
                     collapsible
                     collapsed
                     heading="Panel heading"
-                  >
-                    Panel content
-                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
-                      ><sl-icon name="far-trash"></sl-icon
-                    ></sl-button>
-                  </sl-panel>
-                  <sl-panel
-                    no-border
-                    .density=${density}
-                    .elevation=${elevation}
-                    collapsible
-                    collapsed
-                    heading="Panel heading - toggle on the right"
-                    toggle-placement="end"
                   >
                     Panel content
                     <sl-button fill="ghost" slot="actions" aria-label="Remove"
@@ -579,7 +566,7 @@ export const All: Story = {
             ${densities.map(
               density => html`
                 <h4>Density: ${density}</h4>
-                <div class="examples">
+                <sl-panel elevation="raised" no-border class="examples">
                   <sl-panel .density=${density} .elevation=${elevation}
                     >Panel without header that can contain anything.</sl-panel
                   >
@@ -605,19 +592,6 @@ export const All: Story = {
                     >Panel content</sl-panel
                   >
                   <sl-panel .density=${density} .elevation=${elevation} collapsible collapsed heading="Panel heading">
-                    Panel content
-                    <sl-button fill="ghost" slot="actions" aria-label="Remove"
-                      ><sl-icon name="far-trash"></sl-icon
-                    ></sl-button>
-                  </sl-panel>
-                  <sl-panel
-                    .density=${density}
-                    .elevation=${elevation}
-                    collapsible
-                    collapsed
-                    heading="Panel heading - toggle on the right"
-                    toggle-placement="end"
-                  >
                     Panel content
                     <sl-button fill="ghost" slot="actions" aria-label="Remove"
                       ><sl-icon name="far-trash"></sl-icon

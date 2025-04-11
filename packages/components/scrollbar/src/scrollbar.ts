@@ -8,6 +8,14 @@ declare global {
   }
 }
 
+/**
+ * Scrollbar component for custom scrollbars. When in doubt, *always* use
+ * the native scrollbar. This component is intended for use in components
+ * that require a custom scrollbar, such as the grid.
+ *
+ * @csspart track - The track of the scrollbar.
+ * @csspart thumb - The thumb of the scrollbar.
+ */
 export class Scrollbar extends LitElement {
   /** @internal */
   static override styles: CSSResultGroup = styles;

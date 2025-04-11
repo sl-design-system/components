@@ -27,6 +27,10 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     return this.#filteredItems;
   }
 
+  get originalItems(): T[] {
+    return this.#items;
+  }
+
   get size(): number {
     return this.#items.length;
   }

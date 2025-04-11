@@ -5,12 +5,13 @@ import { ListDataSource } from './list-data-source.js';
 
 class TestListDataSource extends ListDataSource<Person> {
   override items: Person[];
+  override originalItems: Person[];
   override size: number;
 
   constructor() {
     super();
 
-    this.items = [...people];
+    this.items = this.originalItems = [...people];
     this.size = people.length;
   }
 

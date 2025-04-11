@@ -32,6 +32,9 @@ export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
     return this.#groupBy;
   }
 
+  /** The original array of view models, without filtering or sorting. */
+  abstract readonly originalItems: U[];
+
   get page(): number {
     return this.#page;
   }

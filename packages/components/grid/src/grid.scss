@@ -330,16 +330,25 @@ td[part~='text-field'] {
 
 :host([clickable-row]) {
   [part~='row'] {
+    --_bg-color: transparent;
+    --_bg-mix-color: var(--sl-color-background-input-interactive);
+    --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+    --_cell-background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+
     cursor: pointer;
 
     &:hover {
-      --_cell-background: var(--sl-elevation-surface-raised-default-hover);
+      --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+    }
+
+    &:active {
+      --_bg-opacity: var(--sl-opacity-interactive-plain-active);
     }
   }
 
-  tr[part~='row']:active,
   tr[part~='active'] {
-    --_cell-background: var(--_selected-background);
+    --_bg-color: var(--sl-color-background-selected-subtle);
+    --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
   }
 }
 

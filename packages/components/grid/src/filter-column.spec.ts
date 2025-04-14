@@ -3,6 +3,8 @@ import { expect, fixture } from '@open-wc/testing';
 import { type TextField } from '@sl-design-system/text-field';
 import { html } from 'lit';
 import '../register.js';
+import { GridFilterColumn } from './filter-column.js';
+import { GridFilter } from './filter.js';
 import { type Grid } from './grid.js';
 
 setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach, { suppressErrorLogging: true });
@@ -136,6 +138,24 @@ describe('sl-grid-filter-column', () => {
       expect(options).to.have.length(3);
       expect(options.map(o => o.checked)).to.deep.equal([false, false, false]);
       expect(labels).to.deep.equal(['Anesthesiologist', 'Cardiologist', 'Endocrinologist']);
+    });
+
+    it('should support explicit options', async () => {
+      const column = el.querySelector<GridFilterColumn>('sl-grid-filter-column:last-of-type')!;
+      column.options = [
+        { label: 'Regular', value: 'Regular' },
+        { label: 'Premium', value: 'Premium' },
+        { label: 'VIP', value: 'VIP' }
+      ];
+
+      await new Promise(resolve => setTimeout(resolve));
+
+      const filter = el.renderRoot.querySelector<GridFilter>('th:last-of-type sl-grid-filter')!,
+        options = Array.from(filter.renderRoot.querySelectorAll('sl-checkbox [slot="label"]')).map(cb =>
+          cb.textContent?.trim()
+        );
+
+      expect(options).to.deep.equal(['Regular', 'Premium', 'VIP']);
     });
   });
 

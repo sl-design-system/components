@@ -1,6 +1,6 @@
 :host {
   align-items: center;
-  background: var(--sl-color-background-neutral-bold);
+  background: var(--sl-color-background-neutral-subtle);
   box-sizing: border-box;
   display: flex;
   padding: calc((var(--sl-size-150) - var(--sl-size-075)) / 2) var(--sl-size-050);
@@ -21,7 +21,7 @@
 
   background: color-mix(
     in srgb,
-    var(--sl-color-background-neutral-subtle),
+    var(--sl-color-background-neutral-interactive-plain),
     var(--sl-color-background-neutral-interactive-bold) calc(100% * var(--_bg-opacity))
   );
   block-size: var(--sl-size-075);

@@ -134,8 +134,6 @@ sl-indent-guides {
 }
 
 ::slotted(sl-icon) {
-  --sl-icon-container-size: var(--sl-size-250);
-
   vertical-align: bottom;
 }
 

@@ -19,6 +19,7 @@
     "tools/eslint-config",
     "tools/example-data",
     "tools/stylelint-config",
+    "tools/theme-selector-plugin",
     "website"
   ],
   "scripts": {

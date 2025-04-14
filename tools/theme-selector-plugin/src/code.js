@@ -1,4 +1,5 @@
 "use strict";
+/// <reference types="@figma/plugin-typings" />
 // This plugin will open a window to prompt the user to enter a number, and
 // it will then create that many rectangles on the screen.
 // This file holds the main code for plugins. Code in this file has access to
@@ -7,17 +8,21 @@
 // full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
 // This shows the HTML page in "ui.html".
 figma.showUI(__html__);
+console.log('heeee');
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 figma.ui.onmessage = (msg) => {
+    console.log('msg', msg);
+    // const localCollections = await figma.variables.getLocalVariableCollectionsAsync();
+    // console.log('localCollections', localCollections);
     // One way of distinguishing between different types of messages sent from
     // your HTML page is to use an object with a "type" property like this.
-    if (msg.type === 'create-shapes') {
+    if (msg.type === 'selectTheme') {
         // This plugin creates rectangles on the screen.
-        const numberOfRectangles = msg.count;
+        // const numberOfRectangles = msg.count;
         const nodes = [];
-        for (let i = 0; i < numberOfRectangles; i++) {
+        for (let i = 0; i < 5; i++) {
             const rect = figma.createRectangle();
             rect.x = i * 150;
             rect.fills = [{ type: 'SOLID', color: { r: 1, g: 0.5, b: 0 } }];
@@ -26,8 +31,11 @@ figma.ui.onmessage = (msg) => {
         }
         figma.currentPage.selection = nodes;
         figma.viewport.scrollAndZoomIntoView(nodes);
+        console.log('msg', msg);
+        figma.currentPage.setExplicitVariableModeForCollection('theme', 'EXPLICIT');
     }
     // Make sure to close the plugin when you're done. Otherwise the plugin will
     // keep running, which shows the cancel button at the bottom of the screen.
-    figma.closePlugin();
+    // figma.closePlugin();
 };
+//# sourceMappingURL=code.js.map

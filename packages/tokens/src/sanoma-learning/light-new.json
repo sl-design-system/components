@@ -1538,12 +1538,12 @@
       },
       "interactive": {
         "bold": {
-          "value": "{color.palette.grey.800}",
+          "value": "{color.background.neutral.interactive.bold",
           "type": "color",
           "description": "Used as transparent layer on top of the bold background to indicate the hover and pressed state."
         },
         "plain": {
-          "value": "{color.background.accent.blue.interactive.plain}",
+          "value": "{color.background.neutral.interactive.plain}",
           "type": "color",
           "description": "Used as transparent layer on top of the muted, subtlest and subtle background to indicate the hover and pressed state."
         }

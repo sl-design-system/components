@@ -8,13 +8,10 @@ import {
   faLock,
   faPaste,
   faPen,
-  faRocket,
   faShare,
-  faTableCells,
   faTrash,
   faUnlock
 } from '@fortawesome/pro-regular-svg-icons';
-import { faPeople } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button/register.js';
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -82,23 +79,7 @@ const users: Array<{ name: string; picture?: string; days: number; since: string
   }
 ];
 
-Icon.register(
-  faBackpack,
-  faBook,
-  faCopy,
-  faGear,
-  faLink,
-  faLock,
-  faList,
-  faPaste,
-  faPen,
-  faShare,
-  faPeople,
-  faRocket,
-  faTableCells,
-  faTrash,
-  faUnlock
-);
+Icon.register(faBackpack, faBook, faCopy, faGear, faLink, faLock, faList, faPaste, faPen, faShare, faTrash, faUnlock);
 
 export default {
   title: 'Layout/Panel',

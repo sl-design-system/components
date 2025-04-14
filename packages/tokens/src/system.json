@@ -218,8 +218,8 @@
       }
     }
   },
-  "elevation": {
-    "shadow": {
+  "shadow": {
+    "elevation": {
       "overflow": {
         "value": {
           "x": "0",

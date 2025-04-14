@@ -1573,38 +1573,32 @@
         "type": "color",
         "description": "Use for the pulse or shimmer effect in skeleton loading states."
       }
-    }
-  },
-  "elevation": {
+    },
     "surface": {
-      "base": {
-        "default": {
-          "value": "{color.palette.grey.000}",
-          "type": "color",
-          "description": "The default, flat surface level. Used for primary content backgrounds or non-interactive UI regions."
-        }
+      "default": {
+        "value": "{color.palette.grey.000}",
+        "type": "color",
+        "description": "The default, flat surface level."
       },
       "raised": {
-        "default": {
-          "value": "{color.palette.grey.000}",
-          "type": "color",
-          "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-        },
-        "alternative": {
-          "value": "{color.palette.grey.100}",
-          "type": "color",
-          "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
-        },
-        "sunken": {
-          "value": "{color.palette.grey.050}",
-          "type": "color",
-          "description": "Background for components that create a sunken effect, typically used for grouping related items."
-        },
-        "inverted": {
-          "value": "{color.palette.grey.900}",
-          "type": "color",
-          "description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
-        }
+        "value": "{color.palette.grey.000}",
+        "type": "color",
+        "description": "Background of elevated components like cards, grids, or dropdowns that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+      },
+      "inverted": {
+        "value": "{color.palette.grey.900}",
+        "type": "color",
+        "description": "Background of elevated components with an inverted background color like tooltips that sit on top of the base surface. Use in combination with 'elevation.shadow.raised'."
+      },
+      "alternative": {
+        "value": "{color.palette.grey.050}",
+        "type": "color",
+        "description": "An alternate surface color used for visual differentiation in components like tables or lists, providing contrast between consecutive items (e.g., zebra striping)."
+      },
+      "sunken": {
+        "value": "{color.palette.grey.100}",
+        "type": "color",
+        "description": "Background for components that create a sunken effect, typically used for grouping related items."
       },
       "shadow": {
         "value": "{color.palette.grey.900}",

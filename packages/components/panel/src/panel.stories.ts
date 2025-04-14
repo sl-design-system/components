@@ -330,59 +330,67 @@ export const NoHeader: Story = {
 export const All: Story = {
   render: () => html`
     <style>
-      section {
+      sl-panel.examples::part(content) {
         display: grid;
         grid-template-columns: minmax(auto, 500px);
         gap: 1rem;
-        padding: 1rem;
+        padding: 1.5rem;
+      }
+
+      sl-panel.examples {
+        inline-size: fit-content;
       }
     </style>
 
     <section>
-      <h3>Static panel</h3>
-      Static panels group content and layout sections.
-      <sl-panel> A layout without a header, typically used for content grouping. </sl-panel>
-      <sl-panel heading="A static panel with a header">
-        A static layout with a header to provide more context to the content.
-      </sl-panel>
+      <sl-panel elevation="raised" class="examples">
+        <h3>Static panel</h3>
+        Static panels group content and layout sections.
+        <sl-panel> A layout without a header, typically used for content grouping. </sl-panel>
+        <sl-panel heading="A static panel with a header">
+          A static layout with a header to provide more context to the content.
+        </sl-panel>
 
-      <h3>Collapsible panel</h3>
-      Collapsible panels allow users to expand or collapse sections of content.
-      <sl-panel collapsible heading="Toggle start">
-        A collapsible panel with the toggle positioned at the beginning of the section.
-      </sl-panel>
-      <sl-panel collapsible heading="Toggle end" toggle-placement="end">
-        A collapsible panel with the toggle placed at the end of the section.
-      </sl-panel>
+        <h3>Collapsible panel</h3>
+        Collapsible panels allow users to expand or collapse sections of content.
+        <sl-panel collapsible heading="Toggle start">
+          A collapsible panel with the toggle positioned at the beginning of the section.
+        </sl-panel>
+        <sl-panel collapsible heading="Toggle end" toggle-placement="end">
+          A collapsible panel with the toggle placed at the end of the section.
+        </sl-panel>
 
-      <h3>Elevation</h3>
-      Elevation controls how the panel visually sits within the layout, from flat to raised.
-      <sl-panel heading="None">
-        For nested panels or areas where no visual background or separation is needed.
-      </sl-panel>
-      <sl-panel elevation="raised" heading="Raised">
-        Adds elevation to visually lift the panel from the surrounding content. Use when the panel is placed on top of
-        the page body.
-      </sl-panel>
-      <sl-panel elevation="sunken" heading="Sunken">
-        Adds a subtle inset effect. Useful for grouping nested content within a panel.
-      </sl-panel>
+        <h3>Elevation</h3>
+        Elevation controls how the panel visually sits within the layout, from flat to raised.
+        <sl-panel heading="None">
+          For nested panels or areas where no visual background or separation is needed.
+        </sl-panel>
+        <sl-panel elevation="raised" heading="Raised">
+          Adds elevation to visually lift the panel from the surrounding content. Use when the panel is placed on top of
+          the page body.
+        </sl-panel>
+        <sl-panel elevation="sunken" heading="Sunken">
+          Adds a subtle inset effect. Useful for grouping nested content within a panel.
+        </sl-panel>
 
-      <h3>Density</h3>
-      Density adjusts the internal spacing of content within the panel.
-      <sl-panel heading="Plain"> The default spacing for general use. </sl-panel>
-      <sl-panel density="comfortable" heading="Comfortable"> Adds extra padding for a more relaxed layout. </sl-panel>
+        <h3>Density</h3>
+        Density adjusts the internal spacing of content within the panel.
+        <sl-panel heading="Plain"> The default spacing for general use. </sl-panel>
+        <sl-panel density="comfortable" heading="Comfortable"> Adds extra padding for a more relaxed layout. </sl-panel>
 
-      <h3>Divider</h3>
-      Dividers can be added to visually separate sections within a panel.
-      <sl-panel heading="Without divider"> Use when visual separation is not needed between sections. </sl-panel>
-      <sl-panel divider heading="With divider"> Adds a horizontal divider to separate content areas clearly. </sl-panel>
+        <h3>Divider</h3>
+        Dividers can be added to visually separate sections within a panel.
+        <sl-panel heading="Without divider"> Use when visual separation is not needed between sections. </sl-panel>
+        <sl-panel divider heading="With divider">
+          Adds a horizontal divider to separate content areas clearly.
+        </sl-panel>
 
-      <h3>No border</h3>
-      By default, there is a border around the panel. This can be removed by setting the no-border attribute.
-      <sl-panel heading="With border"> A border around the panel to make it more distinct in the layout. </sl-panel>
-      <sl-panel no-border heading="No border">
-        Best used when elevation or other context provides sufficient separation.
+        <h3>No border</h3>
+        By default, there is a border around the panel. This can be removed by setting the no-border attribute.
+        <sl-panel heading="With border"> A border around the panel to make it more distinct in the layout. </sl-panel>
+        <sl-panel no-border heading="No border">
+          Best used when elevation or other context provides sufficient separation.
+        </sl-panel>
       </sl-panel>
     </section>
   `

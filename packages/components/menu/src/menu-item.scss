@@ -54,7 +54,6 @@
 
 ::slotted(sl-icon),
 sl-icon[name='chevron-right'] {
-  --sl-icon-container-size: var(--sl-size-new-icon-xs);
   --sl-icon-size: var(--sl-size-new-icon-xs);
 }
 
@@ -93,7 +92,6 @@ sl-icon[name='chevron-right'] {
 }
 
 sl-icon[name='check'] {
-  --sl-icon-container-size: var(--sl-size-new-icon-sm);
   --sl-icon-size: var(--sl-size-new-icon-sm);
 }
 

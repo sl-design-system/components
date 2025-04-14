@@ -105,7 +105,6 @@
   padding: var(--sl-size-025) var(--sl-size-100);
 
   ::slotted(sl-icon) {
-    --sl-icon-container-size: var(--sl-size-icon-xs);
     --sl-icon-size: var(--sl-size-icon-xs);
   }
 }
@@ -121,6 +120,5 @@
 }
 
 ::slotted(sl-icon) {
-  --sl-icon-container-size: var(--sl-size-icon-2xs);
   --sl-icon-size: var(--sl-size-icon-2xs);
 }

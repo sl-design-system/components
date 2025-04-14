@@ -340,6 +340,10 @@ export const All: Story = {
       sl-panel.examples {
         inline-size: fit-content;
       }
+
+      h3 {
+        margin: 0;
+      }
     </style>
 
     <section>

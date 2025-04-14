@@ -53,7 +53,7 @@ describe('sl-column-group', () => {
     it('should have the correct width', () => {
       const cells = Array.from(el.renderRoot.querySelectorAll('th'));
       expect(cells.map(cell => Math.floor(parseFloat(getComputedStyle(cell).width)))).to.deep.equal([
-        353, 652, 177, 175, 161, 149, 158, 182
+        369, 636, 185, 183, 169, 157, 166, 144
       ]);
     });
   });

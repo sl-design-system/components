@@ -87,6 +87,30 @@ describe('sl-column', () => {
     });
   });
 
+  describe('path', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-grid>
+          <sl-grid-column path="foo"></sl-grid-column>
+          <sl-grid-column path="bar"></sl-grid-column>
+          <sl-grid-column></sl-grid-column>
+        </sl-grid>
+      `);
+      el.items = [{ foo: 'Foo' }];
+      await el.updateComplete;
+
+      // Give grid time to render the table structure
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await el.updateComplete;
+    });
+
+    it('should render "No path set" for the column that has no path', () => {
+      const cells = Array.from(el.renderRoot.querySelectorAll('tbody td')).map(el => el.textContent?.trim());
+
+      expect(cells).to.deep.equal(['Foo', '', 'No path set']);
+    });
+  });
+
   describe('empty string value', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -120,9 +144,7 @@ describe('sl-column', () => {
           <sl-grid-column
             header="Person"
             .renderer=${avatarRenderer}
-            .scopedElements=${{
-              'sl-avatar': Avatar
-            }}
+            .scopedElements=${{ 'sl-avatar': Avatar }}
           ></sl-grid-column>
           <sl-grid-column path="age" parts="number"></sl-grid-column>
         </sl-grid>

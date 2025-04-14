@@ -343,7 +343,7 @@ export const All: Story = {
     </style>
 
     <section>
-      <sl-panel elevation="raised" class="examples">
+      <sl-panel no-border elevation="raised" class="examples">
         <h3>Static panel</h3>
         Static panels group content and layout sections.
         <sl-panel> A layout without a header, typically used for content grouping. </sl-panel>

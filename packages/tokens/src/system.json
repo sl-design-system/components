@@ -226,7 +226,7 @@
           "y": "0",
           "blur": "15",
           "spread": "0",
-          "color": "rgba({elevation.surface.shadow}, {opacity.subtlest})",
+          "color": "rgba({color.surface.shadow}, {opacity.subtlest})",
           "type": "dropShadow"
         },
         "type": "boxShadow",

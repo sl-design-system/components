@@ -28,6 +28,7 @@ export type Student = {
   firstName: string;
   infix: string;
   lastName: string;
+  fullName: string;
   dateOfBirth: string;
   email: string;
   pictureUrl: string;

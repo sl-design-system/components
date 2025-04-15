@@ -44,7 +44,7 @@ export const Basic: Story = {
       <sl-grid .items=${students}>
         <sl-grid-filter-column
           header="Student"
-          path="student.name"
+          path="student.fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
         ></sl-grid-filter-column>

@@ -42,6 +42,7 @@ export async function getStudents(options) {
 
     return {
       ...studentWithoutExcludedProps,
+      fullName: [student.firstName, student.infix, student.lastName].join(' '),
       group: groups.find(group => group.id === student.groupId),
       pictureUrl: studentImages[avatarId]?.image,
       school: schools.find(school => school.id === schoolId)

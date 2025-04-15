@@ -17,6 +17,10 @@ export async function getCountries(count = Infinity) {
   return await getDataset('countries.json', count);
 }
 
+export async function getSchools(options) {
+  return await getDataset('schools.json', options?.count);
+}
+
 export async function getStudents(options) {
   if (!studentImages) {
     // Load student-specific images

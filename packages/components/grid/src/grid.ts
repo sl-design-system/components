@@ -19,8 +19,6 @@ import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { repeat } from 'lit/directives/repeat.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -333,7 +331,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-sorter-change=${this.#onSorterChange}
           part="thead"
         >
-          ${this.renderHeader()}
+          ${this.renderHeaderRows()}
         </thead>
         <tbody id="tbody" part="tbody">
           ${virtualize({
@@ -385,7 +383,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(tbody td, thead tr:last-of-type th):nth-child(${index + 1}) {
+          :where(tbody td, thead tr th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
             justify-content: ${col.align ?? 'start'};
@@ -404,37 +402,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderHeader(): TemplateResult {
-    const rows = this.view.headerRows,
-      selectionColumn = rows.at(-1)?.find((col): col is GridSelectionColumn<T> => col instanceof GridSelectionColumn),
-      showSelectionHeader = selectionColumn && this.selection.selected > 0;
+  renderHeaderRows(): TemplateResult[] {
+    const rows = this.view.headerRows;
+
+    return rows.map(row => this.renderHeaderRow(row));
+  }
+
+  renderHeaderRow(columns: GridColumn[]): TemplateResult {
+    const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0),
+      rows = Array.from({ length: rowCount });
 
     return html`
-      ${rows.slice(0, -1).map(
-        row => html`
+      ${rows.map(
+        (_, rowIndex) => html`
           <tr>
-            ${repeat(
-              row,
-              col => col.path,
-              col => col.renderHeader()
-            )}
+            ${columns.map(col => col.renderHeaderRow(rowIndex))}
           </tr>
         `
       )}
-      ${showSelectionHeader
-        ? html`
-            <tr>
-              ${selectionColumn.renderHeader()} ${selectionColumn.renderSelectionHeader()}
-            </tr>
-          `
-        : nothing}
-      <tr style=${styleMap({ display: showSelectionHeader ? 'none' : '' })}>
-        ${repeat(
-          rows.at(-1) ?? [],
-          col => col.path,
-          col => col.renderHeader()
-        )}
-      </tr>
     `;
   }
 
@@ -829,7 +814,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       if (col instanceof GridFilterColumn) {
         const { value } = this.dataSource?.filters.get(col.id) || {};
         if (value) {
-          col.value = value;
+          col.value = value.toString();
         }
       } else if (col instanceof GridSortColumn) {
         const { id, direction } = this.dataSource?.sort || {};

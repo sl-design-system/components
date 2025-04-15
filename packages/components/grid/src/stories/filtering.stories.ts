@@ -2,7 +2,14 @@ import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
+import {
+  type Person,
+  type School,
+  type Student,
+  getPeople,
+  getSchools,
+  getStudents
+} from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
@@ -26,17 +33,30 @@ export default {
 } satisfies Meta;
 
 export const Basic: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
+  loaders: [
+    async () => ({
+      schools: await getSchools(),
+      students: (await getStudents()).students
+    })
+  ],
+  render: (_, { loaded: { schools, students } }) => {
     return html`
       <sl-grid .items=${students}>
-        <sl-grid-column
+        <sl-grid-filter-column
           header="Student"
+          path="student.name"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+        ></sl-grid-filter-column>
         <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
-        <sl-grid-filter-column header="School" path="school.name" value="Collegio San Marco"></sl-grid-filter-column>
+        <sl-grid-filter-column
+          header="School"
+          label-path="school.name"
+          mode="select"
+          .options=${(schools as School[]).map(s => ({ label: s.name, value: s.id }))}
+          path="school.id"
+          value="school-3"
+        ></sl-grid-filter-column>
       </sl-grid>
     `;
   }

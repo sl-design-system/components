@@ -1,18 +1,13 @@
-import { faFilter } from '@fortawesome/pro-regular-svg-icons';
-import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
-import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { type DataSourceFilterFunction } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { Popover } from '@sl-design-system/popover';
+import { Option } from '@sl-design-system/listbox';
+import { SearchField } from '@sl-design-system/search-field';
+import { Select } from '@sl-design-system/select';
 import { type EventEmitter, type PathKeys, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
-import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { repeat } from 'lit/directives/repeat.js';
 import { type GridColumn } from './column.js';
 import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
@@ -38,20 +33,16 @@ export type SlFilterValueChangeEvent<T = any> = CustomEvent<{
   value?: string | string[];
 }>;
 
-Icon.register(faFilter, faFilterSolid);
-
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
-      'sl-checkbox': Checkbox,
-      'sl-checkbox-group': CheckboxGroup,
       'sl-icon': Icon,
-      'sl-text-field': TextField,
-      'sl-popover': Popover
+      'sl-option': Option,
+      'sl-search-field': SearchField,
+      'sl-select': Select
     };
   }
 
@@ -99,14 +90,9 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   @property({ attribute: false })
-  set value(value: string | string[] | undefined) {
-    if (this.mode !== 'text') {
-      this.#value = Array.isArray(value) ? value : (value?.split(',') ?? []);
-    } else {
-      this.#value = value;
-    }
-
-    this.active = Array.isArray(this.#value) ? this.#value.length > 0 : !!this.#value;
+  set value(value: string | undefined) {
+    this.#value = value;
+    this.active = !!this.#value;
   }
 
   override connectedCallback(): void {
@@ -135,81 +121,41 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`
-      <sl-button @click=${this.#onClick} class="toggle" id="anchor" fill="link">
-        <slot></slot>
-        <sl-icon .name=${this.active ? 'fas-filter' : 'far-filter'}></sl-icon>
-      </sl-button>
-      <sl-popover anchor="anchor" position="bottom">
-        <header>
-          <h1 id="title">${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}</h1>
-          <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
-            <sl-icon name="xmark"></sl-icon>
-          </sl-button>
-        </header>
-        ${this.mode === 'select'
-          ? html`
-              <sl-checkbox-group aria-labelledby="title" autofocus>
-                ${repeat(
-                  this.options ?? [],
-                  option => option.value,
-                  option => html`
-                    <sl-checkbox
-                      @sl-change=${(event: SlChangeEvent & { target: Checkbox }) => this.#onChange(event, option)}
-                      .checked=${this.value?.includes(option.value?.toString() ?? '')}
-                      .value=${option.value}
-                    >
-                      ${option.label}
-                    </sl-checkbox>
-                  `
-                )}
-              </sl-checkbox-group>
-            `
-          : html`
-              <sl-text-field
-                @input=${this.#onInput}
-                @keydown=${this.#onKeydown}
-                .placeholder=${msg('Type here to filter')}
-                .value=${this.value?.toString() ?? ''}
-                aria-labelledby="title"
-                autofocus
-              ></sl-text-field>
-            `}
-      </sl-popover>
-    `;
+    if (this.mode === 'select') {
+      return html`
+        <sl-select @sl-change=${this.#onSelectChange} @sl-clear=${this.#onClear} clearable>
+          ${this.options?.map(option => {
+            return html`
+              <sl-option ?selected=${this.value?.includes(option.value as string)} .value=${option.value}>
+                ${option.label}
+              </sl-option>
+            `;
+          })}
+        </sl-select>
+      `;
+    } else {
+      return html`
+        <sl-search-field
+          @sl-change=${this.#onSearchFieldChange}
+          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}
+          .value=${this.value?.toString() ?? ''}
+        ></sl-search-field>
+      `;
+    }
   }
 
-  #onChange(event: SlChangeEvent & { target: Checkbox }, option: GridFilterOption): void {
-    if (!Array.isArray(this.value)) {
-      return;
-    }
-
-    if (event.target.checked) {
-      this.value = [...this.value, option.value?.toString() ?? ''];
-    } else {
-      this.value = this.value.filter(value => value !== option.value?.toString());
-    }
-
+  #onSearchFieldChange(event: Event & { target: SearchField }): void {
+    this.value = event.target.value?.trim() ?? '';
     this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
   }
 
-  #onClick(): void {
-    this.renderRoot.querySelector<Popover>('sl-popover')?.togglePopover();
+  #onSelectChange(event: Event & { target: Select<T> }): void {
+    this.value = event.target.value?.toString().trim() ?? '';
+    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
   }
 
-  #onHide(): void {
-    this.renderRoot.querySelector<Popover>('sl-popover')?.hidePopover();
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      this.#onClick();
-    }
-  }
-
-  #onInput(event: Event & { target: HTMLInputElement }): void {
-    this.value = event.target.value.trim();
+  #onClear(): void {
+    this.value = undefined;
     this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
   }
 

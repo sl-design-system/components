@@ -18,7 +18,6 @@ export const templates = {
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s3dc14a4b8129f989: str`Paginering`,
-  s4215e0aa2fa8f5b4: 'Type hier om te filteren',
   s47319a3cf96f6c33: str`De waarde moet kleiner dan of gelijk aan ${0} zijn.`,
   s49a14735332eb6fc: str`Vorige maand, ${0}`,
   s4dabcaab8d268abf: 'Items per pagina:',

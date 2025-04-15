@@ -159,12 +159,12 @@ button {
 
   sl-icon {
     align-items: center;
-    block-size: var(--sl-size-xl);
+    aspect-ratio: 1;
     border-radius: var(--sl-size-borderRadius-default);
     color: var(--sl-color-foreground-secondary-bold);
     display: inline-flex;
     grid-area: 1 / 1;
-    inline-size: var(--sl-size-xl);
+    inline-size: var(--sl-size-200);
     justify-content: center;
     opacity: var(--sl-opacity-interactive-reversed-idle);
 

@@ -6,12 +6,8 @@
   <source>Select all</source>
   <target>Selecteer alles</target>
 </trans-unit>
-<trans-unit id="s4215e0aa2fa8f5b4">
-  <source>Type here to filter</source>
-  <target>Type hier om te filteren</target>
-</trans-unit>
 <trans-unit id="s58bfb494feb8eb02">
-  <source><x id="0" equiv-text="${this.getSelectedCount()}"/> selected</source>
+  <source><x id="0" equiv-text="${this.grid?.selection.selected}"/> selected</source>
   <target><x id="0" equiv-text="${this.getSelectedCount()}"/> geselecteerd</target>
 </trans-unit>
 <trans-unit id="s629576c6b305d539">
@@ -283,7 +279,7 @@
   <target>Ga 12 jaar terug</target>
 </trans-unit>
 <trans-unit id="sa76539707f54b1b6">
-  <source>Filter by <x id="0" equiv-text="${this.getFilterHeaderValue()}"/></source>
+  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
   <target>Filter op <x id="0" equiv-text="${this.getFilterHeaderValue()}"/></target>
 </trans-unit>
 <trans-unit id="s085c6223e17edc0a">

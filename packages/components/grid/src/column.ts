@@ -7,7 +7,7 @@ import {
   getNameByPath,
   getValueByPath
 } from '@sl-design-system/shared';
-import { type CSSResult, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResult, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type Grid } from './grid.js';
 
@@ -98,6 +98,9 @@ export class GridColumn<T = any> extends LitElement {
   /** The label for the column header. Can contain custom HTML. */
   @property() header?: string | GridColumnHeaderRenderer;
 
+  /** The number of header rows for this column. */
+  headerRowCount = 1;
+
   /** The path to the value for this column. */
   @property() path?: PathKeys<T>;
 
@@ -166,7 +169,11 @@ export class GridColumn<T = any> extends LitElement {
    * if you only want to change the classes, contents or parts of the header. See this specific
    * methods for that.
    */
-  renderHeader(): TemplateResult {
+  renderHeaderRow(index: number): TemplateResult | typeof nothing {
+    if (index >= this.headerRowCount) {
+      return nothing;
+    }
+
     const classes = this.getClasses(),
       parts = ['header', ...this.getParts()];
 

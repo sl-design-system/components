@@ -45,7 +45,11 @@ export class SearchField extends TextField {
   }
 
   override renderPrefix(): TemplateResult {
-    return html`<sl-icon name="search"></sl-icon>`;
+    return html`
+      <slot name="prefix">
+        <sl-icon name="search"></sl-icon>
+      </slot>
+    `;
   }
 
   override renderSuffix(): TemplateResult | typeof nothing {

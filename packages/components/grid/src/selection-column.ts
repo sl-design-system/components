@@ -1,7 +1,7 @@
 import { msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { type PropertyValues, type TemplateResult, html } from 'lit';
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
@@ -38,7 +38,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderHeader(): TemplateResult {
+  override renderHeaderRow(index: number): TemplateResult | typeof nothing {
+    if (index >= this.headerRowCount) {
+      return nothing;
+    }
+
     const checked = !!this.grid?.selection.size && this.grid?.selection.areAllSelected(),
       indeterminate = this.grid?.selection.areSomeSelected();
 

@@ -173,6 +173,12 @@ thead {
   overflow-x: hidden;
   position: sticky;
   z-index: 1;
+
+  tr + tr {
+    th {
+      border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    }
+  }
 }
 
 tbody {

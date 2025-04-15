@@ -1,6 +1,6 @@
 import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
 import { getNameByPath } from '@sl-design-system/shared';
-import { type TemplateResult, html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumn } from './column.js';
@@ -52,7 +52,11 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderHeader(): TemplateResult {
+  override renderHeaderRow(index: number): TemplateResult | typeof nothing {
+    if (index >= this.headerRowCount) {
+      return nothing;
+    }
+
     const parts = ['header', 'sort', ...this.getParts()];
 
     return html`

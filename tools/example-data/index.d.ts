@@ -51,5 +51,5 @@ export interface Options {
 }
 
 export declare function getPeople(options?: Options): Promise<People>;
-
+export declare function getSchools(options?: Options): Promise<School[]>;
 export declare function getStudents(options?: Options): Promise<Students>;

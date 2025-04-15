@@ -137,6 +137,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       return html`
         <sl-search-field
           @sl-change=${this.#onSearchFieldChange}
+          @sl-clear=${this.#onClear}
           .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}
           .value=${this.value?.toString() ?? ''}
         ></sl-search-field>

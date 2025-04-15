@@ -144,6 +144,8 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
 
     this.clearElementCache();
     this.manage();
+
+    console.log('elements in update in focus-group controler', this.elements);
   }
 
   updateWithVirtualizer({ elements }: FocusGroupConfig<T> = { elements: () => [] }, event: RangeChangedEvent): void {

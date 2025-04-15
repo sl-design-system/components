@@ -1,6 +1,66 @@
-<label>Select a theme</label>
-<select id="theme"></select>
+<div>
+  <label>Select a theme</label>
+  <select id="theme"></select>
+</div>
 <button id="select">Set theme</button>
+
+<style>
+body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+}
+div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+}
+select {
+  flex: 1;
+}
+select {
+  border: 1px solid #898989;
+  background: #fff;
+  padding: 8px 16px;
+  transition: 0.4s;
+  border-radius: 4px;
+}
+
+select:hover,
+select:focus {
+  background: #3366FF1F;
+}
+select::picker-icon {
+  color: #999;
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+::picker(select) {
+  border: none;
+}
+option {
+  padding: 4px;
+}
+
+button {
+  background-color: #007AFF;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>
 <script>
 
 document.getElementById('select').onclick = () => {
@@ -14,12 +74,9 @@ window.onmessage = (e) => {
     e.data.pluginMessage.forEach((item) => {
       const option = document.createElement('option');
       option.value = item.compoundId;
-      //console.log(item);
       option.innerText = item.name;
       theme.appendChild(option);
     });
   }
-
 };
-
 </script>

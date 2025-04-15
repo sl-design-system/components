@@ -15,8 +15,8 @@ let collections:VariableCollection[] = [];
 let themes:{
   collectionId:string,
   collectionModeId:string,
-  subCollectionId:string,
-  subCollectionModeId:string,
+  themeCollectionId:string,
+  themeCollectionModeId:string,
   themeId:string,
   themeModeId:string,
   variantId?:string,
@@ -26,60 +26,56 @@ let themes:{
 
 
 
-
+/** Create the list of themes with all the id's of relevant parents and children and send it to the UI */
 const sendCollections = () => {
   figma.variables.getLocalVariableCollectionsAsync().then((c) => {
     collections = c;
-    console.log('qwer-collections', collections);
-    //find all collections that have a theme as a direct child // search string is temporary
-    collections.filter(c => c.name.includes(` - `)).forEach((subCollection) => {
-      // this should be done by findParentCollection, but the names of the modes in the collections are not the same as the names of the theme collections.
+
+    //find all collections that have a theme as a direct child
+    collections.filter(c => c.name.includes('Themes')).forEach((themesCollection) => {
+
       const base = findCollectionByName('Base');
       if(!base) {
         console.error('Base collection not found');
         return;
       }
 
-      const collection = findCollectionByName(subCollection.name.split(' - ')[0]);
+      // find the parent collection of the themes collection
+      const collection = findParentCollection(themesCollection.name);
       if(!collection) {
-        console.error('Collection not found for', subCollection.name);
+        console.error('Collection not found for', themesCollection.name);
+        return;
+      }
+      // find the modeId of the collection so it can be set on the base collection
+      const collectionAsMode = base.modes.find(sc=>sc.name===collection.name);
+      if(!collectionAsMode) {
+        console.error('Collection mode id not found for', collection.name);
         return;
       }
 
-      const collectionModeId = base.modes.find(sc=>sc.name===collection.name);
-      if(!collectionModeId) {
-        console.error('Collection mode id not found for', subCollection.name);
+      // find the modeId of the themes collection so it can be set on the parent collection
+      const themeCollectionAsMode = collection.modes.find(sc=>sc.name===themesCollection.name);
+      if(!themeCollectionAsMode) {
+        console.error('Theme collection mode id not found for', themesCollection.name);
         return;
       }
 
-      console.log(collection.modes);
-      const subCollectionModeId = collection.modes.find(sc=>sc.name===`Collection ${subCollection.name.split(' - ')[1]}`);
-      if(!subCollectionModeId) {
-        console.error('Sub collection mode id not found for', subCollection.name);
-        return;
-      }
-      // for all modes (themes) in the subCollection, find information by the name.
-      subCollection.modes.forEach((theme) => {
+
+      // for all themes in this themesCollection, check if there are any variants, and create a list of all relevant id's
+      themesCollection.modes.forEach((theme) => {
         const themeCollection = findCollectionByName(theme.name);
         if(!themeCollection) {
           console.error('Theme collection not found for', theme.name);
           return;
         }
-        if(!collection) {
-          console.error('Collection not found for', subCollection.name);
-          return;
-        }
         const themeModes = themeCollection? themeCollection.modes : [];
-        console.log('themeCollection',theme.name, themeCollection, themeModes);
         if(themeModes.length>1) {
           themeModes.forEach((mode) => {
-            const themeVariant = findCollectionByName(mode.name);
-            // console.log('themeVariant', themeVariant, mode.name);
                 themes.push({
                   collectionId: collection.id,
-                  collectionModeId: collectionModeId.modeId,
-                  subCollectionId: subCollection.id,
-                  subCollectionModeId: subCollectionModeId.modeId,
+                  collectionModeId: collectionAsMode.modeId,
+                  themeCollectionId: themesCollection.id,
+                  themeCollectionModeId: themeCollectionAsMode.modeId,
                   themeId: themeCollection.id,
                   themeModeId: theme.modeId,
                   variantId: mode.modeId,
@@ -90,9 +86,9 @@ const sendCollections = () => {
           }else{
           themes.push({
             collectionId: collection.id,
-            collectionModeId: collectionModeId.modeId,
-            subCollectionId: subCollection.id,
-            subCollectionModeId: subCollectionModeId.modeId,
+            collectionModeId: collectionAsMode.modeId,
+            themeCollectionId: themesCollection.id,
+            themeCollectionModeId: themeCollectionAsMode.modeId,
             themeId: themeCollection.id,
             themeModeId: theme.modeId,
             compoundId: `${themeCollection.id}`,
@@ -101,80 +97,78 @@ const sendCollections = () => {
         }
       });
     });
-    console.log('themes', themes);
     figma.ui.postMessage(themes, { origin: "*" });
   });
 }
 
-
-
+/** use this to find the collection based on the mode name */
 const findCollectionByName = (name:string) => {
   return collections.find(c => c.name === name);
 }
+
+/** Find the collection based on the ID */
 const findCollectionById = (id:string) => {
   return collections.find(c => c.id === id);
 }
 
+/** Find the parent collection of a child collection by looking for the child in the modes of the parent collection, based on name or modeId */
 const findParentCollection = (child: string) => {
   const parent = collections.find(c => {
-    // console.log('collections', collections);
     const collectionsWithChild =  c.modes.filter(mode => {
-      // console.log('findParentCollection',mode, child);
       return mode.name === child || mode.modeId === child;
     });
-    // console.log('collectionsWithChild', collectionsWithChild);
     return collectionsWithChild.length > 0;
   });
-  // console.log('findParentCollection', parent);
   return parent;
 };
 
+  /** Removes all explicit variable modes from the current page. */
+const removeCurrentVariableModes = () => {
+  Object.keys(figma.currentPage.explicitVariableModes).forEach((key) => {
+    const collectionForKey = collections.find(c => c.id === key);
+
+    if(collectionForKey) {
+      figma.currentPage.clearExplicitVariableModeForCollection(collectionForKey);
+    }
+  });
+}
 
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
+// Listen to events from the UI
 figma.ui.onmessage = async (msg: { type: string, theme: string }) => {
 
-  // One way of distinguishing between different types of messages sent from
-  // your HTML page is to use an object with a "type" property like this.
   if (msg.type === 'selectTheme') {
-    // const level2 = findParentCollection(msg.theme);
-    // console.log('level2', level2);
-    console.log(figma.currentPage.explicitVariableModes);
-    collections.forEach(variable => {
-      figma.currentPage.clearExplicitVariableModeForCollection(variable);
-    });
+
+    removeCurrentVariableModes();
+
     const themeIds = themes.find(t => t.compoundId === msg.theme);
-    console.log('theme', themeIds);
     const base = collections.find(c => c.name==="Base");
+
     if(!themeIds) {
       console.error('Theme not found for', msg.theme);
       return;
     }
+
+    // find collections by id because we need the send the whole collection in the API call.
     const collection = findCollectionById(themeIds.collectionId);
-    const subCollection = findCollectionById(themeIds.subCollectionId);
+    const themeCollection = findCollectionById(themeIds.themeCollectionId);
     const theme = findCollectionById(themeIds.themeId);
 
     if(base) {
       figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
     }
     if(collection) {
-      console.log('set',collection, themeIds.subCollectionModeId);
-      figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.subCollectionModeId);
+      figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
     }
-    if(subCollection) {
-      figma.currentPage.setExplicitVariableModeForCollection(subCollection, themeIds.themeModeId);
+    if(themeCollection) {
+      figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
     }
     if(theme && themeIds.variantId) {
-      // console.log('set',themeIds.themeId, themeIds.variantId)
       figma.currentPage.setExplicitVariableModeForCollection(theme, themeIds.variantId);
     }
   }
 
-  // Make sure to close the plugin when you're done. Otherwise the plugin will
-  // keep running, which shows the cancel button at the bottom of the screen.
-  // figma.closePlugin();
+  figma.closePlugin();
 };
 
 

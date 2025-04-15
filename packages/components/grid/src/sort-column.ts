@@ -14,6 +14,9 @@ declare global {
 
 let nextUniqueId = 0;
 
+/**
+ * A grid column that can be sorted.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSortColumn<T = any> extends GridColumn<T> {
   /** The direction this columns should be sorted in. */
@@ -53,7 +56,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     const parts = ['header', 'sort', ...this.getParts()];
 
     return html`
-      <th part=${parts.join(' ')} aria-sort=${ifDefined(this.ariaSorting)} role="columnheader" scope="col">
+      <th aria-sort=${ifDefined(this.ariaSorting)} part=${parts.join(' ')} role="columnheader" scope="col">
         <sl-grid-sorter .column=${this} .direction=${this.direction} .path=${this.path} .sorter=${this.sorter}>
           ${this.header ?? getNameByPath(this.path)}
         </sl-grid-sorter>

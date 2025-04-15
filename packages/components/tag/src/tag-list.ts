@@ -124,7 +124,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('stacked')) {
-      // TODO... sth here?
       if (this.stacked && this.stack) {
         this.#resizeObserver.observe(this.stack);
       } else {
@@ -138,26 +137,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log(
-      "this.stacked && this.stackTag && this.stackTag.style.display !== 'none'",
-      this.stacked && this.stackTag && this.stackTag.style.display !== 'none',
-      'stacked and stackTag and so on....',
-      this.stacked,
-      this.stackTag,
-      this.stackTag?.style.display !== 'none'
-    );
-
-    console.log(
-      'stacked???',
-      this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []
-    );
-
-    console.log(
-      'this.tags',
-      this.tags,
-      (this.tags ?? []).filter(t => t.style.display !== 'none' && t.removable)
-    );
-
     return html`
       ${this.stacked
         ? html`
@@ -256,32 +235,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       }
     }
 
-    console.log(
-      "111this.stacked && this.stackTag && this.stackTag.style.display !== 'none'",
-      this.stacked && this.stackTag && this.stackTag.style.display !== 'none',
-      'stacked and stackTag and so on....',
-      this.stacked,
-      this.stackTag,
-      this.stackTag?.style.display !== 'none'
-    );
-
-    console.log(
-      '111stacked???',
-      this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []
-    );
-
-    console.log(
-      '111this.tags',
-      this.tags,
-      (this.tags ?? []).filter(t => t.style.display !== 'none' && t.removable)
-    );
-
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
     const stackTag = this.stack.querySelector('sl-tag') as Tag;
     stackTag.style.display = this.stackSize === 0 ? 'none' : '';
-    console.log('stack size', this.stackSize, this.stack);
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
     this.#rovingTabindexController.clearElementCache();

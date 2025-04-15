@@ -1,12 +1,27 @@
+import {
+  faBackpack,
+  faBook,
+  faCopy,
+  faGear,
+  faLink,
+  faList,
+  faLock,
+  faPaste,
+  faPen,
+  faShare,
+  faTrash,
+  faUnlock
+} from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
+import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type Panel, PanelElevation, type TogglePlacement } from './panel.js';
+import { type Panel, type PanelDensity, PanelElevation, type TogglePlacement } from './panel.js';
 
 type Props = Pick<
   Panel,
-  'collapsed' | 'collapsible' | 'elevation' | 'heading' | 'noBorder' | 'subheading' | 'togglePlacement'
+  'collapsed' | 'collapsible' | 'density' | 'divider' | 'elevation' | 'heading' | 'noBorder' | 'togglePlacement'
 > & {
   actions?(): string | TemplateResult;
   content?(): string | TemplateResult;
@@ -15,9 +30,11 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const togglePlacements: TogglePlacement[] = ['start', 'end'];
+const densities: PanelDensity[] = ['plain', 'comfortable'];
 
 const elevations: PanelElevation[] = ['none', 'raised', 'sunken'];
+
+const togglePlacements: TogglePlacement[] = ['start', 'end'];
 
 const users: Array<{ name: string; picture?: string; days: number; since: string; signal: string }> = [
   {
@@ -62,11 +79,15 @@ const users: Array<{ name: string; picture?: string; days: number; since: string
   }
 ];
 
+Icon.register(faBackpack, faBook, faCopy, faGear, faLink, faLock, faList, faPaste, faPen, faShare, faTrash, faUnlock);
+
 export default {
   title: 'Layout/Panel',
   tags: ['draft'],
   args: {
     collapsible: false,
+    density: 'plain',
+    divider: false,
     elevation: 'none',
     noBorder: false,
     togglePlacement: 'start'
@@ -80,6 +101,10 @@ export default {
     },
     content: {
       table: { disable: true }
+    },
+    density: {
+      control: 'radio',
+      options: densities
     },
     elevation: {
       control: 'radio',
@@ -101,11 +126,12 @@ export default {
     collapsed,
     collapsible,
     content,
+    density,
+    divider,
     elevation,
     heading,
     noBorder,
     prefix,
-    subheading,
     suffix,
     togglePlacement
   }) => {
@@ -113,10 +139,11 @@ export default {
       <sl-panel
         ?collapsed=${collapsible && collapsed}
         ?collapsible=${collapsible}
-        .heading=${heading}
+        ?divider=${divider}
+        .density=${density}
         .elevation=${elevation}
+        .heading=${heading}
         .noBorder=${noBorder}
-        .subheading=${subheading}
         .togglePlacement=${togglePlacement}
       >
         ${actions?.()}${content?.()}${prefix?.()}${suffix?.()}
@@ -127,30 +154,30 @@ export default {
 
 export const Basic: Story = {
   args: {
-    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
-    heading: 'Panel heading',
-    subheading: 'Panel subheading'
+    heading: 'Panel heading'
   }
 };
 
 export const WithPrefix: Story = {
   args: {
-    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
-    prefix: () => html`<sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>`,
-    heading: 'Panel heading',
-    subheading: 'Panel subheading'
+    prefix: () => html`<sl-icon slot="prefix" name="far-backpack"></sl-icon>`,
+    heading: 'Panel heading'
   }
 };
 
 export const WithSuffix: Story = {
   args: {
-    actions: () => html`<sl-button fill="outline" slot="actions">Remove</sl-button>`,
+    actions: () =>
+      html`<sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>`,
     content: () => html`<span>Panel content</span>`,
     suffix: () => html`<sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>`,
-    heading: 'Panel heading',
-    subheading: 'Panel subheading'
+    heading: 'Panel heading'
   }
 };
 
@@ -172,10 +199,9 @@ export const OverflowHeading: Story = {
   args: {
     ...Basic.args,
     heading:
-      'This panel heading is really long and will overflow the panel if it is too narrow. Quis amet non cupidatat ex non esse incididunt officia magna officia proident.',
-    subheading:
-      'Panel subheading. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.',
-    content: () => 'The heading should overflow and not be truncated. Any actions should still be aligned at the top.'
+      'Explore and Understand Our Amazing Planet: Simple and Fun Geography Lessons to Learn About Countries, Cultures, and the World Around Us. Let the journey begin.',
+    content: () =>
+      'Learn all about the Earth with easy and interactive geography lessons. Discover maps, explore different countries and their cultures, and understand how the world works. Take fun quizzes, track your progress, and enjoy interesting facts about our planet. Make geography exciting and simple with tools designed to help you learn and explore.'
   }
 };
 
@@ -183,13 +209,17 @@ export const OverflowActions: Story = {
   args: {
     ...Basic.args,
     actions: () => html`
-      <sl-button fill="outline" slot="actions">Action 1</sl-button>
-      <sl-button fill="outline" slot="actions">Action 2</sl-button>
-      <sl-button fill="outline" slot="actions">Action 3</sl-button>
-      <sl-button fill="outline" slot="actions">Action 4</sl-button>
-      <sl-button fill="outline" slot="actions">Action 5</sl-button>
-      <sl-button fill="outline" slot="actions">Action 6</sl-button>
-      <sl-button fill="outline" slot="actions">Action 7</sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Edit"><sl-icon name="far-pen"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Copy"><sl-icon name="far-copy"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Paste"><sl-icon name="far-paste"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Book"><sl-icon name="far-book"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Share"><sl-icon name="far-share"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="List"><sl-icon name="far-list"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Link"><sl-icon name="far-link"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Lock"><sl-icon name="far-lock"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Unlock"><sl-icon name="far-unlock"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Settings"><sl-icon name="far-gear"></sl-icon></sl-button>
+      <sl-button fill="ghost" slot="actions" aria-label="Remove"><sl-icon name="far-trash"></sl-icon></sl-button>
     `,
     content: () => "If you add too many actions that won't fit on 1 line, it will add a menu button for the overflow."
   }
@@ -202,14 +232,6 @@ export const WithoutActions: Story = {
   }
 };
 
-export const TitlesReversed: Story = {
-  render: () => html`
-    <sl-panel style="--sl-panel-titles-order: column-reverse" heading="Panel heading" subheading="Panel subheading">
-      Panel with subheading above the heading
-    </sl-panel>
-  `
-};
-
 export const NoPaddingContent: Story = {
   args: {
     collapsible: true,
@@ -218,6 +240,10 @@ export const NoPaddingContent: Story = {
       <style>
         sl-panel {
           --sl-panel-content-padding: 0;
+        }
+
+        th {
+          text-align: left;
         }
 
         .flex-table {
@@ -245,34 +271,33 @@ export const NoPaddingContent: Story = {
         }
       </style>
 
-      <div>
-        <div class="flex-table">
-          <div class="row">
-            <div class="cell">Name</div>
-            <div class="cell">Days</div>
-            <div class="cell">Since</div>
-            <div class="cell">Signal</div>
-          </div>
+      <table class="flex-table">
+        <tbody>
+          <tr class="row">
+            <th class="cell">Name</th>
+            <th class="cell">Days</th>
+            <th class="cell">Since</th>
+            <th class="cell">Signal</th>
+          </tr>
           ${Array.from({ length: 6 }).map(
-            (_, rowIndex) => html`
-              <div class="row">
-                <div class="cell">
+            (_, rowIndex) =>
+              html` <tr class="row">
+                <td class="cell">
                   <sl-avatar
                     .displayName=${users[rowIndex].name}
                     .pictureUrl=${users[rowIndex].picture}
                     size="md"
                   ></sl-avatar>
-                </div>
-                <div class="cell">${users[rowIndex].days}</div>
-                <div class="cell">${users[rowIndex].since}</div>
-                <div class="cell">
+                </td>
+                <td class="cell">${users[rowIndex].days}</td>
+                <td class="cell">${users[rowIndex].since}</td>
+                <td class="cell">
                   <sl-badge emphasis="subtle" size="lg" variant="info">${users[rowIndex].signal}</sl-badge>
-                </div>
-              </div>
-            `
+                </td>
+              </tr>`
           )}
-        </div>
-      </div>
+        </tbody>
+      </table>
     `,
     heading: 'Absence'
   }
@@ -290,8 +315,8 @@ export const NoHeader: Story = {
         }
 
         img {
-          width: 40rem;
-          height: 40rem;
+          max-height: 40rem;
+          aspect-ratio: 3 / 4;
         }
       </style>
       <div>
@@ -302,272 +327,75 @@ export const NoHeader: Story = {
   }
 };
 
-export const CustomHeading: Story = {
-  render: ({ elevation }) => html`
-    <style>
-      #root-inner,
-      div {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        inline-size: 100%;
-      }
-
-      .examples {
-        gap: 1.62rem;
-      }
-
-      section {
-        display: flex;
-        gap: 3rem;
-        align-items: start;
-        padding: 1rem;
-      }
-
-      section:first-of-type {
-        background-color: var(--sl-elevation-surface-raised-alternative);
-      }
-
-      .my-heading {
-        font-size: 1.3rem;
-        font-weight: 600;
-        gap: 16px;
-      }
-
-      .badges {
-        flex-direction: row;
-        gap: 8px;
-      }
-    </style>
-    <h2>Custom, slotted heading</h2>
-    <section>
-      <div class="examples">
-        <sl-panel
-          .elevation=${elevation}
-          subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-        >
-          <div class="my-heading" slot="heading">
-            <div class="badges">
-              <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-              <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-            </div>
-            Custom, slotted heading
-          </div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-          faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-        </sl-panel>
-        <sl-panel
-          .elevation=${elevation}
-          collapsible
-          collapsed
-          subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-        >
-          <div class="my-heading" slot="heading">
-            <div class="badges">
-              <sl-badge emphasis="subtle" size="lg" variant="info">badge</sl-badge>
-              <sl-badge emphasis="subtle" size="lg" variant="danger">badge</sl-badge>
-            </div>
-            Custom, slotted heading (collapsible)
-          </div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-          faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-          <sl-button fill="outline" slot="actions">Action</sl-button>
-        </sl-panel>
-      </div>
-    </section>
-  `
-};
-
 export const All: Story = {
   render: () => html`
     <style>
-      #root-inner,
-      div {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      .examples {
-        gap: 1.62rem;
-      }
-
-      section {
+      sl-panel.examples::part(content) {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 3rem;
-        align-items: start;
-        padding: 1rem;
+        grid-template-columns: minmax(auto, 500px);
+        gap: 1rem;
+        padding: 1.5rem;
       }
 
-      section:first-of-type {
-        background-color: var(--sl-elevation-surface-raised-alternative);
+      sl-panel.examples {
+        inline-size: fit-content;
       }
 
-      .my-heading {
-        font-size: 1.3rem;
-        font-weight: 600;
-        gap: 16px;
-      }
-
-      .badges {
-        flex-direction: row;
-        gap: 8px;
+      h3 {
+        margin: 0;
       }
     </style>
-    ${elevations.map(
-      elevation => html`
-        <h2>Elevation: ${elevation}</h2>
-        <section>
-          <div class="examples">
-            <h3>No border</h3>
-            <sl-panel no-border .elevation=${elevation}>Panel without header that can contain anything.</sl-panel>
-            <sl-panel no-border .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel no-border .elevation=${elevation} heading="Panel heading" subheading="Panel subheading"
-              >Panel content</sl-panel
-            >
-            <sl-panel no-border .elevation=${elevation} heading="Panel heading">
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel no-border .elevation=${elevation} collapsible heading="Panel heading">Panel content</sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              collapsible
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-              >Panel content</sl-panel
-            >
-            <sl-panel no-border .elevation=${elevation} collapsible collapsed heading="Panel heading">
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-            >
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel no-border .elevation=${elevation} collapsible collapsed heading="Panel heading with prefix">
-              <sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel no-border .elevation=${elevation} collapsible collapsed heading="Panel heading with suffix">
-              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              no-border
-              .elevation=${elevation}
-              heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
-              subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. "
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-          </div>
-          <div>
-            <h3>With border</h3>
-            <sl-panel .elevation=${elevation}>Panel content without header</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel heading">Panel content</sl-panel>
-            <sl-panel .elevation=${elevation} heading="Panel heading" subheading="Panel subheading"
-              >Panel content</sl-panel
-            >
-            <sl-panel .elevation=${elevation} heading="Panel heading">
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible heading="Panel heading">Panel content</sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-              >Panel content</sl-panel
-            >
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading">
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading="Panel heading - toggle on the right"
-              toggle-placement="end"
-            >
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              collapsible
-              collapsed
-              heading=" Eu quis Lorem laboris veniam reprehenderit esse tempor fugiat."
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading with prefix">
-              <sl-badge slot="prefix" emphasis="subtle" size="lg" variant="info">prefix</sl-badge>
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel .elevation=${elevation} collapsible collapsed heading="Panel heading with suffix">
-              <sl-badge slot="suffix" emphasis="subtle" size="lg" variant="info">suffix</sl-badge>
-              Panel content
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-            <sl-panel
-              .elevation=${elevation}
-              heading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-              subheading="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque."
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac ex et leo feugiat pellentesque. Fusce
-              faucibus non turpis at euismod. Quisque imperdiet imperdiet dui et tincidunt.
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-              <sl-button fill="outline" slot="actions">Action</sl-button>
-            </sl-panel>
-          </div>
-        </section>
-      `
-    )}
+
+    <section>
+      <sl-panel no-border elevation="raised" class="examples">
+        <h3>Static panel</h3>
+        Static panels group content and layout sections.
+        <sl-panel> A layout without a header, typically used for content grouping. </sl-panel>
+        <sl-panel heading="A static panel with a header">
+          A static layout with a header to provide more context to the content.
+        </sl-panel>
+
+        <h3>Collapsible panel</h3>
+        Collapsible panels allow users to expand or collapse sections of content.
+        <sl-panel collapsible heading="Toggle start">
+          A collapsible panel with the toggle positioned at the beginning of the section.
+        </sl-panel>
+        <sl-panel collapsible heading="Toggle end" toggle-placement="end">
+          A collapsible panel with the toggle placed at the end of the section.
+        </sl-panel>
+
+        <h3>Elevation</h3>
+        Elevation controls how the panel visually sits within the layout, from flat to raised.
+        <sl-panel heading="None">
+          For nested panels or areas where no visual background or separation is needed.
+        </sl-panel>
+        <sl-panel elevation="raised" heading="Raised">
+          Adds elevation to visually lift the panel from the surrounding content. Use when the panel is placed on top of
+          the page body.
+        </sl-panel>
+        <sl-panel elevation="sunken" heading="Sunken">
+          Adds a subtle inset effect. Useful for grouping nested content within a panel.
+        </sl-panel>
+
+        <h3>Density</h3>
+        Density adjusts the internal spacing of content within the panel.
+        <sl-panel heading="Plain"> The default spacing for general use. </sl-panel>
+        <sl-panel density="comfortable" heading="Comfortable"> Adds extra padding for a more relaxed layout. </sl-panel>
+
+        <h3>Divider</h3>
+        Dividers can be added to visually separate sections within a panel.
+        <sl-panel heading="Without divider"> Use when visual separation is not needed between sections. </sl-panel>
+        <sl-panel divider heading="With divider">
+          Adds a horizontal divider to separate content areas clearly.
+        </sl-panel>
+
+        <h3>No border</h3>
+        By default, there is a border around the panel. This can be removed by setting the no-border attribute.
+        <sl-panel heading="With border"> A border around the panel to make it more distinct in the layout. </sl-panel>
+        <sl-panel no-border heading="No border">
+          Best used when elevation or other context provides sufficient separation.
+        </sl-panel>
+      </sl-panel>
+    </section>
   `
 };

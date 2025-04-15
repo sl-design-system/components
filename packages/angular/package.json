@@ -99,5 +99,8 @@
   },
   "installConfig": {
     "hoistingLimits": "workspaces"
+  },
+  "dependencies": {
+    "@angular/router": "^19.2.6"
   }
 }

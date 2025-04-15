@@ -32,13 +32,14 @@
 [part='wrapper'] {
   display: flex;
   flex: 1;
-  gap: 1rem;
+  gap: var(--sl-size-050);
   min-inline-size: 0;
   padding: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+  padding-inline-end: 0;
 }
 
 sl-menu-button {
-  margin-inline: var(--sl-size-100) calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+  margin-inline: var(--sl-size-50) calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
 
   sl-icon + hr {
     display: none;

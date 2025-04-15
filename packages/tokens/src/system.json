@@ -239,7 +239,7 @@
             "y": "6",
             "blur": "12",
             "spread": "-3",
-            "color": "rgba({elevation.surface.shadow}, 4%)",
+            "color": "rgba({color.surface.shadow}, 4%)",
             "type": "dropShadow"
           },
           {
@@ -247,7 +247,7 @@
             "y": "6",
             "blur": "18",
             "spread": "0",
-            "color": "rgba({elevation.surface.shadow}, 12%)",
+            "color": "rgba({color.surface.shadow}, 12%)",
             "type": "dropShadow"
           }
         ],

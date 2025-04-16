@@ -47,7 +47,7 @@ export const SelectionColumn: Story = {
   args: {
     selectAll: false
   },
-  loaders: [async () => ({ people: (await getPeople()).people })],
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: ({ selectAll }, { loaded: { people } }) => {
     const onSelectionChange = ({ detail: { selected, size } }: CustomEvent<SelectionController>): void => {
       const p = document.querySelector<HTMLParagraphElement>('.selection')!;

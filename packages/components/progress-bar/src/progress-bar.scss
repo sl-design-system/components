@@ -1,6 +1,6 @@
 :host {
   --_indeterminate-duration: 20s;
-  --_fill-color: var(--sl-color-border-selected);
+  --_fill-color: var(--sl-color-foreground-selected-plain);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
@@ -12,15 +12,43 @@
 }
 
 :host([variant='success']) {
-  --_fill-color: var(--sl-color-border-positive-plain);
+  --_fill-color: var(--sl-color-foreground-positive-plain);
 }
 
 :host([variant='warning']) {
-  --_fill-color: var(--sl-color-border-caution-plain);
+  --_fill-color: var(--sl-color-foreground-caution-plain);
 }
 
 :host([variant='error']) {
-  --_fill-color: var(--sl-color-border-negative-plain);
+  --_fill-color: var(--sl-color-foreground-negative-plain);
+}
+
+:host([color='blue']:not([variant])) {
+  --_fill-color: var(--sl-color-foreground-accent-blue-plain);
+}
+
+:host([color='green']:not([variant])) {
+  --_fill-color: var(--sl-color-foreground-accent-green-plain);
+}
+
+:host([color='orange']:not([variant])) {
+  --_fill-color: var(--sl-color-foreground-accent-orange-plain);
+}
+
+:host([color='purple']:not([variant])) {
+  --_fill-color: var(--sl-color-foreground-accent-purple-plain);
+}
+
+:host([color='red']:not([variant])) {
+  --_fill-color: var(--sl-color-foreground-accent-red-plain);
+}
+
+:host([color='teal']:not([variant])) {
+  --_fill-color: var(--sl-color-foreground-accent-teal-plain);
+}
+
+:host([color='yellow']:not([variant])) {
+  --_fill-color: var(--sl-color-foreground-accent-yellow-plain);
 }
 
 :host([indeterminate]) .progress {

@@ -21,6 +21,10 @@ describe('sl-progress-bar', () => {
     expect(el).not.to.have.attribute('variant');
   });
 
+  it('should have no color by default', () => {
+    expect(el).not.to.have.attribute('color');
+  });
+
   it('should have no icon by default', () => {
     const icon = el.renderRoot.querySelector('sl-icon') as HTMLElement;
 

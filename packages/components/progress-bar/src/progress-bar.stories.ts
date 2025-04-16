@@ -169,6 +169,58 @@ export const Download: StoryObj = {
   }
 };
 
+export const Colors: StoryObj = {
+  argTypes: {
+    label: {
+      table: {
+        disable: true
+      }
+    },
+    value: {
+      table: {
+        disable: true
+      }
+    },
+    indeterminate: {
+      table: {
+        disable: true
+      }
+    },
+    variant: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: () => html`
+    <style>
+      #root-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+    </style>
+    <h2>With color</h2>
+    <sl-progress-bar value="60" label="Color blue" color="blue"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color green" color="green"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color orange" color="orange"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color purple" color="purple"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color red" color="red"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color teal" color="teal"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color yellow" color="yellow"></sl-progress-bar>
+
+    <h2>In combination with a variant:</h2>
+    <sl-progress-bar
+      value="60"
+      label="This should be the default succes color, event though the color is set to red"
+      variant="success"
+      color="red"
+    >
+      60% of 100%
+    </sl-progress-bar>
+  `
+};
+
 export const All: StoryObj = {
   argTypes: {
     label: {
@@ -229,5 +281,13 @@ export const All: StoryObj = {
     <sl-progress-bar indeterminate aria-label="Progress bar label in the indeterminate state">
       Preparing download
     </sl-progress-bar>
+    <h2>With color</h2>
+    <sl-progress-bar value="60" label="Color blue" color="blue"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color green" color="green"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color orange" color="orange"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color purple" color="purple"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color red" color="red"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color teal" color="teal"></sl-progress-bar>
+    <sl-progress-bar value="60" label="Color yellow" color="yellow"></sl-progress-bar>
   `
 };

@@ -1,5 +1,14 @@
 # @sl-design-system/progress-bar
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1977](https://github.com/sl-design-system/components/pull/1977) [`0ba5b46`](https://github.com/sl-design-system/components/commit/0ba5b46a412c0c122371abefeb22c960af4e176e) - Adds color property for changing the color of the default variant. These colors don't add any semantic meaning or extra labels or icons.
+
+- Updated dependencies [[`f09f025`](https://github.com/sl-design-system/components/commit/f09f0259b4c0fb0a139974431b8a4bad7d9df6c8)]:
+  - @sl-design-system/icon@1.2.0
+
 ## 0.1.0
 
 ### Minor Changes

@@ -30,6 +30,7 @@ export const templates = {
   s606beeef09212e6c: str`${0} de opties`,
   s629576c6b305d539: 'optioneel',
   s62aa2ba3fe47ece4: 'Vink tenminste één optie aan.',
+  s640e81cadb5300b5: str`${0} van ${1} geselecteerd`,
   s6580790b036f0c6f: 'actief',
   s680f01021b5e339d: 'Week',
   s6abb1cd87fe0114e: 'Home',

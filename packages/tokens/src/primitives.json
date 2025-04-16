@@ -48,6 +48,10 @@
       "value": "48px",
       "type": "sizing"
     },
+    "700": {
+      "value": "56px",
+      "type": "sizing"
+    },
     "800": {
       "value": "64px",
       "type": "sizing"
@@ -120,6 +124,10 @@
     },
     "600": {
       "value": "{size.600}",
+      "type": "spacing"
+    },
+    "700": {
+      "value": "{size.700}",
       "type": "spacing"
     },
     "800": {

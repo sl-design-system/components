@@ -15,6 +15,7 @@ declare global {
 }
 
 export type ProgressVariant = 'success' | 'warning' | 'error';
+export type ProgressColor = 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'teal' | 'yellow';
 
 /**
  * Progress bar component that can be used to communicate process status.
@@ -47,6 +48,9 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
 
   /** The variant of the progress bar. */
   @property({ reflect: true }) variant?: ProgressVariant;
+
+  /** The color of the progress bar. */
+  @property({ reflect: true }) color?: ProgressColor;
 
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;

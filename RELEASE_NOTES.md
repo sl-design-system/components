@@ -4,6 +4,24 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# April 16, 2025
+
+## New features
+
+- `grid` has improved filtering and selection functionality
+- `progress-bar` has new `color` option
+- `icon` now scales with the text size when no explicit size is set
+- `panel` uses the new contextual tokens and has new `density`, `divider` and `fill` properties. The `subheading` option has been removed.
+- All themes have a new primitive size token added and updated pressed/hover colors.
+
+## Bug fixes
+
+- `badge`, `menu`, `tag`, `tree` were updated because of a removed css variable in icon.
+ - `grid` Fix bug where adding/removing columns to the grid would not update the scrollbar
+ - `grid` Fix colors on hover/active clickable grid rows
+ - `grid` Fix "No path set" displayed value for empty columns
+
+
 # April 8, 2025
 
 ## Breaking changes

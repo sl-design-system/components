@@ -17,9 +17,9 @@ The release notes are ordered by the date the release was made. From latest, to 
 ## Bug fixes
 
 - `badge`, `menu`, `tag`, `tree` were updated because of a removed css variable in icon.
- - `grid` Fix bug where adding/removing columns to the grid would not update the scrollbar
- - `grid` Fix colors on hover/active clickable grid rows
- - `grid` Fix "No path set" displayed value for empty columns
+- `grid` Fix bug where adding/removing columns to the grid would not update the scrollbar
+- `grid` Fix colors on hover/active clickable grid rows
+- `grid` Fix "No path set" displayed value for empty columns
 
 
 # April 8, 2025

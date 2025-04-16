@@ -11,6 +11,9 @@ declare global {
   }
 }
 
+/**
+ * A grid column that can be used to select items in the grid.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
   /** When true, the active rows get selected automatically. */
@@ -73,7 +76,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     const checked = this.grid?.selection.isSelected(item);
 
     return html`
-      <td part="data selection">
+      <td @click=${this.#onClick} part="data selection">
         <sl-checkbox
           @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelect(item, detail)}
           .checked=${checked}
@@ -82,6 +85,14 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         ></sl-checkbox>
       </td>
     `;
+  }
+
+  #onClick(event: Event & { target: HTMLElement }): void {
+    // If the user clicks in the cell with the checkbox, but not on the checkbox itself,
+    // we want to toggle the checkbox anyway. This is helpful for touch devices.
+    if (event.target instanceof HTMLTableCellElement) {
+      (event.target.firstElementChild as HTMLElement)?.click();
+    }
   }
 
   #onToggleSelect(item: T, checked: boolean): void {

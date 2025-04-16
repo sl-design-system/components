@@ -1,7 +1,10 @@
+import { faCopy, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
 import { type Person, getPeople } from '@sl-design-system/example-data';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type SelectionController } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -18,6 +21,8 @@ export default {
     chromatic: { disableSnapshot: true }
   }
 };
+
+Icon.register(faCopy, faTrash);
 
 export const ClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
@@ -63,6 +68,14 @@ export const SelectionColumn: Story = {
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-copy"></sl-icon>
+          Duplicate
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
       </sl-grid>
     `;
   }

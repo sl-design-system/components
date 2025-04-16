@@ -235,6 +235,10 @@ tr {
     }
   }
 
+  &[part~='selected'] {
+    --_cell-background: var(--sl-color-background-selected-subtlest);
+  }
+
   &.drop-target {
     outline: var(--_drop-target-outline);
     outline-offset: var(--_drop-target-outline-offset);
@@ -453,5 +457,16 @@ tfoot {
     inline-size: var(--sl-grid-scrollbar-inline-size);
     margin-inline: var(--sl-grid-scrollbar-margin-inline);
     position: relative;
+  }
+}
+
+sl-tool-bar {
+  background: var(--sl-color-background-selected-bold);
+  border: 0;
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  color: var(--sl-color-foreground-inverted-plain);
+
+  span {
+    margin-inline-start: var(--sl-size-100);
   }
 }

@@ -5099,6 +5099,7 @@ __metadata:
     "@sl-design-system/shared": "npm:^0.7.0"
     "@sl-design-system/skeleton": "npm:^1.0.0"
     "@sl-design-system/text-field": "npm:^1.6.3"
+    "@sl-design-system/tool-bar": "npm:^0.0.7"
     lit: "npm:^3.2.1"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.13

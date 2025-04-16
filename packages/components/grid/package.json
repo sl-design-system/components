@@ -48,7 +48,8 @@
     "@sl-design-system/select": "^2.0.3",
     "@sl-design-system/shared": "^0.7.0",
     "@sl-design-system/skeleton": "^1.0.0",
-    "@sl-design-system/text-field": "^1.6.3"
+    "@sl-design-system/text-field": "^1.6.3",
+    "@sl-design-system/tool-bar": "^0.0.7"
   },
   "devDependencies": {
     "@lit-labs/virtualizer": "^2.1.0",

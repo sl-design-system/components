@@ -1,5 +1,5 @@
 /* eslint-disable lit/prefer-static-styles */
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayListDataSource, ListDataSource } from '@sl-design-system/data-source';
@@ -7,6 +7,7 @@ import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Scrollbar } from '@sl-design-system/scrollbar';
 import {
   type EventEmitter,
+  EventsController,
   type PathKeys,
   SelectionController,
   event,
@@ -16,6 +17,7 @@ import {
 } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
+import { ToolBar } from '@sl-design-system/tool-bar';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -105,7 +107,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader,
       'sl-skeleton': Skeleton,
-      'sl-scrollbar': Scrollbar
+      'sl-scrollbar': Scrollbar,
+      'sl-tool-bar': ToolBar
     };
   }
 
@@ -114,6 +117,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The item being dragged. */
   #dragItem?: T;
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { 'sl-selection-change': this.#onSelectionChange });
 
   /** The filters for this grid. */
   #filters: Array<GridFilter<T>> = [];
@@ -352,6 +358,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </tfoot>
       </table>
 
+      <sl-tool-bar popover="manual">
+        <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
+        <slot name="bulk-actions"></slot>
+      </sl-tool-bar>
+
       <a
         id="table-end"
         href="#table-start"
@@ -430,10 +441,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   renderItemRow(item: T, index: number): TemplateResult {
     const rows = this.view.headerRows,
       active = this.selection.isActive(item),
+      selected = this.selection.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(active ? ['active'] : []),
+        ...(selected ? ['selected'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item)?.split(' ') || []),
         ...(this.view.isFixedItem(item) ? ['fixed'] : [])
@@ -760,6 +773,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('scrollable', this.scrollbar);
     this.toggleAttribute('scrollable-start', this.scrollbar && scrollLeft > 0);
     this.toggleAttribute('scrollable-end', this.scrollbar && Math.round(scrollLeft) < scrollWidth - offsetWidth);
+  }
+
+  #onSelectionChange(): void {
+    const toolbar = this.renderRoot.querySelector('sl-tool-bar');
+
+    toolbar?.togglePopover(this.selection.selected > 0);
   }
 
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {

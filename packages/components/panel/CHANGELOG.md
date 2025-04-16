@@ -1,5 +1,20 @@
 # @sl-design-system/panel
 
+## 0.2.0
+
+### Minor Changes
+
+- [#1956](https://github.com/sl-design-system/components/pull/1956) [`0265764`](https://github.com/sl-design-system/components/commit/0265764ac709697377017147b065afc016187128) - - Use new contextual tokens for styling,
+  - Removed `subheading` property,
+  - Added `density`, `divider` and `fill` properties.
+
+### Patch Changes
+
+- Updated dependencies [[`0a45fb2`](https://github.com/sl-design-system/components/commit/0a45fb23105fce305650c96c5962afe0bb10b930), [`0265764`](https://github.com/sl-design-system/components/commit/0265764ac709697377017147b065afc016187128), [`f09f025`](https://github.com/sl-design-system/components/commit/f09f0259b4c0fb0a139974431b8a4bad7d9df6c8)]:
+  - @sl-design-system/shared@0.7.1
+  - @sl-design-system/tool-bar@0.0.8
+  - @sl-design-system/icon@1.2.0
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,5 +1,30 @@
 # @sl-design-system/grid
 
+## 0.4.0
+
+### Minor Changes
+
+- [#1957](https://github.com/sl-design-system/components/pull/1957) [`8a08521`](https://github.com/sl-design-system/components/commit/8a08521ce3396630669fbc0c888e4a4d96aeaee5) - Minor improvements to filtering:
+  - Use the `originalItems` on `ListDataSource` to determine the filter options
+  - Add a new `getDisplayValue` method in `GridColumn` that can be overridden to customize the display value
+  - Add a new `labelPath` property to `<sl-grid-filter-column>` to specify the label for the display value
+
+### Patch Changes
+
+- [#1963](https://github.com/sl-design-system/components/pull/1963) [`0a45fb2`](https://github.com/sl-design-system/components/commit/0a45fb23105fce305650c96c5962afe0bb10b930) - Add `selected` attribute to `SelectionController` that returns the number of selected items
+
+- [#1965](https://github.com/sl-design-system/components/pull/1965) [`cae9352`](https://github.com/sl-design-system/components/commit/cae9352f9d9fef34ef29fec1a475d0e4225d69e3) - Fix bug where adding/removing columns to the grid would not update the scrollbar
+
+- [#1966](https://github.com/sl-design-system/components/pull/1966) [`9e5b45f`](https://github.com/sl-design-system/components/commit/9e5b45f1e7d62028b977a42827e79cc894260f2b) - Fix colors on hover/active clickable grid rows
+
+- [#1954](https://github.com/sl-design-system/components/pull/1954) [`9fbfdac`](https://github.com/sl-design-system/components/commit/9fbfdac76b8b5d151f8d71af493e20c3c87ae459) - Fix "No path set" displayed value for empty columns
+
+- Updated dependencies [[`0a45fb2`](https://github.com/sl-design-system/components/commit/0a45fb23105fce305650c96c5962afe0bb10b930), [`cae9352`](https://github.com/sl-design-system/components/commit/cae9352f9d9fef34ef29fec1a475d0e4225d69e3), [`8a08521`](https://github.com/sl-design-system/components/commit/8a08521ce3396630669fbc0c888e4a4d96aeaee5), [`f09f025`](https://github.com/sl-design-system/components/commit/f09f0259b4c0fb0a139974431b8a4bad7d9df6c8)]:
+  - @sl-design-system/shared@0.7.1
+  - @sl-design-system/scrollbar@0.1.1
+  - @sl-design-system/data-source@0.1.3
+  - @sl-design-system/icon@1.2.0
+
 ## 0.3.4
 
 ### Patch Changes

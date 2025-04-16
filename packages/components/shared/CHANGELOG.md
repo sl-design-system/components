@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.7.1
+
+### Patch Changes
+
+- [#1963](https://github.com/sl-design-system/components/pull/1963) [`0a45fb2`](https://github.com/sl-design-system/components/commit/0a45fb23105fce305650c96c5962afe0bb10b930) - Add `selected` attribute to `SelectionController` that returns the number of selected items
+
 ## 0.7.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @sanomalearning/slds-sanoma-learning
 
+## 0.4.4
+
+### Patch Changes
+
+- [#1957](https://github.com/sl-design-system/components/pull/1957) [`8a08521`](https://github.com/sl-design-system/components/commit/8a08521ce3396630669fbc0c888e4a4d96aeaee5) - Fix interactive bold token value
+
+- [#1956](https://github.com/sl-design-system/components/pull/1956) [`0265764`](https://github.com/sl-design-system/components/commit/0265764ac709697377017147b065afc016187128) - Added new `size.700` primitive token.
+
+- Updated dependencies [[`f09f025`](https://github.com/sl-design-system/components/commit/f09f0259b4c0fb0a139974431b8a4bad7d9df6c8)]:
+  - @sl-design-system/icon@1.2.0
+
 ## 0.4.3
 
 ### Patch Changes

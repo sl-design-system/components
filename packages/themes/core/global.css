@@ -15,7 +15,9 @@ html {
 body {
   background: var(--sl-elevation-surface-base-default);
   color: var(--sl-color-foreground-plain);
+  inline-size: fit-content;
   min-block-size: 100dvh;
+  min-inline-size: 100dvw;
   transform-origin: top;
 }
 

@@ -23,6 +23,34 @@
   --_fill-color: var(--sl-color-border-negative-plain);
 }
 
+:host([color='blue']:not([variant])) {
+  --_fill-color: var(--sl-color-border-accent-blue-plain);
+}
+
+:host([color='green']:not([variant])) {
+  --_fill-color: var(--sl-color-border-accent-green-plain);
+}
+
+:host([color='orange']:not([variant])) {
+  --_fill-color: var(--sl-color-border-accent-orange-plain);
+}
+
+:host([color='purple']:not([variant])) {
+  --_fill-color: var(--sl-color-border-accent-purple-plain);
+}
+
+:host([color='red']:not([variant])) {
+  --_fill-color: var(--sl-color-border-accent-red-plain);
+}
+
+:host([color='teal']:not([variant])) {
+  --_fill-color: var(--sl-color-border-accent-teal-plain);
+}
+
+:host([color='yellow']:not([variant])) {
+  --_fill-color: var(--sl-color-border-accent-yellow-plain);
+}
+
 :host([indeterminate]) .progress {
   animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
   position: relative;

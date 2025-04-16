@@ -358,9 +358,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </tfoot>
       </table>
 
-      <div class="bulk-actions" popover="manual">
-        <sl-tool-bar>
-          <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
+      <div part="bulk-actions" popover="manual">
+        <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
+        <sl-tool-bar no-border>
           <slot name="bulk-actions"></slot>
         </sl-tool-bar>
       </div>
@@ -778,7 +778,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange(): void {
-    this.renderRoot.querySelector<HTMLElement>('.bulk-actions')?.togglePopover(this.selection.selected > 0);
+    this.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]')?.togglePopover(this.selection.selected > 0);
   }
 
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {

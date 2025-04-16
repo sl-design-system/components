@@ -1,5 +1,16 @@
 # @sl-design-system/teas
 
+## 0.2.4
+
+### Patch Changes
+
+- [#1956](https://github.com/sl-design-system/components/pull/1956) [`0265764`](https://github.com/sl-design-system/components/commit/0265764ac709697377017147b065afc016187128) - Added new `size.700` primitive token.
+
+- [#1965](https://github.com/sl-design-system/components/pull/1965) [`cae9352`](https://github.com/sl-design-system/components/commit/cae9352f9d9fef34ef29fec1a475d0e4225d69e3) - Tweak hover/pressed state colors
+
+- Updated dependencies [[`f09f025`](https://github.com/sl-design-system/components/commit/f09f0259b4c0fb0a139974431b8a4bad7d9df6c8)]:
+  - @sl-design-system/icon@1.2.0
+
 ## 0.2.3
 
 ### Patch Changes

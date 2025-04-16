@@ -1,5 +1,11 @@
 # @sl-design-system/scrollbar
 
+## 0.1.1
+
+### Patch Changes
+
+- [#1965](https://github.com/sl-design-system/components/pull/1965) [`cae9352`](https://github.com/sl-design-system/components/commit/cae9352f9d9fef34ef29fec1a475d0e4225d69e3) - Fix bug where adding/removing columns to the grid would not update the scrollbar
+
 ## 0.1.0
 
 ### Minor Changes

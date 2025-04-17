@@ -1,5 +1,5 @@
 /* eslint-disable lit/prefer-static-styles */
-import { localized, msg } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayListDataSource, ListDataSource } from '@sl-design-system/data-source';
@@ -7,6 +7,7 @@ import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Scrollbar } from '@sl-design-system/scrollbar';
 import {
   type EventEmitter,
+  EventsController,
   type PathKeys,
   SelectionController,
   event,
@@ -16,11 +17,10 @@ import {
 } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
+import { ToolBar } from '@sl-design-system/tool-bar';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { repeat } from 'lit/directives/repeat.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -107,7 +107,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader,
       'sl-skeleton': Skeleton,
-      'sl-scrollbar': Scrollbar
+      'sl-scrollbar': Scrollbar,
+      'sl-tool-bar': ToolBar
     };
   }
 
@@ -116,6 +117,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The item being dragged. */
   #dragItem?: T;
+
+  // eslint-disable-next-line no-unused-private-class-members
+  #events = new EventsController(this, { 'sl-selection-change': this.#onSelectionChange });
 
   /** The filters for this grid. */
   #filters: Array<GridFilter<T>> = [];
@@ -333,7 +337,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-sorter-change=${this.#onSorterChange}
           part="thead"
         >
-          ${this.renderHeader()}
+          ${this.renderHeaderRows()}
         </thead>
         <tbody id="tbody" part="tbody">
           ${virtualize({
@@ -353,6 +357,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             : nothing}
         </tfoot>
       </table>
+
+      <div part="bulk-actions" popover="manual">
+        <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
+        <sl-tool-bar no-border>
+          <slot name="bulk-actions"></slot>
+        </sl-tool-bar>
+      </div>
 
       <a
         id="table-end"
@@ -385,7 +396,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       })}
       ${rows[rows.length - 1].map((col, index) => {
         return `
-          :where(tbody td, thead tr:last-of-type th):nth-child(${index + 1}) {
+          :where(tbody td, thead tr th):nth-child(${index + 1}) {
             flex-grow: ${col.grow};
             inline-size: ${col.width || '100'}px;
             justify-content: ${col.align ?? 'start'};
@@ -404,37 +415,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderHeader(): TemplateResult {
-    const rows = this.view.headerRows,
-      selectionColumn = rows.at(-1)?.find((col): col is GridSelectionColumn<T> => col instanceof GridSelectionColumn),
-      showSelectionHeader = selectionColumn && this.selection.selected > 0;
+  renderHeaderRows(): TemplateResult[] {
+    const rows = this.view.headerRows;
+
+    return rows.map(row => this.renderHeaderRow(row));
+  }
+
+  renderHeaderRow(columns: GridColumn[]): TemplateResult {
+    const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0),
+      rows = Array.from({ length: rowCount });
 
     return html`
-      ${rows.slice(0, -1).map(
-        row => html`
+      ${rows.map(
+        (_, rowIndex) => html`
           <tr>
-            ${repeat(
-              row,
-              col => col.path,
-              col => col.renderHeader()
-            )}
+            ${columns.map(col => col.renderHeaderRow(rowIndex))}
           </tr>
         `
       )}
-      ${showSelectionHeader
-        ? html`
-            <tr>
-              ${selectionColumn.renderHeader()} ${selectionColumn.renderSelectionHeader()}
-            </tr>
-          `
-        : nothing}
-      <tr style=${styleMap({ display: showSelectionHeader ? 'none' : '' })}>
-        ${repeat(
-          rows.at(-1) ?? [],
-          col => col.path,
-          col => col.renderHeader()
-        )}
-      </tr>
     `;
   }
 
@@ -445,10 +443,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   renderItemRow(item: T, index: number): TemplateResult {
     const rows = this.view.headerRows,
       active = this.selection.isActive(item),
+      selected = this.selection.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(active ? ['active'] : []),
+        ...(selected ? ['selected'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item)?.split(' ') || []),
         ...(this.view.isFixedItem(item) ? ['fixed'] : [])
@@ -777,6 +777,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('scrollable-end', this.scrollbar && Math.round(scrollLeft) < scrollWidth - offsetWidth);
   }
 
+  #onSelectionChange(): void {
+    this.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]')?.togglePopover(this.selection.selected > 0);
+  }
+
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
     // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
     event.preventDefault();
@@ -829,7 +833,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       if (col instanceof GridFilterColumn) {
         const { value } = this.dataSource?.filters.get(col.id) || {};
         if (value) {
-          col.value = value;
+          col.value = value.toString();
         }
       } else if (col instanceof GridSortColumn) {
         const { id, direction } = this.dataSource?.sort || {};

@@ -1,54 +1,15 @@
 :host {
-  --_active-color: var(--sl-color-input-option-default-checked-default-background);
-  --_gap: 0.25rem;
-  --_icon-color: currentcolor;
-
-  display: block;
-  inline-size: 100%;
-}
-
-:host([active]) {
-  --_icon-color: var(--_active-color);
-}
-
-.toggle {
-  box-sizing: border-box;
-  font-weight: var(--_header-font-weight);
-  inline-size: 100%;
-  justify-content: space-between;
-  padding-inline: var(--_header-padding-inline);
-
-  sl-icon[name$='filter'] {
-    margin-inline-start: auto;
-  }
-}
-
-sl-popover {
-  --_padding: 0;
-
-  font-weight: var(
-    --sl-text-typeset-fontWeight-regular
-  ); // when using 'inherit' it inherits from the table header, which is bold
-
-  padding: 0;
-}
-
-header {
   align-items: center;
-  background: var(--sl-elevation-surface-raised-default);
-  border-block-end: 1px solid var(--sl-color-elevation-border-raised);
   display: flex;
-  font-weight: var(--sl-font-weight-semibold);
+  font-weight: var(--sl-text-typeset-fontWeight-regular);
   gap: var(--sl-size-100);
-  inset-block-start: calc(var(--sl-size-300) * -1);
-  justify-content: space-between;
-  margin-block: calc(var(--sl-size-300) * -1) var(--sl-size-200);
-  padding-block-start: var(--sl-size-300);
-  position: sticky;
-  z-index: 1; // needed for the sticky positioning to work
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: var(--sl-size-075) var(--sl-size-200);
 }
 
-h1 {
-  font: var(--sl-text-body-md-demibold);
-  margin: 0;
+sl-search-field,
+sl-select {
+  inline-size: 100%;
+  min-inline-size: 0;
 }

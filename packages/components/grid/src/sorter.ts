@@ -1,7 +1,8 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
@@ -29,19 +30,21 @@ export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
   direction?: DataSourceSortDirection;
 }>;
 
+/**
+ * Component that is used as the column header for a sortable column.
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon
     };
   }
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  #events = new EventsController(this);
 
   /** The grid column.  */
   @property({ attribute: false }) column!: GridColumn<T>;
@@ -64,11 +67,6 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.tabIndex = 0;
-
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'keydown', this.#onKeydown);
-
     this.sorterChangeEvent.emit('added');
   }
 
@@ -82,7 +80,12 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <slot></slot>
-      <span aria-hidden="true" class="direction">
+      <sl-button
+        @click=${this.#onClick}
+        .fill=${this.direction ? 'solid' : 'ghost'}
+        size="sm"
+        .variant=${this.direction ? 'primary' : 'neutral'}
+      >
         ${choose(
           this.direction,
           [
@@ -91,7 +94,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
           ],
           () => html`<sl-icon name="sort"></sl-icon>`
         )}
-      </span>
+      </sl-button>
     `;
   }
 
@@ -102,15 +105,6 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   #onClick(): void {
     this.#toggleDirection();
     this.sortDirectionChangeEvent.emit({ grid: this.column.grid!, column: this.column, direction: this.direction });
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if ([' ', 'Enter'].includes(event.key)) {
-      event.preventDefault();
-
-      this.#toggleDirection();
-      this.sortDirectionChangeEvent.emit({ grid: this.column.grid!, column: this.column, direction: this.direction });
-    }
   }
 
   #toggleDirection(): void {

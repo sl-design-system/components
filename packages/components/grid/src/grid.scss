@@ -173,6 +173,12 @@ thead {
   overflow-x: hidden;
   position: sticky;
   z-index: 1;
+
+  tr + tr {
+    th {
+      border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+    }
+  }
 }
 
 tbody {
@@ -229,6 +235,10 @@ tr {
     }
   }
 
+  &[part~='selected'] {
+    --_cell-background: var(--sl-color-background-selected-subtlest);
+  }
+
   &.drop-target {
     outline: var(--_drop-target-outline);
     outline-offset: var(--_drop-target-outline-offset);
@@ -247,9 +257,10 @@ td {
     calc(var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default));
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
-  &:first-of-type:not([part~='drag-handle']) {
-    padding-inline-start: calc(var(--_cell-padding-inline) + var(--_first-cell-padding-inline-start, 0px));
-  }
+  // Not sure what this is for atm
+  // &:first-of-type:not([part~='drag-handle']) {
+  //   padding-inline-start: calc(var(--_cell-padding-inline) + var(--_first-cell-padding-inline-start, 0px));
+  // }
 
   &[part~='selection'] {
     --_cell-padding-block: 0;
@@ -282,7 +293,8 @@ th[part~='active-selection'] {
   flex-grow: 1;
 }
 
-th[part~='filter'] {
+th[part~='filter'],
+th[part~='sort'] {
   padding: 0;
 }
 
@@ -446,4 +458,48 @@ tfoot {
     margin-inline: var(--sl-grid-scrollbar-margin-inline);
     position: relative;
   }
+}
+
+[part='bulk-actions'] {
+  align-items: center;
+  background: var(--sl-color-background-selected-bold);
+  border: 0;
+  border-radius: var(--sl-size-borderRadius-default);
+  box-shadow: var(--sl-elevation-shadow-overlay);
+  color: var(--sl-color-foreground-inverted-plain);
+  inset-block-start: calc(anchor(bottom) + 1rem);
+  /* stylelint-disable-next-line declaration-property-value-no-unknown */
+  justify-self: anchor-center;
+  margin: 0;
+  padding: 0;
+  position-anchor: --myanchor;
+  position-try: --viewport-block-end;
+
+  &:popover-open {
+    display: flex;
+  }
+
+  sl-tool-bar {
+    background: inherit;
+
+    &::part(wrapper) {
+      gap: var(--sl-size-100);
+    }
+  }
+
+  span {
+    display: inline-flex;
+    margin-inline: var(--sl-size-200);
+    padding-block: var(--sl-size-050);
+  }
+
+  slot[name='bulk-actions']::slotted(sl-button:first-of-type) {
+    margin-inline-start: var(--sl-size-600);
+  }
+}
+
+@position-try --viewport-block-end {
+  inset-block: auto 1rem;
+  /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
+  position-anchor: initial;
 }

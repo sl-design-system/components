@@ -1,11 +1,18 @@
 import { type ReactiveControllerHost } from 'lit';
 
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-selection-change': SlSelectionChangeEvent;
+  }
+}
+
 export interface SelectionControllerOptions {
   multiple: boolean;
 }
 
 /** Emits when the selection changes. */
-export type SlSelectionChangeEvent<T> = CustomEvent<{ selection: SelectionController<T> }>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlSelectionChangeEvent<T = any> = CustomEvent<{ selection: SelectionController<T> }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SelectionController<T = any> {

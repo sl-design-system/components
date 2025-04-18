@@ -17,7 +17,7 @@ type VariableCollectionWithModeId = VariableCollection & {
 };
 
 let libVariables: LibraryVariableCollection[] = [];
-const variableCollections: VariableCollectionWithModeId[] = [];
+let variableCollections: VariableCollectionWithModeId[] = [];
 const themes: Array<{
   collectionId: string;
   collectionModeId: string;
@@ -101,6 +101,17 @@ getFromLibrary()
   .then(variableCollection => {
     if (variableCollection) {
       sendCollections();
+    } else {
+      // if the variables are not in the library, we need to get them from the current page
+      figma.variables
+        .getLocalVariableCollectionsAsync()
+        .then(c => {
+          variableCollections = c;
+          sendCollections();
+        })
+        .catch(e => {
+          console.error('Error getting local variable collections', e);
+        });
     }
   })
   .catch(e => {

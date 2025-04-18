@@ -58,7 +58,7 @@ let nextUniqueId = 0;
  * @csspart wrapper - Wraps the scroll container and menu button.
  * @csspart scroller - The scroll container of the tabs.
  * @csspart tablist - The tablist element which also contains the active tab indicator
- * @csspart panels - The container for the tab panels.
+ * @csspart panels - The container for the tab panels. Use this part to set the background color of all panels at once.
  *
  * @cssprop --sl-tab-group-menu-min-inline-size - The minimum inline size of the menu.
  * @cssprop --sl-tab-group-menu-max-inline-size - The maximum inline size of the menu.

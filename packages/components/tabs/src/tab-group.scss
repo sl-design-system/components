@@ -1,5 +1,4 @@
 :host {
-  background: var(--sl-elevation-surface-raised-default);
   display: flex;
   flex-direction: column;
   isolation: isolate; // Prevent any possible z-index clashes with other DOM elements
@@ -108,7 +107,7 @@
 }
 
 [part='container'] {
-  background: inherit; // Sticky tabs should not have a transparent background
+  background: var(--sl-elevation-surface-raised-default);
   border-block-end: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
   display: flex;
   inline-size: 100%;

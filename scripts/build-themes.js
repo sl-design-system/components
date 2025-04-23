@@ -1,8 +1,7 @@
 import { permutateThemes, register, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { kebabCase } from 'change-case';
 import cssnano from 'cssnano';
-import { readFile, writeFile } from 'fs/promises';
-import { log } from 'node:console';
+import { readdir, readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
 import { join } from 'path';
 import postcss from 'postcss';
@@ -12,6 +11,69 @@ import StyleDictionary from 'style-dictionary';
 const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
 register(StyleDictionary);
+
+const isObject = (item) => {
+  return (item && typeof item === 'object' && !Array.isArray(item));
+};
+
+const mergeDeep = (target, source) => {
+  let output = Object.assign({}, target);
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach(key => {
+      if (isObject(source[key])) {
+        if (!(key in target))
+          Object.assign(output, { [key]: source[key] });
+        else
+          output[key] = mergeDeep(target[key], source[key]);
+      } else {
+        Object.assign(output, { [key]: source[key] });
+      }
+    });
+  }
+
+  return output;
+};
+
+const stripPrefix = (dictionary, prefix) => {
+  Object.values(dictionary).forEach(token => {
+    if (token?.isSource && !token?.filePath?.endsWith('-new.json')) {
+      return;
+    }
+
+    if (token?.isSource) {
+      if (typeof token.$value === 'string') {
+        token.$value = token.$value.replaceAll(`${prefix}.`, '');
+      } else {
+        Object.entries(token.$value).forEach(([key, value]) => {
+          token.$value[key] = value.replaceAll(`${prefix}.`, '');
+        });
+      }
+    } else if (token) {
+      stripPrefix(token, prefix);
+    }
+  });
+};
+
+StyleDictionary.registerPreprocessor({
+  name: 'strip-routing-prefix',
+  preprocessor: (dictionary, { theme }) => {
+    const prefixDictionary = dictionary['I-A'];
+    if (prefixDictionary) {
+      dictionary = mergeDeep(Object.assign(dictionary, { 'I-A': undefined }), prefixDictionary);
+
+      stripPrefix(dictionary, 'I-A');
+    }
+
+    const themeDictionary = dictionary[theme];
+    if (themeDictionary) {
+      dictionary = mergeDeep(Object.assign(dictionary, { [theme]: undefined }), themeDictionary);
+
+      stripPrefix(dictionary, theme);
+    }
+
+    return dictionary;
+  }
+});
 
 StyleDictionary.registerTransform({
   name: 'name/kebabWithCamel',
@@ -105,9 +167,30 @@ StyleDictionary.registerTransform({
   }
 });
 
-const build = async (production = false) => {
-  const cwd = new URL('.', import.meta.url).pathname,
-    $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
+const getThemes = async folder => {
+  const folders = (await readdir(folder)).filter(f => !f.endsWith('.json') && !f.endsWith('_onhold') && !['I', 'II', 'device', 'placeholder', 'tokens'].includes(f));
+
+  const themes = [];
+
+  await Promise.all(folders.map(async f => {
+    const files = await readdir(join(folder, f));
+
+    if (files.some(file => file.startsWith('light'))) {
+      themes.push([f, 'light']);
+    }
+
+    if (files.some(file => file.startsWith('dark'))) {
+      themes.push([f, 'dark']);
+    }
+  }));
+
+  return themes;
+};
+
+const build = async (production = false, path) => {
+  const themes = await getThemes(path);
+  const cwd = new URL('.', import.meta.url).pathname;
+  //   $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
 
   const filterFiles = files => async token => {
     const filePath = token.filePath ?? token.attributes.filePath;
@@ -133,10 +216,21 @@ const build = async (production = false) => {
     }
   };
 
-  const configs = Object
-    .entries(permutateThemes($themes))
-    .map(([name, tokensets]) => {
-      const [theme, variant] = name.split('/');
+  // const configs = Object
+  //   .entries(permutateThemes($themes))
+  //   .map(([name, tokensets]) => {
+  //     const [theme, variant] = name.split('/');
+  //     console.log(`Building ${theme}, ${variant}...`, tokensets);
+  const configs = themes.map(([theme, variant]) => {
+    const tokensets = [
+      'core',
+      'system',
+      'primitives',
+      `${theme}/base`,
+      `${theme}/base-new`,
+      `${theme}/${variant}`,
+      `${theme}/${variant}-new`
+    ];
 
       const files = [
         {
@@ -202,8 +296,8 @@ const build = async (production = false) => {
           verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
           warnings: 'disabled'
         },
-        source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),
-        preprocessors: ['tokens-studio'],
+        source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
+        preprocessors: ['strip-routing-prefix', 'tokens-studio'],
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
@@ -224,7 +318,10 @@ const build = async (production = false) => {
       };
     });
 
+  // At index 8 is sanoma-learning/light; use that for debugging
+  // for (const cfg of [configs.at(13)]) {
   for (const cfg of configs) {
+    console.log(`Building ${cfg.theme}, ${cfg.variant}...`);
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
@@ -243,4 +340,4 @@ const build = async (production = false) => {
   }
 };
 
-build(argv.includes('--production'));
+build(argv.includes('--production'), argv.includes('--studio') ? './studio-export' : '../packages/tokens/src');

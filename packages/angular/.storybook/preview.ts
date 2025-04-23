@@ -2,39 +2,14 @@ import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-regi
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import {AngularRenderer, applicationConfig, Preview } from '@storybook/angular';
+import {Preview } from '@storybook/angular';
 import { themes, updateTheme } from '../../../.storybook/themes';
-import { DecoratorFunction } from 'storybook/internal/types';
-import {provideRouter, Router } from '@angular/router';
-import { ActionLoggingRouter } from './actionLoggingRouter';
 
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
   loadLocale: locale => Promise.resolve(locales[locale as (typeof locales.targetLocales)[number]])
 });
-
-// const routerDecorator: DecoratorFunction<AngularRenderer> = (
-//   storyFn,
-//   context,
-// ) => {
-//   return applicationConfig({
-//     providers: [
-//       {
-//         provide: Router,
-//         useFactory: () => {
-//           return new ActionLoggingRouter();
-//         },
-//       },
-//       provideRouter([
-//         {
-//           path: 'iframe.html',
-//           children: context.parameters['routes'] || [],
-//         },
-//       ]),
-//     ],
-//   })(storyFn, context);
-// };
 
 const preview: Preview = {
   decorators: [
@@ -48,8 +23,7 @@ const preview: Preview = {
       updateTheme(theme, mode);
 
       return story();
-    },
-    // routerDecorator
+    }
   ],
   globalTypes: {
     theme: {

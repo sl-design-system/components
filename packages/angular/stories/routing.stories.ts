@@ -3,13 +3,15 @@ import { type Meta, StoryFn, moduleMetadata } from '@storybook/angular';
 import { AccordionComponent } from '../src/accordion/accordion.component';
 import { ButtonComponent } from '../src/button/button.component';
 import { TabGroupComponent } from '../src/tabs/tab-group.component';
-import {RouterLink, RouterOutlet, provideRouter, withHashLocation} from '@angular/router';
+import {RouterLink /*, RouterOutlet, provideRouter, withHashLocation*/} from '@angular/router';
 import { TabComponent } from '../src/tabs/tab.component';
 import { MockLocationStrategy } from '@angular/common/testing';
 import {HashLocationStrategy, LocationStrategy, NgForOf} from '@angular/common';
 import { Routes } from '@angular/router';
 import { provideLocationMocks } from '@angular/common/testing';
-// import { withAngularRouter } from 'storybook-addon-angular-router';
+ // import { previewAnnotations } from 'storybook-addon-angular-router/dist/preset/index.js';
+// import  stringWidth  from 'string-width';
+// import withAngularRouter from 'storybook-addon-angular-router/decorators';
 
 @Component({
   selector: 'sla-routing',
@@ -18,7 +20,7 @@ import { provideLocationMocks } from '@angular/common/testing';
     TabGroupComponent,
     TabComponent,
     RouterLink,
-    RouterOutlet,
+    // RouterOutlet,
     NgForOf
   ],
   template: `
@@ -73,9 +75,15 @@ export const routes: Routes = [
   { path: 'assignments', component: DummyComponent2 }
 ];
 
+// export const WithActiveLink = Template.bind({});
+// WithActiveLink.parameters = {
+//   angularRouter: {active: '/location/1'}
+// };
+
 export default {
   title: 'Routing',
   decorators: [
+     // withAngularRouter,
     // withAngularRouter,
     moduleMetadata({
       imports: [
@@ -90,19 +98,28 @@ export default {
       // ],
     }),
   ],
+  // parameters: {
+  //   angularRouter: {
+  //     initialRoute: '/dashboard', // Set the initial route
+  //     routes: [
+  //       { path: 'dashboard', component: DummyComponent },
+  //       { path: 'assignments', component: DummyComponent2 },
+  //     ],
+  //   },
+  // },
 } as Meta;
 
 export const RoutingExample: StoryFn = () => ({
   template: '<sla-routing></sla-routing>',
-  parameters: {
-    angularRouter: {
-      initialRoute: '/dashboard', // Set the initial route
-      routes: [
-        { path: 'dashboard', component: DummyComponent },
-        { path: 'assignments', component: DummyComponent2 },
-      ],
-    },
-  },
+  // parameters: {
+  //   angularRouter: {
+  //     initialRoute: '/dashboard', // Set the initial route
+  //     routes: [
+  //       { path: 'dashboard', component: DummyComponent },
+  //       { path: 'assignments', component: DummyComponent2 },
+  //     ],
+  //   },
+  // },
 });
 //
 //

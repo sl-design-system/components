@@ -322,7 +322,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       tab.renderRoot.querySelector('a')?.click();
     }
 
-    this.#updateSelectedTab(tab);
+    tab.click();
   }
 
   #onScroll(scroller: HTMLElement): void {

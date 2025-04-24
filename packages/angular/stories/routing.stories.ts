@@ -1,7 +1,7 @@
 import { Component, Provider } from '@angular/core';
 import { type Meta, StoryFn, moduleMetadata } from '@storybook/angular';
 import { TabGroupComponent } from '../src/tabs/tab-group.component';
-import {provideRouter, RouterLink, RouterOutlet} from '@angular/router';
+import { provideRouter, RouterLink, RouterOutlet } from '@angular/router';
 import { TabComponent } from '../src/tabs/tab.component';
 import { NgForOf } from '@angular/common';
 
@@ -63,9 +63,7 @@ export default {
       imports: [
         DummyComponent,
         DummyComponent2,
-        RoutingComponent,
-        // TabGroupComponent,
-        // provideRouter(routes, withHashLocation()),
+        RoutingComponent
       ],
       providers: [
         provideRouter([
@@ -78,30 +76,8 @@ export default {
       // ],
     }),
   ],
-  // parameters: {
-  //   angularRouter: {
-  //     initialRoute: '/dashboard',
-  //     routes: [
-  //       { path: 'dashboard', component: DummyComponent },
-  //       { path: 'assignments', component: DummyComponent2 },
-  //     ],
-  //   },
-  // },
 } as Meta;
 
 export const RoutingExample: StoryFn = () => ({
   template: '<sla-routing></sla-routing>',
-  // parameters: {
-  //   routes: [
-  //     { path: 'dashboard', component: DummyComponent },
-  //     { path: 'assignments', component: DummyComponent2 }
-  //   ],
-  // //   angularRouter: {
-  // //     initialRoute: '/dashboard',
-  // //     routes: [
-  // //       { path: 'dashboard', component: DummyComponent },
-  // //       { path: 'assignments', component: DummyComponent2 },
-  // //     ],
-  // //   },
-  // },
 });

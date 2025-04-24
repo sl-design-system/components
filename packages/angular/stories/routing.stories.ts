@@ -1,9 +1,9 @@
-import { Component, Provider } from '@angular/core';
-import { type Meta, StoryFn, moduleMetadata } from '@storybook/angular';
-import { TabGroupComponent } from '../src/tabs/tab-group.component';
-import { provideRouter, RouterLink, RouterOutlet } from '@angular/router';
-import { TabComponent } from '../src/tabs/tab.component';
 import { NgForOf } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet, provideRouter, withHashLocation } from '@angular/router';
+import { type Meta, StoryFn, applicationConfig, moduleMetadata } from '@storybook/angular';
+import { TabGroupComponent } from '../src/tabs/tab-group.component';
+import { TabComponent } from '../src/tabs/tab.component';
 
 @Component({
   selector: 'sla-dummy',
@@ -26,58 +26,43 @@ export class DummyComponent2 {
 @Component({
   selector: 'sla-routing',
   standalone: true,
-  imports: [
-    TabGroupComponent,
-    TabComponent,
-    RouterLink,
-    NgForOf,
-    RouterOutlet
-  ],
+  imports: [TabGroupComponent, TabComponent, RouterLink, NgForOf, RouterOutlet],
   template: `
     <sl-tab-group>
-      <sl-tab
-        *ngFor="let tab of tabs"
-        [routerLink]="tab.path"
-      >
+      <sl-tab *ngFor="let tab of tabs" [routerLink]="tab.path">
         {{ tab.label }}
       </sl-tab>
       <router-outlet></router-outlet>
-    </sl-tab-group>`
+    </sl-tab-group>
+  `
 })
 export class RoutingComponent {
   tabs = [
     { path: '/dashboard', label: 'Dashboard' },
-    { path: '/assignments', label: 'Assignments' },
+    { path: '/assignments', label: 'Assignments' }
   ];
 }
-
-// export const routes: Routes = [
-//   { path: 'dashboard', component: DummyComponent },
-//   { path: 'assignments', component: DummyComponent2 }
-// ];
 
 export default {
   title: 'Routing',
   decorators: [
-    moduleMetadata({
-      imports: [
-        DummyComponent,
-        DummyComponent2,
-        RoutingComponent
-      ],
+    applicationConfig({
       providers: [
-        provideRouter([
-          { path: 'dashboard', component: DummyComponent },
-          { path: 'assignments', component: DummyComponent2 }
-        ]) as unknown as Provider
-      ],
-      // providers: [
-      //   [provideRouter(routes, withHashLocation())],
-      // ],
+        provideRouter(
+          [
+            { path: 'dashboard', component: DummyComponent },
+            { path: 'assignments', component: DummyComponent2 }
+          ],
+          withHashLocation()
+        )
+      ]
     }),
-  ],
+    moduleMetadata({
+      imports: [DummyComponent, DummyComponent2, RoutingComponent]
+    })
+  ]
 } as Meta;
 
 export const RoutingExample: StoryFn = () => ({
-  template: '<sla-routing></sla-routing>',
+  template: '<sla-routing></sla-routing>'
 });

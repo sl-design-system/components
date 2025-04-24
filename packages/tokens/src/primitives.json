@@ -162,5 +162,9 @@
       "value": "{size.full}",
       "type": "spacing"
     }
+  },
+  "Test": {
+    "value": "W3C DTCG Format",
+    "type": "text"
   }
 }

@@ -18,6 +18,7 @@ const isObject = (item) => {
 
 const mergeDeep = (target, source) => {
   let output = Object.assign({}, target);
+
   if (isObject(target) && isObject(source)) {
     Object.keys(source).forEach(key => {
       if (isObject(source[key])) {
@@ -36,11 +37,13 @@ const mergeDeep = (target, source) => {
 
 const stripPrefix = (dictionary, prefix) => {
   Object.values(dictionary).forEach(token => {
+    // Return early if the token is not a contextual token
     if (token?.isSource && !token?.filePath?.endsWith('-new.json')) {
       return;
     }
 
     if (token?.isSource) {
+      // Strip the prefix from any token values that are strings or objects
       if (typeof token.$value === 'string') {
         token.$value = token.$value.replaceAll(`${prefix}.`, '');
       } else {
@@ -49,6 +52,8 @@ const stripPrefix = (dictionary, prefix) => {
         });
       }
     } else if (token) {
+      // If the token does not have the `isSource` property, assume it has
+      // child tokens and recursively strip the prefix from them
       stripPrefix(token, prefix);
     }
   });
@@ -57,19 +62,21 @@ const stripPrefix = (dictionary, prefix) => {
 StyleDictionary.registerPreprocessor({
   name: 'strip-routing-prefix',
   preprocessor: (dictionary, { theme }) => {
-    const prefixDictionary = dictionary['I-A'];
-    if (prefixDictionary) {
-      dictionary = mergeDeep(Object.assign(dictionary, { 'I-A': undefined }), prefixDictionary);
+    ['I-A', 'I-B', 'I-C', 'II-E', 'II-F', theme].forEach(prefix => {
+      // Return early if the prefix is not present
+      if (!dictionary[prefix]) {
+        return;
+      }
 
-      stripPrefix(dictionary, 'I-A');
-    }
+      // Get the prefix dictionary, since we will be modifying the original dictionary
+      const prefixDictionary = dictionary[prefix];
 
-    const themeDictionary = dictionary[theme];
-    if (themeDictionary) {
-      dictionary = mergeDeep(Object.assign(dictionary, { [theme]: undefined }), themeDictionary);
+      // Merge the prefix dictionary with the top-level dictionary
+      dictionary = mergeDeep(Object.assign(dictionary, { [prefix]: undefined }), prefixDictionary);
 
-      stripPrefix(dictionary, theme);
-    }
+      // Strip the prefix from the dictionary
+      stripPrefix(dictionary, prefix);
+    });
 
     return dictionary;
   }
@@ -167,6 +174,8 @@ StyleDictionary.registerTransform({
   }
 });
 
+// Returns an array of themes and their variants
+// e.g. [['sanoma-learning', 'light'], ['sanoma-learning', 'dark']]
 const getThemes = async folder => {
   const folders = (await readdir(folder)).filter(f => !f.endsWith('.json') && !f.endsWith('_onhold') && !['I', 'II', 'device', 'placeholder', 'tokens'].includes(f));
 
@@ -188,17 +197,17 @@ const getThemes = async folder => {
 };
 
 const build = async (production = false, path) => {
-  const themes = await getThemes(path);
-  const cwd = new URL('.', import.meta.url).pathname;
-  //   $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
+  const cwd = new URL('.', import.meta.url).pathname,
+    themeBase = join(cwd, '../packages/themes'),
+    themes = await getThemes(path);
 
+  // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {
     const filePath = token.filePath ?? token.attributes.filePath;
 
     return files.some(file => filePath.endsWith(file));
   };
 
-  const themeBase = join(cwd, '../packages/themes');
 
   /**
    * Filter out the `space.<number>` tokens since they are just aliases
@@ -216,11 +225,6 @@ const build = async (production = false, path) => {
     }
   };
 
-  // const configs = Object
-  //   .entries(permutateThemes($themes))
-  //   .map(([name, tokensets]) => {
-  //     const [theme, variant] = name.split('/');
-  //     console.log(`Building ${theme}, ${variant}...`, tokensets);
   const configs = themes.map(([theme, variant]) => {
     const tokensets = [
       'core',
@@ -232,96 +236,93 @@ const build = async (production = false, path) => {
       `${theme}/${variant}-new`
     ];
 
-      const files = [
+    const files = [
+      {
+        destination: `${themeBase}/${theme}/${variant}.css`,
+        // filter: excludeSpaceTokens,
+        format: 'css/variables',
+        options: {
+          fileHeader: 'sl/legal',
+          outputReferences: !production
+        }
+      }
+    ];
+
+    if (production) {
+      files.push(
         {
-          destination: `${themeBase}/${theme}/${variant}.css`,
+          destination: `${themeBase}/${theme}/css/base.css`,
           // filter: excludeSpaceTokens,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
-            outputReferences: !production
-          }
+            outputReferences: true
+          },
+          filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
+        },
+        {
+          destination: `${themeBase}/${theme}/scss/base.scss`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: '@mixin sl-theme-base'
+          },
+          filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
+        },
+        {
+          destination: `${themeBase}/${theme}/css/${variant}.css`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
+          },
+          filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
+        },
+        {
+          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
+          // filter: excludeSpaceTokens,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: `@mixin sl-theme-${variant}`
+          },
+          filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
         }
-      ];
+      );
+    }
 
-      if (production) {
-        files.push(
-          {
-            destination: `${themeBase}/${theme}/css/base.css`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            },
-            filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
-          },
-          {
-            destination: `${themeBase}/${theme}/scss/base.scss`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true,
-              selector: '@mixin sl-theme-base'
-            },
-            filter: filterFiles(['core.json', 'system.json', 'primitives.json', 'base.json', 'base-new.json'])
-          },
-          {
-            destination: `${themeBase}/${theme}/css/${variant}.css`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true
-            },
-            filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
-          },
-          {
-            destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-            // filter: excludeSpaceTokens,
-            format: 'css/variables',
-            options: {
-              fileHeader: 'sl/legal',
-              outputReferences: true,
-              selector: `@mixin sl-theme-${variant}`
-            },
-            filter: filterFiles([`${variant}.json`, `${variant}-new.json`])
-          }
-        );
-      }
+    return {
+      log: {
+        verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
+        warnings: 'disabled'
+      },
+      source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
+      preprocessors: ['strip-routing-prefix', 'tokens-studio'],
+      platforms: {
+        css: {
+          transformGroup: 'tokens-studio',
+          transforms: [
+            'name/kebabWithCamel',
+            'sl/name/css/fontFamilies',
+            'sl/size/css/lineHeight',
+            'sl/size/css/paragraphSpacing',
+            'sl/color/transparentColorMix',
+            'sl/wrapMathInCalc'
+          ].filter(Boolean),
+          prefix: 'sl',
+          files
+        }
+      },
+      theme,
+      variant
+    };
+  });
 
-      return {
-        log: {
-          verbosity: argv.includes('--verbose') ? 'verbose' : undefined,
-          warnings: 'disabled'
-        },
-        source: tokensets.map(tokenset => join(cwd, path, `${tokenset}.json`)),
-        preprocessors: ['strip-routing-prefix', 'tokens-studio'],
-        platforms: {
-          css: {
-            transformGroup: 'tokens-studio',
-            transforms: [
-              'name/kebabWithCamel',
-              'sl/name/css/fontFamilies',
-              'sl/size/css/lineHeight',
-              'sl/size/css/paragraphSpacing',
-              'sl/color/transparentColorMix',
-              'sl/wrapMathInCalc'
-            ].filter(Boolean),
-            prefix: 'sl',
-            files
-          }
-        },
-        theme,
-        variant
-      };
-    });
-
-  // At index 8 is sanoma-learning/light; use that for debugging
-  // for (const cfg of [configs.at(13)]) {
   for (const cfg of configs) {
-    console.log(`Building ${cfg.theme}, ${cfg.variant}...`);
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();

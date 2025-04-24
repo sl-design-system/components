@@ -199,7 +199,7 @@ const getThemes = async folder => {
 const build = async (production = false, path) => {
   const cwd = new URL('.', import.meta.url).pathname,
     themeBase = join(cwd, '../packages/themes'),
-    themes = await getThemes(path);
+    themes = await getThemes(join(cwd, path));
 
   // Filter out files that are not in the `files` array
   const filterFiles = files => async token => {

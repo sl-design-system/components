@@ -182,6 +182,9 @@
     "build:themes:styles": {
       "command": "node scripts/build-themes.js",
       "clean": "if-file-deleted",
+      "dependencies": [
+        "./scripts:import-tokens"
+      ],
       "files": [
         "scripts/build-themes.js",
         "packages/tokens/src/**/*.json"

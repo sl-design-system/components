@@ -12,10 +12,6 @@
   "wireit": {
     "import-tokens": {
       "command": "yarn exec tokensstudio pull",
-      "clean": true,
-      "files": [
-        ".tokensstudio.json"
-      ],
       "output": [
         "studio-export"
       ]

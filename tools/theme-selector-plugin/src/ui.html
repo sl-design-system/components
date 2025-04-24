@@ -1,0 +1,90 @@
+<div>
+  <label>Select a theme</label>
+  <select id="theme"></select>
+</div>
+<button id="select">Set theme</button>
+
+<style>
+body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: Inter, Roboto, sans-serif;
+  font-size: 11px;
+  margin: 0;
+  color: var(--figma-color-text-primary);
+}
+div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  color: var(--figma-color-text-secondary);
+}
+select,
+::picker(select) {
+  appearance: base-select;
+}
+select {
+  flex: 1;
+  border: 1px solid var(--figma-color-border);
+  background: #fff;
+  padding: 4px 8px;
+  transition: 0.4s;
+  border-radius: 5px;
+  font-weight: 450;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+select:hover,
+select:focus {
+  background: #3366FF1F;
+}
+select::picker-icon {
+  color: var(--color-icon-tertiary);
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+::picker(select) {
+  border: none;
+}
+option {
+  padding: 4px;
+}
+
+button {
+  background-color: var(--figma-color-bg-brand);
+  color: white;
+  border: none;
+  padding: 0px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: 32px;
+}
+</style>
+<script>
+
+document.getElementById('select').onclick = () => {
+  const theme = document.getElementById('theme').value;
+  parent.postMessage({ pluginMessage: { type: 'selectTheme', theme } }, '*')
+}
+
+window.onmessage = (e) => {
+  if(e.data.pluginMessage){
+    const theme = document.getElementById('theme');
+    e.data.pluginMessage.forEach((item) => {
+      const option = document.createElement('option');
+      option.value = item.compoundId;
+      option.innerText = item.name;
+      theme.appendChild(option);
+    });
+  }
+};
+</script>

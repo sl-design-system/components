@@ -178,7 +178,7 @@ export class Tag extends ScopedElementsMixin(LitElement) {
       this.#tooltip = undefined;
     }
 
-    // If the contents of the the tag overflows, make sure it is keyboard focusable,
+    // If the contents of the tag overflows, make sure it is keyboard focusable,
     // so the user can tab to it.
     if (!this.disabled && (this.removable || this.#tooltip)) {
       this.setAttribute('tabindex', '0');

@@ -19,6 +19,7 @@
     "tools/eslint-config",
     "tools/example-data",
     "tools/stylelint-config",
+    "tools/theme-selector-plugin",
     "website"
   ],
   "scripts": {
@@ -470,7 +471,7 @@
     "chai": "^5.2.0",
     "chai-as-promised": "^8.0.1",
     "chromatic": "^11.26.1",
-    "eslint": "^9.21.0",
+    "eslint": "^9.24.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "lit": "^3.2.1",

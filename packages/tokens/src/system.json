@@ -3,34 +3,34 @@
     "typeset": {
       "fontFamily": {
         "classic": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "Font Awesome 6 Pro"
-          },
-          "type": "typography"
+          }
         },
         "sharp": {
-          "value": {
+          "$type": "typography",
+          "$value": {
             "fontFamily": "Font Awesome 6 Sharp"
-          },
-          "type": "typography"
+          }
         }
       },
       "fontWeight": {
         "icon-thin": {
-          "value": "Thin",
-          "type": "fontWeights"
+          "$type": "fontWeights",
+          "$value": "Thin"
         },
         "icon-light": {
-          "value": "Light",
-          "type": "fontWeights"
+          "$type": "fontWeights",
+          "$value": "Light"
         },
         "icon-regular": {
-          "value": "Regular",
-          "type": "fontWeights"
+          "$type": "fontWeights",
+          "$value": "Regular"
         },
         "icon-solid": {
-          "value": "Solid",
-          "type": "fontWeights"
+          "$type": "fontWeights",
+          "$value": "Solid"
         }
       }
     }
@@ -38,190 +38,191 @@
   "size": {
     "font": {
       "150": {
-        "value": "{size.150}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.150}"
       },
       "175": {
-        "value": "{size.175}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.175}"
       },
       "200": {
-        "value": "{size.200}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.200}"
       },
       "250": {
-        "value": "{size.250}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.250}"
       },
       "300": {
-        "value": "{size.300}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.300}"
       },
       "400": {
-        "value": "{size.400}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.400}"
       },
       "500": {
-        "value": "{size.500}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.500}"
       },
       "600": {
-        "value": "{size.600}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.600}"
       },
       "800": {
-        "value": "{size.800}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.800}"
       },
       "1000": {
-        "value": "{size.1000}",
-        "type": "fontSizes"
+        "$type": "fontSizes",
+        "$value": "{size.1000}"
       }
     },
     "lineHeight": {
       "150": {
-        "value": "{size.150}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.150}"
       },
       "175": {
-        "value": "{size.175}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.175}"
       },
       "200": {
-        "value": "{size.200}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.200}"
       },
       "250": {
-        "value": "{size.250}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.250}"
       },
       "300": {
-        "value": "{size.300}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.300}"
       },
       "400": {
-        "value": "{size.400}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.400}"
       },
       "500": {
-        "value": "{size.500}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.500}"
       },
       "600": {
-        "value": "{size.600}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.600}"
       },
       "800": {
-        "value": "{size.800}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.800}"
       },
       "1000": {
-        "value": "{size.1000}",
-        "type": "lineHeights"
+        "$type": "lineHeights",
+        "$value": "{size.1000}"
       }
     },
     "borderRadius": {
       "none": {
-        "value": "{size.none}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{size.none}"
       },
       "sm": {
-        "value": "{size.025}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{size.025}"
       },
       "md": {
-        "value": "{size.050}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{size.050}"
       },
       "lg": {
-        "value": "{size.100}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{size.100}"
       },
       "xl": {
-        "value": "{size.150}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{size.150}"
       },
       "full": {
-        "value": "{size.full}",
-        "type": "borderRadius"
+        "$type": "borderRadius",
+        "$value": "{size.full}"
       }
     },
     "borderWidth": {
       "subtle": {
-        "value": "{size.010}",
-        "type": "borderWidth",
-        "description": "A subtle border, applied to UI elements where subtle emphasis is needed."
+        "$type": "borderWidth",
+        "$value": "{size.010}",
+        "$description": "A subtle border, applied to UI elements where subtle emphasis is needed."
       },
       "bold": {
-        "value": "{size.025}",
-        "type": "borderWidth",
-        "description": "A bold border, applied to UI elements that need to stand out."
+        "$type": "borderWidth",
+        "$value": "{size.025}",
+        "$description": "A bold border, applied to UI elements that need to stand out."
       },
       "heavy": {
-        "value": "{size.050}",
-        "type": "borderWidth",
-        "description": "A heavy border for impactful elements where heavy emphasis is needed."
+        "$type": "borderWidth",
+        "$value": "{size.050}",
+        "$description": "A heavy border for impactful elements where heavy emphasis is needed."
       },
       "none": {
-        "value": "{size.none}",
-        "type": "borderWidth",
-        "description": "A heavy border for impactful elements where heavy emphasis is needed."
+        "$type": "borderWidth",
+        "$value": "{size.none}",
+        "$description": "A heavy border for impactful elements where heavy emphasis is needed."
       }
     },
     "outlineWidth": {
       "default": {
-        "value": "{size.050} - {size.010}",
-        "type": "borderWidth",
-        "description": "Defines the default of outlines for focus indicators."
+        "$type": "borderWidth",
+        "$value": "{size.050} - {size.010}",
+        "$description": "Defines the default of outlines for focus indicators."
       }
     },
     "outlineOffset": {
       "default": {
-        "value": "3px",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "3px"
       }
     }
   },
   "size-new": {
     "icon": {
       "xs": {
-        "value": "{size.150}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.150}"
       },
       "sm": {
-        "value": "{size.175}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.175}"
       },
       "md": {
-        "value": "{size.200}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.200}"
       },
       "lg": {
-        "value": "{size.250}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.250}"
       },
       "xl": {
-        "value": "{size.300}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.300}"
       },
       "2xl": {
-        "value": "{size.400}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.400}"
       },
       "3xl": {
-        "value": "{size.600}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.600}"
       },
       "4xl": {
-        "value": "{size.800}",
-        "type": "sizing"
+        "$type": "sizing",
+        "$value": "{size.800}"
       }
     }
   },
   "elevation": {
     "shadow": {
       "overflow": {
-        "value": {
+        "$type": "boxShadow",
+        "$value": {
           "x": "0",
           "y": "0",
           "blur": "15",
@@ -229,11 +230,11 @@
           "color": "rgba({elevation.surface.shadow}, {opacity.subtlest})",
           "type": "dropShadow"
         },
-        "type": "boxShadow",
-        "description": "Use to create a shadow when the content scrolls under other content."
+        "$description": "Use to create a shadow when the content scrolls under other content."
       },
       "overlay": {
-        "value": [
+        "$type": "boxShadow",
+        "$value": [
           {
             "x": "0",
             "y": "6",
@@ -251,102 +252,101 @@
             "type": "dropShadow"
           }
         ],
-        "type": "boxShadow",
-        "description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
+        "$description": "Use for the box shadow of elements that sit on top of the UI, such as dialogs, cards, menus and drawers."
       }
     }
   },
   "space-new": {
     "none": {
-      "value": "{space.none}",
-      "type": "spacing"
+      "$type": "spacing",
+      "$value": "{space.none}"
     },
     "2xs": {
-      "value": "{space.025}",
-      "type": "spacing"
+      "$type": "spacing",
+      "$value": "{space.025}"
     },
     "xs": {
-      "value": "{space.050}",
-      "type": "spacing"
+      "$type": "spacing",
+      "$value": "{space.050}"
     },
     "sm": {
-      "value": "{space.075}",
-      "type": "spacing",
-      "description": "Use when components are 'besties'"
+      "$type": "spacing",
+      "$value": "{space.075}",
+      "$description": "Use when components are 'besties'"
     },
     "md": {
-      "value": "{space.100}",
-      "type": "spacing",
-      "description": "Use when components are 'family'"
+      "$type": "spacing",
+      "$value": "{space.100}",
+      "$description": "Use when components are 'family'"
     },
     "lg": {
-      "value": "{space.200}",
-      "type": "spacing",
-      "description": "Use when components are 'casual friends'"
+      "$type": "spacing",
+      "$value": "{space.200}",
+      "$description": "Use when components are 'casual friends'"
     },
     "xl": {
-      "value": "{space.300}",
-      "type": "spacing",
-      "description": "Use when components are 'acquaintances'"
+      "$type": "spacing",
+      "$value": "{space.300}",
+      "$description": "Use when components are 'acquaintances'"
     },
     "2xl": {
-      "value": "{space.400}",
-      "type": "spacing",
-      "description": "Use when components are 'strangers'"
+      "$type": "spacing",
+      "$value": "{space.400}",
+      "$description": "Use when components are 'strangers'"
     },
     "3xl": {
-      "value": "{space.800}",
-      "type": "spacing"
+      "$type": "spacing",
+      "$value": "{space.800}"
     },
     "input": {
       "vertical": {
-        "value": "{space-new.xs} - {size.010}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space-new.xs} - {size.010}"
       },
       "horizontal": {
-        "value": "{space-new.md} - {size.010}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space-new.md} - {size.010}"
       }
     },
     "grid": {
       "vertical": {
-        "value": "{space.175}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.175}"
       },
       "horizontal": {
-        "value": "{space.200}",
-        "type": "spacing"
+        "$type": "spacing",
+        "$value": "{space.200}"
       }
     },
     "toggleButton": {
       "nonActive": {
         "sm": {
-          "value": "23px",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "23px"
         },
         "md": {
-          "value": "35px",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "35px"
         },
         "lg": {
-          "value": "36px",
-          "type": "spacing"
+          "$type": "spacing",
+          "$value": "36px"
         }
       }
     }
   },
   "color": {
     "black": {
-      "value": "#000000",
-      "type": "color"
+      "$type": "color",
+      "$value": "#000000"
     },
     "white": {
-      "value": "#ffffff",
-      "type": "color"
+      "$type": "color",
+      "$value": "#ffffff"
     },
     "transparant": {
-      "value": "#00000000",
-      "type": "color"
+      "$type": "color",
+      "$value": "#00000000"
     }
   },
   "opacity": {
@@ -354,67 +354,67 @@
       "interactive": {
         "bold": {
           "idle": {
-            "value": "0%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "0%"
           },
           "hover": {
-            "value": "20%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "20%"
           },
           "active": {
-            "value": "40%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "40%"
           }
         },
         "plain": {
           "idle": {
-            "value": "0%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "0%"
           },
           "hover": {
-            "value": "15%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "15%"
           },
           "active": {
-            "value": "25%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "25%"
           }
         }
       },
       "muted": {
-        "value": "0%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "0%"
       },
       "subtlest": {
-        "value": "10%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "10%"
       },
       "subtle": {
-        "value": "20%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "20%"
       },
       "moderate": {
-        "value": "80%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "80%"
       },
       "bold": {
-        "value": "100%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "100%"
       }
     },
     "interactive": {
       "reversed": {
         "idle": {
-          "value": "80%",
-          "type": "opacity"
+          "$type": "opacity",
+          "$value": "80%"
         },
         "hover": {
-          "value": "90%",
-          "type": "opacity"
+          "$type": "opacity",
+          "$value": "90%"
         },
         "active": {
-          "value": "100%",
-          "type": "opacity"
+          "$type": "opacity",
+          "$value": "100%"
         }
       }
     },
@@ -422,52 +422,52 @@
       "interactive": {
         "bold": {
           "idle": {
-            "value": "0%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "0%"
           },
           "hover": {
-            "value": "20%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "20%"
           },
           "active": {
-            "value": "40%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "40%"
           }
         },
         "plain": {
           "idle": {
-            "value": "0%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "0%"
           },
           "hover": {
-            "value": "25%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "25%"
           },
           "active": {
-            "value": "35%",
-            "type": "opacity"
+            "$type": "opacity",
+            "$value": "35%"
           }
         }
       },
       "muted": {
-        "value": "0%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "0%"
       },
       "subtlest": {
-        "value": "25%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "25%"
       },
       "subtle": {
-        "value": "35%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "35%"
       },
       "moderate": {
-        "value": "80%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "80%"
       },
       "bold": {
-        "value": "100%",
-        "type": "opacity"
+        "$type": "opacity",
+        "$value": "100%"
       }
     }
   }

@@ -1,12 +1,9 @@
-import { Component, importProvidersFrom, Provider } from '@angular/core';
+import { Component, Provider } from '@angular/core';
 import { type Meta, StoryFn, moduleMetadata } from '@storybook/angular';
-import { AccordionComponent } from '../src/accordion/accordion.component';
-import { ButtonComponent } from '../src/button/button.component';
 import { TabGroupComponent } from '../src/tabs/tab-group.component';
 import {provideRouter, RouterLink, RouterOutlet} from '@angular/router';
 import { TabComponent } from '../src/tabs/tab.component';
-import { MockLocationStrategy } from '@angular/common/testing';
-import {HashLocationStrategy, LocationStrategy, NgForOf} from '@angular/common';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'sla-dummy',
@@ -52,21 +49,12 @@ export class RoutingComponent {
     { path: '/dashboard', label: 'Dashboard' },
     { path: '/assignments', label: 'Assignments' },
   ];
-
-  ngOnInit() {
-    console.log('tabs in ngOnInit', this.tabs);
-  }
 }
 
 // export const routes: Routes = [
 //   { path: 'dashboard', component: DummyComponent },
 //   { path: 'assignments', component: DummyComponent2 }
 // ];
-
-// export const WithActiveLink = Template.bind({});
-// WithActiveLink.parameters = {
-//   angularRouter: {active: '/location/1'}
-// };
 
 export default {
   title: 'Routing',
@@ -92,7 +80,7 @@ export default {
   ],
   // parameters: {
   //   angularRouter: {
-  //     initialRoute: '/dashboard', // Set the initial route
+  //     initialRoute: '/dashboard',
   //     routes: [
   //       { path: 'dashboard', component: DummyComponent },
   //       { path: 'assignments', component: DummyComponent2 },
@@ -109,7 +97,7 @@ export const RoutingExample: StoryFn = () => ({
   //     { path: 'assignments', component: DummyComponent2 }
   //   ],
   // //   angularRouter: {
-  // //     initialRoute: '/dashboard', // Set the initial route
+  // //     initialRoute: '/dashboard',
   // //     routes: [
   // //       { path: 'dashboard', component: DummyComponent },
   // //       { path: 'assignments', component: DummyComponent2 },

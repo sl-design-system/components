@@ -112,7 +112,7 @@ StyleDictionary.registerTransform({
   name: 'sl/color/transparentColorMix',
   type: 'value',
   transitive: true,
-  filter: token => (token.$type || token.type) === 'color' && token.original?.value?.startsWith('rgba'),
+  filter: token => token.$type === 'color' && token.original?.value?.startsWith('rgba'),
   transform: token => {
     const [_, color, opacity] = token.original?.value?.match(/rgba\(\s*(\S+)\s*,\s*(\S+)\)/) ?? [];
 
@@ -124,7 +124,7 @@ StyleDictionary.registerTransform({
       }
     }
 
-    return token.$value || token.value;
+    return token.$value;
   }
 });
 
@@ -132,8 +132,8 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
-  filter: token => (token.$type || token.type) === 'fontFamily',
-  transform: token => (token.$value || token.value).replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
+  filter: token => token.$type === 'fontFamily',
+  transform: token => token.$value.replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
 });
 
 // Transform line heights to px if they are not percentages
@@ -141,9 +141,9 @@ StyleDictionary.registerTransform({
   name: 'sl/size/css/lineHeight',
   type: 'value',
   transitive: true,
-  filter: token => (token.$type || token.type) === 'lineHeight',
+  filter: token => token.$type === 'lineHeight',
   transform: token => {
-    const value = token.$value || token.value;
+    const value = token.$value;
 
     return value?.endsWith('%') ? transformLineHeight(value) : `${value}px`;
   }
@@ -153,9 +153,9 @@ StyleDictionary.registerTransform({
 StyleDictionary.registerTransform({
   name: 'sl/size/css/paragraphSpacing',
   type: 'value',
-  filter: token => (token.$type || token.type) === 'paragraphSpacing',
+  filter: token => token.$type === 'paragraphSpacing',
   transform: token => {
-    const value = token.$value || token.value;
+    const value = token.$value;
 
     return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
   }
@@ -170,7 +170,7 @@ StyleDictionary.registerTransform({
   transform: token => {
     token.original.value = `calc(${token.original.value})`;
 
-    return token.$value || token.value;
+    return token.$value;
   }
 });
 

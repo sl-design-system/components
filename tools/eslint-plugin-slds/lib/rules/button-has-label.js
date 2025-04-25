@@ -21,9 +21,7 @@ export const buttonHasLabel = {
   },
   create(context) {
     return {
-      // Look for tagged template expressions where the tag is 'html'
       TaggedTemplateExpression(node) {
-        // if (node.tag.type === 'Identifier' && node.tag.name === 'html') {
         if (isHtmlTaggedTemplate(node, context)) {
           const analyzer = TemplateAnalyzer.create(node);
 

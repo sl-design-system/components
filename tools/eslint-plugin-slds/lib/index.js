@@ -1,9 +1,3 @@
-/**
- * @fileoverview ESLint plugin for SLDS components
- * @author SLDS Team
- */
-
-import { exampleRule } from './rules/example-rule.js';
 import { buttonHasLabel } from './rules/button-has-label.js';
 
 export default {

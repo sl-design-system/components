@@ -1,8 +1,3 @@
-/**
- * @fileoverview Rule to enforce that sl-button elements have a label for accessibility
- * @author SLDS Team
- */
-
 /** @type {import('eslint').Rule.RuleModule} */
 export const buttonHasLabel = {
   meta: {

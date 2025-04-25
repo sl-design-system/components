@@ -70,6 +70,10 @@ const getFromLibrary = async () => {
 const getSubCollections = async (collection: VariableCollection | VariableCollectionWithModeId) => {
   return await Promise.all(
     collection.modes.map(async mode => {
+      if (mode.name === 'Placeholder') {
+        // we don't want to show the placeholder theme in the UI
+        return;
+      }
       const modeVariable = libVariables.find(c => c.name === mode.name);
       if (!modeVariable) {
         console.error('Mode variable not found for', mode.name);
@@ -94,6 +98,8 @@ const getCollectionFromKey = async (key: string) => {
     return;
   }
   const baseId = (await figma.variables.importVariableByKeyAsync(variables[0].key)).variableCollectionId;
+  const variablesByKey = await figma.variables.importVariableByKeyAsync(variables[0].key);
+  console.log('types', variablesByKey.name, variablesByKey.resolvedType, variables);
   return await figma.variables.getVariableCollectionByIdAsync(baseId);
 };
 
@@ -151,15 +157,30 @@ const sendCollections = () => {
       }
 
       // for all themes in this themesCollection, check if there are any variants, and create a list of all relevant id's
-      themesCollection.modes.forEach(theme => {
-        const themeCollection = findCollectionByName(theme.name);
-        if (!themeCollection) {
-          console.error('Theme collection not found for', theme.name);
-          return;
-        }
-        const themeModes = themeCollection ? themeCollection.modes : [];
-        if (themeModes.length > 1) {
-          themeModes.forEach(mode => {
+      themesCollection.modes
+        .filter(theme => theme.name !== 'Placeholder')
+        .forEach(theme => {
+          const themeCollection = findCollectionByName(theme.name);
+          if (!themeCollection) {
+            console.error('Theme collection not found for', theme.name);
+            return;
+          }
+          const themeModes = themeCollection ? themeCollection.modes : [];
+          if (themeModes.length > 1) {
+            themeModes.forEach(mode => {
+              themes.push({
+                collectionId: collection.id,
+                collectionModeId: collectionAsMode.modeId,
+                themeCollectionId: themesCollection.id,
+                themeCollectionModeId: themeCollectionAsMode.modeId,
+                themeId: themeCollection.id,
+                themeModeId: theme.modeId,
+                variantId: mode.modeId,
+                compoundId: `${themeCollection.id}-${mode.modeId}`,
+                name: `${theme.name} - ${mode.name}`
+              });
+            });
+          } else {
             themes.push({
               collectionId: collection.id,
               collectionModeId: collectionAsMode.modeId,
@@ -167,24 +188,11 @@ const sendCollections = () => {
               themeCollectionModeId: themeCollectionAsMode.modeId,
               themeId: themeCollection.id,
               themeModeId: theme.modeId,
-              variantId: mode.modeId,
-              compoundId: `${themeCollection.id}-${mode.modeId}`,
-              name: `${theme.name} - ${mode.name}`
+              compoundId: `${themeCollection.id}`,
+              name: `${theme.name}`
             });
-          });
-        } else {
-          themes.push({
-            collectionId: collection.id,
-            collectionModeId: collectionAsMode.modeId,
-            themeCollectionId: themesCollection.id,
-            themeCollectionModeId: themeCollectionAsMode.modeId,
-            themeId: themeCollection.id,
-            themeModeId: theme.modeId,
-            compoundId: `${themeCollection.id}`,
-            name: `${theme.name}`
-          });
-        }
-      });
+          }
+        });
     });
   figma.ui.postMessage(themes, { origin: '*' });
 };
@@ -222,7 +230,7 @@ const removeCurrentVariableModes = () => {
 };
 
 // Listen to events from the UI
-figma.ui.onmessage = (msg: { type: string; theme: string }) => {
+figma.ui.onmessage = async (msg: { type: string; theme: string }) => {
   if (msg.type === 'selectTheme') {
     removeCurrentVariableModes();
 
@@ -239,18 +247,28 @@ figma.ui.onmessage = (msg: { type: string; theme: string }) => {
     const themeCollection = findCollectionById(themeIds.themeCollectionId);
     const theme = findCollectionById(themeIds.themeId);
 
-    if (base) {
-      figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
-    }
-    if (collection) {
-      figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
-    }
-    if (themeCollection) {
-      figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
-    }
-    if (theme && themeIds.variantId) {
-      figma.currentPage.setExplicitVariableModeForCollection(theme, themeIds.variantId);
-    }
+    figma
+      .loadFontAsync({ family: 'The Message', style: 'DemiBold' })
+      .then(() => {
+        console.log({ base, collection, themeCollection, theme });
+
+        if (base) {
+          figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
+        }
+        if (collection) {
+          figma.currentPage.setExplicitVariableModeForCollection(collection, themeIds.themeCollectionModeId);
+        }
+        if (themeCollection) {
+          figma.currentPage.setExplicitVariableModeForCollection(themeCollection, themeIds.themeModeId);
+        }
+        if (theme && themeIds.variantId) {
+          figma.currentPage.setExplicitVariableModeForCollection(theme, themeIds.variantId);
+        }
+      })
+      .catch(e => {
+        console.error('Error loading font', e);
+        figma.notify('Error loading font', { error: true });
+      });
   }
 
   figma.closePlugin();

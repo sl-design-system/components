@@ -2,4 +2,4 @@
 '@sl-design-system/tabs': patch
 ---
 
-Fix selecting tab when clicking menu item.
+Fixes triggering of `sl-tab` clicks when selecting `sl-menu-item` in the `sl-menu`. Also fixes triggering `[routerLink]` when selecting a tab from the menu.

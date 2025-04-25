@@ -1,3 +1,9 @@
+import { TemplateAnalyzer } from 'eslint-plugin-lit/lib/template-analyzer.js';
+import { isHtmlTaggedTemplate } from 'eslint-plugin-lit-a11y/lib/utils/isLitHtmlTemplate.js';
+import { getContextSourceCode } from 'eslint-plugin-lit-a11y/lib/utils/getContextSourceCode.js';
+import { hasAccessibleName } from 'eslint-plugin-lit-a11y/lib/utils/hasAccessibleName.js';
+import { hasTextContent } from '../utils.js';
+
 /** @type {import('eslint').Rule.RuleModule} */
 export const buttonHasLabel = {
   meta: {
@@ -17,51 +23,29 @@ export const buttonHasLabel = {
     return {
       // Look for tagged template expressions where the tag is 'html'
       TaggedTemplateExpression(node) {
-        if (node.tag.type === 'Identifier' && node.tag.name === 'html') {
-          // Get the raw template string
-          const quasis = node.quasi.quasis;
-          const rawTemplate = quasis.map(quasi => quasi.value.raw).join('${expr}');
+        // if (node.tag.type === 'Identifier' && node.tag.name === 'html') {
+        if (isHtmlTaggedTemplate(node, context)) {
+          const analyzer = TemplateAnalyzer.create(node);
 
-          // Pattern to find all sl-button tags with their attributes and content
-          const buttonPattern = /<sl-button([^>]*)>(.*?)<\/sl-button>/gs;
-          let match;
-          let emptyButtonCount = 0;
+          analyzer.traverse({
+            enterElement(element) {
+              if (element.name === 'sl-button') {
+                if (hasTextContent(element) || hasAccessibleName(element)) {
+                  return;
+                }
 
-          // Check each button instance in the template
-          while ((match = buttonPattern.exec(rawTemplate)) !== null) {
-            const attributes = match[1] || '';
-            const content = match[2].trim();
+                const loc =
+                  analyzer.resolveLocation(
+                    element.sourceCodeLocation.startTag,
+                    getContextSourceCode(context),
+                  ) ?? node.loc;
 
-            // Check if button has accessibility attributes
-            const hasAriaLabel = attributes.includes('aria-label');
-            const hasAriaLabelledby = attributes.includes('aria-labelledby');
-
-            // Skip if button has aria-label or aria-labelledby
-            if (hasAriaLabel || hasAriaLabelledby) {
-              continue;
-            }
-
-            // Button has direct content
-            if (content.length > 0) {
-              // Check if content is just empty elements
-              if (content.match(/^<[^>]*>\s*<\/[^>]*>$/g) &&
-                  !content.includes('<slot') &&
-                  !content.includes('${expr}')) {
-                emptyButtonCount++;
+                if (loc) {
+                  context.report({ loc, messageId: 'missingText' });
+                }
               }
-            } else {
-              // Empty button
-              emptyButtonCount++;
             }
-          }
-
-          // Report an error for each empty button found
-          for (let i = 0; i < emptyButtonCount; i++) {
-            context.report({
-              node,
-              messageId: 'missingText'
-            });
-          }
+          });
         }
       }
     };

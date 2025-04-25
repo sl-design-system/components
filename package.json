@@ -17,6 +17,7 @@
     "packages/tokens",
     "scripts",
     "tools/eslint-config",
+    "tools/eslint-plugin-slds",
     "tools/example-data",
     "tools/stylelint-config",
     "tools/theme-selector-plugin",

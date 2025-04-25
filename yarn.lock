@@ -4898,6 +4898,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds"
+  dependencies:
+    eslint: "npm:^9.25.1"
+  peerDependencies:
+    eslint: ^9.25.1
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/example-data@workspace:tools/example-data":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/example-data@workspace:tools/example-data"

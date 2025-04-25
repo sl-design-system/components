@@ -9,7 +9,7 @@ import mocha from 'eslint-plugin-mocha';
 import prettier from 'eslint-plugin-prettier/recommended';
 import storybook from 'eslint-plugin-storybook';
 import unusedImports from 'eslint-plugin-unused-imports';
-import wc from 'eslint-plugin-wc';
+import { configs as wcConfigs } from 'eslint-plugin-wc';
 import tseslint from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -17,6 +17,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   litConfigs['flat/all'],
+  wcConfigs['flat/recommended'],
   {
     languageOptions: {
       parserOptions: {
@@ -35,10 +36,6 @@ export default tseslint.config(
       'chai-friendly': chaiFriendly,
       'unused-imports': unusedImports
     }
-  },
-  {
-    plugins: { wc },
-    rules: wc.configs.recommended.rules
   },
   {
     plugins: { 'lit-a11y': litA11y },

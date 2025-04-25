@@ -413,7 +413,8 @@
     },
     "test": {
       "dependencies": [
-        "test:components"
+        "test:components",
+        "test:tools"
       ]
     },
     "test:components": {
@@ -429,6 +430,9 @@
     },
     "test:setup": {
       "command": "playwright install --with-deps"
+    },
+    "test:tools": {
+      "command": "yarn workspace @sl-design-system/eslint-plugin-slds test"
     },
     "version": {
       "command": "yarn install --no-immutable",

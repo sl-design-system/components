@@ -1,5 +1,5 @@
 import { RuleTester } from 'eslint';
-import { buttonHasText } from '../../../lib/rules/button-has-text.js';
+import { buttonHasLabel } from '../../../lib/rules/button-has-label.js';
 
 // Configure rule tester with flat config format for ESLint v9
 const ruleTester = new RuleTester({
@@ -10,7 +10,7 @@ const ruleTester = new RuleTester({
 });
 
 // Run tests
-ruleTester.run('button-has-text', buttonHasText, {
+ruleTester.run('button-has-label', buttonHasLabel, {
   valid: [
     // Button with direct text content
     {

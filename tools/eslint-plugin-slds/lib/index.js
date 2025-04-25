@@ -4,19 +4,20 @@
  */
 
 import { exampleRule } from './rules/example-rule.js';
-import { buttonHasText } from './rules/button-has-text.js';
+import { buttonHasLabel } from './rules/button-has-label.js';
 
 export default {
-  rules: {
-    'example-rule': exampleRule,
-    'button-has-text': buttonHasText
-  },
   configs: {
     recommended: {
-      plugins: ['slds'],
+      plugins: {
+        slds: {
+          rules: {
+            'button-has-label': buttonHasLabel
+          }
+        }
+      },
       rules: {
-        'slds/example-rule': 'warn',
-        'slds/button-has-text': 'error'
+        'slds/button-has-label': 'error'
       }
     }
   }

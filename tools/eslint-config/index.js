@@ -1,4 +1,5 @@
 import eslint from '@eslint/js';
+import slds from '@sl-design-system/eslint-plugin-slds'
 import stylistic from '@stylistic/eslint-plugin';
 import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
@@ -18,6 +19,7 @@ export default tseslint.config(
   ...tseslint.configs.recommendedTypeChecked,
   litConfigs['flat/all'],
   wcConfigs['flat/recommended'],
+  slds.configs.recommended,
   {
     languageOptions: {
       parserOptions: {

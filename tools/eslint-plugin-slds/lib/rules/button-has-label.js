@@ -1,21 +1,21 @@
 /**
- * @fileoverview Rule to enforce that sl-button elements have text content
+ * @fileoverview Rule to enforce that sl-button elements have a label for accessibility
  * @author SLDS Team
  */
 
 /** @type {import('eslint').Rule.RuleModule} */
-export const buttonHasText = {
+export const buttonHasLabel = {
   meta: {
     type: 'problem',
     docs: {
-      description: 'Ensure sl-button elements have text content for accessibility',
+      description: 'Ensure sl-button elements have a label for accessibility',
       recommended: true,
       url: null
     },
     fixable: null,
     schema: [],
     messages: {
-      missingText: 'sl-button elements must have text content for accessibility'
+      missingText: 'sl-button elements must have text content or aria-label for accessibility'
     }
   },
   create(context) {

@@ -12,16 +12,18 @@ describe('sl-card', () => {
 
   describe('with image', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-card>
+      el = await fixture(html`
+        <sl-card>
           <img slot="media" src=${image} />
           <sl-icon name="pinata" slot="icon"></sl-icon>
           <h2>${title}</h2>
           <h3 slot="header">${subHeader}</h3>
           <p slot="body">${bodyCopy}</p>
-          <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
-        </sl-card>`
-      );
+          <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
+            <sl-icon name="ellipsis"></sl-icon>
+          </sl-button>
+        </sl-card>
+      `);
     });
 
     it('should render correctly', () => {
@@ -51,14 +53,16 @@ describe('sl-card', () => {
 
   describe('without image', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-card>
+      el = await fixture(html`
+        <sl-card>
           <h2>${title}</h2>
           <h3 slot="header">${subHeader}</h3>
           <p slot="body">${bodyCopy}</p>
-          <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
-        </sl-card>`
-      );
+          <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
+            <sl-icon name="ellipsis"></sl-icon>
+          </sl-button>
+        </sl-card>
+      `);
     });
 
     it('should not have the class "sl-horizontal" by default when no image is present', () => {
@@ -72,15 +76,17 @@ describe('sl-card', () => {
 
   describe('with breakpoint set', () => {
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-card style="--sl-card-horizontal-breakpoint:1800px">
+      el = await fixture(html`
+        <sl-card style="--sl-card-horizontal-breakpoint:1800px">
           <img slot="media" src=${image} />
           <h2>${title}</h2>
           <h3 slot="header">${subHeader}</h3>
           <p slot="body">${bodyCopy}</p>
-          <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
-        </sl-card>`
-      );
+          <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
+            <sl-icon name="ellipsis"></sl-icon>
+          </sl-button>
+        </sl-card>
+      `);
     });
 
     it('should switch to vertical mode when a breakpoint is set that is larger than the current screen width', () => {

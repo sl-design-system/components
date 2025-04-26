@@ -131,11 +131,16 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
   override render(): TemplateResult {
     return html`
       <div part="header">
-        <sl-button @click=${this.#onToggleMonthSelect} class="current-month" fill="link">
+        <sl-button
+          @click=${this.#onToggleMonthSelect}
+          aria-label="Change current month"
+          class="current-month"
+          fill="link"
+        >
           <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} month="long"></sl-format-date>
           <sl-icon name="caret-down-solid" size="xs"></sl-icon>
         </sl-button>
-        <sl-button @click=${this.#onToggleYearSelect} class="current-year" fill="link">
+        <sl-button @click=${this.#onToggleYearSelect} aria-label="Change current year" class="current-year" fill="link">
           <sl-format-date .date=${this.displayMonth} locale=${ifDefined(this.locale)} year="numeric"></sl-format-date>
           <sl-icon name="caret-down-solid" size="xs"></sl-icon>
         </sl-button>

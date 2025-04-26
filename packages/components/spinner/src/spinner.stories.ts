@@ -79,12 +79,12 @@ export const InButton: Story = {
         </thead>
         <tbody>
           ${buttonSizes.map(
-            buttonSize =>
-              html` <tr>
+            buttonSize => html`
+              <tr>
                 <th>${sizeName(buttonSize)}</th>
                 ${buttonVariants.map(
-                  buttonVariant =>
-                    html`<td>
+                  buttonVariant => html`
+                    <td>
                       <sl-button variant=${buttonVariant} size=${buttonSize}>
                         <sl-spinner></sl-spinner>
                         Sending </sl-button
@@ -93,9 +93,11 @@ export const InButton: Story = {
                         <sl-spinner></sl-spinner>
                         Sending
                       </sl-button>
-                    </td>`
+                    </td>
+                  `
                 )}
-              </tr>`
+              </tr>
+            `
           )}
         </tbody>
       </table>
@@ -120,13 +122,14 @@ export const All: Story = {
       <table>
         <tbody>
           ${sizes.map(
-            size =>
-              html` <tr>
+            size => html`
+              <tr>
                 <th>${sizeName(size)}</th>
                 <td>
                   <sl-spinner .size=${size}></sl-spinner>
                 </td>
-              </tr>`
+              </tr>
+            `
           )}
         </tbody>
       </table>

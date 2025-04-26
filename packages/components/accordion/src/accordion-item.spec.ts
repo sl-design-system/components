@@ -111,11 +111,11 @@ describe('sl-accordion-item', () => {
     let summary: HTMLElement;
 
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-accordion-item summary="Accordion summary of disabled item" disabled
-          >Content of disabled accordion item</sl-accordion-item
-        >`
-      );
+      el = await fixture(html`
+        <sl-accordion-item summary="Accordion summary of disabled item" disabled>
+          Content of disabled accordion item
+        </sl-accordion-item>
+      `);
 
       details = el.renderRoot.querySelector('details') as HTMLDetailsElement;
       summary = el.renderRoot.querySelector('summary') as HTMLElement;

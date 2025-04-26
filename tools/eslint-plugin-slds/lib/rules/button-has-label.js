@@ -1,6 +1,5 @@
 import { TemplateAnalyzer } from 'eslint-plugin-lit/lib/template-analyzer.js';
 import { isHtmlTaggedTemplate } from 'eslint-plugin-lit-a11y/lib/utils/isLitHtmlTemplate.js';
-import { getContextSourceCode } from 'eslint-plugin-lit-a11y/lib/utils/getContextSourceCode.js';
 import { hasAccessibleName } from 'eslint-plugin-lit-a11y/lib/utils/hasAccessibleName.js';
 import { hasTextContent } from '../utils.js';
 
@@ -35,7 +34,7 @@ export const buttonHasLabel = {
                 const loc =
                   analyzer.resolveLocation(
                     element.sourceCodeLocation.startTag,
-                    getContextSourceCode(context),
+                    context.sourceCode,
                   ) ?? node.loc;
 
                 if (loc) {

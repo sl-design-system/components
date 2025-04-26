@@ -40,8 +40,7 @@ export const singlelineHtmlTemplateTrimmed = {
           const hasSurroundingWhitespace = /^\s+|\s+$/.test(templateContent);
 
           if (hasSurroundingWhitespace) {
-            const sourceCode = context.getSourceCode();
-            const templateText = sourceCode.getText(quasi);
+            const templateText = context.sourceCode.getText(quasi);
 
             context.report({
               node,

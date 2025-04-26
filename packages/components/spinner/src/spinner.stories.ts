@@ -48,7 +48,7 @@ export default {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
     chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   },
-  render: ({ size }) => html` <sl-spinner size=${ifDefined(size)}></sl-spinner> `
+  render: ({ size }) => html`<sl-spinner size=${ifDefined(size)}></sl-spinner>`
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};

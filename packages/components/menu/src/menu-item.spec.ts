@@ -57,7 +57,7 @@ describe('sl-menu-item', () => {
 
   describe('selected', () => {
     beforeEach(async () => {
-      el = await fixture(html` <sl-menu-item selectable selected>Item 1</sl-menu-item> `);
+      el = await fixture(html`<sl-menu-item selectable selected>Item 1</sl-menu-item>`);
     });
 
     it('should be be selected', () => {

@@ -12,9 +12,7 @@ describe('sl-accordion-item', () => {
     let summary: HTMLElement;
 
     beforeEach(async () => {
-      el = await fixture(
-        html` <sl-accordion-item summary="Accordion summary">Content of accordion</sl-accordion-item>`
-      );
+      el = await fixture(html`<sl-accordion-item summary="Accordion summary">Content of accordion</sl-accordion-item>`);
       await el.updateComplete;
 
       details = el.renderRoot.querySelector('details') as HTMLDetailsElement;

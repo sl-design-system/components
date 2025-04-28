@@ -5,11 +5,11 @@ const config: StorybookConfig = {
     './stories/**/*.stories.ts',
   ],
   addons: [
-    '@storybook/addon-a11y', 
-    '@storybook/addon-actions', 
+    '@storybook/addon-a11y',
+    '@storybook/addon-actions',
     '@storybook/addon-storysource',
     '@storybook/addon-themes',
-    'storybook-addon-pseudo-states',    
+    'storybook-addon-pseudo-states',
     {
       name: '@storybook/addon-essentials',
       options: {
@@ -26,7 +26,8 @@ const config: StorybookConfig = {
     autodocs: false
   },
   staticDirs: [
-    { from: '../../packages/themes', to: '/themes' }
+    { from: '../../packages/themes', to: '/themes' },
+    { from: '../../.storybook/images', to: '/images' }
   ],
   viteFinal: async config => {
     const { mergeConfig } = await import('vite');

@@ -39,23 +39,7 @@ const preview: Preview = {
           padding: 16px;
         }
       </style>
-      ${singleState.includes(data.id)
-          ? story()
-          : html`<h1>State: Default <small>(including "disabled")</small></h1>
-            ${story()}
-            <h1>State: Hover</h1>
-            <div class="sb-fake-hover">
-              ${story()}
-            </div>
-            <h1>State: Active</h1>
-            <div class="sb-fake-active">
-              ${story()}
-            </div>
-            <h1>State: Focus</h1>
-            <div class="sb-fake-focus-visible">
-              ${story()}
-            </div>`
-        }`
+      ${story()}`
     },
     (story) => {
       withThemeFromJSXProvider({

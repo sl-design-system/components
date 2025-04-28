@@ -1,8 +1,8 @@
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { Preview } from '@storybook/angular';
+import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { themes, updateTheme } from '../../../.storybook/themes';
 
 const { setLocale } = configureLocalization({

@@ -4719,7 +4719,7 @@ __metadata:
     "@storybook/web-components-vite": "npm:^8.6.12"
     lit: "npm:^3.2.1"
     storybook: "npm:^8.6.12"
-    storybook-addon-pseudo-states: "npm:^4.0.2"
+    storybook-addon-pseudo-states: "npm:^4.0.3"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.4.5"
     wireit: "npm:^0.14.12"
@@ -21128,14 +21128,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook-addon-pseudo-states@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "storybook-addon-pseudo-states@npm:4.0.2"
+"storybook-addon-pseudo-states@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "storybook-addon-pseudo-states@npm:4.0.3"
   dependencies:
     "@storybook/icons": "npm:^1.2.10"
   peerDependencies:
     storybook: ^8.2.0
-  checksum: 10c0/47ddb902ac61b7132795603228f087fc933d10eca8c4f310cae19e20835d46f2a20481aaf6d440d52d9e87d47606c810977bf636a1140b1f6efd0e8108f265be
+  checksum: 10c0/6491636a9a479364fa4d75d0819e07b4a5cb9f6f3eea4a3d2f92232eef7eb733e3d7614f6a73d8fa6a7da0ca5874443805ba679379feff058ee4cb46b9ceb61d
   languageName: node
   linkType: hard
 

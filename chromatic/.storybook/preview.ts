@@ -66,9 +66,9 @@ const preview: Preview = {
   ],
   parameters: {
     pseudo: {
-      hover: '.sb-fake-hover *',
-      active: '.sb-fake-active *',
-      focusVisible: '.sb-fake-focus-visible *',
+      hover: false,
+      active: false,
+      focusVisible: false,
     },
     options: {
       storySort: {

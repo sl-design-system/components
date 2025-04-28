@@ -111,6 +111,7 @@ export const All: Story = {
           grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
           justify-items: center;
           position: relative;
+          z-index: 0;
 
           > span:nth-of-type(8) {
             color: var(--sl-color-foreground-inverted-bold);

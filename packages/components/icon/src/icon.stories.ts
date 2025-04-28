@@ -88,14 +88,15 @@ export default {
           <h3>${sizeName(size)}</h3>
           <section class="copyable">
             ${icons.map(
-              i =>
-                html`<sl-icon
+              i => html`
+                <sl-icon
                   .name=${i}
                   .size=${size}
                   .label=${i}
                   title=${i}
                   @click=${async () => await copyIconName(i)}
-                ></sl-icon>`
+                ></sl-icon>
+              `
             )}
           </section>
         `
@@ -124,7 +125,8 @@ export const SizeInheritance: Story = {
     }
   },
   render: ({ headingSize }) => {
-    return html` <p>
+    return html`
+      <p>
         When an explicit font size is set to the parent of the icon, or if a user uses (text) zoom in the browser the
         icon will use the maximum value of either the set icon size or 1cap of the current font-size.
       </p>
@@ -148,7 +150,8 @@ export const SizeInheritance: Story = {
       </sl-button>
       <p>
         <small>* = 16px is at time of writing the size of the <code>md</code> icon in the Sanoma Learning theme.</small>
-      </p>`;
+      </p>
+    `;
   }
 };
 
@@ -216,14 +219,15 @@ export const AllIcons: Story = {
         ${icons
           .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
           .map(
-            i =>
-              html`<sl-icon
+            i => html`
+              <sl-icon
                 .name=${i}
                 size="2xl"
                 .label=${i}
                 title=${i}
                 @click=${async () => await copyIconName(i)}
-              ></sl-icon>`
+              ></sl-icon>
+            `
           )}
       </section>
       <p>

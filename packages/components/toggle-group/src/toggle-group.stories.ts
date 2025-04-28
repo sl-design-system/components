@@ -383,7 +383,8 @@ export const All: Story = {
   render: () => {
     const renderRow = (options: { fill: ToggleGroupFill; content?: 'button' | 'text' }) => {
       const buttons = (buttonoptions: string[]) => {
-        return html`<sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
+        return html`
+          <sl-toggle-button aria-label="Bold" ?pressed=${buttonoptions.includes('pressed')}>
             <sl-icon name="far-bold" slot="default"></sl-icon>
             <sl-icon name="fas-bold" slot="pressed"></sl-icon>
           </sl-toggle-button>
@@ -394,11 +395,14 @@ export const All: Story = {
           <sl-toggle-button aria-label="Underline">
             <sl-icon name="far-underline" slot="default"></sl-icon>
             <sl-icon name="fas-underline" slot="pressed"></sl-icon>
-          </sl-toggle-button>`;
+          </sl-toggle-button>
+        `;
       };
       const text = (buttonoptions: string[]) => {
-        return html`<sl-toggle-button ?pressed=${buttonoptions.includes('pressed')}>Read</sl-toggle-button>
-          <sl-toggle-button>Write</sl-toggle-button>`;
+        return html`
+          <sl-toggle-button ?pressed=${buttonoptions.includes('pressed')}>Read</sl-toggle-button>
+          <sl-toggle-button>Write</sl-toggle-button>
+        `;
       };
       return html`
         <tr>
@@ -454,7 +458,8 @@ export const All: Story = {
         </tr>
       `;
     };
-    return html` <style>
+    return html`
+      <style>
         sl-toggle-group {
           margin-bottom: 4px;
         }
@@ -495,6 +500,7 @@ export const All: Story = {
           fill: 'solid',
           content: 'text'
         })}
-      </table>`;
+      </table>
+    `;
   }
 };

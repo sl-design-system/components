@@ -88,7 +88,9 @@ describe('sl-button', () => {
   describe('icon', () => {
     describe('icon only, directly in button', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-button><sl-icon name="star"></sl-icon></sl-button>`);
+        el = await fixture(html`
+          <sl-button aria-label="Mark as favorite"><sl-icon name="star"></sl-icon></sl-button>
+        `);
       });
 
       it('should have an icon-only attribute', () => {
@@ -99,7 +101,7 @@ describe('sl-button', () => {
     describe('icon only, wrapped in container', () => {
       beforeEach(async () => {
         el = await fixture(html`
-          <sl-button>
+          <sl-button aria-label="Mark as favorite">
             <span><sl-icon name="star"></sl-icon></span>
           </sl-button>
         `);

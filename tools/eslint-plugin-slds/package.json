@@ -1,0 +1,39 @@
+{
+  "name": "@sl-design-system/eslint-plugin-slds",
+  "version": "0.0.0",
+  "description": "ESLint plugin for SLDS components",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "tools/eslint-plugin-slds"
+  },
+  "homepage": "https://sanomalearning.design",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "yarn exec mocha tests --recursive"
+  },
+  "peerDependencies": {
+    "eslint": "^9.25.1",
+    "eslint-plugin-lit-a11y": "^4.1.4"
+  },
+  "devDependencies": {
+    "eslint": "^9.25.1",
+    "eslint-plugin-lit-a11y": "^4.1.4",
+    "mocha": "11.2.2"
+  }
+}

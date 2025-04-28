@@ -244,12 +244,12 @@ describe('sl-number-field', () => {
     let input: HTMLInputElement;
 
     beforeEach(async () => {
-      el = await fixture(
-        html`<sl-number-field
+      el = await fixture(html`
+        <sl-number-field
           value="10.809"
           .formatOptions=${{ style: 'percent', maximumFractionDigits: 2 }}
-        ></sl-number-field>`
-      );
+        ></sl-number-field>
+      `);
       input = el.querySelector('input')!;
     });
 

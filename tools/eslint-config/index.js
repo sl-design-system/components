@@ -1,4 +1,5 @@
 import eslint from '@eslint/js';
+import slds from '@sl-design-system/eslint-plugin-slds'
 import stylistic from '@stylistic/eslint-plugin';
 import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
@@ -9,7 +10,7 @@ import mocha from 'eslint-plugin-mocha';
 import prettier from 'eslint-plugin-prettier/recommended';
 import storybook from 'eslint-plugin-storybook';
 import unusedImports from 'eslint-plugin-unused-imports';
-import wc from 'eslint-plugin-wc';
+import { configs as wcConfigs } from 'eslint-plugin-wc';
 import tseslint from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
@@ -17,6 +18,9 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   litConfigs['flat/all'],
+  wcConfigs['flat/recommended'],
+  slds.configs.recommended,
+  mocha.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
@@ -28,17 +32,12 @@ export default tseslint.config(
   {
     plugins: {
       import: importPlugin,
-      mocha,
       storybook,
       '@stylistic': stylistic,
       'chai-expect': chaiExpect,
       'chai-friendly': chaiFriendly,
       'unused-imports': unusedImports
     }
-  },
-  {
-    plugins: { wc },
-    rules: wc.configs.recommended.rules
   },
   {
     plugins: { 'lit-a11y': litA11y },
@@ -158,6 +157,13 @@ export default tseslint.config(
       'lit-a11y/alt-text': 'off',
       // No warning when using dummy hrefs
       'lit-a11y/anchor-is-valid': 'off',
+      // Make sure all tests use `it()`and `describe()`
+      'mocha/consistent-interface': [
+        'error',
+        {
+          interface: 'BDD'
+        }
+      ],
       // Make sure we don't commit `it.only(...)` tests
       'mocha/no-exclusive-tests': 'error',
       // We use arrow functions by default
@@ -166,14 +172,11 @@ export default tseslint.config(
       'mocha/no-nested-tests': 'off',
       // We use dynamically generated tests, so this generates false positives
       'mocha/no-setup-in-describe': 'off',
-      // Disallow `it.skip(...)` tests
-      'mocha/no-skipped-tests': 'error',
       // Make sure all tests start with `it('should ...`
-      'mocha/valid-test-description': [
+      'mocha/valid-test-title': [
         'warn',
         {
-          pattern: '^should',
-          testNames: ['it']
+          pattern: '^should'
         }
       ]
     }

@@ -280,8 +280,8 @@ export const NoPaddingContent: Story = {
             <th class="cell">Signal</th>
           </tr>
           ${Array.from({ length: 6 }).map(
-            (_, rowIndex) =>
-              html` <tr class="row">
+            (_, rowIndex) => html`
+              <tr class="row">
                 <td class="cell">
                   <sl-avatar
                     .displayName=${users[rowIndex].name}
@@ -294,7 +294,8 @@ export const NoPaddingContent: Story = {
                 <td class="cell">
                   <sl-badge emphasis="subtle" size="lg" variant="info">${users[rowIndex].signal}</sl-badge>
                 </td>
-              </tr>`
+              </tr>
+            `
           )}
         </tbody>
       </table>

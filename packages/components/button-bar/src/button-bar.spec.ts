@@ -14,7 +14,7 @@ describe('sl-button-bar', () => {
         <sl-button-bar>
           <sl-button>Foo</sl-button>
           <sl-button>Bar</sl-button>
-          <sl-button>
+          <sl-button aria-label="Close">
             <sl-icon name="close"></sl-icon>
           </sl-button>
         </sl-button-bar>
@@ -68,10 +68,10 @@ describe('sl-button-bar', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-button-bar>
-          <sl-button fill="ghost">
+          <sl-button aria-label="Close" fill="ghost">
             <sl-icon name="close"></sl-icon>
           </sl-button>
-          <sl-button fill="ghost">
+          <sl-button aria-label="Fullscreen" fill="ghost">
             <sl-icon name="full-screen"></sl-icon>
           </sl-button>
         </sl-button-bar>
@@ -90,10 +90,10 @@ describe('sl-button-bar', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-button-bar>
-          <sl-button>
+          <sl-button aria-label="Close">
             <sl-icon name="close"></sl-icon>
           </sl-button>
-          <sl-button fill="ghost">
+          <sl-button aria-label="Fullscreen" fill="ghost">
             <sl-icon name="full-screen"></sl-icon>
           </sl-button>
         </sl-button-bar>
@@ -113,7 +113,7 @@ describe('sl-button-bar', () => {
       el = await fixture(html`
         <sl-button-bar>
           <sl-button fill="ghost">Foo</sl-button>
-          <sl-button fill="ghost">
+          <sl-button aria-label="Fullscreen" fill="ghost">
             <sl-icon name="full-screen"></sl-icon>
           </sl-button>
         </sl-button-bar>

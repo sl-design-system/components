@@ -228,17 +228,29 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       for (let i = 0; i < this.tags.length; i++) {
         totalTagsWidth -= sizes[i] + gap;
         this.tags[i].style.display = 'none';
+        // this.tags[i].tabIndex = -1;
+
+        //   this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here?
 
         if (totalTagsWidth <= availableWidth) {
           break;
         }
+        this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here?
       }
+
+      console.log(
+        'this.#rovingTabindexController.elements, in tag list',
+        this.#rovingTabindexController.elements,
+        this.#rovingTabindexController.elements.filter(el => el.tabIndex == 0)
+      );
     }
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
     const stackTag = this.stack.querySelector('sl-tag');
+
+    console.log('stackTag', stackTag, this.stackSize);
 
     if (stackTag) {
       stackTag.style.display = this.stackSize === 0 ? 'none' : '';

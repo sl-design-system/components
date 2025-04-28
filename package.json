@@ -464,7 +464,7 @@
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
     "chai": "^5.2.0",
     "chai-as-promised": "^8.0.1",
-    "chromatic": "^11.26.1",
+    "chromatic": "^11.28.2",
     "eslint": "^9.24.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",

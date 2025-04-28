@@ -25,7 +25,7 @@
     "lib"
   ],
   "scripts": {
-    "test": "mocha tests --recursive"
+    "test": "yarn exec mocha tests --recursive"
   },
   "peerDependencies": {
     "eslint": "^9.25.1",

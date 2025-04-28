@@ -20,6 +20,7 @@ export default tseslint.config(
   litConfigs['flat/all'],
   wcConfigs['flat/recommended'],
   slds.configs.recommended,
+  mocha.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
@@ -31,7 +32,6 @@ export default tseslint.config(
   {
     plugins: {
       import: importPlugin,
-      mocha,
       storybook,
       '@stylistic': stylistic,
       'chai-expect': chaiExpect,
@@ -157,6 +157,13 @@ export default tseslint.config(
       'lit-a11y/alt-text': 'off',
       // No warning when using dummy hrefs
       'lit-a11y/anchor-is-valid': 'off',
+      // Make sure all tests use `it()`and `describe()`
+      'mocha/consistent-interface': [
+        'error',
+        {
+          interface: 'BDD'
+        }
+      ],
       // Make sure we don't commit `it.only(...)` tests
       'mocha/no-exclusive-tests': 'error',
       // We use arrow functions by default
@@ -165,14 +172,11 @@ export default tseslint.config(
       'mocha/no-nested-tests': 'off',
       // We use dynamically generated tests, so this generates false positives
       'mocha/no-setup-in-describe': 'off',
-      // Disallow `it.skip(...)` tests
-      'mocha/no-skipped-tests': 'error',
       // Make sure all tests start with `it('should ...`
-      'mocha/valid-test-description': [
+      'mocha/valid-test-title': [
         'warn',
         {
-          pattern: '^should',
-          testNames: ['it']
+          pattern: '^should'
         }
       ]
     }

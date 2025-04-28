@@ -19,6 +19,7 @@ ruleTester.run('button-has-label', buttonHasLabel, {
     { code: "html`<sl-button>Click <strong>here</strong></sl-button>`;" },
     { code: "html`<sl-button>&nbsp;Space</sl-button>`;" },
     { code: "html`<sl-button><slot></slot></sl-button>`;" },
+    { code: "html`<sl-button><sl-foo></sl-foo></sl-button>`;" },
     { code: "const template = `<sl-button></sl-button>`;" },
     { code: "html`<div><sl-button>First</sl-button><sl-button>Second</sl-button></div>`;" }
   ],

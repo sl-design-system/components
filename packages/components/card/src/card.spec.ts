@@ -19,7 +19,7 @@ describe('sl-card', () => {
           <h2>${title}</h2>
           <h3 slot="header">${subHeader}</h3>
           <p slot="body">${bodyCopy}</p>
-          <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
+          <sl-button aria-label="Actions" fill="ghost" slot="actions">
             <sl-icon name="ellipsis"></sl-icon>
           </sl-button>
         </sl-card>
@@ -58,7 +58,7 @@ describe('sl-card', () => {
           <h2>${title}</h2>
           <h3 slot="header">${subHeader}</h3>
           <p slot="body">${bodyCopy}</p>
-          <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
+          <sl-button aria-label="Actions" fill="ghost" slot="actions">
             <sl-icon name="ellipsis"></sl-icon>
           </sl-button>
         </sl-card>
@@ -82,7 +82,7 @@ describe('sl-card', () => {
           <h2>${title}</h2>
           <h3 slot="header">${subHeader}</h3>
           <p slot="body">${bodyCopy}</p>
-          <sl-button aria-label="Actions" icon-only slot="actions" fill="ghost">
+          <sl-button aria-label="Actions" fill="ghost" slot="actions">
             <sl-icon name="ellipsis"></sl-icon>
           </sl-button>
         </sl-card>

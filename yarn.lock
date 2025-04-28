@@ -4713,6 +4713,7 @@ __metadata:
   dependencies:
     "@storybook/addon-a11y": "npm:^9.0.0-beta.4"
     "@storybook/addon-docs": "npm:^9.0.0-beta.4"
+    "@storybook/addon-themes": "npm:^9.0.0-beta.4"
     "@storybook/web-components-vite": "npm:^9.0.0-beta.4"
     lit: "npm:^3.2.1"
     storybook: "npm:^9.0.0-beta.4"
@@ -5583,6 +5584,17 @@ __metadata:
   peerDependencies:
     storybook: ^9.0.0-beta.4
   checksum: 10c0/8b966ad447638980e8140751ffe26bf12b953cf1e8d8ea50b12722bed21c79c2dc6a1989102321dd10c7a2a22a1a4f241513ec603b9667f969367a0d51c15fa6
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-themes@npm:^9.0.0-beta.4":
+  version: 9.0.0-beta.4
+  resolution: "@storybook/addon-themes@npm:9.0.0-beta.4"
+  dependencies:
+    ts-dedent: "npm:^2.0.0"
+  peerDependencies:
+    storybook: ^9.0.0-beta.4
+  checksum: 10c0/4e59fa4eda2bdf39dd3102f019d5c2ac8e8fd37647615a23900c9439d7f62e42c87acac37e55d5d2b72be830f988824a4771200318dd688a664e8ff914c81c04
   languageName: node
   linkType: hard
 

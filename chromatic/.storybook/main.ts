@@ -5,26 +5,14 @@ const config: StorybookConfig = {
     './stories/**/*.stories.ts',
   ],
   addons: [
-    '@storybook/addon-a11y', 
-    '@storybook/addon-actions', 
-    '@storybook/addon-storysource',
-    '@storybook/addon-themes',
-    'storybook-addon-pseudo-states',    
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        actions: false,
-        docs: false
-      }
-    }
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
+    'storybook-addon-pseudo-states'
   ],
   core: {
     disableTelemetry: true
   },
   framework: '@storybook/web-components-vite',
-  docs: {
-    autodocs: false
-  },
   staticDirs: [
     { from: '../../packages/themes', to: '/themes' }
   ],

@@ -123,7 +123,12 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     if (this.mode === 'select') {
       return html`
-        <sl-select @sl-change=${this.#onSelectChange} @sl-clear=${this.#onClear} clearable>
+        <sl-select
+          @sl-change=${this.#onSelectChange}
+          @sl-clear=${this.#onClear}
+          .placeholder=${msg(`Filter by ${this.#getFilterHeaderValue()}`)}
+          clearable
+        >
           ${this.options?.map(option => {
             return html`
               <sl-option ?selected=${this.value?.includes(option.value as string)} .value=${option.value}>

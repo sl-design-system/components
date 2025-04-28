@@ -330,6 +330,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         ${msg('Skip to end of table')}</a
       >
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
+        <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
           @sl-filter-value-change=${this.#onFilterValueChange}
@@ -345,17 +346,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
-        <tfoot>
-          ${this.scrollbar
-            ? html`
+        ${this.scrollbar
+          ? html`
+              <tfoot>
                 <tr class="scrollbar">
                   <td>
                     <sl-scrollbar scroller="tbody"></sl-scrollbar>
                   </td>
                 </tr>
-              `
-            : nothing}
-        </tfoot>
+              </tfoot>
+            `
+          : nothing}
       </table>
 
       <div part="bulk-actions" popover="manual">
@@ -541,7 +542,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.style.setProperty(
       '--sl-grid-scrollbar-inline-size',
-      `calc(var(--sl-grid-width) - ${scrollbarMarginInlineStart + scrollbarMarginInlineEnd + 2}px)`
+      `calc(var(--sl-grid-width) - ${scrollbarMarginInlineStart + scrollbarMarginInlineEnd}px)`
     );
 
     // Manually trigger the scrollbar to update its thumb size since the scrollbar

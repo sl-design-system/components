@@ -6,6 +6,10 @@
   padding: var(--sl-size-150) var(--sl-size-200);
 }
 
+slot {
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+}
+
 sl-button {
   margin-inline-start: auto;
 }

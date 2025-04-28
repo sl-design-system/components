@@ -290,6 +290,18 @@
   <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
   <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
 </trans-unit>
+<trans-unit id="sddf618209e237506">
+  <source>Toggle group</source>
+  <target>Toon groep</target>
+</trans-unit>
+<trans-unit id="sad56195767615a3b">
+  <source>Expand panel</source>
+  <target>Uitklappen</target>
+</trans-unit>
+<trans-unit id="s25c9b139cc1a6be8">
+  <source>Collapse panel</source>
+  <target>Inklappen</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

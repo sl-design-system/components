@@ -29,6 +29,14 @@ ruleTester.run('button-has-label', buttonHasLabel, {
       errors: [{ messageId: 'missingText' }]
     },
     {
+      code: "html`<sl-button><img /></sl-button>`;",
+      errors: [{ messageId: 'missingText' }]
+    },
+    {
+      code: "html`<sl-button><svg></svg></sl-button>`;",
+      errors: [{ messageId: 'missingText' }]
+    },
+    {
       code: "html`<sl-button><sl-icon></sl-icon></sl-button>`;",
       errors: [{ messageId: 'missingText' }]
     },

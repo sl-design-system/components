@@ -1,3 +1,4 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
@@ -33,6 +34,7 @@ export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
 /**
  * Component that is used as the column header for a sortable column.
  */
+@localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -82,6 +84,11 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
       <slot></slot>
       <sl-button
         @click=${this.#onClick}
+        aria-label=${this.direction === 'asc'
+          ? msg('Sort descending')
+          : this.direction === 'desc'
+            ? msg('Remove sort')
+            : msg('Sort ascending')}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
         .variant=${this.direction ? 'primary' : 'neutral'}

@@ -4717,7 +4717,7 @@ __metadata:
     "@storybook/web-components-vite": "npm:^9.0.0-beta.4"
     lit: "npm:^3.2.1"
     storybook: "npm:^9.0.0-beta.4"
-    storybook-addon-pseudo-states: "npm:^4.0.3"
+    storybook-addon-pseudo-states: "npm:^9.0.0-beta.4"
     tslib: "npm:^2.8.1"
     typescript: "npm:^5.4.5"
     wireit: "npm:^0.14.12"
@@ -5734,7 +5734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/icons@npm:^1.2.10, @storybook/icons@npm:^1.2.12":
+"@storybook/icons@npm:^1.2.12":
   version: 1.3.0
   resolution: "@storybook/icons@npm:1.3.0"
   peerDependencies:
@@ -20804,14 +20804,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook-addon-pseudo-states@npm:^4.0.3":
-  version: 4.0.3
-  resolution: "storybook-addon-pseudo-states@npm:4.0.3"
-  dependencies:
-    "@storybook/icons": "npm:^1.2.10"
+"storybook-addon-pseudo-states@npm:^9.0.0-beta.4":
+  version: 9.0.0-beta.4
+  resolution: "storybook-addon-pseudo-states@npm:9.0.0-beta.4"
   peerDependencies:
-    storybook: ^8.2.0
-  checksum: 10c0/6491636a9a479364fa4d75d0819e07b4a5cb9f6f3eea4a3d2f92232eef7eb733e3d7614f6a73d8fa6a7da0ca5874443805ba679379feff058ee4cb46b9ceb61d
+    storybook: ^9.0.0-beta.4
+  checksum: 10c0/4adbc477a11aca7bf2959360a71bc1766d2e3606fa7623d4473a5b71c980e151ab064e94a7243cc818d95aacdb49247f25ed8ec4b64a5fa58c86148289e5e937
   languageName: node
   linkType: hard
 

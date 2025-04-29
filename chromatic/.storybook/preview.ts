@@ -45,15 +45,15 @@ const preview: Preview = {
       withThemeFromJSXProvider({
         themes: {
           'bingel-dc': themes['bingel-dc'],
-          'bingel-int': themes['bingel-int'],
-          clickedu: themes['clickedu'],
-          'editorial-suite': themes['editorial-suite'],
-          itslearning: themes['itslearning'],
-          kampus: themes['kampus'],
-          magister: themes['magister'],
-          max: themes['max'],
-          'my-digital-book': themes['my-digital-book'],
-          neon: themes['neon'],
+          // 'bingel-int': themes['bingel-int'],
+          // clickedu: themes['clickedu'],
+          // 'editorial-suite': themes['editorial-suite'],
+          // itslearning: themes['itslearning'],
+          // kampus: themes['kampus'],
+          // magister: themes['magister'],
+          // max: themes['max'],
+          // 'my-digital-book': themes['my-digital-book'],
+          // neon: themes['neon'],
           'sanoma-learning': themes['sanoma-learning'],
           teas: themes['teas'],
         },
@@ -65,6 +65,13 @@ const preview: Preview = {
 
   ],
   parameters: {
+    chromatic: {
+      pseudo: {
+        hover: false,
+        active: false,
+        focusVisible: false
+      }
+    },
     pseudo: {
       hover: false,
       active: false,

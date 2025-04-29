@@ -43,7 +43,18 @@ const preview: Preview = {
           ? story()
           : html`<h1>State: Default <small>(including "disabled")</small></h1>
             ${story()}
-            ${data.id}
+            <h1>State: Hover</h1>
+            <div class="sb-fake-hover">
+              ${story()}
+            </div>
+            <h1>State: Active</h1>
+            <div class="sb-fake-active">
+              ${story()}
+            </div>
+            <h1>State: Focus</h1>
+            <div class="sb-fake-focus-visible">
+              ${story()}
+            </div>
             `
         }`
     },

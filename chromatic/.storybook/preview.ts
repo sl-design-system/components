@@ -47,7 +47,6 @@ const preview: Preview = {
             <div class="sb-fake-hover">
               ${story()}
             </div>
-            ${story()}
             `
         }`
     },

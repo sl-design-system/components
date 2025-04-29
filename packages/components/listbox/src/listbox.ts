@@ -11,6 +11,7 @@ import { Option, type OptionEmphasis } from './option.js';
 declare global {
   interface HTMLElementTagNameMap {
     'sl-listbox': Listbox;
+    'lit-virtualizer': LitVirtualizer;
   }
 
   interface ShadowRoot {

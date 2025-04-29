@@ -156,7 +156,8 @@ export const Download: StoryObj = {
         }, 300);
       }, 6000);
     });
-    return html` <style>
+    return html`
+      <style>
         #root-inner {
           display: flex;
           flex-direction: column;
@@ -165,7 +166,8 @@ export const Download: StoryObj = {
       </style>
       <sl-progress-bar indeterminate label="File download">
         <span class="my-helper">${helperText}</span>
-      </sl-progress-bar>`;
+      </sl-progress-bar>
+    `;
   }
 };
 

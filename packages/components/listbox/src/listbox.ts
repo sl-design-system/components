@@ -1,4 +1,4 @@
-import { LitVirtualizer } from '@lit-labs/virtualizer';
+import { LitVirtualizer } from '@lit-labs/virtualizer/LitVirtualizer.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -11,6 +11,7 @@ import { Option, type OptionEmphasis } from './option.js';
 declare global {
   interface HTMLElementTagNameMap {
     'sl-listbox': Listbox;
+    'lit-virtualizer': LitVirtualizer;
   }
 
   interface ShadowRoot {

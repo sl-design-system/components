@@ -17,6 +17,7 @@
     "packages/tokens",
     "scripts",
     "tools/eslint-config",
+    "tools/eslint-plugin-slds",
     "tools/example-data",
     "tools/stylelint-config",
     "tools/theme-selector-plugin",
@@ -412,7 +413,8 @@
     },
     "test": {
       "dependencies": [
-        "test:components"
+        "test:components",
+        "test:tools"
       ]
     },
     "test:components": {
@@ -428,6 +430,9 @@
     },
     "test:setup": {
       "command": "playwright install --with-deps"
+    },
+    "test:tools": {
+      "command": "yarn workspace @sl-design-system/eslint-plugin-slds test"
     },
     "version": {
       "command": "yarn install --no-immutable",
@@ -445,7 +450,7 @@
     }
   },
   "devDependencies": {
-    "@changesets/cli": "^2.28.1",
+    "@changesets/cli": "^2.29.2",
     "@changesets/get-github-info": "^0.6.0",
     "@custom-elements-manifest/analyzer": "^0.10.4",
     "@lit/localize-tools": "^0.8.0",
@@ -471,16 +476,16 @@
     "chai": "^5.2.0",
     "chai-as-promised": "^8.0.1",
     "chromatic": "^11.26.1",
-    "eslint": "^9.24.0",
+    "eslint": "^9.25.1",
     "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "lint-staged": "^15.5.1",
     "lit": "^3.2.1",
     "playwright": "^1.51.0",
     "sinon": "^19.0.2",
     "storybook": "^8.6.12",
     "stylelint": "^16.15.0",
     "typescript": "^5.4.5",
-    "vite": "^6.2.2",
+    "vite": "^6.3.3",
     "wireit": "^0.14.12"
   }
 }

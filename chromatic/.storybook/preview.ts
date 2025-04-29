@@ -43,7 +43,10 @@ const preview: Preview = {
           ? story()
           : html`<h1>State: Default <small>(including "disabled")</small></h1>
             ${story()}
-            ${story()}
+            <h1>State: Hover</h1>
+            <div class="sb-fake-hover">
+              ${story()}
+            </div>
             `
         }`
     },

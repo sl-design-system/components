@@ -47,10 +47,7 @@ const preview: Preview = {
             <div class="sb-fake-hover">
               ${story()}
             </div>
-            <h1>State: Active</h1>
-            <div class="sb-fake-active">
-              ${story()}
-            </div>
+            ${story()}
             `
         }`
     },

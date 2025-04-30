@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.7.2
+
+### Patch Changes
+
+- [#2005](https://github.com/sl-design-system/components/pull/2005) [`fc934eb`](https://github.com/sl-design-system/components/commit/fc934eba9f2049fda27d1e3f7c879789eea6254c) - Fix `@lit-labs/lit-virtualizer` imports to not accidentally register `<lit-virtualizer>` on the global custom element registry
+
 ## 0.7.1
 
 ### Patch Changes

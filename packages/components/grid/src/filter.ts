@@ -126,7 +126,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
         <sl-select
           @sl-change=${this.#onSelectChange}
           @sl-clear=${this.#onClear}
-          .placeholder=${msg(`Filter by ${this.#getFilterHeaderValue()}`)}
+          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}
           clearable
         >
           ${this.options?.map(option => {

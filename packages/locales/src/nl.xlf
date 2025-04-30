@@ -280,7 +280,7 @@
 </trans-unit>
 <trans-unit id="sa76539707f54b1b6">
   <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
-  <target>Filter op <x id="0" equiv-text="${this.getFilterHeaderValue()}"/></target>
+  <target>Filter op <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
 </trans-unit>
 <trans-unit id="s085c6223e17edc0a">
   <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
@@ -301,6 +301,18 @@
 <trans-unit id="s25c9b139cc1a6be8">
   <source>Collapse panel</source>
   <target>Inklappen</target>
+</trans-unit>
+<trans-unit id="s34e46e4e30ae57bd">
+  <source>Sort descending</source>
+  <target>Sorteer aflopend</target>
+</trans-unit>
+<trans-unit id="sa359b53ab45a0d8f">
+  <source>Remove sort</source>
+  <target>Verwijder sortering</target>
+</trans-unit>
+<trans-unit id="s10420672e643d2c7">
+  <source>Sort ascending</source>
+  <target>Sorteer oplopend</target>
 </trans-unit>
 </body>
 </file>

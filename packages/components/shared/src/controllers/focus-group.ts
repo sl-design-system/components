@@ -1,4 +1,4 @@
-import { RangeChangedEvent } from '@lit-labs/virtualizer';
+import { RangeChangedEvent } from '@lit-labs/virtualizer/events.js';
 import { type ReactiveController, type ReactiveElement } from 'lit';
 
 type DirectionTypes = 'horizontal' | 'vertical' | 'both' | 'grid';

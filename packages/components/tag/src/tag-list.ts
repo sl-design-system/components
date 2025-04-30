@@ -180,7 +180,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.#updateVisibility();
+    requestAnimationFrame(() => {
+      this.#updateVisibility();
+      // this.#rovingTabindexController.clearElementCache();
+    });
+    // this.#updateVisibility();
 
     // Break the loop if it keeps switching between stack visibility; workaround
     // is to just wait a little bit before updating the visibility again.
@@ -200,7 +204,10 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.#rovingTabindexController.clearElementCache();
 
-    requestAnimationFrame(() => this.#updateVisibility());
+    requestAnimationFrame(() => {
+      this.#updateVisibility();
+      this.#rovingTabindexController.clearElementCache();
+    });
   }
 
   #updateVisibility(): void {
@@ -228,17 +235,19 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       for (let i = 0; i < this.tags.length; i++) {
         totalTagsWidth -= sizes[i] + gap;
         this.tags[i].style.display = 'none';
-        // this.tags[i].tabIndex = -1;
+        this.tags[i].tabIndex = -1; // excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left, when we exclude them, we need to set it explicitly
 
-        //   this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here?
+        // this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here? not enough for tabindex -1 also for invisible ones?
 
-        console.log('totalTagsWidth', totalTagsWidth);
+        //  console.log('totalTagsWidth', totalTagsWidth);
+
+        // this.#rovingTabindexController.manage();
 
         if (totalTagsWidth <= availableWidth) {
           break;
         }
 
-        this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here?
+        // this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here?
       }
 
       // this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here? // not working properly...
@@ -263,5 +272,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
     this.#rovingTabindexController.clearElementCache();
+    // this.#rovingTabindexController.manage();
   }
 }

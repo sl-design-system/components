@@ -8,7 +8,6 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit'
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { type GridColumn } from './column.js';
-import { type Grid } from './grid.js';
 import styles from './sorter.scss.js';
 
 declare global {
@@ -26,7 +25,6 @@ export type SlSorterChangeEvent = CustomEvent<'added' | 'removed'>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
-  grid: Grid;
   column: GridColumn<T>;
   direction?: DataSourceSortDirection;
 }>;
@@ -105,13 +103,17 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  /**
+   * Resets the sorter to its initial state. This does not emit a change event.
+   * It is used internally by the grid component to reset the sorter.
+   */
   reset(): void {
     this.direction = undefined;
   }
 
   #onClick(): void {
     this.#toggleDirection();
-    this.sortDirectionChangeEvent.emit({ grid: this.column.grid!, column: this.column, direction: this.direction });
+    this.sortDirectionChangeEvent.emit({ column: this.column, direction: this.direction });
   }
 
   #toggleDirection(): void {

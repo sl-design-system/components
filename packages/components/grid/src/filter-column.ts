@@ -131,7 +131,6 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
             ${ref(this.#filterRef)}
             .column=${this}
             .filterLabel=${this.filterLabel}
-            .labelPath=${this.labelPath}
             .mode=${this.mode || 'text'}
             .options=${this.options ?? this.internalOptions}
             .path=${this.path}

@@ -6,12 +6,11 @@ import { Option } from '@sl-design-system/listbox';
 import { SearchField } from '@sl-design-system/search-field';
 import { Select } from '@sl-design-system/select';
 import { type EventEmitter, type PathKeys, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, render } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type GridColumn } from './column.js';
 import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
-import { type Grid } from './grid.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -28,7 +27,6 @@ export type SlFilterChangeEvent = CustomEvent<'added' | 'removed'>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlFilterValueChangeEvent<T = any> = CustomEvent<{
-  grid: Grid;
   column: GridColumn<T>;
   value?: string | string[];
 }>;
@@ -69,9 +67,6 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when the value of the filter has changed. */
   @event({ name: 'sl-filter-value-change' }) filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
-
-  /** The path to use for the displayed value in the column. */
-  @property({ attribute: 'label-path' }) labelPath?: PathKeys<T>;
 
   /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;
@@ -152,31 +147,35 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onSearchFieldChange(event: Event & { target: SearchField }): void {
     this.value = event.target.value?.trim() ?? '';
-    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
+    this.filterValueChangeEvent.emit({ column: this.column, value: this.value });
   }
 
   #onSelectChange(event: Event & { target: Select<T> }): void {
-    this.value = event.target.value?.toString().trim() ?? '';
-    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
+    if (event.target.value) {
+      this.value = event.target.value.toString().trim() ?? '';
+      this.filterValueChangeEvent.emit({ column: this.column, value: this.value });
+    }
   }
 
   #onClear(): void {
     this.value = undefined;
-    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
+    this.filterValueChangeEvent.emit({ column: this.column, value: this.value });
   }
 
   #getFilterHeaderValue(): string {
     if (this.filterLabel) {
       return this.filterLabel;
+    } else if (!this.column) {
+      return '';
     }
 
     const header = this.column.header;
 
     if (typeof header === 'string') {
-      return header?.toString().toLocaleLowerCase();
+      return header.toString().toLocaleLowerCase();
     } else if (header !== undefined) {
       const div = document.createElement('div');
-      div.innerHTML = (header as unknown as TemplateResult).strings[0];
+      render(header, div);
       const textNodes = Array.from(div.childNodes)
         .filter(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim())
         .map(node => node.textContent?.trim());

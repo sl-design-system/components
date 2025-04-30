@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-config
 
+## 0.4.1
+
+### Patch Changes
+
+- [#2008](https://github.com/sl-design-system/components/pull/2008) [`8629ce1`](https://github.com/sl-design-system/components/commit/8629ce154bc5f138ff40a13b3a247c7c32f595c5) - Fix missing `eslint-plugin-slds` dependency
+
 ## 0.4.0
 
 ### Minor Changes

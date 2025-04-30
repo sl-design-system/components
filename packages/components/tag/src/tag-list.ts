@@ -237,7 +237,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         this.tags[i].style.display = 'none';
         this.tags[i].tabIndex = -1; // excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left, when we exclude them, we need to set it explicitly
 
-        // this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here? not enough for tabindex -1 also for invisible ones?
+        // TODO: last hidden still have tabindex 0, why? should have tabindex -1 => it looks like clearElementsChache below helps?
+
+        this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here? not enough for tabindex -1 also for invisible ones?
 
         //  console.log('totalTagsWidth', totalTagsWidth);
 

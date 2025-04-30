@@ -232,6 +232,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
         //   this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here?
 
+        console.log('totalTagsWidth', totalTagsWidth);
+
         if (totalTagsWidth <= availableWidth) {
           break;
         }

@@ -4887,6 +4887,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/eslint-config@workspace:tools/eslint-config"
   dependencies:
+    "@sl-design-system/eslint-plugin-slds": "npm:^0.0.1"
     "@stylistic/eslint-plugin": "npm:^4.1.0"
     eslint: "npm:^9.25.1"
     eslint-config-prettier: "npm:^10.1.2"
@@ -4909,7 +4910,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds":
+"@sl-design-system/eslint-plugin-slds@npm:^0.0.1, @sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/eslint-plugin-slds@workspace:tools/eslint-plugin-slds"
   dependencies:

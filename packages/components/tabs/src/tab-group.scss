@@ -61,13 +61,17 @@
   }
 
   .fade-start {
-    background: linear-gradient(0deg, transparent, var(--_background));
+    background: inherit;
     inset-block-start: 0;
+    /* stylelint-disable-next-line color-no-hex */
+    mask-image: linear-gradient(0deg, transparent, #000);
   }
 
   .fade-end {
-    background: linear-gradient(180deg, transparent, var(--_background));
+    background: inherit;
     inset-block-end: 0;
+    /* stylelint-disable-next-line color-no-hex */
+    mask-image: linear-gradient(180deg, transparent, #000);
   }
 
   sl-menu-button {
@@ -114,12 +118,14 @@
 }
 
 [part='wrapper'] {
+  background: inherit;
   display: grid;
   grid-template-columns: 1fr auto;
   inline-size: 100%;
 }
 
 .fade-container {
+  background: inherit;
   display: flex;
   min-inline-size: 0;
   position: relative;
@@ -136,13 +142,17 @@
 }
 
 .fade-start {
-  background: linear-gradient(-90deg, transparent, var(--sl-elevation-surface-raised-default));
+  background: inherit;
   inset-inline-start: 0;
+  /* stylelint-disable-next-line color-no-hex */
+  mask-image: linear-gradient(-90deg, transparent, #000);
 }
 
 .fade-end {
-  background: linear-gradient(90deg, transparent, var(--sl-elevation-surface-raised-default));
+  background: inherit;
   inset-inline-end: 0;
+  /* stylelint-disable-next-line color-no-hex */
+  mask-image: linear-gradient(90deg, transparent, #000);
 }
 
 [part='scroller'] {

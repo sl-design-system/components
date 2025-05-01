@@ -51,6 +51,23 @@ describe('sl-grid-filter-column', () => {
       expect(headerRowCount).to.deep.equal([2, 2]);
     });
 
+    it('should set the role of the th elements to "columnheader"', () => {
+      const ths = Array.from(el.renderRoot.querySelectorAll('th'));
+
+      expect(ths.every(th => th.role === 'columnheader')).to.be.true;
+    });
+
+    it('should set the correct parts on the th elements', () => {
+      const parts = Array.from(el.renderRoot.querySelectorAll('th')).map(th => th.part.value);
+
+      expect(parts).to.deep.equal([
+        'header sort profession',
+        'header sort membership',
+        'header filter profession',
+        'header filter membership'
+      ]);
+    });
+
     it('should render the sorter in the first header row', () => {
       const headers = Array.from(el.renderRoot.querySelectorAll('thead tr:first-of-type th > *'));
 
@@ -74,7 +91,7 @@ describe('sl-grid-filter-column', () => {
     });
   });
 
-  describe('active filter', () => {
+  describe('filtered', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-grid .items=${ITEMS}>

@@ -58,7 +58,7 @@ let nextUniqueId = 0;
  * @csspart wrapper - Wraps the scroll container and menu button.
  * @csspart scroller - The scroll container of the tabs.
  * @csspart tablist - The tablist element which also contains the active tab indicator
- * @csspart panels - The container for the tab panels.
+ * @csspart panels - The container for the tab panels. Use this part to set the background color of all panels at once.
  *
  * @cssprop --sl-tab-group-menu-min-inline-size - The minimum inline size of the menu.
  * @cssprop --sl-tab-group-menu-max-inline-size - The maximum inline size of the menu.
@@ -127,12 +127,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #resizeObserver = new ResizeObserver(entries => {
     const hostResized = entries.some(entry => entry.target === this);
 
-    const tablistResized = entries.some(
-      entry => entry.target instanceof HTMLElement && entry.target.matches('[part="tablist"]')
+    const scrollerResized = entries.some(
+      entry => entry.target instanceof HTMLElement && entry.target.matches('[part="scroller"]')
     );
 
     this.#shouldAnimate = false;
-    this.#updateSize(hostResized, tablistResized);
+    this.#updateSize(hostResized, scrollerResized);
     this.#shouldAnimate = true;
   });
 
@@ -207,18 +207,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
-      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
-        tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
+      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
       // Manually trigger the scroll event handler the first time,
       // so that the fade elements are shown if necessary.
       this.#onScroll(scroller);
 
-      // We want to observe the size of the tablist, not the
-      // container or wrapper. The tablist is the element that
+      // We want to observe the size of the scroller, not the
+      // container or wrapper. The scroller is the element that
       // changes size for example when fonts are loaded. The
-      // other elements do not change size while the tablist does.
-      this.#resizeObserver.observe(tablist);
+      // other elements do not change size while the scroller does.
+      this.#resizeObserver.observe(scroller);
     });
   }
 
@@ -322,7 +321,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       tab.renderRoot.querySelector('a')?.click();
     }
 
-    this.#updateSelectedTab(tab);
+    tab.click();
   }
 
   #onScroll(scroller: HTMLElement): void {

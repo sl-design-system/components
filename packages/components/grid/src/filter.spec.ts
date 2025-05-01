@@ -65,6 +65,21 @@ describe('sl-grid-filter', () => {
     });
   });
 
+  describe('register', () => {
+    it('should emit a filter register event when the filter is inserted into the DOM', () => {
+      const container = document.createElement('div'),
+        onFilterRegister = spy();
+
+      document.body.appendChild(container);
+      container.addEventListener('sl-filter-register', onFilterRegister);
+      container.appendChild(document.createElement('sl-grid-filter'));
+
+      expect(onFilterRegister).to.have.been.calledOnce;
+
+      container.remove();
+    });
+  });
+
   describe('select mode', () => {
     beforeEach(async () => {
       el = await fixture(html`

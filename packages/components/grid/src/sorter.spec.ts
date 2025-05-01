@@ -64,6 +64,21 @@ describe('sl-grid-sorter', () => {
     });
   });
 
+  describe('register', () => {
+    it('should emit a sorter register event when the sorter is inserted into the DOM', () => {
+      const container = document.createElement('div'),
+        onSorterRegister = spy();
+
+      document.body.appendChild(container);
+      container.addEventListener('sl-sorter-register', onSorterRegister);
+      container.appendChild(document.createElement('sl-grid-sorter'));
+
+      expect(onSorterRegister).to.have.been.calledOnce;
+
+      container.remove();
+    });
+  });
+
   describe('sort ascending', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-grid-sorter direction="asc">Name</sl-grid-sorter>`);

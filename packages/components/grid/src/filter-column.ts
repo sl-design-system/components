@@ -32,7 +32,12 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   /** Reference to the rendered `<sl-grid-filter>` element. */
   #filterRef: Ref<GridFilter> = createRef();
 
-  /** The internal options if none are provided. */
+  /** Returns the element that is rendered in the table header. */
+  get filterElement(): GridFilter | undefined {
+    return this.#filterRef.value;
+  }
+
+  /** @internal The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
 
   /** The filter function if you want to do custom filtering. */

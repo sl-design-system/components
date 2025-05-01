@@ -13,7 +13,7 @@ import styles from './sorter.scss.js';
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-sorter-change': SlSorterChangeEvent;
-    'sl-sort-direction-change': SlSortDirectionChangeEvent;
+    'sl-sorter-register': SlSorterRegisterEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -21,13 +21,13 @@ declare global {
   }
 }
 
-export type SlSorterChangeEvent = CustomEvent<'added' | 'removed'>;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
+export type SlSorterChangeEvent<T = any> = CustomEvent<{
   column: GridColumn<T>;
   direction?: DataSourceSortDirection;
 }>;
+
+export type SlSorterRegisterEvent = CustomEvent<void>;
 
 /**
  * Component that is used as the column header for a sortable column.
@@ -58,23 +58,16 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** An optional custom sort function. */
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
 
-  /** @internal Emits when the sorter has been added or removed. */
-  @event({ name: 'sl-sorter-change' }) sorterChangeEvent!: EventEmitter<SlSorterChangeEvent>;
-
   /** @internal Emits when the direction has changed. */
-  @event({ name: 'sl-sort-direction-change' }) sortDirectionChangeEvent!: EventEmitter<SlSortDirectionChangeEvent<T>>;
+  @event({ name: 'sl-sorter-change' }) sorterChangeEvent!: EventEmitter<SlSorterChangeEvent<T>>;
+
+  /** @internal Emits when the sorter has been added or removed. */
+  @event({ name: 'sl-sorter-register' }) sorterRegisterEvent!: EventEmitter<SlSorterRegisterEvent>;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.sorterChangeEvent.emit('added');
-  }
-
-  override disconnectedCallback(): void {
-    // FIXME: This event is not emitted when the component is removed from the DOM.
-    this.sorterChangeEvent.emit('removed');
-
-    super.disconnectedCallback();
+    this.sorterRegisterEvent.emit();
   }
 
   override render(): TemplateResult {
@@ -113,7 +106,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onClick(): void {
     this.#toggleDirection();
-    this.sortDirectionChangeEvent.emit({ column: this.column, direction: this.direction });
+    this.sorterChangeEvent.emit({ column: this.column, direction: this.direction });
   }
 
   #toggleDirection(): void {

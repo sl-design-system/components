@@ -37,31 +37,31 @@ describe('sl-grid-filter', () => {
       expect(el.active).to.be.true;
     });
 
-    it('should emit the filter value change event when typing in the search field', async () => {
-      const onFilterValueChange = spy();
+    it('should emit the filter change event when typing in the search field', async () => {
+      const onFilterChange = spy();
 
-      el.addEventListener('sl-filter-value-change', onFilterValueChange);
+      el.addEventListener('sl-filter-change', onFilterChange);
 
       el.renderRoot.querySelector('sl-search-field')?.focus();
       await sendKeys({ type: 'Lorem' });
 
-      expect(onFilterValueChange).to.have.callCount(5);
-      expect(onFilterValueChange).to.have.been.calledWithMatch({ detail: { value: 'Lorem' } });
+      expect(onFilterChange).to.have.callCount(5);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: 'Lorem' } });
     });
 
-    it('should emit the filter value change event when clearing the search field', async () => {
-      const onFilterValueChange = spy(),
+    it('should emit the filter change event when clearing the search field', async () => {
+      const onFilterChange = spy(),
         searchField = el.renderRoot.querySelector('sl-search-field');
 
-      el.addEventListener('sl-filter-value-change', onFilterValueChange);
+      el.addEventListener('sl-filter-change', onFilterChange);
 
       searchField?.focus();
       await sendKeys({ type: 'L' });
       searchField?.renderRoot.querySelector('button')?.click();
       await el.updateComplete;
 
-      expect(onFilterValueChange).to.have.callCount(2);
-      expect(onFilterValueChange).to.have.been.calledWithMatch({ detail: { value: undefined } });
+      expect(onFilterChange).to.have.callCount(2);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: undefined } });
     });
   });
 
@@ -100,24 +100,24 @@ describe('sl-grid-filter', () => {
       expect(el.active).to.be.true;
     });
 
-    it('should emit the filter value change event when selecting an option', async () => {
-      const onFilterValueChange = spy();
+    it('should emit the filter change event when selecting an option', async () => {
+      const onFilterChange = spy();
 
-      el.addEventListener('sl-filter-value-change', onFilterValueChange);
+      el.addEventListener('sl-filter-change', onFilterChange);
 
       const select = el.renderRoot.querySelector('sl-select');
       select?.querySelector('sl-select-button')?.click();
       select?.querySelector('sl-option')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(onFilterValueChange).to.have.callCount(1);
-      expect(onFilterValueChange).to.have.been.calledWithMatch({ detail: { value: 'option1' } });
+      expect(onFilterChange).to.have.callCount(1);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: 'option1' } });
     });
 
-    it('should emit the filter value change event when clearing the select', async () => {
-      const onFilterValueChange = spy();
+    it('should emit the filter change event when clearing the select', async () => {
+      const onFilterChange = spy();
 
-      el.addEventListener('sl-filter-value-change', onFilterValueChange);
+      el.addEventListener('sl-filter-change', onFilterChange);
 
       const select = el.renderRoot.querySelector('sl-select');
       select?.querySelector('sl-select-button')?.click();
@@ -127,8 +127,8 @@ describe('sl-grid-filter', () => {
       select?.querySelector('sl-select-button')?.renderRoot.querySelector('button')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(onFilterValueChange).to.have.callCount(2);
-      expect(onFilterValueChange).to.have.been.calledWithMatch({ detail: { value: undefined } });
+      expect(onFilterChange).to.have.callCount(2);
+      expect(onFilterChange).to.have.been.calledWithMatch({ detail: { value: undefined } });
     });
   });
 

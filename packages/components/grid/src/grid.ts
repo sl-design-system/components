@@ -24,12 +24,12 @@ import { classMap } from 'lit/directives/class-map.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
-import { type GridFilter, type SlFilterChangeEvent } from './filter.js';
+import { type GridFilter, type SlFilterRegisterEvent } from './filter.js';
 import styles from './grid.scss.js';
 import { GridGroupHeader } from './group-header.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';
-import { type GridSorter, type SlSorterChangeEvent } from './sorter.js';
+import { type GridSorter, type SlSorterRegisterEvent } from './sorter.js';
 import { GridViewModel, GridViewModelGroup } from './view-model.js';
 
 declare global {
@@ -124,6 +124,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The filters for this grid. */
   #filters: Array<GridFilter<T>> = [];
 
+  /** Timer for debouncing filter updates. */
+  #filterDebounceTimer?: ReturnType<typeof setTimeout>;
+
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
@@ -173,6 +176,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The sorters for this grid. */
   #sorters: Array<GridSorter<T>> = [];
+
+  /** The debounce timer for sorters. */
+  #sorterDebounceTimer?: ReturnType<typeof setTimeout>;
 
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
@@ -277,6 +283,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#mutationObserver?.disconnect();
     this.#resizeObserver?.disconnect();
 
+    if (this.#filterDebounceTimer) {
+      clearTimeout(this.#filterDebounceTimer);
+    }
+
+    if (this.#sorterDebounceTimer) {
+      clearTimeout(this.#sorterDebounceTimer);
+    }
+
     super.disconnectedCallback();
   }
 
@@ -333,9 +347,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         <caption></caption>
         <thead
           @sl-filter-change=${this.#onFilterChange}
-          @sl-filter-value-change=${this.#onFilterValueChange}
-          @sl-sort-direction-change=${this.#onSortDirectionChange}
+          @sl-filter-register=${this.#onFilterRegister}
           @sl-sorter-change=${this.#onSorterChange}
+          @sl-sorter-register=${this.#onSorterRegister}
           part="thead"
         >
           ${this.renderHeaderRows()}
@@ -730,17 +744,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onFilterChange({ detail, target }: SlFilterChangeEvent & { target: GridFilter<T> }): void {
-    if (detail === 'added') {
-      this.#filters = [...this.#filters, target];
-    } else {
-      this.#filters = this.#filters.filter(filter => filter !== target);
+  #onFilterRegister({ target }: SlFilterRegisterEvent & { target: GridFilter<T> }): void {
+    this.#filters = [...this.#filters, target];
+
+    if (this.#filterDebounceTimer) {
+      clearTimeout(this.#filterDebounceTimer);
     }
 
-    this.#applyFilters(true);
+    this.#filterDebounceTimer = setTimeout(() => {
+      this.#applyFilters(target.active);
+      this.#filterDebounceTimer = undefined;
+    });
   }
 
-  #onFilterValueChange(): void {
+  #onFilterChange(): void {
     this.#applyFilters(true);
   }
 
@@ -848,6 +865,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // needs time for the slotchange event to fire.
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
+    // Cleanup any columns that are no longer in the slot
+    this.view.columnDefinitions.forEach(col => {
+      if (!columns.includes(col)) {
+        this.#removeColumn(col);
+      }
+    });
+
     // Update the column definitions
     this.view.columnDefinitions = columns;
 
@@ -855,19 +879,22 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     await this.recalculateColumnWidths();
   }
 
-  #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
+  #onSorterChange({ target }: Event & { target: GridSorter<T> }): void {
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
     this.#applySorters(true);
   }
 
-  #onSorterChange({ detail, target }: SlSorterChangeEvent & { target: GridSorter<T> }): void {
-    if (detail === 'added') {
-      this.#sorters = [...this.#sorters, target];
-    } else {
-      this.#sorters = this.#sorters.filter(sorter => sorter !== target);
+  #onSorterRegister({ target }: SlSorterRegisterEvent & { target: GridSorter<T> }): void {
+    this.#sorters = [...this.#sorters, target];
+
+    if (this.#sorterDebounceTimer) {
+      clearTimeout(this.#sorterDebounceTimer);
     }
 
-    this.#applySorters(true);
+    this.#sorterDebounceTimer = setTimeout(() => {
+      this.#applySorters(target.direction !== undefined);
+      this.#sorterDebounceTimer = undefined;
+    });
   }
 
   #addScopedElements(scopedElements?: Record<string, typeof HTMLElement>): void {
@@ -918,14 +945,24 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #removeColumn(col: GridColumn): void {
+    if (col instanceof GridSortColumn) {
+      this.#sorters = this.#sorters.filter(s => s !== col.sorterElement);
+    }
+
+    if (col instanceof GridFilterColumn) {
+      this.#filters = this.#filters.filter(f => f !== col.filterElement);
+    }
+  }
+
   #updateDataSource(dataSource?: ListDataSource<T>): void {
-    this.view.dataSource = dataSource;
     this.selection.size = dataSource?.size ?? 0;
 
     this.#applyFilters();
     this.#applySorters();
 
-    dataSource?.update();
+    // This will trigger the data source to update
+    this.view.dataSource = dataSource;
 
     this.stateChangeEvent.emit({ grid: this });
   }

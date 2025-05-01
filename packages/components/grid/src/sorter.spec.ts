@@ -52,15 +52,15 @@ describe('sl-grid-sorter', () => {
       expect(el.shadowRoot?.querySelector('sl-icon')).to.have.attribute('name', 'sort-up');
     });
 
-    it('should emit the sort direction change event after clicking the button', async () => {
-      const onSortDirectionChange = spy();
+    it('should emit the sorter change event after clicking the button', async () => {
+      const onSorterChange = spy();
 
-      el.addEventListener('sl-sort-direction-change', onSortDirectionChange);
+      el.addEventListener('sl-sorter-change', onSorterChange);
       el.renderRoot.querySelector('sl-button')?.click();
       await el.updateComplete;
 
-      expect(onSortDirectionChange).to.have.been.calledOnce;
-      expect(onSortDirectionChange).to.have.been.calledWithMatch({ detail: { direction: 'asc' } });
+      expect(onSorterChange).to.have.been.calledOnce;
+      expect(onSorterChange).to.have.been.calledWithMatch({ detail: { direction: 'asc' } });
     });
   });
 
@@ -93,15 +93,15 @@ describe('sl-grid-sorter', () => {
       expect(el.shadowRoot?.querySelector('sl-icon')).to.have.attribute('name', 'sort-down');
     });
 
-    it('should emit the sort direction change event after clicking the button', async () => {
-      const onSortDirectionChange = spy();
+    it('should emit the sorter change event after clicking the button', async () => {
+      const onSorterChange = spy();
 
-      el.addEventListener('sl-sort-direction-change', onSortDirectionChange);
+      el.addEventListener('sl-sorter-change', onSorterChange);
       el.renderRoot.querySelector('sl-button')?.click();
       await el.updateComplete;
 
-      expect(onSortDirectionChange).to.have.been.calledOnce;
-      expect(onSortDirectionChange).to.have.been.calledWithMatch({ detail: { direction: 'desc' } });
+      expect(onSorterChange).to.have.been.calledOnce;
+      expect(onSorterChange).to.have.been.calledWithMatch({ detail: { direction: 'desc' } });
     });
   });
 
@@ -134,15 +134,15 @@ describe('sl-grid-sorter', () => {
       expect(el.shadowRoot?.querySelector('sl-icon')).to.have.attribute('name', 'sort');
     });
 
-    it('should emit the sort direction change event after clicking the button', async () => {
-      const onSortDirectionChange = spy();
+    it('should emit the sorter change event after clicking the button', async () => {
+      const onSorterChange = spy();
 
-      el.addEventListener('sl-sort-direction-change', onSortDirectionChange);
+      el.addEventListener('sl-sorter-change', onSorterChange);
       el.renderRoot.querySelector('sl-button')?.click();
       await el.updateComplete;
 
-      expect(onSortDirectionChange).to.have.been.calledOnce;
-      expect(onSortDirectionChange).to.have.been.calledWithMatch({ detail: { direction: undefined } });
+      expect(onSorterChange).to.have.been.calledOnce;
+      expect(onSorterChange).to.have.been.calledWithMatch({ detail: { direction: undefined } });
     });
   });
 
@@ -159,14 +159,14 @@ describe('sl-grid-sorter', () => {
       expect(el.shadowRoot?.querySelector('sl-icon')).to.have.attribute('name', 'sort');
     });
 
-    it('should not emit the sort direction change event', async () => {
-      const onSortDirectionChange = spy();
+    it('should not emit the sorter change event', async () => {
+      const onSorterChange = spy();
 
-      el.addEventListener('sl-sort-direction-change', onSortDirectionChange);
+      el.addEventListener('sl-sorter-change', onSorterChange);
       el.reset();
       await el.updateComplete;
 
-      expect(onSortDirectionChange).not.to.have.been.called;
+      expect(onSorterChange).not.to.have.been.called;
     });
   });
 });

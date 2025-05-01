@@ -23,7 +23,8 @@
   "exports": {
     ".": "./index.js",
     "./package.json": "./package.json",
-    "./register.js": "./register.js"
+    "./register.js": "./register.js",
+    "./utils.js": "./src/utils.js"
   },
   "files": [
     "**/*.d.ts",

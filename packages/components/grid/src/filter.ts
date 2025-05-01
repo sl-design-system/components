@@ -15,7 +15,7 @@ import styles from './filter.scss.js';
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-filter-change': SlFilterChangeEvent;
-    'sl-filter-value-change': SlFilterValueChangeEvent;
+    'sl-filter-register': SlFilterRegisterEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -23,13 +23,13 @@ declare global {
   }
 }
 
-export type SlFilterChangeEvent = CustomEvent<'added' | 'removed'>;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlFilterValueChangeEvent<T = any> = CustomEvent<{
+export type SlFilterChangeEvent<T = any> = CustomEvent<{
   column: GridColumn<T>;
   value?: string | string[];
 }>;
+
+export type SlFilterRegisterEvent = CustomEvent<void>;
 
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,11 +62,11 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** The custom filter */
   @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
 
-  /** @internal Emits when the filter has been added or removed. */
-  @event({ name: 'sl-filter-change' }) filterChangeEvent!: EventEmitter<SlFilterChangeEvent>;
-
   /** @internal Emits when the value of the filter has changed. */
-  @event({ name: 'sl-filter-value-change' }) filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
+  @event({ name: 'sl-filter-change' }) filterChangeEvent!: EventEmitter<SlFilterChangeEvent<T>>;
+
+  /** @internal Emits when the filter has been connected. */
+  @event({ name: 'sl-filter-register' }) filterRegisterEvent!: EventEmitter<SlFilterRegisterEvent>;
 
   /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;
@@ -105,14 +105,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       };
     }
 
-    this.filterChangeEvent.emit('added');
-  }
-
-  override disconnectedCallback(): void {
-    // FIXME: This event is not emitted when the component is removed from the DOM.
-    this.filterChangeEvent.emit('removed');
-
-    super.disconnectedCallback();
+    this.filterRegisterEvent.emit();
   }
 
   override render(): TemplateResult {
@@ -147,19 +140,19 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onSearchFieldChange(event: Event & { target: SearchField }): void {
     this.value = event.target.value?.trim() ?? '';
-    this.filterValueChangeEvent.emit({ column: this.column, value: this.value });
+    this.filterChangeEvent.emit({ column: this.column, value: this.value });
   }
 
   #onSelectChange(event: Event & { target: Select<T> }): void {
     if (event.target.value) {
       this.value = event.target.value.toString().trim() ?? '';
-      this.filterValueChangeEvent.emit({ column: this.column, value: this.value });
+      this.filterChangeEvent.emit({ column: this.column, value: this.value });
     }
   }
 
   #onClear(): void {
     this.value = undefined;
-    this.filterValueChangeEvent.emit({ column: this.column, value: this.value });
+    this.filterChangeEvent.emit({ column: this.column, value: this.value });
   }
 
   #getFilterHeaderValue(): string {

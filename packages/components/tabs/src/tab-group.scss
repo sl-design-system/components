@@ -1,4 +1,8 @@
 :host {
+  /* Has to be set to #000 because it's used in the mask-image, so when it's something else than black the mask doesn't work properly */
+  /* stylelint-disable-next-line color-no-hex */
+  --_mask-color: #000;
+
   display: flex;
   flex-direction: column;
   isolation: isolate; // Prevent any possible z-index clashes with other DOM elements
@@ -63,15 +67,13 @@
   .fade-start {
     background: inherit;
     inset-block-start: 0;
-    /* stylelint-disable-next-line color-no-hex */
-    mask-image: linear-gradient(0deg, transparent, #000);
+    mask-image: linear-gradient(0deg, transparent, var(--_mask-color));
   }
 
   .fade-end {
     background: inherit;
     inset-block-end: 0;
-    /* stylelint-disable-next-line color-no-hex */
-    mask-image: linear-gradient(180deg, transparent, #000);
+    mask-image: linear-gradient(180deg, transparent, var(--_mask-color));
   }
 
   sl-menu-button {
@@ -144,15 +146,13 @@
 .fade-start {
   background: inherit;
   inset-inline-start: 0;
-  /* stylelint-disable-next-line color-no-hex */
-  mask-image: linear-gradient(-90deg, transparent, #000);
+  mask-image: linear-gradient(-90deg, transparent, var(--_mask-color));
 }
 
 .fade-end {
   background: inherit;
   inset-inline-end: 0;
-  /* stylelint-disable-next-line color-no-hex */
-  mask-image: linear-gradient(90deg, transparent, #000);
+  mask-image: linear-gradient(90deg, transparent, var(--_mask-color));
 }
 
 [part='scroller'] {

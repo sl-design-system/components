@@ -1,4 +1,8 @@
 :host {
+  /* Has to be set to #000 because it's used in the mask-image, so when it's something else than black the mask doesn't work properly */
+  /* stylelint-disable-next-line color-no-hex */
+  --_mask-color: #000;
+
   display: flex;
   flex-direction: column;
   isolation: isolate; // Prevent any possible z-index clashes with other DOM elements
@@ -61,13 +65,15 @@
   }
 
   .fade-start {
-    background: linear-gradient(0deg, transparent, var(--_background));
+    background: inherit;
     inset-block-start: 0;
+    mask-image: linear-gradient(0deg, transparent, var(--_mask-color));
   }
 
   .fade-end {
-    background: linear-gradient(180deg, transparent, var(--_background));
+    background: inherit;
     inset-block-end: 0;
+    mask-image: linear-gradient(180deg, transparent, var(--_mask-color));
   }
 
   sl-menu-button {
@@ -114,12 +120,14 @@
 }
 
 [part='wrapper'] {
+  background: inherit;
   display: grid;
   grid-template-columns: 1fr auto;
   inline-size: 100%;
 }
 
 .fade-container {
+  background: inherit;
   display: flex;
   min-inline-size: 0;
   position: relative;
@@ -136,13 +144,15 @@
 }
 
 .fade-start {
-  background: linear-gradient(-90deg, transparent, var(--sl-elevation-surface-raised-default));
+  background: inherit;
   inset-inline-start: 0;
+  mask-image: linear-gradient(-90deg, transparent, var(--_mask-color));
 }
 
 .fade-end {
-  background: linear-gradient(90deg, transparent, var(--sl-elevation-surface-raised-default));
+  background: inherit;
   inset-inline-end: 0;
+  mask-image: linear-gradient(90deg, transparent, var(--_mask-color));
 }
 
 [part='scroller'] {

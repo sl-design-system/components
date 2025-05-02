@@ -314,6 +314,10 @@
   <source>Sort ascending</source>
   <target>Sorteer oplopend</target>
 </trans-unit>
+<trans-unit id="s3d195621e562d805">
+  <source>Select row</source>
+  <target>Selecteer rij</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

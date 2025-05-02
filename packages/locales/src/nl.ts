@@ -20,6 +20,7 @@ export const templates = {
   s2ceb11be2290bb1b: 'Annuleren',
   s34e46e4e30ae57bd: 'Sorteer aflopend',
   s39bba60b440fcf00: 'verplicht',
+  s3d195621e562d805: 'Selecteer rij',
   s3dc14a4b8129f989: str`Paginering`,
   s47319a3cf96f6c33: str`De waarde moet kleiner dan of gelijk aan ${0} zijn.`,
   s49a14735332eb6fc: str`Vorige maand, ${0}`,

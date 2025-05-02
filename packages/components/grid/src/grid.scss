@@ -46,6 +46,31 @@
   --_cell-border: none;
 }
 
+:host([clickable-row]) {
+  [part~='row'] {
+    --_bg-color: transparent;
+    --_bg-mix-color: var(--sl-color-background-input-interactive);
+    --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
+    --_body-cell-background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
+
+    cursor: pointer;
+
+    &:hover {
+      --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
+    }
+
+    &:active {
+      --_bg-opacity: var(--sl-opacity-interactive-plain-active);
+    }
+  }
+
+  tr[part~='active'],
+  tr[part~='selected'] {
+    --_bg-color: var(--sl-color-background-selected-subtlest);
+    --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
+  }
+}
+
 :host([column-divider]) {
   // this is needed because we need to set the vertical-border-offset separately for the th,
   // when this is set on a higher level than the `--_vertical-border-offset` var it can't "reach" it.
@@ -177,7 +202,7 @@ caption {
   position: absolute;
   position-anchor: --thead;
   position-area: center;
-  z-index: 1;
+  z-index: 1; // Ensure caption is above tbody and below thead (because of DOM order)
 }
 
 thead,
@@ -192,13 +217,13 @@ thead {
   border-start-start-radius: var(--sl-size-borderRadius-default);
   inset-block-start: 0;
   max-inline-size: var(--sl-grid-width);
-  overflow-x: hidden;
+  overflow-x: hidden; // We can't use clip because we scroll programmatically
   position: sticky;
-  z-index: 1;
+  z-index: 1; // Ensure thead is above tbody and caption (because of DOM order)
 
   tr + tr {
     th {
-      border-block-start: var(--sl-size-borderWidth-default) solid var(--sl-color-border-plain);
+      border-block-start: var(--_border);
     }
   }
 }
@@ -372,30 +397,6 @@ td[part~='selection'] {
 
 [part='group-heading'] {
   font-weight: 600;
-}
-
-:host([clickable-row]) {
-  [part~='row'] {
-    --_bg-color: transparent;
-    --_bg-mix-color: var(--sl-color-background-input-interactive);
-    --_bg-opacity: var(--sl-opacity-light-interactive-plain-idle);
-    --_cell-background: color-mix(in srgb, var(--_bg-color), var(--_bg-mix-color) calc(100% * var(--_bg-opacity)));
-
-    cursor: pointer;
-
-    &:hover {
-      --_bg-opacity: var(--sl-opacity-interactive-plain-hover);
-    }
-
-    &:active {
-      --_bg-opacity: var(--sl-opacity-interactive-plain-active);
-    }
-  }
-
-  tr[part~='active'] {
-    --_bg-color: var(--sl-color-background-selected-subtle);
-    --_bg-mix-color: var(--sl-color-background-selected-interactive-plain);
-  }
 }
 
 .selection-count {

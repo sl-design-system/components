@@ -1,4 +1,4 @@
-import { msg, str } from '@lit/localize';
+import { msg } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -50,24 +50,15 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
       indeterminate = this.grid?.selection.areSomeSelected();
 
     return html`
-      <th part="header selection">
+      <th part="header selection" role="columnheader">
         <sl-checkbox
           @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelectAll(detail)}
           .checked=${checked}
           .indeterminate=${indeterminate}
-          aria-label=${msg('Select all')}
+          aria-label=${msg('Select all rows')}
           class="selection-toggle"
           size="sm"
         ></sl-checkbox>
-      </th>
-    `;
-  }
-
-  renderSelectionHeader(): TemplateResult {
-    return html`
-      <th part="header active-selection">
-        <span class="selection-count">${msg(str`${this.grid?.selection.selected} selected`)}</span>
-        <slot name="selection-header"></slot>
       </th>
     `;
   }

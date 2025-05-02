@@ -2,14 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 <file target-language="nl" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
-<trans-unit id="sd0b6082239185272">
-  <source>Select all</source>
-  <target>Selecteer alles</target>
-</trans-unit>
-<trans-unit id="s58bfb494feb8eb02">
-  <source><x id="0" equiv-text="${this.grid?.selection.selected}"/> selected</source>
-  <target><x id="0" equiv-text="${this.getSelectedCount()}"/> geselecteerd</target>
-</trans-unit>
 <trans-unit id="s629576c6b305d539">
   <source>optional</source>
   <target>optioneel</target>
@@ -317,6 +309,10 @@
 <trans-unit id="s3d195621e562d805">
   <source>Select row</source>
   <target>Selecteer rij</target>
+</trans-unit>
+<trans-unit id="s909e876731a8febb">
+  <source>Select all rows</source>
+  <target>Selecteer alle rijen</target>
 </trans-unit>
 </body>
 </file>

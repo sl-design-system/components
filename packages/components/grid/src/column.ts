@@ -9,6 +9,7 @@ import {
 } from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { type Grid } from './grid.js';
 
 declare global {
@@ -177,7 +178,15 @@ export class GridColumn<T = any> extends LitElement {
     const classes = this.getClasses(),
       parts = ['header', ...this.getParts()];
 
-    return html`<th class=${classes.join(' ')} part=${parts.join(' ')}>${this.header ?? getNameByPath(this.path)}</th>`;
+    return html`
+      <th
+        class=${ifDefined(classes.length ? classes.join(' ') : undefined)}
+        part=${parts.join(' ')}
+        role="columnheader"
+      >
+        ${this.header ?? getNameByPath(this.path)}
+      </th>
+    `;
   }
 
   /**
@@ -193,12 +202,14 @@ export class GridColumn<T = any> extends LitElement {
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`
-        <td class=${classes.join(' ')} part=${parts.join(' ')}>
+        <td class=${ifDefined(classes.length ? classes.join(' ') : undefined)} part=${parts.join(' ')}>
           <sl-ellipsize-text>${data}</sl-ellipsize-text>
         </td>
       `;
     } else {
-      return html`<td class=${classes.join(' ')} part=${parts.join(' ')}>${data}</td>`;
+      return html`
+        <td class=${ifDefined(classes.length ? classes.join(' ') : undefined)} part=${parts.join(' ')}>${data}</td>
+      `;
     }
   }
 

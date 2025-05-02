@@ -20,7 +20,7 @@ import { Skeleton } from '@sl-design-system/skeleton';
 import { ToolBar } from '@sl-design-system/tool-bar';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -341,8 +341,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
       >
-        ${msg('Skip to end of table')}</a
-      >
+        ${msg('Skip to end of table')}
+      </a>
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
         <thead
@@ -477,10 +477,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragover=${(event: DragEvent) => this.#onDragOver(event, item)}
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
-        class=${classMap({ active })}
-        part=${parts.join(' ')}
-        index=${index}
         aria-rowindex=${index}
+        class=${ifDefined(active ? 'active' : undefined)}
+        index=${index}
+        part=${parts.join(' ')}
       >
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -499,10 +499,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, group)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, group)}
+            .active=${active}
             .expanded=${expanded}
             .selectable=${selectable}
             .selected=${selected}
-            .active=${active}
           >
             ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.value}</span>`}
           </sl-grid-group-header>
@@ -571,7 +571,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onClickRow(event: Event, item: T): void {
-    if (this.clickableRow) {
+    if (!this.clickableRow) {
+      return;
+    }
+
+    if (this.view.columnDefinitions.some(col => col instanceof GridSelectionColumn)) {
+      this.selection.toggle(item);
+    } else {
       this.activeItem = this.selection.toggleActive(item);
       this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
     }
@@ -634,12 +640,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #onDragEnter(_event: DragEvent, item: T): void {
     if (this.#dragItem === item || this.view.isFixedItem(item)) {
       return;
-    }
-
-    if (this.draggableRows === 'between-or-on-top') {
-      const dropFilter = this.dropFilter?.(item) ?? true;
-
-      this.dropTargetMode = typeof dropFilter === 'boolean' ? 'between' : dropFilter;
     }
   }
 

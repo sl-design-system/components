@@ -26,7 +26,7 @@ export default {
 
 Icon.register(faCopy, faTrash);
 
-export const ClickableRow: Story = {
+export const Single: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
@@ -45,7 +45,7 @@ export const ClickableRow: Story = {
   }
 };
 
-export const SelectionColumn: Story = {
+export const Multiple: Story = {
   args: {
     selectAll: false
   },
@@ -74,6 +74,8 @@ export const SelectionColumn: Story = {
           .scopedElements=${{ 'sl-avatar': Avatar }}
         ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
+
+        <!-- These get slotted into the floating tool-bar -->
         <sl-button fill="outline" slot="bulk-actions" variant="inverted">
           <sl-icon name="far-copy"></sl-icon>
           Duplicate
@@ -87,7 +89,7 @@ export const SelectionColumn: Story = {
   }
 };
 
-export const SelectionColumnAndClickableRow: Story = {
+export const MultipleWithClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
     const onActiveItemChange = ({ detail: { item } }: SlActiveItemChangeEvent<Person>): void => {
@@ -95,36 +97,11 @@ export const SelectionColumnAndClickableRow: Story = {
     };
 
     return html`
-      <sl-grid .items=${people} clickable-row @sl-active-item-change=${onActiveItemChange}>
+      <sl-grid @sl-active-item-change=${onActiveItemChange} clickable-row .items=${people}>
         <sl-grid-selection-column auto-select></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
-      </sl-grid>
-    `;
-  }
-};
-
-export const SelectionColumnWithCustomHeader: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
-  render: ({ selectAll }, { loaded: { people } }) => {
-    return html`
-      <style>
-        sl-grid::part(active-selection) {
-          gap: 0.5rem;
-          padding-block: var(--sl-space-150);
-        }
-      </style>
-      <sl-grid .items=${people}>
-        <sl-grid-selection-column .selectAll=${selectAll}></sl-grid-selection-column>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-column path="email"></sl-grid-column>
-
-        <sl-button-bar slot="selection-header">
-          <sl-button size="sm">Do something</sl-button>
-          <sl-button size="sm">Or something else</sl-button>
-        </sl-button-bar>
       </sl-grid>
     `;
   }

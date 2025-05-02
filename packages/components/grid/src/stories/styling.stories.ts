@@ -96,10 +96,10 @@ export const Parts: Story = {
           text-decoration: var(--customer-rating-text-decoration, none);
         }
         sl-grid::part(high-rating) {
-          --_cell-background: #e5ffe8;
+          --_body-cell-background: #e5ffe8;
         }
         sl-grid::part(low-rating) {
-          --_cell-background: #fff0f0;
+          --_body-cell-background: #fff0f0;
         }
       </style>
       <sl-grid .items=${items} .itemParts=${itemParts}>

@@ -28,7 +28,6 @@
     no-repeat;
   --_vertical-border-offset: var(--sl-size-100);
   --_selected-background: var(--sl-color-background-selected-subtle);
-  --_striped-background: var(--sl-elevation-surface-raised-alternative);
 
   color: var(--sl-color-foreground-plain);
   display: block;
@@ -53,11 +52,21 @@
   td,
   th {
     --_vertical-border-offset: 0px;
+  }
 
-    background: var(--_vertical-border), var(--_cell-background);
+  th {
+    background: var(--_vertical-border), var(--_head-cell-background);
 
     &:first-of-type {
-      background: var(--_cell-background);
+      background: var(--_head-cell-background);
+    }
+  }
+
+  td {
+    background: var(--_vertical-border), var(--_body-cell-background);
+
+    &:first-of-type {
+      background: var(--_body-cell-background);
     }
   }
 }
@@ -145,7 +154,7 @@
 }
 
 :host([striped]) tr[part~='even'] {
-  --_cell-background: var(--_striped-background);
+  --_body-cell-background: var(--sl-elevation-surface-raised-alternative);
 }
 
 table {

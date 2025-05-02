@@ -1,5 +1,18 @@
 # @sl-design-system/tabs
 
+## 1.2.0
+
+### Minor Changes
+
+- [#1985](https://github.com/sl-design-system/components/pull/1985) [`6d38852`](https://github.com/sl-design-system/components/commit/6d38852f320d63deb1bd43c431e7d8987f41e073) - The background color is no longer set on the whole tab component, but only for the tabs, for cases where the tab panels need to blend in with the background color of the containing page. The background-color of the tab panel wrapper can be set using `[part='panels'] `
+
+### Patch Changes
+
+- [#1991](https://github.com/sl-design-system/components/pull/1991) [`dab7775`](https://github.com/sl-design-system/components/commit/dab77759f328b5bfe679df2b0b3412e302abdebf) - Fixes triggering of `sl-tab` clicks when selecting `sl-menu-item` in the `sl-menu`. Also fixes triggering `[routerLink]` when selecting a tab from the menu.
+
+- Updated dependencies [[`fc934eb`](https://github.com/sl-design-system/components/commit/fc934eba9f2049fda27d1e3f7c879789eea6254c)]:
+  - @sl-design-system/shared@0.7.2
+
 ## 1.1.2
 
 ### Patch Changes

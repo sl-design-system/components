@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/eslint-config",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "packageManager": "yarn@4.1.1",
   "description": "ESLint config for SL Design System projects",
   "license": "Apache-2.0",
@@ -23,6 +23,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@sl-design-system/eslint-plugin-slds": "^0.0.1",
     "@stylistic/eslint-plugin": "^4.1.0",
     "eslint-config-prettier": "^10.1.2",
     "eslint-plugin-chai-expect": "^3.1.0",

@@ -1,5 +1,14 @@
 # @sl-design-system/button
 
+## 1.2.3
+
+### Patch Changes
+
+- [#1980](https://github.com/sl-design-system/components/pull/1980) [`2257205`](https://github.com/sl-design-system/components/commit/22572056a4b5ed63762733f2e5af427f3e2ee6a5) - Fixes issue where button gets too small when in flex container
+
+- Updated dependencies [[`fc934eb`](https://github.com/sl-design-system/components/commit/fc934eba9f2049fda27d1e3f7c879789eea6254c)]:
+  - @sl-design-system/shared@0.7.2
+
 ## 1.2.2
 
 ### Patch Changes

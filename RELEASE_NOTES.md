@@ -4,6 +4,20 @@ This is a collection of release notes for the SL Design System. Each release not
 
 The release notes are ordered by the date the release was made. From latest, to oldest.
 
+# April 29, 2025
+
+## New features
+
+`@sl-design-system/eslint-plugin-slds` is a new package that provides an ESLint plugin for the SL Design System. This plugin includes a rule for ensuring any `<sl-button>` you use has an accessible name. There are 2 more rules that deal with `html` tagged templates. `@sl-design-system/eslint-config` has been updated to include the new plugin.
+
+## Bug fixes
+
+- `button` has added `flex-shrink: 0` so the button never get's too small in a flex container
+- `listbox`, `shared` and `tree` include a fix where `<lit-virtualizer>` was accidentally registered on the global custom element registry
+- `tabs` fixes not being able to change the background just for the panels
+- `tabs` fixes triggering the `<sl-tab>` properly from the overflow menu; also when used with `[routerLink]` in Angular
+- `tag` fixes focusing removable tags when `stacked`, but no stack visible
+
 # April 16, 2025
 
 ## New features

@@ -190,8 +190,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     // Break the loop if it keeps switching between stack visibility; workaround
     // is to just wait a little bit before updating the visibility again.
     this.#breakResizeObserverLoop = setTimeout(() => {
-      this.#breakResizeObserverLoop = undefined;
       this.#updateVisibility();
+      this.#breakResizeObserverLoop = undefined;
+      // this.#updateVisibility();
     }, 200);
 
     // this.#updateVisibility();
@@ -208,7 +209,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       tag.setAttribute('role', 'listitem');
     });
 
-    // this.#rovingTabindexController.clearElementCache();
+    this.#rovingTabindexController.clearElementCache();
 
     requestAnimationFrame(() => {
       this.#updateVisibility();
@@ -271,6 +272,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
 
     // Set tabindex for removable tags to -1
+    // excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left, when we exclude them, we need to set it explicitly
     this.tags.forEach(tag => {
       if (tag.style.display === 'none') {
         console.log('tag with display none?', tag, tag.label);

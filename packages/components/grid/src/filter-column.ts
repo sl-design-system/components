@@ -92,7 +92,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   override itemsChanged(): void {
     super.itemsChanged();
 
-    if (this.mode !== 'text' && typeof this.options === 'undefined') {
+    if (this.mode === 'select' && typeof this.options === 'undefined') {
       const dataSource = this.grid?.dataSource;
 
       // No options were provided, so we'll create a list of options based on the column's values

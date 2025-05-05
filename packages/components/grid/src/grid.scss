@@ -269,6 +269,10 @@ tr {
   inline-size: max(var(--sl-grid-row-width), 100%);
   margin: 0;
 
+  &:focus-within {
+    z-index: 1; // Ensure row is above other rows for focus outline
+  }
+
   &:last-of-type {
     --_cell-border: 0;
   }
@@ -309,8 +313,7 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: content-box
-    calc(var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default));
+  overflow-clip-margin: content-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
 
   // Not sure what this is for atm
   // &:first-of-type:not([part~='drag-handle']) {
@@ -363,9 +366,9 @@ td[part~='drag-handle']:not([part~='fixed']) {
 }
 
 td[part~='group-header'] {
-  --_cell-background: var(--_group-background);
-  --_cell-padding-block: 0;
-  --_cell-padding-inline: 0;
+  --_body-cell-background: var(--_group-background);
+  --_body-cell-padding-block: 0;
+  --_body-cell-padding-inline: 0;
 
   inline-size: 100%;
 }
@@ -377,7 +380,7 @@ td[part~='placeholder'] sl-skeleton {
 
 td[part~='select'],
 td[part~='text-field'] {
-  --_cell-padding-block: 6px;
+  --_body-cell-padding-block: var(--sl-size-025);
 
   sl-select,
   sl-text-field {

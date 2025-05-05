@@ -892,7 +892,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     this.#sorterDebounceTimer = setTimeout(() => {
-      this.#applySorters(target.direction !== undefined);
+      this.#applySorters(this.#sorters.some(s => s.direction));
       this.#sorterDebounceTimer = undefined;
     });
   }
@@ -914,7 +914,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       if (!empty && (f.filter || f.path)) {
         this.dataSource?.addFilter(id, f.filter! || f.path!, f.value);
+      } else if (empty) {
+        this.dataSource?.removeFilter(id);
       } else {
+        console.warn(
+          `The column ${id} is missing a filter or path. Either provide a path or a filter function, otherwise the filter cannot not work.`
+        );
+
         this.dataSource?.removeFilter(id);
       }
     });
@@ -931,9 +937,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const { id } = this.dataSource?.sort ?? {},
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
-    if (sorter) {
+    if (sorter && (sorter.sorter || sorter.path)) {
       this.dataSource?.setSort(sorter.column.id, sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
+      this.dataSource?.removeSort();
+    } else if (sorter) {
+      console.warn(
+        `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
+      );
+
       this.dataSource?.removeSort();
     }
 

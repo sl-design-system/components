@@ -271,8 +271,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       );
     }
 
-    // Set tabindex for removable tags to -1
-    // excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left, when we exclude them, we need to set it explicitly
+    // Excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left,
+    // when we exclude them, we need to set it explicitly
     this.tags.forEach(tag => {
       if (tag.style.display === 'none') {
         console.log('tag with display none?', tag, tag.label);

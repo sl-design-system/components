@@ -262,17 +262,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   }
 
   handleKeydown = (event: KeyboardEvent): void => {
-    console.log(
-      'elements im handleKeydown',
-      this.elements,
-      'with tabindex 0',
-      this.elements.filter(el => el.tabIndex == 0)
-    );
-
-    this.elements.forEach(el => {
-      console.log('el', el, 'tabindex123', el.tabIndex);
-    });
-
     if (!this.acceptsEventCode(event.code) || event.defaultPrevented) {
       return;
     }

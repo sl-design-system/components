@@ -55,7 +55,8 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
     elements: () => [
       ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []),
-      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && t.removable)
+      // Only include visible, enabled, and removable tags for focus
+      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !t.disabled && !!t.removable)
     ],
     isFocusableElement: (el: Tag) => !el.disabled
   });
@@ -180,15 +181,20 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    requestAnimationFrame(() => {
-      this.#updateVisibility();
-      // this.#rovingTabindexController.clearElementCache();
-    });
+    // requestAnimationFrame(() => {
+    //   this.#updateVisibility();
+    //   // this.#rovingTabindexController.clearElementCache();
+    // });
     // this.#updateVisibility();
 
     // Break the loop if it keeps switching between stack visibility; workaround
     // is to just wait a little bit before updating the visibility again.
-    this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
+    this.#breakResizeObserverLoop = setTimeout(() => {
+      this.#breakResizeObserverLoop = undefined;
+      this.#updateVisibility();
+    }, 200);
+
+    // this.#updateVisibility();
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -202,11 +208,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       tag.setAttribute('role', 'listitem');
     });
 
-    this.#rovingTabindexController.clearElementCache();
+    // this.#rovingTabindexController.clearElementCache();
 
     requestAnimationFrame(() => {
       this.#updateVisibility();
-      this.#rovingTabindexController.clearElementCache();
+      //  this.#rovingTabindexController.clearElementCache();
     });
   }
 
@@ -235,11 +241,14 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       for (let i = 0; i < this.tags.length; i++) {
         totalTagsWidth -= sizes[i] + gap;
         this.tags[i].style.display = 'none';
-        this.tags[i].tabIndex = -1; // excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left, when we exclude them, we need to set it explicitly
+        // this.tags[i].tabIndex = -1; // excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left, when we exclude them, we need to set it explicitly
 
         // TODO: last hidden still have tabindex 0, why? should have tabindex -1 => it looks like clearElementsChache below helps?
 
-        this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here? not enough for tabindex -1 also for invisible ones?
+        // this.#rovingTabindexController.clearElementCache();
+        // TODO: is it necessary here? not enough for tabindex -1 also for invisible ones?
+
+        console.log('tags in loop', this.tags[i], 'tabindex', this.tags[i].tabIndex, 'index...', i);
 
         //  console.log('totalTagsWidth', totalTagsWidth);
 
@@ -260,6 +269,17 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         this.#rovingTabindexController.elements.filter(el => el.tabIndex == 0)
       );
     }
+
+    // Set tabindex for removable tags to -1
+    this.tags.forEach(tag => {
+      if (tag.style.display === 'none') {
+        console.log('tag with display none?', tag, tag.label);
+        tag.tabIndex = -1;
+        console.log('tag with display none?22', tag, tag.label);
+      }
+    });
+
+    this.#rovingTabindexController.clearElementCache();
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);

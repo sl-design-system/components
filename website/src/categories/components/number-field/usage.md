@@ -49,7 +49,7 @@ When the selection involves a small, predefined set of numeric options, a dropdo
 
 <section>
 
-## Anatomy tag
+## Anatomy
 
 <div class="ds-table-wrapper">
 
@@ -116,5 +116,36 @@ With these options, you can tweak the appearance of the number field in Figma. T
 {.ds-table .ds-table-align-top}
 
 </div>
+
+</section>
+
+
+<section>
+  
+## Behaviours
+
+### Keyboard Input
+The number field accepts direct keyboard input, allowing users to quickly enter numerical values without relying on other controls.
+
+### Stepper Controls
+Users can adjust the value easily using the increment and decrement buttons, ensuring fine-grained control over numerical input.
+
+### Input Validation
+The field validates user input based on minimum, maximum, and step settings to maintain consistent and valid data.
+
+### Visual Formatting
+The number field can apply visual formatting, such as thousand separators, to improve readability and reduce entry errors.
+
+### Accessibility Support
+Built with accessibility in mind, the number field uses ARIA roles and supports full keyboard navigation, ensuring an inclusive user experience.
+
+</section>
+
+<section>
+  
+## Related components
+- [Text Field](/categories/components/text-field/usage): For free-form text input.
+- [Dropdown](/categories/components/dropdown/usage): For selecting from predefined numeric options.
+- [Slider](/categories/components/slider/usage): For selecting a numeric value along a range visually.
 
 </section>

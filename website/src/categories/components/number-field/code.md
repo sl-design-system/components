@@ -17,30 +17,18 @@ eleventyNavigation:
 
 <div class="ds-example">
   <div class="ds-example__tag-list">
-  <sl-tag-list stacked>
-    <sl-tag removable>Mathematics</sl-tag>
-    <sl-tag removable>Geography</sl-tag>
-    <sl-tag removable>Physics</sl-tag>
-    <sl-tag removable>Biology</sl-tag>
-    <sl-tag removable>Chemistry</sl-tag>
-    <sl-tag removable>Computer Science</sl-tag>
-    <sl-tag removable>English</sl-tag>
-  </sl-tag-list>
+    <sl-number-field aria-label="Number field" placeholder="Placeholder" value="100"></sl-number-field>
   </div>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-tag-list stacked>
-      <sl-tag removable>Mathematics</sl-tag>
-      ...
-      <sl-tag removable>English</sl-tag>
-    </sl-tag-list>
+    <sl-number-field aria-label="Number field" placeholder="Placeholder" value="100"></sl-number-field>
   ```
 
 </div>
 
 </section>
-<ds-install-info link-in-navigation package="tag"></ds-install-info>
+<ds-install-info link-in-navigation package="number-field"></ds-install-info>
 {% include "../component-table.njk" %}

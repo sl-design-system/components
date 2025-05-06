@@ -5,7 +5,7 @@ componentType: form
 shortDescription:  Number Field...
 layout: "categories/components/components.njk"
 tags: component
-packageName: number field
+packageName: number-field
 storybookCategory: form
 eleventyNavigation:
   parent: Components

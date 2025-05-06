@@ -14,11 +14,13 @@ figma.showUI(__html__, {
 
 type VariableCollectionWithModeId = VariableCollection & {
   modeId?: string;
+  fonts?: Array<{ family: string; style: string }>;
 };
 
 let libVariables: LibraryVariableCollection[] = [];
 let variableCollections: VariableCollectionWithModeId[] = [];
-const themes: Array<{
+let themes: Array<{
+  fonts: Array<{ family: string; style: string }>;
   collectionId: string;
   collectionModeId: string;
   themeCollectionId: string;
@@ -30,20 +32,40 @@ const themes: Array<{
   name: string;
 }> = [];
 
+const themeFonts = {
+  'Sanoma Learning': [{ family: 'Roboto', style: 'SemiBold' }],
+  'Bingel DC': [{ family: 'Proxima Nova', style: 'SemiBold' }], // doens't exist in the library
+  'Bingel Int': [{ family: 'Proxima Nova', style: 'SemiBold' }], // doens't exist in the library
+  'Click edu': [{ family: 'Open Sans', style: 'SemiBold' }],
+  'Editorial Suite': [
+    { family: 'Open Sans', style: 'SemiBold' },
+    { family: 'Raleway', style: 'SemiBold' }
+  ],
+  'Its Learning': [
+    { family: 'Open Sans', style: 'SemiBold' },
+    { family: 'Lato', style: 'SemiBold' }
+  ],
+  Kampus: [{ family: 'Open Sans', style: 'SemiBold' }],
+  Magister: [{ family: 'Open Sans', style: 'SemiBold' }],
+  Max: [{ family: 'Open Sans', style: 'SemiBold' }],
+  'My Digital Book': [{ family: 'Open Sans', style: 'SemiBold' }],
+  Neon: [{ family: 'Open Sans', style: 'SemiBold' }],
+  Teas: [{ family: 'Open Sans', style: 'SemiBold' }]
+};
+
 const getFromLibrary = async () => {
   // this list is all we have access to when the variables only exist in the library, not on the current page
   libVariables = await figma.teamLibrary.getAvailableLibraryVariableCollectionsAsync();
-  const variableCollection: VariableCollection[] = [];
 
   const baseVariable = libVariables.find(c => c.name === 'Base');
   if (!baseVariable) {
-    console.error('Base collection not found');
+    figma.notify('Base collection not found', { error: true });
     return;
   }
 
   const base = await getCollectionFromKey(baseVariable.key);
   if (!base || !base.modes) {
-    console.log('No collection found');
+    figma.notify('No collection found', { error: true });
     return;
   }
   variableCollections.push(base);
@@ -64,7 +86,7 @@ const getFromLibrary = async () => {
       .flatMap(c => getSubCollections(c))
   );
 
-  return variableCollection;
+  return;
 };
 
 const getSubCollections = async (collection: VariableCollection | VariableCollectionWithModeId) => {
@@ -76,15 +98,20 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
       }
       const modeVariable = libVariables.find(c => c.name === mode.name);
       if (!modeVariable) {
-        console.error('Mode variable not found for', mode.name);
+        figma.notify(`Mode variable not found for ${mode.name}`, { error: true });
         return;
       }
       const modeCollection = (await getCollectionFromKey(modeVariable.key)) as VariableCollectionWithModeId;
       if (!modeCollection) {
-        console.error('Mode collection not found for', mode.name);
+        figma.notify(`Mode collection not found for ${mode.name}`, { error: true });
         return;
       }
       modeCollection.modeId = mode.modeId;
+      if (mode.name in themeFonts) {
+        modeCollection.fonts = themeFonts[mode.name as keyof typeof themeFonts];
+      } else {
+        modeCollection.fonts = [];
+      }
       variableCollections.push(modeCollection);
       return modeCollection;
     })
@@ -92,20 +119,28 @@ const getSubCollections = async (collection: VariableCollection | VariableCollec
 };
 
 const getCollectionFromKey = async (key: string) => {
-  const variables = await figma.teamLibrary.getVariablesInLibraryCollectionAsync(key);
-  if (variables.length === 0) {
-    console.log('No variables found in library collection');
-    return;
+  let variables = await figma.teamLibrary.getVariablesInLibraryCollectionAsync(key);
+  variables = variables.filter(v => v.resolvedType === 'STRING');
+  let variableByKey,
+    i = 0;
+
+  // loop through the variables and try to import them until we find one that works
+  while (!variableByKey && i < variables.length) {
+    variableByKey = await figma.variables.importVariableByKeyAsync(variables[i].key);
+    i++;
   }
-  const baseId = (await figma.variables.importVariableByKeyAsync(variables[0].key)).variableCollectionId;
-  const variablesByKey = await figma.variables.importVariableByKeyAsync(variables[0].key);
-  console.log('types', variablesByKey.name, variablesByKey.resolvedType, variables);
-  return await figma.variables.getVariableCollectionByIdAsync(baseId);
+
+  if (variableByKey) {
+    const baseId = variableByKey.variableCollectionId;
+    return await figma.variables.getVariableCollectionByIdAsync(baseId);
+  } else {
+    return await new Promise<VariableCollection>(() => {});
+  }
 };
 
 getFromLibrary()
-  .then(variableCollection => {
-    if (variableCollection) {
+  .then(() => {
+    if (variableCollections.length > 0) {
       sendCollections();
     } else {
       // if the variables are not in the library, we need to get them from the current page
@@ -115,13 +150,13 @@ getFromLibrary()
           variableCollections = c;
           sendCollections();
         })
-        .catch(e => {
-          console.error('Error getting local variable collections', e);
+        .catch(() => {
+          figma.notify('Error getting local variable collections', { error: true });
         });
     }
   })
-  .catch(e => {
-    console.error('Error getting library variables', e);
+  .catch(() => {
+    figma.notify('Error getting library variables', { error: true });
   });
 
 /** Create the list of themes with all the id's of relevant parents and children and send it to the UI */
@@ -132,27 +167,27 @@ const sendCollections = () => {
     .forEach(themesCollection => {
       const base = findCollectionByName('Base');
       if (!base) {
-        console.error('Base collection not found');
+        figma.notify('Base collection not found', { error: true });
         return;
       }
 
       // find the parent collection of the themes collection
       const collection = findParentCollection(themesCollection.name);
       if (!collection) {
-        console.error('Collection not found for', themesCollection.name);
+        figma.notify(`Collection not found for ${themesCollection.name}`, { error: true });
         return;
       }
       // find the modeId of the collection so it can be set on the base collection
       const collectionAsMode = base.modes.find(sc => sc.name === collection.name);
       if (!collectionAsMode) {
-        console.error('Collection mode id not found for', collection.name);
+        figma.notify(`Collection mode id not found for ${collection.name}`, { error: true });
         return;
       }
 
       // find the modeId of the themes collection so it can be set on the parent collection
       const themeCollectionAsMode = collection.modes.find(sc => sc.name === themesCollection.name);
       if (!themeCollectionAsMode) {
-        console.error('Theme collection mode id not found for', themesCollection.name);
+        figma.notify(`Theme collection mode id not found for ${themesCollection.name}`, { error: true });
         return;
       }
 
@@ -162,13 +197,14 @@ const sendCollections = () => {
         .forEach(theme => {
           const themeCollection = findCollectionByName(theme.name);
           if (!themeCollection) {
-            console.error('Theme collection not found for', theme.name);
+            figma.notify(`Theme collection not found for ${theme.name}`, { error: true });
             return;
           }
           const themeModes = themeCollection ? themeCollection.modes : [];
           if (themeModes.length > 1) {
             themeModes.forEach(mode => {
               themes.push({
+                fonts: themeCollection.fonts || [],
                 collectionId: collection.id,
                 collectionModeId: collectionAsMode.modeId,
                 themeCollectionId: themesCollection.id,
@@ -182,6 +218,7 @@ const sendCollections = () => {
             });
           } else {
             themes.push({
+              fonts: themeCollection.fonts || [],
               collectionId: collection.id,
               collectionModeId: collectionAsMode.modeId,
               themeCollectionId: themesCollection.id,
@@ -194,6 +231,15 @@ const sendCollections = () => {
           }
         });
     });
+
+  themes = themes.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    } else if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
   figma.ui.postMessage(themes, { origin: '*' });
 };
 
@@ -230,7 +276,7 @@ const removeCurrentVariableModes = () => {
 };
 
 // Listen to events from the UI
-figma.ui.onmessage = async (msg: { type: string; theme: string }) => {
+figma.ui.onmessage = (msg: { type: string; theme: string }) => {
   if (msg.type === 'selectTheme') {
     removeCurrentVariableModes();
 
@@ -238,7 +284,7 @@ figma.ui.onmessage = async (msg: { type: string; theme: string }) => {
     const base = variableCollections.find(c => c.name === 'Base');
 
     if (!themeIds) {
-      console.error('Theme not found for', msg.theme);
+      figma.notify(`Theme not found for ${msg.theme}`, { error: true });
       return;
     }
 
@@ -247,11 +293,13 @@ figma.ui.onmessage = async (msg: { type: string; theme: string }) => {
     const themeCollection = findCollectionById(themeIds.themeCollectionId);
     const theme = findCollectionById(themeIds.themeId);
 
-    figma
-      .loadFontAsync({ family: 'The Message', style: 'DemiBold' })
-      .then(() => {
-        console.log({ base, collection, themeCollection, theme });
+    if (!collection || !themeCollection || !theme) {
+      figma.notify(`Collection not found for ${msg.theme}`, { error: true });
+      return;
+    }
 
+    Promise.all(themeIds.fonts.map(font => figma.loadFontAsync({ family: font.family, style: font.style })))
+      .then(() => {
         if (base) {
           figma.currentPage.setExplicitVariableModeForCollection(base, themeIds.collectionModeId);
         }
@@ -264,12 +312,15 @@ figma.ui.onmessage = async (msg: { type: string; theme: string }) => {
         if (theme && themeIds.variantId) {
           figma.currentPage.setExplicitVariableModeForCollection(theme, themeIds.variantId);
         }
+        figma.closePlugin();
+        figma.notify(`Theme is set to ${theme.name}`);
       })
-      .catch(e => {
-        console.error('Error loading font', e);
-        figma.notify('Error loading font', { error: true });
+      .catch(() => {
+        const fontNames = themeIds.fonts.map(font => `${font.family} ${font.style}`).join(', ');
+        figma.notify(
+          `Error loading fonts. Make sure the following fonts are on your page and try again: ${fontNames}`,
+          { error: true }
+        );
       });
   }
-
-  figma.closePlugin();
 };

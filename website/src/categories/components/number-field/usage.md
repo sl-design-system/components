@@ -144,8 +144,7 @@ Built with accessibility in mind, the number field uses ARIA roles and supports 
 <section>
   
 ## Related components
-- [Text Field](/categories/components/text-field/usage): For free-form text input.
-- [Dropdown](/categories/components/dropdown/usage): For selecting from predefined numeric options.
-- [Slider](/categories/components/slider/usage): For selecting a numeric value along a range visually.
+- [Text Field](/categories/components/text-field/usage): If you want a free-form text input.
+- [Select](/categories/components/select/usage): Selecting from predefined numeric options.
 
 </section>

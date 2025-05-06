@@ -118,7 +118,7 @@ describe('sl-tag', () => {
       await new Promise(resolve => setTimeout(resolve, 201));
 
       el.style.inlineSize = '2000px';
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       expect(el.renderRoot.querySelector('.stack')).to.not.be.displayed;
     });

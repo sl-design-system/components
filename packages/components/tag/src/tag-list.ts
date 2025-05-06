@@ -49,13 +49,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    */
   #resizeObserver = new ResizeObserver(entries => this.#onResize(entries));
 
-  // /** Manage keyboard navigation between tags. */
+  /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
     elements: () => [
       ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []),
-      // Only include visible, enabled, and removable tags for focus
       ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !t.disabled && !!t.removable)
     ],
     isFocusableElement: (el: Tag) => !el.disabled
@@ -181,21 +180,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    // requestAnimationFrame(() => {
-    //   this.#updateVisibility();
-    //   // this.#rovingTabindexController.clearElementCache();
-    // });
-    // this.#updateVisibility();
-
     // Break the loop if it keeps switching between stack visibility; workaround
     // is to just wait a little bit before updating the visibility again.
     this.#breakResizeObserverLoop = setTimeout(() => {
       this.#updateVisibility();
       this.#breakResizeObserverLoop = undefined;
-      // this.#updateVisibility();
     }, 200);
-
-    // this.#updateVisibility();
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -213,7 +203,6 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     requestAnimationFrame(() => {
       this.#updateVisibility();
-      //  this.#rovingTabindexController.clearElementCache();
     });
   }
 
@@ -242,42 +231,18 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       for (let i = 0; i < this.tags.length; i++) {
         totalTagsWidth -= sizes[i] + gap;
         this.tags[i].style.display = 'none';
-        // this.tags[i].tabIndex = -1; // excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left, when we exclude them, we need to set it explicitly
-
-        // TODO: last hidden still have tabindex 0, why? should have tabindex -1 => it looks like clearElementsChache below helps?
-
-        // this.#rovingTabindexController.clearElementCache();
-        // TODO: is it necessary here? not enough for tabindex -1 also for invisible ones?
-
-        console.log('tags in loop', this.tags[i], 'tabindex', this.tags[i].tabIndex, 'index...', i);
-
-        //  console.log('totalTagsWidth', totalTagsWidth);
-
-        // this.#rovingTabindexController.manage();
 
         if (totalTagsWidth <= availableWidth) {
           break;
         }
-
-        // this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here?
       }
-
-      // this.#rovingTabindexController.clearElementCache(); // TODO: is it necessary here? // not working properly...
-
-      console.log(
-        'this.#rovingTabindexController.elements, in tag list',
-        this.#rovingTabindexController.elements,
-        this.#rovingTabindexController.elements.filter(el => el.tabIndex == 0)
-      );
     }
 
     // Excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left,
     // when we exclude them, we need to set it explicitly
     this.tags.forEach(tag => {
       if (tag.style.display === 'none') {
-        console.log('tag with display none?', tag, tag.label);
         tag.tabIndex = -1;
-        console.log('tag with display none?22', tag, tag.label);
       }
     });
 
@@ -288,14 +253,11 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     this.stack.style.display = this.stackSize === 0 ? 'none' : '';
     const stackTag = this.stack.querySelector('sl-tag');
 
-    console.log('stackTag', stackTag, this.stackSize);
-
     if (stackTag) {
       stackTag.style.display = this.stackSize === 0 ? 'none' : '';
     }
 
     // Now that we updated the visibility of the tags, we need to clear the element cache
     this.#rovingTabindexController.clearElementCache();
-    // this.#rovingTabindexController.manage();
   }
 }

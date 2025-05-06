@@ -42,25 +42,25 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   }
 
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {
-    if (index >= this.headerRowCount) {
-      return nothing;
+    if (index === 0) {
+      const checked = !!this.grid?.selection.size && this.grid?.selection.areAllSelected(),
+        indeterminate = this.grid?.selection.areSomeSelected();
+
+      return html`
+        <th part="header selection">
+          <sl-checkbox
+            @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelectAll(detail)}
+            .checked=${checked}
+            .indeterminate=${indeterminate}
+            aria-label=${msg('Select all')}
+            class="selection-toggle"
+            size="sm"
+          ></sl-checkbox>
+        </th>
+      `;
+    } else {
+      return html`<th part="header selection-placeholder"></th>`;
     }
-
-    const checked = !!this.grid?.selection.size && this.grid?.selection.areAllSelected(),
-      indeterminate = this.grid?.selection.areSomeSelected();
-
-    return html`
-      <th part="header selection">
-        <sl-checkbox
-          @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelectAll(detail)}
-          .checked=${checked}
-          .indeterminate=${indeterminate}
-          aria-label=${msg('Select all')}
-          class="selection-toggle"
-          size="sm"
-        ></sl-checkbox>
-      </th>
-    `;
   }
 
   renderSelectionHeader(): TemplateResult {

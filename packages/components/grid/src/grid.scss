@@ -273,14 +273,8 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: content-box
-    calc(var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default));
+  overflow-clip-margin: border-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
-
-  // Not sure what this is for atm
-  // &:first-of-type:not([part~='drag-handle']) {
-  //   padding-inline-start: calc(var(--_cell-padding-inline) + var(--_first-cell-padding-inline-start, 0px));
-  // }
 
   &[part~='selection'] {
     --_cell-padding-block: 0;

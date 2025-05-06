@@ -63,36 +63,47 @@ export const Basic: Story = {
 };
 
 export const DataSource: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
+  loaders: [
+    async () => ({
+      schools: await getSchools(),
+      students: (await getStudents()).students
+    })
+  ],
+  render: (_, { loaded: { schools, students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[]);
     dataSource.addFilter('filter-school', 'school.id', 'school-1');
+    dataSource.addFilter('filter-student', 'fullName', 'ma');
 
     return html`
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column
+        <sl-grid-filter-column
+          id="filter-student"
           header="Student"
+          path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+        ></sl-grid-filter-column>
         <sl-grid-filter-column
           id="filter-school"
           header="School"
           label-path="school.name"
+          mode="select"
+          .options=${(schools as School[]).map(s => ({ label: s.name, value: s.id }))}
           path="school.id"
         ></sl-grid-filter-column>
       </sl-grid>
     `;
   }
 };
-export const FilteringWithSelection: Story = {
+
+export const Selection: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => html`
     <sl-grid .items=${students}>
       <sl-grid-selection-column></sl-grid-selection-column>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-filter-column path="status"></sl-grid-filter-column>
-      <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+      <sl-grid-filter-column path="fullName"></sl-grid-filter-column>
+      <sl-grid-filter-column mode="select" path="status"></sl-grid-filter-column>
+      <sl-grid-filter-column mode="select" path="membership"></sl-grid-filter-column>
     </sl-grid>
   `
 };

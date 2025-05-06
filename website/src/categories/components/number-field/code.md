@@ -1,13 +1,12 @@
 ---
-title: Tree code
+title: Number Field code
 tags: code
 APIdescription: {
-  sl-tag: "Tree has a range of properties to define the experience in different use cases.",
-  sl-tag-list: "Tree list component provides properties to define the experience in different use cases, and it is a kind of wrapper for multiple tags."
+  sl-tag: "Number Field has a range of properties to define the experience in different use cases.",
 }
 eleventyNavigation:
-  parent: Tree
-  key: TreeCode
+  parent: Number Field
+  key: NumberFieldCode
 ---
 <style>
 .ds-example__tag-list {

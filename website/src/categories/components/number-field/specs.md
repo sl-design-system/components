@@ -1,9 +1,9 @@
 ---
-title: Tree specs
+title: Number Field specs
 tags: specs
 eleventyNavigation:
-  parent: Tree
-  key: TreeSpecs
+  parent: Number Field
+  key: NumberFieldSpecs
 ---
 <section>
 

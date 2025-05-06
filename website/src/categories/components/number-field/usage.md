@@ -8,17 +8,13 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-tag>Mathematics</sl-tag>
-<sl-tag removable>History</sl-tag>
-<sl-tag disabled removable>Science</sl-tag>
+<sl-number-field aria-label="Number field" step-buttons="end" value="100"></sl-number-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-<sl-tag>Mathematics</sl-tag>
-<sl-tag removable>History</sl-tag>
-<sl-tag disabled removable>Science</sl-tag>
+<sl-number-field aria-label="Number field" step-buttons="end" value="100"></sl-number-field>
   ```
 
 </div>

@@ -146,8 +146,8 @@ export const EmptyValues: Story = {
     ];
 
     return html`
-      <sl-grid .items=${items} style="width: 200px">
-        <sl-grid-column path="key"></sl-grid-column>
+      <sl-grid .items=${items}>
+        <sl-grid-filter-column path="key"></sl-grid-filter-column>
         <sl-grid-filter-column path="value"></sl-grid-filter-column>
       </sl-grid>
     `;

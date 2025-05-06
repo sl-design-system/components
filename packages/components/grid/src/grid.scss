@@ -166,6 +166,10 @@ caption {
   position-anchor: --thead;
   position-area: center;
   z-index: 1;
+
+  @supports not (position-area: center) {
+    display: none;
+  }
 }
 
 thead,

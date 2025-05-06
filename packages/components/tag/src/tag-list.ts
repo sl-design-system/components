@@ -239,7 +239,7 @@ export class TagList extends ScopedElementsMixin(LitElement) {
     }
 
     // Excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left,
-    // when we exclude them, we need to set tabindex -1 explicitly
+    // when we exclude them, we need to set tabindex -1 explicitly.
     this.tags.forEach(tag => {
       if (tag.style.display === 'none') {
         tag.tabIndex = -1;

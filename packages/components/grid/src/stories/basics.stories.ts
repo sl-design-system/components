@@ -35,7 +35,7 @@ export const Basic: Story = {
 
     return html`
       <sl-grid .items=${students}>
-        <sl-grid-column header="Nr." path="studentNumber"></sl-grid-column>
+        <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
         <sl-grid-column
           grow="3"
           header="Student"

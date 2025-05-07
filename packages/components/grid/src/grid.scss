@@ -3,31 +3,24 @@
   --_body-cell-background: var(--sl-elevation-surface-raised-default);
   --_body-cell-padding-block: var(--sl-size-100);
   --_body-cell-padding-inline: var(--sl-size-150);
-  --_head-cell-background: var(--sl-elevation-surface-raised-sunken);
+  --_head-cell-background: var(--sl-elevation-surface-raised-alternative);
   --_head-cell-padding-block: var(--sl-size-175);
   --_head-cell-padding-inline: var(--sl-size-150);
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-border-plain);
   --_border-width: var(--sl-size-borderWidth-default);
   --_cell-background: var(--sl-elevation-surface-raised-default);
-  --_cell-border: var(--_border-width) solid var(--_border-color);
-  --_cell-padding-block: var(--sl-size-175);
-  --_cell-padding-inline: var(--sl-size-200);
   --_drag-handle-inline-size: 28px;
   --_dragging-background: #ddeffe;
   --_dragging-border: var(--_border-width) solid #080a0b;
   --_dragging-opacity: 0.8;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
-  --_focus-outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
-  --_focus-outline-offset: var(--sl-size-outlineOffset-default);
-  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_group-background: var(--sl-elevation-surface-raised-sunken);
   --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
     calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
     no-repeat;
   --_vertical-border-offset: var(--sl-size-100);
-  --_selected-background: var(--sl-color-background-selected-subtle);
 
   color: var(--sl-color-foreground-plain);
   display: block;
@@ -38,12 +31,12 @@
   --_first-cell-padding-inline-start: 28px;
 }
 
-:host([no-border]) {
-  --_border: none;
+:host([no-border]) :where(thead, tbody, tfoot) {
+  border: none;
 }
 
-:host([no-row-border]) {
-  --_cell-border: none;
+:host([no-row-border]) td {
+  border: none;
 }
 
 :host([clickable-row]) {
@@ -239,7 +232,7 @@ tbody {
   border-end-start-radius: var(--sl-size-borderRadius-default);
   border-inline: var(--_border);
   max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);
-  min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
+  min-block-size: var(--sl-grid-tbody-min-height);
   overflow: auto clip;
   overscroll-behavior: contain auto;
   scrollbar-width: none;
@@ -275,10 +268,6 @@ tr {
 
   &:focus-within {
     z-index: 1; // Ensure row is above other rows for focus outline
-  }
-
-  &:last-of-type {
-    --_cell-border: 0;
   }
 
   &[draggable] {
@@ -318,13 +307,6 @@ td {
   flex-shrink: 0;
   overflow: clip;
   overflow-clip-margin: border-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
-
-  &[part~='selection'] {
-    --_cell-padding-block: 0;
-    --_cell-padding-inline: 0.5rem;
-
-    inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
-  }
 }
 
 th {
@@ -362,7 +344,7 @@ th[part~='selection'] {
 
 td {
   background: var(--_body-cell-background);
-  border-block-end: var(--_cell-border);
+  border-block-end: var(--_border);
   justify-content: start;
   padding: var(--_body-cell-padding-block) var(--_body-cell-padding-inline);
 }
@@ -451,8 +433,8 @@ a[class^='skip-link'] {
 
   &:focus {
     opacity: 1;
-    outline: var(--_focus-outline);
-    outline-offset: var(--sl-border-width-focusring-offset);
+    outline: var(--sl-color-border-focused) solid var(--sl-size-outlineWidth-default);
+    outline-offset: var(--sl-size-outlineOffset-default);
     z-index: 2;
   }
 
@@ -484,10 +466,9 @@ a[class^='skip-link'] {
 }
 
 tfoot {
-  border: var(--_border);
-  border-block-start: 0;
   border-end-end-radius: var(--sl-size-borderRadius-default);
   border-end-start-radius: var(--sl-size-borderRadius-default);
+  border-inline: var(--_border);
   inset-block-end: 0;
   max-inline-size: var(--sl-grid-width);
   overflow: hidden;

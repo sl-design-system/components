@@ -135,6 +135,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
           <sl-grid-filter
             ${ref(this.#filterRef)}
             .column=${this}
+            .filter=${this.filter}
             .filterLabel=${this.filterLabel}
             .mode=${this.mode || 'text'}
             .options=${this.options ?? this.internalOptions}

@@ -89,9 +89,12 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     if (options.placeholder) {
       this.placeholder = options.placeholder;
     }
+
+    // Initialize the items array, but do not emit an event yet
+    this.update(false);
   }
 
-  update(): void {
+  update(emitEvent = true): void {
     let length = this.size;
 
     if (this.pagination) {
@@ -109,7 +112,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     this.#pages = {};
     this.#proxy = this.#createProxy(this.#items);
 
-    this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
+    if (emitEvent) {
+      this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
+    }
   }
 
   /**

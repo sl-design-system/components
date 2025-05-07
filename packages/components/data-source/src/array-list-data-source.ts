@@ -87,7 +87,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       filters
         .filter((f): f is DataSourceFilterByFunction<T> => 'filter' in f && !!f.filter)
         .forEach(f => {
-          items = items.filter(f.filter);
+          items = items.filter(item => f.filter(item, f.value));
         });
     }
 
@@ -103,8 +103,8 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
           const valueA = getStringByPath(a, path),
             valueB = getStringByPath(b, path);
 
-          const numberA = parseFloat(valueA),
-            numberB = parseFloat(valueB);
+          const numberA = Number(valueA),
+            numberB = Number(valueB);
 
           if (!isNaN(numberA) && !isNaN(numberB)) {
             return numberA - numberB;

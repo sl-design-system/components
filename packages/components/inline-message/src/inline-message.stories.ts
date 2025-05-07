@@ -126,7 +126,7 @@ export const Dynamic: Story = {
       </sl-button-bar>
       <h1>Announce changes</h1>
       <p>
-        In this example app the functions adding and removeing the inline message we use the
+        In this example app the functions adding and removing the inline message we use the
         <code>announce</code> function to announce the message and the fact that the message has been closed to users
         using a screenreader.
       </p>

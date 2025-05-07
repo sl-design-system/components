@@ -120,6 +120,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
 
+    this.setAttribute('role', this.variant === 'danger' ? 'alert' : 'status');
+
     this.#observer.observe(this.renderRoot.querySelector('[part="content"]')!);
   }
 
@@ -157,7 +159,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('variant')) {
-      this.setAttribute('role', ['danger', 'warning'].includes(this.variant ?? '') ? 'alert' : 'status');
+      // this.setAttribute('role', ['danger', 'warning'].includes(this.variant ?? '') ? 'alert' : 'status');
+
+      this.setAttribute('role', this.variant === 'danger' ? 'alert' : 'status');
     }
   }
 

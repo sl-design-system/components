@@ -318,7 +318,6 @@ td {
   flex-shrink: 0;
   overflow: clip;
   overflow-clip-margin: border-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
-  padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
   &[part~='selection'] {
     --_cell-padding-block: 0;

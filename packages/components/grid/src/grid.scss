@@ -9,7 +9,12 @@
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-border-plain);
   --_border-width: var(--sl-size-borderWidth-default);
-  --_cell-background: var(--sl-elevation-surface-raised-default);
+  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
+    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
+    no-repeat;
+  --_vertical-border-offset: var(--sl-size-100);
+
+  // Refactor these to use contextual tokens
   --_drag-handle-inline-size: 28px;
   --_dragging-background: #ddeffe;
   --_dragging-border: var(--_border-width) solid #080a0b;
@@ -17,10 +22,6 @@
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
   --_group-background: var(--sl-elevation-surface-raised-sunken);
-  --_vertical-border: linear-gradient(var(--_border-color), var(--_border-color)) 0
-    calc(100% - var(--_vertical-border-offset)) / var(--_border-width) calc(100% - var(--_vertical-border-offset) * 2)
-    no-repeat;
-  --_vertical-border-offset: var(--sl-size-100);
 
   color: var(--sl-color-foreground-plain);
   display: block;
@@ -103,7 +104,6 @@
   }
 
   :is(td, th).sticky-start-last {
-    background: var(--_vertical-border-end), var(--_cell-background);
     overflow: visible clip;
 
     &::after {
@@ -116,16 +116,20 @@
     }
   }
 
+  td.sticky-start-last {
+    background: var(--_vertical-border-end), var(--_body-cell-background);
+  }
+
   th.sticky-start-last {
-    background: var(--_vertical-border), var(--_vertical-border-end), var(--_cell-background);
+    background: var(--_vertical-border), var(--_vertical-border-end), var(--_head-cell-background);
 
     + th {
-      background: var(--_cell-background);
+      background: var(--_head-cell-background);
     }
   }
 
   sl-scrollbar::before {
-    background: var(--sl-color-grid-border);
+    background: var(--sl-color-border-plain);
     content: '';
     inline-size: var(--sl-size-borderWidth-default);
     inset: 0 auto 0 calc(var(--sl-size-borderWidth-default) * -1);
@@ -149,7 +153,6 @@
       no-repeat;
     --_vertical-border-offset: 0px;
 
-    background: var(--_vertical-border), var(--_cell-background);
     overflow: visible clip;
 
     &::after {
@@ -162,8 +165,16 @@
     }
   }
 
+  td.sticky-end-first {
+    background: var(--_vertical-border), var(--_body-cell-background);
+  }
+
+  th.sticky-end-first {
+    background: var(--_vertical-border), var(--_head-cell-background);
+  }
+
   sl-scrollbar::after {
-    background: var(--sl-color-grid-border);
+    background: var(--sl-color-border-plain);
     content: '';
     inline-size: var(--sl-size-borderWidth-default);
     inset: 0 calc(var(--sl-size-borderWidth-default) * -1) 0 auto;

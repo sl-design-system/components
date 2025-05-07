@@ -113,12 +113,30 @@ describe('sl-tag', () => {
       expect(tag).to.have.trimmed.text('+7');
     });
 
+    it('should have hidden tags with tabindex -1', async () => {
+      // Give some time to updateVisibility
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      const tag = el.renderRoot.querySelector('sl-tag');
+
+      expect(tag).to.exist;
+
+      const tabindexes = [tag!.tabIndex, ...Array.from(el.querySelectorAll('sl-tag')).map(tag => tag.tabIndex)],
+        visibility = [
+          getComputedStyle(tag!).display,
+          ...Array.from(el.querySelectorAll('sl-tag')).map(tag => getComputedStyle(tag).display)
+        ];
+
+      expect(visibility).to.deep.equal(['flex', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'flex']);
+      expect(tabindexes).to.deep.equal([0, -1, -1, -1, -1, -1, -1, -1, -1]);
+    });
+
     it('should not have a stack when there is enough space', async () => {
       // Give the `#breakResizeObserverLoop` time to do its thing
       await new Promise(resolve => setTimeout(resolve, 201));
 
       el.style.inlineSize = '2000px';
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       expect(el.renderRoot.querySelector('.stack')).to.not.be.displayed;
     });

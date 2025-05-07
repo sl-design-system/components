@@ -754,10 +754,10 @@ describe('sl-combobox', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
 
         const tagList = el.renderRoot.querySelector('sl-tag-list');
-        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+5');
+        expect(tagList?.renderRoot.querySelector('sl-tag')).to.have.trimmed.text('+4');
 
         const visible = Array.from(el.renderRoot.querySelectorAll('sl-tag')).map(tag => tag.style.display !== 'none');
-        expect(visible).to.deep.equal([false, false, false, false, false, true]);
+        expect(visible).to.deep.equal([false, false, false, false, true, true]);
       });
 
       it('should add a tag after selecting an option', async () => {

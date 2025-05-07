@@ -49,13 +49,13 @@ export class TagList extends ScopedElementsMixin(LitElement) {
    */
   #resizeObserver = new ResizeObserver(entries => this.#onResize(entries));
 
-  // /** Manage keyboard navigation between tags. */
+  /** Manage keyboard navigation between tags. */
   #rovingTabindexController = new RovingTabindexController<Tag>(this, {
     direction: 'horizontal',
     focusInIndex: (elements: Tag[]) => elements.findIndex(el => !el.disabled),
     elements: () => [
       ...(this.stacked && this.stackTag && this.stackTag.style.display !== 'none' ? [this.stackTag] : []),
-      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && t.removable)
+      ...(this.tags ?? []).filter(t => t.style.display !== 'none' && !t.disabled && !!t.removable)
     ],
     isFocusableElement: (el: Tag) => !el.disabled
   });
@@ -180,11 +180,12 @@ export class TagList extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.#updateVisibility();
-
     // Break the loop if it keeps switching between stack visibility; workaround
     // is to just wait a little bit before updating the visibility again.
-    this.#breakResizeObserverLoop = setTimeout(() => (this.#breakResizeObserverLoop = undefined), 200);
+    this.#breakResizeObserverLoop = setTimeout(() => {
+      this.#updateVisibility();
+      this.#breakResizeObserverLoop = undefined;
+    }, 200);
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -200,7 +201,9 @@ export class TagList extends ScopedElementsMixin(LitElement) {
 
     this.#rovingTabindexController.clearElementCache();
 
-    requestAnimationFrame(() => this.#updateVisibility());
+    requestAnimationFrame(() => {
+      this.#updateVisibility();
+    });
   }
 
   #updateVisibility(): void {
@@ -234,6 +237,16 @@ export class TagList extends ScopedElementsMixin(LitElement) {
         }
       }
     }
+
+    // Excluded tags are not taken into account for rovingTabindex, so there is a tabindex 0 left,
+    // when we exclude them, we need to set tabindex -1 explicitly.
+    this.tags.forEach(tag => {
+      if (tag.style.display === 'none') {
+        tag.tabIndex = -1;
+      }
+    });
+
+    this.#rovingTabindexController.clearElementCache();
 
     // Calculate the stack size based on the visibility of the tags
     this.stackSize = this.tags.reduce((acc, tag) => (tag.style.display === 'none' ? acc + 1 : acc), 0);

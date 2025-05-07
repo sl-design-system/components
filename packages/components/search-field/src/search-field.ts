@@ -2,7 +2,8 @@ import { msg } from '@lit/localize';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlClearEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
-import { type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
+import styles from './search-field.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -22,6 +23,9 @@ export type SlSearchEvent = CustomEvent<string>;
  * @slot input - The slot for the input element
  */
 export class SearchField extends TextField {
+  /** @internal */
+  static override styles: CSSResultGroup = [TextField.styles, styles];
+
   // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeyDown });
 
@@ -45,15 +49,20 @@ export class SearchField extends TextField {
   }
 
   override renderPrefix(): TemplateResult {
-    return html`<sl-icon name="search"></sl-icon>`;
+    return html`
+      <slot name="prefix">
+        <sl-icon name="search"></sl-icon>
+      </slot>
+    `;
   }
 
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.value && !this.disabled
       ? html`
-          <sl-field-button @click=${this.#onClick} aria-label=${msg('Clear text')}>
-            <sl-icon name="xmark"></sl-icon>
-          </sl-field-button>
+          <button @click=${this.#onClick} aria-label=${msg('Clear text')} tabindex="-1">
+            <sl-icon name="circle-xmark"></sl-icon>
+            <sl-icon name="circle-xmark-solid"></sl-icon>
+          </button>
         `
       : nothing;
   }

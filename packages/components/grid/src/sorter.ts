@@ -1,18 +1,19 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { type DataSourceSortDirection, type DataSourceSortFunction } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { type GridColumn } from './column.js';
-import { type Grid } from './grid.js';
 import styles from './sorter.scss.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-sorter-change': SlSorterChangeEvent;
-    'sl-sort-direction-change': SlSortDirectionChangeEvent;
+    'sl-sorter-register': SlSorterRegisterEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -20,28 +21,30 @@ declare global {
   }
 }
 
-export type SlSorterChangeEvent = CustomEvent<'added' | 'removed'>;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
-  grid: Grid;
+export type SlSorterChangeEvent<T = any> = CustomEvent<{
   column: GridColumn<T>;
   direction?: DataSourceSortDirection;
 }>;
 
+export type SlSorterRegisterEvent = CustomEvent<void>;
+
+/**
+ * Component that is used as the column header for a sortable column.
+ */
+@localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon
     };
   }
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
-
-  #events = new EventsController(this);
 
   /** The grid column.  */
   @property({ attribute: false }) column!: GridColumn<T>;
@@ -55,34 +58,32 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** An optional custom sort function. */
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
 
-  /** @internal Emits when the sorter has been added or removed. */
-  @event({ name: 'sl-sorter-change' }) sorterChangeEvent!: EventEmitter<SlSorterChangeEvent>;
-
   /** @internal Emits when the direction has changed. */
-  @event({ name: 'sl-sort-direction-change' }) sortDirectionChangeEvent!: EventEmitter<SlSortDirectionChangeEvent<T>>;
+  @event({ name: 'sl-sorter-change' }) sorterChangeEvent!: EventEmitter<SlSorterChangeEvent<T>>;
+
+  /** @internal Emits when the sorter has been added or removed. */
+  @event({ name: 'sl-sorter-register' }) sorterRegisterEvent!: EventEmitter<SlSorterRegisterEvent>;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.tabIndex = 0;
-
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'keydown', this.#onKeydown);
-
-    this.sorterChangeEvent.emit('added');
-  }
-
-  override disconnectedCallback(): void {
-    // FIXME: This event is not emitted when the component is removed from the DOM.
-    this.sorterChangeEvent.emit('removed');
-
-    super.disconnectedCallback();
+    this.sorterRegisterEvent.emit();
   }
 
   override render(): TemplateResult {
     return html`
       <slot></slot>
-      <span aria-hidden="true" class="direction">
+      <sl-button
+        @click=${this.#onClick}
+        aria-label=${this.direction === 'asc'
+          ? msg('Sort descending')
+          : this.direction === 'desc'
+            ? msg('Remove sort')
+            : msg('Sort ascending')}
+        .fill=${this.direction ? 'solid' : 'ghost'}
+        size="sm"
+        .variant=${this.direction ? 'primary' : 'neutral'}
+      >
         ${choose(
           this.direction,
           [
@@ -91,26 +92,21 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
           ],
           () => html`<sl-icon name="sort"></sl-icon>`
         )}
-      </span>
+      </sl-button>
     `;
   }
 
+  /**
+   * Resets the sorter to its initial state. This does not emit a change event.
+   * It is used internally by the grid component to reset the sorter.
+   */
   reset(): void {
     this.direction = undefined;
   }
 
   #onClick(): void {
     this.#toggleDirection();
-    this.sortDirectionChangeEvent.emit({ grid: this.column.grid!, column: this.column, direction: this.direction });
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if ([' ', 'Enter'].includes(event.key)) {
-      event.preventDefault();
-
-      this.#toggleDirection();
-      this.sortDirectionChangeEvent.emit({ grid: this.column.grid!, column: this.column, direction: this.direction });
-    }
+    this.sorterChangeEvent.emit({ column: this.column, direction: this.direction });
   }
 
   #toggleDirection(): void {

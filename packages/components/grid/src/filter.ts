@@ -1,27 +1,21 @@
-import { faFilter } from '@fortawesome/pro-regular-svg-icons';
-import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
-import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { type DataSourceFilterFunction } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
-import { Popover } from '@sl-design-system/popover';
+import { Option } from '@sl-design-system/listbox';
+import { SearchField } from '@sl-design-system/search-field';
+import { Select } from '@sl-design-system/select';
 import { type EventEmitter, type PathKeys, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
-import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
-import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, render } from 'lit';
 import { property } from 'lit/decorators.js';
-import { repeat } from 'lit/directives/repeat.js';
 import { type GridColumn } from './column.js';
 import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
-import { type Grid } from './grid.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-filter-change': SlFilterChangeEvent;
-    'sl-filter-value-change': SlFilterValueChangeEvent;
+    'sl-filter-register': SlFilterRegisterEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -29,16 +23,13 @@ declare global {
   }
 }
 
-export type SlFilterChangeEvent = CustomEvent<'added' | 'removed'>;
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlFilterValueChangeEvent<T = any> = CustomEvent<{
-  grid: Grid;
+export type SlFilterChangeEvent<T = any> = CustomEvent<{
   column: GridColumn<T>;
   value?: string | string[];
 }>;
 
-Icon.register(faFilter, faFilterSolid);
+export type SlFilterRegisterEvent = CustomEvent<void>;
 
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,12 +37,10 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
-      'sl-checkbox': Checkbox,
-      'sl-checkbox-group': CheckboxGroup,
       'sl-icon': Icon,
-      'sl-text-field': TextField,
-      'sl-popover': Popover
+      'sl-option': Option,
+      'sl-search-field': SearchField,
+      'sl-select': Select
     };
   }
 
@@ -73,14 +62,11 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** The custom filter */
   @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
 
-  /** @internal Emits when the filter has been added or removed. */
-  @event({ name: 'sl-filter-change' }) filterChangeEvent!: EventEmitter<SlFilterChangeEvent>;
-
   /** @internal Emits when the value of the filter has changed. */
-  @event({ name: 'sl-filter-value-change' }) filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
+  @event({ name: 'sl-filter-change' }) filterChangeEvent!: EventEmitter<SlFilterChangeEvent<T>>;
 
-  /** The path to use for the displayed value in the column. */
-  @property({ attribute: 'label-path' }) labelPath?: PathKeys<T>;
+  /** @internal Emits when the filter has been connected. */
+  @event({ name: 'sl-filter-register' }) filterRegisterEvent!: EventEmitter<SlFilterRegisterEvent>;
 
   /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;
@@ -91,7 +77,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** The path to the field to filter on. */
   @property() path?: PathKeys<T>;
 
-  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  /** The label as it needs to be shown in the filter. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   get value(): string | string[] | undefined {
@@ -99,20 +85,16 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   @property({ attribute: false })
-  set value(value: string | string[] | undefined) {
-    if (this.mode !== 'text') {
-      this.#value = Array.isArray(value) ? value : (value?.split(',') ?? []);
-    } else {
-      this.#value = value;
-    }
-
-    this.active = Array.isArray(this.#value) ? this.#value.length > 0 : !!this.#value;
+  set value(value: string | undefined) {
+    this.#value = value;
+    this.active = !!this.#value;
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (this.mode === 'text' && !this.filter) {
+    // Set a default filter function if none is provided
+    if (this.mode === 'text' && this.column.path && !this.filter) {
       this.filter = item => {
         const itemValue = getValueByPath(item, this.column.path!);
 
@@ -124,107 +106,70 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
       };
     }
 
-    this.filterChangeEvent.emit('added');
-  }
-
-  override disconnectedCallback(): void {
-    // FIXME: This event is not emitted when the component is removed from the DOM.
-    this.filterChangeEvent.emit('removed');
-
-    super.disconnectedCallback();
+    this.filterRegisterEvent.emit();
   }
 
   override render(): TemplateResult {
-    return html`
-      <sl-button @click=${this.#onClick} class="toggle" id="anchor" fill="link">
-        <slot></slot>
-        <sl-icon .name=${this.active ? 'fas-filter' : 'far-filter'}></sl-icon>
-      </sl-button>
-      <sl-popover anchor="anchor" position="bottom">
-        <header>
-          <h1 id="title">${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}</h1>
-          <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
-            <sl-icon name="xmark"></sl-icon>
-          </sl-button>
-        </header>
-        ${this.mode === 'select'
-          ? html`
-              <sl-checkbox-group aria-labelledby="title" autofocus>
-                ${repeat(
-                  this.options ?? [],
-                  option => option.value,
-                  option => html`
-                    <sl-checkbox
-                      @sl-change=${(event: SlChangeEvent & { target: Checkbox }) => this.#onChange(event, option)}
-                      .checked=${this.value?.includes(option.value?.toString() ?? '')}
-                      .value=${option.value}
-                    >
-                      ${option.label}
-                    </sl-checkbox>
-                  `
-                )}
-              </sl-checkbox-group>
-            `
-          : html`
-              <sl-text-field
-                @input=${this.#onInput}
-                @keydown=${this.#onKeydown}
-                .placeholder=${msg('Type here to filter')}
-                .value=${this.value?.toString() ?? ''}
-                aria-labelledby="title"
-                autofocus
-              ></sl-text-field>
-            `}
-      </sl-popover>
-    `;
-  }
-
-  #onChange(event: SlChangeEvent & { target: Checkbox }, option: GridFilterOption): void {
-    if (!Array.isArray(this.value)) {
-      return;
-    }
-
-    if (event.target.checked) {
-      this.value = [...this.value, option.value?.toString() ?? ''];
+    if (this.mode === 'select') {
+      return html`
+        <sl-select
+          @sl-change=${this.#onSelectChange}
+          @sl-clear=${this.#onClear}
+          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}
+          clearable
+        >
+          ${this.options?.map(option => {
+            return html`
+              <sl-option ?selected=${this.value?.includes(option.value as string)} .value=${option.value}>
+                ${option.label}
+              </sl-option>
+            `;
+          })}
+        </sl-select>
+      `;
     } else {
-      this.value = this.value.filter(value => value !== option.value?.toString());
-    }
-
-    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
-  }
-
-  #onClick(): void {
-    this.renderRoot.querySelector<Popover>('sl-popover')?.togglePopover();
-  }
-
-  #onHide(): void {
-    this.renderRoot.querySelector<Popover>('sl-popover')?.hidePopover();
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      this.#onClick();
+      return html`
+        <sl-search-field
+          @sl-change=${this.#onSearchFieldChange}
+          @sl-clear=${this.#onClear}
+          .placeholder=${msg(str`Filter by ${this.#getFilterHeaderValue()}`)}
+          .value=${this.value?.toString() ?? ''}
+        ></sl-search-field>
+      `;
     }
   }
 
-  #onInput(event: Event & { target: HTMLInputElement }): void {
-    this.value = event.target.value.trim();
-    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
+  #onSearchFieldChange(event: Event & { target: SearchField }): void {
+    this.value = event.target.value?.trim() ?? '';
+    this.filterChangeEvent.emit({ column: this.column, value: this.value });
+  }
+
+  #onSelectChange(event: Event & { target: Select<T> }): void {
+    if (event.target.value) {
+      this.value = event.target.value.toString().trim() ?? '';
+      this.filterChangeEvent.emit({ column: this.column, value: this.value });
+    }
+  }
+
+  #onClear(): void {
+    this.value = undefined;
+    this.filterChangeEvent.emit({ column: this.column, value: this.value });
   }
 
   #getFilterHeaderValue(): string {
     if (this.filterLabel) {
       return this.filterLabel;
+    } else if (!this.column) {
+      return '';
     }
 
     const header = this.column.header;
 
     if (typeof header === 'string') {
-      return header?.toString().toLocaleLowerCase();
+      return header.toString().toLocaleLowerCase();
     } else if (header !== undefined) {
       const div = document.createElement('div');
-      div.innerHTML = (header as unknown as TemplateResult).strings[0];
+      render(header, div);
       const textNodes = Array.from(div.childNodes)
         .filter(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim())
         .map(node => node.textContent?.trim());

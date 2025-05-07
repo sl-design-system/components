@@ -7,18 +7,20 @@ eleventyNavigation:
 ---
 <section>
 
-## TODO: accessibility... keyboard interactions and WAI-ARIA (only those which are not automatically added)
-
 ## Keyboard interactions
 
-The tag list component uses a roving tabindex. You can focus the first tag in the list by pressing the `Tab` key. After that, you can navigate through the tags using the left and right arrow keys. You can navigate back to the previous tag with left. The focus indicator loops, so when you are at the last option and press right it will focus on the first tag.
-In the stacked version of tag-list, when there are hidden tags, you can navigate only through visible tags with arrow keys. The first tag indicates how many hidden tags there are. Using a screen reader, it will announce how many hidden tags there are.
+Here's an overview of the common keyboard interactions associated with a number field:
 
+<div class="ds-table-wrapper">
 
-When you click on a tag inside a tag-list (as long as it is not disabled), the tag become the active spot for using the keyboard. This means you can start using keyboard navigation right from the tag you just clicked on.
+|Command| Description                                                                                                                                                                     |
+|-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Tab| When focus is outside the number field, moves focus to the input container. If focus is on the input container, moves focus to the end enhancer (if provided, and interactive). |
+|Arrow up/down|Increases or decreases the value in the number field, respecting the `step` attribute if set.|
 
+{.ds-table .ds-table-align-top}
 
-When the tag is focused and is removable, it can be removed by pressing the `Delete` or `Backspace` key. This behavior is also announced by the screen reader.
+</div>
 
 </section>
 
@@ -28,29 +30,27 @@ When the tag is focused and is removable, it can be removed by pressing the `Del
 
 {{ 'aria-attributes' | recurringText }}
 
-### Tag
-
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|
-|-|-|-|
-|`role`|`'listitem', 'button'`|Identifies the tag element as a `listitem` when it's used inside the `sl-tag-list` - this role is added automatically. Please provide a role `button` when the tag is interactive, is used to perform an action or is removable and not used inside `sl-tag-list`.|
+|Attribute|Value| Description                                                                                                                                                                                                           |
+|-|-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------                                                                                                                                   |
+|`aria-label`	|string| Defines a string that labels the action that will be performed when the user interacts with the number field. Needs to be added when the number-field is not wrapped with `sl-form-field` and there is no `sl-label`. |
+|`aria-labelledby`|string| Used to connect with single header/element that describes the number field, when there is no label component connected to.                                                                                            |
+|`aria-required`	|boolean| Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required.                                                                                           |
+|`aria-disabled`|boolean| Announces the number field component as disabled with a screen reader. See [Note 1] below.                                                                                                                            |
 
 {.ds-table .ds-table-align-top}
 
 </div>
 
-### Tag list
+**Notes:**
+1. The `aria-disabled` should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities:
 
-<div class="ds-table-wrapper">
+- `disabled` dims the number field visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and announces it as 'dimmed' or 'disabled' in a screen reader.
 
-|Attribute|Value|Description|
-|-|-|-
-|`aria-label`|string|String that labels the tag list. Use this to label what the tag list indicates, such as the selected options in a combobox.|
-|`aria-labelledby`|string|Can be used to connect with a single header/element that describes the tag list.|
+- `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenarios where you don't want to take the number field out of the navigation flow.
 
-{.ds-table .ds-table-align-top}
-
-</div>
+When `disabled` is added to a number field there is no need to also add `aria-disabled`. Everything `aria-disabled` does, `disabled` does as well. You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
 
 </section>
+

@@ -6,6 +6,7 @@ Various improvements:
 - Bulk selection actions are now shown in a floating tool-bar instead of replacing the header
 - Filter column uses inline filters instead of popovers
 - Filter column inherits from the sort column
+- Filter column now supports custom filter functions
 - Selection column now supports clicking anywhere inside the cell
 - Sort column uses the new contextual tokens
 - Fixes unregistering filter & sort columns

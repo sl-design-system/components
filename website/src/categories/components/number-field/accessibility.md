@@ -15,7 +15,7 @@ Here's an overview of the common keyboard interactions associated with a number 
 
 |Command| Description                                                                                                                                                                     |
 |-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|Tab| When focus is outside the number field, moves focus to the input container. If focus is on the input container, moves focus to the end enhancer (if provided, and interactive). |
+|Tab| When focus is outside the number field, moves focus to the input container. |
 |Arrow up/down|Increases or decreases the value in the number field, respecting the `step` attribute if set.|
 
 {.ds-table .ds-table-align-top}

@@ -93,7 +93,8 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (this.mode === 'text' && !this.filter) {
+    // Set a default filter function if none is provided
+    if (this.mode === 'text' && this.column.path && !this.filter) {
       this.filter = item => {
         const itemValue = getValueByPath(item, this.column.path!);
 

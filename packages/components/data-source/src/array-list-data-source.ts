@@ -87,7 +87,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       filters
         .filter((f): f is DataSourceFilterByFunction<T> => 'filter' in f && !!f.filter)
         .forEach(f => {
-          items = items.filter(f.filter);
+          items = items.filter(item => f.filter(item, f.value));
         });
     }
 

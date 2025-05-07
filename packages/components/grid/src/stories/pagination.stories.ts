@@ -107,6 +107,18 @@ export const DataSource: Story = {
       <sl-grid .dataSource=${ds}>
         <sl-grid-filter-column
           direction="desc"
+          .filter=${(item: Person, value: string | string[] | undefined) => {
+            if (!value) {
+              return true;
+            }
+
+            const values = Array.isArray(value) ? value : [value];
+            return values.every(v => {
+              const regex = new RegExp(v, 'i');
+              return item.firstName.match(regex) || item.lastName.match(regex);
+            });
+          }}
+          header="Name"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
           .sorter=${(a: Person, b: Person) => {

@@ -47,7 +47,7 @@
     "@storybook/web-components-vite": "^8.6.12",
     "lit": "^3.2.1",
     "storybook": "^8.6.12",
-    "storybook-addon-pseudo-states": "^4.0.2",
+    "storybook-addon-pseudo-states": "^4.0.3",
     "tslib": "^2.8.1",
     "typescript": "^5.4.5",
     "wireit": "^0.14.12"

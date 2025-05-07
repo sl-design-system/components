@@ -93,6 +93,9 @@ export const All: Story = {
   render: () => {
     return html`
       <style>
+        html {
+          display: flex;
+        }
         .sizes {
           align-items: center;
           align-self: start;

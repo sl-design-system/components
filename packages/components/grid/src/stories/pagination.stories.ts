@@ -107,18 +107,28 @@ export const DataSource: Story = {
       <sl-grid .dataSource=${ds}>
         <sl-grid-filter-column
           direction="desc"
+          .filter=${(item: Person, value: string | string[] | undefined) => {
+            if (!value) {
+              return true;
+            }
+
+            const values = Array.isArray(value) ? value : [value];
+            return values.every(v => {
+              const regex = new RegExp(v, 'i');
+              return item.firstName.match(regex) || item.lastName.match(regex);
+            });
+          }}
           header="Name"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
           .sorter=${(a: Person, b: Person) => {
-            const result = a.firstName.localeCompare(b.firstName);
-
-            return result === 0 ? a.lastName.localeCompare(b.lastName) : result;
+            const result = a.lastName.localeCompare(b.lastName);
+            return result !== 0 ? result : a.firstName.localeCompare(b.firstName);
           }}
         ></sl-grid-filter-column>
-        <sl-grid-filter-column id="filter-profession" path="profession"></sl-grid-filter-column>
-        <sl-grid-filter-column id="filter-status" mode="select" path="status"></sl-grid-filter-column>
-        <sl-grid-filter-column id="filter-membership" mode="select" path="membership"></sl-grid-filter-column>
+        <sl-grid-filter-column path="profession"></sl-grid-filter-column>
+        <sl-grid-filter-column mode="select" path="status"></sl-grid-filter-column>
+        <sl-grid-filter-column mode="select" path="membership"></sl-grid-filter-column>
       </sl-grid>
       <div class="pagination">
         <sl-paginator-status .dataSource=${ds}></sl-paginator-status>

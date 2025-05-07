@@ -203,6 +203,10 @@ caption {
   position-anchor: --thead;
   position-area: center;
   z-index: 1; // Ensure caption is above tbody and below thead (because of DOM order)
+
+  @supports not (position-area: center) {
+    display: none;
+  }
 }
 
 thead,
@@ -313,12 +317,15 @@ td {
   display: inline-flex;
   flex-shrink: 0;
   overflow: clip;
-  overflow-clip-margin: content-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
+  overflow-clip-margin: border-box calc(var(--sl-size-outlineOffset-default) + var(--sl-size-outlineWidth-default));
+  padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
-  // Not sure what this is for atm
-  // &:first-of-type:not([part~='drag-handle']) {
-  //   padding-inline-start: calc(var(--_cell-padding-inline) + var(--_first-cell-padding-inline-start, 0px));
-  // }
+  &[part~='selection'] {
+    --_cell-padding-block: 0;
+    --_cell-padding-inline: 0.5rem;
+
+    inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
+  }
 }
 
 th {
@@ -509,7 +516,7 @@ tfoot {
   border-radius: var(--sl-size-borderRadius-default);
   box-shadow: var(--sl-elevation-shadow-overlay);
   color: var(--sl-color-foreground-inverted-plain);
-  inset-block-start: calc(anchor(bottom) + 1rem);
+  inset-block-start: calc(anchor(bottom) + var(--sl-size-200));
   /* stylelint-disable-next-line declaration-property-value-no-unknown */
   justify-self: anchor-center;
   margin: 0;
@@ -541,7 +548,7 @@ tfoot {
 }
 
 @position-try --viewport-block-end {
-  inset-block: auto 1rem;
+  inset-block: auto var(--sl-size-200);
   /* stylelint-disable-next-line at-rule-descriptor-no-unknown */
   position-anchor: initial;
 }

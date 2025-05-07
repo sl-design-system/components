@@ -41,9 +41,9 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   @state() internalOptions?: GridFilterOption[];
 
   /** The filter function if you want to do custom filtering. */
-  @state() filter?: DataSourceFilterFunction<T>;
+  @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
 
-  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  /** The label as it needs to be shown in the filter. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   override headerRowCount = 2;

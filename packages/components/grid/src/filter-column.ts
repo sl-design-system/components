@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type GridFilterMode = 'date' | 'date-range' | 'select' | 'text';
+export type GridFilterMode = 'select' | 'text';
 
 export interface GridFilterOption {
   label: string;
@@ -43,7 +43,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   /** The filter function if you want to do custom filtering. */
   @state() filter?: DataSourceFilterFunction<T>;
 
-  /** The label as it needs to be shown in the filter popover. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
+  /** The label as it needs to be shown in the filter. Only use this when the label needs to be something else than the column header converted to lowercase (and stripped of any html tags in case of a ColumnHeaderRenderer). */
   @property({ type: String, attribute: 'filter-label' }) filterLabel?: string;
 
   override headerRowCount = 2;
@@ -92,7 +92,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   override itemsChanged(): void {
     super.itemsChanged();
 
-    if (this.mode !== 'text' && typeof this.options === 'undefined') {
+    if (this.mode === 'select' && typeof this.options === 'undefined') {
       const dataSource = this.grid?.dataSource;
 
       // No options were provided, so we'll create a list of options based on the column's values

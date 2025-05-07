@@ -20,10 +20,23 @@ export default {
   }
 };
 
-export const NoBorders: Story = {
+export const NoBorder: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => html`
-    <sl-grid .items=${people} no-border no-row-border>
+    <sl-grid .items=${people} no-border>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-column path="email"></sl-grid-column>
+      <sl-grid-column path="address.phone"></sl-grid-column>
+      <sl-grid-column path="profession"></sl-grid-column>
+    </sl-grid>
+  `
+};
+
+export const NoRowBorder: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people} no-row-border>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
@@ -92,7 +105,7 @@ export const Parts: Story = {
           --customer-rating-text-decoration: underline;
         }
         sl-grid::part(data customer-rating) {
-          font-weight: bold;
+          font-weight: var(--sl-text-typeset-fontWeight-demibold);
           text-decoration: var(--customer-rating-text-decoration, none);
         }
         sl-grid::part(high-rating) {
@@ -107,10 +120,10 @@ export const Parts: Story = {
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="profession"></sl-grid-column>
         <sl-grid-column
-          .renderer=${ratingRenderer}
           align="end"
           header="Customer rating (0-10)"
           path="customer-rating"
+          .renderer=${ratingRenderer}
         ></sl-grid-column>
       </sl-grid>
     `;

@@ -285,7 +285,6 @@ export class TextField<T extends { toString(): string } = string>
     this.input.focus();
   }
 
-  /** @internal */
   protected onBlur(): void {
     // Only emit the event if we have focus
     if (this.hasFocusRing) {
@@ -295,7 +294,6 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
-  /** @internal */
   protected onFocus(): void {
     // Only emit the event if we don't have focus
     if (!this.hasFocusRing) {
@@ -304,7 +302,6 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
-  /** @internal */
   protected onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
 
@@ -320,7 +317,6 @@ export class TextField<T extends { toString(): string } = string>
     this.updateValidity();
   }
 
-  /** @internal */
   protected onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && !this.readonly && event.key === 'Enter') {
@@ -332,7 +328,6 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
-  /** @internal */
   protected onPrefixSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const button = event.target
       .assignedElements({ flatten: true })
@@ -343,7 +338,6 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
-  /** @internal */
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
@@ -360,7 +354,6 @@ export class TextField<T extends { toString(): string } = string>
     this.setFormControlElement(this.input);
   }
 
-  /** @internal */
   protected onSuffixSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const button = event.target
       .assignedElements({ flatten: true })

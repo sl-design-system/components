@@ -24,10 +24,10 @@ eleventyNavigation:
 
 ## When to use
 
-### Easy Adjusting Values
-Stepper controls allow users to increment or decrement a number field value in defined steps, ensuring precision and ease when selecting quantities within a set range. They are ideal for contexts like adjusting product amounts, setting measurement values, or tuning numeric settings where direct typing might lead to errors.
+### Easily Adjust Values
+The stepper control buttons allow users to increment or decrement the value is defined in steps, within a well-defined, preferably small, range. They are ideal for scenarios like adjusting product amounts, setting measurement values, or tuning numeric settings where direct typing might lead to errors.
 
-### Contextual Formatting Input
+### Require Formatting Values
 Number fields can display format-specific information, such as currency symbols or percentage signs, alongside the input value. This visual formatting helps users recognise the context of the data they enter, improving clarity and reducing mistakes, especially in financial or statistical inputs.
 
 </section>
@@ -37,8 +37,8 @@ Number fields can display format-specific information, such as currency symbols 
 
 ## When not to use
 
-### Use a Dropdown for Fixed Options
-When the selection involves a small, predefined set of numeric options, a dropdown menu is more suitable than a number field. Dropdowns ensure quicker selection, avoid invalid entries, and streamline the user experience for limited choices.
+### For a Fixed Number of Options
+When the selection involves a small, predefined set of numeric options, the [Select](/categories/components/select/usage) component is more suitable than a number field. Select ensure quicker selection, avoid invalid entries, and streamline the user experience for limited choices.
 
 </section>
 

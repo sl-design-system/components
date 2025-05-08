@@ -145,6 +145,7 @@ export class NumberField extends LocaleMixin(TextField) {
     }
   }
 
+  /** @internal */
   override renderPrefix(): TemplateResult | typeof nothing {
     return this.stepButtons === 'edges'
       ? html`
@@ -160,6 +161,7 @@ export class NumberField extends LocaleMixin(TextField) {
       : nothing;
   }
 
+  /** @internal */
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.stepButtons
       ? this.stepButtons === 'end'
@@ -212,6 +214,10 @@ export class NumberField extends LocaleMixin(TextField) {
     this.#validateInput();
   }
 
+  /**
+   * Handles the blur event when the input field loses focus.
+   * Parses the raw value, validates the input, and updates the state.
+   */
   override onBlur(): void {
     if (this.rawValue !== undefined && this.rawValue !== '') {
       this.valueAsNumber = this.#parser.parse(
@@ -224,10 +230,12 @@ export class NumberField extends LocaleMixin(TextField) {
     super.onBlur();
   }
 
+  /** @internal */
   override onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
   }
 
+  /** @internal */
   override onKeydown(event: KeyboardEvent): void {
     if (this.disabled || this.readonly) {
       return;

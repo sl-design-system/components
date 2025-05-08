@@ -285,6 +285,10 @@ export class TextField<T extends { toString(): string } = string>
     this.input.focus();
   }
 
+  /**
+   * Handles the blur event when the input field loses focus.
+   * Emits a `sl-blur` event if the component had focus and updates the state.
+   */
   protected onBlur(): void {
     // Only emit the event if we have focus
     if (this.hasFocusRing) {
@@ -294,6 +298,10 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
+  /**
+   * Handles the focus event when the input field gains focus.
+   * Emits a focus event and updates the focus ring state.
+   */
   protected onFocus(): void {
     // Only emit the event if we don't have focus
     if (!this.hasFocusRing) {
@@ -302,6 +310,7 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
+  /** Handles input events to update the raw and parsed values. */
   protected onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.rawValue = target.value;
 
@@ -317,6 +326,10 @@ export class TextField<T extends { toString(): string } = string>
     this.updateValidity();
   }
 
+  /**
+   * Handles the `keydown` event for the text field.
+   * Simulates the native behavior of submitting a form when the Enter key is pressed.
+   */
   protected onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && !this.readonly && event.key === 'Enter') {
@@ -328,6 +341,10 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
+  /**
+   * Handles changes to the prefix slot. Detects and adds any `FieldButton` elements
+   * assigned to the prefix slot to the `fieldButtons` state for further processing.
+   */
   protected onPrefixSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const button = event.target
       .assignedElements({ flatten: true })
@@ -338,6 +355,10 @@ export class TextField<T extends { toString(): string } = string>
     }
   }
 
+  /**
+   * Handles changes to the input slot. Updates the `input` element reference
+   * and synchronizes its attributes with the component's properties.
+   */
   protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement);
@@ -354,6 +375,10 @@ export class TextField<T extends { toString(): string } = string>
     this.setFormControlElement(this.input);
   }
 
+  /**
+   * Handles changes to the suffix slot. Detects and adds any `FieldButton` elements
+   * assigned to the suffix slot to the `fieldButtons` state for further processing.
+   */
   protected onSuffixSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const button = event.target
       .assignedElements({ flatten: true })

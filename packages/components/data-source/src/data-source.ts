@@ -6,7 +6,7 @@ declare global {
   }
 }
 
-export type DataSourceFilterFunction<Model> = (item: Model, index: number, array: Model[]) => boolean;
+export type DataSourceFilterFunction<Model> = (item: Model, value: string | string[] | undefined) => boolean;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DataSourceFilterByFunction<Model = any> = {

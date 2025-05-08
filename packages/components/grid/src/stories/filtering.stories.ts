@@ -2,7 +2,14 @@ import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
+import {
+  type Person,
+  type School,
+  type Student,
+  getPeople,
+  getSchools,
+  getStudents
+} from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
@@ -26,53 +33,77 @@ export default {
 } satisfies Meta;
 
 export const Basic: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
+  loaders: [
+    async () => ({
+      schools: await getSchools(),
+      students: (await getStudents()).students
+    })
+  ],
+  render: (_, { loaded: { schools, students } }) => {
     return html`
       <sl-grid .items=${students}>
-        <sl-grid-column
+        <sl-grid-filter-column
           header="Student"
+          path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+        ></sl-grid-filter-column>
         <sl-grid-filter-column header="Group" path="group.name"></sl-grid-filter-column>
-        <sl-grid-filter-column header="School" path="school.name" value="Collegio San Marco"></sl-grid-filter-column>
+        <sl-grid-filter-column
+          header="School"
+          label-path="school.name"
+          mode="select"
+          .options=${(schools as School[]).map(s => ({ label: s.name, value: s.id }))}
+          path="school.id"
+          value="school-3"
+        ></sl-grid-filter-column>
       </sl-grid>
     `;
   }
 };
 
 export const DataSource: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
+  loaders: [
+    async () => ({
+      schools: await getSchools(),
+      students: (await getStudents()).students
+    })
+  ],
+  render: (_, { loaded: { schools, students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[]);
     dataSource.addFilter('filter-school', 'school.id', 'school-1');
+    dataSource.addFilter('filter-student', 'fullName', 'ma');
 
     return html`
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column
+        <sl-grid-filter-column
+          id="filter-student"
           header="Student"
+          path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
+        ></sl-grid-filter-column>
         <sl-grid-filter-column
           id="filter-school"
           header="School"
           label-path="school.name"
+          mode="select"
+          .options=${(schools as School[]).map(s => ({ label: s.name, value: s.id }))}
           path="school.id"
         ></sl-grid-filter-column>
       </sl-grid>
     `;
   }
 };
-export const FilteringWithSelection: Story = {
+
+export const Selection: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => html`
     <sl-grid .items=${students}>
       <sl-grid-selection-column></sl-grid-selection-column>
-      <sl-grid-column path="firstName"></sl-grid-column>
-      <sl-grid-column path="lastName"></sl-grid-column>
-      <sl-grid-filter-column path="status"></sl-grid-filter-column>
-      <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+      <sl-grid-filter-column path="fullName"></sl-grid-filter-column>
+      <sl-grid-filter-column mode="select" path="status"></sl-grid-filter-column>
+      <sl-grid-filter-column mode="select" path="membership"></sl-grid-filter-column>
     </sl-grid>
   `
 };
@@ -115,8 +146,8 @@ export const EmptyValues: Story = {
     ];
 
     return html`
-      <sl-grid .items=${items} style="width: 200px">
-        <sl-grid-column path="key"></sl-grid-column>
+      <sl-grid .items=${items}>
+        <sl-grid-filter-column path="key"></sl-grid-filter-column>
         <sl-grid-filter-column path="value"></sl-grid-filter-column>
       </sl-grid>
     `;

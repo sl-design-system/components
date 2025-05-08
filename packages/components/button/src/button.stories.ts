@@ -93,6 +93,9 @@ export const All: Story = {
   render: () => {
     return html`
       <style>
+        html {
+          display: flex;
+        }
         .sizes {
           align-items: center;
           align-self: start;
@@ -109,6 +112,7 @@ export const All: Story = {
           display: inline-grid;
           gap: 1rem 2rem;
           grid-template-columns: auto 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+          isolation: isolate;
           justify-items: center;
           position: relative;
           z-index: 0;
@@ -118,7 +122,7 @@ export const All: Story = {
           }
         }
         .inverted-background {
-          background: var(--sl-color-palette-grey-900);
+          background: var(--sl-color-background-primary-bold);
           grid-column: 8 / 9;
           grid-row: 1 / 6;
           inset: -1rem;

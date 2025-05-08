@@ -1,12 +1,17 @@
+import { faCopy, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { Avatar } from '@sl-design-system/avatar';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type Person, getPeople, getStudents } from '@sl-design-system/example-data';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type SelectionController } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
 import { type SlActiveItemChangeEvent } from '../grid.js';
+import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -18,6 +23,8 @@ export default {
     chromatic: { disableSnapshot: true }
   }
 };
+
+Icon.register(faCopy, faTrash);
 
 export const ClickableRow: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
@@ -42,8 +49,8 @@ export const SelectionColumn: Story = {
   args: {
     selectAll: false
   },
-  loaders: [async () => ({ people: (await getPeople()).people })],
-  render: ({ selectAll }, { loaded: { people } }) => {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: ({ selectAll }, { loaded: { students } }) => {
     const onSelectionChange = ({ detail: { selected, size } }: CustomEvent<SelectionController>): void => {
       const p = document.querySelector<HTMLParagraphElement>('.selection')!;
 
@@ -58,11 +65,23 @@ export const SelectionColumn: Story = {
       <p class="selection" style="margin-block: 0 1rem">
         This is updated outside the component by listening to the <code>sl-selection-change</code> event.
       </p>
-      <sl-grid @sl-selection-change=${onSelectionChange} .items=${people}>
+      <sl-grid @sl-selection-change=${onSelectionChange} .items=${students}>
         <sl-grid-selection-column .selectAll=${selectAll}></sl-grid-selection-column>
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-copy"></sl-icon>
+          Duplicate
+        </sl-button>
+        <sl-button fill="outline" slot="bulk-actions" variant="inverted">
+          <sl-icon name="far-trash"></sl-icon>
+          Delete
+        </sl-button>
       </sl-grid>
     `;
   }

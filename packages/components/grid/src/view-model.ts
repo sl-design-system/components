@@ -66,6 +66,11 @@ export class GridViewModel<T = any> {
   }
 
   update = (): void => {
+    // Return early if there are no columns or data source
+    if (this.#columnDefinitions.length === 0 || !this.#dataSource) {
+      return;
+    }
+
     this.#columns = this.#columnDefinitions.filter(col => !col.hidden);
     this.#headerRows = this.#flattenColumnGroups(this.#columnDefinitions);
 

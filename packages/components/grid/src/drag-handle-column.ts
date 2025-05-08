@@ -29,7 +29,11 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderHeader(): TemplateResult {
+  override renderHeaderRow(index: number): TemplateResult | typeof nothing {
+    if (index >= this.headerRowCount) {
+      return nothing;
+    }
+
     return html`<th part="header drag-handle"></th>`;
   }
 

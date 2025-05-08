@@ -61,6 +61,7 @@ export const templates = {
   sad56195767615a3b: 'Uitklappen',
   sb2c57b2d347203dd: 'Meer tonen',
   sb59d68ed12d46377: 'Laden',
+  sb6c8dfe6b54f9679: 'Annuleer selectie',
   sb85774dc5d18ff0f: 'Bevestig',
   sb881081d4f28c851: 'Kies een optie uit de lijst.',
   sbf1de7bf2881bae1: 'Vaak gebruikt',

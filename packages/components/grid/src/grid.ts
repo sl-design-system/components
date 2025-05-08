@@ -1,9 +1,12 @@
+/* eslint-disable slds/button-has-label */
 /* eslint-disable lit/prefer-static-styles */
 import { localized, msg, str } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { ArrayListDataSource, ListDataSource } from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
+import { Icon } from '@sl-design-system/icon';
 import { Scrollbar } from '@sl-design-system/scrollbar';
 import {
   type EventEmitter,
@@ -18,6 +21,7 @@ import {
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToolBar } from '@sl-design-system/tool-bar';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -104,11 +108,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-ellipsize-text': EllipsizeText,
       'sl-grid-group-header': GridGroupHeader,
+      'sl-icon': Icon,
       'sl-skeleton': Skeleton,
       'sl-scrollbar': Scrollbar,
-      'sl-tool-bar': ToolBar
+      'sl-tool-bar': ToolBar,
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -377,6 +384,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
         <sl-tool-bar no-border>
           <slot name="bulk-actions"></slot>
+          <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
+            <sl-icon name="xmark"></sl-icon>
+          </sl-button>
+          <sl-tooltip id="tooltip">${msg('Cancel selection')}</sl-tooltip>
         </sl-tool-bar>
       </div>
 
@@ -568,6 +579,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#onScroll();
 
     this.requestUpdate();
+  }
+
+  #onCancelSelection(): void {
+    this.selection.deselectAll();
   }
 
   #onClickRow(event: Event, item: T): void {

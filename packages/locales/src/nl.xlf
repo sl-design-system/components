@@ -314,6 +314,10 @@
   <source>Select all rows</source>
   <target>Selecteer alle rijen</target>
 </trans-unit>
+<trans-unit id="sb6c8dfe6b54f9679">
+  <source>Cancel selection</source>
+  <target>Annuleer selectie</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

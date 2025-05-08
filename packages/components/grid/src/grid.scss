@@ -479,15 +479,17 @@ a[class^='skip-link'] {
 }
 
 tfoot {
+  border: var(--_border);
+  border-block-start: 0;
   border-end-end-radius: var(--sl-size-borderRadius-default);
   border-end-start-radius: var(--sl-size-borderRadius-default);
-  border-inline: var(--_border);
   inset-block-end: 0;
   max-inline-size: var(--sl-grid-width);
   overflow: hidden;
   position: sticky;
 
   td {
+    border: 0;
     display: flex;
     flex: 1;
     max-inline-size: calc(var(--sl-grid-width) - var(--sl-size-borderWidth-default) * 2);

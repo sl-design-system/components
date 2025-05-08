@@ -26,7 +26,8 @@ declare global {
 export type GridColumnAlignment = 'start' | 'center' | 'end';
 
 /** Custom renderer type for column headers. */
-export type GridColumnHeaderRenderer = () => string | undefined | TemplateResult;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type GridColumnHeaderRenderer<T = any> = (column: GridColumn<T>) => string | undefined | TemplateResult;
 
 /** Custom renderer type for column cells. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -184,9 +185,24 @@ export class GridColumn<T = any> extends LitElement {
         part=${parts.join(' ')}
         role="columnheader"
       >
-        ${this.header ?? getNameByPath(this.path)}
+        ${this.renderHeaderLabel()}
       </th>
     `;
+  }
+
+  /**
+   * This method renders the label for the header. This is used to render the content of the
+   * `<th>` element. Override this method if you want to customize how a header label is rendered.
+   * Do not override this if you only want to change the classes, contents or parts of the header.
+   */
+  renderHeaderLabel(): string | undefined | TemplateResult {
+    if (this.header) {
+      return typeof this.header === 'string' ? html`<span>${this.header}</span>` : this.header(this);
+    } else if (this.path) {
+      return html`<span>${getNameByPath(this.path)}</span>`;
+    }
+
+    return undefined;
   }
 
   /**

@@ -97,7 +97,7 @@ export const Header: Story = {
     <sl-grid .items=${students}>
       <sl-grid-column
         path="firstName"
-        .header=${html`
+        .header=${() => html`
           <span>First name</span>
           <sl-icon aria-describedby="tooltip" name="info"></sl-icon>
           <sl-tooltip id="tooltip">Some information about the first name</sl-tooltip>
@@ -108,7 +108,7 @@ export const Header: Story = {
       <sl-grid-column path="lastName"></sl-grid-column>
       <sl-grid-column path="email"></sl-grid-column>
       <sl-grid-column
-        .header=${html`
+        .header=${() => html`
           <sl-icon name="home-blank"></sl-icon>
           <span>City</span>
         `}
@@ -117,7 +117,7 @@ export const Header: Story = {
       >
       </sl-grid-column>
       <sl-grid-column
-        .header=${html`
+        .header=${() => html`
           <span>School</span>
           <sl-menu-button fill="ghost" size="sm">
             <sl-icon slot="button" name="ellipsis"></sl-icon>
@@ -146,7 +146,7 @@ export const MenuButton: Story = {
       };
 
       return html`
-        <sl-menu-button fill="ghost">
+        <sl-menu-button fill="ghost" size="sm">
           <sl-icon slot="button" name="ellipsis"></sl-icon>
           <sl-menu-item @click=${onClick}>Do something with this student</sl-menu-item>
           <sl-menu-item @click=${onClick}>Something else</sl-menu-item>
@@ -174,7 +174,7 @@ export const MenuButton: Story = {
             'sl-menu-button': MenuButtonComponent,
             'sl-menu-item': MenuItem
           }}
-          width="64"
+          width="48"
         ></sl-grid-column>
       </sl-grid>
     `;

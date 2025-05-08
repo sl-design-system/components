@@ -36,6 +36,8 @@ export class TooltipDirective extends AsyncDirective {
   }
 
   #setup(): void {
+    console.log('setup', this.part?.element);
+
     if (this.part!.element)
       this.tooltip ||= Tooltip.lazy(this.part!.element, tooltip => {
         if (this.isConnected) {

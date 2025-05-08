@@ -11,22 +11,12 @@ const config: StorybookConfig = {
   ],
   addons: [
     '@storybook/addon-a11y',
-    '@storybook/addon-actions',
-    '@storybook/addon-storysource',
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        actions: false
-      }
-    }
+    '@storybook/addon-docs'
   ],
   core: {
     disableTelemetry: true
   },
   framework: '@storybook/web-components-vite',
-  docs: {
-    autodocs: false
-  },
   refs: {
     angular: {
       title: 'Angular',

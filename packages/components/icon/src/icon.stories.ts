@@ -3,10 +3,10 @@ import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
 import { far } from '@fortawesome/pro-regular-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
-import Events from '@storybook/core-events';
-import { addons } from '@storybook/preview-api';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import Events from 'storybook/internal/core-events';
+import { addons } from 'storybook/preview-api';
 import '../register.js';
 import { Icon, type IconSize } from './icon.js';
 

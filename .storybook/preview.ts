@@ -1,10 +1,10 @@
-import type { Preview } from '@storybook/web-components';
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import '@sl-design-system/announcer/register.js';
 import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { type Preview } from '@storybook/web-components';
+import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 import { updateTheme, themes } from './themes.js';
 
 const { setLocale } = configureLocalization({
@@ -74,6 +74,9 @@ const preview: Preview = {
         { name: 'Inverted', value: 'var(--sl-color-palette-grey-900)' },
       ],
       default: 'Default'
+    },
+    docs: {
+      codePanel: true
     },
     options: {
       storySort: {

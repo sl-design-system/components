@@ -115,6 +115,7 @@ export const All: Story = {
           isolation: isolate;
           justify-items: center;
           position: relative;
+          z-index: 0;
 
           > span:nth-of-type(8) {
             color: var(--sl-color-foreground-inverted-bold);

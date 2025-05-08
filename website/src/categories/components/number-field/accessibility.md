@@ -13,8 +13,8 @@ Here's an overview of the common keyboard interactions associated with a number 
 
 <div class="ds-table-wrapper">
 
-|Command| Description                                                                                                                                                                     |
-|-|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Command|Description|
+|-|-|
 |Tab| When focus is outside the number field, moves focus to the input container. |
 |Arrow up/down|Increases or decreases the value in the number field, respecting the `step` attribute if set.|
 
@@ -32,8 +32,8 @@ Here's an overview of the common keyboard interactions associated with a number 
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value| Description                                                                                                                                                                                            |
-|-|-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Attribute | Value | Description |
+|-|-|-|
 |`aria-label`	|string| Defines a string that tells the user what information they need to enter in this number field. Needs to be added when the number-field is not wrapped with `sl-form-field` and there is no `sl-label`. |
 |`aria-labelledby`|string| Used to connect with single header/element that describes the number field, when there is no label component connected to.                                                                             |
 |`aria-required`	|boolean| Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. If there is already a `required` attribute added, it is recommended to avoid adding `aria-required`.                                                                            |

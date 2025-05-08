@@ -15,6 +15,7 @@ export function ObserveAttributesMixin<T extends Constructor<ReactiveElement>>(
   class ObserveAttributesImpl extends constructor {
     #targetElement?: Element;
 
+    /** @internal */
     setAttributesTarget(target: Element): void {
       this.#targetElement = target;
     }

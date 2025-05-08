@@ -1,9 +1,9 @@
 ---
-title: Tag accessibility
+title: Tree accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Tag
-  key: TagAccessibility
+  parent: Tree
+  key: TreeAccessibility
 ---
 <section>
 

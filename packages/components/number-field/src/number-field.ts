@@ -214,7 +214,7 @@ export class NumberField extends LocaleMixin(TextField) {
     this.#validateInput();
   }
 
-  /** @internal
+  /**
    * Handles the blur event when the input field loses focus.
    * Parses the raw value, validates the input, and updates the state.
    */

@@ -323,16 +323,17 @@ td {
 
 th {
   background: var(--_vertical-border), var(--_head-cell-background);
-  font-weight: var(--sl-text-typeset-fontWeight-demibold);
-  padding: var(--_head-cell-padding-block) var(--_head-cell-padding-inline);
+  font-weight: var(--sl-text-typeset-fontWeight-regular);
+  padding: 0 var(--_head-cell-padding-inline);
   text-align: start;
 
   &:first-of-type {
     --_vertical-border: none;
   }
 
-  > * {
-    font-weight: var(--sl-text-typeset-fontWeight-regular);
+  > span {
+    font-weight: var(--sl-text-typeset-fontWeight-demibold);
+    padding-block: var(--_head-cell-padding-block);
   }
 }
 

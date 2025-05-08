@@ -98,7 +98,7 @@ export const Header: Story = {
       <sl-grid-column
         path="firstName"
         .header=${html`
-          First name
+          <span>First name</span>
           <sl-icon aria-describedby="tooltip" name="info"></sl-icon>
           <sl-tooltip id="tooltip">Some information about the first name</sl-tooltip>
         `}
@@ -110,7 +110,7 @@ export const Header: Story = {
       <sl-grid-column
         .header=${html`
           <sl-icon name="home-blank"></sl-icon>
-          City
+          <span>City</span>
         `}
         path="school.city"
         .scopedElements=${{ 'sl-icon': Icon }}
@@ -118,7 +118,7 @@ export const Header: Story = {
       </sl-grid-column>
       <sl-grid-column
         .header=${html`
-          School
+          <span>School</span>
           <sl-menu-button fill="ghost" size="sm">
             <sl-icon slot="button" name="ellipsis"></sl-icon>
             <sl-menu-item>Option 1</sl-menu-item>

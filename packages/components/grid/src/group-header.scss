@@ -3,7 +3,6 @@
 
   align-items: center;
   display: flex;
-  font: var(--sl-text-body-md-normal);
   inline-size: 100%;
 }
 
@@ -13,10 +12,6 @@
 
 :host([selectable]) {
   --_heading-indent: 1.5rem;
-}
-
-sl-button {
-  margin-inline-start: 0.25rem;
 }
 
 sl-icon {

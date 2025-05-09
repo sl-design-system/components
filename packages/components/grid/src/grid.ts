@@ -442,9 +442,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderHeaderRows(): TemplateResult[] {
-    const rows = this.view.headerRows;
-
-    return rows.map(row => this.renderHeaderRow(row));
+    return this.view.headerRows.map(row => this.renderHeaderRow(row));
   }
 
   renderHeaderRow(columns: GridColumn[]): TemplateResult {
@@ -515,7 +513,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             .selectable=${selectable}
             .selected=${selected}
           >
-            ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.value}</span>`}
+            ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.label}</span>`}
           </sl-grid-group-header>
         </td>
       </tr>

@@ -21,7 +21,6 @@
   --_dragging-opacity: 0.8;
   --_drop-target-outline: 2px solid #056dc2;
   --_drop-target-outline-offset: -2px;
-  --_group-background: var(--sl-elevation-surface-raised-sunken);
 
   color: var(--sl-color-foreground-plain);
   display: block;
@@ -367,9 +366,7 @@ td[part~='drag-handle']:not([part~='fixed']) {
 }
 
 td[part~='group-header'] {
-  --_body-cell-background: var(--_group-background);
-  --_body-cell-padding-block: 0;
-  --_body-cell-padding-inline: 0;
+  --_body-cell-background: var(--sl-elevation-surface-raised-sunken);
 
   inline-size: 100%;
 }

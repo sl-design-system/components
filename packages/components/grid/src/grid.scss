@@ -1,7 +1,7 @@
 // stylelint-disable color-no-hex
 :host {
   --_body-cell-background: var(--sl-elevation-surface-raised-default);
-  --_body-cell-padding-block: var(--sl-size-100);
+  --_body-cell-padding-block: var(--sl-size-125);
   --_body-cell-padding-inline: var(--sl-size-150);
   --_head-cell-background: var(--sl-elevation-surface-raised-alternative);
   --_head-cell-padding-block: var(--sl-size-175);
@@ -14,7 +14,7 @@
     no-repeat;
   --_vertical-border-offset: var(--sl-size-100);
 
-  // Refactor these to use contextual tokens
+  // TODO: Refactor these to use contextual tokens
   --_drag-handle-inline-size: 28px;
   --_dragging-background: #ddeffe;
   --_dragging-border: var(--_border-width) solid #080a0b;
@@ -359,6 +359,10 @@ td {
   border-block-end: var(--_border);
   justify-content: start;
   padding: var(--_body-cell-padding-block) var(--_body-cell-padding-inline);
+
+  &:has(> *) {
+    padding-block: 0;
+  }
 }
 
 td[part~='drag-handle']:not([part~='fixed']) {

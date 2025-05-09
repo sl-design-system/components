@@ -101,7 +101,7 @@ export const Dynamic: Story = {
       buttonBar?.after(msg);
 
       // Send an announcement with the text from the inline message.
-      announce(title);
+      announce(`${title} ${count + 1}`);
     };
 
     const onRemove = (event: Event & { target: HTMLElement }): void => {

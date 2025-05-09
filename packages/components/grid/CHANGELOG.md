@@ -1,5 +1,41 @@
 # @sl-design-system/grid
 
+## 0.5.0
+
+### Minor Changes
+
+- [#2024](https://github.com/sl-design-system/components/pull/2024) [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc) - Grid improvements:
+
+  - Add "Cancel selection" button to the bulk action toolbar
+  - Add `column` argument to `GridColumnHeaderRenderer` type
+  - Fix missing aria-label on a selection column checkbox
+  - Fix styling so a small button does not expand the header row above 48px
+  - Fix styling so a row has a height of 40px
+  - Fix empty `class` attributes
+  - Fix missing `role="columnheader"` on the header cells
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Various improvements:
+  - Bulk selection actions are now shown in a floating tool-bar instead of replacing the header
+  - Filter column uses inline filters instead of popovers
+  - Filter column inherits from the sort column
+  - Filter column now supports custom filter functions
+  - Selection column now supports clicking anywhere inside the cell
+  - Sort column uses the new contextual tokens
+  - Fixes unregistering filter & sort columns
+  - Fixes styling issue with rows scrolling underneath a sticky header
+  - Fixes unnecessary updates to data-source, view-model and grid
+  - New `waitForGridToRenderData` utility method to be used in tests; available through the `@sl-design-system/grid/utils.js` import
+
+### Patch Changes
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc)]:
+  - @sl-design-system/select@2.0.4
+  - @sl-design-system/data-source@0.1.4
+  - @sl-design-system/search-field@0.2.0
+  - @sl-design-system/tool-bar@0.0.9
+  - @sl-design-system/checkbox@2.1.4
+  - @sl-design-system/shared@0.7.3
+
 ## 0.4.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @sl-design-system/search-field
 
+## 0.2.0
+
+### Minor Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Minor improvements:
+  - Add the ability to slot a different icon in the `prefix` slot
+  - Use the same clearable button style as the select component
+
+### Patch Changes
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.7.3
+
 ## 0.1.3
 
 ### Patch Changes

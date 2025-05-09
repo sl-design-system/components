@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/select",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Select component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -41,7 +41,7 @@
     "@sl-design-system/form": "^1.2.2",
     "@sl-design-system/icon": "^1.1.0",
     "@sl-design-system/listbox": "^0.1.1",
-    "@sl-design-system/shared": "^0.7.0"
+    "@sl-design-system/shared": "^0.7.3"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.2",

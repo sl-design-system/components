@@ -1,5 +1,14 @@
 # @sl-design-system/radio-group
 
+## 1.1.3
+
+### Patch Changes
+
+- [#2010](https://github.com/sl-design-system/components/pull/2010) [`d115aa5`](https://github.com/sl-design-system/components/commit/d115aa5a81b8b09ed29e5ad8b47385447ace43d0) - Increases the gap between radio buttons when buttons are shown in horizontal mode
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.7.3
+
 ## 1.1.2
 
 ### Patch Changes

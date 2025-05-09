@@ -1,5 +1,14 @@
 # @sl-design-system/tabs
 
+## 1.2.1
+
+### Patch Changes
+
+- [#2013](https://github.com/sl-design-system/components/pull/2013) [`03717fb`](https://github.com/sl-design-system/components/commit/03717fb7956b888ea04f4f2dc5334c1fc9ab7f34) - Fixes issue where the gradient overlay doesn't match the background color set on the tabs with a ::part(container) selector.
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.7.3
+
 ## 1.2.0
 
 ### Minor Changes

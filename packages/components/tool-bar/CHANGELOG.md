@@ -1,5 +1,11 @@
 # @sl-design-system/tool-bar
 
+## 0.0.9
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Improve styling for use within grid
+
 ## 0.0.8
 
 ### Patch Changes

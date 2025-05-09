@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-export type GridFilterMode = 'select' | 'text';
+export type GridFilterMode = 'date' | 'date-range' | 'select' | 'text';
 
 export interface GridFilterOption {
   label: string;

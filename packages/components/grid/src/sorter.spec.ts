@@ -37,11 +37,11 @@ describe('sl-grid-sorter', () => {
       expect(el.renderRoot.querySelector('sl-button')).to.have.attribute('aria-label', 'Sort ascending');
     });
 
-    it('should have a neutral ghost button', () => {
+    it('should have a ghost button', () => {
       const button = el.renderRoot.querySelector('sl-button');
 
       expect(button).to.have.attribute('fill', 'ghost');
-      expect(button).to.have.attribute('variant', 'neutral');
+      expect(button).not.to.have.attribute('variant');
     });
 
     it('should change the direction to ascending after clicking the button', async () => {

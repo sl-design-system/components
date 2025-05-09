@@ -7,6 +7,7 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { type GridColumn } from './column.js';
 import styles from './sorter.scss.js';
 
@@ -82,7 +83,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
             : msg('Sort ascending')}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
-        .variant=${this.direction ? 'primary' : 'neutral'}
+        variant=${ifDefined(this.direction ? 'primary' : undefined)}
       >
         ${choose(
           this.direction,

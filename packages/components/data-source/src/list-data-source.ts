@@ -5,6 +5,7 @@ export type ListDataSourceGroupBy<T> = {
   path: PathKeys<T>;
   sorter?: DataSourceSortFunction<T>;
   direction?: DataSourceSortDirection;
+  labelPath?: PathKeys<T>;
 };
 
 export type ListDataSourceOptions = {
@@ -62,9 +63,15 @@ export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
    * @param path Path to group by attribute.
    * @param sorter Optional sorter function.
    * @param direction Optional sort direction.
+   * @param labelPath Optional path for the group label.
    */
-  setGroupBy(path: PathKeys<T>, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
-    this.#groupBy = { path, sorter, direction };
+  setGroupBy(
+    path: PathKeys<T>,
+    sorter?: DataSourceSortFunction<T>,
+    direction?: DataSourceSortDirection,
+    labelPath?: PathKeys<T>
+  ): void {
+    this.#groupBy = { path, sorter, direction, labelPath };
   }
 
   /**

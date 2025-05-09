@@ -34,7 +34,7 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
       return nothing;
     }
 
-    return html`<th part="header drag-handle"></th>`;
+    return html`<th part="header drag-handle" role="columnheader"></th>`;
   }
 
   override renderData(item: T): TemplateResult {

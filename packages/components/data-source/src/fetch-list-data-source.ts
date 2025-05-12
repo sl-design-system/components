@@ -78,6 +78,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
   }
 
   get size(): number {
+    return this.#items.length;
+  }
+
+  get totalSize(): number {
     return this.#size;
   }
 

@@ -829,14 +829,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupToggle(_event: SlToggleEvent<boolean>, item: ListDataSourceItem<T>): void {
     this.dataSource?.toggleGroup(item.id);
-
-    // HACK: force the virtualizer to recalculate the size of the `<tbody>` element. If we
-    // don't, then there will be "extra padding" at the bottom of the tbody element.
-    // Once there is a better way to do this, remove this hack.
-
-    // @ts-expect-error This is a hack
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    this.#virtualizer?._layout?._metricsCache?.clear();
+    this.dataSource?.update();
   }
 
   #onScroll(): void {

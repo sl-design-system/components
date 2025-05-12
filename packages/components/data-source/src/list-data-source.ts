@@ -42,7 +42,7 @@ export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
    * The groups can be collapsed by default. When the user expands a group, the items
    * can then be loaded on demand.
    */
-  groups?: Array<ListDataSourceItem<T>>;
+  groups?: Array<Partial<ListDataSourceItem<T>>>;
 
   /** The path to the group by attribute. */
   groupBy?: PathKeys<T>;
@@ -97,9 +97,6 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     return this.#groupLabelPath;
   }
 
-  /** The original array of view models, without filtering or sorting. */
-  // abstract readonly originalItems: U[];
-
   get page(): number {
     return this.#page;
   }
@@ -112,7 +109,14 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     return this.#pagination;
   }
 
-  /** The current selection of item(s). */
+  /**
+   * The current selection of item(s).
+   *
+   * This is a set of ids. Depending on the "select all" state, it either
+   * are the selected ids or the deselected ids. If you want to use the
+   * selection, take the select all state into account. If you want to know
+   * the state of a single item, use the `isSelected` method.
+   */
   get selection() {
     return this.#selection;
   }
@@ -121,6 +125,9 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   get selects() {
     return this.#selects;
   }
+
+  /** The total number of (unfiltered) items in the data source. */
+  abstract readonly totalSize: number;
 
   /** The unfiltered items in the data source. */
   abstract readonly unfilteredItems: U[];
@@ -251,6 +258,31 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   deselectAll(): void {
     this.#selectAll = false;
     this.#selection.clear();
+  }
+
+  /** Returns whether the "select all" state is active. */
+  isSelectAllToggled(): boolean {
+    return !!this.#selectAll;
+  }
+
+  /** Returns whether all items are selected. */
+  areAllSelected(): boolean {
+    if (this.#selectAll) {
+      return this.#selection.size === 0;
+    } else {
+      return this.#selection.size === this.size;
+    }
+  }
+
+  /** Returns whether some items are selected. */
+  areSomeSelected(): boolean {
+    const { size } = this.#selection;
+
+    if (this.#selectAll) {
+      return size > 0 && size !== this.size;
+    } else {
+      return size > 0 && size < this.size;
+    }
   }
 
   /**

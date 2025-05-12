@@ -8,6 +8,7 @@ class TestListDataSource extends ListDataSource<Person> {
   }
 
   override size: number;
+  override totalSize: number;
 
   override get unfilteredItems() {
     return [];
@@ -17,6 +18,7 @@ class TestListDataSource extends ListDataSource<Person> {
     super({});
 
     this.size = people.length;
+    this.totalSize = people.length;
   }
 
   override expandGroup(id: unknown): void {

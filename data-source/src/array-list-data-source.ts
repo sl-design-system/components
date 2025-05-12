@@ -26,6 +26,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /** The items, including any group items. This is used for rendering the list. */
   #viewItems: Array<ListDataSourceItem<T>> = [];
 
+  /** Set of collapsed group ids. */
+  collapsedGroups: Set<unknown> = new Set();
+
   get items() {
     return this.#viewItems;
   }
@@ -69,24 +72,15 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   }
 
   override expandGroup(id: unknown): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = false;
-    }
+    console.log('expand group', id);
   }
 
   override collapseGroup(id: unknown): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = true;
-    }
+    console.log('collapse group', id);
   }
 
   override toggleGroup(id: unknown): void {
-    const group = this.#groups?.get(id);
-    if (group) {
-      group.collapsed = !group.collapsed;
-    }
+    console.log('toggle group', id);
   }
 
   update(emitEvent = true): void {
@@ -165,88 +159,3 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       } else if ('sorter' in this.sort && this.sort.sorter) {
         sortFn = this.sort.sorter;
       }
-
-      items.sort(({ item: a }, { item: b }) => {
-        const result = sortFn(a, b);
-
-        return this.sort?.direction === 'asc' ? result : -result;
-      });
-    }
-
-    this.#items = items;
-
-    // From here on out, we are only doing purely visual operations,
-    // such as adding group items and pagination.
-    let viewItems: Array<ListDataSourceItem<T>> = [...items];
-
-    if (this.groupBy) {
-      this.#groups ??= this.#determineGroups();
-
-      // Sort by group label
-      viewItems.sort((a, b) => {
-        const labelA = this.#groups?.get(a.group)?.label ?? '',
-          labelB = this.#groups?.get(b.group)?.label ?? '';
-
-        return labelA.localeCompare(labelB);
-      });
-
-      // Insert group items into the viewItems array
-      const grouped: Array<ListDataSourceItem<T>> = [];
-      let currentGroup: ListDataSourceItem<T> | undefined = undefined;
-
-      for (const item of viewItems) {
-        if (item.group !== currentGroup?.id) {
-          currentGroup = this.#groups?.get(item.group);
-          if (currentGroup) {
-            grouped.push(currentGroup);
-          }
-        }
-
-        // Only push the item if the group is not collapsed
-        if (!currentGroup?.collapsed) {
-          grouped.push(item);
-        }
-      }
-
-      viewItems = grouped;
-    }
-
-    if (this.pagination) {
-      const start = (this.page ?? 0) * this.pageSize,
-        end = Math.min(start + this.pageSize, this.size);
-
-      viewItems = viewItems.slice(start, end);
-    }
-
-    this.#viewItems = viewItems;
-
-    if (emitEvent) {
-      this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
-    }
-  }
-
-  #determineGroups(): Map<unknown, ListDataSourceItem<T>> {
-    const groups = new Map<unknown, ListDataSourceItem<T>>(),
-      groupLabels = new Map<unknown, string>();
-
-    this.unfilteredItems.forEach(item => {
-      const group = item.group;
-
-      if (!groups.has(group)) {
-        let label = groupLabels.get(group);
-        if (!label) {
-          label = this.groupLabelPath ? getStringByPath(item.item, this.groupLabelPath) : String(group);
-          groupLabels.set(group, label);
-        }
-
-        groups.set(group, {
-          id: group,
-          label,
-          type: 'group'
-        } as ListDataSourceItem<T>);
-      }
-    });
-
-    return groups;
-  }
-}

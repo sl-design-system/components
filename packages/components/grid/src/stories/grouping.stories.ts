@@ -31,6 +31,7 @@ export const Basic: Story = {
     return html`
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-sort-column
+          direction="asc"
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
@@ -48,7 +49,14 @@ export const Collapsed: Story = {
   render: (_, { loaded: { students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[], {
       groupBy: 'school.id',
-      groupLabelPath: 'school.name'
+      groups: [
+        { id: 'school-1', label: 'Gymnasium Sankt Georg', collapsed: true },
+        { id: 'school-2', label: 'Lycée Victor Hugo', collapsed: true },
+        { id: 'school-3', label: 'Collegio San Marco', collapsed: true },
+        { id: 'school-4', label: 'Koninklijk Atheneum', collapsed: true },
+        { id: 'school-5', label: 'Instituto Cervantes', collapsed: true },
+        { id: 'school-6', label: 'Colegio San Isidro', collapsed: true }
+      ]
     });
 
     setTimeout(() => {

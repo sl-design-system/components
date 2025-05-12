@@ -118,10 +118,10 @@ export const DataSource: Story = {
               </div>
               <div class="cards-container">
                 ${this.dataSource?.items.map(
-                  item => html`
+                  ({ item }) => html`
                     <sl-card responsive padding>
-                      <h2>Card ${item.nr}</h2>
-                      <div slot="body">${item.title}</div>
+                      <h2>Card ${item?.nr}</h2>
+                      <div slot="body">${item?.title}</div>
                     </sl-card>
                   `
                 )}

@@ -1,5 +1,5 @@
 import { Avatar } from '@sl-design-system/avatar';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, type ListDataSourceItem } from '@sl-design-system/data-source';
 import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -7,7 +7,6 @@ import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
 import { type GridGroupHeaderRenderer } from '../grid.js';
-import { type GridViewModelGroup } from '../view-model.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -24,19 +23,21 @@ export default {
 export const Basic: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
-    const dataSource = new ArrayListDataSource(students as Student[]);
-    dataSource.setGroupBy('school.id', undefined, undefined, 'school.name');
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
 
     return html`
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column
+        <sl-grid-sort-column
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
-        <sl-grid-column path="email"></sl-grid-column>
-        <sl-grid-column path="school.name"></sl-grid-column>
+        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
     `;
   }
@@ -45,8 +46,10 @@ export const Basic: Story = {
 export const Collapsed: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
-    const dataSource = new ArrayListDataSource(students as Student[]);
-    dataSource.setGroupBy('school.id', undefined, undefined, 'school.name');
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
 
     setTimeout(() => {
       const grid = document.querySelector('sl-grid')!;
@@ -69,26 +72,90 @@ export const Collapsed: Story = {
 };
 
 export const Selection: Story = {
-  render: () => {
-    return html`<p>This example shows how you combine grouping with selection.</p>`;
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name',
+      selects: 'multiple'
+    });
+
+    return html`
+      <p>This example shows how you combine grouping with selection.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-sort-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
   }
 };
 
 export const DragAndDrop: Story = {
-  render: () => {
-    return html`<p>This example shows how you combine grouping with drag and drop.</p>`;
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+
+    return html`
+      <p>This example shows how you combine grouping with drag and drop.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-sort-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const Both: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
+
+    return html`
+      <p>This example shows how you combine grouping with drag and drop and selection.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-sort-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
   }
 };
 
 export const CustomGroupHeader: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayListDataSource(people as Person[]);
-    dataSource.setGroupBy('membership');
+    const dataSource = new ArrayListDataSource(people as Person[], { groupBy: 'membership' });
 
-    const groupHeaderRenderer: GridGroupHeaderRenderer = (group: GridViewModelGroup) => {
+    const groupHeaderRenderer: GridGroupHeaderRenderer = (item: ListDataSourceItem<Person>) => {
       return html`
-        <span part="group-heading">${group.value}</span>
+        <span part="group-heading">${item.label}</span>
         <sl-menu-button fill="ghost" size="sm" style="margin: 4px;">
           <sl-icon name="ellipsis" slot="button"></sl-icon>
           <sl-menu-item>Option 1</sl-menu-item>

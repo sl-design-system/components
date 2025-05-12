@@ -19,8 +19,8 @@ describe('ArrayListDataSource', () => {
       expect(ds.items).to.deep.equal(people);
     });
 
-    it('should have the original items', () => {
-      expect(ds.originalItems).to.deep.equal(people);
+    it('should have the unfiltered items', () => {
+      expect(ds.unfilteredItems).to.deep.equal(people);
     });
 
     it('should have a size', () => {
@@ -59,7 +59,7 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(2);
-      expect(ds.items.every(({ profession }) => profession === 'Gastroenterologist')).to.be.true;
+      expect(ds.items.every(({ item }) => item.profession === 'Gastroenterologist')).to.be.true;
     });
 
     it('should filter the same path using an OR operator', () => {
@@ -68,7 +68,7 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(4);
-      expect(ds.items.every(({ membership }) => ['Regular', 'Premium'].includes(membership))).to.be.true;
+      expect(ds.items.every(({ item }) => ['Regular', 'Premium'].includes(item.membership))).to.be.true;
     });
 
     it('should filter numbers as well as strings', () => {
@@ -93,7 +93,7 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(2);
-      expect(ds.items.every(({ firstName, lastName }) => /Ann/.test(firstName) || /Ann/.test(lastName))).to.be.true;
+      expect(ds.items.every(({ item }) => /Ann/.test(item.firstName) || /Ann/.test(item.lastName))).to.be.true;
     });
 
     it('should combine filters', () => {
@@ -103,9 +103,9 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(1);
-      expect(ds.items[0].firstName).to.equal('Bob');
-      expect(ds.items[0].profession).to.equal('Gastroenterologist');
-      expect(ds.items[0].status).to.equal('Busy');
+      expect(ds.items[0].item.firstName).to.equal('Bob');
+      expect(ds.items[0].item.profession).to.equal('Gastroenterologist');
+      expect(ds.items[0].item.status).to.equal('Busy');
     });
 
     it('should reset the filtered items when removing a filter', () => {
@@ -125,11 +125,29 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(2);
-      expect(ds.originalItems).to.deep.equal(people);
+      expect(ds.unfilteredItems).to.deep.equal(people);
     });
   });
 
-  describe('grouping', () => {});
+  describe('grouping', () => {
+    beforeEach(() => {
+      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+    });
+
+    it('should group by path', () => {
+      expect(ds.groupBy).to.equal('profession');
+    });
+
+    it('should not have an increased size when grouping', () => {
+      expect(ds.size).to.equal(people.length);
+    });
+
+    it('should have an increased length to account for the group items', () => {
+      expect(ds.items.length).to.equal(people.length + 4);
+    });
+
+    it('should have group items at the start of each group', () => {});
+  });
 
   describe('sorting', () => {
     beforeEach(() => {
@@ -140,28 +158,28 @@ describe('ArrayListDataSource', () => {
       ds.setSort('id', 'firstName', 'asc');
       ds.update();
 
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
+      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
     });
 
     it('should sort in a descending direction', () => {
       ds.setSort('id', 'firstName', 'desc');
       ds.update();
 
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['John', 'Jane', 'Bob', 'Ann', 'Ann']);
+      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['John', 'Jane', 'Bob', 'Ann', 'Ann']);
     });
 
     it('should sort numbers', () => {
       ds.setSort('id', 'id', 'asc');
       ds.update();
 
-      expect(ds.items.map(({ id }) => id)).to.deep.equal([1, 2, 3, 4, 5]);
+      expect(ds.items.map(({ item }) => item.id)).to.deep.equal([1, 2, 3, 4, 5]);
     });
 
     it('should reset the original order when removing a sort', () => {
       ds.setSort('id', 'profession', 'asc');
       ds.update();
 
-      expect(ds.items.map(({ profession }) => profession)).to.deep.equal([
+      expect(ds.items.map(({ item }) => item.profession)).to.deep.equal([
         'Endocrinologist',
         'Gastroenterologist',
         'Gastroenterologist',
@@ -172,7 +190,7 @@ describe('ArrayListDataSource', () => {
       ds.removeSort();
       ds.update();
 
-      expect(ds.items.map(({ profession }) => profession)).to.deep.equal([
+      expect(ds.items.map(({ item }) => item.profession)).to.deep.equal([
         'Endocrinologist',
         'Nephrologist',
         'Ophthalmologist',
@@ -191,21 +209,21 @@ describe('ArrayListDataSource', () => {
     });
 
     it('should paginate people', () => {
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'Bob']);
+      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Ann', 'Bob']);
     });
 
     it('should update pagination after changing the page', () => {
       ds.setPage(0);
       ds.update();
 
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Ann', 'John', 'Jane']);
+      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Ann', 'John', 'Jane']);
     });
 
     it('should update pagination after changing the page size', () => {
       ds.setPageSize(2);
       ds.update();
 
-      expect(ds.items.map(({ firstName }) => firstName)).to.deep.equal(['Jane', 'Ann']);
+      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Jane', 'Ann']);
     });
   });
 });

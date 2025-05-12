@@ -1,4 +1,4 @@
-import { faGripDotsVertical } from '@fortawesome/pro-solid-svg-icons';
+import { faGripLines } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-Icon.register(faGripDotsVertical);
+Icon.register(faGripLines);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridDragHandleColumn<T = any> extends GridColumn<T> {
@@ -29,11 +29,7 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderHeaderRow(index: number): TemplateResult | typeof nothing {
-    if (index >= this.headerRowCount) {
-      return nothing;
-    }
-
+  override renderHeaderRow(): TemplateResult {
     return html`<th part="header drag-handle" role="columnheader"></th>`;
   }
 
@@ -52,7 +48,7 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
         @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item)}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
       >
-        ${draggable ? html`<sl-icon name="fas-grip-dots-vertical"></sl-icon>` : nothing}
+        ${draggable ? html`<sl-icon name="far-grip-lines"></sl-icon>` : nothing}
       </td>
     `;
   }

@@ -1,5 +1,11 @@
 import { type DataSourceSort } from './data-source.js';
-import { ListDataSource, type ListDataSourceOptions } from './list-data-source.js';
+import {
+  ListDataSource,
+  type ListDataSourceItem,
+  type ListDataSourceMapping,
+  type ListDataSourceOptions,
+  ListDataSourcePlaceholder
+} from './list-data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface FetchListDataSourceCallbackOptions<T = any> {
@@ -20,7 +26,7 @@ export type FetchListDataSourceCallback<T> = (
 
 export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
 
-export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions {
+export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> {
   fetchPage: FetchListDataSourceCallback<T>;
   pageSize: number;
   placeholder?: FetchListDataSourcePlaceholder<T>;
@@ -42,18 +48,21 @@ export const FetchListDataSourceError = class extends Error {
 export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceholder');
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class FetchListDataSource<T = any> extends ListDataSource<T> {
+export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSourceItem<T>> {
   /** The default size of the item collection if not explicitly set. */
   static defaultSize = 10;
 
   /** Array containing all the loaded items. */
-  #items: T[] = [];
+  #items: Array<ListDataSourceItem<T>> = [];
+
+  /** The mapping from the source items to the ListDataSourceItem. */
+  #mapping: ListDataSourceMapping<T>;
 
   /** Object for keeping track of outstanding fetch calls. */
   #pages: Record<number, Promise<void> | undefined> = {};
 
   /** Proxy of the items array. */
-  #proxy: T[] = [];
+  #proxy: Array<ListDataSourceItem<T>> = [];
 
   /** The total number of items in the data source. */
   #size: number;
@@ -64,20 +73,26 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** Returns placeholder data for items not yet loaded. */
   placeholder: FetchListDataSourcePlaceholder<T> = () => FetchListDataSourcePlaceholder as T;
 
-  get items(): T[] {
+  get items() {
     return this.#proxy;
-  }
-
-  get originalItems(): T[] {
-    return this.#items;
   }
 
   get size(): number {
     return this.#size;
   }
 
+  get unfilteredItems() {
+    return this.items;
+  }
+
   constructor(options: FetchListDataSourceOptions<T>) {
     super(options);
+
+    this.#mapping = {
+      getGroup: options.getGroup,
+      getId: options.getId ?? (item => item),
+      isSelected: options.isSelected
+    };
 
     this.#size = options.size ?? FetchListDataSource.defaultSize;
     this.fetchPage = options.fetchPage;
@@ -92,6 +107,18 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
     // Initialize the items array, but do not emit an event yet
     this.update(false);
+  }
+
+  override expandGroup(id: unknown): void {
+    console.log('expand group', id);
+  }
+
+  override collapseGroup(id: unknown): void {
+    console.log('collapse group', id);
+  }
+
+  override toggleGroup(id: unknown): void {
+    console.log('toggle group', id);
   }
 
   update(emitEvent = true): void {
@@ -125,7 +152,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     return { filters: Array.from(this.filters.values()), page, pageSize, sort: this.sort };
   }
 
-  #createProxy(items: T[]): T[] {
+  #createProxy(items: Array<ListDataSourceItem<T>>): Array<ListDataSourceItem<T>> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this;
 
@@ -164,7 +191,15 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     });
   }
 
-  #requestFetch(n: number): T {
+  #mapToItem(item: T): ListDataSourceItem<T> {
+    return {
+      id: this.#mapping.getId!(item),
+      item,
+      type: 'item'
+    };
+  }
+
+  #requestFetch(n: number): ListDataSourceItem<T> {
     const { pageSize } = this,
       page = this.pagination ? this.page : Math.floor(n / pageSize);
 
@@ -180,7 +215,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         for (let i = 0; i < res.items.length; i++) {
           const index = this.pagination ? i : pageSize * page + i;
 
-          this.#items[index] = res.items[i];
+          this.#items[index] = this.#mapToItem(res.items[i]);
         }
 
         /**
@@ -196,6 +231,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       })();
     }
 
-    return (this.#items[n] = this.placeholder(n));
+    // return (this.#items[n] = this.placeholder(n));
+    return (this.#items[n] = { id: ListDataSourcePlaceholder, type: 'placeholder' } as ListDataSourceItem<T>);
   }
 }

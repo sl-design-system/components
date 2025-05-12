@@ -29,6 +29,9 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Whether the group is draggable. */
+  @property({ type: Boolean, attribute: 'drag-handle' }) dragHandle?: boolean;
+
   /** Whether the group is expanded or collapsed. */
   @property({ type: Boolean, reflect: true }) expanded?: boolean;
 
@@ -46,19 +49,28 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
+      ${this.dragHandle
+        ? html`
+            <div part="drag-handle">
+              <sl-icon name="far-grip-lines"></sl-icon>
+            </div>
+          `
+        : nothing}
+      ${this.selectable
+        ? html`
+            <div part="checkbox">
+              <sl-checkbox
+                @sl-change=${this.#onChange}
+                .checked=${this.selected === 'all'}
+                .indeterminate=${this.selected === 'some'}
+                size="sm"
+              ></sl-checkbox>
+            </div>
+          `
+        : nothing}
       <sl-button @click=${this.#onClick} aria-label=${msg('Toggle group')} fill="ghost" size="sm">
         <sl-icon name="chevron-right"></sl-icon>
       </sl-button>
-      ${this.selectable
-        ? html`
-            <sl-checkbox
-              @sl-change=${this.#onChange}
-              .checked=${this.selected === 'all'}
-              .indeterminate=${this.selected === 'some'}
-              size="sm"
-            ></sl-checkbox>
-          `
-        : nothing}
       <div part="wrapper">
         <slot></slot>
       </div>

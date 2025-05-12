@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type DataSourceFilterFunction, FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
-import { type Path, type PathKeys, getValueByPath } from '@sl-design-system/shared';
+import { type Path, type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { type Ref, createRef, ref } from 'lit/directives/ref.js';
@@ -96,12 +96,12 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
       const dataSource = this.grid?.dataSource;
 
       // No options were provided, so we'll create a list of options based on the column's values
-      this.internalOptions = dataSource?.originalItems
-        ?.reduce((acc, item) => {
+      this.internalOptions = dataSource?.unfilteredItems
+        ?.reduce((acc, { item }) => {
           let value = getValueByPath(item, this.path!),
-            label = (this.labelPath ? getValueByPath(item, this.labelPath)?.toString() : value?.toString()) ?? '';
+            label = (this.labelPath ? getStringByPath(item, this.labelPath) : String(value)) ?? '';
 
-          if (value === null || value === undefined || value?.toString().trim() === '') {
+          if (value === null || value === undefined || String(value).trim() === '') {
             label = msg('Blank');
             value = '' as Path<T, PathKeys<T>>;
           }

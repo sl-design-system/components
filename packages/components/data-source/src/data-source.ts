@@ -69,6 +69,18 @@ export abstract class DataSource<Model = any, ViewModel = Model> extends EventTa
   /** Updates items using filter and sorting if available. */
   abstract update(): void;
 
+  /**
+   * Adds a filter to this data source. Filters can be used to filter the data
+   * in the data source. Filters are applied in the order they are added.
+   *
+   * @param id - Unique identifier for the filter
+   * @param pathOrFilter - Either a property path (string) or a custom filter function
+   * @param value - The value to filter by, if applicable
+   *
+   * When a property path is provided, items will be filtered by that property.
+   * When a filter function is provided, it will be used to determine if an item
+   * should be included in the filtered results.
+   */
   addFilter<T extends PathKeys<Model> | DataSourceFilterFunction<Model>>(
     id: string,
     pathOrFilter: T,
@@ -81,10 +93,28 @@ export abstract class DataSource<Model = any, ViewModel = Model> extends EventTa
     }
   }
 
+  /**
+   * Removes a filter from this data source.
+   *
+   * @param id - Unique identifier for the filter to remove
+   *
+   * This will remove the filter with the specified ID from the data source.
+   */
   removeFilter(id: string): void {
     this.#filters.delete(id);
   }
 
+  /**
+   * Sets a sort configuration for this data source.
+   *
+   * @param id - Unique identifier for the sort configuration
+   * @param pathOrSorter - Either a property path (string) or a custom sort function
+   * @param direction - Sort direction, either 'asc' (ascending) or 'desc' (descending)
+   *
+   * When a property path is provided, items will be sorted by that property.
+   * When a sort function is provided, it will be used to compare items during sorting.
+   * Setting a sort configuration will replace any existing sort configuration.
+   */
   setSort<T extends PathKeys<Model> | DataSourceSortFunction<Model>>(
     id: string,
     pathOrSorter: T,
@@ -97,6 +127,10 @@ export abstract class DataSource<Model = any, ViewModel = Model> extends EventTa
     }
   }
 
+  /**
+   * Removes the current sort configuration. This will clear any existing sort
+   * settings, allowing for unsorted data.
+   */
   removeSort(): void {
     this.#sort = undefined;
   }

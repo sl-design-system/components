@@ -47,14 +47,14 @@ export interface TreeDataSourceMapping<T> {
   /**
    * Returns whether the given node is expanded. This is only used for the initial
    * expanded state of the node. If you want to expand/collapse a node programmatically,
-   * use the `expand` and `collapse` methods on the tree model.
+   * use the `expand` and `collapse` methods on the data source.
    */
   isExpanded?(item: T): boolean;
 
   /**
    * Returns whether the given node is selected. This is only used for the initial
    * selected state of the node. If you want to select/deselect a node programmatically,
-   * use the `select` and `deselect` methods on the tree model.
+   * use the `select` and `deselect` methods on the data source.
    */
   isSelected?(item: T): boolean;
 }
@@ -74,6 +74,7 @@ export interface TreeDataSourceOptions<T> {
 export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSourceNode<T>> {
   /** An optional callback for loading additional tree nodes. */
   #loadChildren?: TreeDataSourceOptions<T>['loadChildren'];
+
   /** A set containing the selected node(s) in the tree. */
   #selection: Set<TreeDataSourceNode<T>> = new Set();
 
@@ -88,7 +89,7 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     return this.#selection;
   }
 
-  /** Indicates whether the tree model allows single or multiple selection. */
+  /** Indicates whether the data source allows single or multiple selection. */
   get selects() {
     return this.#selects;
   }

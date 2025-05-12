@@ -191,7 +191,7 @@ export const Grouped: Story = {
   }
 };
 
-export const OutsideGrid: Story = {
+export const Outside: Story = {
   render: (_, { loaded: { people } }) => {
     const dataSource = new ArrayListDataSource(people as Person[]);
 

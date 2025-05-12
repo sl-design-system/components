@@ -1,24 +1,75 @@
 import { type PathKeys } from '@sl-design-system/shared';
 import { DataSource, type DataSourceSortDirection, type DataSourceSortFunction } from './data-source.js';
 
-export type ListDataSourceGroupBy<T> = {
-  path: PathKeys<T>;
-  sorter?: DataSourceSortFunction<T>;
-  direction?: DataSourceSortDirection;
-  labelPath?: PathKeys<T>;
+export type ListDataSourceItemType = 'group' | 'item' | 'placeholder';
+
+export type ListDataSourceItem<T> = {
+  id: unknown;
+  collapsed?: boolean;
+  group?: unknown;
+  item: T;
+  label?: string;
+  members?: Array<ListDataSourceItem<T>>;
+  selected?: boolean;
+  type: ListDataSourceItemType;
 };
 
-export type ListDataSourceOptions = {
+export interface ListDataSourceMapping<T> {
+  /**
+   * Returns a unique identifier for the group the item belongs to. Use this
+   * if the group cannot easily be derived from the item itself. If it can,
+   * use the `groupBy` option instead.
+   */
+  getGroup?(item: T): unknown;
+
+  /**
+   * Returns a unique identifier for the item in the list. If not provided, the item itself
+   * will be used as the identifier.
+   */
+  getId?(item: T): unknown;
+
+  /**
+   * Returns whether the given item is selected. This is only used for the initial
+   * selected state of the item. If you want to select/deselect an item programmatically,
+   * use the `select` and `deselect` methods on the data source.
+   */
+  isSelected?(item: T): boolean;
+}
+
+export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
+  /**
+   * An explicit array of groups. Use this when you initially only want to show the groups.
+   * The groups can be collapsed by default. When the user expands a group, the items
+   * can then be loaded on demand.
+   */
+  groups?: Array<ListDataSourceItem<T>>;
+
+  /** The path to the group by attribute. */
+  groupBy?: PathKeys<T>;
+
+  /** The path to the group label. */
+  groupLabelPath?: PathKeys<T>;
+
+  /** Whether this data source supports pagination. */
   pagination?: boolean;
-};
+
+  /** Indicates the selection type for the data source. */
+  selects?: 'single' | 'multiple';
+}
 
 /** The default page size, if not explicitly set. */
 export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
 
+/** Symbol used as a placeholder for items that are being loaded. */
+export const ListDataSourcePlaceholder = Symbol('ListDataSourcePlaceholder');
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
-  /** Order the items by grouping them on the given attributes. */
-  #groupBy?: ListDataSourceGroupBy<T>;
+export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends DataSource<T, U> {
+  /** The path to the group by attribute. */
+  #groupBy?: PathKeys<T>;
+
+  /** The path to the group label. */
+  #groupLabelPath?: PathKeys<T>;
 
   /** The index of the page. */
   #page = 0;
@@ -29,12 +80,25 @@ export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
   /** Whether this data source uses pagination. */
   #pagination: boolean;
 
-  get groupBy(): ListDataSourceGroupBy<T> | undefined {
+  /** Whether all items are selected. */
+  #selectAll?: boolean;
+
+  /** A set containing the selected ids in the data source. */
+  #selection: Set<unknown> = new Set();
+
+  /** Indicates the selection type for the data source. */
+  #selects?: 'single' | 'multiple';
+
+  get groupBy() {
     return this.#groupBy;
   }
 
+  get groupLabelPath() {
+    return this.#groupLabelPath;
+  }
+
   /** The original array of view models, without filtering or sorting. */
-  abstract readonly originalItems: U[];
+  // abstract readonly originalItems: U[];
 
   get page(): number {
     return this.#page;
@@ -48,43 +112,56 @@ export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
     return this.#pagination;
   }
 
-  constructor(options: ListDataSourceOptions = {}) {
+  /** The current selection of item(s). */
+  get selection() {
+    return this.#selection;
+  }
+
+  /** Indicates whether the data source allows single or multiple selection. */
+  get selects() {
+    return this.#selects;
+  }
+
+  /** The unfiltered items in the data source. */
+  abstract readonly unfilteredItems: U[];
+
+  constructor(options: ListDataSourceOptions<T>) {
     super();
 
+    this.#groupBy = options.groupBy;
+    this.#groupLabelPath = options.groupLabelPath;
     this.#pagination = options.pagination ?? false;
+    this.#selects = options.selects;
   }
 
   /**
-   * Group the items by the given path. Optionally, you can provide a sorter and direction.
-   *
-   * This is part of the DataSource interface, because it changes how the data is sorted. You
-   * may want to pass the groupBy attribute to the server, so it can sort the data for you.
-   *
-   * @param path Path to group by attribute.
-   * @param sorter Optional sorter function.
-   * @param direction Optional sort direction.
-   * @param labelPath Optional path for the group label.
+   * Groups the items in the data source by the specified property path.
+   * @param path - The path to the property used for grouping the items
+   * @param labelPath - Optional path to the property used for generating group labels
    */
-  setGroupBy(
-    path: PathKeys<T>,
-    sorter?: DataSourceSortFunction<T>,
-    direction?: DataSourceSortDirection,
-    labelPath?: PathKeys<T>
-  ): void {
-    this.#groupBy = { path, sorter, direction, labelPath };
+  setGroupBy(path: PathKeys<T>, labelPath?: PathKeys<T>): void {
+    this.#groupBy = path;
+    this.#groupLabelPath = labelPath;
   }
 
-  /**
-   * Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.
-   */
+  /** Removes the grouping from the list. */
   removeGroupBy(): void {
     this.#groupBy = undefined;
+    this.#groupLabelPath = undefined;
   }
 
+  /**
+   * Sets the current page.
+   * @param page - The page number to set
+   */
   setPage(page: number): void {
     this.#page = page;
   }
 
+  /**
+   * Sets the number of items that are shown on a page.
+   * @param pageSize - The number of items per page
+   */
   setPageSize(pageSize: number): void {
     this.#pageSize = pageSize;
   }
@@ -108,6 +185,91 @@ export abstract class ListDataSource<T = any, U = T> extends DataSource<T, U> {
       this.setPage(0);
     }
   }
+
+  /**
+   * Selects the item. Whether it is added to the selection or replaces
+   * any previously selected item is based on the `selects` value.
+   * @param item - The item to select
+   */
+  select(item: ListDataSourceItem<T>): void {
+    if (this.#selects === undefined) {
+      return;
+    } else if (this.#selectAll) {
+      this.#selection.delete(item.id);
+    } else if (this.#selects === 'single') {
+      this.#selection.clear();
+    }
+
+    this.#selection.add(item.id);
+  }
+
+  /**
+   * Deselects the item.
+   * @param item - The item to deselect
+   */
+  deselect(item: ListDataSourceItem<T>): void {
+    if (this.#selects === undefined) {
+      return;
+    } else if (this.#selectAll) {
+      this.#selection.add(item.id);
+    } else {
+      this.#selection.delete(item.id);
+    }
+  }
+
+  /**
+   * Toggles the selection state of an item.
+   * @param item - The item to toggle the selection state for
+   */
+  toggle(item: ListDataSourceItem<T>): void {
+    if (this.isSelected(item)) {
+      this.deselect(item);
+    } else {
+      this.select(item);
+    }
+  }
+
+  /**
+   * Returns whether the item is selected.
+   * @param item - The item to check
+   */
+  isSelected(item: ListDataSourceItem<T>): boolean {
+    if (this.#selectAll) {
+      return !this.#selection.has(item.id);
+    } else {
+      return this.#selection.has(item.id);
+    }
+  }
+
+  /** Selects all items in the data source. */
+  selectAll(): void {
+    this.#selectAll = true;
+    this.#selection.clear();
+  }
+
+  /** Deselects all items in the data source. */
+  deselectAll(): void {
+    this.#selectAll = false;
+    this.#selection.clear();
+  }
+
+  /**
+   * Expands the group with the given id.
+   * @param id  - The id of the group to expand
+   */
+  abstract expandGroup(id: unknown): void;
+
+  /**
+   * Collapses the group with the given id.
+   * @param id  - The id of the group to collapse
+   */
+  abstract collapseGroup(id: unknown): void;
+
+  /**
+   * Toggles the expansion state of the group with the given id.
+   * @param id  - The id of the group to toggle
+   */
+  abstract toggleGroup(id: unknown): void;
 
   /**
    * Reorder the item in the data source.

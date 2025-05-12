@@ -120,8 +120,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
 
-    // this.setAttribute('role', this.variant === 'danger' ? 'alert' : 'status');
-
     this.#observer.observe(this.renderRoot.querySelector('[part="content"]')!);
   }
 
@@ -157,11 +155,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         this.requestUpdate('size');
       }
     }
-
-    if (changes.has('variant')) {
-      // this.setAttribute('role', ['danger', 'warning'].includes(this.variant ?? '') ? 'alert' : 'status');
-      // this.setAttribute('role', this.variant === 'danger' ? 'alert' : 'status');
-    }
   }
 
   override render(): TemplateResult {
@@ -176,7 +169,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
           <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
         </div>
         <div part="content">
-          <slot @slotchange=${this.#onContentSlotChange}></slot>
+          <slot></slot>
         </div>
       </div>
       <div part="action">
@@ -235,32 +228,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onContentSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    // event.target.assignedNodes({ flatten: true }).forEach(element => element.setAttribute('role', 'status'));
-
-    event.target.assignedNodes({ flatten: true }).forEach(node => {
-      if (node instanceof HTMLElement) {
-        // node.setAttribute('role', this.variant === 'danger' ? 'alert' : 'status');
-      }
-    });
-  }
-
-  // event.target.assignedNodes({ flatten: true }).forEach(element => element.setAttribute('role', 'status'));
-
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
-
-    if (!this.noTitle) {
-      console.log('title', event.target.assignedNodes({ flatten: true }));
-      // event.target.assignedNodes({ flatten: true }).forEach(element => element.setAttribute('role', 'status'));
-
-      event.target.assignedNodes({ flatten: true }).forEach(node => {
-        if (node instanceof HTMLElement) {
-          // node.setAttribute('role', this.variant === 'danger' ? 'alert' : 'status');
-        }
-      });
-    }
   }
 }

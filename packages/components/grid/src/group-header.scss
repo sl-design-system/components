@@ -39,7 +39,13 @@ sl-button {
   align-items: center;
   display: flex;
   flex-grow: 1;
+  gap: var(--sl-size-100);
   justify-content: space-between;
   margin-inline-start: var(--sl-size-100);
+  padding-inline-end: var(--sl-size-150);
+}
+
+[part='group-heading'] {
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
   padding-block: var(--sl-size-125);
 }

@@ -192,14 +192,24 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
       // Insert group items into the viewItems array
       const grouped: Array<ListDataSourceItem<T>> = [];
-      let currentGroup: ListDataSourceItem<T> | undefined = undefined;
+
+      let currentGroup: ListDataSourceItem<T> | undefined = undefined,
+        count = 0;
 
       for (const item of viewItems) {
+        count++;
+
         if (item.group !== currentGroup?.id) {
           currentGroup = this.#groups?.get(item.group);
           if (currentGroup) {
             grouped.push(currentGroup);
           }
+
+          count = 1;
+        }
+
+        if (currentGroup) {
+          currentGroup.count = count;
         }
 
         // Only push the item if the group is not collapsed

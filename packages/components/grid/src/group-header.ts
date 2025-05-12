@@ -72,6 +72,9 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
         <sl-icon name="chevron-right"></sl-icon>
       </sl-button>
       <div part="wrapper">
+        <div part="group-heading">
+          <slot name="group-heading"></slot>
+        </div>
         <slot></slot>
       </div>
     `;

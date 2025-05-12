@@ -401,14 +401,6 @@ td[part~='selection'] {
   padding: var(--sl-size-050) var(--sl-size-175);
 }
 
-[part='group-heading'] {
-  font-weight: 600;
-}
-
-.selection-count {
-  font-weight: normal;
-}
-
 .drop-placeholder {
   background: #eee;
   inline-size: 100%;

@@ -1,12 +1,11 @@
 import { Avatar } from '@sl-design-system/avatar';
 import { ArrayListDataSource, type ListDataSourceItem } from '@sl-design-system/data-source';
-import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
+import { type Student, getStudents } from '@sl-design-system/example-data';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type GridGroupHeaderRenderer } from '../grid.js';
 import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
@@ -29,6 +28,7 @@ export const Basic: Story = {
     });
 
     return html`
+      <p>This example shows the basics of grouping. Students are sorted by name and grouped by school.</p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-sort-column
           direction="asc"
@@ -59,12 +59,8 @@ export const Collapsed: Story = {
       ]
     });
 
-    setTimeout(() => {
-      const grid = document.querySelector('sl-grid')!;
-      grid.view.groups.forEach(group => grid.view.toggleGroup(group));
-    });
-
     return html`
+      <p>This example shows how you start with all groups collapsed.</p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column
           header="Student"
@@ -157,13 +153,16 @@ export const Both: Story = {
 };
 
 export const CustomGroupHeader: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
-  render: (_, { loaded: { people } }) => {
-    const dataSource = new ArrayListDataSource(people as Person[], { groupBy: 'membership' });
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name'
+    });
 
-    const groupHeaderRenderer: GridGroupHeaderRenderer = (item: ListDataSourceItem<Person>) => {
+    const groupHeaderRenderer = (item: ListDataSourceItem<Student>) => {
       return html`
-        <span part="group-heading">${item.label}</span>
+        <span slot="group-heading">${item.label} (${item.count})</span>
         <sl-menu-button fill="ghost" size="sm" style="margin: 4px;">
           <sl-icon name="ellipsis" slot="button"></sl-icon>
           <sl-menu-item>Option 1</sl-menu-item>
@@ -173,16 +172,25 @@ export const CustomGroupHeader: Story = {
     };
 
     return html`
+      <p>This example shows how you can customize the group header.</p>
       <sl-grid
         .dataSource=${dataSource}
         .groupHeaderRenderer=${groupHeaderRenderer}
-        .scopedElements=${{ 'sl-icon': Icon, 'sl-menu-button': MenuButton, 'sl-menu-item': MenuItem }}
+        .scopedElements=${{
+          'sl-icon': Icon,
+          'sl-menu-button': MenuButton,
+          'sl-menu-item': MenuItem
+        }}
       >
-        <sl-grid-column path="firstName"></sl-grid-column>
-        <sl-grid-column path="lastName"></sl-grid-column>
-        <sl-grid-column path="email"></sl-grid-column>
-        <sl-grid-column path="address.phone"></sl-grid-column>
-        <sl-grid-column path="membership"></sl-grid-column>
+        <sl-grid-sort-column
+          direction="asc"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
     `;
   }

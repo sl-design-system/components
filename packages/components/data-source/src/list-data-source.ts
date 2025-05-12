@@ -6,10 +6,10 @@ export type ListDataSourceItemType = 'group' | 'item' | 'placeholder';
 export type ListDataSourceItem<T> = {
   id: unknown;
   collapsed?: boolean;
+  count?: number;
   group?: unknown;
   item: T;
   label?: string;
-  members?: Array<ListDataSourceItem<T>>;
   selected?: boolean;
   type: ListDataSourceItemType;
 };

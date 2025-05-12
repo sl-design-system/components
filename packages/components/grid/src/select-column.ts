@@ -1,3 +1,4 @@
+import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { Option } from '@sl-design-system/listbox';
 import { Select } from '@sl-design-system/select';
 import { type Path, type PathKeys, getValueByPath, setValueByPath } from '@sl-design-system/shared';
@@ -24,12 +25,12 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
     this.scopedElements = { ...this.scopedElements, 'sl-select': Select, 'sl-option': Option };
   }
 
-  override renderData(item: T): TemplateResult {
+  override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     return html`
       <td part="data select delegate-focus">
         <sl-select
-          @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item)}
-          .value=${getValueByPath(item, this.path!)}
+          @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item.item)}
+          .value=${getValueByPath(item.item, this.path!)}
         >
           ${this.options?.map(option =>
             typeof option === 'string'

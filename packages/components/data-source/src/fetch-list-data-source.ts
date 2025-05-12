@@ -235,7 +235,6 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
       })();
     }
 
-    // return (this.#items[n] = this.placeholder(n));
-    return (this.#items[n] = { id: ListDataSourcePlaceholder, type: 'placeholder' } as ListDataSourceItem<T>);
+    return (this.#items[n] = { id: ListDataSourcePlaceholder, type: 'item' } as ListDataSourceItem<T>);
   }
 }

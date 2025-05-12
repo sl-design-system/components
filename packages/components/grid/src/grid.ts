@@ -4,25 +4,23 @@ import { localized, msg, str } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
-import { ArrayListDataSource, ListDataSource, type ListDataSourceItem } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  ListDataSource,
+  type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
+  type ListDataSourceItem
+} from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Icon } from '@sl-design-system/icon';
 import { Scrollbar } from '@sl-design-system/scrollbar';
-import {
-  type EventEmitter,
-  EventsController,
-  SelectionController,
-  event,
-  isSafari,
-  positionPopover
-} from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event, isSafari, positionPopover } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToolBar } from '@sl-design-system/tool-bar';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridDragHandleColumn } from './drag-handle-column.js';
@@ -71,9 +69,8 @@ export interface GridGroupHeaderRendererOptions {
   selected: 'all' | 'some' | 'none';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type GridGroupHeaderRenderer<T = any> = (
-  item: ListDataSourceItem<T>,
+export type GridGroupHeaderRenderer = (
+  group: ListDataSourceGroupItem,
   options?: GridGroupHeaderRendererOptions
 ) => TemplateResult;
 
@@ -203,10 +200,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   /** Selection manager. */
-  readonly selection = new SelectionController<T>(this);
+  // readonly selection = new SelectionController<T>(this);
 
   /** The active item in the grid. */
-  @state() activeItem?: T;
+  @state() activeItem?: ListDataSourceItem<T>;
 
   /** @internal Emits when the active item changes */
   @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
@@ -340,14 +337,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('dataSource')) {
-      this.#updateDataSource(this.dataSource);
+    if (changes.has('dataSource') && this.dataSource) {
+      this.#updateDataSource();
     }
 
     if (changes.has('items')) {
       this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
 
-      this.#updateDataSource(this.dataSource);
+      if (this.dataSource) {
+        this.#updateDataSource();
+      }
     }
 
     if (changes.has('scopedElements')) {
@@ -405,7 +404,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       </table>
 
       <div part="bulk-actions" popover="manual">
-        <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
+        <span>${msg(str`${this.dataSource?.totalSize} of ${this.dataSource?.selected} selected`)}</span>
         <sl-tool-bar no-border>
           <slot name="bulk-actions"></slot>
           <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
@@ -491,14 +490,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return item.type === 'group' ? this.renderGroupRow(item, index) : this.renderItemRow(item, index);
   }
 
-  renderItemRow(item: ListDataSourceItem<T>, index: number): TemplateResult {
+  renderItemRow(item: ListDataSourceDataItem<T>, index: number): TemplateResult {
     const rows = this.#headerRows,
-      active = this.selection.isActive(item.item),
-      selected = this.selection.isSelected(item.item),
+      selected = this.dataSource?.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
-        ...(active ? ['active'] : []),
         ...(selected ? ['selected'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item.item)?.split(' ') || [])
@@ -514,22 +511,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         aria-rowindex=${index}
-        class=${ifDefined(active ? 'active' : undefined)}
         index=${index}
         part=${parts.join(' ')}
       >
-        ${rows[rows.length - 1].map(col => col.renderData(item.item))}
+        ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
     `;
   }
 
-  renderGroupRow(item: ListDataSourceItem<T>, index: number): TemplateResult {
+  renderGroupRow(item: ListDataSourceGroupItem, index: number): TemplateResult {
     const draggable = !!this.#columnDefinitions.find(col => !col.hidden && col instanceof GridDragHandleColumn),
       selectable = !!this.#columnDefinitions.find(col => !col.hidden && col instanceof GridSelectionColumn);
-
-    // const expanded = this.view.getGroupState(group.value),
-    //   selected = this.view.getGroupSelection(group.value),
-    //   active = this.view.getActiveRow(group.value);
 
     return html`
       <tr part="group" index=${index}>
@@ -537,12 +529,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
+            ?collapsed=${item.collapsed}
             ?drag-handle=${draggable}
-            ?expanded=${!item.collapsed}
             ?selectable=${selectable}
             ?selected=${item.selected}
           >
-            ${this.groupHeaderRenderer?.(item) ?? html`<span part="group-heading">${item.label}</span>`}
+            ${this.groupHeaderRenderer?.(item) ??
+            html`
+              <span slot="group-heading">
+                ${item.label} ${typeof item.count === 'number' ? `(${item.count})` : nothing}
+              </span>
+            `}
           </sl-grid-group-header>
         </td>
       </tr>
@@ -614,19 +611,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onCancelSelection(): void {
-    this.selection.deselectAll();
+    this.dataSource?.deselectAll();
+    this.dataSource?.update();
   }
 
-  #onClickRow(event: Event, item: ListDataSourceItem<T>): void {
+  #onClickRow(event: Event, item: ListDataSourceDataItem<T>): void {
     if (!this.clickableRow) {
       return;
     }
 
     if (this.#columnDefinitions.some(col => col instanceof GridSelectionColumn)) {
-      this.selection.toggle(item.item);
+      this.dataSource?.toggle(item);
     } else {
-      this.activeItem = this.selection.toggleActive(item.item);
-      this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
+      this.activeItem = item;
+      this.activeItemChangeEvent.emit({ grid: this, item: item.item, relatedEvent: event });
     }
   }
 
@@ -638,7 +636,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate();
   };
 
-  #onDragStart(event: DragEvent, item: ListDataSourceItem<T>): void {
+  #onDragStart(event: DragEvent, item: ListDataSourceDataItem<T>): void {
     event.stopPropagation();
 
     window.addEventListener('dragover', this.#onWindowDragOver);
@@ -688,13 +686,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dragStartEvent.emit({ grid: this, item: item.item });
   }
 
-  #onDragEnter(_event: DragEvent, item: ListDataSourceItem<T>): void {
+  #onDragEnter(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
     if (this.#dragItem === item || this.view.isFixedItem(item.item)) {
       return;
     }
   }
 
-  #onDragOver(event: DragEvent, item: ListDataSourceItem<T>): void {
+  #onDragOver(event: DragEvent, item: ListDataSourceDataItem<T>): void {
     event.preventDefault();
 
     const { draggableRows, dropFilter } = this;
@@ -731,7 +729,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onDragEnd(event: DragEvent, item: ListDataSourceItem<T>): void {
+  #onDragEnd(event: DragEvent, item: ListDataSourceDataItem<T>): void {
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
     event
@@ -750,7 +748,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dragEndEvent.emit({ grid: this, item: item.item });
   }
 
-  #onDrop(_event: DragEvent, item: ListDataSourceItem<T>): void {
+  #onDrop(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
     let cancelled = false;
 
     if (this.draggableRows === 'on-grid') {
@@ -817,14 +815,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters(true);
   }
 
-  #onGroupSelect(_event: SlSelectEvent<boolean>, _item: ListDataSourceItem<T>): void {
-    // const items = this.dataSource?.items ?? [],
-    //   groupItems = items.filter(item => getValueByPath(item, item.path as PathKeys<T>) === item.value);
-    // if (event.detail) {
-    //   groupItems.forEach(item => this.selection.select(item.item));
-    // } else {
-    //   groupItems.forEach(item => this.selection.deselect(item.item));
-    // }
+  #onGroupSelect(_event: SlSelectEvent<boolean>, item: ListDataSourceItem<T>): void {
+    this.dataSource?.select(item);
+    this.dataSource?.update();
   }
 
   #onGroupToggle(_event: SlToggleEvent<boolean>, item: ListDataSourceItem<T>): void {
@@ -844,7 +837,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange(): void {
-    this.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]')?.togglePopover(this.selection.selected > 0);
+    this.renderRoot
+      .querySelector<HTMLElement>('[part="bulk-actions"]')
+      ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
   }
 
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
@@ -1050,9 +1045,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #updateDataSource(dataSource?: ListDataSource<T>): void {
-    this.selection.size = dataSource?.size ?? 0;
-
+  #updateDataSource(): void {
     this.#applyFilters();
     this.#applySorters();
 

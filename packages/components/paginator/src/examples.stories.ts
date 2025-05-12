@@ -1,11 +1,16 @@
 import '@sl-design-system/card/register.js';
-import { ArrayListDataSource } from '@sl-design-system/data-source';
+import { ArrayListDataSource, type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { LitElement, type TemplateResult, css, html } from 'lit';
 import '../register.js';
 
 type Story = StoryObj;
+
+type ExampleCard = {
+  nr: number;
+  title: string;
+};
 
 export default {
   title: 'Navigation/Paginator',
@@ -79,10 +84,14 @@ export const DataSource: Story = {
           `;
 
           dataSource = new ArrayListDataSource(
-            Array.from({ length: 80 }, (_, index) => ({
-              nr: index + 1,
-              title: `Title of card number ${index + 1}`
-            })),
+            Array.from(
+              { length: 80 },
+              (_, index) =>
+                ({
+                  nr: index + 1,
+                  title: `Title of card number ${index + 1}`
+                }) as ExampleCard
+            ),
             { pagination: true }
           );
 
@@ -118,10 +127,10 @@ export const DataSource: Story = {
               </div>
               <div class="cards-container">
                 ${this.dataSource?.items.map(
-                  ({ item }) => html`
+                  item => html`
                     <sl-card responsive padding>
-                      <h2>Card ${item?.nr}</h2>
-                      <div slot="body">${item?.title}</div>
+                      <h2>Card ${(item as ListDataSourceDataItem<ExampleCard>).item.nr}</h2>
+                      <div slot="body">${(item as ListDataSourceDataItem<ExampleCard>).item.title}</div>
                     </sl-card>
                   `
                 )}

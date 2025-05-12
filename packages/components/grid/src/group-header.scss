@@ -4,8 +4,8 @@
   inline-size: 100%;
 }
 
-:host([expanded]) sl-button sl-icon {
-  rotate: 90deg;
+:host([collapsed]) sl-button sl-icon {
+  rotate: -90deg;
 }
 
 [part~='drag-handle'] {

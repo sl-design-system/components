@@ -1,18 +1,29 @@
 import { type PathKeys } from '@sl-design-system/shared';
 import { DataSource, type DataSourceSortDirection, type DataSourceSortFunction } from './data-source.js';
 
-export type ListDataSourceItemType = 'group' | 'item' | 'placeholder';
+export type ListDataSourceItemType = 'group' | 'item';
 
-export type ListDataSourceItem<T> = {
+export interface ListDataSourceItemBase {
   id: unknown;
-  collapsed?: boolean;
-  count?: number;
-  group?: unknown;
-  item: T;
-  label?: string;
   selected?: boolean;
   type: ListDataSourceItemType;
-};
+}
+
+export interface ListDataSourceGroupItem extends ListDataSourceItemBase {
+  type: 'group';
+  collapsed?: boolean;
+  count?: number;
+  label?: string;
+}
+
+export interface ListDataSourceDataItem<T> extends ListDataSourceItemBase {
+  type: 'item';
+  item: T;
+  group?: unknown;
+}
+
+/** Union type that represents all possible item types in the data source */
+export type ListDataSourceItem<T> = ListDataSourceGroupItem | ListDataSourceDataItem<T>;
 
 export interface ListDataSourceMapping<T> {
   /**
@@ -42,7 +53,7 @@ export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
    * The groups can be collapsed by default. When the user expands a group, the items
    * can then be loaded on demand.
    */
-  groups?: Array<Partial<ListDataSourceItem<T>>>;
+  groups?: Array<Partial<ListDataSourceGroupItem>>;
 
   /** The path to the group by attribute. */
   groupBy?: PathKeys<T>;
@@ -107,6 +118,15 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   get pagination(): boolean {
     return this.#pagination;
+  }
+
+  /** The number of selected items in the data source. */
+  get selected(): number {
+    if (this.#selectAll) {
+      return this.totalSize - this.#selection.size;
+    } else {
+      return this.#selection.size;
+    }
   }
 
   /**
@@ -198,7 +218,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * any previously selected item is based on the `selects` value.
    * @param item - The item to select
    */
-  select(item: ListDataSourceItem<T>): void {
+  select(item: ListDataSourceItemBase): void {
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
@@ -214,7 +234,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Deselects the item.
    * @param item - The item to deselect
    */
-  deselect(item: ListDataSourceItem<T>): void {
+  deselect(item: ListDataSourceItemBase): void {
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
@@ -227,12 +247,15 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   /**
    * Toggles the selection state of an item.
    * @param item - The item to toggle the selection state for
+   * @param force - If true, the item will be selected. If false, it will be deselected.
    */
-  toggle(item: ListDataSourceItem<T>): void {
-    if (this.isSelected(item)) {
-      this.deselect(item);
-    } else {
+  toggle(item: ListDataSourceItemBase, force?: boolean): void {
+    force ??= !this.isSelected(item);
+
+    if (force) {
       this.select(item);
+    } else {
+      this.deselect(item);
     }
   }
 
@@ -240,7 +263,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Returns whether the item is selected.
    * @param item - The item to check
    */
-  isSelected(item: ListDataSourceItem<T>): boolean {
+  isSelected(item: ListDataSourceItemBase): boolean {
     if (this.#selectAll) {
       return !this.#selection.has(item.id);
     } else {
@@ -300,8 +323,9 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   /**
    * Toggles the expansion state of the group with the given id.
    * @param id  - The id of the group to toggle
+   * @param force - If true, the group will be expanded. If false, it will be collapsed.
    */
-  abstract toggleGroup(id: unknown): void;
+  abstract toggleGroup(id: unknown, force?: boolean): void;
 
   /**
    * Reorder the item in the data source.

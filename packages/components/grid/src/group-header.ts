@@ -29,13 +29,13 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Whether the group is collapsed or expanded. */
+  @property({ type: Boolean, reflect: true }) collapsed?: boolean;
+
   /** Whether the group is draggable. */
   @property({ type: Boolean, attribute: 'drag-handle' }) dragHandle?: boolean;
 
-  /** Whether the group is expanded or collapsed. */
-  @property({ type: Boolean, reflect: true }) expanded?: boolean;
-
-  /** Wether you can select the entire group. */
+  /** Whether you can select the entire group. */
   @property({ type: Boolean, reflect: true }) selectable?: boolean;
 
   /** Whether the group is selected. */
@@ -69,7 +69,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <sl-button @click=${this.#onClick} aria-label=${msg('Toggle group')} fill="ghost" size="sm">
-        <sl-icon name="chevron-right"></sl-icon>
+        <sl-icon name="chevron-down"></sl-icon>
       </sl-button>
       <div part="wrapper">
         <div part="group-heading">
@@ -85,7 +85,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(): void {
-    this.expanded = !this.expanded;
-    this.toggleEvent.emit(this.expanded);
+    this.collapsed = !this.collapsed;
+    this.toggleEvent.emit(this.collapsed);
   }
 }

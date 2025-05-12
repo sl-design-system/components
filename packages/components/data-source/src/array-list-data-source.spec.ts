@@ -2,6 +2,7 @@ import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
 import { ArrayListDataSource } from './array-list-data-source.js';
 import { type Person, people } from './data-source.spec.js';
+import { type ListDataSourceDataItem } from './list-data-source.js';
 
 describe('ArrayListDataSource', () => {
   let ds: ArrayListDataSource<Person>;
@@ -59,7 +60,8 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(2);
-      expect(ds.items.every(({ item }) => item.profession === 'Gastroenterologist')).to.be.true;
+      expect(ds.items.every(item => (item as ListDataSourceDataItem<Person>).item.profession === 'Gastroenterologist'))
+        .to.be.true;
     });
 
     it('should filter the same path using an OR operator', () => {
@@ -68,7 +70,11 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(4);
-      expect(ds.items.every(({ item }) => ['Regular', 'Premium'].includes(item.membership))).to.be.true;
+      expect(
+        ds.items.every(item =>
+          ['Regular', 'Premium'].includes((item as ListDataSourceDataItem<Person>).item.membership)
+        )
+      ).to.be.true;
     });
 
     it('should filter numbers as well as strings', () => {
@@ -93,7 +99,13 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(2);
-      expect(ds.items.every(({ item }) => /Ann/.test(item.firstName) || /Ann/.test(item.lastName))).to.be.true;
+      expect(
+        ds.items.every(
+          item =>
+            /Ann/.test((item as ListDataSourceDataItem<Person>).item.firstName) ||
+            /Ann/.test((item as ListDataSourceDataItem<Person>).item.lastName)
+        )
+      ).to.be.true;
     });
 
     it('should combine filters', () => {
@@ -103,9 +115,11 @@ describe('ArrayListDataSource', () => {
       ds.update();
 
       expect(ds.items).to.have.length(1);
-      expect(ds.items[0].item.firstName).to.equal('Bob');
-      expect(ds.items[0].item.profession).to.equal('Gastroenterologist');
-      expect(ds.items[0].item.status).to.equal('Busy');
+
+      const { item } = ds.items[0] as ListDataSourceDataItem<Person>;
+      expect(item.firstName).to.equal('Bob');
+      expect(item.profession).to.equal('Gastroenterologist');
+      expect(item.status).to.equal('Busy');
     });
 
     it('should reset the filtered items when removing a filter', () => {
@@ -158,28 +172,40 @@ describe('ArrayListDataSource', () => {
       ds.setSort('id', 'firstName', 'asc');
       ds.update();
 
-      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Ann', 'Ann', 'Bob', 'Jane', 'John']);
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.firstName)).to.deep.equal([
+        'Ann',
+        'Ann',
+        'Bob',
+        'Jane',
+        'John'
+      ]);
     });
 
     it('should sort in a descending direction', () => {
       ds.setSort('id', 'firstName', 'desc');
       ds.update();
 
-      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['John', 'Jane', 'Bob', 'Ann', 'Ann']);
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.firstName)).to.deep.equal([
+        'John',
+        'Jane',
+        'Bob',
+        'Ann',
+        'Ann'
+      ]);
     });
 
     it('should sort numbers', () => {
       ds.setSort('id', 'id', 'asc');
       ds.update();
 
-      expect(ds.items.map(({ item }) => item.id)).to.deep.equal([1, 2, 3, 4, 5]);
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.id)).to.deep.equal([1, 2, 3, 4, 5]);
     });
 
     it('should reset the original order when removing a sort', () => {
       ds.setSort('id', 'profession', 'asc');
       ds.update();
 
-      expect(ds.items.map(({ item }) => item.profession)).to.deep.equal([
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.profession)).to.deep.equal([
         'Endocrinologist',
         'Gastroenterologist',
         'Gastroenterologist',
@@ -190,7 +216,7 @@ describe('ArrayListDataSource', () => {
       ds.removeSort();
       ds.update();
 
-      expect(ds.items.map(({ item }) => item.profession)).to.deep.equal([
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.profession)).to.deep.equal([
         'Endocrinologist',
         'Nephrologist',
         'Ophthalmologist',
@@ -209,21 +235,31 @@ describe('ArrayListDataSource', () => {
     });
 
     it('should paginate people', () => {
-      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Ann', 'Bob']);
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.firstName)).to.deep.equal([
+        'Ann',
+        'Bob'
+      ]);
     });
 
     it('should update pagination after changing the page', () => {
       ds.setPage(0);
       ds.update();
 
-      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Ann', 'John', 'Jane']);
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.firstName)).to.deep.equal([
+        'Ann',
+        'John',
+        'Jane'
+      ]);
     });
 
     it('should update pagination after changing the page size', () => {
       ds.setPageSize(2);
       ds.update();
 
-      expect(ds.items.map(({ item }) => item.firstName)).to.deep.equal(['Jane', 'Ann']);
+      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).item.firstName)).to.deep.equal([
+        'Jane',
+        'Ann'
+      ]);
     });
   });
 });

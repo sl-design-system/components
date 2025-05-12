@@ -1,5 +1,6 @@
 import { msg } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
+import { type ListDataSourceItem } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -32,19 +33,15 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('grid') && this.grid) {
-      this.grid.selection.multiple = true;
-
-      if (this.selectAll) {
-        this.grid.selection.selectAll();
-      }
+    if (changes.has('grid') && this.selectAll) {
+      this.grid?.dataSource?.selectAll();
     }
   }
 
   override renderHeaderRow(index: number): TemplateResult | typeof nothing {
     if (index === 0) {
-      const checked = !!this.grid?.selection.size && this.grid?.selection.areAllSelected(),
-        indeterminate = this.grid?.selection.areSomeSelected();
+      const checked = !!this.grid?.dataSource?.selected && this.grid?.dataSource?.areAllSelected(),
+        indeterminate = this.grid?.dataSource?.areSomeSelected();
 
       return html`
         <th part="header selection" role="columnheader">
@@ -63,8 +60,8 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderData(item: T): TemplateResult {
-    const checked = this.grid?.selection.isSelected(item);
+  override renderData(item: ListDataSourceItem<T>): TemplateResult {
+    const checked = this.grid?.dataSource?.isSelected(item);
 
     return html`
       <td @click=${this.#onClick} part="data selection">
@@ -87,13 +84,13 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  #onToggleSelect(item: T, checked: boolean): void {
+  #onToggleSelect(item: ListDataSourceItem<T>, checked: boolean): void {
     this.selectAll = false;
 
     if (checked) {
-      this.grid?.selection.select(item);
+      this.grid?.dataSource?.select(item);
     } else {
-      this.grid?.selection.deselect(item);
+      this.grid?.dataSource?.deselect(item);
     }
   }
 
@@ -101,9 +98,9 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     this.selectAll = checked;
 
     if (this.selectAll) {
-      this.grid?.selection.selectAll();
+      this.grid?.dataSource?.selectAll();
     } else {
-      this.grid?.selection.deselectAll();
+      this.grid?.dataSource?.deselectAll();
     }
   }
 }

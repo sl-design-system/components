@@ -1,4 +1,5 @@
 import { faGripLines } from '@fortawesome/pro-regular-svg-icons';
+import { type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
@@ -33,19 +34,19 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     return html`<th part="header drag-handle" role="columnheader"></th>`;
   }
 
-  override renderData(item: T): TemplateResult {
+  override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     let draggable = true;
 
     if (this.path) {
-      draggable = !!getValueByPath(item, this.path);
+      draggable = !!getValueByPath(item.item, this.path);
     }
 
     // FIXME: Once `pointerdown` works properly in WebKit, use that instead
     // of `mousedown` and `touchstart`. See https://bugs.webkit.org/show_bug.cgi?id=267852
     return html`
       <td
-        @mousedown=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item)}
-        @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item)}
+        @mousedown=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item.item)}
+        @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item.item)}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
       >
         ${draggable ? html`<sl-icon name="far-grip-lines"></sl-icon>` : nothing}

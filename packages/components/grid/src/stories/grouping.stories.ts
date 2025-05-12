@@ -1,8 +1,7 @@
 import { Avatar } from '@sl-design-system/avatar';
-import { ArrayListDataSource, type ListDataSourceItem } from '@sl-design-system/data-source';
+import { Button } from '@sl-design-system/button';
+import { ArrayListDataSource, type ListDataSourceGroupItem } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
-import { Icon } from '@sl-design-system/icon';
-import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -50,12 +49,12 @@ export const Collapsed: Story = {
     const dataSource = new ArrayListDataSource(students as Student[], {
       groupBy: 'school.id',
       groups: [
-        { id: 'school-1', label: 'Gymnasium Sankt Georg', collapsed: true },
-        { id: 'school-2', label: 'Lycée Victor Hugo', collapsed: true },
-        { id: 'school-3', label: 'Collegio San Marco', collapsed: true },
-        { id: 'school-4', label: 'Koninklijk Atheneum', collapsed: true },
-        { id: 'school-5', label: 'Instituto Cervantes', collapsed: true },
-        { id: 'school-6', label: 'Colegio San Isidro', collapsed: true }
+        { id: 'school-6', label: 'Colegio San Isidro', collapsed: true, count: 1 },
+        { id: 'school-3', label: 'Collegio San Marco', collapsed: true, count: 10 },
+        { id: 'school-1', label: 'Gymnasium Sankt Georg', collapsed: true, count: 11 },
+        { id: 'school-5', label: 'Instituto Cervantes', collapsed: true, count: 3 },
+        { id: 'school-4', label: 'Koninklijk Atheneum', collapsed: true, count: 14 },
+        { id: 'school-2', label: 'Lycée Victor Hugo', collapsed: true, count: 9 }
       ]
     });
 
@@ -160,27 +159,24 @@ export const CustomGroupHeader: Story = {
       groupLabelPath: 'school.name'
     });
 
-    const groupHeaderRenderer = (item: ListDataSourceItem<Student>) => {
+    const groupHeaderRenderer = (item: ListDataSourceGroupItem) => {
       return html`
         <span slot="group-heading">${item.label} (${item.count})</span>
-        <sl-menu-button fill="ghost" size="sm" style="margin: 4px;">
-          <sl-icon name="ellipsis" slot="button"></sl-icon>
-          <sl-menu-item>Option 1</sl-menu-item>
-          <sl-menu-item>Option 2</sl-menu-item>
-        </sl-menu-button>
+        <sl-button size="sm">Add student</sl-button>
       `;
     };
 
     return html`
-      <p>This example shows how you can customize the group header.</p>
+      <p>
+        This example shows how you can customize the group header. By using the
+        <code>groupHeaderRenderer</code> callback property, it adds an "Add student" button to the group header. When
+        doing this, do not forget to also set the <code>scopedElements</code> property to include the custom elements
+        used in the renderer.
+      </p>
       <sl-grid
         .dataSource=${dataSource}
         .groupHeaderRenderer=${groupHeaderRenderer}
-        .scopedElements=${{
-          'sl-icon': Icon,
-          'sl-menu-button': MenuButton,
-          'sl-menu-item': MenuItem
-        }}
+        .scopedElements=${{ 'sl-button': Button }}
       >
         <sl-grid-sort-column
           direction="asc"

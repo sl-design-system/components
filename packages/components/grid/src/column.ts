@@ -1,4 +1,4 @@
-import { FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import { FetchListDataSourcePlaceholder, type ListDataSourceDataItem } from '@sl-design-system/data-source';
 import {
   type EventEmitter,
   type PathKeys,
@@ -211,10 +211,10 @@ export class GridColumn<T = any> extends LitElement {
    * if you only want to change the classes, contents or parts of the cell. See this specific
    * methods for that.
    */
-  renderData(item: T): TemplateResult {
-    const classes = this.getClasses(item),
-      data = this.getDisplayValue(item),
-      parts = ['data', ...this.getParts(item)];
+  renderData(item: ListDataSourceDataItem<T>): TemplateResult {
+    const classes = this.getClasses(item.item),
+      data = this.getDisplayValue(item.item),
+      parts = ['data', ...this.getParts(item.item)];
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`

@@ -139,37 +139,37 @@ export class GridViewModel<T = any> {
 
   /** Returns the selected state of the group. */
   getGroupSelection(_value?: string): 'all' | 'some' | 'none' {
-    if (this.#grid.selection.areAllSelected()) {
-      return 'all';
-    } else if (this.#grid.selection.size === 0) {
-      return 'none';
-    } else {
-      // const groupByPath = this.#dataSource?.groupBy?.path,
-      //   items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
+    // if (this.#grid.selection.areAllSelected()) {
+    //   return 'all';
+    // } else if (this.#grid.selection.size === 0) {
+    //   return 'none';
+    // } else {
+    // const groupByPath = this.#dataSource?.groupBy?.path,
+    //   items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
 
-      // const some = items?.some(item => this.#grid.selection.isSelected(item)),
-      //   all = items?.every(item => this.#grid.selection.isSelected(item));
+    // const some = items?.some(item => this.#grid.selection.isSelected(item)),
+    //   all = items?.every(item => this.#grid.selection.isSelected(item));
 
-      // return all ? 'all' : some ? 'some' : 'none';
-      return 'none';
-    }
+    // return all ? 'all' : some ? 'some' : 'none';
+    return 'none';
+    // }
   }
 
   getActiveRow(_value?: string): 'all' | 'some' | 'none' {
-    if (this.#grid.selection.areAllSelected()) {
-      return 'all';
-    } else if (this.#grid.selection.size === 0) {
-      return 'none';
-    } else {
-      // const groupByPath = this.#dataSource?.groupBy?.path,
-      //   items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
+    // if (this.#grid.selection.areAllSelected()) {
+    //   return 'all';
+    // } else if (this.#grid.selection.size === 0) {
+    //   return 'none';
+    // } else {
+    // const groupByPath = this.#dataSource?.groupBy?.path,
+    //   items = this.#dataSource?.items.filter(item => getValueByPath(item, groupByPath) === value);
 
-      // const some = items?.some(item => this.#grid.selection.isSelected(item)),
-      //   all = items?.every(item => this.#grid.selection.isSelected(item));
+    // const some = items?.some(item => this.#grid.selection.isSelected(item)),
+    //   all = items?.every(item => this.#grid.selection.isSelected(item));
 
-      // return all ? 'all' : some ? 'some' : 'none';
-      return 'none';
-    }
+    // return all ? 'all' : some ? 'some' : 'none';
+    return 'none';
+    // }
   }
 
   /** Returns true if the group is expanded, false if collapsed. */

@@ -4,7 +4,13 @@ import {
   type DataSourceFilterByPath,
   type DataSourceSortFunction
 } from './data-source.js';
-import { ListDataSource, type ListDataSourceItem, type ListDataSourceOptions } from './list-data-source.js';
+import {
+  ListDataSource,
+  type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
+  type ListDataSourceItem,
+  type ListDataSourceOptions
+} from './list-data-source.js';
 
 /**
  * A data source that can be used to filter, group by, sort,
@@ -15,13 +21,13 @@ import { ListDataSource, type ListDataSourceItem, type ListDataSourceOptions } f
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   /** The groups within the data source. */
-  #groups?: Map<unknown, ListDataSourceItem<T>>;
+  #groups?: Map<unknown, ListDataSourceGroupItem>;
 
   /** The filtered, grouped and sorted items. */
-  #items: Array<ListDataSourceItem<T>> = [];
+  #items: Array<ListDataSourceDataItem<T>> = [];
 
   /** The mapped array of items, as provided in the constructor. */
-  #mappedItems: Array<ListDataSourceItem<T>> = [];
+  #mappedItems: Array<ListDataSourceDataItem<T>> = [];
 
   /** The items, including any group items. This is used for rendering the list. */
   #viewItems: Array<ListDataSourceItem<T>> = [];
@@ -51,8 +57,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
           group.id,
           {
             ...group,
+            id: group.id ?? group,
             type: 'group'
-          } as ListDataSourceItem<T>
+          }
         ])
       );
     }
@@ -82,10 +89,10 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     }
   }
 
-  override toggleGroup(id: unknown): void {
+  override toggleGroup(id: unknown, force?: boolean): void {
     const group = this.#groups?.get(id);
     if (group) {
-      group.collapsed = !group.collapsed;
+      group.collapsed = force ?? !group.collapsed;
     }
   }
 
@@ -177,13 +184,15 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     // From here on out, we are only doing purely visual operations,
     // such as adding group items and pagination.
-    let viewItems: Array<ListDataSourceItem<T>> = [...items];
+    const groupedItems = [...items];
+
+    let viewItems: Array<ListDataSourceItem<T>> = [];
 
     if (this.groupBy) {
       this.#groups ??= this.#determineGroups();
 
       // Sort by group label
-      viewItems.sort((a, b) => {
+      groupedItems.sort((a, b) => {
         const labelA = this.#groups?.get(a.group)?.label ?? '',
           labelB = this.#groups?.get(b.group)?.label ?? '';
 
@@ -196,7 +205,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       let currentGroup: ListDataSourceItem<T> | undefined = undefined,
         count = 0;
 
-      for (const item of viewItems) {
+      for (const item of groupedItems) {
         count++;
 
         if (item.group !== currentGroup?.id) {
@@ -235,8 +244,8 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     }
   }
 
-  #determineGroups(): Map<unknown, ListDataSourceItem<T>> {
-    const groups = new Map<unknown, ListDataSourceItem<T>>(),
+  #determineGroups(): Map<unknown, ListDataSourceGroupItem> {
+    const groups = new Map<unknown, ListDataSourceGroupItem>(),
       groupLabels = new Map<unknown, string>();
 
     this.unfilteredItems.forEach(item => {
@@ -253,7 +262,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
           id: group,
           label,
           type: 'group'
-        } as ListDataSourceItem<T>);
+        });
       }
     });
 

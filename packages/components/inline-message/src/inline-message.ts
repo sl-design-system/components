@@ -232,5 +232,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
+
+    console.log('noTitle', this.noTitle);
   }
 }

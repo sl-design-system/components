@@ -62,9 +62,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal Title (if visible) that will be sent to the announcer. */
   #title?: string;
 
-  /** @internal The optional slotted action button. */
-  // @state() actionButton?: Button;
-
   /** @internal If the content spans more than 2 lines, this will be true. */
   @state() contentOverflow?: boolean;
 

@@ -1,5 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
@@ -29,7 +30,6 @@ export type SlDismissEvent = CustomEvent<void>;
  * @slot default - The body of the inline-message
  * @slot icon - Icon shown on the left side of the component
  * @slot title - Title content for the inline message
- * @slot action - Optional action button
  */
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
@@ -47,6 +47,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** Timer used for breaking a possible resize observer loop. */
   #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
 
+  /** @internal Body content that will be sent to the announcer. */
+  #content?: string;
+
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
 
@@ -56,8 +59,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** The current size. */
   #size: InlineMessageSize = 'auto';
 
+  /** @internal Title (if visible) that will be sent to the announcer. */
+  #title?: string;
+
   /** @internal The optional slotted action button. */
-  @state() actionButton?: Button;
+  // @state() actionButton?: Button;
 
   /** @internal If the content spans more than 2 lines, this will be true. */
   @state() contentOverflow?: boolean;
@@ -97,10 +103,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * The size of the inline message. By default this is set to `'auto'` which means the component
+   * The size of the inline message. By default, this is set to `'auto'` which means the component
    * will automatically determine the size based on the content. If the content spans more than 2
    * lines, the size will be set to `'lg'`. If a title is present, the size will be set to `'lg'`.
-   * Otherwise the size will be set to `'md'`.
+   * Otherwise, the size will be set to `'md'`.
    * If you want to explicitly set the size the `'sm'`, `'md'`, or `'lg'`, you can do so. But beware
    * that some sizes may not work well with the content. `'sm'` and `'md'` for example are not meant
    * to be used with a title.
@@ -120,6 +126,27 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
 
+    const title = this.renderRoot.querySelector('slot[name="title"]');
+    const content = this.renderRoot.querySelector('slot');
+    requestAnimationFrame(() => {
+      console.log('title in raf', title, content, this.#title);
+      // if (this.#title) {
+      //   announce(`${this.#title}`);
+      // }
+
+      // if (this.#title) {
+      //  announce(
+      //    `${this.#title ? this.#title : ''} ${this.#content}`,
+      //    this.variant === 'danger' ? 'assertive' : 'polite'
+      //  ); // 'assertive'
+      // }
+    });
+    console.log('title', title, content, this.#title);
+
+    // if (title) {
+    //   announce('aaaaaa');
+    // }
+
     this.#observer.observe(this.renderRoot.querySelector('[part="content"]')!);
   }
 
@@ -137,17 +164,17 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('actionButton') || changes.has('size')) {
-      if (this.actionButton) {
-        this.actionButton.size = this.size === 'sm' ? 'sm' : 'md';
-      }
-    }
-
-    if (changes.has('actionButton') || changes.has('variant')) {
-      if (this.actionButton) {
-        this.actionButton.variant = this.variant ?? 'info';
-      }
-    }
+    // if (changes.has('actionButton') || changes.has('size')) {
+    //   if (this.actionButton) {
+    //     this.actionButton.size = this.size === 'sm' ? 'sm' : 'md';
+    //   }
+    // }
+    //
+    // if (changes.has('actionButton') || changes.has('variant')) {
+    //   if (this.actionButton) {
+    //     this.actionButton.variant = this.variant ?? 'info';
+    //   }
+    // }
 
     if (changes.has('contentOverflow') || changes.has('noTitle')) {
       if (this.#originalSize === 'auto') {
@@ -164,16 +191,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
           <sl-icon .name=${this.iconName} size="md"></sl-icon>
         </slot>
       </div>
-      <div role=${this.variant === 'danger' ? 'alert' : 'status'}>
-        <div part="title">
-          <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
-        </div>
-        <div part="content">
-          <slot></slot>
-        </div>
+      <div part="title">
+        <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
       </div>
-      <div part="action">
-        <slot @slotchange=${this.#onActionSlotChange} name="action"></slot>
+      <div part="content">
+        <slot @slotchange=${this.#onContentSlotChange}></slot>
       </div>
       ${this.indismissible
         ? nothing
@@ -191,13 +213,13 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onActionSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.actionButton = event.target
-      .assignedElements({ flatten: true })
-      .find((el): el is Button => el instanceof Button);
-
-    this.noAction = !this.actionButton;
-  }
+  // #onActionSlotChange(event: Event & { target: HTMLSlotElement }): void {
+  //   this.actionButton = event.target
+  //     .assignedElements({ flatten: true })
+  //     .find((el): el is Button => el instanceof Button);
+  //
+  //   this.noAction = !this.actionButton;
+  // }
 
   #onClick(): void {
     this.dismissEvent.emit();
@@ -228,11 +250,88 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #onContentSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    // this.#content = event.target
+    //   .assignedNodes({ flatten: true })
+    //   .flatMap(node =>
+    //     node.nodeType === Node.TEXT_NODE
+    //       ? [node.textContent?.trim()]
+    //       : node.nodeType === Node.ELEMENT_NODE
+    //         ? Array.from(node.childNodes)
+    //             .filter(child => child.nodeType === Node.TEXT_NODE && !(node instanceof HTMLStyleElement))
+    //             .map(child => child.textContent?.trim())
+    //         : []
+    //   )
+    //   .filter(Boolean) // Remove empty strings or null values
+    //   .join(' ');
+
+    this.#content = Array.from(event.target.assignedNodes({ flatten: true }))
+      .flatMap(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return [node.textContent?.trim()];
+        } else if (node.nodeType === Node.ELEMENT_NODE && !(node instanceof HTMLStyleElement)) {
+          return Array.from((node as HTMLElement).innerText.split(' ')).map(text => text.trim());
+        }
+        return [];
+      })
+      .filter(Boolean) // Remove empty strings or null values
+      .join(' ');
+
+    // announce(`${this.#title} ${this.#content}`);
+
+    requestAnimationFrame(() => {
+      announce(`${this.#content}`, this.variant === 'danger' ? 'assertive' : 'polite');
+    });
+
+    console.log('content', this.#content);
+  }
+
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
 
-    console.log('noTitle', this.noTitle);
+    this.#title = event.target
+      .assignedNodes({ flatten: true })
+      .flatMap(node =>
+        node.nodeType === Node.TEXT_NODE
+          ? [node.textContent?.trim()]
+          : node.nodeType === Node.ELEMENT_NODE
+            ? Array.from(node.childNodes)
+                .filter(child => child.nodeType === Node.TEXT_NODE)
+                .map(child => child.textContent?.trim())
+            : []
+      )
+      .filter(Boolean) // Remove empty strings or null values
+      .join(' ');
+
+    console.log(
+      'noTitle',
+      event.target
+        .assignedNodes({ flatten: true })
+        .flatMap(node =>
+          node.nodeType === Node.TEXT_NODE
+            ? [node.textContent?.trim()]
+            : node.nodeType === Node.ELEMENT_NODE
+              ? Array.from(node.childNodes)
+                  .filter(child => child.nodeType === Node.TEXT_NODE)
+                  .map(child => child.textContent?.trim())
+              : []
+        )
+        .filter(Boolean) // Remove empty strings or null values
+        .join(' '),
+      this.#title
+    );
+
+    requestAnimationFrame(() => {
+      announce(`${this.#title}`, this.variant === 'danger' ? 'assertive' : 'polite');
+    });
+    // announce(`${this.#title}`, this.variant === 'danger' ? 'assertive' : 'polite');
+
+    // if (this.#title) {
+    //   announce(`${this.#title} ${this.#content}`);
+    // }
+
+    // TODO: update announcer?
   }
 }

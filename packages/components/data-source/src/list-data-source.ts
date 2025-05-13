@@ -250,10 +250,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (updateGroupState) {
       if (isListDataSourceGroupItem(item)) {
         item.members?.forEach(member => this.select(member, false));
-      } else if (isListDataSourceDataItem(item) && item.group) {
-        if (item.group.members?.every(member => this.isSelected(member))) {
-          this.select(item.group, false);
-        }
+      } else if (isListDataSourceDataItem(item) && item.group?.members?.every(member => this.isSelected(member))) {
+        this.select(item.group, false);
       }
     }
   }
@@ -274,10 +272,8 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (updateGroupState) {
       if (isListDataSourceGroupItem(item)) {
         item.members?.forEach(member => this.deselect(member, false));
-      } else if (isListDataSourceDataItem(item) && item.group) {
-        if (item.group.members?.every(member => !this.isSelected(member))) {
-          this.deselect(item.group, false);
-        }
+      } else if (isListDataSourceDataItem(item) && item.group?.members?.every(member => !this.isSelected(member))) {
+        this.deselect(item.group, false);
       }
     }
   }
@@ -289,8 +285,6 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    */
   toggle(item: ListDataSourceItemBase, force?: boolean): void {
     force ??= !this.isSelected(item);
-
-    console.log('ListDataSource.toggle', item.id, item, force);
 
     if (force) {
       this.select(item);

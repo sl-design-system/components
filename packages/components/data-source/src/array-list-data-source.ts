@@ -261,8 +261,6 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     this.#viewItems = viewItems;
 
-    console.log(...viewItems);
-
     if (emitEvent) {
       this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
     }

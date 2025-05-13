@@ -61,6 +61,7 @@ import '@sl-design-system/listbox/register.js';
 import '@sl-design-system/menu/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
 import '@sl-design-system/message-dialog/register.js';
+import '@sl-design-system/number-field/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/progress-bar/register.js';
 import '@sl-design-system/radio-group/register.js';

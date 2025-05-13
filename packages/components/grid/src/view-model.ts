@@ -8,6 +8,7 @@ import { type Grid } from './grid.js';
 export class GridViewModelGroup {
   constructor(
     public path: string,
+    public label: string,
     public value: string
   ) {}
 }
@@ -75,12 +76,13 @@ export class GridViewModel<T = any> {
     this.#headerRows = this.#flattenColumnGroups(this.#columnDefinitions);
 
     if (this.#dataSource?.groupBy) {
-      const groupByPath = this.#dataSource.groupBy.path,
+      const { path: groupByPath, labelPath: groupByLabelPath } = this.#dataSource.groupBy,
         groups: string[] = [];
 
       this.#rows = this.#dataSource.items
         .map(item => {
-          const value = getStringByPath(item, groupByPath);
+          const value = getStringByPath(item, groupByPath),
+            label = groupByLabelPath ? getStringByPath(item, groupByLabelPath) : value;
 
           if (groups.includes(value)) {
             return this.getGroupState(value) ? item : undefined;
@@ -88,7 +90,7 @@ export class GridViewModel<T = any> {
             groups.push(value);
 
             // If this is the start of a new group, insert a group item
-            const group = new GridViewModelGroup(groupByPath, value);
+            const group = new GridViewModelGroup(groupByPath, label, value);
 
             return this.getGroupState(value) ? [group, item] : group;
           }

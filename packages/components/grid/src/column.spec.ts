@@ -38,7 +38,7 @@ describe('sl-column', () => {
     });
 
     it('should render column headers', () => {
-      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent);
+      const columns = Array.from(el.renderRoot.querySelectorAll('th')).map(col => col.textContent?.trim());
 
       expect(columns).to.deep.equal(['First name', 'Last name', 'Current age']);
     });

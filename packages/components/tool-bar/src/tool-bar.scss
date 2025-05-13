@@ -34,9 +34,9 @@
   align-items: center;
   display: flex;
   flex: 1;
-  gap: var(--sl-size-200);
+  gap: var(--sl-size-050);
   min-inline-size: 0;
-  padding: var(--sl-size-100);
+  padding: calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
 }
 
 sl-menu-button {

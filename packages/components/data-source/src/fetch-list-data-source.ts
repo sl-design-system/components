@@ -93,7 +93,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
     super(options);
 
     this.#mapping = {
-      getGroup: options.getGroup,
+      getGroupId: options.getGroupId,
       getId: options.getId ?? (item => item),
       isSelected: options.isSelected
     };

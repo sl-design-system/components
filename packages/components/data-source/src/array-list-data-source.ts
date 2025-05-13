@@ -9,7 +9,8 @@ import {
   type ListDataSourceDataItem,
   type ListDataSourceGroupItem,
   type ListDataSourceItem,
-  type ListDataSourceOptions
+  type ListDataSourceOptions,
+  isListDataSourceGroupItem
 } from './list-data-source.js';
 
 /**
@@ -65,7 +66,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     }
 
     this.#mappedItems = items.map(item => ({
-      group: options.getGroup?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
+      groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
       id: options.getId?.(item) ?? item,
       item,
       selected: options.isSelected?.(item),
@@ -97,7 +98,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   }
 
   update(emitEvent = true): void {
-    let items = [...this.#mappedItems];
+    let items = this.#mappedItems.map(item => ({ ...item, selected: this.isSelected(item) }));
 
     if (this.filters.size) {
       const filters = Array.from(this.filters.values());
@@ -193,8 +194,8 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
       // Sort by group label
       groupedItems.sort((a, b) => {
-        const labelA = this.#groups?.get(a.group)?.label ?? '',
-          labelB = this.#groups?.get(b.group)?.label ?? '';
+        const labelA = this.#groups?.get(a.groupId)?.label ?? '',
+          labelB = this.#groups?.get(b.groupId)?.label ?? '';
 
         return labelA.localeCompare(labelB);
       });
@@ -202,15 +203,18 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       // Insert group items into the viewItems array
       const grouped: Array<ListDataSourceItem<T>> = [];
 
-      let currentGroup: ListDataSourceItem<T> | undefined = undefined,
+      let currentGroup: ListDataSourceGroupItem<T> | undefined = undefined,
+        currentGroupSelected = false,
         count = 0;
 
       for (const item of groupedItems) {
         count++;
 
-        if (item.group !== currentGroup?.id) {
-          currentGroup = this.#groups?.get(item.group);
+        if (item.groupId !== currentGroup?.id) {
+          currentGroup = this.#groups?.get(item.groupId);
           if (currentGroup) {
+            currentGroupSelected = this.isSelected(currentGroup);
+            currentGroup.members = [];
             grouped.push(currentGroup);
           }
 
@@ -219,6 +223,12 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
         if (currentGroup) {
           currentGroup.count = count;
+          currentGroup.members?.push(item);
+          item.group = currentGroup;
+
+          if (currentGroupSelected) {
+            item.selected = true;
+          }
         }
 
         // Only push the item if the group is not collapsed
@@ -226,6 +236,18 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
           grouped.push(item);
         }
       }
+
+      grouped
+        .filter(item => isListDataSourceGroupItem(item))
+        .forEach(item => {
+          if (item.members?.every(member => member.selected)) {
+            item.selected = 'all';
+          } else if (item.members?.some(member => member.selected)) {
+            item.selected = 'some';
+          } else {
+            item.selected = 'none';
+          }
+        });
 
       viewItems = grouped;
     }
@@ -239,6 +261,8 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     this.#viewItems = viewItems;
 
+    console.log(...viewItems);
+
     if (emitEvent) {
       this.dispatchEvent(new CustomEvent('sl-update', { detail: { dataSource: this } }));
     }
@@ -249,7 +273,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       groupLabels = new Map<unknown, string>();
 
     this.unfilteredItems.forEach(item => {
-      const group = item.group;
+      const group = item.groupId;
 
       if (!groups.has(group)) {
         let label = groupLabels.get(group);

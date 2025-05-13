@@ -5,25 +5,31 @@ export type ListDataSourceItemType = 'group' | 'item';
 
 export interface ListDataSourceItemBase {
   id: unknown;
-  selected?: boolean;
   type: ListDataSourceItemType;
 }
 
-export interface ListDataSourceGroupItem extends ListDataSourceItemBase {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface ListDataSourceGroupItem<T = any> extends ListDataSourceItemBase {
   type: 'group';
   collapsed?: boolean;
   count?: number;
   label?: string;
+  members?: Array<ListDataSourceDataItem<T>>;
+  selected?: 'all' | 'some' | 'none';
 }
 
-export interface ListDataSourceDataItem<T> extends ListDataSourceItemBase {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface ListDataSourceDataItem<T = any> extends ListDataSourceItemBase {
   type: 'item';
   item: T;
-  group?: unknown;
+  group?: ListDataSourceGroupItem<T>;
+  groupId?: unknown;
+  selected?: boolean;
 }
 
 /** Union type that represents all possible item types in the data source */
-export type ListDataSourceItem<T> = ListDataSourceGroupItem | ListDataSourceDataItem<T>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ListDataSourceItem<T = any> = ListDataSourceGroupItem<T> | ListDataSourceDataItem<T>;
 
 export interface ListDataSourceMapping<T> {
   /**
@@ -31,7 +37,7 @@ export interface ListDataSourceMapping<T> {
    * if the group cannot easily be derived from the item itself. If it can,
    * use the `groupBy` option instead.
    */
-  getGroup?(item: T): unknown;
+  getGroupId?(item: T): unknown;
 
   /**
    * Returns a unique identifier for the item in the list. If not provided, the item itself
@@ -73,6 +79,16 @@ export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
 
 /** Symbol used as a placeholder for items that are being loaded. */
 export const ListDataSourcePlaceholder = Symbol('ListDataSourcePlaceholder');
+
+/** Use this for narrowing ListDataSourceItem type to ListDataSourceGroupItem. */
+export function isListDataSourceGroupItem<T>(item?: ListDataSourceItemBase): item is ListDataSourceGroupItem<T> {
+  return item?.type === 'group';
+}
+
+/** Use this for narrowing ListDataSourceItem type to ListDataSourceDataItem. */
+export function isListDataSourceDataItem<T>(item?: ListDataSourceItemBase): item is ListDataSourceDataItem<T> {
+  return item?.type === 'item';
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends DataSource<T, U> {
@@ -218,29 +234,51 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * any previously selected item is based on the `selects` value.
    * @param item - The item to select
    */
-  select(item: ListDataSourceItemBase): void {
+  select(item: ListDataSourceItemBase, updateGroupState = true): void {
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
       this.#selection.delete(item.id);
-    } else if (this.#selects === 'single') {
-      this.#selection.clear();
+    } else {
+      if (this.#selects === 'single') {
+        this.#selection.clear();
+      }
+
+      this.#selection.add(item.id);
     }
 
-    this.#selection.add(item.id);
+    if (updateGroupState) {
+      if (isListDataSourceGroupItem(item)) {
+        item.members?.forEach(member => this.select(member, false));
+      } else if (isListDataSourceDataItem(item) && item.group) {
+        if (item.group.members?.every(member => this.isSelected(member))) {
+          this.select(item.group, false);
+        }
+      }
+    }
   }
 
   /**
    * Deselects the item.
    * @param item - The item to deselect
    */
-  deselect(item: ListDataSourceItemBase): void {
+  deselect(item: ListDataSourceItemBase, updateGroupState = true): void {
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
       this.#selection.add(item.id);
     } else {
       this.#selection.delete(item.id);
+    }
+
+    if (updateGroupState) {
+      if (isListDataSourceGroupItem(item)) {
+        item.members?.forEach(member => this.deselect(member, false));
+      } else if (isListDataSourceDataItem(item) && item.group) {
+        if (item.group.members?.every(member => !this.isSelected(member))) {
+          this.deselect(item.group, false);
+        }
+      }
     }
   }
 
@@ -252,10 +290,16 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   toggle(item: ListDataSourceItemBase, force?: boolean): void {
     force ??= !this.isSelected(item);
 
+    console.log('ListDataSource.toggle', item.id, item, force);
+
     if (force) {
       this.select(item);
     } else {
       this.deselect(item);
+    }
+
+    if (isListDataSourceGroupItem(item)) {
+      item.members?.forEach(member => this.toggle(member, force));
     }
   }
 

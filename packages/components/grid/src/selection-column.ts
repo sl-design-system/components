@@ -1,6 +1,6 @@
 import { msg } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
-import { type ListDataSourceItem } from '@sl-design-system/data-source';
+import { type ListDataSourceDataItem, type ListDataSourceItem } from '@sl-design-system/data-source';
 import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -46,9 +46,9 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
       return html`
         <th part="header selection" role="columnheader">
           <sl-checkbox
-            @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelectAll(detail)}
-            .checked=${checked}
-            .indeterminate=${indeterminate}
+            @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleAll(detail)}
+            ?checked=${checked}
+            ?indeterminate=${indeterminate}
             aria-label=${msg('Select all rows')}
             class="selection-toggle"
             size="sm"
@@ -60,14 +60,12 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  override renderData(item: ListDataSourceItem<T>): TemplateResult {
-    const checked = this.grid?.dataSource?.isSelected(item);
-
+  override renderData(item: ListDataSourceDataItem<T>): TemplateResult {
     return html`
       <td @click=${this.#onClick} part="data selection">
         <sl-checkbox
-          @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelect(item, detail)}
-          .checked=${checked}
+          @sl-change=${() => this.#onToggle(item)}
+          ?checked=${item.selected}
           aria-label=${msg('Select row')}
           class="selection-toggle"
           size="sm"
@@ -84,17 +82,14 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     }
   }
 
-  #onToggleSelect(item: ListDataSourceItem<T>, checked: boolean): void {
+  #onToggle(item: ListDataSourceItem<T>): void {
     this.selectAll = false;
 
-    if (checked) {
-      this.grid?.dataSource?.select(item);
-    } else {
-      this.grid?.dataSource?.deselect(item);
-    }
+    this.grid?.dataSource?.toggle(item);
+    this.grid?.dataSource?.update();
   }
 
-  #onToggleSelectAll(checked: boolean): void {
+  #onToggleAll(checked: boolean): void {
     this.selectAll = checked;
 
     if (this.selectAll) {
@@ -102,5 +97,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     } else {
       this.grid?.dataSource?.deselectAll();
     }
+
+    this.grid?.dataSource?.update();
   }
 }

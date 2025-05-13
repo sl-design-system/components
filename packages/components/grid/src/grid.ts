@@ -368,8 +368,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         id="table-start"
         href="#table-end"
         class="skip-link-start"
-        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
       >
         ${msg('Skip to end of table')}
       </a>
@@ -532,7 +532,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ?collapsed=${item.collapsed}
             ?drag-handle=${draggable}
             ?selectable=${selectable}
-            ?selected=${item.selected}
+            .selected=${item.selected}
           >
             ${this.groupHeaderRenderer?.(item) ??
             html`
@@ -816,7 +816,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onGroupSelect(_event: SlSelectEvent<boolean>, item: ListDataSourceItem<T>): void {
-    this.dataSource?.select(item);
+    this.dataSource?.toggle(item);
     this.dataSource?.update();
   }
 

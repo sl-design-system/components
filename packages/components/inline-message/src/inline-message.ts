@@ -126,27 +126,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override firstUpdated(changes: PropertyValues): void {
     super.firstUpdated(changes);
 
-    const title = this.renderRoot.querySelector('slot[name="title"]');
-    const content = this.renderRoot.querySelector('slot');
-    requestAnimationFrame(() => {
-      console.log('title in raf', title, content, this.#title);
-      // if (this.#title) {
-      //   announce(`${this.#title}`);
-      // }
-
-      // if (this.#title) {
-      //  announce(
-      //    `${this.#title ? this.#title : ''} ${this.#content}`,
-      //    this.variant === 'danger' ? 'assertive' : 'polite'
-      //  ); // 'assertive'
-      // }
-    });
-    console.log('title', title, content, this.#title);
-
-    // if (title) {
-    //   announce('aaaaaa');
-    // }
-
     this.#observer.observe(this.renderRoot.querySelector('[part="content"]')!);
   }
 
@@ -163,18 +142,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.updated(changes);
-
-    // if (changes.has('actionButton') || changes.has('size')) {
-    //   if (this.actionButton) {
-    //     this.actionButton.size = this.size === 'sm' ? 'sm' : 'md';
-    //   }
-    // }
-    //
-    // if (changes.has('actionButton') || changes.has('variant')) {
-    //   if (this.actionButton) {
-    //     this.actionButton.variant = this.variant ?? 'info';
-    //   }
-    // }
 
     if (changes.has('contentOverflow') || changes.has('noTitle')) {
       if (this.#originalSize === 'auto') {
@@ -213,14 +180,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  // #onActionSlotChange(event: Event & { target: HTMLSlotElement }): void {
-  //   this.actionButton = event.target
-  //     .assignedElements({ flatten: true })
-  //     .find((el): el is Button => el instanceof Button);
-  //
-  //   this.noAction = !this.actionButton;
-  // }
-
   #onClick(): void {
     this.dismissEvent.emit();
     this.remove();
@@ -251,20 +210,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   #onContentSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    // this.#content = event.target
-    //   .assignedNodes({ flatten: true })
-    //   .flatMap(node =>
-    //     node.nodeType === Node.TEXT_NODE
-    //       ? [node.textContent?.trim()]
-    //       : node.nodeType === Node.ELEMENT_NODE
-    //         ? Array.from(node.childNodes)
-    //             .filter(child => child.nodeType === Node.TEXT_NODE && !(node instanceof HTMLStyleElement))
-    //             .map(child => child.textContent?.trim())
-    //         : []
-    //   )
-    //   .filter(Boolean) // Remove empty strings or null values
-    //   .join(' ');
-
     this.#content = Array.from(event.target.assignedNodes({ flatten: true }))
       .flatMap(node => {
         if (node.nodeType === Node.TEXT_NODE) {
@@ -274,16 +219,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         }
         return [];
       })
-      .filter(Boolean) // Remove empty strings or null values
       .join(' ');
-
-    // announce(`${this.#title} ${this.#content}`);
 
     requestAnimationFrame(() => {
       announce(`${this.#content}`, this.variant === 'danger' ? 'assertive' : 'polite');
     });
-
-    console.log('content', this.#content);
   }
 
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -302,36 +242,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 .map(child => child.textContent?.trim())
             : []
       )
-      .filter(Boolean) // Remove empty strings or null values
       .join(' ');
-
-    console.log(
-      'noTitle',
-      event.target
-        .assignedNodes({ flatten: true })
-        .flatMap(node =>
-          node.nodeType === Node.TEXT_NODE
-            ? [node.textContent?.trim()]
-            : node.nodeType === Node.ELEMENT_NODE
-              ? Array.from(node.childNodes)
-                  .filter(child => child.nodeType === Node.TEXT_NODE)
-                  .map(child => child.textContent?.trim())
-              : []
-        )
-        .filter(Boolean) // Remove empty strings or null values
-        .join(' '),
-      this.#title
-    );
 
     requestAnimationFrame(() => {
       announce(`${this.#title}`, this.variant === 'danger' ? 'assertive' : 'polite');
     });
-    // announce(`${this.#title}`, this.variant === 'danger' ? 'assertive' : 'polite');
-
-    // if (this.#title) {
-    //   announce(`${this.#title} ${this.#content}`);
-    // }
-
-    // TODO: update announcer?
   }
 }

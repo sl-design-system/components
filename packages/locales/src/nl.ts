@@ -82,8 +82,5 @@ export const templates = {
   sf3fe911c549b0fcd: 'Toon kalender',
   sf677da98fa27f9b6: 'Meer links',
   sf7290005be5beae6: str`${0}, pagina`,
-  sfc5e976d64c3fb31: 'Voer een geldig getal in.',
-  sddf618209e237506: 'Toggle group',
-  sad56195767615a3b: 'Expand panel',
-  s25c9b139cc1a6be8: 'Collapse panel'
+  sfc5e976d64c3fb31: 'Voer een geldig getal in.'
 };

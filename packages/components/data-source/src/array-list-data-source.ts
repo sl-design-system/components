@@ -253,16 +253,22 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
         });
 
       if (this.groupSort) {
-        grouped.sort((a, b) => {
-          const valueA = isListDataSourceGroupItem(a)
-              ? (a.label ?? String(a.id))
-              : (a.group?.label ?? String(a.group?.id)),
-            valueB = isListDataSourceGroupItem(b) ? (b.label ?? String(b.id)) : (b.group?.label ?? String(b.group?.id));
+        const sortFn =
+          this.groupSort.by ??
+          ((a, b) => {
+            const valueA = isListDataSourceGroupItem(a)
+                ? (a.label ?? String(a.id))
+                : (a.group?.label ?? String(a.group?.id)),
+              valueB = isListDataSourceGroupItem(b)
+                ? (b.label ?? String(b.id))
+                : (b.group?.label ?? String(b.group?.id));
 
-          const result = valueA.localeCompare(valueB);
+            const result = valueA.localeCompare(valueB);
 
-          return this.groupSort?.direction === 'desc' ? -result : result;
-        });
+            return this.groupSort?.direction === 'desc' ? -result : result;
+          });
+
+        grouped.sort(sortFn);
       }
 
       viewItems = grouped;

@@ -232,14 +232,36 @@ describe('ArrayListDataSource', () => {
     });
 
     describe('sorting', () => {
-      beforeEach(() => {
-        ds = new ArrayListDataSource(people, { groupBy: 'profession', groupSortDirection: 'desc' });
-      });
-
       it('should sort the groups in a descending direction', () => {
+        ds = new ArrayListDataSource(people, { groupBy: 'profession', groupSortDirection: 'desc' });
+
         const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
 
         expect(groupLabels).to.deep.equal(['Ophthalmologist', 'Nephrologist', 'Gastroenterologist', 'Endocrinologist']);
+      });
+
+      it('should sort the groups using a custom function', () => {
+        ds = new ArrayListDataSource(people, {
+          groupBy: 'profession',
+          groupSortBy: (a, b) => {
+            const valueA = (isListDataSourceGroupItem(a) ? a.label : a.group?.label) ?? '',
+              valueB = (isListDataSourceGroupItem(b) ? b.label : b.group?.label) ?? '';
+
+            if (valueA === valueB) {
+              return 0;
+            } else if (valueA === 'Nephrologist') {
+              return -1;
+            } else if (valueB === 'Nephrologist') {
+              return 1;
+            } else {
+              return valueA?.localeCompare(valueB);
+            }
+          }
+        });
+
+        const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+        expect(groupLabels).to.deep.equal(['Nephrologist', 'Endocrinologist', 'Gastroenterologist', 'Ophthalmologist']);
       });
     });
 

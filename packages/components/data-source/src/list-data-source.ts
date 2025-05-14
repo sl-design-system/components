@@ -75,7 +75,7 @@ export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
   groupLabelPath?: PathKeys<T>;
 
   /** A function for sorting the groups within the data source. */
-  groupSortBy?: DataSourceSortFunction<ListDataSourceGroupItem<T>>;
+  groupSortBy?: DataSourceSortFunction<ListDataSourceItem<T>>;
 
   /** The direction the groups should be sorted in. */
   groupSortDirection?: DataSourceSortDirection;
@@ -134,7 +134,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   #groupSelection: Set<unknown> = new Set();
 
   /** The sort configuration for the groups. */
-  #groupSort?: DataSourceSort<ListDataSourceGroupItem<T>>;
+  #groupSort?: {
+    by?: DataSourceSortFunction<ListDataSourceItem<T>>;
+    direction?: DataSourceSortDirection;
+  };
 
   /** The index of the page. */
   #page = 0;

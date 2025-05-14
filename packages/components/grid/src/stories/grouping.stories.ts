@@ -1,6 +1,10 @@
 import { Avatar } from '@sl-design-system/avatar';
 import { Button } from '@sl-design-system/button';
-import { ArrayListDataSource, type ListDataSourceGroupItem } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  type ListDataSourceGroupItem,
+  isListDataSourceGroupItem
+} from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -84,7 +88,53 @@ export const Sorted: Story = {
     });
 
     return html`
-      <p>This example shows the basics of grouping. Students are sorted by name and grouped by school.</p>
+      <p>
+        This example shows how the groups are sorted descending. Within the groups, the students are sorted using their
+        name. The latter is done via the regular sort header.
+      </p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column
+          direction="asc"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const SortedByFunction: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name',
+      groupSortBy: (a, b) => {
+        const valueA = (isListDataSourceGroupItem(a) ? a.label : a.group?.label) ?? '',
+          valueB = (isListDataSourceGroupItem(b) ? b.label : b.group?.label) ?? '';
+
+        if (valueA === valueB) {
+          return 0;
+        } else if (valueA.startsWith('Koninklijk')) {
+          return -1;
+        } else if (valueB.startsWith('Koninklijk')) {
+          return 1;
+        } else {
+          return valueA?.localeCompare(valueB);
+        }
+      }
+    });
+
+    return html`
+      <p>
+        This example shows how a custom sort function is used to place "Koninklijk Atheneum" above all other
+        (alphabetically) sorted schools. Within the groups, students are sorted by their name using the regular sort
+        header.
+      </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-sort-column
           direction="asc"

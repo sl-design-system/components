@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "number-field",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Number Field",
+      "selector": "sl-number-field"
+    }
+  ]
+}

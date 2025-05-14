@@ -17,6 +17,10 @@ export async function getCountries(count = Infinity) {
   return await getDataset('countries.json', count);
 }
 
+export async function getSchools(options) {
+  return await getDataset('schools.json', options?.count);
+}
+
 export async function getStudents(options) {
   if (!studentImages) {
     // Load student-specific images
@@ -38,6 +42,7 @@ export async function getStudents(options) {
 
     return {
       ...studentWithoutExcludedProps,
+      fullName: [student.firstName, student.infix, student.lastName].join(' '),
       group: groups.find(group => group.id === student.groupId),
       pictureUrl: studentImages[avatarId]?.image,
       school: schools.find(school => school.id === schoolId)

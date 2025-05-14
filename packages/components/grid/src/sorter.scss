@@ -1,21 +1,15 @@
 :host {
-  --_direction-color: var(--sl-color-foreground-disabled);
-  --_gap: 0.5rem;
-
-  cursor: pointer;
-  display: inline-flex;
-  gap: var(--_gap);
-}
-
-:host([direction]) {
-  --_direction-color: var(--sl-color-foreground-plain);
-}
-
-.direction {
   align-items: center;
-  display: inline-flex;
+  display: flex;
+  flex: 1;
+  gap: var(--sl-size-100);
+  padding: var(--sl-size-150);
 }
 
-sl-icon {
-  color: var(--_direction-color);
+slot {
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+}
+
+sl-button {
+  margin-inline-start: auto;
 }

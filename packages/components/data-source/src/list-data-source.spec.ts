@@ -34,7 +34,12 @@ describe('ListDataSource', () => {
   it('should group by after setting one', () => {
     ds.setGroupBy('profession');
 
-    expect(ds.groupBy).to.deep.equal({ path: 'profession', sorter: undefined, direction: undefined });
+    expect(ds.groupBy).to.deep.equal({
+      path: 'profession',
+      sorter: undefined,
+      direction: undefined,
+      labelPath: undefined
+    });
   });
 
   it('should not group by after removing it', () => {

@@ -32,12 +32,12 @@ Here's an overview of the common keyboard interactions associated with a text ar
 
 <div class="ds-table-wrapper">
 
-|Attribute | Value | Description |
+|Attribute | Value | Description                                                                                                                                                                                                             |
 |-|-|-|
-|`aria-label`|string|It is used to define a string that labels the action that will be performed when the user interacts with the text area. Needs to be added when the text area is not wrapped with `sl-form-field` and there is no `sl-label`.|
-|`aria-labelledby`|string|Used to connect with single header/element that describes the text area, when there is no label component connected to.|
-|`aria-required`|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required.|
-|`aria-disabled`|boolean|Announces the text area component as disabled with a screen reader. See [Note 1] below.|yes|
+|`aria-label`|string| Defines a string that tells the user what information they need to enter in this text area. Needs to be added when the text area is not wrapped with `sl-form-field` and there is no `sl-label`.                        |
+|`aria-labelledby`|string| Used to connect with single header/element that describes the text area, when there is no label component connected to.                                                                                                 |
+|`aria-required`|boolean| Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. If there is already a `required` attribute added, it is recommended to avoid adding `aria-required`. |
+|`aria-disabled`|boolean| Announces the text area component as disabled with a screen reader. See [Note 1] below.                                                                                                                                 |yes|
 
 {.ds-table .ds-table-align-top}
 

@@ -74,11 +74,11 @@
 }
 
 :host([no-label]) {
-  .outer {
+  [part='outer'] {
     padding-inline-start: var(--_padding-inline);
   }
 
-  .label {
+  [part='label'] {
     display: none;
   }
 }

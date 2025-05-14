@@ -1,7 +1,7 @@
-import { addons, type API, type LeafEntry, type HashEntry } from '@storybook/manager-api';
-import { styled } from '@storybook/theming';
-import slTheme from './sl-theme'
 import { Fragment, createElement } from 'react';
+import { addons, type API, type LeafEntry, type HashEntry } from 'storybook/manager-api';
+import { styled } from 'storybook/theming';
+import slTheme from './sl-theme'
 
 const Status = styled.span(({ theme }) => ({
   borderRadius: 2,

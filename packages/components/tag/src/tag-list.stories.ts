@@ -37,6 +37,11 @@ export default {
       );
 
     return html`
+      <style>
+        #storybook-root {
+          max-width: calc(100vw - 2rem);
+        }
+      </style>
       <sl-tag-list size=${ifDefined(size)} ?stacked=${stacked} variant=${ifDefined(variant)}>${tags()}</sl-tag-list>
     `;
   }

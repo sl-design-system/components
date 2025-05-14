@@ -218,9 +218,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       })
       .join(' ');
 
-    requestAnimationFrame(() => {
-      announce(`${this.#content}`, this.variant === 'danger' ? 'assertive' : 'polite');
-    });
+    announce(`${this.#content}`, this.variant === 'danger' ? 'assertive' : 'polite');
   }
 
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -241,8 +239,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       )
       .join(' ');
 
-    requestAnimationFrame(() => {
-      announce(`${this.#title}`, this.variant === 'danger' ? 'assertive' : 'polite');
-    });
+    announce(`${this.#title}`, this.variant === 'danger' ? 'assertive' : 'polite');
   }
 }

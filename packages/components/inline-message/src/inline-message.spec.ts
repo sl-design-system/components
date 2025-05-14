@@ -1,7 +1,8 @@
 import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
+import { type SlAnnounceEvent } from '@sl-design-system/announcer';
 import { html } from 'lit';
-import { spy } from 'sinon';
+import { type SinonSpy, spy } from 'sinon';
 import '../register.js';
 import { InlineMessage } from './inline-message.js';
 
@@ -145,6 +146,40 @@ describe('sl-inline-message', () => {
 
     it('should have the no-title attribute set', () => {
       expect(el).to.have.attribute('no-title');
+    });
+  });
+
+  describe('announcements', () => {
+    let announce: SinonSpy;
+
+    beforeEach(async () => {
+      announce = spy();
+      document.body.addEventListener('sl-announce', announce);
+
+      el = await fixture(html`
+        <sl-inline-message>
+          <span slot="title">Title</span>
+          Inline message
+        </sl-inline-message>
+      `);
+    });
+
+    afterEach(() => document.body.removeEventListener('sl-announce', announce));
+
+    it('should announce title and content', async () => {
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(announce).to.have.been.calledTwice;
+
+      const event = announce.lastCall.firstArg as SlAnnounceEvent;
+      expect(event.detail.urgency).to.equal('polite');
+
+      const announcements = announce.args as Array<[SlAnnounceEvent]>;
+
+      expect(announcements.map(elem => elem[0].detail)).to.deep.equal([
+        { message: 'Title', urgency: 'polite' },
+        { message: ' Inline message', urgency: 'polite' }
+      ]);
     });
   });
 });

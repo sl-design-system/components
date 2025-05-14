@@ -44,11 +44,20 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Timeout id, to be used with `clearTimeout`. */
+  #announceTimeoutId?: ReturnType<typeof setTimeout>;
+
   /** Timer used for breaking a possible resize observer loop. */
   #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
 
   /** @internal Body content that will be sent to the announcer. */
   #content?: string;
+
+  /** The last announced content, used to prevent duplicate announcements. */
+  #lastAnnouncedContent?: string;
+
+  /** The last announced title, used to prevent duplicate announcements. */
+  #lastAnnouncedTitle?: string;
 
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
@@ -132,6 +141,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     if (this.#breakResizeObserverLoop) {
       clearTimeout(this.#breakResizeObserverLoop);
       this.#breakResizeObserverLoop = undefined;
+    }
+
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+      this.#announceTimeoutId = undefined;
     }
 
     super.disconnectedCallback();
@@ -218,7 +232,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       })
       .join(' ');
 
-    announce(`${this.#content}`, this.variant === 'danger' ? 'assertive' : 'polite');
+    this.#announce();
   }
 
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
@@ -239,6 +253,26 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       )
       .join(' ');
 
-    announce(`${this.#title}`, this.variant === 'danger' ? 'assertive' : 'polite');
+    this.#announce();
+  }
+
+  // Announce if needed, we don't want to have the same message announced twice
+  #announce(): void {
+    // Clear any pending announcement
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+    }
+
+    // Set a short timeout to debounce multiple calls, announce only when content actually changed
+    this.#announceTimeoutId = setTimeout(() => {
+      if (this.#content !== this.#lastAnnouncedContent || this.#title !== this.#lastAnnouncedTitle) {
+        this.#lastAnnouncedContent = this.#content;
+        this.#lastAnnouncedTitle = this.#title;
+
+        announce(`${this.#title ?? ''} ${this.#content ?? ''}`, this.variant === 'danger' ? 'assertive' : 'polite');
+      }
+
+      this.#announceTimeoutId = undefined;
+    }, 50);
   }
 }

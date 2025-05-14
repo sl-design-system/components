@@ -190,59 +190,97 @@ describe('ArrayListDataSource', () => {
   });
 
   describe('grouping', () => {
-    beforeEach(() => {
-      ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+    describe('basic', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { groupBy: 'profession' });
+      });
+
+      it('should group by path', () => {
+        expect(ds.groupBy).to.equal('profession');
+      });
+
+      it('should not have an increased size when grouping', () => {
+        expect(ds.size).to.equal(people.length);
+      });
+
+      it('should have an increased length to account for the group items', () => {
+        expect(ds.items.length).to.equal(people.length + 4);
+      });
+
+      it('should have group items at the start of each group', () => {
+        const types = ds.items.map(({ type }) => type);
+
+        expect(types).to.deep.equal(['group', 'data', 'group', 'data', 'data', 'group', 'data', 'group', 'data']);
+      });
+
+      it('should have expanded groups by default', () => {
+        const groups = ds.items.filter(item => isListDataSourceGroupItem(item));
+
+        expect(groups.every(({ id }) => !ds.isGroupCollapsed(id))).to.be.true;
+      });
+
+      it('should hide the group members when the group is collapsed', () => {
+        const group = ds.items.filter(item => isListDataSourceGroupItem(item)).at(0)!;
+
+        ds.collapseGroup(group.id);
+        ds.update();
+
+        const types = ds.items.map(({ type }) => type);
+
+        expect(types).to.deep.equal(['group', 'group', 'data', 'data', 'group', 'data', 'group', 'data']);
+      });
     });
 
-    it('should group by path', () => {
-      expect(ds.groupBy).to.equal('profession');
+    describe('sorting', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { groupBy: 'profession', groupSortDirection: 'desc' });
+      });
+
+      it('should sort the groups in a descending direction', () => {
+        const groupLabels = ds.items.filter(item => isListDataSourceGroupItem(item)).map(({ label }) => label);
+
+        expect(groupLabels).to.deep.equal(['Ophthalmologist', 'Nephrologist', 'Gastroenterologist', 'Endocrinologist']);
+      });
     });
 
-    it('should not have an increased size when grouping', () => {
-      expect(ds.size).to.equal(people.length);
-    });
+    describe('explicit groups', () => {});
 
-    it('should have an increased length to account for the group items', () => {
-      expect(ds.items.length).to.equal(people.length + 4);
-    });
-
-    it('should have group items at the start of each group', () => {});
+    describe('with a label path', () => {});
   });
 
   describe('pagination', () => {
     beforeEach(() => {
-      ds = new ArrayListDataSource(people, { pagination: true });
-      ds.setPage(1);
-      ds.setPageSize(3);
-      ds.update();
+      ds = new ArrayListDataSource(people, { pagination: true, page: 1, pageSize: 3 });
     });
 
     it('should paginate people', () => {
-      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).data.firstName)).to.deep.equal([
-        'Ann',
-        'Bob'
-      ]);
+      const firstNames = ds.items
+        .filter(item => isListDataSourceDataItem(item))
+        .map(({ data: { firstName } }) => firstName);
+
+      expect(firstNames).to.deep.equal(['Ann', 'Bob']);
     });
 
     it('should update pagination after changing the page', () => {
       ds.setPage(0);
       ds.update();
 
-      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).data.firstName)).to.deep.equal([
-        'Ann',
-        'John',
-        'Jane'
-      ]);
+      const firstNames = ds.items
+        .filter(item => isListDataSourceDataItem(item))
+        .map(({ data: { firstName } }) => firstName);
+
+      expect(firstNames).to.deep.equal(['Ann', 'John', 'Jane']);
     });
 
     it('should update pagination after changing the page size', () => {
       ds.setPageSize(2);
       ds.update();
 
-      expect(ds.items.map(item => (item as ListDataSourceDataItem<Person>).data.firstName)).to.deep.equal([
-        'Jane',
-        'Ann'
-      ]);
+      const firstNames = ds.items
+        .filter(item => isListDataSourceDataItem(item))
+        .map(({ data: { firstName } }) => firstName);
+
+      expect(firstNames).to.deep.equal(['Jane', 'Ann']);
     });
   });
 

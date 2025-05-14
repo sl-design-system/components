@@ -91,6 +91,10 @@ class TestListDataSource extends ListDataSource<Person> {
     console.log('toggle group', id);
   }
 
+  override isGroupCollapsed(_id: unknown): boolean {
+    return false;
+  }
+
   override update(): void {
     // empty
   }

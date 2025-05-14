@@ -74,8 +74,20 @@ export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
   /** The path to the group label. */
   groupLabelPath?: PathKeys<T>;
 
+  /** A function for sorting the groups within the data source. */
+  groupSortBy?: DataSourceSortFunction<ListDataSourceGroupItem<T>>;
+
+  /** The direction the groups should be sorted in. */
+  groupSortDirection?: DataSourceSortDirection;
+
   /** Whether this data source supports pagination. */
   pagination?: boolean;
+
+  /** The number of the current page. */
+  page?: number;
+
+  /** The size of the pages within the data source. */
+  pageSize?: number;
 
   /** Indicates the selection type for the data source. */
   selects?: 'single' | 'multiple';
@@ -121,6 +133,9 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    */
   #groupSelection: Set<unknown> = new Set();
 
+  /** The sort configuration for the groups. */
+  #groupSort?: DataSourceSort<ListDataSourceGroupItem<T>>;
+
   /** The index of the page. */
   #page = 0;
 
@@ -155,6 +170,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   get groupLabelPath() {
     return this.#groupLabelPath;
+  }
+
+  get groupSort() {
+    return this.#groupSort;
   }
 
   get page(): number {
@@ -210,7 +229,17 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     this.#groupBy = options.groupBy;
     this.#groupLabelPath = options.groupLabelPath;
+
+    if (options.groupSortBy || options.groupSortDirection) {
+      this.#groupSort = {
+        by: options.groupSortBy,
+        direction: options.groupSortDirection ?? 'asc'
+      };
+    }
+
     this.#pagination = options.pagination ?? false;
+    this.#page = options.page ?? 0;
+    this.#pageSize = options.pageSize ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
     this.#selects = options.selects;
 
     if (options.sortBy) {
@@ -441,6 +470,12 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * @param force - If true, the group will be expanded. If false, it will be collapsed.
    */
   abstract toggleGroup(id: unknown, force?: boolean): void;
+
+  /**
+   * Returns whether the group with the given id is collapsed.
+   * @param id  - The id of the group to check
+   */
+  abstract isGroupCollapsed(id: unknown): boolean;
 
   /**
    * Reorder the item in the data source.

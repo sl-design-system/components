@@ -125,6 +125,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
     console.log('toggle group', id);
   }
 
+  override isGroupCollapsed(_id: unknown): boolean {
+    return false;
+  }
+
   update(emitEvent = true): void {
     let length = this.totalSize;
 

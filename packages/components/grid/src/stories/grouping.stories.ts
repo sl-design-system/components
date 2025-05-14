@@ -74,20 +74,20 @@ export const Collapsed: Story = {
   }
 };
 
-export const Selection: Story = {
+export const Sorted: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
     const dataSource = new ArrayListDataSource(students as Student[], {
       groupBy: 'school.id',
       groupLabelPath: 'school.name',
-      selects: 'multiple'
+      groupSortDirection: 'desc'
     });
 
     return html`
-      <p>This example shows how you combine grouping with selection.</p>
+      <p>This example shows the basics of grouping. Students are sorted by name and grouped by school.</p>
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-sort-column
+          direction="asc"
           header="Student"
           path="fullName"
           .renderer=${avatarRenderer}
@@ -112,6 +112,32 @@ export const DragAndDrop: Story = {
       <p>This example shows how you combine grouping with drag and drop.</p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-sort-column
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const Selection: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], {
+      groupBy: 'school.id',
+      groupLabelPath: 'school.name',
+      selects: 'multiple'
+    });
+
+    return html`
+      <p>This example shows how you combine grouping with selection.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-sort-column
           header="Student"
           path="fullName"

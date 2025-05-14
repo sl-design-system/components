@@ -93,6 +93,10 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     }
   }
 
+  override isGroupCollapsed(id: unknown): boolean {
+    return this.#groups?.get(id)?.collapsed ?? false;
+  }
+
   update(emitEvent = true): void {
     let items = this.#mappedItems.map(item => ({ ...item, selected: this.isSelected(item) }));
 
@@ -247,6 +251,19 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
             item.selected = 'none';
           }
         });
+
+      if (this.groupSort) {
+        grouped.sort((a, b) => {
+          const valueA = isListDataSourceGroupItem(a)
+              ? (a.label ?? String(a.id))
+              : (a.group?.label ?? String(a.group?.id)),
+            valueB = isListDataSourceGroupItem(b) ? (b.label ?? String(b.id)) : (b.group?.label ?? String(b.group?.id));
+
+          const result = valueA.localeCompare(valueB);
+
+          return this.groupSort?.direction === 'desc' ? -result : result;
+        });
+      }
 
       viewItems = grouped;
     }

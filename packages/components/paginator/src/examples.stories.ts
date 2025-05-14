@@ -129,8 +129,8 @@ export const DataSource: Story = {
                 ${this.dataSource?.items.map(
                   item => html`
                     <sl-card responsive padding>
-                      <h2>Card ${(item as ListDataSourceDataItem<ExampleCard>).item.nr}</h2>
-                      <div slot="body">${(item as ListDataSourceDataItem<ExampleCard>).item.title}</div>
+                      <h2>Card ${(item as ListDataSourceDataItem<ExampleCard>).data.nr}</h2>
+                      <div slot="body">${(item as ListDataSourceDataItem<ExampleCard>).data.title}</div>
                     </sl-card>
                   `
                 )}

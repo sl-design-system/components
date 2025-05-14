@@ -198,8 +198,8 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
   #mapToItem(item: T): ListDataSourceItem<T> {
     return {
       id: this.#mapping.getId!(item),
-      item,
-      type: 'item'
+      data: item,
+      type: 'data'
     };
   }
 
@@ -235,6 +235,6 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
       })();
     }
 
-    return (this.#items[n] = { id: ListDataSourcePlaceholder, type: 'item' } as ListDataSourceItem<T>);
+    return (this.#items[n] = { id: ListDataSourcePlaceholder, type: 'data' } as ListDataSourceItem<T>);
   }
 }

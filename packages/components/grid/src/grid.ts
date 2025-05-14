@@ -498,7 +498,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
-        ...(this.itemParts?.(item.item)?.split(' ') || [])
+        ...(this.itemParts?.(item.data)?.split(' ') || [])
         // ...(this.view.isFixedItem(item) ? ['fixed'] : [])
       ];
 
@@ -624,7 +624,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.dataSource?.toggle(item);
     } else {
       this.activeItem = item;
-      this.activeItemChangeEvent.emit({ grid: this, item: item.item, relatedEvent: event });
+      this.activeItemChangeEvent.emit({ grid: this, item: item.data, relatedEvent: event });
     }
   }
 
@@ -667,8 +667,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // This is necessary for the dragged item to appear correctly in Safari
     event.dataTransfer!.setDragImage(row, event.clientX - rowRect.left, event.clientY - rowRect.top);
 
-    this.#dragItem = item.item;
-    this.#itemBeforeDragItem = this.view.rows.at(this.view.rows.indexOf(item.item) - 1);
+    this.#dragItem = item.data;
+    this.#itemBeforeDragItem = this.view.rows.at(this.view.rows.indexOf(item.data) - 1);
 
     // Update styles in the next frame, after the drag image has been created
     requestAnimationFrame(() => {
@@ -683,11 +683,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.view.refresh();
     });
 
-    this.dragStartEvent.emit({ grid: this, item: item.item });
+    this.dragStartEvent.emit({ grid: this, item: item.data });
   }
 
   #onDragEnter(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
-    if (this.#dragItem === item || this.view.isFixedItem(item.item)) {
+    if (this.#dragItem === item || this.view.isFixedItem(item.data)) {
       return;
     }
   }
@@ -715,14 +715,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         const { top, height } = row.getBoundingClientRect();
 
         // If the cursor is in the top half of the row, make this row the drop target
-        this.view.reorderItem(this.#dragItem!, item.item, event.clientY < top + height / 2 ? 'before' : 'after');
+        this.view.reorderItem(this.#dragItem!, item.data, event.clientY < top + height / 2 ? 'before' : 'after');
 
         this.requestUpdate('view');
       } else if (
         draggableRows === 'on-top' ||
         (draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
       ) {
-        if (dropFilter?.(item.item)) {
+        if (dropFilter?.(item.data)) {
           row?.classList.add('drop-target');
         }
       }
@@ -745,7 +745,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Force rerender
     requestAnimationFrame(() => this.view.refresh());
 
-    this.dragEndEvent.emit({ grid: this, item: item.item });
+    this.dragEndEvent.emit({ grid: this, item: item.data });
   }
 
   #onDrop(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
@@ -764,7 +764,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       cancelled = !this.dropEvent.emit({
         grid: this,
         item: this.#dragItem!,
-        relativeItem: item.item,
+        relativeItem: item.data,
         position: 'on-top'
       });
 
@@ -894,12 +894,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       if (col instanceof GridFilterColumn) {
         const { value } = this.dataSource?.filters.get(col.id) || {};
         if (value) {
-          col.value = value.toString();
+          // eslint-disable-next-line @typescript-eslint/no-base-to-string
+          col.value = String(value);
         }
-      } else if (col instanceof GridSortColumn) {
-        const { id, direction } = this.dataSource?.sort || {};
-        if (id === col.id) {
-          col.direction = direction;
+      } else if (col instanceof GridSortColumn && this.dataSource?.sort) {
+        const sort = this.dataSource.sort;
+
+        if ('path' in sort && sort.path === col.path) {
+          col.direction = sort.direction;
+        } else if ('sorter' in sort && sort.sorter === col.sorter) {
+          col.direction = sort.direction;
         }
       }
     });
@@ -980,17 +984,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #applySorters(update = false): void {
-    const { id } = this.dataSource?.sort ?? {},
-      sorter = this.#sorters.find(sorter => !!sorter.direction);
+    const sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter && (sorter.sorter || sorter.path)) {
-      this.dataSource?.setSort(sorter.column.id, sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
-    } else if (id && this.#sorters.find(s => s.column.id === id)) {
-      this.dataSource?.removeSort();
-    } else if (sorter) {
-      console.warn(
-        `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
-      );
+      this.dataSource?.setSort(sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
+    } else {
+      if (sorter) {
+        console.warn(
+          `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
+        );
+      }
 
       this.dataSource?.removeSort();
     }

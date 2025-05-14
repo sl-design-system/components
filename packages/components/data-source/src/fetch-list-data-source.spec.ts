@@ -1,11 +1,11 @@
 import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
-import { type Person, people } from './data-source.spec.js';
 import {
   FetchListDataSource,
   type FetchListDataSourceCallbackOptions,
   FetchListDataSourcePlaceholder
 } from './fetch-list-data-source.js';
+import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
@@ -157,11 +157,11 @@ describe('FetchListDataSource', () => {
       it('should provide sort options when fetching a page', () => {
         spy(ds, 'fetchPage');
 
-        ds.setSort('id', 'firstName', 'desc');
+        ds.setSort('firstName', 'desc');
         ds.items.at(0);
 
         expect(ds.fetchPage).to.have.been.calledOnce;
-        expect(ds.fetchPage).to.have.been.calledWithMatch({ sort: { id: 'id', path: 'firstName', direction: 'desc' } });
+        expect(ds.fetchPage).to.have.been.calledWithMatch({ sort: { path: 'firstName', direction: 'desc' } });
       });
 
       it('should emit an update event after fetching a page', async () => {

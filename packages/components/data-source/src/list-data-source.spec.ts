@@ -1,6 +1,64 @@
 import { expect } from '@open-wc/testing';
-import { type Person, people } from './data-source.spec.js';
 import { ListDataSource } from './list-data-source.js';
+
+// eslint-disable-next-line mocha/no-exports
+export type Person = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  pictureUrl?: string | null;
+  profession: string;
+  status: string;
+  membership: string;
+};
+
+// eslint-disable-next-line mocha/no-exports
+export const people: Person[] = [
+  {
+    id: 1,
+    firstName: 'Ann',
+    lastName: 'Smith',
+    pictureUrl: '',
+    profession: 'Endocrinologist',
+    status: 'Available',
+    membership: 'Regular'
+  },
+  {
+    id: 211,
+    firstName: 'John',
+    lastName: 'Doe',
+    pictureUrl: null,
+    profession: 'Nephrologist',
+    status: 'Busy',
+    membership: 'Premium'
+  },
+  {
+    id: 201,
+    firstName: 'Jane',
+    lastName: 'Doe',
+    pictureUrl: '  ',
+    profession: 'Ophthalmologist',
+    status: 'Available',
+    membership: 'Regular'
+  },
+  {
+    id: 3,
+    firstName: 'Ann',
+    lastName: 'Johnson',
+    profession: 'Gastroenterologist',
+    status: 'Busy',
+    membership: 'VIP'
+  },
+  {
+    id: 32,
+    firstName: 'Bob',
+    lastName: 'Smith',
+    pictureUrl: 'https://example.com',
+    profession: 'Gastroenterologist',
+    status: 'Busy',
+    membership: 'Premium'
+  }
+];
 
 class TestListDataSource extends ListDataSource<Person> {
   override get items() {

@@ -97,8 +97,8 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
 
       // No options were provided, so we'll create a list of options based on the column's values
       this.internalOptions = dataSource?.unfilteredItems
-        ?.filter(item => item.type === 'item')
-        ?.reduce((acc, { item }) => {
+        ?.filter(item => item.type === 'data')
+        ?.reduce((acc, { data: item }) => {
           let value = getValueByPath(item, this.path!),
             label = (this.labelPath ? getStringByPath(item, this.labelPath) : String(value)) ?? '';
 

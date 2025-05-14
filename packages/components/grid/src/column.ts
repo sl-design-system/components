@@ -212,9 +212,9 @@ export class GridColumn<T = any> extends LitElement {
    * methods for that.
    */
   renderData(item: ListDataSourceDataItem<T>): TemplateResult {
-    const classes = this.getClasses(item.item),
-      data = this.getDisplayValue(item.item),
-      parts = ['data', ...this.getParts(item.item)];
+    const classes = this.getClasses(item.data),
+      data = this.getDisplayValue(item.data),
+      parts = ['data', ...this.getParts(item.data)];
 
     if (this.ellipsizeText && typeof data === 'string') {
       return html`

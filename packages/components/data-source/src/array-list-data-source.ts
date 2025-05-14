@@ -1,9 +1,5 @@
 import { type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
-import {
-  type DataSourceFilterByFunction,
-  type DataSourceFilterByPath,
-  type DataSourceSortFunction
-} from './data-source.js';
+import { type DataSourceFilterFunction, type DataSourceSortFunction } from './data-source.js';
 import {
   ListDataSource,
   type ListDataSourceDataItem,
@@ -66,11 +62,11 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     }
 
     this.#mappedItems = items.map(item => ({
+      id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
       groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),
-      id: options.getId?.(item) ?? item,
-      item,
-      selected: options.isSelected?.(item),
-      type: 'item'
+      type: 'data',
+      data: item,
+      selected: options.isSelected?.(item)
     }));
 
     this.update(false);
@@ -104,23 +100,26 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       const filters = Array.from(this.filters.values());
 
       const pathFilters = filters
-        .filter((f): f is DataSourceFilterByPath<T> => 'path' in f && !!f.path)
+        .filter(f => typeof f.by === 'string')
         .reduce(
-          (acc, { path, value }) => {
+          (acc, { by, value }) => {
+            const path = by as PathKeys<T>;
+
             if (!acc[path]) {
               acc[path] = [];
             }
+
             if (Array.isArray(value)) {
-              acc[path].push(...value);
+              acc[path].push(...(value as unknown[]));
             } else {
               acc[path].push(value);
             }
             return acc;
           },
-          {} as Record<PathKeys<T>, string[]>
+          {} as Record<PathKeys<T>, unknown[]>
         );
 
-      for (const [path, values] of Object.entries<string[]>(pathFilters)) {
+      for (const [path, values] of Object.entries<unknown[]>(pathFilters)) {
         /**
          * Convert the value to a string and trim it, so we can match
          * an empty string to:
@@ -130,7 +129,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
          * - undefined
          */
         items = items.filter(
-          ({ item }) =>
+          ({ data: item }) =>
             item &&
             values.includes(
               getValueByPath(item, path as PathKeys<T>)
@@ -141,17 +140,19 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       }
 
       filters
-        .filter((f): f is DataSourceFilterByFunction<T> => 'filter' in f && !!f.filter)
-        .forEach(f => {
-          items = items.filter(({ item }) => item && f.filter(item, f.value));
+        .filter(f => typeof f.by === 'function')
+        .forEach(({ by, value }) => {
+          items = items.filter(({ data: item }) => item && (by as DataSourceFilterFunction<T>)(item, value));
         });
     }
 
     if (this.sort) {
       let sortFn: DataSourceSortFunction<T>;
 
-      if ('path' in this.sort && this.sort.path) {
-        const path = this.sort.path;
+      if (typeof this.sort.by === 'function') {
+        sortFn = this.sort.by;
+      } else {
+        const path = this.sort.by as PathKeys<T>;
 
         sortFn = (a: T, b: T): number => {
           const valueA = getStringByPath(a, path),
@@ -170,11 +171,9 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
               ? -1
               : 1;
         };
-      } else if ('sorter' in this.sort && this.sort.sorter) {
-        sortFn = this.sort.sorter;
       }
 
-      items.sort(({ item: a }, { item: b }) => {
+      items.sort(({ data: a }, { data: b }) => {
         const result = sortFn(a, b);
 
         return this.sort?.direction === 'asc' ? result : -result;
@@ -185,11 +184,11 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
 
     // From here on out, we are only doing purely visual operations,
     // such as adding group items and pagination.
-    const groupedItems = [...items];
-
-    let viewItems: Array<ListDataSourceItem<T>> = [];
+    let viewItems: Array<ListDataSourceItem<T>> = [...items];
 
     if (this.groupBy) {
+      const groupedItems = [...items];
+
       this.#groups ??= this.#determineGroups();
 
       // Sort by group label
@@ -276,7 +275,7 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
       if (!groups.has(group)) {
         let label = groupLabels.get(group);
         if (!label) {
-          label = this.groupLabelPath ? getStringByPath(item.item, this.groupLabelPath) : String(group);
+          label = this.groupLabelPath ? getStringByPath(item.data, this.groupLabelPath) : String(group);
           groupLabels.set(group, label);
         }
 

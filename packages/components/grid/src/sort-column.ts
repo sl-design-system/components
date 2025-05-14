@@ -55,11 +55,13 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
   override stateChanged(): void {
     super.stateChanged();
 
+    this.direction = undefined;
+
     const sort = this.grid?.dataSource?.sort;
-    if (sort?.id === this.id) {
+    if (sort && 'path' in sort && sort.path === this.path) {
       this.direction = sort.direction;
-    } else {
-      this.direction = undefined;
+    } else if (sort && 'sorter' in sort && sort.sorter === this.sorter) {
+      this.direction = sort.direction;
     }
 
     if (!this.direction) {

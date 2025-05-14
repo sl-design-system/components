@@ -1,7 +1,14 @@
 import { type PathKeys } from '@sl-design-system/shared';
-import { DataSource, type DataSourceSortDirection, type DataSourceSortFunction } from './data-source.js';
+import {
+  DataSource,
+  type DataSourceFilter,
+  type DataSourceFilterFunction,
+  type DataSourceSort,
+  type DataSourceSortDirection,
+  type DataSourceSortFunction
+} from './data-source.js';
 
-export type ListDataSourceItemType = 'group' | 'item';
+export type ListDataSourceItemType = 'data' | 'group';
 
 export interface ListDataSourceItemBase {
   id: unknown;
@@ -20,8 +27,8 @@ export interface ListDataSourceGroupItem<T = any> extends ListDataSourceItemBase
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ListDataSourceDataItem<T = any> extends ListDataSourceItemBase {
-  type: 'item';
-  item: T;
+  type: 'data';
+  data: T;
   group?: ListDataSourceGroupItem<T>;
   groupId?: unknown;
   selected?: boolean;
@@ -72,6 +79,12 @@ export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
 
   /** Indicates the selection type for the data source. */
   selects?: 'single' | 'multiple';
+
+  /** A path to the property used for sorting the items, or a custom sorting function. */
+  sortBy?: PathKeys<T> | DataSourceSortFunction<T>;
+
+  /** The direction the list should be sorted in. */
+  sortDirection?: DataSourceSortDirection;
 }
 
 /** The default page size, if not explicitly set. */
@@ -80,18 +93,21 @@ export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
 /** Symbol used as a placeholder for items that are being loaded. */
 export const ListDataSourcePlaceholder = Symbol('ListDataSourcePlaceholder');
 
+/** Use this for narrowing ListDataSourceItem type to ListDataSourceDataItem. */
+export function isListDataSourceDataItem<T>(item?: ListDataSourceItemBase): item is ListDataSourceDataItem<T> {
+  return item?.type === 'data';
+}
+
 /** Use this for narrowing ListDataSourceItem type to ListDataSourceGroupItem. */
 export function isListDataSourceGroupItem<T>(item?: ListDataSourceItemBase): item is ListDataSourceGroupItem<T> {
   return item?.type === 'group';
 }
 
-/** Use this for narrowing ListDataSourceItem type to ListDataSourceDataItem. */
-export function isListDataSourceDataItem<T>(item?: ListDataSourceItemBase): item is ListDataSourceDataItem<T> {
-  return item?.type === 'item';
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends DataSource<T, U> {
+  /** Map of all active filters. */
+  #filters: Map<string, DataSourceFilter<T>> = new Map();
+
   /** The path to the group by attribute. */
   #groupBy?: PathKeys<T>;
 
@@ -115,6 +131,16 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /** Indicates the selection type for the data source. */
   #selects?: 'single' | 'multiple';
+
+  /**
+   * The value and path/function to use for sorting. When setting this property,
+   * it will cause the data to be automatically sorted.
+   */
+  #sort?: DataSourceSort<T>;
+
+  get filters() {
+    return this.#filters;
+  }
 
   get groupBy() {
     return this.#groupBy;
@@ -162,6 +188,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     return this.#selects;
   }
 
+  get sort() {
+    return this.#sort;
+  }
+
   /** The total number of (unfiltered) items in the data source. */
   abstract readonly totalSize: number;
 
@@ -175,6 +205,18 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     this.#groupLabelPath = options.groupLabelPath;
     this.#pagination = options.pagination ?? false;
     this.#selects = options.selects;
+
+    if (options.sortBy) {
+      this.#sort = { by: options.sortBy, direction: options.sortDirection ?? 'asc' };
+    }
+  }
+
+  addFilter(id: string, by: PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
+    this.#filters.set(id, { id, by, value } as DataSourceFilter<T>);
+  }
+
+  removeFilter(id: string): void {
+    this.#filters.delete(id);
   }
 
   /**
@@ -209,22 +251,18 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     this.#pageSize = pageSize;
   }
 
-  override setSort<U extends PathKeys<T> | DataSourceSortFunction<T>>(
-    id: string,
-    pathOrSorter: U,
-    direction: DataSourceSortDirection
-  ): void {
-    super.setSort(id, pathOrSorter, direction);
+  setSort(by: PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {
+    this.#sort = { by, direction };
 
-    if (this.#page) {
+    if (this.page) {
       this.setPage(0);
     }
   }
 
-  override removeSort(): void {
-    super.removeSort();
+  removeSort(): void {
+    this.#sort = undefined;
 
-    if (this.#page) {
+    if (this.page) {
       this.setPage(0);
     }
   }

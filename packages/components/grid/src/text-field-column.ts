@@ -23,8 +23,8 @@ export class GridTextFieldColumn<T = any> extends GridColumn<T> {
     return html`
       <td part="data text-field">
         <sl-text-field
-          @sl-change=${(event: SlChangeEvent<string>) => this.#onChange(event, item.item)}
-          .value=${getValueByPath(item.item, this.path!)}
+          @sl-change=${(event: SlChangeEvent<string>) => this.#onChange(event, item.data)}
+          .value=${getValueByPath(item.data, this.path!)}
         ></sl-text-field>
       </td>
     `;

@@ -29,8 +29,8 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
     return html`
       <td part="data select delegate-focus">
         <sl-select
-          @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item.item)}
-          .value=${getValueByPath(item.item, this.path!)}
+          @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item.data)}
+          .value=${getValueByPath(item.data, this.path!)}
         >
           ${this.options?.map(option =>
             typeof option === 'string'

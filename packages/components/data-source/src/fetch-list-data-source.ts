@@ -126,7 +126,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
   }
 
   update(emitEvent = true): void {
-    let length = this.size;
+    let length = this.totalSize;
 
     if (this.pagination) {
       const pageCount = Math.ceil(this.size / this.pageSize),

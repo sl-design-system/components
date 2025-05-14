@@ -58,7 +58,7 @@ export class GridSortColumn<T = any> extends GridColumn<T> {
     this.direction = undefined;
 
     const sort = this.grid?.dataSource?.sort;
-    if (sort && 'path' in sort && sort.path === this.path) {
+    if (sort && 'by' in sort && sort.by === this.path) {
       this.direction = sort.direction;
     } else if (sort && 'sorter' in sort && sort.sorter === this.sorter) {
       this.direction = sort.direction;

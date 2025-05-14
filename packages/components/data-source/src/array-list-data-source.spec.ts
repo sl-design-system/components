@@ -4,7 +4,8 @@ import { ArrayListDataSource } from './array-list-data-source.js';
 import {
   DATA_SOURCE_DEFAULT_PAGE_SIZE,
   type ListDataSourceDataItem,
-  isListDataSourceDataItem
+  isListDataSourceDataItem,
+  isListDataSourceGroupItem
 } from './list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';
 
@@ -247,20 +248,266 @@ describe('ArrayListDataSource', () => {
 
   describe('selection', () => {
     describe('none', () => {
-      it('should do nothing when calling select()', () => {});
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people);
+      });
 
-      it('should do nothing when calling deselect()', () => {});
+      it('should not have a selected any items', () => {
+        expect(ds.selection.size).to.equal(0);
+      });
 
-      it('should do nothing when calling toggle()', () => {});
+      it('should do nothing when calling select()', () => {
+        spy(ds.selection, 'add');
 
-      it('should always return false when calling isSelected()', () => {});
+        ds.select(ds.items.at(0)!);
+
+        expect(ds.selection.add).not.to.have.been.called;
+      });
+
+      it('should do nothing when calling deselect()', () => {
+        spy(ds.selection, 'delete');
+
+        ds.deselect(ds.items.at(0)!);
+
+        expect(ds.selection.delete).not.to.have.been.called;
+      });
+
+      it('should do nothing when calling toggle()', () => {
+        spy(ds.selection, 'add');
+        spy(ds.selection, 'delete');
+
+        ds.toggle(ds.items.at(0)!);
+
+        expect(ds.selection.add).not.to.have.been.called;
+        expect(ds.selection.delete).not.to.have.been.called;
+      });
+
+      it('should always return false when calling isSelected()', () => {
+        expect(ds.isSelected(ds.items.at(0))).to.be.false;
+      });
     });
 
-    describe('single', () => {});
+    describe('single select', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { selects: 'single' });
+      });
 
-    describe('multiple', () => {});
+      it('should have a selection mode', () => {
+        expect(ds.selects).to.equal('single');
+      });
 
-    describe('with groups', () => {});
+      it('should select an item', () => {
+        ds.select(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(1);
+        expect(ds.isSelected(ds.items.at(0))).to.be.true;
+      });
+
+      it('should deselect the previous item when calling select()', () => {
+        ds.select(ds.items.at(0)!);
+        ds.select(ds.items.at(1)!);
+
+        expect(ds.selection.size).to.equal(1);
+        expect(ds.isSelected(ds.items.at(0))).to.be.false;
+        expect(ds.isSelected(ds.items.at(1))).to.be.true;
+      });
+
+      it('should deselect an item', () => {
+        ds.select(ds.items.at(0)!);
+        ds.deselect(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(0);
+        expect(ds.isSelected(ds.items.at(0))).to.be.false;
+      });
+
+      it('should toggle an item', () => {
+        ds.toggle(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(1);
+        expect(ds.isSelected(ds.items.at(0))).to.be.true;
+
+        ds.toggle(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(0);
+        expect(ds.isSelected(ds.items.at(0))).to.be.false;
+      });
+    });
+
+    describe('multiple select', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { selects: 'multiple' });
+      });
+
+      it('should have a selection mode', () => {
+        expect(ds.selects).to.equal('multiple');
+      });
+
+      it('should select an item', () => {
+        ds.select(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(1);
+        expect(ds.isSelected(ds.items.at(0))).to.be.true;
+      });
+
+      it('should select multiple items when calling select()', () => {
+        ds.select(ds.items.at(0)!);
+        ds.select(ds.items.at(1)!);
+
+        expect(ds.selection.size).to.equal(2);
+        expect(ds.isSelected(ds.items.at(0))).to.be.true;
+        expect(ds.isSelected(ds.items.at(1))).to.be.true;
+      });
+
+      it('should deselect an item', () => {
+        ds.select(ds.items.at(0)!);
+        ds.deselect(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(0);
+        expect(ds.isSelected(ds.items.at(0))).to.be.false;
+      });
+
+      it('should toggle an item', () => {
+        ds.toggle(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(1);
+        expect(ds.isSelected(ds.items.at(0))).to.be.true;
+
+        ds.toggle(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(0);
+        expect(ds.isSelected(ds.items.at(0))).to.be.false;
+      });
+    });
+
+    describe('select all', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { selects: 'multiple' });
+      });
+
+      it('should toggle isSelectAllToggled() after calling selectAll()', () => {
+        expect(ds.isSelectAllToggled()).to.be.false;
+
+        ds.selectAll();
+
+        expect(ds.isSelectAllToggled()).to.be.true;
+      });
+
+      it('should toggle isSelectAllToggled() after calling deselectAll()', () => {
+        ds.selectAll();
+        expect(ds.isSelectAllToggled()).to.be.true;
+
+        ds.deselectAll();
+        expect(ds.isSelectAllToggled()).to.be.false;
+      });
+
+      it('should clear the selection when calling selectAll()', () => {
+        ds.select(ds.items.at(0)!);
+        ds.selectAll();
+
+        expect(ds.selection.size).to.equal(0);
+      });
+
+      it('should list all items as selected even though the selection is empty', () => {
+        ds.selectAll();
+        ds.update();
+
+        expect(ds.selection.size).to.equal(0);
+        expect(ds.items.filter(item => isListDataSourceDataItem(item)).every(({ selected }) => selected)).to.be.true;
+      });
+
+      it('should add a selection for every not selected item', () => {
+        ds.selectAll();
+        ds.deselect(ds.items.at(0)!);
+
+        expect(ds.selection.size).to.equal(1);
+        expect(ds.selection.has(ds.items.at(0)?.id)).to.be.true;
+        expect(ds.isSelected(ds.items.at(0))).to.be.false;
+      });
+
+      it('should return a boolean when calling areAllSelected()', () => {
+        expect(ds.areAllSelected()).to.be.false;
+
+        ds.selectAll();
+        expect(ds.areAllSelected()).to.be.true;
+
+        ds.deselect(ds.items.at(0)!);
+        expect(ds.areAllSelected()).to.be.false;
+      });
+
+      it('should return a boolean when calling areSomeSelected()', () => {
+        expect(ds.areSomeSelected()).to.be.false;
+
+        ds.selectAll();
+        expect(ds.areSomeSelected()).to.be.false;
+
+        ds.deselect(ds.items.at(0)!);
+        expect(ds.areSomeSelected()).to.be.true;
+      });
+    });
+
+    describe('group select', () => {
+      beforeEach(() => {
+        ds = new ArrayListDataSource(people, { selects: 'multiple', groupBy: 'profession' });
+      });
+
+      it('should select all items in a group when calling select() with the group', () => {
+        const group = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .find(({ id }) => id === 'Gastroenterologist')!;
+
+        ds.select(group);
+
+        expect(ds.selection.size).to.equal(2);
+        expect(ds.isSelected(group)).to.be.true;
+        expect(ds.isSelected(group.members?.at(0))).to.be.true;
+        expect(ds.isSelected(group.members?.at(1))).to.be.true;
+      });
+
+      it('should deselect all items in a group when calling deselect() with the group', () => {
+        const group = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .find(({ id }) => id === 'Gastroenterologist')!;
+
+        ds.select(group);
+        expect(ds.selection.size).to.equal(2);
+
+        ds.deselect(group);
+
+        expect(ds.selection.size).to.equal(0);
+        expect(ds.isSelected(group.members?.at(0))).to.be.false;
+        expect(ds.isSelected(group.members?.at(1))).to.be.false;
+      });
+
+      it('should deselect the group if an item in the group is deselected', () => {
+        const group = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .find(({ id }) => id === 'Gastroenterologist')!;
+
+        ds.select(group);
+        expect(ds.selection.size).to.equal(2);
+
+        ds.deselect(group.members!.at(0)!);
+
+        expect(ds.selection.size).to.equal(1);
+        expect(ds.isSelected(group)).to.be.false;
+        expect(ds.isSelected(group.members?.at(0))).to.be.false;
+        expect(ds.isSelected(group.members?.at(1))).to.be.true;
+      });
+
+      it('should select the group if all items in the group are selected', () => {
+        const group = ds.items
+          .filter(item => isListDataSourceGroupItem(item))
+          .find(({ id }) => id === 'Gastroenterologist')!;
+
+        ds.select(group.members!.at(0)!);
+        ds.select(group.members!.at(1)!);
+
+        expect(ds.selection.size).to.equal(2);
+        expect(ds.isSelected(group)).to.be.true;
+        expect(ds.isSelected(group.members?.at(0))).to.be.true;
+        expect(ds.isSelected(group.members?.at(1))).to.be.true;
+      });
+    });
   });
 
   describe('sorting', () => {

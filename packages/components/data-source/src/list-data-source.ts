@@ -114,6 +114,13 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   /** The path to the group label. */
   #groupLabelPath?: PathKeys<T>;
 
+  /**
+   * The set of selected groups in the data source. This selection
+   * is kept separate from the selection of items, so that they do not
+   * interfere with each other.
+   */
+  #groupSelection: Set<unknown> = new Set();
+
   /** The index of the page. */
   #page = 0;
 
@@ -276,13 +283,21 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
-      this.#selection.delete(item.id);
+      if (item.type === 'group') {
+        this.#groupSelection.delete(item.id);
+      } else {
+        this.#selection.delete(item.id);
+      }
     } else {
       if (this.#selects === 'single') {
         this.#selection.clear();
       }
 
-      this.#selection.add(item.id);
+      if (item.type === 'group') {
+        this.#groupSelection.add(item.id);
+      } else {
+        this.#selection.add(item.id);
+      }
     }
 
     if (updateGroupState) {
@@ -302,15 +317,23 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
-      this.#selection.add(item.id);
+      if (item.type === 'group') {
+        this.#groupSelection.add(item.id);
+      } else {
+        this.#selection.add(item.id);
+      }
     } else {
-      this.#selection.delete(item.id);
+      if (item.type === 'group') {
+        this.#groupSelection.delete(item.id);
+      } else {
+        this.#selection.delete(item.id);
+      }
     }
 
     if (updateGroupState) {
       if (isListDataSourceGroupItem(item)) {
         item.members?.forEach(member => this.deselect(member, false));
-      } else if (isListDataSourceDataItem(item) && item.group?.members?.every(member => !this.isSelected(member))) {
+      } else if (isListDataSourceDataItem(item) && item.group?.members?.some(member => !this.isSelected(member))) {
         this.deselect(item.group, false);
       }
     }
@@ -339,16 +362,32 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Returns whether the item is selected.
    * @param item - The item to check
    */
-  isSelected(item: ListDataSourceItemBase): boolean {
+  isSelected(item?: ListDataSourceItemBase): boolean {
+    if (!item || !('id' in item)) {
+      return false;
+    }
+
     if (this.#selectAll) {
-      return !this.#selection.has(item.id);
+      if (item.type === 'group') {
+        return !this.#groupSelection.has(item.id);
+      } else {
+        return !this.#selection.has(item.id);
+      }
     } else {
-      return this.#selection.has(item.id);
+      if (item.type === 'group') {
+        return this.#groupSelection.has(item.id);
+      } else {
+        return this.#selection.has(item.id);
+      }
     }
   }
 
   /** Selects all items in the data source. */
   selectAll(): void {
+    if (this.#selects !== 'multiple') {
+      return;
+    }
+
     this.#selectAll = true;
     this.#selection.clear();
   }

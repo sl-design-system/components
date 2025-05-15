@@ -1,5 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
@@ -29,7 +30,6 @@ export type SlDismissEvent = CustomEvent<void>;
  * @slot default - The body of the inline-message
  * @slot icon - Icon shown on the left side of the component
  * @slot title - Title content for the inline message
- * @slot action - Optional action button
  */
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
@@ -44,8 +44,20 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Timeout id, to be used with `clearTimeout`. */
+  #announceTimeoutId?: ReturnType<typeof setTimeout>;
+
   /** Timer used for breaking a possible resize observer loop. */
   #breakResizeObserverLoop?: ReturnType<typeof setTimeout>;
+
+  /** @internal Body content that will be sent to the announcer. */
+  #content?: string;
+
+  /** The last announced content, used to prevent duplicate announcements. */
+  #lastAnnouncedContent?: string;
+
+  /** The last announced title, used to prevent duplicate announcements. */
+  #lastAnnouncedTitle?: string;
 
   /** Observe the size and determine where to place the action button if present. */
   #observer = new ResizeObserver(entries => this.#onResize(entries[0]));
@@ -56,8 +68,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** The current size. */
   #size: InlineMessageSize = 'auto';
 
-  /** @internal The optional slotted action button. */
-  @state() actionButton?: Button;
+  /** @internal Title (if visible) that will be sent to the announcer. */
+  #title?: string;
 
   /** @internal If the content spans more than 2 lines, this will be true. */
   @state() contentOverflow?: boolean;
@@ -97,10 +109,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   /**
-   * The size of the inline message. By default this is set to `'auto'` which means the component
+   * The size of the inline message. By default, this is set to `'auto'` which means the component
    * will automatically determine the size based on the content. If the content spans more than 2
    * lines, the size will be set to `'lg'`. If a title is present, the size will be set to `'lg'`.
-   * Otherwise the size will be set to `'md'`.
+   * Otherwise, the size will be set to `'md'`.
    * If you want to explicitly set the size the `'sm'`, `'md'`, or `'lg'`, you can do so. But beware
    * that some sizes may not work well with the content. `'sm'` and `'md'` for example are not meant
    * to be used with a title.
@@ -131,33 +143,22 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       this.#breakResizeObserverLoop = undefined;
     }
 
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+      this.#announceTimeoutId = undefined;
+    }
+
     super.disconnectedCallback();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('actionButton') || changes.has('size')) {
-      if (this.actionButton) {
-        this.actionButton.size = this.size === 'sm' ? 'sm' : 'md';
-      }
-    }
-
-    if (changes.has('actionButton') || changes.has('variant')) {
-      if (this.actionButton) {
-        this.actionButton.variant = this.variant ?? 'info';
-      }
-    }
-
     if (changes.has('contentOverflow') || changes.has('noTitle')) {
       if (this.#originalSize === 'auto') {
         this.#size = this.contentOverflow || !this.noTitle ? 'lg' : 'md';
         this.requestUpdate('size');
       }
-    }
-
-    if (changes.has('variant')) {
-      this.setAttribute('role', ['danger', 'warning'].includes(this.variant ?? '') ? 'alert' : 'status');
     }
   }
 
@@ -172,10 +173,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
       </div>
       <div part="content">
-        <slot></slot>
-      </div>
-      <div part="action">
-        <slot @slotchange=${this.#onActionSlotChange} name="action"></slot>
+        <slot @slotchange=${this.#onContentSlotChange}></slot>
       </div>
       ${this.indismissible
         ? nothing
@@ -191,14 +189,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
             </sl-button>
           `}
     `;
-  }
-
-  #onActionSlotChange(event: Event & { target: HTMLSlotElement }): void {
-    this.actionButton = event.target
-      .assignedElements({ flatten: true })
-      .find((el): el is Button => el instanceof Button);
-
-    this.noAction = !this.actionButton;
   }
 
   #onClick(): void {
@@ -230,9 +220,59 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  #onContentSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.#content = Array.from(event.target.assignedNodes({ flatten: true }))
+      .flatMap(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return [node.textContent?.trim()];
+        } else if (node.nodeType === Node.ELEMENT_NODE && !(node instanceof HTMLStyleElement)) {
+          return Array.from((node as HTMLElement).innerText.split(' ')).map(text => text.trim());
+        }
+        return [];
+      })
+      .join(' ');
+
+    this.#announce();
+  }
+
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );
+
+    this.#title = event.target
+      .assignedNodes({ flatten: true })
+      .flatMap(node =>
+        node.nodeType === Node.TEXT_NODE
+          ? [node.textContent?.trim()]
+          : node.nodeType === Node.ELEMENT_NODE
+            ? Array.from(node.childNodes)
+                .filter(child => child.nodeType === Node.TEXT_NODE)
+                .map(child => child.textContent?.trim())
+            : []
+      )
+      .join(' ');
+
+    this.#announce();
+  }
+
+  // Announce if needed, we don't want to have the same message announced twice
+  #announce(): void {
+    // Clear any pending announcement
+    if (this.#announceTimeoutId) {
+      clearTimeout(this.#announceTimeoutId);
+    }
+
+    // Set a short timeout to debounce multiple calls, announce only when content actually changed
+    this.#announceTimeoutId = setTimeout(() => {
+      if (this.#content !== this.#lastAnnouncedContent || this.#title !== this.#lastAnnouncedTitle) {
+        this.#lastAnnouncedContent = this.#content;
+        this.#lastAnnouncedTitle = this.#title;
+
+        announce(`${this.#title ?? ''} ${this.#content ?? ''}`, this.variant === 'danger' ? 'assertive' : 'polite');
+      }
+
+      this.#announceTimeoutId = undefined;
+    }, 50);
   }
 }

@@ -169,17 +169,11 @@ describe('sl-inline-message', () => {
     it('should announce title and content', async () => {
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(announce).to.have.been.calledTwice;
+      expect(announce).to.have.been.calledOnce;
 
-      const event = announce.lastCall.firstArg as SlAnnounceEvent;
-      expect(event.detail.urgency).to.equal('polite');
+      const announcement = announce.lastCall.firstArg as SlAnnounceEvent;
 
-      const announcements = announce.args as Array<[SlAnnounceEvent]>;
-
-      expect(announcements.map(elem => elem[0].detail)).to.deep.equal([
-        { message: 'Title', urgency: 'polite' },
-        { message: ' Inline message', urgency: 'polite' }
-      ]);
+      expect(announcement.detail).to.deep.equal({ message: 'Title  Inline message', urgency: 'polite' });
     });
   });
 });

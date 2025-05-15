@@ -369,6 +369,19 @@ td[part~='drag-handle'] {
   &:not([part~='fixed']) {
     cursor: grab;
   }
+
+  &:hover sl-icon {
+    opacity: var(--sl-opacity-interactive-reversed-hover);
+  }
+
+  &:active sl-icon {
+    opacity: var(--sl-opacity-interactive-reversed-hover);
+  }
+
+  sl-icon {
+    color: var(--sl-color-foreground-neutral-bold);
+    opacity: var(--sl-opacity-interactive-reversed-idle);
+  }
 }
 
 td[part~='group-header'] {

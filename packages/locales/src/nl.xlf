@@ -66,22 +66,6 @@
   <source>Cancel</source>
   <target>Annuleren</target>
 </trans-unit>
-<trans-unit id="s6abb1cd87fe0114e">
-  <source>Home</source>
-  <target>Home</target>
-</trans-unit>
-<trans-unit id="sa996297f6a208e98">
-  <source>Breadcrumb trail</source>
-  <target>Kruimelpad</target>
-</trans-unit>
-<trans-unit id="s864c948d4629240f">
-  <source>Show all</source>
-  <target>Toon alles</target>
-</trans-unit>
-<trans-unit id="sf677da98fa27f9b6">
-  <source>More breadcrumbs</source>
-  <target>Meer links</target>
-</trans-unit>
 <trans-unit id="sd711c88b851db6c9">
   <source>The following fields have errors:</source>
   <target>De volgende velden zijn incorrect:</target>
@@ -324,6 +308,22 @@
 </trans-unit>
 <trans-unit id="sl.inlineMessage.welcome">
   <source>Hello world</source>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.navigationLabel">
+  <source>Breadcrumb trail</source>
+  <target>Kruimelpad</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.moreButton">
+  <source>More breadcrumbs</source>
+  <target>Meer links</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.home">
+  <source>Home</source>
+  <target>Home</target>
+</trans-unit>
+<trans-unit id="sl.tabGroup.showAllTabsButton">
+  <source>Show all</source>
+  <target>Toon alles</target>
 </trans-unit>
 </body>
 </file>

@@ -1,5 +1,11 @@
 # @sanomalearning/slds-neon
 
+## 0.2.5
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Minor fixes to dark theme colors
+
 ## 0.2.4
 
 ### Patch Changes

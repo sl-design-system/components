@@ -1,5 +1,13 @@
 # @sl-design-system/form
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`79c250d`](https://github.com/sl-design-system/components/commit/79c250db048f1db459305df9c90b78e03f7b6162), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/inline-message@2.0.0
+  - @sl-design-system/shared@0.7.3
+
 ## 1.2.2
 
 ### Patch Changes

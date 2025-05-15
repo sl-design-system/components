@@ -1,5 +1,15 @@
 # @sl-design-system/checkbox
 
+## 2.1.4
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Fix styling regression on checkboxes without a label
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.7.3
+  - @sl-design-system/form@1.2.3
+
 ## 2.1.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @sl-design-system/tag
 
+## 0.1.5
+
+### Patch Changes
+
+- [#2017](https://github.com/sl-design-system/components/pull/2017) [`0ce2293`](https://github.com/sl-design-system/components/commit/0ce22939899889ab60bdd387ff88a10fa9d7f84e) - Fixes tabindexes for hidden tags in the stacked variant of `sl-tag-list`.
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.7.3
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @sl-design-system/locales
 
+## 0.0.13
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Update translations for grid
+
+- [#2024](https://github.com/sl-design-system/components/pull/2024) [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc) - New grid translations
+
 ## 0.0.12
 
 ### Patch Changes

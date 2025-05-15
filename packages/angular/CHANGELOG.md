@@ -1,5 +1,16 @@
 # @sl-design-system/angular
 
+## 3.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664), [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc), [`d115aa5`](https://github.com/sl-design-system/components/commit/d115aa5a81b8b09ed29e5ad8b47385447ace43d0)]:
+  - @sl-design-system/locales@0.0.13
+  - @sl-design-system/select@2.0.4
+  - @sl-design-system/checkbox@2.1.4
+  - @sl-design-system/radio-group@1.1.3
+  - @sl-design-system/form@1.2.3
+
 ## 3.0.0
 
 ### Major Changes

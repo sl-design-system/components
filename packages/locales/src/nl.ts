@@ -50,6 +50,7 @@ export const templates = {
   s909e876731a8febb: 'Selecteer alle rijen',
   s9ad43731ebd435aa: str`Momenteel worden ${0} tot ${1} van ${2} weergegeven`,
   s9cd91b99a108a45f: 'Lijst met verborgen elementen',
+  s9e528d1457208c4f: 'hej',
   s9f7452dd75d54d31: 'fout',
   sa359b53ab45a0d8f: 'Verwijder sortering',
   sa447e2f801a7eb2d: 'Kies een optie.',
@@ -82,5 +83,6 @@ export const templates = {
   sf3fe911c549b0fcd: 'Toon kalender',
   sf677da98fa27f9b6: 'Meer links',
   sf7290005be5beae6: str`${0}, pagina`,
-  sfc5e976d64c3fb31: 'Voer een geldig getal in.'
+  sfc5e976d64c3fb31: 'Voer een geldig getal in.',
+  'sl.inlineMessage.welcome': 'Hello world'
 };

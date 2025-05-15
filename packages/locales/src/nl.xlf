@@ -318,6 +318,13 @@
   <source>Cancel selection</source>
   <target>Annuleer selectie</target>
 </trans-unit>
+<trans-unit id="s9e528d1457208c4f">
+  <source>Hello world2</source>
+  <target>hej</target>
+</trans-unit>
+<trans-unit id="sl.inlineMessage.welcome">
+  <source>Hello world</source>
+</trans-unit>
 </body>
 </file>
 </xliff>

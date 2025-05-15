@@ -23,7 +23,14 @@
 :host([no-border]) {
   border: 0;
   border-radius: 0;
-  padding: 0;
+
+  [part='wrapper'] {
+    padding-inline: 0;
+  }
+
+  sl-menu-button {
+    margin-inline-end: 0;
+  }
 }
 
 ::slotted(*) {
@@ -34,13 +41,21 @@
   align-items: center;
   display: flex;
   flex: 1;
-  gap: var(--sl-size-200);
+  gap: var(--sl-size-100);
   min-inline-size: 0;
   padding: var(--sl-size-100);
 }
 
+:host([icon-only]) [part='wrapper'] {
+  gap: var(--sl-size-050);
+
+  sl-menu-button {
+    margin-inline: var(--sl-size-050);
+  }
+}
+
 sl-menu-button {
-  margin-inline: var(--sl-size-50) calc(var(--sl-size-075) - var(--sl-size-borderWidth-default));
+  margin-inline: var(--sl-size-100);
 
   sl-icon + hr {
     display: none;

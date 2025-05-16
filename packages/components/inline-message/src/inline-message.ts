@@ -183,7 +183,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
               @click=${this.#onClick}
               .size=${this.size === 'sm' ? 'sm' : 'md'}
               .variant=${this.variant ?? 'info'}
-              aria-label=${msg('Close')}
+              aria-label=${msg('Close', { id: 'sl.common.close' })}
               fill="ghost"
             >
               <sl-icon name="xmark"></sl-icon>

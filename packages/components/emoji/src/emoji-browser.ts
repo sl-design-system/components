@@ -161,7 +161,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
         <sl-search-field
           @sl-change=${this.#onChange}
           @sl-clear=${this.#onClear}
-          .placeholder=${msg('Search')}
+          .placeholder=${msg('Search', { id: 'sl.emojiBrowser.search' })}
           .value=${this.query}
         ></sl-search-field>
 

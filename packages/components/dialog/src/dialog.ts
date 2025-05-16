@@ -146,7 +146,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           ? html`
               <sl-button
                 @click=${this.#onCloseClick}
-                aria-label=${msg('Close')}
+                aria-label=${msg('Close', { id: 'sl.common.close' })}
                 class="sl-close"
                 fill="ghost"
                 variant="default"

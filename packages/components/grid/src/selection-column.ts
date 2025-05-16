@@ -52,7 +52,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelectAll(detail)}
             .checked=${checked}
             .indeterminate=${indeterminate}
-            aria-label=${msg('Select all rows')}
+            aria-label=${msg('Select all rows', { id: 'sl.gridSelectionColumn.selectAllRowsChecboxLabel' })}
             class="selection-toggle"
             size="sm"
           ></sl-checkbox>

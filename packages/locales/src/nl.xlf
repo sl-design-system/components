@@ -2,49 +2,13 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 <file target-language="nl" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
-<trans-unit id="s629576c6b305d539">
-  <source>optional</source>
-  <target>optioneel</target>
-</trans-unit>
-<trans-unit id="s39bba60b440fcf00">
-  <source>required</source>
-  <target>verplicht</target>
-</trans-unit>
-<trans-unit id="s5e8250fb85d64c23">
-  <source>Close</source>
-  <target>Sluiten</target>
-</trans-unit>
-<trans-unit id="s5e10d00d437e2e21">
-  <source>Blank</source>
-  <target>Leeg</target>
-</trans-unit>
-<trans-unit id="sc94053131f85fc8a">
-  <source>Please check this box.</source>
-  <target>Vink dit vakje aan.</target>
-</trans-unit>
 <trans-unit id="sb881081d4f28c851">
   <source>Please choose an option from the list.</source>
   <target>Kies een optie uit de lijst.</target>
 </trans-unit>
-<trans-unit id="s62aa2ba3fe47ece4">
-  <source>Please check at least one option.</source>
-  <target>Vink tenminste één optie aan.</target>
-</trans-unit>
 <trans-unit id="sa447e2f801a7eb2d">
   <source>Please select an option.</source>
   <target>Kies een optie.</target>
-</trans-unit>
-<trans-unit id="sc95c7150ab686f99">
-  <source>Please enter a valid value.</source>
-  <target>Voer een correcte waarde in.</target>
-</trans-unit>
-<trans-unit id="sd244b51f6d7de8e2">
-  <source>Please match the format requested.</source>
-  <target>Voer een waarde in volgens het gevraagde patroon.</target>
-</trans-unit>
-<trans-unit id="s8079b71872346425">
-  <source>Please fill in this field.</source>
-  <target>Voer een waarde in.</target>
 </trans-unit>
 <trans-unit id="sde6884478b7cc818">
   <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
@@ -66,14 +30,6 @@
   <source>Cancel</source>
   <target>Annuleren</target>
 </trans-unit>
-<trans-unit id="sd711c88b851db6c9">
-  <source>The following fields have errors:</source>
-  <target>De volgende velden zijn incorrect:</target>
-</trans-unit>
-<trans-unit id="s4f6434b4c6326f21">
-  <source>All fields are valid.</source>
-  <target>Alle velden zijn correct.</target>
-</trans-unit>
 <trans-unit id="s13fdff160ffad275">
   <source>Clear text</source>
   <target>Wis tekst</target>
@@ -85,10 +41,6 @@
 <trans-unit id="s078cac19db271b0d">
   <source>Step down</source>
   <target>Stap omlaag</target>
-</trans-unit>
-<trans-unit id="s5d929ff1619ac0c9">
-  <source>Search</source>
-  <target>Zoeken</target>
 </trans-unit>
 <trans-unit id="sbf1de7bf2881bae1">
   <source>Frequently Used</source>
@@ -114,37 +66,13 @@
   <source>error</source>
   <target>fout</target>
 </trans-unit>
-<trans-unit id="s9cd91b99a108a45f">
-  <source>List of hidden elements</source>
-  <target>Lijst met verborgen elementen</target>
-</trans-unit>
-<trans-unit id="s606beeef09212e6c">
-  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
-  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
-</trans-unit>
 <trans-unit id="s8c1f47dc13ead0c3">
   <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
   <target>Maak "<x id="0" equiv-text="${this.value}"/>" aan</target>
 </trans-unit>
-<trans-unit id="s00a84204340a1db4">
-  <source>Selected</source>
-  <target>Geselecteerd</target>
-</trans-unit>
-<trans-unit id="s602a5722e101c0d2">
-  <source>All options</source>
-  <target>Alle opties</target>
-</trans-unit>
-<trans-unit id="se412fe8953013d92">
-  <source>Please select at least one option.</source>
-  <target>Selecteer tenminste één optie.</target>
-</trans-unit>
 <trans-unit id="s2362b49263f76ec8">
   <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
   <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
-</trans-unit>
-<trans-unit id="sde3919a1e53d2cff">
-  <source>Press the delete or backspace key to remove this item</source>
-  <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
 </trans-unit>
 <trans-unit id="s680f01021b5e339d">
   <source>Week</source>
@@ -178,10 +106,6 @@
   <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
 </trans-unit>
-<trans-unit id="s886db4d476f66522">
-  <source>Selected options</source>
-  <target>Geselecteerde opties</target>
-</trans-unit>
 <trans-unit id="s3dc14a4b8129f989">
   <source>Pagination</source>
   <target>Paginering</target>
@@ -194,21 +118,9 @@
   <source>items per page</source>
   <target>items per pagina</target>
 </trans-unit>
-<trans-unit id="s874708ada8e71323">
-  <source>Skip to end of table</source>
-  <target>Naar het einde van de tabel</target>
-</trans-unit>
-<trans-unit id="se952fc198acfa288">
-  <source>Skip to start of table</source>
-  <target>Naar het begin van de tabel</target>
-</trans-unit>
 <trans-unit id="sb2c57b2d347203dd">
   <source>Show more</source>
   <target>Meer tonen</target>
-</trans-unit>
-<trans-unit id="sb59d68ed12d46377">
-  <source>Loading</source>
-  <target>Laden</target>
 </trans-unit>
 <trans-unit id="s8f18916860db5d80">
   <source>Clear selection</source>
@@ -225,10 +137,6 @@
 <trans-unit id="sfc5e976d64c3fb31">
   <source>Please enter a valid number.</source>
   <target>Voer een geldig getal in.</target>
-</trans-unit>
-<trans-unit id="sf3fe911c549b0fcd">
-  <source>Toggle calendar</source>
-  <target>Toon kalender</target>
 </trans-unit>
 <trans-unit id="s49a14735332eb6fc">
   <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
@@ -254,21 +162,9 @@
   <source>Go forward 12 years</source>
   <target>Ga 12 jaar terug</target>
 </trans-unit>
-<trans-unit id="sa76539707f54b1b6">
-  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
-  <target>Filter op <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
-</trans-unit>
 <trans-unit id="s085c6223e17edc0a">
   <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
   <target>van <x id="0" equiv-text="${this.pageCount}"/> pagina's</target>
-</trans-unit>
-<trans-unit id="s640e81cadb5300b5">
-  <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
-  <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
-</trans-unit>
-<trans-unit id="sddf618209e237506">
-  <source>Toggle group</source>
-  <target>Toon groep</target>
 </trans-unit>
 <trans-unit id="sad56195767615a3b">
   <source>Expand panel</source>
@@ -278,29 +174,9 @@
   <source>Collapse panel</source>
   <target>Inklappen</target>
 </trans-unit>
-<trans-unit id="s34e46e4e30ae57bd">
-  <source>Sort descending</source>
-  <target>Sorteer aflopend</target>
-</trans-unit>
-<trans-unit id="sa359b53ab45a0d8f">
-  <source>Remove sort</source>
-  <target>Verwijder sortering</target>
-</trans-unit>
-<trans-unit id="s10420672e643d2c7">
-  <source>Sort ascending</source>
-  <target>Sorteer oplopend</target>
-</trans-unit>
 <trans-unit id="s3d195621e562d805">
   <source>Select row</source>
   <target>Selecteer rij</target>
-</trans-unit>
-<trans-unit id="s909e876731a8febb">
-  <source>Select all rows</source>
-  <target>Selecteer alle rijen</target>
-</trans-unit>
-<trans-unit id="sb6c8dfe6b54f9679">
-  <source>Cancel selection</source>
-  <target>Annuleer selectie</target>
 </trans-unit>
 <trans-unit id="s9e528d1457208c4f">
   <source>Hello world2</source>
@@ -324,6 +200,134 @@
 <trans-unit id="sl.tabGroup.showAllTabsButton">
   <source>Show all</source>
   <target>Toon alles</target>
+</trans-unit>
+<trans-unit id="sl.tagList.hiddenElementsTooltip">
+  <source>List of hidden elements</source>
+  <target>Lijst met verborgen elementen</target>
+</trans-unit>
+<trans-unit id="sl.tree.loadingMessage">
+  <source>Loading</source>
+  <target>Laden</target>
+</trans-unit>
+<trans-unit id="sl.tag.removalInstructions">
+  <source>Press the delete or backspace key to remove this item</source>
+  <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
+</trans-unit>
+<trans-unit id="sl.checkboxGroup.validation.required">
+  <source>Please check at least one option.</source>
+  <target>Vink tenminste één optie aan.</target>
+</trans-unit>
+<trans-unit id="sl.checkbox.validation.required">
+  <source>Please check this box.</source>
+  <target>Vink dit vakje aan.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.selectedOptionsLabel">
+  <source>Selected options</source>
+  <target>Geselecteerde opties</target>
+</trans-unit>
+<trans-unit id="sl.combobox.toggleOptionsButtonLabel">
+  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
+  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.requiredMultiple">
+  <source>Please select at least one option.</source>
+  <target>Selecteer tenminste één optie.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.required">
+  <source>Please select an option.</source>
+  <target>Kies een optie.</target>
+</trans-unit>
+<trans-unit id="sl.common.selected">
+  <source>Selected</source>
+  <target>Geselecteerd</target>
+</trans-unit>
+<trans-unit id="sl.common.allOptions">
+  <source>All options</source>
+  <target>Alle opties</target>
+</trans-unit>
+<trans-unit id="sl.dateField.toggleCalendarButtonLabel">
+  <source>Toggle calendar</source>
+  <target>Toon kalender</target>
+</trans-unit>
+<trans-unit id="sl.common.close">
+  <source>Close</source>
+  <target>Sluiten</target>
+</trans-unit>
+<trans-unit id="sl.emojiBrowser.search">
+  <source>Search</source>
+  <target>Zoeken</target>
+</trans-unit>
+<trans-unit id="sl.label.optionalIndicator">
+  <source>optional</source>
+  <target>optioneel</target>
+</trans-unit>
+<trans-unit id="sl.label.requiredIndicator">
+  <source>required</source>
+  <target>verplicht</target>
+</trans-unit>
+<trans-unit id="sl.formControl.validation.invalidValue">
+  <source>Please enter a valid value.</source>
+  <target>Voer een correcte waarde in.</target>
+</trans-unit>
+<trans-unit id="sl.formControl.validation.patternMismatch">
+  <source>Please match the format requested.</source>
+  <target>Voer een waarde in volgens het gevraagde patroon.</target>
+</trans-unit>
+<trans-unit id="sl.formControl.validation.valueMissing">
+  <source>Please fill in this field.</source>
+  <target>Voer een waarde in.</target>
+</trans-unit>
+<trans-unit id="sl.formValidationErrors.errorsIntroduction">
+  <source>The following fields have errors:</source>
+  <target>De volgende velden zijn incorrect:</target>
+</trans-unit>
+<trans-unit id="sl.formValidationErrors.allFieldsValid">
+  <source>All fields are valid.</source>
+  <target>Alle velden zijn correct.</target>
+</trans-unit>
+<trans-unit id="sl.gridGroupHeader.toggleGroupButtonLabel">
+  <source>Toggle group</source>
+  <target>Toon groep</target>
+</trans-unit>
+<trans-unit id="sl.gridFilterColumn.blankOptionLabel">
+  <source>Blank</source>
+  <target>Leeg</target>
+</trans-unit>
+<trans-unit id="sl.gridSorter.sortDescendingButtonLabel">
+  <source>Sort descending</source>
+  <target>Sorteer aflopend</target>
+</trans-unit>
+<trans-unit id="sl.gridSorter.removeSortButtonLabel">
+  <source>Remove sort</source>
+  <target>Verwijder sortering</target>
+</trans-unit>
+<trans-unit id="sl.gridSorter.sortAscendingButtonLabel">
+  <source>Sort ascending</source>
+  <target>Sorteer oplopend</target>
+</trans-unit>
+<trans-unit id="sl.gridFilter.filterBySelectPlaceholder">
+  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
+  <target>Filter op <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
+</trans-unit>
+<trans-unit id="sl.gridSelectionColumn.selectAllRowsChecboxLabel">
+  <source>Select all rows</source>
+  <target>Selecteer alle rijen</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToEndLinkLabel">
+  <source>Skip to end of table</source>
+  <target>Naar het einde van de tabel</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectionStatusMessage">
+  <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
+  <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
+</trans-unit>
+<trans-unit id="sl.grid.cancelSelectionTooltip">
+  <source>Cancel selection</source>
+  <target>Annuleer selectie</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToStartLinkLabel">
+  <source>Skip to start of table</source>
+  <target>Naar het begin van de tabel</target>
 </trans-unit>
 </body>
 </file>

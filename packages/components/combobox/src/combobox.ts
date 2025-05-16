@@ -384,7 +384,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           ? html`
               <sl-tag-list
                 ?disabled=${this.disabled}
-                aria-label=${msg('Selected options')}
+                aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptionsLabel' })}
                 size=${ifDefined(this.size)}
                 slot="prefix"
                 stacked
@@ -411,7 +411,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         <button
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
-          aria-label=${msg(str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`)}
+          aria-label=${msg(str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`, {
+            id: 'sl.combobox.toggleOptionsButtonLabel'
+          })}
           slot="suffix"
           tabindex="-1"
         >
@@ -444,7 +446,9 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   override getLocalizedValidationMessage(): string {
     if (this.validity.valueMissing) {
-      return this.multiple ? msg('Please select at least one option.') : msg('Please select an option.');
+      return this.multiple
+        ? msg('Please select at least one option.', { id: 'sl.combobox.validation.requiredMultiple' })
+        : msg('Please select an option.', { id: 'sl.combobox.validation.required' });
     } else {
       return super.getLocalizedValidationMessage();
     }
@@ -915,13 +919,13 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   #addSelectedGroup(): void {
     if (this.#useVirtualList) {
-      if (this.items[0].label === msg('Selected') && this.items[0].type === 'group') {
+      if (this.items[0].label === msg('Selected', { id: 'sl.common.selected' }) && this.items[0].type === 'group') {
         return;
       }
 
       const selectedHeader: ComboboxItem = {
         id: `sl-combobox-option-group-${nextUniqueId++}`,
-        label: msg('Selected'),
+        label: msg('Selected', { id: 'sl.common.selected' }),
         type: 'group',
         visible: true
       };
@@ -931,7 +935,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
       } else {
         const allOptionsHeader: ComboboxItem = {
           id: `sl-combobox-option-group-${nextUniqueId++}`,
-          label: msg('All options'),
+          label: msg('All options', { id: 'sl.common.allOptions' }),
           type: 'group',
           visible: true
         };
@@ -950,7 +954,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
 
   #removeSelectedGroup(): void {
     if (this.#useVirtualList) {
-      if (this.items[0].label === msg('Selected') && this.items[0].type === 'group') {
+      if (this.items[0].label === msg('Selected', { id: 'sl.common.selected' }) && this.items[0].type === 'group') {
         this.items = this.items.slice(1);
       } else {
         return;
@@ -960,7 +964,10 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
         this.#removeGroupedOption(this.items[0]);
       }
 
-      if (this.items[0].label === msg('All options') && this.items[0].type === 'group') {
+      if (
+        this.items[0].label === msg('All options', { id: 'sl.common.allOptions' }) &&
+        this.items[0].type === 'group'
+      ) {
         this.items = this.items.slice(1);
       }
 

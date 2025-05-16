@@ -39,7 +39,7 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
       return nothing;
     }
 
-    return html`<th colspan=${Math.max(this.columns.length, 1)}>${this.header}</th>`;
+    return html`<th colspan=${Math.max(this.columns.length, 1)}>${this.renderHeaderLabel()}</th>`;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

@@ -1,32 +1,51 @@
 :host {
-  --_heading-indent: 0.5rem;
-
   align-items: center;
   display: flex;
   inline-size: 100%;
 }
 
-:host([expanded]) sl-icon {
-  rotate: 90deg;
+:host([collapsed]) sl-button sl-icon {
+  rotate: -90deg;
 }
 
-:host([selectable]) {
-  --_heading-indent: 1.5rem;
+[part~='drag-handle'] {
+  align-items: center;
+  align-self: stretch;
+  cursor: grab;
+  display: inline-flex;
+  inline-size: var(--sl-size-600);
+  justify-content: center;
+  user-select: none;
 }
 
-sl-icon {
-  transition: rotate 0.2s ease-in-out;
+[part='checkbox'] {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  padding: var(--sl-size-050) var(--sl-size-175);
 }
 
-sl-checkbox {
-  align-self: center;
-  padding: calc((32px - var(--sl-size-input-option-sm, 0px)) / 2);
+sl-button {
+  margin-inline-start: var(--sl-size-150);
+
+  sl-icon {
+    @media (prefers-reduced-motion: no-preference) {
+      transition: rotate 0.2s ease-in-out;
+    }
+  }
 }
 
 [part='wrapper'] {
   align-items: center;
   display: flex;
   flex-grow: 1;
+  gap: var(--sl-size-100);
   justify-content: space-between;
-  margin-inline-start: var(--_heading-indent);
+  margin-inline-start: var(--sl-size-100);
+  padding-inline-end: var(--sl-size-150);
+}
+
+[part='group-heading'] {
+  font-weight: var(--sl-text-typeset-fontWeight-demibold);
+  padding-block: var(--sl-size-125);
 }

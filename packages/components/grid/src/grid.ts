@@ -4,29 +4,26 @@ import { localized, msg, str } from '@lit/localize';
 import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
-import { ArrayListDataSource, ListDataSource } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  ListDataSource,
+  type ListDataSourceDataItem,
+  type ListDataSourceGroupItem,
+  type ListDataSourceItem
+} from '@sl-design-system/data-source';
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Icon } from '@sl-design-system/icon';
 import { Scrollbar } from '@sl-design-system/scrollbar';
-import {
-  type EventEmitter,
-  EventsController,
-  type PathKeys,
-  SelectionController,
-  event,
-  getValueByPath,
-  isSafari,
-  positionPopover
-} from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event, isSafari, positionPopover } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToolBar } from '@sl-design-system/tool-bar';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
+import { GridDragHandleColumn } from './drag-handle-column.js';
 import { GridFilterColumn } from './filter-column.js';
 import { type GridFilter, type SlFilterRegisterEvent } from './filter.js';
 import styles from './grid.scss.js';
@@ -34,7 +31,7 @@ import { GridGroupHeader } from './group-header.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';
 import { type GridSorter, type SlSorterRegisterEvent } from './sorter.js';
-import { GridViewModel, GridViewModelGroup } from './view-model.js';
+import { GridViewModel } from './view-model.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -73,7 +70,7 @@ export interface GridGroupHeaderRendererOptions {
 }
 
 export type GridGroupHeaderRenderer = (
-  group: GridViewModelGroup,
+  group: ListDataSourceGroupItem,
   options?: GridGroupHeaderRendererOptions
 ) => TemplateResult;
 
@@ -122,6 +119,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** The column definitions. */
+  #columnDefinitions: Array<GridColumn<T>> = [];
+
+  /** The data source. */
+  #dataSource?: ListDataSource<T>;
+
+  /** Timer for debouncing data source updates. */
+  #dataSourceUpdateTimer?: ReturnType<typeof setTimeout>;
+
   /** The item being dragged. */
   #dragItem?: T;
 
@@ -133,6 +139,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Timer for debouncing filter updates. */
   #filterDebounceTimer?: ReturnType<typeof setTimeout>;
+
+  /** The header rows for the grid. */
+  #headerRows: Array<Array<GridColumn<T>>> = [];
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
@@ -191,16 +200,28 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
   /** Selection manager. */
-  readonly selection = new SelectionController<T>(this);
+  // readonly selection = new SelectionController<T>(this);
 
   /** The active item in the grid. */
-  @state() activeItem?: T;
+  @state() activeItem?: ListDataSourceItem<T>;
 
   /** @internal Emits when the active item changes */
   @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
 
+  get dataSource(): ListDataSource<T> | undefined {
+    return this.#dataSource;
+  }
+
   /** Provide your own implementation for getting the data. */
-  @property({ attribute: false }) dataSource?: ListDataSource<T>;
+  @property({ attribute: false })
+  set dataSource(dataSource: ListDataSource<T> | undefined) {
+    if (this.#dataSource) {
+      this.#dataSource.removeEventListener('sl-update', this.#onDataSourceUpdate);
+    }
+
+    this.#dataSource = dataSource;
+    this.#dataSource?.addEventListener('sl-update', this.#onDataSourceUpdate);
+  }
 
   /**
    * Whether you can drag rows in the grid. If you use the drag-handle column,
@@ -316,14 +337,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
-    if (changes.has('dataSource')) {
-      this.#updateDataSource(this.dataSource);
+    if (changes.has('dataSource') && this.dataSource) {
+      this.#updateDataSource();
     }
 
     if (changes.has('items')) {
       this.dataSource = this.items ? new ArrayListDataSource(this.items) : undefined;
 
-      this.#updateDataSource(this.dataSource);
+      if (this.dataSource) {
+        this.#updateDataSource();
+      }
     }
 
     if (changes.has('scopedElements')) {
@@ -331,7 +354,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('ellipsizeText')) {
-      this.view.headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
+      this.#headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
     }
   }
 
@@ -345,8 +368,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         id="table-start"
         href="#table-end"
         class="skip-link-start"
-        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
+        @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
       >
         ${msg('Skip to end of table')}
       </a>
@@ -363,7 +386,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </thead>
         <tbody id="tbody" part="tbody">
           ${virtualize({
-            items: this.view.rows,
+            items: this.dataSource?.items ?? [],
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -381,7 +404,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       </table>
 
       <div part="bulk-actions" popover="manual">
-        <span>${msg(str`${this.selection.selected} of ${this.selection.size} selected`)}</span>
+        <span>${msg(str`${this.dataSource?.totalSize} of ${this.dataSource?.selected} selected`)}</span>
         <sl-tool-bar no-border>
           <slot name="bulk-actions"></slot>
           <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
@@ -402,8 +425,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderStyles(): TemplateResult {
-    const rows = this.view.headerRows;
+  renderStyles(): TemplateResult | typeof nothing {
+    const rows = this.#headerRows;
+    if (!rows.length) {
+      return nothing;
+    }
 
     return html`
       ${rows.slice(0, -1).map((row, rowIndex) => {
@@ -442,7 +468,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderHeaderRows(): TemplateResult[] {
-    return this.view.headerRows.map(row => this.renderHeaderRow(row));
+    return this.#headerRows.map(row => this.renderHeaderRow(row));
   }
 
   renderHeaderRow(columns: GridColumn[]): TemplateResult {
@@ -460,22 +486,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderItem(item: T, index: number): TemplateResult {
-    return item instanceof GridViewModelGroup ? this.renderGroupRow(item, index) : this.renderItemRow(item, index);
+  renderItem(item: ListDataSourceItem<T>, index: number): TemplateResult {
+    return item.type === 'group' ? this.renderGroupRow(item, index) : this.renderItemRow(item, index);
   }
 
-  renderItemRow(item: T, index: number): TemplateResult {
-    const rows = this.view.headerRows,
-      active = this.selection.isActive(item),
-      selected = this.selection.isSelected(item),
+  renderItemRow(item: ListDataSourceDataItem<T>, index: number): TemplateResult {
+    const rows = this.#headerRows,
+      selected = this.dataSource?.isSelected(item),
       parts = [
         'row',
         index % 2 === 0 ? 'odd' : 'even',
-        ...(active ? ['active'] : []),
         ...(selected ? ['selected'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
-        ...(this.itemParts?.(item)?.split(' ') || []),
-        ...(this.view.isFixedItem(item) ? ['fixed'] : [])
+        ...(this.itemParts?.(item.data)?.split(' ') || [])
+        // ...(this.view.isFixedItem(item) ? ['fixed'] : [])
       ];
 
     return html`
@@ -487,7 +511,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @dragend=${(event: DragEvent) => this.#onDragEnd(event, item)}
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         aria-rowindex=${index}
-        class=${ifDefined(active ? 'active' : undefined)}
         index=${index}
         part=${parts.join(' ')}
       >
@@ -496,24 +519,27 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderGroupRow(group: GridViewModelGroup, index: number): TemplateResult {
-    const expanded = this.view.getGroupState(group.value),
-      selectable = !!this.view.columns.find(col => col instanceof GridSelectionColumn),
-      selected = this.view.getGroupSelection(group.value),
-      active = this.view.getActiveRow(group.value);
+  renderGroupRow(item: ListDataSourceGroupItem, index: number): TemplateResult {
+    const draggable = !!this.#columnDefinitions.find(col => !col.hidden && col instanceof GridDragHandleColumn),
+      selectable = !!this.#columnDefinitions.find(col => !col.hidden && col instanceof GridSelectionColumn);
 
     return html`
       <tr part="group" index=${index}>
         <td part="group-header">
           <sl-grid-group-header
-            @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, group)}
-            @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, group)}
-            .active=${active}
-            .expanded=${expanded}
-            .selectable=${selectable}
-            .selected=${selected}
+            @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, item)}
+            @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, item)}
+            ?collapsed=${item.collapsed}
+            ?drag-handle=${draggable}
+            ?selectable=${selectable}
+            .selected=${item.selected}
           >
-            ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.label}</span>`}
+            ${this.groupHeaderRenderer?.(item) ??
+            html`
+              <span slot="group-heading">
+                ${item.label} ${typeof item.count === 'number' ? `(${item.count})` : nothing}
+              </span>
+            `}
           </sl-grid-group-header>
         </td>
       </tr>
@@ -525,13 +551,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Do not remove, this is needed; not sure why
     await this.updateComplete;
 
-    const rows = this.view.headerRows;
+    const rows = this.#headerRows;
 
     rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
-        const index = this.view.headerRows[this.view.headerRows.length - 1].indexOf(col),
-          cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(tbody td, th):nth-child(${index + 1})`);
+        const index = rows[rows.length - 1].indexOf(col),
+          cells = this.renderRoot.querySelectorAll<HTMLElement>(
+            `:where(tbody tr:not(part~='group') td, th):nth-child(${index + 1})`
+          );
+
         col.width = Array.from(cells).reduce((acc, cur) => {
           cur.style.flexGrow = '0';
           cur.style.width = 'auto';
@@ -544,17 +573,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         }, 0);
       });
 
+    const columns = this.#columnDefinitions.filter(col => !col.hidden);
+
     // Since we set an explicit width for the `<thead>` and `<tbody>`, we also need
     // to set an explicit width for all the `<tr>` elements. Otherwise, the sticky columns
     // will not be sticky when you scroll horizontally.
-    const rowWidth = this.view.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+    const rowWidth = columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
-    const scrollbarMarginInlineStart = this.view.columns
+    const scrollbarMarginInlineStart = columns
       .filter(col => col.stickyPosition === 'start')
       .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
 
-    const scrollbarMarginInlineEnd = this.view.columns
+    const scrollbarMarginInlineEnd = columns
       .filter(col => col.stickyPosition === 'end')
       .reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
 
@@ -580,19 +611,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onCancelSelection(): void {
-    this.selection.deselectAll();
+    this.dataSource?.deselectAll();
+    this.dataSource?.update();
   }
 
-  #onClickRow(event: Event, item: T): void {
+  #onClickRow(event: Event, item: ListDataSourceDataItem<T>): void {
     if (!this.clickableRow) {
       return;
     }
 
-    if (this.view.columnDefinitions.some(col => col instanceof GridSelectionColumn)) {
-      this.selection.toggle(item);
+    if (this.#columnDefinitions.some(col => col instanceof GridSelectionColumn)) {
+      this.dataSource?.toggle(item);
     } else {
-      this.activeItem = this.selection.toggleActive(item);
-      this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
+      this.activeItem = item;
+      this.activeItemChangeEvent.emit({ grid: this, item: item.data, relatedEvent: event });
     }
   }
 
@@ -600,7 +632,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#addScopedElements(event.target.scopedElements);
   }
 
-  #onDragStart(event: DragEvent, item: T): void {
+  #onDataSourceUpdate = () => {
+    this.requestUpdate();
+  };
+
+  #onDragStart(event: DragEvent, item: ListDataSourceDataItem<T>): void {
     event.stopPropagation();
 
     window.addEventListener('dragover', this.#onWindowDragOver);
@@ -631,8 +667,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // This is necessary for the dragged item to appear correctly in Safari
     event.dataTransfer!.setDragImage(row, event.clientX - rowRect.left, event.clientY - rowRect.top);
 
-    this.#dragItem = item;
-    this.#itemBeforeDragItem = this.view.rows.at(this.view.rows.indexOf(item) - 1);
+    this.#dragItem = item.data;
+    this.#itemBeforeDragItem = this.view.rows.at(this.view.rows.indexOf(item.data) - 1);
 
     // Update styles in the next frame, after the drag image has been created
     requestAnimationFrame(() => {
@@ -647,16 +683,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.view.refresh();
     });
 
-    this.dragStartEvent.emit({ grid: this, item: item });
+    this.dragStartEvent.emit({ grid: this, item: item.data });
   }
 
-  #onDragEnter(_event: DragEvent, item: T): void {
-    if (this.#dragItem === item || this.view.isFixedItem(item)) {
+  #onDragEnter(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
+    if (this.#dragItem === item || this.view.isFixedItem(item.data)) {
       return;
     }
   }
 
-  #onDragOver(event: DragEvent, item: T): void {
+  #onDragOver(event: DragEvent, item: ListDataSourceDataItem<T>): void {
     event.preventDefault();
 
     const { draggableRows, dropFilter } = this;
@@ -679,21 +715,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         const { top, height } = row.getBoundingClientRect();
 
         // If the cursor is in the top half of the row, make this row the drop target
-        this.view.reorderItem(this.#dragItem!, item, event.clientY < top + height / 2 ? 'before' : 'after');
+        this.view.reorderItem(this.#dragItem!, item.data, event.clientY < top + height / 2 ? 'before' : 'after');
 
         this.requestUpdate('view');
       } else if (
         draggableRows === 'on-top' ||
         (draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
       ) {
-        if (dropFilter?.(item)) {
+        if (dropFilter?.(item.data)) {
           row?.classList.add('drop-target');
         }
       }
     }
   }
 
-  #onDragEnd(event: DragEvent, item: T): void {
+  #onDragEnd(event: DragEvent, item: ListDataSourceDataItem<T>): void {
     window.removeEventListener('dragover', this.#onWindowDragOver);
 
     event
@@ -709,10 +745,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Force rerender
     requestAnimationFrame(() => this.view.refresh());
 
-    this.dragEndEvent.emit({ grid: this, item });
+    this.dragEndEvent.emit({ grid: this, item: item.data });
   }
 
-  #onDrop(_event: DragEvent, item: T): void {
+  #onDrop(_event: DragEvent, item: ListDataSourceDataItem<T>): void {
     let cancelled = false;
 
     if (this.draggableRows === 'on-grid') {
@@ -725,7 +761,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.draggableRows === 'on-top' ||
       (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
     ) {
-      cancelled = !this.dropEvent.emit({ grid: this, item: this.#dragItem!, relativeItem: item, position: 'on-top' });
+      cancelled = !this.dropEvent.emit({
+        grid: this,
+        item: this.#dragItem!,
+        relativeItem: item.data,
+        position: 'on-top'
+      });
 
       if (!cancelled) {
         // Insert item at the top of the group.
@@ -752,7 +793,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       });
 
       if (!cancelled) {
-        this.dataSource?.reorder(this.#dragItem!, relativeItem!, index === 0 ? 'before' : 'after');
+        // this.dataSource?.reorder(this.#dragItem!, relativeItem!, index === 0 ? 'before' : 'after');
       }
     }
   }
@@ -774,27 +815,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters(true);
   }
 
-  #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
-    const items = this.dataSource?.items ?? [],
-      groupItems = items.filter(item => getValueByPath(item, group.path as PathKeys<T>) === group.value);
-
-    if (event.detail) {
-      groupItems.forEach(item => this.selection.select(item));
-    } else {
-      groupItems.forEach(item => this.selection.deselect(item));
-    }
+  #onGroupSelect(_event: SlSelectEvent<boolean>, item: ListDataSourceItem<T>): void {
+    this.dataSource?.toggle(item);
+    this.dataSource?.update();
   }
 
-  #onGroupToggle(event: SlToggleEvent<boolean>, group: GridViewModelGroup): void {
-    this.view.toggleGroup(group.value, event.detail);
-
-    // HACK: force the virtualizer to recalculate the size of the `<tbody>` element. If we
-    // don't, then there will be "extra padding" at the bottom of the tbody element.
-    // Once there is a better way to do this, remove this hack.
-
-    // @ts-expect-error This is a hack
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    this.#virtualizer?._layout?._metricsCache?.clear();
+  #onGroupToggle(_event: SlToggleEvent<boolean>, item: ListDataSourceItem<T>): void {
+    this.dataSource?.toggleGroup(item.id);
+    this.dataSource?.update();
   }
 
   #onScroll(): void {
@@ -809,7 +837,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSelectionChange(): void {
-    this.renderRoot.querySelector<HTMLElement>('[part="bulk-actions"]')?.togglePopover(this.selection.selected > 0);
+    this.renderRoot
+      .querySelector<HTMLElement>('[part="bulk-actions"]')
+      ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
   }
 
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
@@ -864,12 +894,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       if (col instanceof GridFilterColumn) {
         const { value } = this.dataSource?.filters.get(col.id) || {};
         if (value) {
-          col.value = value.toString();
+          // eslint-disable-next-line @typescript-eslint/no-base-to-string
+          col.value = String(value);
         }
-      } else if (col instanceof GridSortColumn) {
-        const { id, direction } = this.dataSource?.sort || {};
-        if (id === col.id) {
-          col.direction = direction;
+      } else if (col instanceof GridSortColumn && this.dataSource?.sort) {
+        const sort = this.dataSource.sort;
+
+        if ('path' in sort && sort.path === col.path) {
+          col.direction = sort.direction;
+        } else if ('sorter' in sort && sort.sorter === col.sorter) {
+          col.direction = sort.direction;
         }
       }
     });
@@ -879,14 +913,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
     // Cleanup any columns that are no longer in the slot
-    this.view.columnDefinitions.forEach(col => {
+    this.#columnDefinitions.forEach(col => {
       if (!columns.includes(col)) {
         this.#removeColumn(col);
       }
     });
 
-    // Update the column definitions
-    this.view.columnDefinitions = columns;
+    this.#columnDefinitions = columns;
+    this.#headerRows = this.#flattenColumnGroups(columns);
 
     // Recalculate the column widths
     await this.recalculateColumnWidths();
@@ -939,34 +973,68 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     });
 
     if (update) {
-      // Update the data source in the next frame to avoid multiple Lit update cycles
-      requestAnimationFrame(() => this.dataSource?.update());
+      if (this.#dataSourceUpdateTimer) {
+        clearTimeout(this.#dataSourceUpdateTimer);
+      }
+
+      this.#dataSourceUpdateTimer = setTimeout(() => this.dataSource?.update(), 10);
 
       this.stateChangeEvent.emit({ grid: this });
     }
   }
 
   #applySorters(update = false): void {
-    const { id } = this.dataSource?.sort ?? {},
-      sorter = this.#sorters.find(sorter => !!sorter.direction);
+    const sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter && (sorter.sorter || sorter.path)) {
-      this.dataSource?.setSort(sorter.column.id, sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
-    } else if (id && this.#sorters.find(s => s.column.id === id)) {
-      this.dataSource?.removeSort();
-    } else if (sorter) {
-      console.warn(
-        `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
-      );
+      this.dataSource?.setSort(sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
+    } else {
+      if (sorter) {
+        console.warn(
+          `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
+        );
+      }
 
       this.dataSource?.removeSort();
     }
 
     if (update) {
-      // Update the data source in the next frame to avoid multiple Lit update cycles
-      requestAnimationFrame(() => this.dataSource?.update());
+      if (this.#dataSourceUpdateTimer) {
+        clearTimeout(this.#dataSourceUpdateTimer);
+      }
+
+      this.#dataSourceUpdateTimer = setTimeout(() => this.dataSource?.update(), 10);
 
       this.stateChangeEvent.emit({ grid: this });
+    }
+  }
+
+  /**
+   * Flattens the column groups.
+   *
+   * So the following column definitions:
+   * - group 1
+   *   - column 1
+   *   - column 2
+   * - group 2
+   *   - column 3
+   *   - column 4
+   * - group 3
+   *   - column 5
+   *
+   * Will be flattened to:
+   * [
+   *  [ group 1, group 2, group 3 ],
+   *  [ column 1, column 2, column 3, column 4, column 5 ]
+   * ]
+   */
+  #flattenColumnGroups(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
+    const groups = columns.filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup);
+
+    if (groups.length) {
+      return [groups, groups.flatMap(group => this.#flattenColumnGroups(group.columns)).flat()];
+    } else {
+      return [columns];
     }
   }
 
@@ -980,14 +1048,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #updateDataSource(dataSource?: ListDataSource<T>): void {
-    this.selection.size = dataSource?.size ?? 0;
-
+  #updateDataSource(): void {
     this.#applyFilters();
     this.#applySorters();
 
-    // This will trigger the data source to update
-    this.view.dataSource = dataSource;
+    if (this.#dataSourceUpdateTimer) {
+      clearTimeout(this.#dataSourceUpdateTimer);
+    }
+
+    this.#dataSourceUpdateTimer = setTimeout(() => this.dataSource?.update(), 10);
 
     this.stateChangeEvent.emit({ grid: this });
   }

@@ -1,4 +1,12 @@
-import { DataSource } from '@sl-design-system/data-source';
+import {
+  DataSource,
+  type DataSourceFilter,
+  type DataSourceFilterFunction,
+  type DataSourceSort,
+  type DataSourceSortDirection,
+  type DataSourceSortFunction
+} from '@sl-design-system/data-source';
+import { type PathKeys } from '@sl-design-system/shared';
 import { type TreeNodeType } from './tree-node.js';
 
 export interface TreeDataSourceNode<T> {
@@ -47,14 +55,14 @@ export interface TreeDataSourceMapping<T> {
   /**
    * Returns whether the given node is expanded. This is only used for the initial
    * expanded state of the node. If you want to expand/collapse a node programmatically,
-   * use the `expand` and `collapse` methods on the tree model.
+   * use the `expand` and `collapse` methods on the data source.
    */
   isExpanded?(item: T): boolean;
 
   /**
    * Returns whether the given node is selected. This is only used for the initial
    * selected state of the node. If you want to select/deselect a node programmatically,
-   * use the `select` and `deselect` methods on the tree model.
+   * use the `select` and `deselect` methods on the data source.
    */
   isSelected?(item: T): boolean;
 }
@@ -72,13 +80,27 @@ export interface TreeDataSourceOptions<T> {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSourceNode<T>> {
+  /** Map of all active filters. */
+  #filters: Map<string, DataSourceFilter<T>> = new Map();
+
   /** An optional callback for loading additional tree nodes. */
   #loadChildren?: TreeDataSourceOptions<T>['loadChildren'];
+
   /** A set containing the selected node(s) in the tree. */
   #selection: Set<TreeDataSourceNode<T>> = new Set();
 
   /** The selection type for the tree model. */
   #selects?: 'single' | 'multiple';
+
+  /**
+   * The value and path/function to use for sorting. When setting this property,
+   * it will cause the data to be automatically sorted.
+   */
+  #sort?: DataSourceSort<T>;
+
+  get filters() {
+    return this.#filters;
+  }
 
   /** A hierarchical representation of the items in the tree. */
   abstract readonly nodes: Array<TreeDataSourceNode<T>>;
@@ -88,9 +110,13 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
     return this.#selection;
   }
 
-  /** Indicates whether the tree model allows single or multiple selection. */
+  /** Indicates whether the data source allows single or multiple selection. */
   get selects() {
     return this.#selects;
+  }
+
+  get sort() {
+    return this.#sort;
   }
 
   constructor(options: TreeDataSourceOptions<T> = {}) {
@@ -98,6 +124,22 @@ export abstract class TreeDataSource<T = any> extends DataSource<T, TreeDataSour
 
     this.#loadChildren = options.loadChildren;
     this.#selects = options.selects;
+  }
+
+  addFilter(id: string, by: PathKeys<T> | DataSourceFilterFunction<T>, value?: unknown): void {
+    this.#filters.set(id, { id, by, value } as DataSourceFilter<T>);
+  }
+
+  removeFilter(id: string): void {
+    this.#filters.delete(id);
+  }
+
+  setSort(by: PathKeys<T> | DataSourceSortFunction<T>, direction: DataSourceSortDirection): void {
+    this.#sort = { by, direction };
+  }
+
+  removeSort(): void {
+    this.#sort = undefined;
   }
 
   /**

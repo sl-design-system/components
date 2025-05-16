@@ -106,7 +106,7 @@ export const CustomDataSourceSorter: Story = {
     };
 
     const dataSource = new ArrayListDataSource(people as Person[]);
-    dataSource.setSort('custom', sorter, 'asc');
+    dataSource.setSort(sorter, 'asc');
 
     return html`
       <p>This grid sorts people by last name, then first name, via a custom sorter on the data directly.</p>

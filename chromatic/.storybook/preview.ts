@@ -47,31 +47,24 @@ const preview: Preview = {
             <div class="sb-fake-hover">
               ${story()}
             </div>
-            <h1>State: Active</h1>
-            <div class="sb-fake-active">
-              ${story()}
-            </div>
-            <h1>State: Focus</h1>
-            <div class="sb-fake-focus-visible">
-              ${story()}
-            </div>`
+            `
         }`
     },
     (story) => {
       withThemeFromJSXProvider({
         themes: {
           'bingel-dc': themes['bingel-dc'],
-          'bingel-int': themes['bingel-int'],
-          clickedu: themes['clickedu'],
-          'editorial-suite': themes['editorial-suite'],
-          itslearning: themes['itslearning'],
-          kampus: themes['kampus'],
-          magister: themes['magister'],
-          max: themes['max'],
-          'my-digital-book': themes['my-digital-book'],
-          neon: themes['neon'],
+          // 'bingel-int': themes['bingel-int'],
+          // clickedu: themes['clickedu'],
+          // 'editorial-suite': themes['editorial-suite'],
+          // itslearning: themes['itslearning'],
+          // kampus: themes['kampus'],
+          // magister: themes['magister'],
+          // max: themes['max'],
+          // 'my-digital-book': themes['my-digital-book'],
+          // neon: themes['neon'],
           'sanoma-learning': themes['sanoma-learning'],
-          teas: themes['teas'],
+          // teas: themes['teas'],
         },
         defaultTheme: 'sanoma-learning'
       });

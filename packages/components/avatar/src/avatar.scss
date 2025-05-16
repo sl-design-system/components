@@ -112,8 +112,8 @@
   text-align: center;
 
   [part='name'] {
+    overflow-wrap: anywhere;
     white-space: initial;
-    word-break: break-word;
   }
 }
 
@@ -183,10 +183,6 @@ slot[name='fallback'] {
 
   &::slotted(*) {
     --sl-icon-size: var(--_icon-size);
-
-    block-size: 100%;
-    inline-size: 100%;
-    object-fit: cover;
   }
 }
 

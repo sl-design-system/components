@@ -14,33 +14,13 @@
   <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
   <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
 </trans-unit>
-<trans-unit id="sf1ec4acb8d744ed9">
-  <source>Alert</source>
-  <target>Mededeling</target>
-</trans-unit>
 <trans-unit id="s091d3d07b5b3076f">
   <source>OK</source>
   <target>Ok</target>
 </trans-unit>
-<trans-unit id="sb85774dc5d18ff0f">
-  <source>Confirm</source>
-  <target>Bevestig</target>
-</trans-unit>
-<trans-unit id="s2ceb11be2290bb1b">
-  <source>Cancel</source>
-  <target>Annuleren</target>
-</trans-unit>
 <trans-unit id="s13fdff160ffad275">
   <source>Clear text</source>
   <target>Wis tekst</target>
-</trans-unit>
-<trans-unit id="sefa2cd5631cae9d8">
-  <source>Step up</source>
-  <target>Stap omhoog</target>
-</trans-unit>
-<trans-unit id="s078cac19db271b0d">
-  <source>Step down</source>
-  <target>Stap omlaag</target>
 </trans-unit>
 <trans-unit id="sbf1de7bf2881bae1">
   <source>Frequently Used</source>
@@ -110,14 +90,6 @@
   <source>Pagination</source>
   <target>Paginering</target>
 </trans-unit>
-<trans-unit id="s4dabcaab8d268abf">
-  <source>Items per page:</source>
-  <target>Items per pagina:</target>
-</trans-unit>
-<trans-unit id="s15abf4bcf7cba79f">
-  <source>items per page</source>
-  <target>items per pagina</target>
-</trans-unit>
 <trans-unit id="sb2c57b2d347203dd">
   <source>Show more</source>
   <target>Meer tonen</target>
@@ -125,18 +97,6 @@
 <trans-unit id="s8f18916860db5d80">
   <source>Clear selection</source>
   <target>Selectie wissen</target>
-</trans-unit>
-<trans-unit id="s47319a3cf96f6c33">
-  <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
-  <target>De waarde moet kleiner dan of gelijk aan <x id="0" equiv-text="${this.max}"/> zijn.</target>
-</trans-unit>
-<trans-unit id="sa857aed87918391e">
-  <source>The value must be greater than or equal to <x id="0" equiv-text="${this.min}"/>.</source>
-  <target>De waarde moet groter dan of gelijk aan <x id="0" equiv-text="${this.min}"/> zijn.</target>
-</trans-unit>
-<trans-unit id="sfc5e976d64c3fb31">
-  <source>Please enter a valid number.</source>
-  <target>Voer een geldig getal in.</target>
 </trans-unit>
 <trans-unit id="s49a14735332eb6fc">
   <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
@@ -173,10 +133,6 @@
 <trans-unit id="s25c9b139cc1a6be8">
   <source>Collapse panel</source>
   <target>Inklappen</target>
-</trans-unit>
-<trans-unit id="s3d195621e562d805">
-  <source>Select row</source>
-  <target>Selecteer rij</target>
 </trans-unit>
 <trans-unit id="s9e528d1457208c4f">
   <source>Hello world2</source>
@@ -328,6 +284,54 @@
 <trans-unit id="sl.grid.skipToStartLinkLabel">
   <source>Skip to start of table</source>
   <target>Naar het begin van de tabel</target>
+</trans-unit>
+<trans-unit id="sl.gridSelectionColumn.selectRowCheckboxLabel">
+  <source>Select row</source>
+  <target>Selecteer rij</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.alertTitle">
+  <source>Alert</source>
+  <target>Mededeling</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.confirmTitle">
+  <source>Confirm</source>
+  <target>Bevestig</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.cancelButton">
+  <source>Cancel</source>
+  <target>Annuleren</target>
+</trans-unit>
+<trans-unit id="sl.messageDialog.okButton">
+  <source>OK</source>
+  <target>Ok</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepDownFieldButtonLabel">
+  <source>Step down</source>
+  <target>Stap omlaag</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepUpFieldButtonLabel">
+  <source>Step up</source>
+  <target>Stap omhoog</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.exceedsMaximum">
+  <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>De waarde moet kleiner dan of gelijk aan <x id="0" equiv-text="${this.max}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.belowMinimum">
+  <source>The value must be greater than or equal to <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>De waarde moet groter dan of gelijk aan <x id="0" equiv-text="${this.min}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.invalidNumber">
+  <source>Please enter a valid number.</source>
+  <target>Voer een geldig getal in.</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPageLabel">
+  <source>Items per page:</source>
+  <target>Items per pagina:</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPageOptionLabel">
+  <source>items per page</source>
+  <target>items per pagina</target>
 </trans-unit>
 </body>
 </file>

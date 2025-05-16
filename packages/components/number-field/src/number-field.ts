@@ -152,7 +152,7 @@ export class NumberField extends LocaleMixin(TextField) {
           <sl-field-button
             @click=${() => this.stepDown()}
             ?disabled=${this.#isButtonDisabled('down')}
-            aria-label=${msg('Step down')}
+            aria-label=${msg('Step down', { id: 'sl.numberField.stepDownFieldButtonLabel' })}
             class="minus"
           >
             <sl-icon name="minus" size="md"></sl-icon>
@@ -170,7 +170,7 @@ export class NumberField extends LocaleMixin(TextField) {
               <sl-field-button
                 @click=${() => this.stepDown()}
                 ?disabled=${this.#isButtonDisabled('down')}
-                aria-label=${msg('Step down')}
+                aria-label=${msg('Step down', { id: 'sl.numberField.stepDownFieldButtonLabel' })}
                 class="minus"
               >
                 <sl-icon name="minus" size="md"></sl-icon>
@@ -178,7 +178,7 @@ export class NumberField extends LocaleMixin(TextField) {
               <sl-field-button
                 @click=${() => this.stepUp()}
                 ?disabled=${this.#isButtonDisabled('up')}
-                aria-label=${msg('Step up')}
+                aria-label=${msg('Step up', { id: 'sl.numberField.stepUpFieldButtonLabel' })}
                 class="plus"
               >
                 <sl-icon name="plus" size="md"></sl-icon>
@@ -189,7 +189,7 @@ export class NumberField extends LocaleMixin(TextField) {
             <sl-field-button
               @click=${() => this.stepUp()}
               ?disabled=${this.#isButtonDisabled('up')}
-              aria-label=${msg('Step up')}
+              aria-label=${msg('Step up', { id: 'sl.numberField.stepUpFieldButtonLabel' })}
               class="plus"
             >
               <sl-icon name="plus" size="md"></sl-icon>
@@ -274,16 +274,24 @@ export class NumberField extends LocaleMixin(TextField) {
     if (this.valueAsNumber !== undefined && !Number.isNaN(this.valueAsNumber)) {
       // check constraints, when it really is a number
       if (this.valueAsNumber > (this.max ?? Infinity)) {
-        this.setCustomValidity(msg(str`The value must be less than or equal to ${this.max}.`));
+        this.setCustomValidity(
+          msg(str`The value must be less than or equal to ${this.max}.`, {
+            id: 'sl.numberField.validation.exceedsMaximum'
+          })
+        );
       } else if (this.valueAsNumber < (this.min ?? -Infinity)) {
-        this.setCustomValidity(msg(str`The value must be greater than or equal to ${this.min}.`));
+        this.setCustomValidity(
+          msg(str`The value must be greater than or equal to ${this.min}.`, {
+            id: 'sl.numberField.validation.belowMinimum'
+          })
+        );
       } else {
         this.setCustomValidity('');
       }
     } else if (this.rawValue !== '' || this.value !== '') {
       // Set custom validity message for NaN case
       if (this.valueAsNumber === undefined || isNaN(this.valueAsNumber)) {
-        this.setCustomValidity(msg('Please enter a valid number.'));
+        this.setCustomValidity(msg('Please enter a valid number.', { id: 'sl.numberField.validation.invalidNumber' }));
       } else {
         this.setCustomValidity('');
       }

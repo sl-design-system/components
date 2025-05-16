@@ -64,7 +64,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
    * @param message - The message to display.
    * @param title - The title of the dialog.
    */
-  static async alert(message: string, title = msg('Alert')): Promise<void> {
+  static async alert(message: string, title = msg('Alert', { id: 'sl.messageDialog.alertTitle' })): Promise<void> {
     return await this.show({
       buttons: [{ autofocus: true, text: msg('OK'), variant: 'primary' }],
       title,
@@ -79,11 +79,20 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
    * @param title - The title of the dialog.
    * @returns A promise that resolves with `true` if the user clicks OK, `false` if the user clicks Cancel, or `undefined` if the user closes the dialog.
    */
-  static async confirm(message: string, title = msg('Confirm')): Promise<boolean | undefined> {
+  static async confirm(
+    message: string,
+    title = msg('Confirm', { id: 'sl.messageDialog.confirmTitle' })
+  ): Promise<boolean | undefined> {
     return await this.show<boolean>({
       buttons: [
-        { text: msg('Cancel'), value: false, autofocus: true, fill: 'outline', variant: 'primary' },
-        { text: msg('OK'), value: true, variant: 'primary' }
+        {
+          text: msg('Cancel', { id: 'sl.messageDialog.cancelButton' }),
+          value: false,
+          autofocus: true,
+          fill: 'outline',
+          variant: 'primary'
+        },
+        { text: msg('OK', { id: 'sl.messageDialog.okButton' }), value: true, variant: 'primary' }
       ],
       title,
       message

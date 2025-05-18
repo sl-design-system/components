@@ -1,5 +1,9 @@
 import { localized, msg } from '@lit/localize';
-import { type DataSourceFilterFunction, FetchListDataSourcePlaceholder } from '@sl-design-system/data-source';
+import {
+  ArrayListDataSource,
+  type DataSourceFilterFunction,
+  FetchListDataSourcePlaceholder
+} from '@sl-design-system/data-source';
 import { type Path, type PathKeys, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -92,11 +96,13 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
   override itemsChanged(): void {
     super.itemsChanged();
 
-    if (this.mode === 'select' && typeof this.options === 'undefined') {
-      const dataSource = this.grid?.dataSource;
-
+    if (
+      this.mode === 'select' &&
+      typeof this.options === 'undefined' &&
+      this.grid?.dataSource instanceof ArrayListDataSource
+    ) {
       // No options were provided, so we'll create a list of options based on the column's values
-      this.internalOptions = dataSource?.unfilteredItems
+      this.internalOptions = this.grid.dataSource.unfilteredItems
         ?.filter(item => item.type === 'data')
         ?.reduce((acc, { data: item }) => {
           let value = getValueByPath(item, this.path!),

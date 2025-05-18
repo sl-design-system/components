@@ -2,6 +2,8 @@ import { Avatar } from '@sl-design-system/avatar';
 import { Button } from '@sl-design-system/button';
 import {
   ArrayListDataSource,
+  FetchListDataSource,
+  FetchListDataSourceError,
   type ListDataSourceGroupItem,
   isListDataSourceGroupItem
 } from '@sl-design-system/data-source';
@@ -48,60 +50,60 @@ export const Basic: Story = {
 };
 
 export const Collapsed: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
-    const dataSource = new ArrayListDataSource(students as Student[], {
-      groupBy: 'school.id',
-      groups: [
-        { id: 'school-6', label: 'Colegio San Isidro', collapsed: true, count: 1 },
-        { id: 'school-3', label: 'Collegio San Marco', collapsed: true, count: 10 },
-        { id: 'school-1', label: 'Gymnasium Sankt Georg', collapsed: true, count: 11 },
-        { id: 'school-5', label: 'Instituto Cervantes', collapsed: true, count: 3 },
-        { id: 'school-4', label: 'Koninklijk Atheneum', collapsed: true, count: 14 },
-        { id: 'school-2', label: 'Lycée Victor Hugo', collapsed: true, count: 9 }
-      ]
+  loaders: [
+    async () => {
+      const response = await fetch('https://dummyjson.com/products/categories');
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      return { categories: await response.json() };
+    }
+  ],
+  render: (_, { loaded: { categories } }) => {
+    interface Category {
+      slug: string;
+      name: string;
+      url: string;
+    }
+
+    interface Product {
+      id: number;
+      title: string;
+      description: string;
+      category: string;
+    }
+
+    interface ProductsResponse {
+      products: Product[];
+      total: number;
+    }
+
+    const dataSource = new FetchListDataSource({
+      groupBy: 'category',
+      groups: (categories as Category[]).map(c => ({
+        id: c.slug,
+        label: c.name,
+        type: 'group',
+        collapsed: true
+      })),
+      pageSize: 30,
+      fetchPage: async ({ page, pageSize }) => {
+        const response = await fetch(`https://dummyjson.com/products?skip=${page * pageSize}&limit=${pageSize}`);
+
+        if (response.ok) {
+          const { products, total } = (await response.json()) as ProductsResponse;
+
+          return { items: products, totalItems: total };
+        } else {
+          throw new FetchListDataSourceError('Failed to fetch data', response);
+        }
+      }
     });
 
     return html`
       <p>This example shows how you start with all groups collapsed.</p>
       <sl-grid .dataSource=${dataSource}>
-        <sl-grid-column
-          header="Student"
-          path="fullName"
-          .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-column>
-        <sl-grid-column path="email"></sl-grid-column>
-        <sl-grid-column path="school.name"></sl-grid-column>
-      </sl-grid>
-    `;
-  }
-};
-
-export const Sorted: Story = {
-  loaders: [async () => ({ students: (await getStudents()).students })],
-  render: (_, { loaded: { students } }) => {
-    const dataSource = new ArrayListDataSource(students as Student[], {
-      groupBy: 'school.id',
-      groupLabelPath: 'school.name',
-      groupSortDirection: 'desc'
-    });
-
-    return html`
-      <p>
-        This example shows how the groups are sorted descending. Within the groups, the students are sorted using their
-        name. The latter is done via the regular sort header.
-      </p>
-      <sl-grid .dataSource=${dataSource}>
-        <sl-grid-sort-column
-          direction="asc"
-          header="Student"
-          path="fullName"
-          .renderer=${avatarRenderer}
-          .scopedElements=${{ 'sl-avatar': Avatar }}
-        ></sl-grid-sort-column>
-        <sl-grid-sort-column path="email"></sl-grid-sort-column>
-        <sl-grid-column header="School" path="school.name"></sl-grid-column>
+        <sl-grid-column header="Product" path="title"></sl-grid-column>
+        <sl-grid-column header="Category" path="category"></sl-grid-column>
       </sl-grid>
     `;
   }

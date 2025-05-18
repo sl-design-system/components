@@ -48,19 +48,6 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
   constructor(items: T[], options: ListDataSourceOptions<T> = {}) {
     super(options);
 
-    if (options.groups) {
-      this.#groups = new Map(
-        options.groups.map(group => [
-          group.id,
-          {
-            ...group,
-            id: group.id ?? group,
-            type: 'group'
-          }
-        ])
-      );
-    }
-
     this.#mappedItems = items.map(item => ({
       id: options.getId?.(item) ?? (item as { id: unknown }).id ?? item,
       groupId: options.getGroupId?.(item) ?? (options.groupBy ? getValueByPath(item, options.groupBy) : undefined),

@@ -68,10 +68,6 @@ class TestListDataSource extends ListDataSource<Person> {
   override size: number;
   override totalSize: number;
 
-  override get unfilteredItems() {
-    return [];
-  }
-
   constructor() {
     super({});
 

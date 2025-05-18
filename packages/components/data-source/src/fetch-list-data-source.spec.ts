@@ -7,8 +7,7 @@ import {
 } from './fetch-list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';
 
-// eslint-disable-next-line mocha/no-pending-tests
-describe.skip('FetchListDataSource', () => {
+describe('FetchListDataSource', () => {
   let ds: FetchListDataSource<Person>;
 
   describe('defaults', () => {

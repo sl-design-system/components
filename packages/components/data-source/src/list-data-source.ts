@@ -61,13 +61,6 @@ export interface ListDataSourceMapping<T> {
 }
 
 export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
-  /**
-   * An explicit array of groups. Use this when you initially only want to show the groups.
-   * The groups can be collapsed by default. When the user expands a group, the items
-   * can then be loaded on demand.
-   */
-  groups?: Array<Partial<ListDataSourceGroupItem>>;
-
   /** The path to the group by attribute. */
   groupBy?: PathKeys<T>;
 
@@ -223,9 +216,6 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
   /** The total number of (unfiltered) items in the data source. */
   abstract readonly totalSize: number;
-
-  /** The unfiltered items in the data source. */
-  abstract readonly unfilteredItems: U[];
 
   constructor(options: ListDataSourceOptions<T>) {
     super();

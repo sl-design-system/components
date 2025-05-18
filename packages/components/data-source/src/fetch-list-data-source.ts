@@ -1,6 +1,7 @@
 import { type DataSourceSort } from './data-source.js';
 import {
   ListDataSource,
+  type ListDataSourceGroupItem,
   type ListDataSourceItem,
   type ListDataSourceMapping,
   type ListDataSourceOptions,
@@ -27,9 +28,30 @@ export type FetchListDataSourceCallback<T> = (
 export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
 
 export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> {
+  /**
+   * The function to call to fetch the data. This function should return a promise
+   * that resolves to an object containing the items and the total number of items.
+   */
   fetchPage: FetchListDataSourceCallback<T>;
+
+  /**
+   * An explicit array of groups. Use this when you initially only want to show the groups.
+   * The groups can be collapsed by default. When the user expands a group, the items
+   * can then be loaded on demand.
+   */
+  groups?: Array<Partial<ListDataSourceGroupItem>>;
+
+  /** The number of items to fetch per page. */
   pageSize: number;
+
+  /** Callback for customizing the placeholder value for the given index. */
   placeholder?: FetchListDataSourcePlaceholder<T>;
+
+  /**
+   * The total number of items in the data source. If not provided, the data source will
+   * use the total number of items returned by the fetch function. This is useful when
+   * the data source is paginated and the total number of items is not known in advance.
+   */
   size?: number;
 }
 
@@ -48,9 +70,13 @@ export const FetchListDataSourceError = class extends Error {
 export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceholder');
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSourceItem<T>> {
+export class FetchListDataSource<T = any> extends ListDataSource<T> {
   /** The default size of the item collection if not explicitly set. */
   static defaultSize = 10;
+
+  /** The groups within the data source. */
+  // eslint-disable-next-line no-unused-private-class-members
+  #groups?: Map<unknown, ListDataSourceGroupItem>;
 
   /** Array containing all the loaded items. */
   #items: Array<ListDataSourceItem<T>> = [];
@@ -65,7 +91,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
   #proxy: Array<ListDataSourceItem<T>> = [];
 
   /** The total number of items in the data source. */
-  #size: number;
+  #totalSize: number;
 
   /** The callback for retrieving data. */
   fetchPage: FetchListDataSourceCallback<T>;
@@ -82,15 +108,25 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
   }
 
   get totalSize(): number {
-    return this.#size;
-  }
-
-  get unfilteredItems() {
-    return this.items;
+    return this.#totalSize;
   }
 
   constructor(options: FetchListDataSourceOptions<T>) {
     super(options);
+
+    if (options.groups) {
+      this.#groups = new Map(
+        options.groups.map(group => [
+          group.id,
+          {
+            ...group,
+            id: group.id ?? group,
+            type: 'group',
+            members: []
+          }
+        ])
+      );
+    }
 
     this.#mapping = {
       getGroupId: options.getGroupId,
@@ -98,7 +134,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
       isSelected: options.isSelected
     };
 
-    this.#size = options.size ?? FetchListDataSource.defaultSize;
+    this.#totalSize = options.size ?? FetchListDataSource.defaultSize;
     this.fetchPage = options.fetchPage;
 
     if (typeof options.pageSize === 'number') {
@@ -166,7 +202,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
 
     return new Proxy(items, {
       get: function (target, property) {
-        const length = that.pagination ? Math.min(target.length, that.pageSize) : that.size;
+        const length = that.pagination ? Math.min(target.length, that.pageSize) : that.totalSize;
 
         if (property === 'length') {
           return length;
@@ -217,7 +253,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T, ListDataSour
           res = await this.fetchPage(options);
 
         if (res.totalItems !== undefined) {
-          this.#size = Number(res.totalItems);
+          this.#totalSize = Number(res.totalItems);
         }
 
         for (let i = 0; i < res.items.length; i++) {

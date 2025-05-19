@@ -15,6 +15,8 @@ For the translations, we use our own message ids (not those generated automatica
 This helps prevent translations from being accidentally overridden.  
 For more details, see: [Lit Localization documentation](https://lit.dev/docs/localization/overview/#overriding-ids).
 
+### Example of a translation
+
 In the component:
 
 ```html
@@ -39,7 +41,7 @@ The basic structure of the `id` scheme is:
 sl.componentName.textDescription
 ```
 
-Every id will start with `sl.` to indicate that it is a Sanoma Learning Design System id. 
+Every **id** will start with `sl.` to indicate that it is a Sanoma Learning Design System id. 
 The `componentName` part will be the name of the component in **camelCase**,
 and the `textDescription` part will be a short description of the text (also in **camelCase**).
 
@@ -59,8 +61,8 @@ Validation: `sl.textField.validation.tooShort`
 
 ### Component-specific vs. Common Translations
 
-- **Component-specific**: Use `sl.componentName.description` for translations that are unique to a component
-- **Common translations**: Use `sl.common.description` for shared text across multiple components
+- **Component-specific**: Use `sl.componentName.description` for translations that are unique to a component,
+- **Common translations**: Use `sl.common.description` for shared text across multiple components.
 
 ### Context Groups
 
@@ -70,18 +72,14 @@ For better organization, we use these (example) standard context groups:
   - `sl.textField.validation.required`
   - `sl.common.validation.invalidFormat`
 
-- **status**: For status messages
-  - `sl.grid.status.loading`
-  - `sl.pagination.status.showing`
-
 ### Best Practices
 
 1. **Be specific**: Use detailed descriptions that clearly indicate the purpose
-  - Good: `sl.datePicker.previousMonth`
-  - Avoid: `sl.datePicker.previous`
+  - Good: `sl.datePicker.previousMonth`,
+  - Avoid: `sl.datePicker.previous`.
 
 2. **Consistency**: Use the same pattern for similar messages across components
-  - For validation: Always use `validation.tooShort`, not `tooFew` or `notEnough`
+  - For validation: always use `validation.tooShort`, not `tooFew` or `notEnough`.
 
 3. **Reuse carefully**: Before creating a new ID, check if an existing `common` translation fits.
 
@@ -100,6 +98,7 @@ msg(str`Please enter at least ${this.minLength} characters (you currently have $
 1. Add the message in your component using the appropriate ID.
 
 2. Update source files:
+
 Run the following command in the root of the project:
 
 ```bash

@@ -170,7 +170,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           : html`
               ${this.frequentlyUsedEmojis?.length
                 ? html`
-                    <div id="frequently-used" class="heading">${msg('Frequently Used')}</div>
+                    <div id="frequently-used" class="heading">
+                      ${msg('Frequently Used', { id: 'sl.emojiBrowser.frequentlyUsedHeading' })}
+                    </div>
                     ${this.renderEmojis(this.frequentlyUsedEmojis)}
                   `
                 : nothing}

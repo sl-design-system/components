@@ -238,7 +238,7 @@ export class RadioGroup<T = any> extends FormControlMixin(LitElement) {
     this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity(
       { valueMissing: this.required && !this.radios?.some(radio => radio.checked) },
-      msg('Please select an option.')
+      msg('Please select an option.', { id: 'sl.radioGroup.validation.required' })
     );
 
     this.updateValidity();

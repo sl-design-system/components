@@ -65,10 +65,20 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
     return html`
       <div part="header">
         <span class="current-range">${this.years.at(0)}-${this.years.at(-1)}</span>
-        <sl-button @click=${this.#onPrevious} aria-label=${msg('Go back 12 years')} fill="ghost" variant="primary">
+        <sl-button
+          @click=${this.#onPrevious}
+          aria-label=${msg('Go back 12 years', { id: 'sl.selectYear.previousYearsButtonLabel' })}
+          fill="ghost"
+          variant="primary"
+        >
           <sl-icon name="chevron-left"></sl-icon>
         </sl-button>
-        <sl-button @click=${this.#onNext} aria-label=${msg('Go forward 12 years')} fill="ghost" variant="primary">
+        <sl-button
+          @click=${this.#onNext}
+          aria-label=${msg('Go forward 12 years', { id: 'sl.selectYear.nextYearsButtonLabel' })}
+          fill="ghost"
+          variant="primary"
+        >
           <sl-icon name="chevron-right"></sl-icon>
         </sl-button>
       </div>

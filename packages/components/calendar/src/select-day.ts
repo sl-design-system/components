@@ -142,7 +142,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         <sl-button
           @click=${this.#onPrevious}
           aria-label=${msg(
-            str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`
+            str`Previous month, ${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+            { id: 'sl.selectDay.previousMonthButtonLabel' }
           )}
           fill="ghost"
           variant="primary"
@@ -152,7 +153,8 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
         <sl-button
           @click=${this.#onNext}
           aria-label=${msg(
-            str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`
+            str`Next month, ${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}`,
+            { id: 'sl.selectDay.nextMonthButtonLabel' }
           )}
           fill="ghost"
           variant="primary"
@@ -162,7 +164,11 @@ export class SelectDay extends LocaleMixin(ScopedElementsMixin(LitElement)) {
       </div>
       <div class="days-of-week">
         ${this.showWeekNumbers
-          ? html`<span class="week-number" aria-label=${msg('Week')}>${this.localizedWeekOfYear}</span>`
+          ? html`
+              <span class="week-number" aria-label=${msg('Week', { id: 'sl.selectDay.weekNumberLabel' })}
+                >${this.localizedWeekOfYear}</span
+              >
+            `
           : nothing}
         ${this.weekDays.map(day => html`<span class="day-of-week" aria-label=${day.long}>${day.short}</span>`)}
       </div>

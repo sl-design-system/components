@@ -142,7 +142,10 @@ export class ToolBar extends ScopedElementsMixin(LitElement) {
 
       ${this.menuItems.length
         ? html`
-            <sl-menu-button fill=${ifDefined(this.fill)} aria-label=${msg('Show more')}>
+            <sl-menu-button
+              fill=${ifDefined(this.fill)}
+              aria-label=${msg('Show more', { id: 'sl.toolBar.showMoreButtonLabel' })}
+            >
               <sl-icon name="far-ellipsis-vertical" slot="button"></sl-icon>
               ${this.menuItems.map(item => this.renderMenuItem(item))}
             </sl-menu-button>

@@ -173,7 +173,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
       </div>
       <div part="content">
-        ${msg('Hello world2')} ${msg('Hello world', { id: 'sl.inlineMessage.welcome' })}
         <slot @slotchange=${this.#onContentSlotChange}></slot>
       </div>
       ${this.indismissible

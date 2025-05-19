@@ -66,7 +66,7 @@ export class MessageDialog<T = any> extends ScopedElementsMixin(LitElement) {
    */
   static async alert(message: string, title = msg('Alert', { id: 'sl.messageDialog.alertTitle' })): Promise<void> {
     return await this.show({
-      buttons: [{ autofocus: true, text: msg('OK'), variant: 'primary' }],
+      buttons: [{ autofocus: true, text: msg('OK', { id: 'sl.messageDialog.okButton' }), variant: 'primary' }],
       title,
       message
     });

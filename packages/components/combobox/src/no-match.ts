@@ -21,6 +21,8 @@ export class NoMatch extends LitElement {
   @property() value?: string;
 
   override render(): string {
-    return msg(str`No options starting with "${this.value}" have been found.`);
+    return msg(str`No options starting with "${this.value}" have been found.`, {
+      id: 'sl.noMatch.noOptionsFoundMessage'
+    });
   }
 }

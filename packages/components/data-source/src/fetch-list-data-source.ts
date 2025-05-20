@@ -27,6 +27,12 @@ export type FetchListDataSourceCallback<T> = (
 
 export type FetchListDataSourcePlaceholder<T> = (n: number) => T;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface FetchListDataSourceGroupItem<T = any> extends ListDataSourceGroupItem<T> {
+  /** The pages that have been fetched for this group. */
+  pages: Record<number, Promise<void> | undefined>;
+}
+
 export interface FetchListDataSourceOptions<T> extends ListDataSourceOptions<T> {
   /**
    * The function to call to fetch the data. This function should return a promise
@@ -76,7 +82,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   /** The groups within the data source. */
   // eslint-disable-next-line no-unused-private-class-members
-  #groups?: Map<unknown, ListDataSourceGroupItem>;
+  #groups?: Map<unknown, FetchListDataSourceGroupItem<T>>;
 
   /** Array containing all the loaded items. */
   #items: Array<ListDataSourceItem<T>> = [];
@@ -189,7 +195,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   /**
-   * Override this function if you are extending the `FetchDataSource` class to
+   * Override this function if you are extending the `FetchListDataSource` class to
    * provide any additional options you may need when `fetchPage` is called.
    */
   getFetchOptions(page: number, pageSize: number): FetchListDataSourceCallbackOptions {

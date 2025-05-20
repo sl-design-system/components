@@ -34,6 +34,11 @@ export const Basic: Story = {
     };
 
     return html`
+      <p>
+        This example shows a basic grid with student information. The student column uses a custom
+        <code>renderer</code> to render the student's avatar. The date of birth column uses the
+        <code>sl-format-date</code> component to format the date.
+      </p>
       <sl-grid .items=${students}>
         <sl-grid-column grow="0" header="Nr." path="studentNumber"></sl-grid-column>
         <sl-grid-column
@@ -55,6 +60,7 @@ export const Basic: Story = {
 
 export const ColumnGroups: Story = {
   render: (_, { loaded: { students } }) => html`
+    <p>This example shows how you can group columns together using the <code>sl-grid-column-group</code> component.</p>
     <sl-grid .items=${students} striped>
       <sl-grid-column-group header="Name">
         <sl-grid-column path="firstName"></sl-grid-column>
@@ -71,6 +77,10 @@ export const ColumnGroups: Story = {
 
 export const EllipsizeText: Story = {
   render: (_, { loaded: { students } }) => html`
+    <p>
+      This example shows how to use the <code>ellipsize-text</code> attribute to truncate text that overflows its
+      column.
+    </p>
     <sl-grid .items=${students} style="max-inline-size: 500px" ellipsize-text column-divider>
       <sl-grid-column path="firstName"></sl-grid-column>
       <sl-grid-column path="lastName"></sl-grid-column>
@@ -94,6 +104,10 @@ export const Header: Story = {
         justify-content: space-between;
       }
     </style>
+    <p>
+      This example shows how to customize the column headers by setting the <code>header</code> property of
+      <code>sl-grid-column</code>.
+    </p>
     <sl-grid .items=${students}>
       <sl-grid-column
         path="firstName"
@@ -157,6 +171,10 @@ export const MenuButton: Story = {
     };
 
     return html`
+      <p>
+        This example has a column with a custom <code>renderer</code> property that renders an
+        <code>sl-menu-button</code> inside it.
+      </p>
       <sl-grid .items=${students}>
         <sl-grid-column
           grow="3"
@@ -188,7 +206,7 @@ export const SkipLinks: Story = {
     };
 
     return html`
-      <h1>Some data for your information:</h1>
+      <p>This example shows how, when using keyboard navigation, you can skip the grid and jump directly past it.</p>
       <sl-grid .items=${students} column-divider>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -232,6 +250,9 @@ export const LazyLoad: Story = {
     });
 
     return html`
+      <p>
+        This example uses <code>FetchListDataSource</code> to lazy load quotes by famous people from a remote service.
+      </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>
         <sl-grid-column path="quote" grow="3"></sl-grid-column>
@@ -281,6 +302,7 @@ export const Skeleton: Story = {
     });
 
     return html`
+      <p>This example customizes the rendering of the student column to also handle loading states.</p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column grow="0" header="Nr." path="studentNumber" width="120"></sl-grid-column>
         <sl-grid-column

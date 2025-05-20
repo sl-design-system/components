@@ -2,6 +2,8 @@ import { faBurst } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+// eslint-disable-next-line import/order
+import '@sl-design-system/search-field/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { FormInDialog } from '@sl-design-system/lit-examples';
@@ -128,6 +130,14 @@ export const Inheritance: Story = {
     };
 
     return html`
+      <sl-form>
+        <sl-search-field placeholder="Search"></sl-search-field>
+        <sl-search-field aria-label="Search" value="Value"></sl-search-field>
+      </sl-form>
+      <sl-search-field aria-label="Search" size="lg" value="Value"></sl-search-field>
+      <sl-form-field label="First name">
+        <sl-text-field name="firstName" required></sl-text-field>
+      </sl-form-field>
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <example-form-in-dialog></example-form-in-dialog>
     `;

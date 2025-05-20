@@ -6,7 +6,6 @@ import '@sl-design-system/form/register.js';
 import {
   CompositeForm as CompositeFormComponent,
   DynamicArrayForm as DynamicArrayFormComponent,
-  FormInDialog as FormInDialogComponent,
   NestedForm as NestedFormComponent
 } from '@sl-design-system/lit-examples';
 import '@sl-design-system/radio-group/register.js';
@@ -92,17 +91,5 @@ export const NestedForm: Story = {
     }
 
     return html`<example-nested-form></example-nested-form>`;
-  }
-};
-
-export const FormInDialog: Story = {
-  render: () => {
-    try {
-      customElements.define('example-form-in-dialog', FormInDialogComponent);
-    } catch {
-      /* empty */
-    }
-
-    return html`<example-form-in-dialog></example-form-in-dialog>`;
   }
 };

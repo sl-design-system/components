@@ -131,7 +131,9 @@ export const Inheritance: Story = {
 
     return html`
       <sl-form>
-        <sl-search-field placeholder="Search"></sl-search-field>
+        <sl-form-field label="Search">
+          <sl-search-field placeholder="Search"></sl-search-field>
+        </sl-form-field>
         <sl-search-field aria-label="Search" value="Value"></sl-search-field>
       </sl-form>
       <sl-search-field aria-label="Search" size="lg" value="Value"></sl-search-field>
@@ -140,6 +142,24 @@ export const Inheritance: Story = {
       </sl-form-field>
       <sl-button @click=${onClick}>Show Dialog</sl-button>
       <example-form-in-dialog></example-form-in-dialog>
+
+      <sl-form>
+        <sl-form-field label="First name">
+          <sl-text-field name="firstName" required></sl-text-field>
+        </sl-form-field>
+        <sl-form-field label="Last name">
+          <sl-text-field name="lastName" required></sl-text-field>
+        </sl-form-field>
+      </sl-form>
+
+      <sl-form>
+        <sl-form-field label="First name">
+          <sl-text-field name="firstName" required></sl-text-field>
+        </sl-form-field>
+        <sl-form-field label="Last name">
+          <sl-text-field name="lastName" required></sl-text-field>
+        </sl-form-field>
+      </sl-form>
     `;
   }
 };

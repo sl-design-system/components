@@ -148,6 +148,8 @@ export class Label extends LitElement {
     }
 
     this.#label.id ||= `sl-label-${nextUniqueId++}`;
+
+    console.log('label', this.#label, this.formControl);
   }
 
   #update(): void {

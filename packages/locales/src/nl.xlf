@@ -94,10 +94,6 @@
   <source>Please fill in this field.</source>
   <target>Voer een waarde in.</target>
 </trans-unit>
-<trans-unit id="sl.formValidationErrors.errorsIntroduction">
-  <source>The following fields have errors:</source>
-  <target>De volgende velden zijn incorrect:</target>
-</trans-unit>
 <trans-unit id="sl.formValidationErrors.allFieldsValid">
   <source>All fields are valid.</source>
   <target>Alle velden zijn correct.</target>
@@ -325,6 +321,10 @@
 <trans-unit id="sl.selectYear.nextYearsButtonLabel">
   <source>Go forward 12 years</source>
   <target>Ga 12 jaar terug</target>
+</trans-unit>
+<trans-unit id="sl.formValidationErrors.listHeader">
+  <source>The following fields have errors:</source>
+  <target>De volgende velden zijn incorrect:</target>
 </trans-unit>
 </body>
 </file>

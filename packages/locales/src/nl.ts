@@ -25,7 +25,7 @@ export const templates = {
   'sl.formControl.validation.patternMismatch': 'Voer een waarde in volgens het gevraagde patroon.',
   'sl.formControl.validation.valueMissing': 'Voer een waarde in.',
   'sl.formValidationErrors.allFieldsValid': 'Alle velden zijn correct.',
-  'sl.formValidationErrors.errorsIntroduction': 'De volgende velden zijn incorrect:',
+  'sl.formValidationErrors.listHeader': 'De volgende velden zijn incorrect:',
   'sl.grid.cancelSelectionTooltip': 'Annuleer selectie',
   'sl.grid.selectionStatusMessage': str`${0} van ${1} geselecteerd`,
   'sl.grid.skipToEndLinkLabel': 'Naar het einde van de tabel',

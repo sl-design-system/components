@@ -9,10 +9,10 @@ Translations are provided in the `locales` folder. The translations are stored i
 The file names are the language codes (e.g., `en.json`, `nl.json`, etc.). 
 Each `xlif` file contains key-value pairs, where the keys are the same across all languages, and the values are the translated strings.
 
-## How example translation look like?
+## What do example translation look like?
 
-For the translations, we use our own message ids (not those generated automatically by Lit Localize).
-This helps prevent translations from being accidentally overridden.  
+For the translations we use our own message ids, not those generated automatically by Lit Localize.
+This helps to prevent overriding translations accidentally.
 For more details, see: [Lit Localization documentation](https://lit.dev/docs/localization/overview/#overriding-ids).
 
 ### Example of a translation
@@ -20,13 +20,13 @@ For more details, see: [Lit Localization documentation](https://lit.dev/docs/loc
 In the component:
 
 ```html
-msg('Close', {id: 'sl.inlineMessage.closeButtonAriaLabel’});
+msg('Close', {id: 'sl.inlineMessage.closeButtonLabel’});
 ```
 
 In the xliff file:
 
 ```xml
-<trans-unit id="sl.inlineMessage.closeButton">
+<trans-unit id="sl.inlineMessage.closeButtonLabel">
   <source>Close</source>
   <target>Sluiten</target>
 </trans-unit>
@@ -75,8 +75,8 @@ For better organization, we use these (example) standard context groups:
 ### Best Practices
 
 1. **Be specific**: Use detailed descriptions that clearly indicate the purpose
-  - Good: `sl.datePicker.previousMonth`,
-  - Avoid: `sl.datePicker.previous`.
+  - Good: `sl.datePicker.previousMonth`, `sl.numberField.stepDownFieldButtonLabel` (for `aria-label` in the field button).
+  - Avoid: `sl.datePicker.previous`, `sl.numberField.step`.
 
 2. **Consistency**: Use the same pattern for similar messages across components
   - For validation: always use `validation.tooShort`, not `tooFew` or `notEnough`.

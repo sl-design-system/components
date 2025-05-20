@@ -251,7 +251,10 @@ export const LazyLoad: Story = {
 
     return html`
       <p>
-        This example uses <code>FetchListDataSource</code> to lazy load quotes by famous people from a remote service.
+        This example shows how you can lazy load the data. It uses <code>FetchListDataSource</code> to lazy load quotes
+        by famous people from a remote service. It initially will only load the data for the visible rows. If you scroll
+        further down the page, it will load additional data as needed. It uses data from
+        <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
       </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="id" grow="0" width="50"></sl-grid-column>

@@ -78,6 +78,7 @@ export const Collapsed: Story = {
     }
 
     const dataSource = new FetchListDataSource({
+      getId: (item: Product) => item.id,
       groupBy: 'category',
       groups: (categories as Category[]).map(c => ({
         id: c.slug,
@@ -86,8 +87,10 @@ export const Collapsed: Story = {
         collapsed: true
       })),
       pageSize: 30,
-      fetchPage: async ({ page, pageSize }) => {
-        const response = await fetch(`https://dummyjson.com/products?skip=${page * pageSize}&limit=${pageSize}`);
+      fetchPage: async ({ group, page, pageSize }) => {
+        const response = await fetch(
+          `https://dummyjson.com/products/category/${String(group)}?skip=${page * pageSize}&limit=${pageSize}`
+        );
 
         if (response.ok) {
           const { products, total } = (await response.json()) as ProductsResponse;
@@ -100,7 +103,12 @@ export const Collapsed: Story = {
     });
 
     return html`
-      <p>This example shows how you start with all groups collapsed.</p>
+      <p>
+        This example shows how you start with all groups collapsed. When you expand a group, its products are loaded and
+        displayed. This example uses the <code>FetchListDataSource</code> to load the products on demand. The groups are
+        passed to the data source in the constructor via the <code>groups</code> option. It uses data from
+        <a href="https://dummyjson.com" target="_blank">https://dummyjson.com</a>.
+      </p>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-column header="Product" path="title"></sl-grid-column>
         <sl-grid-column header="Category" path="category"></sl-grid-column>

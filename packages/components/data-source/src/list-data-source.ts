@@ -23,6 +23,9 @@ export interface ListDataSourceGroupItem<T = any> extends ListDataSourceItemBase
   label?: string;
   members?: Array<ListDataSourceDataItem<T>>;
   selected?: 'all' | 'some' | 'none';
+
+  /** The number of items in the group. */
+  size?: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

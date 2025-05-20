@@ -126,7 +126,7 @@ describe('FetchListDataSource', () => {
       it('should provide any custom options when fetching a page', () => {
         spy(ds, 'fetchPage');
 
-        ds.getFetchOptions = (page, pageSize) => ({ page, pageSize, foo: 'bar' });
+        ds.getFetchOptions = (group, page, pageSize) => ({ group, page, pageSize, foo: 'bar' });
         ds.items.at(0);
 
         expect(ds.fetchPage).to.have.been.calledOnce;

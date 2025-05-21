@@ -96,7 +96,7 @@ export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
 }
 
 /** The default page size, if not explicitly set. */
-export const DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
+export const LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE = 10;
 
 /** Symbol used as a placeholder for items that are being loaded. */
 export const ListDataSourcePlaceholder = Symbol('ListDataSourcePlaceholder');
@@ -139,7 +139,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   #page = 0;
 
   /** The number of items on a single page. */
-  #pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  #pageSize = LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   /** Whether this data source uses pagination. */
   #pagination: boolean;
@@ -208,9 +208,13 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
     return this.#selection;
   }
 
-  /** Indicates whether the data source allows single or multiple selection. */
   get selects() {
     return this.#selects;
+  }
+
+  /** Indicates whether the data source allows single, multiple or no selection at all. */
+  set selects(value: 'single' | 'multiple' | undefined) {
+    this.#selects = value;
   }
 
   get sort() {
@@ -235,7 +239,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     this.#pagination = options.pagination ?? false;
     this.#page = options.page ?? 0;
-    this.#pageSize = options.pageSize ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
+    this.#pageSize = options.pageSize ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
     this.#selects = options.selects;
 
     if (options.sortBy) {
@@ -304,7 +308,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * any previously selected item is based on the `selects` value.
    * @param item - The item to select
    */
-  select(item: ListDataSourceItemBase, updateGroupState = true): void {
+  select(item: ListDataSourceItemBase, update = true): void {
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
@@ -325,12 +329,14 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       }
     }
 
-    if (updateGroupState) {
+    if (update) {
       if (isListDataSourceGroupItem(item)) {
         item.members?.forEach(member => this.select(member, false));
       } else if (isListDataSourceDataItem(item) && item.group?.members?.every(member => this.isSelected(member))) {
         this.select(item.group, false);
       }
+
+      this.dispatchEvent(new CustomEvent('sl-selection-change'));
     }
   }
 
@@ -338,7 +344,7 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * Deselects the item.
    * @param item - The item to deselect
    */
-  deselect(item: ListDataSourceItemBase, updateGroupState = true): void {
+  deselect(item: ListDataSourceItemBase, update = true): void {
     if (this.#selects === undefined) {
       return;
     } else if (this.#selectAll) {
@@ -355,12 +361,14 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
       }
     }
 
-    if (updateGroupState) {
+    if (update) {
       if (isListDataSourceGroupItem(item)) {
         item.members?.forEach(member => this.deselect(member, false));
       } else if (isListDataSourceDataItem(item) && item.group?.members?.some(member => !this.isSelected(member))) {
         this.deselect(item.group, false);
       }
+
+      this.dispatchEvent(new CustomEvent('sl-selection-change'));
     }
   }
 
@@ -369,17 +377,21 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * @param item - The item to toggle the selection state for
    * @param force - If true, the item will be selected. If false, it will be deselected.
    */
-  toggle(item: ListDataSourceItemBase, force?: boolean): void {
+  toggle(item: ListDataSourceItemBase, force?: boolean, update?: boolean): void {
     force ??= !this.isSelected(item);
 
     if (force) {
-      this.select(item);
+      this.select(item, update);
     } else {
-      this.deselect(item);
+      this.deselect(item, update);
     }
 
     if (isListDataSourceGroupItem(item)) {
-      item.members?.forEach(member => this.toggle(member, force));
+      item.members?.forEach(member => this.toggle(member, force, false));
+    }
+
+    if (update) {
+      this.dispatchEvent(new CustomEvent('sl-selection-change'));
     }
   }
 
@@ -415,12 +427,16 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     this.#selectAll = true;
     this.#selection.clear();
+
+    this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }
 
   /** Deselects all items in the data source. */
   deselectAll(): void {
     this.#selectAll = false;
     this.#selection.clear();
+
+    this.dispatchEvent(new CustomEvent('sl-selection-change'));
   }
 
   /** Returns whether the "select all" state is active. */
@@ -480,18 +496,5 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
    * @param position The position relative to the relativeItem.
    * @returns True if the items were reordered, false if not.
    */
-  reorder(item: U, relativeItem: U, position: 'before' | 'after'): void {
-    const items = this.items,
-      from = items.indexOf(item),
-      to = items.indexOf(relativeItem) + (position === 'before' ? 0 : 1);
-
-    if (from === -1 || to === -1 || from === to) {
-      return;
-    }
-
-    items.splice(from, 1);
-    items.splice(to + (from < to ? -1 : 0), 0, item);
-
-    this.update();
-  }
+  abstract reorder(item: U, relativeItem: U, position: 'before' | 'after'): void;
 }

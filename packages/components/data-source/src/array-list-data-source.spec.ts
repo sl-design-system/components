@@ -2,7 +2,7 @@ import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
 import { ArrayListDataSource } from './array-list-data-source.js';
 import {
-  DATA_SOURCE_DEFAULT_PAGE_SIZE,
+  LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE,
   type ListDataSourceDataItem,
   isListDataSourceDataItem,
   isListDataSourceGroupItem
@@ -72,7 +72,7 @@ describe('ArrayListDataSource', () => {
     });
 
     it('should default to a page size of DATA_SOURCE_DEFAULT_PAGE_SIZE', () => {
-      expect(ds.pageSize).to.equal(DATA_SOURCE_DEFAULT_PAGE_SIZE);
+      expect(ds.pageSize).to.equal(LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE);
     });
 
     it('should emit an sl-update event when calling update()', () => {

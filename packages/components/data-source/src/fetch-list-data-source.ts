@@ -202,6 +202,14 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     return this.#groups.get(id)?.collapsed ?? false;
   }
 
+  override reorder(
+    _item: ListDataSourceItem<T>,
+    _relativeItem: ListDataSourceItem<T>,
+    _position: 'before' | 'after'
+  ): void {
+    console.log('Reordering items is not supported in FetchListDataSource');
+  }
+
   update(emitEvent = true): void {
     // let length = this.totalSize;
 

@@ -2,7 +2,7 @@ import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { announce } from '@sl-design-system/announcer';
 import { Button } from '@sl-design-system/button';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
+import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Icon } from '@sl-design-system/icon';
 import { Option } from '@sl-design-system/listbox';
 import { Menu, MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -118,7 +118,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
    * Items per page. Default to the first item of pageSizes.
    * @default 10
    */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   get width(): PaginatorWidth | undefined {
     return this.#width;
@@ -177,7 +177,7 @@ export class Paginator<T = any> extends ScopedElementsMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('page') || changes.has('pageSize') || changes.has('totalItems')) {
-      this.pageSize ??= DATA_SOURCE_DEFAULT_PAGE_SIZE;
+      this.pageSize ??= LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
       this.pageCount = Math.ceil(this.totalItems / this.pageSize) || 1;
       this.page = Math.min(Math.max(this.page, 0), this.pageCount - 1);
 

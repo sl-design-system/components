@@ -79,7 +79,7 @@ export const EllipsizeText: Story = {
   render: (_, { loaded: { students } }) => html`
     <p>
       This example shows how to use the <code>ellipsize-text</code> attribute to truncate text that overflows its
-      column.
+      column. Content that is truncated will also automatically add a tooltip with the full text.
     </p>
     <sl-grid .items=${students} style="max-inline-size: 500px" ellipsize-text column-divider>
       <sl-grid-column path="firstName"></sl-grid-column>
@@ -106,7 +106,9 @@ export const Header: Story = {
     </style>
     <p>
       This example shows how to customize the column headers by setting the <code>header</code> property of
-      <code>sl-grid-column</code>.
+      <code>sl-grid-column</code>. If you are using custom elements in the header, make sure you add the
+      <code>scopedElements</code> property to the column with the used custom elements. If you don't do this, the custom
+      elements won't be rendered correctly.
     </p>
     <sl-grid .items=${students}>
       <sl-grid-column
@@ -173,7 +175,8 @@ export const MenuButton: Story = {
     return html`
       <p>
         This example has a column with a custom <code>renderer</code> property that renders an
-        <code>sl-menu-button</code> inside it.
+        <code>sl-menu-button</code> inside it. Make sure to add the <code>scopedElements</code> property to the column
+        with the used custom elements. If you don't do this, the custom elements won't be rendered correctly.
       </p>
       <sl-grid .items=${students}>
         <sl-grid-column

@@ -1,6 +1,6 @@
 import { localized, msg, str } from '@lit/localize';
 import { announce } from '@sl-design-system/announcer';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
+import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './status.scss.js';
@@ -60,7 +60,7 @@ export class PaginatorStatus<T = any> extends LitElement {
    * Items per page.
    * @default 10
    */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   /** @internal The current range of items visible. */
   @state() range?: number[];

@@ -14,7 +14,7 @@ import {
 import { EllipsizeText } from '@sl-design-system/ellipsize-text';
 import { Icon } from '@sl-design-system/icon';
 import { Scrollbar } from '@sl-design-system/scrollbar';
-import { type EventEmitter, EventsController, event, isSafari, positionPopover } from '@sl-design-system/shared';
+import { type EventEmitter, event, isSafari, positionPopover } from '@sl-design-system/shared';
 import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { Skeleton } from '@sl-design-system/skeleton';
 import { ToolBar } from '@sl-design-system/tool-bar';
@@ -35,10 +35,10 @@ import { GridViewModel } from './view-model.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
-    'sl-active-item-change': SlActiveItemChangeEvent;
     'sl-grid-dragstart': SlDragStartEvent;
     'sl-grid-dragend': SlDragEndEvent;
     'sl-grid-drop': SlDropEvent;
+    'sl-grid-selection-change': SlSelectionChangeEvent;
     'sl-grid-state-change': SlStateChangeEvent;
   }
 
@@ -75,9 +75,6 @@ export type GridGroupHeaderRenderer = (
 ) => TemplateResult;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlActiveItemChangeEvent<T = any> = CustomEvent<{ grid: Grid<T>; item?: T; relatedEvent?: Event }>;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -90,6 +87,9 @@ export type SlDropEvent<T = any> = CustomEvent<{
   relativeItem?: T;
   position: 'before' | 'after' | 'on-grid' | 'on-top';
 }>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlSelectionChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
@@ -130,9 +130,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The item being dragged. */
   #dragItem?: T;
-
-  // eslint-disable-next-line no-unused-private-class-members
-  #events = new EventsController(this, { 'sl-selection-change': this.#onSelectionChange });
 
   /** The filters for this grid. */
   #filters: Array<GridFilter<T>> = [];
@@ -199,15 +196,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The virtualizer instance for the grid. */
   #virtualizer?: VirtualizerHostElement[typeof virtualizerRef];
 
-  /** Selection manager. */
-  // readonly selection = new SelectionController<T>(this);
-
-  /** The active item in the grid. */
-  @state() activeItem?: ListDataSourceItem<T>;
-
-  /** @internal Emits when the active item changes */
-  @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
-
   get dataSource(): ListDataSource<T> | undefined {
     return this.#dataSource;
   }
@@ -217,10 +205,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   set dataSource(dataSource: ListDataSource<T> | undefined) {
     if (this.#dataSource) {
       this.#dataSource.removeEventListener('sl-update', this.#onDataSourceUpdate);
+      this.#dataSource.removeEventListener('sl-selection-change', this.#onSelectionChange);
     }
 
     this.#dataSource = dataSource;
     this.#dataSource?.addEventListener('sl-update', this.#onDataSourceUpdate);
+    this.#dataSource?.addEventListener('sl-selection-change', this.#onSelectionChange);
+
+    // There are multiple ways to set the grid selection. If it's done via the data source,
+    // we need to update the selects property here as well.
+    if (dataSource?.selects === 'single') {
+      this.selects ??= 'single-row';
+    } else if (dataSource?.selects === 'multiple') {
+      this.selects ??= 'multiple-row';
+    }
   }
 
   /**
@@ -237,9 +235,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Emits when an item has been dropped. */
   @event({ name: 'sl-grid-drop', cancelable: true }) dropEvent!: EventEmitter<SlDropEvent<T>>;
-
-  /** Whether a row can be set active by clicking anywhere in the row. */
-  @property({ type: Boolean, reflect: true, attribute: 'clickable-row' }) clickableRow?: boolean;
 
   /**
    * Determines if or what kind of drop target the given item is:
@@ -279,6 +274,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal Will render a custom horizontal scrollbar when set. */
   @state() scrollbar?: boolean;
+
+  /** @internal Emits when the selection in the grid changes. */
+  @event({ name: 'sl-grid-selection-change' }) selectionChangeEvent!: EventEmitter<SlSelectionChangeEvent<T>>;
+
+  /**
+   * Indicates what type of selection is allowed in the grid.
+   * - `single-row`: Only one row can be selected at a time, by clicking anywhere on the row.
+   * - `multiple`: Multiple rows can be selected, but just by clicking on the selection column.
+   * - `multiple-row`: Multiple rows can be selected by clicking anywhere on the row.
+   */
+  @property({ reflect: true }) selects?: 'single-row' | 'multiple' | 'multiple-row';
 
   /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
@@ -353,6 +359,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#addScopedElements(this.scopedElements);
     }
 
+    if (changes.has('selects') && this.dataSource) {
+      if (this.selects?.startsWith('multiple')) {
+        this.dataSource.selects = 'multiple';
+      } else if (this.selects) {
+        this.dataSource.selects = 'single';
+      } else {
+        this.dataSource.selects = undefined;
+      }
+    }
+
     if (changes.has('ellipsizeText')) {
       this.#headerRows.at(-1)?.forEach(col => (col.ellipsizeText = this.ellipsizeText));
     }
@@ -382,7 +398,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           @sl-sorter-register=${this.#onSorterRegister}
           part="thead"
         >
-          ${this.renderHeaderRows()}
+          ${this.#headerRows.map(row => this.renderHeaderRow(row))}
         </thead>
         <tbody id="tbody" part="tbody">
           ${virtualize({
@@ -404,7 +420,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       </table>
 
       <div part="bulk-actions" popover="manual">
-        <span>${msg(str`${this.dataSource?.totalSize} of ${this.dataSource?.selected} selected`)}</span>
+        <span>${msg(str`${this.dataSource?.selected} of ${this.dataSource?.totalSize} selected`)}</span>
         <sl-tool-bar no-border>
           <slot name="bulk-actions"></slot>
           <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
@@ -467,16 +483,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderHeaderRows(): TemplateResult[] {
-    return this.#headerRows.map(row => this.renderHeaderRow(row));
-  }
-
   renderHeaderRow(columns: GridColumn[]): TemplateResult {
-    const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0),
-      rows = Array.from({ length: rowCount });
+    const rowCount = columns.reduce((acc, column) => Math.max(acc, column.headerRowCount), 0);
 
     return html`
-      ${rows.map(
+      ${Array.from({ length: rowCount }).map(
         (_, rowIndex) => html`
           <tr>
             ${columns.map(col => col.renderHeaderRow(rowIndex))}
@@ -615,17 +626,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource?.update();
   }
 
-  #onClickRow(event: Event, item: ListDataSourceDataItem<T>): void {
-    if (!this.clickableRow) {
+  #onClickRow(_event: Event, item: ListDataSourceDataItem<T>): void {
+    if (!this.selects || this.selects === 'multiple') {
       return;
     }
 
-    if (this.#columnDefinitions.some(col => col instanceof GridSelectionColumn)) {
-      this.dataSource?.toggle(item);
-    } else {
-      this.activeItem = item;
-      this.activeItemChangeEvent.emit({ grid: this, item: item.data, relatedEvent: event });
-    }
+    this.dataSource?.toggle(item);
+    this.dataSource?.update();
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
@@ -836,11 +843,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('scrollable-end', this.scrollbar && Math.round(scrollLeft) < scrollWidth - offsetWidth);
   }
 
-  #onSelectionChange(): void {
-    this.renderRoot
-      .querySelector<HTMLElement>('[part="bulk-actions"]')
-      ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
-  }
+  #onSelectionChange = (): void => {
+    if (this.selects?.startsWith('multiple')) {
+      this.renderRoot
+        .querySelector<HTMLElement>('[part="bulk-actions"]')
+        ?.togglePopover((this.dataSource?.selected ?? 0) > 0);
+    }
+
+    this.selectionChangeEvent.emit({ grid: this });
+  };
 
   #onSkipTo(event: Event & { target: HTMLSlotElement }, destination: string): void {
     // Not all frameworks work well with hash links, so we need to prevent the default behavior and focus the target manually
@@ -1052,6 +1063,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters();
     this.#applySorters();
 
+    // Debounce updating the data source to avoid unnecessary re-renders
     if (this.#dataSourceUpdateTimer) {
       clearTimeout(this.#dataSourceUpdateTimer);
     }

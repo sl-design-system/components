@@ -17,10 +17,7 @@ declare global {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
-  /** When true, the active rows get selected automatically. */
-  @property({ type: Boolean, attribute: 'auto-select' }) autoSelect?: boolean;
-
-  /** When true, all items are selected. */
+  /** Set this property to true to select all rows in the grid. */
   @property({ type: Boolean, attribute: 'select-all' }) selectAll?: boolean;
 
   override connectedCallback(): void {
@@ -32,6 +29,10 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('grid') && this.grid) {
+      this.grid.selects ??= 'multiple';
+    }
 
     if (changes.has('grid') && this.selectAll) {
       this.grid?.dataSource?.selectAll();

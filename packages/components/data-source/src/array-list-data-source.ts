@@ -84,6 +84,25 @@ export class ArrayListDataSource<T = any> extends ListDataSource<T> {
     return this.#groups?.get(id)?.collapsed ?? false;
   }
 
+  override reorder(
+    item: ListDataSourceItem<T>,
+    relativeItem: ListDataSourceItem<T>,
+    position: 'before' | 'after'
+  ): void {
+    const items = this.items,
+      from = items.indexOf(item),
+      to = items.indexOf(relativeItem) + (position === 'before' ? 0 : 1);
+
+    if (from === -1 || to === -1 || from === to) {
+      return;
+    }
+
+    items.splice(from, 1);
+    items.splice(to + (from < to ? -1 : 0), 0, item);
+
+    this.update();
+  }
+
   update(emitEvent = true): void {
     let items = this.#mappedItems.map(item => ({ ...item, selected: this.isSelected(item) }));
 

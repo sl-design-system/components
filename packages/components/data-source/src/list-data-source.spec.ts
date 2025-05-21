@@ -1,5 +1,5 @@
 import { expect } from '@open-wc/testing';
-import { ListDataSource } from './list-data-source.js';
+import { ListDataSource, type ListDataSourceItem } from './list-data-source.js';
 
 // eslint-disable-next-line mocha/no-exports
 export type Person = {
@@ -89,6 +89,14 @@ class TestListDataSource extends ListDataSource<Person> {
 
   override isGroupCollapsed(_id: unknown): boolean {
     return false;
+  }
+
+  override reorder(
+    _item: ListDataSourceItem<Person>,
+    _relativeItem: ListDataSourceItem<Person>,
+    _position: 'before' | 'after' | 'replace'
+  ): void {
+    // empty
   }
 
   override update(): void {

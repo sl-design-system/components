@@ -112,7 +112,12 @@ export const Selection: Story = {
     <p>This example shows how you can combine selection and filtering in a grid.</p>
     <sl-grid .items=${students}>
       <sl-grid-selection-column></sl-grid-selection-column>
-      <sl-grid-filter-column path="fullName"></sl-grid-filter-column>
+      <sl-grid-filter-column
+        header="Student"
+        path="fullName"
+        .renderer=${avatarRenderer}
+        .scopedElements=${{ 'sl-avatar': Avatar }}
+      ></sl-grid-filter-column>
       <sl-grid-filter-column path="email"></sl-grid-filter-column>
     </sl-grid>
   `
@@ -121,11 +126,7 @@ export const Selection: Story = {
 export const Custom: Story = {
   loaders: [async () => ({ students: (await getStudents()).students })],
   render: (_, { loaded: { students } }) => {
-    const filter = (student: Student): boolean => {
-      console.log('filtering', student);
-
-      return student.school.id === 'school-1';
-    };
+    const filter = (student: Student): boolean => student.school.id === 'school-1';
 
     const dataSource = new ArrayListDataSource(students as Student[]);
     dataSource.addFilter('custom', filter);

@@ -40,7 +40,7 @@
   border: none;
 }
 
-:host([clickable-row]) {
+:host([selects$='-row']) {
   [part~='row'] {
     --_bg-color: transparent;
     --_bg-mix-color: var(--sl-color-background-input-interactive);
@@ -356,6 +356,10 @@ td {
   justify-content: start;
   padding: var(--_body-cell-padding-block) var(--_body-cell-padding-inline);
 
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background 0.2s ease-in-out;
+  }
+
   &:has(> :not(sl-ellipsize-text)) {
     padding-block: 0;
   }
@@ -518,6 +522,7 @@ tfoot {
   justify-self: anchor-center;
   margin: 0;
   padding: 0;
+  padding-inline-end: var(--sl-size-100);
   position-anchor: --table;
   position-try: --viewport-block-end;
 

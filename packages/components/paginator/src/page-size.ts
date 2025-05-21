@@ -1,6 +1,6 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
+import { LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE, type ListDataSource } from '@sl-design-system/data-source';
 import { Label } from '@sl-design-system/form';
 import { Option } from '@sl-design-system/listbox';
 import { Select } from '@sl-design-system/select';
@@ -69,7 +69,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
    * Items per page.
    * @default 10
    */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  @property({ type: Number, attribute: 'page-size' }) pageSize = LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
 
   /** @internal Emits when the page size has been selected/changed. */
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>;
@@ -93,7 +93,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     super.willUpdate(changes);
 
     if (changes.has('pageSizes')) {
-      this.pageSize = this.pageSizes?.at(0) ?? DATA_SOURCE_DEFAULT_PAGE_SIZE;
+      this.pageSize = this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
     }
   }
 

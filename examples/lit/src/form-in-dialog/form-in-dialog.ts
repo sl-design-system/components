@@ -29,7 +29,7 @@ export class FormInDialog extends Dialog {
 
   override renderBody(): TemplateResult {
     return html`
-      <sl-form>
+      <form>
         <sl-form-field label="First name">
           <sl-text-field autofocus name="firstName" required></sl-text-field>
         </sl-form-field>
@@ -38,7 +38,7 @@ export class FormInDialog extends Dialog {
         </sl-form-field>
 
         <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>
-      </sl-form>
+      </form>
     `;
   }
 

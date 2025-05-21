@@ -81,7 +81,7 @@ export const FetchListDataSourceError = class extends Error {
 export const FetchListDataSourcePlaceholder = Symbol('FetchListDataSourcePlaceholder');
 
 /** Symbol used as the ID for the dummy group when no groups are provided */
-export const FetchListDataSourceDummyGroup = Symbol('FetchListDataSourceDummyGroup');
+const FetchListDataSourceDummyGroup = Symbol('FetchListDataSourceDummyGroup');
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FetchListDataSource<T = any> extends ListDataSource<T> {
@@ -216,14 +216,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     //   }
     // }
 
+    // Reset the cached items
     this.#groups.forEach(group => (group.pages = {}));
 
-    if (this.#groups.has(FetchListDataSourceDummyGroup)) {
-      this.#items = this.#groups.values().next().value?.members ?? [];
-    } else {
-      this.#items = this.#flattenGroups(this.#groups);
-    }
-
+    this.#items = this.#createItemsArray();
     this.#proxy = this.#createProxy(this.#items);
 
     if (emitEvent) {
@@ -241,6 +237,14 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
     pageSize: number
   ): FetchListDataSourceCallbackOptions {
     return { filters: Array.from(this.filters.values()), group: group.id, page, pageSize, sort: this.sort };
+  }
+
+  #createItemsArray(): Array<ListDataSourceItem<T>> {
+    if (this.#groups.has(FetchListDataSourceDummyGroup)) {
+      return this.#groups.values().next().value?.members ?? [];
+    } else {
+      return this.#flattenGroups(this.#groups);
+    }
   }
 
   #createProxy(items: Array<ListDataSourceItem<T>>): Array<ListDataSourceItem<T>> {
@@ -368,7 +372,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         }
 
         if (recreateProxy) {
-          this.#items = this.#flattenGroups(this.#groups);
+          this.#items = this.#createItemsArray();
           this.#proxy = this.#createProxy(this.#items);
         }
 
@@ -376,6 +380,10 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
       })();
     }
 
-    return { id: ListDataSourcePlaceholder, type: 'data' } as ListDataSourceDataItem<T>;
+    return {
+      id: ListDataSourcePlaceholder,
+      type: 'data',
+      data: ListDataSourcePlaceholder
+    } as ListDataSourceDataItem<T>;
   }
 }

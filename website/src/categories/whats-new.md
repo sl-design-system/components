@@ -27,6 +27,7 @@ Here’s an update on what we’ve been working on recently:
 ### Component Updates
 - **Inline Message:** Accessibility improvements are underway (not released yet). Please note: this includes a **breaking change** – we’ve removed the `action` slot from the inline-message component for accessibility reasons. <ds-status status="stable"></ds-status>
 - **Number Field:** [New documentation has been added.](https://sanomalearning.design/categories/components/number-field/usage/) <ds-status status="draft"></ds-status>
+- **Panel:** [Added density, divider and fill properties](https://storybook.sanomalearning.design/?path=/story/layout-panel--basic) <ds-status status="draft"></ds-status>
 
 ### Figma Toolkit Testing
 We’ve kicked off testing of our SLDS Figma Toolkit with a small group of designers. Thanks to everyone who signed up!

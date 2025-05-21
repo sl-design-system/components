@@ -447,8 +447,8 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
   override getLocalizedValidationMessage(): string {
     if (this.validity.valueMissing) {
       return this.multiple
-        ? msg('Please select at least one option.', { id: 'sl.combobox.validation.requiredMultiple' })
-        : msg('Please select an option.', { id: 'sl.combobox.validation.required' });
+        ? msg('Please select at least one option.', { id: 'sl.combobox.validation.valueMissingMultiple' })
+        : msg('Please select an option.', { id: 'sl.combobox.validation.valueMissing' });
     } else {
       return super.getLocalizedValidationMessage();
     }

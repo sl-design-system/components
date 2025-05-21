@@ -28,15 +28,7 @@
 </trans-unit>
 <trans-unit id="sl.tag.removalInstructions">
   <source>Press the delete or backspace key to remove this item</source>
-  <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
-</trans-unit>
-<trans-unit id="sl.checkboxGroup.validation.required">
-  <source>Please check at least one option.</source>
-  <target>Vink tenminste één optie aan.</target>
-</trans-unit>
-<trans-unit id="sl.checkbox.validation.required">
-  <source>Please check this box.</source>
-  <target>Vink dit vakje aan.</target>
+  <target>Druk op de delete- of backspacetoets om dit item te verwijderen</target>
 </trans-unit>
 <trans-unit id="sl.combobox.selectedOptionsLabel">
   <source>Selected options</source>
@@ -45,14 +37,6 @@
 <trans-unit id="sl.combobox.toggleOptionsButtonLabel">
   <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
   <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
-</trans-unit>
-<trans-unit id="sl.combobox.validation.requiredMultiple">
-  <source>Please select at least one option.</source>
-  <target>Selecteer tenminste één optie.</target>
-</trans-unit>
-<trans-unit id="sl.combobox.validation.required">
-  <source>Please select an option.</source>
-  <target>Kies een optie.</target>
 </trans-unit>
 <trans-unit id="sl.common.selected">
   <source>Selected</source>
@@ -324,7 +308,23 @@
 </trans-unit>
 <trans-unit id="sl.formValidationErrors.listHeader">
   <source>The following fields have errors:</source>
-  <target>De volgende velden zijn incorrect:</target>
+  <target>De volgende velden bevatten fouten:</target>
+</trans-unit>
+<trans-unit id="sl.checkboxGroup.validation.valueMissing">
+  <source>Please check at least one option.</source>
+  <target>Vink tenminste één optie aan.</target>
+</trans-unit>
+<trans-unit id="sl.checkbox.validation.valueMissing">
+  <source>Please check this box.</source>
+  <target>Vink dit vakje aan.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.valueMissingMultiple">
+  <source>Please select at least one option.</source>
+  <target>Selecteer tenminste één optie.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.valueMissing">
+  <source>Please select an option.</source>
+  <target>Kies een optie.</target>
 </trans-unit>
 </body>
 </file>

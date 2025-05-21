@@ -558,7 +558,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       .forEach(col => {
         const index = rows[rows.length - 1].indexOf(col),
           cells = this.renderRoot.querySelectorAll<HTMLElement>(
-            `:where(tbody tr:not(part~='group') td, th):nth-child(${index + 1})`
+            `:where(tbody tr:not([part~='group']) td, th):nth-child(${index + 1})`
           );
 
         col.width = Array.from(cells).reduce((acc, cur) => {

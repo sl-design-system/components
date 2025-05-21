@@ -25,7 +25,7 @@ eleventyNavigation:
 Here’s an update on what we’ve been working on recently:
 
 ### Component Updates
-- **Inline Message:** Accessibility improvements are underway (not released yet). Please note: this includes a **breaking change** – we’ve removed the action slot from the inline-message component for accessibility reasons. <ds-status status="stable"></ds-status>
+- **Inline Message:** Accessibility improvements are underway (not released yet). Please note: this includes a **breaking change** – we’ve removed the `action` slot from the inline-message component for accessibility reasons. <ds-status status="stable"></ds-status>
 - **Number Field:** [New documentation has been added.](https://sanomalearning.design/categories/components/number-field/usage/) <ds-status status="draft"></ds-status>
 
 ### Figma Toolkit Testing

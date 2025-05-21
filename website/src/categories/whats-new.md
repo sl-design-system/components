@@ -20,6 +20,50 @@ eleventyNavigation:
 <section>
   
 ## SL Design System Update
+<small>April & May 2025</small>
+
+Here’s an update on what we’ve been working on recently:
+
+### Component Updates
+- **Inline Message:** Accessibility improvements are underway (not released yet). Please note: this includes a **breaking change** – we’ve removed the action slot from the inline-message component for accessibility reasons. <ds-status status="stable"></ds-status>
+- **Number Field:** [New documentation has been added.](https://sanomalearning.design/categories/components/number-field/usage/) <ds-status status="draft"></ds-status>
+
+### Figma Toolkit Testing
+We’ve kicked off testing of our SLDS Figma Toolkit with a small group of designers. Thanks to everyone who signed up!
+The first batch includes:
+- Button
+- Checkbox
+- Radio Group
+- Search Field
+- Textarea
+- Textfield
+
+A dedicated Slack channel with a feedback system has helped us catch and fix some early issues quickly. A new batch of components will be ready for testing soon.
+
+If you’re interested in joining the test group, feel free to reach out!
+
+### Theming
+The new variable-based theming setup in Figma is looking solid. Testers were able to apply product themes manually with little trouble. We’re also working on a small helper plugin to simplify the process – more on that soon!
+
+### Datagrid Improvements
+We're continuing to enhance the datagrid component with:
+- Contextual tokens replacing old hardcoded colors and sizes
+- Updated design for bulk actions
+- UX improvements to in-grid filtering and sortable columns
+- Refactored list data sources for better grouping support
+- New filter patterns for inside/outside the datagrid
+- Example data tailored for the education domain
+  
+Work on this is ongoing.
+
+### Other Improvements
+- Progress Bar: [Now supports more color options](https://storybook.sanomalearning.design/?path=/story/feedback-status-progress-bar--colors)
+- Icons: [Now scalable](https://storybook.sanomalearning.design/?path=/story/media-icon--basic) 
+- Bugfixes: Minor cosmetic fixes for Tabs, Radio Group, and Select
+</section>
+<section>
+  
+## SL Design System Update
 <small>January 2025</small>
 
 

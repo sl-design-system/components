@@ -125,9 +125,26 @@ export const Inheritance: Story = {
       /* empty */
     }
 
+    // const onClick = (event: Event & { target: HTMLElement }) => {
+    //   (event.target.nextElementSibling as FormInDialog)?.showModal();
+    // };
+
     const onClick = (event: Event & { target: HTMLElement }) => {
-      (event.target.nextElementSibling as FormInDialog)?.showModal();
+      let dialog = document.querySelector('example-form-in-dialog');
+      dialog?.addEventListener('sl-close', () => dialog?.remove());
+      dialog?.addEventListener('sl-cancel', () => dialog?.remove());
+
+      if (!dialog) {
+        dialog = document.createElement('example-form-in-dialog');
+        event.target.insertAdjacentElement('afterend', dialog);
+      }
+
+      requestAnimationFrame(() => {
+        (dialog as FormInDialog).showModal();
+      });
     };
+
+    // <example-form-in-dialog></example-form-in-dialog>
 
     return html`
       <form>
@@ -141,7 +158,6 @@ export const Inheritance: Story = {
         <sl-text-field name="firstName" required></sl-text-field>
       </sl-form-field>
       <sl-button @click=${onClick}>Show Dialog</sl-button>
-      <example-form-in-dialog></example-form-in-dialog>
 
       <form>
         <sl-form-field label="First name">

@@ -2,321 +2,327 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 <file target-language="nl" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
-<trans-unit id="s629576c6b305d539">
-  <source>optional</source>
-  <target>optioneel</target>
-</trans-unit>
-<trans-unit id="s39bba60b440fcf00">
-  <source>required</source>
-  <target>verplicht</target>
-</trans-unit>
-<trans-unit id="s5e8250fb85d64c23">
-  <source>Close</source>
-  <target>Sluiten</target>
-</trans-unit>
-<trans-unit id="s5e10d00d437e2e21">
-  <source>Blank</source>
-  <target>Leeg</target>
-</trans-unit>
-<trans-unit id="sc94053131f85fc8a">
-  <source>Please check this box.</source>
-  <target>Vink dit vakje aan.</target>
-</trans-unit>
-<trans-unit id="sb881081d4f28c851">
-  <source>Please choose an option from the list.</source>
-  <target>Kies een optie uit de lijst.</target>
-</trans-unit>
-<trans-unit id="s62aa2ba3fe47ece4">
-  <source>Please check at least one option.</source>
-  <target>Vink tenminste één optie aan.</target>
-</trans-unit>
-<trans-unit id="sa447e2f801a7eb2d">
-  <source>Please select an option.</source>
-  <target>Kies een optie.</target>
-</trans-unit>
-<trans-unit id="sc95c7150ab686f99">
-  <source>Please enter a valid value.</source>
-  <target>Voer een correcte waarde in.</target>
-</trans-unit>
-<trans-unit id="sd244b51f6d7de8e2">
-  <source>Please match the format requested.</source>
-  <target>Voer een waarde in volgens het gevraagde patroon.</target>
-</trans-unit>
-<trans-unit id="s8079b71872346425">
-  <source>Please fill in this field.</source>
-  <target>Voer een waarde in.</target>
-</trans-unit>
-<trans-unit id="sde6884478b7cc818">
-  <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
-  <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
-</trans-unit>
-<trans-unit id="sf1ec4acb8d744ed9">
-  <source>Alert</source>
-  <target>Mededeling</target>
-</trans-unit>
-<trans-unit id="s091d3d07b5b3076f">
-  <source>OK</source>
-  <target>Ok</target>
-</trans-unit>
-<trans-unit id="sb85774dc5d18ff0f">
-  <source>Confirm</source>
-  <target>Bevestig</target>
-</trans-unit>
-<trans-unit id="s2ceb11be2290bb1b">
-  <source>Cancel</source>
-  <target>Annuleren</target>
-</trans-unit>
-<trans-unit id="s6abb1cd87fe0114e">
+<trans-unit id="sl.breadcrumbs.home">
   <source>Home</source>
   <target>Home</target>
 </trans-unit>
-<trans-unit id="sa996297f6a208e98">
-  <source>Breadcrumb trail</source>
-  <target>Kruimelpad</target>
-</trans-unit>
-<trans-unit id="s864c948d4629240f">
-  <source>Show all</source>
-  <target>Toon alles</target>
-</trans-unit>
-<trans-unit id="sf677da98fa27f9b6">
-  <source>More breadcrumbs</source>
-  <target>Meer links</target>
-</trans-unit>
-<trans-unit id="sd711c88b851db6c9">
-  <source>The following fields have errors:</source>
-  <target>De volgende velden zijn incorrect:</target>
-</trans-unit>
-<trans-unit id="s4f6434b4c6326f21">
-  <source>All fields are valid.</source>
-  <target>Alle velden zijn correct.</target>
-</trans-unit>
-<trans-unit id="s13fdff160ffad275">
-  <source>Clear text</source>
-  <target>Wis tekst</target>
-</trans-unit>
-<trans-unit id="sefa2cd5631cae9d8">
-  <source>Step up</source>
-  <target>Stap omhoog</target>
-</trans-unit>
-<trans-unit id="s078cac19db271b0d">
-  <source>Step down</source>
-  <target>Stap omlaag</target>
-</trans-unit>
-<trans-unit id="s5d929ff1619ac0c9">
-  <source>Search</source>
-  <target>Zoeken</target>
-</trans-unit>
-<trans-unit id="sbf1de7bf2881bae1">
-  <source>Frequently Used</source>
-  <target>Vaak gebruikt</target>
-</trans-unit>
-<trans-unit id="see63aaad45b1b116">
-  <source>state</source>
-  <target>status</target>
-</trans-unit>
-<trans-unit id="s6580790b036f0c6f">
-  <source>active</source>
-  <target>actief</target>
-</trans-unit>
-<trans-unit id="s19fe06e3408e53d0">
-  <source>success</source>
-  <target>succes</target>
-</trans-unit>
-<trans-unit id="s129fac0ae1df7c8f">
-  <source>warning</source>
-  <target>waarschuwing</target>
-</trans-unit>
-<trans-unit id="s9f7452dd75d54d31">
-  <source>error</source>
-  <target>fout</target>
-</trans-unit>
-<trans-unit id="s9cd91b99a108a45f">
-  <source>List of hidden elements</source>
-  <target>Lijst met verborgen elementen</target>
-</trans-unit>
-<trans-unit id="s606beeef09212e6c">
-  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
-  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
-</trans-unit>
-<trans-unit id="s8c1f47dc13ead0c3">
-  <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
-  <target>Maak "<x id="0" equiv-text="${this.value}"/>" aan</target>
-</trans-unit>
-<trans-unit id="s00a84204340a1db4">
-  <source>Selected</source>
-  <target>Geselecteerd</target>
-</trans-unit>
-<trans-unit id="s602a5722e101c0d2">
-  <source>All options</source>
-  <target>Alle opties</target>
-</trans-unit>
-<trans-unit id="se412fe8953013d92">
-  <source>Please select at least one option.</source>
-  <target>Selecteer tenminste één optie.</target>
-</trans-unit>
-<trans-unit id="s2362b49263f76ec8">
-  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
-  <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
-</trans-unit>
-<trans-unit id="sde3919a1e53d2cff">
-  <source>Press the delete or backspace key to remove this item</source>
-  <target>Druk op de delete of backspace toets om dit item te verwijderen</target>
-</trans-unit>
-<trans-unit id="s680f01021b5e339d">
-  <source>Week</source>
-  <target>Week</target>
-</trans-unit>
-<trans-unit id="sa7c7ba461453bfef">
-  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> items</target>
-</trans-unit>
-<trans-unit id="s1e55e510d77b5965">
-  <source>Select page number</source>
-  <target>Selecteer paginanummer</target>
-</trans-unit>
-<trans-unit id="sf7290005be5beae6">
-  <source><x id="0" equiv-text="${this.page}"/>, page</source>
-  <target><x id="0" equiv-text="${this.page}"/>, pagina</target>
-</trans-unit>
-<trans-unit id="s88b887b46242ba96">
-  <source>Go to the previous page (<x id="0" equiv-text="${this.page}"/>)</source>
-  <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.page}"/>)</target>
-</trans-unit>
-<trans-unit id="sa477d2feda7d475e">
-  <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
-  <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.page + 2}"/>)</target>
-</trans-unit>
-<trans-unit id="s7d09afc329d9995b">
-  <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
-  <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> van <x id="1" equiv-text="${this.pageCount}"/></target>
-</trans-unit>
-<trans-unit id="s9ad43731ebd435aa">
-  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
-</trans-unit>
-<trans-unit id="s886db4d476f66522">
-  <source>Selected options</source>
-  <target>Geselecteerde opties</target>
-</trans-unit>
-<trans-unit id="s3dc14a4b8129f989">
-  <source>Pagination</source>
-  <target>Paginering</target>
-</trans-unit>
-<trans-unit id="s4dabcaab8d268abf">
-  <source>Items per page:</source>
-  <target>Items per pagina:</target>
-</trans-unit>
-<trans-unit id="s15abf4bcf7cba79f">
-  <source>items per page</source>
-  <target>items per pagina</target>
-</trans-unit>
-<trans-unit id="s874708ada8e71323">
-  <source>Skip to end of table</source>
-  <target>Naar het einde van de tabel</target>
-</trans-unit>
-<trans-unit id="se952fc198acfa288">
-  <source>Skip to start of table</source>
-  <target>Naar het begin van de tabel</target>
-</trans-unit>
-<trans-unit id="sb2c57b2d347203dd">
-  <source>Show more</source>
-  <target>Meer tonen</target>
-</trans-unit>
-<trans-unit id="sb59d68ed12d46377">
+<trans-unit id="sl.tree.loadingMessage">
   <source>Loading</source>
   <target>Laden</target>
 </trans-unit>
-<trans-unit id="s8f18916860db5d80">
-  <source>Clear selection</source>
-  <target>Selectie wissen</target>
+<trans-unit id="sl.tag.removalInstructions">
+  <source>Press the delete or backspace key to remove this item</source>
+  <target>Druk op de delete- of backspacetoets om dit item te verwijderen</target>
 </trans-unit>
-<trans-unit id="s47319a3cf96f6c33">
-  <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
-  <target>De waarde moet kleiner dan of gelijk aan <x id="0" equiv-text="${this.max}"/> zijn.</target>
+<trans-unit id="sl.common.selected">
+  <source>Selected</source>
+  <target>Geselecteerd</target>
 </trans-unit>
-<trans-unit id="sa857aed87918391e">
-  <source>The value must be greater than or equal to <x id="0" equiv-text="${this.min}"/>.</source>
-  <target>De waarde moet groter dan of gelijk aan <x id="0" equiv-text="${this.min}"/> zijn.</target>
+<trans-unit id="sl.common.allOptions">
+  <source>All options</source>
+  <target>Alle opties</target>
 </trans-unit>
-<trans-unit id="sfc5e976d64c3fb31">
-  <source>Please enter a valid number.</source>
-  <target>Voer een geldig getal in.</target>
+<trans-unit id="sl.common.close">
+  <source>Close</source>
+  <target>Sluiten</target>
 </trans-unit>
-<trans-unit id="sf3fe911c549b0fcd">
-  <source>Toggle calendar</source>
-  <target>Toon kalender</target>
+<trans-unit id="sl.emojiBrowser.search">
+  <source>Search</source>
+  <target>Zoeken</target>
 </trans-unit>
-<trans-unit id="s49a14735332eb6fc">
-  <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
-  <target>Vorige maand, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
-</trans-unit>
-<trans-unit id="s794261719626d49c">
-  <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
-  <target>Volgende maand, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
-</trans-unit>
-<trans-unit id="s16cec004919b8ee1">
-  <source>Previous year, <x id="0" equiv-text="${currentYear - 1}"/></source>
-  <target>Vorig jaar, <x id="0" equiv-text="${currentYear - 1}"/></target>
-</trans-unit>
-<trans-unit id="s80cb08af5e5de981">
-  <source>Next year, <x id="0" equiv-text="${currentYear + 1}"/></source>
-  <target>Volgend jaar, <x id="0" equiv-text="${currentYear + 1}"/></target>
-</trans-unit>
-<trans-unit id="sc25ef986c3661767">
-  <source>Go back 12 years</source>
-  <target>Ga 12 jaar vooruit</target>
-</trans-unit>
-<trans-unit id="sc7514d59540bf727">
-  <source>Go forward 12 years</source>
-  <target>Ga 12 jaar terug</target>
-</trans-unit>
-<trans-unit id="sa76539707f54b1b6">
-  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
-  <target>Filter op <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
-</trans-unit>
-<trans-unit id="s085c6223e17edc0a">
-  <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
-  <target>van <x id="0" equiv-text="${this.pageCount}"/> pagina's</target>
-</trans-unit>
-<trans-unit id="s640e81cadb5300b5">
+<trans-unit id="sl.grid.selectionStatusMessage">
   <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
   <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
 </trans-unit>
-<trans-unit id="sddf618209e237506">
-  <source>Toggle group</source>
-  <target>Toon groep</target>
+<trans-unit id="sl.messageDialog.alertTitle">
+  <source>Alert</source>
+  <target>Mededeling</target>
 </trans-unit>
-<trans-unit id="sad56195767615a3b">
-  <source>Expand panel</source>
-  <target>Uitklappen</target>
+<trans-unit id="sl.messageDialog.confirmTitle">
+  <source>Confirm</source>
+  <target>Bevestig</target>
 </trans-unit>
-<trans-unit id="s25c9b139cc1a6be8">
-  <source>Collapse panel</source>
-  <target>Inklappen</target>
+<trans-unit id="sl.messageDialog.cancelButton">
+  <source>Cancel</source>
+  <target>Annuleren</target>
 </trans-unit>
-<trans-unit id="s34e46e4e30ae57bd">
+<trans-unit id="sl.messageDialog.okButton">
+  <source>OK</source>
+  <target>Ok</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.exceedsMaximum">
+  <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
+  <target>De waarde moet kleiner dan of gelijk aan <x id="0" equiv-text="${this.max}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.belowMinimum">
+  <source>The value must be greater than or equal to <x id="0" equiv-text="${this.min}"/>.</source>
+  <target>De waarde moet groter dan of gelijk aan <x id="0" equiv-text="${this.min}"/> zijn.</target>
+</trans-unit>
+<trans-unit id="sl.numberField.validation.invalidNumber">
+  <source>Please enter a valid number.</source>
+  <target>Voer een geldig getal in.</target>
+</trans-unit>
+<trans-unit id="sl.common.validation.tooShort">
+  <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
+  <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
+</trans-unit>
+<trans-unit id="sl.checkbox.validation.valueMissing">
+  <source>Please check this box.</source>
+  <target>Vink dit vakje aan.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.valueMissingMultiple">
+  <source>Please select at least one option.</source>
+  <target>Selecteer tenminste één optie.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.validation.valueMissing">
+  <source>Please select an option.</source>
+  <target>Kies een optie.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.createCustomOption">
+  <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
+  <target>Maak "<x id="0" equiv-text="${this.value}"/>" aan</target>
+</trans-unit>
+<trans-unit id="sl.emojiBrowser.frequentlyUsed">
+  <source>Frequently Used</source>
+  <target>Vaak gebruikt</target>
+</trans-unit>
+<trans-unit id="sl.form.allFieldsValid">
+  <source>All fields are valid.</source>
+  <target>Alle velden zijn correct.</target>
+</trans-unit>
+<trans-unit id="sl.form.optionalLabelIndicator">
+  <source>optional</source>
+  <target>optioneel</target>
+</trans-unit>
+<trans-unit id="sl.form.requiredLabelIndicator">
+  <source>required</source>
+  <target>verplicht</target>
+</trans-unit>
+<trans-unit id="sl.grid.cancelSelection">
+  <source>Cancel selection</source>
+  <target>Annuleer selectie</target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousMonth">
+  <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+</trans-unit>
+<trans-unit id="sl.calendar.nextMonth">
+  <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+</trans-unit>
+<trans-unit id="sl.calendar.week">
+  <source>Week</source>
+  <target>Week</target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousYear">
+  <source>Previous year, <x id="0" equiv-text="${currentYear - 1}"/></source>
+  <target>Vorig jaar, <x id="0" equiv-text="${currentYear - 1}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.nextYear">
+  <source>Next year, <x id="0" equiv-text="${currentYear + 1}"/></source>
+  <target>Volgend jaar, <x id="0" equiv-text="${currentYear + 1}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousYears">
+  <source>Go back 12 years</source>
+  <target>Ga 12 jaar vooruit</target>
+</trans-unit>
+<trans-unit id="sl.calendar.nextYears">
+  <source>Go forward 12 years</source>
+  <target>Ga 12 jaar terug</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortDescending">
   <source>Sort descending</source>
   <target>Sorteer aflopend</target>
 </trans-unit>
-<trans-unit id="sa359b53ab45a0d8f">
+<trans-unit id="sl.grid.removeSort">
   <source>Remove sort</source>
   <target>Verwijder sortering</target>
 </trans-unit>
-<trans-unit id="s10420672e643d2c7">
+<trans-unit id="sl.grid.sortAscending">
   <source>Sort ascending</source>
   <target>Sorteer oplopend</target>
 </trans-unit>
-<trans-unit id="s3d195621e562d805">
-  <source>Select row</source>
-  <target>Selecteer rij</target>
+<trans-unit id="sl.grid.blankFilterOption">
+  <source>Blank</source>
+  <target>Leeg</target>
 </trans-unit>
-<trans-unit id="s909e876731a8febb">
+<trans-unit id="sl.grid.selectAllRows">
   <source>Select all rows</source>
   <target>Selecteer alle rijen</target>
 </trans-unit>
-<trans-unit id="sb6c8dfe6b54f9679">
-  <source>Cancel selection</source>
-  <target>Annuleer selectie</target>
+<trans-unit id="sl.grid.selectRow">
+  <source>Select row</source>
+  <target>Selecteer rij</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.breadcrumbTrail">
+  <source>Breadcrumb trail</source>
+  <target>Kruimelpad</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.moreBreadcrumbs">
+  <source>More breadcrumbs</source>
+  <target>Meer links</target>
+</trans-unit>
+<trans-unit id="sl.checkbox.validation.valueMissingMultiple">
+  <source>Please check at least one option.</source>
+  <target>Vink tenminste één optie aan.</target>
+</trans-unit>
+<trans-unit id="sl.tag.listOfHiddenElements">
+  <source>List of hidden elements</source>
+  <target>Lijst met verborgen elementen</target>
+</trans-unit>
+<trans-unit id="sl.combobox.selectedOptions">
+  <source>Selected options</source>
+  <target>Geselecteerde opties</target>
+</trans-unit>
+<trans-unit id="sl.combobox.toggleOptions">
+  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
+  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
+</trans-unit>
+<trans-unit id="sl.dateField.toggleCalendar">
+  <source>Toggle calendar</source>
+  <target>Toon kalender</target>
+</trans-unit>
+<trans-unit id="sl.radioGroup.validation.valueMissing">
+  <source>Please select an option.</source>
+  <target>Kies een optie.</target>
+</trans-unit>
+<trans-unit id="sl.tabs.showAll">
+  <source>Show all</source>
+  <target>Toon alles</target>
+</trans-unit>
+<trans-unit id="sl.select.clearSelection">
+  <source>Clear selection</source>
+  <target>Selectie wissen</target>
+</trans-unit>
+<trans-unit id="sl.select.validation.valueMissing">
+  <source>Please choose an option from the list.</source>
+  <target>Kies een optie uit de lijst.</target>
+</trans-unit>
+<trans-unit id="sl.toolBar.showMore">
+  <source>Show more</source>
+  <target>Meer tonen</target>
+</trans-unit>
+<trans-unit id="sl.grid.filterByValue">
+  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
+  <target>Filter op <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.toggleGroup">
+  <source>Toggle group</source>
+  <target>Toon groep</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToEndOfTable">
+  <source>Skip to end of table</source>
+  <target>Naar het einde van de tabel</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToStartOfTable">
+  <source>Skip to start of table</source>
+  <target>Naar het begin van de tabel</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPage">
+  <source>Items per page:</source>
+  <target>Items per pagina:</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPageOption">
+  <source>items per page</source>
+  <target>items per pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagination">
+  <source>Pagination</source>
+  <target>Paginering</target>
+</trans-unit>
+<trans-unit id="sl.paginator.previousPage">
+  <source>Go to the previous page (<x id="0" equiv-text="${this.page}"/>)</source>
+  <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.page}"/>)</target>
+</trans-unit>
+<trans-unit id="sl.paginator.selectPageNumber">
+  <source>Select page number</source>
+  <target>Selecteer paginanummer</target>
+</trans-unit>
+<trans-unit id="sl.paginator.currentPage">
+  <source><x id="0" equiv-text="${this.page}"/>, page</source>
+  <target><x id="0" equiv-text="${this.page}"/>, pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pageOption">
+  <source><x id="0" equiv-text="${index + 1}"/>, page</source>
+  <target><x id="0" equiv-text="${index + 1}"/>, pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.totalPages">
+  <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
+  <target>van <x id="0" equiv-text="${this.pageCount}"/> pagina's</target>
+</trans-unit>
+<trans-unit id="sl.paginator.nextPage">
+  <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
+  <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.page + 2}"/>)</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pageChangeAnnouncement">
+  <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
+  <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> van <x id="1" equiv-text="${this.pageCount}"/></target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsRange">
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> items</target>
+</trans-unit>
+<trans-unit id="sl.paginator.currentlyShowingAmount">
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
+  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.state">
+  <source>state</source>
+  <target>status</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepDown">
+  <source>Step down</source>
+  <target>Stap omlaag</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepUp">
+  <source>Step up</source>
+  <target>Stap omhoog</target>
+</trans-unit>
+<trans-unit id="sl.searchField.clearText">
+  <source>Clear text</source>
+  <target>Wis tekst</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.invalidValue">
+  <source>Please enter a valid value.</source>
+  <target>Voer een correcte waarde in.</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.patternMismatch">
+  <source>Please match the format requested.</source>
+  <target>Voer een waarde in volgens het gevraagde patroon.</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.valueMissing">
+  <source>Please fill in this field.</source>
+  <target>Voer een waarde in.</target>
+</trans-unit>
+<trans-unit id="sl.form.errorsList">
+  <source>The following fields have errors:</source>
+  <target>De volgende velden bevatten fouten:</target>
+</trans-unit>
+<trans-unit id="sl.combobox.noOptionsFound">
+  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
+  <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
+</trans-unit>
+<trans-unit id="sl.panel.expand">
+  <source>Expand panel</source>
+  <target>Uitklappen</target>
+</trans-unit>
+<trans-unit id="sl.panel.collapse">
+  <source>Collapse panel</source>
+  <target>Inklappen</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.active">
+  <source>active</source>
+  <target>actief</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.success">
+  <source>success</source>
+  <target>succes</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.warning">
+  <source>warning</source>
+  <target>waarschuwing</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.error">
+  <source>error</source>
+  <target>fout</target>
 </trans-unit>
 </body>
 </file>

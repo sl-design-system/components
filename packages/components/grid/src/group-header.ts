@@ -68,7 +68,12 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
             </div>
           `
         : nothing}
-      <sl-button @click=${this.#onClick} aria-label=${msg('Toggle group')} fill="ghost" size="sm">
+      <sl-button
+        @click=${this.#onClick}
+        aria-label=${msg('Toggle group', { id: 'sl.grid.toggleGroup' })}
+        fill="ghost"
+        size="sm"
+      >
         <sl-icon name="chevron-down"></sl-icon>
       </sl-button>
       <div part="wrapper">

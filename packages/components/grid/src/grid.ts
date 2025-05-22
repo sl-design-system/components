@@ -387,7 +387,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
         @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
       >
-        ${msg('Skip to end of table')}
+        ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
       </a>
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
@@ -420,13 +420,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       </table>
 
       <div part="bulk-actions" popover="manual">
-        <span>${msg(str`${this.dataSource?.selected} of ${this.dataSource?.totalSize} selected`)}</span>
+        <span>
+          ${msg(str`${this.dataSource?.selected} of ${this.dataSource?.totalSize} selected`, {
+            id: 'sl.grid.selectionStatusMessage'
+          })}
+        </span>
         <sl-tool-bar no-border>
           <slot name="bulk-actions"></slot>
           <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
             <sl-icon name="xmark"></sl-icon>
           </sl-button>
-          <sl-tooltip id="tooltip">${msg('Cancel selection')}</sl-tooltip>
+          <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}</sl-tooltip>
         </sl-tool-bar>
       </div>
 
@@ -436,7 +440,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         class="skip-link-end"
         @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
-        >${msg('Skip to start of table')}</a
+        >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
       >
     `;
   }

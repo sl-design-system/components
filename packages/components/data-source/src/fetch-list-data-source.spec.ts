@@ -1,10 +1,7 @@
 import { expect } from '@open-wc/testing';
 import { spy } from 'sinon';
-import {
-  FetchListDataSource,
-  type FetchListDataSourceCallbackOptions,
-  FetchListDataSourcePlaceholder
-} from './fetch-list-data-source.js';
+import { FetchListDataSource, type FetchListDataSourceCallbackOptions } from './fetch-list-data-source.js';
+import { type ListDataSourceDataItem, ListDataSourcePlaceholder } from './list-data-source.js';
 import { type Person, people } from './list-data-source.spec.js';
 
 describe('FetchListDataSource', () => {
@@ -68,11 +65,13 @@ describe('FetchListDataSource', () => {
     it('should return a placeholder item when the item is not yet available', async () => {
       ds.update();
 
-      expect(ds.items[0]).to.equal(FetchListDataSourcePlaceholder);
+      let item = ds.items[0] as ListDataSourceDataItem<Person>;
+      expect(item.data).to.equal(ListDataSourcePlaceholder);
 
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(ds.items[0]).to.deep.equal(people[0]);
+      item = ds.items[0] as ListDataSourceDataItem<Person>;
+      expect(item.data).to.deep.equal(people[0]);
     });
 
     describe('fetchPage', () => {
@@ -149,8 +148,8 @@ describe('FetchListDataSource', () => {
         expect(options).to.not.be.undefined;
         expect(options?.filters).to.have.length(2);
         expect(options?.filters).to.deep.equal([
-          { by: 'membership', value: 'Regular' },
-          { by: 'profession', value: 'Gastroenterologist' }
+          { id: 'membership', by: 'membership', value: 'Regular' },
+          { id: 'profession', by: 'profession', value: 'Gastroenterologist' }
         ]);
       });
 

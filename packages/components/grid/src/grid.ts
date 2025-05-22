@@ -999,13 +999,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (sorter && (sorter.sorter || sorter.path)) {
       this.dataSource?.setSort(sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
-    } else {
+    } else if (this.#sorters.length) {
       if (sorter) {
         console.warn(
           `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
         );
       }
 
+      // Make sure we do not remove the sort if the sort has been set on the data source directly
       this.dataSource?.removeSort();
     }
 
@@ -1051,6 +1052,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #removeColumn(col: GridColumn): void {
     if (col instanceof GridSortColumn) {
+      if (col.direction) {
+        // If the grid was sorted on this column, remove the sort
+        this.dataSource?.removeSort();
+      }
+
       this.#sorters = this.#sorters.filter(s => s !== col.sorterElement);
     }
 

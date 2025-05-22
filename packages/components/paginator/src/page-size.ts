@@ -93,7 +93,7 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     super.willUpdate(changes);
 
     if (changes.has('pageSizes')) {
-      this.pageSize = this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
+      this.pageSize ??= this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
     }
   }
 

@@ -114,7 +114,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   get size(): number {
-    return this.#items.length;
+    return this.#groups.values().reduce((acc, group) => acc + (group.size ?? 0), 0);
   }
 
   get totalSize(): number {
@@ -211,19 +211,6 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   update(emitEvent = true): void {
-    // let length = this.totalSize;
-
-    // if (this.pagination) {
-    //   const pageCount = Math.ceil(this.size / this.pageSize),
-    //     lastPageSize = this.size % this.pageSize;
-
-    //   if (this.page === pageCount - 1 && lastPageSize > 0) {
-    //     length = lastPageSize;
-    //   } else {
-    //     length = this.pageSize;
-    //   }
-    // }
-
     // Reset the cached items
     this.#groups.forEach(group => (group.pages = {}));
 
@@ -249,7 +236,34 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
 
   #createItemsArray(): Array<ListDataSourceItem<T>> {
     if (this.#groups.has(FetchListDataSourceDummyGroup)) {
-      return this.#groups.values().next().value?.members ?? [];
+      const group = this.#groups.values().next().value!,
+        size = group.size ?? FetchListDataSource.defaultSize;
+
+      let length = size,
+        startIndex = 0;
+
+      if (this.pagination) {
+        const pageCount = Math.ceil(size / this.pageSize),
+          lastPageSize = size % this.pageSize;
+
+        startIndex = this.page * this.pageSize;
+
+        if (this.page === pageCount - 1 && lastPageSize > 0) {
+          length = lastPageSize;
+        } else {
+          length = this.pageSize;
+        }
+
+        console.log(size, startIndex, length, pageCount, lastPageSize, group.members?.length);
+      }
+
+      // Make sure the members array is initialized
+      group.members ??= Array.from({ length: size });
+
+      const items = group.members.slice(startIndex, startIndex + length);
+      console.log('items', items.length);
+
+      return items;
     } else {
       return this.#flattenGroups(this.#groups);
     }
@@ -350,8 +364,9 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         const options = this.getFetchOptions(group, page, pageSize),
           res = await this.fetchPage(options);
 
-        // If the size of the group changes, we need to recreate the Proxy object
-        let recreateProxy = false;
+        // If the size of the group changes, or pagination is enabled, we need to
+        // recreate the proxy to ensure that the array with items is up to date.
+        let recreateProxy = this.pagination;
 
         if (res.totalItems !== undefined) {
           group.size = Number(res.totalItems);
@@ -369,7 +384,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         }
 
         for (let i = 0; i < res.items.length; i++) {
-          const index = this.pagination ? i : pageSize * page + i,
+          const index = pageSize * page + i,
             item = res.items[i];
 
           group.members![index] = {

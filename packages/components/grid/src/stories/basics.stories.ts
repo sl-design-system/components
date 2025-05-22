@@ -9,7 +9,7 @@ import { FormatDate } from '@sl-design-system/format-date';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
 import { type GridColumnDataRenderer } from '../column.js';
@@ -25,7 +25,7 @@ export default {
     chromatic: { disableSnapshot: true }
   },
   loaders: [async () => ({ students: (await getStudents()).students })]
-};
+} satisfies Meta;
 
 export const Basic: Story = {
   render: (_, { loaded: { students } }) => {

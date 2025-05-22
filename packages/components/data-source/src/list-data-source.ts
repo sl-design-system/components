@@ -64,6 +64,9 @@ export interface ListDataSourceMapping<T> {
 }
 
 export interface ListDataSourceOptions<T> extends ListDataSourceMapping<T> {
+  /** The filters to apply to the data source. */
+  filters?: Array<DataSourceFilter<T>>;
+
   /** The path to the group by attribute. */
   groupBy?: PathKeys<T>;
 
@@ -227,6 +230,10 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   constructor(options: ListDataSourceOptions<T>) {
     super();
 
+    if (options.filters) {
+      options.filters.forEach(filter => this.#filters.set(filter.id, filter));
+    }
+
     this.#groupBy = options.groupBy;
     this.#groupLabelPath = options.groupLabelPath;
 
@@ -244,6 +251,12 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
 
     if (options.sortBy) {
       this.#sort = { by: options.sortBy, direction: options.sortDirection ?? 'asc' };
+    }
+
+    if (this.#groupBy && this.#pagination) {
+      console.warn(
+        'Grouping and pagination are both enabled for the list data source. This may cause unexpected behavior. It is recommended to use grouping without pagination.'
+      );
     }
   }
 
@@ -296,11 +309,11 @@ export abstract class ListDataSource<T = any, U = ListDataSourceItem<T>> extends
   }
 
   removeSort(): void {
-    this.#sort = undefined;
-
-    if (this.page) {
+    if (this.#sort && this.page) {
       this.setPage(0);
     }
+
+    this.#sort = undefined;
   }
 
   /**

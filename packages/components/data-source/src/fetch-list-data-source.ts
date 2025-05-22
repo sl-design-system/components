@@ -114,7 +114,7 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
   }
 
   get size(): number {
-    return this.#groups.values().reduce((acc, group) => acc + (group.size ?? 0), 0);
+    return Array.from(this.#groups.values()).reduce((acc, group) => acc + (group.size ?? 0), 0);
   }
 
   get totalSize(): number {

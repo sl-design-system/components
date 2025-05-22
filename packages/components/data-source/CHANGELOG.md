@@ -1,5 +1,19 @@
 # @sl-design-system/data-source
 
+## 0.1.4
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Several bug fixes:
+
+  - Fix text being parsed as floating point numbers during sorting
+  - Fix the `DataSourceFilterFunction` to include the value in the function
+
+- [#2024](https://github.com/sl-design-system/components/pull/2024) [`a343e29`](https://github.com/sl-design-system/components/commit/a343e298d6b65966e04b3fbfc3598305a29bf1cc) - Expand `ListDataSource.setGroupBy` by adding a parameter for the label path
+
+- Updated dependencies [[`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664)]:
+  - @sl-design-system/shared@0.7.3
+
 ## 0.1.3
 
 ### Patch Changes

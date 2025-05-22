@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.7.3
+
+### Patch Changes
+
+- [#1975](https://github.com/sl-design-system/components/pull/1975) [`4a6f8ba`](https://github.com/sl-design-system/components/commit/4a6f8ba02f49e8be7b37028c9b6a558ad91d9664) - Use the default `any` type for the `SlSelectionChangeEvent`
+
 ## 0.7.2
 
 ### Patch Changes

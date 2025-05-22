@@ -1,5 +1,11 @@
 # @sl-design-system/listbox
 
+## 0.1.3
+
+### Patch Changes
+
+- [#2037](https://github.com/sl-design-system/components/pull/2037) [`094e4c7`](https://github.com/sl-design-system/components/commit/094e4c7d9e975e7e7a2d28e80d1c6980786492da) - Added overflow-wrap to force words to break when options are shown in a very narrow container.
+
 ## 0.1.2
 
 ### Patch Changes

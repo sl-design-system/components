@@ -69,7 +69,7 @@ Validation: `sl.textField.validation.tooShort`
 For better organization, we use these (example) standard context groups:
 
 - **validation**: For validation error messages
-  - `sl.textField.validation.required`
+  - `sl.textField.validation.valueMissing`
   - `sl.common.validation.invalidFormat`
 
 ### Best Practices

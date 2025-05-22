@@ -2,7 +2,7 @@ import { Avatar } from '@sl-design-system/avatar';
 import {
   FetchListDataSource,
   FetchListDataSourceError,
-  FetchListDataSourcePlaceholder
+  ListDataSourcePlaceholder
 } from '@sl-design-system/data-source';
 import { type Student, getStudents } from '@sl-design-system/example-data';
 import { FormatDate } from '@sl-design-system/format-date';
@@ -156,23 +156,25 @@ export const Header: Story = {
 
 export const MenuButton: Story = {
   render: (_, { loaded: { students } }) => {
-    const menuButtonRenderer: GridColumnDataRenderer<Student> = student => {
-      const onClick = () => {
-        console.log('Menu item for student clicked', student);
-      };
-
+    const menuButtonRenderer: GridColumnDataRenderer<Student> = () => {
       return html`
         <sl-menu-button fill="ghost" size="sm">
           <sl-icon slot="button" name="ellipsis"></sl-icon>
-          <sl-menu-item @click=${onClick}>Do something with this student</sl-menu-item>
-          <sl-menu-item @click=${onClick}>Something else</sl-menu-item>
+          <sl-menu-item>Do something with this student</sl-menu-item>
+          <sl-menu-item>Something else</sl-menu-item>
           <hr />
-          <sl-menu-item @click=${onClick}>Delete person</sl-menu-item>
+          <sl-menu-item>Delete person</sl-menu-item>
         </sl-menu-button>
       `;
     };
 
     return html`
+      <style>
+        sl-grid::part(header menu-button) {
+          /* Hide the column divider for the empty header. */
+          background: var(--sl-elevation-surface-raised-alternative);
+        }
+      </style>
       <p>
         This example has a column with a custom <code>renderer</code> property that renders an
         <code>sl-menu-button</code> inside it. Make sure to add the <code>scopedElements</code> property to the column
@@ -189,6 +191,7 @@ export const MenuButton: Story = {
         <sl-grid-column
           grow="0"
           header=""
+          parts="menu-button"
           .renderer=${menuButtonRenderer}
           .scopedElements=${{
             'sl-icon': Icon,
@@ -271,7 +274,7 @@ export const LazyLoad: Story = {
 export const Skeleton: Story = {
   render: () => {
     const avatarRenderer: GridColumnDataRenderer<Student> = item => {
-      if (typeof item === 'symbol' && item === FetchListDataSourcePlaceholder) {
+      if (typeof item === 'symbol' && item === ListDataSourcePlaceholder) {
         return html`
           <div style="display: flex; align-items: center; gap: 0.25rem; inline-size: 100%">
             <sl-skeleton

@@ -2,25 +2,9 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 <file target-language="nl" source-language="en" original="lit-localize-inputs" datatype="plaintext">
 <body>
-<trans-unit id="sl.breadcrumbs.navigationLabel">
-  <source>Breadcrumb trail</source>
-  <target>Kruimelpad</target>
-</trans-unit>
-<trans-unit id="sl.breadcrumbs.moreButton">
-  <source>More breadcrumbs</source>
-  <target>Meer links</target>
-</trans-unit>
 <trans-unit id="sl.breadcrumbs.home">
   <source>Home</source>
   <target>Home</target>
-</trans-unit>
-<trans-unit id="sl.tabGroup.showAllTabsButton">
-  <source>Show all</source>
-  <target>Toon alles</target>
-</trans-unit>
-<trans-unit id="sl.tagList.hiddenElementsTooltip">
-  <source>List of hidden elements</source>
-  <target>Lijst met verborgen elementen</target>
 </trans-unit>
 <trans-unit id="sl.tree.loadingMessage">
   <source>Loading</source>
@@ -30,14 +14,6 @@
   <source>Press the delete or backspace key to remove this item</source>
   <target>Druk op de delete- of backspacetoets om dit item te verwijderen</target>
 </trans-unit>
-<trans-unit id="sl.combobox.selectedOptionsLabel">
-  <source>Selected options</source>
-  <target>Geselecteerde opties</target>
-</trans-unit>
-<trans-unit id="sl.combobox.toggleOptionsButtonLabel">
-  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
-  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
-</trans-unit>
 <trans-unit id="sl.common.selected">
   <source>Selected</source>
   <target>Geselecteerd</target>
@@ -45,10 +21,6 @@
 <trans-unit id="sl.common.allOptions">
   <source>All options</source>
   <target>Alle opties</target>
-</trans-unit>
-<trans-unit id="sl.dateField.toggleCalendarButtonLabel">
-  <source>Toggle calendar</source>
-  <target>Toon kalender</target>
 </trans-unit>
 <trans-unit id="sl.common.close">
   <source>Close</source>
@@ -70,49 +42,9 @@
   <source>Please fill in this field.</source>
   <target>Voer een waarde in.</target>
 </trans-unit>
-<trans-unit id="sl.gridGroupHeader.toggleGroupButtonLabel">
-  <source>Toggle group</source>
-  <target>Toon groep</target>
-</trans-unit>
-<trans-unit id="sl.gridFilterColumn.blankOptionLabel">
-  <source>Blank</source>
-  <target>Leeg</target>
-</trans-unit>
-<trans-unit id="sl.gridSorter.sortDescendingButtonLabel">
-  <source>Sort descending</source>
-  <target>Sorteer aflopend</target>
-</trans-unit>
-<trans-unit id="sl.gridSorter.removeSortButtonLabel">
-  <source>Remove sort</source>
-  <target>Verwijder sortering</target>
-</trans-unit>
-<trans-unit id="sl.gridSorter.sortAscendingButtonLabel">
-  <source>Sort ascending</source>
-  <target>Sorteer oplopend</target>
-</trans-unit>
-<trans-unit id="sl.gridFilter.filterBySelectPlaceholder">
-  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
-  <target>Filter op <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
-</trans-unit>
-<trans-unit id="sl.gridSelectionColumn.selectAllRowsChecboxLabel">
-  <source>Select all rows</source>
-  <target>Selecteer alle rijen</target>
-</trans-unit>
-<trans-unit id="sl.grid.skipToEndLinkLabel">
-  <source>Skip to end of table</source>
-  <target>Naar het einde van de tabel</target>
-</trans-unit>
 <trans-unit id="sl.grid.selectionStatusMessage">
   <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
   <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
-</trans-unit>
-<trans-unit id="sl.grid.skipToStartLinkLabel">
-  <source>Skip to start of table</source>
-  <target>Naar het begin van de tabel</target>
-</trans-unit>
-<trans-unit id="sl.gridSelectionColumn.selectRowCheckboxLabel">
-  <source>Select row</source>
-  <target>Selecteer rij</target>
 </trans-unit>
 <trans-unit id="sl.messageDialog.alertTitle">
   <source>Alert</source>
@@ -130,14 +62,6 @@
   <source>OK</source>
   <target>Ok</target>
 </trans-unit>
-<trans-unit id="sl.numberField.stepDownFieldButtonLabel">
-  <source>Step down</source>
-  <target>Stap omlaag</target>
-</trans-unit>
-<trans-unit id="sl.numberField.stepUpFieldButtonLabel">
-  <source>Step up</source>
-  <target>Stap omhoog</target>
-</trans-unit>
 <trans-unit id="sl.numberField.validation.exceedsMaximum">
   <source>The value must be less than or equal to <x id="0" equiv-text="${this.max}"/>.</source>
   <target>De waarde moet kleiner dan of gelijk aan <x id="0" equiv-text="${this.max}"/> zijn.</target>
@@ -149,58 +73,6 @@
 <trans-unit id="sl.numberField.validation.invalidNumber">
   <source>Please enter a valid number.</source>
   <target>Voer een geldig getal in.</target>
-</trans-unit>
-<trans-unit id="sl.paginator.itemsPerPageLabel">
-  <source>Items per page:</source>
-  <target>Items per pagina:</target>
-</trans-unit>
-<trans-unit id="sl.paginator.itemsPerPageOptionLabel">
-  <source>items per page</source>
-  <target>items per pagina</target>
-</trans-unit>
-<trans-unit id="sl.paginator.paginationLabel">
-  <source>Pagination</source>
-  <target>Paginering</target>
-</trans-unit>
-<trans-unit id="sl.paginator.previousPageButtonLabel">
-  <source>Go to the previous page (<x id="0" equiv-text="${this.page}"/>)</source>
-  <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.page}"/>)</target>
-</trans-unit>
-<trans-unit id="sl.paginator.selectPageNumberMenuLabel">
-  <source>Select page number</source>
-  <target>Selecteer paginanummer</target>
-</trans-unit>
-<trans-unit id="sl.paginator.currentPageSelectLabel">
-  <source><x id="0" equiv-text="${this.page}"/>, page</source>
-  <target><x id="0" equiv-text="${this.page}"/>, pagina</target>
-</trans-unit>
-<trans-unit id="sl.paginator.pageSelectLabel">
-  <source><x id="0" equiv-text="${index + 1}"/>, page</source>
-  <target><x id="0" equiv-text="${index + 1}"/>, pagina</target>
-</trans-unit>
-<trans-unit id="sl.paginator.totalPagesLabel">
-  <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
-  <target>van <x id="0" equiv-text="${this.pageCount}"/> pagina's</target>
-</trans-unit>
-<trans-unit id="sl.paginator.nextPageButtonLabel">
-  <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
-  <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.page + 2}"/>)</target>
-</trans-unit>
-<trans-unit id="sl.paginator.pageAnnouncementLabel">
-  <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
-  <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> van <x id="1" equiv-text="${this.pageCount}"/></target>
-</trans-unit>
-<trans-unit id="sl.panel.expandPanelToggleButtonLabel">
-  <source>Expand panel</source>
-  <target>Uitklappen</target>
-</trans-unit>
-<trans-unit id="sl.panel.collapsePanelToggleButtonLabel">
-  <source>Collapse panel</source>
-  <target>Inklappen</target>
-</trans-unit>
-<trans-unit id="sl.progressBar.stateLabel">
-  <source>state</source>
-  <target>status</target>
 </trans-unit>
 <trans-unit id="sl.progressBar.activeState">
   <source>active</source>
@@ -218,41 +90,9 @@
   <source>error</source>
   <target>fout</target>
 </trans-unit>
-<trans-unit id="sl.radioGroup.validation.required">
-  <source>Please select an option.</source>
-  <target>Kies een optie.</target>
-</trans-unit>
-<trans-unit id="sl.searchField.clearButtonLabel">
-  <source>Clear text</source>
-  <target>Wis tekst</target>
-</trans-unit>
-<trans-unit id="sl.selectButton.clearSelectionButtonLabel">
-  <source>Clear selection</source>
-  <target>Selectie wissen</target>
-</trans-unit>
-<trans-unit id="sl.toolBar.showMoreButtonLabel">
-  <source>Show more</source>
-  <target>Meer tonen</target>
-</trans-unit>
 <trans-unit id="sl.common.validation.tooShort">
   <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
   <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
-</trans-unit>
-<trans-unit id="sl.select.validation.required">
-  <source>Please choose an option from the list.</source>
-  <target>Kies een optie uit de lijst.</target>
-</trans-unit>
-<trans-unit id="sl.paginatorStatus.itemsRange">
-  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> items</target>
-</trans-unit>
-<trans-unit id="sl.paginatorStatus.currentlyShowingAmountAnnouncement">
-  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
-  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
-</trans-unit>
-<trans-unit id="sl.checkboxGroup.validation.valueMissing">
-  <source>Please check at least one option.</source>
-  <target>Vink tenminste één optie aan.</target>
 </trans-unit>
 <trans-unit id="sl.checkbox.validation.valueMissing">
   <source>Please check this box.</source>
@@ -323,6 +163,166 @@
 <trans-unit id="sl.calendar.nextYears">
   <source>Go forward 12 years</source>
   <target>Ga 12 jaar terug</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortDescending">
+  <source>Sort descending</source>
+  <target>Sorteer aflopend</target>
+</trans-unit>
+<trans-unit id="sl.grid.removeSort">
+  <source>Remove sort</source>
+  <target>Verwijder sortering</target>
+</trans-unit>
+<trans-unit id="sl.grid.sortAscending">
+  <source>Sort ascending</source>
+  <target>Sorteer oplopend</target>
+</trans-unit>
+<trans-unit id="sl.grid.blankFilterOption">
+  <source>Blank</source>
+  <target>Leeg</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectAllRows">
+  <source>Select all rows</source>
+  <target>Selecteer alle rijen</target>
+</trans-unit>
+<trans-unit id="sl.grid.selectRow">
+  <source>Select row</source>
+  <target>Selecteer rij</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.breadcrumbTrail">
+  <source>Breadcrumb trail</source>
+  <target>Kruimelpad</target>
+</trans-unit>
+<trans-unit id="sl.breadcrumbs.moreBreadcrumbs">
+  <source>More breadcrumbs</source>
+  <target>Meer links</target>
+</trans-unit>
+<trans-unit id="sl.checkbox.validation.valueMissingMultiple">
+  <source>Please check at least one option.</source>
+  <target>Vink tenminste één optie aan.</target>
+</trans-unit>
+<trans-unit id="sl.tag.listOfHiddenElements">
+  <source>List of hidden elements</source>
+  <target>Lijst met verborgen elementen</target>
+</trans-unit>
+<trans-unit id="sl.combobox.selectedOptions">
+  <source>Selected options</source>
+  <target>Geselecteerde opties</target>
+</trans-unit>
+<trans-unit id="sl.combobox.toggleOptions">
+  <source><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'}"/> the options</source>
+  <target><x id="0" equiv-text="${this.listbox?.matches(':popover-open') ? 'Verberg' : 'Toon'}"/> de opties</target>
+</trans-unit>
+<trans-unit id="sl.dateField.toggleCalendar">
+  <source>Toggle calendar</source>
+  <target>Toon kalender</target>
+</trans-unit>
+<trans-unit id="sl.radioGroup.validation.valueMissing">
+  <source>Please select an option.</source>
+  <target>Kies een optie.</target>
+</trans-unit>
+<trans-unit id="sl.tabs.showAll">
+  <source>Show all</source>
+  <target>Toon alles</target>
+</trans-unit>
+<trans-unit id="sl.select.clearSelection">
+  <source>Clear selection</source>
+  <target>Selectie wissen</target>
+</trans-unit>
+<trans-unit id="sl.select.validation.valueMissing">
+  <source>Please choose an option from the list.</source>
+  <target>Kies een optie uit de lijst.</target>
+</trans-unit>
+<trans-unit id="sl.toolBar.showMore">
+  <source>Show more</source>
+  <target>Meer tonen</target>
+</trans-unit>
+<trans-unit id="sl.grid.filterByValue">
+  <source>Filter by <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></source>
+  <target>Filter op <x id="0" equiv-text="${this.#getFilterHeaderValue()}"/></target>
+</trans-unit>
+<trans-unit id="sl.grid.toggleGroup">
+  <source>Toggle group</source>
+  <target>Toon groep</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToEndOfTable">
+  <source>Skip to end of table</source>
+  <target>Naar het einde van de tabel</target>
+</trans-unit>
+<trans-unit id="sl.grid.skipToStartOfTable">
+  <source>Skip to start of table</source>
+  <target>Naar het begin van de tabel</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPage">
+  <source>Items per page:</source>
+  <target>Items per pagina:</target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsPerPageOption">
+  <source>items per page</source>
+  <target>items per pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pagination">
+  <source>Pagination</source>
+  <target>Paginering</target>
+</trans-unit>
+<trans-unit id="sl.paginator.previousPage">
+  <source>Go to the previous page (<x id="0" equiv-text="${this.page}"/>)</source>
+  <target>Ga naar vorige pagina (<x id="0" equiv-text="${this.page}"/>)</target>
+</trans-unit>
+<trans-unit id="sl.paginator.selectPageNumber">
+  <source>Select page number</source>
+  <target>Selecteer paginanummer</target>
+</trans-unit>
+<trans-unit id="sl.paginator.currentPage">
+  <source><x id="0" equiv-text="${this.page}"/>, page</source>
+  <target><x id="0" equiv-text="${this.page}"/>, pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pageOption">
+  <source><x id="0" equiv-text="${index + 1}"/>, page</source>
+  <target><x id="0" equiv-text="${index + 1}"/>, pagina</target>
+</trans-unit>
+<trans-unit id="sl.paginator.totalPages">
+  <source>of <x id="0" equiv-text="${this.pageCount}"/> pages</source>
+  <target>van <x id="0" equiv-text="${this.pageCount}"/> pagina's</target>
+</trans-unit>
+<trans-unit id="sl.paginator.nextPage">
+  <source>Go to the next page (<x id="0" equiv-text="${this.page + 2}"/>)</source>
+  <target>Ga naar de volgende pagina (<x id="0" equiv-text="${this.page + 2}"/>)</target>
+</trans-unit>
+<trans-unit id="sl.paginator.pageChangeAnnouncement">
+  <source>Page <x id="0" equiv-text="${this.page + 1}"/> of <x id="1" equiv-text="${this.pageCount}"/></source>
+  <target>Pagina <x id="0" equiv-text="${this.page + 1}"/> van <x id="1" equiv-text="${this.pageCount}"/></target>
+</trans-unit>
+<trans-unit id="sl.paginator.itemsRange">
+  <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
+  <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> items</target>
+</trans-unit>
+<trans-unit id="sl.paginator.currentlyShowingAmount">
+  <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
+  <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
+</trans-unit>
+<trans-unit id="sl.panel.expandPanel">
+  <source>Expand panel</source>
+  <target>Uitklappen</target>
+</trans-unit>
+<trans-unit id="sl.panel.collapsePanel">
+  <source>Collapse panel</source>
+  <target>Inklappen</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.state">
+  <source>state</source>
+  <target>status</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepDown">
+  <source>Step down</source>
+  <target>Stap omlaag</target>
+</trans-unit>
+<trans-unit id="sl.numberField.stepUp">
+  <source>Step up</source>
+  <target>Stap omhoog</target>
+</trans-unit>
+<trans-unit id="sl.searchField.clearText">
+  <source>Clear text</source>
+  <target>Wis tekst</target>
 </trans-unit>
 </body>
 </file>

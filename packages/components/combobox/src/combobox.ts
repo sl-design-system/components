@@ -384,7 +384,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           ? html`
               <sl-tag-list
                 ?disabled=${this.disabled}
-                aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptionsLabel' })}
+                aria-label=${msg('Selected options', { id: 'sl.combobox.selectedOptions' })}
                 size=${ifDefined(this.size)}
                 slot="prefix"
                 stacked
@@ -412,7 +412,7 @@ export class Combobox<T = any, U = T> extends FormControlMixin(ScopedElementsMix
           @click=${this.#onButtonClick}
           ?disabled=${this.disabled}
           aria-label=${msg(str`${this.listbox?.matches(':popover-open') ? 'Hide' : 'Show'} the options`, {
-            id: 'sl.combobox.toggleOptionsButtonLabel'
+            id: 'sl.combobox.toggleOptions'
           })}
           slot="suffix"
           tabindex="-1"

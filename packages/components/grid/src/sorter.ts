@@ -77,10 +77,10 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
       <sl-button
         @click=${this.#onClick}
         aria-label=${this.direction === 'asc'
-          ? msg('Sort descending', { id: 'sl.gridSorter.sortDescendingButtonLabel' })
+          ? msg('Sort descending', { id: 'sl.grid.sortDescending' })
           : this.direction === 'desc'
-            ? msg('Remove sort', { id: 'sl.gridSorter.removeSortButtonLabel' })
-            : msg('Sort ascending', { id: 'sl.gridSorter.sortAscendingButtonLabel' })}
+            ? msg('Remove sort', { id: 'sl.grid.removeSort' })
+            : msg('Sort ascending', { id: 'sl.grid.sortAscending' })}
         .fill=${this.direction ? 'solid' : 'ghost'}
         size="sm"
         variant=${ifDefined(this.direction ? 'primary' : undefined)}

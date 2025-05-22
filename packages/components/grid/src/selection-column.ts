@@ -52,7 +52,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
             @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelectAll(detail)}
             .checked=${checked}
             .indeterminate=${indeterminate}
-            aria-label=${msg('Select all rows', { id: 'sl.gridSelectionColumn.selectAllRowsChecboxLabel' })}
+            aria-label=${msg('Select all rows', { id: 'sl.grid.selectAllRows' })}
             class="selection-toggle"
             size="sm"
           ></sl-checkbox>
@@ -71,7 +71,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
         <sl-checkbox
           @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelect(item, detail)}
           .checked=${checked}
-          aria-label=${msg('Select row', { id: 'sl.gridSelectionColumn.selectRowCheckboxLabel' })}
+          aria-label=${msg('Select row', { id: 'sl.grid.selectRow' })}
           class="selection-toggle"
           size="sm"
         ></sl-checkbox>

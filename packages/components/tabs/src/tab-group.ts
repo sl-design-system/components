@@ -274,7 +274,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             ? html`
                 <sl-menu-button
                   @keydown=${this.#onKeydown}
-                  aria-label=${msg('Show all', { id: 'sl.tabGroup.showAllTabsButton' })}
+                  aria-label=${msg('Show all', { id: 'sl.tabs.showAll' })}
                   fill="ghost"
                   size="lg"
                 >

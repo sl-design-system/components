@@ -101,7 +101,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         <div id="helper" class="helper">
           <slot></slot>
           <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
-            ${msg('state', { id: 'sl.progressBar.stateLabel' })}:
+            ${msg('state', { id: 'sl.progressBar.state' })}:
             ${this.variant
               ? html`${this.#getLocalizedVariant()}`
               : html`${msg('active', { id: 'sl.progressBar.activeState' })}`}

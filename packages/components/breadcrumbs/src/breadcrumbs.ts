@@ -117,7 +117,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     if (!this.hasAttribute('aria-label')) {
-      this.setAttribute('aria-label', msg('Breadcrumb trail', { id: 'sl.breadcrumbs.navigationLabel' }));
+      this.setAttribute('aria-label', msg('Breadcrumb trail', { id: 'sl.breadcrumbs.breadcrumbTrail' }));
     }
 
     this.setAttribute('role', 'navigation');
@@ -160,7 +160,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
               <li class="more-menu">
                 <sl-button
                   @click=${this.#onClick}
-                  aria-label=${msg('More breadcrumbs', { id: 'sl.breadcrumbs.moreButton' })}
+                  aria-label=${msg('More breadcrumbs', { id: 'sl.breadcrumbs.moreBreadcrumbs' })}
                   fill="ghost"
                   id="button"
                   variant=${ifDefined(this.inverted ? 'inverted' : undefined)}

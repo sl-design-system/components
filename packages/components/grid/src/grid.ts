@@ -348,7 +348,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'top')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'end')}
       >
-        ${msg('Skip to end of table', { id: 'sl.grid.skipToEndLinkLabel' })}
+        ${msg('Skip to end of table', { id: 'sl.grid.skipToEndOfTable' })}
       </a>
       <table part="table" aria-rowcount=${this.dataSource?.items.length || 0}>
         <caption></caption>
@@ -401,7 +401,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         class="skip-link-end"
         @focus=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipToFocus(e, 'bottom')}
         @click=${(e: Event & { target: HTMLSlotElement }) => this.#onSkipTo(e, 'start')}
-        >${msg('Skip to start of table', { id: 'sl.grid.skipToStartLinkLabel' })}</a
+        >${msg('Skip to start of table', { id: 'sl.grid.skipToStartOfTable' })}</a
       >
     `;
   }

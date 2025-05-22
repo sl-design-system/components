@@ -102,7 +102,7 @@ export class GridFilterColumn<T = any> extends GridSortColumn<T> {
             label = (this.labelPath ? getValueByPath(item, this.labelPath)?.toString() : value?.toString()) ?? '';
 
           if (value === null || value === undefined || value?.toString().trim() === '') {
-            label = msg('Blank', { id: 'sl.gridFilterColumn.blankOptionLabel' });
+            label = msg('Blank', { id: 'sl.grid.blankFilterOption' });
             value = '' as Path<T, PathKeys<T>>;
           }
 

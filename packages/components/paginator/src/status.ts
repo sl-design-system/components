@@ -113,7 +113,7 @@ export class PaginatorStatus<T = any> extends LitElement {
   override render(): TemplateResult {
     const [start, end] = this.range ?? [1, 1];
 
-    return html`${msg(str`${start} - ${end} of ${this.totalItems} items`, { id: 'sl.paginatorStatus.itemsRange' })}`;
+    return html`${msg(str`${start} - ${end} of ${this.totalItems} items`, { id: 'sl.paginator.itemsRange' })}`;
   }
 
   #onUpdate = () => {
@@ -136,7 +136,7 @@ export class PaginatorStatus<T = any> extends LitElement {
 
         announce(
           msg(str`Currently showing ${start} to ${end} of ${this.totalItems} items`, {
-            id: 'sl.paginatorStatus.currentlyShowingAmountAnnouncement'
+            id: 'sl.paginator.currentlyShowingAmount'
           })
         );
       }

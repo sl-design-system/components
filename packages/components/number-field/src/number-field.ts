@@ -152,7 +152,7 @@ export class NumberField extends LocaleMixin(TextField) {
           <sl-field-button
             @click=${() => this.stepDown()}
             ?disabled=${this.#isButtonDisabled('down')}
-            aria-label=${msg('Step down', { id: 'sl.numberField.stepDownFieldButtonLabel' })}
+            aria-label=${msg('Step down', { id: 'sl.numberField.stepDown' })}
             class="minus"
           >
             <sl-icon name="minus" size="md"></sl-icon>
@@ -170,7 +170,7 @@ export class NumberField extends LocaleMixin(TextField) {
               <sl-field-button
                 @click=${() => this.stepDown()}
                 ?disabled=${this.#isButtonDisabled('down')}
-                aria-label=${msg('Step down', { id: 'sl.numberField.stepDownFieldButtonLabel' })}
+                aria-label=${msg('Step down', { id: 'sl.numberField.stepDown' })}
                 class="minus"
               >
                 <sl-icon name="minus" size="md"></sl-icon>
@@ -178,7 +178,7 @@ export class NumberField extends LocaleMixin(TextField) {
               <sl-field-button
                 @click=${() => this.stepUp()}
                 ?disabled=${this.#isButtonDisabled('up')}
-                aria-label=${msg('Step up', { id: 'sl.numberField.stepUpFieldButtonLabel' })}
+                aria-label=${msg('Step up', { id: 'sl.numberField.stepUp' })}
                 class="plus"
               >
                 <sl-icon name="plus" size="md"></sl-icon>
@@ -189,7 +189,7 @@ export class NumberField extends LocaleMixin(TextField) {
             <sl-field-button
               @click=${() => this.stepUp()}
               ?disabled=${this.#isButtonDisabled('up')}
-              aria-label=${msg('Step up', { id: 'sl.numberField.stepUpFieldButtonLabel' })}
+              aria-label=${msg('Step up', { id: 'sl.numberField.stepUp' })}
               class="plus"
             >
               <sl-icon name="plus" size="md"></sl-icon>

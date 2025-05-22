@@ -120,8 +120,8 @@ export class Panel extends ScopedElementsMixin(LitElement) {
               <sl-button
                 @click=${() => this.toggle()}
                 aria-label=${this.collapsed
-                  ? msg('Expand panel', { id: 'sl.panel.expandPanelToggleButtonLabel' })
-                  : msg('Collapse panel', { id: 'sl.panel.collapsePanelToggleButtonLabel' })}
+                  ? msg('Expand panel', { id: 'sl.panel.expandPanel' })
+                  : msg('Collapse panel', { id: 'sl.panel.collapsePanel' })}
                 aria-controls="body"
                 aria-expanded=${this.collapsed ? 'false' : 'true'}
                 class="toggle"

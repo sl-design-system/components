@@ -61,7 +61,7 @@ export class SearchField extends TextField {
       ? html`
           <button
             @click=${this.#onClick}
-            aria-label=${msg('Clear text', { id: 'sl.searchField.clearButtonLabel' })}
+            aria-label=${msg('Clear text', { id: 'sl.searchField.clearText' })}
             tabindex="-1"
           >
             <sl-icon name="circle-xmark"></sl-icon>

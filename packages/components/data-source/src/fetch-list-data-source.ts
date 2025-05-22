@@ -253,17 +253,12 @@ export class FetchListDataSource<T = any> extends ListDataSource<T> {
         } else {
           length = this.pageSize;
         }
-
-        console.log(size, startIndex, length, pageCount, lastPageSize, group.members?.length);
       }
 
       // Make sure the members array is initialized
       group.members ??= Array.from({ length: size });
 
-      const items = group.members.slice(startIndex, startIndex + length);
-      console.log('items', items.length);
-
-      return items;
+      return group.members.slice(startIndex, startIndex + length);
     } else {
       return this.#flattenGroups(this.#groups);
     }

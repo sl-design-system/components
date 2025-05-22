@@ -65,11 +65,15 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
     this.#onUpdate();
   }
 
-  /**
-   * Items per page.
-   * @default 10
-   */
-  @property({ type: Number, attribute: 'page-size' }) pageSize = LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  get pageSize(): number {
+    return this.#dataSource?.pageSize ?? this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
+  }
+
+  /** Items per page. */
+  @property({ type: Number, attribute: 'page-size' })
+  set pageSize(pageSize: number) {
+    this.dataSource?.setPageSize(pageSize);
+  }
 
   /** @internal Emits when the page size has been selected/changed. */
   @event({ name: 'sl-page-size-change' }) pageSizeChangeEvent!: EventEmitter<SlChangeEvent<number>>;
@@ -92,8 +96,8 @@ export class PaginatorPageSize<T = any> extends ScopedElementsMixin(LitElement) 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('pageSizes')) {
-      this.pageSize ??= this.pageSizes?.at(0) ?? LIST_DATA_SOURCE_DEFAULT_PAGE_SIZE;
+    if (changes.has('pageSizes') && this.pageSizes?.length) {
+      this.dataSource?.setPageSize(this.pageSizes.at(0)!);
     }
   }
 

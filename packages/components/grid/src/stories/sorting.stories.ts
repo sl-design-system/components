@@ -1,9 +1,10 @@
-import { Button } from '@sl-design-system/button';
+import { Avatar } from '@sl-design-system/avatar';
 import { ArrayListDataSource } from '@sl-design-system/data-source';
-import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type Person, type Student, getPeople, getStudents } from '@sl-design-system/example-data';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../../register.js';
+import { avatarRenderer } from './story-utils.js';
 
 type Story = StoryObj;
 
@@ -18,13 +19,51 @@ export default {
 } satisfies Meta;
 
 export const Basic: Story = {
-  render: (_, { loaded: { people } }) => {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
     return html`
-      <sl-grid .items=${people}>
-        <sl-grid-sort-column path="id"></sl-grid-sort-column>
-        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
-        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
-        <sl-grid-sort-column path="email"></sl-grid-sort-column>
+      <p>
+        This example shows how sorting works in a grid. You enable sorting by adding
+        <code>sl-grid-sort-column</code> elements to the grid. This will automatically enable sorting on the column. If
+        you want to have an initial sort, you can set the <code>direction</code> attribute to either <code>asc</code> or
+        <code>desc</code>. Unlike filtering, not every column needs to be sortable.
+      </p>
+      <sl-grid .items=${students}>
+        <sl-grid-sort-column grow="0" header="Nr." path="studentNumber"></sl-grid-sort-column>
+        <sl-grid-sort-column
+          direction="asc"
+          grow="3"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const DataSource: Story = {
+  loaders: [async () => ({ students: (await getStudents()).students })],
+  render: (_, { loaded: { students } }) => {
+    const dataSource = new ArrayListDataSource(students as Student[], { sortBy: 'fullName', sortDirection: 'asc' });
+
+    return html`
+      <p>
+        This example shows how the grid is sorted by specifying the sort on the data source directly. You can set the
+        initial sort by passing the <code>sortBy</code> and <code>sortDirection</code> options to the data source.
+      </p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column grow="0" header="Nr." path="studentNumber"></sl-grid-sort-column>
+        <sl-grid-sort-column
+          grow="3"
+          header="Student"
+          path="fullName"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{ 'sl-avatar': Avatar }}
+        ></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
       </sl-grid>
     `;
   }
@@ -132,38 +171,6 @@ export const Grouped: Story = {
         <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>
         <sl-grid-column path="membership"></sl-grid-column>
-      </sl-grid>
-    `;
-  }
-};
-
-export const Sorted: Story = {
-  render: (_, { loaded: { people } }) => {
-    return html`
-      <sl-grid .items=${people}>
-        <sl-grid-sort-column direction="asc" path="firstName"></sl-grid-sort-column>
-        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
-        <sl-grid-sort-column path="email"></sl-grid-sort-column>
-      </sl-grid>
-    `;
-  }
-};
-
-export const ScopedElements: Story = {
-  render: (_, { loaded: { people } }) => {
-    const renderer = ({ firstName, lastName }: Person): TemplateResult => {
-      return html`<sl-button>${firstName} ${lastName}</sl-button>`;
-    };
-
-    return html`
-      <sl-grid .items=${people}>
-        <sl-grid-sort-column
-          header="User"
-          path="firstName"
-          .renderer=${renderer}
-          .scopedElements=${{ 'sl-button': Button }}
-        ></sl-grid-sort-column>
-        <sl-grid-sort-column path="email"></sl-grid-sort-column>
       </sl-grid>
     `;
   }

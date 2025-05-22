@@ -942,6 +942,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onSorterChange({ target }: Event & { target: GridSorter<T> }): void {
+    if (!target.direction) {
+      // Remove the sort if the direction is not set
+      this.dataSource?.removeSort();
+    }
+
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
     this.#applySorters(true);
   }
@@ -993,9 +998,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
 
       this.#dataSourceUpdateTimer = setTimeout(() => this.dataSource?.update(), 10);
-
-      this.stateChangeEvent.emit({ grid: this });
     }
+
+    // Let the filter columns know that the filter has changed
+    this.stateChangeEvent.emit({ grid: this });
   }
 
   #applySorters(update = false): void {
@@ -1003,15 +1009,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (sorter && (sorter.sorter || sorter.path)) {
       this.dataSource?.setSort(sorter.sorter! || sorter.path!, sorter.direction ?? 'asc');
-    } else if (this.#sorters.length) {
-      if (sorter) {
-        console.warn(
-          `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
-        );
-      }
-
-      // Make sure we do not remove the sort if the sort has been set on the data source directly
-      this.dataSource?.removeSort();
+    } else if (sorter) {
+      console.warn(
+        `The column ${sorter?.column.id} is missing a sorter or path. Either provide a path or a sorter function, otherwise the sorter cannot not work.`
+      );
     }
 
     if (update) {
@@ -1020,9 +1021,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
 
       this.#dataSourceUpdateTimer = setTimeout(() => this.dataSource?.update(), 10);
-
-      this.stateChangeEvent.emit({ grid: this });
     }
+
+    // Let the sort columns know that the sort has changed
+    this.stateChangeEvent.emit({ grid: this });
   }
 
   /**

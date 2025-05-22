@@ -46,6 +46,7 @@ export const Basic: Story = {
         <sl-grid-column
           grow="3"
           header="Student"
+          path="fullName"
           .renderer=${avatarRenderer}
           .scopedElements=${{ 'sl-avatar': Avatar }}
         ></sl-grid-column>

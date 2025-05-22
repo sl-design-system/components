@@ -90,7 +90,7 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
       <sl-inline-message .variant=${this.variant}>
         ${this.variant === 'danger'
           ? html`
-              ${msg('The following fields have errors:', { id: 'sl.form.errorsListHeader' })}
+              ${msg('The following fields have errors:', { id: 'sl.form.errorsList' })}
               <ul>
                 ${Object.entries(this.invalidControls).map(
                   ([label, control]) => html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`

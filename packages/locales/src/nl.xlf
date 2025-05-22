@@ -30,18 +30,6 @@
   <source>Search</source>
   <target>Zoeken</target>
 </trans-unit>
-<trans-unit id="sl.formControl.validation.invalidValue">
-  <source>Please enter a valid value.</source>
-  <target>Voer een correcte waarde in.</target>
-</trans-unit>
-<trans-unit id="sl.formControl.validation.patternMismatch">
-  <source>Please match the format requested.</source>
-  <target>Voer een waarde in volgens het gevraagde patroon.</target>
-</trans-unit>
-<trans-unit id="sl.formControl.validation.valueMissing">
-  <source>Please fill in this field.</source>
-  <target>Voer een waarde in.</target>
-</trans-unit>
 <trans-unit id="sl.grid.selectionStatusMessage">
   <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
   <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
@@ -74,22 +62,6 @@
   <source>Please enter a valid number.</source>
   <target>Voer een geldig getal in.</target>
 </trans-unit>
-<trans-unit id="sl.progressBar.activeState">
-  <source>active</source>
-  <target>actief</target>
-</trans-unit>
-<trans-unit id="sl.progressBar.successState">
-  <source>success</source>
-  <target>succes</target>
-</trans-unit>
-<trans-unit id="sl.progressBar.warningState">
-  <source>warning</source>
-  <target>waarschuwing</target>
-</trans-unit>
-<trans-unit id="sl.progressBar.errorState">
-  <source>error</source>
-  <target>fout</target>
-</trans-unit>
 <trans-unit id="sl.common.validation.tooShort">
   <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
   <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
@@ -110,10 +82,6 @@
   <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
   <target>Maak "<x id="0" equiv-text="${this.value}"/>" aan</target>
 </trans-unit>
-<trans-unit id="sl.combobox.noOptionsFoundMessage">
-  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
-  <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
-</trans-unit>
 <trans-unit id="sl.emojiBrowser.frequentlyUsed">
   <source>Frequently Used</source>
   <target>Vaak gebruikt</target>
@@ -121,10 +89,6 @@
 <trans-unit id="sl.form.allFieldsValid">
   <source>All fields are valid.</source>
   <target>Alle velden zijn correct.</target>
-</trans-unit>
-<trans-unit id="sl.form.errorsListHeader">
-  <source>The following fields have errors:</source>
-  <target>De volgende velden bevatten fouten:</target>
 </trans-unit>
 <trans-unit id="sl.form.optionalLabelIndicator">
   <source>optional</source>
@@ -300,14 +264,6 @@
   <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
 </trans-unit>
-<trans-unit id="sl.panel.expandPanel">
-  <source>Expand panel</source>
-  <target>Uitklappen</target>
-</trans-unit>
-<trans-unit id="sl.panel.collapsePanel">
-  <source>Collapse panel</source>
-  <target>Inklappen</target>
-</trans-unit>
 <trans-unit id="sl.progressBar.state">
   <source>state</source>
   <target>status</target>
@@ -323,6 +279,50 @@
 <trans-unit id="sl.searchField.clearText">
   <source>Clear text</source>
   <target>Wis tekst</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.invalidValue">
+  <source>Please enter a valid value.</source>
+  <target>Voer een correcte waarde in.</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.patternMismatch">
+  <source>Please match the format requested.</source>
+  <target>Voer een waarde in volgens het gevraagde patroon.</target>
+</trans-unit>
+<trans-unit id="sl.form.validation.valueMissing">
+  <source>Please fill in this field.</source>
+  <target>Voer een waarde in.</target>
+</trans-unit>
+<trans-unit id="sl.form.errorsList">
+  <source>The following fields have errors:</source>
+  <target>De volgende velden bevatten fouten:</target>
+</trans-unit>
+<trans-unit id="sl.combobox.noOptionsFound">
+  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
+  <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
+</trans-unit>
+<trans-unit id="sl.panel.expand">
+  <source>Expand panel</source>
+  <target>Uitklappen</target>
+</trans-unit>
+<trans-unit id="sl.panel.collapse">
+  <source>Collapse panel</source>
+  <target>Inklappen</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.active">
+  <source>active</source>
+  <target>actief</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.success">
+  <source>success</source>
+  <target>succes</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.warning">
+  <source>warning</source>
+  <target>waarschuwing</target>
+</trans-unit>
+<trans-unit id="sl.progressBar.error">
+  <source>error</source>
+  <target>fout</target>
 </trans-unit>
 </body>
 </file>

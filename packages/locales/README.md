@@ -20,13 +20,13 @@ For more details, see: [Lit Localization documentation](https://lit.dev/docs/loc
 In the component:
 
 ```html
-msg('Close', {id: 'sl.inlineMessage.closeButtonLabel’});
+msg('Close', {id: 'sl.inlineMessage.close’});
 ```
 
 In the xliff file:
 
 ```xml
-<trans-unit id="sl.inlineMessage.closeButtonLabel">
+<trans-unit id="sl.inlineMessage.close">
   <source>Close</source>
   <target>Sluiten</target>
 </trans-unit>

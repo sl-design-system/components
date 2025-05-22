@@ -408,11 +408,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       if (!isNative(this.formControlElement) || this.validity.valid || this.validity.customError) {
         return this.validationMessage;
       } else if (this.validity.badInput || this.validity.typeMismatch) {
-        return msg('Please enter a valid value.', { id: 'sl.formControl.validation.invalidValue' });
+        return msg('Please enter a valid value.', { id: 'sl.form.validation.invalidValue' });
       } else if (this.validity.patternMismatch) {
-        return msg('Please match the format requested.', { id: 'sl.formControl.validation.patternMismatch' });
+        return msg('Please match the format requested.', { id: 'sl.form.validation.patternMismatch' });
       } else if (this.validity.valueMissing) {
-        return msg('Please fill in this field.', { id: 'sl.formControl.validation.valueMissing' });
+        return msg('Please fill in this field.', { id: 'sl.form.validation.valueMissing' });
       } else {
         let missingKey = '';
         for (const key in this.validity) {

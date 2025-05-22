@@ -22,7 +22,7 @@ export class NoMatch extends LitElement {
 
   override render(): string {
     return msg(str`No options starting with "${this.value}" have been found.`, {
-      id: 'sl.combobox.noOptionsFoundMessage'
+      id: 'sl.combobox.noOptionsFound'
     });
   }
 }

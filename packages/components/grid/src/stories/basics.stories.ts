@@ -10,7 +10,9 @@ import { Icon } from '@sl-design-system/icon';
 import { MenuButton as MenuButtonComponent, MenuItem } from '@sl-design-system/menu';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
+import { state } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import '../../register.js';
 import { type GridColumnDataRenderer } from '../column.js';
 import { avatarRenderer } from './story-utils.js';
@@ -322,5 +324,41 @@ export const Skeleton: Story = {
         <sl-grid-column header="School" path="school.name"></sl-grid-column>
       </sl-grid>
     `;
+  }
+};
+
+export const ReorderColumns: Story = {
+  render: (_, { loaded: { students } }) => {
+    class GridReorderExample extends LitElement {
+      @state() columns = [{ path: 'fullName' }, { path: 'email' }, { path: 'group.name' }, { path: 'school.name' }];
+
+      override render(): TemplateResult {
+        return html`
+          <p>This example demonstrates that when you reorder columns in a grid, the grid updates accordingly.</p>
+          <sl-button-bar style="margin-block-end: 1rem">
+            <sl-button @click=${this.onClick}>Reorder columns</sl-button>
+          </sl-button-bar>
+          <sl-grid .items=${students}>
+            ${repeat(
+              this.columns,
+              column => column.path,
+              column => html`<sl-grid-column .path=${column.path}></sl-grid-column>`
+            )}
+          </sl-grid>
+        `;
+      }
+
+      onClick(): void {
+        this.columns = [...this.columns.sort(() => Math.random() - 0.5)];
+      }
+    }
+
+    try {
+      customElements.define('grid-reorder-example', GridReorderExample);
+    } catch {
+      /* empty */
+    }
+
+    return html`<grid-reorder-example></grid-reorder-example>`;
   }
 };

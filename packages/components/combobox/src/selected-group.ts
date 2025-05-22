@@ -41,16 +41,22 @@ export class SelectedGroup extends ScopedElementsMixin(OptionGroup) {
     super.connectedCallback();
 
     // Set the label property, so the parent class uses that as the element's ARIA label
-    this.label = msg('Selected');
+    this.label = msg('Selected', { id: 'sl.common.selected' });
   }
 
   override render(): TemplateResult {
     return html`
       <div part="wrapper">
-        <sl-option-group-header>${msg('Selected')}</sl-option-group-header>
+        <sl-option-group-header>${msg('Selected', { id: 'sl.common.selected' })}</sl-option-group-header>
         <slot></slot>
       </div>
-      ${this.hasGroups ? nothing : html`<sl-option-group-header divider>${msg('All options')}</sl-option-group-header>`}
+      ${this.hasGroups
+        ? nothing
+        : html`
+            <sl-option-group-header divider
+              >${msg('All options', { id: 'sl.common.allOptions' })}</sl-option-group-header
+            >
+          `}
     `;
   }
 }

@@ -201,7 +201,7 @@ export class Checkbox<T = any> extends ObserveAttributesMixin(FormControlMixin(L
 
   override getLocalizedValidationMessage(): string {
     if (!this.validity.customError && this.validity.valueMissing) {
-      return msg('Please check this box.');
+      return msg('Please check this box.', { id: 'sl.checkbox.validation.valueMissing' });
     }
 
     return super.getLocalizedValidationMessage();

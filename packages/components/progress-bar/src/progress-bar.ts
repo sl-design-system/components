@@ -101,7 +101,10 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         <div id="helper" class="helper">
           <slot></slot>
           <span id="live" aria-busy=${ifDefined(this.indeterminate)}>
-            ${msg('state')}: ${this.variant ? html`${this.#getLocalizedVariant()}` : html`${msg('active')}`}
+            ${msg('state', { id: 'sl.progressBar.state' })}:
+            ${this.variant
+              ? html`${this.#getLocalizedVariant()}`
+              : html`${msg('active', { id: 'sl.progressBar.active' })}`}
           </span>
           ${this.variant && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
         </div>
@@ -127,13 +130,13 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   #getLocalizedVariant(): TemplateResult {
     switch (this.variant) {
       case 'success':
-        return html`${msg('success')}`;
+        return html`${msg('success', { id: 'sl.progressBar.success' })}`;
       case 'warning':
-        return html`${msg('warning')}`;
+        return html`${msg('warning', { id: 'sl.progressBar.warning' })}`;
       case 'error':
-        return html`${msg('error')}`;
+        return html`${msg('error', { id: 'sl.progressBar.error' })}`;
       default:
-        return html`${msg('success')}`;
+        return html`${msg('success', { id: 'sl.progressBar.success' })}`;
     }
   }
 }

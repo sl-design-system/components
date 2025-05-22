@@ -67,7 +67,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         <span class="current-range">${this.years.at(0)}-${this.years.at(-1)}</span>
         <sl-button
           @click=${this.#onPrevious}
-          aria-label=${msg('Go back 12 years', { id: 'sl.selectYear.previousYearsButtonLabel' })}
+          aria-label=${msg('Go back 12 years', { id: 'sl.calendar.previousYears' })}
           fill="ghost"
           variant="primary"
         >
@@ -75,7 +75,7 @@ export class SelectYear extends ScopedElementsMixin(LitElement) {
         </sl-button>
         <sl-button
           @click=${this.#onNext}
-          aria-label=${msg('Go forward 12 years', { id: 'sl.selectYear.nextYearsButtonLabel' })}
+          aria-label=${msg('Go forward 12 years', { id: 'sl.calendar.nextYears' })}
           fill="ghost"
           variant="primary"
         >

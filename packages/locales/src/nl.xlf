@@ -58,14 +58,6 @@
   <source>Search</source>
   <target>Zoeken</target>
 </trans-unit>
-<trans-unit id="sl.label.optionalIndicator">
-  <source>optional</source>
-  <target>optioneel</target>
-</trans-unit>
-<trans-unit id="sl.label.requiredIndicator">
-  <source>required</source>
-  <target>verplicht</target>
-</trans-unit>
 <trans-unit id="sl.formControl.validation.invalidValue">
   <source>Please enter a valid value.</source>
   <target>Voer een correcte waarde in.</target>
@@ -77,10 +69,6 @@
 <trans-unit id="sl.formControl.validation.valueMissing">
   <source>Please fill in this field.</source>
   <target>Voer een waarde in.</target>
-</trans-unit>
-<trans-unit id="sl.formValidationErrors.allFieldsValid">
-  <source>All fields are valid.</source>
-  <target>Alle velden zijn correct.</target>
 </trans-unit>
 <trans-unit id="sl.gridGroupHeader.toggleGroupButtonLabel">
   <source>Toggle group</source>
@@ -117,10 +105,6 @@
 <trans-unit id="sl.grid.selectionStatusMessage">
   <source><x id="0" equiv-text="${this.selection.selected}"/> of <x id="1" equiv-text="${this.selection.size}"/> selected</source>
   <target><x id="0" equiv-text="${this.selection.selected}"/> van <x id="1" equiv-text="${this.selection.size}"/> geselecteerd</target>
-</trans-unit>
-<trans-unit id="sl.grid.cancelSelectionTooltip">
-  <source>Cancel selection</source>
-  <target>Annuleer selectie</target>
 </trans-unit>
 <trans-unit id="sl.grid.skipToStartLinkLabel">
   <source>Skip to start of table</source>
@@ -258,22 +242,6 @@
   <source>Please choose an option from the list.</source>
   <target>Kies een optie uit de lijst.</target>
 </trans-unit>
-<trans-unit id="sl.emojiBrowser.frequentlyUsedHeading">
-  <source>Frequently Used</source>
-  <target>Vaak gebruikt</target>
-</trans-unit>
-<trans-unit id="sl.createCustomOption.createOptionLabel">
-  <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
-  <target>Maak "<x id="0" equiv-text="${this.value}"/>" aan</target>
-</trans-unit>
-<trans-unit id="sl.noMatch.noOptionsFoundMessage">
-  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
-  <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
-</trans-unit>
-<trans-unit id="sl.selectDay.weekNumberLabel">
-  <source>Week</source>
-  <target>Week</target>
-</trans-unit>
 <trans-unit id="sl.paginatorStatus.itemsRange">
   <source><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target><x id="0" equiv-text="${start}"/> - <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> items</target>
@@ -281,34 +249,6 @@
 <trans-unit id="sl.paginatorStatus.currentlyShowingAmountAnnouncement">
   <source>Currently showing <x id="0" equiv-text="${start}"/> to <x id="1" equiv-text="${end}"/> of <x id="2" equiv-text="${this.totalItems}"/> items</source>
   <target>Momenteel worden <x id="0" equiv-text="${start}"/> tot <x id="1" equiv-text="${end}"/> van <x id="2" equiv-text="${this.totalItems}"/> weergegeven</target>
-</trans-unit>
-<trans-unit id="sl.selectDay.previousMonthButtonLabel">
-  <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
-  <target>Vorige maand, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
-</trans-unit>
-<trans-unit id="sl.selectDay.nextMonthButtonLabel">
-  <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
-  <target>Volgende maand, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></target>
-</trans-unit>
-<trans-unit id="sl.selectMonth.previousYearButtonLabel">
-  <source>Previous year, <x id="0" equiv-text="${currentYear - 1}"/></source>
-  <target>Vorig jaar, <x id="0" equiv-text="${currentYear - 1}"/></target>
-</trans-unit>
-<trans-unit id="sl.selectMonth.nextYearButtonLabel">
-  <source>Next year, <x id="0" equiv-text="${currentYear + 1}"/></source>
-  <target>Volgend jaar, <x id="0" equiv-text="${currentYear + 1}"/></target>
-</trans-unit>
-<trans-unit id="sl.selectYear.previousYearsButtonLabel">
-  <source>Go back 12 years</source>
-  <target>Ga 12 jaar vooruit</target>
-</trans-unit>
-<trans-unit id="sl.selectYear.nextYearsButtonLabel">
-  <source>Go forward 12 years</source>
-  <target>Ga 12 jaar terug</target>
-</trans-unit>
-<trans-unit id="sl.formValidationErrors.listHeader">
-  <source>The following fields have errors:</source>
-  <target>De volgende velden bevatten fouten:</target>
 </trans-unit>
 <trans-unit id="sl.checkboxGroup.validation.valueMissing">
   <source>Please check at least one option.</source>
@@ -325,6 +265,64 @@
 <trans-unit id="sl.combobox.validation.valueMissing">
   <source>Please select an option.</source>
   <target>Kies een optie.</target>
+</trans-unit>
+<trans-unit id="sl.combobox.createCustomOption">
+  <source>Create "<x id="0" equiv-text="${this.value}"/>"</source>
+  <target>Maak "<x id="0" equiv-text="${this.value}"/>" aan</target>
+</trans-unit>
+<trans-unit id="sl.combobox.noOptionsFoundMessage">
+  <source>No options starting with "<x id="0" equiv-text="${this.value}"/>" have been found.</source>
+  <target>Geen opties gevonden die beginnen met "<x id="0" equiv-text="${this.value}"/>".</target>
+</trans-unit>
+<trans-unit id="sl.emojiBrowser.frequentlyUsed">
+  <source>Frequently Used</source>
+  <target>Vaak gebruikt</target>
+</trans-unit>
+<trans-unit id="sl.form.allFieldsValid">
+  <source>All fields are valid.</source>
+  <target>Alle velden zijn correct.</target>
+</trans-unit>
+<trans-unit id="sl.form.errorsListHeader">
+  <source>The following fields have errors:</source>
+  <target>De volgende velden bevatten fouten:</target>
+</trans-unit>
+<trans-unit id="sl.form.optionalLabelIndicator">
+  <source>optional</source>
+  <target>optioneel</target>
+</trans-unit>
+<trans-unit id="sl.form.requiredLabelIndicator">
+  <source>required</source>
+  <target>verplicht</target>
+</trans-unit>
+<trans-unit id="sl.grid.cancelSelection">
+  <source>Cancel selection</source>
+  <target>Annuleer selectie</target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousMonth">
+  <source>Previous month, <x id="0" equiv-text="${format(this.previousMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+</trans-unit>
+<trans-unit id="sl.calendar.nextMonth">
+  <source>Next month, <x id="0" equiv-text="${format(this.nextMonth!, this.locale, { month: 'long', year: 'numeric' })}"/></source>
+</trans-unit>
+<trans-unit id="sl.calendar.week">
+  <source>Week</source>
+  <target>Week</target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousYear">
+  <source>Previous year, <x id="0" equiv-text="${currentYear - 1}"/></source>
+  <target>Vorig jaar, <x id="0" equiv-text="${currentYear - 1}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.nextYear">
+  <source>Next year, <x id="0" equiv-text="${currentYear + 1}"/></source>
+  <target>Volgend jaar, <x id="0" equiv-text="${currentYear + 1}"/></target>
+</trans-unit>
+<trans-unit id="sl.calendar.previousYears">
+  <source>Go back 12 years</source>
+  <target>Ga 12 jaar vooruit</target>
+</trans-unit>
+<trans-unit id="sl.calendar.nextYears">
+  <source>Go forward 12 years</source>
+  <target>Ga 12 jaar terug</target>
 </trans-unit>
 </body>
 </file>

@@ -391,7 +391,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
           <sl-button @click=${this.#onCancelSelection} aria-describedby="tooltip" fill="ghost" variant="inverted">
             <sl-icon name="xmark"></sl-icon>
           </sl-button>
-          <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelectionTooltip' })}</sl-tooltip>
+          <sl-tooltip id="tooltip">${msg('Cancel selection', { id: 'sl.grid.cancelSelection' })}</sl-tooltip>
         </sl-tool-bar>
       </div>
 

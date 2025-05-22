@@ -38,14 +38,14 @@ In the xliff file:
 The basic structure of the `id` scheme is:
 
 ```
-sl.componentName.textDescription
+sl.packageName.textDescription
 ```
 
 Every **id** will start with `sl.` to indicate that it is a Sanoma Learning Design System id. 
-The `componentName` part will be the name of the component in **camelCase**,
+The `packageName` part will be the name of the package component in **camelCase**,
 and the `textDescription` part will be a short description of the text (also in **camelCase**).
 
-As a second part we can use `common` instead of the `componentName` to indicate that the text is not related to a specific component, is used in multiple components.
+As a second part we can use `common` instead of the `packageName` to indicate that the text is not related to a specific component, is used in multiple components.
 
 Example structure for **common** translation:
 
@@ -61,7 +61,7 @@ Validation: `sl.textField.validation.tooShort`
 
 ### Component-specific vs. Common Translations
 
-- **Component-specific**: Use `sl.componentName.description` for translations that are unique to a component,
+- **Component-specific**: Use `sl.packageName.description` for translations that are unique to a component (package),
 - **Common translations**: Use `sl.common.description` for shared text across multiple components.
 
 ### Context Groups
@@ -75,8 +75,8 @@ For better organization, we use these (example) standard context groups:
 ### Best Practices
 
 1. **Be specific**: Use detailed descriptions that clearly indicate the purpose
-  - Good: `sl.datePicker.previousMonth`, `sl.numberField.stepDownFieldButtonLabel` (for `aria-label` in the field button).
-  - Avoid: `sl.datePicker.previous`, `sl.numberField.step`.
+  - Good: `sl.datePicker.previousMonth`
+  - Avoid: `sl.datePicker.previous`
 
 2. **Consistency**: Use the same pattern for similar messages across components
   - For validation: always use `validation.tooShort`, not `tooFew` or `notEnough`.
